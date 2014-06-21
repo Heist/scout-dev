@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<!-- header block -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="width=device-width" name="viewport">
+
+<title>Scout</title>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../scripts/jquery.placeholder.js"></script>
+<script src="../scripts/icheck.min.js"></script>
+
+<script type="text/javascript" src="//use.typekit.net/zpj0pdb.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+<link href="../css/scout.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body id="view-createflow">
+
+<!-- / header block -->
+
+
+
+<!-- header nav -->
+
+<div id="header">
+	
+	<div id="header-logo">
+		<img src="../assets/scout-rev.png" /> 
+	</div>
+	
+	<div id="header-title">Creating a flow</div>
+	
+	<div id="header-account">
+		<div id="header-account-avatar">
+			<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg">
+		</div>
+		<div id="header-account-dropdown">&#9662;</div>
+	</div>
+	
+	
+	<div id="header-nav">
+		<a href="#"><button class="button small">&check; Done creating flow</button></a>
+	</div>
+			
+	
+</div>
+
+<!-- / header nav -->
+
+
+
+<!-- create a flow -->
+
+<div id="left-pane">
+	<h3><span class="numberball">1</span> Create a flow</h3>
+	<p>Let&lsquo;s start with a few pieces of information about your flow.</p>
+	
+
+	<ul class="lined">
+		<li>
+			<label for="field-flowname">Flow name</label><br>
+			<input class="input" type="text" id="field-flowname" placeholder="What will you be testing?" value="My Sweet Flow" />
+		</li>
+		
+		<li>
+			<label for="field-prototype">Prototype link</label><br>
+			<input class="input" type="text" id="field-prototype" placeholder="What&lsquo;s the URL for your prototype?" value="http://invis.io/3hfu38" />
+		</li>
+		
+		<li>
+			<div class="device-selector">
+				<label for="field-device-mobile"><img src="../assets/platform-icons/mobile.svg"><br>Mobile</label><br>
+				<input type="radio" class="replace-control" name="field-device" id="field-device-mobile" value="mobile" checked="checked" />
+			</div>
+			<div class="device-selector">
+				<label for="field-device-tablet"><img src="../assets/platform-icons/tablet.svg"><br>Tablet</label><br>
+				<input type="radio" class="replace-control" name="field-device" id="field-device-tablet" value="tablet" />
+			</div>
+			<div class="device-selector">
+				<label for="field-device-desktop"><img src="../assets/platform-icons/desktop.svg"><br>Desktop</label><br>
+				<input type="radio" class="replace-control" name="field-device" id="field-device-desktop" value="desktop" />
+			</div>
+			<div class="clear"></div>
+		</li>
+		
+		<li>
+			<label for="field-description">Flow description</label><br>
+			<textarea class="input" id="field-textarea" placeholder="What are the overall goals or outcomes you&lsquo;d like to achieve with this flow?">We want to find out what users think about rad UX.</textarea>
+		</li>
+		
+	</ul>
+	
+	
+</div>
+
+
+
+
+<div id="middle-pane">
+	<h3><span class="numberball">2</span> Add Steps</h3>
+	<p>Steps are the pages or views in your prototype. They should follow the intended user path of your prototype pretty closely.</p>
+	
+	<ul id="steps" class="lined">
+		<li>
+			<div class="step-hamburger">&equiv;</div>
+			<div class="step-name pointer">My step name</div>
+			<div class="step-delete pointer big">&times;</div>
+			<div class="clear"></div>
+		</li>
+		
+		<li class="selected">
+			<div class="step-hamburger">&equiv;</div>
+			<div class="step-name pointer">Sweet step bro</div>
+			<div class="step-delete pointer big">&times;</div>
+			<div class="clear"></div>
+			<div class="selected-arrow">&#9654;</div>
+		</li>
+		
+		<li>
+			<div class="step-hamburger">&equiv;</div>
+			<div class="step-name pointer">Yet another step</div>
+			<div class="step-delete pointer big">&times;</div>
+			<div class="clear"></div>
+		</li>
+	</ul>
+	
+	<div class="empty">
+		<button class="button">+ Add a step</button>
+	</div>
+</div>
+
+
+
+<div id="right-pane">
+	<h3><span class="numberball">3</span> &ldquo;Sweet Step Bro&rdquo; questions</h3>
+	<p>Add questions to answer or tasks to complete about particular design elements in this step.</p>
+	
+	<ul class="lined">
+		<li>
+			<label for="field-description">Questions for this step</label><br>
+			<textarea class="input" id="field-textarea" placeholder="These are the questions you'll be asking the participants about this step during testing."></textarea>
+		</li>
+	</ul>
+	
+</div>
+<!-- / create a flow -->
+
+
+
+
+<!-- footer block -->
+
+
+<script>
+	$(function() {
+		$('input, textarea').placeholder();
+		
+		$('.replace-control').iCheck({
+		   checkboxClass: 'icheckbox_flat',
+		   radioClass: 'iradio_flat'
+		 });		
+	});
+</script>
+
+
+</body>
+</html>
+
+<!-- / footer block -->

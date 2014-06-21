@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 
 <!-- header block -->
-<html ng-app>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta content="width=device-width" name="viewport">
 
 <title>Scout</title>
-<script type="text/javascript" src="https://code.angularjs.org/1.2.18/angular.js"></script>
-<script type="text/javascript" src="https://code.angularjs.org/1.2.18/angular-route.js"></script>
-<script type="text/javascript" src="/js/moderator.js"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../scripts/jquery.placeholder.js"></script>
+<script src="../scripts/icheck.min.js"></script>
+<script src="../scripts/jquery.matchHeight-min.js"></script>
 
 <script type="text/javascript" src="//use.typekit.net/zpj0pdb.js"></script>
 <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
-<link href="/css/scout.css" rel="stylesheet" type="text/css">
+<link href="../css/scout.css" rel="stylesheet" type="text/css">
 
 </head>
 
-<body id="view-overview" ng-view>
+<body id="view-overview">
 
 <!-- / header block -->
 
@@ -30,7 +32,7 @@
 			
 	
 	<div id="header-logo">
-		<img src="/assets/scout-rev.png" /> 
+		<img src="../assets/scout-rev.png" /> 
 	</div>
 	
 	<div id="header-title">Sessions</div>
@@ -138,7 +140,8 @@
 		<div class="clear"></div>
 	</div>	
 		
-
+						
+		
 	<div class="module quarter">
 		<div class="session-flow empty">
 			<button class="button">+ Add a flow</button>			
@@ -158,6 +161,19 @@
 
 <!-- footer block -->
 
+
+<script>
+	$(function() {
+		$('input, textarea').placeholder();
+		
+		$('.replace-control').iCheck({
+		   checkboxClass: 'icheckbox_flat',
+		   radioClass: 'iradio_flat'
+		 });
+		 
+		 $('.session-flow').not(".empty").matchHeight();		
+	});
+</script>
 
 
 </body>
