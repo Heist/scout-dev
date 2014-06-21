@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var port = 3000;
+var port = Number(process.env.PORT || 5000);
 
 //express setup
 app.configure(function () {
