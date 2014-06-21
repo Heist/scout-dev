@@ -8,8 +8,9 @@
 	</head>
 	<body ng-controller="modScreenCtrl">
 		<label>Name:</label>
-	      <input type="text" ng-model="yourName" placeholder="Enter a name here" ng-change="check()">
+	      <input type="text" ng-model="yourName" placeholder="Enter a name here">
 	      <hr>
-	      <h1>Hello {{yourName}}!</h1>
+	      <h1>{{greeting}}</h1>
+	      <button ng-click="send()" >push to Server</button>
 	</body>
 </html>

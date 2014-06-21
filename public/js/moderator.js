@@ -1,11 +1,18 @@
 "use strict";
 // moderator.js
 
-function modScreenCtrl($scope) {
+function modScreenCtrl($scope,$http) {
 
 	$scope.yourName = "nose";
+	$scope.greeting = "";
 
-	$scope.check=function(){
-		console.log($scope.yourName);
+	$scope.send=function(){
+		var dataOut = {name:$scope.yourName};
+		
+		$http
+			.post('/api/greet',dataOut)
+			.success(function(dataIn){
+				$scope.greeting = dataIn.greeting;
+			});
 	};
 };
