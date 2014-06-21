@@ -8,5 +8,16 @@ app.configure(function () {
 	app.use(express.static(__dirname + '/public'));
 });
 
+//app things go here	
+
+
+
+
+
+
+
+
+
+
 app.listen(port);
 console.log('hello world on', port);
