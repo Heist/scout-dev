@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- header block -->
-<html ng-app="scoutApp">
+<html >
 <head>
 <base href="/">	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -10,6 +10,8 @@
 <title>Scout</title>
 <script type="text/javascript" src="https://code.angularjs.org/1.2.18/angular.js"></script>
 <script type="text/javascript" src="https://code.angularjs.org/1.2.18/angular-route.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+
 <script type="text/javascript" src="/js/moderator.js"></script>
 
 <script type="text/javascript" src="//use.typekit.net/zpj0pdb.js"></script>
@@ -19,8 +21,8 @@
 
 </head>
 
-<body id="view-overview" ng-view>
-
+<body ng-app="scoutApp" >
+<div id="view-overview" ui-view> </div>
 
 </body>
 </html>

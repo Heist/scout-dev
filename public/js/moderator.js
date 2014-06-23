@@ -1,17 +1,23 @@
 "use strict";
 // moderator.js
 
-var scoutApp = angular.module('scoutApp',['ngRoute']);
+var scoutApp = angular.module('scoutApp',['ui.router']);
 
-scoutApp.config(function($routeProvider,$locationProvider) {
+scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$locationProvider
 		.html5Mode(true);
-		
-	$routeProvider
-		.when('/', {
-			templateUrl: 'partials/overview.html'
-		})
-		.when('/add', {
-			templateUrl: 'partials/add.html'
-		})
+
+	$urlRouterProvider.otherwise('/home');
+    
+    $stateProvider        
+        // HOME STATES AND NESTED VIEWS ========================================
+        .state('home', {
+            url: '/home',
+            templateUrl: 'partials/overview.html'
+        })
+        
+        // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
+        .state('about', {
+            // we'll get to this in a bit       
+        });
 });
