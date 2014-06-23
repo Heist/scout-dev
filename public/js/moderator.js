@@ -1,7 +1,7 @@
 "use strict";
 // moderator.js
 
-var scoutApp = angular.module('scoutApp',['ui.router']);
+var scoutApp = angular.module('scoutApp',['ui.router','ui']);
 
 scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$locationProvider
