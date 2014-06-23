@@ -67,18 +67,16 @@
 		</li>
 		
 	</ul>
-	
-	
 </div>
 
-
-
-
-<div id="middle-pane" ng-controller="stepAdd">
+<!-- you are working on this part here --> 
+<div id="middle-pane" ng-controller="steps">
 	<h3><span class="numberball">2</span> Add Steps</h3>
 	<p>Steps are the pages or views in your prototype. They should follow the intended user path of your prototype pretty closely.</p>
 	<ul id="steps" class="lined" ui-sortable ng-model="steps">
-		<li ng-repeat="step in steps">{{ step }}</li>
+		<li ng-repeat="step in steps">
+			<label ng-dblclick="editStep(step)">{{step.title}}</label>
+		</li>
 	</ul>
 	<div class="step empty">
 		You don't have any steps.<br>

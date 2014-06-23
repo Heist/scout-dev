@@ -1,7 +1,7 @@
 "use strict";
 // moderator.js
 
-var scoutApp = angular.module('scoutApp',['ui.router','ui']);
+var scoutApp = angular.module('scoutApp',['ui','ui.bootstrap','ui.router']);
 
 scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$locationProvider
@@ -26,9 +26,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 });
 
-scoutApp.controller('stepAdd', ['$scope',function($scope) {
+scoutApp.controller('steps', ['$scope',function($scope) {
 
-	$scope.steps = ['step one', 'step two', 'big bird'];
+	$scope.steps = [{'title':'step one'},{'title':'step two'},{'title':'big bird'}];
 
 	$scope.add = function() {
         $scope.steps.push($scope.step);
