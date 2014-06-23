@@ -28,21 +28,57 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 scoutApp.controller('steps', ['$scope',function($scope) {
 
-	$scope.steps = [{'title':'step one'},{'title':'step two'},{'title':'big bird'}];
+	$scope.steps = [{title:'step one',editing: false},{title:'step two',editing: false},{title:'big bird',editing: false}];
 
 	$scope.add = function() {        
         $scope.step = {'title':'edit me'};
         $scope.steps.push($scope.step);
     }
 
-    $scope.remove = function(step){
+    $scope.removeStep = function(step){
     	var index = $scope.steps.indexOf(step)
   		$scope.steps.splice(index, 1);   
     }
 
-    $scope.edit = function(step){
-    	
-    }
+
+    $scope.editStep = function (step) {
+    	console.log('editing');
+			$scope.editedStep = step;
+			// Clone the original todo to restore it on demand.
+			$scope.originalStep = angular.extend({}, step);
+		};
+
+	$scope.doneEditing = function (step) {
+		$scope.editedStep = null;
+		step.title = step.title.trim();
+
+		if (!step.title) {
+			$scope.removeStep(step);
+		}
+	};
+
+	$scope.revertEditing = function (step) {
+		steps[steps.indexOf(step)] = $scope.originalStep;
+		$scope.doneEditing($scope.originalStep);
+	};
+
+
+ //    $scope.edit = function(step){
+ //    	console.log('editing');
+ //    	step.editing = true;
+ //    	$scope.editedStep = step;    	
+	// 		// Clone the original todo to restore it on demand.
+	// 	$scope.originalStep = angular.extend({}, step);
+ //    }
+	// $scope.doneEditing = function (step) {
+	// 	$scope.editedStep = null;
+	// 	step.title = step.title.trim();
+
+	// 	if (!step.title) {
+	// 		$scope.removeStep(step);
+	// 	}
+	// 	step.editing = false;
+	// };
 	// $scope.check=function(){
 	// 	console.log($scope.flowname);
 	// };
