@@ -9,9 +9,9 @@ app.configure(function () {
 	app.use(express.bodyParser());
 
 	// This route deals enables HTML5Mode by forwarding missing files to the index.html
-	// app.all('/*', function(req, res) {
- //    	res.sendfile(__dirname + '/public/index.html');
- //  	})
+	app.all('/*', function(req, res) {
+    	res.sendfile(__dirname + '/public/index.html');
+  	})
 });
 
 

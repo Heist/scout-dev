@@ -12,12 +12,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $stateProvider        
         // HOME STATES AND NESTED VIEWS ========================================
         .state('home', {
-            url: '/home',
+            url: '/',
             templateUrl: 'partials/overview.html'
         })
         
         // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
-        .state('about', {
+        .state('add', {
+        	url: '/add',
+            templateUrl: 'partials/add.html'
             // we'll get to this in a bit       
         });
 });
