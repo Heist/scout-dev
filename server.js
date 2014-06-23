@@ -8,12 +8,14 @@ app.configure(function () {
 	app.use(express.static(__dirname + '/public'));
 	app.use(express.bodyParser());
 
+	// Authenticator
+	app.use(express.basicAuth(‘testUser’, 'passmeoverbro'));
+
 	// This route deals enables HTML5Mode by forwarding missing files to the index.html
-	app.all('/*', function(req, res) {
+	app.all('/*', auth, function(req, res) {
     	res.sendfile(__dirname + '/public/index.html');
   	})
 });
-
 
 
 //app route things go here

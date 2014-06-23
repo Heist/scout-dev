@@ -76,7 +76,7 @@
 	<ul id="steps" class="lined" ui-sortable ng-model="steps">
 		<li ng-repeat="step in steps">
 			<div class="step-hamburger">≡</div>
-			<div class="step-name pointer" ng-dblclick="editStep(step)">{{step.title}}</div>
+			<div class="step-name pointer" ng-dblclick="edit(step)">{{step.title}}</div>
 			<div class="step-delete pointer big" ng-click="remove(step)">×</div>
 			<div class="clear"></div>
 		</li>

@@ -30,14 +30,18 @@ scoutApp.controller('steps', ['$scope',function($scope) {
 
 	$scope.steps = [{'title':'step one'},{'title':'step two'},{'title':'big bird'}];
 
-	$scope.add = function() {
+	$scope.add = function() {        
+        $scope.step = {'title':'edit me'};
         $scope.steps.push($scope.step);
-        $scope.step = "";
     }
 
     $scope.remove = function(step){
     	var index = $scope.steps.indexOf(step)
   		$scope.steps.splice(index, 1);   
+    }
+
+    $scope.edit = function(step){
+    	
     }
 	// $scope.check=function(){
 	// 	console.log($scope.flowname);
