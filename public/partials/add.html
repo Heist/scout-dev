@@ -37,7 +37,7 @@
 	<ul class="lined">
 		<li>
 			<label for="field-flowname">Flow name</label><br>
-			<input class="input" type="text" id="field-flowname" placeholder="What will you be testing?" />
+			<input class="input" type="text" ng-model="flowname" id="field-flowname" placeholder="What will you be testing?" />
 		</li>
 		
 		<li>
@@ -74,13 +74,14 @@
 
 
 
-<div id="middle-pane">
+<div id="middle-pane" ng-controller="stepAdd">
 	<h3><span class="numberball">2</span> Add Steps</h3>
 	<p>Steps are the pages or views in your prototype. They should follow the intended user path of your prototype pretty closely.</p>
 	
+	<li ng-repeat="step in steps">{{ step }}</li>
 	<div class="step empty">
 		You don't have any steps.<br>
-		<button class="button">+ Add a step</button>
+		<a class="button" ng-click="add()">+ Add a step</a>
 	</div>
 </div>
 

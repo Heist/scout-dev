@@ -21,5 +21,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         	url: '/add',
             templateUrl: 'partials/add.html'
             // we'll get to this in a bit       
-        });
+        })
+        ;
+
 });
+
+scoutApp.controller('stepAdd', ['$scope',function($scope) {
+
+	$scope.steps = ['step one', 'step two', 'big bird'];
+
+	$scope.add = function() {
+        $scope.steps.push($scope.step);
+        $scope.step = "";
+    }
+	// $scope.check=function(){
+	// 	console.log($scope.flowname);
+	// };
+}]);
+
