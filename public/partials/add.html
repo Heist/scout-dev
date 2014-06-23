@@ -26,7 +26,7 @@
 <!-- / header nav -->
 
 
-
+<div id="view-createflow">
 <!-- create a flow -->
 
 <div id="left-pane">
@@ -75,8 +75,10 @@
 	<p>Steps are the pages or views in your prototype. They should follow the intended user path of your prototype pretty closely.</p>
 	<ul id="steps" class="lined" ui-sortable ng-model="steps">
 		<li ng-repeat="step in steps">
-			<label ng-dblclick="editStep(step)">{{step.title}}</label>
-			<button class="destroy" ng-click="remove(step)">X</button>
+			<div class="step-hamburger">≡</div>
+			<div class="step-name pointer" ng-dblclick="editStep(step)">{{step.title}}</div>
+			<div class="step-delete pointer big" ng-click="remove(step)">×</div>
+			<div class="clear"></div>
 		</li>
 	</ul>
 	<div class="step empty">
@@ -89,4 +91,5 @@
 
 <div id="right-pane">
 	&nbsp;
+</div>
 </div>
