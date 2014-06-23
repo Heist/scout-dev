@@ -1,14 +1,13 @@
 {
-    "name": "scout",
-    "node-main": "server.js",
-    "description": "Scout app",
-    "version": "0.0.1",
-
-    "dependencies": {
-        "express": "3.5.0",
-        "mongoose": "latest"
-    },
-    "engines":{
-    	"node":"0.10.x"
-    }
+  "name": "scout",
+  "node-main": "server.js",
+  "description": "Scout app",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "3.5.0",
+    "mongoose": "latest"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
 }

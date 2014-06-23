@@ -1,3 +1,91 @@
 <!-- Add Flow -->
 
-This is a new flow!
+<div id="header">
+	
+	<div id="header-logo">
+		<img src="../assets/scout-rev.png" />
+	</div>
+	
+	<div id="header-title">Creating a flow</div>
+	
+	<div id="header-account">
+		<div id="header-account-avatar">
+			<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg">
+		</div>
+		<div id="header-account-dropdown">&#9662;</div>
+	</div>
+	
+	
+	<div id="header-nav">
+		<a href="/"><button class="button small">&check; Done creating flow</button></a>
+	</div>
+			
+	
+</div>
+
+<!-- / header nav -->
+
+
+
+<!-- create a flow -->
+
+<div id="left-pane">
+	<h3><span class="numberball">1</span> Create a flow</h3>
+	<p>Let&lsquo;s start with a few pieces of information about your flow.</p>
+	
+
+	<ul class="lined">
+		<li>
+			<label for="field-flowname">Flow name</label><br>
+			<input class="input" type="text" id="field-flowname" placeholder="What will you be testing?" />
+		</li>
+		
+		<li>
+			<label for="field-prototype">Prototype link</label><br>
+			<input class="input" type="text" id="field-prototype" placeholder="What&lsquo;s the URL for your prototype?" />
+		</li>
+		
+		<li>
+			<div class="device-selector">
+				<label for="field-device-mobile"><img src="../assets/platform-icons/mobile.svg"><br>Mobile</label><br>
+				<input type="radio" class="replace-control" name="field-device" id="field-device-mobile" value="mobile" />
+			</div>
+			<div class="device-selector">
+				<label for="field-device-tablet"><img src="../assets/platform-icons/tablet.svg"><br>Tablet</label><br>
+				<input type="radio" class="replace-control" name="field-device" id="field-device-tablet" value="tablet" />
+			</div>
+			<div class="device-selector">
+				<label for="field-device-desktop"><img src="../assets/platform-icons/desktop.svg"><br>Desktop</label><br>
+				<input type="radio" class="replace-control" name="field-device" id="field-device-desktop" value="desktop" />
+			</div>
+			<div class="clear"></div>
+		</li>
+		
+		<li>
+			<label for="field-description">Flow description</label><br>
+			<textarea class="input" id="field-textarea" placeholder="What are the overall goals or outcomes you&lsquo;d like to achieve with this flow?"></textarea>
+		</li>
+		
+	</ul>
+	
+	
+</div>
+
+
+
+
+<div id="middle-pane">
+	<h3><span class="numberball">2</span> Add Steps</h3>
+	<p>Steps are the pages or views in your prototype. They should follow the intended user path of your prototype pretty closely.</p>
+	
+	<div class="step empty">
+		You don't have any steps.<br>
+		<button class="button">+ Add a step</button>
+	</div>
+</div>
+
+
+
+<div id="right-pane">
+	&nbsp;
+</div>

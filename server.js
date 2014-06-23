@@ -7,7 +7,14 @@ app.configure(function () {
 	app.use(express.logger('\033[90m:date :method :url :response-time\\ms\033[0m \033[31m:referrer \033[0m'));
 	app.use(express.static(__dirname + '/public'));
 	app.use(express.bodyParser());
+
+	// This route deals enables HTML5Mode by forwarding missing files to the index.html
+	app.all('/*', function(req, res) {
+    	res.sendfile(__dirname + '/public/index.html');
+  	})
 });
+
+
 
 //app route things go here
 
