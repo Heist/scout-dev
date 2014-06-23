@@ -76,6 +76,7 @@
 	<ul id="steps" class="lined" ui-sortable ng-model="steps">
 		<li ng-repeat="step in steps">
 			<label ng-dblclick="editStep(step)">{{step.title}}</label>
+			<button class="destroy" ng-click="remove(step)">X</button>
 		</li>
 	</ul>
 	<div class="step empty">

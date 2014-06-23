@@ -34,6 +34,11 @@ scoutApp.controller('steps', ['$scope',function($scope) {
         $scope.steps.push($scope.step);
         $scope.step = "";
     }
+
+    $scope.remove = function(step){
+    	var index = $scope.steps.indexOf(step)
+  		$scope.steps.splice(index, 1);   
+    }
 	// $scope.check=function(){
 	// 	console.log($scope.flowname);
 	// };
