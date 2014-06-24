@@ -42,7 +42,8 @@ scoutApp.controller('steps', ['$scope',function($scope) {
 
 
     $scope.editStep = function (step) {
-    	console.log('editing');
+    	console.log(step.editing);
+    		step.editing=true;
 			$scope.editedStep = step;
 			// Clone the original todo to restore it on demand.
 			$scope.originalStep = angular.extend({}, step);
@@ -50,11 +51,13 @@ scoutApp.controller('steps', ['$scope',function($scope) {
 
 	$scope.doneEditing = function (step) {
 		$scope.editedStep = null;
+
 		step.title = step.title.trim();
 
 		if (!step.title) {
 			$scope.removeStep(step);
 		}
+		step.editing=false;
 	};
 
 	$scope.revertEditing = function (step) {

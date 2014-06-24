@@ -74,15 +74,15 @@
 	<h3><span class="numberball">2</span> Add Steps</h3>
 	<p>Steps are the pages or views in your prototype. They should follow the intended user path of your prototype pretty closely.</p>
 	<ul id="steps" class="lined" ui-sortable ng-model="steps">
-		<li ng-repeat="step in steps" ng-class="{editing:step==editedStep}">
+		<li ng-repeat="step in steps" ng-class="{editing: step == editedStep}">
 			<div class="step-hamburger">≡</div>
-			<div class="step-name pointer" ng-dblclick="editStep(step)" ng-click="">{{step.title}}</div>
+			<div class="step-name pointer" ng-dblclick="editStep(step)" ng-hide="step.editing" ng-click="">{{step.title}}</div>
 			<div class="step-delete pointer big" ng-click="removeStep(step)">×</div>
-			<div class="clear"></div>
-			
-		<form ng-submit="doneEditing(step)">
+
+			<form ng-submit="doneEditing(step)" ng-show="step.editing">
 			<input class="edit" ng-trim="false" ng-model="step.title" step-escape="revertEditing(step)" ng-blur="doneEditing(step)" step-focus="step == editedStep">
 		</form>
+			<div class="clear"></div>		
 		</li>
 		
 	</ul>
