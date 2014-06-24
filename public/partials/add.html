@@ -76,10 +76,10 @@
 	<ul id="steps" class="lined" ui-sortable ng-model="steps">
 		<li ng-repeat="step in steps" ng-class="{editing: step == editedStep}" ng-click="highlightForContent()">
 			<div class="step-hamburger">≡</div>
-			<div class="step-name pointer" ng-dblclick="editStep(step)" ng-hide="step.editing">{{step.title}}</div>
+			<div class="step-name pointer" ng-dblclick="editStep(step)" ng-hide="step.title_edit">{{step.title}}</div>
 			<div class="step-delete pointer big" ng-click="removeStep(step)">×</div>
 
-			<form ng-submit="doneEditing(step)" ng-show="step.editing">
+			<form ng-submit="doneEditing(step)" ng-show="step.title_edit">
 			<input class="edit" ng-trim="false" ng-model="step.title" step-escape="revertEditing(step)" ng-blur="doneEditing(step)" step-focus="step == editedStep">
 		</form>
 			<div class="clear"></div>		
@@ -94,6 +94,15 @@
 
 
 <div id="right-pane">
-	&nbsp;
+	<h3><span class="numberball">3</span> &ldquo;Sweet Step Bro&rdquo; questions</h3>
+	<p>Add questions to answer or tasks to complete about particular design elements in this step.</p>
+	
+	<ul class="lined">
+		<li>
+			<label for="field-description">Questions for this step</label><br>
+			<textarea class="input" id="field-textarea" placeholder="These are the questions you'll be asking the participants about this step during testing."></textarea>
+		</li>
+	</ul>
 </div>
+
 </div>

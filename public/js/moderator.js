@@ -24,14 +24,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         })
         ;
 
-});
+})
 
-scoutApp.controller('steps', ['$scope',function($scope) {
+.controller('steps', ['$scope',function($scope) {
 
-	$scope.steps = [{title:'step one',editing: false},{title:'step two',editing: false},{title:'big bird',editing: false}];
+	$scope.steps = []; // hmm-mm.
 
-	$scope.add = function() {        
-        $scope.step = {'title':'edit me'};
+	$scope.add = function() {    
+		var id_maker = Math.floor((Math.random() * 10000) + 1);    
+        $scope.step = {
+        		_id		: id_maker, 
+        		title	: 'edit me',
+        		desc	: "These are the questions you'll be asking the participants during testing",
+        		flow_id : "24601",
+        		title_edit : false
+        	};
         $scope.steps.push($scope.step);
     }
 
@@ -40,10 +47,9 @@ scoutApp.controller('steps', ['$scope',function($scope) {
   		$scope.steps.splice(index, 1);   
     }
 
-
     $scope.editStep = function (step) {
-    	console.log(step.editing);
-    		step.editing=true;
+    	console.log(step.title_edit);
+    		step.title_edit=true;
 			$scope.editedStep = step;
 			// Clone the original todo to restore it on demand.
 			$scope.originalStep = angular.extend({}, step);
@@ -57,7 +63,7 @@ scoutApp.controller('steps', ['$scope',function($scope) {
 		if (!step.title) {
 			$scope.removeStep(step);
 		}
-		step.editing=false;
+		step.title_edit=false;
 	};
 
 	$scope.revertEditing = function (step) {
@@ -67,6 +73,7 @@ scoutApp.controller('steps', ['$scope',function($scope) {
 
 	$scope.highlightForContent = function (step){
 		console.log('highlighted');
+		step.title_edit=false;
 	}
 
 }]);
