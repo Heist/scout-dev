@@ -28,6 +28,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 .controller('steps', ['$scope',function($scope) {
 
+
 	$scope.steps = []; // hmm-mm.
 
 	$scope.add = function(step) {    
@@ -54,13 +55,16 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     	
     	console.log('editing');
     		step.title_edit=true;
+    		step.edit = true;
+
 			$scope.editedStep = step;
 			// Clone the original item to restore it on demand.
 			$scope.originalStep = angular.extend({}, step);
 
-		console.log(step.title_edit);
-		 $scope.$apply
+		console.log('title_edit', step.title_edit);
+		console.log('edit', step.edit);
 
+		 $scope.$apply
 	};
 
 	$scope.focused = function (step){

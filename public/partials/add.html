@@ -75,16 +75,21 @@
 	<p>Steps are the pages or views in your prototype. They should follow the intended user path of your prototype pretty closely.</p>
 
 	<ul id="steps" class="lined" ui-sortable ng-model="steps">
-		<li ng-repeat="step in steps" ng-class="{selected: step == editedStep}">
+
+		<li ng-repeat="step in steps" ng-class="{selected: step.edit}" ng-dblclick="editStep(step)" ng-blur="doneEditing(step)">
+		
 			<div class="step-hamburger">≡</div>
-			<div class="step-name pointer" ng-dblclick="editStep(step)" ng-hide="step.title_edit">{{step.title}}</div>
+
+			<div class="step-name pointer" ng-dblclick="editTitle(step)" ng-hide="step.title_edit">{{step.title}}</div>
+			
 			<div class="step-delete pointer big" ng-click="removeStep(step)">×</div>
 
-			<form ng-submit="doneEditing(step)" ng-show="step.title_edit">
+			<form ng-show="step.title_edit">
 
-			<input class="edit" ng-trim="false" ng-model="step.title" ng-focus="focused(step)" ng-blur="doneEditing(step)" >
+				<input class="edit" ng-trim="false" ng-model="step.title" ng-focus="focused(step)" >
 
-		</form>
+			</form>
+
 			<div class="clear"></div>		
 		</li>
 		
@@ -104,7 +109,7 @@
 			<ul class="lined">
 				<li>
 					<label for="field-description">Questions for this step</label><br>
-					<textarea ng-model="step_questions" class="input" id="field-textarea" placeholder="{{step.desc}}">
+					<textarea ng-model="step.desc" class="input" id="field-textarea" placeholder="{{step.desc}}">
 						
 					</textarea>
 				</li>
