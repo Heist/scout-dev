@@ -49,12 +49,17 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     $scope.editStep = function (step) {
-    	console.log(step.title_edit);
+    	
+    	console.log('editing');
     		step.title_edit=true;
 			$scope.editedStep = step;
 			// Clone the original item to restore it on demand.
 			$scope.originalStep = angular.extend({}, step);
-		};
+
+		console.log(step.title_edit);
+		 $scope.$apply
+
+	};
 
 	$scope.doneEditing = function (step) {
 		$scope.editedStep = null;

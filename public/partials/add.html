@@ -26,7 +26,7 @@
 <!-- / header nav -->
 
 
-<div id="view-createflow">
+<div id="view-createflow" ng-controller="steps">
 <!-- create a flow -->
 
 <div id="left-pane">
@@ -70,7 +70,7 @@
 </div>
 
 <!-- you are working on this part here --> 
-<div id="middle-pane" ng-controller="steps">
+<div id="middle-pane">
 	<h3><span class="numberball">2</span> Add Steps</h3>
 	<p>Steps are the pages or views in your prototype. They should follow the intended user path of your prototype pretty closely.</p>
 	<ul id="steps" class="lined" ui-sortable ng-model="steps">
@@ -95,7 +95,7 @@
 
 
 <div id="right-pane">
-	
+	<div ng-hide="!steps && !step.edit">
 		<!-- if a step is not selected do not show -->
 			<h3><span class="numberball">3</span> &ldquo;{{ step.title }}&rdquo; questions</h3>
 			<p>Add questions to answer or tasks to complete about particular design elements in this step.</p>
@@ -106,7 +106,7 @@
 					<textarea class="input" id="field-textarea" placeholder="These are the questions you'll be asking the participants about this step during testing."></textarea>
 				</li>
 			</ul>
-
+	</div>
 </div>
 
 </div>
