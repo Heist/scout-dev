@@ -30,7 +30,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 	$scope.steps = []; // hmm-mm.
 
-	$scope.add = function() {    
+	$scope.add = function(step) {    
 		var id_maker = Math.floor((Math.random() * 10000) + 1);    
         $scope.step = {
         		_id		: id_maker, 
@@ -40,7 +40,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         		title_edit : false,
         		edit	: false
         	};
+
         $scope.steps.push($scope.step);
+
     }
 
     $scope.removeStep = function(step){
@@ -61,9 +63,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 	};
 
+	$scope.focused = function (step){
+		console.log('focused ',step);
+	}
+
 	$scope.doneEditing = function (step) {
 		$scope.editedStep = null;
-
+		console.log('doneEditing');
 		step.title = step.title.trim();
 
 		if (!step.title) {
@@ -78,5 +84,34 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		$scope.doneEditing($scope.originalStep);
 	};
 
-}]);
+}])
+
+.directive('stepEscape', function () {
+		'use strict';
+
+		var ESCAPE_KEY = 27;
+
+		return function (scope, elem, attrs) {
+			elem.bind('keydown', function (event) {
+				if (event.keyCode === ESCAPE_KEY) {
+					scope.$apply(attrs.stepEscape);
+				}
+			});
+		};
+	})
+
+.directive('stepFocus', function todoFocus($timeout) {
+		'use strict';
+
+		return function (scope, elem, attrs) {
+			scope.$watch(attrs.stepFocus, function (newVal) {
+				if (newVal) {
+					$timeout(function () {
+						elem[0].focus();
+					}, 0, false);
+				}
+			});
+		};
+	})
+;
 
