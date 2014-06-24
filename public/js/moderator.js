@@ -37,7 +37,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         		title	: 'edit me',
         		desc	: "These are the questions you'll be asking the participants during testing",
         		flow_id : "24601",
-        		title_edit : false
+        		title_edit : false,
+        		edit	: false
         	};
         $scope.steps.push($scope.step);
     }
@@ -51,7 +52,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     	console.log(step.title_edit);
     		step.title_edit=true;
 			$scope.editedStep = step;
-			// Clone the original todo to restore it on demand.
+			// Clone the original item to restore it on demand.
 			$scope.originalStep = angular.extend({}, step);
 		};
 
@@ -64,17 +65,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 			$scope.removeStep(step);
 		}
 		step.title_edit=false;
+		step.edit=false;
 	};
 
 	$scope.revertEditing = function (step) {
 		steps[steps.indexOf(step)] = $scope.originalStep;
 		$scope.doneEditing($scope.originalStep);
 	};
-
-	$scope.highlightForContent = function (step){
-		console.log('highlighted');
-		step.title_edit=false;
-	}
 
 }]);
 

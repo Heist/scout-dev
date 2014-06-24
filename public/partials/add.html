@@ -74,13 +74,14 @@
 	<h3><span class="numberball">2</span> Add Steps</h3>
 	<p>Steps are the pages or views in your prototype. They should follow the intended user path of your prototype pretty closely.</p>
 	<ul id="steps" class="lined" ui-sortable ng-model="steps">
-		<li ng-repeat="step in steps" ng-class="{editing: step == editedStep}" ng-click="highlightForContent()">
+		<li ng-repeat="step in steps" ng-class="{selected: step == editedStep}">
 			<div class="step-hamburger">≡</div>
-			<div class="step-name pointer" ng-dblclick="editStep(step)" ng-hide="step.title_edit">{{step.title}}</div>
+			<div class="step-name pointer" ng-click="editStep(step)" ng-hide="step.title_edit">{{step.title}}</div>
 			<div class="step-delete pointer big" ng-click="removeStep(step)">×</div>
 
 			<form ng-submit="doneEditing(step)" ng-show="step.title_edit">
 			<input class="edit" ng-trim="false" ng-model="step.title" step-escape="revertEditing(step)" ng-blur="doneEditing(step)" step-focus="step == editedStep">
+
 		</form>
 			<div class="clear"></div>		
 		</li>
@@ -94,15 +95,18 @@
 
 
 <div id="right-pane">
-	<h3><span class="numberball">3</span> &ldquo;Sweet Step Bro&rdquo; questions</h3>
-	<p>Add questions to answer or tasks to complete about particular design elements in this step.</p>
 	
-	<ul class="lined">
-		<li>
-			<label for="field-description">Questions for this step</label><br>
-			<textarea class="input" id="field-textarea" placeholder="These are the questions you'll be asking the participants about this step during testing."></textarea>
-		</li>
-	</ul>
+		<!-- if a step is not selected do not show -->
+			<h3><span class="numberball">3</span> &ldquo;{{ step.title }}&rdquo; questions</h3>
+			<p>Add questions to answer or tasks to complete about particular design elements in this step.</p>
+			
+			<ul class="lined">
+				<li>
+					<label for="field-description">Questions for this step</label><br>
+					<textarea class="input" id="field-textarea" placeholder="These are the questions you'll be asking the participants about this step during testing."></textarea>
+				</li>
+			</ul>
+
 </div>
 
 </div>
