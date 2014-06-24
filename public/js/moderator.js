@@ -65,25 +65,9 @@ scoutApp.controller('steps', ['$scope',function($scope) {
 		$scope.doneEditing($scope.originalStep);
 	};
 
+	$scope.highlightForContent = function (step){
+		console.log('highlighted');
+	}
 
- //    $scope.edit = function(step){
- //    	console.log('editing');
- //    	step.editing = true;
- //    	$scope.editedStep = step;    	
-	// 		// Clone the original todo to restore it on demand.
-	// 	$scope.originalStep = angular.extend({}, step);
- //    }
-	// $scope.doneEditing = function (step) {
-	// 	$scope.editedStep = null;
-	// 	step.title = step.title.trim();
-
-	// 	if (!step.title) {
-	// 		$scope.removeStep(step);
-	// 	}
-	// 	step.editing = false;
-	// };
-	// $scope.check=function(){
-	// 	console.log($scope.flowname);
-	// };
 }]);
 
