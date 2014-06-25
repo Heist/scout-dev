@@ -26,7 +26,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 })
 
-.controller('steps', ['$scope',function($scope) {
+.controller('addFlow', ['$scope',function($scope) {
 	// $steps.controller needs to know the index of the selected item
 	// selected $index
 	// ng-show when steps.edit$index is selected

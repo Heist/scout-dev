@@ -1,5 +1,5 @@
 <!-- Add Flow -->
-
+<div id="view-createflow" ng-controller="addFlow">
 <div id="header">
 	
 	<div id="header-logo">
@@ -17,7 +17,7 @@
 	
 	
 	<div id="header-nav">
-		<a href="/"><button class="button small">&check; Done creating flow</button></a>
+		<a href="/"><button class="button small" ng-click="postFlow()">&check; Done creating flow</button></a>
 	</div>
 			
 	
@@ -26,7 +26,7 @@
 <!-- / header nav -->
 
 
-<div id="view-createflow" ng-controller="steps">
+
 <!-- create a flow -->
 
 <div id="left-pane">
@@ -101,7 +101,7 @@
 </div>
 
 <div id="right-pane">
-	<div >
+	<div ng-hide="!selected">
 		<!-- if a step is not selected do not show -->
 			<h3><span class="numberball">3</span> &ldquo;{{ selected.title }}&rdquo; questions</h3>
 			<p>Add questions to answer or tasks to complete about particular design elements in this step.</p>
