@@ -27,9 +27,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 })
 
 .controller('steps', ['$scope',function($scope) {
-
+	// $steps.controller needs to know the index of the selected item
+	// selected $index
+	// ng-show when steps.edit$index is selected
+	// step 3 is selected.$index.step.desc
 
 	$scope.steps = []; // hmm-mm.
+	$scope.selected = $scope.steps[0];
 
 	$scope.add = function(step) {    
 		var id_maker = Math.floor((Math.random() * 10000) + 1);    
@@ -47,75 +51,48 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     $scope.removeStep = function(step){
+    	step.edit=false;
+    	step.title_edit=false;
     	var index = $scope.steps.indexOf(step)
   		$scope.steps.splice(index, 1);   
     }
 
-    $scope.editStep = function (step) {
-    	
-    	console.log('editing');
-    		step.title_edit=true;
-    		step.edit = true;
+	$scope.editTitle = function (step){
+		// edit the title box for a step
+		console.log('focused on editing title ',step);
+		step.title_edit = true;
 
-			$scope.editedStep = step;
-			// Clone the original item to restore it on demand.
-			$scope.originalStep = angular.extend({}, step);
-
-		console.log('title_edit', step.title_edit);
-		console.log('edit', step.edit);
-
-		 $scope.$apply
-	};
-
-	$scope.focused = function (step){
-		console.log('focused ',step);
+		$scope.editedStep = step;
+		// Clone the original item to restore it on demand.
+		$scope.originalStep = angular.extend({}, step);		
 	}
 
-	$scope.doneEditing = function (step) {
+	$scope.blurTitle = function (step){
+		// on losing the focus, save the name of the step
+		step.title_edit = false;
+
+		console.log('blur ',step);
 		$scope.editedStep = null;
-		console.log('doneEditing');
+		
 		step.title = step.title.trim();
 
 		if (!step.title) {
 			$scope.removeStep(step);
-		}
-		step.title_edit=false;
-		step.edit=false;
-	};
+		}	
+	}
 
 	$scope.revertEditing = function (step) {
+		// on escape, revert editing
 		steps[steps.indexOf(step)] = $scope.originalStep;
 		$scope.doneEditing($scope.originalStep);
 	};
 
-}])
+    $scope.select= function(step) {
+       $scope.selected = step; 
+    };
+    
+    $scope.isActive = function(step) {
+       return $scope.selected === step;
+    };
 
-.directive('stepEscape', function () {
-		'use strict';
-
-		var ESCAPE_KEY = 27;
-
-		return function (scope, elem, attrs) {
-			elem.bind('keydown', function (event) {
-				if (event.keyCode === ESCAPE_KEY) {
-					scope.$apply(attrs.stepEscape);
-				}
-			});
-		};
-	})
-
-.directive('stepFocus', function todoFocus($timeout) {
-		'use strict';
-
-		return function (scope, elem, attrs) {
-			scope.$watch(attrs.stepFocus, function (newVal) {
-				if (newVal) {
-					$timeout(function () {
-						elem[0].focus();
-					}, 0, false);
-				}
-			});
-		};
-	})
-;
-
+}]);

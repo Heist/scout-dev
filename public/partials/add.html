@@ -76,17 +76,17 @@
 
 	<ul id="steps" class="lined" ui-sortable ng-model="steps">
 
-		<li ng-repeat="step in steps" ng-class="{selected: step.edit}" ng-dblclick="editStep(step)" ng-blur="doneEditing(step)">
+		<li ng-repeat="step in steps" ng-class="{selected: isActive(step)}" ng-click="select(step)" ng-blur="">
 		
 			<div class="step-hamburger">≡</div>
 
-			<div class="step-name pointer" ng-dblclick="editTitle(step)" ng-hide="step.title_edit">{{step.title}}</div>
+			<div class="step-name pointer" ng-dblclick="editTitle(step)" ng-hide="step.title_edit">{{step._id}} {{step.title}}</div>
 			
 			<div class="step-delete pointer big" ng-click="removeStep(step)">×</div>
 
 			<form ng-show="step.title_edit">
 
-				<input class="edit" ng-trim="false" ng-model="step.title" ng-focus="focused(step)" >
+				<input class="edit" ng-trim="false" ng-model="step.title" ng-focus="editTitle(step)" ng-blur="blurTitle(step)">
 
 			</form>
 
@@ -101,15 +101,15 @@
 </div>
 
 <div id="right-pane">
-	<div ng-show="step.title_edit">
+	<div >
 		<!-- if a step is not selected do not show -->
-			<h3><span class="numberball">3</span> &ldquo;{{ step.title }}&rdquo; questions</h3>
+			<h3><span class="numberball">3</span> &ldquo;{{ selected.title }}&rdquo; questions</h3>
 			<p>Add questions to answer or tasks to complete about particular design elements in this step.</p>
 			
 			<ul class="lined">
 				<li>
 					<label for="field-description">Questions for this step</label><br>
-					<textarea ng-model="step.desc" class="input" id="field-textarea" placeholder="{{step.desc}}">
+					<textarea ng-model="step.desc" class="input" id="field-textarea" placeholder="{{step.desc}}" ng-blur="doneEditing(step)">
 						
 					</textarea>
 				</li>
