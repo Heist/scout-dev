@@ -1,6 +1,32 @@
 var express = require('express');
 var app = express();
+var mongoose = require('mongoose');
+
 var port = Number(process.env.PORT || 5000);
+
+// app setup notes ================
+// public / things which go out
+// 		js /
+// 			moderator.js  >> main application loader
+// 		partials /
+//			add.html
+//			overview.html
+// index.html 			  >> homepage and main layout
+//
+//
+// server / things which stay in
+//		models / 		  >> mongoose schemas
+// 		routes /
+//			api.js 		  >> serves session.flow.steps[whatever]
+//			index.js 	  >> serves html partials and routes to moderator?
+// server.js
+// 
+//  ===============================
+
+
+// configuration =================
+// mongoose database
+mongoose.connect('mongodb://localhost/scoutApp');
 
 //express setup
 app.configure(function () {
@@ -17,12 +43,27 @@ app.configure(function () {
   	})
 });
 
+// mongoose setup to be separated out in near future ==============
 
-//app route things go here
+// define model =================
+	var Flow = mongoose.model('Flow', {
+		flow_name		: String,
+		prototype_link	: String,
+		platform		: String,
+		desc			: String
+	});
 
-app.post('/api/greet', function(req, res) {
-	var greet = "hello, "+req.body.name ;
-	res.json({greeting:greet});
+// ================================================================
+
+//app routes
+
+// get the database and return current flows
+app.get('/', function(req, res) {
+	Flow.find(function(err, flows) {
+		if (err)
+			res.send(err)
+		res.json(flows);
+	});
 });
 
 

@@ -26,6 +26,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 })
 
+.controller('sessionOverview', ['$scope',function($scope){
+	
+	
+}])
+
 .controller('addFlow', ['$scope',function($scope) {
 	// $steps.controller needs to know the index of the selected item
 	// selected $index
