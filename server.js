@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var port = Number(process.env.PORT || 5000);
 
 // app setup notes ================
-// public / things which go out
+// PUBLIC / things which go out
 // 		js /
 // 			moderator.js  >> main application loader
 // 		partials /
@@ -14,7 +14,7 @@ var port = Number(process.env.PORT || 5000);
 // index.html 			  >> homepage and main layout
 //
 //
-// server / things which stay in
+// SERVER / things which stay in
 //		models / 		  >> mongoose schemas
 // 		routes /
 //			api.js 		  >> serves session.flow.steps[whatever]

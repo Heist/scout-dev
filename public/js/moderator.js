@@ -26,10 +26,17 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 })
 
+// we're working on this
+// it needs to post data to the api url described in server.js
+// then from there via mongoose to mongoDB
+
 .controller('sessionOverview', ['$scope',function($scope){
-	
+	var dataOut = {name:$scope.yourName};
 	
 }])
+
+// aside from managing steps, on open, this scope should fetch the flow created in overview
+// and pass it as the container for the current steps
 
 .controller('addFlow', ['$scope',function($scope) {
 	// $steps.controller needs to know the index of the selected item
