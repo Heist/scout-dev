@@ -31,7 +31,22 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 // then from there via mongoose to mongoDB
 
 .controller('sessionOverview', ['$scope',function($scope){
-	var dataOut = {name:$scope.yourName};
+	
+	$scope.send = function(){
+		// describe the new flow here
+		var dataOut = {
+				flow_name 		: "",
+				prototype_link	: "",
+				platform		: "",
+				desc 			: ""
+
+			}; 
+		$http
+	 		.post('/api/catch',dataOut)
+			.success(function(dataIn){
+				console.log(dataIn);
+ 			});
+	};
 	
 }])
 

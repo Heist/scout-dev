@@ -4,6 +4,12 @@ var mongoose = require('mongoose');
 
 var port = Number(process.env.PORT || 5000);
 
+// route variables
+// var route = require('./routes/route.js');
+// extension not requred
+
+var api = require(./api_routes/api.js);
+
 // app setup notes ================
 // PUBLIC / things which go out
 // 		js /
@@ -43,9 +49,42 @@ app.configure(function () {
   	})
 });
 
+
+/// catch 404 and forwarding to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+/// error handlers
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
+    });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+});
+
+
 // mongoose setup to be separated out in near future ==============
 
-// define model =================
+// define model --> later these can be moved to server/models =====
 	var Flow = mongoose.model('Flow', {
 		flow_name		: String,
 		prototype_link	: String,
@@ -58,14 +97,13 @@ app.configure(function () {
 //app routes
 
 // get the database and return current flows
-app.get('/', function(req, res) {
-	Flow.find(function(err, flows) {
-		if (err)
-			res.send(err)
-		res.json(flows);
-	});
-});
+app.post('/api/', function(req, res) {
+ 		var greet = "hello";
+ 		res.json({greeting:greet});
+ });
 
+// Turn on the application ========================================
 
 app.listen(port);
-console.log('hello world on', port);
+console.log('scout listening on ', port);
+
