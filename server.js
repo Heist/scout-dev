@@ -1,88 +1,30 @@
 var express = require('express');
-var app = express();
+var bodyParser = require ('body-parser');
+var logger	= require ('morgan');
 var mongoose = require('mongoose');
 
+var app 	= express();
 var port = Number(process.env.PORT || 5000);
 
-// route variables
-// var route = require('./routes/route.js');
-// extension not requred
-
-var api = require(./api_routes/api.js);
-
-// app setup notes ================
-// PUBLIC / things which go out
-// 		js /
-// 			moderator.js  >> main application loader
-// 		partials /
-//			add.html
-//			overview.html
-// index.html 			  >> homepage and main layout
-//
-//
-// SERVER / things which stay in
-//		models / 		  >> mongoose schemas
-// 		routes /
-//			api.js 		  >> serves session.flow.steps[whatever]
-//			index.js 	  >> serves html partials and routes to moderator?
-// server.js
-// 
-//  ===============================
-
-
-// configuration =================
-// mongoose database
-mongoose.connect('mongodb://localhost/scoutApp');
-
 //express setup
-app.configure(function () {
-	app.use(express.logger('\033[90m:date :method :url :response-time\\ms\033[0m \033[31m:referrer \033[0m'));
+	app.use(logger('\033[90m:date :method :url :response-time\\ms\033[0m \033[31m:referrer \033[0m'));
 	app.use(express.static(__dirname + '/public'));
-	app.use(express.bodyParser());
-
-	// Authenticator
-	app.use(express.basicAuth(‘testUser’, 'passmeoverbro'));
+	app.use(bodyParser());
 
 	// This route deals enables HTML5Mode by forwarding missing files to the index.html
-	app.all('/*', auth, function(req, res) {
+	app.all('/*', function(req, res) {
     	res.sendfile(__dirname + '/public/index.html');
-  	})
+  	});
+
+// mongoose configuration =================
+
+mongoose.connect('mongodb://localhost/scoutApp');
+
+var db = mongoose.connection;
+	db.on('error', console.error.bind(console, 'connection error:'));
+	db.once('open', function callback () {
+  	// yay!
 });
-
-
-/// catch 404 and forwarding to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-/// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
-
-
-// mongoose setup to be separated out in near future ==============
 
 // define model --> later these can be moved to server/models =====
 	var Flow = mongoose.model('Flow', {
@@ -93,14 +35,21 @@ app.use(function(err, req, res, next) {
 	});
 
 // ================================================================
+//app routes -- > later these can be moved to server/routes
+// ================================================================
 
-//app routes
+var router = express.Router(); 				// get an instance of the express Router
 
-// get the database and return current flows
-app.post('/api/', function(req, res) {
- 		var greet = "hello";
- 		res.json({greeting:greet});
- });
+	// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+	router.get('/', function(req, res) {
+		res.json({ message: 'hooray! welcome to our api!' });	
+	});
+
+	// more routes for our API will happen here
+
+	// REGISTER OUR ROUTES -------------------------------
+	// all of our routes will be prefixed with /api
+	app.use('/api', router);
 
 // Turn on the application ========================================
 
