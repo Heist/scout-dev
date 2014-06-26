@@ -1,9 +1,9 @@
 // flow.js
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-module.exports = mongoose.model('Flow', {
+var FlowSchema = new Schema({
 		name		: String,
-		link		: String,
-		platform	: String,
-		desc		: String
 	});
+
+module.exports = mongoose.model('Flow', FlowSchema);

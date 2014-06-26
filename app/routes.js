@@ -9,7 +9,8 @@ var Flow = require('./models/flow');
 // backend routes =========================================================
 
 // get/post to /api routes.
-router.get('/', function(req, res) {
+router.route('/')
+	.get(function(req, res) {
 			Flow.find(function(err, flows) {
 				if (err)
 					res.send(err);
@@ -17,21 +18,18 @@ router.get('/', function(req, res) {
 				res.json(flows);
 			});
 		})
-	.post('/', function(req, res){
+	.post(function(req, res){
 		var flow = new Flow();
  			flow.name 		= req.body.name;
- 			flow.link		= req.body.link;
- 			flow.desc		= req.body.desc;
- 			flow.platform	= req.body.platform;
- 
+ 			
  			flow.save(function(err) {
  			if (err)
  				res.send(err);
  			res.json({ message: 'flow added' });
- 			})
-		})
-	;
+ 			});
+		});
 
+// /:_id routes
 router.route('/:_id')
 	.get(function(req,res) {
 			Flow.findById(req.params._id, function(err, flow) {
@@ -41,7 +39,8 @@ router.route('/:_id')
 			});
 		})
 	.put(function(req, res) {
-		// use our model to find the item we want
+
+		// use our bear model to find the bear we want
 		Flow.findById(req.params._id, function(err, flow) {
 
 			if (err)
@@ -59,6 +58,16 @@ router.route('/:_id')
 
 		});
 	})
+	.delete(function(req, res) {
+		Flow.remove({
+			_id: req.params._id
+		}, function(err, flow) {
+			if (err)
+				res.send(err);
+
+			res.json({ message: 'Successfully deleted' });
+		});
+	});
 
 	// frontend routes =========================================================
 	// route to handle all angular requests
