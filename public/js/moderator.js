@@ -43,7 +43,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 			}; 
 		$http
-	 		.post('/api/catch',dataOut)
+	 		.post('/api',dataOut)
 			.success(function(dataIn){
 				console.log(dataIn);
  			});
