@@ -2,8 +2,8 @@
 var mongoose = require('mongoose');
 
 module.exports = mongoose.model('Flow', {
-		flow_name		: String,
-		prototype_link	: String,
-		platform		: String,
-		desc			: String
+		name		: String,
+		link		: String,
+		platform	: String,
+		desc		: String
 	});

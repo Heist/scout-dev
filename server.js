@@ -27,7 +27,6 @@ app.use(logger('\033[90m:date :method :url :response-time\\ms\033[0m \033[31m:re
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser());
 
-
 // bring in routes ================================================
 var router = require('./app/routes');
 
