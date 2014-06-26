@@ -6,6 +6,15 @@ var router = express.Router();  // get an instance of the express Router
 // load models for routes
 var Flow = require('./models/flow');
 
+
+// console logging ========================================================
+
+router.use(function(req, res, next) {
+	// do logging
+	console.log('Something is happening.');
+	next(); // make sure we go to the next routes and don't stop here
+});
+
 // backend routes =========================================================
 
 // get/post to /api routes.
@@ -19,14 +28,22 @@ router.route('/')
 			});
 		})
 	.post(function(req, res){
-		var flow = new Flow();
- 			flow.name 		= req.body.name;
+			var flow = new Flow();
  			
+ 			flow.name 		= req.body.name;
+ 			flow.link 		= req.body.link;
+ 			flow.desc		= req.body.desc;
+ 			flow.platform   = req.body.platform;
+
+			console.log(req.body);      // your JSON
+  			res.send(req.body);    // echo the result back
+			 			
  			flow.save(function(err) {
- 			if (err)
- 				res.send(err);
- 			res.json({ message: 'flow added' });
- 			});
+				if (err)
+					res.send(err);
+
+				res.json(req.body);
+			});
 		});
 
 // /:_id routes
