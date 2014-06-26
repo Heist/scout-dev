@@ -10,20 +10,20 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	// $urlRouterProvider.otherwise('/home');
 	// conflicts with routes provided to express
     
-    // $stateProvider        
-    //     // HOME STATES AND NESTED VIEWS ========================================
-    //     .state('home', {
-    //         url: '/',
-    //         templateUrl: 'partials/overview.html'
-    //     })
+    $stateProvider        
+        // HOME STATES AND NESTED VIEWS ========================================
+        .state('home', {
+            url: '/',
+            templateUrl: 'partials/overview.html'
+        })
         
-    //     // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
-    //     .state('add', {
-    //     	url: '/add',
-    //         templateUrl: 'partials/add.html'
-    //         // we'll get to this in a bit       
-    //     })
-    //     ;
+        // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
+        .state('add', {
+        	url: '/add',
+            templateUrl: 'partials/add.html'
+            // we'll get to this in a bit       
+        })
+        ;
 
 })
 
