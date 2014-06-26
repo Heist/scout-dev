@@ -70,7 +70,7 @@ router
 // register routes with app after creation ------------------------
 
  app.use('/api', router);
-
+// currently this leads to 5000/api and works
 
 // Turn on the application ========================================
 
