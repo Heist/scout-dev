@@ -31,7 +31,7 @@ app.use(bodyParser());
 // bring in routes ================================================
 var router = require('./app/routes');
 
-app.all('/api', router);
+app.use('/api', router);
 
 app.get('*', function(req, res) {
 			res.sendfile(__dirname + '/public/index.html');
