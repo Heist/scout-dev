@@ -23,6 +23,7 @@ mongoose.connect(db.url);
 	// });
 
 // express 4.0
+
 app.use(logger('\033[90m:date :method :url :response-time\\ms\033[0m \033[31m:referrer \033[0m'));
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser());
