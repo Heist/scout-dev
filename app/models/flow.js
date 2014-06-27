@@ -23,6 +23,16 @@ var FlowSchema = new Schema({
 			trim: true, 
 			default: 'mobile'
 		}
+		steps : [{ 
+			title: {
+				type	: String,
+				trim	: true
+			},
+			desc : {
+				type	: String,
+				trim	: true
+			}
+		}]
 	});
 
 module.exports = mongoose.model('Flow', FlowSchema);
