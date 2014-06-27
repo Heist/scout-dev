@@ -54,9 +54,17 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	// ng-show when steps.edit$index is selected
 	// step 3 is selected.$index.step.desc
 
+	
+	$scope.flow = {}; // eventually we want to post this object to the db
+
+	$scope.flow.name = '';
+	$scope.flow.link = '';
+	$scope.flow.desc = '';
+	$scope.flow.platform = '';
+
 	$scope.steps = []; // hmm-mm.
 	$scope.selected = $scope.steps[0];
-
+	
 	$scope.add = function(step) {    
 		var id_maker = Math.floor((Math.random() * 10000) + 1);    
         $scope.step = {

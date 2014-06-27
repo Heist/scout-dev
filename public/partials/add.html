@@ -48,15 +48,15 @@
 		<li>
 			<div class="device-selector">
 				<label for="field-device-mobile"><img src="../assets/platform-icons/mobile.svg"><br>Mobile</label><br>
-				<input type="radio" class="replace-control" name="field-device" id="field-device-mobile" value="mobile" />
+				<input type="radio" class="replace-control" name="field-device" id="field-device-mobile" ng-model="flow.platform" value="mobile" checked="true" />
 			</div>
 			<div class="device-selector">
 				<label for="field-device-tablet"><img src="../assets/platform-icons/tablet.svg"><br>Tablet</label><br>
-				<input type="radio" class="replace-control" name="field-device" id="field-device-tablet" value="tablet" />
+				<input type="radio" class="replace-control" name="field-device" id="field-device-tablet" ng-model="flow.platform" value="tablet" />
 			</div>
 			<div class="device-selector">
 				<label for="field-device-desktop"><img src="../assets/platform-icons/desktop.svg"><br>Desktop</label><br>
-				<input type="radio" class="replace-control" name="field-device" id="field-device-desktop" value="desktop" />
+				<input type="radio" class="replace-control" name="field-device" id="field-device-desktop" ng-model="flow.platform" value="desktop" />
 			</div>
 			<div class="clear"></div>
 		</li>
