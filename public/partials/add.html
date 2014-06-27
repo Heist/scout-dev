@@ -29,15 +29,15 @@
 
 <!-- create a flow -->
 
-<div id="left-pane">
+<div id="left-pane" >
 	<h3><span class="numberball">1</span> Create a flow</h3>
 	<p>Let&lsquo;s start with a few pieces of information about your flow.</p>
 	
 
-	<ul class="lined">
+	<ul class="lined" ng-model="flow">
 		<li>
 			<label for="field-flowname">Flow name</label><br>
-			<input class="input" type="text" ng-model="flowname" id="field-flowname" placeholder="What will you be testing?" />
+			<input class="input" type="text" ng-model="flow.name" ng-focus="editFlow(flow)" id="field-flowname" placeholder="What will you be testing?" />
 		</li>
 		
 		<li>

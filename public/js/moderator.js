@@ -31,23 +31,17 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 // it needs to post data to the api url described in server.js
 // then from there via mongoose to mongoDB
 
-.controller('sessionOverview', ['$scope',function($scope){
-	
-	$scope.send = function(){
-		// describe the new flow here
-		var dataOut = {
-				flow_name 		: "",
-				prototype_link	: "",
-				platform		: "",
-				desc 			: ""
-
-			}; 
-		$http
-	 		.post('/api',dataOut)
-			.success(function(dataIn){
-				console.log(dataIn);
- 			});
-	};
+.controller('sessionOverview', ['$scope',function($scope){	
+	// get all sessions and their flows
+	$http.get('/api/')
+		.success(function(data) {
+			// This is what replaces the static 'steps' variable below
+			$scope.flows = data;
+			console.log(data);
+		})
+		.error(function(data) {
+			console.log('Error: ' + data);
+		});
 	
 }])
 
@@ -95,6 +89,15 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		$scope.originalStep = angular.extend({}, step);		
 	}
 
+	$scope.editFlow = function (item){
+		console.log('editing flow ', item);
+		// flow name equals the current field?
+		// flow platform equals the current field?
+		// flow description equals the current field?
+		// flow prototype link equals the current field?
+
+	}
+
 	$scope.blurTitle = function (step){
 		// on losing the focus, save the name of the step
 		step.title_edit = false;
@@ -122,5 +125,26 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.isActive = function(step) {
        return $scope.selected === step;
     };
+
+    $scope.addAFlow = function(flow){
+		// describe the new flow here
+
+	// YOU ARE WORKING ON THIS BIT
+	// this needs to, on button click
+	// accept the contents of the flow fields as such:
+	// name 	: 'flow name'
+	// desc 	: 'flow desc'
+	// platform : 'flow platform'
+	// steps 	: 'the steps variable above'
+
+		var dataOut = {
+			'steps' : steps
+			}; 
+		$http
+	 		.post('/api',dataOut)
+			.success(function(dataIn){
+				console.log(dataIn);
+ 			});
+	};
 
 }]);
