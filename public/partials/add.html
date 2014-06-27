@@ -42,7 +42,7 @@
 		
 		<li>
 			<label for="field-prototype">Prototype link</label><br>
-			<input class="input" type="text" id="field-prototype" placeholder="What&lsquo;s the URL for your prototype?" />
+			<input class="input" type="text" id="field-prototype" placeholder="What&lsquo;s the URL for your prototype?" ng-model="flow.link" />
 		</li>
 		
 		<li>
@@ -63,7 +63,7 @@
 		
 		<li>
 			<label for="field-description">Flow description</label><br>
-			<textarea class="input" id="field-textarea" placeholder="What are the overall goals or outcomes you&lsquo;d like to achieve with this flow?"></textarea>
+			<textarea class="input" id="field-textarea" placeholder="What are the overall goals or outcomes you&lsquo;d like to achieve with this flow?" ng-model="flow.desc"></textarea>
 		</li>
 		
 	</ul>
