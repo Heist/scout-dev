@@ -17,7 +17,7 @@
 	
 	
 	<div id="header-nav">
-		<a href="/"><button class="button small" ng-click="postFlow()">&check; Done creating flow</button></a>
+		<a href="/"><button class="button small" ng-click="addAFlow()">&check; Done creating flow</button></a>
 	</div>
 			
 	
@@ -37,7 +37,7 @@
 	<ul class="lined" ng-model="flow">
 		<li>
 			<label for="field-flowname">Flow name</label><br>
-			<input class="input" type="text" ng-model="flow.name" ng-focus="editFlow(flow)" id="field-flowname" placeholder="What will you be testing?" />
+			<input class="input" type="text" ng-model="flow.name" id="field-flowname" placeholder="What will you be testing?" />
 		</li>
 		
 		<li>
@@ -48,15 +48,15 @@
 		<li>
 			<div class="device-selector">
 				<label for="field-device-mobile"><img src="../assets/platform-icons/mobile.svg"><br>Mobile</label><br>
-				<input type="radio" class="replace-control" name="field-device" id="field-device-mobile" ng-model="flow.platform" value="mobile" checked="true" />
+				<input type="radio" class="replace-control" name="field-device" id="field-device-mobile" ng-model="flow.plat" value="mobile" checked="true" />
 			</div>
 			<div class="device-selector">
 				<label for="field-device-tablet"><img src="../assets/platform-icons/tablet.svg"><br>Tablet</label><br>
-				<input type="radio" class="replace-control" name="field-device" id="field-device-tablet" ng-model="flow.platform" value="tablet" />
+				<input type="radio" class="replace-control" name="field-device" id="field-device-tablet" ng-model="flow.plat" value="tablet" />
 			</div>
 			<div class="device-selector">
 				<label for="field-device-desktop"><img src="../assets/platform-icons/desktop.svg"><br>Desktop</label><br>
-				<input type="radio" class="replace-control" name="field-device" id="field-device-desktop" ng-model="flow.platform" value="desktop" />
+				<input type="radio" class="replace-control" name="field-device" id="field-device-desktop" ng-model="flow.plat" value="desktop" />
 			</div>
 			<div class="clear"></div>
 		</li>

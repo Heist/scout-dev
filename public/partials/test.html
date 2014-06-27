@@ -1,0 +1,15 @@
+
+<div ng-controller="serverReturn">
+	<ul id="steps" class="lined" ui-sortable ng-model="flows">
+	
+		<li ng-repeat="flow in flows">
+		
+			{{ flow.name }}
+			{{ flow.desc }}
+			{{ flow.link }}
+			{{ flow.plat }}
+			
+		</li>
+		
+	</ul>
+</div>

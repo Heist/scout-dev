@@ -23,47 +23,56 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             templateUrl: 'partials/add.html'
             // we'll get to this in a bit       
         })
+        .state('test', {
+        	url: '/test',
+            templateUrl: 'partials/test.html'
+            // we'll get to this in a bit       
+        })
         ;
 
 })
 
-// we're working on this
-// it needs to post data to the api url described in server.js
-// then from there via mongoose to mongoDB
-
-.controller('sessionOverview', ['$scope',function($scope){	
-	// get all sessions and their flows
+.controller('sendFlow', ['$scope','$http', function($scope, $http){
 	$http.get('/api/')
-		.success(function(data) {
-			// This is what replaces the static 'steps' variable below
+		.success(function(data){
 			$scope.flows = data;
-			console.log(data);
 		})
-		.error(function(data) {
-			console.log('Error: ' + data);
-		});
+}])
+
+
+.controller('sessionOverview', ['$scope','$http', function($scope, $http){
+	// get all sessions and their flows
+	// $http.get('/api/')
+	// 	.success(function(data) {
+	// 		// flows is *all* flows
+	// 		$scope.flows = data;
+	// 		console.log(data);
+	// 	})
+	// 	.error(function(data) {
+	// 		console.log('Error: ' + data);
+	// 	});
 	
 }])
 
 // aside from managing steps, on open, this scope should fetch the flow created in overview
 // and pass it as the container for the current steps
 
-.controller('addFlow', ['$scope',function($scope) {
+.controller('addFlow', ['$scope','$http', function($scope, $http){
 	// $steps.controller needs to know the index of the selected item
 	// selected $index
 	// ng-show when steps.edit$index is selected
 	// step 3 is selected.$index.step.desc
 
-	
-	$scope.flow = {}; // eventually we want to post this object to the db
-
-	$scope.flow.name = '';
-	$scope.flow.link = '';
-	$scope.flow.desc = '';
-	$scope.flow.platform = '';
-
 	$scope.steps = []; // hmm-mm.
 	$scope.selected = $scope.steps[0];
+
+	$scope.flow = {
+		name : '',
+		link : '',
+		desc : '',
+		platform : ''
+		// steps : $scope.fsteps
+	}; // eventually we want to post this object to the db
 	
 	$scope.add = function(step) {    
 		var id_maker = Math.floor((Math.random() * 10000) + 1);    
@@ -75,9 +84,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         		title_edit : false,
         		edit	: false
         	};
+	    $scope.steps.push($scope.step);  
 
-        $scope.steps.push($scope.step);
-
+	    console.log($scope.steps);
+        console.log($scope.flow);   
     }
 
     $scope.removeStep = function(step){
@@ -95,15 +105,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		$scope.editedStep = step;
 		// Clone the original item to restore it on demand.
 		$scope.originalStep = angular.extend({}, step);		
-	}
-
-	$scope.editFlow = function (item){
-		console.log('editing flow ', item);
-		// flow name equals the current field?
-		// flow platform equals the current field?
-		// flow description equals the current field?
-		// flow prototype link equals the current field?
-
 	}
 
 	$scope.blurTitle = function (step){
@@ -134,22 +135,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
        return $scope.selected === step;
     };
 
-    $scope.addAFlow = function(flow){
-		// describe the new flow here
-
-	// YOU ARE WORKING ON THIS BIT
-	// this needs to, on button click
-	// accept the contents of the flow fields as such:
-	// name 	: 'flow name'
-	// desc 	: 'flow desc'
-	// platform : 'flow platform'
-	// steps 	: 'the steps variable above'
-
-		var dataOut = {
-			'steps' : steps
-			}; 
+    $scope.addAFlow = function(){
+    	console.log('current flow', $scope.flow);
 		$http
-	 		.post('/api',dataOut)
+	 		.post('/api', $scope.flow)
 			.success(function(dataIn){
 				console.log(dataIn);
  			});

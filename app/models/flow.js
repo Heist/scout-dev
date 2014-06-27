@@ -22,26 +22,22 @@ var FlowSchema = new Schema({
 			type: String, 
 			trim: true, 
 			default: 'mobile'
-		},
-		steps : [StepSchema]
+		}
 	});
 
-var StepSchema = new Schema ({
-	title: {
-			type : String,
-			trim : true
-		},
-	desc : {
-			type : String,
-			trim : true
-		}
-})
+// var StepSchema = new Schema ({
+// 	title: {
+// 			type : String,
+// 			trim : true
+// 		},
+// 	desc : {
+// 			type : String,
+// 			trim : true
+// 		}
+// })
 
 
-var Flow = mongoose.model('Flow', FlowSchema);
-var Step = mongoose.model('Step', StepSchema);
 
-module.exports = {
-	Flow : Flow,
-	Step : Step
-}
+// var Step = mongoose.model('Step', StepSchema);
+
+module.exports = mongoose.model('Flow', FlowSchema);
