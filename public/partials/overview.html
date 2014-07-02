@@ -42,12 +42,10 @@
 	
 		<div class="module full session-meta">
 			
-			<div class="session-name" ng-click="editTitle(session)" ng-hide="session.editing"><h4>{{session.name}} {{session._id}}</h4></div>
+			<div class="session-name" ng-click="editTitle(session)" ng-hide="session.editing"><h4>{{session.name}}</h4></div>
 			<form ng-show="session.editing">
 				<input class="edit" ng-trim="true" ng-model="session.name" ng-focus="editTitle(session)" ng-blur="blurTitle(session)">
 			</form>
-
-			<div class="step-name pointer" ng-dblclick="editTitle(step)" ng-hide="step.title_edit">{{step._id}} {{step.title}}</div>
 			
 			<div class="session-controls">
 				<button class="button small">Run</button>
