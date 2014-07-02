@@ -34,6 +34,7 @@ router.route('/')
  			flow.link 		= req.body.link;
  			flow.desc		= req.body.desc;
  			flow.platform   = req.body.platform;
+ 			flow.steps		= req.body.steps;
 
 			console.log(req.body);      // your JSON
   			res.send(req.body);    // echo the result back
@@ -67,6 +68,7 @@ router.route('/:_id')
  			flow.link 		= req.body.link;
  			flow.desc		= req.body.desc;
  			flow.platform   = req.body.platform;
+ 			flow.steps		= req.body.steps;
 
 			// save the flow - the dates are set in the schema, not here.
 			flow.save(function(err) {

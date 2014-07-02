@@ -28,8 +28,29 @@ var FlowSchema = new Schema({
 		},
 		updated: {
 			type: Date
-		}
+		},
+		steps: [StepSchema]
 	});
+
+var StepSchema = new Schema ({
+	title: {
+			type : String,
+			trim : true
+		},
+	desc : {
+			type : String,
+			trim : true
+		}
+})
+
+var Step = mongoose.model('Step', StepSchema);
+
+model['Step'] = Step;
+
+var Flow = mongoose.model('Flow',FlowSchema);
+
+model['Flow'] = Flow;
+
 
 FlowSchema.pre('save', function(next){
   now = new Date();
@@ -40,19 +61,5 @@ FlowSchema.pre('save', function(next){
   next();
 });
 
-// var StepSchema = new Schema ({
-// 	title: {
-// 			type : String,
-// 			trim : true
-// 		},
-// 	desc : {
-// 			type : String,
-// 			trim : true
-// 		}
-// })
-
-
-
-// var Step = mongoose.model('Step', StepSchema);
 
 module.exports = mongoose.model('Flow', FlowSchema);

@@ -1,5 +1,5 @@
 
-<div ng-controller="serverReturn">
+<div ng-controller="sendFlow">
 	<ul id="steps" class="lined" ui-sortable ng-model="flows">
 	
 		<li ng-repeat="flow in flows">
@@ -8,6 +8,7 @@
 			{{ flow.desc }}
 			{{ flow.link }}
 			{{ flow.plat }}
+			{{ flow.steps }}
 			
 		</li>
 		

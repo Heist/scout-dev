@@ -67,7 +67,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$scope.selected = $scope.steps[0];
 
 	$scope.flow = {}; // this is wholly structured on the front end, which is weird.
-	
+	$scope.flow.plat = 'mobile';
+	$scope.flow.steps = $scope.steps;
+
 	$scope.add = function(step) {    
 		var id_maker = Math.floor((Math.random() * 10000) + 1);    
         $scope.step = {
