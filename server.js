@@ -37,11 +37,6 @@ app.get('*', function(req, res) {
 			res.sendfile(__dirname + '/public/index.html');
 		});
 
-// ================================================================
-//  app routes -- > later these can be moved to app/routes
-// ================================================================
-
-
 // Turn on the application ========================================
 
 app.listen(port);

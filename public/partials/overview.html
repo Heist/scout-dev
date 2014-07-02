@@ -1,5 +1,5 @@
 <!-- overview.html -->
-<div id="view-overview" ng-controller="sessionOverview"></div>
+<div id="view-overview" ng-controller="overview">
 <!-- / header block -->
 
 
@@ -36,29 +36,26 @@
 <!-- view sessions -->
 
 <!-- session block -->
-<div ng-model="sessions">
 
-
-<div class="grid pad-bottom session" ng-repeat="session in sessions">
-
+<div class="grid pad-bottom session" >	
 
 	<div class="module full session-meta">
 		
-		<div class="session-name"><h4>{{session.name}}</h4></div>
+		<div class="session-name"><h4>New Session</h4></div>
 		<div class="session-controls">
-			<button class="button small" ng-click=''>Run</button>
-			<button class="button small" ng-click=''>Summarize</button>
-			<button class="button small secondary" ng-click='editSession(session)'>Edit</button>
-			<button class="button small destructive" ng-click='deleteSession(session)'>&times;</button>
+			<button class="button small">Run</button>
+			<button class="button small">Summarize</button>
+			<button class="button small secondary">Edit</button>
+			<button class="button small destructive">&times;</button>
 		</div>
 		<div class="clear"></div>
 	</div>	
 		
 						
-	<div class="module quarter" ng-repeat="flow in flows">
+	<div class="module quarter">
 		<div class="session-flow">
 			<small>Flow</small>
-			<h3>{{flow.name}}</h3>
+			<h3>testing</h3>
 			<ul class="nobullets">
 				<li><a href="{{flow.link}}" ><img src="../assets/platform-icons/{{flow.platform}}.svg"/> Prototype</a></li>
 				<li>5 participants</li>
@@ -76,26 +73,15 @@
 	
 	
 	<div class="module quarter">
-		<div class="session-flow">
-			<small>Flow</small>
-			<h3>Do another thing</h3>
-			<ul class="nobullets">
-				<li><a href="#"><img src="../assets/platform-icons/desktop.svg"/> Prototype</a></li>
-				<li>5 participants</li>
-				<li>Last run June 8 2014</li>
-			</ul>
-			
-			<div class="session-flow-controls">
-				<button class="button small">Summary</button>
-				<button class="button small secondary">Edit</button>
-				<button class="button small destructive">&times;</button>
-			</div>
-			
-		</div>
+	<ul ng-model="flows">
+		<li ng-repeat='flow in flows'>
+			{{flow.name}}
+		</li>
+	</ul>
 	</div>
 
 	
-	<div class="module quarter">
+	<div class="module quarter" >
 		<div class="session-flow empty">
 			<a class="button" href="/add">+ Add a flow</a>
 		</div>
@@ -103,7 +89,6 @@
 							
 
 	
-</div>
 </div>
 <!-- / session block -->
 
@@ -113,4 +98,4 @@
 
 
 <!-- footer block -->
-
+</div>

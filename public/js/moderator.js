@@ -40,17 +40,22 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 }])
 
 
-.controller('sessionOverview', ['$scope','$http', function($scope, $http){
-	// get all sessions and their flows
-	// $http.get('/api/')
-	// 	.success(function(data) {
-	// 		// flows is *all* flows
-	// 		$scope.flows = data;
-	// 		console.log(data);
-	// 	})
-	// 	.error(function(data) {
-	// 		console.log('Error: ' + data);
-	// 	});
+.controller('overview', ['$scope','$http', function($scope, $http){
+	// set up controller-wide variables
+	// $scope.sessions = {};
+	// $scope.sessions.flows = $scope.flows;
+
+
+	// get all sessions and their flows	
+	$http.get('/api/')
+		.success(function(data) {
+			// flows is *all* flows
+			$scope.flows = data;
+			console.log($scope.flows);
+		})
+		.error(function(data) {
+			console.log('Error: ' + data);
+		});
 	
 }])
 
