@@ -63,7 +63,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		});
 
     $scope.editTitle = function(textfield){
-        textfield.editing = 'true';      
+        textfield.editing = 'true';
         console.log(textfield.editing);
 
         
@@ -119,9 +119,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     $scope.addSession = function(session){
-    	$http.post('/api/')
+        var dataOut = {name:'New Session'}
+
+    	$http.post('/api/', dataOut)   
     		.success(function(data){
-    			console.log(data)
+        		$scope.sessions = data;
+                console.log(data)
     		})
     		.error(function(data){
 
@@ -132,7 +135,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         var index = $scope.sessions.indexOf(session);
         $scope.sessions.splice(index, 1);
 
-        var url = '/api/'+$scope.sessions[index]._id;
+        var url = '/api/'+session._id;
         console.log(url);
 
         $http.delete(url)
