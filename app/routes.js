@@ -4,7 +4,7 @@ var express = require('express');
 var router = express.Router();  // get an instance of the express Router
 
 // load models for routes
-var Flow = require('./models/flow');
+var Session = require('./models/session');
 
 
 // console logging ========================================================
@@ -20,26 +20,22 @@ router.use(function(req, res, next) {
 // get/post to /api routes.
 router.route('/')
 	.get(function(req, res) {
-			Flow.find(function(err, flows) {
+			Session.find(function(err, sessions) {
 				if (err)
 					res.send(err);
 
-				res.json(flows);
+				res.json(sessions);
 			});
 		})
 	.post(function(req, res){
-			var flow = new Flow();
+			var session = new Session();
  			
- 			flow.name 		= req.body.name;
- 			flow.link 		= req.body.link;
- 			flow.desc		= req.body.desc;
- 			flow.platform   = req.body.platform;
- 			flow.steps		= req.body.steps;
+ 			session.name = 'New Session'; 			
 
 			console.log(req.body);      // your JSON
   			res.send(req.body);    // echo the result back
 			 			
- 			flow.save(function(err) {
+ 			session.save(function(err) {
 				if (err)
 					res.send(err);
 
@@ -47,49 +43,50 @@ router.route('/')
 			});
 		});
 
-// /:_id routes
-router.route('/:_id')
-	.get(function(req,res) {
-			Flow.findById(req.params._id, function(err, flow) {
-				if (err)
-					res.send(err);
-				res.json(flow);
-			});
-		})
-	.put(function(req, res) {
+// // /:_id routes
+// router.route('/:_id')
+// 	.get(function(req,res) {
+// 			Session.findById(req.params._id, function(err, session) {
+// 				if (err)
+// 					res.send(err);
+// 				res.json(session);
+// 			});
+// 		})
+// 	.put(function(req, res) {
 
-		// use our bear model to find the bear we want
-		Flow.findById(req.params._id, function(err, flow) {
+// 		// use our bear model to find the bear we want
+// 		Session.findById(req.params._id, function(err, session) {
 
-			if (err)
-				res.send(err);
+// 			if (err)
+// 				res.send(err);
 			
-			flow.name 		= req.body.name; // update the flow name
- 			flow.link 		= req.body.link;
- 			flow.desc		= req.body.desc;
- 			flow.platform   = req.body.platform;
- 			flow.steps		= req.body.steps;
+// 			// all this is deeply questionable.
+// 			session.flow.name 		= req.body.name; // update the flow name
+//  			session.flow.link 		= req.body.link;
+//  			session.flow.desc		= req.body.desc;
+//  			session.flow.platform   = req.body.platform;
+//  			session.flow.steps		= req.body.steps;
 
-			// save the flow - the dates are set in the schema, not here.
-			flow.save(function(err) {
-				if (err)
-					res.send(err);
+// 			// save the flow - the dates are set in the schema, not here.
+// 			session.save(function(err) {
+// 				if (err)
+// 					res.send(err);
 
-				res.json({ message: 'Flow updated!' });
-			});
+// 				res.json({ message: 'Session updated!' });
+// 			});
 
-		});
-	})
-	.delete(function(req, res) {
-		Flow.remove({
-			_id: req.params._id
-		}, function(err, flow) {
-			if (err)
-				res.send(err);
+// 		});
+// 	})
+// 	.delete(function(req, res) {
+// 		Session.remove({
+// 			_id: req.params._id
+// 		}, function(err, session) {
+// 			if (err)
+// 				res.send(err);
 
-			res.json({ message: 'Successfully deleted' });
-		});
-	});
+// 			res.json({ message: 'Successfully deleted' });
+// 		});
+// 	});
 
 	// frontend routes =========================================================
 	// route to handle all angular requests

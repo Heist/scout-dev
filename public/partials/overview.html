@@ -24,7 +24,7 @@
 	
 	
 	<div id="header-nav">
-		<a href="#"><button class="button small" ng-click="add(session)">+ New session</button></a>
+		<a href="#"><button class="button small" ng-click="addSession(session)">+ New session</button></a>
 	</div>
 
 </div>
@@ -36,12 +36,12 @@
 <!-- view sessions -->
 
 <!-- session block -->
-
-<div class="grid pad-bottom session" ng-model="flows" >	
+<div ng-model="sessions" ng-repeat="session in sessions">
+<div class="grid pad-bottom session">	
 
 	<div class="module full session-meta">
 		
-		<div class="session-name"><h4>New Session</h4></div>
+		<div class="session-name"><h4>{{session.name}}</h4></div>
 		<div class="session-controls">
 			<button class="button small">Run</button>
 			<button class="button small">Summarize</button>
@@ -51,7 +51,7 @@
 		<div class="clear"></div>
 	</div>	
 		
-						
+<div ng-model="flow in session.flows">						
 	<div class="module quarter" ng-repeat="flow in flows">
 		<div class="session-flow">
 			<small>Flow</small>
@@ -65,12 +65,12 @@
 			<div class="session-flow-controls">
 				<button class="button small">Summary</button>
 				<button class="button small secondary">Edit</button>
-				<button class="button small destructive" ng-click='remove(flow)'>&times;</button>
+				<button class="button small destructive" ng-click='removeFlow(flow)'>&times;</button>
 			</div>
 			
 		</div>
 	</div>
-	
+</div>	
 	
 	<div class="module quarter" >
 		<div class="session-flow empty">
@@ -80,6 +80,7 @@
 							
 
 	
+</div>
 </div>
 <!-- / session block -->
 

@@ -78,4 +78,4 @@ FlowSchema.pre('save', function(next){
 });
 
 
-module.exports = mongoose.model('Flow', FlowSchema);
+module.exports = mongoose.model('Session', SessionSchema);
