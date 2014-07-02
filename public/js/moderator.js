@@ -56,6 +56,23 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		.error(function(data) {
 			console.log('Error: ' + data);
 		});
+
+	$scope.remove = function(flow){		
+    	var index = $scope.flows.indexOf(flow);
+    	var url = '/api/'+$scope.flows[index]._id;
+    	console.log(url);
+
+  		$scope.flows.splice(index, 1);
+
+  		$http.delete(url)
+  			.success(function(data){
+  				console.log(url ,'deleted')
+  			})
+  			.error(function(data){
+  				console.log('Error: ' + data);
+  			})
+    }
+
 	
 }])
 
@@ -72,7 +89,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$scope.selected = $scope.steps[0];
 
 	$scope.flow = {}; // this is wholly structured on the front end, which is weird.
-	$scope.flow.plat = 'mobile';
 	$scope.flow.steps = $scope.steps;
 
 	$scope.add = function(step) {    

@@ -37,7 +37,7 @@
 
 <!-- session block -->
 
-<div class="grid pad-bottom session" >	
+<div class="grid pad-bottom session" ng-model="flows" >	
 
 	<div class="module full session-meta">
 		
@@ -52,34 +52,25 @@
 	</div>	
 		
 						
-	<div class="module quarter">
+	<div class="module quarter" ng-repeat="flow in flows">
 		<div class="session-flow">
 			<small>Flow</small>
-			<h3>testing</h3>
+			<h3>{{flow.name}}</h3>
 			<ul class="nobullets">
 				<li><a href="{{flow.link}}" ><img src="../assets/platform-icons/{{flow.platform}}.svg"/> Prototype</a></li>
-				<li>5 participants</li>
-				<li>Last run {{flow.active|date:'MMM d yyyy'}}</li> 
+				<li>{{flow.users}} participants</li>
+				<li>Last run {{ flow.active|date:'MMM d yyyy' }}</li> 
 			</ul>
 			
 			<div class="session-flow-controls">
 				<button class="button small">Summary</button>
 				<button class="button small secondary">Edit</button>
-				<button class="button small destructive">&times;</button>
+				<button class="button small destructive" ng-click='remove(flow)'>&times;</button>
 			</div>
 			
 		</div>
 	</div>
 	
-	
-	<div class="module quarter">
-	<ul ng-model="flows">
-		<li ng-repeat='flow in flows'>
-			{{flow.name}}
-		</li>
-	</ul>
-	</div>
-
 	
 	<div class="module quarter" >
 		<div class="session-flow empty">
