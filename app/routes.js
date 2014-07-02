@@ -62,10 +62,13 @@ router.route('/:_id')
 
 			if (err)
 				res.send(err);
+			
+			flow.name 		= req.body.name; // update the flow name
+ 			flow.link 		= req.body.link;
+ 			flow.desc		= req.body.desc;
+ 			flow.platform   = req.body.platform;
 
-			flow.name = req.body.name; 	// update the bears info
-
-			// save the bear
+			// save the flow - the dates are set in the schema, not here.
 			flow.save(function(err) {
 				if (err)
 					res.send(err);

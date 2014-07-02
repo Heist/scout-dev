@@ -22,8 +22,23 @@ var FlowSchema = new Schema({
 			type: String, 
 			trim: true, 
 			default: 'mobile'
+		},
+		created: {
+			type: Date
+		},
+		updated: {
+			type: Date
 		}
 	});
+
+FlowSchema.pre('save', function(next){
+  now = new Date();
+  this.updated = now;
+  if ( !this.created ) {
+    this.created = now;
+  }
+  next();
+});
 
 // var StepSchema = new Schema ({
 // 	title: {
