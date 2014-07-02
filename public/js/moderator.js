@@ -76,9 +76,24 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         session.editing ='false';
         $scope.editedTitle = null;
         
+        // var index = $scope.session.flows.indexOf(flow);
+        var url = '/api/'+session._id;
+        
+        console.log(session.name);
+
         if (!session.name) {
             session.name = 'New Session';
-        }      
+        }
+
+        var dataOut = {name:session.name};
+
+        $http.put(url, dataOut)
+                .success(function(data){
+                    console.log('success: ', data);
+                })
+                .error(function(data){
+                    console.log('Error: ' + data);
+                })
     }
 
 	$scope.removeFlow = function(flow){ // this should be abstracted for flows and sessions
@@ -114,6 +129,19 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     $scope.removeSession = function(session){
+        var index = $scope.sessions.indexOf(session);
+        $scope.sessions.splice(index, 1);
+
+        var url = '/api/'+$scope.sessions[index]._id;
+        console.log(url);
+
+        $http.delete(url)
+            .success(function(data){
+                console.log(url ,'deleted')
+            })
+            .error(function(data){
+                console.log('Error: ' + data);
+            })
     }
 	
 }])

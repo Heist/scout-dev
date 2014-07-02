@@ -43,50 +43,51 @@ router.route('/')
 			});
 		});
 
-// // /:_id routes
-// router.route('/:_id')
-// 	.get(function(req,res) {
-// 			Session.findById(req.params._id, function(err, session) {
-// 				if (err)
-// 					res.send(err);
-// 				res.json(session);
-// 			});
-// 		})
-// 	.put(function(req, res) {
+// /:_id routes
+router.route('/:_id')
+	.get(function(req,res) {
+			Session.findById(req.params._id, function(err, session) {
+				if (err)
+					res.send(err);
+				res.json(session);
+			});
+		})
+	.put(function(req, res) {
 
-// 		// use our bear model to find the bear we want
-// 		Session.findById(req.params._id, function(err, session) {
+		// use our bear model to find the bear we want
+		Session.findById(req.params._id, function(err, session) {
 
-// 			if (err)
-// 				res.send(err);
+			if (err)
+				res.send(err);
 			
-// 			// all this is deeply questionable.
-// 			session.flow.name 		= req.body.name; // update the flow name
-//  			session.flow.link 		= req.body.link;
-//  			session.flow.desc		= req.body.desc;
-//  			session.flow.platform   = req.body.platform;
-//  			session.flow.steps		= req.body.steps;
+			// all this is deeply questionable. maybe too much data for each put?
+			session.name			= req.body.name;
+		//  session.flow.name 		= req.body.flow.name; // update the flow name
+ 		// 	session.flow.link 		= req.body.flow.link;
+ 		// 	session.flow.desc		= req.body.flow.desc;
+ 		// 	session.flow.platform   = req.body.flow.platform;
+ 		// 	session.flow.steps		= req.body.flow.steps;
 
-// 			// save the flow - the dates are set in the schema, not here.
-// 			session.save(function(err) {
-// 				if (err)
-// 					res.send(err);
+			// save the flow - the dates are set in the schema, not here.
+			session.save(function(err) {
+				if (err)
+					res.send(err);
 
-// 				res.json({ message: 'Session updated!' });
-// 			});
+				res.json({ message: session.name });
+			});
 
-// 		});
-// 	})
-// 	.delete(function(req, res) {
-// 		Session.remove({
-// 			_id: req.params._id
-// 		}, function(err, session) {
-// 			if (err)
-// 				res.send(err);
+		});
+	})
+	.delete(function(req, res) {
+		Session.remove({
+			_id: req.params._id
+		}, function(err, session) {
+			if (err)
+				res.send(err);
 
-// 			res.json({ message: 'Successfully deleted' });
-// 		});
-// 	});
+			res.json({ message: 'Successfully deleted' });
+		});
+	});
 
 	// frontend routes =========================================================
 	// route to handle all angular requests
