@@ -74,7 +74,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		var id_maker = Math.floor((Math.random() * 10000) + 1);    
         $scope.step = {
         		title	: 'edit me',
-        		desc	: "These are the questions you'll be asking the participants during testing",        		
+        		desc	: '',        		
         		title_edit : false,
         		edit	: false
         	};

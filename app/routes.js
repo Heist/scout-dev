@@ -33,7 +33,7 @@ router.route('/')
  			flow.name 		= req.body.name;
  			flow.link 		= req.body.link;
  			flow.desc		= req.body.desc;
- 			flow.platform    = req.body.platform;
+ 			flow.platform   = req.body.platform;
  			flow.steps		= req.body.steps;
 
 			console.log(req.body);      // your JSON
