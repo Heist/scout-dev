@@ -66,13 +66,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$scope.steps = []; // hmm-mm.
 	$scope.selected = $scope.steps[0];
 
-	$scope.flow = {
-		name : '',
-		link : '',
-		desc : '',
-		platform : ''
-		// steps : $scope.fsteps
-	}; // eventually we want to post this object to the db
+	$scope.flow = {}; // this is wholly structured on the front end, which is weird.
 	
 	$scope.add = function(step) {    
 		var id_maker = Math.floor((Math.random() * 10000) + 1);    

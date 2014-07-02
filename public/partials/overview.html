@@ -24,7 +24,7 @@
 	
 	
 	<div id="header-nav">
-		<a href="#"><button class="button small">+ New session</button></a>
+		<a href="#"><button class="button small" ng-click="add(session)">+ New session</button></a>
 	</div>
 
 </div>
@@ -36,17 +36,20 @@
 <!-- view sessions -->
 
 <!-- session block -->
-<div class="grid pad-bottom session">
+<div ng-model="sessions">
+
+
+<div class="grid pad-bottom session" ng-repeat="session in sessions">
 
 
 	<div class="module full session-meta">
 		
-		<div class="session-name"><h4>Account Upgrade</h4></div>
+		<div class="session-name"><h4>{{session.name}}</h4></div>
 		<div class="session-controls">
-			<button class="button small">Run</button>
-			<button class="button small">Summarize</button>
-			<button class="button small secondary">Edit</button>
-			<button class="button small destructive">&times;</button>
+			<button class="button small" ng-click=''>Run</button>
+			<button class="button small" ng-click=''>Summarize</button>
+			<button class="button small secondary" ng-click='editSession(session)'>Edit</button>
+			<button class="button small destructive" ng-click='deleteSession(session)'>&times;</button>
 		</div>
 		<div class="clear"></div>
 	</div>	
@@ -55,11 +58,11 @@
 	<div class="module quarter">
 		<div class="session-flow">
 			<small>Flow</small>
-			<h3>Choose a new package</h3>
+			<h3>{{flow.name}}</h3>
 			<ul class="nobullets">
-				<li><a href="#"><img src="../assets/platform-icons/tablet.svg"/> Prototype</a></li>
+				<li><a href="{{flow.link}}" ><img src="../assets/platform-icons/{{flow.platform}}.svg"/> Prototype</a></li>
 				<li>5 participants</li>
-				<li>Last run June 8 2014</li>
+				<li>Last run June 8 2014</li> 
 			</ul>
 			
 			<div class="session-flow-controls">
@@ -100,6 +103,7 @@
 							
 
 	
+</div>
 </div>
 <!-- / session block -->
 
