@@ -55,8 +55,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$http.get('/api/')
 		.success(function(data) {
 			// flows is *all* flows
-			$scope.flows = data;
-			console.log($scope.flows);
+			$scope.sessions = data;
+			console.log($scope.sessions);
 		})
 		.error(function(data) {
 			console.log('Error: ' + data);
@@ -98,84 +98,84 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 // aside from managing steps, on open, this scope should fetch the flow created in overview
 // and pass it as the container for the current steps
 
-// .controller('addFlow', ['$scope','$http', function($scope, $http){
-// 	// $steps.controller needs to know the index of the selected item
-// 	// selected $index
-// 	// ng-show when steps.edit$index is selected
-// 	// step 3 is selected.$index.step.desc
+.controller('addFlow', ['$scope','$http', function($scope, $http){
+	// $steps.controller needs to know the index of the selected item
+	// selected $index
+	// ng-show when steps.edit$index is selected
+	// step 3 is selected.$index.step.desc
 
-// 	$scope.steps = []; // hmm-mm.
-// 	$scope.selected = $scope.steps[0];
+	$scope.steps = []; // hmm-mm.
+	$scope.selected = $scope.steps[0];
 
-// 	$scope.flow = {}; // this is wholly structured on the front end, which is weird.
-// 	$scope.flow.steps = $scope.steps;
+	$scope.flow = {}; // this is wholly structured on the front end, which is weird.
+	$scope.flow.steps = $scope.steps;
 
-// 	$scope.add = function(step) {    
-// 		var id_maker = Math.floor((Math.random() * 10000) + 1);    
-//         $scope.step = {
-//         		title	: 'edit me',
-//         		desc	: '',        		
-//         		title_edit : false,
-//         		edit	: false
-//         	};
-// 	    $scope.steps.push($scope.step);  
+	$scope.add = function(step) {    
+		var id_maker = Math.floor((Math.random() * 10000) + 1);    
+        $scope.step = {
+        		title	: 'edit me',
+        		desc	: '',        		
+        		title_edit : false,
+        		edit	: false
+        	};
+	    $scope.steps.push($scope.step);  
 
-// 	    console.log($scope.steps);
-//         console.log($scope.flow);   
-//     }
+	    console.log($scope.steps);
+        console.log($scope.flow);   
+    }
 
-//     $scope.removeStep = function(step){
-//     	step.edit=false;
-//     	step.title_edit=false;
-//     	var index = $scope.steps.indexOf(step)
-//   		$scope.steps.splice(index, 1);   
-//     }
+    $scope.removeStep = function(step){
+    	step.edit=false;
+    	step.title_edit=false;
+    	var index = $scope.steps.indexOf(step)
+  		$scope.steps.splice(index, 1);   
+    }
 
-// 	$scope.editTitle = function (step){
-// 		// edit the title box for a step
-// 		console.log('focused on editing title ',step);
-// 		step.title_edit = true;
+	$scope.editTitle = function (step){
+		// edit the title box for a step
+		console.log('focused on editing title ',step);
+		step.title_edit = true;
 
-// 		$scope.editedStep = step;
-// 		// Clone the original item to restore it on demand.
-// 		$scope.originalStep = angular.extend({}, step);		
-// 	}
+		$scope.editedStep = step;
+		// Clone the original item to restore it on demand.
+		$scope.originalStep = angular.extend({}, step);		
+	}
 
-// 	$scope.blurTitle = function (step){
-// 		// on losing the focus, save the name of the step
-// 		step.title_edit = false;
+	$scope.blurTitle = function (step){
+		// on losing the focus, save the name of the step
+		step.title_edit = false;
 
-// 		console.log('blur ',step);
-// 		$scope.editedStep = null;
+		console.log('blur ',step);
+		$scope.editedStep = null;
 		
-// 		step.title = step.title.trim();
+		step.title = step.title.trim();
 
-// 		if (!step.title) {
-// 			$scope.removeStep(step);
-// 		}	
-// 	}
+		if (!step.title) {
+			$scope.removeStep(step);
+		}	
+	}
 
-// 	$scope.revertEditing = function (step) {
-// 		// on escape, revert editing
-// 		steps[steps.indexOf(step)] = $scope.originalStep;
-// 		$scope.doneEditing($scope.originalStep);
-// 	};
+	$scope.revertEditing = function (step) {
+		// on escape, revert editing
+		steps[steps.indexOf(step)] = $scope.originalStep;
+		$scope.doneEditing($scope.originalStep);
+	};
 
-//     $scope.select= function(step) {
-//        $scope.selected = step; 
-//     };
+    $scope.select= function(step) {
+       $scope.selected = step; 
+    };
     
-//     $scope.isActive = function(step) {
-//        return $scope.selected === step;
-//     };
+    $scope.isActive = function(step) {
+       return $scope.selected === step;
+    };
 
-//     $scope.addAFlow = function(){
-//     	console.log('current flow', $scope.flow);
-// 		$http
-// 	 		.post('/api', $scope.flow)
-// 			.success(function(dataIn){
-// 				console.log(dataIn);
-//  			});
-// 	};
-// }])
+    $scope.addAFlow = function(){
+    	console.log('current flow', $scope.flow);
+		$http
+	 		.post('/api', $scope.flow)
+			.success(function(dataIn){
+				console.log(dataIn);
+ 			});
+	};
+}])
 ;
