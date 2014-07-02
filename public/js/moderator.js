@@ -62,12 +62,37 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 			console.log('Error: ' + data);
 		});
 
-	$scope.removeFlow = function(flow){ // this should be abstracted for flows and sessions
-    	var index = $scope.flows.indexOf(flow);
-    	var url = '/api/'+$scope.flows[index]._id;
-    	console.log(url);
+    $scope.editTitle = function(textfield){
+        textfield.editing = 'true';      
+        console.log(textfield.editing);
 
-  		$scope.flows.splice(index, 1);
+        
+        // Clone the original item to restore it on demand.
+        // $scope.originalTitle = angular.extend({}, session);
+    }
+
+
+    $scope.blurTitle= function(session){
+        session.editing ='false';
+        $scope.editedTitle = null;
+        
+        if (!session.name) {
+            session.name = 'New Session';
+        }      
+    }
+
+	$scope.removeFlow = function(flow){ // this should be abstracted for flows and sessions
+        // abstraction pseudocode
+        // get index of flow to be removed
+        // remove flow from screen
+        // remove flow from flows array
+        // put change to $scope.session into db
+
+    	var index = $scope.session.flows.indexOf(flow);
+    	$scope.session.flows.splice(index, 1);
+
+        var url = '/api/'+$scope.flows[index]._id;
+        console.log(url);
 
   		$http.delete(url)
   			.success(function(data){
@@ -89,9 +114,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     $scope.removeSession = function(session){
-
     }
-
 	
 }])
 
@@ -138,7 +161,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 		$scope.editedStep = step;
 		// Clone the original item to restore it on demand.
-		$scope.originalStep = angular.extend({}, step);		
+		$scope.originalStep = angular.extend({}, step);
 	}
 
 	$scope.blurTitle = function (step){
