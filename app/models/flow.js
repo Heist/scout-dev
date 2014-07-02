@@ -43,14 +43,6 @@ var StepSchema = new Schema ({
 		}
 })
 
-var Step = mongoose.model('Step', StepSchema);
-
-model['Step'] = Step;
-
-var Flow = mongoose.model('Flow',FlowSchema);
-
-model['Flow'] = Flow;
-
 
 FlowSchema.pre('save', function(next){
   now = new Date();
