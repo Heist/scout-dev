@@ -47,8 +47,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 .controller('overview', ['$scope','$http', function($scope, $http){
 	// set up controller-wide variables
-	// $scope.sessions = {};
-	// $scope.sessions.flows = $scope.flows;
+	$scope.sessions = {};
+	$scope.sessions.flows = $scope.flows;
 
 
 	// get all sessions and their flows	
@@ -119,11 +119,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     $scope.addSession = function(session){
-        var dataOut = {name:'New Session'}
+        var dataOut = {name:'New Session'}        
 
     	$http.post('/api/', dataOut)   
-    		.success(function(data){
-        		$scope.sessions = data;
+    		.success(function(data){        		
+                $scope.sessions.push(data);
                 console.log(data)
     		})
     		.error(function(data){
