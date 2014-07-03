@@ -48,7 +48,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 .controller('overview', ['$scope','$http', function($scope, $http){
 	// set up controller-wide variables
 	$scope.sessions = {};
-	$scope.sessions.flows = $scope.flows;
 
 
 	// get all sessions and their flows	
@@ -96,26 +95,27 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 })
     }
 
-	$scope.removeFlow = function(flow){ // this should be abstracted for flows and sessions
+	$scope.removeFlow = function(session, flow){ 
+        // this should be abstracted for flows and sessions
         // abstraction pseudocode
         // get index of flow to be removed
         // remove flow from screen
         // remove flow from flows array
         // put change to $scope.session into db
+        
+        console.log($scope.sessions[session].flows[flow]);
+        // console.log(flows);
+        $scope.sessions[session].flows.splice(flow, 1);
 
-    	var index = $scope.session.flows.indexOf(flow);
-    	$scope.session.flows.splice(index, 1);
+    	// $scope.session.flows.splice(index, 1);
 
-        var url = '/api/'+$scope.flows[index]._id;
-        console.log(url);
-
-  		$http.delete(url)
-  			.success(function(data){
-  				console.log(url ,'deleted')
-  			})
-  			.error(function(data){
-  				console.log('Error: ' + data);
-  			})
+  		// $http.delete(url)
+  		// 	.success(function(data){
+  		// 		console.log(url ,'deleted')
+  		// 	})
+  		// 	.error(function(data){
+  		// 		console.log('Error: ' + data);
+  		// 	})
     }
 
     $scope.addSession = function(session){
