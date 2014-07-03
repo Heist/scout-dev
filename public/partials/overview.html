@@ -56,7 +56,7 @@
 		</div>	
 	
 							
-		<div class="module quarter"  ng-repeat="flow in session.flows">
+		<div class="module quarter"  ng-repeat="flow in session.flows track by $index">
 			<div class="session-flow">
 				<small>Flow</small>
 				<h3>{{flow.title}}</h3>

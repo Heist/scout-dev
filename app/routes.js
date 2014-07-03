@@ -60,14 +60,17 @@ router.route('/:_id')
 			if (err)
 				res.send(err);
 			
-			res.send(req.body);
 			console.log((util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
 
 			// in here somewhere, sessions should update by overwriting itself with new values on front end.
+			session.name = req.body.name;
+			session.flows = req.body.flows;
+			
 
-			  	
-			session.flows.push(req.body.flow); // but how to handle updates?
-		
+			if (req.body.flow){
+				session.flows.push(req.body.flow); // but how to handle updates?
+			}
+
 			// save the flow - the dates are set in the schema, not here.
 			session.save(function(err) {
 				if (err)
