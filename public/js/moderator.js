@@ -153,13 +153,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 // and pass it as the container for the current steps
 
 // $scope, $http, $stateParams, $state
-// using ui-router, the above should be used to access angular_route/add?session_id=
+// using ui-router, the above should be used to access angular_route/add?sessionId=
 
-.controller('addFlow', ['$scope','$http', function($scope, $http){
+.controller('addFlow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
 	// $steps.controller needs to know the index of the selected item
 	// selected $index
 	// ng-show when steps.edit$index is selected
-	// step 3 is selected.$index.step.desc
+	// step 3 is selected.$index.step.desc   
 
 	$scope.steps = []; // hmm-mm.
 	$scope.selected = $scope.steps[0];
@@ -223,12 +223,24 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     };
 
     $scope.addAFlow = function(){
-    	console.log('current flow', $scope.flow);
+        var postURL = '/api/'+$stateParams.sessionId;
+
+        if (!$scope.flow.name){
+            $scope.flow.name = 'New Flow Name Goes Here';
+        }
+
+        console.log('current flow', $scope.flow);
+        console.log($stateParams.sessionId);
+
 		$http
-	 		.post('/api', $scope.flow)
-			.success(function(dataIn){
-				console.log(dataIn);
- 			});
+	 		.put(postURL, $scope.flow)
+			.success(function(data){
+				console.log(data);
+ 			})
+            .error(function(data){
+                console.log(data)
+            })
+            ;
 	};
 }])
 ;
