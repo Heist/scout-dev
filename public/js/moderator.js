@@ -50,9 +50,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         })
 
         $scope.selectedIndex = 0;
+        $scope.parentIndex = 0;
 
-        $scope.activate = function ($index) {
-            $scope.selectedIndex = $index;
+        $scope.activate = function (index, parentIndex) {
+            $scope.selectedIndex = index;
+            $scope.parentIndex = parentIndex;
         };
 }])
 
