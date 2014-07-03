@@ -34,19 +34,29 @@
 	<div id="left-pane">
 		
 		<div id="questions">
-			
-			<div class="questions-group active">
+			<ul>
+				<li ng-repeat="flow in flows">
+					{{flow.title}}
+					
+						<span ng-repeat="step in flow.steps">
+							{{step.title}}
+							{{step.desc}}
+						</span>
+					
+				</li>
+			</ul>
+
+
+
+			<div class="questions-group active" ng-repeat="flow in flows">
 				<small>Flow</small>
-				<h3>User Account Change</h3>
+				<h3>{{flow.title}}</h3>
 				<ul>
-					<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non gravida mauris.</li>
-					<li>Log into your account</li>
 					<li class="active">
 						<h3>Check your account</h3>
 						Questions questions Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu sapien rutrum, posuere velit in, pharetra velit. Phasellus sed pulvinar magna, at vulputate libero. Donec consequat, erat id egestas tempor, augue elit ullamcorper enim, at faucibus nunc libero et tortor.
 						<div class="selected-arrow">&#9654;</div>
 					</li>
-					<li>Etiam erat sem, pulvinar non dui eu, convallis aliquam nunc.</li>
 				</ul>
 			</div>
 			

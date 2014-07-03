@@ -23,11 +23,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             templateUrl: 'partials/flow.html'
             // we'll get to this in a bit       
         })
-        .state('session', {
-        	url: '/session',
-            templateUrl: 'partials/session.html'
-            // we'll get to this in a bit       
-        })
         .state('run', {
         	url: '/run/:sessionId',
             templateUrl: 'partials/run.html'
@@ -38,15 +33,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 })
 
 .controller('sendFlow', ['$scope','$http', function($scope, $http){
-	$http.get('/api/')
-		.success(function(data){
-			$scope.flows = data;
-		})
+	
 }])
 
 
 .controller('runSession', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
+    // set up controller-wide variables
+    $scope.session = {};
+    $scope.flows = {};
 
+    $http.get('/api/'+$stateParams.sessionId)
+        .success(function(data){
+            $scope.session = data;
+            $scope.flows = $scope.session.flows;
+            console.log($scope.flows);
+        })
 
 }])
 
