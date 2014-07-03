@@ -18,9 +18,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         })
         
         // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
-        .state('add', {
-        	url: '/add/:sessionId',
-            templateUrl: 'partials/add.html'
+        .state('flow', {
+        	url: '/flow/:sessionId',
+            templateUrl: 'partials/flow.html'
             // we'll get to this in a bit       
         })
         .state('session', {
