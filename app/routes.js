@@ -33,7 +33,7 @@ router.route('/')
  			session.name = 'New Session'; 			
 
 			console.log(req.body);      // your JSON
-  			res.send(req.body);    		// echo the result back
+  			res.send(req.body);   		// echo the result back
 			 			
  			session.save(function(err) {
 				if (err)
@@ -60,18 +60,13 @@ router.route('/:_id')
 			if (err)
 				res.send(err);
 			
+			res.send(req.body);
 			console.log((util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
-  			// res.send(req.body);    		// echo the result back
 
-			// all this is deeply questionable. maybe too much data for each put?
-				
-			// session = req.body;
-			
+			// in here somewhere, sessions should update by overwriting itself with new values on front end.
 
-			// this should batch-push flows into the main file
-			// console.log(req.body.flow);
-			
-			// session.flows.push(req.body.flow); // but how to handle updates?
+			  	
+			session.flows.push(req.body.flow); // but how to handle updates?
 		
 			// save the flow - the dates are set in the schema, not here.
 			session.save(function(err) {
