@@ -62,13 +62,13 @@
 				<h3>{{flow.title}}</h3>
 				<ul class="nobullets">
 					<li><a href="#"><img src="../assets/platform-icons/tablet.svg"/> Prototype</a></li>
-					<li>5 participants</li>
+					<li>{{flow.steps.length }} steps</li>
 					<li>Last run June 8 2014</li>
 				</ul>
 				
 				<div class="session-flow-controls">
 					<button class="button small">Summary</button>
-					<button class="button small secondary">Edit</button>
+					<button class="button small secondary" ng-click="editFlow(flow)">Edit</button>
 					<button class="button small destructive" ng-click="removeFlow($parent.$index, $index)">&times;</button>
 				</div>
 				
