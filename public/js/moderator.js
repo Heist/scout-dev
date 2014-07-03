@@ -49,6 +49,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             console.log($scope.flows);
         })
 
+        $scope.selectedIndex = 0;
+
+        $scope.activate = function ($index) {
+            $scope.selectedIndex = $index;
+        };
 }])
 
 
@@ -103,13 +108,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
 	$scope.removeFlow = function(session, flow){ 
-        // this should be abstracted for flows and sessions
-        // abstraction pseudocode
-        // get index of flow to be removed
-        // remove flow from screen
-        // remove flow from flows array
-        // put change to $scope.session into db
-        
         
         $scope.sessions[session].flows.splice(flow, 1);
 
@@ -221,7 +219,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	};
 
     $scope.select= function(step) {
-       $scope.selected = step; 
+       $scope.selected = step;
     };
     
     $scope.isActive = function(step) {
