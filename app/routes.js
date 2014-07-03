@@ -1,7 +1,7 @@
 // routes.js
-
 var express = require('express');
 var router = express.Router();  // get an instance of the express Router
+var util = require('util');
 
 // load models for routes
 var Session = require('./models/session');
@@ -33,7 +33,7 @@ router.route('/')
  			session.name = 'New Session'; 			
 
 			console.log(req.body);      // your JSON
-  			res.send(req.body);    // echo the result back
+  			res.send(req.body);    		// echo the result back
 			 			
  			session.save(function(err) {
 				if (err)
@@ -54,24 +54,31 @@ router.route('/:_id')
 		})
 	.put(function(req, res) {
 
-		// use our bear model to find the bear we want
+		// use our model to find the item we want
 		Session.findById(req.params._id, function(err, session) {
 
 			if (err)
 				res.send(err);
 			
+			console.log((util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
+  			// res.send(req.body);    		// echo the result back
+
 			// all this is deeply questionable. maybe too much data for each put?
-				// session.name = req.body.name;
+				
+			// session = req.body;
+			
+
 			// this should batch-push flows into the main file
-			console.log(req.body.flow);
-				session.flows.push(req.body.flow);
+			// console.log(req.body.flow);
+			
+			// session.flows.push(req.body.flow); // but how to handle updates?
 		
 			// save the flow - the dates are set in the schema, not here.
 			session.save(function(err) {
 				if (err)
 					res.send(err);
 
-				res.json( req );
+				res.json( req.body );
 			});
 
 		});

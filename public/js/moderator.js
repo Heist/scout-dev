@@ -103,19 +103,19 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // remove flow from flows array
         // put change to $scope.session into db
         
-        console.log($scope.sessions[session].flows[flow]);
-        // console.log(flows);
+        
         $scope.sessions[session].flows.splice(flow, 1);
 
-    	// $scope.session.flows.splice(index, 1);
+        var url = '/api/'+$scope.sessions[session]._id;
+        var dataOut = $scope.sessions[session];
 
-  		// $http.delete(url)
-  		// 	.success(function(data){
-  		// 		console.log(url ,'deleted')
-  		// 	})
-  		// 	.error(function(data){
-  		// 		console.log('Error: ' + data);
-  		// 	})
+        $http.put(url,dataOut)
+  			.success(function(data){
+  				console.log(data)
+  			})
+  			.error(function(data){
+  				console.log('Error: ' + data);
+  			})
     }
 
     $scope.addSession = function(session){
@@ -136,7 +136,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $scope.sessions.splice(index, 1);
 
         var url = '/api/'+session._id;
-        console.log(url);
 
         $http.delete(url)
             .success(function(data){
@@ -223,10 +222,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     };
 
     $scope.addAFlow = function(){
-        // Post to this URL the entire data object from this controller
-        // maybe controller should be wrapped to sanitize it?
 
-        var postURL = '/api/'+$stateParams.sessionId;
+        // Put to this URL the entire data object from this controller
+        var putURL = '/api/'+$stateParams.sessionId;
 
         if (!$scope.flow.title){
             $scope.flow.title = 'New Flow Name Goes Here';
@@ -234,15 +232,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
         var wrapper = { 'flow': $scope.flow };
 
-        // put correctly outputs object
-        // on put to url from front screen
-        // brutal hack: change flow.title to flow.title?
-
-        console.log('current flow', wrapper);
-        console.log($stateParams.sessionId);
-
 		$http
-	 		.put(postURL, wrapper)
+	 		.put(putURL, wrapper)
 			.success(function(data){
 				console.log(data);
  			})
