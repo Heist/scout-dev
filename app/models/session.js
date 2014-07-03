@@ -18,7 +18,7 @@ var SessionSchema = new Schema ({
 })
 
 var FlowSchema = new Schema({
-		name 	: {
+		title 	: {
 			type: String, 
 			trim: true, 
 			default: 'my new flow name'

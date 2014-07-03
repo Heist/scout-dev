@@ -2,7 +2,7 @@
 	<div class="module quarter" ng-repeat="flow in flows">
 		<div class="session-flow">
 			<small>Flow</small>
-			<h3>{{flow.name}}</h3>
+			<h3>{{flow.title}}</h3>
 			<ul class="nobullets">
 				<li><a href="{{flow.link}}" ><img src="../assets/platform-icons/{{flow.platform}}.svg"/> Prototype</a></li>
 				<li>{{flow.users}} participants</li>

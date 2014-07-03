@@ -61,21 +61,17 @@ router.route('/:_id')
 				res.send(err);
 			
 			// all this is deeply questionable. maybe too much data for each put?
-			session.name			= req.body.name;
-		// // this should batch-push flows into the main file
-			// session.flows.push(req.body.)
-		//	session.flow.name 		= req.body.flow.name; // update the flow name
- 		//	session.flow.link 		= req.body.flow.link;
- 		//	session.flow.desc		= req.body.flow.desc;
- 		//	session.flow.platform   = req.body.flow.platform;
- 		//	session.flow.steps		= req.body.flow.steps;
-
+				// session.name = req.body.name;
+			// this should batch-push flows into the main file
+			console.log(req.body.flow);
+				session.flows.push(req.body.flow);
+		
 			// save the flow - the dates are set in the schema, not here.
 			session.save(function(err) {
 				if (err)
 					res.send(err);
 
-				res.json({ message: session.name });
+				res.json( req );
 			});
 
 		});

@@ -223,17 +223,26 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     };
 
     $scope.addAFlow = function(){
+        // Post to this URL the entire data object from this controller
+        // maybe controller should be wrapped to sanitize it?
+
         var postURL = '/api/'+$stateParams.sessionId;
 
-        if (!$scope.flow.name){
-            $scope.flow.name = 'New Flow Name Goes Here';
+        if (!$scope.flow.title){
+            $scope.flow.title = 'New Flow Name Goes Here';
         }
+        
+        var wrapper = { 'flow': $scope.flow };
 
-        console.log('current flow', $scope.flow);
+        // put correctly outputs object
+        // on put to url from front screen
+        // brutal hack: change flow.title to flow.title?
+
+        console.log('current flow', wrapper);
         console.log($stateParams.sessionId);
 
 		$http
-	 		.put(postURL, $scope.flow)
+	 		.put(postURL, wrapper)
 			.success(function(data){
 				console.log(data);
  			})
