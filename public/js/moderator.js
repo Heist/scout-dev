@@ -19,7 +19,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
         // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
         .state('add', {
-        	url: '/add',
+        	url: '/add/:sessionId',
             templateUrl: 'partials/add.html'
             // we'll get to this in a bit       
         })
@@ -152,6 +152,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 // aside from managing steps, on open, this scope should fetch the flow created in overview
 // and pass it as the container for the current steps
 
+// $scope, $http, $stateParams, $state
+// using ui-router, the above should be used to access angular_route/add?session_id=
+
 .controller('addFlow', ['$scope','$http', function($scope, $http){
 	// $steps.controller needs to know the index of the selected item
 	// selected $index
@@ -164,8 +167,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$scope.flow = {}; // this is wholly structured on the front end, which is weird.
 	$scope.flow.steps = $scope.steps;
 
-	$scope.add = function(step) {    
-		var id_maker = Math.floor((Math.random() * 10000) + 1);    
+	$scope.add = function(step) {
         $scope.step = {
         		title	: 'edit me',
         		desc	: '',        		
@@ -173,16 +175,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         		edit	: false
         	};
 	    $scope.steps.push($scope.step);  
-
-	    console.log($scope.steps);
-        console.log($scope.flow);   
     }
 
     $scope.removeStep = function(step){
     	step.edit=false;
     	step.title_edit=false;
     	var index = $scope.steps.indexOf(step)
-  		$scope.steps.splice(index, 1);   
+  		$scope.steps.splice(index, 1);
     }
 
 	$scope.editTitle = function (step){
