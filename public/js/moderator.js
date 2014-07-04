@@ -42,6 +42,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.session = {};
     $scope.flows = {};
 
+    $scope.timeline = []; // holds all messages currently in flow
+
     $http.get('/api/'+$stateParams.sessionId)
         .success(function(data){
             $scope.session = data;
@@ -52,10 +54,32 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $scope.selectedIndex = 0;
         $scope.parentIndex = 0;
 
-        $scope.activate = function (index, parentIndex) {
+        $scope.activate = function (index, parentIndex, step) {
             $scope.selectedIndex = index;
             $scope.parentIndex = parentIndex;
+
+            console.log(step.title);
+            $scope.timeline.push({
+                'message' : {
+                    'body'   : 'message'
+                }
+            })
+
+            // write message to $scope.timeline
+            // on index = 0 or new parent index
+            // message is 
+            // starting flow
+            // next message posted is 
+            // starting step
+
         };
+
+        $scope.putMessage = function (post){
+            // write .put message to database
+            // send .put contents to $scope.timeline
+
+
+        }
 }])
 
 

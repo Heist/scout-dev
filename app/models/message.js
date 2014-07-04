@@ -1,8 +1,8 @@
-// chat.js
+// message.js
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var ChatSchema = new Schema({
+var MessageSchema = new Schema({
 		content 	: {
 			type: String, 
 			trim: true, 

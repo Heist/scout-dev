@@ -41,7 +41,7 @@
 				<ul>
 					<li ng-repeat="step in flow.steps" 
 						ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
-             			ng-click="activate($index, $parent.$index, step)">
+             			ng-click="activate($index, $parent.$index)">
 						<h3>{{step.title}}</h3>
 						<p>{{step.desc}}</p>
 					</li>
@@ -79,28 +79,28 @@ session.flow.steps
 clicking a step inserts a message into the flow but not into the database
 
 stepClick
-	-- easiest would be that timeline is array of messages
-	-- inserts into timeline
-	-- timeline is a temp variable array that stores current chat
-	-- timeline pulls from both $scope.session[session].flows[flow].steps[step].messages
+	-- easiest would be that stream is array of messages
+	-- inserts into stream
+	-- stream is a temp variable array that stores current chat
+	-- stream pulls from both $scope.session[session].flows[flow].steps[step].messages
 	-- AND stepClick assertion
-	-- timeline does not write back to DB
+	-- stream does not write back to DB
 	-- text box writes directly to DB
 
 writing a message puts the message into the DB and into the flow
 	-- inserts into database under 'steps'
-	-- inserts into timeline, but timeline does not write to DB
+	-- inserts into stream, but stream does not write to DB
 
 on click step
 ------ 
 
-ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepChange(whateverElementTriggersThis) }" ng-repeat="message in timeline"
+ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepChange(whateverElementTriggersThis) }" ng-repeat="message in stream"
 -->
 
 		<div id="timeline" >
-			<ul ng-model='timeline'>
+			<ul ng-model='stream'>
 						
-				<li class="message" ng-repeat="message in timeline">
+				<li class="message" >
 					<div class="message-user"> <!-- misleading, is JUST user images -->
 							<div class="message-details-avatar">
 								 <!-- {{message.avatar}} 
@@ -110,7 +110,14 @@ ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepC
 					</div>
 
 					<div class="message-body">
-						{{message.body}}
+						<!-- {{message.body}} -->
+						<!-- if this is a new session -->						
+						<strong>Starting Session</strong>
+						<!-- if this is a step change -->
+						<small>Starting flow</small><br><strong>&ldquo;User Account Change&rdquo;</strong>
+						<!-- normal  -->
+						<p>This is the body of this message but a longer one this time hello how are you <span class="tag">#quote</span></p>
+
 					</div>
 					
 					<div class="message-details"> <!-- should be message-details -->
@@ -131,8 +138,8 @@ ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepC
 	
 	<div id="right-pane">
 		
-		<div id="timeline-user">
-			<div class="timeline-user-avatar">
+		<div id="stream-user">
+			<div class="stream-user-avatar">
 				<img src="http://rdjpg.com/30/30">
 			</div>
 			
@@ -140,13 +147,13 @@ ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepC
 			
 		</div>
 		
-		<div id="timeline-device">
-			<div class="timeline-device-device">
-				<img src="../assets/device-timeline.jpg" />
+		<div id="stream-device">
+			<div class="stream-device-device">
+				<img src="../assets/device-stream.jpg" />
 			</div>
 		</div>
 		
-		<div id="timeline-timer">
+		<div id="stream-timer">
 			<h3>05:37</h3>
 		</div>
 			

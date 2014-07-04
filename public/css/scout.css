@@ -345,16 +345,16 @@ body { padding-top: 80px; }
 #timeline ul li { padding: 0; margin: 0; }
 #timeline ul .message { padding: 8px 0 0 16px; font-size: 14.4px; line-height: 19.2px; }
 #timeline ul .message.title, #timeline ul .message.status { padding: 10px 0 0 16px; }
-#timeline ul .message.title .message-details .message-details-avatar, #timeline ul .message.status .message-details .message-details-avatar { border: none; }
+#timeline ul .message.title .message-user .message-details-avatar, #timeline ul .message.status .message-user .message-details-avatar { border: none; }
 #timeline ul .message.title small, #timeline ul .message.status small { opacity: 0.5; }
 #timeline ul .message.status { border-top: 1px dashed #e8e5cc; margin: 10px 0 10px 0; }
 #timeline ul .message.title { border-top: 1px dashed #e8e5cc; margin: 10px 0 20px 0; }
 #timeline ul .message.username { border-top: 1px dashed #e8e5cc; margin: 10px 0 20px 0; padding: 10px 0 0 8.88889px; }
-#timeline ul .message.username .message-details .message-details-avatar { width: 45px; height: 45px; -moz-border-radius: 60px; -webkit-border-radius: 60px; border-radius: 60px; border: 4px solid #f8f7ef; }
+#timeline ul .message.username .message-user .message-details-avatar { width: 45px; height: 45px; -moz-border-radius: 60px; -webkit-border-radius: 60px; border-radius: 60px; border: 4px solid #f8f7ef; }
 #timeline ul .message.username .message-details .message-details-avatar img { width: 45px; height: auto; }
-#timeline ul .message .message-details { float: left; }
-#timeline ul .message .message-details .message-details-avatar { width: 30px; height: 30px; -moz-border-radius: 30px; -webkit-border-radius: 30px; border-radius: 30px; overflow: hidden; margin: 0 10px 0 0; border: 3px solid #f8f7ef; }
-#timeline ul .message .message-details .message-details-avatar img { width: 25px; height: auto; }
+#timeline ul .message .message-user { float: left; }
+#timeline ul .message .message-user .message-details-avatar { width: 30px; height: 30px; -moz-border-radius: 30px; -webkit-border-radius: 30px; border-radius: 30px; overflow: hidden; margin: 0 10px 0 0; border: 3px solid #f8f7ef; }
+#timeline ul .message .message-user .message-details-avatar img { width: 25px; height: auto; }
 #timeline ul .message .message-body { float: left; width: 80%; }
 #timeline ul .message .message-body p { margin-bottom: 0; }
 #timeline ul .message .message-body p .tag { padding: 0 3.33333px; }

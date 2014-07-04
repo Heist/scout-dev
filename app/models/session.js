@@ -56,6 +56,37 @@ var StepSchema = new Schema ({
 			type : String,
 			trim : true
 		}
+	messages: [MessageSchema]
+})
+
+var MessageSchema = new Schema({
+		content 	: {
+			type: String, 
+			trim: true
+		},
+		user	: {
+			type: String, 
+			trim: true, 
+			default: 'Moderator'
+		},
+		created: {
+			type: Date
+		},
+		updated: {
+			type: Date
+		},
+		fav: {
+		    type: Boolean,
+		    default:  false
+		  }
+		tags:[TagSchema]
+	});
+
+var TagSchema = new Schema ({
+		content 	: {
+			type: String, 
+			trim: true
+		}
 })
 
 
@@ -69,6 +100,15 @@ SessionSchema.pre('save', function(next){
 });
 
 FlowSchema.pre('save', function(next){
+  now = new Date();
+  this.updated = now;
+  if ( !this.created ) {
+    this.created = now;
+  }
+  next();
+});
+
+MessageSchema.pre('save', function(next){
   now = new Date();
   this.updated = now;
   if ( !this.created ) {
