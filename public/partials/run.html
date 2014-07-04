@@ -70,7 +70,44 @@
 					<strong>Starting Session</strong>
 				</li>
 				
-				<li class="message title">
+<!-- 
+	middle panel
+	on click new flow, post flow name to messages
+	on click new step, post step to messages
+	on enter message, post to messages
+	on enter #xyz, app should note [#thing] and post to tags
+	url should have user name
+
+message feed is a document of all notes in play
+is it appended to step that is currently turned on?
+
+get all messages in session by flow and step
+put them into the flow 
+add new messages to current step in current flow.
+
+message structure should be formed on the back end by parsing the contents of 
+session.flow.steps
+
+clicking a step inserts a message into the flow but not into the database
+
+stepClick
+	-- easiest would be that stream is array of messages
+	-- inserts into stream
+	-- stream is a temp variable array that stores current chat
+	-- stream pulls from both $scope.session[session].flows[flow].steps[step].messages
+	-- AND stepClick assertion
+	-- stream does not write back to DB
+	-- text box writes directly to DB
+
+writing a message puts the message into the DB and into the flow
+	-- inserts into database under 'steps'
+	-- inserts into stream, but stream does not write to DB
+
+
+-->
+
+
+				<li class="message title"  ng-repeat="message in stream">
 					<div class="message-details">
 						<div class="message-details-avatar">
 							&nbsp;
