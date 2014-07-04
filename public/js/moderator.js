@@ -59,11 +59,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             $scope.parentIndex = parentIndex;
 
             console.log(step.title);
-            $scope.timeline.push({
-                'message' : {
-                    'body'   : 'message'
-                }
-            })
+            var message = step.title;
+
+            $scope.timeline.push(message)
 
             // write message to $scope.timeline
             // on index = 0 or new parent index

@@ -100,7 +100,7 @@ ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepC
 		<div id="timeline" >
 			<ul ng-model='timeline'>
 						
-				<li class="message" ng-repeat="message in timeline">
+				<li class="message" ng-repeat="message in timeline track by $index">
 					<div class="message-user"> <!-- misleading, is JUST user images -->
 							<div class="message-details-avatar">
 								 <!-- {{message.avatar}} 
@@ -110,6 +110,7 @@ ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepC
 					</div>
 
 					<div class="message-body">
+						{{message}}
 						{{message.body}}
 					</div>
 					
