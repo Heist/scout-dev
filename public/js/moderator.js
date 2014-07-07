@@ -212,22 +212,24 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 .put(putURL, wrapper)
                 .success(function(data){
                     console.log(data);
+                    
                 })
                 .error(function(data){
                     console.log(data)
                 })
                 ;
-            $http.get('/api/')
-        .success(function(data) {
-            // flows is *all* flows
-            $scope.sessions = data;
-            console.log($scope.sessions);
-        })
-        .error(function(data) {
-            console.log('Error: ' + data);
-        });
 
-        };
+            $http.get('/api/')
+            .success(function(data) {
+                // flows is *all* flows
+                $scope.sessions = data;
+                console.log($scope.sessions);
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+
+            };
 	
 }])
 

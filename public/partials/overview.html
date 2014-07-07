@@ -69,7 +69,7 @@
 				
 				<div class="session-flow-controls">
 					<button class="button small">Summary</button>
-					<button class="button small secondary" ng-click="editFlow(flow)">Edit</button>
+					<button class="button small secondary" ng-click="editFlow(flow)"><a href="/flow/{{session._id}}/{{flow._id}}">Edit</a></button>
 					<button class="button small destructive" ng-click="removeFlow($parent.$index, $index)">&times;</button>
 				</div>
 				
