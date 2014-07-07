@@ -249,21 +249,18 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // $scope.selected = $scope.steps[0];
 
      // this is wholly structured on the front end, which is weird.
-    $scope.session = {};
-    $scope.flow = [];
+    // $scope.flow = [];
     // $scope.flow.steps = $scope.steps;
 
     $http.get('/api/'+$stateParams.sessionId+'/'+$stateParams.flowId)
         .success(function(data) {
-            $scope.session = data;
-            console.log($scope.session.flows);
-            // $scope.session.flow = $scope.session.flows._id[$stateParams.flowId];
-
-            // console.log(data);
+            console.log(data);
+            $scope.flow = data;            
         })
         .error(function(data) {
             console.log('Error: ' + data);
         });
+
 
 	$scope.add = function(step) {
         $scope.step = {
