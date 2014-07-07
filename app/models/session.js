@@ -16,10 +16,6 @@ var StepSchema = new Schema ({
 })
 
 var FlowSchema = new Schema({
-		_id		: {
-			type: Schema.ObjectId,
-			
-		},
 		title 	: {
 			type: String, 
 			trim: true, 
