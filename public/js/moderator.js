@@ -212,7 +212,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 .put(putURL, wrapper)
                 .success(function(data){
                     console.log(data);
-                    
+
                 })
                 .error(function(data){
                     console.log(data)
@@ -245,11 +245,20 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	// ng-show when steps.edit$index is selected
 	// step 3 is selected.$index.step.desc   
 
-	$scope.steps = []; // hmm-mm.
-	$scope.selected = $scope.steps[0];
+    $scope.steps = []; // hmm-mm.
+    $scope.selected = $scope.steps[0];
 
-	$scope.flow = {}; // this is wholly structured on the front end, which is weird.
-	$scope.flow.steps = $scope.steps;
+    $scope.flow = {}; // this is wholly structured on the front end, which is weird.
+    $scope.flow.steps = $scope.steps;
+
+    $http.get('/api/'+$stateParams.sessionId+'/'+$stateParams.flowId)
+        .success(function(data) {
+            $scope.flow = data;
+            console.log(data);
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
 
 	$scope.add = function(step) {
         $scope.step = {
@@ -310,24 +319,24 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // Put to this URL the entire data object from this controller
         // technically this is created when we hit Add on prev. page
 
-  //       var putURL = '/api/'+$stateParams.sessionId+'/'+$stateParams.flowId;
+        var putURL = '/api/'+$stateParams.sessionId+'/'+$stateParams.flowId;
 
-  //       if (!$scope.flow.title){
-  //           $scope.flow.title = 'New Flow Name Goes Here';
-  //       }
+        if (!$scope.flow.title){
+            $scope.flow.title = 'New Flow Name Goes Here';
+        }
         
-  //       var wrapper = { 'flow': $scope.flow };
+        var wrapper = { 'flow': $scope.flow };
 
-  //       // reminder: this pushes an update to an already-created flow now
-		// $http
-	 // 		.put(putURL, wrapper)
-		// 	.success(function(data){
-		// 		console.log(data);
- 	// 		})
-  //           .error(function(data){
-  //               console.log(data)
-  //           })
-  //           ;
+        // reminder: this pushes an update to an already-created flow now
+		$http
+	 		.put(putURL, wrapper)
+			.success(function(data){
+				console.log(data);
+ 			})
+            .error(function(data){
+                console.log(data)
+            })
+            ;
 	};
 }])
 ;

@@ -44,9 +44,9 @@ router.route('/')
 		});
 
 // /:_id routes
-router.route('/:_id')
+router.route('/:sessionId')
 	.get(function(req,res) {
-			Session.findById(req.params._id, function(err, session) {
+			Session.findById(req.params.sessionId, function(err, session) {
 				if (err)
 					res.send(err);
 				res.json(session);
@@ -56,7 +56,7 @@ router.route('/:_id')
 	.put(function(req, res) {
 
 		// use our model to find the item we want
-		Session.findById(req.params._id, function(err, session) {
+		Session.findById(req.params.sessionId, function(err, session) {
 
 			if (err)
 				res.send(err);
@@ -99,6 +99,17 @@ router.route('/:_id')
 			res.json({ message: 'Successfully deleted' });
 		});
 	});
+
+router.route('/:sessionId/:flowId')
+	.get(function(req,res) {
+			Session.findById(req.params.sessionId, function(err, session) {
+				if (err)
+					res.send(err);
+				res.json(session);
+			});
+		});
+
+
 
 	// frontend routes =========================================================
 	// route to handle all angular requests
