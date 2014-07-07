@@ -104,17 +104,17 @@ router.route('/:sessionId/:flowId')
 		Session.findById(req.params.sessionId, function(err, session) {
 			if (err)
 				res.send(err);
-		res.json(session);
 		var flow = session.flows.id(req.params.flowId);
+		res.json(flow);		
 		console.log(flow);
 		});
 	})
 	// .put(function(req, res) {
-	// 	var doc = session.flow.id(flowId);
+		
 	// 	Session.findById(req.params.sessionId, function(err, session) {
 	// 		if (err)
 	// 			res.send(err);
-
+	// 		var flow = session.flows.id(req.params.flowId);
 	// 		console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON	
 
 	// 		session.save(function(err) {

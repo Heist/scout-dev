@@ -256,7 +256,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $http.get('/api/'+$stateParams.sessionId+'/'+$stateParams.flowId)
         .success(function(data) {
             $scope.session = data;
-            console.log($scope.session.flows[0]);
+            console.log($scope.session.flows);
             // $scope.session.flow = $scope.session.flows._id[$stateParams.flowId];
 
             // console.log(data);
