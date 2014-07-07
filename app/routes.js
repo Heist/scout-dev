@@ -75,7 +75,6 @@ router.route('/:sessionId')
 
 			if (req.body.flow){
 				var sub_doc = session.flows.create(req.body.flow);
-
 				session.flows.push(sub_doc); // adds to local session
 			}
 
@@ -102,12 +101,34 @@ router.route('/:sessionId')
 
 router.route('/:sessionId/:flowId')
 	.get(function(req,res) {
-			Session.findById(req.params.sessionId, function(err, session) {
-				if (err)
-					res.send(err);
-				res.json(session);
-			});
+		Session.findById(req.params.sessionId, function(err, session) {
+			if (err)
+				res.send(err);
+		res.json(session);
+		var flow = session.flows.id(req.params.flowId);
+		console.log(flow);
 		});
+	})
+	// .put(function(req, res) {
+	// 	var doc = session.flow.id(flowId);
+	// 	Session.findById(req.params.sessionId, function(err, session) {
+	// 		if (err)
+	// 			res.send(err);
+
+	// 		console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON	
+
+	// 		session.save(function(err) {
+	// 			if (err)
+	// 				res.send(err);
+
+	// 			res.json( req.body );
+	// 		});
+	// 	})
+		
+
+
+	// })
+	;
 
 
 

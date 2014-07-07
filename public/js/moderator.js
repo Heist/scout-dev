@@ -245,16 +245,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	// ng-show when steps.edit$index is selected
 	// step 3 is selected.$index.step.desc   
 
-    $scope.steps = []; // hmm-mm.
-    $scope.selected = $scope.steps[0];
+    // $scope.steps = []; // hmm-mm.
+    // $scope.selected = $scope.steps[0];
 
-    $scope.flow = {}; // this is wholly structured on the front end, which is weird.
-    $scope.flow.steps = $scope.steps;
+     // this is wholly structured on the front end, which is weird.
+    $scope.session = {};
+    $scope.flow = [];
+    // $scope.flow.steps = $scope.steps;
 
     $http.get('/api/'+$stateParams.sessionId+'/'+$stateParams.flowId)
         .success(function(data) {
-            $scope.flow = data;
-            console.log(data);
+            $scope.session = data;
+            console.log($scope.session.flows[0]);
+            // $scope.session.flow = $scope.session.flows._id[$stateParams.flowId];
+
+            // console.log(data);
         })
         .error(function(data) {
             console.log('Error: ' + data);
