@@ -19,7 +19,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
         // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
         .state('flow', {
-        	url: '/flow/:sessionId',
+        	url: '/flow/:sessionId/:flowId',
             templateUrl: 'partials/flow.html'
             // we'll get to this in a bit       
         })
@@ -150,6 +150,15 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
   			.error(function(data){
   				console.log('Error: ' + data);
   			})
+        $http.get('/api/')
+        .success(function(data) {
+            // flows is *all* flows
+            $scope.sessions = data;
+            console.log($scope.sessions);
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
     }
 
     $scope.addSession = function(session){
@@ -162,7 +171,16 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     		})
     		.error(function(data){
 
-    		})
+    		});
+        $http.get('/api/')
+        .success(function(data) {
+            // flows is *all* flows
+            $scope.sessions = data;
+            console.log($scope.sessions);
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
     }
 
     $scope.removeSession = function(session){
@@ -180,26 +198,36 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             })
     }
 
-      // $scope.addAFlow = function(session){
-      //       // this adds a flow to the session selectied
-      //       var putURL = '/api/'+session._id;
-      //       console.log(putURL);
+      $scope.addAFlow = function(session){
+            // this adds a flow to the session selectied
+            var putURL = '/api/'+session._id;
+            console.log(putURL);
 
-      //       $scope.flow = []
-      //       $scope.flow.title = 'New Flow Name Goes Here';
+            $scope.flow = []
+            $scope.flow.title = 'New Flow Name Goes Here';
 
-      //       var wrapper = { 'flow': $scope.flow };
+            var wrapper = { 'flow': $scope.flow };
 
-      //       $http
-      //           .put(putURL, wrapper)
-      //           .success(function(data){
-      //               console.log(data);
-      //           })
-      //           .error(function(data){
-      //               console.log(data)
-      //           })
-      //           ;
-      //   };
+            $http
+                .put(putURL, wrapper)
+                .success(function(data){
+                    console.log(data);
+                })
+                .error(function(data){
+                    console.log(data)
+                })
+                ;
+            $http.get('/api/')
+        .success(function(data) {
+            // flows is *all* flows
+            $scope.sessions = data;
+            console.log($scope.sessions);
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+
+        };
 	
 }])
 
@@ -280,24 +308,24 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // Put to this URL the entire data object from this controller
         // technically this is created when we hit Add on prev. page
 
-        var putURL = '/api/'+$stateParams.sessionId;
+  //       var putURL = '/api/'+$stateParams.sessionId+'/'+$stateParams.flowId;
 
-        if (!$scope.flow.title){
-            $scope.flow.title = 'New Flow Name Goes Here';
-        }
+  //       if (!$scope.flow.title){
+  //           $scope.flow.title = 'New Flow Name Goes Here';
+  //       }
         
-        var wrapper = { 'flow': $scope.flow };
+  //       var wrapper = { 'flow': $scope.flow };
 
-        // reminder: this pushes an update to an already-created flow now
-		$http
-	 		.put(putURL, wrapper)
-			.success(function(data){
-				console.log(data);
- 			})
-            .error(function(data){
-                console.log(data)
-            })
-            ;
+  //       // reminder: this pushes an update to an already-created flow now
+		// $http
+	 // 		.put(putURL, wrapper)
+		// 	.success(function(data){
+		// 		console.log(data);
+ 	// 		})
+  //           .error(function(data){
+  //               console.log(data)
+  //           })
+  //           ;
 	};
 }])
 ;

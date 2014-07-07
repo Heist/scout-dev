@@ -73,12 +73,9 @@ router.route('/:_id')
 				session.flows = req.body.flows; // maybe
 			}
 
-			if (req.body.flow){				
-				
+			if (req.body.flow){
 				var sub_doc = session.flows.create(req.body.flow);
-				
-				console.log('this is sub_doc', sub_doc);	
-				
+
 				session.flows.push(sub_doc); // adds to local session
 			}
 

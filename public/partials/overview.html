@@ -63,6 +63,7 @@
 				<ul class="nobullets">
 					<li><a href="#"><img src="../assets/platform-icons/tablet.svg"/> Prototype</a></li>
 					<li>{{flow.steps.length }} steps</li>
+					<li>{{flow._id}}</li>
 					<li>Last run June 8 2014</li>
 				</ul>
 				
@@ -77,7 +78,7 @@
 		
 		<div class="module quarter" >
 			<div class="session-flow empty">
-				<a class="button" href="/flow/{{session._id}}" ng-click="addAFlow(session)">+ Add a flow</a>
+				<button class="button" ng-click="addAFlow(session)">+ Add A Flow</button>
 			</div>
 		</div>
 
