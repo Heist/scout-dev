@@ -180,26 +180,26 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             })
     }
 
-      $scope.addAFlow = function(session){
-            // this adds a flow to the session selectied
-            var putURL = '/api/'+session._id;
-            console.log(putURL);
+      // $scope.addAFlow = function(session){
+      //       // this adds a flow to the session selectied
+      //       var putURL = '/api/'+session._id;
+      //       console.log(putURL);
 
-            $scope.flow = []
-            $scope.flow.title = 'New Flow Name Goes Here';
+      //       $scope.flow = []
+      //       $scope.flow.title = 'New Flow Name Goes Here';
 
-            var wrapper = { 'flow': $scope.flow };
+      //       var wrapper = { 'flow': $scope.flow };
 
-            $http
-                .put(putURL, wrapper)
-                .success(function(data){
-                    console.log(data);
-                })
-                .error(function(data){
-                    console.log(data)
-                })
-                ;
-        };
+      //       $http
+      //           .put(putURL, wrapper)
+      //           .success(function(data){
+      //               console.log(data);
+      //           })
+      //           .error(function(data){
+      //               console.log(data)
+      //           })
+      //           ;
+      //   };
 	
 }])
 

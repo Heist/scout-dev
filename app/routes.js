@@ -73,15 +73,16 @@ router.route('/:_id')
 				session.flows = req.body.flows; // maybe
 			}
 
-			if (req.body.flow){
-				session.flows.push(req.body.flow); // adds to local session
-				var subdoc = session.flows[0];
-				console.log(subdoc) // { _id: '501d86090d371bab2c0341c5', name: 'Liesl' }
-				console.log('_id assigned is: %s', session.flows[session.flows.length-1]._id);
-				subdoc.isNew; // true
+			if (req.body.flow){				
+				
+				var sub_doc = session.flows.create(req.body.flow);
+				
+				console.log('this is sub_doc', sub_doc);	
+				
+				session.flows.push(sub_doc); // adds to local session
 			}
 
-			// save the session object - this is not saving anything about the flow dates.
+			// save the session object - this is not saving anything about the flow _id.
 			session.save(function(err) {
 				if (err)
 					res.send(err);

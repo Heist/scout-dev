@@ -17,8 +17,9 @@ var StepSchema = new Schema ({
 
 var FlowSchema = new Schema({
 		_id		: {
-			type: Schema.ObjectId,
-			
+			type: Schema.Types.ObjectId,
+			turnOn : true
+
 		},
 		title 	: {
 			type: String, 
@@ -50,23 +51,8 @@ var FlowSchema = new Schema({
 	});
 
 
-var SessionSchema = new Schema ({
-	name : {
-			type: String, 
-			trim: true, 
-			default: 'my new session name'
-		},
-	created: {
-			type: Date
-		},
-	updated: {
-		type: Date
-	},
-	flows : [FlowSchema]
-})
-
 FlowSchema.pre('save', function(next){
-  var now = new Date();
+  now = new Date();
   this.updated = now;
   if ( !this.created ) {
     this.created = now;
@@ -74,14 +60,4 @@ FlowSchema.pre('save', function(next){
   next();
 });
 
-SessionSchema.pre('save', function(next){
-  var now = new Date();
-  this.updated = now;
-  if ( !this.created ) {
-    this.created = now;
-  }
-  next();
-});
-
-module.exports = mongoose.model('Session', SessionSchema);
-// module.exports = mongoose.model('Flow', FlowSchema);
+module.exports = mongoose.model('Flow', FlowSchema);
