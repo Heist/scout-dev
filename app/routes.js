@@ -28,7 +28,7 @@ router.route('/')
 			});
 		})
 	.post(function(req, res){
-			var session = new Session();
+			var session = new Session(); // here is where all that save stuff is happening
  			
  			session.name = 'New Session'; 			
 
@@ -52,6 +52,7 @@ router.route('/:_id')
 				res.json(session);
 			});
 		})
+
 	.put(function(req, res) {
 
 		// use our model to find the item we want
@@ -73,13 +74,14 @@ router.route('/:_id')
 			}
 
 			if (req.body.flow){
-				session.flows.push(req.body.flow); // this adds things fine
+				session.flows.push(req.body.flow); // adds to local session
+				var subdoc = session.flows[0];
+				console.log(subdoc) // { _id: '501d86090d371bab2c0341c5', name: 'Liesl' }
+				console.log('_id assigned is: %s', session.flows[session.flows.length-1]._id);
+				subdoc.isNew; // true
 			}
 
-
-
-
-			// save the flow - the dates are set in the schema, not here.
+			// save the session object - this is not saving anything about the flow dates.
 			session.save(function(err) {
 				if (err)
 					res.send(err);

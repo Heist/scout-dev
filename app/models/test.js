@@ -2,23 +2,22 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var StepSchema = new Schema ({
-	title: {
-			type : String,
-			trim : true
+var SessionSchema = new Schema ({
+	name : {
+			type: String, 
+			trim: true, 
+			default: 'my new session name'
 		},
-	desc : {
-			type : String,
-			trim : true
-		}
-	// messages: [MessageSchema]
+	created: {
+			type: Date
+		},
+	updated: {
+		type: Date
+	},
+	flows : [FlowSchema]
 })
 
 var FlowSchema = new Schema({
-		_id		: {
-			type: Schema.Types.ObjectId, 
-			turnOn: true
-		},
 		title 	: {
 			type: String, 
 			trim: true, 
@@ -48,22 +47,17 @@ var FlowSchema = new Schema({
 		steps: [StepSchema]
 	});
 
-
-var SessionSchema = new Schema ({
-	name : {
-			type: String, 
-			trim: true, 
-			default: 'my new session name'
+var StepSchema = new Schema ({
+	title: {
+			type : String,
+			trim : true
 		},
-	created: {
-			type: Date
-		},
-	updated: {
-		type: Date
-	},
-	flows : [FlowSchema]
+	desc : {
+			type : String,
+			trim : true
+		}
+	// messages: [MessageSchema]
 })
-
 
 // var MessageSchema = new Schema({
 // 		content 	: {
@@ -96,15 +90,6 @@ var SessionSchema = new Schema ({
 // })
 
 
-FlowSchema.pre('save', function(next){
-  now = new Date();
-  this.updated = now;
-  if ( !this.created ) {
-    this.created = now;
-  }
-  next();
-});
-
 SessionSchema.pre('save', function(next){
   now = new Date();
   this.updated = now;
@@ -114,6 +99,14 @@ SessionSchema.pre('save', function(next){
   next();
 });
 
+FlowSchema.pre('save', function(next){
+  now = new Date();
+  this.updated = now;
+  if ( !this.created ) {
+    this.created = now;
+  }
+  next();
+});
 
 // MessageSchema.pre('save', function(next){
 //   now = new Date();

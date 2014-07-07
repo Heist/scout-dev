@@ -64,11 +64,16 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             $scope.timeline.push(message)
 
             // write message to $scope.timeline
-            // on index = 0 or new parent index
+            // on parent index change
+            // var message.title = 'Starting flow'
+            // var message.body  = 
             // message is 
             // starting flow
             // next message posted is 
             // starting step
+
+// this is going to be a find-join in mongoose where we find all TESTS by SESSION_ID 
+// then return that information to the summarize/report function.
 
         };
 
@@ -174,6 +179,27 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 console.log('Error: ' + data);
             })
     }
+
+      $scope.addAFlow = function(session){
+            // this adds a flow to the session selectied
+            var putURL = '/api/'+session._id;
+            console.log(putURL);
+
+            $scope.flow = []
+            $scope.flow.title = 'New Flow Name Goes Here';
+
+            var wrapper = { 'flow': $scope.flow };
+
+            $http
+                .put(putURL, wrapper)
+                .success(function(data){
+                    console.log(data);
+                })
+                .error(function(data){
+                    console.log(data)
+                })
+                ;
+        };
 	
 }])
 
@@ -250,9 +276,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
        return $scope.selected === step;
     };
 
-    $scope.addAFlow = function(){
-
+    $scope.updateFlow = function(){
         // Put to this URL the entire data object from this controller
+        // technically this is created when we hit Add on prev. page
+
         var putURL = '/api/'+$stateParams.sessionId;
 
         if (!$scope.flow.title){
@@ -261,6 +288,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
         var wrapper = { 'flow': $scope.flow };
 
+        // reminder: this pushes an update to an already-created flow now
 		$http
 	 		.put(putURL, wrapper)
 			.success(function(data){
