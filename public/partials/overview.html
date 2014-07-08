@@ -38,7 +38,7 @@
 <!-- session block -->
 <div ng-model="sessions" >
  <div >
-	<div class="grid pad-bottom session" ng-repeat="session in sessions">	
+	<div class="grid pad-bottom session" ng-repeat="session in sessions | unique:'testKey'">	
 	
 		<div class="module full session-meta">
 			
