@@ -99,7 +99,7 @@ router.route('/:sessionId')
 		});
 	});
 
-router.route('/:sessionId/:flowId')
+router.route('/:sessionId/flow/:flowId')
 	.get(function(req,res) {
 		Session.findById(req.params.sessionId, function(err, session) {
 			if (err)

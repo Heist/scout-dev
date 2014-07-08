@@ -19,12 +19,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
         // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
         .state('flow', {
-        	url: '/flow/:sessionId/:flowId',
+        	url: '/edit/:sessionId/flow/:flowId',
             templateUrl: 'partials/flow.html'
             // we'll get to this in a bit       
         })
         .state('run', {
-        	url: '/run/:sessionId',
+        	url: '/run/session/:sessionId/test/:testId',
             templateUrl: 'partials/run.html'
             // we'll get to this in a bit       
         })
@@ -253,7 +253,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // $scope.flow.steps = $scope.steps;
 
 
-    $http.get('/api/'+$stateParams.sessionId+'/'+$stateParams.flowId)
+    $http.get('/api/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId)
         .success(function(data) {
             console.log(data);
             $scope.flow = data;
@@ -325,7 +325,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // Put to this URL the entire data object from this controller
         // technically this is created when we hit Add on prev. page
 
-        var putURL = '/api/'+$stateParams.sessionId+'/'+$stateParams.flowId;
+        var putURL = '/api/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId;
 
         if (!$scope.flow.title){
             $scope.flow.title = 'New Flow Name Goes Here';
