@@ -24,7 +24,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // we'll get to this in a bit       
         })
         .state('run', {
-        	url: '/run/session/:sessionId/test/:testId',
+        	url: '/run/:sessionId/test/:testId',
             templateUrl: 'partials/run.html'
             // we'll get to this in a bit       
         })
@@ -86,7 +86,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 }])
 
 
-.controller('overview', ['$scope','$http', function($scope, $http){
+.controller('overview', ['$scope','$http', '$location', function($scope, $http, $location){
 	// set up controller-wide variables
 	$scope.sessions = {};
 
@@ -101,6 +101,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		.error(function(data) {
 			console.log('Error: ' + data);
 		});
+
+
+    $scope.addAndLaunchNewTest = function(session){
+        $location.path('/run/'+session._id+'/test/')
+    }
 
     $scope.editTitle = function(textfield){
         textfield.editing = 'true';

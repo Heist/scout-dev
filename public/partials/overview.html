@@ -48,7 +48,7 @@
 			</form>
 			
 			<div class="session-controls">
-				<button class="button small"><a href='/run/{{session._id}}'>Run</a></button>
+				<button class="button small" ng-click="addAndLaunchNewTest(session)">Run</button>
 				<button class="button small">Summarize</button>
 				<button class="button small destructive" ng-click="removeSession(session)">&times;</button>
 			</div>
