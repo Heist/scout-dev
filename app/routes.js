@@ -142,10 +142,9 @@ router.route('/:sessionId/test/:testId')
 	.post(function(req,res){		
 			Session.findById(req.params.sessionId).exec(
     		function(err, session) {
-        		var s1 = new Session();
-        			s1 = session;
+        		var s1 = new Session( session );
         			s1._id = undefined;
-        			
+
         			console.log('posting new test', s1._id);      // your JSON
         			s1.save(function(err) {
 						if (err)
