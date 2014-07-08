@@ -44,6 +44,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $scope.timeline = []; // holds all messages currently in flow
 
+    // this has to change to get the new session created on the run() command from the main controller
     $http.get('/api/'+$stateParams.sessionId)
         .success(function(data){
             $scope.session = data;
@@ -72,15 +73,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // next message posted is 
             // starting step
 
-// this is going to be a find-join in mongoose where we find all TESTS by SESSION_ID 
-// then return that information to the summarize/report function.
+        // this is going to be a find-join in mongoose where we find all TESTS by SESSION_ID 
+        // then return that information to the summarize/report function.
 
         };
 
         $scope.putMessage = function (post){
             // write .put message to database
             // send .put contents to $scope.timeline
-
 
         }
 }])
@@ -109,23 +109,26 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         var url = '/api/'+session._id+'/test/'+session.testKey;
 
         var dataOut = session;
+        var new_session = [];
 
         $http.post(url, dataOut)
             .success(function(data){
-                console.log(data)
+                console.log(' new flow ', data)
+                new_session = data;
+                $location.path('/run/'+data._id+'/test/'+data.testKey)
             })
             .error(function(data){
                 console.log(data)
         });
 
-        $location.path('/run/'+session._id+'/test/'+session.testKey)
+        // this changes to the returned session id, which has been newly created.
+
     }
 
     $scope.editTitle = function(textfield){
         textfield.editing = 'true';
         console.log(textfield.editing);
 
-        
         // Clone the original item to restore it on demand.
         // $scope.originalTitle = angular.extend({}, session);
     }
