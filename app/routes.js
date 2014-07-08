@@ -33,7 +33,8 @@ router.route('/')
 	.post(function(req, res){
 			var session = new Session(); // here is where all that save stuff is happening
  			
- 			session.name = 'New Session'; 			
+ 			session.name = 'New Session';
+ 			session.testKey = req.body.testKey;		
 
 			console.log(req.body);      // your JSON
   			res.send(req.body);   		// echo the result back

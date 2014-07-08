@@ -180,8 +180,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     $scope.addSession = function(session){
-        var dataOut = {name:'New Session'}        
-
+        var testGen =  Math.round((new Date().valueOf() * Math.random()));
+                
+        
+        var dataOut = {
+                name    : 'New Session', 
+                testKey : testGen
+            };        
+        
     	$http.post('/api/', dataOut)   
     		.success(function(data){        		
                 $scope.sessions.push(data);
