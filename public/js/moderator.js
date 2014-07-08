@@ -104,7 +104,20 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 
     $scope.addAndLaunchNewTest = function(session){
-        $location.path('/run/'+session._id+'/test/')
+        // var url = '/:sessionId/test/:testId' pseudocode
+
+        var url = '/api/'+session._id+'/test/'+test._id;
+
+        $http.post(url, dataOut)   
+            .success(function(data){                
+                $scope.sessions.push(data);
+                console.log(data)
+            })
+            .error(function(data){
+
+        });
+
+        $location.path('/run/'+session._id+'/test/'+test._id)
     }
 
     $scope.editTitle = function(textfield){

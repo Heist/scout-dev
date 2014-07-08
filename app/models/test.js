@@ -2,11 +2,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var SessionSchema = new Schema ({
+var testSchema = new Schema ({
 	name : {
 			type: String, 
 			trim: true, 
-			default: 'my new session name'
+			default: 'userName'
 		},
 	created: {
 			type: Date
@@ -14,38 +14,9 @@ var SessionSchema = new Schema ({
 	updated: {
 		type: Date
 	},
-	flows : [FlowSchema]
+	flows :  [{ type: Schema.Types.ObjectId, ref: 'Flow' }]
 })
 
-var FlowSchema = new Schema({
-		title 	: {
-			type: String, 
-			trim: true, 
-			default: 'my new flow name'
-		},
-		link	: {
-			type: String, 
-			trim: true, 
-			default: ''
-		},
-		desc	: {
-			type: String, 
-			trim: true, 
-			default: ''
-		},
-		platform: {
-			type: String, 
-			trim: true, 
-			default: 'mobile'
-		},
-		created: {
-			type: Date
-		},
-		updated: {
-			type: Date
-		},
-		steps: [StepSchema]
-	});
 
 var StepSchema = new Schema ({
 	title: {

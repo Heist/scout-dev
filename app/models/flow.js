@@ -3,17 +3,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var StepSchema = new Schema ({
-	title: {
-			type : String,
-			trim : true
-		},
-	desc : {
-			type : String,
-			trim : true
-		}
-	// messages: [MessageSchema]
-})
 
 var FlowSchema = new Schema({
 		_id		: {
@@ -47,7 +36,7 @@ var FlowSchema = new Schema({
 		updated: {
 			type: Date
 		},
-		steps: [StepSchema]
+		steps:  [{ type: Schema.Types.ObjectId, ref: 'Step' }]
 	});
 
 

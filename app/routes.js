@@ -4,7 +4,10 @@ var router = express.Router();  // get an instance of the express Router
 var util = require('util');
 
 // load models for routes
+// var Step 	= require('./models/step');
+// var Flow 	= require('./models/flow');
 var Session = require('./models/session');
+
 
 
 // console logging ========================================================

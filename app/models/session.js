@@ -58,7 +58,10 @@ var SessionSchema = new Schema ({
 	updated: {
 		type: Date
 	},
-	flows : [FlowSchema]
+	testKey: {
+		type: Number
+	},
+	flows : [FlowSchema]	
 })
 
 FlowSchema.pre('save', function(next){
