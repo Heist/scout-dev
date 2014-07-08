@@ -6,7 +6,7 @@
 		<img src="../assets/scout-rev.png" />
 	</div>
 	
-	<div id="header-title">Creating a flow</div>
+	<div id="header-title">Flow</div>
 	
 	<div id="header-account">
 		<div id="header-account-avatar">
@@ -28,13 +28,13 @@
 
 
 <!-- create a flow -->
-
+<div ng-model="flow">
 <div id="left-pane" >
 	<h3><span class="numberball">1</span> Create a flow</h3>
 	<p>Let&lsquo;s start with a few pieces of information about your flow.</p>
 	
 
-	<ul class="lined" ng-model="flow">
+	<ul class="lined">
 		<li>
 			<label for="field-flowname">Flow name</label><br>
 			<input class="input" type="text" ng-model="flow.title" id="field-flowname" placeholder="What will you be testing?" />
@@ -73,9 +73,9 @@
 	<h3><span class="numberball">2</span> Add Steps</h3>
 	<p>Steps are the pages or views in your prototype. They should follow the intended user path of your prototype pretty closely.</p>
 
-	<ul id="steps" class="lined" ui-sortable ng-model="steps">
+	<ul id="steps" class="lined" ui-sortable>
 
-		<li ng-repeat="step in steps" ng-class="{selected: isActive(step)}" ng-click="select(step)" ng-blur="">
+		<li ng-repeat="step in flow.steps" ng-class="{selected: isActive(step)}" ng-click="select(step)" ng-blur="">
 		
 			<div class="step-hamburger">≡</div>
 

@@ -246,21 +246,24 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	// step 3 is selected.$index.step.desc   
 
     // $scope.steps = []; // hmm-mm.
-    // $scope.selected = $scope.steps[0];
+    
 
      // this is wholly structured on the front end, which is weird.
-    // $scope.flow = [];
+    $scope.flow = [];
     // $scope.flow.steps = $scope.steps;
+
 
     $http.get('/api/'+$stateParams.sessionId+'/'+$stateParams.flowId)
         .success(function(data) {
             console.log(data);
-            $scope.flow = data;            
+            $scope.flow = data;
+
         })
         .error(function(data) {
             console.log('Error: ' + data);
         });
-
+    
+    $scope.selected = $scope.flow.steps;
 
 	$scope.add = function(step) {
         $scope.step = {
@@ -269,14 +272,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         		title_edit : false,
         		edit	: false
         	};
-	    $scope.steps.push($scope.step);  
+	    $scope.flow.steps.push($scope.step);  
     }
 
     $scope.removeStep = function(step){
     	step.edit=false;
     	step.title_edit=false;
-    	var index = $scope.steps.indexOf(step)
-  		$scope.steps.splice(index, 1);
+    	var index = $scope.flow.steps.indexOf(step)
+  		$scope.flow.steps.splice(index, 1);
     }
 
 	$scope.editTitle = function (step){
