@@ -63,11 +63,9 @@
 
 	<div class="module full session-meta">
 		
-		<div class="session-name"><h4>Account Upgrade</h4></div>
+		<div class="session-name"><h4>Account Upgrade</h4> &mdash; Last run June 8 2014 / 5 participants</div>
 		<div class="session-controls">
-			<button class="button small">Run</button>
-			<button class="button small">Summarize</button>
-			<button class="button small secondary">Edit</button>
+			<button class="button small">Run Testing Session</button>
 			<button class="button small destructive">&times;</button>
 		</div>
 		<div class="clear"></div>
@@ -78,16 +76,18 @@
 		<div class="session-flow">
 			<small>Flow</small>
 			<h3>Choose a new package</h3>
-			<ul class="nobullets">
-				<li><a href="#"><img src="../assets/platform-icons/tablet.svg"/> Prototype</a></li>
-				<li>5 participants</li>
-				<li>Last run June 8 2014</li>
-			</ul>
 			
 			<div class="session-flow-controls">
-				<button class="button small">Summary</button>
-				<button class="button small secondary">Edit</button>
-				<button class="button small destructive">&times;</button>
+				<ul class="nobullets">
+					<li class="session-flow-controls-summary">
+						<button class="button small">Summarize</button>
+						<button class="button small">Summary</button>
+					</li>
+					<li class="session-flow-controls-edit">
+						<button class="button small secondary">Edit</button>
+						<button class="button small destructive">&times;</button>
+					</li>
+					</ul>
 			</div>
 			
 		</div>
@@ -98,16 +98,17 @@
 		<div class="session-flow">
 			<small>Flow</small>
 			<h3>Do another thing</h3>
-			<ul class="nobullets">
-				<li><a href="#"><img src="../assets/platform-icons/desktop.svg"/> Prototype</a></li>
-				<li>5 participants</li>
-				<li>Last run June 8 2014</li>
-			</ul>
-			
+
 			<div class="session-flow-controls">
-				<button class="button small">Summary</button>
-				<button class="button small secondary">Edit</button>
-				<button class="button small destructive">&times;</button>
+				<ul class="nobullets">
+					<li class="session-flow-controls-summary">
+						<button class="button small">Summarize</button>
+					</li>
+					<li class="summary-flow-controls-edit">
+						<button class="button small secondary">Edit</button>
+						<button class="button small destructive">&times;</button>
+					</li>
+					</ul>
 			</div>
 			
 		</div>
@@ -132,9 +133,7 @@
 		
 		<div class="session-name"><h4>Account details</h4></div>
 		<div class="session-controls">
-			<button class="button small disabled">Run</button>
-			<button class="button small disabled">Summarize</button>
-			<button class="button small secondary">Edit</button>
+			<button class="button small disabled">Run Testing Session</button>
 			<button class="button small destructive">&times;</button>
 		</div>
 		<div class="clear"></div>
@@ -171,7 +170,7 @@
 		   radioClass: 'iradio_flat'
 		 });
 		 
-		 $('.session-flow').not(".empty").matchHeight();		
+		 $('.session-flow h3').not(".empty").matchHeight();		
 	});
 </script>
 

@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();  // get an instance of the express Router
 var util = require('util');
+var mongoose = require('mongoose'); // so we can generate ObjectIDs for tests
 
 // load models for routes
 // var Step 	= require('./models/step');
@@ -135,9 +136,26 @@ router.route('/:sessionId/flow/:flowId')
 				res.json( req.body );
 			});
 		})
-	})
-	;
+	});
 
+router.route('/:sessionId/test/:testId')
+	.post(function(req,res){		
+			Session.findById(req.params.sessionId).exec(
+    		function(err, session) {
+        		var s1 = new Session();
+        			s1 = session;
+        			s1._id = undefined;
+        			
+        			console.log('posting new test', s1._id);      // your JSON
+        			s1.save(function(err) {
+						if (err)
+							res.send(err);
+
+						res.json( 'new session ', req.body );
+					});
+  		 	 }
+		);
+	});
 
 
 	// frontend routes =========================================================
