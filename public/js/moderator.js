@@ -273,6 +273,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         		edit	: false
         	};
 	    $scope.flow.steps.push($scope.step);  
+        console.log($scope.flow)
     }
 
     $scope.removeStep = function(step){
@@ -336,10 +337,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		$http
 	 		.put(putURL, wrapper)
 			.success(function(data){
-				console.log(data);
+				console.log('flow has pushed', data);
  			})
             .error(function(data){
-                console.log(data)
+                console.log('error', data)
+
             })
             ;
 	};

@@ -111,25 +111,44 @@ router.route('/:sessionId/:flowId')
 	})
 	.put(function(req, res) {
 		var query = { _id : req.params.flowId}
-		console.log(query)
-		Session.findOneAndUpdate(
-				{ '_id':req.params.sessionId, 'flows._id' : req.params.flowId}, 
-				{  'flow' : req.body.flow},
-				function(err,session) {
-			        if (err) throw err;    // or do something like return the error
+		var flow = req.body.flow;
 
-			        if ( session != null ) {
-			            session.flows.some(function(flow) {
-			                if ( flow._id.toString() == req.params.flowId.toString() ) {
-			                    console.log( flow );
-			                    return 1;
-			                }
-			            });
-			        } else {
-			            console.log( "not found" );
-			        }
-    			}
-			);
+		console.log('_id', query);
+		console.log('flow', flow);
+
+		Session.findById(req.params.sessionId, function(err, session) {
+			if ( query = flow._id){
+				console.log('touch');
+				session.flows.id(query).remove();
+				session.flows.push(flow); 
+
+			}
+			
+			session.save(function(err) {
+				if (err)
+					res.send(err);
+
+				res.json( req.body );
+			});
+		})
+		// Session.findByIdAndUpdate(
+				// { req.params.sessionId, 'flows._id' : req.params.flowId}, 
+		// 		{  'flow' : req.body.flow},
+		// 		function(err,session) {
+		// 	        if (err) throw err;    // or do something like return the error
+
+		// 	        if ( session != null ) {
+		// 	            session.flows.some(function(flow) {
+		// 	                if ( flow._id.toString() == req.params.flowId.toString() ) {
+		// 	                    console.log( flow );
+		// 	                    return 1;
+		// 	                }
+		// 	            });
+		// 	        } else {
+		// 	            console.log( "not found" );
+		// 	        }
+  //   			}
+		// 	);
 	})
 	;
 
