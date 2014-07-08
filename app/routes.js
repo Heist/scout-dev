@@ -123,7 +123,7 @@ router.route('/:sessionId/:flowId')
 				session.flows.push(flow); 
 
 			}
-			
+
 			session.save(function(err) {
 				if (err)
 					res.send(err);
@@ -131,24 +131,6 @@ router.route('/:sessionId/:flowId')
 				res.json( req.body );
 			});
 		})
-		// Session.findByIdAndUpdate(
-				// { req.params.sessionId, 'flows._id' : req.params.flowId}, 
-		// 		{  'flow' : req.body.flow},
-		// 		function(err,session) {
-		// 	        if (err) throw err;    // or do something like return the error
-
-		// 	        if ( session != null ) {
-		// 	            session.flows.some(function(flow) {
-		// 	                if ( flow._id.toString() == req.params.flowId.toString() ) {
-		// 	                    console.log( flow );
-		// 	                    return 1;
-		// 	                }
-		// 	            });
-		// 	        } else {
-		// 	            console.log( "not found" );
-		// 	        }
-  //   			}
-		// 	);
 	})
 	;
 
