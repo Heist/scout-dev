@@ -90,7 +90,7 @@ router.route('/:sessionId')
 	})
 	.delete(function(req, res) {
 		Session.remove({
-			_id: req.params._id
+			_id: req.params.sessionId
 		}, function(err, session) {
 			if (err)
 				res.send(err);
@@ -130,30 +130,6 @@ router.route('/:sessionId/:flowId')
 			        }
     			}
 			);
-		// Session.findById(req.params.sessionId, function(err, session) {
-		// 	if (err)
-		// 		res.send(err);
-
-		// 	var flow = session.flows.id(req.params.flowId);
-			
-		// 	console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON	
-		// 	// console.log('req.body.flow._id', req.body.flow._id );
-		// 	// console.log('req.params.flow._id', req.params.flowId );
-			
-		// 	if (req.body.flow._id === req.params.flowId){
-		// 	// 	session.flows._id[flowId] = req.body.flow;				
-		// 		session.flows.id(req.params.flowId) = req.body.flow;
-		// 		console.log('put');
-		// 	}
-
-
-		// 	session.save(function(err) {
-		// 		if (err)
-		// 			res.send(err);
-
-		// 		res.json( req.body );
-		// 	});
-		// });
 	})
 	;
 
