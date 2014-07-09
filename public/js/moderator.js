@@ -101,11 +101,18 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             
             $scope.timeline.push(message.body);
             $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex].messages.push(message.body)
-            $scope.message.body='';
-            
+
+            var test = message.body;
+
+            // if message has # with no space, post that to message.tags
+            var hashCatch = new RegExp(/\S*#\S+/); 
+            var tags = test.match(hashCatch);
+            console.log(test);
+            console.log(tags);
+
             // write .put message to database
             // send .put contents to $scope.timeline
-
+            $scope.message.body='';
         }
 }])
 
