@@ -45,21 +45,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $scope.timeline = []; // holds all messages currently in flow
 
-    // refresh warning to prevent whoops-I-deleted-the-Session
-    var leavingPageText = "If you refresh, you will lose this test.";
-    window.onbeforeunload = function(){
-        return leavingPageText;
-    }
+    // // refresh warning to prevent whoops-I-deleted-the-Session
+    // var leavingPageText = "If you refresh, you will lose this test.";
+    // window.onbeforeunload = function(){
+    //     return leavingPageText;
+    // }
 
-    $scope.$on('$destroy', function() {
-        window.onbeforeunload = undefined;
-    });
+    // $scope.$on('$destroy', function() {
+    //     window.onbeforeunload = undefined;
+    // });
 
-    $scope.$on('$locationChangeStart', function(event, next, current) {
-        if(!confirm(leavingPageText + "\n\nAre you sure you want to leave this page?")) {
-            event.preventDefault();
-        }
-    });
+    // $scope.$on('$locationChangeStart', function(event, next, current) {
+    //     if(!confirm(leavingPageText + "\n\nAre you sure you want to leave this page?")) {
+    //         event.preventDefault();
+    //     }
+    // });
 
 
     // this has to change to get the new session created on the run() command from the main controller
@@ -92,20 +92,25 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             $scope.parentIndex = parentIndex;
 
             $scope.step.current = step._id;
-
-            console.log(step.title);
             var message = step.title;
 
             $scope.timeline.push(stepType+' '+message);
 
-            // write message to $scope.timeline
-            // on parent index change
-            // var message.title = 'Starting flow'
-            // var message.body  = 
-            // message is 
-            // starting flow
-            // next message posted is 
-            // starting step
+            console.log(step.title);
+            console.log(step);
+
+            // now we put that step's update into its session storage in the db
+
+            var url = '/api/'+$stateParams.sessionId+'/test/'+$stateParams.testId;
+            var dataOut = step;
+
+            $http.put(url, dataOut)
+                .success(function(data){
+                    console.log('Step pushed: ', data);
+                })
+                .error(function(data){
+                    console.log('Error: ' + data);
+                })
 
         // this is going to be a find-join in mongoose where we find all TESTS by SESSION_ID 
         // then return that information to the summarize/report function.
@@ -132,7 +137,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             }
 
             
-
             console.log(message);
 
             $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex].messages.push(message)
