@@ -41,7 +41,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // set up controller-wide variables
     $scope.session = {};
     $scope.flows = {};
-    $scope.step = {};
+    // $scope.step = {};
 
     $scope.timeline = []; // holds all messages currently in flow
 
@@ -90,20 +90,17 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         };
 
-        $scope.putMessage = function(message){
-            console.log('message log', $scope.step.current);
-            console.log('getting local step', $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex] );
-            $scope.timeline.push(message.body);
-                        
-
-            $scope.message='';
+        // $scope.putMessage = function(message){
+        //     console.log('message log', $scope.step.current);
+        //     console.log('getting local step', $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex] );
             
+        //     $scope.timeline.push(message.body);
+        //     $scope.message='';
+            
+        //     // write .put message to database
+        //     // send .put contents to $scope.timeline
 
-
-            // write .put message to database
-            // send .put contents to $scope.timeline
-
-        }
+        // }
 }])
 
 
