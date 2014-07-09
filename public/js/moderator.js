@@ -91,17 +91,18 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$scope.sessions = {};
 
 
-	// get all sessions and their flows	
+	// get all sessions and their flows	on first load
 	$http.get('/api/')
 		.success(function(data) {
 			// flows is *all* flows
 			$scope.sessions = data;
-			console.log($scope.sessions);
+			console.log($scope.sessions);            
 		})
 		.error(function(data) {
 			console.log('Error: ' + data);
 		});
 
+    
 
     $scope.addAndLaunchNewTest = function(session){
         // var url = '/:sessionId/test/:testId' pseudocode
@@ -193,18 +194,20 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             };        
         
     	$http.post('/api/', dataOut)   
-    		.success(function(data){        		
-                $scope.sessions.push(data);
+    		.success(function(data){
                 console.log(data)
+                console.log('success');
     		})
     		.error(function(data){
 
     		});
+        
         $http.get('/api/')
         .success(function(data) {
             // flows is *all* flows
             $scope.sessions = data;
             console.log($scope.sessions);
+            console.log($scope.sessions.length);
         })
         .error(function(data) {
             console.log('Error: ' + data);

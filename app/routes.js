@@ -38,13 +38,18 @@ router.route('/')
  			session.testKey = req.body.testKey;		
 
 			console.log(req.body);      // your JSON
-  			res.send(req.body);   		// echo the result back
+  			res.send(req.body);  		// echo the result back
 			 			
  			session.save(function(err) {
 				if (err)
 					res.send(err);
 
-				res.json(req.body);
+				Session.find({}, function(err, session) {
+					if (err)
+						res.send(err);
+					res.json(session);
+					console.log(session)
+				});
 			});
 		});
 
