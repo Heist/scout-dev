@@ -74,8 +74,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             console.log(step.title);
             var message = step.title;
 
-            $scope.timeline.push(message)
-
+            $scope.timeline.push(message);
 
             // write message to $scope.timeline
             // on parent index change
@@ -92,9 +91,15 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         };
 
         $scope.putMessage = function(message){
-            $scope.timeline.push(message.body);
-            $scope.message='';
             console.log('message log', $scope.step.current);
+            console.log('getting local step', $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex] );
+            $scope.timeline.push(message.body);
+                        
+
+            $scope.message='';
+            
+
+
             // write .put message to database
             // send .put contents to $scope.timeline
 
