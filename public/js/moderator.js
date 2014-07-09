@@ -78,7 +78,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         };
 
-        $scope.putMessage = function (post){
+        $scope.putMessage = function(message){
+            $scope.timeline.push(message.body);
+            $scope.message='';
             // write .put message to database
             // send .put contents to $scope.timeline
 

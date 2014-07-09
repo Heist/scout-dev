@@ -50,11 +50,6 @@
 	</div>
 	
 	<div id="middle-pane" >
-		
-		<div id="session-input" >
-			<textarea class="input" name="field-input" placeholder="Your notes" /></textarea>
-		</div>
-
 <!-- 
 	middle panel
 	on click new flow, post flow name to messages
@@ -93,6 +88,11 @@ on click step
 
 ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepChange(whateverElementTriggersThis) }" ng-repeat="message in timeline"
 -->
+		
+		<div id="session-input" ng-model='message'>
+			<textarea class="input" ng-model="message.body" name="field-input" placeholder="Your notes" ui-keypress="{13:'putMessage(message)'}"/>
+			</textarea>
+		</div>
 
 		<div id="timeline" >
 			<ul ng-model='timeline'>
