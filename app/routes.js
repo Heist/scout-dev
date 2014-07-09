@@ -169,6 +169,15 @@ router.route('/:sessionId/test/:testId')
 				console.log('this is the flow input', (util.inspect(req.body, {showHidden: false, depth: null})));
 				session.flows.id(req.body._id).remove();
 				session.flows.push(req.body);
+				console.log('after push', (util.inspect(session.flows.id(req.body._id), {showHidden: false, depth: null})));
+
+				session.save(function(err) {
+						if (err)
+							res.send(err);
+						
+						res.json(session);				
+
+				});
 			}
 		);
 	})

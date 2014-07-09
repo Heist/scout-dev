@@ -125,10 +125,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         };
 
         $scope.putMessage = function(message){
-            console.log('message log', $scope.step.current);
-            console.log('getting local step', $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex] );
-            console.log('message', message);
-
+            // here we create a note object because message was too confusing.
              var note = {};
              note.body = message;
              note.tags = [];
@@ -145,17 +142,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 console.log(tagIt);
                 for (var i=0; i < tagIt.length; ++i) {
                     note.tags.push(tagIt[i]);
-                }
-                
+                }                
             }
 
-            console.log('note', note);
-
-            
-            console.log(message);
-            // this is pushing the tags but not the message body.
-
-            $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex].messages.push(message);
+            $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex].messages.push(note);
             console.log($scope.flows[$scope.parentIndex].steps[$scope.selectedIndex]);
 
             $scope.message='';
