@@ -105,7 +105,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             var test = message.body;
 
             // if message has # with no space, post that to message.tags
-            var hashCatch = new RegExp(/\S*#\S+/); 
+            var hashCatch = new RegExp(/\S*#\S+/gi); 
             var tags = test.match(hashCatch);
             console.log(test);
             console.log(tags);
