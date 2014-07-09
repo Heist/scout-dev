@@ -53,8 +53,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             console.log($scope.flows);
 
             // set the initial timeline contents
-            $scope.timeline.push($scope.flows[0].title);
-            $scope.timeline.push($scope.flows[0].steps[0].title);
+            $scope.timeline.push('Starting flow '+$scope.flows[0].title);
+            $scope.timeline.push('Starting step '+$scope.flows[0].steps[0].title);
 
             // set the initial reporting step
             $scope.step.current = $scope.flows[0].steps[0]._id;
@@ -66,6 +66,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 
         $scope.activate = function (index, parentIndex, step) {
+            var stepType = 'Starting flow';
+            if (parentIndex == $scope.parentIndex){
+                stepType = 'Starting step';
+            }
+
             $scope.selectedIndex = index;
             $scope.parentIndex = parentIndex;
 
@@ -74,7 +79,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             console.log(step.title);
             var message = step.title;
 
-            $scope.timeline.push(message);
+            $scope.timeline.push(stepType+' '+message);
 
             // write message to $scope.timeline
             // on parent index change
