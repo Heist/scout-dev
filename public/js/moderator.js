@@ -114,7 +114,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         $http.post(url, dataOut)
             .success(function(data){
-                console.log(' new flow ', data)
+                console.log(' total number of sessions ', data)
                 new_session = data;
                 $location.path('/run/'+data._id+'/test/'+data.testKey)
             })

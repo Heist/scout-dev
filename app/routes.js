@@ -48,7 +48,7 @@ router.route('/')
 					if (err)
 						res.send(err);
 					res.json(session);
-					console.log(session)
+					console.log(session.length)
 				});
 			});
 		});
@@ -149,11 +149,13 @@ router.route('/:sessionId/test/:testId')
     		function(err, session) {
         		var s1 = new Session( session );
         			s1._id = undefined;
+
         			s1.save(function(err) {
 						if (err)
 							res.send(err);
+						
+						res.json(session);				
 
-						res.json( 'new session ', req.body );
 					});
   		 	 }
 		);

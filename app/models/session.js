@@ -3,6 +3,26 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+
+var MessageSchema = new Schema ({
+	contents : {
+			type: String, 
+			trim: true
+		},
+	created: {
+			type: Date
+		},
+	created_by: {
+		type: String,
+		trim: true
+	},
+	fav : Boolean,
+	tags : {
+		type: [String], 
+		trim:true
+	}
+})
+
 var StepSchema = new Schema ({
 	title: {
 			type : String,
@@ -11,8 +31,8 @@ var StepSchema = new Schema ({
 	desc : {
 			type : String,
 			trim : true
-		}
-	// messages: [MessageSchema]
+		},
+	messages: [MessageSchema]
 })
 
 var FlowSchema = new Schema({
@@ -49,8 +69,7 @@ var FlowSchema = new Schema({
 var SessionSchema = new Schema ({
 	name : {
 			type: String, 
-			trim: true, 
-			default: 'my new session name'
+			trim: true
 		},
 	created: {
 			type: Date
@@ -63,6 +82,14 @@ var SessionSchema = new Schema ({
 	},
 	flows : [FlowSchema]	
 })
+
+MessageSchema.pre('save', function(next){
+  var now = new Date();
+  if ( !this.created ) {
+    this.created = now;
+  }
+  next();
+});
 
 FlowSchema.pre('save', function(next){
   var now = new Date();
