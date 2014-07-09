@@ -41,6 +41,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // set up controller-wide variables
     $scope.session = {};
     $scope.flows = {};
+    $scope.step = {};
 
     $scope.timeline = []; // holds all messages currently in flow
 
@@ -50,19 +51,31 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             $scope.session = data;
             $scope.flows = $scope.session.flows;
             console.log($scope.flows);
+
+            // set the initial timeline contents
+            $scope.timeline.push($scope.flows[0].title);
+            $scope.timeline.push($scope.flows[0].steps[0].title);
+
+            // set the initial reporting step
+            $scope.step.current = $scope.flows[0].steps[0]._id;
         })
 
+        // select the initial 'activated' values
         $scope.selectedIndex = 0;
         $scope.parentIndex = 0;
+
 
         $scope.activate = function (index, parentIndex, step) {
             $scope.selectedIndex = index;
             $scope.parentIndex = parentIndex;
 
+            $scope.step.current = step._id;
+
             console.log(step.title);
             var message = step.title;
 
             $scope.timeline.push(message)
+
 
             // write message to $scope.timeline
             // on parent index change
@@ -81,6 +94,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $scope.putMessage = function(message){
             $scope.timeline.push(message.body);
             $scope.message='';
+            console.log('message log', $scope.step.current);
             // write .put message to database
             // send .put contents to $scope.timeline
 

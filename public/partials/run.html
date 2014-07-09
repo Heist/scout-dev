@@ -90,7 +90,7 @@ ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepC
 -->
 		
 		<div id="session-input" ng-model='message'>
-			<textarea class="input" ng-model="message.body" name="field-input" placeholder="Your notes" ui-keypress="{13:'putMessage(message)'}"/>
+			<textarea class="input" ng-model="message.body" name="field-input" placeholder="Your notes" ui-keypress="{13:'putMessage(message)'}" ng-blur='putMessage(message)'/>
 			</textarea>
 		</div>
 
