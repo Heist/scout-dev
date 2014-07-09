@@ -326,6 +326,7 @@ body { padding-top: 80px; }
 #view-testing #middle-pane { padding: 0; margin: 0; position: relative; overflow: hidden; background: white; border-left: 2px solid #e8e5cc; }
 #view-testing #middle-pane #session-input { position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px; background: #f0eedd; border-top: 2px solid #e8e5cc; z-index: 99999; }
 #view-testing #middle-pane #session-input textarea { width: 100%; margin: 0; }
+#view-testing #middle-pane #timeline { overflow: auto; }
 
 /* THE SUMMARY */
 #view-summarizing { margin: 0; padding: 0; height: 100%; width: 100%; }

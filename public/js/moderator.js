@@ -95,6 +95,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             console.log('getting local step', $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex] );
             
             $scope.timeline.push(message.body);
+            $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex].messages.push(message.body)
             $scope.message.body='';
             
             // write .put message to database
