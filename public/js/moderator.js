@@ -102,7 +102,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // now we put that step's update into its session storage in the db
 
             var url = '/api/'+$stateParams.sessionId+'/test/'+$stateParams.testId;
-            var dataOut = step;
+            // you should be able to output the step and update, but mongoose violently
+            // dislikes queries by sub-sub-document, so we must output the whole changed flow.
+
+            var dataOut = $scope.flows[$scope.parentIndex];
+            // for some reason this does not actually include the updated messages.
+            // they are not pushing correctly into the steps.
+
+            console.log('this is the flow output', dataOut);
 
             $http.put(url, dataOut)
                 .success(function(data){
@@ -120,31 +127,38 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $scope.putMessage = function(message){
             console.log('message log', $scope.step.current);
             console.log('getting local step', $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex] );
-            
-            message.tags = [];
+            console.log('message', message);
 
-            $scope.timeline.push(message.body);
+             var note = {};
+             note.body = message;
+             note.tags = [];
 
-            var test = message.body;
+            $scope.timeline.push(message);
+
+            var test = message;
 
             // if message has # with no space, post that to message.tags
             var hashCatch = new RegExp(/\S*#\S+/gi); 
             var tagIt = test.match(hashCatch);
-            console.log(test);
+            
             if (tagIt){
                 console.log(tagIt);
-                message.tags.push(tagIt);
+                for (var i=0; i < tagIt.length; ++i) {
+                    note.tags.push(tagIt[i]);
+                }
+                
             }
+
+            console.log('note', note);
 
             
             console.log(message);
+            // this is pushing the tags but not the message body.
 
-            $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex].messages.push(message)
+            $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex].messages.push(message);
+            console.log($scope.flows[$scope.parentIndex].steps[$scope.selectedIndex]);
 
-
-            // write .put message to database
-            // send .put contents to $scope.timeline
-            $scope.message.body='';
+            $scope.message='';
         }
 }])
 

@@ -159,7 +159,20 @@ router.route('/:sessionId/test/:testId')
 					});
   		 	 }
 		);
-	});
+	})
+	.put(function(req,res){
+		Session.findById(req.params.sessionId).exec(
+			function(err, session) {
+				// console.log(req.body);
+				// var test = session.flows.steps.id(req.body._id);
+				// this is v. likely to comically break
+				console.log('this is the flow input', (util.inspect(req.body, {showHidden: false, depth: null})));
+				session.flows.id(req.body._id).remove();
+				session.flows.push(req.body);
+			}
+		);
+	})
+	;
 
 
 	// frontend routes =========================================================

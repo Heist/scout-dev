@@ -89,8 +89,8 @@ on click step
 ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepChange(whateverElementTriggersThis) }" ng-repeat="message in timeline"
 -->
 		
-		<div id="session-input" ng-model='message'>
-			<textarea class="input" ng-model="message.body" name="field-input" placeholder="Your notes" ui-keypress="{13:'putMessage(message)'}"/>
+		<div id="session-input" >
+			<textarea class="input" ng-model='message' name="field-input" placeholder="Your notes" ui-keypress="{13:'putMessage(message)'}"/>
 			</textarea>
 		</div>
 
