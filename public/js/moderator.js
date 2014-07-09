@@ -46,7 +46,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.timeline = []; // holds all messages currently in flow
 
     // refresh warning to prevent whoops-I-deleted-the-Session
-    var leavingPageText = "You'll lose your changes if you leave";
+    var leavingPageText = "If you refresh, you will lose this test.";
     window.onbeforeunload = function(){
         return leavingPageText;
     }
@@ -54,7 +54,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.$on('$destroy', function() {
         window.onbeforeunload = undefined;
     });
-    
+
     $scope.$on('$locationChangeStart', function(event, next, current) {
         if(!confirm(leavingPageText + "\n\nAre you sure you want to leave this page?")) {
             event.preventDefault();
@@ -126,9 +126,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             var hashCatch = new RegExp(/\S*#\S+/gi); 
             var tagIt = test.match(hashCatch);
             console.log(test);
-            console.log(tagIt);
+            if (tagIt){
+                console.log(tagIt);
+                message.tags.push(tagIt);
+            }
+
             
-            message.tags.push(tagIt);
 
             console.log(message);
 
