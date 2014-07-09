@@ -45,6 +45,23 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $scope.timeline = []; // holds all messages currently in flow
 
+    // refresh warning to prevent whoops-I-deleted-the-Session
+    var leavingPageText = "You'll lose your changes if you leave";
+    window.onbeforeunload = function(){
+        return leavingPageText;
+    }
+
+    $scope.$on('$destroy', function() {
+        window.onbeforeunload = undefined;
+    });
+    
+    $scope.$on('$locationChangeStart', function(event, next, current) {
+        if(!confirm(leavingPageText + "\n\nAre you sure you want to leave this page?")) {
+            event.preventDefault();
+        }
+    });
+
+
     // this has to change to get the new session created on the run() command from the main controller
     $http.get('/api/'+$stateParams.sessionId)
         .success(function(data){
@@ -99,16 +116,24 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             console.log('message log', $scope.step.current);
             console.log('getting local step', $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex] );
             
+            message.tags = [];
+
             $scope.timeline.push(message.body);
-            $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex].messages.push(message.body)
 
             var test = message.body;
 
             // if message has # with no space, post that to message.tags
             var hashCatch = new RegExp(/\S*#\S+/gi); 
-            var tags = test.match(hashCatch);
+            var tagIt = test.match(hashCatch);
             console.log(test);
-            console.log(tags);
+            console.log(tagIt);
+            
+            message.tags.push(tagIt);
+
+            console.log(message);
+
+            $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex].messages.push(message)
+
 
             // write .put message to database
             // send .put contents to $scope.timeline
