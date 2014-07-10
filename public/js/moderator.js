@@ -76,10 +76,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             message.title = 'Starting flow';
             $scope.timeline.push(message);
 
-            message.body = $scope.flows[0].steps[0].title;
-            message.title = 'Starting step';
-            $scope.timeline.push(message);
-
             // set the initial reporting step
             $scope.step.current = $scope.flows[0].steps[0]._id;
         })

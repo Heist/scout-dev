@@ -107,7 +107,10 @@ ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepC
 					</div>
 
 					<div class="message-body">
-						{{message}}
+						<small>{{message.title}}</small><br>
+						{{message.body}}<br>
+						<small>{{message.created | date : 'hh:mm'}}</small>
+
 					</div>
 					
 					<div class="message-details"> <!-- should be message-details -->
