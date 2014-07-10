@@ -99,26 +99,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             console.log(step.title);
             console.log(step);
 
-            // now we put that step's update into its session storage in the db
-
-            var url = '/api/'+$stateParams.sessionId+'/test/'+$stateParams.testId;
-            // you should be able to output the step and update, but mongoose violently
-            // dislikes queries by sub-sub-document, so we must output the whole changed flow.
-
-            var dataOut = $scope.flows[$scope.parentIndex];
-            // for some reason this does not actually include the updated messages.
-            // they are not pushing correctly into the steps.
-
-            console.log('this is the flow output', dataOut);
-
-            $http.put(url, dataOut)
-                .success(function(data){
-                    console.log('Step pushed: ', data);
-                })
-                .error(function(data){
-                    console.log('Error: ' + data);
-                })
-
         // this is going to be a find-join in mongoose where we find all TESTS by SESSION_ID 
         // then return that information to the summarize/report function.
 
@@ -129,14 +109,16 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
              var note = {};
              note.body = message;
              note.tags = [];
+             note.created = new Date();
 
-            $scope.timeline.push(message);
+             $scope.timeline.push(note);
 
-            var test = message;
+
+            var connect = $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex]
 
             // if message has # with no space, post that to message.tags
             var hashCatch = new RegExp(/\S*#\S+/gi); 
-            var tagIt = test.match(hashCatch);
+            var tagIt = message.match(hashCatch);
             
             if (tagIt){
                 console.log(tagIt);
@@ -145,8 +127,25 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 }                
             }
 
-            $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex].messages.push(note);
-            console.log($scope.flows[$scope.parentIndex].steps[$scope.selectedIndex]);
+            connect.messages.push(note);
+            console.log(connect);
+
+            // now we put that step's update into its session storage in the db
+
+            var url = '/api/'+$stateParams.sessionId+'/test/'+$stateParams.testId;
+
+            // mongoose does not permid _id queries on grandchildren, only parent.child.id(_id)
+            var dataOut = $scope.flows[$scope.parentIndex];
+
+
+            $http.put(url, dataOut)
+                .success(function(data){
+                    console.log('Step pushed: ', data);
+                })
+                .error(function(data){
+                    console.log('Error: ' + data);
+                })
+
 
             $scope.message='';
         }
