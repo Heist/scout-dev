@@ -93,40 +93,34 @@ router.route('/test/:testId')
 	})
 // you are working on this!	
 	.put(function(req,res){
-		Session.findById({"testKey": req.params.testId, 'ismodel':true}, function(err, session) {
+		Session.findById({"testKey": req.params.testId, 'ismodel':true}, function(err, test) {
 				if (err)
 					res.send(err);
 				
 				console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
 
-				// in here somewhere, sessions should update by overwriting itself with new values on front end.
-				session.name = req.body.name;
+				if (!test.flows){
+					session.flows = []; // this sets things fine if no session.flows are present
+				}
+
+				if (req.body.flows){
+					test.flows = req.body.flows; // maybe
+				}
+
+				if (req.body.flow){
+					var sub_doc = test.flows.create(req.body.flow);
+					test.flows.push(sub_doc); // adds to local session
+				}
 				
-				if (req.body.user){
-					session.user = req.body.user;
-					console.log('new user', session.user);
-			}
 
 			// save the session object - this is not saving anything about the flow _id.
-			session.save(function(err) {
+			test.save(function(err) {
 				if (err)
 					res.send(err);
 
 				res.json( req.body );
 			});
-
-
-			if (!session.flows){
-				session.flows = []; // this sets things fine if no session.flows are present
-			}
-			if (req.body.flows){
-				session.flows = req.body.flows; // maybe
-			}
-
-			if (req.body.flow){
-				var sub_doc = session.flows.create(req.body.flow);
-				session.flows.push(sub_doc); // adds to local session
-			}
+		});
 	})
 	.delete(function(req, res) {
 		console.log(req.params.testId);
