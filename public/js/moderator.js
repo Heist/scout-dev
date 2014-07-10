@@ -87,10 +87,25 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         $scope.addUser = function(textfield){
             $scope.user.name = textfield;
-            console.log($scope.user.name);
             $scope.user.toggle = true;
-            console.log($scope.user.toggle);
+            
             $scope.$apply
+
+            // $scope.session.user = textfield;
+            var wrapper = { 'user': textfield };
+
+            var url = '/api/'+ $scope.session._id;
+            var dataOut = wrapper;
+
+            console.log(url);
+            $http.put(url, dataOut)
+                .success(function(data){
+                    console.log('Step pushed: ', data);
+                })
+                .error(function(data){
+                    console.log('Error: ' + data);
+                })
+
         }
 
         $scope.activate = function (index, parentIndex, step) {

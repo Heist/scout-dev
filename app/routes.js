@@ -76,6 +76,10 @@ router.route('/:sessionId')
 			// in here somewhere, sessions should update by overwriting itself with new values on front end.
 			session.name = req.body.name;
 			
+			if (req.body.user){
+				session.user = req.body.user;
+				console.log('new user', session.user);
+			}
 			if (!session.flows){
 				session.flows = []; // this sets things fine if no session.flows are present
 			}

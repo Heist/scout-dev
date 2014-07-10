@@ -71,6 +71,10 @@ var SessionSchema = new Schema ({
 			type: String, 
 			trim: true
 		},
+	user :{
+		type: String, 
+		trim: true
+	},
 	created: {
 			type: Date
 		},
@@ -80,7 +84,7 @@ var SessionSchema = new Schema ({
 	testKey: {
 		type: Number
 	},
-	flows : [FlowSchema]	
+	flows : [FlowSchema]
 })
 
 MessageSchema.pre('save', function(next){
@@ -110,4 +114,3 @@ SessionSchema.pre('save', function(next){
 });
 
 module.exports = mongoose.model('Session', SessionSchema);
-// module.exports = mongoose.model('Flow', FlowSchema);
