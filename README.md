@@ -77,3 +77,17 @@ A Test's sessions share flows and steps, but are intended to have unique users, 
 Each Session is a document in our MongoDB, which is addressed by Mongoose because sometimes schemas make things nicer.
 
 Pretty much all actions in Scout take place on a single Session document at a time, which stores all things related to itself. This will change as we move into reporting.
+
+## API/Angular Reference 
+Front-end routes are different than back-end routes. In Scout, we're making use of Angular-UI, a third party library that provides nested views and stateful routing, which I don't really use but may be handy in future and are certainly clean.
+
+Back end routes to the DB are _passed_ from moderator.js - the $scope definition file for Angular - to routes.js, which is the Mongoose frontend for our database.
+
+When something gets .put in moderator.js (via whatever partials/xxx.html), it goes to the db via routes.js.
+
+## ToDo Long Term
+
+These are things that will make the code base more maintainable and less of a rat's nest. It's functional! Now it should be clean, etc.
+
+1. controllers should be separated and reincluded from moderator.js as they are finished.
+2. models in mongoose should be separated and reincluded as well.
