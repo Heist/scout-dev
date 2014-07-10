@@ -31,6 +31,8 @@ router.route('/')
 				res.json(sessions);
 			});
 		})
+	// this needs to *only* be touched when creating a new Session, not a new test.
+	// sessions cannot be individually deleted until reporting.
 	.post(function(req, res){
 			var session = new Session(); // here is where all that save stuff is happening
  			
@@ -75,7 +77,19 @@ router.route('/test/:testId')
 				});
 		});
 
+	})
+	.delete(function(req, res) {
+		console.log(req.params.testId);
+		Session.remove({
+			testKey: req.params.testId
+		}, function(err, session) {
+			if (err)
+				res.send(err);
+
+			res.json({ message: 'Successfully deleted all tests with '+req.params.testId });
+		});
 	});
+;
 
 // /:_id routes
 router.route('/:sessionId')

@@ -309,11 +309,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // });
     }
 
-    $scope.removeSession = function(session){
+    $scope.removeTest = function(session){
         var index = $scope.sessions.indexOf(session);
         $scope.sessions.splice(index, 1);
 
-        var url = '/api/'+session._id;
+        var url = '/api/test/'+session.testKey;
 
         $http.delete(url)
             .success(function(data){
