@@ -70,8 +70,15 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             console.log($scope.flows);
 
             // set the initial timeline contents
-            $scope.timeline.push('Starting flow '+$scope.flows[0].title);
-            $scope.timeline.push('Starting step '+$scope.flows[0].steps[0].title);
+            var message = {};
+
+            message.body = $scope.flows[0].title;
+            message.title = 'Starting flow';
+            $scope.timeline.push(message);
+
+            message.body = $scope.flows[0].steps[0].title;
+            message.title = 'Starting step';
+            $scope.timeline.push(message);
 
             // set the initial reporting step
             $scope.step.current = $scope.flows[0].steps[0]._id;
@@ -92,9 +99,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             $scope.parentIndex = parentIndex;
 
             $scope.step.current = step._id;
-            var message = step.title;
+            
+            var message = {};
 
-            $scope.timeline.push(stepType+' '+message);
+            message.body = step.title;
+            message.title = stepType;
+
+            $scope.timeline.push(message);
 
             console.log(step.title);
             console.log(step);
