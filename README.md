@@ -14,7 +14,8 @@ Install *MongoDB* and *Node.js* locally.
 
 Clone this repo into your favoured project directory.
 
-```cd scout-dev
+```
+cd scout-dev
 npm install
 node server
 ```
