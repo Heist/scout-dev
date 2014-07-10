@@ -21,7 +21,7 @@ node server
 ```
 
 ## Application Structure
-
+```
 |- app						<< *THE BACK END* of the app
 	|- models	  			<< where the Mongoose models live.
 		|- session.js 		<< this is the _only model we touch_, right now.
@@ -36,7 +36,6 @@ node server
 |- config
 	|- db.js 				<< the database connection file, for modification when pushed to Modulus
 |- node_modules 			<< where Node.js things live, pls. to not touch directly.
-
 |- public					<< THE FRONT END of the app
 	|- assets				<< things Tom made that aren't CSS, I never go here.
 
@@ -62,7 +61,7 @@ package.json 				<< /node_module 's source list
 Procfile 					<< for Heroku
 README.md 					<< this file
 *server.js* 				<< The main application file which does surprisingly little.
-
+```
 
 ## API/Database Reference
 
