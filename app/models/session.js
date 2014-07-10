@@ -75,6 +75,11 @@ var SessionSchema = new Schema ({
 		type: String, 
 		trim: true
 	},
+	ismodel :{
+		type: Boolean,
+		default: false
+	}
+	,
 	created: {
 			type: Date
 		},

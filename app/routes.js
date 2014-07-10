@@ -52,6 +52,30 @@ router.route('/')
 				});
 			});
 		});
+// /test/testId routes
+router.route('/test/:testId')
+	.post(function(req,res){
+		var ptype = new Session();
+
+		ptype.name 		= 'Prototype';
+		ptype.testKey 	= req.body.testKey;
+		ptype.ismodel 	= true;
+
+		res.send(req.body);  		// echo the result back
+		ptype.save(function(err) {
+				if (err)
+					res.send(err);
+
+				Session.find({  }, function(err, session) {
+					if (err)
+						res.send(err);
+					res.json(session);
+					console.log(session.length)
+					console.log(session)
+				});
+		});
+
+	});
 
 // /:_id routes
 router.route('/:sessionId')

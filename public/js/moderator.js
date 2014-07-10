@@ -280,34 +280,33 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         });
     }
 
-    $scope.addSession = function(session){
-        var testGen =  Math.round((new Date().valueOf() * Math.random()));
-                
-        
+    $scope.addTest = function(test){
+        var testGen = Math.round((new Date().valueOf() * Math.random()));
         var dataOut = {
-                name    : 'New Session', 
+                name    : 'New Session',
                 testKey : testGen
             };        
         
-    	$http.post('/api/', dataOut)   
+    	$http.post('/api/test/'+testGen, dataOut)   
     		.success(function(data){
                 console.log(data)
                 console.log('success');
+                $scope.sessions = data;
     		})
     		.error(function(data){
 
     		});
         
-        $http.get('/api/')
-        .success(function(data) {
-            // flows is *all* flows
-            $scope.sessions = data;
-            console.log($scope.sessions);
-            console.log($scope.sessions.length);
-        })
-        .error(function(data) {
-            console.log('Error: ' + data);
-        });
+        // $http.get('/api/')
+        // .success(function(data) {
+        //     // flows is *all* flows
+        //     $scope.sessions = data;
+        //     console.log($scope.sessions);
+        //     console.log($scope.sessions.length);
+        // })
+        // .error(function(data) {
+        //     console.log('Error: ' + data);
+        // });
     }
 
     $scope.removeSession = function(session){
