@@ -129,15 +129,16 @@ ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepC
 	
 	
 	
-	<div id="right-pane">
-		
+	<div id="right-pane" ng-model='user'>
+		<div id="timeline-user-input">
+			<textarea class="input" ng-model='user.name' name="field-input" placeholder="Your notes" ui-keypress="{13:'addUser(user)'}"/>
+			</textarea>
+		</div>
 		<div id="timeline-user">
 			<div class="timeline-user-avatar">
 				<img src="http://rdjpg.com/30/30">
 			</div>
-			
-			Robertolomew Downeyjunior
-			
+			{{user.name}}		
 		</div>
 		
 		<div id="timeline-device">
