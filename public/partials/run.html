@@ -89,8 +89,10 @@ on click step
 ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepChange(whateverElementTriggersThis) }" ng-repeat="message in timeline"
 -->
 		
-		<div id="session-input" >
-			<textarea class="input" ng-model='message' name="field-input" placeholder="Your notes" ui-keypress="{13:'putMessage(message)'}"/>
+		<div id="session-input" ng-model="user" >
+			<textarea class="input" ng-model='user.name' name="field-input" placeholder="please enter the username to begin" ui-keypress="{13:'addUser(user.name)'}" ng-show="!user.toggle"/>
+			</textarea>
+			<textarea class="input" ng-model='message' name="field-input" placeholder="Your notes" ui-keypress="{13:'putMessage(message)'}" ng-show="user.toggle"/>
 			</textarea>
 		</div>
 
@@ -127,12 +129,9 @@ ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepC
 	</div>
 	
 	
-	
-	
 	<div id="right-pane" ng-model='user'>
 		<div id="timeline-user-input">
-			<textarea class="input" ng-model='user.name' name="field-input" placeholder="Your notes" ui-keypress="{13:'addUser(user)'}"/>
-			</textarea>
+		
 		</div>
 		<div id="timeline-user">
 			<div class="timeline-user-avatar">

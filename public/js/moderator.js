@@ -42,6 +42,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.session = {};
     $scope.flows = {};
     $scope.step = {};
+    $scope.user = {};
 
     $scope.timeline = []; // holds all messages currently in flow
 
@@ -84,6 +85,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $scope.selectedIndex = 0;
         $scope.parentIndex = 0;
 
+        $scope.addUser = function(textfield){
+            $scope.user.name = textfield;
+            console.log($scope.user.name);
+            $scope.user.toggle = true;
+            console.log($scope.user.toggle);
+            $scope.$apply
+        }
 
         $scope.activate = function (index, parentIndex, step) {
             var stepType = 'Starting flow';
