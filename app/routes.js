@@ -23,6 +23,8 @@ router.use(function(req, res, next) {
 
 // get/post to /api routes.
 router.route('/')
+	// this returns all sessions in the DB. Sessions are our basic document unit.
+	// it is important for testing that a basic call results in a dump.
 	.get(function(req, res) {
 			Session.find(function(err, sessions) {
 				if (err)
@@ -31,6 +33,16 @@ router.route('/')
 				res.json(sessions);
 			});
 		})
+	// .get(function(req,res){
+	// 	Session.find({testKey: req.params.testId}, function(err, test) {
+	// 			if (err)
+	// 				res.send(err);
+	// 			res.json(test);
+	// 			console.log(test.length);
+	// 			console.log(test);
+	// 		});
+	// })
+
 	// this needs to *only* be touched when creating a new Session, not a new test.
 	// sessions cannot be individually deleted until reporting.
 	.post(function(req, res){
@@ -56,6 +68,7 @@ router.route('/')
 		});
 // /test/testId routes
 router.route('/test/:testId')
+	
 	.post(function(req,res){
 		var ptype = new Session();
 
@@ -68,7 +81,7 @@ router.route('/test/:testId')
 				if (err)
 					res.send(err);
 
-				Session.find({  }, function(err, session) {
+				Session.find({testKey: req.params.testId}, function(err, session) {
 					if (err)
 						res.send(err);
 					res.json(session);
@@ -77,6 +90,43 @@ router.route('/test/:testId')
 				});
 		});
 
+	})
+// you are working on this!	
+	.put(function(req,res){
+		Session.findById({"testKey": req.params.testId, 'ismodel':true}, function(err, session) {
+				if (err)
+					res.send(err);
+				
+				console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
+
+				// in here somewhere, sessions should update by overwriting itself with new values on front end.
+				session.name = req.body.name;
+				
+				if (req.body.user){
+					session.user = req.body.user;
+					console.log('new user', session.user);
+			}
+
+			// save the session object - this is not saving anything about the flow _id.
+			session.save(function(err) {
+				if (err)
+					res.send(err);
+
+				res.json( req.body );
+			});
+
+
+			if (!session.flows){
+				session.flows = []; // this sets things fine if no session.flows are present
+			}
+			if (req.body.flows){
+				session.flows = req.body.flows; // maybe
+			}
+
+			if (req.body.flow){
+				var sub_doc = session.flows.create(req.body.flow);
+				session.flows.push(sub_doc); // adds to local session
+			}
 	})
 	.delete(function(req, res) {
 		console.log(req.params.testId);
@@ -103,7 +153,7 @@ router.route('/:sessionId')
 
 	.put(function(req, res) {
 
-		// use our model to find the item we want
+		// put only puts updates to individual sessions
 		Session.findById(req.params.sessionId, function(err, session) {
 
 			if (err)
@@ -117,17 +167,6 @@ router.route('/:sessionId')
 			if (req.body.user){
 				session.user = req.body.user;
 				console.log('new user', session.user);
-			}
-			if (!session.flows){
-				session.flows = []; // this sets things fine if no session.flows are present
-			}
-			if (req.body.flows){
-				session.flows = req.body.flows; // maybe
-			}
-
-			if (req.body.flow){
-				var sub_doc = session.flows.create(req.body.flow);
-				session.flows.push(sub_doc); // adds to local session
 			}
 
 			// save the session object - this is not saving anything about the flow _id.

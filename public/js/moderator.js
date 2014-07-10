@@ -283,30 +283,29 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.addTest = function(test){
         var testGen = Math.round((new Date().valueOf() * Math.random()));
         var dataOut = {
-                name    : 'New Session',
-                testKey : testGen
+                testKey : testGen,
+                ismodel : true
             };        
         
     	$http.post('/api/test/'+testGen, dataOut)   
     		.success(function(data){
                 console.log(data)
                 console.log('success');
-                $scope.sessions = data;
     		})
     		.error(function(data){
 
     		});
         
-        // $http.get('/api/')
-        // .success(function(data) {
-        //     // flows is *all* flows
-        //     $scope.sessions = data;
-        //     console.log($scope.sessions);
-        //     console.log($scope.sessions.length);
-        // })
-        // .error(function(data) {
-        //     console.log('Error: ' + data);
-        // });
+        $http.get('/api/')
+            .success(function(data) {
+                // flows is *all* flows
+                $scope.sessions = data;
+                console.log($scope.sessions);
+                console.log($scope.sessions.length);
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
     }
 
     $scope.removeTest = function(session){
@@ -324,9 +323,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             })
     }
 
-      $scope.addAFlow = function(session){
+      $scope.addAFlow = function(test){
             // this adds a flow to the session selectied
-            var putURL = '/api/'+session._id;
+            var putURL = '/api/test/'+test.testKey;
             console.log(putURL);
 
             $scope.flow = []
