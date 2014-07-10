@@ -63,7 +63,6 @@ README.md 					<< this file
 *server.js* 				<< The main application file which does surprisingly little.
 
 
-
 ## API/Database Reference
 
 Scout posts its DB calls to /api/ as a base URL, which is presently _public_, which is why Scout is not on Heroku right now.
@@ -77,19 +76,4 @@ A Test's sessions share flows and steps, but are intended to have unique users, 
 
 Each Session is a document in our MongoDB, which is addressed by Mongoose because sometimes schemas make things nicer.
 
-
-
-
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
-
-## Tests
-
-Describe and show how to run the tests with code examples.
-
-## Contributors
-
-Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
-
-## License
-
-A short snippet describing the license (MIT, Apache, etc.)
+Pretty much all actions in Scout take place on a single Session document at a time, which stores all things related to itself. This will change as we move into reporting.
