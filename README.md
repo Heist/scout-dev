@@ -12,12 +12,12 @@ This is for someone other than the developer to sort out, my motivation for this
 
 Install *MongoDB* and *Node.js* locally.
 
-Clone this repo into your favoured project directory.
+Clone this repo into your favoured project directory. $> = at the terminal line.
 
 ```
-cd scout-dev
-npm install
-node server
+$> cd scout-dev
+$> npm install
+$> node server
 ```
 
 ## Application Structure
@@ -91,3 +91,6 @@ These are things that will make the code base more maintainable and less of a ra
 
 1. controllers should be separated and reincluded from moderator.js as they are finished.
 2. models in mongoose should be separated and reincluded as well.
+3. Before this goes up on Heroku, there will need to be authentication.
+4. Profit.
+

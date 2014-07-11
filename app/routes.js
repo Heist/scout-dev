@@ -23,6 +23,8 @@ router.use(function(req, res, next) {
 
 // get/post to /api routes.
 router.route('/')
+	// this returns all sessions in the DB. Sessions are our basic document unit.
+	// it is important for testing that a basic call results in a dump.
 	.get(function(req, res) {
 			Session.find(function(err, sessions) {
 				if (err)
@@ -31,6 +33,8 @@ router.route('/')
 				res.json(sessions);
 			});
 		})
+	// this needs to *only* be touched when creating a new Session, not a new test.
+	// sessions cannot be individually deleted until reporting.
 	.post(function(req, res){
 			var session = new Session(); // here is where all that save stuff is happening
  			
@@ -53,61 +57,90 @@ router.route('/')
 			});
 		});
 
-// /:_id routes
-router.route('/:sessionId')
-	.get(function(req,res) {
-			Session.findById(req.params.sessionId, function(err, session) {
+// routest for returning test sets
+router.route('/test/')
+	.get(function(req,res){
+		Session.find({ismodel: 'true'}, function(err, test) {
 				if (err)
 					res.send(err);
-				res.json(session);
+				res.json(test);
+				console.log(test.length);
+				console.log(test);
 			});
-		})
+	});
 
-	.put(function(req, res) {
+// /test/testId routes
+router.route('/test/:testId')
+	// route for adding a test to a db - 
+	// testId is actually a front-end randomly generated number
+	// _not_ an ObjectID at all. This is why it works.
 
-		// use our model to find the item we want
-		Session.findById(req.params.sessionId, function(err, session) {
+	.post(function(req,res){
+		var ptype = new Session();
 
-			if (err)
-				res.send(err);
-			
-			console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
+		ptype.name 		= 'Prototype';
+		ptype.testKey 	= req.body.testKey;
+		ptype.ismodel 	= true;
 
-			// in here somewhere, sessions should update by overwriting itself with new values on front end.
-			session.name = req.body.name;
-			
-			if (!session.flows){
-				session.flows = []; // this sets things fine if no session.flows are present
-			}
-			if (req.body.flows){
-				session.flows = req.body.flows; // maybe
-			}
+		res.send(req.body);  		// echo the result back
+		ptype.save(function(err) {
+				if (err)
+					res.send(err);
 
-			if (req.body.flow){
-				var sub_doc = session.flows.create(req.body.flow);
-				session.flows.push(sub_doc); // adds to local session
-			}
+				Session.find({testKey: req.params.testId}, function(err, session) {
+					if (err)
+						res.send(err);
+					res.json(session);
+					console.log(session.length)
+					console.log(session)
+				});
+		});
 
-			// save the session object - this is not saving anything about the flow _id.
+	})
+	// route for adding flows to tests
+	// needs to return values to the front end or you can't edit them.
+	.put(function(req,res){
+		Session.findOne({'testKey': req.params.testId, 'ismodel':true}, function(err, session) {
+				if (err)
+					res.send(err);
+				
+				console.log('touched the right path');
+				// passed value from front end
+				console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      
+				console.log(session);
+
+				if (req.body.flow){
+					console.log('touched req.body.flow singular');
+					var sub_doc = session.flows.create(req.body.flow);
+					console.log(sub_doc);
+					session.flows.push(sub_doc); // adds new flow to session in play
+				}
+				
+
+			// save the session object 'test' - this is not returning anything about the flow _id.
 			session.save(function(err) {
 				if (err)
 					res.send(err);
 
 				res.json( req.body );
 			});
-
 		});
 	})
 	.delete(function(req, res) {
+		console.log(req.params.testId);
 		Session.remove({
-			_id: req.params.sessionId
+			'testKey': req.params.testId
 		}, function(err, session) {
 			if (err)
 				res.send(err);
 
-			res.json({ message: 'Successfully deleted' });
+			res.json({ message: 'Successfully deleted all tests with '+req.params.testId });
 		});
 	});
+;
+
+// this is the part where steps are added and removed from flows.
+// it could be cleaner.
 
 router.route('/:sessionId/flow/:flowId')
 	.get(function(req,res) {
@@ -141,8 +174,30 @@ router.route('/:sessionId/flow/:flowId')
 				res.json( req.body );
 			});
 		})
+	})
+	.delete(function(req, res) {
+		console.log(req.params.flowId);
+		
+		Session.findById(req.params.sessionId).exec(
+    		function(err, session) { 
+    			if (session.flows.id(req.params.flowId)){
+    			console.log('found');
+    			session.flows.id(req.params.flowId).remove();
+
+    			session.save(function(err) {
+						if (err)
+							res.send(err);
+						
+						res.json(session);				
+
+				});
+
+    			}
+   			}
+		);
 	});
 
+// this is also for /run/?
 router.route('/:sessionId/test/:testId')
 	.post(function(req,res){		
 			Session.findById(req.params.sessionId).exec(
@@ -178,8 +233,57 @@ router.route('/:sessionId/test/:testId')
 				});
 			}
 		);
+	});
+
+
+// Session specific routes - _can_ be used to return a single test, but will catch the model.
+// mostly used in /run
+// at the bottom because seriously I keep mistaking it for where we put new flows.
+
+router.route('/:sessionId')
+	.get(function(req,res) {
+			Session.findById(req.params.sessionId, function(err, session) {
+				if (err)
+					res.send(err);
+				res.json(session);
+			});
+		})
+	.put(function(req, res) {
+		// put is used both in active sessions to apply usernames.
+		// put only puts updates to individual sessions, not test sets
+
+		Session.findById(req.params.sessionId, function(err, session) {
+
+			if (err)
+				res.send(err);
+			
+			console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
+
+			if (req.body.user){
+				session.user = req.body.user;
+				console.log('new user', session.user);
+			}
+
+			// save the session object - this is not saving anything about the flow _id.
+			session.save(function(err) {
+				if (err)
+					res.send(err);
+				res.json( req.body );
+			});
+
+		});
 	})
-	;
+	.delete(function(req, res) {
+		Session.remove({
+			_id: req.params.sessionId
+		}, function(err, session) {
+			if (err)
+				res.send(err);
+
+			res.json({ message: 'Successfully deleted' });
+		});
+	});
+	
 
 
 	// frontend routes =========================================================

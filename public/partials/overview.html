@@ -24,7 +24,7 @@
 	
 	
 	<div id="header-nav">
-		<a href="#"><button class="button small" ng-click="addSession(session)">+ New session</button></a>
+		<a href="#"><button class="button small" ng-click="addTest(test)">+ New Test</button></a>
 	</div>
 
 </div>
@@ -50,7 +50,7 @@
 			<div class="session-controls">
 				<button class="button small" ng-click="addAndLaunchNewTest(session)">Run</button>
 				<button class="button small">Summarize</button>
-				<button class="button small destructive" ng-click="removeSession(session)">&times;</button>
+				<button class="button small destructive" ng-click="removeTest(session)">&times;</button>
 			</div>
 			<div class="clear"></div>
 		</div>	
@@ -77,7 +77,7 @@
 		
 		<div class="module quarter" >
 			<div class="session-flow empty">
-				<button class="button" ng-click="addAFlow(session)">+ Add A Flow</button>
+				<button class="button" ng-click="addAFlow($index, session)">+ Add A Flow</button>
 			</div>
 		</div>
 

@@ -68,7 +68,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data){
             $scope.session = data;
             $scope.flows = $scope.session.flows;
-            console.log($scope.flows);
+            
 
             // set the initial timeline contents
             var message = {};
@@ -87,10 +87,25 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         $scope.addUser = function(textfield){
             $scope.user.name = textfield;
-            console.log($scope.user.name);
             $scope.user.toggle = true;
-            console.log($scope.user.toggle);
+            
             $scope.$apply
+
+            // $scope.session.user = textfield;
+            var wrapper = { 'user': textfield };
+
+            var url = '/api/'+ $scope.session._id;
+            var dataOut = wrapper;
+
+            
+            $http.put(url, dataOut)
+                .success(function(data){
+                    console.log('Step pushed: ', data);
+                })
+                .error(function(data){
+                    console.log('Error: ' + data);
+                })
+
         }
 
         $scope.activate = function (index, parentIndex, step) {
@@ -111,8 +126,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             $scope.timeline.push(message);
 
-            console.log(step.title);
-            console.log(step);
+            
+            
 
         // this is going to be a find-join in mongoose where we find all TESTS by SESSION_ID 
         // then return that information to the summarize/report function.
@@ -136,14 +151,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             var tagIt = message.match(hashCatch);
             
             if (tagIt){
-                console.log(tagIt);
+                
                 for (var i=0; i < tagIt.length; ++i) {
                     note.tags.push(tagIt[i]);
                 }                
             }
 
             connect.messages.push(note);
-            console.log(connect);
+            
 
             // now we put that step's update into its session storage in the db
 
@@ -173,7 +188,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 
 	// get all sessions and their flows	on first load
-	$http.get('/api/')
+	$http.get('/api/test/')
 		.success(function(data) {
 			// flows is *all* flows
 			$scope.sessions = data;
@@ -209,7 +224,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $scope.editTitle = function(textfield){
         textfield.editing = 'true';
-        console.log(textfield.editing);
+        
 
         // Clone the original item to restore it on demand.
         // $scope.originalTitle = angular.extend({}, session);
@@ -223,7 +238,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // var index = $scope.session.flows.indexOf(flow);
         var url = '/api/'+session._id;
         
-        console.log(session.name);
+        
 
         if (!session.name) {
             session.name = 'New Session';
@@ -240,88 +255,71 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 })
     }
 
-	$scope.removeFlow = function(session, flow){ 
-        
-        $scope.sessions[session].flows.splice(flow, 1);
-
-        var url = '/api/'+$scope.sessions[session]._id;
-        var dataOut = $scope.sessions[session];
-
-        $http.put(url,dataOut)
-  			.success(function(data){
-  				console.log(data)
-  			})
-  			.error(function(data){
-  				console.log('Error: ' + data);
-  			})
-        $http.get('/api/')
-        .success(function(data) {
-            // flows is *all* flows
-            $scope.sessions = data;
-            console.log($scope.sessions);
-        })
-        .error(function(data) {
-            console.log('Error: ' + data);
-        });
-    }
-
-    $scope.addSession = function(session){
-        var testGen =  Math.round((new Date().valueOf() * Math.random()));
-                
-        
+    $scope.addTest = function(test){
+        var testGen = Math.round((new Date().valueOf() * Math.random()));
         var dataOut = {
-                name    : 'New Session', 
-                testKey : testGen
+                testKey : testGen,
+                ismodel : true
             };        
         
-    	$http.post('/api/', dataOut)   
-    		.success(function(data){
-                console.log(data)
-                console.log('success');
-    		})
-    		.error(function(data){
+        $http.post('/api/test/'+testGen, dataOut)   
+            .success(function(data){
+                
+                
+            })
+            .error(function(data){
 
-    		});
+            });
         
         $http.get('/api/')
-        .success(function(data) {
-            // flows is *all* flows
-            $scope.sessions = data;
-            console.log($scope.sessions);
-            console.log($scope.sessions.length);
-        })
-        .error(function(data) {
-            console.log('Error: ' + data);
-        });
+            .success(function(data) {
+                // flows is *all* flows
+                $scope.sessions = data;
+                
+                
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
     }
 
-    $scope.removeSession = function(session){
+
+    $scope.removeTest = function(session){
         var index = $scope.sessions.indexOf(session);
         $scope.sessions.splice(index, 1);
 
-        var url = '/api/'+session._id;
+        var url = '/api/test/'+session.testKey;
 
         $http.delete(url)
             .success(function(data){
-                console.log(url ,'deleted')
+                
             })
             .error(function(data){
                 console.log('Error: ' + data);
             })
     }
 
-      $scope.addAFlow = function(session){
-            // this adds a flow to the session selectied
-            var putURL = '/api/'+session._id;
-            console.log(putURL);
 
-            $scope.flow = []
+
+      $scope.addAFlow = function(index, test){
+            // this adds a flow to the test selectied
+            // important because tests model sessions
+
+            $scope.flow = {}
             $scope.flow.title = 'New Flow Name Goes Here';
+            $scope.flow.steps = [];
 
+            $scope.sessions[index].flows.push($scope.flow);
+
+            // this is so .put can sniff what's going on
             var wrapper = { 'flow': $scope.flow };
-
+            
+            
+            var url = '/api/test/'+test.testKey;
+            console.log(url);
+            
             $http
-                .put(putURL, wrapper)
+                .put(url, wrapper)
                 .success(function(data){
                     console.log(data);
 
@@ -331,18 +329,44 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 })
                 ;
 
-            $http.get('/api/')
-            .success(function(data) {
-                // flows is *all* flows
-                $scope.sessions = data;
-                console.log($scope.sessions);
-            })
-            .error(function(data) {
-                console.log('Error: ' + data);
-            });
+            // $http.get('/api/')
+            // .success(function(data) {
+            //     // flows is *all* flows
+            //     $scope.sessions = data;
+                
+            // })
+            // .error(function(data) {
+            //     console.log('Error: ' + data);
+            // });
 
             };
 	
+    $scope.removeFlow = function(session, flow){ 
+        // this is probably fine once we're only returning sessions
+        // with ismodel : true
+        // because the session we're selecting is the test session, not
+        // any sub-sessions.
+
+        console.log('session, flow '+ session+' '+ flow);
+
+
+        var url = '/api/'+$scope.sessions[session]._id+'/flow/'+$scope.sessions[session].flows[flow]._id;
+        
+        $scope.sessions[session].flows.splice(flow, 1);
+        
+        var dataOut = $scope.sessions[session];
+
+        console.log(url);
+        console.log(dataOut);
+
+        $http.delete(url,dataOut)
+            .success(function(data){
+                console.log(data)
+            })
+            .error(function(data){
+                console.log('Error: ' + data);
+            })
+    }
 }])
 
 // aside from managing steps, on open, this scope should fetch the flow created in overview
@@ -351,7 +375,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 // $scope, $http, $stateParams, $state
 // using ui-router, the above should be used to access angular_route/add?sessionId=
 
-.controller('addFlow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
+.controller('editFlow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
 	// $steps.controller needs to know the index of the selected item
 	// selected $index
 	// ng-show when steps.edit$index is selected
@@ -367,9 +391,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $http.get('/api/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId)
         .success(function(data) {
-            console.log(data);
             $scope.flow = data;
-
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -385,7 +407,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         		edit	: false
         	};
 	    $scope.flow.steps.push($scope.step);  
-        console.log($scope.flow)
+        
     }
 
     $scope.removeStep = function(step){
@@ -397,7 +419,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 	$scope.editTitle = function (step){
 		// edit the title box for a step
-		console.log('focused on editing title ',step);
+		
 		step.title_edit = true;
 
 		$scope.editedStep = step;
@@ -409,7 +431,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		// on losing the focus, save the name of the step
 		step.title_edit = false;
 
-		console.log('blur ',step);
+		
 		$scope.editedStep = null;
 		
 		step.title = step.title.trim();
