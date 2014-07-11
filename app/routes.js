@@ -100,29 +100,25 @@ router.route('/test/:testId')
 	// route for adding flows to tests
 	// needs to return values to the front end or you can't edit them.
 	.put(function(req,res){
-		Session.findById({"testKey": req.params.testId, 'ismodel':true}, function(err, test) {
+		Session.findOne({"testKey": req.params.testId, 'ismodel':true}, function(err, session) {
 				if (err)
 					res.send(err);
 				
 				console.log('touched the right path');
-				console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
-
-				if (!test.flows){
-					test.flows = []; // this sets things fine if no session.flows are present
-				}
-
-				if (req.body.flows){
-					test.flows = req.body.flows; // maybe
-				}
+				// passed value from front end
+				console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      
+				console.log(session);
 
 				if (req.body.flow){
-					var sub_doc = test.flows.create(req.body.flow);
-					test.flows.push(sub_doc); // adds to local session
+					console.log('touched req.body.flow singular');
+					var sub_doc = session.flows.create(req.body.flow);
+					console.log(sub_doc);
+					session.flows.push(sub_doc); // adds new flow to session in play
 				}
 				
 
 			// save the session object 'test' - this is not returning anything about the flow _id.
-			test.save(function(err) {
+			session.save(function(err) {
 				if (err)
 					res.send(err);
 
@@ -180,6 +176,7 @@ router.route('/:sessionId/flow/:flowId')
 		})
 	});
 
+// this is also for /run/?
 router.route('/:sessionId/test/:testId')
 	.post(function(req,res){		
 			Session.findById(req.params.sessionId).exec(

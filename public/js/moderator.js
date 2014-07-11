@@ -301,35 +301,33 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 
 
-      $scope.addAFlow = function(test){
+      $scope.addAFlow = function(index, test){
             // this adds a flow to the test selectied
             // important because tests model sessions
-
-            // var putURL = '/api/test/'+test.testKey;
-            console.log(test);
 
             $scope.flow = {}
             $scope.flow.title = 'New Flow Name Goes Here';
             $scope.flow.steps = [];
-            $scope.flow.updated = 'never.' ;
 
-            $scope.sessions[test].flows.push($scope.flow);
+            $scope.sessions[index].flows.push($scope.flow);
 
             // this is so .put can sniff what's going on
             var wrapper = { 'flow': $scope.flow };
             
-            console.log('touched flow '+ $scope.flow.title );
+            
+            var url = '/api/test/'+test.testKey;
+            console.log(url);
+            
+            $http
+                .put(url, wrapper)
+                .success(function(data){
+                    console.log(data);
 
-            // $http
-            //     .put(putURL, wrapper)
-            //     .success(function(data){
-            //         console.log(data);
-
-            //     })
-            //     .error(function(data){
-            //         console.log(data)
-            //     })
-            //     ;
+                })
+                .error(function(data){
+                    console.log(data)
+                })
+                ;
 
             // $http.get('/api/')
             // .success(function(data) {
