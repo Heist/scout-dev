@@ -103,13 +103,16 @@ router.route('/test/:testId')
     			session._id = undefined;
         		
         		var s1 = new Session( session );
-        			
+        		var id = mongoose.Types.ObjectId();
+        		console.log(id);
+
         			s1.ismodel = false;
+        			s1._id = id;
         			
-        			s1.save(function(err, s1) {
+        			s1.save(function(err, data) {
 						if (err)
 							res.send(err);
-						console.log(s1._id);
+						console.log(data);
 						// res.json(product);
 					});
   		 	 }
