@@ -91,16 +91,16 @@ router.route('/test/:testId')
 		});
 
 	})
-// you are working on this!	
 	.put(function(req,res){
 		Session.findById({"testKey": req.params.testId, 'ismodel':true}, function(err, test) {
 				if (err)
 					res.send(err);
 				
+				console.log('touched the right path');
 				console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
 
 				if (!test.flows){
-					session.flows = []; // this sets things fine if no session.flows are present
+					test.flows = []; // this sets things fine if no session.flows are present
 				}
 
 				if (req.body.flows){
