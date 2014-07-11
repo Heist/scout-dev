@@ -177,13 +177,13 @@ router.route('/:sessionId/flow/:flowId')
 	})
 	.delete(function(req, res) {
 		console.log(req.params.flowId);
-		var parent	= req.params.sessionId
-		var child 	= req.params.flowId
 		
 		Session.findById(req.params.sessionId).exec(
     		function(err, session) { 
     			console.log('found');
+    			
     			session.flows.id(req.params.flowId).remove();
+
 				session.flows.push(req.body);
 				console.log(session.flows);
 
