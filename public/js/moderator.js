@@ -273,7 +273,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             .success(function(data){
                 console.log('returned new session ', data)
                 
-                // $location.path('/run/'+data._id+'/test/'+data.testKey)
+                $location.path('/run/'+data._id+'/test/'+data.testKey)
             })
             .error(function(data){
                 console.log(data)

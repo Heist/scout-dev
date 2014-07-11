@@ -100,16 +100,17 @@ router.route('/test/:testId')
 		Session.findOne({'testKey':req.params.testId}).exec(
     		function(err, session) {
     			console.log('post to /test/testId');
+    			session._id = undefined;
+        		
         		var s1 = new Session( session );
-        			s1._id = undefined;
+        			
         			s1.ismodel = false;
         			
-
-        			s1.save(function(err) {
+        			s1.save(function(err, s1) {
 						if (err)
 							res.send(err);
-						console.log('.post s1 save touched')
-						res.json(s1);
+						console.log(s1._id);
+						// res.json(product);
 					});
   		 	 }
 		);
