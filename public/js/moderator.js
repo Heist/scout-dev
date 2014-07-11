@@ -198,30 +198,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 			console.log('Error: ' + data);
 		});
 
-    
-
-    $scope.addAndLaunchNewTest = function(session){
-        // var url = '/:sessionId/test/:testId' pseudocode
-
-        var url = '/api/'+session._id+'/test/'+session.testKey;
-
-        var dataOut = session;
-        var new_session = [];
-
-        $http.post(url, dataOut)
-            .success(function(data){
-                console.log(' total number of sessions ', data)
-                new_session = data;
-                $location.path('/run/'+data._id+'/test/'+data.testKey)
-            })
-            .error(function(data){
-                console.log(data)
-        });
-
-        // this changes to the returned session id, which has been newly created.
-
-    }
-
     $scope.editTitle = function(textfield){
         textfield.editing = 'true';
         
@@ -256,22 +232,19 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     $scope.addTest = function(test){
-        var testGen = Math.round((new Date().valueOf() * Math.random()));
         var dataOut = {
-                testKey : testGen,
                 ismodel : true
             };        
         
-        $http.post('/api/test/'+testGen, dataOut)   
+        $http.post('/api/test/', dataOut)   
             .success(function(data){
-                
-                
+                console.log(data);
             })
             .error(function(data){
 
             });
         
-        $http.get('/api/')
+        $http.get('/api/test/')
             .success(function(data) {
                 // flows is *all* flows
                 $scope.sessions = data;
@@ -282,13 +255,37 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 console.log('Error: ' + data);
             });
     }
+   
 
-
-    $scope.removeTest = function(session){
-        var index = $scope.sessions.indexOf(session);
-        $scope.sessions.splice(index, 1);
+    $scope.addAndLaunchNewTest = function(session){
+        // var url = '/:sessionId/test/:testId' pseudocode
 
         var url = '/api/test/'+session.testKey;
+        console.log(url);
+
+        var dataOut = {
+                ismodel : false
+            };
+
+        $http.post(url, dataOut)
+            .success(function(data){
+                console.log('returned new session ', data)
+                
+                // $location.path('/run/'+data._id+'/test/'+data.testKey)
+            })
+            .error(function(data){
+                console.log(data)
+        });
+
+        // this changes to the returned session id, which has been newly created.
+
+    }
+
+    $scope.removeTest = function(session){
+        var url = '/api/test/'+session.testKey;
+        var index = $scope.sessions.indexOf(session);
+
+        $scope.sessions.splice(index, 1);
 
         $http.delete(url)
             .success(function(data){

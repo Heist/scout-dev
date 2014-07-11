@@ -67,22 +67,17 @@ router.route('/test/')
 				console.log(test.length);
 				console.log(test);
 			});
-	});
-
-// /test/testId routes
-router.route('/test/:testId')
-	// route for adding a test to a db - 
-	// testId is actually a front-end randomly generated number
-	// _not_ an ObjectID at all. This is why it works.
-
+	})
 	.post(function(req,res){
 		var ptype = new Session();
+		var testGen = Math.round((new Date().valueOf() * Math.random()));
 
 		ptype.name 		= 'Prototype';
-		ptype.testKey 	= req.body.testKey;
-		ptype.ismodel 	= true;
+		ptype.testKey 	= testGen;
+		ptype.ismodel	= req.body.ismodel;
 
 		res.send(req.body);  		// echo the result back
+
 		ptype.save(function(err) {
 				if (err)
 					res.send(err);
@@ -92,10 +87,33 @@ router.route('/test/:testId')
 						res.send(err);
 					res.json(session);
 					console.log(session.length)
-					console.log(session)
 				});
 		});
 
+	});
+
+// /test/testId routes
+router.route('/test/:testId')
+	// route for adding a test to a db - 
+	// testId is actually a front-end randomly generated number
+	// _not_ an ObjectID at all. This is why it works.
+	.post(function(req,res){
+		Session.findOne({'testKey':req.params.testId}).exec(
+    		function(err, session) {
+    			console.log('post to /test/testId');
+        		var s1 = new Session( session );
+        			s1._id = undefined;
+        			s1.ismodel = false;
+        			
+
+        			s1.save(function(err) {
+						if (err)
+							res.send(err);
+						console.log('.post s1 save touched')
+						res.json(s1);
+					});
+  		 	 }
+		);
 	})
 	// route for adding flows to tests
 	// needs to return values to the front end or you can't edit them.
@@ -199,22 +217,6 @@ router.route('/:sessionId/flow/:flowId')
 
 // this is also for /run/?
 router.route('/:sessionId/test/:testId')
-	.post(function(req,res){		
-			Session.findById(req.params.sessionId).exec(
-    		function(err, session) {
-        		var s1 = new Session( session );
-        			s1._id = undefined;
-
-        			s1.save(function(err) {
-						if (err)
-							res.send(err);
-						
-						res.json(session);				
-
-					});
-  		 	 }
-		);
-	})
 	.put(function(req,res){
 		Session.findById(req.params.sessionId).exec(
 			function(err, session) {
