@@ -349,12 +349,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         console.log('session, flow '+ session+' '+ flow);
 
-        $scope.sessions[session].flows.splice(flow, 1);
 
-        var url = '/api/'+$scope.sessions[session]._id;
+        var url = '/api/'+$scope.sessions[session]._id+'/flow/'+$scope.sessions[session].flows[flow]._id;
         var dataOut = $scope.sessions[session];
 
-        $http.put(url,dataOut)
+        console.log(url);
+        $scope.sessions[session].flows.splice(flow, 1);
+
+        $http.delete(url,dataOut)
             .success(function(data){
                 console.log(data)
             })

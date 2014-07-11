@@ -100,7 +100,7 @@ router.route('/test/:testId')
 	// route for adding flows to tests
 	// needs to return values to the front end or you can't edit them.
 	.put(function(req,res){
-		Session.findOne({"testKey": req.params.testId, 'ismodel':true}, function(err, session) {
+		Session.findOne({'testKey': req.params.testId, 'ismodel':true}, function(err, session) {
 				if (err)
 					res.send(err);
 				
@@ -129,7 +129,7 @@ router.route('/test/:testId')
 	.delete(function(req, res) {
 		console.log(req.params.testId);
 		Session.remove({
-			testKey: req.params.testId
+			'testKey': req.params.testId
 		}, function(err, session) {
 			if (err)
 				res.send(err);
@@ -174,6 +174,27 @@ router.route('/:sessionId/flow/:flowId')
 				res.json( req.body );
 			});
 		})
+	})
+	.delete(function(req, res) {
+		console.log(req.params.flowId);
+		var parent	= req.params.sessionId
+		var child 	= req.params.flowId
+		
+		Session.findById(req.params.sessionId).exec(
+    		function(err, session) { 
+    			console.log('found');
+    			session.flows.id(req.params.flowId).remove();
+				session.flows.push(req.body);
+				console.log(session.flows);
+
+				session.save(function(err){
+					if (err)
+						res.send(err);
+					res.json(session);
+				});
+	
+    		}
+		);
 	});
 
 // this is also for /run/?
@@ -228,7 +249,7 @@ router.route('/:sessionId')
 			});
 		})
 	.put(function(req, res) {
-		// put is used in active sessions to apply usernames.
+		// put is used both in active sessions to apply usernames.
 		// put only puts updates to individual sessions, not test sets
 
 		Session.findById(req.params.sessionId, function(err, session) {
@@ -247,7 +268,6 @@ router.route('/:sessionId')
 			session.save(function(err) {
 				if (err)
 					res.send(err);
-
 				res.json( req.body );
 			});
 
