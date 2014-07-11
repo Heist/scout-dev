@@ -57,6 +57,7 @@ router.route('/')
 			});
 		});
 
+// routest for returning test sets
 router.route('/test/')
 	.get(function(req,res){
 		Session.find({ismodel: 'true'}, function(err, test) {
@@ -67,8 +68,13 @@ router.route('/test/')
 				console.log(test);
 			});
 	});
+
 // /test/testId routes
 router.route('/test/:testId')
+	// route for adding a test to a db - 
+	// testId is actually a front-end randomly generated number
+	// _not_ an ObjectID at all. This is why it works.
+
 	.post(function(req,res){
 		var ptype = new Session();
 
@@ -91,6 +97,8 @@ router.route('/test/:testId')
 		});
 
 	})
+	// route for adding flows to tests
+	// needs to return values to the front end or you can't edit them.
 	.put(function(req,res){
 		Session.findById({"testKey": req.params.testId, 'ismodel':true}, function(err, test) {
 				if (err)
@@ -113,7 +121,7 @@ router.route('/test/:testId')
 				}
 				
 
-			// save the session object - this is not saving anything about the flow _id.
+			// save the session object 'test' - this is not returning anything about the flow _id.
 			test.save(function(err) {
 				if (err)
 					res.send(err);
@@ -135,54 +143,8 @@ router.route('/test/:testId')
 	});
 ;
 
-// /:_id routes
-router.route('/:sessionId')
-	.get(function(req,res) {
-			Session.findById(req.params.sessionId, function(err, session) {
-				if (err)
-					res.send(err);
-				res.json(session);
-			});
-		})
-
-	.put(function(req, res) {
-
-		// put only puts updates to individual sessions
-		Session.findById(req.params.sessionId, function(err, session) {
-
-			if (err)
-				res.send(err);
-			
-			console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
-
-			// in here somewhere, sessions should update by overwriting itself with new values on front end.
-			session.name = req.body.name;
-			
-			if (req.body.user){
-				session.user = req.body.user;
-				console.log('new user', session.user);
-			}
-
-			// save the session object - this is not saving anything about the flow _id.
-			session.save(function(err) {
-				if (err)
-					res.send(err);
-
-				res.json( req.body );
-			});
-
-		});
-	})
-	.delete(function(req, res) {
-		Session.remove({
-			_id: req.params.sessionId
-		}, function(err, session) {
-			if (err)
-				res.send(err);
-
-			res.json({ message: 'Successfully deleted' });
-		});
-	});
+// this is the part where steps are added and removed from flows.
+// it could be cleaner.
 
 router.route('/:sessionId/flow/:flowId')
 	.get(function(req,res) {
@@ -253,8 +215,58 @@ router.route('/:sessionId/test/:testId')
 				});
 			}
 		);
+	});
+
+
+// Session specific routes - _can_ be used to return a single test, but will catch the model.
+// mostly used in /run
+// at the bottom because seriously I keep mistaking it for where we put new flows.
+
+router.route('/:sessionId')
+	.get(function(req,res) {
+			Session.findById(req.params.sessionId, function(err, session) {
+				if (err)
+					res.send(err);
+				res.json(session);
+			});
+		})
+	.put(function(req, res) {
+		// put is used in active sessions to apply usernames.
+		// put only puts updates to individual sessions, not test sets
+
+		Session.findById(req.params.sessionId, function(err, session) {
+
+			if (err)
+				res.send(err);
+			
+			console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
+
+			if (req.body.user){
+				session.user = req.body.user;
+				console.log('new user', session.user);
+			}
+
+			// save the session object - this is not saving anything about the flow _id.
+			session.save(function(err) {
+				if (err)
+					res.send(err);
+
+				res.json( req.body );
+			});
+
+		});
 	})
-	;
+	.delete(function(req, res) {
+		Session.remove({
+			_id: req.params.sessionId
+		}, function(err, session) {
+			if (err)
+				res.send(err);
+
+			res.json({ message: 'Successfully deleted' });
+		});
+	});
+	
 
 
 	// frontend routes =========================================================

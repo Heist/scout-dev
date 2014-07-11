@@ -372,7 +372,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 // $scope, $http, $stateParams, $state
 // using ui-router, the above should be used to access angular_route/add?sessionId=
 
-.controller('addFlow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
+.controller('editFlow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
 	// $steps.controller needs to know the index of the selected item
 	// selected $index
 	// ng-show when steps.edit$index is selected
@@ -388,9 +388,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $http.get('/api/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId)
         .success(function(data) {
-            
             $scope.flow = data;
-
         })
         .error(function(data) {
             console.log('Error: ' + data);
