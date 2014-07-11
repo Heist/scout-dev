@@ -232,8 +232,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     $scope.addTest = function(test){
+        var testGen = Math.round((new Date().valueOf() * Math.random()));
         var dataOut = {
-                ismodel : true
+                ismodel : true,
+                testKey : testGen 
             };        
         
         $http.post('/api/test/', dataOut)   

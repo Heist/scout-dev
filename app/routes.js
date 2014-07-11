@@ -69,11 +69,10 @@ router.route('/test/')
 			});
 	})
 	.post(function(req,res){
-		var ptype = new Session();
-		var testGen = Math.round((new Date().valueOf() * Math.random()));
+		var ptype = new Session();		
 
 		ptype.name 		= 'Prototype';
-		ptype.testKey 	= testGen;
+		ptype.testKey 	= req.body.testKey; // reminder: this has to live on the front end. flows.
 		ptype.ismodel	= req.body.ismodel;
 
 		res.send(req.body);  		// echo the result back
