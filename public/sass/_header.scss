@@ -1,0 +1,88 @@
+/* header-specific styles */
+
+
+#header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: transparentize($scout-brown,0.1);
+	color: $white;
+	@include dropshadow;
+	width: 100%;
+	height: 50px;
+	overflow: hidden;
+	z-index: 999999;
+	padding: 0 $pad;
+	
+	#header-nav {
+		float: right;
+		
+		ul {
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			
+			li {
+				float: left;
+				padding: $pad/1.5 $pad $pad/1.5 0;
+			}
+		}		
+	}
+	
+	#header-title {
+		@include type-light;
+		float: left;
+		padding: $pad/1.5 0 0 0;
+	}
+	
+	#header-logo {
+		float: left;
+		margin: $pad/2 $pad $pad/1.5 0;
+		
+		img {
+			width: 30px;
+			height: auto;
+		}		
+	}
+	
+	#header-account {
+		float: right;
+		cursor: pointer;
+		
+		#header-account-avatar {
+			height: 28px;
+			width: 28px;
+			margin: $pad/2 0 0 $pad/2;
+			@include radius(20px);
+			overflow: hidden;
+			float: left;
+			
+			img {
+				width: 28px;
+				height: auto;
+			}
+		}
+		
+		#header-account-dropdown {
+			float: left;
+			padding: $pad/2 0 0 $pad/3;
+		}
+	}
+	
+	#header-nav {
+		padding: $pad/2.1 $pad/2 0 0;
+	}
+
+	.button.inverted {
+		border-color: $scout-tan;
+		color: $scout-tan;
+	}
+	
+}
+
+
+/* account for the space taken up by the header on page */
+
+body {
+	padding-top: 80px;
+}

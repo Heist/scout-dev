@@ -1,0 +1,48 @@
+/*
+Scout
+Master Sass
+========================
+*/
+
+/* components */
+
+@import "variables";
+@import "breakpoints";
+@import "colours";
+@import "fonts";
+@import "helpers";
+@import "forms";
+@import "grid";
+@import "typography";
+@import "elements";
+
+/* code that is NOT specific to a component or module */
+
+*, *:before, *:after {
+	-webkit-box-sizing: border-box; 
+ 	-moz-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+
+html {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: $background;
+	color: $text;
+	margin: 0;
+	padding: 0;
+}
+
+
+/* specific modules */
+
+@import "header";
+@import "views";
+
+
+/* form styling */
+
+@import url("../assets/flat/flat.css");

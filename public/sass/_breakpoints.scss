@@ -1,0 +1,33 @@
+/*
+media queries
+========================
+*/ 
+
+
+/*
+query mixins
+*/
+ 
+@mixin query-min($breakpoint) {
+    @media (min-width: $breakpoint) {
+        @content;
+    }
+}
+ 
+@mixin query-max($breakpoint) {
+    @media (max-width: $breakpoint) {
+        @content;
+    }
+}
+
+/*
+use this if you ONLY want something to happen on retina screens
+you can nest these inside other media queries
+*/
+
+@mixin query-retina() {
+    @media (-webkit-min-device-pixel-ratio: 2), 
+    (min-resolution: 192dpi) {
+        @content;
+    }
+}
