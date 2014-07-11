@@ -180,20 +180,20 @@ router.route('/:sessionId/flow/:flowId')
 		
 		Session.findById(req.params.sessionId).exec(
     		function(err, session) { 
+    			if (session.flows.id(req.params.flowId)){
     			console.log('found');
-    			
     			session.flows.id(req.params.flowId).remove();
 
-				session.flows.push(req.body);
-				console.log(session.flows);
+    			session.save(function(err) {
+						if (err)
+							res.send(err);
+						
+						res.json(session);				
 
-				session.save(function(err){
-					if (err)
-						res.send(err);
-					res.json(session);
 				});
-	
-    		}
+
+    			}
+   			}
 		);
 	});
 
