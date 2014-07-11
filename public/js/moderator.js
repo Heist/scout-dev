@@ -188,7 +188,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 
 	// get all sessions and their flows	on first load
-	$http.get('/api/')
+	$http.get('/api/test/')
 		.success(function(data) {
 			// flows is *all* flows
 			$scope.sessions = data;
@@ -307,7 +307,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             // var putURL = '/api/test/'+test.testKey;
             console.log(test);
-            
+
             $scope.flow = {}
             $scope.flow.title = 'New Flow Name Goes Here';
             $scope.flow.steps = [];
@@ -349,6 +349,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // because the session we're selecting is the test session, not
         // any sub-sessions.
 
+        console.log('session, flow '+ session+' '+ flow);
+
         $scope.sessions[session].flows.splice(flow, 1);
 
         var url = '/api/'+$scope.sessions[session]._id;
@@ -361,15 +363,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             .error(function(data){
                 console.log('Error: ' + data);
             })
-        $http.get('/api/')
-        .success(function(data) {
-            // flows is *all* flows
-            $scope.sessions = data;
-            console.log($scope.sessions);
-        })
-        .error(function(data) {
-            console.log('Error: ' + data);
-        });
     }
 }])
 

@@ -33,16 +33,6 @@ router.route('/')
 				res.json(sessions);
 			});
 		})
-	// .get(function(req,res){
-	// 	Session.find({testKey: req.params.testId}, function(err, test) {
-	// 			if (err)
-	// 				res.send(err);
-	// 			res.json(test);
-	// 			console.log(test.length);
-	// 			console.log(test);
-	// 		});
-	// })
-
 	// this needs to *only* be touched when creating a new Session, not a new test.
 	// sessions cannot be individually deleted until reporting.
 	.post(function(req, res){
@@ -66,9 +56,19 @@ router.route('/')
 				});
 			});
 		});
+
+router.route('/test/')
+	.get(function(req,res){
+		Session.find({ismodel: 'true'}, function(err, test) {
+				if (err)
+					res.send(err);
+				res.json(test);
+				console.log(test.length);
+				console.log(test);
+			});
+	});
 // /test/testId routes
 router.route('/test/:testId')
-	
 	.post(function(req,res){
 		var ptype = new Session();
 
