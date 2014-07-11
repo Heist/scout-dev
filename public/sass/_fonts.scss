@@ -1,0 +1,39 @@
+/*
+custom fonts
+========================
+*/
+
+
+@mixin type-light {
+	font-family: 'hedley-new-web', sans-serif;
+	font-weight: 300;
+}
+
+@mixin type-regular {
+	font-family: 'hedley-new-web', sans-serif;
+	font-weight: 400;
+}
+
+@mixin type-bold {
+	font-family: 'hedley-new-web', sans-serif;
+	font-weight: 700;
+}
+
+
+/* mic 32 */
+
+@mixin mic-light {
+	font-family: 'mic-32-new-rounded-web', sans-serif;
+	font-weight: 300;
+}
+
+@mixin mic-regular {
+	font-family: 'mic-32-new-rounded-web', sans-serif;
+	font-weight: 400;
+}
+
+@mixin mic-bold {
+	font-family: 'mic-32-new-rounded-web', sans-serif;
+	font-weight: 700;
+}
+

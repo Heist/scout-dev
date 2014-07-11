@@ -1,0 +1,129 @@
+/*
+FORMS!
+*/
+
+form {
+	padding: 0;
+	margin: 0;
+}
+
+/* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
+
+.input, .button {
+	display: inline-block;
+	margin: 0 1px;
+	@include radius;
+	@include type-regular;
+	font-size: $type-size-base;
+	line-height: $type-size-base;
+	outline: none;
+}
+
+
+.input {
+	background: $white; 
+	border: 2px solid $white;
+	@include dropshadow(0px 1px 1px, rgba(0,0,0,0.1));
+	padding: $pad/2;
+	
+	&:focus {
+		border: 2px solid $scout-blue;
+	}
+	
+}
+
+.placeholder {
+	color: transparentize($text, 0.4);
+}
+
+/* button colour mixin */
+
+
+
+
+.button {
+	@include button-colour($scout-blue, $white);
+	@unclude type-bold;
+	cursor: pointer;
+	padding: $pad/2 $pad/1.25;
+	
+	&.small {
+		font-size: $type-size-base*0.8;
+		padding: $pad/7 $pad/3;
+	}
+	
+	
+	&.disabled {
+		cursor: not-allowed;
+		opacity: 0.4;
+	}
+	
+	&.destructive {
+		@include button-colour($red, $white);
+		opacity: 0.5;
+		
+		&:hover {
+			opacity: 1.0;
+		}
+	}
+	
+	&.secondary {
+		@include button-colour($scout-lightblue, $white);
+		@include type-light;
+	}
+	
+}
+
+
+label {
+	padding: 0;
+	margin: 0;
+	font-size: $type-size-base*0.8;
+	opacity: 0.4;
+}
+
+/* built-in form formatting */
+
+ul.withlabels {
+	li {
+		&:after {
+		  content: "";
+		  display: table;
+		  clear: both;
+		}
+	}
+
+	.label {
+		width: 35%;
+		float: left;
+	}
+		
+	.controls {
+		width: 65%;
+		float: left;
+		
+		.input {
+			width: 100%;
+		}
+	}
+	
+}
+
+/* replace radio butts and checkboxes */
+
+.icheckbox_flat, .iradio_flat {
+	margin: $pad/4 $pad/4 0 0;
+	vertical-align: text-bottom;
+}
+
+
+
+/* fixes for stupid Firefox */
+
+button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;margin:0;}
+
+

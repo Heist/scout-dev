@@ -1,0 +1,203 @@
+/*
+typography
+========================
+*/ 
+
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	font-size: $type-size-base;
+	line-height: $type-line-base;
+	@include type-regular;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+
+/* headers */
+
+h1, h2, h3, h4, h5, h6 {
+	line-height: 1;
+	padding: 0;
+	
+	&.underline {
+		margin: 0 0 $pad 0; 
+		
+		span {
+			border-bottom: 3px solid $line;
+		}
+	} 
+}
+
+h1 {
+	font-size: $type-size-base*3.25;
+	@include type-light;
+	letter-spacing: -1px;
+	margin: 0 0 $pad 0;
+}
+
+h2 {
+	font-size: $type-size-base*2.25;
+	@include type-light;
+	letter-spacing: -1px;
+	margin: 0 0 $pad 0;
+}
+
+h3 {
+	font-size: $type-size-base*1.25;
+	@include type-bold;
+	margin: 0 0 $pad/2 0;
+}
+
+h4 {
+	font-size: $type-size-base*1.25;
+	@include type-light;
+	margin: 0 0 $pad/2 0;
+}
+
+
+/* copy */
+
+
+p {
+	padding: 0;
+	margin: 0 0 $pad 0;
+}
+
+strong {
+	@include type-bold;
+}
+
+a {
+	color: $link;
+	@include type-bold;
+	text-decoration: none;
+	
+	&:hover {
+		text-decoration: underline;
+		color: $link-hover;
+	}
+}
+
+.big, big {
+	font-size: $type-size-base*1.25;
+	line-height: inherit;	
+}
+p.big {
+	line-height: $type-line-base*1.25;
+}
+
+.small, small {
+	font-size: $type-size-base*0.8;
+	line-height: inherit;
+}
+p.small {
+	line-height: $type-line-base*0.8;
+}
+
+/* fun styling */
+
+.numberball {
+	display: inline-block;
+	min-width: 30px;
+	padding: $pad/4;
+	margin-top: -$pad/4;
+	margin-right: $pad/4;
+	text-align: center;
+	vertical-align: middle;
+	background: $scout-brown;
+	color: $background;
+	@include radius(40px);
+}
+
+/* lists */
+
+ul {
+	padding: 0 0 0 $pad;
+	margin: 0 0 $pad 0;
+	
+	li {
+		padding: $pad/6 0;
+	}
+	
+	&.nobullets {
+		list-style: none;
+		padding: 0;
+	}
+	
+	&.lined {
+		border-top: 1px solid $line;
+		list-style: none;
+		padding: 0;
+		
+		li {
+			padding: $pad/4;
+			border-bottom: 1px solid $line;
+		}
+	}
+	
+	&.tags {
+		padding: 0;
+		list-style: none;
+		
+		li {
+			float: left;
+			margin: 0 $pad/2 $pad/3 0;
+			
+			span {
+				display: inline-block;
+				@include radius;
+				background: $scout-tan-overlay;
+				padding: $pad/3 $pad/2;
+				border: 2px solid $scout-tan-overlay;
+			}
+			
+			a {
+				display: inline-block;
+				@include radius;
+				background: $link-bg;
+				border: 2px solid $link-bg;
+				padding: $pad/3 $pad/2;
+				
+				&:hover {
+					color: $link-hover;
+				}
+			}
+		}
+		
+		
+	}
+}
+
+/* nested ULs */
+
+ul.lined {
+	ul.tags {
+		li {
+			margin: 0;
+			border: none;
+		}	
+	}
+}
+
+
+/* if we want to use tags inline */
+.tag {
+	display: inline-block;
+	@include radius;
+	background: $scout-tan-overlay;
+	padding: $pad/3 $pad/2;
+}
+
+
+
+
+
+
+
+
+

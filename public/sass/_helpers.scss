@@ -1,0 +1,120 @@
+/*
+mixins
+========================
+*/
+
+@mixin textshadow($shadow: 0 2px 3px, $intensity: rgba(0,0,0,0.3)) {
+	-moz-text-shadow: $shadow $intensity;
+	-webkit-text-shadow: $shadow $intensity;
+	text-shadow: $shadow $intensity;
+}
+
+@mixin dropshadow($shadow: 0 1px 3px, $intensity: rgba(0,0,0,0.1)) {
+	-moz-box-shadow: $shadow $intensity;
+	-webkit-box-shadow: $shadow $intensity;
+	box-shadow: $shadow $intensity;
+}
+
+@mixin radius($radius: 4px) {
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin animate($time: 0.2s) {
+	-webkit-transition-duration: $time;
+	-webkit-transition-timing: ease-out; 
+	-o-transition-duration: $time;
+	-o-transition-timing: ease-out;
+	-moz-transition-duration: $time;
+	-moz-transition-timing: ease-out;
+	-ms-transition-duration: $time;
+	-ms-transition-timing: ease-out;
+	transition-duration: $time;
+	transition-timing: ease-out; 
+}
+
+
+@mixin button-colour($bg, $text) {
+	background: $bg;
+	color: $text;	
+	border: 2px solid lighten($bg, 2%);
+	border-top: 1px solid lighten($bg, 5%);
+	border-bottom: 3px solid darken($bg, 5%);
+	@include dropshadow(0 1px 2px, rgba(0,0,0,0.2));
+	
+	&:hover {
+		background: lighten($bg, 2%);
+	}
+}
+
+
+/*
+helpers
+========================
+*/
+
+.clear {
+	padding: 0;
+	margin: 0;
+	height: 0;
+	weight: 0;
+	float: none;
+	clear: both;	
+}
+
+.set-block {
+	display: block;
+}
+
+.pad-all {
+    padding: $pad;
+}
+
+.pad-top {
+    padding-top: $pad;
+}
+
+.pad-bottom {
+    padding-bottom: $pad;
+}
+
+.pad-none {
+	padding: 0;
+}
+
+.margin-none {
+	margin: 0;
+}
+
+
+/* text helpers */
+
+.text-center {
+	text-align: center;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+/* floating helpers */
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
+
+

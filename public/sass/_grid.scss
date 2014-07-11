@@ -1,0 +1,84 @@
+/*
+// grid
+// ========================
+// the containing .grid can be any element
+// content should be wrapped in .module elements to allow for blocks with internal padding
+// see http://codepen.io/zakkain/pen/mLbfk for an example, or google “Don't Overthink It Grids”
+*/
+
+.container {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+
+.grid {
+    max-width: $max-width;
+    min-width: $min-width;
+    margin: 0 auto;
+    
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+}
+
+.module {
+    display: inline-block;
+    float: left;
+    padding-left: $pad/2;
+    padding-right: $pad/2;
+}
+
+ 
+.full { width: 100%; }
+.half { width: 50%; }
+.third { width: 33.3333%; }
+    .two-thirds {width: 66.6666%;}
+.quarter { width: 25%; }
+    .three-quarters { width: 75%; }
+.fifth { width: 20%; }
+    .two-fifths { width: 40%; }
+    .three-fifths { width: 60%; }
+    .four-fifths { width: 80%; }
+.sixth { width: 16.6667%; }
+    .five-sixths { width: 83.3335%; }
+.eighth { width: 12.5%; }
+.tenth { width: 10%; }
+.twelfth { width: 8.3333%; }
+    .five-twelfths { width: 41.6665%; }
+
+ 
+
+/* flexible columns for three-column pages */
+
+
+
+#left-pane, #middle-pane, #right-pane, #large-pane {
+	float: left;
+	height: 100%;
+	padding: $pad*3.5 $pad*1.5 $pad $pad*1.5;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+#left-pane, #right-pane {
+	width: 33%;
+}
+
+#middle-pane {
+	width: 34%;
+}
+
+#large-pane {
+	width: 67%;
+}
+
+
+
+
+
+
+
