@@ -3,6 +3,13 @@
 
 var scoutApp = angular.module('scoutApp',['ui','ui.bootstrap','ui.router']);
 
+// function list for working with arrays
+function keysrt(key,desc) {
+  return function(a,b){
+   return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
+  }
+}
+
 scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$locationProvider
 		.html5Mode(true);
@@ -185,26 +192,34 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 .controller('overview', ['$scope','$http', '$location', function($scope, $http, $location){
 	// set up controller-wide variables
 	$scope.sessions = {};
-
+    $scope.tests = {};
 
 	// get all sessions and their flows	on first load
 	$http.get('/api/test/')
 		.success(function(data) {
 			// flows is *all* flows
-			$scope.sessions = data;
+			$scope.sessions = data.sort(keysrt('testKey'));
 			console.log($scope.sessions);
 
             // count up and post the number of model tests 
             var models = 0;
-            for (var i = 0; i<$scope.sessions.length; i++){
-                console.log ($scope.sessions[i].ismodel);
-                if (!$scope.sessions[i].ismodel){
-                    models++
-                }
-            }
-            console.log('number of false models '+models);
-            console.log($scope.sessions.length);
+            var tests = 0;
+                // for each model where ismodel is true
 
+            // for each session with test number x
+            // push it to a new tests object in $scope
+
+
+            for (var i = 0; i<$scope.sessions.length; i++){
+                // console.log ($scope.sessions[i].ismodel);
+                console.log ($scope.sessions[i].testKey);
+                // if (!$scope.sessions[i].ismodel){
+                //     models++
+                // }else{
+                //     tests++
+                //     // $scope.tests.push($scope.sessions[i].testKey);
+                // }
+            }
 		})
 		.error(function(data) {
 			console.log('Error: ' + data);
