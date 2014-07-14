@@ -360,7 +360,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             $http
                 .put(url, wrapper)
                 .success(function(data){
-                    console.log(data);
+                    console.log('new flow added '+ data);
+                    $scope.sessions[index].flows = data.flows;
 
                 })
                 .error(function(data){

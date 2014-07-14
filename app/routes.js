@@ -121,30 +121,27 @@ router.route('/test/:testId')
 	})
 	// route for adding flows to tests
 	// needs to return values to the front end or you can't edit them.
+	// controller addAFlow uses this
+
 	.put(function(req,res){
 		Session.findOne({'testKey': req.params.testId, 'ismodel':true}, function(err, session) {
 				if (err)
 					res.send(err);
 				
-				console.log('touched the right path');
-				// passed value from front end
-				console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      
-				console.log(session);
-
 				if (req.body.flow){
 					console.log('touched req.body.flow singular');
 					var sub_doc = session.flows.create(req.body.flow);
-					console.log(sub_doc);
 					session.flows.push(sub_doc); // adds new flow to session in play
 				}
-				
 
 			// save the session object 'test' - this is not returning anything about the flow _id.
-			session.save(function(err) {
+			session.save(function(err, data) {
 				if (err)
 					res.send(err);
 
-				res.json( req.body );
+				console.log('new flow data '+ data);
+				// pass the session data object to the front end?
+				res.json( data );
 			});
 		});
 	})
