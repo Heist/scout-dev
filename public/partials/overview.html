@@ -42,7 +42,7 @@
 	
 		<div class="module full session-meta">
 			
-			<div class="session-name" ng-click="editTitle(session)" ng-hide="session.editing"><h4>{{session.name}} {{session.testKey}} {{}}</h4></div>
+			<div class="session-name" ng-click="editTitle(session)" ng-hide="session.editing"><h4>{{session.name}} {{session.testKey}} </h4></div>
 			<form ng-show="session.editing">
 				<input class="edit" ng-trim="true" ng-model="session.name" ng-focus="editTitle(session)" ng-blur="blurTitle(session)">
 			</form>

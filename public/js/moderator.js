@@ -229,7 +229,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                     tests.push(data[i]);
                 }
             }
+            // because we use sessions as a unit everywhere else
             $scope.sessions = tests;
+
+            // TODO clarify nomenclature around tests/sessions/wfte
+            // TODO fuck it this can go in reporting and I'll fix later.
+            $scope.tests = ssin;
 		})
 		.error(function(data) {
 			console.log('Error: ' + data);
@@ -304,9 +309,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         $http.post(url, dataOut)
             .success(function(data){
-                console.log(data);
-                // console.log('returned new session '+ data._id +" "+data.testKey);
-                // $location.path('/run/'+data._id+'/test/'+data.testKey)
+                console.log('returned new session '+ data._id +" "+data.testKey);
+                $location.path('/run/'+data._id+'/test/'+data.testKey);
             })
             .error(function(data){
                 console.log(data)

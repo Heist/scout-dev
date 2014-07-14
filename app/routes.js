@@ -116,7 +116,6 @@ router.route('/test/:testId')
 							res.send(err);
 						res.json(data);
 						console.log('new session created '+data);
-
 					});
   		 	 }
 		);
