@@ -310,7 +310,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $http.post(url, dataOut)
             .success(function(data){
                 console.log('returned new session '+ data._id +" "+data.testKey);
-                $location.path('/run/'+data._id+'/test/'+data.testKey);
+                console.log('new session steps ' + data.flows[0].steps.length);
+                // $location.path('/run/'+data._id+'/test/'+data.testKey);
             })
             .error(function(data){
                 console.log(JSON.stringify(data))

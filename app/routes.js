@@ -99,26 +99,25 @@ router.route('/test/:testId')
 	// testId is actually a front-end randomly generated number
 	// _not_ an ObjectID at all. This is why it works.
 	.post(function(req,res){
-		Session.findOne({'testKey':req.params.testId}).exec(
+		Session.findOne({'testKey':req.params.testId, 'ismodel' : true}).exec(
     		function(err, session) {
-    			
+   
     			session._id = undefined;
         		
         		var s1 = new Session( session );
         		var id = mongoose.Types.ObjectId();
-        		
-        		console.log('session flows ', session.flows);
-        		console.log('s1 flows ', s1.flows);
-        		console.log('post to /test/testId '+id);
-        			s1.ismodel = false;
-        			s1._id = id;
-        			
-        			s1.save(function(err, data) {
-						if (err)
-							res.send(err);
-						res.json(data);
-						console.log('new session created '+data);
-					});
+
+        		console.log('this is your session '+session.flows);
+    			
+    			s1.ismodel = false;
+    			s1._id = id;
+    			
+    			s1.save(function(err, data) {
+					if (err)
+						res.send(err);
+					res.json(data);
+					console.log('new session created '+data);
+				});
   		 	 }
 		);
 	})
