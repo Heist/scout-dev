@@ -59,6 +59,7 @@ router.route('/')
 
 // routest for returning test sets - return all sessions.
 // on front end, remove sessions that are not models, but count them.
+
 router.route('/test/')
 	.get(function(req,res){
 		Session.find({}, function(err, test) {
@@ -69,6 +70,8 @@ router.route('/test/')
 				console.log(test);
 			});
 	})
+
+// controller addTest uses this
 	.post(function(req,res){
 		var ptype = new Session();		
 
@@ -76,17 +79,15 @@ router.route('/test/')
 		ptype.testKey 	= req.body.testKey; // reminder: this has to live on the front end. flows.
 		ptype.ismodel	= req.body.ismodel;
 
-		res.send(req.body);  		// echo the result back
-
 		ptype.save(function(err) {
 				if (err)
 					res.send(err);
 
-				Session.find({testKey: req.params.testId}, function(err, session) {
+				Session.find({}, function(err, session) {
 					if (err)
 						res.send(err);
 					res.json(session);
-					console.log(session.length)
+					console.log('I have added and saved a session');
 				});
 		});
 
@@ -100,29 +101,30 @@ router.route('/test/:testId')
 	.post(function(req,res){
 		Session.findOne({'testKey':req.params.testId}).exec(
     		function(err, session) {
-    			console.log('post to /test/testId');
+    			
     			session._id = undefined;
         		
         		var s1 = new Session( session );
         		var id = mongoose.Types.ObjectId();
-        		console.log(id);
-
+        		
+        		console.log('post to /test/testId '+id);
         			s1.ismodel = false;
         			s1._id = id;
         			
         			s1.save(function(err, data) {
 						if (err)
 							res.send(err);
-						console.log(data);
-						// res.json(product);
+						res.json(data);
+						console.log('new session created '+data);
+
 					});
   		 	 }
 		);
 	})
+
 	// route for adding flows to tests
 	// needs to return values to the front end or you can't edit them.
 	// controller addAFlow uses this
-
 	.put(function(req,res){
 		Session.findOne({'testKey': req.params.testId, 'ismodel':true}, function(err, session) {
 				if (err)

@@ -133,8 +133,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             $scope.timeline.push(message);
 
-            
-            
 
         // this is going to be a find-join in mongoose where we find all TESTS by SESSION_ID 
         // then return that information to the summarize/report function.
@@ -213,17 +211,17 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // push it to a new ssins object in $scope
             for (var i = 0; i<data.length -1; i++){
                 // console.log ($scope.sessions[i].ismodel);
-                console.log (data[i].testKey);
+                console.log (i +' '+ data[i].testKey);
                     if (data[i + 1].testKey == data[i].testKey) {
                         ssincount++
                         console.log('ssincount'+ssincount);
                     }else{
                         ssin.push({'testKey' : data[i].testKey, 'ssincount' : ssincount});
-                        console.log(ssin);
-                        
+                        console.log(JSON.stringify(ssin));
                         ssincount=0;
                     }
             }
+            console.log(JSON.stringify(ssin));
 
             // return model sessions to the sessions scope for display and control
             for(var i =0; i<data.length; i++){
@@ -232,7 +230,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 }
             }
             $scope.sessions = tests;
-            console.log($scope.sessions);
 		})
 		.error(function(data) {
 			console.log('Error: ' + data);
@@ -254,8 +251,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // var index = $scope.session.flows.indexOf(flow);
         var url = '/api/'+session._id;
         
-        
-
         if (!session.name) {
             session.name = 'New Session';
         }
@@ -280,7 +275,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
         $http.post('/api/test/', dataOut)   
             .success(function(data){
-                console.log(data);
+                console.log('added a new test '+ JSON.stringify(data));
             })
             .error(function(data){
 
@@ -291,7 +286,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 // flows is *all* flows
                 $scope.sessions = data;
                 
-                
             })
             .error(function(data) {
                 console.log('Error: ' + data);
@@ -301,9 +295,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $scope.addAndLaunchNewTest = function(session){
         // var url = '/:sessionId/test/:testId' pseudocode
-
+        console.log('touchedNewTest');
         var url = '/api/test/'+session.testKey;
-        console.log(url);
 
         var dataOut = {
                 ismodel : false
@@ -311,9 +304,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         $http.post(url, dataOut)
             .success(function(data){
-                console.log('returned new session ', data)
-                
-                $location.path('/run/'+data._id+'/test/'+data.testKey)
+                console.log(data);
+                // console.log('returned new session '+ data._id +" "+data.testKey);
+                // $location.path('/run/'+data._id+'/test/'+data.testKey)
             })
             .error(function(data){
                 console.log(data)
@@ -338,9 +331,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             })
     }
 
-
-
-      $scope.addAFlow = function(index, test){
+    $scope.addAFlow = function(index, test){
             // this adds a flow to the test selectied
             // important because tests model sessions
 
@@ -368,16 +359,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                     console.log(data)
                 })
                 ;
-
-            // $http.get('/api/')
-            // .success(function(data) {
-            //     // flows is *all* flows
-            //     $scope.sessions = data;
-                
-            // })
-            // .error(function(data) {
-            //     console.log('Error: ' + data);
-            // });
 
             };
 	
