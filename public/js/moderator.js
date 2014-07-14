@@ -198,28 +198,33 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$http.get('/api/test/')
 		.success(function(data) {
 			// flows is *all* flows
-			$scope.sessions = data.sort(keysrt('testKey'));
-			console.log($scope.sessions);
-
+			data.sort(keysrt('testKey'));
+			
             // count up and post the number of model tests 
             var models = 0;
-            var tests = 0;
+            var tests = [];
+
+            var testcount = 0;
                 // for each model where ismodel is true
 
             // for each session with test number x
             // push it to a new tests object in $scope
 
-
-            for (var i = 0; i<$scope.sessions.length; i++){
+            for (var i = 0; i<data.length -1; i++){
                 // console.log ($scope.sessions[i].ismodel);
-                console.log ($scope.sessions[i].testKey);
-                // if (!$scope.sessions[i].ismodel){
-                //     models++
-                // }else{
-                //     tests++
-                //     // $scope.tests.push($scope.sessions[i].testKey);
-                // }
+                console.log (data[i].testKey);
+                    if (data[i + 1].testKey == data[i].testKey) {
+                        testcount++
+                        console.log('testcount'+testcount);
+                    }else{
+                        tests.push({'testKey' : data[i].testKey, 'testcount' : testcount});
+                        console.log(tests);
+                        
+                        testcount=0;
+                    }
             }
+
+            console.log($scope.sessions);
 		})
 		.error(function(data) {
 			console.log('Error: ' + data);
