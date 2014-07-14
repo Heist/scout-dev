@@ -44,7 +44,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 }])
 
 
-.controller('runSession', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
+.controller('run', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
     // set up controller-wide variables
     $scope.session = {};
     $scope.flows = {};
@@ -401,7 +401,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 // $scope, $http, $stateParams, $state
 // using ui-router, the above should be used to access angular_route/add?sessionId=
 
-.controller('editFlow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
+.controller('flow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
 	// $steps.controller needs to know the index of the selected item
 	// selected $index
 	// ng-show when steps.edit$index is selected

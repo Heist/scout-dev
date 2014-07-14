@@ -1,0 +1,110 @@
+'use strict';
+
+// flowController.js
+
+.controller('flow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
+	// $steps.controller needs to know the index of the selected item
+	// selected $index
+	// ng-show when steps.edit$index is selected
+	// step 3 is selected.$index.step.desc   
+
+    // $scope.steps = []; // hmm-mm.
+    
+
+     // this is wholly structured on the front end, which is weird.
+    $scope.flow = [];
+    // $scope.flow.steps = $scope.steps;
+
+
+    $http.get('/api/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId)
+        .success(function(data) {
+            $scope.flow = data;
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+    
+    $scope.selected = $scope.flow.steps;
+
+	$scope.add = function(step) {
+        $scope.step = {
+        		title	: 'edit me',
+        		desc	: '',        		
+        		title_edit : false,
+        		edit	: false
+        	};
+	    $scope.flow.steps.push($scope.step);  
+        
+    }
+
+    $scope.removeStep = function(step){
+    	step.edit=false;
+    	step.title_edit=false;
+    	var index = $scope.flow.steps.indexOf(step)
+  		$scope.flow.steps.splice(index, 1);
+    }
+
+	$scope.editTitle = function (step){
+		// edit the title box for a step
+		
+		step.title_edit = true;
+
+		$scope.editedStep = step;
+		// Clone the original item to restore it on demand.
+		$scope.originalStep = angular.extend({}, step);
+	}
+
+	$scope.blurTitle = function (step){
+		// on losing the focus, save the name of the step
+		step.title_edit = false;
+
+		
+		$scope.editedStep = null;
+		
+		step.title = step.title.trim();
+
+		if (!step.title) {
+			$scope.removeStep(step);
+		}	
+	}
+
+	$scope.revertEditing = function (step) {
+		// on escape, revert editing
+		steps[steps.indexOf(step)] = $scope.originalStep;
+		$scope.doneEditing($scope.originalStep);
+	};
+
+    $scope.select= function(step) {
+       $scope.selected = step;
+    };
+    
+    $scope.isActive = function(step) {
+       return $scope.selected === step;
+    };
+
+    $scope.updateFlow = function(){
+        // Put to this URL the entire data object from this controller
+        // technically this is created when we hit Add on prev. page
+
+        var putURL = '/api/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId;
+
+        if (!$scope.flow.title){
+            $scope.flow.title = 'New Flow Name Goes Here';
+        }
+        
+        var wrapper = { 'flow': $scope.flow };
+
+        // reminder: this pushes an update to an already-created flow now
+		$http
+	 		.put(putURL, wrapper)
+			.success(function(data){
+				console.log('flow has pushed', data);
+ 			})
+            .error(function(data){
+                console.log('error', data)
+
+            })
+            ;
+	};
+}])
+;
