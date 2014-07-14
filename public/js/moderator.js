@@ -313,7 +313,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 $location.path('/run/'+data._id+'/test/'+data.testKey);
             })
             .error(function(data){
-                console.log(data)
+                console.log(JSON.stringify(data))
         });
 
         // this changes to the returned session id, which has been newly created.
@@ -355,12 +355,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             $http
                 .put(url, wrapper)
                 .success(function(data){
-                    console.log('new flow added '+ data);
+                    console.log('new flow added '+ JSON.stringify(data));
                     $scope.sessions[index].flows = data.flows;
 
                 })
                 .error(function(data){
-                    console.log(data)
+                    console.log(JSON.stringify(data))
                 })
                 ;
 
@@ -386,7 +386,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         $http.delete(url,dataOut)
             .success(function(data){
-                console.log(data)
+                console.log(JSON.stringify(data))
             })
             .error(function(data){
                 console.log('Error: ' + data);

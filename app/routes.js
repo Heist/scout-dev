@@ -107,6 +107,8 @@ router.route('/test/:testId')
         		var s1 = new Session( session );
         		var id = mongoose.Types.ObjectId();
         		
+        		console.log('session flows ', session.flows);
+        		console.log('s1 flows ', s1.flows);
         		console.log('post to /test/testId '+id);
         			s1.ismodel = false;
         			s1._id = id;
