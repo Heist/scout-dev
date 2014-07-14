@@ -192,7 +192,19 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		.success(function(data) {
 			// flows is *all* flows
 			$scope.sessions = data;
-			console.log($scope.sessions);            
+			console.log($scope.sessions);
+
+            // count up and post the number of model tests 
+            var models = 0;
+            for (var i = 0; i<$scope.sessions.length; i++){
+                console.log ($scope.sessions[i].ismodel);
+                if (!$scope.sessions[i].ismodel){
+                    models++
+                }
+            }
+            console.log('number of false models '+models);
+            console.log($scope.sessions.length);
+
 		})
 		.error(function(data) {
 			console.log('Error: ' + data);

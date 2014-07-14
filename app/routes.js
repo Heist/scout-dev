@@ -57,10 +57,11 @@ router.route('/')
 			});
 		});
 
-// routest for returning test sets
+// routest for returning test sets - return all sessions.
+// on front end, remove sessions that are not models, but count them.
 router.route('/test/')
 	.get(function(req,res){
-		Session.find({ismodel: 'true'}, function(err, test) {
+		Session.find({}, function(err, test) {
 				if (err)
 					res.send(err);
 				res.json(test);
@@ -160,6 +161,35 @@ router.route('/test/:testId')
 	});
 ;
 
+// this is also for /run/?
+router.route('/:sessionId/test/:testId')
+	.put(function(req,res){
+		Session.findById(req.params.sessionId).exec(
+			function(err, session) {
+				// console.log(req.body);
+				// var test = session.flows.steps.id(req.body._id);
+				// this is v. likely to comically break
+				session.flows.id(req.body._id).remove();
+				session.flows.push(req.body);
+				
+
+				session.save(function(err) {
+						if (err)
+							res.send(err);
+						
+						res.json(session);
+				});
+			}
+		);
+	});
+
+
+// Session specific routes - _can_ be used to return a single test, but will catch the model.
+// mostly used in /run
+// at the bottom because seriously I keep mistaking it for where we put new flows.
+
+
+
 // this is the part where steps are added and removed from flows.
 // it could be cleaner.
 
@@ -218,32 +248,6 @@ router.route('/:sessionId/flow/:flowId')
 		);
 	});
 
-// this is also for /run/?
-router.route('/:sessionId/test/:testId')
-	.put(function(req,res){
-		Session.findById(req.params.sessionId).exec(
-			function(err, session) {
-				// console.log(req.body);
-				// var test = session.flows.steps.id(req.body._id);
-				// this is v. likely to comically break
-				session.flows.id(req.body._id).remove();
-				session.flows.push(req.body);
-				
-
-				session.save(function(err) {
-						if (err)
-							res.send(err);
-						
-						res.json(session);
-				});
-			}
-		);
-	});
-
-
-// Session specific routes - _can_ be used to return a single test, but will catch the model.
-// mostly used in /run
-// at the bottom because seriously I keep mistaking it for where we put new flows.
 
 router.route('/:sessionId')
 	.get(function(req,res) {
