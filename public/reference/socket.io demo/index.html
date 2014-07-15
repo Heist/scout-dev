@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Scout Demo</title>
+  </head>
+  <body>
+    <h1>Create a room</h1>
+    <a href="/observer">New Room</a>
+
+    <h1>Join a room</h1>
+    <input type="text" id="roomID">
+    <a href="#" id="joinRoom">Join</a>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script>
+        $("#joinRoom").click(function(e){
+          e.preventDefault();
+          var id = $("#roomID").val();
+          window.location.href = '/tester/' + id;
+        });
+    </script>
+  </body>
+</html>
