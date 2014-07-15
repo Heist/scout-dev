@@ -398,6 +398,17 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // this changes to the returned session id, which has been newly created.
     }
 
+    // add a new summarizeFlow and launch summary
+    $scope.summarizeFlow = function(session, flow){
+        // strip flowname's whitespace
+        flow = flow.replace(/ /g,''); 
+        console.log('touched summarize ', flow);
+
+        // set new location path
+        $location.path('/summarizeFlow/'+session+'/flow/'+flow);
+
+    }
+
 }])
 
 .controller('flow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
