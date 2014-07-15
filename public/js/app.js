@@ -35,6 +35,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             templateUrl: 'partials/run.html'
             // we'll get to this in a bit       
         })
+        .state('summarizeFlow', {
+            url: '/summarizeFlow/:sessionId/test/:testId',
+            templateUrl: 'partials/summarizeFlow.html'
+            // we'll get to this in a bit       
+        })
         ;
 
 })
