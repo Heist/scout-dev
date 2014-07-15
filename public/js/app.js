@@ -239,6 +239,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 			console.log('Error: ' + data);
 		});
 
+    // edit titles inline.
     $scope.editTitle = function(textfield){
         textfield.editing = 'true';
         
@@ -246,7 +247,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // Clone the original item to restore it on demand.
         // $scope.originalTitle = angular.extend({}, session);
     }
-
 
     $scope.blurTitle= function(session){
         session.editing ='false';
@@ -270,6 +270,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 })
     }
 
+    // Add and remove tests
     $scope.addTest = function(test){
         var testGen = Math.round((new Date().valueOf() * Math.random()));
         var dataOut = {
@@ -296,30 +297,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             });
     }
    
-
-    $scope.addAndLaunchNewTest = function(session){
-        // var url = '/:sessionId/test/:testId' pseudocode
-        console.log('touchedNewTest');
-        var url = '/api/test/'+session.testKey;
-
-        var dataOut = {
-                ismodel : false
-            };
-
-        $http.post(url, dataOut)
-            .success(function(data){
-                console.log('returned new session '+ data._id +" "+data.testKey);
-                console.log('new session steps ' + data.flows[0].steps.length);
-                $location.path('/run/'+data._id+'/test/'+data.testKey);
-            })
-            .error(function(data){
-                console.log(JSON.stringify(data))
-        });
-
-        // this changes to the returned session id, which has been newly created.
-
-    }
-
     $scope.removeTest = function(session){
         var url = '/api/test/'+session.testKey;
         var index = $scope.sessions.indexOf(session);
@@ -335,6 +312,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             })
     }
 
+    // Add and remove flows from tests.
     $scope.addAFlow = function(index, test){
             // this adds a flow to the test selectied
             // important because tests model sessions
@@ -363,8 +341,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                     console.log(JSON.stringify(data))
                 })
                 ;
-
-            };
+    };
 	
     $scope.removeFlow = function(session, flow){ 
         // this is probably fine once we're only returning sessions
@@ -392,6 +369,30 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 console.log('Error: ' + data);
             })
     }
+
+    // Add a new session and return the new session run page
+    $scope.addAndLaunchNewSession = function(session){
+        // var url = '/:sessionId/test/:testId' pseudocode
+        console.log('touchedNewTest');
+        var url = '/api/test/'+session.testKey;
+
+        var dataOut = {
+                ismodel : false
+            };
+
+        $http.post(url, dataOut)
+            .success(function(data){
+                console.log('returned new session '+ data._id +" "+data.testKey);
+                console.log('new session steps ' + data.flows[0].steps.length);
+                $location.path('/run/'+data._id+'/test/'+data.testKey);
+            })
+            .error(function(data){
+                console.log(JSON.stringify(data))
+        });
+
+        // this changes to the returned session id, which has been newly created.
+    }
+
 }])
 
 .controller('flow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
