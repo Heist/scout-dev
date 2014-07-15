@@ -3,34 +3,55 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-
-var tagSchema = new Schema ({
-	content : {
+var TagSchema = new Schema ({
+	name : {
 		type : String,
 		trim : true
 	},
 	summary : {
 		type : String,
 		trim : true
+	},
+	visible : {
+		type: boolean
 	}
 })
 
-var commentSchema = new Schema ({
+var CommentSchema = new Schema ({
 	content	: {
 		type : String,
 		trim : true
+	},
+	tags : {
+		type : [String],
+		trim : true
+	},
+	fav : {
+		type : Boolean
 	}
 })
 
+var StepSchema = new Schema ({
+	name : {
+		type : String,
+		trim : true
+	},
+	comments : [CommentSchema]
+})
 
 var SummarySchema = new Schema ({
-	content		: {
+	flowsummary	: {
 		type: String,
 		trim: true
 	},
-	comments 	: [commentSchema]
-	steps 		: [stepSchema]
-	tags		: [tagSchema]
+	created	: {
+		type: Date
+	},
+	created_by	: {
+		type : String
+	}
+	steps 	: [StepSchema],
+	tagsum	: [TagSchema]
 })
 
 
