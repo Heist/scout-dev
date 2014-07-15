@@ -28,23 +28,20 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .state('flow', {
         	url: '/edit/:sessionId/flow/:flowId',
             templateUrl: 'partials/flow.html'
-            // we'll get to this in a bit       
         })
         .state('run', {
         	url: '/run/:sessionId/test/:testId',
             templateUrl: 'partials/run.html'
-            // we'll get to this in a bit       
         })
         .state('summarizeFlow', {
-            url: '/summarizeFlow/:sessionId/test/:testId',
+            url: '/summarizeFlow',
             templateUrl: 'partials/summarizeFlow.html'
-            // we'll get to this in a bit       
         })
         ;
 
 })
 
-.controller('sendFlow', ['$scope','$http', function($scope, $http){
+.controller('summarizeFlow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
 	
 }])
 
