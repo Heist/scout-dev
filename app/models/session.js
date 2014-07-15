@@ -1,5 +1,5 @@
 'use strict';
-// flow.js
+// session.js
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
