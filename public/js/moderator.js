@@ -186,7 +186,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         }
 }])
 
-
 .controller('overview', ['$scope','$http', '$location', function($scope, $http, $location){
 	// set up controller-wide variables
 	$scope.sessions = {};
@@ -394,12 +393,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             })
     }
 }])
-
-// aside from managing steps, on open, this scope should fetch the flow created in overview
-// and pass it as the container for the current steps
-
-// $scope, $http, $stateParams, $state
-// using ui-router, the above should be used to access angular_route/add?sessionId=
 
 .controller('flow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
 	// $steps.controller needs to know the index of the selected item
