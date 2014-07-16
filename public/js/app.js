@@ -38,15 +38,15 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 })
 
-.controller('summarizeFlow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
-	$scope.flow = {};
-    $scope.timeline = [];
+// .controller('summarizeFlow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
+// 	$scope.flow = {};
+//     $scope.timeline = [];
 
-    $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
-        .success(function(data){
-            console.log('flow to summarize '+ data);
-        })
-}])
+//     $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
+//         .success(function(data){
+//             console.log('flow to summarize '+ data);
+//         })
+// }])
 
 .controller('overview', ['$scope','$http', '$location', function($scope, $http, $location){
     // set up controller-wide variables
@@ -56,46 +56,49 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // get all sessions and their flows on first load
     $http.get('/api/test/')
         .success(function(data) {
+            // debug: this fixes the undefined headers error
+            // $scope.sessions = data;
+
             // flows is *all* flows
             data.sort(keysrt('testKey'));
             
-            // count up and post the number of ssins 
-            var models = 0;
-            var ssin = [];
-            var tests = []; //for pushing tests to scope.sessions?
+            // // count up and post the number of ssins 
+            // var models = 0;
+            // var ssin = [];
+            // var tests = []; //for pushing tests to scope.sessions?
             
 
-            var ssincount = 0;
-                // for each model where ismodel is true
+            // var ssincount = 0;
+            //     // for each model where ismodel is true
 
-            // for each session with test number x
-            // push it to a new ssins object in $scope
-            for (var i = 0; i<data.length -1; i++){
-                // console.log ($scope.sessions[i].ismodel);
-                console.log (i +' '+ data[i].testKey);
-                    if (data[i + 1].testKey == data[i].testKey) {
-                        ssincount++
-                        console.log('ssincount'+ssincount);
-                    }else{
-                        ssin.push({'testKey' : data[i].testKey, 'ssincount' : ssincount});
-                        console.log(JSON.stringify(ssin));
-                        ssincount=0;
-                    }
-            }
-            console.log(JSON.stringify(ssin));
+            // // for each session with test number x
+            // // push it to a new ssins object in $scope
+            // for (var i = 0; i<data.length -1; i++){
+            //     // console.log ($scope.sessions[i].ismodel);
+            //     console.log (i +' '+ data[i].testKey);
+            //         if (data[i + 1].testKey == data[i].testKey) {
+            //             ssincount++
+            //             console.log('ssincount'+ssincount);
+            //         }else{
+            //             ssin.push({'testKey' : data[i].testKey, 'ssincount' : ssincount});
+            //             console.log(JSON.stringify(ssin));
+            //             ssincount=0;
+            //         }
+            // }
+            // console.log(JSON.stringify(ssin));
 
-            // return model sessions to the sessions scope for display and control
-            for(var i =0; i<data.length; i++){
-                if (data[i].ismodel){
-                    tests.push(data[i]);
-                }
-            }
-            // because we use sessions as a unit everywhere else
-            $scope.sessions = tests;
+            // // return model sessions to the sessions scope for display and control
+            // for(var i =0; i<data.length; i++){
+            //     if (data[i].ismodel){
+            //         tests.push(data[i]);
+            //     }
+            // }
+            // // because we use sessions as a unit everywhere else
+            // $scope.sessions = tests;
 
-            // TODO clarify nomenclature around tests/sessions/wfte
-            // TODO fuck it this can go in reporting and I'll fix later.
-            $scope.tests = ssin;
+            // // TODO clarify nomenclature around tests/sessions/wfte
+            // // TODO fuck it this can go in reporting and I'll fix later.
+            // $scope.tests = ssin;
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -295,7 +298,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 
     // this has to change to get the new session created on the run() command from the main controller
-    $http.get('/api/'+$stateParams.sessionId)
+    $http.get('/api/test/'+$stateParams.testKey+'/session/'+$stateParams.sessionId)
         .success(function(data){
             $scope.session = data;
             $scope.flows = $scope.session.flows;
