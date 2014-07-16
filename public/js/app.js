@@ -39,15 +39,15 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 })
 
 .controller('summarizeFlow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
-	$scope.flow = {};
+	$scope.flows = {};
     $scope.timeline = [];
 
     $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
         .success(function(data){
-
-            console.log('flow to summarize '+ JSON.stringify(data.flows));
-
+            $scope.flows = data.flows;
+            console.log($scope.flows[0]);
         })
+
 }])
 
 .controller('overview', ['$scope','$http', '$location', function($scope, $http, $location){

@@ -2,13 +2,13 @@
 <div id="view-summarizing" ng-controller="summarizeFlow">
 <!-- header nav -->
 
-<div id="header">
+<div id="header" ng-model='flows'>
 	
 	<div id="header-logo">
 		<img src="../assets/scout-rev.png" />
 	</div>
 	
-	<div id="header-title">Summarizing &ldquo;Flow Name&rdquo;</div>
+	<div id="header-title">Summarizing &ldquo;{{flows[0].title}}&rdquo;</div>
 	
 	<div id="header-account">
 		<div id="header-account-avatar">
@@ -33,7 +33,7 @@
 
 <!-- create a flow -->
 
-<div id="left-pane">
+<div id="left-pane" ng-model='flow'>
 	
 	<div id="questions">
 		
@@ -60,7 +60,7 @@
 
 
 
-<div id="middle-pane">
+<div id="middle-pane" ng-model='step'>
 	
 	<h3>&ldquo;Check your account&rdquo; summary</h3>
 	<p>Add a summary for this step to capture any notable outcomes, directions, or action items.</p>
@@ -104,7 +104,7 @@
 
 
 
-<div id="right-pane">
+<div id="right-pane" ng-model='timeline'>
 	
 	<div id="timeline">
 		<ul>
