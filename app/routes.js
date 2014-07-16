@@ -11,7 +11,7 @@ var Session = require('./models/session');
 
 
 
-// console logging ========================================================
+// console logging =====================================================
 
 router.use(function(req, res, next) {
 	// do logging
@@ -19,7 +19,7 @@ router.use(function(req, res, next) {
 	next(); // make sure we go to the next routes and don't stop here
 });
 
-// backend routes =========================================================
+// backend routes ======================================================
 
 // get/post to /api routes.
 router.route('/')
@@ -57,9 +57,83 @@ router.route('/')
 			});
 		});
 
+// this may not be used by anything any more. 
+// Should be /test/testid anyway.
+router.route('/:sessionId/test/:testId')
+	.put(function(req,res){
+		Session.findById(req.params.sessionId).exec(
+			function(err, session) {
+
+				session.flows.id(req.body._id).remove();
+				session.flows.push(req.body);
+				
+
+				session.save(function(err) {
+						if (err)
+							res.send(err);
+						
+						res.json(session);
+				});
+			}
+		);
+	});
+
+// Do functions on a single session - add usernames in active, 
+// get a single new session, delete a single specific session
+router.route('/:sessionId')
+	.get(function(req,res) {
+			Session.findById(req.params.sessionId, function(err, session) {
+				if (err)
+					res.send(err);
+				res.json(session);
+			});
+		})
+	.put(function(req, res) {
+		// put is used both in active sessions to apply usernames.
+		// put only puts updates to individual sessions, not test sets
+
+		Session.findById(req.params.sessionId, function(err, session) {
+
+			if (err)
+				res.send(err);
+			
+			console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
+
+			if (req.body.user){
+				session.user = req.body.user;
+				console.log('new user', session.user);
+			}
+
+			// save the session object - this is not saving anything about the flow _id.
+			session.save(function(err) {
+				if (err)
+					res.send(err);
+				res.json( req.body );
+			});
+
+		});
+	})
+	.delete(function(req, res) {
+		Session.remove({
+			_id: req.params.sessionId
+		}, function(err, session) {
+			if (err)
+				res.send(err);
+
+			res.json({ message: 'Successfully deleted' });
+		});
+	});
+	
+
+
+	// frontend routes =========================================================
+	// route to handle all angular requests
+	// This route deals enables HTML5Mode by forwarding missing files to the index.html			
+
+// TEST routes =========================================================
+
 // routest for returning test sets - return all sessions.
 // on front end, remove sessions that are not models, but count them.
-
 router.route('/test/')
 	.get(function(req,res){
 		Session.find({}, function(err, test) {
@@ -93,7 +167,10 @@ router.route('/test/')
 
 	});
 
-// /test/testId routes
+// /test/testId routes:
+// add a test to the db with .post
+// add a flow to a test with .put (controller AddAFlow)
+// TODO remove all sessions with test-id test .delete 
 router.route('/test/:testId')
 	// route for adding a test to a db - 
 	// testId is actually a front-end randomly generated number
@@ -158,27 +235,6 @@ router.route('/test/:testId')
 		});
 	});
 
-// 
-router.route('/:sessionId/test/:testId')
-	.put(function(req,res){
-		Session.findById(req.params.sessionId).exec(
-			function(err, session) {
-
-				session.flows.id(req.body._id).remove();
-				session.flows.push(req.body);
-				
-
-				session.save(function(err) {
-						if (err)
-							res.send(err);
-						
-						res.json(session);
-				});
-			}
-		);
-	});
-
-
 // Add and remove steps from flows in tests
 router.route('/test/:testId/session/:sessionId/flow/:flowId')
 	.get(function(req,res) {
@@ -235,56 +291,36 @@ router.route('/test/:testId/session/:sessionId/flow/:flowId')
 		);
 	});
 
-// Do functions on a single session - add usernames in active, 
-// get a single new session, delete a single specific session
-router.route('/:sessionId')
+// SUMMARY routes ======================================================
+
+// get the flow to summarize
+// controller: summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname
+router.route('/summary/:testId/flow/:flowName')
 	.get(function(req,res) {
-			Session.findById(req.params.sessionId, function(err, session) {
+		var flowcollector = {};
+		Session.find({'testKey' : req.params.testId}, function(err, data) {
 				if (err)
 					res.send(err);
-				res.json(session);
-			});
-		})
-	.put(function(req, res) {
-		// put is used both in active sessions to apply usernames.
-		// put only puts updates to individual sessions, not test sets
+				console.log(data.length);
+				for (var i = 0; i < data.length -1 ; i++){
+					console.log(data[i].flows.length);
+					for (var j = 0; j < data[i].flows.length; j++){
+						// console.log('flow reply #'+j+' '+ data[i].flows[j]);
+						var name = data[i].flows[j].title;
 
-		Session.findById(req.params.sessionId, function(err, session) {
-
-			if (err)
-				res.send(err);
+						name = name.replace(/ /g,'');
+						console.log(name+' '+req.params.flowName);
+						if (name === req.params.flowName){
+							flowcollector.push(data.flows[i]);
+						}
+					}
+				}
+				console.log(flowcollector);
+				// res.json(flow);
 			
-			console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
-
-			if (req.body.user){
-				session.user = req.body.user;
-				console.log('new user', session.user);
-			}
-
-			// save the session object - this is not saving anything about the flow _id.
-			session.save(function(err) {
-				if (err)
-					res.send(err);
-				res.json( req.body );
 			});
-
-		});
 	})
-	.delete(function(req, res) {
-		Session.remove({
-			_id: req.params.sessionId
-		}, function(err, session) {
-			if (err)
-				res.send(err);
-
-			res.json({ message: 'Successfully deleted' });
-		});
-	});
-	
+	;
 
 
-	// frontend routes =========================================================
-	// route to handle all angular requests
-	// This route deals enables HTML5Mode by forwarding missing files to the index.html			
-	
 module.exports = router;
