@@ -40,8 +40,12 @@
 		<div class="questions-group active">
 			<ul>
 				<li><!-- flow title --><small>Flow</small><h3>{{flows.flow[0].title}}</h3></li>
-				<li class="question" ng-repeat="step in flows[0].steps">
+				<li class="question" ng-repeat="step in flows[0].steps" ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
+             			ng-click="activate($index, $parent.$index, step)">
 					{{step.title}}
+					<div class="question-body" ng-show="active">
+						{{step.desc}}
+					</div>
 				</li>
 				<!-- <li class="active">
 					<h3>Check your account</h3>
@@ -52,17 +56,12 @@
 				</li> -->
 			</ul>
 		</div>
-		
-
-	</div>
-		
+	</div>		
 </div>
-
-
 
 <div id="middle-pane" ng-model='step'>
 	
-	<h3>&ldquo;Check your account&rdquo; summary</h3>
+	<h3>&ldquo;{{step.title}}&rdquo; summary</h3>
 	<p>Add a summary for this step to capture any notable outcomes, directions, or action items.</p>
 	
 	<ul class="lined">

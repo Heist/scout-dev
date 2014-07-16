@@ -41,12 +41,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 .controller('summarizeFlow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
 	$scope.flows = {};
     $scope.timeline = [];
+    $scope.step = {};
 
     $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
         .success(function(data){
             $scope.flows = data.flows;
             console.log($scope.flows);
         })
+
+    $scope.activate = function (index, parentIndex, step) {
+        $scope.selectedIndex = index;
+        $scope.parentIndex = parentIndex;
+
+        $scope.step.title = step.title;
+        console.log($scope.step.title);
+    };
 
 }])
 
