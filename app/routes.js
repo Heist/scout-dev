@@ -120,7 +120,7 @@ router.route('/test/')
 	});
 
 // /test/testId routes:
-// add a test to the db with .post
+// add a new session to the db with .post
 // add a flow to a test with .put (controller AddAFlow)
 // TODO remove all sessions with test-id test .delete 
 router.route('/test/:testId')
@@ -201,7 +201,6 @@ router.route('/test/:testId/session/:sessionId')
 	.put(function(req, res) {
 		// put is used both in active sessions to apply usernames.
 		// put only puts updates to individual sessions, not test sets
-
 		Session.findById(req.params.sessionId, function(err, session) {
 
 			if (err)

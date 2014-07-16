@@ -27,7 +27,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             templateUrl: 'partials/flow.html'
         })
         .state('run', {
-        	url: '/run/:sessionId/test/:testId',
+        	url: '/run/test/:testId/session/:sessionId',
             templateUrl: 'partials/run.html'
         })
         .state('summarizeFlow', {
@@ -88,13 +88,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // push it to a new ssins object in $scope
             for (var i = 0; i<data.length -1; i++){
                 // console.log ($scope.sessions[i].ismodel);
-                console.log (i +' '+ data[i].testKey);
+                // console.log (i +' '+ data[i].testKey);
                     if (data[i + 1].testKey == data[i].testKey) {
                         ssincount++
-                        console.log('ssincount'+ssincount);
+                        // console.log('ssincount'+ssincount);
                     }else{
                         ssin.push({'testKey' : data[i].testKey, 'ssincount' : ssincount});
-                        console.log(JSON.stringify(ssin));
+                        // console.log(JSON.stringify(ssin));
                         ssincount=0;
                     }
             }
@@ -259,7 +259,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             .success(function(data){
                 console.log('returned new session '+ data._id +" "+data.testKey);
                 console.log('new session steps ' + data.flows[0].steps.length);
-                $location.path('/run/'+data._id+'/test/'+data.testKey);
+                $location.path('/run/test/'+data.testKey+'/session/'+data._id);
             })
             .error(function(data){
                 console.log(JSON.stringify(data))
@@ -404,7 +404,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             // now we put that step's update into its session storage in the db
 
-            var url = '/api/'+$stateParams.sessionId+'/test/'+$stateParams.testId;
+            var url = '/api/test/'+$stateParams.testId+'session'+$stateParams.sessionId;
 
             // mongoose does not permid _id queries on grandchildren, only parent.child.id(_id)
             var dataOut = $scope.flows[$scope.parentIndex];
