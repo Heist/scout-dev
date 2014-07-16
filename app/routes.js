@@ -299,27 +299,24 @@ router.route('/test/:testId/session/:sessionId/flow/:flowId')
 router.route('/summary/:testId/flow/:flowName')
 	.get(function(req,res) {
 		console.log('touched flowcollector');
-		var flowcollector = {};
+		
 		Session.find({'testKey' : req.params.testId}, function(err, data) {
 				if (err)
 					res.send(err);
-				// console.log(data.length);
+				
+				var flowcollector = [];
 				for (var i = 0; i < data.length -1 ; i++){
-					// console.log(data[i].flows.length);
 					for (var j = 0; j < data[i].flows.length; j++){
-						// console.log('flow reply #'+j+' '+ data[i].flows[j]);
 						var name = data[i].flows[j].title;
 						name = name.replace(/ /g,'');
-						// 
+
 						if (name === req.params.flowName){
-							// flowcollector.push(data.flows[i]);
-							console.log(name+' '+req.params.flowName);
+							flowcollector.push(data[i].flows[j]);
 						}
 					}
 				}
 				console.log('flowcollector '+flowcollector.length);
-				// res.json(flow);
-			
+				res.json(flowcollector);
 			});
 	})
 	;
