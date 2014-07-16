@@ -71,7 +71,7 @@ router.route('/test/')
 			});
 	})
 
-// controller addTest uses this
+	// controller addTest uses this
 	.post(function(req,res){
 		var ptype = new Session();		
 
@@ -121,7 +121,6 @@ router.route('/test/:testId')
   		 	 }
 		);
 	})
-
 	// route for adding flows to tests
 	// needs to return values to the front end or you can't edit them.
 	// controller addAFlow uses this
@@ -158,16 +157,13 @@ router.route('/test/:testId')
 			res.json({ message: 'Successfully deleted all tests with '+req.params.testId });
 		});
 	});
-;
 
-// this is also for /run/?
+// 
 router.route('/:sessionId/test/:testId')
 	.put(function(req,res){
 		Session.findById(req.params.sessionId).exec(
 			function(err, session) {
-				// console.log(req.body);
-				// var test = session.flows.steps.id(req.body._id);
-				// this is v. likely to comically break
+
 				session.flows.id(req.body._id).remove();
 				session.flows.push(req.body);
 				
@@ -183,16 +179,8 @@ router.route('/:sessionId/test/:testId')
 	});
 
 
-// Session specific routes - _can_ be used to return a single test, but will catch the model.
-// mostly used in /run
-// at the bottom because seriously I keep mistaking it for where we put new flows.
-
-
-
-// this is the part where steps are added and removed from flows.
-// it could be cleaner.
-
-router.route('/:sessionId/flow/:flowId')
+// Add and remove steps from flows in tests
+router.route('/test/:testId/session/:sessionId/flow/:flowId')
 	.get(function(req,res) {
 		Session.findById(req.params.sessionId, function(err, session) {
 			if (err)
@@ -247,7 +235,8 @@ router.route('/:sessionId/flow/:flowId')
 		);
 	});
 
-
+// Do functions on a single session - add usernames in active, 
+// get a single new session, delete a single specific session
 router.route('/:sessionId')
 	.get(function(req,res) {
 			Session.findById(req.params.sessionId, function(err, session) {
@@ -298,6 +287,4 @@ router.route('/:sessionId')
 	// route to handle all angular requests
 	// This route deals enables HTML5Mode by forwarding missing files to the index.html			
 	
-
-
 module.exports = router;

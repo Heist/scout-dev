@@ -38,8 +38,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 })
 
-.controller('boo', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
-	
+.controller('summarizeFlow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
+	$scope.flow = {};
+    $scope.timeline = [];
+
+    $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
+        .success(function(data){
+            console.log('flow to summarize '+ data);
+        })
 }])
 
 .controller('overview', ['$scope','$http', '$location', function($scope, $http, $location){
@@ -208,7 +214,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         console.log('session, flow '+ session+' '+ flow);
 
 
-        var url = '/api/'+$scope.sessions[session]._id+'/flow/'+$scope.sessions[session].flows[flow]._id;
+        var url = '/api/test/'+$scope.sessions[session].testKey+'/session/'+$scope.sessions[session]._id+'/flow/'+$scope.sessions[session].flows[flow]._id;
         
         $scope.sessions[session].flows.splice(flow, 1);
         
