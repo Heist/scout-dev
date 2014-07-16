@@ -62,43 +62,40 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // flows is *all* flows
             data.sort(keysrt('testKey'));
             
-            // // count up and post the number of ssins 
-            // var models = 0;
-            // var ssin = [];
-            // var tests = []; //for pushing tests to scope.sessions?
+            // count up and post the number of ssins 
+            var models = 0;
+            var ssin = [];
+            var tests = []; //for pushing tests to scope.sessions?
             
 
-            // var ssincount = 0;
-            //     // for each model where ismodel is true
+            var ssincount = 0;
+                // for each model where ismodel is true
 
-            // // for each session with test number x
-            // // push it to a new ssins object in $scope
-            // for (var i = 0; i<data.length -1; i++){
-            //     // console.log ($scope.sessions[i].ismodel);
-            //     console.log (i +' '+ data[i].testKey);
-            //         if (data[i + 1].testKey == data[i].testKey) {
-            //             ssincount++
-            //             console.log('ssincount'+ssincount);
-            //         }else{
-            //             ssin.push({'testKey' : data[i].testKey, 'ssincount' : ssincount});
-            //             console.log(JSON.stringify(ssin));
-            //             ssincount=0;
-            //         }
-            // }
-            // console.log(JSON.stringify(ssin));
+            // for each session with test number x
+            // push it to a new ssins object in $scope
+            for (var i = 0; i<data.length -1; i++){
+                // console.log ($scope.sessions[i].ismodel);
+                console.log (i +' '+ data[i].testKey);
+                    if (data[i + 1].testKey == data[i].testKey) {
+                        ssincount++
+                        console.log('ssincount'+ssincount);
+                    }else{
+                        ssin.push({'testKey' : data[i].testKey, 'ssincount' : ssincount});
+                        console.log(JSON.stringify(ssin));
+                        ssincount=0;
+                    }
+            }
+            console.log(JSON.stringify(ssin));
 
-            // // return model sessions to the sessions scope for display and control
-            // for(var i =0; i<data.length; i++){
-            //     if (data[i].ismodel){
-            //         tests.push(data[i]);
-            //     }
-            // }
-            // // because we use sessions as a unit everywhere else
-            // $scope.sessions = tests;
-
-            // // TODO clarify nomenclature around tests/sessions/wfte
-            // // TODO fuck it this can go in reporting and I'll fix later.
-            // $scope.tests = ssin;
+            // return model sessions to the sessions scope for display and control
+            for(var i =0; i<data.length; i++){
+                if (data[i].ismodel){
+                    tests.push(data[i]);
+                }
+            }
+            // because we use sessions as a unit everywhere else
+            $scope.sessions = tests;
+            $scope.tests = ssin;
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -303,7 +300,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             $scope.session = data;
             $scope.flows = $scope.session.flows;
             
-
             // set the initial timeline contents
             var message = {};
 
