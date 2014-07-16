@@ -94,8 +94,6 @@ router.route('/test/')
 				if (err)
 					res.send(err);
 				res.json(test);
-				console.log(test.length);
-				console.log(test);
 			});
 	})
 
@@ -243,23 +241,24 @@ router.route('/test/:testId/session/:sessionId/flow/:flowId')
 			if (err)
 				res.send(err);
 		var flow = session.flows.id(req.params.flowId);
-		res.json(flow);		
+		res.json(flow);
 		console.log(flow);
+		console.log('touched flow');
 		});
 	})
 	.put(function(req, res) {
 		var query = { _id : req.params.flowId}
 		var flow = req.body.flow;
 
-		console.log('_id', query);
-		console.log('flow', flow);
+		console.log('touched flow update');
+		// console.log('_id', query);
+		// console.log('flow', flow);
 
 		Session.findById(req.params.sessionId, function(err, session) {
 			if ( query = flow._id){
-				console.log('touch');
+				console.log('touched put flow');
 				session.flows.id(query).remove();
 				session.flows.push(flow); 
-
 			}
 
 			session.save(function(err) {

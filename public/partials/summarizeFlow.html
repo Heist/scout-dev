@@ -47,13 +47,6 @@
 						{{step.desc}}
 					</div>
 				</li>
-				<!-- <li class="active">
-					<h3>Check your account</h3>
-					<p>Questions questions Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-					<p>Morbi eu sapien rutrum, posuere velit in, pharetra velit. Phasellus sed pulvinar magna, at vulputate libero.</p>
-					<p>Donec consequat, erat id egestas tempor, augue elit ullamcorper enim, at faucibus nunc libero et tortor.</p>
-				
-				</li> -->
 			</ul>
 		</div>
 	</div>		
@@ -66,18 +59,16 @@
 	
 	<ul class="lined">
 		<li>
-			<textarea class="input" id="field-textarea" placeholder="Your summary"></textarea>
+			<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="step.summary"></textarea>
 		</li>
 		<li>
 			<p>
 			<label for="field-addtags">Add additional tags to this step</label><br>
-			<input class="input" type="text" id="field-addtags" placeholder="Enter a tag" />
+			<input class="input" type="text" id="field-addtags" placeholder="Enter a tag" ng-model="step.tag"/>
 			</p>
 			
-			<ul class="tags">
-				<li><span>added tag &nbsp; &times;</span></li>
-				<li><span>targ &nbsp; &times;</span></li>
-				<li><span>language &nbsp; &times;</span></li>
+			<ul class="tags" >
+				<li ng-repeat="tag in step.tags"><span>{{tag.name}}&nbsp; &times;</span></li>
 			</ul>
 			<div class="clear"></div>
 		

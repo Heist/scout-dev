@@ -23,7 +23,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
         // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
         .state('flow', {
-        	url: '/edit/:sessionId/flow/:flowId',
+        	url: '/edit/test/:testId/session/:sessionId/flow/:flowId',
             templateUrl: 'partials/flow.html'
         })
         .state('run', {
@@ -38,6 +38,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 })
 
+// SUMMARIZE CONTROLLER ========================================================
 .controller('summarizeFlow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
 	$scope.flows = {};
     $scope.timeline = [];
@@ -59,6 +60,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 }])
 
+// OVERVIEW CONTROLLER ========================================================
 .controller('overview', ['$scope','$http', '$location', function($scope, $http, $location){
     // set up controller-wide variables
     $scope.sessions = {};
@@ -279,6 +281,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 }])
 
+// ACTIVE TEST CONTROLLER =====================================================
 .controller('run', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
     // set up controller-wide variables
     $scope.session = {};
@@ -420,21 +423,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         }
 }])
 
+// EDIT A FLOW CONTROLLER =====================================================
 .controller('flow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
-	// $steps.controller needs to know the index of the selected item
-	// selected $index
-	// ng-show when steps.edit$index is selected
-	// step 3 is selected.$index.step.desc   
 
-    // $scope.steps = []; // hmm-mm.
-    
-
-     // this is wholly structured on the front end, which is weird.
     $scope.flow = [];
-    // $scope.flow.steps = $scope.steps;
 
-
-    $http.get('/api/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId)
+    $http.get('/api/test/'+$stateParams.testId+'/session/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId)
         .success(function(data) {
             $scope.flow = data;
         })
@@ -452,7 +446,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         		edit	: false
         	};
 	    $scope.flow.steps.push($scope.step);  
-        
     }
 
     $scope.removeStep = function(step){
@@ -504,7 +497,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // Put to this URL the entire data object from this controller
         // technically this is created when we hit Add on prev. page
 
-        var putURL = '/api/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId;
+        var putURL = '/api/test/'+$stateParams.testId+'/session/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId;
 
         if (!$scope.flow.title){
             $scope.flow.title = 'New Flow Name Goes Here';

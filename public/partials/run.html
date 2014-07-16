@@ -50,45 +50,6 @@
 	</div>
 	
 	<div id="middle-pane" >
-<!-- 
-	middle panel
-	on click new flow, post flow name to messages
-	on click new step, post step to messages
-	on enter message, post to messages
-	on enter #xyz, app should note [#thing] and post to tags
-	url should have user name
-
-message feed is a document of all notes in play
-is it appended to step that is currently turned on?
-
-get all messages in session by flow and step
-put them into the flow 
-add new messages to current step in current flow.
-
-message structure should be formed on the back end by parsing the contents of 
-session.flow.steps
-
-clicking a step inserts a message into the flow but not into the database
-
-stepClick
-	-- easiest would be that timeline is array of messages
-	-- inserts into timeline
-	-- timeline is a temp variable array that stores current chat
-	-- timeline pulls from both $scope.session[session].flows[flow].steps[step].messages
-	-- AND stepClick assertion
-	-- timeline does not write back to DB
-	-- text box writes directly to DB
-
-writing a message puts the message into the DB and into the flow
-	-- inserts into database under 'steps'
-	-- inserts into timeline, but timeline does not write to DB
-
-on click step
------- 
-
-ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepChange(whateverElementTriggersThis) }" ng-repeat="message in timeline"
--->
-		
 		<div id="session-input" ng-model="user" >
 			<textarea class="input" ng-model='user.name' name="field-input" placeholder="please enter the username to begin" ui-keypress="{13:'addUser(user.name)'}" ng-show="!user.toggle"/>
 			</textarea>
@@ -102,9 +63,6 @@ ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepC
 				<li class="message" ng-repeat="message in timeline track by $index">
 					<div class="message-user"> <!-- misleading, is JUST user images -->
 							<div class="message-details-avatar">
-								 <!-- {{message.avatar}} 
-								how are we storing and recalling these? -->
-								 <!-- <img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg" /> -->
 							</div>
 					</div>
 
@@ -115,7 +73,7 @@ ng-class="{status: startSession(whateverElementTriggersThis), title: flowOrStepC
 
 					</div>
 					
-					<div class="message-details"> <!-- should be message-details -->
+					<div class="message-details">
 						<small><!-- {{message.user}} &mdash; {{message.created | date : HH:mm}}--></small>
 					</div>
 
