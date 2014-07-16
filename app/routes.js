@@ -304,18 +304,24 @@ router.route('/summary/:testId/flow/:flowName')
 				if (err)
 					res.send(err);
 				
-				var flowcollector = [];
+				var flowcollector = {};
+				flowcollector.flows = [];
+
 				for (var i = 0; i < data.length -1 ; i++){
 					for (var j = 0; j < data[i].flows.length; j++){
 						var name = data[i].flows[j].title;
 						name = name.replace(/ /g,'');
 
 						if (name === req.params.flowName){
-							flowcollector.push(data[i].flows[j]);
+							var pushdata = data[i].flows[j];
+							flowcollector.flows.push( pushdata );
 						}
 					}
 				}
-				console.log('flowcollector '+flowcollector.length);
+				console.log('flowcollector flows '+flowcollector.flows.length);
+				// console.log('flowcollector '+flowcollector);
+				console.log('flowcollector',(util.inspect(flowcollector, {showHidden: false, depth: null})));
+
 				res.json(flowcollector);
 			});
 	})

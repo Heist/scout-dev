@@ -44,7 +44,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
         .success(function(data){
-            console.log('flow to summarize '+ data);
+
+            console.log('flow to summarize '+ JSON.stringify(data.flows));
+
         })
 }])
 
