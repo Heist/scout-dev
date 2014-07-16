@@ -45,7 +45,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
         .success(function(data){
             $scope.flows = data.flows;
-            console.log($scope.flows[0]);
+            console.log($scope.flows);
         })
 
 }])
