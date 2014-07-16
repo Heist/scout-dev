@@ -189,6 +189,53 @@ router.route('/test/:testId')
 		});
 	});
 
+// Do functions on a single session within a test- add usernames in active, 
+// get a single new session, delete a single specific session
+router.route('/test/:testId/session/:sessionId')
+	.get(function(req,res) {
+			Session.findById(req.params.sessionId, function(err, session) {
+				if (err)
+					res.send(err);
+				console.log('touched /:sessionId');
+				res.json(session);
+			});
+		})
+	.put(function(req, res) {
+		// put is used both in active sessions to apply usernames.
+		// put only puts updates to individual sessions, not test sets
+
+		Session.findById(req.params.sessionId, function(err, session) {
+
+			if (err)
+				res.send(err);
+			
+			console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
+
+			if (req.body.user){
+				session.user = req.body.user;
+				console.log('new user', session.user);
+			}
+
+			// save the session object - this is not saving anything about the flow _id.
+			session.save(function(err) {
+				if (err)
+					res.send(err);
+				res.json( req.body );
+			});
+
+		});
+	})
+	.delete(function(req, res) {
+		Session.remove({
+			_id: req.params.sessionId
+		}, function(err, session) {
+			if (err)
+				res.send(err);
+
+			res.json({ message: 'Successfully deleted' });
+		});
+	});
+
 // Add and remove steps from flows in tests
 router.route('/test/:testId/session/:sessionId/flow/:flowId')
 	.get(function(req,res) {
@@ -245,83 +292,37 @@ router.route('/test/:testId/session/:sessionId/flow/:flowId')
 		);
 	});
 
-// Do functions on a single session within a test- add usernames in active, 
-// get a single new session, delete a single specific session
-router.route('/test/:testId/session/:sessionId')
-	.get(function(req,res) {
-			Session.findById(req.params.sessionId, function(err, session) {
-				if (err)
-					res.send(err);
-				console.log('touched /:sessionId');
-				res.json(session);
-			});
-		})
-	.put(function(req, res) {
-		// put is used both in active sessions to apply usernames.
-		// put only puts updates to individual sessions, not test sets
-
-		Session.findById(req.params.sessionId, function(err, session) {
-
-			if (err)
-				res.send(err);
-			
-			console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
-
-			if (req.body.user){
-				session.user = req.body.user;
-				console.log('new user', session.user);
-			}
-
-			// save the session object - this is not saving anything about the flow _id.
-			session.save(function(err) {
-				if (err)
-					res.send(err);
-				res.json( req.body );
-			});
-
-		});
-	})
-	.delete(function(req, res) {
-		Session.remove({
-			_id: req.params.sessionId
-		}, function(err, session) {
-			if (err)
-				res.send(err);
-
-			res.json({ message: 'Successfully deleted' });
-		});
-	});
-
 // SUMMARY routes ======================================================
 
 // get the flow to summarize
 // controller: summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname
-// router.route('/summary/:testId/flow/:flowName')
-// 	.get(function(req,res) {
-// 		var flowcollector = {};
-// 		Session.find({'testKey' : req.params.testId}, function(err, data) {
-// 				if (err)
-// 					res.send(err);
-// 				console.log(data.length);
-// 				for (var i = 0; i < data.length -1 ; i++){
-// 					console.log(data[i].flows.length);
-// 					for (var j = 0; j < data[i].flows.length; j++){
-// 						// console.log('flow reply #'+j+' '+ data[i].flows[j]);
-// 						var name = data[i].flows[j].title;
-// // 
-// 						name = name.replace(/ /g,'');
-// 						console.log(name+' '+req.params.flowName);
-// 						if (name === req.params.flowName){
-// 							flowcollector.push(data.flows[i]);
-// 						}
-// 					}
-// 				}
-// 				console.log(flowcollector);
-// 				// res.json(flow);
+router.route('/summary/:testId/flow/:flowName')
+	.get(function(req,res) {
+		console.log('touched flowcollector');
+		var flowcollector = {};
+		Session.find({'testKey' : req.params.testId}, function(err, data) {
+				if (err)
+					res.send(err);
+				// console.log(data.length);
+				for (var i = 0; i < data.length -1 ; i++){
+					// console.log(data[i].flows.length);
+					for (var j = 0; j < data[i].flows.length; j++){
+						// console.log('flow reply #'+j+' '+ data[i].flows[j]);
+						var name = data[i].flows[j].title;
+						name = name.replace(/ /g,'');
+						// 
+						if (name === req.params.flowName){
+							// flowcollector.push(data.flows[i]);
+							console.log(name+' '+req.params.flowName);
+						}
+					}
+				}
+				console.log('flowcollector '+flowcollector.length);
+				// res.json(flow);
 			
-// 			});
-// 	})
-// 	;
+			});
+	})
+	;
 
 
 module.exports = router;
