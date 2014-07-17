@@ -39,13 +39,14 @@
 		
 		<div class="questions-group active">
 			<ul>
-				<li><!-- flow title --><small>Flow</small><h3>{{flows.flow[0].title}}</h3></li>
+				<li class="title"><!-- flow title --><small>Flow</small><h3>{{flows.flow[0].title}}</h3></li>
 				<li class="question" ng-repeat="step in flows[0].steps" ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
              			ng-click="activate($index, $parent.$index, step)">
-					{{step.title}}
-					<div class="question-body" ng-show="$index == selectedIndex && $parent.$index == parentIndex">
+					<span>{{step.title}}</span>
+					<h3>{{step.title}}</h3>
+					<p class="question-body" ng-show="$index == selectedIndex && $parent.$index == parentIndex">
 						{{step.desc}}
-					</div>
+					</p>
 				</li>
 			</ul>
 		</div>
