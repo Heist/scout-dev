@@ -247,17 +247,13 @@ body { background: #f8f7ef; color: #3d3d3d; margin: 0; padding: 0; }
 #header #header-nav ul { padding: 0; margin: 0; list-style: none; }
 #header #header-nav ul li { float: left; padding: 13.33333px 20px 13.33333px 0; }
 #header #header-title { font-family: 'hedley-new-web', sans-serif; font-weight: 300; float: left; padding: 13.33333px 0 0 0; }
-#header #header-logo { float: left; margin: 10px 20px 13.33333px 0; }
-#header #header-logo img { width: 30px; height: auto; }
+#header #header-logo { float: left; margin: 10px 20px 13.33333px 0; width: 30px; height: 30px; background: url("/assets/scout-rev.svg") no-repeat left top; background-size: contain; }
 #header #header-account { float: right; cursor: pointer; }
 #header #header-account #header-account-avatar { height: 28px; width: 28px; margin: 10px 0 0 10px; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; overflow: hidden; float: left; }
 #header #header-account #header-account-avatar img { width: 28px; height: auto; }
 #header #header-account #header-account-dropdown { float: left; padding: 10px 0 0 6.66667px; }
 #header #header-nav { padding: 9.52381px 10px 0 0; }
 #header .button.inverted { border-color: #f8f7ef; color: #f8f7ef; }
-
-/* account for the space taken up by the header on page */
-body { padding-top: 80px; }
 
 /* styles for specific pages */
 /* LOGIN */
@@ -275,6 +271,7 @@ body { padding-top: 80px; }
 #view-observer-login h2 { padding: 0; margin: 0; }
 
 /* SESSION OVERVIEW */
+#view-overview { padding-top: 80px; }
 #view-overview .session .session-meta { border-bottom: 2px solid #e8e5cc; margin: 20px 0; }
 #view-overview .session .session-meta .session-name { float: left; font-size: 12.8px; font-weight: bold; color: #b3b19b; }
 #view-overview .session .session-meta .session-name h4 { margin: 0; padding: 0; line-height: 33.6px; display: inline-block; color: #3d3d3d; }

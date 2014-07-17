@@ -38,11 +38,10 @@
 	#header-logo {
 		float: left;
 		margin: $pad/2 $pad $pad/1.5 0;
-		
-		img {
-			width: 30px;
-			height: auto;
-		}		
+		width: 30px;
+		height: 30px;
+		background: url('/assets/scout-rev.svg') no-repeat left top;
+		background-size: contain;	
 	}
 	
 	#header-account {
@@ -80,9 +79,3 @@
 	
 }
 
-
-/* account for the space taken up by the header on page */
-
-body {
-	padding-top: 80px;
-}
