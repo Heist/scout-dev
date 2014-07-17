@@ -73,6 +73,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                     if ( !(steparray.indexOf( name ) > -1) ){
                         steparray.push(name);
                     }
+
+                    if ((steparray.indexOf( name ) > -1){
+                        steparray.name.push(data.flows[i].steps[j].messages)
+                    }
                         
                     console.log(steparray);
                     

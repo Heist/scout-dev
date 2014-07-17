@@ -333,6 +333,12 @@ router.route('/summary/:testId/flow/:flowName')
 				console.log('flowcollector flows '+flowcollector.flows.length);
 				// console.log('flowcollector '+flowcollector);
 
+
+				// respond with:
+				// all flows with a common name in this test
+				// all steps with a common name in a common flow
+				// --> in this object, all tags
+				// --> in this object, all comments, with their flow _id
 				res.json(flowcollector);
 			});
 	})
