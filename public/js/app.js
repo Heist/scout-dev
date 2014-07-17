@@ -410,7 +410,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             $http.put(url, dataOut)
                 .success(function(data){
-                    console.log('Step pushed: ', data);
+                    console.log('Message pushed: ', data);
                 })
                 .error(function(data){
                     console.log('Error: ' + data);
