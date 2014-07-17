@@ -312,7 +312,7 @@
 		float: right;
 		position: relative;
 		
-		#stream-timer {
+		#timeline-timer {
 			position: absolute;
 			left: 0;
 			bottom: 0;
@@ -326,14 +326,14 @@
 			}
 		}
 		
-		#stream-device {
+		#timeline-device {
 			padding: $pad/2;
 			width: 80%;
 			height: auto;
 			background: transparentize($background, 0.9);
 			border: 2px solid transparentize($background, 0.8);
 			@include radius(10px);
-			margin: $pad*5 auto 0 auto;
+			margin: 40% auto 0 auto;
 			@include dropshadow(0px 5px 20px, rgba(0,0,0,0.2));
 			
 			img {
@@ -342,18 +342,19 @@
 			}
 		}
 		
-		#stream-user {
+		#timeline-user {
 			position: absolute;
 			top: 50px;
 			left: 0;
 			width: 100%;
 			text-align: center;
-			padding: $pad/2 0;
+			padding: $pad*0.75 0;
 			color: $white;
 			@include type-light;
 			line-height: 30px;
+			border-bottom: 1px solid rgba(255,255,255,0.08);
 			
-			.stream-user-avatar {
+			.timeline-user-avatar {
 				display: inline-block;
 				vertical-align: middle;
 				@include radius(40px);
