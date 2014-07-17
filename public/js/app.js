@@ -39,25 +39,59 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 })
 
 // SUMMARIZE CONTROLLER ========================================================
-.controller('summarizeFlow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
+.controller('summarizeFlow', ['$scope','$http', '$location', '$stateParams','$state', function($scope, $http, $location,$stateParams,$state){
 	$scope.flows = {};
     $scope.timeline = [];
     $scope.step = {};
 
+
+    // a function to return the steps from a set of flows
+    // the scan those steps for their tags
+    // then return that matched set to the step
+    // this could possibly be done on the back end
+    function getSteps(data){
+        
+    }
+
     $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
         .success(function(data){
             $scope.flows = data.flows;
-            console.log($scope.flows);
+            
+            // abstract to function later, is used a lot.
+            for (var i =0 ; i< data.flows.length -1 ; i++){
+                // go through data.flows per flow in the data
+                console.log('data flows', data.flows[i].steps);
+                for (var j = 0; j < data.flows[i].steps.length ; j++){
+                // return the steps from a single flow's step list
+                    console.log('flow steps', data.flows[i].steps[j]);
+                    var name = data.flows[i].steps[j].title;
+                        name = name.replace(/ /g,'');
+                    console.log(name);
+                    
+                }
+            }
+
         })
+
+    
 
     $scope.activate = function (index, parentIndex, step) {
         $scope.selectedIndex = index;
         $scope.parentIndex = parentIndex;
 
+        // passes the step title to the global variable from flows[0].steps[step]
         $scope.step.title = step.title;
         console.log($scope.step.title);
+
+        //pass all of the tags inside of flows[allflows].steps[step] to an array 
     };
 
+    $scope.completeSummary = function (){
+        // this is the Save A New Summary button
+        // it saves a summary in complete mode when done writing it up
+        // then returns you to /
+        $location.path('/');
+    }
 }])
 
 // OVERVIEW CONTROLLER ========================================================

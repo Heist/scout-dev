@@ -309,6 +309,7 @@ router.route('/summary/:testId/flow/:flowName')
 	.get(function(req,res) {
 		console.log('touched flowcollector');
 		
+		// .find returns an array []
 		Session.find({'testKey' : req.params.testId}, function(err, data) {
 				if (err)
 					res.send(err);
@@ -316,6 +317,8 @@ router.route('/summary/:testId/flow/:flowName')
 				var flowcollector = {};
 				flowcollector.flows = [];
 
+			// this gathers and sorts similar flows from the returned
+			// session array[].
 				for (var i = 0; i < data.length -1 ; i++){
 					for (var j = 0; j < data[i].flows.length; j++){
 						var name = data[i].flows[j].title;
@@ -329,7 +332,6 @@ router.route('/summary/:testId/flow/:flowName')
 				}
 				console.log('flowcollector flows '+flowcollector.flows.length);
 				// console.log('flowcollector '+flowcollector);
-				console.log('flowcollector',(util.inspect(flowcollector, {showHidden: false, depth: null})));
 
 				res.json(flowcollector);
 			});
