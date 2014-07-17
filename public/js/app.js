@@ -42,7 +42,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 .controller('summarizeFlow', ['$scope','$http', '$location', '$stateParams','$state', function($scope, $http, $location,$stateParams,$state){
 	$scope.flows = {};
     $scope.timeline = [];
-    $scope.step = {};
+    $scope.steps = {};
 
 
     // a function to return the steps from a set of flows
@@ -57,17 +57,29 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data){
             $scope.flows = data.flows;
             
+            var steparray = [];            
             // abstract to function later, is used a lot.
             for (var i =0 ; i< data.flows.length -1 ; i++){
                 // go through data.flows per flow in the data
-                console.log('data flows', data.flows[i].steps);
+                // console.log('data flows', data.flows[i].steps);
                 for (var j = 0; j < data.flows[i].steps.length ; j++){
                 // return the steps from a single flow's step list
-                    console.log('flow steps', data.flows[i].steps[j]);
+                    // console.log('flow steps', data.flows[i].steps[j]);
                     var name = data.flows[i].steps[j].title;
                         name = name.replace(/ /g,'');
-                    console.log(name);
+
+                    // if steparray does not contain a value for name, 
+                    // push name
+                    if ( !(steparray.indexOf( name ) > -1) ){
+                        steparray.push(name);
+                    }
+                        
+                    console.log(steparray);
                     
+                    // if the name matches a name that is in the array steps
+                    // add its tags to the list of tags
+
+                    // else add a new entry to steps.
                 }
             }
 
