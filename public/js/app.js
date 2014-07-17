@@ -445,7 +445,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         	};
 	    $scope.flow.steps.push($scope.step);  
     }
-
+    
     $scope.removeStep = function(step){
     	step.edit=false;
     	step.title_edit=false;
@@ -462,6 +462,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		// Clone the original item to restore it on demand.
 		$scope.originalStep = angular.extend({}, step);
 	}
+	
+	// what is our drag handle
+	$scope.sortableOptions = {
+	    handle: '> .step-hamburger',
+	};
 
 	$scope.blurTitle = function (step){
 		// on losing the focus, save the name of the step

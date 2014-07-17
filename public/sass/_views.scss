@@ -256,6 +256,8 @@
 		.step-hamburger {
 			margin-right: $pad;
 			font-size: $type-size-base*1.75;
+			cursor: move;
+			line-height: $type-line-base/1.33;
 		}
 		
 		.step-name {
@@ -606,7 +608,7 @@
 		padding: 0;
 		margin: 0;
 		@include radius(8px);
-		opacity: 0.6;
+		opacity: 0.5;
 				
 		&.active {
 			opacity: 1.0;
@@ -624,14 +626,6 @@
 		}
 		
 		
-		.question {
-			
-			&:hover {
-				box-shadow: inset 0px 0px 0px 3px $scout-blue;
-				cursor: pointer;
-			}
-		}
-		
 		ul {
 			padding: 0;
 			margin: 0;
@@ -645,18 +639,57 @@
 				font-size: $type-size-base*0.9;
 				line-height: $type-line-base*0.8;
 				
+				&:hover {
+					box-shadow: inset 0px 0px 0px 3px $scout-blue;
+					cursor: pointer;
+				}
+				
+				p {
+					display: none;
+				}
+				
+				h3 {
+					display: none;
+				}
+				
+				span {
+					display: block;
+					font-weight: bold;
+				}
+				
+				&.title {				
+					&:hover {
+						cursor: auto;
+						box-shadow: none;
+					}
+				
+					h3 {
+						display: block;
+					}
+				}
 				
 				&.active {
 					background: $field;
 					position: relative;
 					
+					&:hover {
+						cursor: auto;
+						box-shadow: none;
+					}
+					
 					h3 {
 						margin: 0;
+						display: block;
 					}
 					
 					p {
 						margin: $pad/2 0 0 0;
 						padding: 0;
+						display: block;
+					}
+					
+					span {
+						display: none;
 					}
 					
 				}

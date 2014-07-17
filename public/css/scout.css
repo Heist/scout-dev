@@ -154,13 +154,16 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 .five-twelfths { width: 41.6665%; }
 
 /* flexible columns for three-column pages */
-#left-pane, #middle-pane, #right-pane, #large-pane { float: left; height: 100%; padding: 70px 30px 20px 30px; overflow-x: hidden; overflow-y: auto; }
+#left-pane, #middle-pane, #right-pane, #large-pane { float: left; height: 100% !important; padding: 70px 30px 20px 30px; overflow-x: hidden; overflow-y: auto; }
 
 #left-pane, #right-pane { width: 33%; }
 
 #middle-pane { width: 34%; }
 
 #large-pane { width: 67%; }
+
+/* fix up Angular containers so everything sits correctly */
+.ng-valid, .ng-invalid, .ng-dirty, .ng-pristine, .ng-touched, .ng-untouched { height: 100%; }
 
 /*
 typography
@@ -305,7 +308,7 @@ body { background: #f8f7ef; color: #3d3d3d; margin: 0; padding: 0; }
 #view-createflow #steps li.selected { background: #3d3d3d; color: white; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; position: relative; }
 #view-createflow #steps li.selected .selected-arrow { color: #3d3d3d; position: absolute; top: 11px; right: -12px; }
 #view-createflow #steps .step-name, #view-createflow #steps .step-hamburger { float: left; }
-#view-createflow #steps .step-hamburger { margin-right: 20px; font-size: 28px; }
+#view-createflow #steps .step-hamburger { margin-right: 20px; font-size: 28px; cursor: move; line-height: 18.04511px; }
 #view-createflow #steps .step-name { font-family: 'hedley-new-web', sans-serif; font-weight: 700; }
 #view-createflow #steps .step-delete { float: right; opacity: 0.3; }
 #view-createflow .empty { -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; padding: 10px 20px; text-align: center; background: none; border: 2px dashed #e8e5cc; cursor: pointer; }
@@ -364,16 +367,23 @@ body { background: #f8f7ef; color: #3d3d3d; margin: 0; padding: 0; }
 
 /* timeline and questions are pulled out so we can use them in more than one place */
 #questions { height: 100%; padding-top: 50px; }
-#questions .questions-group { padding: 0; margin: 0; -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; opacity: 0.6; }
+#questions .questions-group { padding: 0; margin: 0; -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; opacity: 0.5; }
 #questions .questions-group.active { opacity: 1.0; }
 #questions .questions-group small { margin: 0; padding: 0; opacity: 0.5; }
 #questions .questions-group h3 { margin: 0; padding: 0; }
-#questions .questions-group .question:hover { box-shadow: inset 0px 0px 0px 3px #639005; cursor: pointer; }
 #questions .questions-group ul { padding: 0; margin: 0; list-style: none; }
 #questions .questions-group ul li { padding: 13.33333px 20px; margin: 0; border-bottom: 1px solid #e8e5cc; font-size: 14.4px; line-height: 19.2px; }
+#questions .questions-group ul li:hover { box-shadow: inset 0px 0px 0px 3px #639005; cursor: pointer; }
+#questions .questions-group ul li p { display: none; }
+#questions .questions-group ul li h3 { display: none; }
+#questions .questions-group ul li span { display: block; font-weight: bold; }
+#questions .questions-group ul li.title:hover { cursor: auto; box-shadow: none; }
+#questions .questions-group ul li.title h3 { display: block; }
 #questions .questions-group ul li.active { background: #f0eedd; position: relative; }
-#questions .questions-group ul li.active h3 { margin: 0; }
-#questions .questions-group ul li.active p { margin: 10px 0 0 0; padding: 0; }
+#questions .questions-group ul li.active:hover { cursor: auto; box-shadow: none; }
+#questions .questions-group ul li.active h3 { margin: 0; display: block; }
+#questions .questions-group ul li.active p { margin: 10px 0 0 0; padding: 0; display: block; }
+#questions .questions-group ul li.active span { display: none; }
 
 /* styles for question-rating boops */
 .question-rating { display: block; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }

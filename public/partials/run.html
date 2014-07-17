@@ -33,12 +33,16 @@
 		<div id="questions">
 	
 			<div class="questions-group" ng-repeat="flow in flows" ng-class="{ 'active': $index == parentIndex }">
-				<small>Flow</small>
-				<h3>{{flow.title}}</h3>
+				
 				<ul>
+					<li class="title"><small>Flow</small><h3>{{flow.title}}</h3></li>
+				
 					<li ng-repeat="step in flow.steps" 
 						ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
              			ng-click="activate($index, $parent.$index, step)">
+             			
+             			<span>{{step.title}}</span>
+             			
 						<h3>{{step.title}}</h3>
 						<p>{{step.desc}}</p>
 					</li>
@@ -49,21 +53,25 @@
 			
 	</div>
 	
+	
+	
 	<div id="middle-pane" >
+		
+		<!-- input notes -->
 		<div id="session-input" ng-model="user" >
 			<textarea class="input" ng-model='user.name' name="field-input" placeholder="please enter the username to begin" ui-keypress="{13:'addUser(user.name)'}" ng-show="!user.toggle"/>
 			</textarea>
 			<textarea class="input" ng-model='message' name="field-input" placeholder="Your notes" ui-keypress="{13:'putMessage(message)'}" ng-show="user.toggle"/>
 			</textarea>
 		</div>
-
+		
+		<!-- timeline -->
 		<div id="timeline" >
 			<ul ng-model='timeline'>
 						
 				<li class="message" ng-repeat="message in timeline track by $index">
-					<div class="message-user"> <!-- misleading, is JUST user images -->
-							<div class="message-details-avatar">
-							</div>
+					<div class="message-details"><!-- show the user's avatar -->
+						<div class="message-details-avatar"><img src="http://rdjpg.com/40/40" /></div>
 					</div>
 
 					<div class="message-body">
@@ -73,9 +81,11 @@
 
 					</div>
 					
+					<!--
 					<div class="message-details">
-						<small><!-- {{message.user}} &mdash; {{message.created | date : HH:mm}}--></small>
+						<small>{{message.user}} &mdash; {{message.created | date : HH:mm}}</small>
 					</div>
+					-->
 
 					<div class="clear"></div>
 				</li>

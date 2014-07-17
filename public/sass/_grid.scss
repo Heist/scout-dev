@@ -58,7 +58,7 @@
 
 #left-pane, #middle-pane, #right-pane, #large-pane {
 	float: left;
-	height: 100%;
+	height: 100% !important;
 	padding: $pad*3.5 $pad*1.5 $pad $pad*1.5;
 	overflow-x: hidden;
 	overflow-y: auto;
@@ -76,6 +76,12 @@
 	width: 67%;
 }
 
+
+/* fix up Angular containers so everything sits correctly */
+
+.ng-valid, .ng-invalid, .ng-dirty, .ng-pristine, .ng-touched, .ng-untouched {
+	height: 100%;
+}
 
 
 
