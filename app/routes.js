@@ -231,7 +231,6 @@ router.route('/test/:testId/session/:sessionId')
 					res.send(err);
 				res.json( req.body );
 			});
-
 		});
 	})
 	.delete(function(req, res) {
