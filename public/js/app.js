@@ -210,7 +210,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 .success(function(data){
                     console.log('new flow added '+ JSON.stringify(data));
                     $scope.sessions[index].flows = data.flows;
-
+                    $scope.$apply;
                 })
                 .error(function(data){
                     console.log(JSON.stringify(data))
@@ -338,13 +338,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // $scope.session.user = textfield;
             var wrapper = { 'user': textfield };
 
-            var url = '/api/'+ $scope.session._id;
+            var url = '/api/test/'+ $scope.session.testKey+'/session/'+ $scope.session._id;
             var dataOut = wrapper;
 
             
             $http.put(url, dataOut)
                 .success(function(data){
-                    console.log('Step pushed: ', data);
+                    console.log('New user pushed: ', data);
                 })
                 .error(function(data){
                     console.log('Error: ' + data);
@@ -393,7 +393,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             var tagIt = message.match(hashCatch);
             
             if (tagIt){
-                
                 for (var i=0; i < tagIt.length; ++i) {
                     note.tags.push(tagIt[i]);
                 }                
@@ -401,10 +400,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             connect.messages.push(note);
             
-
             // now we put that step's update into its session storage in the db
 
-            var url = '/api/test/'+$stateParams.testId+'session'+$stateParams.sessionId;
+            var url = '/api/test/'+$stateParams.testId+'/session/'+$stateParams.sessionId;
 
             // mongoose does not permid _id queries on grandchildren, only parent.child.id(_id)
             var dataOut = $scope.flows[$scope.parentIndex];

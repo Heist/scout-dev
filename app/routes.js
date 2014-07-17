@@ -206,13 +206,17 @@ router.route('/test/:testId/session/:sessionId')
 			if (err)
 				res.send(err);
 			
-			console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
+			// console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
 
 			if (req.body.user){
 				session.user = req.body.user;
 				console.log('new user', session.user);
 			}
-
+			else {
+				// message needs to push to DB regardless HERE
+				// session.messages.push(req.body.messages);
+				console.log(req.body.messages);
+			}
 			// save the session object - this is not saving anything about the flow _id.
 			session.save(function(err) {
 				if (err)
