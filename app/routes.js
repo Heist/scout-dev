@@ -206,7 +206,7 @@ router.route('/test/:testId/session/:sessionId')
 			if (err)
 				res.send(err);
 			
-			// console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));      // your JSON
+			// console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));
 
 			if (req.body.user){
 				session.user = req.body.user;
@@ -215,7 +215,15 @@ router.route('/test/:testId/session/:sessionId')
 			else {
 				// message needs to push to DB regardless HERE
 				// session.messages.push(req.body.messages);
-				console.log(req.body.messages);
+				// console.log('flow',(util.inspect(session.flows.id(req.body._id), {showHidden: false, depth: null})));
+				// console.log('message',(util.inspect(req.body, {showHidden: false, depth: null})));
+				// var flow = session.flows.id(req.body._id);
+				// console.log(req.body._id); 
+
+				session.flows.id(req.body._id).remove();
+				session.flows.push(req.body);
+				console.log('flow updated',(util.inspect(session.flows.id(req.body._id), {showHidden: false, depth: null})));
+				
 			}
 			// save the session object - this is not saving anything about the flow _id.
 			session.save(function(err) {
