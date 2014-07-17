@@ -80,6 +80,7 @@
 				font-size: $type-size-base*0.8;
 				font-weight: bold;
 				color: $text-light;
+				width: 80%;
 							
 				h4 {
 					margin: 0;
@@ -87,6 +88,34 @@
 					line-height: $type-line-base*1.4;
 					display: inline-block;
 					color: $text;
+					
+					img {
+						height: 14px;
+						width: auto;
+						opacity: 0.3;
+					}
+				}
+			}
+			
+			/* when editing title */
+			form {
+				padding: 0;
+				margin: 0;
+				width: 80%;
+				float: left;
+				
+				input {
+					margin: 0;
+					padding: 0;
+					border: none;
+					font-size: $type-size-base*1.25;
+					@include type-light;
+					line-height: $type-line-base*1.4;
+					display: inline-block;
+					color: $text;
+					width: 80%;
+					background: none;
+					outline: none;
 				}
 			}
 			
