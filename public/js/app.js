@@ -57,6 +57,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data){
             $scope.flows = data.flows;
             
+            var steparray = [];            
             // abstract to function later, is used a lot.
             for (var i =0 ; i< data.flows.length -1 ; i++){
                 // go through data.flows per flow in the data
@@ -67,18 +68,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                     var name = data.flows[i].steps[j].title;
                         name = name.replace(/ /g,'');
 
-                    console.log(name);
-                    for (var key in $scope.steps){
-                        console.log(key);
-                        if(name == key){
-                            console.log('touched key');
-                            // for each (var tag in data.flows[i].steps[j].tags){
-                            //     $scope.steps[key].tags.push(tag);
-                            // }
-                        } else {
-                            console.log('touched push');
-                        }
+                    // if steparray does not contain a value for name, 
+                    // push name
+                    if ( !(steparray.indexOf( name ) > -1) ){
+                        steparray.push(name);
                     }
+                        
+                    console.log(steparray);
+                    
                     // if the name matches a name that is in the array steps
                     // add its tags to the list of tags
 
