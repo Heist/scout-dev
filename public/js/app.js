@@ -60,6 +60,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             $scope.flows = data.flows;
 
             var stepcollector = {};
+            // stepcollector.messages = {};
             
             var stepnamecheck = []
             // stepcollector.stepname[name].messages
@@ -69,7 +70,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             for (var j = 0; j < data.flows.length; j++){
                 var name = data.flows[j].title;
                 name = name.replace(/ /g,'');
-                console.log('flow name ', name);
+                // console.log('flow name ', name);
 
                 for (var k = 0;  k < data.flows[j].steps.length; k++){
                     
@@ -78,17 +79,17 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
                     name = name.replace(/ /g,'');
                     
-                    console.log('step name ', name);
+                    // console.log('step name ', name);
                     console.log('messages ', JSON.stringify(data.flows[j].steps[k].messages));
 
                     if (!(stepnamecheck.indexOf(name) != -1)){
                         stepnamecheck.push(name);
                         stepcollector[name] = data.flows[j].steps[k].messages;
-
-
                         // stepcollector.name.push(step);
                         console.log('stepcollector', JSON.stringify(stepcollector));    
                     } else {
+                        stepcollector[name] = data.flows[j].steps[k].messages;
+                        console.log('stepcollector', JSON.stringify(stepcollector));    
                     }
                 }
             }
