@@ -441,9 +441,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
              note.body = message;
              note.tags = [];
              note.created = new Date();
+             note.user_id = $stateParams.sessionId;
 
              $scope.timeline.push(note);
-
 
             var connect = $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex]
 
@@ -458,7 +458,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             }
 
             connect.messages.push(note);
-            
+            console.log(connect);
             // now we put that step's update into its session storage in the db
 
             var url = '/api/test/'+$stateParams.testId+'/session/'+$stateParams.sessionId;

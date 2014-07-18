@@ -16,6 +16,10 @@ var MessageSchema = new Schema ({
 		type: String,
 		trim: true
 	},
+	user_id:{
+		type: String,
+		trim:true
+	},
 	fav : Boolean,
 	tags : {
 		type: [String], 
