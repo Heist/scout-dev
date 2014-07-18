@@ -59,6 +59,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data){
             $scope.flows = data.flows;
 
+            console.log('flows', JSON.stringify($scope.flows));
             var stepcollector = {};
             // stepcollector.messages = {};
             
@@ -66,7 +67,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // stepcollector.stepname[name].messages
 
             var counter;
-            // this finds steps in the selected flow stack.
+            // this finds steps in the selected flow in the flow stack.
             for (var j = 0; j < data.flows.length; j++){
                 var name = data.flows[j].title;
                 name = name.replace(/ /g,'');
@@ -80,19 +81,20 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                     name = name.replace(/ /g,'');
                     
                     // console.log('step name ', name);
-                    console.log('messages ', JSON.stringify(data.flows[j].steps[k].messages));
+                    // console.log('messages ', JSON.stringify(data.flows[j].steps[k].messages));
 
                     if (!(stepnamecheck.indexOf(name) != -1)){
                         stepnamecheck.push(name);
                         stepcollector[name] = data.flows[j].steps[k].messages;
                         // stepcollector.name.push(step);
-                        console.log('stepcollector', JSON.stringify(stepcollector));    
+                        console.log('stepcollector new step', JSON.stringify(stepcollector));    
                     } else {
                         stepcollector[name] = data.flows[j].steps[k].messages;
-                        console.log('stepcollector', JSON.stringify(stepcollector));    
+                        console.log('stepcollector push', JSON.stringify(stepcollector));    
                     }
                 }
             }
+            console.log('stepcollector final', JSON.stringify(stepcollector));
                 
 
 
@@ -441,7 +443,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
              note.body = message;
              note.tags = [];
              note.created = new Date();
-             note.user_id = $stateParams.sessionId;
+             note.session_id = $stateParams.sessionId;
 
              $scope.timeline.push(note);
 

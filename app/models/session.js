@@ -16,7 +16,7 @@ var MessageSchema = new Schema ({
 		type: String,
 		trim: true
 	},
-	user_id:{
+	session_id:{
 		type: String,
 		trim:true
 	},
