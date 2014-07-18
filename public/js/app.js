@@ -59,43 +59,37 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data){
             $scope.flows = data.flows;
 
-            console.log('flows', JSON.stringify($scope.flows));
+            function step(name, messages){
+                this.name = name;
+                this.messages = messages;
+            }
+            // console.log('flows', JSON.stringify($scope.flows));
+            console.log('this many flows:', data.flows.length);
             var stepcollector = {};
-            // stepcollector.messages = {};
-            
             var stepnamecheck = []
-            // stepcollector.stepname[name].messages
-
             var counter;
-            // this finds steps in the selected flow in the flow stack.
+
+            // this finds all steps in the selected flow in the flow stack.
             for (var j = 0; j < data.flows.length; j++){
                 var name = data.flows[j].title;
                 name = name.replace(/ /g,'');
                 // console.log('flow name ', name);
 
                 for (var k = 0;  k < data.flows[j].steps.length; k++){
-                    
                     var step = data.flows[j].steps[k];
                     var name = step.title;
-
-                    name = name.replace(/ /g,'');
-                    
+                    name = name.replace(/ /g,'');   
                     // console.log('step name ', name);
                     // console.log('messages ', JSON.stringify(data.flows[j].steps[k].messages));
 
                     if (!(stepnamecheck.indexOf(name) != -1)){
-                        stepnamecheck.push(name);
-                        stepcollector[name] = data.flows[j].steps[k].messages;
+                        stepnamecheck.push({name : name, messages : data.flows[j].steps[k].messages});
                         // stepcollector.name.push(step);
-                        console.log('stepcollector new step', JSON.stringify(stepcollector));    
-                    } else {
-                        stepcollector[name] = data.flows[j].steps[k].messages;
-                        console.log('stepcollector push', JSON.stringify(stepcollector));    
-                    }
+                        console.log('stepnamecheck new step', JSON.stringify(stepnamecheck));    
+                    } 
                 }
             }
-            console.log('stepcollector final', JSON.stringify(stepcollector));
-                
+
 
 
         })
