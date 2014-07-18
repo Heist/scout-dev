@@ -65,7 +65,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             }
             // console.log('flows', JSON.stringify($scope.flows));
             console.log('this many flows:', data.flows.length);
-            var stepcollector = {};
+            var stepcollector = [];
             var stepnamecheck = []
             var counter;
 
@@ -78,20 +78,29 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 for (var k = 0;  k < data.flows[j].steps.length; k++){
                     var step = data.flows[j].steps[k];
                     var name = step.title;
-                    name = name.replace(/ /g,'');   
+                    // name = name.replace(/ /g,'');
                     // console.log('step name ', name);
-                    // console.log('messages ', JSON.stringify(data.flows[j].steps[k].messages));
-
                     if (!(stepnamecheck.indexOf(name) != -1)){
-                        stepnamecheck.push({name : name, messages : data.flows[j].steps[k].messages});
-                        // stepcollector.name.push(step);
-                        console.log('stepnamecheck new step', JSON.stringify(stepnamecheck));    
-                    } 
+                        stepnamecheck.push(name);
+                        stepcollector.push({name : name, messages : []});                        
+                    } else if (stepnamecheck.indexOf(name) != -1){
+                        // stepcollector.name[name].messages.push['messages']
+                        for ( var l in stepcollector){
+                            
+                            if (name == stepcollector[l].name){
+                                console.log('touched if stepcollector L', stepcollector[l]);
+                                stepcollector[l].messages.push(data.flows[j].steps[k].messages);
+
+                            };
+
+                        }
+                    }
+
                 }
+
             }
 
-
-
+            console.log('stepcollector final', stepcollector);
         })
 
     
