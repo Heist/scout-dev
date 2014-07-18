@@ -44,6 +44,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.timeline = [];
     $scope.steps = {};
 
+// set selected step
+    $scope.step = {}
 
     // a function to return the steps from a set of flows
     // the scan those steps for their tags
@@ -56,36 +58,30 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
         .success(function(data){
             $scope.flows = data.flows;
-            
-            var steparray = [];            
-            // abstract to function later, is used a lot.
-            for (var i =0 ; i< data.flows.length -1 ; i++){
-                // go through data.flows per flow in the data
-                // console.log('data flows', data.flows[i].steps);
-                for (var j = 0; j < data.flows[i].steps.length ; j++){
-                // return the steps from a single flow's step list
-                    // console.log('flow steps', data.flows[i].steps[j]);
-                    var name = data.flows[i].steps[j].title;
-                        name = name.replace(/ /g,'');
 
-                    // if steparray does not contain a value for name, 
-                    // push name
-                    if ( !(steparray.indexOf( name ) > -1) ){
-                        steparray.push(name);
-                    }
+            var stepcollector = [];
 
-                    if ((steparray.indexOf( name ) > -1){
-                        steparray.name.push(data.flows[i].steps[j].messages)
-                    }
-                        
-                    console.log(steparray);
+            for (var j = 0; j < data.flows.length; j++){
+                var name = data.flows[j].title;
+                name = name.replace(/ /g,'');
+                console.log('data name ', name);
+
+                for (var k = 0;  k < data.flows[j].steps.length; k++){
                     
-                    // if the name matches a name that is in the array steps
-                    // add its tags to the list of tags
+                    var step = data.flows[j].steps[k];
+                    var name = step.title;
+                    name = name.replace(/ /g,'');
+                    
+                    console.log(name);
 
-                    // else add a new entry to steps.
+                    if (stepcollector.indexOf(name) != -1){
+                        stepcollector.push(step);
+                        console.log(stepcollector);
+                    }
                 }
             }
+                
+
 
         })
 
