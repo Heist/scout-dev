@@ -380,6 +380,8 @@ body { background: #f8f7ef; color: #3d3d3d; margin: 0; padding: 0; }
 #questions .questions-group ul li p { display: none; }
 #questions .questions-group ul li h3 { display: none; }
 #questions .questions-group ul li span { display: block; font-weight: bold; }
+#questions .questions-group ul li .step-rating { float: right; display: none; background: #f8f7ef; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; padding: 10px 6.66667px 6.66667px 6.66667px; margin: 0 0 0 10px; }
+#questions .questions-group ul li .step-rating img { width: auto; height: 20px; padding: 0; margin: 0 6.66667px; cursor: pointer; }
 #questions .questions-group ul li.title:hover { cursor: auto; box-shadow: none; }
 #questions .questions-group ul li.title h3 { display: block; }
 #questions .questions-group ul li.active { background: #f0eedd; position: relative; }
@@ -387,6 +389,7 @@ body { background: #f8f7ef; color: #3d3d3d; margin: 0; padding: 0; }
 #questions .questions-group ul li.active h3 { margin: 0; display: block; }
 #questions .questions-group ul li.active p { margin: 10px 0 0 0; padding: 0; display: block; }
 #questions .questions-group ul li.active span { display: none; }
+#questions .questions-group ul li.active .step-rating { display: block; }
 
 /* styles for question-rating boops */
 .question-rating { display: block; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }

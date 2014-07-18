@@ -687,6 +687,23 @@
 					font-weight: bold;
 				}
 				
+				.step-rating {
+					float: right;
+					display: none;
+					background: $background;
+					@include radius;
+					padding: $pad/2 $pad/3 $pad/3 $pad/3;
+					margin: 0 0 0 10px;
+					
+					img {
+						width: auto;
+						height: 20px;
+						padding: 0;
+						margin: 0 $pad/3;
+						cursor: pointer;
+					}
+				}
+				
 				&.title {				
 					&:hover {
 						cursor: auto;
@@ -701,6 +718,7 @@
 				&.active {
 					background: $field;
 					position: relative;
+					
 					
 					&:hover {
 						cursor: auto;
@@ -721,6 +739,11 @@
 					span {
 						display: none;
 					}
+					
+					.step-rating {
+						display: block;
+					}
+					
 					
 				}
 				

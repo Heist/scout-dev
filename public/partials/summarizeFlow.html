@@ -43,6 +43,11 @@
 				<li class="question" ng-repeat="step in flows[0].steps" ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
              			ng-click="activate($index, $parent.$index, step)">
 					<span>{{step.title}}</span>
+					
+					<div class="step-rating">
+						<img src="/assets/rate-positive.svg" /> <img src="/assets/rate-negative.svg">
+					</div>
+					
 					<h3>{{step.title}}</h3>
 					<p class="question-body" ng-show="$index == selectedIndex && $parent.$index == parentIndex">
 						{{step.desc}}
