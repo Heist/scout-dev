@@ -59,24 +59,33 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data){
             $scope.flows = data.flows;
 
-            var stepcollector = [];
+            var stepcollector = {};
+            
+            var stepnamecheck = []
+            // stepcollector.stepname[name].messages
 
+            var counter;
+            // this finds steps in the selected flow stack.
             for (var j = 0; j < data.flows.length; j++){
                 var name = data.flows[j].title;
                 name = name.replace(/ /g,'');
-                console.log('data name ', name);
+                console.log('flow name ', name);
 
                 for (var k = 0;  k < data.flows[j].steps.length; k++){
                     
                     var step = data.flows[j].steps[k];
                     var name = step.title;
+
                     name = name.replace(/ /g,'');
                     
-                    console.log(name);
+                    console.log('step name ', name);
 
-                    if (stepcollector.indexOf(name) != -1){
-                        stepcollector.push(step);
-                        console.log(stepcollector);
+                    if (!(stepnamecheck.indexOf(name) != -1)){
+                        stepnamecheck.push(name);
+                        stepcollector[name] = data.flows[j].steps[k].messages;
+                        // stepcollector.name.push(step);
+                        console.log('stepcollector', JSON.stringify(stepcollector));    
+                    } else {
                     }
                 }
             }
