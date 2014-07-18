@@ -79,10 +79,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                     name = name.replace(/ /g,'');
                     
                     console.log('step name ', name);
+                    console.log('messages ', JSON.stringify(data.flows[j].steps[k].messages));
 
                     if (!(stepnamecheck.indexOf(name) != -1)){
                         stepnamecheck.push(name);
                         stepcollector[name] = data.flows[j].steps[k].messages;
+
+
                         // stepcollector.name.push(step);
                         console.log('stepcollector', JSON.stringify(stepcollector));    
                     } else {
