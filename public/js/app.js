@@ -68,25 +68,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             var stepcollector = [];
 
             var stepnamecheck = [];
-            var steptags = [];
+            
             var counter;
             var flowname = data.flows[0].title;
             // this finds all steps in the selected flow in the flow stack.
             for (var j = 0; j < data.flows.length; j++){
                 var name = data.flows[j].title;
                 name = name.replace(/ /g,'');
-
                 for (var k = 0;  k < data.flows[j].steps.length; k++){
                     var step = data.flows[j].steps[k];
-                    var name = step.title;
-
+                    var name = step.title;                    
                     if (!(stepnamecheck.indexOf(name) != -1)){
                         stepnamecheck.push(name);
                         stepcollector.push({name : name, messages : []});                        
                     } else if (stepnamecheck.indexOf(name) != -1){
-                        
                         for ( var l in stepcollector){
-                            
                             if (name == stepcollector[l].name){
                                 stepcollector[l].messages.push(data.flows[j].steps[k].messages);
                             };
@@ -99,22 +95,45 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             }
 
             // the tagstripper and reorganizer
-            for (var i = 0 ; i < stepcollector.length; i++){
-                // console.log('checking', stepcollector[i]);
+            var tagcollector = [];
+            var tagnamecheck = [];
+            var tagcount = 0;
+            for (var i in stepcollector){
                 for (var j = 0 ; j < stepcollector[i].messages.length; j ++){
-                    // console.log ('messages', stepcollector[i].messages[j])
                     for (var k = 0 ; k < stepcollector[i].messages[j].length; k++){
-                        // console.log ('messages', stepcollector[i].messages[j][k].tags);
+                        tagcount = tagcount + stepcollector[i].messages[j][k].tags.length;
+                        console.log(tagcount);
                         for (var l = 0; l < stepcollector[i].messages[j][k].tags.length; l++){
-                            console.log('tags', stepcollector[i].messages[j][k].tags[l]);
-                            steptags.push(stepcollector[i].messages[j][k].tags[l]);
-                            stepcollector[i].tags = steptags;
-                        }
+
+                            if(!(tagnamecheck.indexOf(stepcollector[i].name) != -1)){
+                                tagnamecheck.push(stepcollector[i].name);
+                                tagcollector.push({name : stepcollector[i].name, tags : [ stepcollector[i].messages[j][k].tags[l] ] });
+                                console.log(tagcollector);
+                            }else if (tagnamecheck.indexOf(stepcollector[i].name) != -1){
+                                for (var m in tagcollector){
+                                    if (stepcollector[i].name == tagcollector[m].name){
+                                        tagcollector[m].tags.push(stepcollector[i].messages[j][k].tags[l]);
+                                        tagcollector[m].tags.sort();
+                                    }
+                                }
+                            }
+
+                            console.log(tagnamecheck);
+                            console.log(tagcollector);
+                        }    
                     }
+                    // console.log('messages', stepcollector[i].messages[j]);    
                 }
+                
+                // console.log('steps', stepcollector[i]);
             }
-            console.log(stepcollector);
+                
+
+            
+            // console.log(stepcollector);
+
             $scope.steps = {'title': flowname, 'steps' : stepcollector} ;
+            console.log($scope.steps);
         })
 
     $scope.activate = function (index, parentIndex, step) {
