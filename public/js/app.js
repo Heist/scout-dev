@@ -97,18 +97,16 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // the tagstripper and reorganizer
             var tagcollector = [];
             var tagnamecheck = [];
-            var tagcount = 0;
             for (var i in stepcollector){
                 for (var j = 0 ; j < stepcollector[i].messages.length; j ++){
                     for (var k = 0 ; k < stepcollector[i].messages[j].length; k++){
-                        tagcount = tagcount + stepcollector[i].messages[j][k].tags.length;
-                        console.log(tagcount);
+                        
                         for (var l = 0; l < stepcollector[i].messages[j][k].tags.length; l++){
 
                             if(!(tagnamecheck.indexOf(stepcollector[i].name) != -1)){
                                 tagnamecheck.push(stepcollector[i].name);
                                 tagcollector.push({name : stepcollector[i].name, tags : [ stepcollector[i].messages[j][k].tags[l] ] });
-                                console.log(tagcollector);
+                                
                             }else if (tagnamecheck.indexOf(stepcollector[i].name) != -1){
                                 for (var m in tagcollector){
                                     if (stepcollector[i].name == tagcollector[m].name){
@@ -117,20 +115,19 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                                     }
                                 }
                             }
-
-                            console.log(tagnamecheck);
-                            console.log(tagcollector);
                         }    
                     }
-                    // console.log('messages', stepcollector[i].messages[j]);    
                 }
-                
-                // console.log('steps', stepcollector[i]);
             }
-                
 
-            
-            // console.log(stepcollector);
+            // integrate tags to stepcollector for a clean objects
+            for (var i in stepcollector){
+                for (var j in tagcollector){
+                    if (stepcollector[i].name == tagcollector[i].name ){
+                        stepcollector[i].tags = tagcollector[i].tags;
+                    }
+                }
+            }
 
             $scope.steps = {'title': flowname, 'steps' : stepcollector} ;
             console.log($scope.steps);
@@ -141,8 +138,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $scope.parentIndex = parentIndex;
 
         // passes the step title to the global variable from flows[0].steps[step]
-        $scope.step.title = step.name;
-        console.log($scope.step.title);
+        // $scope.step.title = step.name;
+        $scope.step = step;
+        console.log('step', $scope.step);
 
         //pass all of the tags inside of flows[allflows].steps[step] to an array 
     };

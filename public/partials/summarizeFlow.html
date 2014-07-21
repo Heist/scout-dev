@@ -60,10 +60,11 @@
 
 <div id="middle-pane" ng-model='step'>
 	
-	<h3>&ldquo;{{step.title}}&rdquo; summary</h3>
+	<h3>&ldquo;{{step.name}}&rdquo; summary</h3>
 	<p>Add a summary for this step to capture any notable outcomes, directions, or action items.</p>
 	
 	<ul class="lined">
+		
 		<li>
 			<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="step.summary"></textarea>
 		</li>
@@ -74,7 +75,7 @@
 			</p>
 			
 			<ul class="tags" >
-				<li ng-repeat="tag in step.tags"><span>{{tag.name}}&nbsp; &times;</span></li>
+				<li ng-repeat="tag in step.tags track by $index"><span>{{tag}}&nbsp; &times;</span></li>
 			</ul>
 			<div class="clear"></div>
 		
@@ -84,10 +85,7 @@
 			<label>You can show or hide tags used in &ldquo;Check your account&rdquo; comments. Hidden tags will not be shown in the summary.</label>
 			
 			<ul class="tags">
-				<li><span>comment tag &nbsp; &times;</span></li>
-				<li class="deactivated"><span>hashtag &nbsp; +</span></li>
-				<li><span>success &nbsp; &times;</span></li>
-				<li class="deactivated"><span>quote &nbsp; +</span></li>
+				<li ng-repeat="tag in step.tags track by $index" ng-click="showHideTag(tag)" ng-class="{ 'deactivated': !tag.visible }"><span>comment tag &nbsp; &times;</span></li>
 			</ul>
 			
 			<div class="clear"></div>

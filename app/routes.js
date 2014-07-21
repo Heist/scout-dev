@@ -213,13 +213,6 @@ router.route('/test/:testId/session/:sessionId')
 				console.log('new user', session.user);
 			}
 			else {
-				// message needs to push to DB regardless HERE
-				// session.messages.push(req.body.messages);
-				// console.log('flow',(util.inspect(session.flows.id(req.body._id), {showHidden: false, depth: null})));
-				// console.log('message',(util.inspect(req.body, {showHidden: false, depth: null})));
-				// var flow = session.flows.id(req.body._id);
-				// console.log(req.body._id); 
-
 				session.flows.id(req.body._id).remove();
 				session.flows.push(req.body);
 				console.log('flow updated',(util.inspect(session.flows.id(req.body._id), {showHidden: false, depth: null})));
