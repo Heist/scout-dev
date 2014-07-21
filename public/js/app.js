@@ -45,7 +45,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.steps = {};
 
 // set selected step
-    // $scope.step = {};
+    $scope.step = {};
 
     // a function to return the steps from a set of flows
     // the scan those steps for their tags
@@ -104,14 +104,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             console.log('stepcollector final', $scope.steps);
         })
 
-    
-
     $scope.activate = function (index, parentIndex, step) {
         $scope.selectedIndex = index;
         $scope.parentIndex = parentIndex;
 
         // passes the step title to the global variable from flows[0].steps[step]
-        $scope.step.title = step.title;
+        $scope.step.title = step.name;
         console.log($scope.step.title);
 
         //pass all of the tags inside of flows[allflows].steps[step] to an array 

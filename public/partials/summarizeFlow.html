@@ -1,14 +1,14 @@
 <!-- Summarize Flow -->
 <div id="view-summarizing" ng-controller="summarizeFlow">
 <!-- header nav -->
-
-<div id="header" ng-model='flows'>
+<div ng-model='steps'>
+<div id="header">
 	
 	<div id="header-logo">
 		&nbsp;
 	</div>
 	
-	<div id="header-title">Summarizing &ldquo;{{flows[0].title}}&rdquo;</div>
+	<div id="header-title">Summarizing &ldquo;{{steps.title}}&rdquo;</div>
 	
 	<div id="header-account">
 		<div id="header-account-avatar">
@@ -33,22 +33,22 @@
 
 <!-- create a flow -->
 
-<div id="left-pane" ng-model='flows'>
+<div id="left-pane">
 	
 	<div id="questions">
 		
 		<div class="questions-group active">
 			<ul>
-				<li><!-- flow title --><small>Flow</small><h3>{{flows.flow[0].title}}</h3></li>
-				<li class="question" ng-repeat="step in flows[0].steps" ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
+				<li><!-- flow title --><small>Flow</small><h3>{{steps.title}}</h3></li>
+				<li class="question" ng-repeat="step in steps.steps" ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
              			ng-click="activate($index, $parent.$index, step)">
-					<span>{{step.title}}</span>
+					<span>{{step.name}}</span>
 					
 					<div class="step-rating">
 						<img src="/assets/rate-positive.svg" /> <img src="/assets/rate-negative.svg">
 					</div>
 					
-					<h3>{{step.title}}</h3>
+					<h3>{{step.name}}</h3>
 					<p class="question-body" ng-show="$index == selectedIndex && $parent.$index == parentIndex">
 						{{step.desc}}
 					</p>
