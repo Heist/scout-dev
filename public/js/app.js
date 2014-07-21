@@ -66,31 +66,28 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // console.log('flows', JSON.stringify($scope.flows));
             console.log('this many flows:', data.flows.length);
             var stepcollector = [];
-            var stepnamecheck = []
+            var stepnamecheck = [];
+            var steptags = [];
             var counter;
             var flowname = data.flows[0].title;
             // this finds all steps in the selected flow in the flow stack.
             for (var j = 0; j < data.flows.length; j++){
                 var name = data.flows[j].title;
                 name = name.replace(/ /g,'');
-                // console.log('flow name ', name);
 
                 for (var k = 0;  k < data.flows[j].steps.length; k++){
                     var step = data.flows[j].steps[k];
                     var name = step.title;
-                    // name = name.replace(/ /g,'');
-                    // console.log('step name ', name);
+
                     if (!(stepnamecheck.indexOf(name) != -1)){
                         stepnamecheck.push(name);
                         stepcollector.push({name : name, messages : []});                        
                     } else if (stepnamecheck.indexOf(name) != -1){
-                        // stepcollector.name[name].messages.push['messages']
+                        
                         for ( var l in stepcollector){
                             
                             if (name == stepcollector[l].name){
-                                console.log('touched if stepcollector L', stepcollector[l]);
                                 stepcollector[l].messages.push(data.flows[j].steps[k].messages);
-
                             };
 
                         }
@@ -100,8 +97,18 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             }
 
+            // the tagstripper and reorganizer
+            for (var i = 0 ; i < stepcollector.length; i++){
+                console.log('checking', stepcollector[i]);
+                for (var j = 0 ; j < stepcollector[i].messages.length; j ++){
+                    console.log ('messages', stepcollector[i].messages[j])
+                    for (var k = 0 ; k < stepcollector[i].messages[j].length; k++){
+                        console.log ('messages', stepcollector[i].messages[j][k].tags);
+                    }
+                }
+            }
+        
             $scope.steps = {'title': flowname, 'steps' : stepcollector} ;
-            console.log('stepcollector final', $scope.steps);
         })
 
     $scope.activate = function (index, parentIndex, step) {
