@@ -66,6 +66,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // console.log('flows', JSON.stringify($scope.flows));
             console.log('this many flows:', data.flows.length);
             var stepcollector = [];
+
             var stepnamecheck = [];
             var steptags = [];
             var counter;
@@ -99,15 +100,20 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             // the tagstripper and reorganizer
             for (var i = 0 ; i < stepcollector.length; i++){
-                console.log('checking', stepcollector[i]);
+                // console.log('checking', stepcollector[i]);
                 for (var j = 0 ; j < stepcollector[i].messages.length; j ++){
-                    console.log ('messages', stepcollector[i].messages[j])
+                    // console.log ('messages', stepcollector[i].messages[j])
                     for (var k = 0 ; k < stepcollector[i].messages[j].length; k++){
-                        console.log ('messages', stepcollector[i].messages[j][k].tags);
+                        // console.log ('messages', stepcollector[i].messages[j][k].tags);
+                        for (var l = 0; l < stepcollector[i].messages[j][k].tags.length; l++){
+                            console.log('tags', stepcollector[i].messages[j][k].tags[l]);
+                            steptags.push(stepcollector[i].messages[j][k].tags[l]);
+                            stepcollector[i].tags = steptags;
+                        }
                     }
                 }
             }
-        
+            console.log(stepcollector);
             $scope.steps = {'title': flowname, 'steps' : stepcollector} ;
         })
 
