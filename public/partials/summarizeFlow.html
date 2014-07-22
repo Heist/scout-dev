@@ -110,11 +110,12 @@
 				<strong>All users for &ldquo;{{step.name}}&rdquo;</strong>
 			</li>
 		
-			<li ng-repeat="user in step.messages track by $index"  class="message">
+			<li ng-repeat="users in step.messages track by $index"  class="message">
 				
 				<ul>
-					<li>
-					
+					<li ng-repeat="message in users">
+							{{message.body}}
+					</li>
 				</ul>
 				<p>{{message.session_id}} <span class="tag">#quote</span></p>
 					
