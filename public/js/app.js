@@ -57,8 +57,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     
     $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
         .success(function(data){
+            
             $scope.flows = data.flows;
-
+            console.log('check me for user names!', data);
+            
             function step(name, messages){
                 this.name = name;
                 this.messages = messages;
@@ -76,6 +78,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             for (var j = 0; j < data.flows.length; j++){
                 var name = data.flows[j].title;
                 name = name.replace(/ /g,'');
+
                 for (var k = 0;  k < data.flows[j].steps.length; k++){
                     var step = data.flows[j].steps[k];
                     var name = step.title;                    

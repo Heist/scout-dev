@@ -20,10 +20,6 @@ var MessageSchema = new Schema ({
 		type: String,
 		trim:true
 	},
-	user_id:{
-		type: String,
-		trim:true
-	},
 	fav : Boolean,
 	tags : {
 		type: [String], 
@@ -70,6 +66,10 @@ var FlowSchema = new Schema({
 		updated: {
 			type: Date
 		},
+		user_id:{
+			type: String, ref: 'Session',
+			trim:true
+		},
 		steps: [StepSchema]
 	});
 
@@ -78,7 +78,7 @@ var SessionSchema = new Schema ({
 	name : {
 			type: String, 
 			trim: true
-		},
+	},
 	user :{
 		type: String, 
 		trim: true
@@ -86,11 +86,10 @@ var SessionSchema = new Schema ({
 	ismodel :{
 		type: Boolean,
 		default: false
-	}
-	,
+	},
 	created: {
 			type: Date
-		},
+	},
 	updated: {
 		type: Date
 	},
