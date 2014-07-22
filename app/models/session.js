@@ -26,6 +26,7 @@ var MessageSchema = new Schema ({
 		trim:true
 	}
 })
+mongoose.model('Message', MessageSchema);
 
 var StepSchema = new Schema ({
 	title: {
@@ -38,6 +39,7 @@ var StepSchema = new Schema ({
 		},
 	messages: [MessageSchema]
 })
+mongoose.model('Step', StepSchema);
 
 var FlowSchema = new Schema({
 		title 	: {
@@ -67,12 +69,12 @@ var FlowSchema = new Schema({
 			type: Date
 		},
 		user_id:{
-			type: String, ref: 'Session',
+			type: String,
 			trim:true
 		},
 		steps: [StepSchema]
 	});
-
+mongoose.model('Flow', FlowSchema);
 
 var SessionSchema = new Schema ({
 	name : {

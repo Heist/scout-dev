@@ -511,10 +511,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
              note.tags = [];
              note.created = new Date();
              note.session_id = $stateParams.sessionId;
-             note.user_id = $scope.user.name;
 
              $scope.timeline.push(note);
 
+            $scope.flows[$scope.parentIndex].user_id = $scope.user.name;
             var connect = $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex]
 
             // if message has # with no space, post that to message.tags

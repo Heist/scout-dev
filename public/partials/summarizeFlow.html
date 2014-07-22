@@ -96,8 +96,6 @@
 </div>
 
 
-
-
 <div id="right-pane" ng-model='step'>
 	
 	<div id="timeline">
@@ -109,30 +107,17 @@
 						&nbsp;
 					</div>
 				</div>
-				<strong>All comments for &ldquo;{{step.name}}&rdquo;</strong>
+				<strong>All users for &ldquo;{{step.name}}&rdquo;</strong>
 			</li>
 		
-			
-			<li class="message username">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="http://rdjpg.com/51/51" />
-					</div>
-				</div>
-				<small>Comments on participant</small><br><strong>Robertolomew Downeyjunior</strong>
-			</li>
-			
-		
-			<li ng-repeat="message in steps.messages track by $index"  class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg" />
-					</div>
-				</div>
-				<div class="message-body">
-
-					<p>This is the body of this message but a longer one this time hello how are you <span class="tag">#quote</span></p>
-					<small>Jennifer &mdash; 05:32</small>
+			<li ng-repeat="user in step.messages track by $index"  class="message">
+				
+				<ul>
+					<li>
+					
+				</ul>
+				<p>{{message.session_id}} <span class="tag">#quote</span></p>
+					
 				</div>
 				<div class="message-fave">
 					<a href="#">&#9734;</a>
@@ -140,95 +125,6 @@
 				<div class="clear"></div>
 			</li>
 			
-			<li class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg" />
-					</div>
-				</div>
-				<div class="message-body">
-					<p>This is the body of this message but a longer one this time hello how are you <span class="tag">#quote</span></p>
-					<small>Jennifer &mdash; 05:32</small>
-				</div>
-				<div class="message-fave">
-					<a href="#">&#9733;</a>
-				</div>
-				<div class="clear"></div>
-			</li>
-			
-			<li class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg" />
-					</div>
-				</div>
-				<div class="message-body">
-					<p>This is the body of this message, it is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.  <span class="tag">#success</span></p>
-					<small>Jennifer &mdash; 05:32</small>
-				</div>
-				<div class="message-fave">
-					<a href="#">&#9734;</a>
-				</div>
-				<div class="clear"></div>
-			</li>
-			
-			<li class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="http://rdjpg.com/30/30" />
-					</div>
-				</div>
-				<div class="message-body">
-					<p>This is the body of this message, somebody typed this <span class="tag">#hashtag</span></p>
-					<small>Jimmy &mdash; 05:32</small>
-				</div>
-				<div class="message-fave">
-					<a href="#">&#9734;</a>
-				</div>
-				<div class="clear"></div>
-			</li>
-			
-			<li class="message username">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="http://rdjpg.com/50/50" />
-					</div>
-				</div>
-				<small>Comments on participant</small><br><strong>Anthony Stark</strong>
-			</li>
-			
-			<li class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg" />
-					</div>
-				</div>
-				<div class="message-body">
-					<p>This is the body of this message but a longer one this time hello how are you <span class="tag">#quote</span></p>
-					<small>Jennifer &mdash; 05:32</small>
-				</div>
-				<div class="message-fave">
-					<a href="#">&#9733;</a>
-				</div>
-				<div class="clear"></div>
-			</li>
-			
-			<li class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="http://rdjpg.com/30/30" />
-					</div>
-				</div>
-				<div class="message-body">
-					<p>This is the body of this message, somebody typed this <span class="tag">#hashtag</span></p>
-					<small>Jimmy &mdash; 05:32</small>
-				</div>
-				<div class="message-fave">
-					<a href="#">&#9734;</a>
-				</div>
-				<div class="clear"></div>
-			</li>
-		
 		
 		</ul>
 	</div>
