@@ -592,7 +592,6 @@
 		padding: 0;
 		
 		#questions {
-			
 			.test-newtest {
 				cursor: default;
 				
@@ -617,6 +616,10 @@
 					margin-bottom: 0;
 				}
 				
+				&.active h4 {
+					font-weight: normal;
+				}
+				
 				small {
 					font-size: $type-size-base*0.7;
 					font-weight: bold;
@@ -638,11 +641,37 @@
 		background: $white;
 		border-left: 2px solid $line;	
 		
-		.session-flow-container {
-			float: left;
-			width: 33.3%;
-			padding: 0 $pad $pad 0;
+		h3 {
+			margin-bottom: $pad;
 		}
+		
+		.session-flow {
+			border-top: 2px solid $line;
+			background: $white;
+			padding: $pad/2 0 $pad 0;			
+			@include radius(0);
+			
+			h3 {
+				border: none;
+				padding: 0;
+				margin: -6px 0 0 0;
+			}
+			
+		
+			.session-flow-controls {
+				padding-top: $pad/2;
+				float: right;
+			}
+			
+			&.empty {
+				margin-top: $pad/2;
+				padding: $pad/2;
+				border: 2px dashed $line;
+				@include radius(10px);
+			}
+			
+		}
+		
 	}
 
 	
@@ -683,7 +712,6 @@
 	
 		
 	.session-flow-controls {
-		width: 100%;
 		padding: 0;
 		line-height: $type-line-base*0.8;
 		
