@@ -54,10 +54,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // the scan those steps for their tags
     // then return that matched set to the step
     // this could possibly be done on the back end
-    function getSteps(data){
-        
-    }
-
+    
     $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
         .success(function(data){
             $scope.flows = data.flows;
@@ -171,6 +168,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // then returns you to /
         $location.path('/');
     }
+
+    $scope.showHideTag = function(tag, index){
+        // this sets visible/not visible on the repeated tags in steps.tags_single
+        // it should also propagate to steps.tags
+        tag.visible = false;
+        var arr = $scope.step.tags_single
+        var index = arr.indexOf(tag)
+        if (index > -1){
+            $scope.step.tags_single.splice(index,1)
+        }
+        
+        $scope.step.tags_single.push(tag);
+
+        console.log('touched this ', $scope.step.tags_single);
+    }   
 }])
 
 // OVERVIEW CONTROLLER ========================================================
