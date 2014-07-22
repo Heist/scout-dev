@@ -367,10 +367,15 @@ body { background: #f8f7ef; color: #3d3d3d; margin: 0; padding: 0; }
 #view-overview-neu #left-pane #questions .test-newtest:hover { box-shadow: none; }
 #view-overview-neu #left-pane #questions .test-newtest .test-newtest-create { text-align: center; background: none; padding: 20px; border: 2px dashed #e8e5cc; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; }
 #view-overview-neu #left-pane #questions .question h4 { font-size: 17.6px; line-height: 21.6px; margin-bottom: 0; }
+#view-overview-neu #left-pane #questions .question.active h4 { font-weight: normal; }
 #view-overview-neu #left-pane #questions .question small { font-size: 11.2px; font-weight: bold; text-transform: uppercase; }
 #view-overview-neu #left-pane #questions .question .test-controls { float: right; margin-left: 20px; }
 #view-overview-neu #large-pane { padding: 100px 60px 60px 60px; background: white; border-left: 2px solid #e8e5cc; }
-#view-overview-neu #large-pane .session-flow-container { float: left; width: 33.3%; padding: 0 20px 20px 0; }
+#view-overview-neu #large-pane h3 { margin-bottom: 20px; }
+#view-overview-neu #large-pane .session-flow { border-top: 2px solid #e8e5cc; background: white; padding: 10px 0 20px 0; -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0; }
+#view-overview-neu #large-pane .session-flow h3 { border: none; padding: 0; margin: -6px 0 0 0; }
+#view-overview-neu #large-pane .session-flow .session-flow-controls { padding-top: 10px; float: right; }
+#view-overview-neu #large-pane .session-flow.empty { margin-top: 10px; padding: 10px; border: 2px dashed #e8e5cc; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; }
 #view-overview-neu h1 span, #view-overview-neu h2 span, #view-overview-neu h3 span { color: #b3b19b; }
 
 /* pulled out flow view boxes so we can use those everywhere */
@@ -378,7 +383,7 @@ body { background: #f8f7ef; color: #3d3d3d; margin: 0; padding: 0; }
 .session-flow.empty { text-align: center; background: none; padding: 20px; border: 2px dashed #e8e5cc; }
 .session-flow h3 { margin-bottom: 20px; font-size: 24px; }
 .session-flow small { color: #b3b19b; }
-.session-flow .session-flow-controls { width: 100%; padding: 0; line-height: 19.2px; }
+.session-flow .session-flow-controls { padding: 0; line-height: 19.2px; }
 .session-flow .session-flow-controls ul { border-top: 2px solid #e8e5cc; padding: 10px 0 20px 0; }
 .session-flow .session-flow-controls ul li { padding: 4px 0; }
 
