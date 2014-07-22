@@ -41,6 +41,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 })
 
+.filter('hashtag', function() {
+    return function(input) {
+        
+    }
+})
+
 // SUMMARIZE CONTROLLER ========================================================
 .controller('summarizeFlow', ['$scope','$http', '$location', '$stateParams','$state', function($scope, $http, $location,$stateParams,$state){
 	$scope.flows = {};
@@ -114,6 +120,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                             }else if (tagnamecheck.indexOf(stepcollector[i].name) != -1){
                                 for (var m in tagcollector){
                                     if (stepcollector[i].name == tagcollector[m].name){
+
                                         var tagMaker = {body: stepcollector[i].messages[j][k].tags[l], visible: true }
                                         tagcollector[m].tags.push(tagMaker);
                                     }
