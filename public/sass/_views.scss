@@ -133,49 +133,6 @@
 			}
 		}
 	
-	
-	
-		.session-flow {
-			background: $background-dark;
-			@include radius(10px);
-			padding: $pad*0.5 $pad 0 $pad;
-			
-			&.empty {
-				text-align: center;
-				background: none;
-				padding: $pad;
-				border: 2px dashed $line;
-				cursor: pointer;
-			}
-			
-			h3 {
-				margin-bottom: $pad;
-				font-size: $type-size-base*1.5;
-			}
-			
-			small {
-				color: $text-light;
-			}
-			
-				
-			.session-flow-controls {
-				width: 100%;
-				padding: 0;
-				line-height: $type-line-base*0.8;
-				
-				ul {
-					border-top: 2px solid $line;
-					padding: $pad*0.5 0 $pad 0;
-					
-					li {
-						padding: $pad*0.2 0;
-					}
-				}
-	
-			}
-
-		}
-		
 		
 	}
 	
@@ -545,18 +502,13 @@
 	
 	#left-pane {
 		padding: 0;
-		
-		.active span {
-			border: 2px solid $scout-blue;
-		}
 	}
 	
 	
 	/* content display area */
 	
 	#large-pane {
-		padding: $pad*2.5 $pad*3 $pad*3 $pad*3;
-		margin-top: 50px;
+		padding: $pad*5 $pad*3 $pad*3 $pad*3;
 		background: $white;
 		border-left: 2px solid $line;	
 	}
@@ -623,6 +575,129 @@
 		border-top: 2px solid $line;
 	}
 	
+}
+
+
+/* rebuild of overview screen */
+
+
+
+#view-overview-neu {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	
+	#left-pane {
+		padding: 0;
+		
+		#questions {
+			
+			.test-newtest {
+				cursor: default;
+				
+				&:hover {
+					box-shadow: none;
+				}
+			
+				.test-newtest-create {
+					text-align: center;
+					background: none;
+					padding: $pad;
+					border: 2px dashed $line;
+					@include radius(10px);
+				}
+			}
+		
+			.question {
+			
+				h4 {
+					font-size: $type-size-base*1.1;
+					line-height: $type-line-base*0.9;
+					margin-bottom: 0;
+				}
+				
+				small {
+					font-size: $type-size-base*0.7;
+					font-weight: bold;
+					text-transform: uppercase;					
+				}
+			
+				.test-controls {
+					float: right;
+					margin-left: $pad;
+				}
+				
+			}
+		}
+	}
+	
+	#large-pane {
+		padding: $pad*5 $pad*3 $pad*3 $pad*3;
+		
+		background: $white;
+		border-left: 2px solid $line;	
+		
+		.session-flow-container {
+			float: left;
+			width: 33.3%;
+			padding: 0 $pad $pad 0;
+		}
+	}
+
+	
+	h1, h2, h3 {	
+		span {
+			color: $text-light;
+		}
+	}
+	
+	
+	
+}
+
+
+
+/* pulled out flow view boxes so we can use those everywhere */
+
+.session-flow {
+	background: $background-dark;
+	@include radius(10px);
+	padding: $pad*0.5 $pad 0 $pad;
+	
+	&.empty {
+		text-align: center;
+		background: none;
+		padding: $pad;
+		border: 2px dashed $line;
+	}
+	
+	h3 {
+		margin-bottom: $pad;
+		font-size: $type-size-base*1.5;
+	}
+	
+	small {
+		color: $text-light;
+	}
+	
+		
+	.session-flow-controls {
+		width: 100%;
+		padding: 0;
+		line-height: $type-line-base*0.8;
+		
+		ul {
+			border-top: 2px solid $line;
+			padding: $pad*0.5 0 $pad 0;
+			
+			li {
+				padding: $pad*0.2 0;
+			}
+		}
+
+	}
+
 }
 
 
