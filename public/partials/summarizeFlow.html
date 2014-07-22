@@ -98,7 +98,7 @@
 
 
 
-<div id="right-pane" ng-model='timeline'>
+<div id="right-pane" ng-model='step'>
 	
 	<div id="timeline">
 		<ul>
@@ -123,13 +123,14 @@
 			</li>
 			
 		
-			<li class="message">
+			<li ng-repeat="message in steps.messages track by $index"  class="message">
 				<div class="message-details">
 					<div class="message-details-avatar">
 						<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg" />
 					</div>
 				</div>
 				<div class="message-body">
+					
 					<p>This is the body of this message but a longer one this time hello how are you <span class="tag">#quote</span></p>
 					<small>Jennifer &mdash; 05:32</small>
 				</div>

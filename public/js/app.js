@@ -123,8 +123,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // integrate tags to stepcollector for a clean objects
             for (var i in stepcollector){
                 for (var j in tagcollector){
-                    if (stepcollector[i].name == tagcollector[i].name ){
-                        stepcollector[i].tags = tagcollector[i].tags;
+                    if (stepcollector[i].name == tagcollector[j].name ){
+                        var tags = tagcollector[j].tags;
+                        tags = tags.filter(function(elem, pos) {
+                                    return tags.indexOf(elem) == pos;
+                                })
+                        console.log(tags);
+                        stepcollector[i].tags = tags;
                     }
                 }
             }
