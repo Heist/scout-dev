@@ -4,12 +4,15 @@
 var scoutApp = angular.module('scoutApp',['ui','ui.bootstrap','ui.router']);
 
 // function list for working with arrays
+
+// sorts an array of objects by key.
 function keysrt(key,desc) {
   return function(a,b){
    return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
   }
 }
 
+/// app list
 scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$locationProvider
 		.html5Mode(true);
@@ -63,15 +66,16 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 this.name = name;
                 this.messages = messages;
             }
+
             // console.log('flows', JSON.stringify($scope.flows));
             console.log('this many flows:', data.flows.length);
-            var stepcollector = [];
 
+            var stepcollector = [];
             var stepnamecheck = [];
-            
             var counter;
             var flowname = data.flows[0].title;
-            // this finds all steps in the selected flow in the flow stack.
+            
+            // this finds all messages in all steps in the stack and pushes them up
             for (var j = 0; j < data.flows.length; j++){
                 var name = data.flows[j].title;
                 name = name.replace(/ /g,'');
@@ -100,18 +104,18 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             for (var i in stepcollector){
                 for (var j = 0 ; j < stepcollector[i].messages.length; j ++){
                     for (var k = 0 ; k < stepcollector[i].messages[j].length; k++){
-                        
                         for (var l = 0; l < stepcollector[i].messages[j][k].tags.length; l++){
 
                             if(!(tagnamecheck.indexOf(stepcollector[i].name) != -1)){
                                 tagnamecheck.push(stepcollector[i].name);
-                                tagcollector.push({name : stepcollector[i].name, tags : [ stepcollector[i].messages[j][k].tags[l] ] });
+                                var tagMaker = {body: stepcollector[i].messages[j][k].tags[l], visible: true }
+                                tagcollector.push({name : stepcollector[i].name, tags : [ tagMaker ] });
                                 
                             }else if (tagnamecheck.indexOf(stepcollector[i].name) != -1){
                                 for (var m in tagcollector){
                                     if (stepcollector[i].name == tagcollector[m].name){
-                                        tagcollector[m].tags.push(stepcollector[i].messages[j][k].tags[l]);
-                                        tagcollector[m].tags.sort();
+                                        var tagMaker = {body: stepcollector[i].messages[j][k].tags[l], visible: true }
+                                        tagcollector[m].tags.push(tagMaker);
                                     }
                                 }
                             }
@@ -120,16 +124,27 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 }
             }
 
-            // integrate tags to stepcollector for a clean objects
+            // integrate tags to stepcollector for a clean object
             for (var i in stepcollector){
                 for (var j in tagcollector){
                     if (stepcollector[i].name == tagcollector[j].name ){
+                        // get all tags per step and post to stepcollector.tags
+                        // this should push to the flow itself for a count later on.
                         var tags = tagcollector[j].tags;
-                        tags = tags.filter(function(elem, pos) {
-                                    return tags.indexOf(elem) == pos;
-                                })
-                        console.log(tags);
+                        tags.sort(keysrt('body'));
+                        console.log('tags', JSON.stringify(tags));
                         stepcollector[i].tags = tags;
+
+
+                        // this is to remove the dupes of tags per step.
+                        var tagDupe = [];
+                        for ( var k=0; k < tags.length; k++ )
+                            tagDupe[tags[k]['body']] = tags[k];
+
+                        tags = new Array();
+                        for ( var key in tagDupe )
+                            tags.push(tagDupe[key]);
+                        stepcollector[i].tags_single = tags;
                     }
                 }
             }
