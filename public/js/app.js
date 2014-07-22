@@ -508,6 +508,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
              note.tags = [];
              note.created = new Date();
              note.session_id = $stateParams.sessionId;
+             note.user_id = $scope.user.name;
 
              $scope.timeline.push(note);
 
