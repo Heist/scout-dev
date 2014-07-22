@@ -75,7 +75,7 @@
 			</p>
 			
 			<ul class="tags" >
-				<li ng-repeat="tag in step.tags track by $index"><span>{{tag}}&nbsp; &times;</span></li>
+				<li ng-repeat="tag in step.tags_single track by $index" ng-show="tag.visible = true"><span>{{tag.body}}&nbsp; &times;</span></li>
 			</ul>
 			<div class="clear"></div>
 		
@@ -85,7 +85,7 @@
 			<label>You can show or hide tags used in &ldquo;Check your account&rdquo; comments. Hidden tags will not be shown in the summary.</label>
 			
 			<ul class="tags">
-				<li ng-repeat="tag in step.tags track by $index" ng-click="showHideTag(tag)" ng-class="{ 'deactivated': !tag.visible }"><span>comment tag &nbsp; &times;</span></li>
+				<li ng-repeat="tag in step.tags_single track by $index" ng-click="showHideTag(tag)" class="deactivated" ng-hide="tag.visible = true" ><span>comment tag &nbsp; &times;</span></li>
 			</ul>
 			
 			<div class="clear"></div>
@@ -130,7 +130,7 @@
 					</div>
 				</div>
 				<div class="message-body">
-					
+
 					<p>This is the body of this message but a longer one this time hello how are you <span class="tag">#quote</span></p>
 					<small>Jennifer &mdash; 05:32</small>
 				</div>
