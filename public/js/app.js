@@ -43,9 +43,20 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 .filter('hashtag', function() {
     return function(input) {
+    var hashCatch = new RegExp(/\S*#\S+/gi);
+    var tagIt = input.match(hashCatch);
         
-    }
-})
+     if (tagIt){
+            for (var i=0; i < tagIt.length; ++i) {
+
+                var msg = input.replace(hashCatch, "<span class='tag'>"+tagIt[i]+"</span>" );
+                console.log(msg)
+            
+            }                
+        }
+    
+    };
+  })
 
 // SUMMARIZE CONTROLLER ========================================================
 .controller('summarizeFlow', ['$scope','$http', '$location', '$stateParams','$state', function($scope, $http, $location,$stateParams,$state){
