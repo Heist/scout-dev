@@ -249,12 +249,29 @@
 		
 		.step-name {
 			@include type-bold;
+			
+			img {
+				height: 12px;
+				width: auto;
+				opacity: 0.3;
+			}
+			
 		}
 		
 		.step-delete {
 			float: right;
 			opacity: 0.3;
 		}
+		
+		input {
+			@include type-bold;
+			border: none;
+			outline: none;
+			background: none;
+			font-size: inherit;
+			color: $white;
+		}
+		
 	}
 	
 	.empty {
