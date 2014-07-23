@@ -117,11 +117,19 @@
 					<small>Comments on participant</small><br><strong>{{users.user}}</strong>
 				
 				<ul>
-					<li ng-repeat="message in users.messages">
-							{{message.body}}
+					<li ng-repeat="message in users.messages"class="message">
+						<div class="message-details">
+							<div class="message-details-avatar">
+								<img src="http://rdjpg.com/30/30" />
+							</div>
+						</div>
+						<div class="message-body">
+							<p>{{message.body}}<span class="tag">#quote</span></p>
+							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>
+						</div>
+
 					</li>
 				</ul>
-				<p>{{message.session_id}} <span class="tag">#quote</span></p>
 					
 				</div>
 				<div class="message-fave">

@@ -183,7 +183,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.showHideTag = function(tag, index){
         // this sets visible/not visible on the repeated tags in steps.tags_single
         // it should also propagate to steps.tags
-        console.log(tag);
+        // console.log(tag);
         if(tag.visible){
             tag.visible=false;
             // $scope.step.tags_single[index].visible = false;
