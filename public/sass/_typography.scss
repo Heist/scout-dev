@@ -49,7 +49,7 @@ h2 {
 
 h3 {
 	font-size: $type-size-base*1.25;
-	@include type-bold;
+	@include type-extrabold;
 	margin: 0 0 $pad/2 0;
 }
 

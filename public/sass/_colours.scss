@@ -6,22 +6,22 @@ palette
 specific colours
 */
 
-/* original */
-$slate: #405159;
-$gold: #eeeec9;
-$orange: #f16c00;
-$brown: #393734;
-$blue: #00abbd;
+/* generic */
+
 $green: #7a9900;
 $red: #ee4300;
+
 $white: #fff;
 
 /* new */
-$scout-brown: desaturate(#3e3d3c, 5%);
-$scout-tan: #f8f7ef;
-$scout-blue: #639005;
+$scout-brown: #41454a;
+
+
+$scout-tan: #edf0f3;
+$scout-blue: #00b1b7;
 
 $scout-lightblue: #91bc37;
+
 
 
 $scout-tan-overlay: transparentize(desaturate(darken($scout-tan, 13%), 17%), 0.1);
@@ -31,14 +31,24 @@ interpreted colours
 */
 
 $text: $scout-brown;
-$text-light: darken(desaturate($scout-tan, 25%), 30%);
+$text-light: transparentize($scout-brown, 0.7);
+
+$dark: $scout-brown;
+$dark-light: lighten($dark, 10%);
+
+
 $background: $scout-tan;
 $background-dark: darken($background, 5%);
+
 $link: $scout-blue;
 $link-bg: lighten(desaturate($link, 60%), 55%);
+
 $link-hover: darken($link, 7%);
 $field: darken($scout-tan, 5%);
-$line: darken($scout-tan, 10%);
+
+$line: darken($scout-tan, 2%);
+
+$line-dark: transparentize($scout-tan, 0.8);
 
 $success: $green;
 $failure: $red;

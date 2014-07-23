@@ -30,7 +30,8 @@
 	}
 	
 	#header-title {
-		@include type-light;
+		@include type-regular;
+		font-size: $type-size-base;
 		float: left;
 		padding: $pad/1.5 0 0 0;
 	}

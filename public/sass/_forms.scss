@@ -23,7 +23,7 @@ form {
 .input {
 	background: $white; 
 	border: 2px solid $white;
-	@include dropshadow(0px 1px 1px, rgba(0,0,0,0.1));
+	@include dropshadow(0px 0px 4px, rgba(0,0,0,0.1));
 	padding: $pad/2;
 	
 	&:focus {
@@ -43,7 +43,6 @@ form {
 
 .button {
 	@include button-colour($scout-blue, $white);
-	@unclude type-bold;
 	cursor: pointer;
 	padding: $pad/2 $pad/1.25;
 	
@@ -60,16 +59,10 @@ form {
 	
 	&.destructive {
 		@include button-colour($red, $white);
-		opacity: 0.5;
-		
-		&:hover {
-			opacity: 1.0;
-		}
 	}
 	
 	&.secondary {
-		@include button-colour($scout-lightblue, $white);
-		@include type-light;
+		@include button-colour($scout-blue, $white);
 	}
 	
 }
