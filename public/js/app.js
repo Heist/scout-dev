@@ -41,25 +41,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 })
 
-.filter('hashtag', function() {
-    return function(input) {
-    var hashCatch = new RegExp(/\S*#\S+/gi);
-    var tagIt = input.match(hashCatch);
-        
-     if (tagIt){
-            for (var i=0; i < tagIt.length; ++i) {
-
-                var msg = input.replace(hashCatch, "<span class='tag'>"+tagIt[i]+"</span>" );
-                console.log(msg)
-            
-            }                
-        }
-    
-    };
-  })
-
 // SUMMARIZE CONTROLLER ========================================================
-.controller('summarizeFlow', ['$scope','$http', '$location', '$stateParams','$state', function($scope, $http, $location,$stateParams,$state){
+.controller('summarizeFlow', ['$scope','$http', '$location', '$stateParams','$state', '$sce', function($scope, $http, $location,$stateParams,$state, $sce){
 	$scope.flows = {};
     $scope.timeline = [];
     $scope.steps = {};
@@ -171,6 +154,18 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             $scope.steps = {'title': flowname, 'steps' : stepcollector} ;
             console.log($scope.steps);
         })
+
+    $scope.messageScrub = function(message){
+            var hashCatch = new RegExp(/\S*#\S+/gi);
+            var tagIt = message.match(hashCatch);
+                
+             if (tagIt){
+                    for (var i=0; i < tagIt.length; ++i) {
+                        var msg = message.replace(hashCatch, "<span class='tag'>"+tagIt[i]+"</span>" );
+                        return $sce.trustAsHtml(msg);
+                    }              
+                }
+    }
 
     $scope.activate = function (index, parentIndex, step) {
         $scope.selectedIndex = index;

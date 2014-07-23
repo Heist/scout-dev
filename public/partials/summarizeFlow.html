@@ -119,7 +119,7 @@
 				<ul>
 					<li ng-repeat="message in users.messages"class="message">
 						<div class="message-body">
-							<p ng-bind-html="myHTML">{{message.body | hashtag}}<span class="tag">#quote</span></p>
+							<p ng-html-bind="messageScrub"></p>
 							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>
 						</div>
 
