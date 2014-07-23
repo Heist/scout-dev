@@ -111,19 +111,18 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             var tagnamecheck = [];
             for (var i in stepcollector){
                 for (var j = 0 ; j < stepcollector[i].session_by_user.length; j ++){
-                    for (var k = 0 ; k < stepcollector[i].session_by_user[j].length; k++){
-                        for (var l = 0; l < stepcollector[i].session_by_user[j][k].tags.length; l++){
-
+                    for (var k = 0 ; k < stepcollector[i].session_by_user[j].messages.length; k++){
+                        for (var l = 0; l < stepcollector[i].session_by_user[j].messages[k].tags.length; l++){
                             if(!(tagnamecheck.indexOf(stepcollector[i].name) != -1)){
                                 tagnamecheck.push(stepcollector[i].name);
-                                var tagMaker = {body: stepcollector[i].session_by_user[j][k].tags[l], visible: true }
+                                var tagMaker = {body: stepcollector[i].session_by_user[j].messages[k].tags[l], visible: true }
                                 tagcollector.push({name : stepcollector[i].name, tags : [ tagMaker ] });
                                 
                             }else if (tagnamecheck.indexOf(stepcollector[i].name) != -1){
                                 for (var m in tagcollector){
                                     if (stepcollector[i].name == tagcollector[m].name){
 
-                                        var tagMaker = {body: stepcollector[i].session_by_user[j][k].tags[l], visible: true }
+                                        var tagMaker = {body: stepcollector[i].session_by_user[j].messages[k].tags[l], visible: true }
                                         tagcollector[m].tags.push(tagMaker);
                                     }
                                 }
@@ -193,7 +192,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
         $scope.step.tags_single.push(tag);
 
-        console.log('touched this ', $scope.step.tags_single);
+        console.log('touched this ', tag);
     }   
 }])
 
