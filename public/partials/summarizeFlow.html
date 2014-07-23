@@ -74,10 +74,6 @@
 					<label for="field-addtags">Add additional tags to this step</label><br>
 					<input class="input" type="text" id="field-addtags" placeholder="Enter a tag" ng-model="step.tag"/>
 					</p>
-					
-					<ul class="tags" >
-						<li ng-repeat="tag in step.tags_single track by $index" ng-show="tag.visible = true" ng-click="showHideTag(tag, $index)"><span>{{tag.body}}&nbsp; &times;</span></li>
-					</ul>
 					<div class="clear"></div>
 				
 				</li>
@@ -86,7 +82,7 @@
 					<label>You can show or hide tags used in &ldquo;Check your account&rdquo; comments. Hidden tags will not be shown in the summary.</label>
 					
 					<ul class="tags">
-						<li ng-repeat="tag in step.tags_single track by $index" ng-click="showHideTag(tag)" class="deactivated" ng-hide="tag.visible = true" ><span>comment tag &nbsp; &times;</span></li>
+						<li ng-repeat="tag in step.tags_single track by $index" ng-click="showHideTag(tag)" ng-class="{ 'deactivated': !tag.visible }" ><span>{{tag.body}} &nbsp; &times;</span></li>
 					</ul>
 					
 					<div class="clear"></div>
