@@ -112,16 +112,16 @@
 				<strong>All users for &ldquo;{{step.name}}&rdquo;</strong>
 			</li>
 		
-			<li ng-repeat="users in step.messages track by $index"  class="message">
+			<li ng-repeat="users in step.session_by_user track by $index"  class="message">
 				<div class="message-details">
 					<div class="message-details-avatar">
 						<img src="http://rdjpg.com/51/51" />
 					</div>
 					</div>
-					<small>Comments on participant</small><br><strong>{{step}}</strong>
+					<small>Comments on participant</small><br><strong>{{users.user}}</strong>
 				
 				<ul>
-					<li ng-repeat="message in users">
+					<li ng-repeat="message in users.messages">
 							{{message.body}}
 					</li>
 				</ul>
