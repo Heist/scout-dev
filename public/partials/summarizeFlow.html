@@ -33,13 +33,14 @@
 
 <!-- create a flow -->
 
-<div id="left-pane">
+<div id="left-pane" >
 	
 	<div id="questions">
 		
 		<div class="questions-group active">
 			<ul>
-				<li><!-- flow title --><small>Flow</small><h3>{{steps.title}}</h3></li>
+				<li ng-model='steps'><!-- flow title --><small>Flow</small><br/>
+					{{steps.title}}</li>
 				<li class="question" ng-repeat="step in steps.steps" ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
              			ng-click="activate($index, $parent.$index, step)">
 					<span>{{step.name}}</span>
@@ -59,43 +60,42 @@
 </div>
 
 <div id="middle-pane" ng-model='step'>
-	
-	<h3>&ldquo;{{step.name}}&rdquo; summary</h3>
-	<p>Add a summary for this step to capture any notable outcomes, directions, or action items.</p>
-	
-	<ul class="lined">
-		
-		<li>
-			<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="step.summary"></textarea>
-		</li>
-		<li>
-			<p>
-			<label for="field-addtags">Add additional tags to this step</label><br>
-			<input class="input" type="text" id="field-addtags" placeholder="Enter a tag" ng-model="step.tag"/>
-			</p>
+	<div ng-show="step.name">
+			<h3>&ldquo;{{step.name}}&rdquo; summary</h3>
+			<p>Add a summary for this step to capture any notable outcomes, directions, or action items.</p>
 			
-			<ul class="tags" >
-				<li ng-repeat="tag in step.tags_single track by $index" ng-show="tag.visible = true" ng-click="showHideTag(tag, $index)"><span>{{tag.body}}&nbsp; &times;</span></li>
+			<ul class="lined">
+				
+				<li>
+					<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="step.summary"></textarea>
+				</li>
+				<li>
+					<p>
+					<label for="field-addtags">Add additional tags to this step</label><br>
+					<input class="input" type="text" id="field-addtags" placeholder="Enter a tag" ng-model="step.tag"/>
+					</p>
+					
+					<ul class="tags" >
+						<li ng-repeat="tag in step.tags_single track by $index" ng-show="tag.visible = true" ng-click="showHideTag(tag, $index)"><span>{{tag.body}}&nbsp; &times;</span></li>
+					</ul>
+					<div class="clear"></div>
+				
+				</li>
+				
+				<li id="tags-showhide">
+					<label>You can show or hide tags used in &ldquo;Check your account&rdquo; comments. Hidden tags will not be shown in the summary.</label>
+					
+					<ul class="tags">
+						<li ng-repeat="tag in step.tags_single track by $index" ng-click="showHideTag(tag)" class="deactivated" ng-hide="tag.visible = true" ><span>comment tag &nbsp; &times;</span></li>
+					</ul>
+					
+					<div class="clear"></div>
+				</li>
+				
 			</ul>
-			<div class="clear"></div>
-		
-		</li>
-		
-		<li id="tags-showhide">
-			<label>You can show or hide tags used in &ldquo;Check your account&rdquo; comments. Hidden tags will not be shown in the summary.</label>
-			
-			<ul class="tags">
-				<li ng-repeat="tag in step.tags_single track by $index" ng-click="showHideTag(tag)" class="deactivated" ng-hide="tag.visible = true" ><span>comment tag &nbsp; &times;</span></li>
-			</ul>
-			
-			<div class="clear"></div>
-		</li>
-		
-	</ul>
+	</div>
 		
 </div>
-
-
 
 
 <div id="right-pane" ng-model='step'>
@@ -109,30 +109,24 @@
 						&nbsp;
 					</div>
 				</div>
-				<strong>All comments for &ldquo;{{step.name}}&rdquo;</strong>
+				<strong>All users for &ldquo;{{step.name}}&rdquo;</strong>
 			</li>
 		
-			
-			<li class="message username">
+			<li ng-repeat="users in step.session_by_user track by $index"  class="message">
 				<div class="message-details">
 					<div class="message-details-avatar">
 						<img src="http://rdjpg.com/51/51" />
 					</div>
-				</div>
-				<small>Comments on participant</small><br><strong>Robertolomew Downeyjunior</strong>
-			</li>
-			
-		
-			<li ng-repeat="message in steps.messages track by $index"  class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg" />
 					</div>
-				</div>
-				<div class="message-body">
-
-					<p>This is the body of this message but a longer one this time hello how are you <span class="tag">#quote</span></p>
-					<small>Jennifer &mdash; 05:32</small>
+					<small>Comments on participant</small><br><strong>{{users.user}}</strong>
+				
+				<ul>
+					<li ng-repeat="message in users.messages">
+							{{message.body}}
+					</li>
+				</ul>
+				<p>{{message.session_id}} <span class="tag">#quote</span></p>
+					
 				</div>
 				<div class="message-fave">
 					<a href="#">&#9734;</a>
@@ -140,95 +134,6 @@
 				<div class="clear"></div>
 			</li>
 			
-			<li class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg" />
-					</div>
-				</div>
-				<div class="message-body">
-					<p>This is the body of this message but a longer one this time hello how are you <span class="tag">#quote</span></p>
-					<small>Jennifer &mdash; 05:32</small>
-				</div>
-				<div class="message-fave">
-					<a href="#">&#9733;</a>
-				</div>
-				<div class="clear"></div>
-			</li>
-			
-			<li class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg" />
-					</div>
-				</div>
-				<div class="message-body">
-					<p>This is the body of this message, it is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.  <span class="tag">#success</span></p>
-					<small>Jennifer &mdash; 05:32</small>
-				</div>
-				<div class="message-fave">
-					<a href="#">&#9734;</a>
-				</div>
-				<div class="clear"></div>
-			</li>
-			
-			<li class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="http://rdjpg.com/30/30" />
-					</div>
-				</div>
-				<div class="message-body">
-					<p>This is the body of this message, somebody typed this <span class="tag">#hashtag</span></p>
-					<small>Jimmy &mdash; 05:32</small>
-				</div>
-				<div class="message-fave">
-					<a href="#">&#9734;</a>
-				</div>
-				<div class="clear"></div>
-			</li>
-			
-			<li class="message username">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="http://rdjpg.com/50/50" />
-					</div>
-				</div>
-				<small>Comments on participant</small><br><strong>Anthony Stark</strong>
-			</li>
-			
-			<li class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg" />
-					</div>
-				</div>
-				<div class="message-body">
-					<p>This is the body of this message but a longer one this time hello how are you <span class="tag">#quote</span></p>
-					<small>Jennifer &mdash; 05:32</small>
-				</div>
-				<div class="message-fave">
-					<a href="#">&#9733;</a>
-				</div>
-				<div class="clear"></div>
-			</li>
-			
-			<li class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="http://rdjpg.com/30/30" />
-					</div>
-				</div>
-				<div class="message-body">
-					<p>This is the body of this message, somebody typed this <span class="tag">#hashtag</span></p>
-					<small>Jimmy &mdash; 05:32</small>
-				</div>
-				<div class="message-fave">
-					<a href="#">&#9734;</a>
-				</div>
-				<div class="clear"></div>
-			</li>
-		
 		
 		</ul>
 	</div>

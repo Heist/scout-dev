@@ -41,6 +41,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 })
 
+.filter('hashtag', function() {
+    return function(input) {
+        
+    }
+})
+
 // SUMMARIZE CONTROLLER ========================================================
 .controller('summarizeFlow', ['$scope','$http', '$location', '$stateParams','$state', function($scope, $http, $location,$stateParams,$state){
 	$scope.flows = {};
@@ -57,8 +63,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     
     $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
         .success(function(data){
+            
             $scope.flows = data.flows;
-
+            // console.log('check me for user names!', data);
+            
             function step(name, messages){
                 this.name = name;
                 this.messages = messages;
@@ -66,6 +74,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             // console.log('flows', JSON.stringify($scope.flows));
             console.log('this many flows:', data.flows.length);
+            console.log('this is the root data structure', data.flows );
 
             var stepcollector = [];
             var stepnamecheck = [];
@@ -76,42 +85,44 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             for (var j = 0; j < data.flows.length; j++){
                 var name = data.flows[j].title;
                 name = name.replace(/ /g,'');
+
                 for (var k = 0;  k < data.flows[j].steps.length; k++){
                     var step = data.flows[j].steps[k];
                     var name = step.title;                    
                     if (!(stepnamecheck.indexOf(name) != -1)){
                         stepnamecheck.push(name);
-                        stepcollector.push({name : name, messages : []});                        
+                        stepcollector.push({name : name, session_by_user : [] });
                     } else if (stepnamecheck.indexOf(name) != -1){
                         for ( var l in stepcollector){
                             if (name == stepcollector[l].name){
-                                stepcollector[l].messages.push(data.flows[j].steps[k].messages);
-                            };
 
+                                var pusher = {'user' : data.flows[j].user_id, 'messages' : data.flows[j].steps[k].messages }
+                                stepcollector[l].session_by_user.push(pusher);
+                            };
                         }
                     }
-
                 }
-
             }
+
+            console.log('stepcollector after message collection', stepcollector )
 
             // the tagstripper and reorganizer
             var tagcollector = [];
             var tagnamecheck = [];
             for (var i in stepcollector){
-                for (var j = 0 ; j < stepcollector[i].messages.length; j ++){
-                    for (var k = 0 ; k < stepcollector[i].messages[j].length; k++){
-                        for (var l = 0; l < stepcollector[i].messages[j][k].tags.length; l++){
-
+                for (var j = 0 ; j < stepcollector[i].session_by_user.length; j ++){
+                    for (var k = 0 ; k < stepcollector[i].session_by_user[j].messages.length; k++){
+                        for (var l = 0; l < stepcollector[i].session_by_user[j].messages[k].tags.length; l++){
                             if(!(tagnamecheck.indexOf(stepcollector[i].name) != -1)){
                                 tagnamecheck.push(stepcollector[i].name);
-                                var tagMaker = {body: stepcollector[i].messages[j][k].tags[l], visible: true }
+                                var tagMaker = {body: stepcollector[i].session_by_user[j].messages[k].tags[l], visible: true }
                                 tagcollector.push({name : stepcollector[i].name, tags : [ tagMaker ] });
                                 
                             }else if (tagnamecheck.indexOf(stepcollector[i].name) != -1){
                                 for (var m in tagcollector){
                                     if (stepcollector[i].name == tagcollector[m].name){
-                                        var tagMaker = {body: stepcollector[i].messages[j][k].tags[l], visible: true }
+
+                                        var tagMaker = {body: stepcollector[i].session_by_user[j].messages[k].tags[l], visible: true }
                                         tagcollector[m].tags.push(tagMaker);
                                     }
                                 }
@@ -129,7 +140,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                         // this should push to the flow itself for a count later on.
                         var tags = tagcollector[j].tags;
                         tags.sort(keysrt('body'));
-                        console.log('tags', JSON.stringify(tags));
+                        // console.log('tags', JSON.stringify(tags));
                         stepcollector[i].tags = tags;
 
 
@@ -181,7 +192,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
         $scope.step.tags_single.push(tag);
 
-        console.log('touched this ', $scope.step.tags_single);
+        console.log('touched this ', tag);
     }   
 }])
 
@@ -508,10 +519,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
              note.tags = [];
              note.created = new Date();
              note.session_id = $stateParams.sessionId;
-             note.user_id = $scope.user.name;
 
              $scope.timeline.push(note);
 
+            $scope.flows[$scope.parentIndex].user_id = $scope.user.name;
             var connect = $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex]
 
             // if message has # with no space, post that to message.tags

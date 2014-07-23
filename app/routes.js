@@ -206,8 +206,6 @@ router.route('/test/:testId/session/:sessionId')
 			if (err)
 				res.send(err);
 			
-			// console.log('req.body',(util.inspect(req.body, {showHidden: false, depth: null})));
-
 			if (req.body.user){
 				session.user = req.body.user;
 				console.log('new user', session.user);
@@ -308,9 +306,9 @@ router.route('/summary/:testId/flow/:flowName')
 					res.send(err);
 				
 				var flowcollector = {};
-				flowcollector.flows = [];
-
+					flowcollector.flows = [];
 				var stepcollector = [];
+
 			// this gathers and sorts similar flows from the returned
 			// session array[].
 				for (var i = 0; i < data.length -1 ; i++){
@@ -322,48 +320,10 @@ router.route('/summary/:testId/flow/:flowName')
 							var pushdata = data[i].flows[j];
 							flowcollector.flows.push( pushdata );
 						}
-						// for (var k = 0;  k < data[i].flows[j].steps.length; k++){
-							
-						// 	var step = data[i].flows[j].steps[k];
-						// 	var name = step.title;
-						// 	name = name.replace(/ /g,'');
-
-						// 	if (stepcollector.indexOf(name) != -1){
-						// 		stepcollector.push(step);
-						// 		console.log(stepcollector);
-						// 	}
-						// }
 					}
 				}
 				console.log('flowcollector flows '+flowcollector.flows.length);
-				// console.log('flowcollector '+flowcollector);
-
-				// for each flow return all steps
-				// for each unique flow name
-				//---> Session.find().distinct('') 
-				// 
-				// Session.find().distinct('_id', function(error, ids) {
-				    // ids is an array of all ObjectIds
-				// });
-
-				// make a new entry in the flow.steps object with that name
-				// flowcollector.flows.steps.
-				// find all steps in flow that match that name
-				// find all messages in that step
-				// push the tags to that step's tag cloud
-
-				// for each step in steps
-				// see if it has any messages in 
-				// for each step in flow return all messages
-				// for each message push 
-				// flows.steps.messages.tags -> stepcollector.tags
-
 				
-				// respond with:
-				// all flows with a common name in this test
-				// all steps with a common name in a common flow
-				// --> in this object, all tags
-				// --> in this object, all comments, with their flow _id
 				res.json(flowcollector);
 			});
 	})

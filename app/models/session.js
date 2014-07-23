@@ -20,16 +20,13 @@ var MessageSchema = new Schema ({
 		type: String,
 		trim:true
 	},
-	user_id:{
-		type: String,
-		trim:true
-	},
 	fav : Boolean,
 	tags : {
 		type: [String], 
 		trim:true
 	}
 })
+mongoose.model('Message', MessageSchema);
 
 var StepSchema = new Schema ({
 	title: {
@@ -42,6 +39,7 @@ var StepSchema = new Schema ({
 		},
 	messages: [MessageSchema]
 })
+mongoose.model('Step', StepSchema);
 
 var FlowSchema = new Schema({
 		title 	: {
@@ -70,15 +68,19 @@ var FlowSchema = new Schema({
 		updated: {
 			type: Date
 		},
+		user_id:{
+			type: String,
+			trim:true
+		},
 		steps: [StepSchema]
 	});
-
+mongoose.model('Flow', FlowSchema);
 
 var SessionSchema = new Schema ({
 	name : {
 			type: String, 
 			trim: true
-		},
+	},
 	user :{
 		type: String, 
 		trim: true
@@ -86,11 +88,10 @@ var SessionSchema = new Schema ({
 	ismodel :{
 		type: Boolean,
 		default: false
-	}
-	,
+	},
 	created: {
 			type: Date
-		},
+	},
 	updated: {
 		type: Date
 	},
