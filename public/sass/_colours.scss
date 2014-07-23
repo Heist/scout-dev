@@ -17,10 +17,8 @@ $white: #fff;
 $scout-brown: #41454a;
 
 
-$scout-tan: #edf0f3;
+$scout-tan: #f3f3ed;
 $scout-blue: #00b1b7;
-
-$scout-lightblue: #91bc37;
 
 
 
@@ -47,8 +45,8 @@ $link-hover: darken($link, 7%);
 $field: darken($scout-tan, 5%);
 
 $line: darken($scout-tan, 2%);
-
 $line-dark: transparentize($scout-tan, 0.8);
+$line-tan: darken($scout-tan, 5%);
 
 $success: $green;
 $failure: $red;
