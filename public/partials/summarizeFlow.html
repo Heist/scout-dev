@@ -118,16 +118,15 @@
 				
 				<ul>
 					<li ng-repeat="message in users.messages"class="message">
-						<div class="message-details">
-							<div class="message-details-avatar">
-								<img src="http://rdjpg.com/30/30" />
-							</div>
-						</div>
 						<div class="message-body">
 							<p>{{message.body}}<span class="tag">#quote</span></p>
 							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>
 						</div>
 
+						<div class="message-fave">
+							<span ng-click="saveFav(message)">&#9734;</span>
+						</div>
+						<div class="clear"></div>
 					</li>
 				</ul>
 					
