@@ -5,35 +5,50 @@ custom fonts
 
 
 @mixin type-light {
-	font-family: 'hedley-new-web', sans-serif;
-	font-weight: 300;
+	@include adelle-light;
 }
 
 @mixin type-regular {
-	font-family: 'hedley-new-web', sans-serif;
-	font-weight: 400;
+	@include adelle-regular;
 }
 
 @mixin type-bold {
-	font-family: 'hedley-new-web', sans-serif;
-	font-weight: 700;
+	@include adelle-bold;
+}
+
+@mixin type-extrabold {
+	@include adelle-extrabold;
 }
 
 
-/* mic 32 */
 
-@mixin mic-light {
-	font-family: 'mic-32-new-rounded-web', sans-serif;
-	font-weight: 300;
+/* adelle sans */
+
+@mixin adelle-light {
+	font-family: "adelle-sans", sans-serif;
+	font-style: normal;
+	font-weight: 100;
 }
 
-@mixin mic-regular {
-	font-family: 'mic-32-new-rounded-web', sans-serif;
+@mixin adelle-regular {
+	font-family: "adelle-sans", sans-serif;
+	font-style: normal;
 	font-weight: 400;
 }
 
-@mixin mic-bold {
-	font-family: 'mic-32-new-rounded-web', sans-serif;
+@mixin adelle-bold {
+	font-family: "adelle-sans", sans-serif;
+	font-style: normal;
 	font-weight: 700;
 }
+
+@mixin adelle-extrabold {
+	font-family: "adelle-sans", sans-serif;
+	font-style: normal;
+	font-weight: 800;
+}
+
+
+
+
 

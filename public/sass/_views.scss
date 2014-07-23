@@ -184,9 +184,10 @@
 	padding: 0;
 	height: 100%;
 	width: 100%;
-	
+	background: $white;
 		
 	#left-pane {
+		background: $background;
 		border-right: 2px solid $line;
 	
 		input[type=text] {
@@ -289,12 +290,20 @@
 	
 	#left-pane {
 		padding: 0;
+		
+		.questions-group {
+			border-top: 2px solid $line-dark;
+			
+			&:nth-child(1) {
+				border-top: none;
+			}
+		}		
 	}
 	
 	
 	/* the device */
 	#right-pane {
-		background: $scout-brown;
+		background: $white;
 		float: right;
 		position: relative;
 		
@@ -303,7 +312,6 @@
 			left: 0;
 			bottom: 0;
 			width: 100%;
-			color: $white;
 			text-align: center;
 			padding: 0 0 $pad 0;
 			
@@ -316,11 +324,10 @@
 			padding: $pad/2;
 			width: 80%;
 			height: auto;
-			background: transparentize($background, 0.9);
-			border: 2px solid transparentize($background, 0.8);
+			border: 2px solid $line;
 			@include radius(10px);
 			margin: 40% auto 0 auto;
-			@include dropshadow(0px 5px 20px, rgba(0,0,0,0.2));
+			@include dropshadow(0px 5px 20px, rgba(0,0,0,0.1));
 			
 			img {
 				width: 100%;
@@ -335,10 +342,8 @@
 			width: 100%;
 			text-align: center;
 			padding: $pad*0.75 0;
-			color: $white;
 			@include type-light;
 			line-height: 30px;
-			border-bottom: 1px solid rgba(255,255,255,0.08);
 			
 			.timeline-user-avatar {
 				display: inline-block;
@@ -364,6 +369,7 @@
 		overflow: hidden;
 		background: $white;
 		border-left: 2px solid $line;
+		border-right: 2px solid $line;
 		
 		#session-input {
 			position: absolute;
@@ -411,6 +417,7 @@
 	
 	#middle-pane {
 		border-right: 2px solid $line;
+		background: $white;
 		
 		textarea {
 			width: 100%;
@@ -468,9 +475,14 @@
 	padding: 0;
 	height: 100%;
 	width: 100%;
+	background: $white;
 	
 	#left-pane {
+		background: $background;
+	
 		.active span {
+			background: $scout-blue;
+			color: $white;
 			border: 2px solid $scout-blue;
 		}
 	}
@@ -603,7 +615,7 @@
 					text-align: center;
 					background: none;
 					padding: $pad;
-					border: 2px dashed $line;
+					border: 2px dashed $line-dark;
 					@include radius(10px);
 				}
 			}
@@ -616,10 +628,6 @@
 					margin-bottom: 0;
 				}
 				
-				&.active h4 {
-					font-weight: normal;
-				}
-				
 				small {
 					font-size: $type-size-base*0.7;
 					font-weight: bold;
@@ -629,6 +637,17 @@
 				.test-controls {
 					float: right;
 					margin-left: $pad;
+					display: none;
+				}
+				
+				&.active {
+					.test-controls {
+						display: block;
+					}
+					
+					h4 {
+						font-weight: normal;
+					}
 				}
 				
 			}
@@ -656,11 +675,19 @@
 				padding: 0;
 				margin: -6px 0 0 0;
 			}
-			
 		
 			.session-flow-controls {
 				padding-top: $pad/2;
 				float: right;
+				opacity: 0.2;	
+			}
+			
+			.flow-hamburger {
+				font-size: $type-size-base*2;
+				float: left;
+				margin: 0 $pad/2 0 0;
+				padding: $pad/1.5 0 0 0;
+				cursor: move;
 			}
 			
 			&.empty {
@@ -668,6 +695,12 @@
 				padding: $pad/2;
 				border: 2px dashed $line;
 				@include radius(10px);
+			}
+			
+			&:hover {
+				.session-flow-controls {
+					opacity: 1.0;
+				}
 			}
 			
 		}
@@ -736,12 +769,14 @@
 #questions {
 	height: 100%;
 	padding-top: 50px;
+	background: $dark;
+	color: $white;
 	
 	.questions-group {
 		padding: 0;
 		margin: 0;
 		@include radius(8px);
-		opacity: 0.5;
+		opacity: 0.4;
 				
 		&.active {
 			opacity: 1.0;
@@ -767,7 +802,7 @@
 			li {
 				padding: $pad/1.5 $pad;
 				margin: 0;
-				border-bottom: 1px solid $line;
+				//border-bottom: 1px solid $line-dark;
 				
 				font-size: $type-size-base*0.9;
 				line-height: $type-line-base*0.8;
@@ -819,7 +854,7 @@
 				}
 				
 				&.active {
-					background: $field;
+					background: $dark-light;
 					position: relative;
 					
 					
@@ -880,12 +915,12 @@
 
 #questions {
 	.question-rating {
-		width: 18px;
-		height: 18px;
+		width: 16px;
+		height: 16px;
 		padding: 0;
-		margin: 0;
+		margin: 2px 0 0 0;
 		float: right;
-		border: 2px solid $white;
+		//border: 2px solid $white;
 	}
 }
 
@@ -906,7 +941,7 @@
 	overflow: auto;
 	height: 100%;
 	padding: $pad/2 0 $pad 0;
-	background: url('../assets/timeline-line.svg') repeat-y 18px top;
+	//background: url('../assets/timeline-line.svg') repeat-y 18px top;
 		
 	ul {
 		list-style: none;
@@ -936,17 +971,17 @@
 			}
 			
 			&.status {	
-				border-top: 1px dashed $line;
+				border-top: 2px dashed $line;
 				margin: $pad/2 0 $pad/2 0;				
 			}
 			
 			&.title {
-				border-top: 1px dashed $line;
+				border-top: 2px dashed $line;
 				margin: $pad/2 0 $pad 0;
 			}
 			
 			&.username {
-				border-top: 1px dashed $line;
+				border-top: 2px dashed $line;
 				margin: $pad/2 0 $pad 0;
 				padding: $pad/2 0 0 $pad/2.25;
 				
