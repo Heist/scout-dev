@@ -65,7 +65,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data){
             
             $scope.flows = data.flows;
-            console.log('check me for user names!', data);
+            // console.log('check me for user names!', data);
             
             function step(name, messages){
                 this.name = name;
@@ -74,6 +74,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             // console.log('flows', JSON.stringify($scope.flows));
             console.log('this many flows:', data.flows.length);
+            console.log('this is the root data structure', data.flows );
 
             var stepcollector = [];
             var stepnamecheck = [];
@@ -90,71 +91,72 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                     var name = step.title;                    
                     if (!(stepnamecheck.indexOf(name) != -1)){
                         stepnamecheck.push(name);
-                        stepcollector.push({name : name, messages : []});                        
+                        stepcollector.push({name : name, session_by_user : [] });
                     } else if (stepnamecheck.indexOf(name) != -1){
                         for ( var l in stepcollector){
                             if (name == stepcollector[l].name){
-                                stepcollector[l].messages.push(data.flows[j].steps[k].messages);
-                            };
 
+                                var pusher = {'user' : data.flows[j].user_id, 'messages' : data.flows[j].steps[k].messages }
+                                stepcollector[l].session_by_user.push(pusher);
+                            };
                         }
                     }
-
                 }
-
             }
+
+            console.log('stepcollector after message collection', stepcollector )
 
             // the tagstripper and reorganizer
-            var tagcollector = [];
-            var tagnamecheck = [];
-            for (var i in stepcollector){
-                for (var j = 0 ; j < stepcollector[i].messages.length; j ++){
-                    for (var k = 0 ; k < stepcollector[i].messages[j].length; k++){
-                        for (var l = 0; l < stepcollector[i].messages[j][k].tags.length; l++){
+            // var tagcollector = [];
+            // var tagnamecheck = [];
+            // for (var i in stepcollector){
+            //     for (var j = 0 ; j < stepcollector[i].messages.length; j ++){
+            //         for (var k = 0 ; k < stepcollector[i].messages[j].length; k++){
+            //             for (var l = 0; l < stepcollector[i].messages[j][k].tags.length; l++){
 
-                            if(!(tagnamecheck.indexOf(stepcollector[i].name) != -1)){
-                                tagnamecheck.push(stepcollector[i].name);
-                                var tagMaker = {body: stepcollector[i].messages[j][k].tags[l], visible: true }
-                                tagcollector.push({name : stepcollector[i].name, tags : [ tagMaker ] });
+            //                 if(!(tagnamecheck.indexOf(stepcollector[i].name) != -1)){
+            //                     tagnamecheck.push(stepcollector[i].name);
+            //                     var tagMaker = {body: stepcollector[i].messages[j][k].tags[l], visible: true }
+            //                     tagcollector.push({name : stepcollector[i].name, tags : [ tagMaker ] });
                                 
-                            }else if (tagnamecheck.indexOf(stepcollector[i].name) != -1){
-                                for (var m in tagcollector){
-                                    if (stepcollector[i].name == tagcollector[m].name){
+            //                 }else if (tagnamecheck.indexOf(stepcollector[i].name) != -1){
+            //                     for (var m in tagcollector){
+            //                         if (stepcollector[i].name == tagcollector[m].name){
 
-                                        var tagMaker = {body: stepcollector[i].messages[j][k].tags[l], visible: true }
-                                        tagcollector[m].tags.push(tagMaker);
-                                    }
-                                }
-                            }
-                        }    
-                    }
-                }
-            }
+            //                             var tagMaker = {body: stepcollector[i].messages[j][k].tags[l], visible: true }
+            //                             tagcollector[m].tags.push(tagMaker);
+            //                         }
+            //                     }
+            //                 }
+            //             }    
+            //         }
+            //     }
+            // }
 
-            // integrate tags to stepcollector for a clean object
-            for (var i in stepcollector){
-                for (var j in tagcollector){
-                    if (stepcollector[i].name == tagcollector[j].name ){
-                        // get all tags per step and post to stepcollector.tags
-                        // this should push to the flow itself for a count later on.
-                        var tags = tagcollector[j].tags;
-                        tags.sort(keysrt('body'));
-                        console.log('tags', JSON.stringify(tags));
-                        stepcollector[i].tags = tags;
+            // // integrate tags to stepcollector for a clean object
+            // for (var i in stepcollector){
+            //     for (var j in tagcollector){
+            //         if (stepcollector[i].name == tagcollector[j].name ){
+            //             // get all tags per step and post to stepcollector.tags
+            //             // this should push to the flow itself for a count later on.
+            //             var tags = tagcollector[j].tags;
+            //             tags.sort(keysrt('body'));
+            //             // console.log('tags', JSON.stringify(tags));
+            //             stepcollector[i].tags = tags;
 
 
-                        // this is to remove the dupes of tags per step.
-                        var tagDupe = [];
-                        for ( var k=0; k < tags.length; k++ )
-                            tagDupe[tags[k]['body']] = tags[k];
+            //             // this is to remove the dupes of tags per step.
+            //             var tagDupe = [];
+            //             for ( var k=0; k < tags.length; k++ )
+            //                 tagDupe[tags[k]['body']] = tags[k];
 
-                        tags = new Array();
-                        for ( var key in tagDupe )
-                            tags.push(tagDupe[key]);
-                        stepcollector[i].tags_single = tags;
-                    }
-                }
-            }
+            //             tags = new Array();
+            //             for ( var key in tagDupe )
+            //                 tags.push(tagDupe[key]);
+            //             stepcollector[i].tags_single = tags;
+            //         }
+            //     }
+            // }
 
             $scope.steps = {'title': flowname, 'steps' : stepcollector} ;
             console.log($scope.steps);
