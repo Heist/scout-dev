@@ -124,7 +124,12 @@
 						</div>
 
 						<div class="message-fave">
-							<span ng-click="saveFav(message)">&#9734;</span>
+							<a ng-click="saveFav(message)">
+								{{ message.fav }}&#9733;
+							</a>
+							<a ng-click="saveFav(message)">
+								{{ message.fav }}&#9734;
+							</a>
 						</div>
 						<div class="clear"></div>
 					</li>

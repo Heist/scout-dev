@@ -20,7 +20,9 @@ var MessageSchema = new Schema ({
 		type: String,
 		trim:true
 	},
-	fav : Boolean,
+	fav : {type: Boolean,
+		default: false
+	},
 	tags : {
 		type: [String], 
 		trim:true

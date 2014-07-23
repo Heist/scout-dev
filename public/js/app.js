@@ -191,19 +191,20 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             tag.visible=true;
             // $scope.step.tags_single[index].visible = true;
         }
+    }    
         
     $scope.saveFav = function(message){
+        console.log('touched fav');
         if(message.fav){
             message.fav = false;
         } else if (!message.fav){
             message.fav = true;
         }
         // when we save the summary, it will save all messages with message.fav = true
-        // to the summary file.
+        // to the summary file. 
     }
 
-        // console.log('touched this ', tag);
-    }   
+   
 }])
 
 // OVERVIEW CONTROLLER ========================================================
