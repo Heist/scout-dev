@@ -249,12 +249,29 @@
 		
 		.step-name {
 			@include type-bold;
+			
+			img {
+				height: 12px;
+				width: auto;
+				opacity: 0.3;
+			}
+			
 		}
 		
 		.step-delete {
 			float: right;
 			opacity: 0.3;
 		}
+		
+		input {
+			@include type-bold;
+			border: none;
+			outline: none;
+			background: none;
+			font-size: inherit;
+			color: $white;
+		}
+		
 	}
 	
 	.empty {
@@ -303,7 +320,6 @@
 	
 	/* the device */
 	#right-pane {
-		background: $white;
 		float: right;
 		position: relative;
 		
@@ -322,16 +338,17 @@
 		
 		#timeline-device {
 			padding: $pad/2;
-			width: 80%;
+			width: 100%;
 			height: auto;
-			border: 2px solid $line;
+			border: 2px solid $line-tan;
 			@include radius(10px);
 			margin: 40% auto 0 auto;
-			@include dropshadow(0px 5px 20px, rgba(0,0,0,0.1));
+			
 			
 			img {
 				width: 100%;
 				height: auto;
+				border: 2px solid $line-tan;
 			}
 		}
 		
@@ -417,7 +434,6 @@
 	
 	#middle-pane {
 		border-right: 2px solid $line;
-		background: $white;
 		
 		textarea {
 			width: 100%;
@@ -828,10 +844,8 @@
 				.step-rating {
 					float: right;
 					display: none;
-					background: $background;
-					@include radius;
-					padding: $pad/2 $pad/3 $pad/3 $pad/3;
-					margin: 0 0 0 10px;
+					padding: 0;
+					margin: 0;
 					
 					img {
 						width: auto;
