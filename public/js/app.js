@@ -156,9 +156,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                         for ( var k=0; k < tags.length; k++ )
                             tagDupe[tags[k]['body']] = tags[k];
 
-                        tags = new Array();
+                        tags = [];
                         for ( var key in tagDupe )
-                            tags.push(tagDupe[key]);
+                            tags.push({tag : tagDupe[key], summary : ''});
                         stepcollector[i].tags_single = tags;
                     }
                 }
