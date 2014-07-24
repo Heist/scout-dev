@@ -98,7 +98,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                     var name = step.title;                    
                     if (!(stepnamecheck.indexOf(name) != -1)){
                         stepnamecheck.push(name);
-                        stepcollector.push({name : name, session_by_user : [] });
+                        stepcollector.push({name : name, session_by_user : [], pass_fail : false });
                     } else if (stepnamecheck.indexOf(name) != -1){
                         for ( var l in stepcollector){
                             if (name == stepcollector[l].name){
