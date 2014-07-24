@@ -161,18 +161,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                         var tagCount = 0;
                         var curTag = null;
 
-                        for ( var k=0; k < tags.length; k++ ){
-                            // console.log('tags k', tags[k]);
-                            // tagDupe[tags[k]] = {};
-                        }
-
                         for (var k = 0; k < tags.length +1; k++){
                             if (tags[k] != curTag){     
                                 if (tagCount > 0) {
-                                    console.log(tagDupe);
-                                    
-                                    tagDupe.push({name: curTag, count : tagCount});
-                                    console.log(tagDupe[curTag], tagCount);
+                                    tagDupe.push({body: curTag, count : tagCount});
                                 }
 
                                 curTag = tags[k];
@@ -188,7 +180,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                         tags = [];
 
                         for ( var key in tagDupe ){
-                            tags.push({body: tagDupe, count : tagDupe[key], visible: true, summary : ''});
+                            tags.push({body: tagDupe[key].body, count : tagDupe[key].count, visible: true, summary : ''});
                         }
                         console.log('tags before collection', tags)
                         stepcollector[i].tags_single = tags;
