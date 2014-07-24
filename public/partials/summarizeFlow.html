@@ -1,14 +1,14 @@
 <!-- Summarize Flow -->
 <div id="view-summarizing" ng-controller="summarizeFlow">
 <!-- header nav -->
-<div ng-model='steps'>
+<div ng-model='flow'>
 <div id="header">
 	
 	<div id="header-logo">
 		&nbsp;
 	</div>
 	
-	<div id="header-title">Summarizing &ldquo;{{steps.title}}&rdquo;</div>
+	<div id="header-title">Summarizing &ldquo;{{flow.title}}&rdquo;</div>
 	
 	<div id="header-account">
 		<div id="header-account-avatar">
@@ -39,9 +39,9 @@
 		
 		<div class="questions-group active">
 			<ul>
-				<li ng-model='steps'><!-- flow title --><small>Flow</small><br/>
-					{{steps.title}}</li>
-				<li class="question" ng-repeat="step in steps.steps" ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
+				<li ng-model='flow'><!-- flow title --><small>Flow</small><br/>
+					{{flow.title}}</li>
+				<li class="question" ng-repeat="step in flow.steps" ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
              			ng-click="activate($index, $parent.$index, step)">
 					<span>{{step.name}}</span>
 					

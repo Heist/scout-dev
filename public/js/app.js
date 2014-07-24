@@ -56,9 +56,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 // SUMMARIZE CONTROLLER ========================================================
 .controller('summarizeFlow', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
-	$scope.flows = {};
+	$scope.flow = {};
     $scope.timeline = [];
-    $scope.steps = {};
 
 // set selected step
     $scope.step = {};
@@ -71,7 +70,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
         .success(function(data){
             
-            $scope.flows = data.flows;
+            // $scope.flows = data.flows;
             // console.log('check me for user names!', data);
             
             function step(name, messages){
@@ -80,8 +79,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             }
 
             // console.log('flows', JSON.stringify($scope.flows));
-            console.log('this many flows:', data.flows.length);
-            console.log('this is the root data structure', data.flows );
+            // console.log('this many flows:', data.flows.length);
+            // console.log('this is the root data structure', data.flows );
 
             var stepcollector = [];
             var stepnamecheck = [];
@@ -111,7 +110,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 }
             }
 
-            console.log('stepcollector after message collection', stepcollector )
+            // console.log('stepcollector after message collection', stepcollector )
 
             // the tagstripper and reorganizer
             var tagcollector = [];
@@ -152,7 +151,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
                         var tags = tagcollector[j].tags;
                         tags.sort();
-                        console.log('tags', tags.length ,JSON.stringify(tags));
+                        // console.log('tags', tags.length ,JSON.stringify(tags));
                         // stepcollector[i].tags = tags;
 
                         // de-dupe array, then post to tags_single
@@ -175,21 +174,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                         }
 
                         // weirdly, this returns an object into tagDupe.
-                        console.log('tagDupe', tagDupe);
+                        // console.log('tagDupe', tagDupe);
 
                         tags = [];
 
                         for ( var key in tagDupe ){
                             tags.push({body: tagDupe[key].body, count : tagDupe[key].count, visible: true, summary : ''});
                         }
-                        console.log('tags before collection', tags)
+                        // console.log('tags before collection', tags)
                         stepcollector[i].tags_single = tags;
                     }
                 }
             }
 
-            $scope.steps = {'title': flowname, 'steps' : stepcollector} ;
-            console.log($scope.steps);
+            $scope.flow = {'title': flowname, 'steps' : stepcollector} ;
+            console.log('flow', $scope.flow);
         })
     
     $scope.saveSummary = function(){
