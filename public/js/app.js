@@ -123,7 +123,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                             if(!(tagnamecheck.indexOf(stepcollector[i].name) != -1)){
                                 tagnamecheck.push(stepcollector[i].name);
 
-                                console.log('checking to see if tags are already visible/no', stepcollector[i].session_by_user[j].messages[k].tags[l] )
+                                // console.log('checking to see if tags are already visible/no', stepcollector[i].session_by_user[j].messages[k].tags[l] )
                                 
                                 var tagMaker = stepcollector[i].session_by_user[j].messages[k].tags[l];
                                 tagcollector.push({name : stepcollector[i].name, tags : [ tagMaker ] });
@@ -148,27 +148,47 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                     if (stepcollector[i].name == tagcollector[j].name ){
                         // get all tags per step and post to stepcollector.tags
                         // this should push to the flow itself for a count later on.
-                        console.log('tagcollector j', tagcollector[j])
+                        // console.log('tagcollector j', tagcollector[j])
 
                         var tags = tagcollector[j].tags;
-                        tags.sort(keysrt('body'));
+                        tags.sort();
                         console.log('tags', tags.length ,JSON.stringify(tags));
-                        stepcollector[i].tags = tags;
+                        // stepcollector[i].tags = tags;
 
                         // de-dupe array, then post to tags_single
                         //  so we summarize and visible.
                         var tagDupe = [];
+                        var tagCount = 0;
+                        var curTag = null;
+
                         for ( var k=0; k < tags.length; k++ ){
-                            console.log('tags k', tags[k]);
-                            tagDupe[tags[k]] = tags[k];
+                            // console.log('tags k', tags[k]);
+                            // tagDupe[tags[k]] = {};
                         }
+
+                        for (var k = 0; k < tags.length +1; k++){
+                            if (tags[k] != curTag){     
+                                if (tagCount > 0) {
+                                    console.log(tagDupe);
+                                    
+                                    tagDupe.push({name: curTag, count : tagCount});
+                                    console.log(tagDupe[curTag], tagCount);
+                                }
+
+                                curTag = tags[k];
+                                tagCount = 1;
+                            } else {
+                                tagCount++;
+                            }
+                        }
+
                         // weirdly, this returns an object into tagDupe.
                         console.log('tagDupe', tagDupe);
 
                         tags = [];
 
                         for ( var key in tagDupe ){
-                            tags.push({body : tagDupe[key], visible: true, summary : ''});
+                            tags.push({body: tagDupe, count : tagDupe[key], visible: true, summary : ''});
                         }
                         console.log('tags before collection', tags)
                         stepcollector[i].tags_single = tags;
