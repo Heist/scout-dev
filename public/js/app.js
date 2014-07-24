@@ -122,14 +122,17 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                         for (var l = 0; l < stepcollector[i].session_by_user[j].messages[k].tags.length; l++){
                             if(!(tagnamecheck.indexOf(stepcollector[i].name) != -1)){
                                 tagnamecheck.push(stepcollector[i].name);
-                                var tagMaker = {body: stepcollector[i].session_by_user[j].messages[k].tags[l], visible: true }
+
+                                console.log('checking to see if tags are already visible/no', stepcollector[i].session_by_user[j].messages[k].tags[l] )
+                                
+                                var tagMaker = stepcollector[i].session_by_user[j].messages[k].tags[l];
                                 tagcollector.push({name : stepcollector[i].name, tags : [ tagMaker ] });
                                 
                             }else if (tagnamecheck.indexOf(stepcollector[i].name) != -1){
                                 for (var m in tagcollector){
                                     if (stepcollector[i].name == tagcollector[m].name){
 
-                                        var tagMaker = {body: stepcollector[i].session_by_user[j].messages[k].tags[l], visible: true }
+                                        var tagMaker = stepcollector[i].session_by_user[j].messages[k].tags[l];
                                         tagcollector[m].tags.push(tagMaker);
                                     }
                                 }
@@ -145,20 +148,29 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                     if (stepcollector[i].name == tagcollector[j].name ){
                         // get all tags per step and post to stepcollector.tags
                         // this should push to the flow itself for a count later on.
+                        console.log('tagcollector j', tagcollector[j])
+
                         var tags = tagcollector[j].tags;
                         tags.sort(keysrt('body'));
-                        // console.log('tags', JSON.stringify(tags));
+                        console.log('tags', tags.length ,JSON.stringify(tags));
                         stepcollector[i].tags = tags;
 
-
-                        // this is to remove the dupes of tags per step.
+                        // de-dupe array, then post to tags_single
+                        //  so we summarize and visible.
                         var tagDupe = [];
-                        for ( var k=0; k < tags.length; k++ )
-                            tagDupe[tags[k]['body']] = tags[k];
+                        for ( var k=0; k < tags.length; k++ ){
+                            console.log('tags k', tags[k]);
+                            tagDupe[tags[k]] = tags[k];
+                        }
+                        // weirdly, this returns an object into tagDupe.
+                        console.log('tagDupe', tagDupe);
 
                         tags = [];
-                        for ( var key in tagDupe )
-                            tags.push({tag : tagDupe[key], summary : ''});
+
+                        for ( var key in tagDupe ){
+                            tags.push({body : tagDupe[key], visible: true, summary : ''});
+                        }
+                        console.log('tags before collection', tags)
                         stepcollector[i].tags_single = tags;
                     }
                 }
