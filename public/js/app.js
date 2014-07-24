@@ -1,7 +1,7 @@
 "use strict";
 // app.js
 
-var scoutApp = angular.module('scoutApp',['ui','ui.bootstrap','ui.router']);
+var scoutApp = angular.module('scoutApp',['ui','ui.bootstrap','ui.router', 'ngSanitize']);
 
 // function list for working with arrays
 
@@ -41,8 +41,28 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 })
 
+ 
+.filter('htmlize', ['$sce', function($sce){
+        return function(message) {
+
+            var hashCatch = new RegExp(/\S*#\S+/gi); 
+            var tagIt = message.match(hashCatch);
+            
+            var msg = message.replace(hashCatch, "<span class='tag'>$&</span>");
+            // console.log(tagIt);
+            // if (tagIt){
+            //     for (var i=0; i < tagIt.length; ++i) {
+            //         note.tags.push(tagIt[i]);
+            //     }                
+            // }
+            // return msg;
+
+            return $sce.trustAsHtml(msg);
+        };
+}])
+
 // SUMMARIZE CONTROLLER ========================================================
-.controller('summarizeFlow', ['$scope','$http', '$location', '$stateParams','$state', '$sce', function($scope, $http, $location,$stateParams,$state, $sce){
+.controller('summarizeFlow', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
 	$scope.flows = {};
     $scope.timeline = [];
     $scope.steps = {};
@@ -154,18 +174,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             $scope.steps = {'title': flowname, 'steps' : stepcollector} ;
             console.log($scope.steps);
         })
-
-    $scope.messageScrub = function(message){
-            var hashCatch = new RegExp(/\S*#\S+/gi);
-            var tagIt = message.match(hashCatch);
-                
-             if (tagIt){
-                    for (var i=0; i < tagIt.length; ++i) {
-                        var msg = message.replace(hashCatch, "<span class='tag'>"+tagIt[i]+"</span>" );
-                        return $sce.trustAsHtml(msg);
-                    }              
-                }
-    }
+    
 
     $scope.activate = function (index, parentIndex, step) {
         $scope.selectedIndex = index;
