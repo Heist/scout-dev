@@ -164,7 +164,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                         for (var k = 0; k < tags.length +1; k++){
                             if (tags[k] != curTag){     
                                 if (tagCount > 0) {
-                                    tagDupe.push({body: curTag, count : tagCount});
+                                    tagDupe.push({body: curTag.replace(/#/gi,''), count : tagCount});
                                 }
 
                                 curTag = tags[k];
