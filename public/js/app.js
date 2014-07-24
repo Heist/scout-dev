@@ -168,6 +168,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             console.log($scope.steps);
         })
     
+    $scope.saveSummary = function(){
+
+    }
 
     $scope.activate = function (index, parentIndex, step) {
         $scope.selectedIndex = index;
@@ -199,6 +202,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             tag.visible=true;
             // $scope.step.tags_single[index].visible = true;
         }
+        console.log('step for checking step object contents', $scope.step);
     }    
         
     $scope.saveFav = function(message){
@@ -210,6 +214,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         }
         // when we save the summary, it will save all messages with message.fav = true
         // to the summary file. 
+
+        console.log('step for checking step object contents', $scope.step);
     }
 
    
@@ -242,14 +248,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // for each session with test number x
             // push it to a new ssins object in $scope
             for (var i = 0; i<data.length -1; i++){
-                // console.log ($scope.sessions[i].ismodel);
-                // console.log (i +' '+ data[i].testKey);
                     if (data[i + 1].testKey == data[i].testKey) {
                         ssincount++
-                        // console.log('ssincount'+ssincount);
                     }else{
                         ssin.push({'testKey' : data[i].testKey, 'ssincount' : ssincount});
-                        // console.log(JSON.stringify(ssin));
                         ssincount=0;
                     }
             }
