@@ -49,13 +49,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             var tagIt = message.match(hashCatch);
             
             var msg = message.replace(hashCatch, "<span class='tag'>$&</span>");
-            // console.log(tagIt);
-            // if (tagIt){
-            //     for (var i=0; i < tagIt.length; ++i) {
-            //         note.tags.push(tagIt[i]);
-            //     }                
-            // }
-            // return msg;
 
             return $sce.trustAsHtml(msg);
         };
@@ -552,12 +545,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             var connect = $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex]
 
             // if message has # with no space, post that to message.tags
-            var hashCatch = new RegExp(/\S*#\S+/gi); 
-            var tagIt = message.match(hashCatch);
+            var hashCatch = new RegExp(/\S*#\S+/gi);
+            var tagIt = message.match(hashCatch);            
             
             if (tagIt){
                 for (var i=0; i < tagIt.length; ++i) {
-                    note.tags.push(tagIt[i]);
+                    var msg = tagIt[i].replace(hashPull,'');
+                    note.tags.push(msg);
                 }                
             }
 
