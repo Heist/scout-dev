@@ -8,6 +8,7 @@ var mongoose = require('mongoose'); // so we can generate ObjectIDs for tests
 // var Step 	= require('./models/step');
 // var Flow 	= require('./models/flow');
 var Session = require('./models/session');
+var Summary = require('./models/summary');
 
 
 
@@ -326,6 +327,27 @@ router.route('/summary/:testId/flow/:flowName')
 				
 				res.json(flowcollector);
 			});
+	})
+	.post(function(req,res){
+		// console.log('touched summary.post', req.body);
+		
+		var summary = new Summary();
+
+		// summary.testKey = req.params.testId;
+		console.log(summary);
+		var id_store = summary._id
+		summary = req.body;
+		summary._id = id_store;
+		summary.testKey = req.params.testId;
+
+		console.log(summary);
+
+		// summary.save(function(err) {
+		// 		if (err)
+		// 			res.send(err);
+		// 		console.log('I have added and saved a summary');
+		// });
+
 	})
 	;
 

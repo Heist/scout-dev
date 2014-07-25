@@ -190,10 +190,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             $scope.flow = {'title': flowname, 'steps' : stepcollector} ;
             console.log('flow', $scope.flow);
         })
-    
-    $scope.saveSummary = function(){
-
-    }
 
     $scope.activate = function (index, parentIndex, step) {
         $scope.selectedIndex = index;
@@ -207,10 +203,23 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         //pass all of the tags inside of flows[allflows].steps[step] to an array 
     };
 
-    $scope.completeSummary = function (){
+    $scope.completeSummary = function(summary){
         // this is the Save A New Summary button
         // it saves a summary in complete mode when done writing it up
         // then returns you to /
+        var url = '/api/summary/'+ $stateParams.sessionKey +'/flow/'+ $stateParams.flowname;
+        var dataOut = summary;
+
+        console.log('post route',  url);
+        
+         $http.post(url, dataOut)   
+            .success(function(data){
+                console.log('added a new summary '+ JSON.stringify(data));
+            })
+            .error(function(data){
+
+            });        
+
         $location.path('/');
     }
 

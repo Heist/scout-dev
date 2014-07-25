@@ -3,55 +3,38 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var TagSchema = new Schema ({
-	name : {
-		type : String,
-		trim : true
-	},
-	summary : {
-		type : String,
-		trim : true
-	},
-	visible : {
-		type: boolean
-	}
-})
+// var TagSchema = new Schema ({
+// 	body: String,
+// 	visible: Boolean,
+// 	summary: {type: String, trim: true},
+// 	count: {type: Number, trim: true}
+// })
 
-var CommentSchema = new Schema ({
-	content	: {
-		type : String,
-		trim : true
-	},
-	tags : {
-		type : [String],
-		trim : true
-	},
-	fav : {
-		type : Boolean
-	}
-})
+// var MessageSchema = new Schema ({
+// 	body: {type : String, trim: true},
+// 	created: Date,
+// 	tags: [String],
+// 	fav : Boolean
+// })
+
+// var SessionByUserSchema = new Schema ({
+// 	user : String,
+// 	messages : [MessageSchema]
+// })
 
 var StepSchema = new Schema ({
-	name : {
-		type : String,
-		trim : true
-	},
-	comments : [CommentSchema]
+	name : String,
+	pass_fail : Boolean,
+	session_by_user : [SessionByUserSchema],
+	tags : [TagSchema]
 })
 
 var SummarySchema = new Schema ({
-	flowsummary	: {
-		type: String,
-		trim: true
-	},
-	created	: {
-		type: Date
-	},
-	created_by	: {
-		type : String
-	}
-	steps 	: [StepSchema],
-	tagsum	: [TagSchema]
+	title : {type: String, trim: true},
+	steps : [StepSchema],
+	created : Date,
+	updated : Date,
+	testKey : Number
 })
 
 
@@ -64,4 +47,4 @@ SummarySchema.pre('save', function(next){
   next();
 });
 
-module.exports = mongoose.model('Session', SessionSchema);
+module.exports = mongoose.model('Summary', SummarySchema);
