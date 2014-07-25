@@ -335,30 +335,55 @@ router.route('/summary/:testId/flow/:flowName')
 
 		// summary.testKey = req.params.testId;
 		// console.log('summary ', (util.inspect(summary, {showHidden: false, depth: null})));
-		var id_store = summary._id
-		// summary = req.body;
-		// summary._id = id_store;
-		// summary.testKey = req.params.testId;
+		summary._id = '';
+		summary.user = req.body.user;
+		summary.testKey = req.params.testId;
 
-		// console.log('summary ', (util.inspect(summary, {showHidden: false, depth: null})));
+		summary.steps = req.body.steps;
 
-		summary.save(function(err) {
+		// for (var i = 0; i < req.body.steps.length ; i++){
+		// 	summary.steps.pushreq.body.steps[i]);
+		// 	// for (var k in req.body.steps[i].tags_single){
+		// 	// 	// console.log(req.body.steps[i].tags_single);
+		// 	// 	summary.steps[i].tags_single = req.body.steps[i].tags_single;
+		// 	// 	console.log(summary.steps[i].tags_single);
+		// 	// }
+		// 	// for (var k in req.body.steps[i].session_by_user){
+		// 	// 	summary.steps[i].session_by_user.push(req.body.steps[i].session_by_user[k]);	
+		// 	// }
+		// }
+		
+		
+		// console.log(summary);
+
+		console.log('summary ', (util.inspect(summary, {showHidden: false, depth: 12})));
+
+		summary.save(function(err, data, number) {
 				if (err)
 					res.send(err);
-				console.log('I have added and saved a summary');
+				console.log('I have added and saved a summary', data);
 		});
 
 	})
 	;
+router.route('/summary/:summaryId')
+	.get(function(req,res){
+		Summary.findById(req.params.summaryId, function(err, summary) {
+				if (err)
+					res.send(err);
+				console.log('touched /:sessionId');
+				res.json(summary);
+			});
+	});
+
 router.route('/summary/')
 	.get(function(req,res){
-			Summary.find(function(err, summaries) {
+		Summary.find(function(err, summaries) {
 				if (err)
 					res.send(err);
 
 				res.json(summaries);
 			});
 	});
-
 
 module.exports = router;
