@@ -335,10 +335,9 @@ router.route('/summary/:testId/flow/:flowName')
 
 		// summary.testKey = req.params.testId;
 		// console.log('summary ', (util.inspect(summary, {showHidden: false, depth: null})));
-		summary._id = '';
+
 		summary.user = req.body.user;
 		summary.testKey = req.params.testId;
-
 		summary.steps = req.body.steps;
 
 		// for (var i = 0; i < req.body.steps.length ; i++){
