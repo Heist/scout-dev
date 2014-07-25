@@ -3,30 +3,30 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// var TagSchema = new Schema ({
-// 	body: String,
-// 	visible: Boolean,
-// 	summary: {type: String, trim: true},
-// 	count: {type: Number, trim: true}
-// })
+var TagSchema = new Schema ({
+	body: String,
+	visible: Boolean,
+	summary: {type: String, trim: true},
+	count: {type: Number, trim: true}
+})
 
-// var MessageSchema = new Schema ({
-// 	body: {type : String, trim: true},
-// 	created: Date,
-// 	tags: [String],
-// 	fav : Boolean
-// })
+var MessageSchema = new Schema ({
+	body: {type : String, trim: true},
+	created: Date,
+	tags: [String],
+	fav : Boolean
+})
 
-// var SessionByUserSchema = new Schema ({
-// 	user : String,
-// 	messages : [MessageSchema]
-// })
+var SessionByUserSchema = new Schema ({
+	user : String,
+	messages : [MessageSchema]
+})
 
 var StepSchema = new Schema ({
 	name : String,
 	pass_fail : Boolean,
 	session_by_user : [SessionByUserSchema],
-	tags : [TagSchema]
+	tags_single : [TagSchema]
 })
 
 var SummarySchema = new Schema ({

@@ -334,22 +334,31 @@ router.route('/summary/:testId/flow/:flowName')
 		var summary = new Summary();
 
 		// summary.testKey = req.params.testId;
-		console.log(summary);
+		// console.log('summary ', (util.inspect(summary, {showHidden: false, depth: null})));
 		var id_store = summary._id
-		summary = req.body;
-		summary._id = id_store;
-		summary.testKey = req.params.testId;
+		// summary = req.body;
+		// summary._id = id_store;
+		// summary.testKey = req.params.testId;
 
-		console.log(summary);
+		// console.log('summary ', (util.inspect(summary, {showHidden: false, depth: null})));
 
-		// summary.save(function(err) {
-		// 		if (err)
-		// 			res.send(err);
-		// 		console.log('I have added and saved a summary');
-		// });
+		summary.save(function(err) {
+				if (err)
+					res.send(err);
+				console.log('I have added and saved a summary');
+		});
 
 	})
 	;
+router.route('/summary/')
+	.get(function(req,res){
+			Summary.find(function(err, summaries) {
+				if (err)
+					res.send(err);
+
+				res.json(summaries);
+			});
+	});
 
 
 module.exports = router;
