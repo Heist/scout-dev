@@ -37,6 +37,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             url: '/summarizeFlow/:sessionKey/flow/:flowname',
             templateUrl: 'partials/summarizeFlow.html'
         })
+        .state('summarizeTags', {
+            url: '/summarizeFlow/:sessionKey/tags/:flowname',
+            templateUrl: 'partials/summarizeTags.html'
+        })
         ;
 
 })
@@ -180,7 +184,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                         tags = [];
                         for ( var key in tagDupe ){
                             tags.push({body: tagDupe[key].body, count : tagDupe[key].count, visible: true});
-                            tags_for_flow.push({body: tagDupe[key].body, count : tagDupe[key].count, visible: true, summary :''});
+                            tags_for_flow.push({body: tagDupe[key].body, count : tagDupe[key].count, summary :''});
                         }
 
                         // push single tags to each flow step
@@ -196,6 +200,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 if ( tags_for_flow[i].body == tags_for_flow[i+1].body ){
                     
                     var total = tags_for_flow[i].count + tags_for_flow[i+1].count;
+                    tags_for_flow.splice(i, 1);
                     tags_for_flow[i].count = total;
                     console.log(tags_for_flow[i].count);
                 }
@@ -218,7 +223,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     };
 
     $scope.summarizeTags = function (flow){
-
+        $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/tags/'+$stateParams.flowname);
     }
 
     $scope.completeSummary = function(summary){

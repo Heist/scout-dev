@@ -1,69 +1,60 @@
-
-<!-- header nav -->
-
-<div id="header">
+<div ng-controller="summarizeFlow" ng-model='flow'>
 	
+	<!-- header nav -->
+	
+	<div id="header">
 		
-	<div id="header-logo">
-		&nbsp;
-	</div>
-	
-	<div id="header-title">Summarizing &ldquo;Flow Name&rdquo; Tags</div>
-	
-	<div id="header-account">
-		<div id="header-account-avatar">
-			<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg">
+			
+		<div id="header-logo">
+			&nbsp;
 		</div>
-		<div id="header-account-dropdown">&#9662;</div>
+		
+		<div id="header-title">Summarizing &ldquo;{{flow.title}}&rdquo; Tags</div>
+		
+		<div id="header-account">
+			<div id="header-account-avatar">
+				<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg">
+			</div>
+			<div id="header-account-dropdown">&#9662;</div>
+		</div>
+		
+		
+		<div id="header-nav">
+			<button class="button small">&laquo; Add summaries for steps</button>
+			<button class="button small">&check; Done Summarizing</button>
+		</div>		
+	
+	</div>
+	
+	<!-- / header nav -->
+	
+	<!-- create a flow -->
+	
+	<div id="left-pane">
+		
+		<h3>Tags from &ldquo;{{flow.title}}&rdquo;</h3>
+		<p>You can add summaries or insights to tags from this session.</p>
+		
+		<ul class="tags">
+			<li ng-repeat="tag in flow.tags"><span>{{tag.body}}</span></li>
+		</ul>
+		
 	</div>
 	
 	
-	<div id="header-nav">
-		<button class="button small">&laquo; Add summaries for steps</button>
-		<button class="button small">&check; Done Summarizing</button>
-	</div>		
-
-</div>
-
-<!-- / header nav -->
-
-<!-- create a flow -->
-
-<div id="left-pane">
 	
-	<h3>Tags from &ldquo;Check your account&rdquo;</h3>
-	<p>You can add summaries or insights to tags from this session.</p>
 	
-	<ul class="tags">
-		<li><span>tag &#128172;</span></li>
-		<li><span>targ</span></li>
-		<li><span>Qapla'</span></li>
-		<li class="active"><span>language</span></li>
-		<li><span>hello &#128172;</span></li>
-		<li><span>tag</span></li>
-		<li><span>sandwich &#128172;</span></li>
-		<li><span>language</span></li>
-		<li><span>bourgeoisie</span></li>
-		<li><span>great</span></li>
-		<li><span>fig newtons</span></li>
-		<li><span>fail</span></li>
-	</ul>
-	
-</div>
-
-
-
-
-<div id="middle-pane">
-	
-	<h3>Summary for #language</h3>
-	<p>Add a summary for this tag to capture any notable themes or usage patterns.</p>
-	
-	<ul class="lined">
-		<li>
-			<textarea class="input" id="field-textarea" placeholder="Your summary"></textarea><br>
-			<button class="button small">Done</button> <button class="button destructive small">Remove summary</button>
-		</li>		
-	</ul>
+	<div id="middle-pane">
 		
+		<h3>Summary for #language</h3>
+		<p>Add a summary for this tag to capture any notable themes or usage patterns.</p>
+		
+		<ul class="lined">
+			<li>
+				<textarea class="input" id="field-textarea" placeholder="Your summary"></textarea><br>
+				<button class="button small">Done</button> <button class="button destructive small">Remove summary</button>
+			</li>		
+		</ul>
+			
+	</div>
 </div>
