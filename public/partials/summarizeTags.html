@@ -36,7 +36,7 @@
 		<p>You can add summaries or insights to tags from this session.</p>
 		
 		<ul class="tags">
-			<li ng-repeat="tag in flow.tags"><span>{{tag.body}}</span></li>
+			<li ng-repeat="tag in flow.tags" ng-click="selectTag(tag)" ng-class="{ 'deactivated': !selectedTag}"><span>{{tag.body}}</span></li>
 		</ul>
 		
 	</div>
@@ -46,13 +46,13 @@
 	
 	<div id="middle-pane">
 		
-		<h3>Summary for #language</h3>
+		<h3>Summary for #{{selectedTag.body}}</h3>
 		<p>Add a summary for this tag to capture any notable themes or usage patterns.</p>
 		
 		<ul class="lined">
 			<li>
-				<textarea class="input" id="field-textarea" placeholder="Your summary"></textarea><br>
-				<button class="button small">Done</button> <button class="button destructive small">Remove summary</button>
+				<textarea class="input" id="field-textarea" placeholder="Your summary" ng-model="selectedTag.summary"></textarea><br>
+				<button class="button destructive small" ng-click="clearSummary(summary)">Remove summary</button>
 			</li>		
 		</ul>
 			

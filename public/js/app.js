@@ -63,8 +63,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$scope.flow = {};
     $scope.timeline = [];
 
-// set selected step
+// set selected step for main flow
     $scope.step = {};
+
+// for summarizing tags
+    $scope.summary = {};
 
     // a function to return the steps from a set of flows
     // the scan those steps for their tags
@@ -74,17 +77,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
         .success(function(data){
             
-            // $scope.flows = data.flows;
-            // console.log('check me for user names!', data);
-            
+            // early experiments in appropriate data structures.
+
             function step(name, messages){
                 this.name = name;
                 this.messages = messages;
             }
-
-            // console.log('flows', JSON.stringify($scope.flows));
-            // console.log('this many flows:', data.flows.length);
-            // console.log('this is the root data structure', data.flows );
 
             var stepcollector = [];
             var stepnamecheck = [];
@@ -224,6 +222,15 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $scope.summarizeTags = function (flow){
         $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/tags/'+$stateParams.flowname);
+    }
+
+    $scope.selectTag = function (tag){
+        $scope.selectedTag = tag;
+        console.log('touched selectTag', tag.body);
+    }
+
+    $scope.clearSummary = function(summary){
+        summary.text = '';
     }
 
     $scope.completeSummary = function(summary){
