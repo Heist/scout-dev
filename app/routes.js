@@ -10,6 +10,14 @@ var mongoose = require('mongoose'); // so we can generate ObjectIDs for tests
 var Session = require('./models/session');
 var Summary = require('./models/summary');
 
+// small useful functions =====================================================
+
+// sorts an array of objects by key.
+function keysrt(key,desc) {
+  return function(a,b){
+   return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
+  }
+}
 
 
 // console logging =====================================================
@@ -288,7 +296,7 @@ router.route('/summary/:testId/flow/:flowName')
 				
 				var flowcollector = {};
 					flowcollector.flows = [];
-				var stepcollector = [];
+			
 
 			// this gathers and sorts similar flows from the returned
 			// session array[].
@@ -318,15 +326,15 @@ router.route('/summary/:testId/flow/:flowName')
             var stepcollector = [];
             var stepnamecheck = [];
             var counter;
-            var flowname = data.flows[0].title;
+            var flowname = flowcollector.flows[0].title;
             
             // this finds all messages in all steps in the stack and pushes them up
-            for (var j = 0; j < data.flows.length; j++){
-                var name = data.flows[j].title;
+            for (var j = 0; j < flowcollector.flows.length; j++){
+                var name = flowcollector.flows[j].title;
                 name = name.replace(/ /g,'');
 
-                for (var k = 0;  k < data.flows[j].steps.length; k++){
-                    var step = data.flows[j].steps[k];
+                for (var k = 0;  k < flowcollector.flows[j].steps.length; k++){
+                    var step = flowcollector.flows[j].steps[k];
                     var name = step.title;                    
                     if (!(stepnamecheck.indexOf(name) != -1)){
                         stepnamecheck.push(name);
@@ -335,7 +343,7 @@ router.route('/summary/:testId/flow/:flowName')
                         for ( var l in stepcollector){
                             if (name == stepcollector[l].name){
 
-                                var pusher = {'user' : data.flows[j].user_id, 'messages' : data.flows[j].steps[k].messages }
+                                var pusher = {'user' : flowcollector.flows[j].user_id, 'messages' : flowcollector.flows [j].steps[k].messages }
                                 stepcollector[l].session_by_user.push(pusher);
                             };
                         }
@@ -435,12 +443,8 @@ router.route('/summary/:testId/flow/:flowName')
                 }
             }
 
-            $scope.flow = {'title': flowname, 'steps' : stepcollector, 'tags': tags_for_flow } ;
-            console.log('flow', $scope.flow);
-
-
 		// Send out the reply to the front end
-				res.json(flowcollector);
+				res.json({'title': flowname, 'steps' : stepcollector, 'tags': tags_for_flow });
 			});
 	})
 	// .post(function(req,res){
