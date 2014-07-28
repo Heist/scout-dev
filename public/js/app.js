@@ -226,11 +226,37 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.summarizeSteps = function (flow){
         $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/flow/'+$stateParams.flowname);
         // upsert summary to DB
+        
+        var url = '/api/summary/'+ $stateParams.sessionKey +'/flow/'+ $stateParams.flowname;
+        var dataOut = flow;
+
+        console.log('post route',  url);
+        
+         $http.put(url, dataOut)   
+            .success(function(data){
+                console.log('sent a summary upsert - tags '+ JSON.stringify(data));
+            })
+            .error(function(data){
+
+            });  
     }
 
     $scope.summarizeTags = function (flow){
         $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/tags/'+$stateParams.flowname);
         // upsert summary to DB
+
+        var url = '/api/summary/'+ $stateParams.sessionKey +'/flow/'+ $stateParams.flowname;
+        var dataOut = flow;
+
+        console.log('put route',  url);
+        
+         $http.put(url, dataOut)   
+            .success(function(data){
+                console.log('sent a summary upsert - steps '+ JSON.stringify(data));
+            })
+            .error(function(data){
+
+            });  
     }
 
     $scope.completeSummary = function(summary){
@@ -240,11 +266,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         var url = '/api/summary/'+ $stateParams.sessionKey +'/flow/'+ $stateParams.flowname;
         var dataOut = summary;
 
-        console.log('post route',  url);
+        console.log('put route',  url);
         
-         $http.post(url, dataOut)   
+         $http.put(url, dataOut)   
             .success(function(data){
-                console.log('added a new summary '+ JSON.stringify(data));
+                console.log('sent a new summary '+ JSON.stringify(data));
             })
             .error(function(data){
 

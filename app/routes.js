@@ -308,22 +308,22 @@ router.route('/summary/:testId/flow/:flowName')
 				res.json(flowcollector);
 			});
 	})
-	.post(function(req,res){
-		var summary = new Summary();
+	// .post(function(req,res){
+	// 	var summary = new Summary();
 
-		summary.user = req.body.user;
-		summary.testKey = req.params.testId;
-		summary.steps = req.body.steps;
+	// 	summary.user = req.body.user;
+	// 	summary.testKey = req.params.testId;
+	// 	summary.steps = req.body.steps;
 
-		console.log('summary ', (util.inspect(summary, {showHidden: false, depth: 12})));
+	// 	console.log('summary ', (util.inspect(summary, {showHidden: false, depth: 12})));
 
-		summary.save(function(err, data, number) {
-				if (err)
-					res.send(err);
-				console.log('I have added and saved a summary', data);
-		});
+	// 	summary.save(function(err, data, number) {
+	// 			if (err)
+	// 				res.send(err);
+	// 			console.log('I have added and saved a summary', data);
+	// 	});
 
-	})
+	// })
 	.put(function(req,res){
 		Summary.findOne({'testKey':req.params.testId }, function (err, summary) {
     		
