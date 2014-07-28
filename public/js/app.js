@@ -223,10 +223,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $scope.summarizeSteps = function (flow){
         $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/flow/'+$stateParams.flowname);
+        // upsert summary to DB
     }
 
     $scope.summarizeTags = function (flow){
         $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/tags/'+$stateParams.flowname);
+        // upsert summary to DB
     }
 
     $scope.selectTag = function (tag){
@@ -234,8 +236,15 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         console.log('touched selectTag', tag.body);
     }
 
-    $scope.clearSummary = function(summary){
+    $scope.clearTagSummary = function(summary){
         summary.text = '';
+        // maybe put a flow delete statement here
+    }
+
+    $scope.saveTagSummary = function(summary){
+        console.log('touched save summary');
+        //maybe put a flow put statement here
+
     }
 
     $scope.completeSummary = function(summary){
