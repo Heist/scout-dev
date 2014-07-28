@@ -221,6 +221,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     };
 
 
+// Switch between Steps and Tags summary views
+
     $scope.summarizeSteps = function (flow){
         $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/flow/'+$stateParams.flowname);
         // upsert summary to DB
@@ -229,22 +231,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.summarizeTags = function (flow){
         $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/tags/'+$stateParams.flowname);
         // upsert summary to DB
-    }
-
-    $scope.selectTag = function (tag){
-        $scope.selectedTag = tag;
-        console.log('touched selectTag', tag.body);
-    }
-
-    $scope.clearTagSummary = function(summary){
-        summary.text = '';
-        // maybe put a flow delete statement here
-    }
-
-    $scope.saveTagSummary = function(summary){
-        console.log('touched save summary');
-        //maybe put a flow put statement here
-
     }
 
     $scope.completeSummary = function(summary){
@@ -266,6 +252,26 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         $location.path('/');
     }
+
+// Summarize Tags controller functions
+
+    $scope.selectTag = function (tag){
+        $scope.selectedTag = tag;
+        console.log('touched selectTag', tag.body);
+    }
+
+    $scope.clearTagSummary = function(summary){
+        summary.text = '';
+        // maybe put a flow delete statement here
+    }
+
+    $scope.saveTagSummary = function(summary){
+        console.log('touched save summary');
+        //maybe put a flow put statement here
+
+    }
+
+// Summarize Steps controller functions 
 
     $scope.showHideTag = function(tag, index){
         // this sets visible/not visible on the repeated tags in steps.tags_single

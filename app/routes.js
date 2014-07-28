@@ -58,26 +58,6 @@ router.route('/')
 			});
 		});
 
-// this may not be used by anything any more. 
-// Should be /test/testid anyway.
-// router.route('/:sessionId/test/:testId')
-// 	.put(function(req,res){
-// 		Session.findById(req.params.sessionId).exec(
-// 			function(err, session) {
-
-// 				session.flows.id(req.body._id).remove();
-// 				session.flows.push(req.body);
-				
-
-// 				session.save(function(err) {
-// 						if (err)
-// 							res.send(err);
-						
-// 						res.json(session);
-// 				});
-// 			}
-// 		);
-// 	});
 
 
 	// frontend routes =========================================================
@@ -343,6 +323,30 @@ router.route('/summary/:testId/flow/:flowName')
 				console.log('I have added and saved a summary', data);
 		});
 
+	})
+	.put(function(req,res){
+		Summary.findOne({'testKey':req.params.testId }, function (err, summary) {
+    		
+   				if (!summary){
+   					console.log('I need to make a summary')
+
+	   				var summary = new Summary();
+
+					summary.user = req.body.user;
+					summary.testKey = req.params.testId;
+					summary.steps = req.body.steps;
+
+					console.log('summary ', (util.inspect(summary, {showHidden: false, depth: 12})));
+   				}
+
+   				console.log('I got a summary and need to update it')
+
+				summary.save(function(err, data, number) {
+					if (err)
+						res.send(err);
+					console.log('I have added and saved a summary', data);
+				});
+		});
 	})
 	;
 router.route('/summary/:summaryId')
