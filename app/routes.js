@@ -447,44 +447,24 @@ router.route('/summary/:testId/flow/:flowName')
 				res.json({'title': flowname, 'steps' : stepcollector, 'tags': tags_for_flow });
 			});
 	})
-	// .post(function(req,res){
-	// 	var summary = new Summary();
-
-	// 	summary.user = req.body.user;
-	// 	summary.testKey = req.params.testId;
-	// 	summary.steps = req.body.steps;
-
-	// 	console.log('summary ', (util.inspect(summary, {showHidden: false, depth: 12})));
-
-	// 	summary.save(function(err, data, number) {
-	// 			if (err)
-	// 				res.send(err);
-	// 			console.log('I have added and saved a summary', data);
-	// 	});
-
-	// })
 	.put(function(req,res){
-		Summary.findOne({'testKey':req.params.testId }, function (err, summary) {
-    		
-   				if (!summary){
-   					console.log('I need to make a summary')
+		// probably this should findByIdAndUpdate(id, update, callback)
 
-	   				var summary = new Summary();
+		var query = {
+				'testKey':req.params.testId, 
+				'title':req.params.flowname,
+		};
+		var update = {};
+		var options = {new: true};
 
-					summary.user = req.body.user;
-					summary.testKey = req.params.testId;
-					summary.steps = req.body.steps;
+		console.log('put a request', req.body);
 
-					console.log('summary ', (util.inspect(summary, {showHidden: false, depth: 12})));
-   				}
-
-   				console.log('I got a summary and need to update it', summary)
-
-				// summary.save(function(err, data, number) {
-				// 	if (err)
-				// 		res.send(err);
-				// 	console.log('I have added and saved a summary', data);
-				// });
+		Summary.findOneAndUpdate(query, update, options, function (err, summary) {
+   				 if (err) {
+				    console.log('got an error');
+				  }
+			console.log('findone', summary);
+			
 		});
 	})
 	;
@@ -496,7 +476,19 @@ router.route('/summary/:summaryId')
 				console.log('touched /:sessionId');
 				res.json(summary);
 			});
-	});
+	})
+	.delete(function(req,res){
+		console.log(req.params.summaryId);
+		Summary.remove({
+			'_id': req.params.summaryId
+		}, function(err, summary) {
+			if (err)
+				res.send(err);
+
+			res.json({ message: 'Successfully deleted summary with '+req.params.summaryId });
+		});
+	})
+	;
 
 router.route('/summary/')
 	.get(function(req,res){

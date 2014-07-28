@@ -84,7 +84,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $scope.parentIndex = parentIndex;
 
         // passes the step title to the global variable from flows[0].steps[step]
-        // $scope.step.title = step.name;
+        
         $scope.step = step;
         console.log('step', $scope.step);
 
@@ -101,6 +101,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         var url = '/api/summary/'+ $stateParams.sessionKey +'/flow/'+ $stateParams.flowname;
         var dataOut = flow;
 
+        console.log('put', flow);
         console.log('post route',  url);
         
          $http.put(url, dataOut)   
@@ -119,6 +120,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         var url = '/api/summary/'+ $stateParams.sessionKey +'/flow/'+ $stateParams.flowname;
         var dataOut = flow;
 
+        console.log('put', flow);
+
         console.log('put route',  url);
         
          $http.put(url, dataOut)   
@@ -134,6 +137,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // this is the Save A New Summary button
         // it saves a summary in complete mode when done writing it up
         // then returns you to /
+        console.log('put', summary);
         var url = '/api/summary/'+ $stateParams.sessionKey +'/flow/'+ $stateParams.flowname;
         var dataOut = summary;
 
