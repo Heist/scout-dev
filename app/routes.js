@@ -448,26 +448,56 @@ router.route('/summary/:testId/flow/:flowName')
 			});
 	})
 	.put(function(req,res){
-		// probably this should findByIdAndUpdate(id, update, callback)
+		// trying a findOneAndUpdate
 
 		var query = {
 				'testKey':req.params.testId, 
 				'title':req.params.flowname,
 		};
-		var update = {};
-		var options = {new: true};
 
-		console.log('put a request', req.body);
+		// var update ={$set: {
+		// 		user: req.body.user,
+		// 		testKey: req.body.testKey,
+		// 		steps: req.body.steps
+		// }};
 
-		Summary.findOneAndUpdate(query, update, options, function (err, summary) {
+		// var options = {upsert : true};
+
+
+		Summary.findOne(query, function (err, summary) {
    				 if (err) {
 				    console.log('got an error');
 				  }
-			console.log('findone', summary);
-			
+
+			if (!summary){
+				console.log('it atent here')
+				summary  = new Summary ();
+
+				summary.user = req.body.user;
+				summary.testKey = req.body.testKey;
+				summary.steps = req.body.steps;
+
+				console.log('new summary', summary.title);
+				
+			} else if (summary){
+				console.log('touched summary');
+
+				summary.user = req.body.user;
+				summary.testKey = req.body.testKey;
+				summary.steps = req.body.steps;
+
+				console.log('updated steps', summary.steps[0].tags_single[0]);
+			}
+
+			summary.save(function(err, data) {
+		            if (err)
+		                res.send(err);
+		            console.log('I have added and saved a summary', data);
+		    });
 		});
-	})
-	;
+
+	});
+
 router.route('/summary/:summaryId')
 	.get(function(req,res){
 		Summary.findById(req.params.summaryId, function(err, summary) {
