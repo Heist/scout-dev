@@ -110,7 +110,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             })
             .error(function(data){
 
-            });  
+            });
+
+        // this shit needs to forcibly reapply/maintain the existing [flow] - at present it does not
+
     }
 
     $scope.summarizeTags = function (flow){
@@ -131,6 +134,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             .error(function(data){
 
             });  
+        
     }
 
     $scope.completeSummary = function(summary){
@@ -238,7 +242,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                         ssincount=0;
                     }
             }
-            console.log(JSON.stringify(ssin));
+            // console.log(JSON.stringify(ssin));
 
             // return model sessions to the sessions scope for display and control
             for(var i =0; i<data.length; i++){
