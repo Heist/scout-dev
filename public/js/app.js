@@ -141,6 +141,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 }
             }
 
+            var tags_for_flow = [];
             // integrate tags to stepcollector for a clean object
             for (var i in stepcollector){
                 for (var j in tagcollector){
@@ -177,17 +178,30 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                         // console.log('tagDupe', tagDupe);
 
                         tags = [];
-
                         for ( var key in tagDupe ){
-                            tags.push({body: tagDupe[key].body, count : tagDupe[key].count, visible: true, summary : ''});
+                            tags.push({body: tagDupe[key].body, count : tagDupe[key].count, visible: true});
+                            tags_for_flow.push({body: tagDupe[key].body, count : tagDupe[key].count, visible: true, summary :''});
                         }
-                        // console.log('tags before collection', tags)
+
+                        // push single tags to each flow step
                         stepcollector[i].tags_single = tags;
                     }
                 }
             }
 
-            $scope.flow = {'title': flowname, 'steps' : stepcollector} ;
+            tags_for_flow.sort(keysrt('body'));
+            
+            for (var i = 0; i < tags_for_flow.length -1 ; i++){
+                    
+                if ( tags_for_flow[i].body == tags_for_flow[i+1].body ){
+                    
+                    var total = tags_for_flow[i].count + tags_for_flow[i+1].count;
+                    tags_for_flow[i].count = total;
+                    console.log(tags_for_flow[i].count);
+                }
+            }
+
+            $scope.flow = {'title': flowname, 'steps' : stepcollector, 'tags': tags_for_flow } ;
             console.log('flow', $scope.flow);
         })
 
@@ -202,6 +216,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         //pass all of the tags inside of flows[allflows].steps[step] to an array 
     };
+
+    $scope.summarizeTags = function (flow){
+
+    }
 
     $scope.completeSummary = function(summary){
         // this is the Save A New Summary button

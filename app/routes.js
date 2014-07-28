@@ -329,31 +329,11 @@ router.route('/summary/:testId/flow/:flowName')
 			});
 	})
 	.post(function(req,res){
-		// console.log('touched summary.post', req.body);
-		
 		var summary = new Summary();
-
-		// summary.testKey = req.params.testId;
-		// console.log('summary ', (util.inspect(summary, {showHidden: false, depth: null})));
 
 		summary.user = req.body.user;
 		summary.testKey = req.params.testId;
 		summary.steps = req.body.steps;
-
-		// for (var i = 0; i < req.body.steps.length ; i++){
-		// 	summary.steps.pushreq.body.steps[i]);
-		// 	// for (var k in req.body.steps[i].tags_single){
-		// 	// 	// console.log(req.body.steps[i].tags_single);
-		// 	// 	summary.steps[i].tags_single = req.body.steps[i].tags_single;
-		// 	// 	console.log(summary.steps[i].tags_single);
-		// 	// }
-		// 	// for (var k in req.body.steps[i].session_by_user){
-		// 	// 	summary.steps[i].session_by_user.push(req.body.steps[i].session_by_user[k]);	
-		// 	// }
-		// }
-		
-		
-		// console.log(summary);
 
 		console.log('summary ', (util.inspect(summary, {showHidden: false, depth: 12})));
 
