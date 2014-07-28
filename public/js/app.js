@@ -220,6 +220,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         //pass all of the tags inside of flows[allflows].steps[step] to an array 
     };
 
+
+    $scope.summarizeSteps = function (flow){
+        $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/flow/'+$stateParams.flowname);
+    }
+
     $scope.summarizeTags = function (flow){
         $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/tags/'+$stateParams.flowname);
     }
