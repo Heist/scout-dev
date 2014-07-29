@@ -474,6 +474,8 @@ router.route('/summary/:summaryID/flow/:flowName')
 			});
 	})
 	.put(function(req,res){
+		console.log('touched put for summaryID', req.body);
+		
 		var query = { 
 				'_id': req.params.summaryID
 		};
