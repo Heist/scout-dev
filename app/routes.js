@@ -447,12 +447,38 @@ router.route('/summary/:testId/flow/:flowName')
 				res.json({'title': flowname, 'steps' : stepcollector, 'tags': tags_for_flow });
 			});
 	})
+	.post(function(req,res){
+		// on clicking "summarize," we
+		// check to see if a summary already exists with that name
+		// and an ._id field.
+		// if a summary does not already exist
+	 	// create a summary to work with
+	 	// pass its ._id as part of the path to the front end
+
+	 	// var query = {
+			// 	'testKey':req.params.testId, 
+			// 	'title':req.params.flowname
+			// };
+
+	 	// Summary.findOne(query, function (err, summary){
+	 	// 	if (err) {
+			//     console.log('got an error');
+		 //  	} else if (!summary) {
+			// 	summary = new Summary();
+			// 	summary.title = req.params.flowname
+			// 	summary.testKey = req.params.testId
+		 //  	}
+
+	 	// }
+		
+
+	})
 	.put(function(req,res){
 		// trying a findOneAndUpdate
 
 		var query = {
 				'testKey':req.params.testId, 
-				'title':req.params.flowname,
+				'title':req.params.flowname
 		};
 
 		// var update ={$set: {
@@ -465,10 +491,7 @@ router.route('/summary/:testId/flow/:flowName')
 
 
 		Summary.findOne(query, function (err, summary) {
-   				 if (err) {
-				    console.log('got an error');
-				  }
-
+   				 
 			if (!summary){
 				console.log('it atent here')
 				summary  = new Summary ();
@@ -478,7 +501,7 @@ router.route('/summary/:testId/flow/:flowName')
 				summary.steps = req.body.steps;
 
 				console.log('new summary', summary.title);
-				
+
 			} else if (summary){
 				console.log('touched summary');
 
