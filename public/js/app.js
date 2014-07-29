@@ -77,6 +77,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
         .success(function(data){
           $scope.flow = data;
+          console.log('the flow object', $scope.flow);
         })
 
     $scope.activate = function (index, parentIndex, step) {

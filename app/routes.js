@@ -338,7 +338,7 @@ router.route('/summary/:testId/flow/:flowName')
                     var name = step.title;                    
                     if (!(stepnamecheck.indexOf(name) != -1)){
                         stepnamecheck.push(name);
-                        stepcollector.push({name : name, session_by_user : [], pass_fail : false });
+                        stepcollector.push({name : name, session_by_user : [], pass_fail : false, summary: step.summary });
                     } else if (stepnamecheck.indexOf(name) != -1){
                         for ( var l in stepcollector){
                             if (name == stepcollector[l].name){
@@ -443,8 +443,14 @@ router.route('/summary/:testId/flow/:flowName')
                 }
             }
 
+        summary = new Summary();
+        
+        summary.title = flowname;
+        summary.steps = stepcollector;
+        summary.tags = tags_for_flow;
+
 		// Send out the reply to the front end
-				res.json({'title': flowname, 'steps' : stepcollector, 'tags': tags_for_flow });
+				res.json(summary);
 			});
 	})
 	.post(function(req,res){
@@ -481,42 +487,18 @@ router.route('/summary/:testId/flow/:flowName')
 				'title':req.params.flowname
 		};
 
-		// var update ={$set: {
-		// 		user: req.body.user,
-		// 		testKey: req.body.testKey,
-		// 		steps: req.body.steps
-		// }};
+		// summary.user = req.body.user;
+		// summary.testKey = req.body.testKey;
+		// summary.steps = req.body.steps;
 
-		// var options = {upsert : true};
+		var update = {
+			steps : req.body.steps
+		}
 
+		var options = {upsert : true}
 
-		Summary.findOne(query, function (err, summary) {
-   				 
-			if (!summary){
-				console.log('it atent here')
-				summary  = new Summary ();
-
-				summary.user = req.body.user;
-				summary.testKey = req.body.testKey;
-				summary.steps = req.body.steps;
-
-				console.log('new summary', summary.title);
-
-			} else if (summary){
-				console.log('touched summary');
-
-				summary.user = req.body.user;
-				summary.testKey = req.body.testKey;
-				summary.steps = req.body.steps;
-
-				console.log('updated steps', summary.steps[0].tags_single[0]);
-			}
-
-			summary.save(function(err, data) {
-		            if (err)
-		                res.send(err);
-		            console.log('I have added and saved a summary', data);
-		    });
+		Summary.findOneAndUpdate(query, update, options, function (err, summary) {
+   				
 		});
 
 	});
