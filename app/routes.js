@@ -67,10 +67,16 @@ router.route('/')
 		});
 
 
-
-	// frontend routes =========================================================
-	// route to handle all angular requests
-	// This route deals enables HTML5Mode by forwarding missing files to the index.html			
+// REPORT routes =========================================================
+router.route('/report/:summaryId')
+	.get(function(req,res){
+		Summary.findById(req.params.summaryId, function(err, summary) {
+				if (err)
+					res.send(err);
+				console.log('touched /:reportID');
+				res.json(summary);
+			});
+	});
 
 // TEST routes =========================================================
 

@@ -41,6 +41,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             url: '/summarizeFlow/:summaryID/tags/:flowname',
             templateUrl: 'partials/summarizeTags.html'
         })
+        .state('report', {
+            url: '/report/:summaryID/',
+            templateUrl: 'partials/report.html'
+        })
         ;
 
 })
@@ -57,6 +61,20 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             return $sce.trustAsHtml(msg);
         };
 }])
+
+// REPORT CONTROLLER ===========================================================
+.controller('report', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
+    // holds the relevant summary
+    $scope.flow = {};
+
+    $http.get('/api/report/'+$stateParams.summaryID)
+        .success(function(data){
+          $scope.flow = data;
+          console.log('the report object', $scope.flow);
+        })
+
+}])
+
 
 // SUMMARIZE CONTROLLER ========================================================
 .controller('summarizeTags', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){

@@ -1,0 +1,158 @@
+<div id="view-report" ng-controller='report'>
+<div ng-model="flow">
+	
+		<div id="header">
+			
+			<div id="header-logo">
+				&nbsp;
+			</div>
+			
+			<div id="header-title">Report</div>
+			
+						
+		
+		</div>
+		
+		<!-- / header nav -->
+		
+		
+		
+		
+		
+		<div id="left-pane">
+			
+			<div id="questions">
+		
+			<div class="questions-group active">
+				<ul>
+					<li ng-model='flow'><!-- flow title --><small>Flow</small><br/>
+						{{flow.title}}</li>
+					<li class="question" ng-repeat="step in flow.steps" ng-class="{ 'active': $index == 	selectedIndex && $parent.$index == parentIndex }"
+		             			ng-click="activate($index, $parent.$index, step)">
+							<span>{{step.name}}</span>
+							
+							<div class="step-rating">
+								<img src="/assets/rate-positive.svg" /> <img src="/assets/rate-negative.svg">
+							</div>
+							
+							<h3>{{step.name}}</h3>
+							<p class="question-body" ng-show="$index == selectedIndex && $parent.$index == parentIndex">
+								{{step.desc}}
+							</p>
+						</li>
+					</ul>
+				</div>
+			</div>	
+				
+		</div>
+		
+		
+		
+		
+		
+		<div id="large-pane">
+			
+			<!-- flow general info -->
+			<h1>User Account Change</h1>
+			<p class="report-detail">Report generated July 12 2014</p>		
+			<p>This is the flow summary. Flank short loin swine ground round turducken landjaeger jerky sausage kielbasa shankle ham. Tenderloin pancetta pastrami turducken tongue. Pig chuck swine, salami bresaola drumstick jowl boudin ground round ribeye. Doner spare ribs brisket jerky andouille meatball. Strip steak swine kielbasa chicken, pastrami meatloaf kevin tail ham hock. Swine porchetta cow frankfurter chicken kielbasa, turkey jowl pastrami andouille hamburger salami.</p>
+			<p class="report-participants">7 participants</p>
+				
+			<ul class="report-participants">
+				<li><div class="report-part-img"><img src="http://rdjpg.com/40/40" /></div>Ben</li>
+				<li><div class="report-part-img"><img src="http://rdjpg.com/40/41" /></div>Jennifer</li>
+				<li><div class="report-part-img"><img src="http://rdjpg.com/41/40" /></div>Morn</li>
+				<li><div class="report-part-img"><img src="http://rdjpg.com/41/42" /></div>Odo</li>
+				<li><div class="report-part-img"><img src="http://rdjpg.com/42/42" /></div>Jadzia</li>
+				<li><div class="report-part-img"><img src="http://rdjpg.com/41/41" /></div>Kira</li>
+				<li><div class="report-part-img"><img src="http://rdjpg.com/40/41" /></div>Garak</li>
+			</ul>
+		
+			
+			<!-- flow theme summary -->
+			<div class="report-block">
+				<h2><span>Theme:</span> Language</h2>
+				<p class="report-detail">Mentioned 8 times</p>	
+				<p>Meatball boudin salami jerky bresaola tri-tip ribeye sausage chicken flank tenderloin leberkas rump. Brisket pork chop flank meatloaf boudin rump sausage meatball pastrami. Landjaeger ribeye tongue chuck, short loin short ribs ball tip. Rump venison beef flank. Rump boudin venison tri-tip sirloin meatball.
+				</p>
+				
+				<div class="theme-messages">
+			
+					<div class="message">
+						<div class="message-details">
+							<div class="message-details-avatar">
+								<img src="http://rdjpg.com/30/30" />
+							</div>
+						</div>
+						<div class="message-body">
+							<p><span class="tag">#language</span> <span class="tag">#note</span> Hashtags can also go at the front</p>
+							<small>Testing with Jennifer</small>
+						</div>
+						<div class="clear"></div>
+					</div>
+					
+					<div class="message">
+						<div class="message-details">
+							<div class="message-details-avatar">
+								<img src="http://rdjpg.com/31/31" />
+							</div>
+						</div>
+						<div class="message-body">
+							<p>He seemed to be having a lot of trouble understanding that word<span class="tag">#language</span></p>
+							<small>Testing with Ben</small>
+						</div>
+						<div class="clear"></div>
+					</div>
+					
+			
+				</div>
+				
+			</div>
+			
+			
+			<!-- flow theme summary -->
+			<div class="report-block">
+				<h2><span>Theme:</span> Pies</h2>
+				<p class="report-detail">Mentioned 8 times</p>	
+				<p>Meatball boudin salami jerky bresaola tri-tip ribeye sausage chicken flank tenderloin leberkas rump. Brisket pork chop flank meatloaf boudin rump sausage meatball pastrami. Landjaeger ribeye tongue chuck, short loin short ribs ball tip. Rump venison beef flank. Rump boudin venison tri-tip sirloin meatball.
+				</p>
+				
+				<div class="theme-messages">
+			
+					<div class="message">
+						<div class="message-details">
+							<div class="message-details-avatar">
+								<img src="http://rdjpg.com/30/30" />
+							</div>
+						</div>
+						<div class="message-body">
+							<p><span class="tag">#language</span> <span class="tag">#note</span> Hashtags can also go at the front</p>
+							<small>Testing with Jennifer</small>
+						</div>
+						<div class="clear"></div>
+					</div>
+					
+					<div class="message">
+						<div class="message-details">
+							<div class="message-details-avatar">
+								<img src="http://rdjpg.com/31/31" />
+							</div>
+						</div>
+						<div class="message-body">
+							<p>He seemed to be having a lot of trouble understanding that word <span class="tag">#language</span></p>
+							<small>Testing with Ben</small>
+						</div>
+						<div class="clear"></div>
+					</div>
+					
+			
+				</div>
+				
+			</div>
+			
+			
+			
+				
+		</div>
+</div>
+</div>
