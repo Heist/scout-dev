@@ -99,7 +99,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/flow/'+$stateParams.flowname);
         // upsert summary to DB
         
-        var url = '/api/summary/'+ flow._id +'/flow/'+ $stateParams.flowname;
+        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
         var dataOut = flow;
 
         console.log('put', flow);
@@ -118,10 +118,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     $scope.summarizeTags = function (flow){
-        $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/tags/'+$stateParams.flowname);
+        
         // upsert summary to DB
-
-        var url = '/api/summary/'+ flow._id +'/flow/'+ $stateParams.flowname;
+        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
         var dataOut = flow;
 
         console.log('put', flow);
@@ -134,8 +133,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             })
             .error(function(data){
 
-            });  
-        
+            });
+        console.log()    
+        $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/tags/'+  $stateParams.flowname);
     }
 
     $scope.completeSummary = function(summary){
@@ -145,7 +145,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // this runs on a really weird, delayed time cycle! I do not know why.
 
         console.log('put', summary);
-        var url = '/api/summary/'+ summary._id +'/flow/'+ $stateParams.flowname;
+        var url = '/api/summary/'+ $stateParams.sessionID +'/flow/'+ $stateParams.flowname;
         var dataOut = summary;
 
         console.log('put route',  url);
