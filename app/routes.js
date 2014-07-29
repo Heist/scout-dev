@@ -280,12 +280,8 @@ router.route('/test/:testId/session/:sessionId/flow/:flowId')
    			}
 		);
 	});
-
-// SUMMARY routes ======================================================
-
-// get the flow to summarize
-// controller: summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname
-router.route('/summary/:testId/flow/:flowName')
+// a route for generating a new summary from an existing collection of flows.
+router.route('/test/:testId/flow/:flowName')
 	.get(function(req,res) {
 		console.log('touched flowcollector');
 		
@@ -449,13 +445,34 @@ router.route('/summary/:testId/flow/:flowName')
         summary.steps = stepcollector;
         summary.tags = tags_for_flow;
 
-		// Send out the reply to the front end
+        // TODO there's really no way around this 
+        // without being able to check a thing 
+        // to see if it has a null _id field first
+
+		summary.save(function(err) {
+				if (err)
+					res.send(err);
+				
 				res.json(summary);
 		});
+	});
+
+// SUMMARY routes ======================================================
+
+// get the summary to fill in from the database
+
+router.route('/summary/:testId/flow/:flowName')
+	.get(function(req,res){
+		Summary.findById(req.params.summaryId, function(err, summary) {
+				if (err)
+					res.send(err);
+				console.log('touched /:sessionId');
+				res.json(summary);
+			});
 	})
 	.put(function(req,res){
 		var query = { 
-				'_id':req.params.testId
+				'_id': req.params.testId
 		};
 
 		var update = {
@@ -464,8 +481,7 @@ router.route('/summary/:testId/flow/:flowName')
 
 		var options = {upsert : true};
 
-		Summary.findByIdAndUpdate(query, update, options, function (err, summary) {
-   				
+		Summary.findByIdAndUpdate(query, update, options, function (err, summary) {	
 		});
 
 	});

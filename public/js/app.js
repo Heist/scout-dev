@@ -419,14 +419,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.summarizeFlow = function(session, flow){
         // strip flowname's whitespace
         
-        flow = flow.replace(/ /g,''); 
+        flow = flow.replace(/ /g,'');
         console.log(session, flow);
 
         $http.get('/api/summary/'+ session +'/flow/'+ flow)
         .success(function(data){
           console.log('the flow object', $scope.flow);
             // set new location path
-            $location.path('/summarizeFlow/'+data._id+'/flow/'+data.title);
+            $location.path('/summarizeFlow/'+data._id+'/flow/'+flow);
         })
 
 
