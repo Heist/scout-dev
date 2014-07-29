@@ -475,10 +475,12 @@ router.route('/summary/:summaryID/flow/:flowName')
 	})
 	.put(function(req,res){
 		console.log('touched put for summaryID', req.body);
-		
+
 		var query = { 
-				'_id': req.params.summaryID
+				'_id': req.body._id
 		};
+
+		console.log(query);
 
 		var update = {
 			steps : req.body.steps
@@ -486,7 +488,7 @@ router.route('/summary/:summaryID/flow/:flowName')
 
 		var options = {upsert : true};
 
-		Summary.findByIdAndUpdate(query, update, options, function (err, summary) {	
+		Summary.findByIdAndUpdate(req.body._id, update, options, function (err, summary) {	
 		});
 
 	});

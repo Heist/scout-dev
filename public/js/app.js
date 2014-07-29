@@ -95,48 +95,48 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 // Switch between Steps and Tags summary views
 
-    $scope.summarizeSteps = function (flow){
-        $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/flow/'+$stateParams.flowname);
-        // upsert summary to DB
+    // $scope.summarizeSteps = function (flow){
+    //     $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/flow/'+$stateParams.flowname);
+    //     // upsert summary to DB
         
-        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
-        var dataOut = flow;
+    //     var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
+    //     var dataOut = flow;
 
-        console.log('put', flow);
-        console.log('post route',  url);
+    //     console.log('put', flow);
+    //     console.log('post route',  url);
         
-         $http.put(url, dataOut)   
-            .success(function(data){
-                console.log('sent a summary upsert - tags '+ JSON.stringify(data));
-            })
-            .error(function(data){
+    //      $http.put(url, dataOut)   
+    //         .success(function(data){
+    //             console.log('sent a summary upsert - tags '+ JSON.stringify(data));
+    //         })
+    //         .error(function(data){
 
-            });
+    //         });
 
-        // this shit needs to forcibly reapply/maintain the existing [flow] - at present it does not
+    //     // this shit needs to forcibly reapply/maintain the existing [flow] - at present it does not
 
-    }
+    // }
 
-    $scope.summarizeTags = function (flow){
+    // $scope.summarizeTags = function (flow){
         
-        // upsert summary to DB
-        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
-        var dataOut = flow;
+    //     // upsert summary to DB
+    //     var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
+    //     var dataOut = flow;
 
-        console.log('put', flow);
+    //     console.log('put', flow);
 
-        console.log('put route',  url);
+    //     console.log('put route',  url);
         
-         $http.put(url, dataOut)   
-            .success(function(data){
-                console.log('sent a summary upsert - steps '+ JSON.stringify(data));
-            })
-            .error(function(data){
+    //      $http.put(url, dataOut)   
+    //         .success(function(data){
+    //             console.log('sent a summary upsert - steps '+ JSON.stringify(data));
+    //         })
+    //         .error(function(data){
 
-            });
-        console.log()    
-        $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/tags/'+  $stateParams.flowname);
-    }
+    //         });
+    //     console.log()    
+    //     $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/tags/'+  $stateParams.flowname);
+    // }
 
     $scope.completeSummary = function(summary){
         // this is the Save A New Summary button
@@ -145,7 +145,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // this runs on a really weird, delayed time cycle! I do not know why.
 
         console.log('put', summary);
-        var url = '/api/summary/'+ $stateParams.sessionID +'/flow/'+ $stateParams.flowname;
+        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
         var dataOut = summary;
 
         console.log('put route',  url);
