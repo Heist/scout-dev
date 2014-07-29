@@ -330,15 +330,16 @@ router.route('/test/:testId/flow/:flowName')
                 name = name.replace(/ /g,'');
 
                 for (var k = 0;  k < flowcollector.flows[j].steps.length; k++){
+
                     var step = flowcollector.flows[j].steps[k];
-                    var name = step.title;                    
+                    var name = step.title;
+
                     if (!(stepnamecheck.indexOf(name) != -1)){
                         stepnamecheck.push(name);
-                        stepcollector.push({name : name, session_by_user : [], pass_fail : false, summary: step.summary });
+                        stepcollector.push({name : name, session_by_user : [], pass_fail : false, summary: '' });
                     } else if (stepnamecheck.indexOf(name) != -1){
                         for ( var l in stepcollector){
                             if (name == stepcollector[l].name){
-
                                 var pusher = {'user' : flowcollector.flows[j].user_id, 'messages' : flowcollector.flows [j].steps[k].messages }
                                 stepcollector[l].session_by_user.push(pusher);
                             };

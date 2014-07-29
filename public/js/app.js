@@ -424,7 +424,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         $http.post(url)
         .success(function(data){
-          console.log('the flow object', $scope.flow);
+          console.log('the flow object from overview', data);
             // set new location path
             $location.path('/summarizeFlow/'+data._id+'/flow/'+flow);
         })
