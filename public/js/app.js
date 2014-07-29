@@ -169,7 +169,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     $scope.saveTagSummary = function(summary){
-        console.log('touched save summary');
+        console.log('touched save summary', summary);
+        $scope.selectedTag.summary = summary.text;
+
+        console.log($scope.selectedTag);
+        console.log($scope.flow);
         //maybe put a flow put statement here
 
     }
