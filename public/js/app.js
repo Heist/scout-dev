@@ -34,11 +34,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             templateUrl: 'partials/run.html'
         })
         .state('summarizeFlow', {
-            url: '/summarizeFlow/:sessionKey/flow/:flowname',
+            url: '/summarizeFlow/:summaryID/flow/:flowname',
             templateUrl: 'partials/summarizeFlow.html'
         })
         .state('summarizeTags', {
-            url: '/summarizeFlow/:sessionKey/tags/:flowname',
+            url: '/summarizeFlow/:summaryID/tags/:flowname',
             templateUrl: 'partials/summarizeTags.html'
         })
         ;
@@ -74,11 +74,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // then return that matched set to the step
     // this could possibly be done on the back end
     
-    $http.get('/api/summary/'+$stateParams.sessionKey+'/flow/'+$stateParams.flowname)
-        .success(function(data){
-          $scope.flow = data;
-          console.log('the flow object', $scope.flow);
-        })
+    // $http.get('/api/summary/'+$stateParams.summaryID+'/flow/'+$stateParams.flowname)
+    //     .success(function(data){
+    //       $scope.flow = data;
+    //       console.log('the flow object', $scope.flow);
+    //     })
 
     $scope.activate = function (index, parentIndex, step) {
         $scope.selectedIndex = index;
@@ -99,7 +99,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/flow/'+$stateParams.flowname);
         // upsert summary to DB
         
-        var url = '/api/summary/'+ $stateParams.sessionKey +'/flow/'+ $stateParams.flowname;
+        var url = '/api/summary/'+ flow._id +'/flow/'+ $stateParams.flowname;
         var dataOut = flow;
 
         console.log('put', flow);
@@ -121,7 +121,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/tags/'+$stateParams.flowname);
         // upsert summary to DB
 
-        var url = '/api/summary/'+ $stateParams.sessionKey +'/flow/'+ $stateParams.flowname;
+        var url = '/api/summary/'+ flow._id +'/flow/'+ $stateParams.flowname;
         var dataOut = flow;
 
         console.log('put', flow);
@@ -142,6 +142,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // this is the Save A New Summary button
         // it saves a summary in complete mode when done writing it up
         // then returns you to /
+        // this runs on a really weird, delayed time cycle! I do not know why.
+
         console.log('put', summary);
         var url = '/api/summary/'+ summary._id +'/flow/'+ $stateParams.flowname;
         var dataOut = summary;
@@ -153,7 +155,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 console.log('sent a new summary '+ JSON.stringify(data));
             })
             .error(function(data){
-
+                console.log('error', data);
             });        
 
         $location.path('/');
@@ -420,8 +422,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         flow = flow.replace(/ /g,''); 
         console.log(session, flow);
 
-        // set new location path
-        $location.path('/summarizeFlow/'+session+'/flow/'+flow);
+        $http.get('/api/summary/'+ session +'/flow/'+ flow)
+        .success(function(data){
+          console.log('the flow object', $scope.flow);
+            // set new location path
+            $location.path('/summarizeFlow/'+data._id+'/flow/'+data.title);
+        })
+
 
     }
 }])
