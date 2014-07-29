@@ -476,20 +476,33 @@ router.route('/summary/:summaryID/flow/:flowName')
 	.put(function(req,res){
 		console.log('touched put for summaryID', req.body);
 
-		var query = { 
-				'_id': req.body._id
-		};
+		// var query = { 
+		// 		'_id': req.body._id
+		// };
 
-		console.log(query);
+		// console.log(query);
 
-		var update = {
-			steps : req.body.steps,
-			tags  : req.body.tags
-		};
+		// var update = {
+		// 	steps : req.body.steps,
+		// 	tags  : req.body.tags
+		// };
 
-		var options = {upsert : true};
+		// var options = {upsert : true};
 
-		Summary.findByIdAndUpdate(req.body._id, update, options, function (err, summary) {	
+		Summary.findById(req.body._id, function (err, summary) {	
+			if (err)
+				res.send(err);
+
+			summary.steps = req.body.steps;
+			summary.tags  = req.body.tags;
+
+			summary.save(function(err) {
+				if (err)
+					res.send(err);
+
+				res.json( req.body );
+			});
+
 		});
 
 	});

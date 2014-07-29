@@ -59,44 +59,23 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 }])
 
 // SUMMARIZE CONTROLLER ========================================================
-.controller('summarizeFlow', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
-	$scope.flow = {};
-    $scope.timeline = [];
+.controller('summarizeTags', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
+    // holds main flow structure
+    $scope.flow = {};
 
-// set selected step for main flow
-    $scope.step = {};
-
-// for summarizing tags
+   // for summarizing tags
     $scope.summary = {};
 
-    // a function to return the steps from a set of flows
-    // the scan those steps for their tags
-    // then return that matched set to the step
-    // this could possibly be done on the back end
-    
+    // on load, get our information
     $http.get('/api/summary/'+$stateParams.summaryID+'/flow/'+$stateParams.flowname)
         .success(function(data){
           $scope.flow = data;
           console.log('the flow object', $scope.flow);
         })
 
-    $scope.activate = function (index, parentIndex, step) {
-        $scope.selectedIndex = index;
-        $scope.parentIndex = parentIndex;
-
-        // passes the step title to the global variable from flows[0].steps[step]
-        
-        $scope.step = step;
-        console.log('step', $scope.step);
-
-        //pass all of the tags inside of flows[allflows].steps[step] to an array 
-    };
-
-
-// Switch between Steps and Tags summary views
-
+// Return to summarizing steps
     $scope.summarizeSteps = function (summary){
-        $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/flow/'+$stateParams.flowname);
+        
         // upsert summary to DB
         
         var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
@@ -113,26 +92,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             });
 
+        $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/flow/'+$stateParams.flowname);
+        
         // this shit needs to forcibly reapply/maintain the existing [flow] - at present it does not
 
     }
 
-    $scope.summarizeTags = function(summary){
-        // upsert summary to DB
-
-        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
-        var dataOut = summary;
-        
-         $http.put(url, dataOut)   
-            .success(function(data){
-                console.log('sent a summary upsert - steps '+ JSON.stringify(data));
-            })
-            .error(function(data){
-            });
-
-        $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/tags/'+  $stateParams.flowname);
-    }
-
+// complete the Summary
     $scope.completeSummary = function(summary){
         // this is the Save A New Summary button
         // it saves a summary in complete mode when done writing it up
@@ -171,6 +137,84 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.saveTagSummary = function(summary){
         console.log('touched save summary', summary);
         $scope.selectedTag.summary = summary.text;
+    }
+
+}])
+
+.controller('summarizeFlow', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
+	$scope.flow = {};
+    $scope.timeline = [];
+
+// set selected step for main flow
+    $scope.step = {};
+
+// for summarizing tags
+    $scope.summary = {};
+
+    // a function to return the steps from a set of flows
+    // the scan those steps for their tags
+    // then return that matched set to the step
+    // this could possibly be done on the back end
+    
+    $http.get('/api/summary/'+$stateParams.summaryID+'/flow/'+$stateParams.flowname)
+        .success(function(data){
+          $scope.flow = data;
+          console.log('the flow object', $scope.flow);
+        })
+
+    $scope.activate = function (index, parentIndex, step) {
+        $scope.selectedIndex = index;
+        $scope.parentIndex = parentIndex;
+
+        // passes the step title to the global variable from flows[0].steps[step]
+        
+        $scope.step = step;
+        console.log('step', $scope.step);
+
+        //pass all of the tags inside of flows[allflows].steps[step] to an array 
+    };
+
+
+// Switch to tag summary view
+
+    $scope.summarizeTags = function(summary){
+        // upsert summary to DB
+
+        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
+        var dataOut = summary;
+        
+         $http.put(url, dataOut)   
+            .success(function(data){
+                console.log('sent a summary upsert - steps '+ JSON.stringify(data));
+            })
+            .error(function(data){
+            });
+
+        $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/tags/'+  $stateParams.flowname);
+        $scope.flow = summary;
+    }
+
+    $scope.completeSummary = function(summary){
+        // this is the Save A New Summary button
+        // it saves a summary in complete mode when done writing it up
+        // then returns you to /
+        // this runs on a really weird, delayed time cycle! I do not know why.
+
+        console.log('put', summary);
+        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
+        var dataOut = summary;
+
+        console.log('put route',  url);
+        
+         $http.put(url, dataOut)   
+            .success(function(data){
+                console.log('sent a new summary '+ JSON.stringify(data));
+            })
+            .error(function(data){
+                console.log('error', data);
+            });        
+
+        $location.path('/');
     }
 
 // Summarize Steps controller functions 
