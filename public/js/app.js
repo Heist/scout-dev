@@ -161,22 +161,16 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.selectTag = function (tag){
         $scope.selectedTag = tag;
         $scope.summary.text = $scope.selectedTag.summary;
-        console.log('touched selectTag', tag.body);
     }
 
     $scope.clearTagSummary = function(summary){
         summary.text = '';
-        // maybe put a flow delete statement here
+        $scope.selectedTag.summary = summary.text;
     }
 
     $scope.saveTagSummary = function(summary){
         console.log('touched save summary', summary);
         $scope.selectedTag.summary = summary.text;
-
-        console.log($scope.selectedTag);
-        console.log($scope.flow);
-        //maybe put a flow put statement here
-
     }
 
 // Summarize Steps controller functions 

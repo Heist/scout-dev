@@ -483,7 +483,8 @@ router.route('/summary/:summaryID/flow/:flowName')
 		console.log(query);
 
 		var update = {
-			steps : req.body.steps
+			steps : req.body.steps,
+			tags  : req.body.tags
 		};
 
 		var options = {upsert : true};
