@@ -95,27 +95,27 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 // Switch between Steps and Tags summary views
 
-    // $scope.summarizeSteps = function (flow){
-    //     $location.path('/summarizeFlow/'+ $stateParams.sessionKey +'/flow/'+$stateParams.flowname);
-    //     // upsert summary to DB
+    $scope.summarizeSteps = function (summary){
+        $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/flow/'+$stateParams.flowname);
+        // upsert summary to DB
         
-    //     var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
-    //     var dataOut = flow;
+        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
+        var dataOut = summary;
 
-    //     console.log('put', flow);
-    //     console.log('post route',  url);
+        console.log('put', summary);
+        console.log('post route',  url);
         
-    //      $http.put(url, dataOut)   
-    //         .success(function(data){
-    //             console.log('sent a summary upsert - tags '+ JSON.stringify(data));
-    //         })
-    //         .error(function(data){
+        $http.put(url, dataOut)   
+            .success(function(data){
+                console.log('sent a summary upsert - tags '+ JSON.stringify(data));
+            })
+            .error(function(data){
 
-    //         });
+            });
 
-    //     // this shit needs to forcibly reapply/maintain the existing [flow] - at present it does not
+        // this shit needs to forcibly reapply/maintain the existing [flow] - at present it does not
 
-    // }
+    }
 
     $scope.summarizeTags = function(summary){
         // upsert summary to DB
