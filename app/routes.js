@@ -444,7 +444,7 @@ router.route('/summary/:testId/flow/:flowName')
             }
 
         summary = new Summary();
-        
+
         summary.title = flowname;
         summary.steps = stepcollector;
         summary.tags = tags_for_flow;
@@ -453,43 +453,12 @@ router.route('/summary/:testId/flow/:flowName')
 				res.json(summary);
 			});
 	})
-	.post(function(req,res){
-		// on clicking "summarize," we
-		// check to see if a summary already exists with that name
-		// and an ._id field.
-		// if a summary does not already exist
-	 	// create a summary to work with
-	 	// pass its ._id as part of the path to the front end
-
-	 	// var query = {
-			// 	'testKey':req.params.testId, 
-			// 	'title':req.params.flowname
-			// };
-
-	 	// Summary.findOne(query, function (err, summary){
-	 	// 	if (err) {
-			//     console.log('got an error');
-		 //  	} else if (!summary) {
-			// 	summary = new Summary();
-			// 	summary.title = req.params.flowname
-			// 	summary.testKey = req.params.testId
-		 //  	}
-
-	 	// }
-		
-
-	})
 	.put(function(req,res){
 		// trying a findOneAndUpdate
 
-		var query = {
-				'testKey':req.params.testId, 
-				'title':req.params.flowname
+		var query = { 
+				'_id':req.params.testId
 		};
-
-		// summary.user = req.body.user;
-		// summary.testKey = req.body.testKey;
-		// summary.steps = req.body.steps;
 
 		var update = {
 			steps : req.body.steps
@@ -497,7 +466,7 @@ router.route('/summary/:testId/flow/:flowName')
 
 		var options = {upsert : true}
 
-		Summary.findOneAndUpdate(query, update, options, function (err, summary) {
+		Summary.findByIdAndUpdate(query, update, options, function (err, summary) {
    				
 		});
 

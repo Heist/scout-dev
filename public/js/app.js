@@ -143,7 +143,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // it saves a summary in complete mode when done writing it up
         // then returns you to /
         console.log('put', summary);
-        var url = '/api/summary/'+ $stateParams.sessionKey +'/flow/'+ $stateParams.flowname;
+        var url = '/api/summary/'+ summary._id +'/flow/'+ $stateParams.flowname;
         var dataOut = summary;
 
         console.log('put route',  url);
