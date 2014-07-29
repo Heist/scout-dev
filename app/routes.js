@@ -451,20 +451,18 @@ router.route('/summary/:testId/flow/:flowName')
 
 		// Send out the reply to the front end
 				res.json(summary);
-			});
+		});
 	})
 	.put(function(req,res){
-		// trying a findOneAndUpdate
-
 		var query = { 
 				'_id':req.params.testId
 		};
 
 		var update = {
 			steps : req.body.steps
-		}
+		};
 
-		var options = {upsert : true}
+		var options = {upsert : true};
 
 		Summary.findByIdAndUpdate(query, update, options, function (err, summary) {
    				
