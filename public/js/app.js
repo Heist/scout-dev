@@ -160,6 +160,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $scope.selectTag = function (tag){
         $scope.selectedTag = tag;
+        $scope.summary.text = $scope.selectedTag.summary;
         console.log('touched selectTag', tag.body);
     }
 
