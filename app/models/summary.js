@@ -31,9 +31,10 @@ var Schema = mongoose.Schema;
 
 var SummarySchema = new Schema ({
 	title : {type: String, trim: true},
-	steps : Object,
+	steps  : Object,
 	created : Date,
 	updated : Date,
+  tags    : Object,
 	testKey : Number
 })
 

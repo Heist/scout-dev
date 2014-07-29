@@ -117,26 +117,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     // }
 
-    // $scope.summarizeTags = function (flow){
+    $scope.summarizeTags = function(summary){
+        // upsert summary to DB
+
+        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
+        var dataOut = summary;
         
-    //     // upsert summary to DB
-    //     var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
-    //     var dataOut = flow;
+         $http.put(url, dataOut)   
+            .success(function(data){
+                console.log('sent a summary upsert - steps '+ JSON.stringify(data));
+            })
+            .error(function(data){
+            });
 
-    //     console.log('put', flow);
-
-    //     console.log('put route',  url);
-        
-    //      $http.put(url, dataOut)   
-    //         .success(function(data){
-    //             console.log('sent a summary upsert - steps '+ JSON.stringify(data));
-    //         })
-    //         .error(function(data){
-
-    //         });
-    //     console.log()    
-    //     $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/tags/'+  $stateParams.flowname);
-    // }
+        $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/tags/'+  $stateParams.flowname);
+    }
 
     $scope.completeSummary = function(summary){
         // this is the Save A New Summary button
