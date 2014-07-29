@@ -282,7 +282,7 @@ router.route('/test/:testId/session/:sessionId/flow/:flowId')
 	});
 // a route for generating a new summary from an existing collection of flows.
 router.route('/test/:testId/flow/:flowName')
-	.get(function(req,res) {
+	.post(function(req,res) {
 		console.log('touched flowcollector');
 		
 		// .find returns an array []
@@ -448,7 +448,7 @@ router.route('/test/:testId/flow/:flowName')
         // TODO there's really no way around this 
         // without being able to check a thing 
         // to see if it has a null _id field first
-
+        console.log('new summary', summary);
 		summary.save(function(err) {
 				if (err)
 					res.send(err);
@@ -456,23 +456,25 @@ router.route('/test/:testId/flow/:flowName')
 				res.json(summary);
 		});
 	});
+});
+
 
 // SUMMARY routes ======================================================
 
 // get the summary to fill in from the database
 
-router.route('/summary/:testId/flow/:flowName')
+router.route('/summary/:summaryID/flow/:flowName')
 	.get(function(req,res){
-		Summary.findById(req.params.summaryId, function(err, summary) {
+		Summary.findById(req.params.summaryID, function(err, summary) {
 				if (err)
 					res.send(err);
-				console.log('touched /:sessionId');
+				console.log('touched /:summaryID');
 				res.json(summary);
 			});
 	})
 	.put(function(req,res){
 		var query = { 
-				'_id': req.params.testId
+				'_id': req.params.summaryID
 		};
 
 		var update = {

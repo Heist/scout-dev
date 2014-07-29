@@ -417,12 +417,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     // add a new summarizeFlow and launch summary
     $scope.summarizeFlow = function(session, flow){
-        // strip flowname's whitespace
-        
+        // strip flowname's whitespace        
         flow = flow.replace(/ /g,'');
         console.log(session, flow);
+        var url = '/api/test/'+ session +'/flow/'+ flow;
 
-        $http.get('/api/summary/'+ session +'/flow/'+ flow)
+        $http.post(url)
         .success(function(data){
           console.log('the flow object', $scope.flow);
             // set new location path
