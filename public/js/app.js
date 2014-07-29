@@ -74,11 +74,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // then return that matched set to the step
     // this could possibly be done on the back end
     
-    // $http.get('/api/summary/'+$stateParams.summaryID+'/flow/'+$stateParams.flowname)
-    //     .success(function(data){
-    //       $scope.flow = data;
-    //       console.log('the flow object', $scope.flow);
-    //     })
+    $http.get('/api/summary/'+$stateParams.summaryID+'/flow/'+$stateParams.flowname)
+        .success(function(data){
+          $scope.flow = data;
+          console.log('the flow object', $scope.flow);
+        })
 
     $scope.activate = function (index, parentIndex, step) {
         $scope.selectedIndex = index;
