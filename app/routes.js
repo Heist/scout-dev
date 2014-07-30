@@ -504,6 +504,13 @@ router.route('/summary/:summaryID/flow/:flowName')
 				res.send(err);
 
 			summary.steps = req.body.steps;
+
+			for (var i in summary.steps){
+				for (var k in summary.steps[i].session_by_user){
+
+				}
+			}
+
 			summary.tags  = req.body.tags;
 
 			summary.save(function(err) {
@@ -556,6 +563,33 @@ router.route('/report/:testKey')
 		Summary.find({'testKey':req.params.testKey}, function(err, summaries) {
 				if (err)
 					res.send(err);
+
+				// return messages to a given tag
+				// when that tag is visible
+				// by user
+
+				var tags = []
+				var tag_user = []
+
+				// drill down to find visible tags
+				for (var i in summaries){
+					for (var k in summaries[i].steps){
+						for (var l in summaries[i].steps[k].tags_single){
+							// once we get to the visible tags, check if they're visible
+							if (summaries[i].steps[k].tags_single[l].visible){
+								console.log(summaries[i].steps[k].tags_single[l])
+							// if they're visible, loop through sessions by user
+							// and get all the messages for a given tag that are still visible
+								for (var j in summaries[i].steps[k].session_by_user){
+									for (var m in summaries[i].steps[k].session_by_user[j].messages){
+										console.log(summaries[i].steps[k].session_by_user[j].messages[m].body)
+									}
+								}
+							}
+						}
+					}
+				}
+
 
 				// sort out the users from the sessions_by_user
 				var users = []
