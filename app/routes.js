@@ -444,18 +444,19 @@ router.route('/test/:testId/flow/:flowName')
 						for (var l in stepcollector[i].session_by_user){
 							var user = stepcollector[i].session_by_user[l].user;
 							if(user){
-								users.push( user );
+								users.push({ session_id: stepcollector[i].session_by_user[l].messages[0].session_id, user:user });
 							}
 						}
 				}
 				
 				users.sort(keysrt('user'));
 
-				for( var i = 0; i < users.length -1; i++ ){
-					if(users[i+1].session == users[i].session){
-						users.splice(i, 1);
-					}
-				}
+				
+				// for( var i = 0; i < users.length -1; i++ ){
+				// 	if(users[i+1].session == users[i].session){
+				// 		users.splice(i, 1);
+				// 	}
+				// }
 
 				console.log('users in this flow', users);
 
