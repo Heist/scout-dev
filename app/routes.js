@@ -287,6 +287,7 @@ router.route('/test/:testId/flow/:flowName')
 				
 				var flowcollector = {};
 					flowcollector.flows = [];
+				var session_name = data.name;
 			
 
 			// this gathers and sorts similar flows from the returned
@@ -441,6 +442,7 @@ router.route('/test/:testId/flow/:flowName')
         summary.steps = stepcollector;
         summary.tags = tags_for_flow;
         summary.testKey = req.params.testId;
+        summary.session_name = 
 
         // TODO there's really no way around this 
         // without being able to check a thing 

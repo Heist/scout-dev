@@ -65,12 +65,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 // REPORT CONTROLLER ===========================================================
 .controller('report', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
     // holds the relevant summary
-    $scope.flow = {};
+    $scope.session = {};
 
     $http.get('/api/report/'+$stateParams.testKey)
         .success(function(data){
-          $scope.flow = data;
-          console.log('the report object', $scope.flow);
+            console.log(data)
+          $scope.session = data;
+          console.log('the report object', $scope.session);
         })
 
 
@@ -193,7 +194,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         //pass all of the tags inside of flows[allflows].steps[step] to an array 
     };
-
 
     // Switch to tag summary view
     $scope.summarizeTags = function(summary){

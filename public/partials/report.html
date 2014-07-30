@@ -1,5 +1,5 @@
 <div id="view-report" ng-controller='report'>
-<div ng-model="flow">
+<div ng-model="session">
 	
 		<div id="header">
 			
@@ -18,22 +18,12 @@
 			<div id="questions">
 		
 			<div class="questions-group active">
-				<ul>
-					<li ng-model='flow'><!-- flow title --><small>Flow</small><br/>
-						{{flow.title}}</li>
-					<li class="question" ng-repeat="step in flow.steps" ng-class="{ 'active': $index == 	selectedIndex && $parent.$index == parentIndex }"
-		             			ng-click="activate($index, $parent.$index, step)">
-							<span>{{step.name}}</span>
-							
-							<div class="step-rating">
-								<img src="/assets/rate-positive.svg" /> <img src="/assets/rate-negative.svg">
-							</div>
-							
-							<h3>{{step.name}}</h3>
-							<p class="question-body" ng-show="$index == selectedIndex && $parent.$index == parentIndex">
-								{{step.desc}}
-							</p>
+				<ul ng-repeat="flow in session">
+						<!-- flow title --><small>Flow</small> {{flow._id}}
+						<li class="question" ng-repeat="step in flow.steps">
+								{{step.name}}<div class="question-rating red"></div>
 						</li>
+					</li>
 					</ul>
 				</div>
 			</div>	
@@ -47,7 +37,7 @@
 		<div id="large-pane">
 			
 			<!-- flow general info -->
-			<h1>User Account Change</h1>
+			<h1>{{}}</h1>
 			<p class="report-detail">Report generated July 12 2014</p>		
 			<p>This is the flow summary. Flank short loin swine ground round turducken landjaeger jerky sausage kielbasa shankle ham. Tenderloin pancetta pastrami turducken tongue. Pig chuck swine, salami bresaola drumstick jowl boudin ground round ribeye. Doner spare ribs brisket jerky andouille meatball. Strip steak swine kielbasa chicken, pastrami meatloaf kevin tail ham hock. Swine porchetta cow frankfurter chicken kielbasa, turkey jowl pastrami andouille hamburger salami.</p>
 			<p class="report-participants">7 participants</p>
