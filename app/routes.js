@@ -532,6 +532,31 @@ router.route('/report/:testKey')
 				if (err)
 					res.send(err);
 				console.log('touched /:testKey', summaries);
+
+				var users = []
+
+				for (var i in summaries){
+					for (var k in summaries[i].steps){
+						for (var l in summaries[i].steps[k].session_by_user){
+							var user = summaries[i].steps[k].session_by_user[l].user;
+							console.log(summaries[i].steps[k].session_by_user[l].user)
+							if(user){
+								users.push({session : summaries[i]._id, user: user});
+							}
+						}
+					}
+					// console.log(users);
+					// summaries[i].users = users;
+				}
+				
+				users.sort(keysrt('user'));
+
+				for( var i = 0; i < users.length -1; i++ ){
+					if(users[i+1].session == users[i].session){
+						users.splice(i, 1);
+					}
+				}
+				console.log(users);
 				res.json(summaries);
 			});
 	});

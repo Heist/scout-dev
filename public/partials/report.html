@@ -37,10 +37,16 @@
 		<div id="large-pane">
 			
 			<!-- flow general info -->
-			<h1>{{}}</h1>
+			<h1>{{session.session_name}}</h1>
 			<p class="report-detail">Report generated July 12 2014</p>		
 			<p>This is the flow summary. Flank short loin swine ground round turducken landjaeger jerky sausage kielbasa shankle ham. Tenderloin pancetta pastrami turducken tongue. Pig chuck swine, salami bresaola drumstick jowl boudin ground round ribeye. Doner spare ribs brisket jerky andouille meatball. Strip steak swine kielbasa chicken, pastrami meatloaf kevin tail ham hock. Swine porchetta cow frankfurter chicken kielbasa, turkey jowl pastrami andouille hamburger salami.</p>
-			<p class="report-participants">7 participants</p>
+			<p class="report-participants">
+				 <ng-pluralize count="session.length"
+	                when="{'0': 'This session has not been run.',
+	                       'one': '1 participant.',
+	                       'other': '{} participants.'}">
+	  			</ng-pluralize>
+			</p>
 				
 			<ul class="report-participants">
 				<li><div class="report-part-img"><img src="http://rdjpg.com/40/40" /></div>Ben</li>
