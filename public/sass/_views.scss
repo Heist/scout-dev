@@ -351,30 +351,7 @@
 				border: 2px solid $line-tan;
 			}
 		}
-		
-		#timeline-user {
-			position: absolute;
-			top: 50px;
-			left: 0;
-			width: 100%;
-			text-align: center;
-			padding: $pad*0.75 0;
-			@include type-light;
-			line-height: 30px;
-			
-			.timeline-user-avatar {
-				display: inline-block;
-				vertical-align: middle;
-				@include radius(40px);
-				overflow: hidden;
-				width: 30px;
-				height: 30px;
-				margin: -6px $pad/4 0 0;
-			}
-			
-		}
-		
-		
+				
 	}
 	
 	/* the chat */
@@ -394,7 +371,7 @@
 			left: 0;
 			width: 100%;
 			padding: $pad/2;
-			height: 80px;
+			height: 150px;
 			overflow: hidden;
 			background: $background-dark;
 			border-top: 2px solid $line;
@@ -402,6 +379,7 @@
 			
 			textarea {
 				width: 100%;
+				height: 100%;
 				margin: 0;
 			}
 		}
@@ -409,7 +387,6 @@
 		
 		#timeline {
 			margin-top: 50px;
-			margin-bottom: 80px;
 		}
 		
 	}
@@ -779,288 +756,7 @@
 
 
 
-
-/* timeline and questions are pulled out so we can use them in more than one place */
-
-#questions {
-	height: 100%;
-	padding-top: 50px;
-	background: $dark;
-	color: $white;
-	
-	.questions-group {
-		padding: 0;
-		margin: 0;
-		@include radius(8px);
-		opacity: 0.4;
-				
-		&.active {
-			opacity: 1.0;
-		}
-		
-		small {
-			margin: 0; 
-			padding: 0;
-			opacity: 0.5;
-		}
-		
-		h3 {
-			margin: 0; 
-			padding: 0;
-		}
-		
-		
-		ul {
-			padding: 0;
-			margin: 0;
-			list-style: none;
-			
-			li {
-				padding: $pad/1.5 $pad;
-				margin: 0;
-				//border-bottom: 1px solid $line-dark;
-				
-				font-size: $type-size-base*0.9;
-				line-height: $type-line-base*0.8;
-				
-				&:hover {
-					box-shadow: inset 0px 0px 0px 3px $scout-blue;
-					cursor: pointer;
-				}
-				
-				p {
-					display: none;
-				}
-				
-				h3 {
-					display: none;
-				}
-				
-				span {
-					display: block;
-					font-weight: bold;
-				}
-				
-				.step-rating {
-					float: right;
-					display: none;
-					padding: 0;
-					margin: 0;
-					
-					img {
-						width: auto;
-						height: 20px;
-						padding: 0;
-						margin: 0 $pad/3;
-						cursor: pointer;
-					}
-				}
-				
-				&.title {				
-					&:hover {
-						cursor: auto;
-						box-shadow: none;
-					}
-				
-					h3 {
-						display: block;
-					}
-				}
-				
-				&.active {
-					background: $dark-light;
-					position: relative;
-					
-					
-					&:hover {
-						cursor: auto;
-						box-shadow: none;
-					}
-					
-					h3 {
-						margin: 0;
-						display: block;
-					}
-					
-					p {
-						margin: $pad/2 0 0 0;
-						padding: 0;
-						display: block;
-					}
-					
-					span {
-						display: none;
-					}
-					
-					.step-rating {
-						display: block;
-					}
-					
-					
-				}
-				
-			}
-			
-		}
-		
-	}
-		
-}
-
-
-/* styles for question-rating boops */
-.question-rating {
-	display: block;
-	@include radius(20px);
-	@include dropshadow;
-	
-	&.green {
-		background: #6cb100;
-	}
-	
-	&.yellow {
-		background: #ffde00;
-	}
-	
-	&.red {
-		background: #ed4e00;
-	}
-}
-
-#questions {
-	.question-rating {
-		width: 16px;
-		height: 16px;
-		padding: 0;
-		margin: 2px 0 0 0;
-		float: right;
-		//border: 2px solid $white;
-	}
-}
-
-#large-pane {
-	.question-rating {
-		width: 20px;
-		height: 20px;
-		padding: 0;
-		margin: 0;
-		display: inline-block;
-	}
-
-}
-
-
-
-#timeline {
-	overflow: auto;
-	height: 100%;
-	padding: $pad/2 0 $pad 0;
-	//background: url('../assets/timeline-line.svg') repeat-y 18px top;
-		
-	ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		
-		li {
-			padding: 0;
-			margin: 0;
-		}
-		
-		.message {
-			padding: $pad/2.5 0 0 $pad/1.25;
-			font-size: $type-size-base*0.9;
-			line-height: $type-line-base*0.8;
-			
-			&.title, &.status {
-				padding: $pad/2 0 0 $pad/1.25;
-				
-				.message-details .message-details-avatar {
-					border: none;
-				}
-				
-				small {
-					opacity: 0.5;
-				}
-			}
-			
-			&.status {	
-				border-top: 2px dashed $line;
-				margin: $pad/2 0 $pad/2 0;				
-			}
-			
-			&.title {
-				border-top: 2px dashed $line;
-				margin: $pad/2 0 $pad 0;
-			}
-			
-			&.username {
-				border-top: 2px dashed $line;
-				margin: $pad/2 0 $pad 0;
-				padding: $pad/2 0 0 $pad/2.25;
-				
-				.message-details .message-details-avatar {
-					width: 45px;
-					height: 45px;
-					@include radius(60px);
-					border: 4px solid $background;
-					
-					img {
-						width: 45px;
-						height: auto;
-					}
-				}
-				
-			}
-			
-			.message-details {
-				float: left;
-				
-				.message-details-avatar {
-					width: 30px;
-					height: 30px;
-					@include radius(30px);
-					overflow: hidden;
-					margin: 0 $pad/2 0 0;
-					border: 3px solid $background;
-					
-					img {
-						width: 25px;
-						height: auto;
-					}
-				}
-				
-			}
-			
-			.message-body {
-				float: left;
-				width: 80%;
-				
-								
-				p {
-					margin-bottom: 0;
-					
-					.tag {
-						padding: 0 $pad/6;
-					}
-				}
-				
-				small {
-					font-size: $type-size-base*0.6;
-					line-height: $type-line-base*0.6;
-					opacity: 0.5;
-					padding: 0;
-					margin: 0;
-					text-transform: uppercase;
-					letter-spacing: 1px;
-				}
-			}
-				
-		}
-		
-	}
-	
-}
+/* how we style notes within reports */
 
 
 .theme-messages {

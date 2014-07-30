@@ -1,0 +1,115 @@
+/* errythang for the timeline/chat */
+
+
+#timeline {
+	overflow: auto;
+	height: 100%;
+	padding: $pad/2 0 $pad 0;
+	background: url('../assets/timeline-line.gif') repeat-y 24px top;
+		
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		
+		li {
+			padding: 0;
+			margin: 0;
+		}
+		
+		.message {
+			padding: $pad/2.5 0 0 $pad/1.25;
+			font-size: $type-size-base*0.9;
+			line-height: $type-line-base*0.8;
+			margin: 0 0 $pad/2 0;
+						
+			.message-details {
+				float: left;
+				
+				.message-details-avatar {
+					width: 20px;
+					text-align: center;
+					overflow: hidden;
+					margin: 0 $pad/2 0 0;
+					padding: 0;
+					background: $white;
+					font-size: $type-size-base*0.6;
+					@include type-bold;
+				}
+				
+			}
+			
+			.message-body {
+				float: left;
+				width: 80%;
+				
+								
+				p {
+					margin-bottom: 0;
+					
+					.tag {
+						padding: 0 $pad/6;
+					}
+				}
+				
+				small {
+					font-size: $type-size-base*0.6;
+					line-height: $type-line-base*0.6;
+					opacity: 0.5;
+					padding: 0;
+					margin: 0;
+					text-transform: uppercase;
+					letter-spacing: 1px;
+				}
+			}
+				
+		}
+		
+	}
+	
+}
+
+
+/* timeline user and device treatment */
+
+#timeline-user {
+	
+	
+	#timeline-user-only {
+		position: absolute;
+		top: 30%;
+		left: 0;
+		width: 100%;
+		text-align: center;
+		padding: $pad*0.75 0;
+		@include type-light;
+		
+		.timeline-user-avatar {
+			border: $pad/2 solid $white;
+			display: block;
+			padding: 0;
+			margin: 0 auto $pad auto;
+			width: 150px;
+			height: 150px;
+			@include radius(100px);
+		}
+		
+		small {
+			@include type-regular;
+		}
+		
+	}
+	
+	.timeline-user-avatar {
+		display: inline-block;
+		vertical-align: middle;
+		overflow: hidden;
+	}
+	
+}
+
+
+
+
+
+

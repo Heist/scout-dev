@@ -1,0 +1,168 @@
+/* questions/list of things style */
+
+#questions {
+	height: 100%;
+	padding-top: 50px;
+	background: $dark;
+	color: $white;
+	
+	.questions-group {
+		padding: 0;
+		margin: 0;
+		@include radius(8px);
+		opacity: 0.4;
+				
+		&.active {
+			opacity: 1.0;
+		}
+		
+		small {
+			margin: 0; 
+			padding: 0;
+			opacity: 0.5;
+		}
+		
+		h3 {
+			margin: 0; 
+			padding: 0;
+		}
+		
+		
+		ul {
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			
+			li {
+				padding: $pad/1.5 $pad;
+				margin: 0;
+				
+				font-size: $type-size-base*0.9;
+				line-height: $type-line-base*0.8;
+				
+				&:hover {
+					box-shadow: inset 0px 0px 0px 3px $scout-blue;
+					cursor: pointer;
+				}
+				
+				p {
+					display: none;
+				}
+				
+				h3 {
+					display: none;
+				}
+				
+				span {
+					display: block;
+					font-weight: bold;
+				}
+				
+				.step-rating {
+					float: right;
+					display: none;
+					padding: 0;
+					margin: 0;
+					
+					img {
+						width: auto;
+						height: 20px;
+						padding: 0;
+						margin: 0 $pad/3;
+						cursor: pointer;
+					}
+				}
+				
+				&.title {				
+					&:hover {
+						cursor: auto;
+						box-shadow: none;
+					}
+				
+					h3 {
+						display: block;
+					}
+				}
+				
+				&.active {
+					background: $dark-light;
+					position: relative;
+					
+					
+					&:hover {
+						cursor: auto;
+						box-shadow: none;
+					}
+					
+					h3 {
+						margin: 0;
+						display: block;
+					}
+					
+					p {
+						margin: $pad/2 0 0 0;
+						padding: 0;
+						display: block;
+					}
+					
+					span {
+						display: none;
+					}
+					
+					.step-rating {
+						display: block;
+					}
+					
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+		
+}
+
+
+/* styles for question-rating boops */
+.question-rating {
+	display: block;
+	@include radius(20px);
+	@include dropshadow;
+	
+	&.green {
+		background: #6cb100;
+	}
+	
+	&.yellow {
+		background: #ffde00;
+	}
+	
+	&.red {
+		background: #ed4e00;
+	}
+}
+
+#questions {
+	.question-rating {
+		width: 16px;
+		height: 16px;
+		padding: 0;
+		margin: 2px 0 0 0;
+		float: right;
+	}
+}
+
+#large-pane {
+	.question-rating {
+		width: 20px;
+		height: 20px;
+		padding: 0;
+		margin: 0;
+		display: inline-block;
+	}
+
+}
+
+

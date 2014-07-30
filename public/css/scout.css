@@ -90,14 +90,14 @@ form { padding: 0; margin: 0; }
 .placeholder { color: rgba(65, 69, 74, 0.6); }
 
 /* button colour mixin */
-.button { background: none; color: #00b1b7; border: 2px solid #00b1b7; cursor: pointer; padding: 10px 16px; }
-.button:hover { background: #00b1b7; color: white; }
+.button { background: none; color: #00b1b7; border: 2px solid #00b1b7; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; cursor: pointer; padding: 10px 16px; }
+.button:hover { background: #00b1b7; color: white; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; }
 .button.small { font-size: 12.8px; padding: 2.85714px 6.66667px; }
 .button.disabled { cursor: not-allowed; opacity: 0.4; }
-.button.destructive { background: none; color: #ee4300; border: 2px solid #ee4300; }
-.button.destructive:hover { background: #ee4300; color: white; }
-.button.secondary { background: none; color: #00b1b7; border: 2px solid #00b1b7; }
-.button.secondary:hover { background: #00b1b7; color: white; }
+.button.destructive { background: none; color: #ee4300; border: 2px solid #ee4300; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; }
+.button.destructive:hover { background: #ee4300; color: white; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; }
+.button.secondary { background: none; color: #00b1b7; border: 2px solid #00b1b7; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; }
+.button.secondary:hover { background: #00b1b7; color: white; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; }
 
 label { padding: 0; margin: 0; font-size: 12.8px; opacity: 0.4; }
 
@@ -163,6 +163,57 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 
 /* fix up Angular containers so everything sits correctly */
 .ng-valid, .ng-invalid, .ng-dirty, .ng-pristine, .ng-touched, .ng-untouched { height: 100%; }
+
+/* errythang for the timeline/chat */
+#timeline { overflow: auto; height: 100%; padding: 10px 0 20px 0; background: url("../assets/timeline-line.gif") repeat-y 24px top; }
+#timeline ul { list-style: none; padding: 0; margin: 0; }
+#timeline ul li { padding: 0; margin: 0; }
+#timeline ul .message { padding: 8px 0 0 16px; font-size: 14.4px; line-height: 19.2px; margin: 0 0 10px 0; }
+#timeline ul .message .message-details { float: left; }
+#timeline ul .message .message-details .message-details-avatar { width: 20px; text-align: center; overflow: hidden; margin: 0 10px 0 0; padding: 0; background: white; font-size: 9.6px; font-family: "adelle-sans", sans-serif; font-style: normal; font-weight: 700; }
+#timeline ul .message .message-body { float: left; width: 80%; }
+#timeline ul .message .message-body p { margin-bottom: 0; }
+#timeline ul .message .message-body p .tag { padding: 0 3.33333px; }
+#timeline ul .message .message-body small { font-size: 9.6px; line-height: 14.4px; opacity: 0.5; padding: 0; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+
+/* timeline user and device treatment */
+#timeline-user #timeline-user-only { position: absolute; top: 30%; left: 0; width: 100%; text-align: center; padding: 15px 0; font-family: "adelle-sans", sans-serif; font-style: normal; font-weight: 100; }
+#timeline-user #timeline-user-only .timeline-user-avatar { border: 10px solid white; display: block; padding: 0; margin: 0 auto 20px auto; width: 150px; height: 150px; -moz-border-radius: 100px; -webkit-border-radius: 100px; border-radius: 100px; }
+#timeline-user #timeline-user-only small { font-family: "adelle-sans", sans-serif; font-style: normal; font-weight: 400; }
+#timeline-user .timeline-user-avatar { display: inline-block; vertical-align: middle; overflow: hidden; }
+
+/* questions/list of things style */
+#questions { height: 100%; padding-top: 50px; background: #41454a; color: white; }
+#questions .questions-group { padding: 0; margin: 0; -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; opacity: 0.4; }
+#questions .questions-group.active { opacity: 1.0; }
+#questions .questions-group small { margin: 0; padding: 0; opacity: 0.5; }
+#questions .questions-group h3 { margin: 0; padding: 0; }
+#questions .questions-group ul { padding: 0; margin: 0; list-style: none; }
+#questions .questions-group ul li { padding: 13.33333px 20px; margin: 0; font-size: 14.4px; line-height: 19.2px; }
+#questions .questions-group ul li:hover { box-shadow: inset 0px 0px 0px 3px #00b1b7; cursor: pointer; }
+#questions .questions-group ul li p { display: none; }
+#questions .questions-group ul li h3 { display: none; }
+#questions .questions-group ul li span { display: block; font-weight: bold; }
+#questions .questions-group ul li .step-rating { float: right; display: none; padding: 0; margin: 0; }
+#questions .questions-group ul li .step-rating img { width: auto; height: 20px; padding: 0; margin: 0 6.66667px; cursor: pointer; }
+#questions .questions-group ul li.title:hover { cursor: auto; box-shadow: none; }
+#questions .questions-group ul li.title h3 { display: block; }
+#questions .questions-group ul li.active { background: #595e65; position: relative; }
+#questions .questions-group ul li.active:hover { cursor: auto; box-shadow: none; }
+#questions .questions-group ul li.active h3 { margin: 0; display: block; }
+#questions .questions-group ul li.active p { margin: 10px 0 0 0; padding: 0; display: block; }
+#questions .questions-group ul li.active span { display: none; }
+#questions .questions-group ul li.active .step-rating { display: block; }
+
+/* styles for question-rating boops */
+.question-rating { display: block; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+.question-rating.green { background: #6cb100; }
+.question-rating.yellow { background: #ffde00; }
+.question-rating.red { background: #ed4e00; }
+
+#questions .question-rating { width: 16px; height: 16px; padding: 0; margin: 2px 0 0 0; float: right; }
+
+#large-pane .question-rating { width: 20px; height: 20px; padding: 0; margin: 0; display: inline-block; }
 
 /*
 typography
@@ -313,12 +364,10 @@ body { background: #f3f3ed; color: #41454a; margin: 0; padding: 0; }
 #view-testing #right-pane #timeline-timer h3 { margin: 0; }
 #view-testing #right-pane #timeline-device { padding: 10px; width: 100%; height: auto; border: 2px solid #e9e9de; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; margin: 40% auto 0 auto; }
 #view-testing #right-pane #timeline-device img { width: 100%; height: auto; border: 2px solid #e9e9de; }
-#view-testing #right-pane #timeline-user { position: absolute; top: 50px; left: 0; width: 100%; text-align: center; padding: 15px 0; font-family: "adelle-sans", sans-serif; font-style: normal; font-weight: 100; line-height: 30px; }
-#view-testing #right-pane #timeline-user .timeline-user-avatar { display: inline-block; vertical-align: middle; -moz-border-radius: 40px; -webkit-border-radius: 40px; border-radius: 40px; overflow: hidden; width: 30px; height: 30px; margin: -6px 5px 0 0; }
 #view-testing #middle-pane { padding: 0; margin: 0; position: relative; overflow: hidden; background: white; border-left: 2px solid #efefe7; border-right: 2px solid #efefe7; }
-#view-testing #middle-pane #session-input { position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px; height: 80px; overflow: hidden; background: #e9e9de; border-top: 2px solid #efefe7; z-index: 99999; }
-#view-testing #middle-pane #session-input textarea { width: 100%; margin: 0; }
-#view-testing #middle-pane #timeline { margin-top: 50px; margin-bottom: 80px; }
+#view-testing #middle-pane #session-input { position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px; height: 150px; overflow: hidden; background: #e9e9de; border-top: 2px solid #efefe7; z-index: 99999; }
+#view-testing #middle-pane #session-input textarea { width: 100%; height: 100%; margin: 0; }
+#view-testing #middle-pane #timeline { margin-top: 50px; }
 
 /* THE SUMMARY */
 #view-summarizing { margin: 0; padding: 0; height: 100%; width: 100%; }
@@ -385,59 +434,7 @@ body { background: #f3f3ed; color: #41454a; margin: 0; padding: 0; }
 .session-flow .session-flow-controls ul { border-top: 2px solid #efefe7; padding: 10px 0 20px 0; }
 .session-flow .session-flow-controls ul li { padding: 4px 0; }
 
-/* timeline and questions are pulled out so we can use them in more than one place */
-#questions { height: 100%; padding-top: 50px; background: #41454a; color: white; }
-#questions .questions-group { padding: 0; margin: 0; -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; opacity: 0.4; }
-#questions .questions-group.active { opacity: 1.0; }
-#questions .questions-group small { margin: 0; padding: 0; opacity: 0.5; }
-#questions .questions-group h3 { margin: 0; padding: 0; }
-#questions .questions-group ul { padding: 0; margin: 0; list-style: none; }
-#questions .questions-group ul li { padding: 13.33333px 20px; margin: 0; font-size: 14.4px; line-height: 19.2px; }
-#questions .questions-group ul li:hover { box-shadow: inset 0px 0px 0px 3px #00b1b7; cursor: pointer; }
-#questions .questions-group ul li p { display: none; }
-#questions .questions-group ul li h3 { display: none; }
-#questions .questions-group ul li span { display: block; font-weight: bold; }
-#questions .questions-group ul li .step-rating { float: right; display: none; padding: 0; margin: 0; }
-#questions .questions-group ul li .step-rating img { width: auto; height: 20px; padding: 0; margin: 0 6.66667px; cursor: pointer; }
-#questions .questions-group ul li.title:hover { cursor: auto; box-shadow: none; }
-#questions .questions-group ul li.title h3 { display: block; }
-#questions .questions-group ul li.active { background: #595e65; position: relative; }
-#questions .questions-group ul li.active:hover { cursor: auto; box-shadow: none; }
-#questions .questions-group ul li.active h3 { margin: 0; display: block; }
-#questions .questions-group ul li.active p { margin: 10px 0 0 0; padding: 0; display: block; }
-#questions .questions-group ul li.active span { display: none; }
-#questions .questions-group ul li.active .step-rating { display: block; }
-
-/* styles for question-rating boops */
-.question-rating { display: block; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
-.question-rating.green { background: #6cb100; }
-.question-rating.yellow { background: #ffde00; }
-.question-rating.red { background: #ed4e00; }
-
-#questions .question-rating { width: 16px; height: 16px; padding: 0; margin: 2px 0 0 0; float: right; }
-
-#large-pane .question-rating { width: 20px; height: 20px; padding: 0; margin: 0; display: inline-block; }
-
-#timeline { overflow: auto; height: 100%; padding: 10px 0 20px 0; }
-#timeline ul { list-style: none; padding: 0; margin: 0; }
-#timeline ul li { padding: 0; margin: 0; }
-#timeline ul .message { padding: 8px 0 0 16px; font-size: 14.4px; line-height: 19.2px; }
-#timeline ul .message.title, #timeline ul .message.status { padding: 10px 0 0 16px; }
-#timeline ul .message.title .message-details .message-details-avatar, #timeline ul .message.status .message-details .message-details-avatar { border: none; }
-#timeline ul .message.title small, #timeline ul .message.status small { opacity: 0.5; }
-#timeline ul .message.status { border-top: 2px dashed #efefe7; margin: 10px 0 10px 0; }
-#timeline ul .message.title { border-top: 2px dashed #efefe7; margin: 10px 0 20px 0; }
-#timeline ul .message.username { border-top: 2px dashed #efefe7; margin: 10px 0 20px 0; padding: 10px 0 0 8.88889px; }
-#timeline ul .message.username .message-details .message-details-avatar { width: 45px; height: 45px; -moz-border-radius: 60px; -webkit-border-radius: 60px; border-radius: 60px; border: 4px solid #f3f3ed; }
-#timeline ul .message.username .message-details .message-details-avatar img { width: 45px; height: auto; }
-#timeline ul .message .message-details { float: left; }
-#timeline ul .message .message-details .message-details-avatar { width: 30px; height: 30px; -moz-border-radius: 30px; -webkit-border-radius: 30px; border-radius: 30px; overflow: hidden; margin: 0 10px 0 0; border: 3px solid #f3f3ed; }
-#timeline ul .message .message-details .message-details-avatar img { width: 25px; height: auto; }
-#timeline ul .message .message-body { float: left; width: 80%; }
-#timeline ul .message .message-body p { margin-bottom: 0; }
-#timeline ul .message .message-body p .tag { padding: 0 3.33333px; }
-#timeline ul .message .message-body small { font-size: 9.6px; line-height: 14.4px; opacity: 0.5; padding: 0; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
-
+/* how we style notes within reports */
 .theme-messages .message { padding: 10px 0; font-size: 14.4px; line-height: 19.2px; border-top: 1px solid rgba(239, 239, 231, 0.6); }
 .theme-messages .message.title, .theme-messages .message.status { padding: 10px 0 0 16px; }
 .theme-messages .message.title .message-details .message-details-avatar, .theme-messages .message.status .message-details .message-details-avatar { border: none; }
