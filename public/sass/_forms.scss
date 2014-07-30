@@ -20,12 +20,13 @@ form {
 }
 
 
+
 .input {
 	background: $white; 
 	border: 2px solid $white;
 	@include dropshadow(0px 0px 4px, rgba(0,0,0,0.1));
 	padding: $pad/2;
-	
+
 	&:focus {
 		border: 2px solid $scout-blue;
 	}

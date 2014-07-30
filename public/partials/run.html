@@ -70,14 +70,16 @@
 			<ul ng-model='timeline'>
 						
 				<li class="message" ng-repeat="message in timeline track by $index">
+					
 					<div class="message-details"><!-- show the user's avatar -->
-						<div class="message-details-avatar"><img src="http://rdjpg.com/40/40" /></div>
+						<div class="message-details-avatar" ng-if="message.title">&bull;</div>
+						<div class="message-details-avatar" ng-if="!message.title">TC <!-- tester/observer initials --></div>
 					</div>
 
 					<div class="message-body">
-						<small>{{message.title}}</small><br>
-						{{message.body}}<br>
-						<small>MODERATOR OR OBSERVER NAME {{message.created | date : 'hh:mm'}}</small>
+						<small ng-if="message.title">{{message.title}}</small>
+						<p>{{message.body}}</p>
+						<small>{{message.created | date : 'hh:mm'}}</small>
 
 					</div>
 					
@@ -97,28 +99,41 @@
 	</div>
 	
 	
+	
 	<div id="right-pane" ng-model='user'>
-		<div id="timeline-user-input">
 		
-		</div>
+		<div id="timeline-user-input"> </div>
 		
 		<div id="timeline-user">
-			<div class="timeline-user-avatar">
-				<img src="http://rdjpg.com/30/30">
-			</div>
+			<div id="timeline-user-only">
 			
-			{{user.name}}
+				<div class="timeline-user-avatar">
+					<img src="http://rdjpg.com/140/140">
+				</div>
+				
+				<small>Testing with</small>
+				<h2>{{user.name}}</h2>
+				
+				<button class="button">New participant</button>
+				
+			</div>	
 		</div>
 		
-		<div id="timeline-device">
-			<div class="timeline-device-device">
-				<img src="/assets/sample.gif" />
-			</div>
-		</div>
-		
+	
 		<div id="timeline-timer">
 			<h3>05:37</h3>
 		</div>
 			
 	</div>
+	
+	
+	
+	
+	
+	
 </div>
+
+
+
+
+
