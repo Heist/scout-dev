@@ -278,7 +278,7 @@ router.route('/test/:testId/session/:sessionId/flow/:flowId')
 // a route for generating a new summary from an existing collection of flows.
 router.route('/test/:testId/flow/:flowName')
 	.post(function(req,res) {
-		console.log('touched flowcollector');
+		// console.log('touched flowcollector');
 		
 		// .find returns an array []
 		Session.find({'testKey' : req.params.testId}, function(err, data) {
@@ -303,7 +303,7 @@ router.route('/test/:testId/flow/:flowName')
 						}
 					}
 				}
-				console.log('flowcollector flows '+flowcollector.flows.length);
+				// console.log('flowcollector flows '+flowcollector.flows.length);
 				
 
 		// Let's organize these flows into something worth having
@@ -423,6 +423,7 @@ router.route('/test/:testId/flow/:flowName')
                 }
             }
 
+            // arrange the tags for theme summarizing
             tags_for_flow.sort(keysrt('body'));
             
             for (var i = 0; i < tags_for_flow.length -1 ; i++){
@@ -432,9 +433,32 @@ router.route('/test/:testId/flow/:flowName')
                     var total = tags_for_flow[i].count + tags_for_flow[i+1].count;
                     tags_for_flow.splice(i, 1);
                     tags_for_flow[i].count = total;
-                    console.log(tags_for_flow[i].count);
+                    // console.log(tags_for_flow[i].count);
                 }
             }
+
+            // return all users into an array for this specific summary
+				var users = []
+
+				for (var i in stepcollector){
+						for (var l in stepcollector[i].session_by_user){
+							var user = stepcollector[i].session_by_user[l].user;
+							if(user){
+								users.push({ session_id: stepcollector[i].session_by_user[l].messages[0].session_id, user:user });
+							}
+						}
+				}
+				
+				users.sort(keysrt('session_id'));
+
+
+				for( var i = 0; i < users.length -1; i++ ){
+					if(users[i+1].session_id == users[i].session_id){
+						users.splice(i, 1);
+					}
+				}
+
+				console.log('users in this flow', users);
 
         summary = new Summary();
 
@@ -442,12 +466,13 @@ router.route('/test/:testId/flow/:flowName')
         summary.steps = stepcollector;
         summary.tags = tags_for_flow;
         summary.testKey = req.params.testId;
-        summary.session_name = 
+        summary.session_name = session_name;
+        summary.users = users;
 
         // TODO there's really no way around this 
         // without being able to check a thing 
         // to see if it has a null _id field first
-        console.log('new summary', summary);
+        // console.log('new summary', summary);
 		summary.save(function(err) {
 				if (err)
 					res.send(err);
@@ -479,6 +504,13 @@ router.route('/summary/:summaryID/flow/:flowName')
 				res.send(err);
 
 			summary.steps = req.body.steps;
+
+			for (var i in summary.steps){
+				for (var k in summary.steps[i].session_by_user){
+
+				}
+			}
+
 			summary.tags  = req.body.tags;
 
 			summary.save(function(err) {
@@ -531,8 +563,61 @@ router.route('/report/:testKey')
 		Summary.find({'testKey':req.params.testKey}, function(err, summaries) {
 				if (err)
 					res.send(err);
-				console.log('touched /:testKey', summaries);
-				res.json(summaries);
+
+				// return messages to a given tag
+				// when that tag is visible
+				// by user
+
+				var tags = []
+				var tag_user = []
+
+				// drill down to find visible tags
+				for (var i in summaries){
+					for (var k in summaries[i].steps){
+						for (var l in summaries[i].steps[k].tags_single){
+							// once we get to the visible tags, check if they're visible
+							if (summaries[i].steps[k].tags_single[l].visible){
+								console.log(summaries[i].steps[k].tags_single[l])
+							// if they're visible, loop through sessions by user
+							// and get all the messages for a given tag that are still visible
+								for (var j in summaries[i].steps[k].session_by_user){
+									for (var m in summaries[i].steps[k].session_by_user[j].messages){
+										console.log(summaries[i].steps[k].session_by_user[j].messages[m].body)
+									}
+								}
+							}
+						}
+					}
+				}
+
+
+				// sort out the users from the sessions_by_user
+				var users = []
+
+				for (var i in summaries){
+					for (var k in summaries[i].steps){
+						for (var l in summaries[i].steps[k].session_by_user){
+							var user = summaries[i].steps[k].session_by_user[l].user;
+							if(user){
+								users.push({session : summaries[i]._id, user: user});
+							}
+						}
+					}
+					// console.log(users);
+					// summaries[i].users = users;
+				}
+				
+				users.sort(keysrt('user'));
+
+				for( var i = 0; i < users.length -1; i++ ){
+					if(users[i+1].session == users[i].session){
+						users.splice(i, 1);
+					}
+				}
+				var dataOut = {'users': users, 'summaries':summaries};
+				
+				
+				res.json(dataOut);
 			});
 	});
 
