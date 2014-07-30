@@ -22,7 +22,7 @@ $> node server
 
 ## Database How-To
 
-To Take A Backup:
+**To Take A Backup:**
 
 from your command line, within $> scout-dev:
 
@@ -30,7 +30,7 @@ from your command line, within $> scout-dev:
 -- mongodump --db scoutApp ( this takes a backup of the database )
 
 
-To Wipe Your Local Database:
+**To Wipe Your Local Database:**
 
 from your command line, anywhere
 
@@ -41,7 +41,7 @@ from your command line, anywhere
 control-C to exit Mongo.
 
 
-To Restore The DB from A Dump:
+**To Restore The DB from A Dump:**
 
 $> cd yourNewDir/dump
 $> mongorestore --port 27017 scoutApp
