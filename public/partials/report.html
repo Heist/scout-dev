@@ -55,9 +55,18 @@
 			
 			<!-- flow theme summary -->
 			<div class="report-block">
-				<h2><span>Theme:</span> Language</h2>
-				<p class="report-detail">Mentioned 8 times</p>	
-				<p>Meatball boudin salami jerky bresaola tri-tip ribeye sausage chicken flank tenderloin leberkas rump. Brisket pork chop flank meatloaf boudin rump sausage meatball pastrami. Landjaeger ribeye tongue chuck, short loin short ribs ball tip. Rump venison beef flank. Rump boudin venison tri-tip sirloin meatball.
+				<div ng-repeat="tag in selected.tags">
+
+				<h2>
+					<span>Theme:</span> {{tag.body}}</h2>
+				<p class="report-detail">
+				<ng-pluralize count="tag.count"
+	                when="{'0': 'Never mentioned.',
+	                       'one': 'Mentioned once.',
+	                       'other': 'Mentioned {} times.'}">
+	  			</ng-pluralize>
+				</p>	
+				<p>{{tag.summary}}
 				</p>
 				
 				<div class="theme-messages">
