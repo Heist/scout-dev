@@ -18,9 +18,9 @@
 			<div id="questions">
 		
 			<div class="questions-group active">
-				<ul ng-repeat="flow in session">
+				<ul ng-repeat="flow in session.summaries">
 						<!-- flow title --><small>Flow</small> {{flow._id}}
-						<li class="question" ng-repeat="step in flow.steps">
+						<li class="question" ng-repeat="step in flow.steps" ng-click="select(flow)">
 								{{step.name}}<div class="question-rating red"></div>
 						</li>
 					</li>
@@ -37,9 +37,9 @@
 		<div id="large-pane">
 			
 			<!-- flow general info -->
-			<h1>{{session.session_name}}</h1>
+			<h1>{{selected._id}}</h1>
 			<p class="report-detail">Report generated July 12 2014</p>		
-			<p>This is the flow summary. Flank short loin swine ground round turducken landjaeger jerky sausage kielbasa shankle ham. Tenderloin pancetta pastrami turducken tongue. Pig chuck swine, salami bresaola drumstick jowl boudin ground round ribeye. Doner spare ribs brisket jerky andouille meatball. Strip steak swine kielbasa chicken, pastrami meatloaf kevin tail ham hock. Swine porchetta cow frankfurter chicken kielbasa, turkey jowl pastrami andouille hamburger salami.</p>
+			<p>{{selected.summary}}</p>
 			<p class="report-participants">
 				 <ng-pluralize count="session.length"
 	                when="{'0': 'This session has not been run.',

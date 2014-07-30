@@ -423,6 +423,7 @@ router.route('/test/:testId/flow/:flowName')
                 }
             }
 
+            // arrange the tags for theme summarizing
             tags_for_flow.sort(keysrt('body'));
             
             for (var i = 0; i < tags_for_flow.length -1 ; i++){
@@ -436,13 +437,36 @@ router.route('/test/:testId/flow/:flowName')
                 }
             }
 
+            // return all users into an array for this specific summary
+				var users = []
+
+				for (var i in stepcollector){
+						for (var l in stepcollector[i].session_by_user){
+							var user = stepcollector[i].session_by_user[l].user;
+							if(user){
+								users.push( user );
+							}
+						}
+				}
+				
+				users.sort(keysrt('user'));
+
+				for( var i = 0; i < users.length -1; i++ ){
+					if(users[i+1].session == users[i].session){
+						users.splice(i, 1);
+					}
+				}
+
+				console.log('users in this flow', users);
+
         summary = new Summary();
 
         summary.title = flowname;
         summary.steps = stepcollector;
         summary.tags = tags_for_flow;
         summary.testKey = req.params.testId;
-        summary.session_name = 
+        summary.session_name = session_name;
+        summary.users = users;
 
         // TODO there's really no way around this 
         // without being able to check a thing 
@@ -531,15 +555,14 @@ router.route('/report/:testKey')
 		Summary.find({'testKey':req.params.testKey}, function(err, summaries) {
 				if (err)
 					res.send(err);
-				console.log('touched /:testKey', summaries);
 
+				// sort out the users from the sessions_by_user
 				var users = []
 
 				for (var i in summaries){
 					for (var k in summaries[i].steps){
 						for (var l in summaries[i].steps[k].session_by_user){
 							var user = summaries[i].steps[k].session_by_user[l].user;
-							console.log(summaries[i].steps[k].session_by_user[l].user)
 							if(user){
 								users.push({session : summaries[i]._id, user: user});
 							}
@@ -556,8 +579,10 @@ router.route('/report/:testKey')
 						users.splice(i, 1);
 					}
 				}
-				console.log(users);
-				res.json(summaries);
+				var dataOut = {'users': users, 'summaries':summaries};
+				
+				
+				res.json(dataOut);
 			});
 	});
 
