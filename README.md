@@ -20,6 +20,35 @@ $> npm install
 $> node server
 ```
 
+## Database How-To
+
+To Take A Backup:
+
+from your command line, within $> scout-dev:
+
+-- mkdir yourNewDir && cd yourNewDir
+-- mongodump --db scoutApp ( this takes a backup of the database )
+
+
+To Wipe Your Local Database:
+
+from your command line, anywhere
+
+-- mongo (mongo should do something to your command line)
+-- use scoutApp
+-- db.dropDatabase();
+
+control-C to exit Mongo.
+
+
+To Restore The DB from A Dump:
+
+$> cd yourNewDir/dump
+$> mongorestore --port 27017 scoutApp
+
+That will build out whatever was in your DB when you took an earlier backup.
+
+
 ## Application Structure
 ```
 |- app						<< *THE BACK END* of the app
