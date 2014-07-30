@@ -571,18 +571,23 @@ router.route('/report/:testKey')
 				var tags = []
 				var tag_user = []
 
-				// drill down to find visible tags
+				// find tags that have been summarized.
+				// TODO this is returning properly but I feel there are errors in the dataset.
 				for (var i in summaries){
-					for (var k in summaries[i].steps){
-						for (var l in summaries[i].steps[k].tags_single){
-							// once we get to the visible tags, check if they're visible
-							if (summaries[i].steps[k].tags_single[l].visible){
-								console.log(summaries[i].steps[k].tags_single[l])
-							// if they're visible, loop through sessions by user
-							// and get all the messages for a given tag that are still visible
-								for (var j in summaries[i].steps[k].session_by_user){
-									for (var m in summaries[i].steps[k].session_by_user[j].messages){
-										console.log(summaries[i].steps[k].session_by_user[j].messages[m].body)
+					for (var k in summaries[i].tags){						
+					// if there's a summary, hand it over
+						if(summaries[i].tags[k].summary){
+							for (var l in summaries[i].steps){
+								for(var m in summaries[i].steps[l].session_by_user){
+									for(var n in summaries[i].steps[l].session_by_user[m].messages){
+										for(var t in summaries[i].steps[l].session_by_user[m].messages[n].tags){
+											var tag = summaries[i].steps[l].session_by_user[m].messages[n].tags[t];
+											var hashPull = new RegExp(/#/gi);
+											var tag = tag.replace(hashPull,'');
+											if ( tag == summaries[i].tags[k].body){
+												console.log(summaries[i].steps[l].session_by_user[m].messages[n].body);
+											}
+										}
 									}
 								}
 							}
@@ -603,8 +608,6 @@ router.route('/report/:testKey')
 							}
 						}
 					}
-					// console.log(users);
-					// summaries[i].users = users;
 				}
 				
 				users.sort(keysrt('user'));
