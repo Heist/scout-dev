@@ -449,11 +449,11 @@ router.route('/test/:testId/flow/:flowName')
 						}
 				}
 				
-				users.sort(keysrt('user'));
+				users.sort(keysrt('session_id'));
 
-				
+
 				for( var i = 0; i < users.length -1; i++ ){
-					if(users[i+1].session == users[i].session){
+					if(users[i+1].session_id == users[i].session_id){
 						users.splice(i, 1);
 					}
 				}

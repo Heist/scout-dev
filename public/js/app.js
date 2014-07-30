@@ -69,13 +69,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $http.get('/api/report/'+$stateParams.testKey)
         .success(function(data){
-            console.log(data)
           $scope.session = data;
           console.log('the report object', $scope.session);
+          $scope.selected = data.summaries[0];
         })
 
     $scope.select = function(selector){
-        console.log()
         $scope.selected = selector;
     }
 

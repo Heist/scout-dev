@@ -41,21 +41,15 @@
 			<p class="report-detail">Report generated July 12 2014</p>		
 			<p>{{selected.summary}}</p>
 			<p class="report-participants">
-				 <ng-pluralize count="session.length"
-	                when="{'0': 'This session has not been run.',
-	                       'one': '1 participant.',
-	                       'other': '{} participants.'}">
+				 <ng-pluralize count="session.users.length"
+	                when="{'0': 'This flow has not been run.',
+	                       'one': 'This flow has been tested once.',
+	                       'other': 'This flow has been tested {} times.'}">
 	  			</ng-pluralize>
 			</p>
 				
 			<ul class="report-participants">
-				<li><div class="report-part-img"><img src="http://rdjpg.com/40/40" /></div>Ben</li>
-				<li><div class="report-part-img"><img src="http://rdjpg.com/40/41" /></div>Jennifer</li>
-				<li><div class="report-part-img"><img src="http://rdjpg.com/41/40" /></div>Morn</li>
-				<li><div class="report-part-img"><img src="http://rdjpg.com/41/42" /></div>Odo</li>
-				<li><div class="report-part-img"><img src="http://rdjpg.com/42/42" /></div>Jadzia</li>
-				<li><div class="report-part-img"><img src="http://rdjpg.com/41/41" /></div>Kira</li>
-				<li><div class="report-part-img"><img src="http://rdjpg.com/40/41" /></div>Garak</li>
+				<li ng-repeat="user in selected.users"><div class="report-part-img"><img src="http://rdjpg.com/40/40" /></div>{{user}}</li>
 			</ul>
 		
 			
