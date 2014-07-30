@@ -278,7 +278,7 @@ router.route('/test/:testId/session/:sessionId/flow/:flowId')
 // a route for generating a new summary from an existing collection of flows.
 router.route('/test/:testId/flow/:flowName')
 	.post(function(req,res) {
-		console.log('touched flowcollector');
+		// console.log('touched flowcollector');
 		
 		// .find returns an array []
 		Session.find({'testKey' : req.params.testId}, function(err, data) {
@@ -303,7 +303,7 @@ router.route('/test/:testId/flow/:flowName')
 						}
 					}
 				}
-				console.log('flowcollector flows '+flowcollector.flows.length);
+				// console.log('flowcollector flows '+flowcollector.flows.length);
 				
 
 		// Let's organize these flows into something worth having
@@ -433,7 +433,7 @@ router.route('/test/:testId/flow/:flowName')
                     var total = tags_for_flow[i].count + tags_for_flow[i+1].count;
                     tags_for_flow.splice(i, 1);
                     tags_for_flow[i].count = total;
-                    console.log(tags_for_flow[i].count);
+                    // console.log(tags_for_flow[i].count);
                 }
             }
 
@@ -452,11 +452,11 @@ router.route('/test/:testId/flow/:flowName')
 				users.sort(keysrt('user'));
 
 				
-				// for( var i = 0; i < users.length -1; i++ ){
-				// 	if(users[i+1].session == users[i].session){
-				// 		users.splice(i, 1);
-				// 	}
-				// }
+				for( var i = 0; i < users.length -1; i++ ){
+					if(users[i+1].session == users[i].session){
+						users.splice(i, 1);
+					}
+				}
 
 				console.log('users in this flow', users);
 
@@ -472,7 +472,7 @@ router.route('/test/:testId/flow/:flowName')
         // TODO there's really no way around this 
         // without being able to check a thing 
         // to see if it has a null _id field first
-        console.log('new summary', summary);
+        // console.log('new summary', summary);
 		summary.save(function(err) {
 				if (err)
 					res.send(err);
