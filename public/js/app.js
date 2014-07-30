@@ -42,7 +42,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             templateUrl: 'partials/summarizeTags.html'
         })
         .state('report', {
-            url: '/report/:summaryID/',
+            url: '/report/:testKey/',
             templateUrl: 'partials/report.html'
         })
         ;
@@ -67,16 +67,17 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // holds the relevant summary
     $scope.flow = {};
 
-    $http.get('/api/report/'+$stateParams.summaryID)
+    $http.get('/api/report/'+$stateParams.testKey)
         .success(function(data){
           $scope.flow = data;
           console.log('the report object', $scope.flow);
         })
 
+
 }])
 
 
-// SUMMARIZE CONTROLLER ========================================================
+// SUMMARIZE TAGS CONTROLLER ========================================================
 .controller('summarizeTags', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
     // holds main flow structure
     $scope.flow = {};
@@ -91,8 +92,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
           console.log('the flow object', $scope.flow);
         })
 
-// Return to summarizing steps
-    $scope.summarizeSteps = function (summary){
+    // Return to summarizing steps
+    $scope.summarizeSteps = function(summary){
         
         // upsert summary to DB
         
@@ -116,7 +117,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     }
 
-// complete the Summary
+    // complete the Summary
     $scope.completeSummary = function(summary){
         // this is the Save A New Summary button
         // it saves a summary in complete mode when done writing it up
@@ -140,8 +141,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $location.path('/');
     }
 
-// Summarize Tags controller functions
-
+    // Summarize Tags controller functions
     $scope.selectTag = function (tag){
         $scope.selectedTag = tag;
         $scope.summary.text = $scope.selectedTag.summary;
@@ -159,14 +159,16 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 }])
 
+// SUMMARIZE STEPS controller ==========================================
+
 .controller('summarizeFlow', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
 	$scope.flow = {};
     $scope.timeline = [];
 
-// set selected step for main flow
+    // set selected step for main flow
     $scope.step = {};
 
-// for summarizing tags
+    // for summarizing tags
     $scope.summary = {};
 
     // a function to return the steps from a set of flows
@@ -193,8 +195,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     };
 
 
-// Switch to tag summary view
-
+    // Switch to tag summary view
     $scope.summarizeTags = function(summary){
         // upsert summary to DB
 
@@ -235,8 +236,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $location.path('/');
     }
 
-// Summarize Steps controller functions 
-
+    // Summarize Steps controller functions 
     $scope.showHideTag = function(tag, index){
         // this sets visible/not visible on the repeated tags in steps.tags_single
         // it should also propagate to steps.tags
@@ -484,8 +484,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // set new location path
             $location.path('/summarizeFlow/'+data._id+'/flow/'+flow);
         })
+    }
 
-
+    // Launch the current report
+    $scope.loadReport = function(testKey){
+        console.log('touched a report', testKey);
+        $location.path('/report/'+ testKey +'/');
     }
 }])
 
@@ -499,21 +503,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $scope.timeline = []; // holds all messages currently in flow
 
-    // // refresh warning to prevent whoops-I-deleted-the-Session
-    // var leavingPageText = "If you refresh, you will lose this test.";
-    // window.onbeforeunload = function(){
-    //     return leavingPageText;
-    // }
+    // refresh warning to prevent whoops-I-deleted-the-Session
+    var leavingPageText = "If you refresh, you will lose this test.";
+    window.onbeforeunload = function(){
+        return leavingPageText;
+    }
 
-    // $scope.$on('$destroy', function() {
-    //     window.onbeforeunload = undefined;
-    // });
+    $scope.$on('$destroy', function() {
+        window.onbeforeunload = undefined;
+    });
 
-    // $scope.$on('$locationChangeStart', function(event, next, current) {
-    //     if(!confirm(leavingPageText + "\n\nAre you sure you want to leave this page?")) {
-    //         event.preventDefault();
-    //     }
-    // });
+    $scope.$on('$locationChangeStart', function(event, next, current) {
+        if(!confirm(leavingPageText + "\n\nAre you sure you want to leave this page?")) {
+            event.preventDefault();
+        }
+    });
 
 
     // this has to change to get the new session created on the run() command from the main controller

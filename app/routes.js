@@ -67,17 +67,6 @@ router.route('/')
 		});
 
 
-// REPORT routes =========================================================
-router.route('/report/:summaryId')
-	.get(function(req,res){
-		Summary.findById(req.params.summaryId, function(err, summary) {
-				if (err)
-					res.send(err);
-				console.log('touched /:reportID');
-				res.json(summary);
-			});
-	});
-
 // TEST routes =========================================================
 
 // routest for returning test sets - return all sessions.
@@ -451,6 +440,7 @@ router.route('/test/:testId/flow/:flowName')
         summary.title = flowname;
         summary.steps = stepcollector;
         summary.tags = tags_for_flow;
+        summary.testKey = req.params.testId;
 
         // TODO there's really no way around this 
         // without being able to check a thing 
@@ -481,19 +471,6 @@ router.route('/summary/:summaryID/flow/:flowName')
 	})
 	.put(function(req,res){
 		console.log('touched put for summaryID', req.body);
-
-		// var query = { 
-		// 		'_id': req.body._id
-		// };
-
-		// console.log(query);
-
-		// var update = {
-		// 	steps : req.body.steps,
-		// 	tags  : req.body.tags
-		// };
-
-		// var options = {upsert : true};
 
 		Summary.findById(req.body._id, function (err, summary) {	
 			if (err)
@@ -544,5 +521,18 @@ router.route('/summary/')
 				res.json(summaries);
 			});
 	});
+
+
+// REPORT ROUTES =========================================================
+router.route('/report/:testKey')
+	.get(function(req,res){
+		Summary.find({'testKey':req.params.testKey}, function(err, summaries) {
+				if (err)
+					res.send(err);
+				console.log('touched /:testKey', summaries);
+				res.json(summaries);
+			});
+	});
+
 
 module.exports = router;

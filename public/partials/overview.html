@@ -51,7 +51,7 @@
 				<small>{{session.testKey}}</small>
 				
 				<button class="button small" ng-click="addAndLaunchNewSession(session)">Run</button>
-				<!-- reports are flow-level <button class="button small">Report</button> -->
+				<button class="button small" ng-click="loadReport(session.testKey)">Report</button>
 				<button class="button small destructive" ng-click="removeTest(session)">&times;</button>
 			</div>
 			<div class="clear"></div>
