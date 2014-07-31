@@ -284,7 +284,7 @@ router.route('/test/:testId/flow/:flowName')
 		// console.log('touched flowcollector');
 		
 		// .find returns an array []
-		Session.find({'testKey' : req.params.testId}, function(err, data) {
+		Session.find({'testKey' : req.params.testId, 'ismodel':false}, function(err, data) {
 				if (err)
 					res.send(err);
 				
@@ -567,6 +567,7 @@ router.route('/report/:testKey')
 				if (err)
 					res.send(err);
 
+				// console.log('touched /report', req.params.testKey, summaries);
 				// from each flow in a summary
 				// return messages to a given tag
 				// by user
@@ -578,35 +579,32 @@ router.route('/report/:testKey')
 					var tag_index = []
 					var tags = []
 					
-					for (var k in summaries[i].tags){						
-					// if there's a summary, hand it over
-						if(summaries[i].tags[k].summary){
-							for (var l in summaries[i].steps){
-								for(var m in summaries[i].steps[l].session_by_user){
-									for(var n in summaries[i].steps[l].session_by_user[m].messages){
-										for(var t in summaries[i].steps[l].session_by_user[m].messages[n].tags){
-											var tag = summaries[i].steps[l].session_by_user[m].messages[n].tags[t];
-											var hashPull = new RegExp(/#/gi);
-											var tag = tag.replace(hashPull,'');
+					for (var j in summaries[i].tags){
+					// if there's a summary, get the tag that has a summary
+						if (summaries[i].tags[j].summary){
+							console.log(summaries[i].tags[j]);
 
-											if ( tag == summaries[i].tags[k].body){
-												// console.log(summaries[i].steps[l].session_by_user[m].messages[n].body);
-												if (!(tag_index.indexOf(tag) != -1)){
-							                    	tag_index.push(tag);
-							                    	tags.push({tag: tag, messages:[]});
-							                    	tags[tag_index.indexOf(tag)].messages.push(summaries[i].steps[l].session_by_user[m].messages[n]);
-												} else if(tag_index.indexOf(tag) != -1){
-													tags[tag_index.indexOf(tag)].messages.push(summaries[i].steps[l].session_by_user[m].messages[n]);
-												}
+							// okay, now we can get messages that have tag[j]
+							// from this summary/flow
+							for (var k in summaries[i].steps){
+								for(var l in summaries[i].steps[k].session_by_user){
+									for(var m in summaries[i].steps[k].session_by_user[l].messages){
+										var msg = summaries[i].steps[k].session_by_user[l].messages[m];
+										for (var t in msg.tags){
+											if (msg.tags[t] == summaries[i].tags[j].body){
+												console.log('message from if',summaries[i].tags[j].summary, msg);
 											}
 										}
+										
 									}
 								}
 							}
+
 						}
+
 					}
-					console.log('summary', summaries[i].title, 'tags', tags);
-					tagSummary.push(tags);
+					// console.log('summary', summaries[i].title, 'tags', tags);
+					// tagSummary.push(tags);
 				}
 
 				
