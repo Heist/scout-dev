@@ -36,7 +36,10 @@
 		<p>You can add summaries or insights to tags from this session.</p>
 		
 		<ul class="tags">
-			<li ng-repeat="tag in flow.tags" ng-click="selectTag(tag)" ng-class="{ 'active': selectedTag.body == tag.body}"><span>{{tag.body}}</span></li>
+			<li ng-repeat="tag in flow.tags" ng-click="selectTag(tag)" ng-class="{ 'active': selectedTag.body == tag.body}">
+				<span ng-if="tag.summary">{{tag.body}} &#x2713;</span>
+				<span ng-if="!tag.summary">{{tag.body}}</span>
+			</li>
 		</ul>
 		
 	</div>
