@@ -567,6 +567,7 @@ router.route('/report/:testKey')
 				if (err)
 					res.send(err);
 
+				console.log('touched /report', req.params.testKey, summaries);
 				// from each flow in a summary
 				// return messages to a given tag
 				// by user
