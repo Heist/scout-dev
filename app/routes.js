@@ -564,17 +564,17 @@ router.route('/report/:testKey')
 				if (err)
 					res.send(err);
 
+				// from each flow in a summary
 				// return messages to a given tag
-				// when that tag is visible
 				// by user
 
-				var tag_index = []
-				var tags = []
-				var tag_user = []
-
-				// find tags that have been summarized.
-				// TODO this is returning properly but I feel there are errors in the dataset.
+				// for each summary, which is also a Flow	
+				// find all tags that have been summarized
+				var tagSummary = [];
 				for (var i in summaries){
+					var tag_index = []
+					var tags = []
+					
 					for (var k in summaries[i].tags){						
 					// if there's a summary, hand it over
 						if(summaries[i].tags[k].summary){
@@ -587,14 +587,13 @@ router.route('/report/:testKey')
 											var tag = tag.replace(hashPull,'');
 
 											if ( tag == summaries[i].tags[k].body){
+												// console.log(summaries[i].steps[l].session_by_user[m].messages[n].body);
 												if (!(tag_index.indexOf(tag) != -1)){
 							                    	tag_index.push(tag);
 							                    	tags.push({tag: tag, messages:[]});
-							                    	tags[tag_index.indexOf(tag)].messages.push(summaries[i].steps[l].session_by_user[m].messages[n].body);
-												} else if(tags[tag_index]){
-													tags[tag_index].messages.push(summaries[i].steps[l].session_by_user[m].messages[n].body);
-													console.log(tags[tag_index]);
-													console.log(summaries[i].steps[l].session_by_user[m].messages[n].body);
+							                    	tags[tag_index.indexOf(tag)].messages.push(summaries[i].steps[l].session_by_user[m].messages[n]);
+												} else if(tag_index.indexOf(tag) != -1){
+													tags[tag_index.indexOf(tag)].messages.push(summaries[i].steps[l].session_by_user[m].messages[n]);
 												}
 											}
 										}
@@ -603,10 +602,13 @@ router.route('/report/:testKey')
 							}
 						}
 					}
+					console.log('summary', summaries[i].title, 'tags', tags);
+					tagSummary.push(tags);
 				}
 
-				console.log('tags', tags);
-				// sort out the users from the sessions_by_user
+				
+
+				// sort out the number of times a test has been run from sessions_by_user
 				var users = []
 
 				for (var i in summaries){
@@ -627,7 +629,7 @@ router.route('/report/:testKey')
 						users.splice(i, 1);
 					}
 				}
-				var dataOut = {'users': users, 'summaries':summaries};
+				var dataOut = {'users': users, 'summaries':summaries, 'tagsummary': tagSummary};
 				
 				
 				res.json(dataOut);
