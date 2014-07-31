@@ -3,7 +3,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-
 var MessageSchema = new Schema ({
 	body : {
 			type: String, 
@@ -15,6 +14,10 @@ var MessageSchema = new Schema ({
 	created_by: {
 		type: String,
 		trim: true
+	},
+	user_id:{
+		type: String,
+		trim:true
 	},
 	session_id:{
 		type: String,

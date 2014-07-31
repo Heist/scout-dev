@@ -631,7 +631,6 @@ router.route('/report/:testKey')
 				}
 				var dataOut = {'users': users, 'summaries':summaries, 'tagsummary': tagSummary};
 				
-				
 				res.json(dataOut);
 			});
 	});
