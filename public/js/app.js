@@ -34,11 +34,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             templateUrl: 'partials/run.html'
         })
         .state('summarizeFlow', {
-            url: '/summarizeFlow/:summaryID/flow/:flowname',
+            url: '/summarizeFlow/:summaryID/flow/',
             templateUrl: 'partials/summarizeFlow.html'
         })
         .state('summarizeTags', {
-            url: '/summarizeFlow/:summaryID/tags/:flowname',
+            url: '/summarizeFlow/:summaryID/tags/',
             templateUrl: 'partials/summarizeTags.html'
         })
         .state('report', {
@@ -90,7 +90,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.summary = {};
 
     // on load, get our information
-    $http.get('/api/summary/'+$stateParams.summaryID+'/flow/'+$stateParams.flowname)
+    $http.get('/api/summary/'+$stateParams.summaryID+'/flow/')
         .success(function(data){
           $scope.flow = data;
           console.log('the flow object', $scope.flow);
@@ -101,7 +101,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
         // upsert summary to DB
         
-        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
+        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/';
         var dataOut = summary;
 
         console.log('put', summary);
@@ -115,7 +115,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             });
 
-        $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/flow/'+$stateParams.flowname);
+        $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/flow/');
         
         // this shit needs to forcibly reapply/maintain the existing [flow] - at present it does not
 
@@ -129,7 +129,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // this runs on a really weird, delayed time cycle! I do not know why.
 
         console.log('put', summary);
-        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
+        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/';
         var dataOut = summary;
 
         console.log('put route',  url);
@@ -179,8 +179,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // the scan those steps for their tags
     // then return that matched set to the step
     // this could possibly be done on the back end
-    
-    $http.get('/api/summary/'+$stateParams.summaryID+'/flow/'+$stateParams.flowname)
+    console.log('summaryID', $stateParams.summaryID)
+    $http.get('/api/summary/'+$stateParams.summaryID+'/flow/')
         .success(function(data){
           $scope.flow = data;
           console.log('the flow object', $scope.flow);
@@ -202,7 +202,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.summarizeTags = function(summary){
         // upsert summary to DB
 
-        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
+        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/';
         var dataOut = summary;
         
          $http.put(url, dataOut)   
@@ -212,7 +212,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             .error(function(data){
             });
 
-        $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/tags/'+  $stateParams.flowname);
+        $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/tags/');
         $scope.flow = summary;
     }
 
@@ -223,7 +223,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // this runs on a really weird, delayed time cycle! I do not know why.
 
         console.log('put', summary);
-        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/'+ $stateParams.flowname;
+        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/';
         var dataOut = summary;
 
         console.log('put route',  url);
@@ -478,14 +478,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.summarizeFlow = function(session, flow){
         // strip flowname's whitespace        
         flow = flow.replace(/ /g,'');
-        console.log(session, flow);
-        var url = '/api/test/'+ session +'/flow/'+ flow;
+        console.log(session);
+        var url = '/api/test/'+ session +'/flow/'+flow;
 
         $http.post(url)
         .success(function(data){
           console.log('the flow object from overview', data);
             // set new location path
-            $location.path('/summarizeFlow/'+data._id+'/flow/'+flow);
+            $location.path('/summarizeFlow/'+data._id+'/flow/');
         })
     }
 

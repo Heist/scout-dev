@@ -487,12 +487,12 @@ router.route('/test/:testId/flow/:flowName')
 
 // get the summary to fill in from the database
 
-router.route('/summary/:summaryID/flow/:flowName')
+router.route('/summary/:summaryID/flow/')
 	.get(function(req,res){
 		Summary.findById(req.params.summaryID, function(err, summary) {
 				if (err)
 					res.send(err);
-				console.log('touched /:summaryID');
+				console.log('touched /:summaryID', summary);
 				res.json(summary);
 			});
 	})
