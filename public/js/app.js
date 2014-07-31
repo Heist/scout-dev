@@ -72,11 +72,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
           $scope.session = data;
           console.log('the report object', $scope.session);
           $scope.selected = data.summaries[0];
+          console.log($scope.selected);
         })
 
     $scope.select = function(selector){
         $scope.selected = selector;
-        
+        console.log($scope.selected);
     }
 
 }])

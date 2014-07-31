@@ -592,9 +592,20 @@ router.route('/report/:testKey')
 									for(var m in summaries[i].steps[k].session_by_user[l].messages){
 										var msg = summaries[i].steps[k].session_by_user[l].messages[m];
 										for (var t in msg.tags){
+											// if the message has a tag that is the same
+											// as the tag being currently tested...
 											if (msg.tags[t] == summaries[i].tags[j].body){
-												console.log('tag ', msg.tags[t],'msg', msg);
-												// tags.push(msg);
+												// console.log('tag ', msg.tags[t],'msg', msg);
+												// if the tag checking index lacks thing,
+												// make thing and put first message in
+												// otherwise push the message into existing tag
+												if (!(tag_index.indexOf(msg.tags[t]) != -1)){
+													tag_index.push(msg.tags[t])
+													tags.push({tag: msg.tags[t], summary: summaries[i].tags[j].summary , messages:[]})
+													tags[tag_index.indexOf(msg.tags[t])].messages.push(msg);
+												} else if (tag_index.indexOf(msg.tags[t]) != -1){
+													tags[tag_index.indexOf(msg.tags[t])].messages.push(msg);
+												}
 
 											}
 										}
@@ -607,9 +618,9 @@ router.route('/report/:testKey')
 
 					}
 					
-					// messages.push(tags);
-					// summaries[i].tags = messages;
-					// console.log('summary.tags did not crash', summaries[i].tags)
+					
+					summaries[i].tags = tags;
+					console.log('summary.tags did not crash', summaries[i].tags)
 				}
 
 				
@@ -635,7 +646,7 @@ router.route('/report/:testKey')
 						users.splice(i, 1);
 					}
 				}
-				var dataOut = {'users': users, 'summaries':summaries, 'tagsummary': tagSummary};
+				var dataOut = {'users': users, 'summaries':summaries};
 				
 				res.json(dataOut);
 			});
