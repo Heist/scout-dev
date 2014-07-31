@@ -57,51 +57,30 @@
 			<div class="report-block">
 				<div ng-repeat="tag in selected.tags">
 
-				<h2>
-					<span>Theme:</span> {{tag.tag}}</h2>
-				<p class="report-detail">
-				<ng-pluralize count="tag.count"
-	                when="{'0': 'Never mentioned.',
-	                       'one': 'Mentioned once.',
-	                       'other': 'Mentioned {} times.'}">
-	  			</ng-pluralize>
-				</p>	
-				<p>{{tag.summary}}
-				</p>
+					<h2><span>Theme:</span> {{tag.tag}}</h2>
+					<p class="report-detail">
+					<ng-pluralize count="tag.count"
+		                when="{'0': 'Never mentioned.',
+		                       'one': 'Mentioned once.',
+		                       'other': 'Mentioned {} times.'}">
+		  			</ng-pluralize>
+					</p>	
+					<p>{{tag.summary}}
+					</p>
+					
+					<div class="theme-messages">
 				
-				<div class="theme-messages">
-			
-					<div class="message">
-						<div class="message-details">
-							<div class="message-details-avatar">
-								<img src="http://rdjpg.com/30/30" />
+						<div class="message" ng-repeat="message in tag.messages">
+							<div class="message-body">
+								<p ng-bind-html="message.body | htmlize"></p>
+								<small>Testing with {{message.user_id}}</small>
 							</div>
+							<div class="clear"></div>
 						</div>
-						<div class="message-body">
-							<p><span class="tag">#language</span> <span class="tag">#note</span> Hashtags can also go at the front</p>
-							<small>Testing with Jennifer</small>
-						</div>
-						<div class="clear"></div>
+
 					</div>
-					
-					<div class="message">
-						<div class="message-details">
-							<div class="message-details-avatar">
-								<img src="http://rdjpg.com/31/31" />
-							</div>
-						</div>
-						<div class="message-body">
-							<p>He seemed to be having a lot of trouble understanding that word<span class="tag">#language</span></p>
-							<small>Testing with Ben</small>
-						</div>
-						<div class="clear"></div>
-					</div>
-					
-			
+				
 				</div>
-				
-			</div>
-				
 		</div>
 </div>
 </div>

@@ -608,22 +608,18 @@ router.route('/report/:testKey')
 												} else if (tag_index.indexOf(msg.tags[t]) != -1){
 													tags[tag_index.indexOf(msg.tags[t])].messages.push(msg);
 													tags[tag_index.indexOf(msg.tags[t])].count = tags[tag_index.indexOf(msg.tags[t])].messages.length;
-
 												}
-
 											}
 										}
-										
 									}
 								}
 							}
-
 						}
-
 					}
 					
-					
+					if (tags){
 					summaries[i].tags = tags;
+					}
 					console.log('summary.tags did not crash', summaries[i].tags)
 				}
 
