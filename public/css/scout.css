@@ -305,7 +305,7 @@ body { background: #f3f3ed; color: #41454a; margin: 0; padding: 0; }
 #view-login input, #view-login button { width: 100%; }
 #view-login #logo img { width: auto; height: 40px; }
 
-#view-observer-login { background: #41454a url("../assets/observer-login-bg.jpg") no-repeat top center; background-size: cover; color: white; }
+#view-observer-login { background: #41454a; background-size: cover; color: white; }
 #view-observer-login input, #view-observer-login button { width: 100%; }
 #view-observer-login #logo { margin: 0 0 20px 0; }
 #view-observer-login #logo img { width: auto; height: 30px; }
@@ -365,9 +365,14 @@ body { background: #f3f3ed; color: #41454a; margin: 0; padding: 0; }
 #view-testing #right-pane #timeline-device { padding: 10px; width: 100%; height: auto; border: 2px solid #e9e9de; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; margin: 40% auto 0 auto; }
 #view-testing #right-pane #timeline-device img { width: 100%; height: auto; border: 2px solid #e9e9de; }
 #view-testing #middle-pane { padding: 0; margin: 0; position: relative; overflow: hidden; background: white; border-left: 2px solid #efefe7; border-right: 2px solid #efefe7; }
-#view-testing #middle-pane #session-input { position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px; height: 150px; overflow: hidden; background: #e9e9de; border-top: 2px solid #efefe7; z-index: 99999; }
+#view-testing #middle-pane #session-input { position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px; height: 150px; overflow: hidden; background: #e9e9de; border-top: 2px solid #efefe7; z-index: 9999; }
 #view-testing #middle-pane #session-input textarea { width: 100%; height: 100%; margin: 0; }
 #view-testing #middle-pane #timeline { margin-top: 50px; }
+
+/* WHO ARE WE TESTING */
+#view-testing-userentry { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(65, 69, 74, 0.94); z-index: 99999; color: white; margin: 0; padding: 18% 0 0 0; text-align: center; }
+#view-testing-userentry .input, #view-testing-userentry .button { width: 100%; }
+#view-testing-userentry img { height: 50px; width: auto; }
 
 /* THE SUMMARY */
 #view-summarizing { margin: 0; padding: 0; height: 100%; width: 100%; }
