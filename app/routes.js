@@ -578,11 +578,12 @@ router.route('/report/:testKey')
 				for (var i in summaries){
 					var tag_index = []
 					var tags = []
+					var messages = []
 					
 					for (var j in summaries[i].tags){
 					// if there's a summary, get the tag that has a summary
 						if (summaries[i].tags[j].summary){
-							console.log(summaries[i].tags[j]);
+							// console.log(summaries[i].tags[j]);
 
 							// okay, now we can get messages that have tag[j]
 							// from this summary/flow
@@ -592,7 +593,9 @@ router.route('/report/:testKey')
 										var msg = summaries[i].steps[k].session_by_user[l].messages[m];
 										for (var t in msg.tags){
 											if (msg.tags[t] == summaries[i].tags[j].body){
-												console.log('message from if',summaries[i].tags[j].summary, msg);
+												console.log('tag ', msg.tags[t],'msg', msg);
+												// tags.push(msg);
+
 											}
 										}
 										
@@ -603,8 +606,10 @@ router.route('/report/:testKey')
 						}
 
 					}
-					// console.log('summary', summaries[i].title, 'tags', tags);
-					// tagSummary.push(tags);
+					
+					// messages.push(tags);
+					// summaries[i].tags = messages;
+					// console.log('summary.tags did not crash', summaries[i].tags)
 				}
 
 				
