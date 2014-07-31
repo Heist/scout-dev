@@ -567,7 +567,7 @@ router.route('/report/:testKey')
 				if (err)
 					res.send(err);
 
-				console.log('touched /report', req.params.testKey, summaries);
+				// console.log('touched /report', req.params.testKey, summaries);
 				// from each flow in a summary
 				// return messages to a given tag
 				// by user
@@ -579,14 +579,32 @@ router.route('/report/:testKey')
 					var tag_index = []
 					var tags = []
 					
-					for (var k in summaries[i].tags){						
-					// if there's a summary, hand it over
-						if(summaries[i].tags[k].summary){
-							console.log('tag summaries', summaries[i], tags[k])
+					for (var j in summaries[i].tags){
+					// if there's a summary, get the tag that has a summary
+						if (summaries[i].tags[j].summary){
+							console.log(summaries[i].tags[j]);
+
+							// okay, now we can get messages that have tag[j]
+							// from this summary/flow
+							for (var k in summaries[i].steps){
+								for(var l in summaries[i].steps[k].session_by_user){
+									for(var m in summaries[i].steps[k].session_by_user[l].messages){
+										var msg = summaries[i].steps[k].session_by_user[l].messages[m];
+										for (var t in msg.tags){
+											if (msg.tags[t] == summaries[i].tags[j].body){
+												console.log('message from if',summaries[i].tags[j].summary, msg);
+											}
+										}
+										
+									}
+								}
+							}
+
 						}
+
 					}
-					console.log('summary', summaries[i].title, 'tags', tags);
-					tagSummary.push(tags);
+					// console.log('summary', summaries[i].title, 'tags', tags);
+					// tagSummary.push(tags);
 				}
 
 				
