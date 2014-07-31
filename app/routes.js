@@ -595,16 +595,20 @@ router.route('/report/:testKey')
 											// if the message has a tag that is the same
 											// as the tag being currently tested...
 											if (msg.tags[t] == summaries[i].tags[j].body){
+												var ct = 0;
 												// console.log('tag ', msg.tags[t],'msg', msg);
 												// if the tag checking index lacks thing,
 												// make thing and put first message in
 												// otherwise push the message into existing tag
 												if (!(tag_index.indexOf(msg.tags[t]) != -1)){
+													ct = 1;
 													tag_index.push(msg.tags[t])
-													tags.push({tag: msg.tags[t], summary: summaries[i].tags[j].summary , messages:[]})
+													tags.push({tag: msg.tags[t], summary: summaries[i].tags[j].summary, count: ct, messages:[]})
 													tags[tag_index.indexOf(msg.tags[t])].messages.push(msg);
 												} else if (tag_index.indexOf(msg.tags[t]) != -1){
 													tags[tag_index.indexOf(msg.tags[t])].messages.push(msg);
+													tags[tag_index.indexOf(msg.tags[t])].count = tags[tag_index.indexOf(msg.tags[t])].messages.length;
+
 												}
 
 											}
