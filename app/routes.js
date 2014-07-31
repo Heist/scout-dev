@@ -193,6 +193,9 @@ router.route('/test/:testId/session/:sessionId')
 			if (req.body.user){
 				session.user = req.body.user;
 				console.log('new user', session.user);
+			} else if (req.body.name){
+				session.name = req.body.name;
+				console.log('new name', session.name);
 			}
 			else {
 				session.flows.id(req.body._id).remove();

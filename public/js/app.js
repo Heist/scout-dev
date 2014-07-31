@@ -334,7 +334,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $scope.editedTitle = null;
         
         // var index = $scope.session.flows.indexOf(flow);
-        var url = '/api/'+session._id;
+        var url = '/api/test/'+session.testKey+'/session/'+session._id;
         
         if (!session.name) {
             session.name = 'New Session';
