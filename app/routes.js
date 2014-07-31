@@ -568,6 +568,7 @@ router.route('/report/:testKey')
 				// when that tag is visible
 				// by user
 
+				var tag_index = []
 				var tags = []
 				var tag_user = []
 
@@ -584,8 +585,17 @@ router.route('/report/:testKey')
 											var tag = summaries[i].steps[l].session_by_user[m].messages[n].tags[t];
 											var hashPull = new RegExp(/#/gi);
 											var tag = tag.replace(hashPull,'');
+
 											if ( tag == summaries[i].tags[k].body){
-												console.log(summaries[i].steps[l].session_by_user[m].messages[n].body);
+												if (!(tag_index.indexOf(tag) != -1)){
+							                    	tag_index.push(tag);
+							                    	tags.push({tag: tag, messages:[]});
+							                    	tags[tag_index.indexOf(tag)].messages.push(summaries[i].steps[l].session_by_user[m].messages[n].body);
+												} else if(tags[tag_index]){
+													tags[tag_index].messages.push(summaries[i].steps[l].session_by_user[m].messages[n].body);
+													console.log(tags[tag_index]);
+													console.log(summaries[i].steps[l].session_by_user[m].messages[n].body);
+												}
 											}
 										}
 									}
@@ -595,7 +605,7 @@ router.route('/report/:testKey')
 					}
 				}
 
-
+				console.log('tags', tags);
 				// sort out the users from the sessions_by_user
 				var users = []
 
