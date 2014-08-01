@@ -287,36 +287,26 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // flows is *all* flows
             data.sort(keysrt('testKey'));
             
-            // count up and post the number of ssins 
+            // count up and post the number of sessions 
             var models = 0;
-            var ssin = [];
-            var tests = []; //for pushing tests to scope.sessions?
-            
-
             var ssincount = 0;
-                // for each model where ismodel is true
+            var ssin = [];
+            var tests = [];
 
-            // for each session with test number x
-            // push it to a new ssins object in $scope
-            for (var i = 0; i<data.length -1; i++){
-                    if (data[i + 1].testKey == data[i].testKey) {
-                        ssincount++
-                    }else{
-                        ssin.push({'testKey' : data[i].testKey, 'ssincount' : ssincount});
-                        ssincount=0;
-                    }
-            }
-            // console.log(JSON.stringify(ssin));
+            // console.log('the object we counting', data);
 
             // return model sessions to the sessions scope for display and control
             for(var i =0; i<data.length; i++){
                 if (data[i].ismodel){
                     tests.push(data[i]);
+                } else if (!data[i].ismodel){
+                    ssin.push(data[i]);
                 }
             }
             // because we use sessions as a unit everywhere else
             $scope.sessions = tests;
             $scope.tests = ssin;
+            console.log('ssin', ssin, 'tests', tests);
         })
         .error(function(data) {
             console.log('Error: ' + data);
