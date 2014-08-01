@@ -278,7 +278,8 @@ router.route('/test/:testId/session/:sessionId/flow/:flowId')
    			}
 		);
 	});
-// a route for generating a new summary from an existing collection of flows.
+
+// ROUTE a route for generating a new summary from an existing collection of flows.
 router.route('/test/:testId/flow/:flowName')
 	.post(function(req,res) {
 		console.log('touched flowcollector');
@@ -287,7 +288,7 @@ router.route('/test/:testId/flow/:flowName')
 		Session.find({'testKey' : req.params.testId, 'ismodel':false}, function(err, data) {
 				if (err)
 					res.send(err);
-				
+
 				var flowcollector = {};
 					flowcollector.flows = [];
 				var session_name = data.name;
@@ -296,7 +297,7 @@ router.route('/test/:testId/flow/:flowName')
 
 			// this gathers and sorts similar flows from the returned
 			// session array[].
-				for (var i = 0; i < data.length -1 ; i++){
+				for (var i in data){
 					for (var j = 0; j < data[i].flows.length; j++){
 						var name = data[i].flows[j].title;
 						name = name.replace(/ /g,'');
@@ -307,7 +308,8 @@ router.route('/test/:testId/flow/:flowName')
 						}
 					}
 				}
-				// console.log('flowcollector flows '+flowcollector.flows.length);
+			
+			console.log('flowcollector flows '+flowcollector.flows);
 				
 
 		// Let's organize these flows into something worth having

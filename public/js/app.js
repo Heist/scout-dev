@@ -72,6 +72,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
           $scope.session = data;
           console.log('the report object', $scope.session);
           $scope.selected = data.summaries[0];
+
           console.log($scope.selected);
         })
 
@@ -480,11 +481,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     // add a new summarizeFlow and launch summary
-    $scope.summarizeFlow = function(session, flow){
+    $scope.summarizeFlow = function(testKey, flow){
         // strip flowname's whitespace        
         flow = flow.replace(/ /g,'');
-        console.log(session);
-        var url = '/api/test/'+ session +'/flow/'+flow;
+        console.log(testKey, flow);
+        var url = '/api/test/'+ testKey +'/flow/'+flow;
 
         $http.post(url)
         .success(function(data){
