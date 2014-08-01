@@ -529,7 +529,15 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $http.get('/api/test/'+$stateParams.testKey+'/session/'+$stateParams.sessionId)
         .success(function(data){
             $scope.session = data;
-            $scope.flows = $scope.session.flows;
+
+            var flows = [];
+            for (var i in data.flows){
+                if(data.flows[i].steps.length > 0){
+                    flows.push(data.flows[i]);
+                }
+            }
+
+            $scope.flows = flows;
             
             // set the initial timeline contents
             var message = {};

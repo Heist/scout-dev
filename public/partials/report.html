@@ -19,7 +19,7 @@
 		
 			<div class="questions-group active">
 				<ul ng-repeat="flow in session.summaries">
-						<!-- flow title --><small>Flow</small> {{flow._id}}
+						<!-- flow title --><small>Flow</small> {{flow.title}}
 						<li class="question" ng-repeat="step in flow.steps" ng-click="select(flow)">
 								{{step.name}}<div class="question-rating red"></div>
 						</li>
@@ -37,7 +37,7 @@
 		<div id="large-pane">
 			
 			<!-- flow general info -->
-			<h1>{{selected._id}}</h1>
+			<h1>{{selected.title}}</h1>
 			<p class="report-detail">Report generated July 12 2014</p>		
 			<p>{{selected.summary}}</p>
 			<p class="report-participants">
