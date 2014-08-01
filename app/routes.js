@@ -281,7 +281,7 @@ router.route('/test/:testId/session/:sessionId/flow/:flowId')
 // a route for generating a new summary from an existing collection of flows.
 router.route('/test/:testId/flow/:flowName')
 	.post(function(req,res) {
-		// console.log('touched flowcollector');
+		console.log('touched flowcollector');
 		
 		// .find returns an array []
 		Session.find({'testKey' : req.params.testId, 'ismodel':false}, function(err, data) {
@@ -292,6 +292,7 @@ router.route('/test/:testId/flow/:flowName')
 					flowcollector.flows = [];
 				var session_name = data.name;
 			
+			// console.log(data);
 
 			// this gathers and sorts similar flows from the returned
 			// session array[].
@@ -441,19 +442,25 @@ router.route('/test/:testId/flow/:flowName')
             }
 
             // return all users into an array for this specific summary
-				var users = []
+            // how do we use this? Why? What's this doooooing?
+            // this is also missing one user - in test DB, Delilagh is gone.
 
-				for (var i in stepcollector){
-						for (var l in stepcollector[i].session_by_user){
-							var user = stepcollector[i].session_by_user[l].user;
-							if(user){
-								users.push({ session_id: stepcollector[i].session_by_user[l].messages[0].session_id, user:user });
-							}
-						}
-				}
+			var users = []
+			
+			for (var i in stepcollector){
+				console.log('stepcollector', stepcollector[i]);
+					for (var l in stepcollector[i].session_by_user){
+						var user = stepcollector[i].session_by_user[l].user;
+						console.log('user ',user);
+						users.push(user);
+						// var session_id = stepcollector[i].session_by_user[l].messages[0].session_id;
+						// if(user && session_id){
+						// 	users.push({ session_id: session_id, user:user });
+						// }
+					}
+			}
 				
-				users.sort(keysrt('session_id'));
-
+			users.sort(keysrt('session_id'));
 
 				for( var i = 0; i < users.length -1; i++ ){
 					if(users[i+1].session_id == users[i].session_id){
