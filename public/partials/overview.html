@@ -65,7 +65,7 @@
 				<ul class="nobullets">
 					<li><a href="#"><img src="../assets/platform-icons/tablet.svg"/> Prototype</a></li>
 					<li>{{flow.steps.length }} steps</li>
-					<li ng-show='flow.updated'>Last run {{flow.updated | date: 'MMM dd, yyyy'}}</li>
+					<li ng-show='flow.updated > flow.created'>Last run {{flow.updated | date: 'MMM dd, yyyy'}}</li>
 				</ul>
 				
 				<div class="session-flow-controls">
