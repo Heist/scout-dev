@@ -48,7 +48,13 @@
 			</form>
 			
 			<div class="session-controls">
-				<small>{{session.testKey}}</small>
+				<small>{{session.testKey}}, 
+					 <ng-pluralize count="ssincount"
+                		when="{'0': 'Never run.',
+                       'one': 'run once.',
+                       'other': 'run {} times.'}">
+  					</ng-pluralize>
+				</small>
 				
 				<button class="button small" ng-click="addAndLaunchNewSession(session)">Run</button>
 				<button class="button small" ng-click="loadReport(session.testKey)">Report</button>

@@ -303,10 +303,27 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                     ssin.push(data[i]);
                 }
             }
+
+            var latest = '';
+            for(var i in ssin){
+                for (var k in tests){
+                    if (tests[k].testKey == ssin[i].testKey){
+                        if (ssin[i].updated > tests[k].updated){
+                            tests[k].updated = ssin[i].updated;
+                        }
+                    }
+                }
+            }
+            
+            console.log(tests);
+
+            // console.log(latest);
+
             // because we use sessions as a unit everywhere else
             $scope.sessions = tests;
             $scope.tests = ssin;
-            console.log('ssin', ssin, 'tests', tests);
+
+            console.log('ssin', tests, 'tests', ssin);
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -315,10 +332,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // edit titles inline.
     $scope.editTitle = function(textfield){
         textfield.editing = 'true';
-        
-
-        // Clone the original item to restore it on demand.
-        // $scope.originalTitle = angular.extend({}, session);
     }
 
     $scope.blurTitle= function(session){
