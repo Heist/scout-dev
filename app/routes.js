@@ -441,34 +441,6 @@ router.route('/test/:testId/flow/:flowName')
                 }
             }
 
-            // return all users into an array for this specific summary
-            // how do we use this? Why? What's this doooooing?
-            // this is also missing one user - in test DB, Delilagh is gone.
-
-			var users = []
-			
-			for (var i in stepcollector){
-				console.log('stepcollector', stepcollector[i]);
-					for (var l in stepcollector[i].session_by_user){
-						var user = stepcollector[i].session_by_user[l].user;
-						console.log('user ',user);
-						users.push(user);
-						// var session_id = stepcollector[i].session_by_user[l].messages[0].session_id;
-						// if(user && session_id){
-						// 	users.push({ session_id: session_id, user:user });
-						// }
-					}
-			}
-				
-			users.sort(keysrt('session_id'));
-
-				for( var i = 0; i < users.length -1; i++ ){
-					if(users[i+1].session_id == users[i].session_id){
-						users.splice(i, 1);
-					}
-				}
-
-				console.log('users in this flow', users);
 
         summary = new Summary();
 
@@ -477,12 +449,8 @@ router.route('/test/:testId/flow/:flowName')
         summary.tags = tags_for_flow;
         summary.testKey = req.params.testId;
         summary.session_name = session_name;
-        summary.users = users;
 
-        // TODO there's really no way around this 
-        // without being able to check a thing 
-        // to see if it has a null _id field first
-        // console.log('new summary', summary);
+
 		summary.save(function(err) {
 				if (err)
 					res.send(err);
@@ -514,13 +482,6 @@ router.route('/summary/:summaryID/flow/')
 				res.send(err);
 
 			summary.steps = req.body.steps;
-
-			for (var i in summary.steps){
-				for (var k in summary.steps[i].session_by_user){
-
-				}
-			}
-
 			summary.tags  = req.body.tags;
 
 			summary.save(function(err) {
@@ -581,6 +542,7 @@ router.route('/report/:testKey')
 
 				// for each summary, which is also a Flow	
 				// find all tags that have been summarized
+
 				var tagSummary = [];
 				for (var i in summaries){
 					var tag_index = []
