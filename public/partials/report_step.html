@@ -1,10 +1,11 @@
 <!-- report_steps -->
 
-
-		
 		<div class="report-title">
 	
-			<h2 class="float-left">Log into your account <div class="question-rating green"></div></h2>
+			<h2 class="float-left">{{selected.title}} 
+				<div class="question-rating green" ng-show="selected.pass_fail == true"></div>
+				<div class="question-rating red" ng-show="selected.pass_fail == false"></div>
+			</h2>
 			
 			<!-- play media -->
 			<div class="float-right">
@@ -24,7 +25,7 @@
 		
 		<h3><span>Summary</span></h3>
 	
-		<p>Meatball boudin salami jerky bresaola tri-tip ribeye sausage chicken flank tenderloin leberkas rump. Brisket pork chop flank meatloaf boudin rump sausage meatball pastrami. Landjaeger ribeye tongue chuck, short loin short ribs ball tip. Rump venison beef flank. Rump boudin venison tri-tip sirloin meatball.
+		<p>{{selected.summary}}
 			<br/>
 		</p>
 			
@@ -70,9 +71,5 @@
 					</div>
 					<div class="clear"></div>
 				</div>
-				
-				
-				
-		
+
 			</div>
-		
