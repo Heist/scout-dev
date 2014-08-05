@@ -332,6 +332,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             console.log('Error: ' + data);
         });
 
+    $scope.select = function (session, index){
+        console.log('touched session', index, session)
+        $scope.selected = session;
+        $scope.selectedIndex = index;
+    }
+
     // edit titles inline.
     $scope.editTitle = function(textfield){
         textfield.editing = 'true';

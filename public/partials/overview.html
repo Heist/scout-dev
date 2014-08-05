@@ -40,7 +40,7 @@
 							<button class="button small destructive" ng-click="removeTest(session)">&times;</button> 
 						</div>
 						
-						<div class="session-name">
+						<div class="session-name" ng-click="select(session, $index)" ng-class="{ 'active': $index == selectedIndex}">
 							<h4 ng-hide="session.editing">
 								{{session.name}} <button class="button small" ng-click="editTitle(session)">edit title</button>
 							</h4>
