@@ -105,6 +105,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $scope.select = function(selector){
         $scope.selected = selector;
+        
+
         console.log($scope.selected);
 
         selector.favs = []
