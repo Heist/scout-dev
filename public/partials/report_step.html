@@ -33,43 +33,17 @@
 			
 		<div class="theme-messages">
 		
-				<div class="message" >
-					<div class="message-details">
-						<div class="message-details-avatar">
-							<img src="http://rdjpg.com/30/30" />
-						</div>
+			<div class="message" ng-repeat="fav in selected.favs">
+				<div class="message-details">
+					<div class="message-details-avatar">
+						<img src="http://rdjpg.com/30/30" />
 					</div>
-					<div class="message-body">
-						<p><span class="tag">#pizza</span> <span class="tag">#fanboat</span> Hashtags can also go at the front</p>
-						<small>Testing with Jennifer</small>
-					</div>
-					<div class="clear"></div>
 				</div>
-				
-				<div class="message">
-					<div class="message-details">
-						<div class="message-details-avatar">
-							<img src="http://rdjpg.com/31/31" />
-						</div>
-					</div>
-					<div class="message-body">
-						<p>The abort button also destroys all the satellites, which seems weird <span class="tag">#cobra</span></p>
-						<small>Testing with Ben</small>
-					</div>
-					<div class="clear"></div>
+				<div class="message-body">
+					<p ng-bind-html="fav.body | htmlize"></p>
+					<small>Testing with {{fav.user_id}}</small>
 				</div>
-				
-				<div class="message">
-					<div class="message-details">
-						<div class="message-details-avatar">
-							<img src="http://rdjpg.com/32/31" />
-						</div>
-					</div>
-					<div class="message-body">
-						<p>It's strange that Snake Eyes walks around in his full armour like all the time <span class="tag">#gijoe</span></p>
-						<small>Testing with Jennifer</small>
-					</div>
-					<div class="clear"></div>
-				</div>
-
+				<div class="clear"></div>
 			</div>
+
+	</div>
