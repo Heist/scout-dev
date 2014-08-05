@@ -82,18 +82,20 @@
 			<div class="step-hamburger">≡</div>
 
 
-			<div class="step-name pointer" ng-click="editTitle(step)" ng-hide="step.title_edit">
-				<!--{{step.title}}-->{{step.title}} &nbsp;<img src="/assets/pencil.svg">
+			<div class="step-name" ng-hide="step.title_edit">
+				<!--{{step.title}}-->{{step.title | truncate:36}} &nbsp;<img class="pointer" src="/assets/pencil-rev.svg" ng-click="editTitle(step)">
 			</div>
 
 			
 			<div class="step-delete pointer big" ng-click="removeStep(step)">×</div>
 
+
 			<form ng-show="step.title_edit">
 
-				<input class="edit" ng-trim="false" ng-model="step.title" ng-focus="editTitle(step)" ng-blur="blurTitle(step)">
+				<input class="edit" ng-trim="false" ng-model="step.title" ng-focus="editTitle(step)" ng-blur="blurTitle(step)"> <span class="pointer">&check;</span>
 
 			</form>
+			
 
 			<div class="clear"></div>		
 		</li>
