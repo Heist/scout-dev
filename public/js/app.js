@@ -139,7 +139,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $http.get('/api/summary/'+$stateParams.summaryID+'/flow/')
         .success(function(data){
           $scope.flow = data;
-          console.log('the flow object', $scope.flow);
+          // console.log('the flow object', $scope.flow);
         })
 
     // Return to summarizing steps
@@ -150,8 +150,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         var url = '/api/summary/'+ $stateParams.summaryID +'/flow/';
         var dataOut = summary;
 
-        console.log('put', summary);
-        console.log('post route',  url);
+        // console.log('put', summary);
+        // console.log('post route',  url);
         
         $http.put(url, dataOut)   
             .success(function(data){
@@ -173,16 +173,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // it saves a summary in complete mode when done writing it up
         // then returns you to /
         // this runs on a really weird, delayed time cycle! I do not know why.
-
-        console.log('put', summary);
+        
         var url = '/api/summary/'+ $stateParams.summaryID +'/flow/';
         var dataOut = summary;
 
-        console.log('put route',  url);
-        
          $http.put(url, dataOut)   
             .success(function(data){
-                console.log('sent a new summary '+ JSON.stringify(data));
+                // console.log('sent a new summary '+ JSON.stringify(data));
             })
             .error(function(data){
                 console.log('error', data);
@@ -225,7 +222,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // the scan those steps for their tags
     // then return that matched set to the step
     // this could possibly be done on the back end
-    console.log('summaryID', $stateParams.summaryID)
+    // console.log('summaryID', $stateParams.summaryID)
     $http.get('/api/summary/'+$stateParams.summaryID+'/flow/')
         .success(function(data){
           $scope.flow = data;
@@ -251,7 +248,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
          $http.put(url, dataOut)   
             .success(function(data){
-                console.log('sent a summary upsert - steps '+ JSON.stringify(data));
+                // console.log('sent a summary upsert - steps '+ JSON.stringify(data));
             })
             .error(function(data){
             });
