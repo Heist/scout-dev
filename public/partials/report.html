@@ -21,7 +21,9 @@
 				<ul ng-repeat="flow in session.summaries">
 						<!-- flow title --><small>Flow</small> {{flow.title}}
 						<li class="question" ng-repeat="step in flow.steps" ng-click="select(flow)">
-								{{step.name}}<div class="question-rating red"></div>
+								{{step.name}}
+								<div class="question-rating green" ng-show="step.pass_fail == true" ></div>
+								<div class="question-rating red" ng-show="step.pass_fail == false"></div>
 						</li>
 					</li>
 					</ul>
