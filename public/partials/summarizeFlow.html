@@ -44,7 +44,7 @@
              			ng-click="activate($index, $parent.$index, step)">
 					<span>{{step.name}}</span>
 					
-					<div class="step-rating">
+					<div class="step-rating" ng-click="passFail(step)">
 						<img src="/assets/rate-positive.svg" /> <img src="/assets/rate-negative.svg">
 					</div>
 					

@@ -194,9 +194,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $scope.parentIndex = parentIndex;
 
         // passes the step title to the global variable from flows[0].steps[step]
-        
         $scope.step = step;
-        console.log('step', $scope.step);
 
         //pass all of the tags inside of flows[allflows].steps[step] to an array 
     };
@@ -224,16 +222,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // it saves a summary in complete mode when done writing it up
         // then returns you to /
         // this runs on a really weird, delayed time cycle! I do not know why.
-
-        console.log('put', summary);
         var url = '/api/summary/'+ $stateParams.summaryID +'/flow/';
         var dataOut = summary;
 
-        console.log('put route',  url);
         
          $http.put(url, dataOut)   
             .success(function(data){
-                console.log('sent a new summary '+ JSON.stringify(data));
+                // console.log('sent a new summary '+ JSON.stringify(data));
             })
             .error(function(data){
                 console.log('error', data);
@@ -254,7 +249,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             tag.visible=true;
             // $scope.step.tags_single[index].visible = true;
         }
-        console.log('step for checking step object contents', $scope.step);
     }    
         
     $scope.saveFav = function(message){
@@ -266,9 +260,17 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         }
         // when we save the summary, it will save all messages with message.fav = true
         // to the summary file. 
-
-        console.log('step for checking step object contents', $scope.step);
     }
+
+    $scope.passFail = function(step){
+        console.log('touched pass-fail')
+        if(step.pass_fail){
+            step.pass_fail = false;
+        } else if (!step.fail){
+            step.pass_fail = true;
+        }
+        console.log($scope.step);
+    }  
 
    
 }])
