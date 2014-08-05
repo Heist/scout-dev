@@ -19,8 +19,8 @@
 		
 			<div class="questions-group active">
 				<ul ng-repeat="flow in session.summaries">
-						<li><!-- flow title --><small>Flow</small> {{flow.title}}</li>
-						<li class="question" ng-repeat="step in flow.steps" ng-click="select(flow)">
+						<li ui-sref=".flow" ng-click="select(flow)" ><!-- flow title --><small>Flow</small> {{flow.title}}</li>
+						<li ui-sref=".step" ng-click="select(step)" class="question" ng-repeat="step in flow.steps" >
 								{{step.name}}
 								<div class="question-rating green" ng-show="step.pass_fail == true" ></div>
 								<div class="question-rating red" ng-show="step.pass_fail == false"></div>
@@ -31,53 +31,7 @@
 				
 		</div>		
 		
-		<div id="large-pane">
-			
-			<!-- flow general info -->
-			<h1>{{selected.title}}</h1>
-			<p class="report-detail">Report generated July 12 2014</p>		
-			<p>{{selected.summary}}</p>
-			<p class="report-participants">
-				 <ng-pluralize count="session.users.length"
-	                when="{'0': 'This flow has not been run.',
-	                       'one': 'This flow has been tested once.',
-	                       'other': 'This flow has been tested {} times.'}">
-	  			</ng-pluralize>
-			</p>
-				
-			<ul class="report-participants">
-				<li ng-repeat="user in selected.users"><div class="report-part-img"><img src="http://rdjpg.com/40/40" /></div>{{user}}</li>
-			</ul>
-		
-			
-			<!-- flow theme summary -->
-			<div class="report-block">
-				<div ng-repeat="tag in selected.tags">
-
-					<h2><span>Theme:</span> {{tag.tag}}</h2>
-					<p class="report-detail">
-					<ng-pluralize count="tag.count"
-		                when="{'0': 'Never mentioned.',
-		                       'one': 'Mentioned once.',
-		                       'other': 'Mentioned {} times.'}">
-		  			</ng-pluralize>
-					</p>	
-					<p>{{tag.summary}}
-					</p>
-					
-					<div class="theme-messages">
-				
-						<div class="message" ng-repeat="message in tag.messages">
-							<div class="message-body">
-								<p ng-bind-html="message.body | htmlize"></p>
-								<small>Testing with {{message.user_id}}</small>
-							</div>
-							<div class="clear"></div>
-						</div>
-
-					</div>
-				
-				</div>
+		<div id="large-pane" ui-view >
+			<!-- looking for your views? they're in partials/report_flow and report_step -->
 		</div>
-</div>
 </div>

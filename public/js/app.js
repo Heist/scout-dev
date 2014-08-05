@@ -24,7 +24,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             templateUrl: 'partials/overview.html'
         })
         
-        // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
+        // SINGLE PAGE VIEWS =================================
         .state('flow', {
         	url: '/edit/test/:testId/session/:sessionId/flow/:flowId',
             templateUrl: 'partials/flow.html'
@@ -41,9 +41,18 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             url: '/summarizeFlow/:summaryID/tags/',
             templateUrl: 'partials/summarizeTags.html'
         })
+
+        // REPORT PAGE WITH NESTED VIEWS =====================
         .state('report', {
             url: '/report/:testKey/',
             templateUrl: 'partials/report.html'
+        })
+        .state('report.flow', {
+            templateUrl: 'partials/report_flow.html'
+        })
+        .state('report.step', {
+            // url: '/report/:testKey/',
+            templateUrl: 'partials/report_step.html'
         })
         ;
 

@@ -1,0 +1,48 @@
+<!-- report_flow.html -->
+
+<!-- flow general info -->
+			<h1>{{selected.title}}</h1>
+			<p class="report-detail">Report generated July 12 2014</p>		
+			<p>{{selected.summary}}</p>
+			<p class="report-participants">
+				 <ng-pluralize count="session.users.length"
+	                when="{'0': 'This flow has not been run.',
+	                       'one': 'This flow has been tested once.',
+	                       'other': 'This flow has been tested {} times.'}">
+	  			</ng-pluralize>
+			</p>
+				
+			<ul class="report-participants">
+				<li ng-repeat="user in selected.users"><div class="report-part-img"><img src="http://rdjpg.com/40/40" /></div>{{user}}</li>
+			</ul>
+		
+			
+			<!-- flow theme summary -->
+			<div class="report-block">
+				<div ng-repeat="tag in selected.tags">
+
+					<h2><span>Theme:</span> {{tag.tag}}</h2>
+					<p class="report-detail">
+					<ng-pluralize count="tag.count"
+		                when="{'0': 'Never mentioned.',
+		                       'one': 'Mentioned once.',
+		                       'other': 'Mentioned {} times.'}">
+		  			</ng-pluralize>
+					</p>	
+					<p>{{tag.summary}}
+					</p>
+					
+					<div class="theme-messages">
+				
+						<div class="message" ng-repeat="message in tag.messages">
+							<div class="message-body">
+								<p ng-bind-html="message.body | htmlize"></p>
+								<small>Testing with {{message.user_id}}</small>
+							</div>
+							<div class="clear"></div>
+						</div>
+
+					</div>
+				
+				</div>
+		</div>
