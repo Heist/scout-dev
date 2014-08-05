@@ -35,7 +35,7 @@
 					
 					<li class="question" ng-repeat="session in sessions | unique:'testKey'" ng-click="select(session, $index)" ng-class="{ 'active': $index == selectedIndex}">
 						<div class="test-controls">
-							<button class="button small secondary" ng-click="addAndLaunchNewSession(session)" ng-show="session.flows[0].steps > 0">Run Test</button>
+							<button class="button small secondary" ng-click="addAndLaunchNewSession(session)" ng-show="session.flows[0].steps.length > 0" >Run Test</button>
 							<button class="button small" ng-click="loadReport(session.testKey)">Report</button>
 							<button class="button small destructive" ng-click="removeTest(session)">&times;</button> 
 						</div>
