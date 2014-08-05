@@ -78,10 +78,11 @@
 				</div>
 			
 				<div class="session-flow-controls">
-					<button class="button small" ng-show="flow.summary == false">Summarize</button>
-					<button class="button small" ng-show="flow.summary == true">Summary</button>
-							
-					<button class="button small secondary" ng-click="editFlow(flow)" >Edit</button>
+					<button class="button small" >Summarize</button>
+					<button class="button small" >Summary</button>
+
+					<button class="button small secondary" ng-click="editFlow(selected, flow)" >Edit</button>
+					
 					<button class="button small destructive" ng-click="removeFlow($parent.$index, $index)">&times;</button>
 				</div>	
 				
