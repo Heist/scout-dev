@@ -450,11 +450,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         console.log('session, flow '+ session+' '+ flow);
 
 
-        var url = '/api/test/'+$scope.sessions[session].testKey+'/session/'+$scope.sessions[session]._id+'/flow/'+$scope.sessions[session].flows[flow]._id;
+        var url = '/api/test/'+session.testKey+'/session/'+session._id+'/flow/'+flow._id;
         
-        $scope.sessions[session].flows.splice(flow, 1);
+        session.flows.splice(flow, 1);
         
-        var dataOut = $scope.sessions[session];
+        var dataOut = session;
 
         console.log(url);
         console.log(dataOut);
