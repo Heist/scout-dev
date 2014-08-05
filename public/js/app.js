@@ -78,7 +78,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             }
 
         };
-    });)
+    })
+
 // REPORT CONTROLLER ===========================================================
 .controller('report', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
     // holds the relevant summary
