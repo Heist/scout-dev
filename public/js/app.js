@@ -422,14 +422,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             var wrapper = { 'flow': $scope.flow };
             
             
-            var url = '/api/test/'+test.testKey;
+            var url = '/api/test/'+session.testKey;
             console.log(url);
             
             $http
                 .put(url, wrapper)
                 .success(function(data){
                     console.log('new flow added '+ JSON.stringify(data));
-                    $scope.sessions[index].flows = data.flows;
+                    session.flows = data.flows;
                     $scope.$apply;
                 })
                 .error(function(data){
