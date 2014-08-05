@@ -106,6 +106,20 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.select = function(selector){
         $scope.selected = selector;
         console.log($scope.selected);
+
+        selector.favs = []
+
+        for(var i in selector.session_by_user){
+            for (var k in selector.session_by_user[i].messages){
+                var msg = selector.session_by_user[i].messages[k];
+                if (msg.fav==true){
+                    selector.favs.push(msg);
+                }
+            }
+        }
+
+        console.log(selector.favs);
+
     }
 
 }])
