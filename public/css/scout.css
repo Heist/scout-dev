@@ -87,17 +87,19 @@ form { padding: 0; margin: 0; }
 .input { background: white; border: 2px solid white; -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1); box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1); padding: 10px; }
 .input:focus { border: 2px solid #00b1b7; }
 
+textarea.input { line-height: 24px; }
+
 .placeholder { color: rgba(65, 69, 74, 0.6); }
 
 /* button colour mixin */
-.button { background: none; color: #00b1b7; border: 2px solid #00b1b7; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; cursor: pointer; padding: 10px 16px; }
-.button:hover { background: #00b1b7; color: white; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; }
+.button { background: none; color: #00b1b7; border: 2px solid #00b1b7; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; text-decoration: none; cursor: pointer; padding: 10px 16px; }
+.button:hover { background: #00b1b7; color: white; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; text-decoration: none; }
 .button.small { font-size: 12.8px; padding: 2.85714px 6.66667px; }
 .button.disabled { cursor: not-allowed; opacity: 0.4; }
-.button.destructive { background: none; color: #ee4300; border: 2px solid #ee4300; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; }
-.button.destructive:hover { background: #ee4300; color: white; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; }
-.button.secondary { background: none; color: #00b1b7; border: 2px solid #00b1b7; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; }
-.button.secondary:hover { background: #00b1b7; color: white; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; }
+.button.destructive { background: none; color: #ee4300; border: 2px solid #ee4300; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; text-decoration: none; }
+.button.destructive:hover { background: #ee4300; color: white; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; text-decoration: none; }
+.button.secondary { background: none; color: #00b1b7; border: 2px solid #00b1b7; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; text-decoration: none; }
+.button.secondary:hover { background: #00b1b7; color: white; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; text-decoration: none; }
 
 label { padding: 0; margin: 0; font-size: 12.8px; opacity: 0.4; }
 
@@ -165,7 +167,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 .ng-valid, .ng-invalid, .ng-dirty, .ng-pristine, .ng-touched, .ng-untouched { height: 100%; }
 
 /* errythang for the timeline/chat */
-#timeline { overflow: auto; height: 100%; padding: 10px 0 20px 0; background: url("../assets/timeline-line.gif") repeat-y 24px top; }
+#timeline { overflow: auto; padding: 50px 0 170px 0; height: 100%; margin: 0; background: url("../assets/timeline-line.gif") repeat-y 24px top; }
 #timeline ul { list-style: none; padding: 0; margin: 0; }
 #timeline ul li { padding: 0; margin: 0; }
 #timeline ul .message { padding: 8px 0 0 16px; font-size: 14.4px; line-height: 19.2px; margin: 0 0 10px 0; }
@@ -176,11 +178,15 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #timeline ul .message .message-body p .tag { padding: 0 3.33333px; }
 #timeline ul .message .message-body small { font-size: 9.6px; line-height: 14.4px; opacity: 0.5; padding: 0; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
 
-/* timeline user and device treatment */
+/* timeline user and device treatment // i.e., who are we testing with, and on what device? only relevant when doing testing on device */
 #timeline-user #timeline-user-only { position: absolute; top: 30%; left: 0; width: 100%; text-align: center; padding: 15px 0; font-family: "adelle-sans", sans-serif; font-style: normal; font-weight: 100; }
-#timeline-user #timeline-user-only .timeline-user-avatar { border: 10px solid white; display: block; padding: 0; margin: 0 auto 20px auto; width: 150px; height: 150px; -moz-border-radius: 100px; -webkit-border-radius: 100px; border-radius: 100px; }
+#timeline-user #timeline-user-only .timeline-user-avatar { display: block; padding: 0; margin: 0 auto 20px auto; width: 150px; height: 150px; -moz-border-radius: 100px; -webkit-border-radius: 100px; border-radius: 100px; background: white; }
+#timeline-user #timeline-user-only .timeline-user-avatar img { width: 90%; height: auto; opacity: 0.4; }
 #timeline-user #timeline-user-only small { font-family: "adelle-sans", sans-serif; font-style: normal; font-weight: 400; }
 #timeline-user .timeline-user-avatar { display: inline-block; vertical-align: middle; overflow: hidden; }
+
+#timeline-device { padding: 10px; width: 100%; height: auto; border: 2px solid #e9e9de; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; margin: 40% auto 0 auto; }
+#timeline-device img { width: 100%; height: auto; border: 2px solid #e9e9de; }
 
 /* questions/list of things style */
 #questions { height: 100%; padding-top: 50px; background: #41454a; color: white; }
@@ -362,12 +368,9 @@ body { background: #f3f3ed; color: #41454a; margin: 0; padding: 0; }
 #view-testing #right-pane { float: right; position: relative; }
 #view-testing #right-pane #timeline-timer { position: absolute; left: 0; bottom: 0; width: 100%; text-align: center; padding: 0 0 20px 0; }
 #view-testing #right-pane #timeline-timer h3 { margin: 0; }
-#view-testing #right-pane #timeline-device { padding: 10px; width: 100%; height: auto; border: 2px solid #e9e9de; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; margin: 40% auto 0 auto; }
-#view-testing #right-pane #timeline-device img { width: 100%; height: auto; border: 2px solid #e9e9de; }
 #view-testing #middle-pane { padding: 0; margin: 0; position: relative; overflow: hidden; background: white; border-left: 2px solid #efefe7; border-right: 2px solid #efefe7; }
 #view-testing #middle-pane #session-input { position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px; height: 150px; overflow: hidden; background: #e9e9de; border-top: 2px solid #efefe7; z-index: 9999; }
 #view-testing #middle-pane #session-input textarea { width: 100%; height: 100%; margin: 0; }
-#view-testing #middle-pane #timeline { margin-top: 50px; }
 
 /* WHO ARE WE TESTING */
 #view-testing-userentry { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(65, 69, 74, 0.94); z-index: 99999; color: white; margin: 0; padding: 18% 0 0 0; text-align: center; }

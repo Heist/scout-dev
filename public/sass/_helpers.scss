@@ -40,11 +40,13 @@ mixins
 	color: $bg;	
 	border: 2px solid $bg;
 	@include animate;
+	text-decoration: none;
 		
 	&:hover {
 		background: $bg;
 		color: $text;
 		@include animate;
+		text-decoration: none;
 	}
 }
 

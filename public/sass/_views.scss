@@ -335,23 +335,7 @@
 				margin: 0;
 			}
 		}
-		
-		#timeline-device {
-			padding: $pad/2;
-			width: 100%;
-			height: auto;
-			border: 2px solid $line-tan;
-			@include radius(10px);
-			margin: 40% auto 0 auto;
-			
-			
-			img {
-				width: 100%;
-				height: auto;
-				border: 2px solid $line-tan;
-			}
-		}
-				
+						
 	}
 	
 	/* the chat */
@@ -382,11 +366,6 @@
 				height: 100%;
 				margin: 0;
 			}
-		}
-		
-		
-		#timeline {
-			margin-top: 50px;
 		}
 		
 	}
