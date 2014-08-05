@@ -45,7 +45,8 @@
 					<span>{{step.name}}</span>
 					
 					<div class="step-rating" ng-click="passFail(step)">
-						<img src="/assets/rate-positive.svg" /> <img src="/assets/rate-negative.svg">
+						<img src="/assets/rate-positive.svg" ng-show="step.pass_fail == true"/>
+						<img src="/assets/rate-negative.svg" ng-show="step.pass_fail == false">
 					</div>
 					
 					<h3>{{step.name}}</h3>
