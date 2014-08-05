@@ -536,6 +536,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     // add a new summarizeFlow and launch summary
     $scope.summarizeFlow = function(testKey, flow){
+
+        console.log('touched ', testKey, flow)
         // strip flowname's whitespace        
         flow = flow.replace(/ /g,'');
         console.log(testKey, flow);
@@ -547,6 +549,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // set new location path
             $location.path('/summarizeFlow/'+data._id+'/flow/');
         })
+    }
+
+    $scope.editSummary = function(summary){
+        // this is going to require some thinks!
+        // we do not currently Get things by Summary so.
+        // $location.path('/summarizeFlow/'+summary._id+'/flow/');
     }
 
     // Launch the current report

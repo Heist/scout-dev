@@ -78,7 +78,7 @@
 
 					<div class="message-body">
 						<small ng-if="message.title">{{message.title}}</small>
-						<p>{{message.body}}</p>
+						<p ng-bind-html="message.body | htmlize"></p>
 						<small>{{message.created | date : 'hh:mm'}}</small>
 
 					</div>
