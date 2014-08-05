@@ -332,6 +332,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             console.log('Error: ' + data);
         });
 
+    $scope.select = function (session, index){
+        console.log('touched session', index, session)
+        $scope.selected = session;
+        $scope.selectedIndex = index;
+    }
+
     // edit titles inline.
     $scope.editTitle = function(textfield){
         textfield.editing = 'true';
@@ -402,28 +408,28 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     // Add and remove flows from tests.
-    $scope.addAFlow = function(index, test){
+    $scope.addAFlow = function(session){
             // this adds a flow to the test selectied
             // important because tests model sessions
-
+            console.log('touched addaflow ', session);
             $scope.flow = {}
             $scope.flow.title = 'New Flow Name Goes Here';
             $scope.flow.steps = [];
 
-            $scope.sessions[index].flows.push($scope.flow);
+            session.flows.push($scope.flow);
 
             // this is so .put can sniff what's going on
             var wrapper = { 'flow': $scope.flow };
             
             
-            var url = '/api/test/'+test.testKey;
+            var url = '/api/test/'+session.testKey;
             console.log(url);
             
             $http
                 .put(url, wrapper)
                 .success(function(data){
                     console.log('new flow added '+ JSON.stringify(data));
-                    $scope.sessions[index].flows = data.flows;
+                    session.flows = data.flows;
                     $scope.$apply;
                 })
                 .error(function(data){

@@ -1,103 +1,101 @@
-<!-- overview.html -->
 <div id="view-overview" ng-controller="overview">
-<!-- / header block -->
-
-
-
-<!-- header nav -->
-
-<div id="header">
-			
-	
-	<div id="header-logo">
-		&nbsp;
-	</div>
-	
-	<div id="header-title">Tests</div>
-	
-	<div id="header-account">
-		<div id="header-account-avatar">
-			<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg">
-		</div>
-		<div id="header-account-dropdown">&#9662;</div>
-	</div>
-	
-	
-	<div id="header-nav">
-		<a href="#"><button class="button small" ng-click="addTest(test)">+ New Test</button></a>
-	</div>
-
-</div>
-
-<!-- / header nav -->
-
-
-
-<!-- view sessions -->
-
-<!-- session block -->
-<div ng-model="sessions" >
- <div >
-	<div class="grid pad-bottom session" ng-repeat="session in sessions | unique:'testKey'">	
-	
-		<div class="module full session-meta">
-			
-			<div class="session-name" ng-click="editTitle(session)" ng-hide="session.editing"><h4>{{session.name}} <img src="/assets/pencil.svg"></h4></div>
-			<form ng-show="session.editing">
-				<input class="edit" ng-trim="true" ng-model="session.name" ng-focus="editTitle(session)" ng-blur="blurTitle(session)">
-			</form>
-			
-			<div class="session-controls">
-				<small>{{session.testKey}}, 
-					 <ng-pluralize count="ssincount"
-                		when="{'0': 'Never run.',
-                       'one': 'run once.',
-                       'other': 'run {} times.'}">
-  					</ng-pluralize>
-				</small>
-				
-				<button class="button small" ng-click="addAndLaunchNewSession(session)">Run</button>
-				<button class="button small" ng-click="loadReport(session.testKey)">Report</button>
-				<button class="button small destructive" ng-click="removeTest(session)">&times;</button>
-			</div>
-			<div class="clear"></div>
-		</div>	
-	
-							
-		<div class="module quarter"  ng-repeat="flow in session.flows track by $index">
-			<div class="session-flow">
-				<small>Flow</small>
-				<h3>{{flow.title}}</h3>
-				<ul class="nobullets">
-					<li><a href="#"><img src="../assets/platform-icons/tablet.svg"/> Prototype</a></li>
-					<li>{{flow.steps.length }} steps</li>
-					<li ng-show='flow.updated > flow.created'>Last run {{flow.updated | date: 'MMM dd, yyyy'}}</li>
-				</ul>
-				
-				<div class="session-flow-controls">
-					<button class="button small" ng-hide="" ng-click="summarizeFlow(session.testKey, flow.title)">Summary</button>
-					<button class="button small secondary" ng-click="editFlow(flow)"><a href="/edit/test/{{session.testKey}}/session/{{session._id}}/flow/{{flow._id}}">Edit</a></button>
-					<button class="button small destructive" ng-click="removeFlow($parent.$index, $index)">&times;</button>
-				</div>
-				
-			</div>
+	<div id="header">
+		
+		<div id="header-logo">
+			&nbsp;
 		</div>
 		
-		<div class="module quarter" >
-			<div class="session-flow empty">
-				<button class="button" ng-click="addAFlow($index, session)">+ Add A Flow</button>
+		<div id="header-title">Tests</div>
+		
+		<div id="header-account">
+			<div id="header-account-avatar">
+				<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg">
 			</div>
+			<div id="header-account-dropdown">&#9662;</div>
 		</div>
-
+		
+	
+					
+	
 	</div>
-</div>
-</div>
-<!-- / session block -->
-
-<!-- / view sessions -->
-
-
-
-
-<!-- footer block -->
+	
+	<!-- / header nav -->
+	
+	<div id="left-pane" ng-model="sessions">
+		
+		<div id="questions">
+			
+			<div class="questions-group active">
+				<ul>
+					<li class="test-newtest">
+						<div class="test-newtest-create">
+							<button class="button" ng-click="addTest(test)">+ Add a new test</button>		
+						</div>
+					</li>
+					
+					<li class="question" ng-repeat="session in sessions | unique:'testKey'" ng-click="select(session, $index)" ng-class="{ 'active': $index == selectedIndex}">
+						<div class="test-controls">
+							<button class="button small secondary" ng-click="addAndLaunchNewSession(session)" ng-show="session.flows[0].steps > 0">Run Test</button>
+							<button class="button small" ng-click="loadReport(session.testKey)">Report</button>
+							<button class="button small destructive" ng-click="removeTest(session)">&times;</button> 
+						</div>
+						
+						<div class="session-name">
+							<h4 ng-hide="session.editing">
+								{{session.name}} <button class="button small" ng-click="editTitle(session)">edit title</button>
+							</h4>
+							<form ng-show="session.editing">
+								<input class="edit" ng-trim="true" ng-model="session.name" ng-focus="editTitle(session)" ng-blur="blurTitle(session)">
+							</form>
+						</div>
+						<small ng-show='flow.updated > flow.created'>Last run {{flow.updated | date: 'MMM dd, yyyy'}} / 
+							<ng-pluralize count="ssincount"
+		                		when="{'0': 'Never run.',
+		                       'one': 'One participants',
+		                       'other': '{} participants'}">
+  							</ng-pluralize>
+  					</small>	
+					</li>
+				</ul>
+			</div>
+			
+	
+		</div>
+			
+	</div>
+	
+	
+	<div id="large-pane">
+	
+	<!-- show the flows associated with this test -->
+		<div ng-show="selected">
+			<h3><span>{{selected.title}}</span></h3>
+			
+				
+			<div class="session-flow" ng-repeat="flow in selected.flows track by $index">
+				<div class="flow-hamburger">
+					&equiv;
+				</div>
+			
+				<div class="session-flow-controls">
+					<button class="button small" ng-show="flow.summary == false">Summarize</button>
+					<button class="button small" ng-show="flow.summary == true">Summary</button>
+							
+					<button class="button small secondary" ng-click="editFlow(flow)" >Edit</button>
+					<button class="button small destructive" ng-click="removeFlow($parent.$index, $index)">&times;</button>
+				</div>	
+				
+				<small>Flow</small>
+				<h3>{{flow.title}}</h3>
+				
+				<div class="clear"></div>
+				
+			</div>	
+				
+				
+			<div class="session-flow empty">
+				<button class="button" ng-click="addAFlow(selected)">+ Add a new flow</button>		
+			</div>	</div>
+			
+	</div>
 </div>
