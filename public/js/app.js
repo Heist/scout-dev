@@ -408,10 +408,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     // Add and remove flows from tests.
-    $scope.addAFlow = function(index, test){
+    $scope.addAFlow = function(parentIndex, index, test){
             // this adds a flow to the test selectied
             // important because tests model sessions
-
+            console.log('touched addaflow ', parentIndex, index, test);
             $scope.flow = {}
             $scope.flow.title = 'New Flow Name Goes Here';
             $scope.flow.steps = [];

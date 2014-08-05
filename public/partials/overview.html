@@ -33,14 +33,14 @@
 						</div>
 					</li>
 					
-					<li class="question" ng-repeat="session in sessions | unique:'testKey'">
+					<li class="question" ng-repeat="session in sessions | unique:'testKey'" ng-click="select(session, $index)" ng-class="{ 'active': $index == selectedIndex}">
 						<div class="test-controls">
 							<button class="button small secondary" ng-click="addAndLaunchNewSession(session)" ng-show="session.flows[0].steps > 0">Run Test</button>
 							<button class="button small" ng-click="loadReport(session.testKey)">Report</button>
 							<button class="button small destructive" ng-click="removeTest(session)">&times;</button> 
 						</div>
 						
-						<div class="session-name" ng-click="select(session, $index)" ng-class="{ 'active': $index == selectedIndex}">
+						<div class="session-name">
 							<h4 ng-hide="session.editing">
 								{{session.name}} <button class="button small" ng-click="editTitle(session)">edit title</button>
 							</h4>
@@ -68,33 +68,34 @@
 	<div id="large-pane">
 	
 	<!-- show the flows associated with this test -->
-		<h3><span>{{selected.title}}</span></h3>
-		
-	
-		<div class="session-flow" ng-repeat="flow in selected.flows track by $index">
-			<div class="flow-hamburger">
-				&equiv;
-			</div>
-		
-			<div class="session-flow-controls">
-				<button class="button small" ng-show="flow.summary == false">Summarize</button>
-				<button class="button small" ng-show="flow.summary == true">Summary</button>
-						
-				<button class="button small secondary" ng-click="editFlow(flow)" >Edit</button>
-				<button class="button small destructive" ng-click="removeFlow($parent.$index, $index)">&times;</button>
+		<div ng-show="selected">
+			<h3><span>{{selected.title}}</span></h3>
+			
+				
+			<div class="session-flow" ng-repeat="flow in selected.flows track by $index">
+				<div class="flow-hamburger">
+					&equiv;
+				</div>
+			
+				<div class="session-flow-controls">
+					<button class="button small" ng-show="flow.summary == false">Summarize</button>
+					<button class="button small" ng-show="flow.summary == true">Summary</button>
+							
+					<button class="button small secondary" ng-click="editFlow(flow)" >Edit</button>
+					<button class="button small destructive" ng-click="removeFlow($parent.$index, $index)">&times;</button>
+				</div>	
+				
+				<small>Flow</small>
+				<h3>{{flow.title}}</h3>
+				
+				<div class="clear"></div>
+				
 			</div>	
-			
-			<small>Flow</small>
-			<h3>{{flow.title}}</h3>
-			
-			<div class="clear"></div>
-			
-		</div>	
-	
-	
-		<div class="session-flow empty">
-			<button class="button" ng-click="addAFlow($index, session)">+ Add a new flow</button>		
-		</div>	
+				
+				
+			<div class="session-flow empty">
+				<button class="button" ng-click="addAFlow($index, session)">+ Add a new flow</button>		
+			</div>	</div>
 			
 	</div>
 </div>
