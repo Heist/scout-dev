@@ -38,7 +38,9 @@
 			<input class="input" type="text" ng-model="flow.title" id="field-flowname" placeholder="What will you be testing?" />
 		</li>
 		
-		<!--
+
+		<!-- hide prototype stuff for now
+
 		<li>
 			<label for="field-prototype">Prototype link</label><br>
 			<input class="input" type="text" id="field-prototype" placeholder="What&lsquo;s the URL for your prototype?" ng-model="flow.link" />
@@ -60,6 +62,7 @@
 			<div class="clear"></div>
 		</li>
 		-->
+
 		<li>
 			<label for="field-description">Flow description</label><br>
 			<textarea class="input" id="field-textarea" placeholder="What are the overall goals or outcomes you&lsquo;d like to achieve with this flow?" ng-model="flow.desc"></textarea>
@@ -78,7 +81,11 @@
 		
 			<div class="step-hamburger">≡</div>
 
-			<div class="step-name pointer" ng-click="editTitle(step)" ng-hide="step.title_edit">{{step.title}} &nbsp;</div><img src="/assets/pencil.svg"> <!-- TODO do something about how this hides/shows --> 
+
+			<div class="step-name pointer" ng-click="editTitle(step)" ng-hide="step.title_edit">
+				<!--{{step.title}}-->{{step.title}} &nbsp;<img src="/assets/pencil.svg">
+			</div>
+
 			
 			<div class="step-delete pointer big" ng-click="removeStep(step)">×</div>
 

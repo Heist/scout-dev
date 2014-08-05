@@ -33,6 +33,10 @@ form {
 	
 }
 
+textarea.input {
+	line-height: $type-size-base*1.5;
+}
+
 .placeholder {
 	color: transparentize($text, 0.4);
 }
@@ -46,6 +50,7 @@ form {
 	@include button-colour($scout-blue, $white);
 	cursor: pointer;
 	padding: $pad/2 $pad/1.25;
+	
 	
 	&.small {
 		font-size: $type-size-base*0.8;
@@ -67,6 +72,7 @@ form {
 	}
 	
 }
+
 
 
 label {
