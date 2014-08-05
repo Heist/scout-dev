@@ -253,7 +253,7 @@
 			img {
 				height: 12px;
 				width: auto;
-				opacity: 0.3;
+				opacity: 0.6;
 			}
 			
 		}
@@ -270,6 +270,8 @@
 			background: none;
 			font-size: inherit;
 			color: $white;
+			width: 65%;
+			border-bottom: 2px solid transparentize($white,0.6);
 		}
 		
 	}
