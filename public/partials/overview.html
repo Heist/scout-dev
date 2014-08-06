@@ -42,10 +42,10 @@
 						
 						<div class="session-name">
 							<h4 ng-hide="session.editing">
-								{{session.name}} <button class="button small" ng-click="editTitle(session)">edit title</button>
+								{{session.name}} <img src="/assets/pencil-rev.svg" ng-click="editTitle(session)">
 							</h4>
 							<form ng-show="session.editing">
-								<input class="edit" ng-trim="true" ng-model="session.name" ng-focus="editTitle(session)" ng-blur="blurTitle(session)">
+								<input class="edit input" ng-trim="true" ng-model="session.name" ng-focus="editTitle(session)" ng-blur="blurTitle(session)">
 							</form>
 						</div>
 						<small ng-show='flow.updated > flow.created'>Last run {{flow.updated | date: 'MMM dd, yyyy'}} / 
