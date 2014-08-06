@@ -33,9 +33,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             url: '/run/test/:testId/session/:sessionId',
             templateUrl: 'partials/run.html'
         })
-        .state('run.user', {
-            templateUrl: 'partials/run_user.html'
-        })
 
         // SUMMARIZE VIEW ====================================
         .state('summary', {
@@ -338,6 +335,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // set up controller-wide variables
     $scope.sessions = {};
     $scope.tests = {};
+    $scope.summaries = {};
 
     // get all sessions and their flows on first load
     $http.get('/api/test/')
@@ -345,6 +343,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // debug: this fixes the undefined headers error
             // $scope.sessions = data;
 
+            console.log(data);
             // flows is *all* flows
             data.sort(keysrt('testKey'));
             
@@ -551,7 +550,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     // add a new summary and launch summary
-    $scope.summary = function(testKey, flow){
+    $scope.summarizeFlow = function(testKey, flow){
 
         console.log('touched ', testKey, flow)
         // strip flowname's whitespace        
@@ -564,6 +563,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
           console.log('the flow object from overview', data);
             // set new location path
             $location.path('/summary/'+data._id+'/flow/');
+        })
+        .error(function(data){
+            console.log('touched error message');
         })
     }
 
