@@ -621,12 +621,41 @@
 			}
 		
 			.question {
+				padding: $pad;
+			
+				.session-name {
+					img {
+						width: 14px;
+						height: auto;
+						opacity: 0.4;
+						display: none;
+					}
+				}
+				
+				&.active {
+					.session-name img {
+						display: inline-block;
+						cursor: pointer;
+					}
+				}
 			
 				h4 {
 					font-size: $type-size-base*1.1;
 					line-height: $type-line-base*0.9;
 					margin-bottom: 0;
 				}
+				
+				.input {
+					font-size: $type-size-base*1.1;
+					line-height: $type-line-base*0.9;
+					margin-bottom: 0;
+					padding: 0;
+					color: $white;
+					background: none;
+					outline: none;
+					border: none;
+				}
+				
 				
 				small {
 					font-size: $type-size-base*0.7;
@@ -636,7 +665,9 @@
 			
 				.test-controls {
 					float: right;
+					padding: 0;
 					margin-left: $pad;
+					margin-top: -3px;
 					display: none;
 				}
 				
@@ -679,7 +710,8 @@
 			.session-flow-controls {
 				padding-top: $pad/2;
 				float: right;
-				opacity: 0.2;	
+				opacity: 0.2;
+				@include animate;	
 			}
 			
 			.flow-hamburger {
@@ -700,6 +732,7 @@
 			&:hover {
 				.session-flow-controls {
 					opacity: 1.0;
+					@include animate;
 				}
 			}
 			
