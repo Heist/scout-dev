@@ -78,8 +78,16 @@
 				</div>
 			
 				<div class="session-flow-controls">
+					<!-- TODO: make this much more clear, from a user point of view - roll up functionality into one button  -->
 					<button class="button small" ng-click="summarizeFlow(selected.testKey, flow.title)">Summarize</button>
 					<button class="button small" ng-click="editSummary(session.testKey, flow.title)">Summary</button>
+					
+					&nbsp;&nbsp;
+					
+					<!-- TODO: we want to view a report just for this flow -->
+					<button class="button small">View Report</button> 
+					
+					&nbsp;&nbsp;
 
 					<button class="button small secondary" ng-click="editFlow(selected, flow)" >Edit</button>
 					
