@@ -10,7 +10,8 @@ var SummarySchema = new Schema ({
 	updated : Date,
   tags    : Object,
 	testKey : Number,
-  session_name : String
+  session_name : String,
+  summary: String
 })
 
 SummarySchema.pre('save', function(next){

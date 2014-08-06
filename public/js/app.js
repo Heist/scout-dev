@@ -38,13 +38,19 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         })
 
         // SUMMARIZE VIEW ====================================
-        .state('summarizeFlow', {
-            url: '/summarizeFlow/:summaryID/flow/',
-            templateUrl: 'partials/summarizeFlow.html'
+        .state('summary', {
+            url: '/summary/:summaryID/flow/',
+            templateUrl: 'partials/summary.html'
         })
-        .state('summarizeTags', {
-            url: '/summarizeFlow/:summaryID/tags/',
-            templateUrl: 'partials/summarizeTags.html'
+        .state('summary.flow', {
+            templateUrl: 'partials/summary_flow.html'
+        })
+        .state('summary.step', {
+            templateUrl: 'partials/summary_step.html'
+        })
+        .state('summary_tags', {
+            url: '/summary/:summaryID/tags/',
+            templateUrl: 'partials/summary_tags.html'
         })
 
         // REPORT PAGE WITH NESTED VIEWS =====================
@@ -97,7 +103,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 .filter('linebreaker', ['$sce', function($sce){
     return function(text) {
         text = text.replace(/\r?\n/g, '<br />');
-        
+
         return $sce.trustAsHtml(text);
     }
 }])
@@ -141,7 +147,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 
 // SUMMARIZE TAGS CONTROLLER ========================================================
-.controller('summarizeTags', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
+.controller('summary_tags', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
     // holds main flow structure
     $scope.flow = {};
 
@@ -152,7 +158,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $http.get('/api/summary/'+$stateParams.summaryID+'/flow/')
         .success(function(data){
           $scope.flow = data;
-          // console.log('the flow object', $scope.flow);
         })
 
     // Return to summarizing steps
@@ -174,7 +179,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             });
 
-        $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/flow/');
+        $location.path('/summary/'+ $stateParams.summaryID +'/flow/');
         
         // this shit needs to forcibly reapply/maintain the existing [flow] - at present it does not
 
@@ -221,7 +226,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 // SUMMARIZE STEPS controller ==========================================
 
-.controller('summarizeFlow', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
+.controller('summary', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
 	$scope.flow = {};
     $scope.timeline = [];
 
@@ -253,7 +258,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     };
 
     // Switch to tag summary view
-    $scope.summarizeTags = function(summary){
+    $scope.summary_tags = function(summary){
         // upsert summary to DB
 
         var url = '/api/summary/'+ $stateParams.summaryID +'/flow/';
@@ -266,7 +271,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             .error(function(data){
             });
 
-        $location.path('/summarizeFlow/'+ $stateParams.summaryID +'/tags/');
+        $location.path('/summary/'+ $stateParams.summaryID +'/tags/');
         $scope.flow = summary;
     }
 
@@ -545,8 +550,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // this changes to the returned session id, which has been newly created.
     }
 
-    // add a new summarizeFlow and launch summary
-    $scope.summarizeFlow = function(testKey, flow){
+    // add a new summary and launch summary
+    $scope.summary = function(testKey, flow){
 
         console.log('touched ', testKey, flow)
         // strip flowname's whitespace        
@@ -558,14 +563,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data){
           console.log('the flow object from overview', data);
             // set new location path
-            $location.path('/summarizeFlow/'+data._id+'/flow/');
+            $location.path('/summary/'+data._id+'/flow/');
         })
     }
 
     $scope.editSummary = function(summary){
         // this is going to require some thinks!
         // we do not currently Get things by Summary so.
-        // $location.path('/summarizeFlow/'+summary._id+'/flow/');
+        // $location.path('/summary/'+summary._id+'/flow/');
     }
 
     // Launch the current report

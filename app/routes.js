@@ -291,6 +291,7 @@ router.route('/test/:testId/flow/:flowName')
 
 				var flowcollector = {};
 					flowcollector.flows = [];
+
 				var session_name = data.name;
 			
 			// console.log(data);
@@ -451,6 +452,7 @@ router.route('/test/:testId/flow/:flowName')
         summary.tags = tags_for_flow;
         summary.testKey = req.params.testId;
         summary.session_name = session_name;
+        summary.summary = '';
 
 
 		summary.save(function(err) {
@@ -485,6 +487,7 @@ router.route('/summary/:summaryID/flow/')
 
 			summary.steps = req.body.steps;
 			summary.tags  = req.body.tags;
+			summary.summary = req.body.summary;
 
 			summary.save(function(err) {
 				if (err)

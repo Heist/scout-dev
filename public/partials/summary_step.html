@@ -1,0 +1,23 @@
+<!-- summary_step -->
+	<div ng-model='step' ng-show="step.name">
+			<h3>&ldquo;{{step.name}}&rdquo; summary</h3>
+			<p>Add a summary for this step to capture any notable outcomes, directions, or action items.</p>
+			
+			<ul class="lined">
+				
+				<li>
+					<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="step.summary"></textarea>
+				</li>
+				
+				<li id="tags-showhide">
+					<label>You can show or hide tags used in &ldquo;Check your account&rdquo; comments. Hidden tags will not be shown in the summary.</label>
+					
+					<ul class="tags">
+						<li ng-repeat="tag in step.tags_single track by $index" ng-click="showHideTag(tag)" ng-class="{ 'deactivated': !tag.visible }" ><span>{{tag.body}} &nbsp; &times;</span></li>
+					</ul>
+					
+					<div class="clear"></div>
+				</li>
+				
+			</ul>
+	</div>
