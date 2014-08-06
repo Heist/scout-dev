@@ -64,7 +64,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 })
 
  
-.filter('htmlize', ['$sce', function($sce){
+.filter('hashtag', ['$sce', function($sce){
         return function(message) {
 
             var hashCatch = new RegExp(/\S*#\S+/gi); 
@@ -93,6 +93,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         };
     })
+
+.filter('linebreaker', ['$sce', function($sce){
+    return function(text) {
+        text = text.replace(/\r?\n/g, '<br />');
+        
+        return $sce.trustAsHtml(text);
+    }
+}])
 
 // REPORT CONTROLLER ===========================================================
 .controller('report', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
@@ -756,7 +764,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		$scope.originalStep = angular.extend({}, step);
 	}
 	
-	// what is our drag handle
+	// what is our drag handle - this should be a directive.
 	$scope.sortableOptions = {
 	    handle: '> .step-hamburger',
 	};
@@ -765,7 +773,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		// on losing the focus, save the name of the step
 		step.title_edit = false;
 
-		
 		$scope.editedStep = null;
 		
 		step.title = step.title.trim();
@@ -780,6 +787,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		steps[steps.indexOf(step)] = $scope.originalStep;
 		$scope.doneEditing($scope.originalStep);
 	};
+
+    // $scope.doneEditing= function(step){
+        
+    // }
 
     $scope.select= function(step) {
        $scope.selected = step;

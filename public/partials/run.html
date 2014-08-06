@@ -70,7 +70,7 @@
              			<span>{{step.title}}</span>
              			
 						<h3>{{step.title}}</h3>
-						<p>{{step.desc}}</p>
+						<p ng-bind-html="step.desc | linebreaker"></p>
 					</li>
 				</ul>
 			</div>
@@ -102,7 +102,7 @@
 
 					<div class="message-body">
 						<small ng-if="message.title">{{message.title}}</small>
-						<p ng-bind-html="message.body | htmlize"></p>
+						<p ng-bind-html="message.body | hashtag"></p>
 						<small>{{message.created | date : 'hh:mm'}}</small>
 
 					</div>
