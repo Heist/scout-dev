@@ -38,7 +38,6 @@ router.route('/')
 			Session.find(function(err, sessions) {
 				if (err)
 					res.send(err);
-
 				res.json(sessions);
 			});
 		})
@@ -74,38 +73,77 @@ router.route('/')
 // routest for returning test sets - return all sessions.
 // on front end, remove sessions that are not models, but count them.
 router.route('/test/')
+
+	// OVERVIEW get =============================
+
 	.get(function(req,res){
 		console.log('touched /test');
-		Session.find({}, function(err, test) {
-				if (err)
-					res.send(err);
+
+		// get all of the sessions
+		// then split out the tests from the models
+		// return a test object by key
+		// containing sessions
+		// and summaries
+
+		var ssin = [];
+        var tests = [];
+        var sum = []
+
+        // find the sessions and tests
+		Session.find({}, function(err, data) {
+			if (err)
+				res.send(err);
 
 			var keys = [];
-			for(var i in test){
-				console.log(test[i].testKey);
-				if (!(keys.indexOf(test[i].testKey) != -1)){
-					keys.push(test[i].testKey);
+
+			for(var i in data){
+				console.log(data[i].testKey);
+				if (!(keys.indexOf(data[i].testKey) != -1)){
+					keys.push(data[i].testKey);
 				}
 			}
 
-			// console.log('unique keys', keys); 
+            data.sort(keysrt('testKey'));
+            
+            // count up and post the number of sessions 
+            var models = 0;
+            var ssincount = 0;
+                       
 
-			Summary.find({ 
-					'testKey': { $in: keys},
+            // split out tests from sessions
+            for(var i =0; i<data.length; i++){
+                if (data[i].ismodel){
+                    tests.push(data[i]);
+                } else if (!data[i].ismodel){
+                    ssin.push(data[i]);
+                }
+            }
 
-					}, function(err, docs){
-					     console.log(docs.length);
-					});
+            // get the stats for 'last run'
+            for(var i in ssin){
+                for (var k in tests){
+                    if (tests[k].testKey == ssin[i].testKey){
+                        if (ssin[i].updated > tests[k].updated){
+                            tests[k].updated = ssin[i].updated;
+                        }
+                    }
+                }
+            }
 
-			// Summary.findOne({'testKey':test[i].testKey}, function(err, summary){
-			// 	if(err)
-			// 		res.send(err)
-			// 	summaries.push(summary);
-			// })
+            Summary.find({}, function(err, summaries){
+            	if (err)
+					res.send(err);
 
-		// res.json({'tests': test, 'summaries': summaries});
-		res.json(test);
+				sum = summaries;
 
+				console.log(ssin.length, tests.length, sum.length);
+
+				res.json({sessions: tests, tests: ssin, summaries: sum});
+            })
+
+
+            
+			// res.json({'sessions': tests, 'test':ssin, 'summaries' : sum});
 		});
 	})
 
@@ -577,6 +615,7 @@ router.route('/summary/')
 
 
 // REPORT ROUTES =========================================================
+
 router.route('/report/:testKey')
 	.get(function(req,res){
 		Summary.find({'testKey':req.params.testKey}, function(err, summaries) {
@@ -668,6 +707,7 @@ router.route('/report/:testKey')
 				res.json(dataOut);
 			});
 	});
-
+router.route('/report/flow/:flowName')
+	.get
 
 module.exports = router;

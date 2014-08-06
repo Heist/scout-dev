@@ -343,47 +343,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // debug: this fixes the undefined headers error
             // $scope.sessions = data;
 
-            console.log(data);
-            // flows is *all* flows
-            data.sort(keysrt('testKey'));
-            
-            // count up and post the number of sessions 
-            var models = 0;
-            var ssincount = 0;
-            var ssin = [];
-            var tests = [];
-
-            // console.log('the object we counting', data);
-
-            // return model sessions to the sessions scope for display and control
-            for(var i =0; i<data.length; i++){
-                if (data[i].ismodel){
-                    tests.push(data[i]);
-                } else if (!data[i].ismodel){
-                    ssin.push(data[i]);
-                }
-            }
-
-            var latest = '';
-            for(var i in ssin){
-                for (var k in tests){
-                    if (tests[k].testKey == ssin[i].testKey){
-                        if (ssin[i].updated > tests[k].updated){
-                            tests[k].updated = ssin[i].updated;
-                        }
-                    }
-                }
-            }
-            
-            console.log(tests);
-
-            // console.log(latest);
+            console.log('data log', data);
 
             // because we use sessions as a unit everywhere else
-            $scope.sessions = tests;
-            $scope.tests = ssin;
+            $scope.sessions = data.sessions;
+            $scope.tests = data.tests;
 
-            console.log('ssin', tests, 'tests', ssin);
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -580,6 +545,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         console.log('touched a report', testKey);
         $location.path('/report/'+ testKey +'/');
     }
+
+    // $scope.viewFlowReport = function(flow){
+    //     console.log('touched a flow report', flow);
+    //     $location.path('/report/flow/'+flow.title);
+    // }
 }])
 
 // ACTIVE TEST CONTROLLER =====================================================
