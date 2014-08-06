@@ -336,18 +336,43 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.sessions = {};
     $scope.tests = {};
     $scope.summaries = {};
+    $scope.experiment = {};
 
     // get all sessions and their flows on first load
     $http.get('/api/test/')
         .success(function(data) {
-            // debug: this fixes the undefined headers error
-            // $scope.sessions = data;
-
             console.log('data log', data);
 
+            // for each test key
+            // assemble a flow object
+            // containing that flow's session
+            // and whether it has a summary
+            // or not
+
+            var a = ''; 
+            var b = [];
+            for(var i in data.summaries){
+                var test = []
+
+                a = data.summaries[i].testKey
+                console.log('b', b[a]);
+
+                for (var j in data.tests){
+                    
+                    if (data.tests[j].testKey == a){
+                        test.push(data.tests[j]);
+                    }
+                }
+             
+                b[a] = {tests: test, summary: data.summaries[i]};
+
+                console.log('b', b);
+            }
             // because we use sessions as a unit everywhere else
             $scope.sessions = data.sessions;
             $scope.tests = data.tests;
+            $scope.experiment = b;
+
 
         })
         .error(function(data) {
