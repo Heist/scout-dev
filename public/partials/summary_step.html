@@ -10,7 +10,7 @@
 				</li>
 				
 				<li id="tags-showhide">
-					<label>You can show or hide tags used in &ldquo;Check your account&rdquo; comments. Hidden tags will not be shown in the summary.</label>
+					<label>You can show or hide tags used in &ldquo;{{step.name}}&rdquo; comments. Hidden tags will not be shown in the summary.</label>
 					
 					<ul class="tags">
 						<li ng-repeat="tag in step.tags_single track by $index" ng-click="showHideTag(tag)" ng-class="{ 'deactivated': !tag.visible }" ><span>{{tag.body}} &nbsp; &times;</span></li>
