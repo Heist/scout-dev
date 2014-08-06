@@ -343,15 +343,17 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data) {
             console.log('data log', data);
 
-            // for each test key in Summary
-            // Add a boolean summarized = true to Session 
-            // if the testKey matches Session.testKey
-
-            // nope - this matches whole sessions, not flows to summaries. Blerch.
+            // scrape the flow summaries from Summary
+            // use for telling us if something has been summarized
+            
             for(var i in data.summaries){
                 for (var j in data.sessions){                    
-                    if (data.sessions[j].testKey == data.summaries[i].testKey){
-                        data.sessions[j].summarized = true
+                    if (data.summaries[i].testKey == data.sessions[j].testKey){
+                        for(var k in data.sessions[j].flows){
+                            if(data.summaries[i].title == data.sessions[j].flows[k].title){
+                                data.sessions[j].flows[k].summary = data.summaries[i].summary;
+                            }
+                        }
                     }
                 }
             }
@@ -359,6 +361,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // because we use sessions as a unit everywhere else
             $scope.sessions = data.sessions;
             $scope.tests = data.tests;
+
+            console.log('check for summaries', data.sessions);
         })
         .error(function(data) {
             console.log('Error: ' + data);
