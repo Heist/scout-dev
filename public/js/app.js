@@ -24,7 +24,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             templateUrl: 'partials/overview.html'
         })
         
-        // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
+        // SINGLE PAGE VIEWS =================================
         .state('flow', {
         	url: '/edit/test/:testId/session/:sessionId/flow/:flowId',
             templateUrl: 'partials/flow.html'
@@ -41,9 +41,18 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             url: '/summarizeFlow/:summaryID/tags/',
             templateUrl: 'partials/summarizeTags.html'
         })
+
+        // REPORT PAGE WITH NESTED VIEWS =====================
         .state('report', {
             url: '/report/:testKey/',
             templateUrl: 'partials/report.html'
+        })
+        .state('report.flow', {
+            templateUrl: 'partials/report_flow.html'
+        })
+        .state('report.step', {
+            // url: '/report/:testKey/',
+            templateUrl: 'partials/report_step.html'
         })
         ;
 
@@ -96,7 +105,23 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $scope.select = function(selector){
         $scope.selected = selector;
+        
+
         console.log($scope.selected);
+
+        selector.favs = []
+
+        for(var i in selector.session_by_user){
+            for (var k in selector.session_by_user[i].messages){
+                var msg = selector.session_by_user[i].messages[k];
+                if (msg.fav==true){
+                    selector.favs.push(msg);
+                }
+            }
+        }
+
+        console.log(selector.favs);
+
     }
 
 }])
@@ -114,7 +139,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $http.get('/api/summary/'+$stateParams.summaryID+'/flow/')
         .success(function(data){
           $scope.flow = data;
-          console.log('the flow object', $scope.flow);
+          // console.log('the flow object', $scope.flow);
         })
 
     // Return to summarizing steps
@@ -125,8 +150,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         var url = '/api/summary/'+ $stateParams.summaryID +'/flow/';
         var dataOut = summary;
 
-        console.log('put', summary);
-        console.log('post route',  url);
+        // console.log('put', summary);
+        // console.log('post route',  url);
         
         $http.put(url, dataOut)   
             .success(function(data){
@@ -148,16 +173,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         // it saves a summary in complete mode when done writing it up
         // then returns you to /
         // this runs on a really weird, delayed time cycle! I do not know why.
-
-        console.log('put', summary);
+        
         var url = '/api/summary/'+ $stateParams.summaryID +'/flow/';
         var dataOut = summary;
 
-        console.log('put route',  url);
-        
          $http.put(url, dataOut)   
             .success(function(data){
-                console.log('sent a new summary '+ JSON.stringify(data));
+                // console.log('sent a new summary '+ JSON.stringify(data));
             })
             .error(function(data){
                 console.log('error', data);
@@ -200,7 +222,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // the scan those steps for their tags
     // then return that matched set to the step
     // this could possibly be done on the back end
-    console.log('summaryID', $stateParams.summaryID)
+    // console.log('summaryID', $stateParams.summaryID)
     $http.get('/api/summary/'+$stateParams.summaryID+'/flow/')
         .success(function(data){
           $scope.flow = data;
@@ -226,7 +248,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
          $http.put(url, dataOut)   
             .success(function(data){
-                console.log('sent a summary upsert - steps '+ JSON.stringify(data));
+                // console.log('sent a summary upsert - steps '+ JSON.stringify(data));
             })
             .error(function(data){
             });
@@ -511,6 +533,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     // add a new summarizeFlow and launch summary
     $scope.summarizeFlow = function(testKey, flow){
+
+        console.log('touched ', testKey, flow)
         // strip flowname's whitespace        
         flow = flow.replace(/ /g,'');
         console.log(testKey, flow);
@@ -522,6 +546,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // set new location path
             $location.path('/summarizeFlow/'+data._id+'/flow/');
         })
+    }
+
+    $scope.editSummary = function(summary){
+        // this is going to require some thinks!
+        // we do not currently Get things by Summary so.
+        // $location.path('/summarizeFlow/'+summary._id+'/flow/');
     }
 
     // Launch the current report
