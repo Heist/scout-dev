@@ -18,21 +18,26 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		.html5Mode(true);
 
     $stateProvider        
-        // HOME STATES AND NESTED VIEWS ========================================
+        // OVERVIEW AND FLOW CREATION ========================================
         .state('home', {
             url: '/',
             templateUrl: 'partials/overview.html'
         })
-        
-        // SINGLE PAGE VIEWS =================================
         .state('flow', {
-        	url: '/edit/test/:testId/session/:sessionId/flow/:flowId',
+            url: '/edit/test/:testId/session/:sessionId/flow/:flowId',
             templateUrl: 'partials/flow.html'
         })
+
+        // RUN TEST ==========================================
         .state('run', {
-        	url: '/run/test/:testId/session/:sessionId',
+            url: '/run/test/:testId/session/:sessionId',
             templateUrl: 'partials/run.html'
         })
+        .state('run.user', {
+            templateUrl: 'partials/run_user.html'
+        })
+
+        // SUMMARIZE VIEW ====================================
         .state('summarizeFlow', {
             url: '/summarizeFlow/:summaryID/flow/',
             templateUrl: 'partials/summarizeFlow.html'
@@ -372,6 +377,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             console.log('Error: ' + data);
         });
 
+
     $scope.select = function (session, index){
         console.log('touched session', index, session)
         $scope.selected = session;
@@ -618,21 +624,16 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $scope.parentIndex = 0;
 
         $scope.addUser = function(textfield){
-            $scope.user.name = textfield;
-            $scope.user.toggle = true;
-            
-            $scope.$apply
 
-            // $scope.session.user = textfield;
-            var wrapper = { 'user': textfield };
-
+            console.log(textfield);
             var url = '/api/test/'+ $scope.session.testKey+'/session/'+ $scope.session._id;
-            var dataOut = wrapper;
-
+            var dataOut = { 'user': textfield };
             
             $http.put(url, dataOut)
                 .success(function(data){
                     console.log('New user pushed: ', data);
+                    $scope.user.name = textfield;
+                    $scope.user.toggle = true;
                 })
                 .error(function(data){
                     console.log('Error: ' + data);

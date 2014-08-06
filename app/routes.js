@@ -186,7 +186,7 @@ router.route('/test/:testId/session/:sessionId')
 		// put is used both in active sessions to apply usernames.
 		// put only puts updates to individual sessions, not test sets
 		Session.findById(req.params.sessionId, function(err, session) {
-
+			console.log(req.body);
 			if (err)
 				res.send(err);
 			
