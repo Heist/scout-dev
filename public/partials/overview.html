@@ -78,8 +78,9 @@
 				</div>
 			
 				<div class="session-flow-controls">
-					<button class="button small" ng-click="summarizeFlow(selected.testKey, flow.title)">Summarize</button>
-					<button class="button small" ng-click="editSummary(session.testKey, flow.title)">Summary</button>
+					<button class="button small" ng-click="summarizeFlow(selected.testKey, flow.title)" ng-show="!selected.summarize">Summarize</button>
+					
+					<button class="button small" ng-click="summarizeFlow(session.testKey, flow.title)" ng-show="selected.summarize == true">Summary</button>
 					
 					&nbsp;&nbsp;
 					

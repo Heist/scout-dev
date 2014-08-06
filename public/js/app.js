@@ -343,37 +343,22 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data) {
             console.log('data log', data);
 
-            // for each test key
-            // assemble a flow object
-            // containing that flow's session
-            // and whether it has a summary
-            // or not
+            // for each test key in Summary
+            // Add a boolean summarized = true to Session 
+            // if the testKey matches Session.testKey
 
-            var a = ''; 
-            var b = [];
+            // nope - this matches whole sessions, not flows to summaries. Blerch.
             for(var i in data.summaries){
-                var test = []
-
-                a = data.summaries[i].testKey
-                console.log('b', b[a]);
-
-                for (var j in data.tests){
-                    
-                    if (data.tests[j].testKey == a){
-                        test.push(data.tests[j]);
+                for (var j in data.sessions){                    
+                    if (data.sessions[j].testKey == data.summaries[i].testKey){
+                        data.sessions[j].summarized = true
                     }
                 }
-             
-                b[a] = {tests: test, summary: data.summaries[i]};
-
-                console.log('b', b);
             }
+
             // because we use sessions as a unit everywhere else
             $scope.sessions = data.sessions;
             $scope.tests = data.tests;
-            $scope.experiment = b;
-
-
         })
         .error(function(data) {
             console.log('Error: ' + data);
