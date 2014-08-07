@@ -38,6 +38,10 @@ var StepSchema = new Schema ({
 			type : String,
 			trim : true
 		},
+	key: {
+		type: Number,
+		trim: true
+	},
 	desc : {
 			type : String,
 			trim : true

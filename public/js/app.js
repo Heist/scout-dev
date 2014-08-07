@@ -565,7 +565,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data){
           console.log('the flow object from overview', data);
             // set new location path
-            $location.path('/summary/'+data[0]._id+'/flow/');
+            $location.path('/summary/'+data._id+'/flow/');
         })
         .error(function(data){
             console.log('touched error message');
@@ -753,8 +753,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.selected = $scope.flow.steps;
 
 	$scope.add = function(step) {
+        var keyGen = Math.round((new Date().valueOf() * Math.random()));
+
         $scope.step = {
         		title	: 'edit me',
+                key     : keyGen,
         		desc	: '',        		
         		title_edit : false,
         		edit	: false

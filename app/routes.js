@@ -349,7 +349,7 @@ router.route('/test/:testId/session/:sessionId/flow/:flowId')
 
 router.route('/test/:testId/flow/:flowName')
 	.post(function(req,res) {
-		console.log('touched flowcollector', req.params.testId, req.params.flowName);
+		console.log('touched Create A New Summary flowcollector', req.params.testId, req.params.flowName);
 		
 		// pass the info to the front end because we can debug easier there.
 		// Summary.find({'testKey' : req.params.testId}, function (err, summary_data){
@@ -360,7 +360,7 @@ router.route('/test/:testId/flow/:flowName')
 
 		// commented out because has an off-by-one in it.		
 		Summary.find({'testKey' : req.params.testId}, function (err, summary_data){
-			console.log('touched Summary', summary_data);
+			// console.log('touched Summary', summary_data);
 			if(err){
 				res.send(err)
 			}
@@ -373,7 +373,6 @@ router.route('/test/:testId/flow/:flowName')
 			else if (summary_data.length == 0){
 				console.log('making a new summary');
 
-				// TODO there is an off-by-one in here somewhere that is miscounting users.
 				Session.find({'testKey' : req.params.testId, 'ismodel':false}, function(err, data) {
 					if (err)
 						res.send(err);
@@ -383,71 +382,74 @@ router.route('/test/:testId/flow/:flowName')
 
 					var session_name = data.name;
 					
-					// this gathers and sorts similar flows from the returned
-					// session array[].
-						for (var i in data){
-							for (var j = 0; j < data[i].flows.length; j++){
-								var name = data[i].flows[j].title;
-								name = name.replace(/ /g,'');
+					// this gathers and sorts similar flows from the array of returned sessions.
 
-								if (name === req.params.flowName){
-									var pushdata = data[i].flows[j];
-									flowcollector.flows.push( pushdata );
-								}
+					for (var i in data){
+						for (var j = 0; j < data[i].flows.length; j++){
+							var name = data[i].flows[j].title;
+							name = name.replace(/ /g,'');
+
+							if (name === req.params.flowName){
+								var pushdata = data[i].flows[j];
+								flowcollector.flows.push( pushdata );
 							}
 						}
+					}
 					
-					// good 
-					console.log('flowcollector flows '+ flowcollector.flows);
-					
-		            function step(name, messages){
-		                this.name = name;
-		                this.messages = messages;
-		            }
-
 		            var stepcollector = [];
 		            var stepnamecheck = [];
 		            var counter;
 		            var flowname = flowcollector.flows[0].title;
+		            var users = [];
 		            
 		            // this finds all messages in all steps in the stack and pushes them up
+		            
 		            for (var j in flowcollector.flows){
-		                var name = flowcollector.flows[j].title;
+		                
+		                var flow = flowcollector.flows[j];
+						var name = flowcollector.flows[j].title;
 		                name = name.replace(/ /g,'');
+		                
+		                // TODO off-by-one below this line
+		                console.log('number of steps', flow.steps.length);
+		                var step_ct = 0;
+		                for (var i = 0; i < flow.steps.length; ++i){
 
-		                for (var k in flowcollector.flows[j].steps){
-
-		                    var step = flowcollector.flows[j].steps[k];
+		                	var step = flow.steps[i];
 		                    var name = step.title;
+		                    step_ct++
+		                    console.log('step: examine for a unique key', step)
 
-		                    if (!(stepnamecheck.indexOf(name) != -1)){
+		                	if (!(stepnamecheck.indexOf(name) != -1)){
+		                		// if two steps are named the same thing, they overwrite each other.
+		                		// they need an implicit key to fix that.
 		                        stepnamecheck.push(name);
 		                        stepcollector.push({name : name, session_by_user : [], pass_fail : false, summary: '' });
 		                    } else if (stepnamecheck.indexOf(name) != -1){
-		                        for ( var l in stepcollector){
+		                        for ( var l = 0; l > stepcollector.length; l++){
 		                            if (name == stepcollector[l].name){
-		                                var pusher = {'user' : flowcollector.flows[j].user_id, 'messages' : flowcollector.flows [j].steps[k].messages }
+		                                var pusher = {'user' : flow.user_id, 'messages' : step.messages }
 		                                stepcollector[l].session_by_user.push(pusher);
 		                            };
 		                        }
-		                    }
-		                }
+		                	}
+
+		            	}
 		            }
 
-		            console.log('stepcollector after message collection', stepcollector )
-
-		            // the tagstripper and reorganizer
+		            // the off-by-one is above this line.
+		            console.log(step_ct);
+		            console.log('stepcollector after message collection', stepcollector.length)
+					
+					// the tagstripper and reorganizer
 		            var tagcollector = [];
 		            var tagnamecheck = [];
-		            for (var i in stepcollector){
+		            for (var i = 0; i < stepcollector.length ; i++){
 		                for (var j = 0 ; j < stepcollector[i].session_by_user.length; j ++){
 		                    for (var k = 0 ; k < stepcollector[i].session_by_user[j].messages.length; k++){
 		                        for (var l = 0; l < stepcollector[i].session_by_user[j].messages[k].tags.length; l++){
 		                            if(!(tagnamecheck.indexOf(stepcollector[i].name) != -1)){
 		                                tagnamecheck.push(stepcollector[i].name);
-
-		                                // console.log('checking to see if tags are already visible/no', stepcollector[i].session_by_user[j].messages[k].tags[l] )
-		                                
 		                                var tagMaker = stepcollector[i].session_by_user[j].messages[k].tags[l];
 		                                tagcollector.push({name : stepcollector[i].name, tags : [ tagMaker ] });
 		                                
@@ -544,9 +546,8 @@ router.route('/test/:testId/flow/:flowName')
 							
 							res.json(summary);
 					});
-				});
-			}
-		})
+		})}})
+		
 	});
 
 
@@ -559,7 +560,7 @@ router.route('/summary/:summaryID/flow/')
 		Summary.findById(req.params.summaryID, function(err, summary) {
 				if (err)
 					res.send(err);
-				console.log('touched /:summaryID', (util.inspect(summary.steps, {showHidden: false, depth: null})));
+				console.log('touched /:summaryID', req.params.summaryID);
 				res.json(summary);
 			});
 	})
