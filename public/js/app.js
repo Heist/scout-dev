@@ -12,13 +12,13 @@ function keysrt(key,desc) {
   }
 }
 
-/// app list
+// FRONT-END ROUTE CONFIGURATION ================================================
 scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$locationProvider
 		.html5Mode(true);
 
-    $stateProvider        
-        // OVERVIEW AND FLOW CREATION ========================================
+    $stateProvider
+        // OVERVIEW AND FLOW CREATION ========================
         .state('home', {
             url: '/',
             templateUrl: 'partials/overview.html'
@@ -78,6 +78,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         ;
 })
 
+
+// FILTERS =================================================================
  
 .filter('hashtag', ['$sce', function($sce){
         return function(message) {
@@ -116,6 +118,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         return $sce.trustAsHtml(text);
     }
 }])
+
+// CONTROLLERS ========================================================================
 
 // REPORT CONTROLLER ===========================================================
 .controller('report', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
@@ -242,6 +246,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
 }])
+
 
 // SUMMARIZE STEPS controller ==========================================
 
@@ -562,11 +567,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         console.log(testKey, flow);
         var url = '/api/test/'+ testKey +'/flow/'+flow;
 
+        console.log(url);
+
         $http.post(url)
         .success(function(data){
           console.log('the flow object from overview', data);
             // set new location path
-            $location.path('/summary/'+data._id+'/flow/');
+            $location.path('/summary/'+data[0]._id+'/flow/');
         })
         .error(function(data){
             console.log('touched error message');
