@@ -62,8 +62,20 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             // url: '/report/:testKey/',
             templateUrl: 'partials/report_step.html'
         })
-        ;
 
+        // REPORT PAGE FOR SINGLE FLOW =======================
+        .state('reportflow', {
+            url: '/report/:testKey/flow/:flowName',
+            templateUrl: 'partials/report.html'
+        })
+        .state('reportflow.flow', {
+            templateUrl: 'partials/report_flow.html'
+        })
+        .state('reportflow.step', {
+            // url: '/report/:testKey/',
+            templateUrl: 'partials/report_step.html'
+        })
+        ;
 })
 
  
@@ -110,15 +122,25 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // holds the relevant summary
     $scope.session = {};
 
-    $http.get('/api/report/'+$stateParams.testKey)
-        .success(function(data){
-          $scope.session = data;
-          console.log('the report object', $scope.session);
-          $scope.selected = data.summaries[0];
+    if($stateParams.flowName){
+        $http.get('/api/report/'+$stateParams.testKey+'/flow/'+$stateParams.flowName)
+            .success(function(data){
+              $scope.session = data;
+              console.log('the report object', $scope.session);
+              $scope.selected = data.summaries[0];
 
-          console.log($scope.selected);
+              console.log($scope.selected);
         })
+    } else {
+        $http.get('/api/report/'+$stateParams.testKey)
+            .success(function(data){
+              $scope.session = data;
+              console.log('the report object', $scope.session);
+              $scope.selected = data.summaries[0];
 
+              console.log($scope.selected);
+            })
+        }
     $scope.select = function(selector){
         $scope.selected = selector;
         
@@ -563,10 +585,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $location.path('/report/'+ testKey +'/');
     }
 
-    // $scope.viewFlowReport = function(flow){
-    //     console.log('touched a flow report', flow);
-    //     $location.path('/report/flow/'+flow.title);
-    // }
+    $scope.viewFlowReport = function(flow, testKey){
+        console.log('touched a flow report', testKey,flow);
+        $location.path('/report/'+ testKey +'/flow/'+flow.title);
+    }
 }])
 
 // ACTIVE TEST CONTROLLER =====================================================
