@@ -169,7 +169,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 }])
 
 
-// SUMMARIZE TAGS CONTROLLER ========================================================
+// SUMMARY CONTROLLER - TAGS  ========================================================
 .controller('summary_tags', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
     // holds main flow structure
     $scope.flow = {};
@@ -248,7 +248,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 }])
 
 
-// SUMMARIZE STEPS controller ==========================================
+// SUMMARY CONTROLLER - STEPS/FLOW  ==========================================
 
 .controller('summary', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
 	$scope.flow = {};
@@ -443,20 +443,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $http.post('/api/test/', dataOut)   
             .success(function(data){
                 console.log('added a new test '+ JSON.stringify(data));
+                $scope.sessions = data;
             })
             .error(function(data){
 
             });
         
-        $http.get('/api/test/')
-            .success(function(data) {
-                // flows is *all* flows
-                $scope.sessions = data;
-                
-            })
-            .error(function(data) {
-                console.log('Error: ' + data);
-            });
     }
    
     $scope.removeTest = function(session){
