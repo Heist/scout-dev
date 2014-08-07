@@ -433,7 +433,7 @@ router.route('/test/:testId/flow/:flowName')
 		                        stepcheck.push(key);
 		                        stepcollector.push({key: key, name : name, session_by_user : [], pass_fail : false, summary: '' });
 		                        stepcollector[i].session_by_user.push(pusher);
-		                        console.log('checking keys', stepcollector[i]);
+		                        // console.log('checking keys', stepcollector[i]);
 
 		                    } else if (stepcheck.indexOf(key) != -1){
 
@@ -441,34 +441,34 @@ router.route('/test/:testId/flow/:flowName')
 		                            if (key == stepcollector[l].key){
 		                                var pusher = {'user' : flow.user_id, 'messages' : step.messages }
 		                                stepcollector[l].session_by_user.push(pusher);
+		                                console.log(step.messages)
 		                            }
-			                     }
-
-			                    console.log(flow.user_id, key);
-		                    	console.log((util.inspect(stepcollector, {showHidden: false, depth: null})));
+			                    }
 		                	}
-
 		            	}
 		            }
 
-		            // the off-by-one is above this line.
-		            // console.log(step_ct);
-		            // console.log('stepcollector after message collection', (util.inspect(stepcollector, {showHidden: false, depth: null})));
-					// console.log('users', users);
-
 					// the tagstripper and reorganizer
+
 		            var tagcollector = [];
 		            var tagnamecheck = [];
+		            // console.log(stepcollector.length);
+		            // console.log(stepcollector);
+
 		            for (var i = 0; i < stepcollector.length ; i++){
+		            	console.log('stepcollector key', stepcollector[i].key, stepcollector[i].session_by_user.length);
 		                for (var j = 0 ; j < stepcollector[i].session_by_user.length; j ++){
+
 		                    for (var k = 0 ; k < stepcollector[i].session_by_user[j].messages.length; k++){
+		                    	console.log('are there any tags', stepcollector[i].session_by_user[j].messages[k].tags)
 		                        for (var l = 0; l < stepcollector[i].session_by_user[j].messages[k].tags.length; l++){
-		                            if(!(tagnamecheck.indexOf(stepcollector[i].name) != -1)){
-		                                tagnamecheck.push(stepcollector[i].name);
+		                        	console.log('stepcollector key', stepcollector[i].key);
+		                            if(!(tagnamecheck.indexOf(stepcollector[i].key) != -1)){
+		                                tagnamecheck.push(stepcollector[i].key);
 		                                var tagMaker = stepcollector[i].session_by_user[j].messages[k].tags[l];
 		                                tagcollector.push({name : stepcollector[i].name, tags : [ tagMaker ] });
 		                                
-		                            }else if (tagnamecheck.indexOf(stepcollector[i].name) != -1){
+		                            }else if (tagnamecheck.indexOf(stepcollector[i].key) != -1){
 		                                for (var m in tagcollector){
 		                                    if (stepcollector[i].name == tagcollector[m].name){
 
@@ -481,6 +481,8 @@ router.route('/test/:testId/flow/:flowName')
 		                    }
 		                }
 		            }
+
+		            console.log('tagcollector', tagcollector);
 
 		            var tags_for_flow = [];
 		            // integrate tags to stepcollector for a clean object

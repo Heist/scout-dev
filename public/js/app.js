@@ -84,7 +84,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 .filter('hashtag', ['$sce', function($sce){
         return function(message) {
 
-            var hashCatch = new RegExp(/\b#\w\w+/gi); 
+            var hashCatch = new RegExp(/\S*#\S+/gi); 
             var tagIt = message.match(hashCatch);
             
             var msg = message.replace(hashCatch, "<span class='tag'>$&</span>");
@@ -703,7 +703,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             var connect = $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex]
 
             // if message has # with no space, post that to message.tags
-            var hashCatch = new RegExp(/\b#\w\w+/gi);
+            var hashCatch = new RegExp(/\S*#\S+/gi);
             var hashPull = new RegExp(/#/gi);
             var tagIt = message.match(hashCatch);          
             
