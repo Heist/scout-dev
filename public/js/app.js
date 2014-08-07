@@ -345,18 +345,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             // scrape the flow summaries from Summary
             // use for telling us if something has been summarized
-            
+
             for(var i in data.summaries){
                 for (var j in data.sessions){                    
                     if (data.summaries[i].testKey == data.sessions[j].testKey){
                         for(var k in data.sessions[j].flows){
                             if(data.summaries[i].title == data.sessions[j].flows[k].title){
                                 data.sessions[j].flows[k].summary = data.summaries[i].summary;
+                                data.sessions[j].report = true;
                             }
                         }
                     }
                 }
             }
+
+
 
             // because we use sessions as a unit everywhere else
             $scope.sessions = data.sessions;
