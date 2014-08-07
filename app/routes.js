@@ -402,46 +402,60 @@ router.route('/test/:testId/flow/:flowName')
 		            var flowname = flowcollector.flows[0].title;
 		            var users = [];
 		            
-		            // this finds all messages in all steps in the stack and pushes them up
+		            // for each flow in the collector
+		            // find each step
+		            // for each step
+		            // check if the key to that step exists in the keychain
+		            // if it does not, push it to the key chain with a data object.
+		            // if it does, push messages into it.
 		            
 		            for (var j in flowcollector.flows){
 		                
 		                var flow = flowcollector.flows[j];
 						var name = flowcollector.flows[j].title;
 		                name = name.replace(/ /g,'');
-		                
+		                users.push(flow.user_id);
+
 		                // TODO off-by-one below this line
-		                console.log('number of steps', flow.steps.length);
-		                var step_ct = 0;
+		                
 		                for (var i = 0; i < flow.steps.length; ++i){
 
 		                	var step = flow.steps[i];
 		                    var name = step.title;
 		                    var key = step.key;
-		                    step_ct++
-		                    console.log('step: examine for a unique key', step)
+		                    
+		                    // console.log('step: examine for a unique key', step)
 
 		                	if (!(stepcheck.indexOf(key) != -1)){
-		                		// if two steps are named the same thing, they overwrite each other.
-		                		// they need an implicit key to fix that.
+		                		// this correctly pushes the first step of the first flow with a user.
+		                        var pusher = {'user' : flow.user_id, 'messages' : step.messages }
+
 		                        stepcheck.push(key);
-		                        stepcollector.push({name : name, session_by_user : [], pass_fail : false, summary: '' });
+		                        stepcollector.push({key: key, name : name, session_by_user : [], pass_fail : false, summary: '' });
+		                        stepcollector[i].session_by_user.push(pusher);
+		                        console.log('checking keys', stepcollector[i]);
+
 		                    } else if (stepcheck.indexOf(key) != -1){
-		                        for ( var l = 0; l > stepcollector.length; l++){
-		                            if (name == stepcollector[l].name){
+
+		                    	for ( var l = 0; l < stepcollector.length; l++){
+		                            if (key == stepcollector[l].key){
 		                                var pusher = {'user' : flow.user_id, 'messages' : step.messages }
 		                                stepcollector[l].session_by_user.push(pusher);
-		                            };
-		                        }
+		                            }
+			                     }
+
+			                    console.log(flow.user_id, key);
+		                    	console.log((util.inspect(stepcollector, {showHidden: false, depth: null})));
 		                	}
 
 		            	}
 		            }
 
 		            // the off-by-one is above this line.
-		            console.log(step_ct);
-		            console.log('stepcollector after message collection', stepcollector.length)
-					
+		            // console.log(step_ct);
+		            // console.log('stepcollector after message collection', (util.inspect(stepcollector, {showHidden: false, depth: null})));
+					// console.log('users', users);
+
 					// the tagstripper and reorganizer
 		            var tagcollector = [];
 		            var tagnamecheck = [];
@@ -539,7 +553,6 @@ router.route('/test/:testId/flow/:flowName')
 			        summary.testKey = req.params.testId;
 			        summary.session_name = session_name;
 			        summary.summary = '';
-
 
 					summary.save(function(err) {
 							if (err)
