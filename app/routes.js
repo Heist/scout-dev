@@ -397,7 +397,7 @@ router.route('/test/:testId/flow/:flowName')
 					}
 					
 		            var stepcollector = [];
-		            var stepnamecheck = [];
+		            var stepcheck = [];
 		            var counter;
 		            var flowname = flowcollector.flows[0].title;
 		            var users = [];
@@ -417,15 +417,16 @@ router.route('/test/:testId/flow/:flowName')
 
 		                	var step = flow.steps[i];
 		                    var name = step.title;
+		                    var key = step.key;
 		                    step_ct++
 		                    console.log('step: examine for a unique key', step)
 
-		                	if (!(stepnamecheck.indexOf(name) != -1)){
+		                	if (!(stepcheck.indexOf(key) != -1)){
 		                		// if two steps are named the same thing, they overwrite each other.
 		                		// they need an implicit key to fix that.
-		                        stepnamecheck.push(name);
+		                        stepcheck.push(key);
 		                        stepcollector.push({name : name, session_by_user : [], pass_fail : false, summary: '' });
-		                    } else if (stepnamecheck.indexOf(name) != -1){
+		                    } else if (stepcheck.indexOf(key) != -1){
 		                        for ( var l = 0; l > stepcollector.length; l++){
 		                            if (name == stepcollector[l].name){
 		                                var pusher = {'user' : flow.user_id, 'messages' : step.messages }
