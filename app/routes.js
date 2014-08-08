@@ -353,7 +353,7 @@ router.route('/test/:testKey/flow/:flowKey')
 		
 		// does a summary for this flow already exist?
 		Summary.find({'testKey' : req.params.testKey, 'flowKey' : req.params.flowKey}, function (err, summary_data){
-			// console.log('touched Summary', summary_data);
+			console.log('touched Summary', summary_data);
 			
 			if(err){
 				res.send(err)
@@ -373,12 +373,15 @@ router.route('/test/:testKey/flow/:flowKey')
 	
 					// this gathers and sorts similar flows from the array of returned sessions.
 					console.log('there are this many sessions:', data.length);
+					console.log('new data ', data[0].name)
 					
 		            var stepcollector = [];
 		            var stepcheck = [];
 		            var flowcatch = [];
 		            var users = [];
 		            var counter;
+		            var session_name = data[0].name;
+
 		            
 		            // loop through returned sessions
 		            // put all flows by key into the requested summary array
@@ -390,7 +393,7 @@ router.route('/test/:testKey/flow/:flowKey')
 		            	}
 		            }
 
-		            console.log('number of flows in flowcatch', flowcatch.length);
+		            console.log('number of flows in flowcatch', flowcatch);
 
 		            // for each flow
 		            // assemble the steps into a collection
@@ -452,7 +455,7 @@ router.route('/test/:testKey/flow/:flowKey')
 		                    for (var k = 0 ; k < step.session_by_user[j].messages.length; k++){
 		                    	
 		                    	console.log('are there any tags', step.session_by_user[j].messages[k].tags)
-		                    	
+
 		                        for (var l = 0; l < step.session_by_user[j].messages[k].tags.length; l++){
 		                        	console.log('stepcollector key', step.key);
 		                            if(!(tagnamecheck.indexOf(step.key) != -1)){
@@ -474,86 +477,86 @@ router.route('/test/:testKey/flow/:flowKey')
 		                }
 		            }
 
-		   //          console.log('tagcollector', tagcollector);
+		            console.log('tagcollector', tagcollector);
 
-		   //          var tags_for_flow = [];
-		   //          // integrate tags to stepcollector for a clean object
-		   //          for (var i in stepcollector){
-		   //              for (var j in tagcollector){
-		   //                  if (stepcollector[i].name == tagcollector[j].name ){
-		   //                      // get all tags per step and post to stepcollector.tags
-		   //                      // this should push to the flow itself for a count later on.
-		   //                      // console.log('tagcollector j', tagcollector[j])
+		            var tags_for_flow = [];
+		            // integrate tags to stepcollector for a clean object
+		            for (var i = 0; i < stepcollector.length; i++){
+		                for (var j = 0; j < tagcollector. length; j++){
+		                    if (stepcollector[i].name == tagcollector[j].name ){
+		                        // get all tags per step and post to stepcollector.tags
+		                        // this should push to the flow itself for a count later on.
+		                        // console.log('tagcollector j', tagcollector[j])
 
-		   //                      var tags = tagcollector[j].tags;
-		   //                      tags.sort();
-		   //                      // console.log('tags', tags.length ,JSON.stringify(tags));
-		   //                      // stepcollector[i].tags = tags;
+		                        var tags = tagcollector[j].tags;
+		                        tags.sort();
+		                        // console.log('tags', tags.length ,JSON.stringify(tags));
+		                        // stepcollector[i].tags = tags;
 
-		   //                      // de-dupe array, then post to tags_single
-		   //                      //  so we summarize and visible.
-		   //                      var tagDupe = [];
-		   //                      var tagCount = 0;
-		   //                      var curTag = null;
+		                        // de-dupe array, then post to tags_single
+		                        //  so we summarize and visible.
+		                        var tagDupe = [];
+		                        var tagCount = 0;
+		                        var curTag = null;
 
-		   //                      for (var k = 0; k < tags.length +1; k++){
-		   //                          if (tags[k] != curTag){     
-		   //                              if (tagCount > 0) {
-		   //                                  tagDupe.push({body: curTag.replace(/#/gi,''), count : tagCount});
-		   //                              }
+		                        for (var k = 0; k < tags.length +1; k++){
+		                            if (tags[k] != curTag){     
+		                                if (tagCount > 0) {
+		                                    tagDupe.push({body: curTag.replace(/#/gi,''), count : tagCount});
+		                                }
 
-		   //                              curTag = tags[k];
-		   //                              tagCount = 1;
-		   //                          } else {
-		   //                              tagCount++;
-		   //                          }
-		   //                      }
+		                                curTag = tags[k];
+		                                tagCount = 1;
+		                            } else {
+		                                tagCount++;
+		                            }
+		                        }
 
-		   //                      // weirdly, this returns an object into tagDupe.
-		   //                      // console.log('tagDupe', tagDupe);
+		                        // weirdly, this returns an object into tagDupe.
+		                        // console.log('tagDupe', tagDupe);
 
-		   //                      tags = [];
-		   //                      for ( var key in tagDupe ){
-		   //                          tags.push({body: tagDupe[key].body, count : tagDupe[key].count, visible: true});
-		   //                          tags_for_flow.push({body: tagDupe[key].body, count : tagDupe[key].count, summary :''});
-		   //                      }
+		                        tags = [];
+		                        for ( var key in tagDupe ){
+		                            tags.push({body: tagDupe[key].body, count : tagDupe[key].count, visible: true});
+		                            tags_for_flow.push({body: tagDupe[key].body, count : tagDupe[key].count, summary :''});
+		                        }
 
-		   //                      // push single tags to each flow step
-		   //                      stepcollector[i].tags_single = tags;
-		   //                  }
-		   //              }
-		   //          }
+		                        // push single tags to each flow step
+		                        stepcollector[i].tags_single = tags;
+		                    }
+		                }
+		            }
 
-		   //          // arrange the tags for theme summarizing
-		   //          tags_for_flow.sort(keysrt('body'));
+		            // arrange the tags for theme summarizing
+		            tags_for_flow.sort(keysrt('body'));
 		            
-		   //          for (var i = 0; i < tags_for_flow.length -1 ; i++){
+		            for (var i = 0; i < tags_for_flow.length -1 ; i++){
 		                    
-		   //              if ( tags_for_flow[i].body == tags_for_flow[i+1].body ){
+		                if ( tags_for_flow[i].body == tags_for_flow[i+1].body ){
 		                    
-		   //                  var total = tags_for_flow[i].count + tags_for_flow[i+1].count;
-		   //                  tags_for_flow.splice(i, 1);
-		   //                  tags_for_flow[i].count = total;
-		   //                  // console.log(tags_for_flow[i].count);
-		   //              }
-		   //          }
+		                    var total = tags_for_flow[i].count + tags_for_flow[i+1].count;
+		                    tags_for_flow.splice(i, 1);
+		                    tags_for_flow[i].count = total;
+		                    // console.log(tags_for_flow[i].count);
+		                }
+		            }
 
 
-			  //       summary = new Summary();
+			        summary = new Summary();
 
-			  //       summary.title = flowname;
-			  //       summary.steps = stepcollector;
-			  //       summary.tags = tags_for_flow;
-			  //       summary.testKey = req.params.testId;
-			  //       summary.session_name = session_name;
-			  //       summary.summary = '';
+			        summary.title = flowcatch[0].title;
+			        summary.steps = stepcollector;
+			        summary.tags = tags_for_flow;
+			        summary.testKey = req.params.testId;
+			        summary.session_name = session_name;
+			        summary.summary = '';
 
-					// summary.save(function(err) {
-					// 		if (err)
-					// 			res.send(err);
+					summary.save(function(err) {
+							if (err)
+								res.send(err);
 							
-					// 		res.json(summary);
-					// });
+							res.json(summary);
+					});
 		})}})
 		
 	});
