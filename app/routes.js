@@ -439,33 +439,37 @@ router.route('/test/:testKey/flow/:flowKey')
 		            	}
 		            }
 
-		            console.log('stepcollector', stepcollector.length)
-					// // the tagstripper and reorganizer
+		            console.log('stepcollector', stepcollector)
+
+					// the tagstripper and reorganizer
+					// for all of the steps in the collected flow
+					// get tags from messages.tags
+					// push them into the tagcollector
 
 		            var tagcollector = [];
 		            var tagnamecheck = [];
 
 		            for (var a = 0; a < stepcollector.length ; a++){
 		            	var step = stepcollector[a];
-
 		            	console.log('stepcollector key', step.key, step.session_by_user.length);
 
 		                for (var j = 0 ; j < step.session_by_user.length; j ++){
-
+		                	// for each session/user, get messages
 		                    for (var k = 0 ; k < step.session_by_user[j].messages.length; k++){
-		                    	
+		                    	// get the messages from that step and their tags
 		                    	console.log('are there any tags', step.session_by_user[j].messages[k].tags)
 
 		                        for (var l = 0; l < step.session_by_user[j].messages[k].tags.length; l++){
+
 		                        	console.log('stepcollector key', step.key);
 		                            if(!(tagnamecheck.indexOf(step.key) != -1)){
 		                                tagnamecheck.push(step.key);
 		                                var tagMaker = step.session_by_user[j].messages[k].tags[l];
-		                                tagcollector.push({name : step.name, tags : [ tagMaker ] });
+		                                tagcollector.push({key : step.key, tags : [ tagMaker ] });
 		                                
-		                            }else if (tagnamecheck.indexOf(step.key) != -1){
+		                            } else if (tagnamecheck.indexOf(step.key) != -1){
 		                                for (var m in tagcollector){
-		                                    if (step.name == tagcollector[m].name){
+		                                    if (step.key == tagcollector[m].key){
 
 		                                        var tagMaker = step.session_by_user[j].messages[k].tags[l];
 		                                        tagcollector[m].tags.push(tagMaker);
@@ -477,13 +481,15 @@ router.route('/test/:testKey/flow/:flowKey')
 		                }
 		            }
 
+		            // fine through here.
 		            console.log('tagcollector', tagcollector);
 
-		            var tags_for_flow = [];
 		            // integrate tags to stepcollector for a clean object
+		            var tags_for_flow = [];
 		            for (var i = 0; i < stepcollector.length; i++){
 		                for (var j = 0; j < tagcollector. length; j++){
-		                    if (stepcollector[i].name == tagcollector[j].name ){
+		                    if (stepcollector[i].key == tagcollector[j].key ){
+
 		                        // get all tags per step and post to stepcollector.tags
 		                        // this should push to the flow itself for a count later on.
 		                        // console.log('tagcollector j', tagcollector[j])
@@ -527,6 +533,8 @@ router.route('/test/:testKey/flow/:flowKey')
 		                }
 		            }
 
+		            console.log('stepcollector after de-dupe and tag list', (util.inspect(stepcollector, {showHidden: false, depth: null})))
+
 		            // arrange the tags for theme summarizing
 		            tags_for_flow.sort(keysrt('body'));
 		            
@@ -546,7 +554,7 @@ router.route('/test/:testKey/flow/:flowKey')
 
 			        summary.title = flowcatch[0].title;
 			        summary.steps = stepcollector;
-			        summary.tags = tags_for_flow;
+			        // summary.tags = tags_for_flow;
 			        summary.testKey = req.params.testId;
 			        summary.session_name = session_name;
 			        summary.summary = '';
