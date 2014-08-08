@@ -51,6 +51,10 @@ var StepSchema = new Schema ({
 mongoose.model('Step', StepSchema);
 
 var FlowSchema = new Schema({
+		flowKey 	: {
+			type : Number,
+			trim : true
+		},
 		title 	: {
 			type: String, 
 			trim: true, 

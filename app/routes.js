@@ -347,20 +347,14 @@ router.route('/test/:testId/session/:sessionId/flow/:flowId')
 
 // CREATE A NEW SUMMARY ================================================
 
-router.route('/test/:testId/flow/:flowName')
+router.route('/test/:testKey/flow/:flowKey')
 	.post(function(req,res) {
-		console.log('touched Create A New Summary flowcollector', req.params.testId, req.params.flowName);
+		console.log('touched Create A New Summary flowcollector', req.params.testKey, req.params.flowKey);
 		
-		// pass the info to the front end because we can debug easier there.
-		// Summary.find({'testKey' : req.params.testId}, function (err, summary_data){
-		// 	if(err){res.send(err)};
-
-		// 	res.json(summary_data);
-		// })
-
-		// commented out because has an off-by-one in it.		
-		Summary.find({'testKey' : req.params.testId}, function (err, summary_data){
+		// does a summary for this flow already exist?
+		Summary.find({'testKey' : req.params.testKey, 'flowKey' : req.params.flowKey}, function (err, summary_data){
 			// console.log('touched Summary', summary_data);
+			
 			if(err){
 				res.send(err)
 			}
@@ -371,28 +365,22 @@ router.route('/test/:testId/flow/:flowName')
 				res.json(summary_data[0]);
 			}
 			else if (summary_data.length == 0){
-				console.log('making a new summary');
+				console.log('making a new summary for flow ', req.params.flowKey);
 
-				Session.find({'testKey' : req.params.testId, 'ismodel':false}, function(err, data) {
+				Session.find({'testKey' : req.params.testKey, 'flowKey' : req.params.flowKey,'ismodel':false}, function(err, data) {
 					if (err)
 						res.send(err);
 
 					var flowcollector = {};
 						flowcollector.flows = [];
 
-					var session_name = data.name;
+					var session_name = data.name; // what is this for
 					
 					// this gathers and sorts similar flows from the array of returned sessions.
 
-					for (var i in data){
-						for (var j = 0; j < data[i].flows.length; j++){
-							var name = data[i].flows[j].title;
-							name = name.replace(/ /g,'');
-
-							if (name === req.params.flowName){
-								var pushdata = data[i].flows[j];
-								flowcollector.flows.push( pushdata );
-							}
+					for (var i in data){ // for each session
+						for (var j = 0; j < data[i].flows.length; j++){ // for each flow
+							console.log(data[i].flows[j]);
 						}
 					}
 					

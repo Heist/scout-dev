@@ -12,6 +12,10 @@ function keysrt(key,desc) {
   }
 }
 
+function keygen(){
+    return Math.round((new Date().valueOf() * Math.random()));
+}
+
 // FRONT-END ROUTE CONFIGURATION ================================================
 scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 	$locationProvider
@@ -470,9 +474,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.addAFlow = function(session){
             // this adds a flow to the test selectied
             // important because tests model sessions
+
+
             console.log('touched addaflow ', session);
             $scope.flow = {}
             $scope.flow.title = 'New Flow Name Goes Here';
+            $scope.flow.flowKey = keygen();
             $scope.flow.steps = [];
 
             session.flows.push($scope.flow);
@@ -551,13 +558,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     // add a new summary and launch summary
-    $scope.summarizeFlow = function(testKey, flow){
+    $scope.summarizeFlow = function(testKey, flowKey){
 
-        console.log('touched ', testKey, flow)
-        // strip flowname's whitespace        
-        flow = flow.replace(/ /g,'');
-        console.log(testKey, flow);
-        var url = '/api/test/'+ testKey +'/flow/'+flow;
+        console.log('touched key', flowKey)
+        
+        var url = '/api/test/'+ testKey +'/flow/'+flowKey;
 
         console.log(url);
 

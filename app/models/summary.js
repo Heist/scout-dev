@@ -10,6 +10,7 @@ var SummarySchema = new Schema ({
 	updated : Date,
   tags    : Object,
 	testKey : Number,
+  flowKey : Number,
   session_name : String,
   summary: String
 })

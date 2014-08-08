@@ -78,9 +78,9 @@
 				</div>
 			
 				<div class="session-flow-controls">
-					<button class="button small" ng-click="summarizeFlow(selected.testKey, flow.title)" ng-hide="flow.summary">Summarize</button>
+					<button class="button small" ng-click="summarizeFlow(selected.testKey, flow.flowKey)" >Summarize</button>
 
-					<button class="button small" ng-click="summarizeFlow(selected.testKey, flow.title)" ng-show="flow.summary">Summary</button>
+					<button class="button small" ng-click="summarizeFlow(selected.testKey, flow.flowKey)" >Summary</button>
 					
 					&nbsp;&nbsp;
 					
@@ -95,7 +95,7 @@
 				</div>	
 				
 				<small>Flow</small>
-				<h3>{{flow.title}}</h3>
+				<h3>{{flow.title}} {{flow.flowKey}}</h3>
 				<p>{{flow.summary}}</p>
 				<div class="clear"></div>
 				
