@@ -88,7 +88,7 @@
 					<small>Comments on participant</small><br><strong>{{user.user}}</strong>
 				
 				<ul>
-					<li ng-repeat="message in users.messages"class="message">
+					<li ng-repeat="message in user.messages" class="message">
 						<div class="message-body">
 							<p ng-bind-html="message.body | hashtag"></p>
 							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>
