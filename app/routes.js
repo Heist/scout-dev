@@ -351,6 +351,8 @@ router.route('/test/:testKey/flow/:flowKey')
 	.post(function(req,res) {
 		console.log('touched Create A New Summary flowcollector', req.params.testKey, req.params.flowKey);
 		
+		// summaries are singular, so they can use an _id?
+
 		// does a summary for this flow already exist?
 		Summary.find({'testKey' : req.params.testKey, 'flowKey' : req.params.flowKey}, function (err, summary_data){
 			console.log('touched Summary', summary_data);
@@ -372,8 +374,8 @@ router.route('/test/:testKey/flow/:flowKey')
 						res.send(err);
 	
 					// this gathers and sorts similar flows from the array of returned sessions.
-					console.log('there are this many sessions:', data.length);
-					console.log('new data ', data[0].name)
+					// console.log('there are this many sessions:', data.length);
+					// console.log('new data ', data[0].name)
 					
 		            var stepcollector = [];
 		            var stepcheck = [];
@@ -393,7 +395,7 @@ router.route('/test/:testKey/flow/:flowKey')
 		            	}
 		            }
 
-		            console.log('number of flows in flowcatch', flowcatch);
+		            // console.log('number of flows in flowcatch', flowcatch);
 
 		            // for each flow
 		            // assemble the steps into a collection
@@ -425,8 +427,8 @@ router.route('/test/:testKey/flow/:flowKey')
 		                        stepcollector.push({key: key, name : name, session_by_user : [], pass_fail : false, summary: '' });
 		                        
 		                        
-		                        console.log('variable key', key);
-		                        console.log('variable b', b);
+		                        // console.log('variable key', key);
+		                        // console.log('variable b', b);
 
 		                        stepcollector[b].session_by_user.push(pusher); // stepcollector same as flow number
 
@@ -444,8 +446,6 @@ router.route('/test/:testKey/flow/:flowKey')
 		            	}
 		            }
 
-		            
-		            console.log('stepcollector', stepcollector)
 
 					// the tagstripper and reorganizer
 					// for all of the steps in the collected flow
@@ -457,17 +457,17 @@ router.route('/test/:testKey/flow/:flowKey')
 
 		            for (var a = 0; a < stepcollector.length ; a++){
 		            	var step = stepcollector[a];
-		            	console.log('stepcollector key', step.key, step.session_by_user.length);
+		            	// console.log('stepcollector key', step.key, step.session_by_user.length);
 
 		                for (var j = 0 ; j < step.session_by_user.length; j ++){
 		                	// for each session/user, get messages
 		                    for (var k = 0 ; k < step.session_by_user[j].messages.length; k++){
 		                    	// get the messages from that step and their tags
-		                    	console.log('are there any tags', step.session_by_user[j].messages[k].tags)
+		                    	// console.log('are there any tags', step.session_by_user[j].messages[k].tags)
 
 		                        for (var l = 0; l < step.session_by_user[j].messages[k].tags.length; l++){
 
-		                        	console.log('stepcollector key', step.key);
+		                        	// console.log('stepcollector key', step.key);
 		                            if(!(tagnamecheck.indexOf(step.key) != -1)){
 		                                tagnamecheck.push(step.key);
 		                                var tagMaker = step.session_by_user[j].messages[k].tags[l];
@@ -562,7 +562,8 @@ router.route('/test/:testKey/flow/:flowKey')
 			        summary.title = flowcatch[0].title;
 			        summary.steps = stepcollector;
 			        summary.tags = tags_for_flow;
-			        summary.testKey = req.params.testId;
+			        summary.testKey = req.params.testKey;
+			        summary.flowKey = req.params.flowKey;
 			        summary.session_name = session_name;
 			        summary.summary = '';
 
