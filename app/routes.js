@@ -439,37 +439,40 @@ router.route('/test/:testKey/flow/:flowKey')
 		            console.log('stepcollector', stepcollector.length)
 					// // the tagstripper and reorganizer
 
-		   //          var tagcollector = [];
-		   //          var tagnamecheck = [];
-		   //          // console.log(stepcollector.length);
-		   //          // console.log(stepcollector);
+		            var tagcollector = [];
+		            var tagnamecheck = [];
 
-		   //          for (var i = 0; i < stepcollector.length ; i++){
-		   //          	console.log('stepcollector key', stepcollector[i].key, stepcollector[i].session_by_user.length);
-		   //              for (var j = 0 ; j < stepcollector[i].session_by_user.length; j ++){
+		            for (var a = 0; a < stepcollector.length ; a++){
+		            	var step = stepcollector[a];
 
-		   //                  for (var k = 0 ; k < stepcollector[i].session_by_user[j].messages.length; k++){
-		   //                  	console.log('are there any tags', stepcollector[i].session_by_user[j].messages[k].tags)
-		   //                      for (var l = 0; l < stepcollector[i].session_by_user[j].messages[k].tags.length; l++){
-		   //                      	console.log('stepcollector key', stepcollector[i].key);
-		   //                          if(!(tagnamecheck.indexOf(stepcollector[i].key) != -1)){
-		   //                              tagnamecheck.push(stepcollector[i].key);
-		   //                              var tagMaker = stepcollector[i].session_by_user[j].messages[k].tags[l];
-		   //                              tagcollector.push({name : stepcollector[i].name, tags : [ tagMaker ] });
+		            	console.log('stepcollector key', step.key, step.session_by_user.length);
+
+		                for (var j = 0 ; j < step.session_by_user.length; j ++){
+
+		                    for (var k = 0 ; k < step.session_by_user[j].messages.length; k++){
+		                    	
+		                    	console.log('are there any tags', step.session_by_user[j].messages[k].tags)
+		                    	
+		                        for (var l = 0; l < step.session_by_user[j].messages[k].tags.length; l++){
+		                        	console.log('stepcollector key', step.key);
+		                            if(!(tagnamecheck.indexOf(step.key) != -1)){
+		                                tagnamecheck.push(step.key);
+		                                var tagMaker = step.session_by_user[j].messages[k].tags[l];
+		                                tagcollector.push({name : step.name, tags : [ tagMaker ] });
 		                                
-		   //                          }else if (tagnamecheck.indexOf(stepcollector[i].key) != -1){
-		   //                              for (var m in tagcollector){
-		   //                                  if (stepcollector[i].name == tagcollector[m].name){
+		                            }else if (tagnamecheck.indexOf(step.key) != -1){
+		                                for (var m in tagcollector){
+		                                    if (step.name == tagcollector[m].name){
 
-		   //                                      var tagMaker = stepcollector[i].session_by_user[j].messages[k].tags[l];
-		   //                                      tagcollector[m].tags.push(tagMaker);
-		   //                                  }
-		   //                              }
-		   //                          }
-		   //                      }    
-		   //                  }
-		   //              }
-		   //          }
+		                                        var tagMaker = step.session_by_user[j].messages[k].tags[l];
+		                                        tagcollector[m].tags.push(tagMaker);
+		                                    }
+		                                }
+		                            }
+		                        }    
+		                    }
+		                }
+		            }
 
 		   //          console.log('tagcollector', tagcollector);
 
