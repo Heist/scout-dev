@@ -381,7 +381,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 for (var j in data.sessions){                    
                     if (data.summaries[i].testKey == data.sessions[j].testKey){
                         for(var k in data.sessions[j].flows){
-                            if(data.summaries[i].title == data.sessions[j].flows[k].title){
+                            if(data.summaries[i].flowKey == data.sessions[j].flows[k].flowKey){
                                 data.sessions[j].flows[k].summary = data.summaries[i].summary;
                                 data.sessions[j].report = true;
                             }
