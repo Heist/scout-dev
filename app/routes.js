@@ -554,7 +554,7 @@ router.route('/test/:testKey/flow/:flowKey')
 
 			        summary.title = flowcatch[0].title;
 			        summary.steps = stepcollector;
-			        // summary.tags = tags_for_flow;
+			        summary.tags = tags_for_flow;
 			        summary.testKey = req.params.testId;
 			        summary.session_name = session_name;
 			        summary.summary = '';
