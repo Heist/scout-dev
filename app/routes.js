@@ -10,7 +10,7 @@ var mongoose = require('mongoose'); // so we can generate ObjectIDs for tests
 var Session = require('./models/session');
 var Summary = require('./models/summary');
 
-// small useful functions =====================================================
+// functions =====================================================
 
 // sorts an array of objects by key.
 function keysrt(key,desc) {
@@ -19,6 +19,215 @@ function keysrt(key,desc) {
   }
 }
 
+function create_or_update_summary(testKey, flowKey){
+console.log('making a new summary for flow ', flowKey);
+
+				Session.find({'testKey' : testKey, 'ismodel':false}, function(err, data) {
+					if (err)
+						res.send(err);
+	
+					// this gathers and sorts similar flows from the array of returned sessions.
+					// console.log('there are this many sessions:', data.length);
+					// console.log('new data ', data[0].name)
+					
+		            var stepcollector = [];
+		            var stepcheck = [];
+		            var flowcatch = [];
+		            var users = [];
+		            var counter;
+		            var session_name = data[0].name;
+
+		            
+		            // loop through returned sessions
+		            // put all flows by key into the requested summary array
+		            for (var a = 0; a < data.length; a++){
+		            	for (var b = 0; b < data[a].flows.length; b++){
+		            		if (data[a].flows[b].flowKey == flowKey){
+		            			flowcatch.push(data[a].flows[b]);
+		            		}
+		            	}
+		            }
+
+		            // console.log('number of flows in flowcatch', flowcatch);
+
+		            // for each flow
+		            // assemble the steps into a collection
+
+		            // for each flow
+		            // find each step
+		            // for each step
+		            // check if the key to that step exists in the keychain
+		            // if it does not, push it to the key chain with a data object.
+		            // if it does, push messages into it.
+
+		            for ( var a = 0; a < flowcatch.length; a++){
+		            	var flow = flowcatch[a]
+		            	users.push( flow.user_id)
+		            	
+		            	for(var b = 0; b < flow.steps.length; b++){
+
+		            		var step = flow.steps[b];
+		                    var name = step.title;
+		                    var key = step.key;
+		                    
+		                    // console.log('step: examine for a unique key', step)
+
+		                	if (!(stepcheck.indexOf(key) != -1)){
+		                		// this correctly pushes the first step of the first flow with a user.
+		                        var pusher = {'user' : flow.user_id, 'messages' : step.messages }
+
+		                        stepcheck.push(key);
+		                        stepcollector.push({key: key, name : name, session_by_user : [], pass_fail : false, summary: '' });
+		                        
+		                        
+		                        // console.log('variable key', key);
+		                        // console.log('variable b', b);
+
+		                        stepcollector[b].session_by_user.push(pusher); // stepcollector same as flow number
+
+
+		                    } else if (stepcheck.indexOf(key) != -1){
+
+		                    	for ( var c = 0; c < stepcollector.length; c++){
+		                            if (key == stepcollector[c].key){
+		                                var pusher = {'user' : flow.user_id, 'messages' : step.messages }
+		                                stepcollector[c].session_by_user.push(pusher);
+		                                
+		                            }
+			                    }
+		                	}
+		            	}
+		            }
+
+
+					// the tagstripper and reorganizer
+					// for all of the steps in the collected flow
+					// get tags from messages.tags
+					// push them into the tagcollector
+
+		            var tagcollector = [];
+		            var tagnamecheck = [];
+
+		            for (var a = 0; a < stepcollector.length ; a++){
+		            	var step = stepcollector[a];
+		            	// console.log('stepcollector key', step.key, step.session_by_user.length);
+
+		                for (var j = 0 ; j < step.session_by_user.length; j ++){
+		                	// for each session/user, get messages
+		                    for (var k = 0 ; k < step.session_by_user[j].messages.length; k++){
+		                    	// get the messages from that step and their tags
+		                    	// console.log('are there any tags', step.session_by_user[j].messages[k].tags)
+
+		                        for (var l = 0; l < step.session_by_user[j].messages[k].tags.length; l++){
+
+		                        	// console.log('stepcollector key', step.key);
+		                            if(!(tagnamecheck.indexOf(step.key) != -1)){
+		                                tagnamecheck.push(step.key);
+		                                var tagMaker = step.session_by_user[j].messages[k].tags[l];
+		                                tagcollector.push({key : step.key, tags : [ tagMaker ] });
+		                                
+		                            } else if (tagnamecheck.indexOf(step.key) != -1){
+		                                for (var m in tagcollector){
+		                                    if (step.key == tagcollector[m].key){
+
+		                                        var tagMaker = step.session_by_user[j].messages[k].tags[l];
+		                                        tagcollector[m].tags.push(tagMaker);
+		                                    }
+		                                }
+		                            }
+		                        }    
+		                    }
+		                }
+		            }
+
+		            // fine through here.
+		            // console.log('tagcollector', tagcollector);
+
+		            // integrate tags to stepcollector for a clean object
+		            var tags_for_flow = [];
+		            for (var i = 0; i < stepcollector.length; i++){
+		                for (var j = 0; j < tagcollector. length; j++){
+		                    if (stepcollector[i].key == tagcollector[j].key ){
+
+		                        // get all tags per step and post to stepcollector.tags
+		                        // this should push to the flow itself for a count later on.
+		                        // console.log('tagcollector j', tagcollector[j])
+
+		                        var tags = tagcollector[j].tags;
+		                        tags.sort();
+		                        // console.log('tags', tags.length ,JSON.stringify(tags));
+		                        // stepcollector[i].tags = tags;
+
+		                        // de-dupe array, then post to tags_single
+		                        //  so we summarize and visible.
+		                        var tagDupe = [];
+		                        var tagCount = 0;
+		                        var curTag = null;
+
+		                        for (var k = 0; k < tags.length +1; k++){
+		                            if (tags[k] != curTag){     
+		                                if (tagCount > 0) {
+		                                    tagDupe.push({body: curTag.replace(/#/gi,''), count : tagCount});
+		                                }
+
+		                                curTag = tags[k];
+		                                tagCount = 1;
+		                            } else {
+		                                tagCount++;
+		                            }
+		                        }
+
+		                        // weirdly, this returns an object into tagDupe.
+		                        // console.log('tagDupe', tagDupe);
+
+		                        tags = [];
+		                        for ( var key in tagDupe ){
+		                            tags.push({body: tagDupe[key].body, count : tagDupe[key].count, visible: true});
+		                            tags_for_flow.push({body: tagDupe[key].body, count : tagDupe[key].count, summary :''});
+		                        }
+
+		                        // push single tags to each flow step
+		                        stepcollector[i].tags_single = tags;
+		                    }
+		                }
+		            }
+
+		            // This is wrong. The two users have been pushed into the first step.
+		            // console.log('stepcollector after de-dupe and tag list', (util.inspect(stepcollector, {showHidden: false, depth: null})))
+
+		            // arrange the tags for theme summarizing
+		            tags_for_flow.sort(keysrt('body'));
+		            
+		            for (var i = 0; i < tags_for_flow.length -1 ; i++){
+		                    
+		                if ( tags_for_flow[i].body == tags_for_flow[i+1].body ){
+		                    
+		                    var total = tags_for_flow[i].count + tags_for_flow[i+1].count;
+		                    tags_for_flow.splice(i, 1);
+		                    tags_for_flow[i].count = total;
+		                    // console.log(tags_for_flow[i].count);
+		                }
+		            }
+
+		            // how to split this bit out without breaking all of it?
+			        summary = new Summary();
+
+			        summary.title = flowcatch[0].title;
+			        summary.steps = stepcollector;
+			        summary.tags = tags_for_flow;
+			        summary.testKey = testKey;
+			        summary.flowKey = flowKey;
+			        summary.session_name = session_name;
+			        summary.summary = '';
+
+					summary.save(function(err) {
+							if (err)
+								res.send(err);
+							
+							res.json(summary);
+					});
+		})
+}
 
 // console logging =====================================================
 
@@ -351,9 +560,6 @@ router.route('/test/:testKey/flow/:flowKey')
 	.post(function(req,res) {
 		console.log('touched Create A New Summary flowcollector', req.params.testKey, req.params.flowKey);
 		
-		// summaries are singular, so they can use an _id?
-
-		// does a summary for this flow already exist?
 		Summary.find({'testKey' : req.params.testKey, 'flowKey' : req.params.flowKey}, function (err, summary_data){
 			console.log('touched Summary', summary_data);
 			
@@ -362,219 +568,17 @@ router.route('/test/:testKey/flow/:flowKey')
 			}
 
 			else if (summary_data.length > 0){
-				console.log('touched summary data', summary_data.length);
+				console.log('need to populate the summary object with the test data');
+				console.log('touched summary data', summary_data[0].testKey, summary_data[0].flowKey);
 				console.log('touched summary data', summary_data[0]._id);
+
+
 				res.json(summary_data[0]);
 			}
 			else if (summary_data.length == 0){
-				console.log('making a new summary for flow ', req.params.flowKey);
+				console.log('need to make a new one');
 
-				Session.find({'testKey' : req.params.testKey, 'ismodel':false}, function(err, data) {
-					if (err)
-						res.send(err);
-	
-					// this gathers and sorts similar flows from the array of returned sessions.
-					// console.log('there are this many sessions:', data.length);
-					// console.log('new data ', data[0].name)
-					
-		            var stepcollector = [];
-		            var stepcheck = [];
-		            var flowcatch = [];
-		            var users = [];
-		            var counter;
-		            var session_name = data[0].name;
-
-		            
-		            // loop through returned sessions
-		            // put all flows by key into the requested summary array
-		            for (var a = 0; a < data.length; a++){
-		            	for (var b = 0; b < data[a].flows.length; b++){
-		            		if (data[a].flows[b].flowKey == req.params.flowKey){
-		            			flowcatch.push(data[a].flows[b]);
-		            		}
-		            	}
-		            }
-
-		            // console.log('number of flows in flowcatch', flowcatch);
-
-		            // for each flow
-		            // assemble the steps into a collection
-
-		            // for each flow
-		            // find each step
-		            // for each step
-		            // check if the key to that step exists in the keychain
-		            // if it does not, push it to the key chain with a data object.
-		            // if it does, push messages into it.
-
-		            for ( var a = 0; a < flowcatch.length; a++){
-		            	var flow = flowcatch[a]
-		            	users.push( flow.user_id)
-		            	
-		            	for(var b = 0; b < flow.steps.length; b++){
-
-		            		var step = flow.steps[b];
-		                    var name = step.title;
-		                    var key = step.key;
-		                    
-		                    // console.log('step: examine for a unique key', step)
-
-		                	if (!(stepcheck.indexOf(key) != -1)){
-		                		// this correctly pushes the first step of the first flow with a user.
-		                        var pusher = {'user' : flow.user_id, 'messages' : step.messages }
-
-		                        stepcheck.push(key);
-		                        stepcollector.push({key: key, name : name, session_by_user : [], pass_fail : false, summary: '' });
-		                        
-		                        
-		                        // console.log('variable key', key);
-		                        // console.log('variable b', b);
-
-		                        stepcollector[b].session_by_user.push(pusher); // stepcollector same as flow number
-
-
-		                    } else if (stepcheck.indexOf(key) != -1){
-
-		                    	for ( var c = 0; c < stepcollector.length; c++){
-		                            if (key == stepcollector[c].key){
-		                                var pusher = {'user' : flow.user_id, 'messages' : step.messages }
-		                                stepcollector[c].session_by_user.push(pusher);
-		                                
-		                            }
-			                    }
-		                	}
-		            	}
-		            }
-
-
-					// the tagstripper and reorganizer
-					// for all of the steps in the collected flow
-					// get tags from messages.tags
-					// push them into the tagcollector
-
-		            var tagcollector = [];
-		            var tagnamecheck = [];
-
-		            for (var a = 0; a < stepcollector.length ; a++){
-		            	var step = stepcollector[a];
-		            	// console.log('stepcollector key', step.key, step.session_by_user.length);
-
-		                for (var j = 0 ; j < step.session_by_user.length; j ++){
-		                	// for each session/user, get messages
-		                    for (var k = 0 ; k < step.session_by_user[j].messages.length; k++){
-		                    	// get the messages from that step and their tags
-		                    	// console.log('are there any tags', step.session_by_user[j].messages[k].tags)
-
-		                        for (var l = 0; l < step.session_by_user[j].messages[k].tags.length; l++){
-
-		                        	// console.log('stepcollector key', step.key);
-		                            if(!(tagnamecheck.indexOf(step.key) != -1)){
-		                                tagnamecheck.push(step.key);
-		                                var tagMaker = step.session_by_user[j].messages[k].tags[l];
-		                                tagcollector.push({key : step.key, tags : [ tagMaker ] });
-		                                
-		                            } else if (tagnamecheck.indexOf(step.key) != -1){
-		                                for (var m in tagcollector){
-		                                    if (step.key == tagcollector[m].key){
-
-		                                        var tagMaker = step.session_by_user[j].messages[k].tags[l];
-		                                        tagcollector[m].tags.push(tagMaker);
-		                                    }
-		                                }
-		                            }
-		                        }    
-		                    }
-		                }
-		            }
-
-		            // fine through here.
-		            // console.log('tagcollector', tagcollector);
-
-		            // integrate tags to stepcollector for a clean object
-		            var tags_for_flow = [];
-		            for (var i = 0; i < stepcollector.length; i++){
-		                for (var j = 0; j < tagcollector. length; j++){
-		                    if (stepcollector[i].key == tagcollector[j].key ){
-
-		                        // get all tags per step and post to stepcollector.tags
-		                        // this should push to the flow itself for a count later on.
-		                        // console.log('tagcollector j', tagcollector[j])
-
-		                        var tags = tagcollector[j].tags;
-		                        tags.sort();
-		                        // console.log('tags', tags.length ,JSON.stringify(tags));
-		                        // stepcollector[i].tags = tags;
-
-		                        // de-dupe array, then post to tags_single
-		                        //  so we summarize and visible.
-		                        var tagDupe = [];
-		                        var tagCount = 0;
-		                        var curTag = null;
-
-		                        for (var k = 0; k < tags.length +1; k++){
-		                            if (tags[k] != curTag){     
-		                                if (tagCount > 0) {
-		                                    tagDupe.push({body: curTag.replace(/#/gi,''), count : tagCount});
-		                                }
-
-		                                curTag = tags[k];
-		                                tagCount = 1;
-		                            } else {
-		                                tagCount++;
-		                            }
-		                        }
-
-		                        // weirdly, this returns an object into tagDupe.
-		                        // console.log('tagDupe', tagDupe);
-
-		                        tags = [];
-		                        for ( var key in tagDupe ){
-		                            tags.push({body: tagDupe[key].body, count : tagDupe[key].count, visible: true});
-		                            tags_for_flow.push({body: tagDupe[key].body, count : tagDupe[key].count, summary :''});
-		                        }
-
-		                        // push single tags to each flow step
-		                        stepcollector[i].tags_single = tags;
-		                    }
-		                }
-		            }
-
-		            // This is wrong. The two users have been pushed into the first step.
-		            // console.log('stepcollector after de-dupe and tag list', (util.inspect(stepcollector, {showHidden: false, depth: null})))
-
-		            // arrange the tags for theme summarizing
-		            tags_for_flow.sort(keysrt('body'));
-		            
-		            for (var i = 0; i < tags_for_flow.length -1 ; i++){
-		                    
-		                if ( tags_for_flow[i].body == tags_for_flow[i+1].body ){
-		                    
-		                    var total = tags_for_flow[i].count + tags_for_flow[i+1].count;
-		                    tags_for_flow.splice(i, 1);
-		                    tags_for_flow[i].count = total;
-		                    // console.log(tags_for_flow[i].count);
-		                }
-		            }
-
-
-			        summary = new Summary();
-
-			        summary.title = flowcatch[0].title;
-			        summary.steps = stepcollector;
-			        summary.tags = tags_for_flow;
-			        summary.testKey = req.params.testKey;
-			        summary.flowKey = req.params.flowKey;
-			        summary.session_name = session_name;
-			        summary.summary = '';
-
-					summary.save(function(err) {
-							if (err)
-								res.send(err);
-							
-							res.json(summary);
-					});
-		})}})
-		
+			}})
 	});
 
 
