@@ -72,7 +72,7 @@
 			<h3><span>{{selected.title}}</span></h3>
 			
 				
-			<div class="session-flow" ng-repeat="flow in selected.flows track by $index">
+			<div class="session-flow" ng-repeat="flow in selected.flows | orderBy:'created'">
 				<div class="flow-hamburger">
 					&equiv;
 				</div>

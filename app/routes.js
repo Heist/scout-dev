@@ -90,7 +90,7 @@ router.route('/test/')
         var sum = []
 
         // find the sessions and tests
-		Session.find({}, function(err, data) {
+		Session.find({}).sort('-created')exec(, function(err, data) {
 			if (err)
 				res.send(err);
 
