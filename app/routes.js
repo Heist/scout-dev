@@ -423,7 +423,12 @@ router.route('/test/:testKey/flow/:flowKey')
 
 		                        stepcheck.push(key);
 		                        stepcollector.push({key: key, name : name, session_by_user : [], pass_fail : false, summary: '' });
-		                        stepcollector[a].session_by_user.push(pusher); // stepcollector same as flow number
+		                        
+		                        
+		                        console.log('variable key', key);
+		                        console.log('variable b', b);
+
+		                        stepcollector[b].session_by_user.push(pusher); // stepcollector same as flow number
 
 
 		                    } else if (stepcheck.indexOf(key) != -1){
@@ -439,6 +444,7 @@ router.route('/test/:testKey/flow/:flowKey')
 		            	}
 		            }
 
+		            
 		            console.log('stepcollector', stepcollector)
 
 					// the tagstripper and reorganizer
@@ -482,7 +488,7 @@ router.route('/test/:testKey/flow/:flowKey')
 		            }
 
 		            // fine through here.
-		            console.log('tagcollector', tagcollector);
+		            // console.log('tagcollector', tagcollector);
 
 		            // integrate tags to stepcollector for a clean object
 		            var tags_for_flow = [];
@@ -533,7 +539,8 @@ router.route('/test/:testKey/flow/:flowKey')
 		                }
 		            }
 
-		            console.log('stepcollector after de-dupe and tag list', (util.inspect(stepcollector, {showHidden: false, depth: null})))
+		            // This is wrong. The two users have been pushed into the first step.
+		            // console.log('stepcollector after de-dupe and tag list', (util.inspect(stepcollector, {showHidden: false, depth: null})))
 
 		            // arrange the tags for theme summarizing
 		            tags_for_flow.sort(keysrt('body'));
@@ -707,7 +714,7 @@ router.route('/report/:testKey')
 
 				// sort out the number of times a test has been run from sessions_by_user
 				//  there is an off-by-one in here.
-				// the off-by-one is actually in Summary Creation.
+				// this appears to be pushing the user into the first session by user twice			
 
 				var users = []
 				var usr_ct = 0;
