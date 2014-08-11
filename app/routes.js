@@ -77,19 +77,19 @@ function stepcatch(flow_array){
 
     for (var a = 0; a < stepcollector.length ; a++){
     	var step = stepcollector[a];
-    	console.log('stepcollector key', step.key, step.session_by_user.length);
+    	// console.log('stepcollector key', step.key, step.session_by_user.length);
 
         for (var j = 0 ; j < step.session_by_user.length; j ++){
         	
         	// for each session/user, get messages
             for (var k = 0 ; k < step.session_by_user[j].messages.length; k++){
-            	
+
             	// get the messages from that step and their tags
             	if(step.session_by_user[j].messages[k].tags.length != 0){
-            		console.log('are there any tags', step.session_by_user[j].messages[k].tags)
+            		// console.log('are there any tags', step.session_by_user[j].messages[k].tags)
 	                for (var l = 0; l < step.session_by_user[j].messages[k].tags.length; l++){
 
-	                	console.log('stepcollector key', step.key);
+	                	// console.log('stepcollector key', step.key);
 	                    if(!(tagnamecheck.indexOf(step.key) != -1)){
 	                        tagnamecheck.push(step.key);
 	                        var tagMaker = step.session_by_user[j].messages[k].tags[l];
@@ -110,7 +110,7 @@ function stepcatch(flow_array){
         }
     }
 
-    console.log('tagcollector', tagcollector)
+    // console.log('tagcollector', tagcollector)
 
 			for (var i = 0; i < stepcollector.length; i++){
             	var step = stepcollector[i]
@@ -142,7 +142,6 @@ function stepcatch(flow_array){
                         for ( var key in tagDupe ){
                             tags.push({body: tagDupe[key].body, count : tagDupe[key].count, visible: true});
                         }
-
                         // push single tags to each flow step
                         step.tags_single = tags;
                     }
@@ -154,17 +153,16 @@ function stepcatch(flow_array){
 
 function tagcollector(array){
         // arrange the tags for theme summarizing
-        array.sort(keysrt('body'));
-        
+        // console.log('tagcollector function', array);
+        var tags = [];
+        // array is an array of steps
         for (var i = 0; i < array.length -1 ; i++){
-                
-            if ( array[i].body == array[i+1].body ){
-                
-                var total = array[i].count + array[i+1].count;
-                array.splice(i, 1);
-                array[i].count = total;
+            for(var j = 0; j < array[i].tags_single.length -1; j++){
+                tags.push(array[i].tags_single[j])
             }
         }
+
+     return tags;
 }
 
 
@@ -532,40 +530,33 @@ router.route('/test/:testKey/flow/:flowKey')
 								res.send(err);
 			
 							// this gathers and sorts similar flows from the array of returned sessions.
-							// console.log('there are this many sessions:', data.length);
-							// console.log('new data ', data[0].name)
-				            
-				            	console.log(data);
-					            var session_name = data[0].name;
-					            
-					            var flows = flowcatch(data, flowKey)
-					            var steps = stepcatch(flows);
+				            var session_name = data[0].name;
+				            var flows = flowcatch(data, flowKey)
+				            var steps = stepcatch(flows);
+				            var tags = tagcollector(steps);
 
-					            var tags = tagcollector(steps);
-					            console.log('tags', (util.inspect(tags, {showHidden: false, depth: null})));
-
-					            console.log('steps', (util.inspect(steps, {showHidden: false, depth: null})));
+					            // console.log('tags', (util.inspect(tags, {showHidden: false, depth: null})));
+					            // console.log('steps', (util.inspect(steps, {showHidden: false, depth: null})));
 								
-								// var flowtags = tags_for_flow(steps);
 
 
-					   //          // how to split this bit out without breaking all of it?
-						  //       summary = new Summary();
+				            // how to split this bit out without breaking all of it?
+					        summary = new Summary();
 
-						  //       summary.title = flows[0].title;
-						  //       summary.steps = steps;
-						  //       summary.tags = tags_for_flow;
-						  //       summary.testKey = testKey;
-						  //       summary.flowKey = flowKey;
-						  //       summary.session_name = session_name;
-						  //       summary.summary = '';
+					        summary.title = flows[0].title;
+					        summary.steps = steps;
+					        summary.tags = tags;
+					        summary.testKey = testKey;
+					        summary.flowKey = flowKey;
+					        summary.session_name = session_name;
+					        summary.summary = '';
 
-								// summary.save(function(err) {
-								// 		if (err)
-								// 			res.send(err);
-										
-								// 		res.json(summary);
-								// });
+							summary.save(function(err) {
+									if (err)
+										res.send(err);
+									
+									res.json(summary);
+							});
 							
 				})
 
