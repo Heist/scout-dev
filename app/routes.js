@@ -509,11 +509,9 @@ router.route('/test/:testKey/flow/:flowKey')
 			// if there is a summary already present
 			// use that to load the summary for the flow
 			else if (summary_data.length > 0){
-				console.log('need to populate the summary object with the test data');
+				console.log('need to populate the summary object with the _updated_ or _new_ test data');
 				console.log('touched summary data', summary_data[0].testKey, summary_data[0].flowKey);
 				console.log('touched summary data', summary_data[0]._id);
-
-
 
 
 				res.json(summary_data[0]);
@@ -535,12 +533,6 @@ router.route('/test/:testKey/flow/:flowKey')
 				            var steps = stepcatch(flows);
 				            var tags = tagcollector(steps);
 
-					            // console.log('tags', (util.inspect(tags, {showHidden: false, depth: null})));
-					            // console.log('steps', (util.inspect(steps, {showHidden: false, depth: null})));
-								
-
-
-				            // how to split this bit out without breaking all of it?
 					        summary = new Summary();
 
 					        summary.title = flows[0].title;
