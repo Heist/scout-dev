@@ -412,8 +412,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             for (var i = 0; i < data.sessions.length; i++){
                 for (var j = 0; j < data.sessions[i].flows.length; j++){
                     console.log('flows', data.sessions[i].flows[j]);
-                    for(var k = 0; k < Object.keys(count).length;k++){
-                        console.log(count)
+                    for(var k = 0; k < flow_ct.length ;k++){
+                      if(flow_ct[k].flow == data.sessions[i].flows[j].flowKey){
+                        data.sessions[i].flows[j].count = flow_ct[k].count;
+                      }
                     }
                 }
             }
