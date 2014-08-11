@@ -638,7 +638,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 }])
 
-// ACTIVE TEST CONTROLLER =====================================================
+// RUN CONTROLLER - RUNS A TEST =====================================================
 .controller('run', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
     // set up controller-wide variables
     $scope.session = {};
@@ -670,6 +670,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data){
             $scope.session = data;
 
+            console.log('session', data)
             var flows = [];
             for (var i in data.flows){
                 if(data.flows[i].steps.length > 0){
