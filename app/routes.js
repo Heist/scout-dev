@@ -235,7 +235,7 @@ router.route('/test/')
         var tests = [];
         var sum = []
 
-        // find the sessions and tests
+        // find the sessions and tests, sort sessions descending
 		Session.find({}).sort('-created').exec( function(err, data) {
 			if (err)
 				res.send(err);
