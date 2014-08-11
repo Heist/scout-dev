@@ -524,6 +524,8 @@ router.route('/test/:testKey/flow/:flowKey')
 				res.send(err)
 			}
 
+			// if there is a summary already present
+			// use that to load the summary for the flow
 			else if (summary_data.length > 0){
 				console.log('need to populate the summary object with the test data');
 				console.log('touched summary data', summary_data[0].testKey, summary_data[0].flowKey);
@@ -534,6 +536,10 @@ router.route('/test/:testKey/flow/:flowKey')
 
 				res.json(summary_data[0]);
 			}
+
+			// if there's no summary already present
+			// make a summary and then 
+			// save it
 			else if (summary_data.length == 0){
 				console.log('need to make a new one');
 
@@ -545,34 +551,36 @@ router.route('/test/:testKey/flow/:flowKey')
 							// console.log('there are this many sessions:', data.length);
 							// console.log('new data ', data[0].name)
 				            
-				            var session_name = data[0].name;
-				            
-				            var flows = flowcatch(data);		            
-				            var steps = stepcatch(flows);
+				            	console.log(data);
+					            var session_name = data[0].name;
+					            
+					            var flows = flowcatch(data);		            
+					            var steps = stepcatch(flows);
 
-				            // this should probably be integrated up top
-				            tagcollector(steps);
+					            // this should probably be integrated up top
+					            tagcollector(steps);
+								
+								var tags_for_flow = tags_for_flow(steps);
+
+
+					            // how to split this bit out without breaking all of it?
+						        summary = new Summary();
+
+						        summary.title = flows[0].title;
+						        summary.steps = steps;
+						        summary.tags = tags_for_flow;
+						        summary.testKey = testKey;
+						        summary.flowKey = flowKey;
+						        summary.session_name = session_name;
+						        summary.summary = '';
+
+								summary.save(function(err) {
+										if (err)
+											res.send(err);
+										
+										res.json(summary);
+								});
 							
-							var tags_for_flow = tags_for_flow(steps);
-
-
-				            // how to split this bit out without breaking all of it?
-					        summary = new Summary();
-
-					        summary.title = flows[0].title;
-					        summary.steps = steps;
-					        summary.tags = tags_for_flow;
-					        summary.testKey = testKey;
-					        summary.flowKey = flowKey;
-					        summary.session_name = session_name;
-					        summary.summary = '';
-
-							summary.save(function(err) {
-									if (err)
-										res.send(err);
-									
-									res.json(summary);
-							});
 				})
 
 
