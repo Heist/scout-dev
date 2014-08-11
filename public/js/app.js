@@ -518,8 +518,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         var url = '/api/test/'+session.testKey+'/session/'+session._id+'/flow/'+flow._id;
         
-        session.flows.splice(flow, 1);
-        
         var dataOut = session;
 
         console.log(url);
@@ -528,6 +526,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $http.delete(url,dataOut)
             .success(function(data){
                 console.log(JSON.stringify(data))
+                $scope.selected = data;
+
             })
             .error(function(data){
                 console.log('Error: ' + data);

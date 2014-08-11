@@ -20,6 +20,7 @@ function keysrt(key,desc) {
 }
 
 function flowcatch(data){
+	// TODO - add FlowKey and rething how this pushes into the array
 	var flowcatch = [];
         for (var a = 0; a < data.length; a++){
         	for (var b = 0; b < data[a].flows.length; b++){
@@ -184,43 +185,6 @@ function tags_for_flow(arr){
             return tags_for_flow;
 }
 
-
-function create_or_update_summary(testKey, flowKey){
-		Session.find({'testKey' : testKey, 'ismodel':false}, function(err, data) {
-					if (err)
-						res.send(err);
-	
-					// this gathers and sorts similar flows from the array of returned sessions.
-					// console.log('there are this many sessions:', data.length);
-					// console.log('new data ', data[0].name)
-		            
-		            var session_name = data[0].name;
-		            
-		            var flows = flowcatch(data);		            
-		            var steps = stepcatch(flows);
-		            var tags_for_steps = tagcollector(steps);
-					var tags_for_flow = tags_for_flow(steps);
-
-
-		            // how to split this bit out without breaking all of it?
-			        summary = new Summary();
-
-			        summary.title = flowcatch[0].title;
-			        summary.steps = stepcollector;
-			        summary.tags = tags_for_flow;
-			        summary.testKey = testKey;
-			        summary.flowKey = flowKey;
-			        summary.session_name = session_name;
-			        summary.summary = '';
-
-					summary.save(function(err) {
-							if (err)
-								res.send(err);
-							
-							res.json(summary);
-					});
-		})
-}
 
 // console logging =====================================================
 
@@ -531,7 +495,7 @@ router.route('/test/:testId/session/:sessionId/flow/:flowId')
 		Session.findById(req.params.sessionId).exec(
     		function(err, session) { 
     			if (session.flows.id(req.params.flowId)){
-    			console.log('found');
+    			console.log('found for deletion');
     			session.flows.id(req.params.flowId).remove();
 
     			session.save(function(err) {
@@ -566,10 +530,51 @@ router.route('/test/:testKey/flow/:flowKey')
 				console.log('touched summary data', summary_data[0]._id);
 
 
+
+
 				res.json(summary_data[0]);
 			}
 			else if (summary_data.length == 0){
 				console.log('need to make a new one');
+
+				Session.find({'testKey' : req.params.testKey, 'ismodel':false}, function(err, data) {
+							if (err)
+								res.send(err);
+			
+							// this gathers and sorts similar flows from the array of returned sessions.
+							// console.log('there are this many sessions:', data.length);
+							// console.log('new data ', data[0].name)
+				            
+				            var session_name = data[0].name;
+				            
+				            var flows = flowcatch(data);		            
+				            var steps = stepcatch(flows);
+
+				            // this should probably be integrated up top
+				            tagcollector(steps);
+							
+							var tags_for_flow = tags_for_flow(steps);
+
+
+				            // how to split this bit out without breaking all of it?
+					        summary = new Summary();
+
+					        summary.title = flows[0].title;
+					        summary.steps = steps;
+					        summary.tags = tags_for_flow;
+					        summary.testKey = testKey;
+					        summary.flowKey = flowKey;
+					        summary.session_name = session_name;
+					        summary.summary = '';
+
+							summary.save(function(err) {
+									if (err)
+										res.send(err);
+									
+									res.json(summary);
+							});
+				})
+
 
 			}})
 	});
