@@ -178,9 +178,9 @@ router.use(function(req, res, next) {
 
 // get/post to /api routes.
 router.route('/')
-	// this returns all sessions in the DB. Sessions are our basic document unit.
-	// it is important for testing that a basic call results in a dump.
 	.get(function(req, res) {
+		// get all flows in the database
+		// organize them by session
 			Session.find(function(err, sessions) {
 				if (err)
 					res.send(err);
