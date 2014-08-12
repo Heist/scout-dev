@@ -9,6 +9,7 @@ var mongoose = require('mongoose'); // so we can generate ObjectIDs for tests
 // var Flow 	= require('./models/flow');
 var Session = require('./models/session');
 var Summary = require('./models/summary');
+var Flow    = require('./models/flow');
 
 // functions =====================================================
 

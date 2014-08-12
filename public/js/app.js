@@ -374,7 +374,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data) {
             console.log('data log', data);
 
-
+            $scope.selectedIndex = 0;
+            $scope.selected = data.sessions[0];
             // for each test in data.tests
             // match to its relevant flowKey
             // count each test by flowKey
