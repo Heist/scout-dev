@@ -15,13 +15,17 @@ var MessageSchema = new Schema ({
 		type: String,
 		trim: true
 	},
-	user_id:{
+	user:{
 		type: String,
 		trim:true
 	},
-	session_id:{
-		type: String,
-		trim:true
+	flow:{ 
+		type: Schema.Types.ObjectId,
+		ref: 'Flow'
+	},
+	step:{ 
+		type: Schema.Types.ObjectId, 
+		ref: 'Step'
 	},
 	fav : {type: Boolean,
 		default: false
@@ -31,46 +35,44 @@ var MessageSchema = new Schema ({
 		trim:true
 	}
 })
+
 mongoose.model('Message', MessageSchema);
 
 var StepSchema = new Schema ({
-	title: {
+	name: {
 			type : String,
 			trim : true
 		},
-	flow : { type: Schema.Types.Number, ref: 'Flow'
-	},
-	key: {
-		type: Number,
-		trim: true
+	flow : { 
+		type: Schema.Types.ObjectId, 
+		ref: 'Flow'
 	},
 	desc : {
 			type : String,
 			trim : true
 		},
+	created: {
+			type: Date
+		},
+	updated: {
+			type: Date
+		},
 	messages: [MessageSchema]
 })
+
 mongoose.model('Step', StepSchema);
 
 var FlowSchema = new Schema({
-		testKey : {
-			type : Number,
-			trim : true
+		session : {
+			type: Schema.Types.ObjectId, 
+			ref: 'Session'
 		},
-		flowKey : {
-			type : Number,
-			trim : true
-		},
-		user_id:{
-			type: String,
-			trim:true
-		},
-		title 	: {
+		name 	: {
 			type: String, 
 			trim: true, 
 			default: 'my new flow name'
 		},
-		link	: {
+		prototype	: {
 			type: String, 
 			trim: true, 
 			default: ''
@@ -100,6 +102,25 @@ var FlowSchema = new Schema({
 
 mongoose.model('Flow', FlowSchema);
 
+var SessionSchema = new Schema({
+		name 	: {
+			type: String, 
+			trim: true, 
+			default: 'New Session'
+		}
+})
+
+mongoose.model('Session', SessionSchema);
+
+StepSchema.pre('save', function(next){
+  var now = new Date();
+  this.updated = now;
+  if ( !this.created ) {
+    this.created = now;
+  }
+  next();
+});
+
 MessageSchema.pre('save', function(next){
   var now = new Date();
   if ( !this.created ) {
@@ -117,5 +138,7 @@ FlowSchema.pre('save', function(next){
   next();
 });
 
-module.exports = mongoose.model('Flow', FlowSchema);
+module.exports = mongoose.model('Message', MessageSchema);
 module.exports = mongoose.model('Step', StepSchema);
+module.exports = mongoose.model('Flow', FlowSchema);
+module.exports = mongoose.model('Session', SessionSchema);
