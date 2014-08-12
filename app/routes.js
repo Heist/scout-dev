@@ -4,12 +4,15 @@ var router = express.Router();  // get an instance of the express Router
 var util = require('util');
 var mongoose = require('mongoose'); // so we can generate ObjectIDs for tests
 
-// load models for routes
-// var Step 	= require('./models/step');
-// var Flow 	= require('./models/flow');
+// // load models for routes
+var Message = require('./models/message');
+var Step 	= require('./models/step');
+var Flow    = require('./models/flow');
 var Session = require('./models/session');
 var Summary = require('./models/summary');
-var Flow    = require('./models/flow');
+
+// this cleverness is supposed to initialize the models list
+// require('./models.js').initialize();
 
 // functions =====================================================
 
