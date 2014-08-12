@@ -179,29 +179,24 @@ router.use(function(req, res, next) {
 
 // get/post to /api routes.
 router.route('/')
-	// this returns all sessions in the DB. Sessions are our basic document unit.
-	// it is important for testing that a basic call results in a dump.
 	.get(function(req, res) {
+		// get all the flows in the db
+		// do nothing with them - this route is for testing
+		// TODO: Clear route on production branch.
+
 			Flow.find(function(err, flows) {
 				if (err)
 					res.send(err);
-			var sessions = [];
-
-			for( var i = 0; i < flows; i++){
-				
-			}	
-				res.json(sessions);
+				res.json(flows);
 			});
 		})
-	// this needs to *only* be touched when creating a new Session, not a new test.
-	// sessions cannot be individually deleted until reporting.
 
 // CREATE A NEW SESSION ================================================
 	.post(function(req, res){
-				var session = new Session(); // here is where all that save stuff is happening
+				var session = new Session();
  			
 	 			session.name = 'New Session';
-	 			session.testKey = req.body.testKey;		
+	 			session.testKey = req.body.testKey;
 
 				console.log(req.body);      // your JSON
 	  			res.send(req.body);  		// echo the result back
@@ -292,10 +287,6 @@ router.route('/test/')
 
 				res.json({sessions: tests, tests: ssin, summaries: sum});
             })
-
-
-            
-			// res.json({'sessions': tests, 'test':ssin, 'summaries' : sum});
 		});
 	})
 
@@ -324,7 +315,8 @@ router.route('/test/')
 // /test/testId routes:
 // add a new session to the db with .post
 // add a flow to a test with .put (controller AddAFlow)
-// TODO remove all sessions with test-id test .delete 
+// TODO remove all sessions with test-id test .delete
+
 router.route('/test/:testId')
 	// route for adding a test to a db - 
 	// testId is actually a front-end randomly generated number
