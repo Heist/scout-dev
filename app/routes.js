@@ -182,9 +182,14 @@ router.route('/')
 	// this returns all sessions in the DB. Sessions are our basic document unit.
 	// it is important for testing that a basic call results in a dump.
 	.get(function(req, res) {
-			Session.find(function(err, sessions) {
+			Flow.find(function(err, flows) {
 				if (err)
 					res.send(err);
+			var sessions = [];
+
+			for( var i = 0; i < flows; i++){
+				
+			}	
 				res.json(sessions);
 			});
 		})
