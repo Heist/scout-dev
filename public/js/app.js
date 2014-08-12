@@ -520,15 +520,16 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 
             console.log('touched addaflow ', session);
-            $scope.flow = {}
-            $scope.flow.title = 'New Flow Name Goes Here';
-            $scope.flow.flowKey = keygen();
-            $scope.flow.steps = [];
+            var flow = {}
+            
+            flow.title = 'New Flow Name Goes Here';
+            flow.flowKey = keygen();
+            flow.steps = [];
 
-            session.flows.push($scope.flow);
+            console.log('new flow', flow);
 
             // this is so .put can sniff what's going on
-            var wrapper = { 'flow': $scope.flow };
+            var wrapper = { 'flow': flow };
             
             var url = '/api/test/'+session.testKey;
             console.log(url);
@@ -537,8 +538,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 .put(url, wrapper)
                 .success(function(data){
                     console.log('new flow added '+ JSON.stringify(data));
-                    session.flows = data.flows;
-                    $scope.$apply;
+                    $scope.selected = data;
+                    
                 })
                 .error(function(data){
                     console.log(JSON.stringify(data))
