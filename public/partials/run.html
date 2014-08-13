@@ -88,10 +88,10 @@
 		</div>
 		
 		<!-- timeline -->
-		<div id="timeline" >
+		<div id="timeline" scroll-if>
 			<ul ng-model='timeline'>
 						
-				<li class="message" ng-repeat="message in timeline track by $index">
+				<li class="message" ng-repeat="message in timeline track by $index" scroll-item >
 					
 					<div class="message-details"><!-- show the user's avatar -->
 						<div class="message-details-avatar" ng-if="message.title">&bull;</div>
