@@ -189,7 +189,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #timeline-device img { width: 100%; height: auto; border: 2px solid #e9e9de; }
 
 /* questions/list of things style */
-#questions { height: 100%; padding-top: 50px; background: #41454a; color: white; }
+#questions { min-height: 100%; padding-top: 50px; background: #41454a; color: white; }
 #questions .questions-group { padding: 0; margin: 0; -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; opacity: 0.4; }
 #questions .questions-group.active { opacity: 1.0; }
 #questions .questions-group small { margin: 0; padding: 0; opacity: 0.5; }
@@ -389,6 +389,7 @@ body { background: #f3f3ed; color: #41454a; margin: 0; padding: 0; }
 #view-summarizing #timeline { margin-top: 50px; overflow: auto; }
 #view-summarizing #timeline .message .message-body { width: 75%; }
 #view-summarizing #timeline .message .message-fave { float: left; margin: 0 0 0 10px; font-size: 24px; }
+#view-summarizing #timeline .message .message-fave a { text-decoration: none; }
 
 /* let's summarize TAGS */
 #view-summarizingtags { margin: 0; padding: 0; height: 100%; width: 100%; background: white; }

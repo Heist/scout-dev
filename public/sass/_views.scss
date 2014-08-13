@@ -461,6 +461,10 @@
 				float: left;
 				margin: 0 0 0 $pad/2;
 				font-size: $type-size-base*1.5;
+				
+				a {
+					text-decoration: none;
+				}
 			}
 		}
 	}
