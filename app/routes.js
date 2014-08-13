@@ -199,11 +199,7 @@ router.route('/')
 				var session = new Session();
  			
 	 			session.name = 'New Session';
-	 			session.testKey = req.body.testKey;
 
-				console.log(req.body);      // your JSON
-	  			res.send(req.body);  		// echo the result back
-				 			
 	 			session.save(function(err) {
 					if (err)
 						res.send(err);
@@ -212,7 +208,6 @@ router.route('/')
 						if (err)
 							res.send(err);
 						res.json(session);
-						console.log(session.length)
 					});
 				});
 		});
