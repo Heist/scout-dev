@@ -373,7 +373,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $http.get('/api/session/')
         .success(function(data) {
             console.log('data log', data);
-
+            $scope.sessions = data;
         })
         .error(function(data) {
             console.log('Error: ' + data);
