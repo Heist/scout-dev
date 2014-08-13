@@ -454,7 +454,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             var url = '/api/session/'+session._id+'/flow/';
             
             $http
-                .put(url, wrapper)
+                .post(url)
                 .success(function(data){
                     console.log('new flow added '+ JSON.stringify(data));
                     session.flows = data.flows;

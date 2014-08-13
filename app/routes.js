@@ -122,30 +122,26 @@ router.route('/session/:session_id/flow/')
 
 	// add a new flow to the session
 	.post(function(req,res){
-		Session.findById({'_id': req.params.session_id}, function(err, session){
-				// first we get a session to post to
+			var flow = new Flow();
+
+			flow.name = "New Flow Name";
+			flow._session = req.params.session_id;
+			console.log('new flow A', flow);
+
+			flow.save(function(err, flow){
 				if (err)
 					res.send(err);
+				
+				console.log('session with new flow', session);
+				console.log('new flow B', flow);
+				
+				Session.findById(req.params.session_id)
+					.populate('flows._session')
+					.exec(function(err, session){})
 
-				// then we save it with a reference to its
-				// brand-new flow
-				session.save(function(err, data) {
 
-					var flow = new Flow()
-
-					flow.name = "New Flow Name";
-					flow._session = req.params.session_id;
-					
-					flow.save(function(err, data){
-						if (err)
-							res.send(err);
-
-						res.json(session);
-
-					})
-
-				})
 			})
+
 	});
 
 
@@ -156,7 +152,12 @@ router.route('/session/:session_id/flow/')
 router.route('/flow/')
 	// get all of the flows	
 	.get(function(req,res){
-		
+		Flow.find(function(err, flows) {
+				if (err)
+					res.send(err);
+
+				res.json(flows);
+			});
 	});
 
 
