@@ -370,7 +370,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.experiment = {};
 
     // get all sessions and their flows on first load
-    $http.get('/api/test/')
+    $http.get('/api/session/')
         .success(function(data) {
             console.log('data log', data);
 
