@@ -192,9 +192,11 @@ router.route('/')
 					res.send(err);
 				res.json(flows);
 			});
-		})
+		});
 
-// CREATE A NEW SESSION ================================================
+// SESSION CREATION ROUTES ================================================
+	
+router.route('/session/')
 	.post(function(req, res){
 				var session = new Session();
  			
@@ -212,6 +214,27 @@ router.route('/')
 				});
 		});
 
+
+// FLOW CREATION ROUTES ===================================================
+	
+router.route('/flow/')
+	.get((function(req,res){
+		// get all of the flows	
+	})
+	.post(function(req,res){
+		// this gets a session that needs a flow
+		// then posts the flow using that session._id as the session id
+	})
+	.put(function(req,res){
+		// this should update the flow with new steps
+	})
+	.delete((function(req,res){
+		// this deletes a single flow by id from the database		
+	});
+
+
+// STEP ROUTES ===================================================
+	// these are a subset of flow routes
 
 // TEST routes =========================================================
 
