@@ -202,8 +202,8 @@ router.route('/session/')
 		Session.find(function(err, sessions) {
 				if (err)
 					res.send(err);
-				
-				
+
+
 				res.json(sessions);
 			});
 	})
@@ -227,14 +227,32 @@ router.route('/session/')
 		})
 
 	// update a session's name
-	.put((function(req,res){
+	
+
+	
+router.route('/session/:session_id/')
+	// deletes all sessions and sub-documents - steps, flows, reports, summaries.
+	.delete((function(req,res){
 		
 	})
 
-	// deletes a session by id
-	.delete((function(req,res){
-		
-	});
+	// change the name of the session
+	.put((function(req,res){
+		Session.findById({'_id': req.params.session_id}, function(err, session){
+			if (err)
+				res.send(err);
+
+			session.name = req.body.name;
+
+			session.save(function(err, data) {
+				if (err)
+					res.send(err);
+				
+				console.log('touched summary update', data);
+			})
+		})
+	})
+	;
 
 router.route('/session/:session_id/flow/')
 

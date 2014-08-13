@@ -481,16 +481,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     // Add and remove tests
-    $scope.addTest = function(test){
-        var testGen = Math.round((new Date().valueOf() * Math.random()));
-        var dataOut = {
-                ismodel : true,
-                testKey : testGen 
-            };        
+    $scope.addSession = function(test){
         
-        $http.post('/api/test/', dataOut)   
+        
+        $http.post('/api/session/', dataOut)   
             .success(function(data){
-                console.log('added a new test '+ JSON.stringify(data));
+                console.log('added a new session '+ JSON.stringify(data));
                 $scope.sessions = data;
             })
             .error(function(data){
@@ -499,8 +495,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
     }
    
-    $scope.removeTest = function(session){
-        var url = '/api/test/'+session.testKey;
+    $scope.removeSession = function(session){
+        var url = '/api/session/'+session.testKey;
         var index = $scope.sessions.indexOf(session);
 
         $scope.sessions.splice(index, 1);
