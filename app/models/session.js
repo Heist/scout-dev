@@ -8,6 +8,9 @@ var SessionSchema = new Schema({
 			type: String, 
 			trim: true, 
 			default: 'New Session'
+		},
+		flows	: {
+			[FlowSchema]
 		}
 })
 

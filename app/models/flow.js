@@ -5,9 +5,7 @@ var Schema = mongoose.Schema;
 var StepSchema = require('mongoose').model('Step');
 
 var FlowSchema = new Schema({
-		session : {
-			type: Schema.Types.ObjectId, 
-			ref: 'Session'
+		_session : {	type: Schema.Types.ObjectId, ref: 'Session'
 		},
 		name 	: {
 			type: String, 
@@ -39,7 +37,7 @@ var FlowSchema = new Schema({
 			type: [String], 
 			trim:true
 		},
-		steps: [StepSchema]
+		steps: [{ type: Schema.Types.ObjectId, ref: 'Step' }]
 	});
 
 mongoose.model('Flow', FlowSchema);

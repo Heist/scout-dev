@@ -185,8 +185,6 @@ router.route('/')
 	.get(function(req, res) {
 		// get all the flows in the db
 		// do nothing with them - this route is for testing
-		// TODO: Clear route on production branch.
-
 			Flow.find(function(err, flows) {
 				if (err)
 					res.send(err);
@@ -194,9 +192,23 @@ router.route('/')
 			});
 		});
 
-// SESSION CREATION ROUTES ================================================
+// SESSION ROUTES ================================================
 	
 router.route('/session/')
+	// get all sessions
+	// get all flows by session
+	// get all flow steps by flow
+	.get((function(req,res){
+		Session.find(function(err, sessions) {
+				if (err)
+					res.send(err);
+				
+				
+				res.json(sessions);
+			});
+	})
+
+	// add a new session - this could be an upsert?
 	.post(function(req, res){
 				var session = new Session();
  			
@@ -212,303 +224,115 @@ router.route('/session/')
 						res.json(session);
 					});
 				});
-		});
+		})
 
+	// update a session's name
+	.put((function(req,res){
+		
+	})
 
-// FLOW CREATION ROUTES ===================================================
-	
-router.route('/flow/')
-	.get((function(req,res){
-		// get all of the flows	
-	})
-	.post(function(req,res){
-		// this gets a session that needs a flow
-		// then posts the flow using that session._id as the session id
-	})
-	.put(function(req,res){
-		// this should update the flow with new steps
-	})
+	// deletes a session by id
 	.delete((function(req,res){
-		// this deletes a single flow by id from the database		
+		
 	});
 
+router.route('/session/:session_id/flow/')
+
+	// get all flows by session
+	.get((function(req,res){
+		
+	})
+
+	// add a new flow to the session
+	.post((function(req,res){
+		
+	})
+	;
+
+
+// FLOW ROUTES ===================================================
+	
+router.route('/flow/')
+	// get all of the flows	
+	.get((function(req,res){
+		
+	});
+
+
+router.route('/flow/:flow_id')
+	.get((function(req,res){
+		// get one specific flow
+	})
+
+	.put(function(req,res){
+		// update one flow with new information
+	})
+
+	.delete((function(req,res){
+		// deletes a single flow by id
+	});
+
+router.route('/flow/:flow_id/step/')
+	// add a new step to the flow
+	.post((function(req,res){
+		
+	})
+	;
 
 // STEP ROUTES ===================================================
 	// these are a subset of flow routes
 
-// TEST routes =========================================================
-
-// routest for returning test sets - return all sessions.
-// on front end, remove sessions that are not models, but count them.
-router.route('/test/')
-
-	// OVERVIEW get =============================
-
-	.get(function(req,res){
-		console.log('touched /test');
-
-		// get all of the sessions
-		// then split out the tests from the models
-		// return a test object by key
-		// containing sessions
-		// and summaries
-
-		var ssin = [];
-        var tests = [];
-        var sum = []
-
-        // find the sessions and tests, sort sessions descending
-		Session.find({}).sort('-created').exec( function(err, data) {
-			if (err)
-				res.send(err);
-
-			var keys = [];
-
-			for(var i in data){
-				console.log(data[i].testKey);
-				if (!(keys.indexOf(data[i].testKey) != -1)){
-					keys.push(data[i].testKey);
-				}
-			}
-
-            data.sort(keysrt('testKey'));
-            
-            // count up and post the number of sessions 
-            var models = 0;
-            var ssincount = 0;
-                       
-
-            // split out tests from sessions
-            for(var i =0; i<data.length; i++){
-                if (data[i].ismodel){
-                    tests.push(data[i]);
-                } else if (!data[i].ismodel){
-                    ssin.push(data[i]);
-                }
-            }
-
-            // get the stats for 'last run'
-            for(var i in ssin){
-                for (var k in tests){
-                    if (tests[k].testKey == ssin[i].testKey){
-                        if (ssin[i].updated > tests[k].updated){
-                            tests[k].updated = ssin[i].updated;
-                        }
-                    }
-                }
-            }
-
-            Summary.find({}, function(err, summaries){
-            	if (err)
-					res.send(err);
-
-				sum = summaries;
-
-				console.log(ssin.length, tests.length, sum.length);
-
-				res.json({sessions: tests, tests: ssin, summaries: sum});
-            })
-		});
-	})
-
-	// controller addTest uses this
-	.post(function(req,res){
-		var ptype = new Session();		
-
-		ptype.name 		= 'Prototype';
-		ptype.testKey 	= req.body.testKey; // reminder: this has to live on the front end. flows.
-		ptype.ismodel	= req.body.ismodel;
-
-		ptype.save(function(err) {
-				if (err)
-					res.send(err);
-
-				Session.find({}, function(err, session) {
-					if (err)
-						res.send(err);
-					res.json(session);
-					console.log('I have added and saved a session');
-				});
-		});
-
-	});
-
-// /test/testId routes:
-// add a new session to the db with .post
-// add a flow to a test with .put (controller AddAFlow)
-// TODO remove all sessions with test-id test .delete
-
-router.route('/test/:testId')
-	// route for adding a test to a db - 
-	// testId is actually a front-end randomly generated number
-	// _not_ an ObjectID at all. This is why it works.
-	.post(function(req,res){
-		Session.findOne({'testKey':req.params.testId, 'ismodel' : true}).exec(
-    		function(err, session) {
-   
-    			session._id = undefined;
-        		
-        		var s1 = new Session( session );
-        		var id = mongoose.Types.ObjectId();
-
-        		console.log('this is your session '+session.flows);
-    			
-    			s1.ismodel = false;
-    			s1._id = id;
-    			
-    			s1.save(function(err, data) {
-					if (err)
-						res.send(err);
-					res.json(data);
-					console.log('new session created '+data);
-				});
-  		 	 }
-		);
-	})
-	// route for adding flows to tests
-	// needs to return values to the front end or you can't edit them.
-	// controller addAFlow uses this
-	.put(function(req,res){
-		Session.findOne({'testKey': req.params.testId, 'ismodel':true}, function(err, session) {
-				if (err)
-					res.send(err);
-				
-				if (req.body.flow){
-					console.log('touched req.body.flow singular');
-					var sub_doc = session.flows.create(req.body.flow);
-					session.flows.push(sub_doc); // adds new flow to session in play
-				}
-
-			// save the session object 'test' - this is not returning anything about the flow _id.
-			session.save(function(err, data) {
-				if (err)
-					res.send(err);
-
-				console.log('new flow data '+ data);
-				// pass the session data object to the front end?
-				res.json( data );
-			});
-		});
-	})
-	.delete(function(req, res) {
-		console.log(req.params.testId);
-		Session.remove({
-			'testKey': req.params.testId
-		}, function(err, session) {
-			if (err)
-				res.send(err);
-
-			res.json({ message: 'Successfully deleted all tests with '+req.params.testId });
-		});
-	});
-
-// Do functions on a single session within a test- add usernames in active, 
-// get a single new session, delete a single specific session
-router.route('/test/:testId/session/:sessionId')
-	.get(function(req,res) {
-			Session.findById(req.params.sessionId, function(err, session) {
-				if (err)
-					res.send(err);
-				console.log('touched /:sessionId');
-				res.json(session);
-			});
-		})
-	.put(function(req, res) {
-		// put is used both in active sessions to apply usernames.
-		// put only puts updates to individual sessions, not test sets
-		Session.findById(req.params.sessionId, function(err, session) {
-			console.log(req.body);
-			if (err)
-				res.send(err);
-			
-			if (req.body.user){
-				session.user = req.body.user;
-				console.log('new user', session.user);
-			} else if (req.body.name){
-				session.name = req.body.name;
-				console.log('new name', session.name);
-			}
-			else {
-				session.flows.id(req.body._id).remove();
-				session.flows.push(req.body);
-				console.log('flow updated',(util.inspect(session.flows.id(req.body._id), {showHidden: false, depth: null})));
-				
-			}
-			// save the session object - this is not saving anything about the flow _id.
-			session.save(function(err) {
-				if (err)
-					res.send(err);
-				res.json( req.body );
-			});
-		});
-	})
-	.delete(function(req, res) {
-		Session.remove({
-			_id: req.params.sessionId
-		}, function(err, session) {
-			if (err)
-				res.send(err);
-
-			res.json({ message: 'Successfully deleted' });
-		});
-	});
-
-// Add and remove steps from flows in tests
-router.route('/test/:testId/session/:sessionId/flow/:flowId')
-	.get(function(req,res) {
-		Session.findById(req.params.sessionId, function(err, session) {
-			if (err)
-				res.send(err);
-		var flow = session.flows.id(req.params.flowId);
-		res.json(flow);
-		console.log(flow);
-		console.log('touched flow');
-		});
-	})
-	.put(function(req, res) {
-		var query = { _id : req.params.flowId}
-		var flow = req.body.flow;
-
-		console.log('touched flow update');
-		// console.log('_id', query);
-		// console.log('flow', flow);
-
-		Session.findById(req.params.sessionId, function(err, session) {
-			if ( query = flow._id){
-				console.log('touched put flow');
-				session.flows.id(query).remove();
-				session.flows.push(flow); 
-			}
-
-			session.save(function(err) {
-				if (err)
-					res.send(err);
-
-				res.json( req.body );
-			});
-		})
-	})
-	.delete(function(req, res) {
-		console.log(req.params.flowId);
+router.route('/step/')
+	// get all steps
+	.get((function(req,res){
 		
-		Session.findById(req.params.sessionId).exec(
-    		function(err, session) { 
-    			if (session.flows.id(req.params.flowId)){
-    			console.log('found for deletion');
-    			session.flows.id(req.params.flowId).remove();
-
-    			session.save(function(err) {
-						if (err)
-							res.send(err);
-						
-						res.json(session);				
-
-				});
-
-    			}
-   			}
-		);
 	});
+
+router.route('/step/:step_id')
+	// get single step
+	.get((function(req,res){
+		
+	})
+	
+	// update a single step
+	.put((function(req,res){
+		
+	})
+
+	// delete a step
+	.delete((function(req,res){
+		
+	})
+	;
+
+
+// TEST MESSAGE and MESSAGING ROUTES ================================================
+router.route('/test/')
+	.get((function(req,res){
+		// find, populate and return:
+		// flows by session with their steps by flow counted
+
+		// on the front end:
+		// flows should have it set whether they have a .summary or not
+		// flows should have their steps counted
+		// sessions should be associated to their flows.
+
+		// object shape:
+		// session.flows.length
+		// session 
+		// flow.summary
+		// flows.steps.length
+
+	});
+
+router.route('/test/session/:session_id/')
+	.get((function(req,res){
+		// get all the flows with the requested session id
+		// get all of their steps
+		// return the object in an organized way
+	});
+
+
 
 // CREATE A NEW SUMMARY ================================================
 
