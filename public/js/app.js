@@ -431,9 +431,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         var url = '/api/session/'+session._id;
         var index = $scope.sessions.indexOf(session);
 
-        
-        console.log('deleted session route', url);
-
         $http.delete(url)
             .success(function(data){
                 console.log(data);
@@ -446,23 +443,15 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     // Add and remove flows from tests.
     $scope.addAFlow = function(session){
-            // this adds a flow to the test selectied
-            // important because tests model sessions
-
-
             console.log('touched addaflow ', session);
-            $scope.flow = {}
-            $scope.flow.title = 'New Flow Name Goes Here';
-            $scope.flow.flowKey = keygen();
-            $scope.flow.steps = [];
 
-            session.flows.push($scope.flow);
+            // $scope.flow = {}
+            // $scope.flow.title = 'New Flow Name Goes Here';
+            // $scope.flow.steps = [];
 
-            // this is so .put can sniff what's going on
-            var wrapper = { 'flow': $scope.flow };
-            
-            var url = '/api/test/'+session.testKey;
-            console.log(url);
+            // session.flows.push($scope.flow);
+
+            var url = '/api/session/'+session._id+'/flow/';
             
             $http
                 .put(url, wrapper)
