@@ -374,73 +374,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data) {
             console.log('data log', data);
 
-            $scope.selectedIndex = 0;
-            $scope.selected = data.sessions[0];
-            // for each test in data.tests
-            // match to its relevant flowKey
-            // count each test by flowKey
-            // attach the number of times that flow has been run to the flow
-
-            // make the object we're counting
-            var flowcount = [];
-            for(var i = 0; i < data.tests.length; i++){
-                for (var j = 0 ; j < data.tests[i].flows.length; j++){
-                    flowcount.push(data.tests[i].flows[j].flowKey);
-                }
-            }
-            flowcount.sort();
-            // how many of each flow number do we have?
-
-            // this makes an object with a key of the flow and a count as the property.
-            var flow_index = [];
-            var flow_ct = [];
-            var ct = 0;
-            for(var i = 0; i < flowcount.length; i++){
-                if(!(flow_index.indexOf(flowcount[i]) != -1)){
-                    ct = 1;
-                    flow_index.push(flowcount[i]);
-                    flow_ct.push({flow: flowcount[i], count: ct});
-                
-                } else if (flow_index.indexOf(flowcount[i]) != -1){
-                    ct++
-                    flow_ct[flow_index.indexOf(flowcount[i])].count = ct;   
-                }
-            }
-            
-            console.log('flow_ct new', flow_ct);
-
-            // Association scrape - count of run tests to their flows
-            for (var i = 0; i < data.sessions.length; i++){
-                for (var j = 0; j < data.sessions[i].flows.length; j++){
-                    console.log('flows', data.sessions[i].flows[j]);
-                    for(var k = 0; k < flow_ct.length ;k++){
-                      if(flow_ct[k].flow == data.sessions[i].flows[j].flowKey){
-                        data.sessions[i].flows[j].count = flow_ct[k].count;
-                      }
-                    }
-                }
-            }
-
-            // Association scrape - summaries to their flows
-            for(var i = 0; i < data.summaries.length; i++){
-                for (var j = 0; j < data.sessions.length; j++){
-                    if (data.summaries[i].testKey == data.sessions[j].testKey){
-                        for(var k = 0; k < data.sessions[j].flows.length; k++){
-                            if(data.summaries[i].flowKey == data.sessions[j].flows[k].flowKey){
-                                data.sessions[j].flows[k].summary = data.summaries[i].summary;
-                                data.sessions[j].report = true;
-                            }
-                        }
-                    }
-                }
-            }
-
-
-            // because we use sessions as a unit everywhere else
-            $scope.sessions = data.sessions;
-            $scope.tests = data.tests;
-
-            console.log('check for session models - do these have session summaries saved? Summarizing', data.sessions);
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -483,8 +416,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // Add and remove tests
     $scope.addSession = function(test){
         
-        
-        $http.post('/api/session/', dataOut)   
+        $http.post('/api/session/')
             .success(function(data){
                 console.log('added a new session '+ JSON.stringify(data));
                 $scope.sessions = data;

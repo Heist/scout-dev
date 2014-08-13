@@ -198,11 +198,10 @@ router.route('/session/')
 	// get all sessions
 	// get all flows by session
 	// get all flow steps by flow
-	.get((function(req,res){
+	.get(function(req,res){
 		Session.find(function(err, sessions) {
 				if (err)
 					res.send(err);
-
 
 				res.json(sessions);
 			});
@@ -218,18 +217,13 @@ router.route('/session/')
 					if (err)
 						res.send(err);
 
-					Session.find({}, function(err, session) {
+					Session.find({}, function(err, sessions) {
 						if (err)
 							res.send(err);
-						res.json(session);
+						res.json(sessions);
 					});
 				});
-		})
-
-	// update a session's name
-	
-
-	
+	});
 router.route('/session/:session_id/')
 	// deletes all sessions and sub-documents - steps, flows, reports, summaries.
 	.delete((function(req,res){
@@ -237,7 +231,7 @@ router.route('/session/:session_id/')
 	})
 
 	// change the name of the session
-	.put((function(req,res){
+	.put(function(req,res){
 		Session.findById({'_id': req.params.session_id}, function(err, session){
 			if (err)
 				res.send(err);
@@ -247,9 +241,9 @@ router.route('/session/:session_id/')
 			session.save(function(err, data) {
 				if (err)
 					res.send(err);
-				
-				console.log('touched summary update', data);
-			})
+
+				res.json(session);
+			
 		})
 	})
 	;
@@ -257,13 +251,44 @@ router.route('/session/:session_id/')
 router.route('/session/:session_id/flow/')
 
 	// get all flows by session
-	.get((function(req,res){
-		
+	.get(function(req,res){
+		Session.findById({'_id': req.params.session_id})
+			.populate('flows')
+			.exec(function (err, session) {
+	  			if (err)
+					res.send(err);
+
+			  	console.log('flows', session.flows);
+			  	
+			})
 	})
 
 	// add a new flow to the session
-	.post((function(req,res){
-		
+	.post(function(req,res){
+		Session.findById({'_id': req.params.session_id}, function(err, session){
+				// first we get a session to post to
+				if (err)
+					res.send(err);
+
+				// then we save it with a reference to its
+				// brand-new flow
+				session.save(function(err, data) {
+
+					var flow = new Flow({
+						name = "New Flow Name",
+						_session = req.params.session_id
+					})
+
+					flow.save(function(err, data){
+						if (err)
+							res.send(err);
+
+						res.json(session);
+
+					})
+
+				})
+			})
 	})
 	;
 
@@ -272,13 +297,13 @@ router.route('/session/:session_id/flow/')
 	
 router.route('/flow/')
 	// get all of the flows	
-	.get((function(req,res){
+	.get(function(req,res){
 		
 	});
 
 
 router.route('/flow/:flow_id')
-	.get((function(req,res){
+	.get(function(req,res){
 		// get one specific flow
 	})
 
@@ -292,7 +317,7 @@ router.route('/flow/:flow_id')
 
 router.route('/flow/:flow_id/step/')
 	// add a new step to the flow
-	.post((function(req,res){
+	.post(function(req,res){
 		
 	})
 	;
@@ -302,18 +327,18 @@ router.route('/flow/:flow_id/step/')
 
 router.route('/step/')
 	// get all steps
-	.get((function(req,res){
+	.get(function(req,res){
 		
 	});
 
 router.route('/step/:step_id')
 	// get single step
-	.get((function(req,res){
+	.get(function(req,res){
 		
 	})
 	
 	// update a single step
-	.put((function(req,res){
+	.put(function(req,res){
 		
 	})
 
@@ -326,7 +351,7 @@ router.route('/step/:step_id')
 
 // TEST MESSAGE and MESSAGING ROUTES ================================================
 router.route('/test/')
-	.get((function(req,res){
+	.get(function(req,res){
 		// find, populate and return:
 		// flows by session with their steps by flow counted
 
@@ -344,7 +369,7 @@ router.route('/test/')
 	});
 
 router.route('/test/session/:session_id/')
-	.get((function(req,res){
+	.get(function(req,res){
 		// get all the flows with the requested session id
 		// get all of their steps
 		// return the object in an organized way
