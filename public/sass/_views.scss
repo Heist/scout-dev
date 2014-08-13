@@ -824,16 +824,14 @@
 			float: left;
 			
 			.message-details-avatar {
-				width: 30px;
-				height: 30px;
-				@include radius(30px);
-				overflow: hidden;
+				width: 20px;
+				height: 20px;
 				margin: 0 $pad/2 0 0;
-				border: 3px solid $background;
-				
+								
 				img {
-					width: 25px;
+					width: 20px;
 					height: auto;
+					opacity: 0.4;
 				}
 			}
 			

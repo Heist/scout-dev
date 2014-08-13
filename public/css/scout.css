@@ -452,8 +452,8 @@ body { background: #f3f3ed; color: #41454a; margin: 0; padding: 0; }
 .theme-messages .message.title .message-details .message-details-avatar, .theme-messages .message.status .message-details .message-details-avatar { border: none; }
 .theme-messages .message.title small, .theme-messages .message.status small { opacity: 0.5; }
 .theme-messages .message .message-details { float: left; }
-.theme-messages .message .message-details .message-details-avatar { width: 30px; height: 30px; -moz-border-radius: 30px; -webkit-border-radius: 30px; border-radius: 30px; overflow: hidden; margin: 0 10px 0 0; border: 3px solid #f3f3ed; }
-.theme-messages .message .message-details .message-details-avatar img { width: 25px; height: auto; }
+.theme-messages .message .message-details .message-details-avatar { width: 20px; height: 20px; margin: 0 10px 0 0; }
+.theme-messages .message .message-details .message-details-avatar img { width: 20px; height: auto; opacity: 0.4; }
 .theme-messages .message .message-body { float: left; width: 90%; }
 .theme-messages .message .message-body p { margin-bottom: 0; }
 .theme-messages .message .message-body p .tag { padding: 0 3.33333px; }
