@@ -40,12 +40,16 @@ router.route('/session/')
 	// get all flows by session
 	// get all flow steps by flow
 	.get(function(req,res){
-		Session.find(function(err, sessions) {
-				if (err)
-					res.send(err);
+		Session.find({})
+			.populate('flows')
+			.exec(
+				function(err, sessions) {
+					if (err)
+						res.send(err);
 
-				res.json(sessions);
-			});
+					res.json(sessions);
+				}
+			);
 	})
 
 	// add a new session - this could be an upsert?
@@ -68,12 +72,18 @@ router.route('/session/')
 
 router.route('/session/:session_id')
 	.get(function(req,res){
-		Session.findById(req.params.session_id, function(err, session){
-			if (err)
-				res.send(err);
+		Session.findById(req.params.session_id)
+			.populate('flows._session')
+			.exec(function(err, session){
+				console.log('session, populated', session);
+				res.json(session);
+			})
+		// Session.findById(req.params.session_id, function(err, session){
+		// 	if (err)
+		// 		res.send(err);
 
-			res.json(session);
-		})
+		// 	res.json(session);
+		// })
 	})
 	// deletes all sessions and sub-documents - steps, flows, reports, summaries.
 	.delete(function(req,res){
@@ -106,16 +116,14 @@ router.route('/session/:session_id')
 	});
 
 router.route('/session/:session_id/flow/')
-
 	// get all flows by session
 	.get(function(req,res){
-		Session.findById(req.params.session_id)
-			.populate('flows')
-			.exec(function (err, session) {
+		Flow.find({'session': req.params.session_id})
+			.exec(function (err, flows) {
 	  			if (err)
 					res.send(err);
 
-			  	console.log('flows', session.flows);
+			  	console.log('flows', flows);
 			  	
 			})
 	})
@@ -126,20 +134,24 @@ router.route('/session/:session_id/flow/')
 
 			flow.name = "New Flow Name";
 			flow._session = req.params.session_id;
-			console.log('new flow A', flow);
+			
 
 			flow.save(function(err, flow){
 				if (err)
 					res.send(err);
 				
-				console.log('session with new flow', session);
-				console.log('new flow B', flow);
-				
-				Session.findById(req.params.session_id)
-					.populate('flows._session')
-					.exec(function(err, session){})
+				Session.findById( req.params.session_id, function(err,session){
+					session.flows.push(flow._id);
+					session.save(function(err,data){
+						if (err)
+							res.send(err);
+						
+						console.log('session', session);
+						
 
-
+						res.json(session);
+					})
+				})
 			})
 
 	});

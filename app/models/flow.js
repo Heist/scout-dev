@@ -2,11 +2,9 @@
 //  flow.js
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var StepSchema = require('mongoose').model('Step');
 
 var FlowSchema = new Schema({
-		_session : {	type: Schema.Types.ObjectId, ref: 'Session'
-		},
+		_session : { type: Schema.Types.ObjectId, ref: 'Session' },
 		name 	: {
 			type: String, 
 			trim: true, 

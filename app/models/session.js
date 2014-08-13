@@ -2,7 +2,6 @@
 //  session.js
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var FlowSchema = require('mongoose').model('Flow');
 
 var SessionSchema = new Schema({
 		name 	: {
@@ -10,7 +9,7 @@ var SessionSchema = new Schema({
 			trim: true, 
 			default: 'New Session'
 		},
-		flows	: [FlowSchema]
+		flows 	: [{ type: Schema.Types.ObjectId, ref: 'Flow' }]
 })
 
 mongoose.model('Session', SessionSchema);

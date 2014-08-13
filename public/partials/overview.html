@@ -69,7 +69,7 @@
 	
 	<!-- show the flows associated with this test -->
 		<div ng-show="selected">
-			<h3><span>{{selected.title}}</span></h3>
+			<h3><span>{{selected.name}}</span></h3>
 			
 				
 			<div class="session-flow" ng-repeat="flow in selected.flows | orderBy:'created'">
@@ -102,7 +102,7 @@
                        'other': 'run {} times.'}">
 					</ng-pluralize>
   				</small>
-				<h3>{{flow.title}}</h3>
+				<h3>{{flow.name}}</h3>
 				<p>{{flow.summary}}</p>
 				<div class="clear"></div>
 				
