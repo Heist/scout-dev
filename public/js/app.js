@@ -374,6 +374,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data) {
             console.log('data log', data);
             $scope.sessions = data;
+            $scope.selected = data[0];
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -445,10 +446,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.addAFlow = function(session){
             console.log('touched addaflow ', session);
 
-            // $scope.flow = {}
-            // $scope.flow.title = 'New Flow Name Goes Here';
-            // $scope.flow.steps = [];
-
             // session.flows.push($scope.flow);
 
             var url = '/api/session/'+session._id+'/flow/';
@@ -457,8 +454,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 .post(url)
                 .success(function(data){
                     console.log('new flow added '+ JSON.stringify(data));
-                    session.flows = data.flows;
-                    $scope.$apply;
+                    $scope.session = data;
                 })
                 .error(function(data){
                     console.log(JSON.stringify(data))
@@ -466,26 +462,18 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 ;
     };
 
-    $scope.removeFlow = function(session, flow){ 
-        // this is probably fine once we're only returning sessions
-        // with ismodel : true
-        // because the session we're selecting is the test session, not
-        // any sub-sessions.
-
-        console.log('session, flow '+ session+' '+ flow);
-
-
-        var url = '/api/test/'+session.testKey+'/session/'+session._id+'/flow/'+flow._id;
+    $scope.removeFlow = function(flow){ 
+        // delete a flow from the database
         
-        var dataOut = session;
+        var index = $scope.selected.flows.indexOf(flow);
+        var url = '/api/flow/'+flow._id;
+        console.log('delete flow', url);
+        console.log('index', index);
 
-        console.log(url);
-        console.log(dataOut);
-
-        $http.delete(url,dataOut)
+        $http.delete(url)
             .success(function(data){
-                console.log(JSON.stringify(data))
-                $scope.selected = data;
+                console.log(data);
+                $scope.selected.flows.splice(index, 1);
 
             })
             .error(function(data){

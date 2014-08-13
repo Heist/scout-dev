@@ -73,7 +73,7 @@ router.route('/session/')
 router.route('/session/:session_id')
 	.get(function(req,res){
 		Session.findById(req.params.session_id)
-			.populate('flows._session')
+			.populate('flows')
 			.exec(function(err, session){
 				console.log('session, populated', session);
 				res.json(session);
@@ -145,13 +145,14 @@ router.route('/session/:session_id/flow/')
 					session.save(function(err,data){
 						if (err)
 							res.send(err);
-						
 						console.log('session', session);
-						
 
-						res.json(session);
+						Session.populate(session, {path : 'flows'}, function(err, data){
+							console.log(data);
+							res.json(data);
+						})
 					})
-				})
+				});
 			})
 
 	});
@@ -184,6 +185,8 @@ router.route('/flow/:flow_id')
 
 	.delete(function(req,res){
 		// deletes a single flow by id
+		Flow.findById(req.params.flow_id).remove();
+		res.json(req.params.flow_id);
 	});
 
 router.route('/flow/:flow_id/step/')
