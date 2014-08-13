@@ -396,7 +396,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $scope.editedTitle = null;
         
         // var index = $scope.session.flows.indexOf(flow);
-        var url = '/api/test/'+session.testKey+'/session/'+session._id;
+        var url = '/api/session/'+session._id;
         
         if (!session.name) {
             session.name = 'New Session';
@@ -406,7 +406,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         $http.put(url, dataOut)
                 .success(function(data){
-                    console.log('success: ', data);
+                    console.log('sent new title : ', data);
                 })
                 .error(function(data){
                     console.log('Error: ' + data);
@@ -466,10 +466,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 ;
     };
 
-    $scope.editFlow = function(session, flow){
-        $location.path('/edit/test/'+session.testKey+'/session/'+session._id+'/flow/'+flow._id);
-    }
-    
     $scope.removeFlow = function(session, flow){ 
         // this is probably fine once we're only returning sessions
         // with ismodel : true
