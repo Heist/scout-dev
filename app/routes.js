@@ -26,10 +26,10 @@ router.route('/')
 	.get(function(req, res) {
 		// get all the flows in the db
 		// do nothing with them - this route is for testing
-			Flow.find(function(err, flows) {
+			Session.find(function(err, sessions) {
 				if (err)
 					res.send(err);
-				res.json(flows);
+				res.json(sessions);
 			});
 	});
 
@@ -66,15 +66,30 @@ router.route('/session/')
 				});
 	});
 
-router.route('/session/:session_id/')
+router.route('/session/:session_id')
+	.get(function(req,res){
+		Session.findById(req.params.session_id, function(err, session){
+			if (err)
+				res.send(err);
+
+			res.json(session);
+		})
+	})
 	// deletes all sessions and sub-documents - steps, flows, reports, summaries.
 	.delete(function(req,res){
+		console.log('session delete', req.body.session_id);
+
+		Session.findById(req.params.session_id).remove();
+
+		// TODO: extend to remove all child flows
+		console.log('Successfully deleted summary with', req.params.session_id)
 		
+		res.json(req.params.session_id);
 	})
 
 	// change the name of the session
 	.put(function(req,res){
-		Session.findById({'_id': req.params.session_id}, function(err, session){
+		Session.findById(req.params.session_id, function(err, session){
 			if (err)
 				res.send(err);
 
@@ -94,7 +109,7 @@ router.route('/session/:session_id/flow/')
 
 	// get all flows by session
 	.get(function(req,res){
-		Session.findById({'_id': req.params.session_id})
+		Session.findById(req.params.session_id)
 			.populate('flows')
 			.exec(function (err, session) {
 	  			if (err)

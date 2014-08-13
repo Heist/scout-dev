@@ -428,14 +428,16 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
    
     $scope.removeSession = function(session){
-        var url = '/api/session/'+session.testKey;
+        var url = '/api/session/'+session._id;
         var index = $scope.sessions.indexOf(session);
 
-        $scope.sessions.splice(index, 1);
+        
+        console.log('deleted session route', url);
 
         $http.delete(url)
             .success(function(data){
-                
+                console.log(data);
+                $scope.sessions.splice(index, 1);
             })
             .error(function(data){
                 console.log('Error: ' + data);
