@@ -550,7 +550,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             .post(url)
             .success(function(data){
                 console.log('new step added '+ JSON.stringify(data));
-                
+
                 $scope.flow.steps.push(data);
             })
             .error(function(data){
@@ -587,9 +587,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 		$scope.editedStep = null;
 		
-		step.title = step.title.trim();
+		step.name = step.name.trim();
 
-		if (!step.title) {
+		if (!step.name) {
 			$scope.removeStep(step);
 		}	
 	}
