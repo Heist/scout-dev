@@ -374,17 +374,16 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .success(function(data) {
             console.log('data log', data);
             $scope.sessions = data;
-            $scope.selected = data[0];
+            // $scope.selected = data[0];
         })
         .error(function(data) {
             console.log('Error: ' + data);
         });
 
 
-    $scope.select = function (session, index){
-        console.log('touched session', index, session)
+    $scope.select = function (session){
+        console.log('touched session', session)
         $scope.selected = session;
-        $scope.selectedIndex = index;
     }
 
     // edit titles inline.
@@ -474,9 +473,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $http.delete(url)
             .success(function(data){
                 console.log(data);
-                // $scope.selected.flows.splice(index, 1);
-                $scope.selected = data;
-
+                $scope.selected.flows.splice(index, 1);
             })
             .error(function(data){
                 console.log('Error: ' + data);

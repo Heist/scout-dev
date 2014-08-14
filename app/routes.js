@@ -203,7 +203,7 @@ router.route('/flow/:flow_id')
 						res.send(err);
 
 					console.log(data);
-					res.json(data);
+					res.json(req.params.flow_id);
 				})
 
 			})
