@@ -340,7 +340,7 @@ router.route('/step/:step_id')
 
 
 // TEST MESSAGE and MESSAGING ROUTES ================================================
-router.route('/test/')
+router.route('/run/')
 	.get(function(req,res){
 		// find, populate and return:
 		// flows by session with their steps by flow counted
@@ -358,11 +358,24 @@ router.route('/test/')
 
 	});
 
-router.route('/test/session/:session_id/')
+// How to populate subdocuments
+router.route('/run/:session_id')
 	.get(function(req,res){
-		// get all the flows with the requested session id
-		// get all of their steps
-		// return the object in an organized way
+		console.log('touched run route',req.params.session_id )
+		Session.findById(req.params.session_id)
+			.populate('flows')
+			.exec(
+				function(err, session) {
+					if (err)
+						res.send(err);
+
+				 Flow.populate(session.flows, {path: 'steps'}, function (err, flows) {
+				 	console.log(flows);
+		             session.flows = flows;
+		             res.json(session)
+
+		         })
+			});
 	});
 
 

@@ -685,47 +685,48 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $scope.timeline = []; // holds all messages currently in flow
 
-    // refresh warning to prevent whoops-I-deleted-the-Session
-    var leavingPageText = "If you refresh, you will lose this test.";
-    window.onbeforeunload = function(){
-        return leavingPageText;
-    }
+    // // refresh warning to prevent whoops-I-deleted-the-Session
+    // var leavingPageText = "If you refresh, you will lose this test.";
+    // window.onbeforeunload = function(){
+    //     return leavingPageText;
+    // }
 
-    $scope.$on('$destroy', function() {
-        window.onbeforeunload = undefined;
-    });
+    // $scope.$on('$destroy', function() {
+    //     window.onbeforeunload = undefined;
+    // });
 
-    $scope.$on('$locationChangeStart', function(event, next, current) {
-        if(!confirm(leavingPageText + "\n\nAre you sure you want to leave this page?")) {
-            event.preventDefault();
-        }
-    });
+    // $scope.$on('$locationChangeStart', function(event, next, current) {
+    //     if(!confirm(leavingPageText + "\n\nAre you sure you want to leave this page?")) {
+    //         event.preventDefault();
+    //     }
+    // });
 
 
     // this has to change to get the new session created on the run() command from the main controller
-    $http.get('/api/test/'+$stateParams.testKey+'/session/'+$stateParams.sessionId)
+    $http
+        .get('/api/run/'+$stateParams.sessionId)
         .success(function(data){
-            $scope.session = data;
+            // $scope.session = data;
 
             console.log('session', data)
-            var flows = [];
-            for (var i in data.flows){
-                if(data.flows[i].steps.length > 0){
-                    flows.push(data.flows[i]);
-                }
-            }
+            // var flows = [];
+            // for (var i in data.flows){
+            //     if(data.flows[i].steps.length > 0){
+            //         flows.push(data.flows[i]);
+            //     }
+            // }
 
-            $scope.flows = flows;
+            // $scope.flows = flows;
             
-            // set the initial timeline contents
-            var message = {};
+            // // set the initial timeline contents
+            // var message = {};
 
-            message.body = $scope.flows[0].title;
-            message.title = 'Starting flow';
-            $scope.timeline.push(message);
+            // message.body = $scope.flows[0].title;
+            // message.title = 'Starting flow';
+            // $scope.timeline.push(message);
 
-            // set the initial reporting step
-            $scope.step.current = $scope.flows[0].steps[0]._id;
+            // // set the initial reporting step
+            // $scope.step.current = $scope.flows[0].steps[0]._id;
         })
 
         // select the initial 'activated' values
