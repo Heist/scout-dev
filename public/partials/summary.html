@@ -69,51 +69,66 @@
 	
 	<div id="timeline" ng-show="step.name">
 		<ul>
-		
+				
 			<li class="message status">
 				<div class="message-details">
 					<div class="message-details-avatar">
-						&nbsp;
+						&bull;
 					</div>
 				</div>
-				<strong>All users for &ldquo;{{step.name}}&rdquo;</strong>
-			</li>
-		
-			<li ng-repeat="user in step.session_by_user"  class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="http://rdjpg.com/51/51" />
-					</div>
-					</div>
-					<small>Comments for participant</small><br><strong>{{user.user}}</strong>
-				
-				<ul>
-					<li ng-repeat="message in user.messages" class="message">
-						<div class="message-body">
-							<p ng-bind-html="message.body | hashtag"></p>
-							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>
-						</div>
-
-						<div class="message-fave">
-							<a ng-click="saveFav(message)" ng-if="message.fav">
-								&#9733;
-							</a>
-							<a ng-click="saveFav(message)" ng-if="!message.fav">
-								&#9734;
-							</a>
-						</div>
-						<div class="clear"></div>
-					</li>
-				</ul>
-					
-				</div>
-				<div class="message-fave">
-					<a href="#">&#9734;</a>
-				</div>
+				<div class="message-body">All notes for &ldquo;{{step.name}}&rdquo;</div>
 				<div class="clear"></div>
 			</li>
 			
-		
+			
+			<!-- timelines on timelines -->
+			
+			<span ng-repeat="user in step.session_by_user">
+			
+				<li class="message message-title">
+					<div class="message-details">
+						<div class="message-details-avatar">
+							&nbsp;
+						</div>
+					</div>
+					<div class="message-body">
+						<small>Comments for participant</small>
+						<p>{{user.user}}</p>
+					</div>
+					
+					<div class="clear"></div>
+				</li>	
+					
+					
+						<!-- embedded timeline -->
+								
+					<span ng-repeat="message in user.messages">		
+						<li class="message">
+							<div class="message-details">
+								<div class="message-details-avatar">&bull;</div>
+							</div>						
+							
+							<div class="message-body">
+								<p ng-bind-html="message.body | hashtag"></p>
+								<small>{{message.created | date : 'HH:mm' }}</small>
+							</div>
+			
+							<div class="message-fave">
+								<a ng-click="saveFav(message)" ng-if="message.fav">
+									&#9733;
+								</a>
+								<a ng-click="saveFav(message)" ng-if="!message.fav">
+									&#9734;
+								</a>
+							</div>
+							<div class="clear"></div>
+						</li>
+						</ul>	
+					</span>
+			
+			</span>
+					
+
 		</ul>
 	</div>
 	

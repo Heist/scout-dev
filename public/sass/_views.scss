@@ -449,7 +449,7 @@
 	}
 	
 	#timeline {
-		margin-top: 50px;
+		padding-top: $pad*3.5;
 		overflow: auto;
 		
 		.message {
@@ -464,6 +464,7 @@
 				
 				a {
 					text-decoration: none;
+					cursor: pointer;
 				}
 			}
 		}
