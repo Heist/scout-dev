@@ -103,7 +103,7 @@
 	</ul>
 
 	<div class="step empty">
-		<a class="button" ng-click="addStep()">+ Add a step</a>
+		<button class="button small" ng-click="addStep()">+ Add a step</a>
 	</div>
 </div>
 
@@ -118,6 +118,7 @@
 					<label for="field-description">Questions for this step</label><br>
 					<textarea ng-model="selected.desc" class="input" id="field-textarea" placeholder="{{selected.desc}}">
 					</textarea>
+					<button class="button small" ng-click="updateStep(selected)">Done</button> 
 				</li>
 			</ul>
 	</div>

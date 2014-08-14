@@ -609,6 +609,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		if (!step.name) {
 			$scope.removeStep(step);
 		}
+
+        $scope.updateStep(step)
 	}
 
 	$scope.revertEditing = function (step) {
@@ -624,6 +626,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.isActive = function(step) {
        return $scope.selected === step;
     };
+
+    $scope.updateStep = function(step){
+        console.log('touched update step', step._id)
+        var url = '/api/step/'+step._id;
+        var data_out = step;
+
+        $http
+            .put(url, data_out)
+            .success(function(data){
+                console.log('step has pushed', data);
+             })
+            .error(function(data){
+                console.log('error', data)
+            });
+    }
 
     $scope.updateFlow = function(){
         // Put to this URL the entire data object from this controller

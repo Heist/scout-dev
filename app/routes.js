@@ -197,17 +197,10 @@ router.route('/flow/:flow_id')
 				flow.link = req.body.link;
 				console.log(flow.steps);
 
-				// Step.find({'_flow':req.params.flow_id})
-				// 	.exec(function(err,steps){
-				// 		// console.log(steps);
-				// 		var arr = [];
-				// 		for(var i = 0; i < steps.length; i++){
-				// 			arr.push(steps[i]._id)
-				// 		}
-				// 		flow.steps = []	;
-				// 		flow.steps = arr ;
-				// 		console.log(flow);
-				// 	})
+				flow.save(function(err, data){
+					if(err)
+						res.send(err)
+				})
 			});
 	})
 
@@ -294,7 +287,21 @@ router.route('/step/:step_id')
 	
 	// update a single step
 	.put(function(req,res){
-		
+		Step.findById(req.params.step_id, function(err, step){
+			if (err)
+				res.send(err);
+
+			step.name = req.body.name;
+			step.desc = req.body.desc;
+
+			step.save(function(err,data){
+				if (err)
+					res.send(err);
+
+				res.json(data);
+			})
+
+		})
 	})
 
 	// delete a step
