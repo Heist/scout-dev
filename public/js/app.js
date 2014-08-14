@@ -480,27 +480,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             })
     }
 
-    // Add a new session and return the new session run page
-    $scope.addAndLaunchNewSession = function(session){
-        // var url = '/:sessionId/test/:testId' pseudocode
-        console.log('touchedNewTest');
-        var url = '/api/test/'+session.testKey;
-
-        var dataOut = {
-                ismodel : false
-            };
-
-        $http.post(url, dataOut)
-            .success(function(data){
-                console.log('returned new session '+ data._id +" "+data.testKey);
-                console.log('new session steps ' + data.flows[0].steps.length);
-                $location.path('/run/test/'+data.testKey+'/session/'+data._id);
-            })
-            .error(function(data){
-                console.log(JSON.stringify(data))
-        });
-
-        // this changes to the returned session id, which has been newly created.
+    
+    $scope.runTest = function(session){
+        // pass the session_id to the test screen, which
+        // generates an id by user for messages
+        // loads the relevant flows, in order
+        // and their steps
+        // and gets a user
+        // and begins recording messages for that user_id
     }
 
     // add a new summary and launch summary
@@ -521,12 +508,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         .error(function(data){
             console.log('touched error message');
         })
-    }
-
-    $scope.editSummary = function(summary){
-        // this is going to require some thinks!
-        // we do not currently Get things by Summary so.
-        // $location.path('/summary/'+summary._id+'/flow/');
     }
 
     // Launch the current report
