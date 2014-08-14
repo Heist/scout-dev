@@ -563,9 +563,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     
         step.edit=false;
     	step.title_edit=false;
+        
 
         var index = $scope.flow.steps.indexOf(step)
   		var url = '/api/step/'+step._id;
+        
+        $scope.flow.steps.splice(index, 1);
 
         console.log('delete step', url);
         console.log('index', index);
@@ -573,8 +576,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $http.delete(url)
             .success(function(data){
                 console.log(data);
-                $scope.flow.steps.splice(index, 1);
-
+                
             })
             .error(function(data){
                 console.log('Error: ' + data);
