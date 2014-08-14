@@ -144,10 +144,11 @@ router.route('/session/:session_id/flow/')
 
 					})
 				
-				Session.populate(session, {path : 'flows'}, function(err, data){
-						console.log(data);
-						res.json(data);
-				})
+				res.json(flow);
+				// Session.populate(session, {path : 'flows'}, function(err, data){
+				// 		console.log(data);
+				// 		res.json(data);
+				// })
 				
 				});
 			})

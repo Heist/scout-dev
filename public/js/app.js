@@ -445,15 +445,15 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.addAFlow = function(session){
             console.log('touched addaflow ', session);
 
-            // session.flows.push($scope.flow);
-
             var url = '/api/session/'+session._id+'/flow/';
             
             $http
                 .post(url)
                 .success(function(data){
                     console.log('new flow added '+ JSON.stringify(data));
-                    $scope.selected = data;
+                    // $scope.selected = data;
+                    session.flows.push(data);
+
                 })
                 .error(function(data){
                     console.log(JSON.stringify(data))
