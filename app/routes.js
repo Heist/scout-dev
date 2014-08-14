@@ -78,12 +78,6 @@ router.route('/session/:session_id')
 				console.log('session, populated', session);
 				res.json(session);
 			})
-		// Session.findById(req.params.session_id, function(err, session){
-		// 	if (err)
-		// 		res.send(err);
-
-		// 	res.json(session);
-		// })
 	})
 	// deletes all sessions and sub-documents - steps, flows, reports, summaries.
 	.delete(function(req,res){
@@ -141,6 +135,8 @@ router.route('/session/:session_id/flow/')
 					res.send(err);
 				
 				Session.findById( req.params.session_id, function(err,session){
+					console.log(flow._id);
+
 					session.flows.push(flow._id);
 					session.save(function(err,data){
 						if (err)
@@ -153,6 +149,7 @@ router.route('/session/:session_id/flow/')
 						})
 					})
 				});
+
 			})
 
 	});
@@ -185,8 +182,22 @@ router.route('/flow/:flow_id')
 
 	.delete(function(req,res){
 		// deletes a single flow by id
-		Flow.findById(req.params.flow_id).remove();
-		res.json(req.params.flow_id);
+
+		console.log('delete this flow', req.params.flow_id)
+
+		Flow.remove({ _id: req.params.flow_id}, function(err){
+				if (err)
+					res.send(err);
+			});
+
+		Session.findOne({'flows':req.params.flow_id}, function(err, data){
+			
+			data.flows.pull(req.params.flow_id)
+			console.log('pull me', req.params.flow_id);
+			console.log(data);
+			res.json(data);
+		})
+
 	});
 
 router.route('/flow/:flow_id/step/')

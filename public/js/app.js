@@ -454,7 +454,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 .post(url)
                 .success(function(data){
                     console.log('new flow added '+ JSON.stringify(data));
-                    $scope.session = data;
+                    $scope.selected = data;
                 })
                 .error(function(data){
                     console.log(JSON.stringify(data))
@@ -467,13 +467,15 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
         var index = $scope.selected.flows.indexOf(flow);
         var url = '/api/flow/'+flow._id;
+
         console.log('delete flow', url);
         console.log('index', index);
 
         $http.delete(url)
             .success(function(data){
                 console.log(data);
-                $scope.selected.flows.splice(index, 1);
+                // $scope.selected.flows.splice(index, 1);
+                $scope.selected = data;
 
             })
             .error(function(data){
