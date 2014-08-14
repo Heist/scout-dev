@@ -466,14 +466,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
         var index = $scope.selected.flows.indexOf(flow);
         var url = '/api/flow/'+flow._id;
-
+        $scope.selected.flows.splice(index, 1);
+        
         console.log('delete flow', url);
         console.log('index', index);
 
         $http.delete(url)
             .success(function(data){
                 console.log(data);
-                $scope.selected.flows.splice(index, 1);
             })
             .error(function(data){
                 console.log('Error: ' + data);
@@ -528,7 +528,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 
 // EDIT FLOW CONTROLLER =====================================================
-.controller('flow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
+.controller('flow', ['$scope','$http', '$stateParams','$state', '$location', function($scope, $http,$stateParams,$state, $location){
 
     $scope.flow = [];
 
@@ -663,6 +663,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             .error(function(data){
                 console.log('error', data)
             });
+
+        $location.path('/');
 	};
 }])
 
