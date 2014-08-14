@@ -34,7 +34,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         // RUN TEST ==========================================
         .state('run', {
-            url: '/run/test/:testId/session/:sessionId',
+            url: '/run/:sessionId',
             templateUrl: 'partials/run.html'
         })
 
@@ -490,6 +490,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
     
     $scope.runTest = function(session){
+        $location.path('/run/'+session._id);
         // pass the session_id to the test screen, which
         // generates an id by user for messages
         // loads the relevant flows, in order
