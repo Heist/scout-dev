@@ -82,17 +82,17 @@
 			<div class="step-hamburger">≡</div>
 
 
-			<div class="step-name" ng-hide="step.title_edit">
-				<!--{{step.title}}-->{{step.name | truncate:36}} &nbsp;<img class="pointer" src="/assets/pencil-rev.svg" ng-click="editTitle(step)">
+			<div class="step-name" ng-hide="step.name_edit">
+				<!--{{step.name}}-->{{step.name | truncate:36}} &nbsp;<img class="pointer" src="/assets/pencil-rev.svg" ng-click="editTitle(step)">
 			</div>
 
 			
 			<div class="step-delete pointer big" ng-click="removeStep(step)">×</div>
 
 
-			<form ng-show="step.title_edit">
+			<form ng-show="step.name_edit">
 
-				<input class="edit" ng-trim="false" ng-model="step.title" ng-focus="editTitle(step)" ng-blur="blurTitle(step)"> <span class="pointer">&check;</span>
+				<input class="edit" ng-trim="false" ng-model="step.name" ng-focus="editTitle(step)" ng-blur="blurTitle(step)"> <span class="pointer">&check;</span>
 
 			</form>
 			
@@ -103,14 +103,14 @@
 	</ul>
 
 	<div class="step empty">
-		<a class="button" ng-click="add(step)">+ Add a step</a>
+		<a class="button" ng-click="addStep()">+ Add a step</a>
 	</div>
 </div>
 
 <div id="right-pane">
 	<div ng-hide="!selected">
 		<!-- if a step is not selected do not show -->
-			<h3>&ldquo;{{ selected.title }}&rdquo; questions</h3>
+			<h3>&ldquo;{{ selected.name }}&rdquo; questions</h3>
 			<p>Add questions to answer or tasks to complete about particular design elements in this step.</p>
 			
 			<ul class="lined">

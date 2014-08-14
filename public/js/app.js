@@ -527,7 +527,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 }])
 
 
-// EDIT A FLOW CONTROLLER =====================================================
+// EDIT FLOW CONTROLLER =====================================================
 .controller('flow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
 
     $scope.flow = [];
@@ -535,24 +535,28 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $http.get('/api/flow/'+$stateParams.flow_id)
         .success(function(data) {
             $scope.flow = data;
-            console.log(data)
+            console.log('flow', $scope.flow)
         })
         .error(function(data) {
             console.log('Error: ' + data);
         });
-    
-    $scope.selected = $scope.flow.steps;
 
-	$scope.add = function(step) {
-        var keyGen = Math.round((new Date().valueOf() * Math.random()));
+	$scope.addStep = function() {
+        console.log('touched add a step');
 
-        $scope.step = {
-        		title	: 'edit me',
-        		desc	: '',        		
-        		title_edit : false,
-        		edit	: false
-        	};
-	    $scope.flow.steps.push($scope.step);  
+        var url = '/api/flow/'+$stateParams.flow_id+'/step/';
+        
+        $http
+            .post(url)
+            .success(function(data){
+                console.log('new step added '+ JSON.stringify(data));
+                
+                $scope.flow.steps.push(data);
+            })
+            .error(function(data){
+                console.log(JSON.stringify(data))
+            })
+            ;
     }
     
     $scope.removeStep = function(step){

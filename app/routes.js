@@ -176,6 +176,7 @@ router.route('/flow/:flow_id')
 		// get one specific flow
 		console.log(req)
 		Flow.findById(req.params.flow_id)
+			.populate('steps')
 			.exec(function(err,flow){
 				if (err)
 					res.send(err);
@@ -229,7 +230,29 @@ router.route('/flow/:flow_id')
 router.route('/flow/:flow_id/step/')
 	// add a new step to the flow
 	.post(function(req,res){
-		
+		var step = new Step();
+
+			step.name = "edit me";
+			step._flow = req.params.flow_id;
+			
+			step.save(function(err, step){
+				if (err)
+					res.send(err);
+				
+				Flow.findById( req.params.flow_id, function(err,flow){
+					console.log(step._id);
+
+					flow.steps.push(step._id);
+					flow.save(function(err,data){
+						if (err)
+							res.send(err);
+
+					})
+				
+				res.json(step);
+
+				});
+			})
 	});
 
 
