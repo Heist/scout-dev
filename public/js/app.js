@@ -466,12 +466,16 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         
         var index = $scope.selected.flows.indexOf(flow);
         var url = '/api/flow/'+flow._id;
-        $scope.selected.flows.splice(index, 1);
         
+
         console.log('delete flow', url);
         console.log('index', index);
+        console.log($scope.selected.flows[index])
+        
+        $scope.selected.flows.splice(index, 1);
 
-        $http.delete(url)
+        $http
+            .delete(url)
             .success(function(data){
                 console.log(data);
             })
