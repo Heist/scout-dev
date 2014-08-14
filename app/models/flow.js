@@ -10,7 +10,7 @@ var FlowSchema = new Schema({
 			trim: true, 
 			default: 'my new flow name'
 		},
-		prototype	: {
+		link	: {
 			type: String, 
 			trim: true, 
 			default: ''

@@ -186,8 +186,22 @@ router.route('/flow/:flow_id')
 			})
 	})
 
+	// update one flow with new information
 	.put(function(req,res){
-		// update one flow with new information
+		console.log(req.params.flow_id)
+		Flow.findById(req.params.flow_id)
+			.exec(function(err,flow){
+
+				flow.name = req.body.name;
+				flow.desc = req.body.desc;
+				flow.platform = req.body.platform;
+				flow.link = req.body.link;
+
+				Step.find({'_flow':req.params.flow_id})
+					.exec(function(err,steps){
+						console.log(steps);
+					})
+			});
 	})
 
 	.delete(function(req,res){

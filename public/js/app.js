@@ -591,7 +591,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 		if (!step.name) {
 			$scope.removeStep(step);
-		}	
+		}
 	}
 
 	$scope.revertEditing = function (step) {
@@ -599,10 +599,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 		steps[steps.indexOf(step)] = $scope.originalStep;
 		$scope.doneEditing($scope.originalStep);
 	};
-
-    // $scope.doneEditing= function(step){
-        
-    // }
 
     $scope.select= function(step) {
        $scope.selected = step;
@@ -615,26 +611,24 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.updateFlow = function(){
         // Put to this URL the entire data object from this controller
         // technically this is created when we hit Add on prev. page
+        console.log('touched update flow')
 
-        var putURL = '/api/test/'+$stateParams.testId+'/session/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId;
+        var url = '/api/flow/'+$stateParams.flow_id;
+        var data_out = $scope.flow;
 
         if (!$scope.flow.title){
             $scope.flow.title = 'New Flow Name Goes Here';
         }
-        
-        var wrapper = { 'flow': $scope.flow };
 
         // reminder: this pushes an update to an already-created flow now
 		$http
-	 		.put(putURL, wrapper)
-			.success(function(data){
-				console.log('flow has pushed', data);
- 			})
+            .put(url, data_out)
+            .success(function(data){
+                console.log('flow has pushed', data);
+             })
             .error(function(data){
                 console.log('error', data)
-
-            })
-            ;
+            });
 	};
 }])
 

@@ -9,7 +9,7 @@ var StepSchema = new Schema ({
 			type : String,
 			trim : true
 		},
-	flow : { 
+	_flow : { 
 		type: Schema.Types.ObjectId, 
 		ref: 'Flow'
 	},
