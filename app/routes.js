@@ -174,6 +174,15 @@ router.route('/flow/')
 router.route('/flow/:flow_id')
 	.get(function(req,res){
 		// get one specific flow
+		console.log(req)
+		Flow.findById(req.params.flow_id)
+			.exec(function(err,flow){
+				if (err)
+					res.send(err);
+			console.log(flow)
+			res.json(flow);
+
+			})
 	})
 
 	.put(function(req,res){

@@ -28,7 +28,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             templateUrl: 'partials/overview.html'
         })
         .state('flow', {
-            url: '/edit/test/:testId/session/:sessionId/flow/:flowId',
+            url: '/edit/flow/:flow_id',
             templateUrl: 'partials/flow.html'
         })
 
@@ -480,6 +480,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             })
     }
 
+    // move to the flow edit screen
+    $scope.editFlow = function(flow){
+        $location.path('/edit/flow/'+ flow._id);
+    }
     
     $scope.runTest = function(session){
         // pass the session_id to the test screen, which
@@ -521,6 +525,116 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $location.path('/report/'+ testKey +'/flow/'+flow.title);
     }
 }])
+
+
+// EDIT A FLOW CONTROLLER =====================================================
+.controller('flow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
+
+    $scope.flow = [];
+
+    $http.get('/api/flow/'+$stateParams.flow_id)
+        .success(function(data) {
+            $scope.flow = data;
+            console.log(data)
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+    
+    $scope.selected = $scope.flow.steps;
+
+	$scope.add = function(step) {
+        var keyGen = Math.round((new Date().valueOf() * Math.random()));
+
+        $scope.step = {
+        		title	: 'edit me',
+        		desc	: '',        		
+        		title_edit : false,
+        		edit	: false
+        	};
+	    $scope.flow.steps.push($scope.step);  
+    }
+    
+    $scope.removeStep = function(step){
+    	step.edit=false;
+    	step.title_edit=false;
+    	var index = $scope.flow.steps.indexOf(step)
+  		$scope.flow.steps.splice(index, 1);
+    }
+
+	$scope.editTitle = function (step){
+		// edit the title box for a step
+		
+		step.title_edit = true;
+
+		$scope.editedStep = step;
+		// Clone the original item to restore it on demand.
+		$scope.originalStep = angular.extend({}, step);
+	}
+	
+	// what is our drag handle - this should be a directive.
+	$scope.sortableOptions = {
+	    handle: '> .step-hamburger',
+	};
+
+	$scope.blurTitle = function (step){
+		// on losing the focus, save the name of the step
+		step.title_edit = false;
+
+		$scope.editedStep = null;
+		
+		step.title = step.title.trim();
+
+		if (!step.title) {
+			$scope.removeStep(step);
+		}	
+	}
+
+	$scope.revertEditing = function (step) {
+		// on escape, revert editing
+		steps[steps.indexOf(step)] = $scope.originalStep;
+		$scope.doneEditing($scope.originalStep);
+	};
+
+    // $scope.doneEditing= function(step){
+        
+    // }
+
+    $scope.select= function(step) {
+       $scope.selected = step;
+    };
+    
+    $scope.isActive = function(step) {
+       return $scope.selected === step;
+    };
+
+    $scope.updateFlow = function(){
+        // Put to this URL the entire data object from this controller
+        // technically this is created when we hit Add on prev. page
+
+        var putURL = '/api/test/'+$stateParams.testId+'/session/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId;
+
+        if (!$scope.flow.title){
+            $scope.flow.title = 'New Flow Name Goes Here';
+        }
+        
+        var wrapper = { 'flow': $scope.flow };
+
+        // reminder: this pushes an update to an already-created flow now
+		$http
+	 		.put(putURL, wrapper)
+			.success(function(data){
+				console.log('flow has pushed', data);
+ 			})
+            .error(function(data){
+                console.log('error', data)
+
+            })
+            ;
+	};
+}])
+
+
 
 // RUN CONTROLLER - RUNS A TEST =====================================================
 .controller('run', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
@@ -668,112 +782,4 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
             $scope.message='';
         }
-}])
-
-// EDIT A FLOW CONTROLLER =====================================================
-.controller('flow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
-
-    $scope.flow = [];
-
-    $http.get('/api/test/'+$stateParams.testId+'/session/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId)
-        .success(function(data) {
-            $scope.flow = data;
-        })
-        .error(function(data) {
-            console.log('Error: ' + data);
-        });
-    
-    $scope.selected = $scope.flow.steps;
-
-	$scope.add = function(step) {
-        var keyGen = Math.round((new Date().valueOf() * Math.random()));
-
-        $scope.step = {
-        		title	: 'edit me',
-                key     : keyGen,
-        		desc	: '',        		
-        		title_edit : false,
-        		edit	: false
-        	};
-	    $scope.flow.steps.push($scope.step);  
-    }
-    
-    $scope.removeStep = function(step){
-    	step.edit=false;
-    	step.title_edit=false;
-    	var index = $scope.flow.steps.indexOf(step)
-  		$scope.flow.steps.splice(index, 1);
-    }
-
-	$scope.editTitle = function (step){
-		// edit the title box for a step
-		
-		step.title_edit = true;
-
-		$scope.editedStep = step;
-		// Clone the original item to restore it on demand.
-		$scope.originalStep = angular.extend({}, step);
-	}
-	
-	// what is our drag handle - this should be a directive.
-	$scope.sortableOptions = {
-	    handle: '> .step-hamburger',
-	};
-
-	$scope.blurTitle = function (step){
-		// on losing the focus, save the name of the step
-		step.title_edit = false;
-
-		$scope.editedStep = null;
-		
-		step.title = step.title.trim();
-
-		if (!step.title) {
-			$scope.removeStep(step);
-		}	
-	}
-
-	$scope.revertEditing = function (step) {
-		// on escape, revert editing
-		steps[steps.indexOf(step)] = $scope.originalStep;
-		$scope.doneEditing($scope.originalStep);
-	};
-
-    // $scope.doneEditing= function(step){
-        
-    // }
-
-    $scope.select= function(step) {
-       $scope.selected = step;
-    };
-    
-    $scope.isActive = function(step) {
-       return $scope.selected === step;
-    };
-
-    $scope.updateFlow = function(){
-        // Put to this URL the entire data object from this controller
-        // technically this is created when we hit Add on prev. page
-
-        var putURL = '/api/test/'+$stateParams.testId+'/session/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId;
-
-        if (!$scope.flow.title){
-            $scope.flow.title = 'New Flow Name Goes Here';
-        }
-        
-        var wrapper = { 'flow': $scope.flow };
-
-        // reminder: this pushes an update to an already-created flow now
-		$http
-	 		.put(putURL, wrapper)
-			.success(function(data){
-				console.log('flow has pushed', data);
- 			})
-            .error(function(data){
-                console.log('error', data)
-
-            })
-            ;
-	};
-}])
-;
+}]);
