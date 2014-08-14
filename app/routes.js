@@ -185,18 +185,28 @@ router.route('/flow/:flow_id')
 
 		console.log('delete this flow', req.params.flow_id)
 
-		Flow.remove({ _id: req.params.flow_id}, function(err){
-				if (err)
-					res.send(err);
-			});
+		Flow.findById(req.params.flow_id, function(err, flow){
+			if (err)
+				res.send(err);
 
-		Session.findOne({'flows':req.params.flow_id}, function(err, data){
-			
-			data.flows.pull(req.params.flow_id)
-			console.log('pull me', req.params.flow_id);
-			console.log(data);
-			res.json(data);
+			console.log(flow);
+
+			Session.findOne({'_id': flow._session}, function(err, session){
+				console.log('found session ', session._id);
+				console.log(session.flows);
+
+				// TODO: when this sort of thing fails to work,
+				// it populates the array in question with a ton of ghosts.
+				session.flows.pull(req.params.flow_id)
+
+				res.json(session);
+			})
 		})
+		.remove(function(err){
+			if (err)
+					res.send(err);
+		});
+
 
 	});
 
