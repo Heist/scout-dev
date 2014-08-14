@@ -560,10 +560,25 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
     
     $scope.removeStep = function(step){
-    	step.edit=false;
+    
+        step.edit=false;
     	step.title_edit=false;
-    	var index = $scope.flow.steps.indexOf(step)
-  		$scope.flow.steps.splice(index, 1);
+
+        var index = $scope.flow.steps.indexOf(step)
+  		var url = '/api/step/'+step._id;
+
+        console.log('delete step', url);
+        console.log('index', index);
+
+        $http.delete(url)
+            .success(function(data){
+                console.log(data);
+                $scope.flow.steps.splice(index, 1);
+
+            })
+            .error(function(data){
+                console.log('Error: ' + data);
+            })
     }
 
 	$scope.editTitle = function (step){

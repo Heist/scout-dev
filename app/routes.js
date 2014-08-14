@@ -188,7 +188,6 @@ router.route('/flow/:flow_id')
 
 	// update one flow with new information
 	.put(function(req,res){
-		console.log(req.params.flow_id)
 		Flow.findById(req.params.flow_id)
 			.exec(function(err,flow){
 
@@ -196,11 +195,19 @@ router.route('/flow/:flow_id')
 				flow.desc = req.body.desc;
 				flow.platform = req.body.platform;
 				flow.link = req.body.link;
+				console.log(flow.steps);
 
-				Step.find({'_flow':req.params.flow_id})
-					.exec(function(err,steps){
-						console.log(steps);
-					})
+				// Step.find({'_flow':req.params.flow_id})
+				// 	.exec(function(err,steps){
+				// 		// console.log(steps);
+				// 		var arr = [];
+				// 		for(var i = 0; i < steps.length; i++){
+				// 			arr.push(steps[i]._id)
+				// 		}
+				// 		flow.steps = []	;
+				// 		flow.steps = arr ;
+				// 		console.log(flow);
+				// 	})
 			});
 	})
 
@@ -292,7 +299,36 @@ router.route('/step/:step_id')
 
 	// delete a step
 	.delete(function(req,res){
-		
+		console.log('delete this step', req.params.step_id)
+
+		Step.findById(req.params.step_id, function(err, step){
+			if (err)
+				res.send(err);
+
+			console.log(step);
+
+			Flow.findOne({'_id': step._flow}, function(err, flow){
+				console.log('found flow ', flow._id);
+				console.log(flow.steps);
+
+				// TODO: when this sort of thing fails to work,
+				// it populates the array in question with a ton of ghosts.
+				flow.steps.remove(req.params.step_id)
+
+				flow.save(function(err,data){
+					if (err)
+						res.send(err);
+
+					console.log(data);
+					res.json(req.params.step_id);
+				})
+
+			})
+		})
+		.remove(function(err){
+			if (err)
+					res.send(err);
+		});
 	});
 
 
