@@ -137,6 +137,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
    }
 })
 
+
 .directive('scrollIf', function() {
 return{
     restrict: "A",
@@ -144,11 +145,14 @@ return{
         scope.$on("Finished",function(){
             var chat_height = element.outerHeight();
             console.log('chat_height', chat_height);
-            element.scrollTop(chat_height); 
+            element.animate({scrollTop: chat_height}, 300); 
         });
     }
    }
   })
+
+
+  
 
 // CONTROLLERS ========================================================================
 

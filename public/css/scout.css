@@ -170,6 +170,8 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #timeline { overflow: auto; padding: 50px 0 170px 0; height: 100%; margin: 0; background: url("../assets/timeline-line.gif") repeat-y 24px top; }
 #timeline ul { list-style: none; padding: 0; margin: 0; }
 #timeline ul li { padding: 0; margin: 0; }
+#timeline ul .message-title { border-top: 2px solid #efefe7; }
+#timeline ul .message-title p { font-weight: bold; }
 #timeline ul .message { padding: 8px 0 0 16px; font-size: 14.4px; line-height: 19.2px; margin: 0 0 10px 0; }
 #timeline ul .message .message-details { float: left; }
 #timeline ul .message .message-details .message-details-avatar { width: 20px; text-align: center; overflow: hidden; margin: 0 10px 0 0; padding: 0; background: white; font-size: 9.6px; font-family: "adelle-sans", sans-serif; font-style: normal; font-weight: 700; }
