@@ -141,17 +141,16 @@ router.route('/session/:session_id/flow/')
 					session.save(function(err,data){
 						if (err)
 							res.send(err);
-						console.log('session', session);
 
-						Session.populate(session, {path : 'flows'}, function(err, data){
-							console.log(data);
-							res.json(data);
-						})
 					})
+				
+				Session.populate(session, {path : 'flows'}, function(err, data){
+						console.log(data);
+						res.json(data);
+				})
+				
 				});
-
 			})
-
 	});
 
 
@@ -197,9 +196,16 @@ router.route('/flow/:flow_id')
 
 				// TODO: when this sort of thing fails to work,
 				// it populates the array in question with a ton of ghosts.
-				session.flows.pull(req.params.flow_id)
+				session.flows.remove(req.params.flow_id)
 
-				res.json(session);
+				session.save(function(err,data){
+					if (err)
+						res.send(err);
+
+					console.log(data);
+					res.json(data);
+				})
+
 			})
 		})
 		.remove(function(err){
