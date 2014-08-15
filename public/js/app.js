@@ -702,31 +702,24 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     // });
 
 
-    // this has to change to get the new session created on the run() command from the main controller
+    // TODO this has to change to get the new session created on the run() command from the main controller
     $http
         .get('/api/run/'+$stateParams.sessionId)
         .success(function(data){
-            // $scope.session = data;
-
             console.log('session', data)
-            // var flows = [];
-            // for (var i in data.flows){
-            //     if(data.flows[i].steps.length > 0){
-            //         flows.push(data.flows[i]);
-            //     }
-            // }
-
-            // $scope.flows = flows;
             
-            // // set the initial timeline contents
-            // var message = {};
+            $scope.session = data;
+            $scope.flows = data.flows;
 
-            // message.body = $scope.flows[0].title;
-            // message.title = 'Starting flow';
-            // $scope.timeline.push(message);
+            // // set the initial timeline contents
+            var message = {};
+
+            message.body = $scope.flows[0].title;
+            message.title = 'Starting flow';
+            $scope.timeline.push(message);
 
             // // set the initial reporting step
-            // $scope.step.current = $scope.flows[0].steps[0]._id;
+            $scope.step.current = $scope.flows[0].steps[0]._id;
         })
 
         // select the initial 'activated' values
@@ -734,21 +727,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
         $scope.parentIndex = 0;
 
         $scope.addUser = function(textfield){
-
-            console.log(textfield);
-            var url = '/api/test/'+ $scope.session.testKey+'/session/'+ $scope.session._id;
-            var dataOut = { 'user': textfield };
-            
-            $http.put(url, dataOut)
-                .success(function(data){
-                    console.log('New user pushed: ', data);
-                    $scope.user.name = textfield;
-                    $scope.user.toggle = true;
-                })
-                .error(function(data){
-                    console.log('Error: ' + data);
-                })
-
+            console.log(textfield);            
+            $scope.user.name = textfield;
+            $scope.user.toggle = true;
         }
 
         $scope.activate = function (index, parentIndex, step) {

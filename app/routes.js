@@ -358,7 +358,7 @@ router.route('/run/')
 
 	});
 
-// How to populate subdocuments
+// How to populate subdocuments is in here.
 router.route('/run/:session_id')
 	.get(function(req,res){
 		console.log('touched run route',req.params.session_id )
