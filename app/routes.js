@@ -81,12 +81,15 @@ router.route('/session/:session_id')
 	})
 	// deletes all sessions and sub-documents - steps, flows, reports, summaries.
 	.delete(function(req,res){
-		console.log('session delete', req.body.session_id);
+		console.log('session delete', req.params.session_id);
 
-		Session.findById(req.params.session_id).remove();
+		Session.findById(req.params.session_id).remove(function(err){
+			if (err)
+				res.send(err);
+		});
 
 		// TODO: extend to remove all child flows
-		console.log('Successfully deleted summary with', req.params.session_id)
+		// console.log('Successfully deleted session with', req.params.session_id)
 		
 		res.json(req.params.session_id);
 	})
