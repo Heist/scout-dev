@@ -120,39 +120,8 @@ router.route('/session/:session_id/flow/')
 			  	console.log('flows', flows);
 			  	
 			})
-	})
-
-	// add a new flow to the session
-	.post(function(req,res){
-			var flow = new Flow();
-
-			flow.name = "New Flow Name";
-			flow._session = req.params.session_id;
-			
-
-			flow.save(function(err, flow){
-				if (err)
-					res.send(err);
-				
-				Session.findById( req.params.session_id, function(err,session){
-					console.log(flow._id);
-
-					session.flows.push(flow._id);
-					session.save(function(err,data){
-						if (err)
-							res.send(err);
-
-					})
-				
-				res.json(flow);
-				// Session.populate(session, {path : 'flows'}, function(err, data){
-				// 		console.log(data);
-				// 		res.json(data);
-				// })
-				
-				});
-			})
 	});
+	
 
 
 
@@ -168,19 +137,44 @@ router.route('/flow/')
 
 				res.json(flows);
 			});
+	})
+	// add a new flow to the session
+	.post(function(req,res){
+			var flow = new Flow();
+
+			flow.name = req.body.name;
+			flow._session = req.body._session;
+			
+			flow.save(function(err, flow){
+				if (err)
+					res.send(err);
+				
+				Session.findById( flow._session, function(err,session){
+					console.log(flow._id);
+
+					session.flows.push(flow._id);
+					session.save(function(err,data){
+						if (err)
+							res.send(err);
+					})
+				
+				res.json(flow);				
+				});
+			})
 	});
+	;
 
 
 router.route('/flow/:flow_id')
 	.get(function(req,res){
 		// get one specific flow
-		console.log(req)
+		console.log('hello hello flow')
 		Flow.findById(req.params.flow_id)
 			.populate('steps')
 			.exec(function(err,flow){
 				if (err)
 					res.send(err);
-			console.log(flow)
+			console.log('i touched a flow', flow)
 			res.json(flow);
 
 			})
@@ -188,9 +182,10 @@ router.route('/flow/:flow_id')
 
 	// update one flow with new information
 	.put(function(req,res){
+		console.log('touched flow put', req.body)
 		Flow.findById(req.params.flow_id)
 			.exec(function(err,flow){
-
+				console.log('touched flow update', flow)
 				flow.name = req.body.name;
 				flow.desc = req.body.desc;
 				flow.platform = req.body.platform;
@@ -200,6 +195,8 @@ router.route('/flow/:flow_id')
 				flow.save(function(err, data){
 					if(err)
 						res.send(err)
+
+					res.json(data);
 				})
 			});
 	})
@@ -243,31 +240,7 @@ router.route('/flow/:flow_id')
 
 router.route('/flow/:flow_id/step/')
 	// add a new step to the flow
-	.post(function(req,res){
-		var step = new Step();
-
-		step.name = "edit me";
-		step._flow = req.params.flow_id;
-		
-		step.save(function(err, step){
-			if (err)
-				res.send(err);
-			
-			Flow.findById( req.params.flow_id, function(err,flow){
-				console.log(step._id);
-
-				flow.steps.push(step._id);
-				flow.save(function(err,data){
-					if (err)
-						res.send(err);
-
-				})
-			
-			res.json(step);
-
-			});
-		})
-	});
+	
 
 
 // STEP ROUTES ===================================================
@@ -282,6 +255,31 @@ router.route('/step/')
 
 				res.json(steps);
 			});
+	})
+	.post(function(req,res){
+		var step = new Step();
+
+		step.name = req.body.name;
+		step._flow = req.body._flow;
+		
+		step.save(function(err, step){
+			if (err)
+				res.send(err);
+			
+			Flow.findById( step._flow, function(err,flow){
+				console.log(step._id);
+
+				flow.steps.push(step._id);
+				flow.save(function(err,data){
+					if (err)
+						res.send(err);
+
+				})
+			
+			res.json(step);
+
+			});
+		})
 	});
 
 router.route('/step/:step_id')
@@ -360,6 +358,37 @@ router.route('/message/')
 				res.json(messages);
 			});
 	})
+	.post(function(req,res){
+		console.log('touched new message ', req.body)
+		var msg = new Message();
+		console.log('message id', msg._id)
+
+		msg._step	 = req.body._step;
+		msg.created_by  = req.body.created_by;
+		msg.body	 = req.body.body;
+		msg.user 	 = req.body.user;
+		msg.tags 	 = req.body.tags;
+		msg.key		 = req.body.key;
+		
+		msg.save(function(err, msg){
+			if (err)
+				res.send(err);
+			
+			Step.findById( req.body._step, function(err,step){
+				console.log(step._id);
+
+				step.messages.push(msg._id);
+				step.save(function(err,data){
+					if (err)
+						res.send(err);
+
+				})
+			
+			res.json(step);
+
+			});
+		})
+	});
 
 router.route('/message/:message_id')
 	.get(function(req,res){
@@ -376,7 +405,7 @@ router.route('/message/:message_id')
 
 
 
-// RUN TEST ROUTES ================================================
+// RUN ROUTES ================================================
 router.route('/run/')
 	.get(function(req,res){
 		// find, populate and return:
@@ -414,39 +443,5 @@ router.route('/run/:session_id')
 		         })
 			});
 	});
-
-router.route('/run/message/')
-	.post(function(req,res){
-		console.log('touched new message ', req.body)
-		var msg = new Message();
-		console.log('message id', msg._id)
-
-		msg._step	 = req.body._step;
-		msg.created_by  = req.body.created_by;
-		msg.body	 = req.body.body;
-		msg.user 	 = req.body.user;
-		msg.tags 	 = req.body.tags;
-		msg.key		 = req.body.key;
-		
-		msg.save(function(err, msg){
-			if (err)
-				res.send(err);
-			
-			Step.findById( req.body._step, function(err,step){
-				console.log(step._id);
-
-				step.messages.push(msg._id);
-				step.save(function(err,data){
-					if (err)
-						res.send(err);
-
-				})
-			
-			res.json(step);
-
-			});
-		})
-	});
-
 
 module.exports = router;

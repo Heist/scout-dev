@@ -1,7 +1,7 @@
 "use strict";
 // app.js
 
-var scoutApp = angular.module('scoutApp',['ui','ui.bootstrap','ui.router', 'ngSanitize']);
+var scoutApp = angular.module('scoutApp',['ui','ui.router', 'ngSanitize']);
 
 // function list for working with arrays
 
@@ -17,9 +17,11 @@ function keygen(){
 }
 
 // FRONT-END ROUTE CONFIGURATION ================================================
-scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
+scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
 	$locationProvider
 		.html5Mode(true);
+
+    $httpProvider.defaults.timeout = 3000;
 
     $stateProvider
         // OVERVIEW AND FLOW CREATION ========================
@@ -370,7 +372,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $scope.experiment = {};
 
     // get all sessions and their flows on first load
-    $http.get('/api/session/')
+    $http.get('/api/session/', {timeout : 5000})
         .success(function(data) {
             console.log('data log', data);
             $scope.sessions = data;
@@ -442,16 +444,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     }
 
     // Add and remove flows from tests.
-    $scope.addAFlow = function(session){
+    $scope.postFlow = function(session){
             console.log('touched addaflow ', session);
 
-            var url = '/api/session/'+session._id+'/flow/';
+            var flow = {};
+
+            flow.name = 'New flow name';
+            flow._session = session._id;
+
+            var url = '/api/flow/';
+            var data_out = flow
             
             $http
-                .post(url)
+                .post(url, data_out)
                 .success(function(data){
                     console.log('new flow added '+ JSON.stringify(data));
-                    // $scope.selected = data;
                     session.flows.push(data);
 
                 })
@@ -486,17 +493,12 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     // move to the flow edit screen
     $scope.editFlow = function(flow){
-        $location.path('/edit/flow/'+ flow._id);
+        console.log('touched flow', flow)
+        $location.path('/edit/flow/'+ flow._id);        
     }
-    
+     
     $scope.runTest = function(session){
         $location.path('/run/'+session._id);
-        // pass the session_id to the test screen, which
-        // generates an id by user for messages
-        // loads the relevant flows, in order
-        // and their steps
-        // and gets a user
-        // and begins recording messages for that user_id
     }
 
     // add a new summary and launch summary
@@ -534,10 +536,10 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
 // EDIT FLOW CONTROLLER =====================================================
 .controller('flow', ['$scope','$http', '$stateParams','$state', '$location', function($scope, $http,$stateParams,$state, $location){
+    console.log('loaded flow controller');
 
-    $scope.flow = [];
-
-    $http.get('/api/flow/'+$stateParams.flow_id)
+    $http
+        .get('/api/flow/'+$stateParams.flow_id, {timeout : 5000, cache:false})
         .success(function(data) {
             $scope.flow = data;
             console.log('flow', $scope.flow)
@@ -546,13 +548,21 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             console.log('Error: ' + data);
         });
 
-	$scope.addStep = function() {
+    console.log('this is after the Get')
+
+	$scope.postStep = function() {
         console.log('touched add a step');
 
-        var url = '/api/flow/'+$stateParams.flow_id+'/step/';
+        var step = {};
+
+        step.name = "edit me";
+        step._flow = $stateParams.flow_id;
+         
+        var url = '/api/step/';
+        var data_out = step;
         
         $http
-            .post(url)
+            .post(url,data_out)
             .success(function(data){
                 console.log('new step added '+ JSON.stringify(data));
 
@@ -560,8 +570,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             })
             .error(function(data){
                 console.log(JSON.stringify(data))
-            })
-            ;
+            });
     }
     
     $scope.removeStep = function(step){
@@ -661,15 +670,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         // reminder: this pushes an update to an already-created flow now
 		$http
-            .put(url, data_out)
+            .put(url, data_out, {timeout:5000})
             .success(function(data){
                 console.log('flow has pushed', data);
+                $location.path('/');
              })
             .error(function(data){
                 console.log('error', data)
             });
-
-        $location.path('/');
 	};
 }])
 
@@ -758,7 +766,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
         };
 
-        $scope.putMessage = function(message){
+        $scope.postMessage = function(message){
             // here we create a note object
             var note = {};
 
