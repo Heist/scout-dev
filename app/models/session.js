@@ -9,6 +9,7 @@ var SessionSchema = new Schema({
 			trim: true, 
 			default: 'New Session'
 		},
+		runcount : Number,
 		flows 	: [{ type: Schema.Types.ObjectId, ref: 'Flow' }]
 })
 

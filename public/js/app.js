@@ -89,7 +89,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
  
 .filter('hashtag', ['$sce', function($sce){
         return function(message) {
-
+            // TODO : this runs on users? Fix.
             var hashCatch = new RegExp(/\S*#\S+/gi); 
             var tagIt = message.match(hashCatch);
             
@@ -365,12 +365,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
 
 // OVERVIEW CONTROLLER ========================================================
 .controller('overview', ['$scope','$http', '$location', function($scope, $http, $location){
-    // set up controller-wide variables
-    $scope.sessions = {};
-    $scope.tests = {};
-    $scope.summaries = {};
-    $scope.experiment = {};
-
+    
     // get all sessions and their flows on first load
     $http.get('/api/session/', {timeout : 5000})
         .success(function(data) {
@@ -740,6 +735,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
             console.log(textfield);            
             $scope.user.name = textfield;
             $scope.user.toggle = true;
+
         }
 
         $scope.activate = function (index, parentIndex, step) {
@@ -806,4 +802,18 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
 
             $scope.message='';
         }
+
+    $scope.postTest = function(session){
+        var url = '/api/session'+session_id;
+        $http
+            .put(url)
+            .success(function(data){
+                console.log('Session updated', data);
+                $location.path('/');
+            })
+            .error(function(data){
+                console.log('Error: ' + data);
+            })
+
+    }
 }]);

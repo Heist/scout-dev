@@ -26,11 +26,19 @@ router.route('/')
 	.get(function(req, res) {
 		// get all the flows in the db
 		// do nothing with them - this route is for testing
-			Session.find(function(err, sessions) {
-				if (err)
-					res.send(err);
-				res.json(sessions);
-			});
+			Session.find({})
+			.populate('flows')
+			.exec(
+				function(err, sessions) {
+					if (err)
+						res.send(err);
+    
+			             res.json(session)
+
+			         })
+					
+				}
+			);
 	});
 
 // SESSION ROUTES ================================================
@@ -100,7 +108,12 @@ router.route('/session/:session_id')
 			if (err)
 				res.send(err);
 
-			session.name = req.body.name;
+			if(req.body.name){
+						session.name = req.body.name;
+					}
+			if(req.body.runcount){
+						session.runcount = req.body.runcount;
+					}
 
 			session.save(function(err, data) {
 				if (err)
@@ -240,11 +253,6 @@ router.route('/flow/:flow_id')
 
 
 	});
-
-router.route('/flow/:flow_id/step/')
-	// add a new step to the flow
-	
-
 
 // STEP ROUTES ===================================================
 	// these are a subset of flow routes
@@ -441,6 +449,7 @@ router.route('/run/:session_id')
 				 Flow.populate(session.flows, {path: 'steps'}, function (err, flows) {
 				 	console.log(flows);
 		             session.flows = flows;
+		             session.runcount = session.runcount + 1;
 		             res.json(session)
 
 		         })
