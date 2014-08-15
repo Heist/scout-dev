@@ -246,27 +246,27 @@ router.route('/flow/:flow_id/step/')
 	.post(function(req,res){
 		var step = new Step();
 
-			step.name = "edit me";
-			step._flow = req.params.flow_id;
+		step.name = "edit me";
+		step._flow = req.params.flow_id;
+		
+		step.save(function(err, step){
+			if (err)
+				res.send(err);
 			
-			step.save(function(err, step){
-				if (err)
-					res.send(err);
-				
-				Flow.findById( req.params.flow_id, function(err,flow){
-					console.log(step._id);
+			Flow.findById( req.params.flow_id, function(err,flow){
+				console.log(step._id);
 
-					flow.steps.push(step._id);
-					flow.save(function(err,data){
-						if (err)
-							res.send(err);
+				flow.steps.push(step._id);
+				flow.save(function(err,data){
+					if (err)
+						res.send(err);
 
-					})
-				
-				res.json(step);
+				})
+			
+			res.json(step);
 
-				});
-			})
+			});
+		})
 	});
 
 
@@ -276,13 +276,24 @@ router.route('/flow/:flow_id/step/')
 router.route('/step/')
 	// get all steps
 	.get(function(req,res){
-		
+		Step.find(function(err, steps) {
+				if (err)
+					res.send(err);
+
+				res.json(steps);
+			});
 	});
 
 router.route('/step/:step_id')
 	// get single step
 	.get(function(req,res){
-		
+		Step.findById(req.params.step_id)
+			.exec(function(err,step){
+				if (err)
+					res.send(err);
+			console.log(step)
+			res.json(step);
+			})
 	})
 	
 	// update a single step
@@ -338,8 +349,34 @@ router.route('/step/:step_id')
 		});
 	});
 
+// MESSAGE ROUTES  ================================================
 
-// TEST MESSAGE and MESSAGING ROUTES ================================================
+router.route('/message/')
+	.get(function(req,res){
+		Message.find(function(err, messages) {
+				if (err)
+					res.send(err);
+
+				res.json(messages);
+			});
+	})
+
+router.route('/message/:message_id')
+	.get(function(req,res){
+		// get one specific flow
+		console.log(req)
+		Message.findById(req.params.message_id)
+			.exec(function(err,msg){
+				if (err)
+					res.send(err);
+			console.log(msg)
+			res.json(msg);
+			})
+	});
+
+
+
+// RUN TEST ROUTES ================================================
 router.route('/run/')
 	.get(function(req,res){
 		// find, populate and return:
@@ -376,6 +413,39 @@ router.route('/run/:session_id')
 
 		         })
 			});
+	});
+
+router.route('/run/message/')
+	.post(function(req,res){
+		console.log('touched new message ', req.body)
+		var msg = new Message();
+		console.log('message id', msg._id)
+
+		msg._step	 = req.body._step;
+		msg.created_by  = req.body.created_by;
+		msg.body	 = req.body.body;
+		msg.user 	 = req.body.user;
+		msg.tags 	 = req.body.tags;
+		msg.key		 = req.body.key;
+		
+		msg.save(function(err, msg){
+			if (err)
+				res.send(err);
+			
+			Step.findById( req.body._step, function(err,step){
+				console.log(step._id);
+
+				step.messages.push(msg._id);
+				step.save(function(err,data){
+					if (err)
+						res.send(err);
+
+				})
+			
+			res.json(step);
+
+			});
+		})
 	});
 
 

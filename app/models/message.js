@@ -4,10 +4,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var MessageSchema = new Schema ({
-	body : {
-			type: String, 
-			trim: true
-		},
+	_step:{ 
+		type: Schema.Types.ObjectId, 
+		ref: 'Step'
+	},
+	key:{
+		type: Number
+	},
 	created: {
 			type: Date
 		},
@@ -15,17 +18,13 @@ var MessageSchema = new Schema ({
 		type: String,
 		trim: true
 	},
+	body : {
+			type: String, 
+			trim: true
+		},
 	user:{
 		type: String,
 		trim:true
-	},
-	flow:{ 
-		type: Schema.Types.ObjectId,
-		ref: 'Flow'
-	},
-	step:{ 
-		type: Schema.Types.ObjectId, 
-		ref: 'Step'
 	},
 	fav : {type: Boolean,
 		default: false

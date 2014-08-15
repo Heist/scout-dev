@@ -2,7 +2,6 @@
 //  step.js
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var MessageSchema = require('mongoose').model('Message')
 
 var StepSchema = new Schema ({
 	name: {
@@ -23,7 +22,7 @@ var StepSchema = new Schema ({
 	updated: {
 			type: Date
 		},
-	messages: [MessageSchema]
+	messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }]
 })
 
 mongoose.model('Step', StepSchema);

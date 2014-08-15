@@ -685,6 +685,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
 
     $scope.timeline = []; // holds all messages currently in flow
 
+    $scope.testKey = keygen();
+
     // // refresh warning to prevent whoops-I-deleted-the-Session
     // var leavingPageText = "If you refresh, you will lose this test.";
     // window.onbeforeunload = function(){
@@ -742,7 +744,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             $scope.parentIndex = parentIndex;
 
             $scope.step.current = step._id;
-            
+
             var message = {};
 
             message.body = step.title;
@@ -751,25 +753,26 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
             $scope.timeline.push(message);
 
 
-        // this is going to be a find-join in mongoose where we find all TESTS by SESSION_ID 
+        // TODO this is going to be a find-join in mongoose where we find all TESTS by SESSION_ID 
         // then return that information to the summarize/report function.
 
         };
 
         $scope.putMessage = function(message){
-            // here we create a note object because message was too confusing.
-             var note = {};
-             note.body = message;
-             note.tags = [];
-             note.created = new Date();
-             note.session_id = $stateParams.sessionId;
-             note.user_id = $scope.user.name;
+            // here we create a note object
+            var note = {};
 
-             $scope.timeline.push(note);
+            note.body = message;
+            note.tags = [];
+            note.created = new Date();
+             
+            note._step = $scope.step.current;
+            note.user = $scope.user.name;
+            note.key = $scope.testKey;
 
-            $scope.flows[$scope.parentIndex].user_id = $scope.user.name;
-            var connect = $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex]
+            $scope.timeline.push(note);
 
+            // TODO: this will catch things on both sides of the hash. 
             // if message has # with no space, post that to message.tags
             var hashCatch = new RegExp(/\S*#\S+/gi);
             var hashPull = new RegExp(/#/gi);
@@ -779,27 +782,19 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
                 for (var i=0; i < tagIt.length; ++i) {
                     var msg = tagIt[i].replace(hashPull,'');
                     note.tags.push(msg);
-                }                
+                }
             }
+            
+            var url = '/api/run/message/';
+            var dataOut = note;
 
-            connect.messages.push(note);
-            console.log(connect);
-            // now we put that step's update into its session storage in the db
-
-            var url = '/api/test/'+$stateParams.testId+'/session/'+$stateParams.sessionId;
-
-            // mongoose does not permid _id queries on grandchildren, only parent.child.id(_id)
-            var dataOut = $scope.flows[$scope.parentIndex];
-
-
-            $http.put(url, dataOut)
+            $http.post(url, dataOut)
                 .success(function(data){
                     console.log('Message pushed: ', data);
                 })
                 .error(function(data){
                     console.log('Error: ' + data);
                 })
-
 
             $scope.message='';
         }
