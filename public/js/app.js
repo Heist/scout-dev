@@ -26,7 +26,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
     $stateProvider
         // OVERVIEW AND FLOW CREATION ========================
         .state('home', {
-            url: '/',
+            url: '/:session_id',
             templateUrl: 'partials/overview.html'
         })
         .state('flow', {
@@ -364,14 +364,25 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
 }])
 
 // OVERVIEW CONTROLLER ========================================================
-.controller('overview', ['$scope','$http', '$location', function($scope, $http, $location){
+.controller('overview', ['$scope','$http', '$location', '$stateParams', function($scope, $http, $location, $stateParams){
     
     // get all sessions and their flows on first load
     $http.get('/api/session/', {timeout : 5000})
         .success(function(data) {
-            console.log('data log', data);
             $scope.sessions = data;
-            // $scope.selected = data[0];
+            
+            if($stateParams.session_id){
+                for (var i = 0; i < data.length; i++){
+                    console.log(data[i]._id, $stateParams.session_id)
+                    if(data[i]._id == $stateParams.session_id){
+                        $scope.selected = data[i];
+                    }    
+                }
+                
+            } else {
+                $scope.selected = data[0]
+            }
+
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -651,7 +662,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
             });
     }
 
-    $scope.updateFlow = function(){
+    $scope.updateFlow = function(flow){
         // Put to this URL the entire data object from this controller
         // technically this is created when we hit Add on prev. page
         console.log('touched update flow')
@@ -668,7 +679,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
             .put(url, data_out, {timeout:5000})
             .success(function(data){
                 console.log('flow has pushed', data);
-                $location.path('/');
+                $location.path('/'+flow._session);
              })
             .error(function(data){
                 console.log('error', data)
