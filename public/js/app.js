@@ -371,6 +371,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
         .success(function(data) {
             $scope.sessions = data;
             
+            // select the default active session, if there is one.
             if($stateParams.session_id){
                 for (var i = 0; i < data.length; i++){
                     console.log(data[i]._id, $stateParams.session_id)
@@ -382,7 +383,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
             } else {
                 $scope.selected = data[0]
             }
-
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -428,6 +428,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
             .success(function(data){
                 console.log('added a new session '+ JSON.stringify(data));
                 $scope.sessions = data;
+                // TODO add an auto-select for the new session here
+                 $scope.selected = data[data.length-1];
             })
             .error(function(data){
 
@@ -443,6 +445,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
             .success(function(data){
                 console.log(data);
                 $scope.sessions.splice(index, 1);
+                $scope.selected = $scope.sessions[$scope.sessions.length-1];
             })
             .error(function(data){
                 console.log('Error: ' + data);
