@@ -730,10 +730,11 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
             $scope.session = data;
             $scope.flows = data.flows;
 
+            console.log('how is data.flows built', $scope.flows);
             // // set the initial timeline contents
             var message = {};
 
-            message.body = $scope.flows[0].title;
+            message.body = $scope.flows[0].name;
             message.title = 'Starting flow';
             $scope.timeline.push(message);
 
@@ -765,7 +766,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
 
             var message = {};
 
-            message.body = step.title;
+            message.body = step.name;
             message.title = stepType;
 
             $scope.timeline.push(message);
