@@ -29,15 +29,15 @@
 				<ul>
 					<li class="test-newtest">
 						<div class="test-newtest-create">
-							<button class="button" ng-click="addTest(test)">+ Add a new test</button>		
+							<button class="button" ng-click="addSession()">+ Add a new test</button>		
 						</div>
 					</li>
 					
-					<li class="question" ng-repeat="session in sessions | unique:'testKey'" ng-click="select(session, $index)" ng-class="{ 'active': $index == selectedIndex}">
+					<li class="question" ng-repeat="session in sessions track by $index" ng-click="select(session)" ng-class="{ 'active': session._id == selected._id}">
 						<div class="test-controls">
-							<button class="button small secondary" ng-click="addAndLaunchNewSession(session)" ng-show="session.flows.length > 0 && session.flows[0].steps.length > 0">Run Test</button>
+							<button class="button small secondary" ng-click="runTest(session)" ng-show="session.flows.length > 0 && session.flows[0].steps.length > 0">Run Test</button>
 							<button class="button small" ng-click="loadReport(session.testKey)" ng-show="session.report == true">Report</button>
-							<button class="button small destructive" ng-click="removeTest(session)">&times;</button> 
+							<button class="button small destructive" ng-click="removeSession(session)">&times;</button> 
 						</div>
 						
 						<div class="session-name">
@@ -68,8 +68,8 @@
 	<div id="large-pane">
 	
 	<!-- show the flows associated with this test -->
-		<div ng-show="selected">
-			<h3><span>{{selected.title}}</span></h3>
+		<div ng-model="selected" ng-show="selected">
+			<h3><span>{{selected.name}}</span></h3>
 			
 				
 			<div class="session-flow" ng-repeat="flow in selected.flows | orderBy:'created'">
@@ -78,8 +78,12 @@
 				</div>
 			
 				<div class="session-flow-controls">
-					<button class="button small" ng-click="summarizeFlow(selected.testKey, flow.flowKey)" >Summarize</button>
+					<button class="button small" ng-click="summarizeFlow(selected.testKey, flow.flowKey)" ng-show="flow.count > 0" >Summarize</button>
 
+<<<<<<< HEAD
+=======
+					<button class="button small" ng-click="summarizeFlow(selected.testKey, flow.flowKey)" ng-show="flow.summary" >Summary</button>
+>>>>>>> dev
 					
 					&nbsp;&nbsp;
 					
@@ -88,9 +92,9 @@
 					
 					&nbsp;&nbsp;
 
-					<button class="button small secondary" ng-click="editFlow(selected, flow)" >Edit</button>
+					<button class="button small secondary" ng-click="editFlow(flow)" ng-hide="flow.count > 0" >Edit</button>
 					
-					<button class="button small destructive" ng-click="removeFlow(selected, flow)">&times;</button>
+					<button class="button small destructive" ng-click="removeFlow(flow)">&times;</button>
 				</div>	
 				
 				<small>Flow 
@@ -101,7 +105,7 @@
                        'other': 'run {} times.'}">
 					</ng-pluralize>
   				</small>
-				<h3>{{flow.title}}</h3>
+				<h3>{{flow.name}}</h3>
 				<p>{{flow.summary}}</p>
 				<div class="clear"></div>
 				
@@ -109,7 +113,7 @@
 				
 				
 			<div class="session-flow empty">
-				<button class="button" ng-click="addAFlow(selected)">+ Add a new flow</button>		
+				<button class="button" ng-click="postFlow(selected)">+ Add a new flow</button>		
 			</div>	</div>
 			
 	</div>

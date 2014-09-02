@@ -3,6 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+<<<<<<< HEAD
 var MessageSchema = new Schema ({
 	body : {
 			type: String, 
@@ -68,6 +69,11 @@ var FlowSchema = new Schema({
 			trim:true
 		},
 		title 	: {
+=======
+var FlowSchema = new Schema({
+		_session : { type: Schema.Types.ObjectId, ref: 'Session' },
+		name 	: {
+>>>>>>> dev
 			type: String, 
 			trim: true, 
 			default: 'my new flow name'
@@ -97,15 +103,21 @@ var FlowSchema = new Schema({
 			type: [String], 
 			trim:true
 		},
+<<<<<<< HEAD
 		ismodel :{
 			type: Boolean,
 			default: false
 		},
 		steps: [StepSchema]
+=======
+		runcount : Number,
+		steps: [{ type: Schema.Types.ObjectId, ref: 'Step' }]
+>>>>>>> dev
 	});
 
 mongoose.model('Flow', FlowSchema);
 
+<<<<<<< HEAD
 MessageSchema.pre('save', function(next){
   var now = new Date();
   if ( !this.created ) {
@@ -114,6 +126,8 @@ MessageSchema.pre('save', function(next){
   next();
 });
 
+=======
+>>>>>>> dev
 FlowSchema.pre('save', function(next){
   var now = new Date();
   this.updated = now;
@@ -123,5 +137,9 @@ FlowSchema.pre('save', function(next){
   next();
 });
 
+<<<<<<< HEAD
 module.exports = mongoose.model('Flow', FlowSchema);
 module.exports = mongoose.model('Step', StepSchema);
+=======
+module.exports = mongoose.model('Flow', FlowSchema);
+>>>>>>> dev

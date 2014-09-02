@@ -1,7 +1,7 @@
 "use strict";
 // app.js
 
-var scoutApp = angular.module('scoutApp',['ui','ui.bootstrap','ui.router', 'ngSanitize']);
+var scoutApp = angular.module('scoutApp',['ui','ui.router', 'ngSanitize']);
 
 // function list for working with arrays
 
@@ -17,24 +17,26 @@ function keygen(){
 }
 
 // FRONT-END ROUTE CONFIGURATION ================================================
-scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
+scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
 	$locationProvider
 		.html5Mode(true);
+
+    $httpProvider.defaults.timeout = 3000;
 
     $stateProvider
         // OVERVIEW AND FLOW CREATION ========================
         .state('home', {
-            url: '/',
+            url: '/:session_id',
             templateUrl: 'partials/overview.html'
         })
         .state('flow', {
-            url: '/edit/test/:testId/session/:sessionId/flow/:flowId',
+            url: '/edit/flow/:flow_id',
             templateUrl: 'partials/flow.html'
         })
 
         // RUN TEST ==========================================
         .state('run', {
-            url: '/run/test/:testId/session/:sessionId',
+            url: '/run/:sessionId',
             templateUrl: 'partials/run.html'
         })
 
@@ -87,7 +89,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$locationProvider) {
  
 .filter('hashtag', ['$sce', function($sce){
         return function(message) {
-
+            // TODO : this runs on users? Fix.
             var hashCatch = new RegExp(/\S*#\S+/gi); 
             var tagIt = message.match(hashCatch);
             
@@ -393,94 +395,34 @@ return{
 }])
 
 // OVERVIEW CONTROLLER ========================================================
-.controller('overview', ['$scope','$http', '$location', function($scope, $http, $location){
-    // set up controller-wide variables
-    $scope.sessions = {};
-    $scope.tests = {};
-    $scope.summaries = {};
-    $scope.experiment = {};
-
+.controller('overview', ['$scope','$http', '$location', '$stateParams', function($scope, $http, $location, $stateParams){
+    
     // get all sessions and their flows on first load
-    $http.get('/api/test/')
+    $http.get('/api/session/', {timeout : 5000})
         .success(function(data) {
-            console.log('data log', data);
-
-
-            // for each test in data.tests
-            // match to its relevant flowKey
-            // count each test by flowKey
-            // attach the number of times that flow has been run to the flow
-
-            // make the object we're counting
-            var flowcount = [];
-            for(var i = 0; i < data.tests.length; i++){
-                for (var j = 0 ; j < data.tests[i].flows.length; j++){
-                    flowcount.push(data.tests[i].flows[j].flowKey);
-                }
-            }
-            flowcount.sort();
-            // how many of each flow number do we have?
-
-            // this makes an object with a key of the flow and a count as the property.
-            var flow_index = [];
-            var flow_ct = [];
-            var ct = 0;
-            for(var i = 0; i < flowcount.length; i++){
-                if(!(flow_index.indexOf(flowcount[i]) != -1)){
-                    ct = 1;
-                    flow_index.push(flowcount[i]);
-                    flow_ct.push({flow: flowcount[i], count: ct});
-                
-                } else if (flow_index.indexOf(flowcount[i]) != -1){
-                    ct++
-                    flow_ct[flow_index.indexOf(flowcount[i])].count = ct;   
-                }
-            }
+            $scope.sessions = data;
             
-            console.log('flow_ct new', flow_ct);
-
-            // Association scrape - count of run tests to their flows
-            for (var i = 0; i < data.sessions.length; i++){
-                for (var j = 0; j < data.sessions[i].flows.length; j++){
-                    console.log('flows', data.sessions[i].flows[j]);
-                    for(var k = 0; k < flow_ct.length ;k++){
-                      if(flow_ct[k].flow == data.sessions[i].flows[j].flowKey){
-                        data.sessions[i].flows[j].count = flow_ct[k].count;
-                      }
-                    }
+            // select the default active session, if there is one.
+            if($stateParams.session_id){
+                for (var i = 0; i < data.length; i++){
+                    console.log(data[i]._id, $stateParams.session_id)
+                    if(data[i]._id == $stateParams.session_id){
+                        $scope.selected = data[i];
+                    }    
                 }
+                
+            } else {
+                $scope.selected = data[0]
             }
-
-            // Association scrape - summaries to their flows
-            for(var i = 0; i < data.summaries.length; i++){
-                for (var j = 0; j < data.sessions.length; j++){
-                    if (data.summaries[i].testKey == data.sessions[j].testKey){
-                        for(var k = 0; k < data.sessions[j].flows.length; k++){
-                            if(data.summaries[i].flowKey == data.sessions[j].flows[k].flowKey){
-                                data.sessions[j].flows[k].summary = data.summaries[i].summary;
-                                data.sessions[j].report = true;
-                            }
-                        }
-                    }
-                }
-            }
-
-
-            // because we use sessions as a unit everywhere else
-            $scope.sessions = data.sessions;
-            $scope.tests = data.tests;
-
-            console.log('check for session models - do these have session summaries saved? Summarizing', data.sessions);
         })
         .error(function(data) {
             console.log('Error: ' + data);
         });
 
 
-    $scope.select = function (session, index){
-        console.log('touched session', index, session)
+    $scope.select = function (session){
+        console.log('touched session', session)
         $scope.selected = session;
-        $scope.selectedIndex = index;
     }
 
     // edit titles inline.
@@ -493,7 +435,7 @@ return{
         $scope.editedTitle = null;
         
         // var index = $scope.session.flows.indexOf(flow);
-        var url = '/api/test/'+session.testKey+'/session/'+session._id;
+        var url = '/api/session/'+session._id;
         
         if (!session.name) {
             session.name = 'New Session';
@@ -503,7 +445,7 @@ return{
 
         $http.put(url, dataOut)
                 .success(function(data){
-                    console.log('success: ', data);
+                    console.log('sent new title : ', data);
                 })
                 .error(function(data){
                     console.log('Error: ' + data);
@@ -511,17 +453,14 @@ return{
     }
 
     // Add and remove tests
-    $scope.addTest = function(test){
-        var testGen = Math.round((new Date().valueOf() * Math.random()));
-        var dataOut = {
-                ismodel : true,
-                testKey : testGen 
-            };        
+    $scope.addSession = function(test){
         
-        $http.post('/api/test/', dataOut)   
+        $http.post('/api/session/')
             .success(function(data){
-                console.log('added a new test '+ JSON.stringify(data));
+                console.log('added a new session '+ JSON.stringify(data));
                 $scope.sessions = data;
+                // TODO add an auto-select for the new session here
+                 $scope.selected = data[data.length-1];
             })
             .error(function(data){
 
@@ -529,15 +468,15 @@ return{
         
     }
    
-    $scope.removeTest = function(session){
-        var url = '/api/test/'+session.testKey;
+    $scope.removeSession = function(session){
+        var url = '/api/session/'+session._id;
         var index = $scope.sessions.indexOf(session);
-
-        $scope.sessions.splice(index, 1);
 
         $http.delete(url)
             .success(function(data){
-                
+                console.log(data);
+                $scope.sessions.splice(index, 1);
+                $scope.selected = $scope.sessions[$scope.sessions.length-1];
             })
             .error(function(data){
                 console.log('Error: ' + data);
@@ -545,12 +484,9 @@ return{
     }
 
     // Add and remove flows from tests.
-    $scope.addAFlow = function(session){
-            // this adds a flow to the test selectied
-            // important because tests model sessions
-
-
+    $scope.postFlow = function(session){
             console.log('touched addaflow ', session);
+<<<<<<< HEAD
             var flow = {}
             
             flow.title = 'New Flow Name Goes Here';
@@ -564,13 +500,28 @@ return{
             
             var url = '/api/test/'+session.testKey;
             console.log(url);
+=======
+
+            var flow = {};
+
+            flow.name = 'New flow name';
+            flow._session = session._id;
+
+            var url = '/api/flow/';
+            var data_out = flow
+>>>>>>> dev
             
             $http
-                .put(url, wrapper)
+                .post(url, data_out)
                 .success(function(data){
                     console.log('new flow added '+ JSON.stringify(data));
+<<<<<<< HEAD
                     $scope.selected = data;
                     
+=======
+                    session.flows.push(data);
+
+>>>>>>> dev
                 })
                 .error(function(data){
                     console.log(JSON.stringify(data))
@@ -578,58 +529,37 @@ return{
                 ;
     };
 
-    $scope.editFlow = function(session, flow){
-        $location.path('/edit/test/'+session.testKey+'/session/'+session._id+'/flow/'+flow._id);
-    }
-    
-    $scope.removeFlow = function(session, flow){ 
-        // this is probably fine once we're only returning sessions
-        // with ismodel : true
-        // because the session we're selecting is the test session, not
-        // any sub-sessions.
-
-        console.log('session, flow '+ session+' '+ flow);
-
-
-        var url = '/api/test/'+session.testKey+'/session/'+session._id+'/flow/'+flow._id;
+    $scope.removeFlow = function(flow){ 
+        // delete a flow from the database
         
-        var dataOut = session;
+        var index = $scope.selected.flows.indexOf(flow);
+        var url = '/api/flow/'+flow._id;
+        
 
-        console.log(url);
-        console.log(dataOut);
+        console.log('delete flow', url);
+        console.log('index', index);
+        console.log($scope.selected.flows[index])
+        
+        $scope.selected.flows.splice(index, 1);
 
-        $http.delete(url,dataOut)
+        $http
+            .delete(url)
             .success(function(data){
-                console.log(JSON.stringify(data))
-                $scope.selected = data;
-
+                console.log(data);
             })
             .error(function(data){
                 console.log('Error: ' + data);
             })
     }
 
-    // Add a new session and return the new session run page
-    $scope.addAndLaunchNewSession = function(session){
-        // var url = '/:sessionId/test/:testId' pseudocode
-        console.log('touchedNewTest');
-        var url = '/api/test/'+session.testKey;
-
-        var dataOut = {
-                ismodel : false
-            };
-
-        $http.post(url, dataOut)
-            .success(function(data){
-                console.log('returned new session '+ data._id +" "+data.testKey);
-                console.log('new session steps ' + data.flows[0].steps.length);
-                $location.path('/run/test/'+data.testKey+'/session/'+data._id);
-            })
-            .error(function(data){
-                console.log(JSON.stringify(data))
-        });
-
-        // this changes to the returned session id, which has been newly created.
+    // move to the flow edit screen
+    $scope.editFlow = function(flow){
+        console.log('touched flow', flow)
+        $location.path('/edit/flow/'+ flow._id);        
+    }
+     
+    $scope.runTest = function(session){
+        $location.path('/run/'+session._id);
     }
 
     // add a new summary and launch summary
@@ -652,12 +582,6 @@ return{
         })
     }
 
-    $scope.editSummary = function(summary){
-        // this is going to require some thinks!
-        // we do not currently Get things by Summary so.
-        // $location.path('/summary/'+summary._id+'/flow/');
-    }
-
     // Launch the current report
     $scope.loadReport = function(testKey){
         console.log('touched a report', testKey);
@@ -670,187 +594,68 @@ return{
     }
 }])
 
-// RUN CONTROLLER - RUNS A TEST =====================================================
-.controller('run', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
-    // set up controller-wide variables
-    $scope.session = {};
-    $scope.flows = {};
-    $scope.step = {};
-    $scope.user = {};
 
-    $scope.timeline = []; // holds all messages currently in flow
+// EDIT FLOW CONTROLLER =====================================================
+.controller('flow', ['$scope','$http', '$stateParams','$state', '$location', function($scope, $http,$stateParams,$state, $location){
+    console.log('loaded flow controller');
 
-    // refresh warning to prevent whoops-I-deleted-the-Session
-    var leavingPageText = "If you refresh, you will lose this test.";
-    window.onbeforeunload = function(){
-        return leavingPageText;
-    }
-
-    $scope.$on('$destroy', function() {
-        window.onbeforeunload = undefined;
-    });
-
-    $scope.$on('$locationChangeStart', function(event, next, current) {
-        if(!confirm(leavingPageText + "\n\nAre you sure you want to leave this page?")) {
-            event.preventDefault();
-        }
-    });
-
-
-    // this has to change to get the new session created on the run() command from the main controller
-    $http.get('/api/test/'+$stateParams.testKey+'/session/'+$stateParams.sessionId)
-        .success(function(data){
-            $scope.session = data;
-
-            console.log('session', data)
-            var flows = [];
-            for (var i in data.flows){
-                if(data.flows[i].steps.length > 0){
-                    flows.push(data.flows[i]);
-                }
-            }
-
-            $scope.flows = flows;
-            
-            // set the initial timeline contents
-            var message = {};
-
-            message.body = $scope.flows[0].title;
-            message.title = 'Starting flow';
-            $scope.timeline.push(message);
-
-            // set the initial reporting step
-            $scope.step.current = $scope.flows[0].steps[0]._id;
-        })
-
-        // select the initial 'activated' values
-        $scope.selectedIndex = 0;
-        $scope.parentIndex = 0;
-
-        $scope.addUser = function(textfield){
-
-            console.log(textfield);
-            var url = '/api/test/'+ $scope.session.testKey+'/session/'+ $scope.session._id;
-            var dataOut = { 'user': textfield };
-            
-            $http.put(url, dataOut)
-                .success(function(data){
-                    console.log('New user pushed: ', data);
-                    $scope.user.name = textfield;
-                    $scope.user.toggle = true;
-                })
-                .error(function(data){
-                    console.log('Error: ' + data);
-                })
-
-        }
-
-        $scope.activate = function (index, parentIndex, step) {
-            var stepType = 'Starting flow';
-            if (parentIndex == $scope.parentIndex){
-                stepType = 'Starting step';
-            }
-
-            $scope.selectedIndex = index;
-            $scope.parentIndex = parentIndex;
-
-            $scope.step.current = step._id;
-            
-            var message = {};
-
-            message.body = step.title;
-            message.title = stepType;
-
-            $scope.timeline.push(message);
-
-
-        // this is going to be a find-join in mongoose where we find all TESTS by SESSION_ID 
-        // then return that information to the summarize/report function.
-
-        };
-
-        $scope.putMessage = function(message){
-            // here we create a note object because message was too confusing.
-             var note = {};
-             note.body = message;
-             note.tags = [];
-             note.created = new Date();
-             note.session_id = $stateParams.sessionId;
-             note.user_id = $scope.user.name;
-
-             $scope.timeline.push(note);
-
-            $scope.flows[$scope.parentIndex].user_id = $scope.user.name;
-            var connect = $scope.flows[$scope.parentIndex].steps[$scope.selectedIndex]
-
-            // if message has # with no space, post that to message.tags
-            var hashCatch = new RegExp(/\S*#\S+/gi);
-            var hashPull = new RegExp(/#/gi);
-            var tagIt = message.match(hashCatch);          
-            
-            if (tagIt){
-                for (var i=0; i < tagIt.length; ++i) {
-                    var msg = tagIt[i].replace(hashPull,'');
-                    note.tags.push(msg);
-                }                
-            }
-
-            connect.messages.push(note);
-            console.log(connect);
-            // now we put that step's update into its session storage in the db
-
-            var url = '/api/test/'+$stateParams.testId+'/session/'+$stateParams.sessionId;
-
-            // mongoose does not permid _id queries on grandchildren, only parent.child.id(_id)
-            var dataOut = $scope.flows[$scope.parentIndex];
-
-
-            $http.put(url, dataOut)
-                .success(function(data){
-                    console.log('Message pushed: ', data);
-                })
-                .error(function(data){
-                    console.log('Error: ' + data);
-                })
-
-
-            $scope.message='';
-        }
-}])
-
-// EDIT A FLOW CONTROLLER =====================================================
-.controller('flow', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
-
-    $scope.flow = [];
-
-    $http.get('/api/test/'+$stateParams.testId+'/session/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId)
+    $http
+        .get('/api/flow/'+$stateParams.flow_id, {timeout : 5000, cache:false})
         .success(function(data) {
             $scope.flow = data;
+            console.log('flow', $scope.flow)
         })
         .error(function(data) {
             console.log('Error: ' + data);
         });
-    
-    $scope.selected = $scope.flow.steps;
 
-	$scope.add = function(step) {
-        var keyGen = Math.round((new Date().valueOf() * Math.random()));
+    console.log('this is after the Get')
 
-        $scope.step = {
-        		title	: 'edit me',
-                key     : keyGen,
-        		desc	: '',        		
-        		title_edit : false,
-        		edit	: false
-        	};
-	    $scope.flow.steps.push($scope.step);  
+	$scope.postStep = function() {
+        console.log('touched add a step');
+
+        var step = {};
+
+        step.name = "edit me";
+        step._flow = $stateParams.flow_id;
+         
+        var url = '/api/step/';
+        var data_out = step;
+        
+        $http
+            .post(url,data_out)
+            .success(function(data){
+                console.log('new step added '+ JSON.stringify(data));
+
+                $scope.flow.steps.push(data);
+            })
+            .error(function(data){
+                console.log(JSON.stringify(data))
+            });
     }
     
     $scope.removeStep = function(step){
-    	step.edit=false;
+    
+        step.edit=false;
     	step.title_edit=false;
-    	var index = $scope.flow.steps.indexOf(step)
-  		$scope.flow.steps.splice(index, 1);
+        
+
+        var index = $scope.flow.steps.indexOf(step)
+  		var url = '/api/step/'+step._id;
+        
+        $scope.flow.steps.splice(index, 1);
+
+        console.log('delete step', url);
+        console.log('index', index);
+
+        $http.delete(url)
+            .success(function(data){
+                console.log(data);
+                
+            })
+            .error(function(data){
+                console.log('Error: ' + data);
+            })
     }
 
 	$scope.editTitle = function (step){
@@ -874,11 +679,13 @@ return{
 
 		$scope.editedStep = null;
 		
-		step.title = step.title.trim();
+		step.name = step.name.trim();
 
-		if (!step.title) {
+		if (!step.name) {
 			$scope.removeStep(step);
-		}	
+		}
+
+        $scope.updateStep(step)
 	}
 
 	$scope.revertEditing = function (step) {
@@ -886,10 +693,6 @@ return{
 		steps[steps.indexOf(step)] = $scope.originalStep;
 		$scope.doneEditing($scope.originalStep);
 	};
-
-    // $scope.doneEditing= function(step){
-        
-    // }
 
     $scope.select= function(step) {
        $scope.selected = step;
@@ -899,29 +702,190 @@ return{
        return $scope.selected === step;
     };
 
-    $scope.updateFlow = function(){
+    $scope.updateStep = function(step){
+        console.log('touched update step', step._id)
+        var url = '/api/step/'+step._id;
+        var data_out = step;
+
+        $http
+            .put(url, data_out)
+            .success(function(data){
+                console.log('step has pushed', data);
+             })
+            .error(function(data){
+                console.log('error', data)
+            });
+    }
+
+    $scope.updateFlow = function(flow){
         // Put to this URL the entire data object from this controller
         // technically this is created when we hit Add on prev. page
+        console.log('touched update flow')
 
-        var putURL = '/api/test/'+$stateParams.testId+'/session/'+$stateParams.sessionId+'/flow/'+$stateParams.flowId;
+        var url = '/api/flow/'+$stateParams.flow_id;
+        var data_out = $scope.flow;
 
         if (!$scope.flow.title){
             $scope.flow.title = 'New Flow Name Goes Here';
         }
-        
-        var wrapper = { 'flow': $scope.flow };
 
         // reminder: this pushes an update to an already-created flow now
 		$http
-	 		.put(putURL, wrapper)
-			.success(function(data){
-				console.log('flow has pushed', data);
- 			})
+            .put(url, data_out, {timeout:5000})
+            .success(function(data){
+                console.log('flow has pushed', data);
+                $location.path('/'+flow._session);
+             })
             .error(function(data){
                 console.log('error', data)
-
-            })
-            ;
+            });
 	};
 }])
-;
+
+
+
+// RUN CONTROLLER - RUNS A TEST =====================================================
+.controller('run', ['$scope','$http', '$location','$stateParams','$state', function($scope, $http,$location,$stateParams,$state){
+    // set up controller-wide variables
+    $scope.session = {};
+    $scope.flows = {};
+    $scope.step = {};
+    $scope.user = {};
+
+    $scope.timeline = []; // holds all messages currently in flow
+
+    $scope.testKey = keygen();
+
+      
+
+    // // refresh warning to prevent whoops-I-deleted-the-Session
+    // var leavingPageText = "If you refresh, you will lose this test.";
+    // window.onbeforeunload = function(){
+    //     return leavingPageText;
+    // }
+
+    // $scope.$on('$destroy', function() {
+    //     window.onbeforeunload = undefined;
+    // });
+
+    // $scope.$on('$locationChangeStart', function(event, next, current) {
+    //     if(!confirm(leavingPageText + "\n\nAre you sure you want to leave this page?")) {
+    //         event.preventDefault();
+    //     }
+    // });
+
+
+    // TODO this has to change to get the new session created on the run() command from the main controller
+    $http
+        .get('/api/run/'+$stateParams.sessionId)
+        .success(function(data){
+            console.log('session', data)
+            
+            $scope.session = data;
+            $scope.flows = data.flows;
+
+            console.log('how is data.flows built', $scope.flows);
+            // // set the initial timeline contents
+            var message = {};
+
+            $scope.activate(0,0)
+        })
+
+        $scope.activate = function(index, parentIndex) {
+            console.log('parent', $scope.flows[parentIndex]._id)
+            console.log('step', $scope.flows[parentIndex].steps[index]._id)
+
+            $scope.selectedIndex = index;
+            $scope.parentIndex = parentIndex;
+
+            $scope.step.current = $scope.flows[parentIndex].steps[index]._id;
+            var step = $scope.flows[parentIndex].steps[index];
+
+            if ( index == 0){
+                console.log('match')
+                // if this is the first step in a flow, log the flow start
+                // then log the step start
+                var message = {};
+                message.title='Starting Flow'
+                message.body=$scope.flows[parentIndex].name;
+                $scope.timeline.push(message);
+            }
+
+            var message = {};
+            message.body = step.name;
+            message.title = 'Starting step';
+
+            $scope.timeline.push(message);
+
+        };
+
+        $scope.addUser = function(textfield){
+            console.log(textfield);            
+            $scope.user.name = textfield;
+            $scope.user.toggle = true;
+
+        }
+
+
+        $scope.postMessage = function(message){
+            // here we create a note object
+            var note = {};
+
+            note.body = message;
+            note.tags = [];
+            note.created = new Date();
+             
+            note._step = $scope.step.current;
+            note.user = $scope.user.name;
+            note.key = $scope.testKey;
+
+            $scope.timeline.push(note);
+
+            // TODO: this will catch things on both sides of the hash. 
+            // if message has # with no space, post that to message.tags
+            var hashCatch = new RegExp(/\S*#\S+/gi);
+            var hashPull = new RegExp(/#/gi);
+            var tagIt = message.match(hashCatch);          
+            
+            if (tagIt){
+                for (var i=0; i < tagIt.length; ++i) {
+                    var msg = tagIt[i].replace(hashPull,'');
+                    note.tags.push(msg);
+                }
+            }
+            
+            console.log('note', note);
+
+            var url = '/api/message/';
+            var dataOut = note;
+
+            $http.post(url, dataOut)
+                .success(function(data){
+                    console.log('Message pushed: ', data);
+                })
+                .error(function(data){
+                    console.log('Error: ' + data);
+                })
+
+            $scope.message='';
+        }
+
+    $scope.postTest = function(session){
+        var url = '/api/session/'+session._id;
+        var dataOut = session;
+
+        console.log(session._id)
+        console.log(session)
+
+        $http
+            .put(url, dataOut)
+            .success(function(data){
+                console.log('Session updated', data);
+                $location.path('/');
+            })
+            .error(function(data){
+                console.log('Error: ' + data);
+            })
+
+    }
+}]);
