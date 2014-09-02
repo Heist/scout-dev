@@ -704,6 +704,8 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
 
     $scope.testKey = keygen();
 
+      
+
     // // refresh warning to prevent whoops-I-deleted-the-Session
     // var leavingPageText = "If you refresh, you will lose this test.";
     // window.onbeforeunload = function(){
@@ -734,24 +736,36 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
             // // set the initial timeline contents
             var message = {};
 
-            $scope.parentIndex = 0;
-            $scope.selectedIndex = 0;
-
-            message.body = $scope.flows[0].name;
-            message.title = 'Starting flow';
-            $scope.timeline.push(message);
-
-            // reset message to set the initial reporting step
-            $scope.step.current = $scope.flows[0].steps[0]._id;
-            console.log('pushing first steps', $scope.flows[0].steps[0].name)
-            
-            message = {};
-            message.body =  $scope.flows[0].steps[0].name;
-            message.title = 'Starting step'
-            $scope.timeline.push(message);
-        
+            $scope.activate(0,0)
         })
 
+        $scope.activate = function(index, parentIndex) {
+            console.log('parent', $scope.flows[parentIndex]._id)
+            console.log('step', $scope.flows[parentIndex].steps[index]._id)
+
+            $scope.selectedIndex = index;
+            $scope.parentIndex = parentIndex;
+
+            // $scope.step.current = $scope.flows[parentIndex].steps[index]._id;
+            var step = $scope.flows[parentIndex].steps[index];
+
+            if ( index == 0){
+                console.log('match')
+                // if this is the first step in a flow, log the flow start
+                // then log the step start
+                var message = {};
+                message.title='Starting Flow'
+                message.body=$scope.flows[parentIndex].name;
+                $scope.timeline.push(message);
+            }
+
+            var message = {};
+            message.body = step.name;
+            message.title = 'Starting step';
+
+            $scope.timeline.push(message);
+
+        };
 
         $scope.addUser = function(textfield){
             console.log(textfield);            
@@ -760,28 +774,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
 
         }
 
-        $scope.activate = function (index, parentIndex, step) {
-            console.log('touched activate', step)
-            console.log('parent', $scope.flows[parentIndex]._id)
-
-
-            $scope.selectedIndex = index;
-            $scope.parentIndex = parentIndex;
-
-            $scope.step.current = step._id;
-
-            var message = {};
-
-            message.body = step.name;
-            message.title = stepType;
-
-            $scope.timeline.push(message);
-
-
-        // TODO this is going to be a find-join in mongoose where we find all TESTS by SESSION_ID 
-        // then return that information to the summarize/report function.
-
-        };
 
         $scope.postMessage = function(message){
             // here we create a note object
