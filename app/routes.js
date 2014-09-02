@@ -32,8 +32,7 @@ router.route('/')
 				function(err, sessions) {
 					if (err)
 						res.send(err);
-    
-			             res.json(session)
+			             res.json(sessions)
 
 			         }
 			    )
@@ -54,7 +53,10 @@ router.route('/session/')
 				function(err, sessions) {
 					if (err)
 						res.send(err);
-
+					// in here, get the flow steps and parse them out
+					// check for distinct keys
+					// count the number of distinct keys and return as 
+					// sessions.runcount
 					res.json(sessions);
 				}
 			);
@@ -65,6 +67,7 @@ router.route('/session/')
 				var session = new Session();
  			
 	 			session.name = 'New Session';
+	 			session.runcount = 0;
 
 	 			session.save(function(err) {
 					if (err)
@@ -87,7 +90,7 @@ router.route('/session/:session_id')
 				res.json(session);
 			})
 	})
-	// deletes all sessions and sub-documents - steps, flows, reports, summaries.
+	// deletes all sessions and subdocuments - steps, flows, reports, summaries.
 	.delete(function(req,res){
 		console.log('session delete', req.params.session_id);
 
@@ -104,10 +107,13 @@ router.route('/session/:session_id')
 
 	// change the name of the session
 	.put(function(req,res){
+		console.log('session put request', req.body);
+		console.log('session put request', req.params.session_id);
+
 		Session.findById(req.params.session_id, function(err, session){
 			if (err)
 				res.send(err);
-
+			
 			if(req.body.name){
 						session.name = req.body.name;
 					}
@@ -138,8 +144,6 @@ router.route('/session/:session_id/flow/')
 			})
 	});
 	
-
-
 
 
 // FLOW ROUTES ===================================================

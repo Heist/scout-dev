@@ -693,7 +693,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
 
 
 // RUN CONTROLLER - RUNS A TEST =====================================================
-.controller('run', ['$scope','$http', '$stateParams','$state', function($scope, $http,$stateParams,$state){
+.controller('run', ['$scope','$http', '$location','$stateParams','$state', function($scope, $http,$location,$stateParams,$state){
     // set up controller-wide variables
     $scope.session = {};
     $scope.flows = {};
@@ -746,7 +746,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
             $scope.selectedIndex = index;
             $scope.parentIndex = parentIndex;
 
-            // $scope.step.current = $scope.flows[parentIndex].steps[index]._id;
+            $scope.step.current = $scope.flows[parentIndex].steps[index]._id;
             var step = $scope.flows[parentIndex].steps[index];
 
             if ( index == 0){
@@ -802,7 +802,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
                 }
             }
             
-            var url = '/api/run/message/';
+            console.log('note', note);
+
+            var url = '/api/message/';
             var dataOut = note;
 
             $http.post(url, dataOut)
@@ -817,9 +819,14 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
         }
 
     $scope.postTest = function(session){
-        var url = '/api/session'+session_id;
+        var url = '/api/session/'+session._id;
+        var dataOut = session;
+
+        console.log(session._id)
+        console.log(session)
+
         $http
-            .put(url)
+            .put(url, dataOut)
             .success(function(data){
                 console.log('Session updated', data);
                 $location.path('/');
