@@ -734,17 +734,24 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
             // // set the initial timeline contents
             var message = {};
 
+            $scope.parentIndex = 0;
+            $scope.selectedIndex = 0;
+
             message.body = $scope.flows[0].name;
             message.title = 'Starting flow';
             $scope.timeline.push(message);
 
-            // // set the initial reporting step
+            // reset message to set the initial reporting step
             $scope.step.current = $scope.flows[0].steps[0]._id;
+            console.log('pushing first steps', $scope.flows[0].steps[0].name)
+            
+            message = {};
+            message.body =  $scope.flows[0].steps[0].name;
+            message.title = 'Starting step'
+            $scope.timeline.push(message);
+        
         })
 
-        // select the initial 'activated' values
-        $scope.selectedIndex = 0;
-        $scope.parentIndex = 0;
 
         $scope.addUser = function(textfield){
             console.log(textfield);            
@@ -754,10 +761,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
         }
 
         $scope.activate = function (index, parentIndex, step) {
-            var stepType = 'Starting flow';
-            if (parentIndex == $scope.parentIndex){
-                stepType = 'Starting step';
-            }
+            console.log('touched activate', step)
+            console.log('parent', $scope.flows[parentIndex]._id)
+
 
             $scope.selectedIndex = index;
             $scope.parentIndex = parentIndex;
