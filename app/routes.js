@@ -24,18 +24,6 @@ router.use(function(req, res, next) {
 // get/post to /api routes.
 router.route('/')
 	.get(function(req, res) {
-<<<<<<< HEAD
-		// get all flows in the database
-		// organize them by session
-			Session.find(function(err, sessions) {
-				if (err)
-					res.send(err);
-				res.json(sessions);
-			});
-		})
-	// this needs to *only* be touched when creating a new Session, not a new test.
-	// sessions cannot be individually deleted until reporting.
-=======
 		// get all the flows in the db
 		// do nothing with them - this route is for testing
 			Session.find({})
@@ -50,7 +38,6 @@ router.route('/')
 			    )
 					
 	});
->>>>>>> dev
 
 
 // SESSION ROUTES ================================================

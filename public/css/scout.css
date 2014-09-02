@@ -170,9 +170,6 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #timeline { overflow: auto; padding: 50px 0 170px 0; height: 100%; margin: 0; background: url("../assets/timeline-line.gif") repeat-y 24px top; }
 #timeline ul { list-style: none; padding: 0; margin: 0; }
 #timeline ul li { padding: 0; margin: 0; }
-#timeline ul .message-title { border-top: 2px solid #efefe7; }
-#timeline ul .message-title p { font-weight: bold; }
-#timeline ul .message-title .message-details .message-details-avatar { background: none !important; }
 #timeline ul .message { padding: 8px 0 0 16px; font-size: 14.4px; line-height: 19.2px; margin: 0 0 10px 0; }
 #timeline ul .message .message-details { float: left; }
 #timeline ul .message .message-details .message-details-avatar { width: 20px; text-align: center; overflow: hidden; margin: 0 10px 0 0; padding: 0; background: white; font-size: 9.6px; font-family: "adelle-sans", sans-serif; font-style: normal; font-weight: 700; }
@@ -192,7 +189,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #timeline-device img { width: 100%; height: auto; border: 2px solid #e9e9de; }
 
 /* questions/list of things style */
-#questions { min-height: 100%; padding-top: 50px; background: #41454a; color: white; }
+#questions { height: 100%; padding-top: 50px; background: #41454a; color: white; }
 #questions .questions-group { padding: 0; margin: 0; -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; opacity: 0.4; }
 #questions .questions-group.active { opacity: 1.0; }
 #questions .questions-group small { margin: 0; padding: 0; opacity: 0.5; }
@@ -389,10 +386,9 @@ body { background: #f3f3ed; color: #41454a; margin: 0; padding: 0; }
 #view-summarizing #middle-pane #tags-showhide label { display: block; margin: 5px 0 10px 0; line-height: 19.2px; }
 #view-summarizing #middle-pane #tags-showhide .deactivated { opacity: 0.4; }
 #view-summarizing #right-pane { padding: 0; margin: 0; background: white; overflow: hidden; }
-#view-summarizing #timeline { padding-top: 70px; overflow: auto; }
+#view-summarizing #timeline { margin-top: 50px; overflow: auto; }
 #view-summarizing #timeline .message .message-body { width: 75%; }
 #view-summarizing #timeline .message .message-fave { float: left; margin: 0 0 0 10px; font-size: 24px; }
-#view-summarizing #timeline .message .message-fave a { text-decoration: none; cursor: pointer; }
 
 /* let's summarize TAGS */
 #view-summarizingtags { margin: 0; padding: 0; height: 100%; width: 100%; background: white; }
@@ -456,8 +452,8 @@ body { background: #f3f3ed; color: #41454a; margin: 0; padding: 0; }
 .theme-messages .message.title .message-details .message-details-avatar, .theme-messages .message.status .message-details .message-details-avatar { border: none; }
 .theme-messages .message.title small, .theme-messages .message.status small { opacity: 0.5; }
 .theme-messages .message .message-details { float: left; }
-.theme-messages .message .message-details .message-details-avatar { width: 20px; height: 20px; margin: 0 10px 0 0; }
-.theme-messages .message .message-details .message-details-avatar img { width: 20px; height: auto; opacity: 0.4; }
+.theme-messages .message .message-details .message-details-avatar { width: 30px; height: 30px; -moz-border-radius: 30px; -webkit-border-radius: 30px; border-radius: 30px; overflow: hidden; margin: 0 10px 0 0; border: 3px solid #f3f3ed; }
+.theme-messages .message .message-details .message-details-avatar img { width: 25px; height: auto; }
 .theme-messages .message .message-body { float: left; width: 90%; }
 .theme-messages .message .message-body p { margin-bottom: 0; }
 .theme-messages .message .message-body p .tag { padding: 0 3.33333px; }

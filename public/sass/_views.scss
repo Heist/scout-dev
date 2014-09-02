@@ -449,7 +449,7 @@
 	}
 	
 	#timeline {
-		padding-top: $pad*3.5;
+		margin-top: 50px;
 		overflow: auto;
 		
 		.message {
@@ -461,11 +461,6 @@
 				float: left;
 				margin: 0 0 0 $pad/2;
 				font-size: $type-size-base*1.5;
-				
-				a {
-					text-decoration: none;
-					cursor: pointer;
-				}
 			}
 		}
 	}
@@ -829,14 +824,16 @@
 			float: left;
 			
 			.message-details-avatar {
-				width: 20px;
-				height: 20px;
+				width: 30px;
+				height: 30px;
+				@include radius(30px);
+				overflow: hidden;
 				margin: 0 $pad/2 0 0;
-								
+				border: 3px solid $background;
+				
 				img {
-					width: 20px;
+					width: 25px;
 					height: auto;
-					opacity: 0.4;
 				}
 			}
 			

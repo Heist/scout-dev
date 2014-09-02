@@ -125,37 +125,6 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
     }
 }])
 
-// DIRECTIVES =========================================================================
-
-.directive('scrollItem',function(){
-    return{
-    restrict: "A",
-    link: function(scope, element, attributes) {
-        if (scope.$last){
-           scope.$emit("Finished");
-           console.log("Finished loading")
-       }
-    }
-   }
-})
-
-
-.directive('scrollIf', function() {
-return{
-    restrict: "A",
-    link: function(scope, element, attributes) {
-        scope.$on("Finished",function(){
-            var chat_height = element.outerHeight();
-            console.log('chat_height', chat_height);
-            element.animate({scrollTop: chat_height}, 300); 
-        });
-    }
-   }
-  })
-
-
-  
-
 // CONTROLLERS ========================================================================
 
 // REPORT CONTROLLER ===========================================================
@@ -486,21 +455,6 @@ return{
     // Add and remove flows from tests.
     $scope.postFlow = function(session){
             console.log('touched addaflow ', session);
-<<<<<<< HEAD
-            var flow = {}
-            
-            flow.title = 'New Flow Name Goes Here';
-            flow.flowKey = keygen();
-            flow.steps = [];
-
-            console.log('new flow', flow);
-
-            // this is so .put can sniff what's going on
-            var wrapper = { 'flow': flow };
-            
-            var url = '/api/test/'+session.testKey;
-            console.log(url);
-=======
 
             var flow = {};
 
@@ -509,19 +463,13 @@ return{
 
             var url = '/api/flow/';
             var data_out = flow
->>>>>>> dev
             
             $http
                 .post(url, data_out)
                 .success(function(data){
                     console.log('new flow added '+ JSON.stringify(data));
-<<<<<<< HEAD
-                    $scope.selected = data;
-                    
-=======
                     session.flows.push(data);
 
->>>>>>> dev
                 })
                 .error(function(data){
                     console.log(JSON.stringify(data))
