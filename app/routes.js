@@ -477,23 +477,23 @@ router.route('/run/:session_id')
 router.route('/report/:session_id')
 	.get(function(req, res){
 		console.log('touched report get')
-		Session.findById(req.params.session_id)
-			.populate('flows')
+
+
+		Flow.find('req.params.session_id')
+			.populate('steps')
 			.exec(
-				function(err,session)
-				{
-					if (err)
-						res.send(err);
+				function(err,flows){
+					console.log('flows', flows)
+					for(var i = 0; i < flows.length; i++){
+						Step.populate(flows[i].steps, {path: 'messages'}, function (err, steps) {
+							console.log('steps w msg', steps)
+							console.log('flows', flows.steps.length)
+			             // res.json(session)
+			         	})
+					}
+					
 
-				 Flow.populate(session.flows, {path: 'steps'}, function (err, flows) {
-				 	console.log(flows);
-		             session.flows = flows;
-		             
-		            
-		             res.json(session)
-
-		         })
-				})
-	});
+				});
+	});		
 
 module.exports = router;
