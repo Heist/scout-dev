@@ -676,6 +676,11 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             });
     }
 
+    $scope.goHome = function(flow){
+        $scope.updateFlow(flow)
+        $location.path('/'+flow._session);
+    }
+
     $scope.updateFlow = function(flow){
         // Put to this URL the entire data object from this controller
         // technically this is created when we hit Add on prev. page
@@ -693,7 +698,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             .put(url, data_out, {timeout:5000})
             .success(function(data){
                 console.log('flow has pushed', data);
-                // $location.path('/'+flow._session);
              })
             .error(function(data){
                 console.log('error', data)
