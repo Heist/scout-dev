@@ -1,7 +1,7 @@
 "use strict";
 // app.js
 
-var scoutApp = angular.module('scoutApp',['ui','ui.router', 'ngSanitize']);
+var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize']);
 
 // function list for working with arrays
 
@@ -17,7 +17,7 @@ function keygen(){
 }
 
 // FRONT-END ROUTE CONFIGURATION ================================================
-scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
+field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
 	$locationProvider
 		.html5Mode(true);
 
@@ -124,6 +124,9 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
         return $sce.trustAsHtml(text);
     }
 }])
+
+
+
 
 // CONTROLLERS ========================================================================
 
@@ -615,10 +618,18 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
 		// Clone the original item to restore it on demand.
 		$scope.originalStep = angular.extend({}, step);
 	}
+
 	
 	// what is our drag handle - this should be a directive.
+
+
 	$scope.sortableOptions = {
 	    handle: '> .step-hamburger',
+        update: function(e, ui) {
+            console.log('touched sortable list')
+            console.log($scope.flow);
+            $scope.updateFlow($scope.flow)
+          }
 	};
 
 	$scope.blurTitle = function (step){
@@ -668,13 +679,13 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
     $scope.updateFlow = function(flow){
         // Put to this URL the entire data object from this controller
         // technically this is created when we hit Add on prev. page
-        console.log('touched update flow')
+        console.log('touched update flow', flow)
 
         var url = '/api/flow/'+$stateParams.flow_id;
-        var data_out = $scope.flow;
+        var data_out = flow;
 
-        if (!$scope.flow.title){
-            $scope.flow.title = 'New Flow Name Goes Here';
+        if (!flow.title){
+            flow.title = 'New Flow Name Goes Here';
         }
 
         // reminder: this pushes an update to an already-created flow now
@@ -682,7 +693,7 @@ scoutApp.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locati
             .put(url, data_out, {timeout:5000})
             .success(function(data){
                 console.log('flow has pushed', data);
-                $location.path('/'+flow._session);
+                // $location.path('/'+flow._session);
              })
             .error(function(data){
                 console.log('error', data)

@@ -203,12 +203,23 @@ router.route('/flow/:flow_id')
 	// update one flow with new information
 	.put(function(req,res){
 		console.log('touched flow put', req.body)
+		var steps = [];
+
+		if(req.body.steps){
+			for(var i = 0; i < req.body.steps.length; i++){
+				steps.push(req.body.steps[i]._id);
+			}
+		}
+
+		console.log('steps', steps);
+
 		Flow.findById(req.params.flow_id)
 			.exec(function(err,flow){
 				console.log('touched flow update', flow)
 				flow.name = req.body.name;
 				flow.desc = req.body.desc;
 				flow.platform = req.body.platform;
+				flow.steps = 
 				flow.link = req.body.link;
 				console.log(flow.steps);
 

@@ -1,5 +1,5 @@
 // db.js
 
 module.exports = {
-	url : 'mongodb://localhost/scoutApp'
+	url : 'mongodb://localhost/field_guide_app'
 }
