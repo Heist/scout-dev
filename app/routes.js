@@ -205,6 +205,7 @@ router.route('/flow/:flow_id')
 		console.log('touched flow put', req.body)
 		var steps = [];
 
+		// TODO - this might kick up weird bugs if there are no steps.
 		if(req.body.steps){
 			for(var i = 0; i < req.body.steps.length; i++){
 				steps.push(req.body.steps[i]._id);
@@ -219,7 +220,7 @@ router.route('/flow/:flow_id')
 				flow.name = req.body.name;
 				flow.desc = req.body.desc;
 				flow.platform = req.body.platform;
-				flow.steps = 
+				flow.steps = steps;
 				flow.link = req.body.link;
 				console.log(flow.steps);
 
