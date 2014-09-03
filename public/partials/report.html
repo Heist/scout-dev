@@ -18,7 +18,7 @@
 			<div id="questions">
 		
 			<div class="questions-group active">
-				<ul ng-repeat="flow in session.summaries">
+				<ul ng-repeat="flow in session.flows">
 						<li ui-sref=".flow" ng-click="select(flow)" ng-class="{ 'active': flow.title == selected.title}">
 							<!-- flow title --><small>Flow</small> {{flow.title}}
 						</li>

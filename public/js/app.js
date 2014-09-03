@@ -58,7 +58,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
         // REPORT PAGE WITH NESTED VIEWS =====================
         .state('report', {
-            url: '/report/:testKey/',
+            url: '/report/:session_id/',
             templateUrl: 'partials/report.html'
         })
         .state('report.flow', {
@@ -136,7 +136,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $scope.session = {};
 
     if($stateParams.flowName){
-        $http.get('/api/report/'+$stateParams.testKey+'/flow/'+$stateParams.flowName)
+        $http.get('/api/report/'+$stateParams.session_id+'/flow/'+$stateParams.flowName)
             .success(function(data){
               $scope.session = data;
               console.log('the report object', $scope.session);
@@ -145,15 +145,13 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
               console.log($scope.selected);
         })
     } else {
-        $http.get('/api/report/'+$stateParams.testKey)
+        $http.get('/api/report/'+$stateParams.session_id)
             .success(function(data){
               $scope.session = data;
               console.log('the report object', $scope.session);
-              $scope.selected = data.summaries[0];
-
-              console.log($scope.selected);
             })
         }
+
     $scope.select = function(selector){
         $scope.selected = selector;
         

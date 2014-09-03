@@ -37,7 +37,7 @@
 						<div class="test-controls">
 							<button class="button small secondary" ng-click="runTest(session)" ng-show="session.flows.length > 0 && session.flows[0].steps.length > 0">Run Test</button>
 							
-							<button class="button small" ng-click="loadReport(session.testKey)" ng-show="session.runcount > 0">Report</button>
+							<button class="button small" ng-click="loadReport(session._id)" ng-show="session.runcount > 0">Report</button>
 							
 							<button class="button small destructive" ng-click="removeSession(session)">&times;</button> 
 						</div>
