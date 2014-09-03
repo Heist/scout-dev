@@ -106,7 +106,7 @@
 			width: 150px;
 			height: 150px;
 			@include radius(100px);
-			background: $white;
+			background: $background;
 			
 			img {
 				width: 90%;
@@ -134,7 +134,7 @@
 	padding: $pad/2;
 	width: 100%;
 	height: auto;
-	border: 2px solid $line-tan;
+	border: 2px solid $line;
 	@include radius(10px);
 	margin: 40% auto 0 auto;
 	
@@ -142,7 +142,7 @@
 	img {
 		width: 100%;
 		height: auto;
-		border: 2px solid $line-tan;
+		border: 2px solid $line;
 	}
 }
 

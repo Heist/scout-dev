@@ -1,32 +1,11 @@
 <!-- summary.html -->
 
-<div id="view-summarizing" ng-controller="summary" id="#view-summarizingtags">
-<!-- header nav -->
-<div ng-model='flow'>
-<div id="header">
-	
-	<div id="header-logo">
-		&nbsp;
-	</div>
-	
-	<div id="header-title">Summarizing &ldquo;{{flow.title}}&rdquo;</div>
-	
-	<div id="header-account">
-		<div id="header-account-avatar">
-			<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg">
-		</div>
-		<div id="header-account-dropdown">&#9662;</div>
-	</div>
-	
-	
-	<div id="header-nav">
-		<button class="button small" ng-click="summary_tags(flow)">Add summaries for tags &raquo;</button>
-		<button class="button small" ng-click="completeSummary(flow)">&check; Done Summarizing</button>
-	</div>
-			
-			
+<div id="view-summarizing" ng-controller="summary">
 
-</div>
+<div ng-model='flow'>
+
+
+<ng-include src="'partials/header.html'"></ng-include>
 
 <!-- / header nav -->
 

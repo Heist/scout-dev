@@ -13,23 +13,18 @@
 }
 
 
-.grid {
-    max-width: $max-width;
-    min-width: $min-width;
-    margin: 0 auto;
-    
-    &:after {
-      content: "";
-      display: table;
-      clear: both;
-    }
+.fixedwidth {
+	width: 80%;
+	max-width: 1100px;
+	min-width: 800px;
+	padding: 0;
+	margin: 0 auto;
 }
 
 .module {
-    display: inline-block;
+    display: block;
     float: left;
-    padding-left: $pad/2;
-    padding-right: $pad/2;
+    padding: 0 $pad;
 }
 
  
@@ -50,10 +45,20 @@
 .twelfth { width: 8.3333%; }
     .five-twelfths { width: 41.6665%; }
 
- 
+
+
+/* title bar area */
+
+.titleband {
+	padding: 50px 0 0 0;
+	width: 100%;
+	background: $fg-tan;
+	color: #393532;
+	border-bottom: 1px solid $fg-tan-dark;
+	margin: 0 0 $pad 0;
+}
 
 /* flexible columns for three-column pages */
-
 
 
 #left-pane, #middle-pane, #right-pane, #large-pane {
@@ -75,14 +80,6 @@
 #large-pane {
 	width: 67%;
 }
-
-
-/* fix up Angular containers so everything sits correctly */
-
-.ng-valid, .ng-invalid, .ng-dirty, .ng-pristine, .ng-touched, .ng-untouched {
-	height: 100%;
-}
-
 
 
 

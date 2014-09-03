@@ -4,11 +4,6 @@ typography
 */ 
 
 
-html, body {
-	width: 100%;
-	height: 100%;
-}
-
 body {
 	font-size: $type-size-base;
 	line-height: $type-line-base;
@@ -34,29 +29,35 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-	font-size: $type-size-base*3.25;
+	font-size: $type-size-base*1.75;
 	@include type-light;
 	letter-spacing: -1px;
 	margin: 0 0 $pad 0;
 }
 
 h2 {
-	font-size: $type-size-base*2.25;
-	@include type-light;
+	font-size: $type-size-base*1.5;
+	@include type-regular;
 	letter-spacing: -1px;
 	margin: 0 0 $pad 0;
 }
 
 h3 {
 	font-size: $type-size-base*1.25;
-	@include type-extrabold;
+	@include type-regular;
 	margin: 0 0 $pad/2 0;
 }
 
 h4 {
 	font-size: $type-size-base*1.25;
-	@include type-light;
-	margin: 0 0 $pad/2 0;
+	@include type-regular;
+	margin: 0 0 0 0;
+}
+
+h2, h3, h4 {
+	.faded {
+		@include type-light;
+	}
 }
 
 
@@ -92,27 +93,19 @@ p.big {
 }
 
 .small, small {
-	font-size: $type-size-base*0.8;
+	font-size: $type-size-base*0.75;
 	line-height: inherit;
+	@include type-bold;
 }
 p.small {
-	line-height: $type-line-base*0.8;
+	line-height: $type-line-base*0.75;
 }
 
-/* fun styling */
-
-.numberball {
-	display: inline-block;
-	min-width: 30px;
-	padding: $pad/4;
-	margin-top: -$pad/4;
-	margin-right: $pad/4;
-	text-align: center;
-	vertical-align: middle;
-	background: $scout-brown;
-	color: $background;
-	@include radius(40px);
+.faded {
+	opacity: 0.6;
 }
+
+
 
 /* lists */
 
@@ -151,16 +144,16 @@ ul {
 			span {
 				display: inline-block;
 				@include radius;
-				background: $scout-tan-overlay;
+				background: $fg-tan;
 				padding: $pad/3 $pad/2;
-				border: 2px solid $scout-tan-overlay;
+				border: 2px solid $fg-tan;
 			}
 			
 			a {
 				display: inline-block;
 				@include radius;
-				background: $link-bg;
-				border: 2px solid $link-bg;
+				background: $fg-tan;
+				border: 2px solid $fg-tan;
 				padding: $pad/3 $pad/2;
 				
 				&:hover {
@@ -189,7 +182,7 @@ ul.lined {
 .tag {
 	display: inline-block;
 	@include radius;
-	background: $scout-tan-overlay;
+	background: $fg-tan;
 	padding: $pad/3 $pad/2;
 }
 

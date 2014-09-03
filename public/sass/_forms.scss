@@ -23,12 +23,11 @@ form {
 
 .input {
 	background: $white; 
-	border: 2px solid $white;
-	@include dropshadow(0px 0px 4px, rgba(0,0,0,0.1));
+	border: 2px solid $line;
 	padding: $pad/2;
 
 	&:focus {
-		border: 2px solid $scout-blue;
+		border: 2px solid $fg-green;
 	}
 	
 }
@@ -41,20 +40,17 @@ textarea.input {
 	color: transparentize($text, 0.4);
 }
 
+
 /* button colour mixin */
 
-
-
-
 .button {
-	@include button-colour($scout-blue, $white);
+	@include button-colour($fg-green, $white);
 	cursor: pointer;
-	padding: $pad/2 $pad/1.25;
-	
+	padding: $pad/2 $pad/1.5;
 	
 	&.small {
 		font-size: $type-size-base*0.8;
-		padding: $pad/7 $pad/3;
+		padding: $pad/8 $pad/2;
 	}
 	
 	
@@ -64,13 +60,16 @@ textarea.input {
 	}
 	
 	&.destructive {
-		@include button-colour($red, $white);
+		@include button-colour($fg-header-red, $white);
 	}
 	
 	&.secondary {
-		@include button-colour($scout-blue, $white);
+		@include button-colour($text, $white);
 	}
 	
+	&.header {
+		@include button-colour($white, $fg-header-red);
+	}
 }
 
 

@@ -2,10 +2,11 @@
 
 
 
+
 /* LOGIN */
 
 #view-login {
-	background: $scout-brown;
+	background: $fg-brown;
 	color: $white;
 
 	input, button {
@@ -23,7 +24,7 @@
 
 
 #view-observer-login {
-	background: $scout-brown;
+	background: $fg-brown;
 	background-size: cover;
 	color: $white;
 
@@ -46,7 +47,7 @@
 	#form-observer-login {
 		margin: $pad*2 0 0 0;
 		padding: $pad $pad 0 $pad;
-		background: transparentize($scout-brown, 0.3);
+		background: transparentize($fg-brown, 0.3);
 		@include radius;
 	}
 	
@@ -62,81 +63,6 @@
 	}
 }
 
-
-
-/* SESSION OVERVIEW */
-
-#view-overview {
-	padding-top: $pad*4;	
-	
-	.session {
-	
-		.session-meta {
-			border-bottom: 2px solid $line;
-			margin: $pad 0;
-			
-			.session-name {
-				float: left;
-				font-size: $type-size-base*0.8;
-				font-weight: bold;
-				color: $text-light;
-				width: 80%;
-							
-				h4 {
-					margin: 0;
-					padding: 0;
-					line-height: $type-line-base*1.4;
-					display: inline-block;
-					color: $text;
-					
-					img {
-						height: 14px;
-						width: auto;
-						opacity: 0.3;
-					}
-				}
-			}
-			
-			/* when editing title */
-			form {
-				padding: 0;
-				margin: 0;
-				width: 80%;
-				float: left;
-				
-				input {
-					margin: 0;
-					padding: 0;
-					border: none;
-					font-size: $type-size-base*1.25;
-					@include type-light;
-					line-height: $type-line-base*1.4;
-					display: inline-block;
-					color: $text;
-					width: 80%;
-					background: none;
-					outline: none;
-				}
-			}
-			
-			.session-controls {
-				float: right;
-				margin: 0 0 $pad/2 0;
-				
-				.button {
-					line-height: $type-line-base*0.8;
-					
-					&.destructive {
-						margin-left: $pad/2;
-					}
-				}
-			}
-		}
-	
-		
-	}
-	
-}
 
 
 
@@ -184,10 +110,8 @@
 	padding: 0;
 	height: 100%;
 	width: 100%;
-	background: $white;
 		
 	#left-pane {
-		background: $background;
 		border-right: 2px solid $line;
 	
 		input[type=text] {
@@ -222,13 +146,13 @@
 			padding: $pad/2 $pad/2;
 			
 			&.selected {
-				background: $scout-brown;
+				background: $fg-brown;
 				color: $white;
 				@include radius;
 				position: relative;
 				
 				.selected-arrow {
-					color: $scout-brown;
+					color: $fg-brown;
 					position: absolute;
 					top: 11px;
 					right: -12px;
@@ -311,7 +235,7 @@
 		padding: 0;
 		
 		.questions-group {
-			border-top: 2px solid $line-dark;
+			border-top: 2px solid $line;
 			
 			&:nth-child(1) {
 				border-top: none;
@@ -347,7 +271,7 @@
 		margin: 0;
 		position: relative;
 		overflow: hidden;
-		background: $white;
+		
 		border-left: 2px solid $line;
 		border-right: 2px solid $line;
 		
@@ -384,7 +308,7 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: transparentize($scout-brown, 0.06);
+	background: transparentize($fg-brown, 0.06);
 	z-index: 99999;
 	color: $white;
 	margin: 0;
@@ -444,7 +368,6 @@
 	#right-pane {
 		padding: 0;
 		margin: 0;
-		background: $white;	
 		overflow: hidden;
 	}
 	
@@ -480,15 +403,13 @@
 	padding: 0;
 	height: 100%;
 	width: 100%;
-	background: $white;
 	
 	#left-pane {
-		background: $background;
 	
 		.active span {
-			background: $scout-blue;
+			background: $fg-green;
 			color: $white;
-			border: 2px solid $scout-blue;
+			border: 2px solid $fg-green;
 		}
 	}
 	
@@ -526,16 +447,10 @@
 	
 	#large-pane {
 		padding: $pad*5 $pad*3 $pad*3 $pad*3;
-		background: $white;
 		border-left: 2px solid $line;	
 	}
 
-	
-	h1, h2, h3 {	
-		span {
-			color: $text-light;
-		}
-	}
+
 	
 	.report-title {
 		padding: 0;
@@ -545,12 +460,10 @@
 	
 	.report-detail {
 		font-weight: bold;
-		color: $text-light;
 		margin-top: -$pad;
 	}
 	
 	p.report-participants {
-		color: $text-light;
 		font-size: $type-size-base*0.8;
 		font-weight: bold;
 		padding: 0;
@@ -595,207 +508,48 @@
 }
 
 
-/* rebuild of overview screen */
-
-
-
-#view-overview-neu {
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	width: 100%;
-	
-	#left-pane {
-		padding: 0;
-		
-		#questions {
-			.test-newtest {
-				cursor: default;
-				
-				&:hover {
-					box-shadow: none;
-				}
-			
-				.test-newtest-create {
-					text-align: center;
-					background: none;
-					padding: $pad;
-					border: 2px dashed $line-dark;
-					@include radius(10px);
-				}
-			}
-		
-			.question {
-				padding: $pad;
-			
-				.session-name {
-					img {
-						width: 14px;
-						height: auto;
-						opacity: 0.4;
-						display: none;
-					}
-				}
-				
-				&.active {
-					.session-name img {
-						display: inline-block;
-						cursor: pointer;
-					}
-				}
-			
-				h4 {
-					font-size: $type-size-base*1.1;
-					line-height: $type-line-base*0.9;
-					margin-bottom: 0;
-				}
-				
-				.input {
-					font-size: $type-size-base*1.1;
-					line-height: $type-line-base*0.9;
-					margin-bottom: 0;
-					padding: 0;
-					color: $white;
-					background: none;
-					outline: none;
-					border: none;
-				}
-				
-				
-				small {
-					font-size: $type-size-base*0.7;
-					font-weight: bold;
-					text-transform: uppercase;					
-				}
-			
-				.test-controls {
-					float: right;
-					padding: 0;
-					margin-left: $pad;
-					margin-top: -3px;
-					display: none;
-				}
-				
-				&.active {
-					.test-controls {
-						display: block;
-					}
-					
-					h4 {
-						font-weight: normal;
-					}
-				}
-				
-			}
-		}
-	}
-	
-	#large-pane {
-		padding: $pad*5 $pad*3 $pad*3 $pad*3;
-		
-		background: $white;
-		border-left: 2px solid $line;	
-		
-		h3 {
-			margin-bottom: $pad;
-		}
-		
-		.session-flow {
-			border-top: 2px solid $line;
-			background: $white;
-			padding: $pad/2 0 $pad 0;			
-			@include radius(0);
-			
-			h3 {
-				border: none;
-				padding: 0;
-				margin: -6px 0 0 0;
-			}
-		
-			.session-flow-controls {
-				padding-top: $pad/2;
-				float: right;
-				opacity: 0.2;
-				@include animate;	
-			}
-			
-			.flow-hamburger {
-				font-size: $type-size-base*2;
-				float: left;
-				margin: 0 $pad/2 0 0;
-				padding: $pad/1.5 0 0 0;
-				cursor: move;
-			}
-			
-			&.empty {
-				margin-top: $pad/2;
-				padding: $pad/2;
-				border: 2px dashed $line;
-				@include radius(10px);
-			}
-			
-			&:hover {
-				.session-flow-controls {
-					opacity: 1.0;
-					@include animate;
-				}
-			}
-			
-		}
-		
-	}
-
-	
-	h1, h2, h3 {	
-		span {
-			color: $text-light;
-		}
-	}
-	
-	
-	
-}
-
-
 
 /* pulled out flow view boxes so we can use those everywhere */
 
 .session-flow {
-	background: $background-dark;
-	@include radius(10px);
-	padding: $pad*0.5 $pad 0 $pad;
+	border-top: 1px solid $line;
+	padding: $pad/1.5 0;
+	
+	&:first-child {
+		border-top: none;
+	}
 	
 	&.empty {
 		text-align: center;
 		background: none;
 		padding: $pad;
-		border: 2px dashed $line;
+		border: 1px dashed $line;
 	}
-	
-	h3 {
-		margin-bottom: $pad;
-		font-size: $type-size-base*1.5;
-	}
-	
-	small {
-		color: $text-light;
-	}
-	
 		
 	.session-flow-controls {
-		padding: 0;
-		line-height: $type-line-base*0.8;
-		
-		ul {
-			border-top: 2px solid $line;
-			padding: $pad*0.5 0 $pad 0;
-			
-			li {
-				padding: $pad*0.2 0;
-			}
-		}
-
+		float: right;
+		opacity: 0.2;
+		@include animate;	
 	}
+	
+	.flow-hamburger {
+		font-size: $type-size-base*1.5;
+		float: left;
+		margin: 2px $pad/2 0 0;
+		cursor: move;
+	}
+		
+	&:hover {
+		.session-flow-controls {
+			opacity: 1.0;
+			@include animate;
+		}
+	}
+	
+	h4 {
+		margin: $pad/3 0 0 0;
+	}	
+	
 
 }
 

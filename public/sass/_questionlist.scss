@@ -1,10 +1,7 @@
 /* questions/list of things style */
 
 #questions {
-	min-height: 100%;
-	padding-top: 50px;
-	background: $dark;
-	color: $white;
+	
 	
 	.questions-group {
 		padding: 0;
@@ -41,7 +38,7 @@
 				line-height: $type-line-base*0.8;
 				
 				&:hover {
-					box-shadow: inset 0px 0px 0px 3px $scout-blue;
+					box-shadow: inset 0px 0px 0px 3px $fg-green;
 					cursor: pointer;
 				}
 				
@@ -85,9 +82,10 @@
 				}
 				
 				&.active {
-					background: $dark-light;
+					background: $fg-brown;
+					color: $white;
 					position: relative;
-					
+					@include radius;
 					
 					&:hover {
 						cursor: auto;

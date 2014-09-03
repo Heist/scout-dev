@@ -1,23 +1,22 @@
 /*
-Scout
+Field Guide
 Master Sass
 ========================
 */
 
+
 /* components */
 
 @import "variables";
-@import "breakpoints";
 @import "colours";
 @import "fonts";
 @import "helpers";
 
 @import "forms";
 @import "grid";
-@import "timeline";
-@import "questionlist";
+
 @import "typography";
-@import "elements";
+
 
 /* code that is NOT specific to a component or module */
 
@@ -30,6 +29,8 @@ Master Sass
 html {
 	margin: 0;
 	padding: 0;
+	width: 100%;
+	height: 100%;
 }
 
 body {
@@ -42,7 +43,11 @@ body {
 
 /* specific modules */
 
+@import "timeline";
+@import "questionlist";
 @import "header";
+@import "overview";
+
 @import "views";
 
 
