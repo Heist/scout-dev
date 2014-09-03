@@ -12,6 +12,10 @@ var StepSchema = new Schema ({
 		type: Schema.Types.ObjectId, 
 		ref: 'Flow'
 	},
+	_session : {
+		type: Schema.Types.ObjectId, 
+		ref: 'Session'
+	},
 	desc : {
 			type : String,
 			trim : true
@@ -21,8 +25,7 @@ var StepSchema = new Schema ({
 		},
 	updated: {
 			type: Date
-		},
-	messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }]
+		}
 })
 
 mongoose.model('Step', StepSchema);

@@ -567,6 +567,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
         step.name = "edit me";
         step._flow = $stateParams.flow_id;
+        step._session = $scope.flow._session;
          
         var url = '/api/step/';
         var data_out = step;
@@ -759,7 +760,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             $scope.selectedIndex = index;
             $scope.parentIndex = parentIndex;
 
-            $scope.step.current = $scope.flows[parentIndex].steps[index]._id;
+            $scope.step.current = $scope.flows[parentIndex].steps[index];
             var step = $scope.flows[parentIndex].steps[index];
 
             if ( index == 0){
@@ -796,7 +797,10 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             note.tags = [];
             note.created = new Date();
              
-            note._step = $scope.step.current;
+            note._step = $scope.step.current._id;
+            note._flow = $scope.step.current._flow;
+            note._session = $stateParams.sessionId;
+
             note.user = $scope.user.name;
             note.key = $scope.testKey;
 

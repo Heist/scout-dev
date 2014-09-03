@@ -8,6 +8,14 @@ var MessageSchema = new Schema ({
 		type: Schema.Types.ObjectId, 
 		ref: 'Step'
 	},
+	_flow:{
+		type: Schema.Types.ObjectId, 
+		ref: 'Flow'
+	},
+	_session : {
+		type: Schema.Types.ObjectId, 
+		ref: 'Session'
+	},
 	key:{
 		type: Number
 	},

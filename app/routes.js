@@ -288,7 +288,8 @@ router.route('/step/')
 
 		step.name = req.body.name;
 		step._flow = req.body._flow;
-		
+		step._session =  req.body._session;
+
 		step.save(function(err, step){
 			if (err)
 				res.send(err);
@@ -381,7 +382,6 @@ router.route('/message/')
 		Message.find(function(err, messages) {
 				if (err)
 					res.send(err);
-
 				res.json(messages);
 			});
 	})
@@ -390,8 +390,10 @@ router.route('/message/')
 		var msg = new Message();
 		console.log('message id', msg._id)
 
-		msg._step	 = req.body._step;
 		msg.created_by  = req.body.created_by;
+		msg._step	 = req.body._step;
+		msg._flow	 = req.body._flow;
+		msg._session = req.body._session;
 		msg.body	 = req.body.body;
 		msg.user 	 = req.body.user;
 		msg.tags 	 = req.body.tags;
@@ -400,21 +402,10 @@ router.route('/message/')
 		msg.save(function(err, msg){
 			if (err)
 				res.send(err);
-			
-			Step.findById( req.body._step, function(err,step){
-				console.log(step._id);
-
-				step.messages.push(msg._id);
-				step.save(function(err,data){
-					if (err)
-						res.send(err);
-
-				})
-			
-			res.json(step);
+						
+			res.json(msg);
 
 			});
-		})
 	});
 
 router.route('/message/:message_id')
@@ -477,22 +468,22 @@ router.route('/run/:session_id')
 router.route('/report/:session_id')
 	.get(function(req, res){
 		console.log('touched report get')
-
-
 		Flow.find('req.params.session_id')
 			.populate('steps')
 			.exec(
 				function(err,flows){
-					console.log('flows', flows)
+					var returnable = [];
+					console.log(flows.length);
 					for(var i = 0; i < flows.length; i++){
+						console.log(flows[i].steps);
 						Step.populate(flows[i].steps, {path: 'messages'}, function (err, steps) {
-							console.log('steps w msg', steps)
-							console.log('flows', flows.steps.length)
-			             // res.json(session)
-			         	})
-					}
-					
-
+							console.log(steps);
+							// flows[i].steps = steps;
+							// returnable.push(flows[i]);
+						})}						
+		         	// }
+		         	// console.log(returnable);
+		         	// res.json(returnable);
 				});
 	});		
 
