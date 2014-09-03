@@ -468,6 +468,7 @@ router.route('/run/:session_id')
 router.route('/report/:session_id')
 	.get(function(req, res){
 		console.log('touched report get')
+		
 		Flow.find('req.params.session_id')
 			.populate('steps')
 			.exec(
