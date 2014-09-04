@@ -166,9 +166,19 @@ router.route('/flow/')
 			flow.save(function(err, flow){
 				if (err)
 					res.send(err);
-									
+				
+				Session.findById( flow._session, function(err,session){
+					console.log(flow._id);
+
+					session.flows.push(flow._id);
+					session.save(function(err,data){
+						if (err)
+							res.send(err);
+					})
+				
 				res.json(flow);				
-				})
+				});
+			})
 	});
 
 
@@ -283,9 +293,20 @@ router.route('/step/')
 			if (err)
 				res.send(err);
 			
+			Flow.findById( step._flow, function(err,flow){
+				console.log(step._id);
+
+				flow.steps.push(step._id);
+				flow.save(function(err,data){
+					if (err)
+						res.send(err);
+
+				})
+			
 			res.json(step);
 
-			})
+			});
+		})
 	});
 
 router.route('/step/:_id')
