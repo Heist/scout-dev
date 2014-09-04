@@ -75,9 +75,9 @@
 	<h3>Add Steps</h3>
 	<p>Steps are the pages or views in your prototype. They should follow the intended user path of your prototype pretty closely.</p>
 
-	<ul id="steps" class="lined" ui-sortable="sortableOptions" ng-model='steps' >
+	<ul id="steps" class="lined" ui-sortable="sortableOptions" ng-model='flow.steps' >
 
-		<li ng-repeat="step in steps" ng-class="{selected: isActive(step)}" ng-click="select(step)" ng-blur="">
+		<li ng-repeat="step in flow.steps" ng-class="{selected: isActive(step)}" ng-click="select(step)" ng-blur="">
 		
 			<div class="step-hamburger">≡</div>
 

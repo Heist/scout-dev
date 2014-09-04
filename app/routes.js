@@ -190,23 +190,12 @@ router.route('/flow/:_id')
 
 		// we need to find the flow itself
 		Flow.findById(req.params._id)
+			.populate('steps')
 			.exec(function(err,flow){
 				if (err)
 					res.send(err);
 			console.log('i touched a flow', flow)
-			reply.flow = flow;
-
-			Step.find({_flow:req.params._id})
-				.exec(function(err, steps){
-					if (err)
-						res.send(err);
-					console.log('steps found', steps)
-					reply.steps = steps;
-
-					console.log('reply', reply)
-					res.json(reply)
-			});
-
+			res.json(flow);
 		});
 
 		// we need to know if there are steps belonging to flow
