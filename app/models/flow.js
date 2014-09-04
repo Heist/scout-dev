@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 
 var FlowSchema = new Schema({
 		_session : { type: Schema.Types.ObjectId, ref: 'Session' },
+		_steps: [{ type: Schema.Types.ObjectId, ref: 'Step'}],
 		name 	: {
 			type: String, 
 			trim: true, 
@@ -36,7 +37,6 @@ var FlowSchema = new Schema({
 			trim:true
 		},
 		runcount : Number,
-
 		summary: String
 	});
 

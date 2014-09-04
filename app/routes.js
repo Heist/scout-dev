@@ -185,19 +185,25 @@ router.route('/flow/:_id')
 					res.send(err);
 			console.log('i touched a flow', flow)
 			reply.flow = flow;
+
+			Step.find({_flow:req.params._id})
+				.exec(function(err, steps){
+					if (err)
+						res.send(err);
+					console.log('steps found', steps)
+					reply.steps = steps;
+
+					console.log('reply', reply)
+					res.json(reply)
+			});
+
 		});
 
 		// we need to know if there are steps belonging to flow
-		Step.find({_flow:req.params._id})
-			.exec(function(err, steps){
-				if (err)
-					res.send(err);
-				console.log('steps found', steps)
-				reply.steps = steps;
-		});
+		
 
 		console.log('reply', reply)
-		res.json(reply);
+		
 	})
 
 	// update one flow with new information
