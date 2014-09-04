@@ -777,9 +777,19 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         };
 
         $scope.addUser = function(textfield){
-            console.log(textfield);            
-            $scope.user.name = textfield;
-            $scope.user.toggle = true;
+            console.log(textfield);
+
+            var url = 'api/user/';
+            var data_out = {name : textfield};
+
+            $http
+                .post(url, data_out)
+                .success(function(data){
+                    $scope.user.name = data;
+                })
+                .error(function(data){
+                    console.log('Error: ' + data);
+                })
         }
 
         $scope.postMessage = function(message){
