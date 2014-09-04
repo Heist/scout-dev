@@ -185,7 +185,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $scope.summary = {};
 
     // on load, get our information
-    $http.get('/api/summary/'+$stateParams.summaryID)
+    $http.get('/api/summary/'+$stateParams.summaryID+'/tags/')
         .success(function(data){
           $scope.flow = data;
         })
@@ -255,7 +255,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 }])
 
 
-// SUMMARY CONTROLLER - STEPS/FLOW  ==========================================
+// SUMMARY CONTROLLER ==========================================
 
 .controller('summary', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
 	$scope.flow = {};
@@ -264,14 +264,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     // set selected step for main flow
     $scope.step = {};
 
-    // for summarizing tags
-    $scope.summary = {};
-
-    // a function to return the steps from a set of flows
-    // the scan those steps for their tags
-    // then return that matched set to the step
-    // this could possibly be done on the back end
-    // console.log('summaryID', $stateParams.summaryID)
     $http.get('/api/summary/'+$stateParams.summaryID)
         .success(function(data){
           $scope.flow = data;

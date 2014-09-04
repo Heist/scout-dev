@@ -9,7 +9,7 @@
 		&nbsp;
 	</div>
 	
-	<div id="header-title">Summarizing &ldquo;{{flow.title}}&rdquo;</div>
+	<div id="header-title">Summarizing &ldquo;{{flow.name}}&rdquo;</div>
 	
 	<div id="header-account">
 		<div id="header-account-avatar">
@@ -39,8 +39,8 @@
 		
 		<div class="questions-group active">
 			<ul>
-				<li ng-model='flow' ui-sref=".flow" ng-click="activate($index, $parent.$index, flow)"><!-- flow title --><small>Flow</small><br/>
-					{{flow.title}}</li>
+				<li ng-model='flow' ui-sref=".flow" ng-click="activate($index, $parent.$index, flow)"><!-- flow.name --><small>Flow</small><br/>
+					{{flow.name}}</li>
 				<li class="question" ng-repeat="step in flow.steps" ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }" ng-click="activate($index, $parent.$index, step)"
 				ui-sref=".step">
 					<span>{{step.name}}</span>
