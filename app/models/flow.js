@@ -36,7 +36,8 @@ var FlowSchema = new Schema({
 			trim:true
 		},
 		runcount : Number,
-		steps: [{ type: Schema.Types.ObjectId, ref: 'Step' }]
+		steps: [{ type: Schema.Types.ObjectId, ref: 'Step' }],
+		summary: String
 	});
 
 mongoose.model('Flow', FlowSchema);

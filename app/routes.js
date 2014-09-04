@@ -10,6 +10,7 @@ var Step 	= require('./models/step');
 var Flow    = require('./models/flow');
 var Session = require('./models/session');
 var Summary = require('./models/summary');
+var Tag = require('./models/tag');
 
 // console logging =====================================================
 
@@ -396,17 +397,34 @@ router.route('/message/')
 		msg._session = req.body._session;
 		msg.body	 = req.body.body;
 		msg.user 	 = req.body.user;
-		msg.tags 	 = req.body.tags;
 		msg.key		 = req.body.key;
 		
 		msg.save(function(err, msg){
 			if (err)
 				res.send(err);
-						
-			res.json(msg);
 
-			});
+			if(req.body.tags){
+					for( var i = 0; i < req.body.tags.length; i++){
+						var tag = new Tag();
+
+						tag._step	 = req.body._step;
+						tag._flow	 = req.body._flow;
+						tag._session = req.body._session;
+						tag._message = msg._id;
+						tag.body	 = req.body.tags[i];
+
+						tag.save(function(err, tag){
+							if (err)
+								res.send(err);
+						})
+					}
+				}
+
+			res.json(msg);
+		})
 	});
+		
+
 
 router.route('/message/:message_id')
 	.get(function(req,res){
@@ -421,7 +439,16 @@ router.route('/message/:message_id')
 			})
 	});
 
+// TAG ROUTES ================================================
+router.route('/tag/')
+	.get(function(req,res){
+		Tag.find(function(err, tags) {
+				if (err)
+					res.send(err);
 
+				res.json(tags);
+			});
+		});
 
 // RUN ROUTES ================================================
 router.route('/run/')
@@ -468,7 +495,7 @@ router.route('/run/:session_id')
 router.route('/report/:session_id')
 	.get(function(req, res){
 		console.log('touched report get')
-		
+
 		Flow.find('req.params.session_id')
 			.populate('steps')
 			.exec(

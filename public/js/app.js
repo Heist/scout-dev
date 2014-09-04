@@ -512,19 +512,17 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     }
 
     // add a new summary and launch summary
-    $scope.summarizeFlow = function(testKey, flowKey){
+    $scope.summarizeFlow = function(flow_id){
 
-        console.log('touched key', flowKey)
-        
-        var url = '/api/test/'+ testKey +'/flow/'+flowKey;
+        console.log('touched key', flow_id)
 
-        console.log(url);
+        var url = '/api/summary/'+ flow_id;
 
         $http.post(url)
         .success(function(data){
           console.log('the flow object from overview', data);
             // set new location path
-            $location.path('/summary/'+data._id+'/flow/');
+            $location.path('/summary/'+ flow_id);
         })
         .error(function(data){
             console.log('touched error message');
@@ -755,7 +753,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
         $scope.activate = function(index, parentIndex) {
             console.log('parent', $scope.flows[parentIndex]._id)
-            console.log('step', $scope.flows[parentIndex].steps[index]._id)
+            console.log('step', $scope.flows[parentIndex].steps)
 
             $scope.selectedIndex = index;
             $scope.parentIndex = parentIndex;
