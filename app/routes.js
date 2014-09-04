@@ -476,7 +476,17 @@ router.route('/run/:session_id')
 
 router.route('/summary/:_id')
 	.get(function(req, res){
-		console.log('touched summary', req.params._id)
+		// console.log('touched summary', req.params._id)
+		var reply = {};
+
+		Flow.findById(req.params._id)
+			.populate('steps')
+			.exec(function(err, flow){
+				if (err)
+					res.send(err);
+				res.json(flow)
+				console.log(flow)
+			})
 	});
 
 // REPORT ROUTES =============================================

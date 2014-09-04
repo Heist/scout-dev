@@ -42,7 +42,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
         // SUMMARIZE VIEW ====================================
         .state('summary', {
-            url: '/summary/:summaryID/flow/',
+            url: '/summary/:summaryID',
             templateUrl: 'partials/summary.html'
         })
         .state('summary.flow', {
@@ -185,7 +185,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $scope.summary = {};
 
     // on load, get our information
-    $http.get('/api/summary/'+$stateParams.summaryID+'/flow/')
+    $http.get('/api/summary/'+$stateParams.summaryID)
         .success(function(data){
           $scope.flow = data;
         })
@@ -272,7 +272,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     // then return that matched set to the step
     // this could possibly be done on the back end
     // console.log('summaryID', $stateParams.summaryID)
-    $http.get('/api/summary/'+$stateParams.summaryID+'/flow/')
+    $http.get('/api/summary/'+$stateParams.summaryID)
         .success(function(data){
           $scope.flow = data;
           console.log('the flow object', $scope.flow);
@@ -520,9 +520,9 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
         $http.get(url)
         .success(function(data){
-          console.log('the flow object from overview', data);
+          console.log('the flow object from overview', data._id);
             // set new location path
-            // $location.path('/summary/'+ flow_id);
+            $location.path('/summary/'+data._id);
         })
         .error(function(data){
             console.log('touched error message');
