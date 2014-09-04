@@ -223,13 +223,15 @@ router.route('/flow/:_id')
 		Flow.findById(req.params._id)
 			.exec(function(err,flow){
 				console.log('touched flow update', flow)
-				flow.name = req.body.name;
-				flow.desc = req.body.desc;
-				flow.platform = req.body.platform;
-				flow.steps = steps;
-				flow.link = req.body.link;
-				flow.users.push(req.body.user);
-				console.log(flow.steps);
+				
+				if(req.body.name){flow.name = req.body.name}
+				if(req.body.desc){flow.desc = req.body.desc}
+				if(req.body.platform){flow.platform = req.body.platform}
+				if(req.body.steps){flow.steps = steps}
+				if(req.body.link){flow.link = req.body.link}
+				if(req.body.user){flow.users.push(req.body.user)}
+				
+				console.log(flow);
 
 				flow.save(function(err, data){
 					if(err)

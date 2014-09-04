@@ -755,16 +755,21 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 message.body=$scope.flows[parentIndex].name;
                 $scope.timeline.push(message);
 
-                // var data_out = {user : $scope.user._id};
-                // var url = '/api/flow/'+$stateParams.flow_id;
-                // $http
-                //     .put(url,data_out)
-                //     .success(function(data){
-                //         console.log('user added ', data);
-                //     })
-                //     .error(function(data){
-                //         console.log('Error: ' + data);
-                //     })
+                var data_out = {user : $scope.user._id};
+                var url = '/api/flow/'+$scope.flows[parentIndex]._id;
+
+                console.log(data_out);
+                console.log(url)
+
+                
+                $http
+                    .put(url,data_out)
+                    .success(function(data){
+                        console.log('user added ', data);
+                    })
+                    .error(function(data){
+                        console.log('Error: ' + data);
+                    })
             }
 
             var message = {};
