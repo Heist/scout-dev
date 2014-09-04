@@ -507,18 +507,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $scope.summarizeFlow = function(flow_id){
 
         console.log('touched key', flow_id)
-
-        var url = '/api/summary/'+ flow_id;
-
-        $http.get(url)
-        .success(function(data){
-          console.log('the flow object from overview', data._id);
-            // set new location path
-            $location.path('/summary/'+data._id);
-        })
-        .error(function(data){
-            console.log('touched error message');
-        })
+        $location.path('/summary/'+ flow_id);
     }
 
     // Launch the current report

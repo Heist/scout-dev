@@ -404,17 +404,22 @@ router.route('/message/')
 					tag._message = msg._id;
 					tag.body	 = req.body.tags[i];
 
-					if (err)
-						res.send(err);
-
-					Flow.findById( req.body._flow, function(err,flow){
-						console.log(flow)
-						flow.tags.push(tag._id);
-						flow.save(function(err,data){
-							if (err)
-								res.send(err);									
+					tag.save(function(err, tag){
+						if (err)
+							res.send(err);
+	
+						Flow.findById( req.body._flow, function(err,flow){
+							console.log(flow)
+							flow.tags.push(tag._id);
+							flow.save(function(err,data){
+								if (err)
+									res.send(err);									
+							})
 						})
+						console.log(tag)
 					})
+
+
 				}
 			}
 		})
@@ -492,7 +497,7 @@ router.route('/summary/:_id')
 		var reply = {};
 
 		Flow.findById(req.params._id)
-			.populate('steps')
+			.populate('steps tags')
 			.exec(function(err, flow){
 				if (err)
 					res.send(err);
@@ -502,14 +507,7 @@ router.route('/summary/:_id')
 						if (err)
 							res.send(err);
 						reply.messages = msgs;
-						Tag.find({_flow:req.params._id})
-							.exec(function(err, tags){
-								if (err)
-									res.send(err);
-								reply.flow.tags = tags;
-								console.log(reply);
-								res.json(reply);
-							})
+						res.json(reply);
 					})
 			})
 	});
