@@ -268,6 +268,24 @@ router.route('/flow/:_id')
 			if (err)
 				res.send(err);
 
+			Session.findOne({'_id': flow._session}, function(err, session){
+				console.log('found session ', session._id);
+				console.log(session.flows);
+
+				// TODO: when this sort of thing fails to work,
+				// it populates the array in question with a ton of ghosts.
+				session.flows.remove(req.params._id)
+
+				session.save(function(err,data){
+					if (err)
+						res.send(err);
+
+					console.log(data);
+					res.json(req.params._id);
+				})
+
+			})
+
 			console.log(flow);
 
 		})
@@ -276,6 +294,20 @@ router.route('/flow/:_id')
 					res.send(err);
 		});
 
+		Step.find({_flow:req.params._id}).remove(function(err){
+			if (err)
+				res.send(err);
+		});
+
+		Message.find({_flow:req.params._id}).remove(function(err){
+			if (err)
+				res.send(err);
+		});
+
+		Tag.find({_flow:req.params._id}).remove(function(err){
+			if (err)
+				res.send(err);
+		});
 
 	});
 
@@ -382,6 +414,18 @@ router.route('/step/:_id')
 			if (err)
 					res.send(err);
 		});
+
+
+		Message.find({_step:req.params._id}).remove(function(err){
+			if (err)
+				res.send(err);
+		});
+
+		Tag.find({_step:req.params._id}).remove(function(err){
+			if (err)
+				res.send(err);
+		});
+
 	});
 
 // MESSAGE ROUTES  ================================================
