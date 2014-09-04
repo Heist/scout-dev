@@ -518,11 +518,11 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
         var url = '/api/summary/'+ flow_id;
 
-        $http.post(url)
+        $http.get(url)
         .success(function(data){
           console.log('the flow object from overview', data);
             // set new location path
-            $location.path('/summary/'+ flow_id);
+            // $location.path('/summary/'+ flow_id);
         })
         .error(function(data){
             console.log('touched error message');

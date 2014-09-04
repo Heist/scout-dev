@@ -472,6 +472,13 @@ router.route('/run/:session_id')
 			});
 	});
 
+// SUMMARY ROUTES ============================================
+
+router.route('/summary/:_id')
+	.get(function(req, res){
+		console.log('touched summary', req.params._id)
+	});
+
 // REPORT ROUTES =============================================
 
 router.route('/report/:session_id')
