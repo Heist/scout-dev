@@ -35,9 +35,7 @@ router.route('/')
 						res.send(err);
 			             res.json(sessions)
 
-			         }
-			    )
-					
+			         })
 	});
 
 
@@ -59,8 +57,7 @@ router.route('/session/')
 					// count the number of distinct keys and return as 
 					// sessions.runcount
 					res.json(sessions);
-				}
-			);
+				})
 	})
 
 	// add a new session - this could be an upsert?
@@ -157,7 +154,7 @@ router.route('/flow/')
 					res.send(err);
 
 				res.json(flows);
-			});
+			})
 	})
 	// add a new flow to the session
 	.post(function(req,res){
@@ -171,10 +168,8 @@ router.route('/flow/')
 					res.send(err);
 									
 				res.json(flow);				
-				});
-			})
+				})
 	});
-	;
 
 
 router.route('/flow/:_id')
@@ -288,8 +283,7 @@ router.route('/step/')
 			
 			res.json(step);
 
-			});
-		})
+			})
 	});
 
 router.route('/step/:_id')
@@ -428,7 +422,7 @@ router.route('/tag/')
 					res.send(err);
 
 				res.json(tags);
-			});
+			})
 		});
 
 router.route('/tag/:_id')	
@@ -436,29 +430,14 @@ router.route('/tag/:_id')
 		Tag.findById(req.params._id,function(err, tags) {
 				if (err)
 					res.send(err);
-
 				res.json(tags);
-			});
+			})
 	});
 
 // RUN ROUTES ================================================
 router.route('/run/')
 	.get(function(req,res){
-		// find, populate and return:
-		// flows by session with their steps by flow counted
-
-		// on the front end:
-		// flows should have it set whether they have a .summary or not
-		// flows should have their steps counted
-		// sessions should be associated to their flows.
-
-		// object shape:
-		// session.flows.length
-		// session 
-		// flow.summary
-		// flows.steps.length
-
-	});
+		});
 
 // How to populate subdocuments is in here.
 router.route('/run/:session_id')
@@ -486,24 +465,6 @@ router.route('/run/:session_id')
 router.route('/report/:session_id')
 	.get(function(req, res){
 		console.log('touched report get')
-
-		Flow.find('req.params.session_id')
-			.populate('steps')
-			.exec(
-				function(err,flows){
-					var returnable = [];
-					console.log(flows.length);
-					for(var i = 0; i < flows.length; i++){
-						console.log(flows[i].steps);
-						Step.populate(flows[i].steps, {path: 'messages'}, function (err, steps) {
-							console.log(steps);
-							// flows[i].steps = steps;
-							// returnable.push(flows[i]);
-						})}						
-		         	// }
-		         	// console.log(returnable);
-		         	// res.json(returnable);
-				});
 	});		
 
 module.exports = router;
