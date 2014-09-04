@@ -734,7 +734,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             // // set the initial timeline contents
             var message = {};
 
-            $scope.activate(0,0)
         })
 
         $scope.activate = function(index, parentIndex) {
@@ -756,16 +755,16 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 message.body=$scope.flows[parentIndex].name;
                 $scope.timeline.push(message);
 
-                var data_out = {user : $scope.user._id};
-                var url = '/api/flow/'+$stateParams.flow_id;
-                $http
-                    .put(url,data_out)
-                    .success(function(data){
-                        console.log('user added ', data);
-                    })
-                    .error(function(data){
-                        console.log('Error: ' + data);
-                    })
+                // var data_out = {user : $scope.user._id};
+                // var url = '/api/flow/'+$stateParams.flow_id;
+                // $http
+                //     .put(url,data_out)
+                //     .success(function(data){
+                //         console.log('user added ', data);
+                //     })
+                //     .error(function(data){
+                //         console.log('Error: ' + data);
+                //     })
             }
 
             var message = {};
@@ -787,6 +786,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 .success(function(data){
                     $scope.user = data;
                     $scope.user.toggle = true;
+                    $scope.activate(0,0);
                 })
                 .error(function(data){
                     console.log('Error: ' + data);

@@ -472,7 +472,21 @@ router.route('/user/')
 					res.send(err);
 				res.json(users)	
 			})
-		});
+		})
+	.post(function(req,res){
+			console.log('touched add user', req.body);
+
+			var user = new User();
+
+			user.name	 = req.body.name;
+			
+			user.save(function(err, data){
+				if(err)
+					res.send(err);
+				console.log(data);
+				res.json(data)
+			});
+	});
 
 
 // RUN ROUTES ================================================
