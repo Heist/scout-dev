@@ -11,6 +11,7 @@ var Flow    = require('./models/flow');
 var Session = require('./models/session');
 var Summary = require('./models/summary');
 var Tag = require('./models/tag');
+var User = require('./models/user');
 
 // console logging =====================================================
 
@@ -462,6 +463,17 @@ router.route('/tag/:_id')
 	.post(function(req,res){
 
 	});
+
+// USER ROUTES ===============================================
+router.route('/user/')
+	.get(function(req,res){
+			User.find(function(err,users){
+				if(err)
+					res.send(err);
+				res.json(users)	
+			})
+		});
+
 
 // RUN ROUTES ================================================
 router.route('/run/')

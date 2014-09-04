@@ -9,7 +9,7 @@ var UserSchema = new Schema ({
 	updated : Date
 })
 
-Schema.pre('save', function(next){
+UserSchema.pre('save', function(next){
   var now = new Date();
   this.updated = now;
   if ( !this.created ) {

@@ -756,7 +756,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 message.body=$scope.flows[parentIndex].name;
                 $scope.timeline.push(message);
 
-                var data_out = {user : $scope.user.name};
+                var data_out = {user : $scope.user._id};
                 var url = '/api/flow/'+$stateParams.flow_id;
                 $http
                     .put(url,data_out)
@@ -785,7 +785,8 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             $http
                 .post(url, data_out)
                 .success(function(data){
-                    $scope.user.name = data;
+                    $scope.user = data;
+                    $scope.user.toggle = true;
                 })
                 .error(function(data){
                     console.log('Error: ' + data);
