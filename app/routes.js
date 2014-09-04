@@ -82,9 +82,9 @@ router.route('/session/')
 				});
 	});
 
-router.route('/session/:session_id')
+router.route('/session/:_id')
 	.get(function(req,res){
-		Session.findById(req.params.session_id)
+		Session.findById(req.params._id)
 			.populate('flows')
 			.exec(function(err, session){
 				console.log('session, populated', session);
@@ -93,9 +93,9 @@ router.route('/session/:session_id')
 	})
 	// deletes all sessions and subdocuments - steps, flows, reports, summaries.
 	.delete(function(req,res){
-		console.log('session delete', req.params.session_id);
+		console.log('session delete', req.params._id);
 
-		Session.findById(req.params.session_id).remove(function(err){
+		Session.findById(req.params._id).remove(function(err){
 			if (err)
 				res.send(err);
 		});
@@ -103,15 +103,15 @@ router.route('/session/:session_id')
 		// TODO: extend to remove all child flows
 		// console.log('Successfully deleted session with', req.params.session_id)
 		
-		res.json(req.params.session_id);
+		res.json(req.params._id);
 	})
 
 	// change the name of the session
 	.put(function(req,res){
 		console.log('session put request', req.body);
-		console.log('session put request', req.params.session_id);
+		console.log('session put request', req.params._id);
 
-		Session.findById(req.params.session_id, function(err, session){
+		Session.findById(req.params._id, function(err, session){
 			if (err)
 				res.send(err);
 			
@@ -132,10 +132,10 @@ router.route('/session/:session_id')
 		})
 	});
 
-router.route('/session/:session_id/flow/')
+router.route('/session/:_id/flow/')
 	// get all flows by session
 	.get(function(req,res){
-		Flow.find({'session': req.params.session_id})
+		Flow.find({'session': req.params._id})
 			.exec(function (err, flows) {
 	  			if (err)
 					res.send(err);
@@ -177,11 +177,11 @@ router.route('/flow/')
 	;
 
 
-router.route('/flow/:flow_id')
+router.route('/flow/:_id')
 	.get(function(req,res){
 		// get one specific flow
 		console.log('hello hello flow')
-		Flow.findById(req.params.flow_id)
+		Flow.findById(req.params._id)
 			.populate('steps')
 			.exec(function(err,flow){
 				if (err)
@@ -206,7 +206,7 @@ router.route('/flow/:flow_id')
 
 		console.log('steps', steps);
 
-		Flow.findById(req.params.flow_id)
+		Flow.findById(req.params._id)
 			.exec(function(err,flow){
 				console.log('touched flow update', flow)
 				flow.name = req.body.name;
@@ -228,9 +228,9 @@ router.route('/flow/:flow_id')
 	.delete(function(req,res){
 		// deletes a single flow by id
 
-		console.log('delete this flow', req.params.flow_id)
+		console.log('delete this flow', req.params._id)
 
-		Flow.findById(req.params.flow_id, function(err, flow){
+		Flow.findById(req.params._id, function(err, flow){
 			if (err)
 				res.send(err);
 
@@ -242,14 +242,14 @@ router.route('/flow/:flow_id')
 
 				// TODO: when this sort of thing fails to work,
 				// it populates the array in question with a ton of ghosts.
-				session.flows.remove(req.params.flow_id)
+				session.flows.remove(req.params._id)
 
 				session.save(function(err,data){
 					if (err)
 						res.send(err);
 
 					console.log(data);
-					res.json(req.params.flow_id);
+					res.json(req.params._id);
 				})
 
 			})
@@ -292,10 +292,10 @@ router.route('/step/')
 		})
 	});
 
-router.route('/step/:step_id')
+router.route('/step/:_id')
 	// get single step
 	.get(function(req,res){
-		Step.findById(req.params.step_id)
+		Step.findById(req.params._id)
 			.exec(function(err,step){
 				if (err)
 					res.send(err);
@@ -306,7 +306,7 @@ router.route('/step/:step_id')
 	
 	// update a single step
 	.put(function(req,res){
-		Step.findById(req.params.step_id, function(err, step){
+		Step.findById(req.params._id, function(err, step){
 			if (err)
 				res.send(err);
 
@@ -325,9 +325,9 @@ router.route('/step/:step_id')
 
 	// delete a step
 	.delete(function(req,res){
-		console.log('delete this step', req.params.step_id)
+		console.log('delete this step', req.params._id)
 
-		Step.findById(req.params.step_id, function(err, step){
+		Step.findById(req.params._id, function(err, step){
 			if (err)
 				res.send(err);
 
@@ -339,14 +339,14 @@ router.route('/step/:step_id')
 
 				// TODO: when this sort of thing fails to work,
 				// it populates the array in question with a ton of ghosts.
-				flow.steps.remove(req.params.step_id)
+				flow.steps.remove(req.params._id)
 
 				flow.save(function(err,data){
 					if (err)
 						res.send(err);
 
 					console.log(data);
-					res.json(req.params.step_id);
+					res.json(req.params._id);
 				})
 
 			})
@@ -407,11 +407,11 @@ router.route('/message/')
 		
 
 
-router.route('/message/:message_id')
+router.route('/message/:_id')
 	.get(function(req,res){
 		// get one specific flow
 		console.log(req)
-		Message.findById(req.params.message_id)
+		Message.findById(req.params._id)
 			.exec(function(err,msg){
 				if (err)
 					res.send(err);
@@ -430,6 +430,16 @@ router.route('/tag/')
 				res.json(tags);
 			});
 		});
+
+router.route('/tag/:_id')	
+	.put(function(req,res){
+		Tag.findById(req.params._id,function(err, tags) {
+				if (err)
+					res.send(err);
+
+				res.json(tags);
+			});
+	});
 
 // RUN ROUTES ================================================
 router.route('/run/')
