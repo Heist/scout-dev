@@ -5,13 +5,13 @@ var Schema = mongoose.Schema;
 
 var SummarySchema = new Schema ({
   _session : Number,
-  _flow : Number,
+  _flow   : Number,
   _steps  : [{ type: Schema.Types.ObjectId, ref: 'Step' }],
-  _tags    : [{ type: Schema.Types.ObjectId, ref: 'Step' }],
-  title : {type: String, trim: true},
-	summary: String,
+  _tag    : [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
+  title   : {type: String, trim: true},
+	summary : {type: String, trim: true},
   created : Date,
-	updated : Date,  
+	updated : Date
 })
 
 SummarySchema.pre('save', function(next){
