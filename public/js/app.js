@@ -266,8 +266,13 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
     $http.get('/api/summary/'+$stateParams.summaryID)
         .success(function(data){
-          $scope.flow = data;
-          console.log('the flow object', $scope.flow);
+          $scope.flow = data.flow;
+          $scope.messages = data.messages;
+          
+        // We need: the flow
+        // all steps and tags in the flow
+        // all messages ... which can be sorted by step.
+
         })
 
     $scope.activate = function (index, parentIndex, step) {
@@ -276,7 +281,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
         // passes the step title to the global variable from flows[0].steps[step]
         $scope.step = step;
-
+        console.log('step', step);
         //pass all of the tags inside of flows[allflows].steps[step] to an array 
     };
 
@@ -750,6 +755,17 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 message.title='Starting Flow'
                 message.body=$scope.flows[parentIndex].name;
                 $scope.timeline.push(message);
+
+                var data_out = {user : $scope.user.name};
+                var url = '/api/flow/'+$stateParams.flow_id;
+                $http
+                    .put(url,data_out)
+                    .success(function(data){
+                        console.log('user added ', data);
+                    })
+                    .error(function(data){
+                        console.log('Error: ' + data);
+                    })
             }
 
             var message = {};
@@ -764,9 +780,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             console.log(textfield);            
             $scope.user.name = textfield;
             $scope.user.toggle = true;
-
         }
-
 
         $scope.postMessage = function(message){
             // here we create a note object

@@ -7,6 +7,7 @@ var FlowSchema = new Schema({
 		_session : { type: Schema.Types.ObjectId, ref: 'Session' },
 		tags : [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
 		steps: [{ type: Schema.Types.ObjectId, ref: 'Step'}],
+		users: [{ type: Schema.Types.ObjectId, ref: 'User'}],
 		name 	: {
 			type: String, 
 			trim: true, 
@@ -36,8 +37,6 @@ var FlowSchema = new Schema({
 		runcount : Number,
 		summary: String
 	});
-
-mongoose.model('Flow', FlowSchema);
 
 FlowSchema.pre('save', function(next){
   var now = new Date();

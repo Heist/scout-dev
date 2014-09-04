@@ -33,7 +33,6 @@ var TagSchema = new Schema({
 		type:String,
 		trim:true
 	}
-
 });
 
 module.exports = mongoose.model('Tag', TagSchema);

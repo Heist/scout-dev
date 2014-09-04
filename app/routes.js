@@ -227,6 +227,7 @@ router.route('/flow/:_id')
 				flow.platform = req.body.platform;
 				flow.steps = steps;
 				flow.link = req.body.link;
+				flow.users.push(req.body.user);
 				console.log(flow.steps);
 
 				flow.save(function(err, data){
@@ -410,6 +411,7 @@ router.route('/message/')
 	
 						Flow.findById( req.body._flow, function(err,flow){
 							console.log(flow)
+
 							flow.tags.push(tag._id);
 							flow.save(function(err,data){
 								if (err)
@@ -418,8 +420,6 @@ router.route('/message/')
 						})
 						console.log(tag)
 					})
-
-
 				}
 			}
 		})
@@ -495,6 +495,10 @@ router.route('/summary/:_id')
 	.get(function(req, res){
 		// console.log('touched summary', req.params._id)
 		var reply = {};
+
+		// We need: the flow
+		// all steps and tags in the flow
+		// all messages ... which can be sorted by step.
 
 		Flow.findById(req.params._id)
 			.populate('steps tags')
