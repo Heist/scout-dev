@@ -36,7 +36,7 @@ var FlowSchema = new Schema({
 			trim:true
 		},
 		runcount : Number,
-		steps: [{ type: Schema.Types.ObjectId, ref: 'Step' }],
+
 		summary: String
 	});
 

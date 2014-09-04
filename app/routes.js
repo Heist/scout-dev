@@ -295,16 +295,6 @@ router.route('/step/')
 			if (err)
 				res.send(err);
 			
-			Flow.findById( step._flow, function(err,flow){
-				console.log(step._id);
-
-				flow.steps.push(step._id);
-				flow.save(function(err,data){
-					if (err)
-						res.send(err);
-
-				})
-			
 			res.json(step);
 
 			});
