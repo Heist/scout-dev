@@ -25,7 +25,11 @@ var StepSchema = new Schema ({
 		},
 	updated: {
 			type: Date
-		}
+		},
+	pass_fail: {
+		type: Boolean,
+		default: false
+	}
 })
 
 StepSchema.pre('save', function(next){
