@@ -169,16 +169,7 @@ router.route('/flow/')
 			flow.save(function(err, flow){
 				if (err)
 					res.send(err);
-				
-				Session.findById( flow._session, function(err,session){
-					console.log(flow._id);
-
-					session.flows.push(flow._id);
-					session.save(function(err,data){
-						if (err)
-							res.send(err);
-					})
-				
+									
 				res.json(flow);				
 				});
 			})

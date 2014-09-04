@@ -28,8 +28,6 @@ var StepSchema = new Schema ({
 		}
 })
 
-mongoose.model('Step', StepSchema);
-
 StepSchema.pre('save', function(next){
   var now = new Date();
   this.updated = now;

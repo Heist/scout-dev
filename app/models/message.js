@@ -39,8 +39,6 @@ var MessageSchema = new Schema ({
 	}
 })
 
-mongoose.model('Message', MessageSchema);
-
 MessageSchema.pre('save', function(next){
   var now = new Date();
   if ( !this.created ) {

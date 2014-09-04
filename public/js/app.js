@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 // app.js
 
 var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize']);
