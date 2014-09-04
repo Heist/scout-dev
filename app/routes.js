@@ -387,27 +387,36 @@ router.route('/message/')
 		msg.key		 = req.body.key;
 		
 		msg.save(function(err, msg){
+			// save the new message
 			if (err)
 				res.send(err);
 
-			if(req.body.tags){
-					for( var i = 0; i < req.body.tags.length; i++){
-						var tag = new Tag();
-
-						tag._step	 = req.body._step;
-						tag._flow	 = req.body._flow;
-						tag._session = req.body._session;
-						tag._message = msg._id;
-						tag.body	 = req.body.tags[i];
-
-						tag.save(function(err, tag){
-							if (err)
-								res.send(err);
-						})
-					}
-				}
-
 			res.json(msg);
+
+			//if there are tags, add them to the DB and the Flow (and the Step?)
+			if(req.body.tags){
+				for( var i = 0; i < req.body.tags.length; i++){
+					var tag = new Tag();
+
+					tag._step	 = req.body._step;
+					tag._flow	 = req.body._flow;
+					tag._session = req.body._session;
+					tag._message = msg._id;
+					tag.body	 = req.body.tags[i];
+
+					if (err)
+						res.send(err);
+
+					Flow.findById( req.body._flow, function(err,flow){
+						console.log(flow)
+						flow.tags.push(tag._id);
+						flow.save(function(err,data){
+							if (err)
+								res.send(err);									
+						})
+					})
+				}
+			}
 		})
 	});
 		
@@ -438,12 +447,15 @@ router.route('/tag/')
 		});
 
 router.route('/tag/:_id')	
-	.put(function(req,res){
+	.get(function(req,res){
 		Tag.findById(req.params._id,function(err, tags) {
 				if (err)
 					res.send(err);
 				res.json(tags);
 			})
+	})
+	.post(function(req,res){
+
 	});
 
 // RUN ROUTES ================================================
@@ -484,8 +496,21 @@ router.route('/summary/:_id')
 			.exec(function(err, flow){
 				if (err)
 					res.send(err);
-				res.json(flow)
-				console.log(flow)
+				reply.flow=flow;
+				Message.find({_flow:req.params._id})
+					.exec(function(err, msgs){
+						if (err)
+							res.send(err);
+						reply.messages = msgs;
+						Tag.find({_flow:req.params._id})
+							.exec(function(err, tags){
+								if (err)
+									res.send(err);
+								reply.flow.tags = tags;
+								console.log(reply);
+								res.json(reply);
+							})
+					})
 			})
 	});
 

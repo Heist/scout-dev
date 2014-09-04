@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 
 var FlowSchema = new Schema({
 		_session : { type: Schema.Types.ObjectId, ref: 'Session' },
+		tags : [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
 		steps: [{ type: Schema.Types.ObjectId, ref: 'Step'}],
 		name 	: {
 			type: String, 
@@ -31,10 +32,6 @@ var FlowSchema = new Schema({
 		},
 		updated: {
 			type: Date
-		},
-		tags : {
-			type: [String], 
-			trim:true
 		},
 		runcount : Number,
 		summary: String
