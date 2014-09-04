@@ -176,15 +176,28 @@ router.route('/flow/:_id')
 	.get(function(req,res){
 		// get one specific flow
 		console.log('hello hello flow')
+		var reply = {};
+
+		// we need to find the flow itself
 		Flow.findById(req.params._id)
-			.populate('steps')
 			.exec(function(err,flow){
 				if (err)
 					res.send(err);
 			console.log('i touched a flow', flow)
-			res.json(flow);
+			reply.flow = flow;
+		})
 
-			})
+		// we need to know if there are steps belonging to flow
+		Step.find(_flow:req.params._id,)
+			.exec(function(err, steps){
+				if (err)
+					res.send(err);
+				console.log('steps found', steps)
+				reply.steps = steps;
+		})
+
+		console.log('reply', reply)
+		res.json(reply);
 	})
 
 	// update one flow with new information
@@ -230,23 +243,7 @@ router.route('/flow/:_id')
 				res.send(err);
 
 			console.log(flow);
-
-			Session.findOne({'_id': flow._session}, function(err, session){
-				console.log('found session ', session._id);
-				console.log(session.flows);
-
-				// TODO: when this sort of thing fails to work,
-				// it populates the array in question with a ton of ghosts.
-				session.flows.remove(req.params._id)
-
-				session.save(function(err,data){
-					if (err)
-						res.send(err);
-
-					console.log(data);
-					res.json(req.params._id);
-				})
-
+			res.json(req.params._id);
 			})
 		})
 		.remove(function(err){

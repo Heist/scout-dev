@@ -575,7 +575,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             .success(function(data){
                 console.log('new step added '+ JSON.stringify(data));
 
-                $scope.flow.steps.push(data);
+                $scope.steps.push(data);
             })
             .error(function(data){
                 console.log(JSON.stringify(data))
