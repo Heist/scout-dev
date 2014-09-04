@@ -98,9 +98,26 @@ router.route('/session/:_id')
 				res.send(err);
 		});
 
-		// TODO: extend to remove all child flows
-		// console.log('Successfully deleted session with', req.params.session_id)
-		
+		Flow.find({_session:req.params._id}).remove(function(err){
+			if (err)
+				res.send(err);
+		});
+
+		Step.find({_session:req.params._id}).remove(function(err){
+			if (err)
+				res.send(err);
+		});
+
+		Message.find({_session:req.params._id}).remove(function(err){
+			if (err)
+				res.send(err);
+		});
+
+		Tag.find({_session:req.params._id}).remove(function(err){
+			if (err)
+				res.send(err);
+		});
+
 		res.json(req.params._id);
 	})
 
@@ -227,7 +244,7 @@ router.route('/flow/:_id')
 				if(req.body.name){flow.name = req.body.name}
 				if(req.body.desc){flow.desc = req.body.desc}
 				if(req.body.platform){flow.platform = req.body.platform}
-				if(req.body.steps){flow.steps = steps}
+				if(req.body.steps){flow.steps = steps}e
 				if(req.body.link){flow.link = req.body.link}
 				if(req.body.user){flow.users.push(req.body.user)}
 				
