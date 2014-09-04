@@ -176,28 +176,15 @@ router.route('/flow/:_id')
 	.get(function(req,res){
 		// get one specific flow
 		console.log('hello hello flow')
-		var reply = {};
-
-		// we need to find the flow itself
 		Flow.findById(req.params._id)
+			.populate('steps')
 			.exec(function(err,flow){
 				if (err)
 					res.send(err);
 			console.log('i touched a flow', flow)
-			reply.flow = flow;
-		})
+			res.json(flow);
 
-		// we need to know if there are steps belonging to flow
-		Step.find(_flow:req.params._id,)
-			.exec(function(err, steps){
-				if (err)
-					res.send(err);
-				console.log('steps found', steps)
-				reply.steps = steps;
-		})
-
-		console.log('reply', reply)
-		res.json(reply);
+			})
 	})
 
 	// update one flow with new information
@@ -243,8 +230,7 @@ router.route('/flow/:_id')
 				res.send(err);
 
 			console.log(flow);
-			res.json(req.params._id);
-			})
+
 		})
 		.remove(function(err){
 			if (err)
