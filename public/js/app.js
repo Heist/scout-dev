@@ -266,12 +266,9 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
     $http.get('/api/summary/'+$stateParams.summaryID)
         .success(function(data){
+          console.log('reply from server', data);
           $scope.flow = data.flow;
           $scope.messages = data.messages;
-          
-        // We need: the flow
-        // all steps and tags in the flow
-        // all messages ... which can be sorted by step.
 
         })
 
@@ -771,13 +768,25 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                         console.log('Error: ' + data);
                     })
             }
+            else {
+                var message = {};
+                message.body = step.name;
+                message.title = 'Starting step';
 
-            var message = {};
-            message.body = step.name;
-            message.title = 'Starting step';
+                $scope.timeline.push(message);
 
-            $scope.timeline.push(message);
-
+                var data_out = {user : $scope.user._id};
+                var url = '/api/step/'+$scope.flows[parentIndex].steps[index]._id;
+                
+                $http
+                    .put(url,data_out)
+                    .success(function(data){
+                        console.log('user added ', data);
+                    })
+                    .error(function(data){
+                        console.log('Error: ' + data);
+                })
+            }
         };
 
         $scope.addUser = function(textfield){

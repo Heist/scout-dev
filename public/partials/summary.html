@@ -60,64 +60,8 @@
 	</div>		
 </div>
 
-<div id="middle-pane" ui-view >
-	<!-- looking for your flow summary partials? they're in summary_flow and summary_step -->
-</div>
-
-
-<div id="right-pane" ng-model='messages'>
-	
-	<div id="timeline" ng-show="step.name">
-		<ul>
-		
-			<li class="message status">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						&nbsp;
-					</div>
-				</div>
-				<strong>All users for &ldquo;{{step.name}}&rdquo;</strong>
-			</li>
-		
-			<!-- <li ng-repeat="user in step.session_by_user"  class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="http://rdjpg.com/51/51" />
-					</div>
-					</div>
-					<small>Comments on participant</small><br><strong>{{user.user}}</strong>
-				 -->
-				<ul>
-					<li ng-repeat="message in messages | orderBy: 'user' " class="message">
-						<div class="message-body">
-							<p ng-bind-html="message.body | hashtag"></p>
-							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>
-						</div>
-
-						<div class="message-fave">
-							<a ng-click="saveFav(message)" ng-if="message.fav">
-								&#9733;
-							</a>
-							<a ng-click="saveFav(message)" ng-if="!message.fav">
-								&#9734;
-							</a>
-						</div>
-						<div class="clear"></div>
-					</li>
-				</ul>
-					<!-- 
-				</div>
-				<div class="message-fave">
-					<a href="#">&#9734;</a>
-				</div>
-				<div class="clear"></div>
-			</li> -->
-			
-		
-		</ul>
-	</div>
-	
-		
+<div ui-view >
+	<!-- this pane is set in summary_flow and summary_step -->
 </div>
 <!-- / create a flow -->
 </div>

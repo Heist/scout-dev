@@ -16,6 +16,7 @@ var StepSchema = new Schema ({
 		type: Schema.Types.ObjectId, 
 		ref: 'Session'
 	},
+	users: [{ type: Schema.Types.ObjectId, ref: 'User'}],
 	desc : {
 			type : String,
 			trim : true

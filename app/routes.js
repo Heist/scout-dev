@@ -370,8 +370,10 @@ router.route('/step/:_id')
 			if (err)
 				res.send(err);
 
-			step.name = req.body.name;
-			step.desc = req.body.desc;
+			if(req.body.name){step.name = req.body.name}
+			if(req.body._flow){step._flow = req.body._flow}	
+			if(req.body._session){step._session = req.body._session}
+			if(req.body.user){step.user = req.body._user}
 
 			step.save(function(err,data){
 				if (err)
@@ -591,7 +593,7 @@ router.route('/summary/:_id')
 		// all messages ... which can be sorted by step.
 
 		Flow.findById(req.params._id)
-			.populate('steps tags')
+			.populate('steps tags users')
 			.exec(function(err, flow){
 				if (err)
 					res.send(err);
@@ -601,7 +603,15 @@ router.route('/summary/:_id')
 						if (err)
 							res.send(err);
 						reply.messages = msgs;
-						res.json(reply);
+
+						Step.find({_flow:req.params._id})
+							.populate('users')
+							.exec(function(err, steps){
+								if (err)
+									res.send(err);
+								reply.steps = steps;
+								res.json(reply);
+								})	
 					})
 			})
 	});
