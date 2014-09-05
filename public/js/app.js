@@ -271,6 +271,8 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
           $scope.messages = data.messages;
           $scope.steps = data.steps;
 
+          
+
         })
 
     $scope.activate = function (index, parentIndex, step) {

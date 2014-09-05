@@ -592,6 +592,11 @@ router.route('/summary/:_id')
 		// all steps and tags in the flow
 		// all messages ... which can be sorted by step.
 
+		// reply.flow
+		// reply.flow.steps
+		// reply.flow.steps.messages
+		/// on front end: messages, sort by user, return name of message.user once per sort.
+		
 		Flow.findById(req.params._id)
 			.populate('steps tags users')
 			.exec(function(err, flow){
