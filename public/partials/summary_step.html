@@ -25,7 +25,7 @@
 </div>
 
 
-<div id="right-pane" ng-model="steps">
+<div id="right-pane" ng-model="step">
 	<!-- looking for your users or messages? they're in summary_flow and summary_step -->
 	<div id="timeline" ng-show="step.name">
 		<ul>
@@ -45,10 +45,10 @@
 						<img src="http://rdjpg.com/51/51" />
 					</div>
 					</div>
-					<small>Comments on participant</small><br><strong>{{user.name}}</strong>
+					<small>Comments on participant</small><br><strong>{{user}}</strong>
 				
 				<ul>
-					<li ng-repeat="message in messages | orderBy: 'user' " class="message">
+					<li ng-repeat="message in messages | orderBy:['user'] | filter:step._id:message._step" class="message">
 						<div class="message-body">
 							<p ng-bind-html="message.body | hashtag"></p>
 							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>

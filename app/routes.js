@@ -366,6 +366,7 @@ router.route('/step/:_id')
 	
 	// update a single step
 	.put(function(req,res){
+		console.log('touched step', req.body)
 		Step.findById(req.params._id, function(err, step){
 			if (err)
 				res.send(err);
@@ -373,12 +374,12 @@ router.route('/step/:_id')
 			if(req.body.name){step.name = req.body.name}
 			if(req.body._flow){step._flow = req.body._flow}	
 			if(req.body._session){step._session = req.body._session}
-			if(req.body.user){step.user = req.body._user}
+			if(req.body.user){step.users.push(req.body.user)}
 
 			step.save(function(err,data){
 				if (err)
 					res.send(err);
-
+				console.log(data);
 				res.json(data);
 			})
 
@@ -594,29 +595,35 @@ router.route('/summary/:_id')
 
 		// reply.flow
 		// reply.flow.steps
-		// reply.flow.steps.messages
+		// reply.flow.tags
+		// reply.flow.messages
 		/// on front end: messages, sort by user, return name of message.user once per sort.
-		
+		// step.user.messages ?
+
 		Flow.findById(req.params._id)
-			.populate('steps tags users')
+			.populate('tags users')
 			.exec(function(err, flow){
 				if (err)
 					res.send(err);
 				reply.flow=flow;
+
 				Message.find({_flow:req.params._id})
+					.sort('step user')
 					.exec(function(err, msgs){
 						if (err)
 							res.send(err);
 						reply.messages = msgs;
+						console.log(reply.messages)
 
 						Step.find({_flow:req.params._id})
 							.populate('users')
-							.exec(function(err, steps){
+							.exec(function(err,steps){
 								if (err)
 									res.send(err);
 								reply.steps = steps;
+								console.log('steps ', reply.steps)
 								res.json(reply);
-								})	
+							})
 					})
 			})
 	});

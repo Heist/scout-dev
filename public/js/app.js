@@ -266,13 +266,18 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
     $http.get('/api/summary/'+$stateParams.summaryID)
         .success(function(data){
-          console.log('reply from server', data);
+          console.log(data);
           $scope.flow = data.flow;
           $scope.messages = data.messages;
           $scope.steps = data.steps;
+          $scope.users = data.flow.users;
+          $scope.tags = data.flow.tags;
 
-          
+          console.log('steps', data.steps ,' users',data.flow.users, 'messages', $scope.messages)
 
+          // what I want here is 
+          // step.messages by user
+          // message where message._step == _selected._id order by user.
         })
 
     $scope.activate = function (index, parentIndex, step) {
