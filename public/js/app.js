@@ -269,6 +269,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
           console.log('reply from server', data);
           $scope.flow = data.flow;
           $scope.messages = data.messages;
+          $scope.steps = data.steps;
 
         })
 

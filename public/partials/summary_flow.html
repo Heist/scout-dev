@@ -39,20 +39,20 @@
 					<small>Comments on participant</small><br><strong>{{user.user}}</strong>
 				 -->
 				<ul>
-					<li ng-repeat="message in messages | orderBy: 'user' " class="message">
+					<li ng-repeat="user in flow.users | orderBy: 'user' " class="message">
 						<div class="message-body">
-							<p ng-bind-html="message.body | hashtag"></p>
-							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>
+							{{user.created | date:'yyyy-MM-dd'}}
+							{{user.name}}
 						</div>
 
-						<div class="message-fave">
+<!-- 						<div class="message-fave">
 							<a ng-click="saveFav(message)" ng-if="message.fav">
 								&#9733;
 							</a>
 							<a ng-click="saveFav(message)" ng-if="!message.fav">
 								&#9734;
 							</a>
-						</div>
+						</div> -->
 						<div class="clear"></div>
 					</li>
 				</ul>
