@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema ({
 	name: {type:String, trim:true},
+	_flows : [{ type: Schema.Types.ObjectId, ref: 'Flow' }],
 	created : Date,
 	updated : Date
 })

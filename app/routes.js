@@ -244,7 +244,7 @@ router.route('/flow/:_id')
 				if(req.body.name){flow.name = req.body.name}
 				if(req.body.desc){flow.desc = req.body.desc}
 				if(req.body.platform){flow.platform = req.body.platform}
-				if(req.body.steps){flow.steps = steps}e
+				if(req.body.steps){flow.steps = steps}
 				if(req.body.link){flow.link = req.body.link}
 				if(req.body.user){flow.users.push(req.body.user)}
 				
@@ -272,8 +272,6 @@ router.route('/flow/:_id')
 				console.log('found session ', session._id);
 				console.log(session.flows);
 
-				// TODO: when this sort of thing fails to work,
-				// it populates the array in question with a ton of ghosts.
 				session.flows.remove(req.params._id)
 
 				session.save(function(err,data){
@@ -281,6 +279,9 @@ router.route('/flow/:_id')
 						res.send(err);
 
 					console.log(data);
+
+
+
 					res.json(req.params._id);
 				})
 
