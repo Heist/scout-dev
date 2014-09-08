@@ -349,8 +349,9 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         } else if (!message.fav){
             message.fav = true;
         }
-        // when we save the summary, it will save all messages with message.fav = true
+        // TODO: when we save the summary, it will save all messages with message.fav = true
         // to the summary file. 
+        // haha this shi
     }
 
     $scope.passFail = function(step){
@@ -725,8 +726,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     //     }
     // });
 
-
-    // TODO this has to change to get the new session created on the run() command from the main controller
     $http
         .get('/api/run/'+$stateParams.sessionId)
         .success(function(data){
@@ -741,40 +740,43 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
         })
 
-        $scope.activate = function(index, parentIndex) {
-            console.log('parent', $scope.flows[parentIndex]._id)
-            console.log('step', $scope.flows[parentIndex].steps)
+        $scope.activate = function(parentIndex, index) {
+            // console.log('parent', $scope.flows[parentIndex]._id)
+            // console.log('step', $scope.flows[parentIndex].steps)
 
-            $scope.selectedIndex = index;
             $scope.parentIndex = parentIndex;
+            $scope.selectedIndex = index;
 
             $scope.step.current = $scope.flows[parentIndex].steps[index];
+
             var step = $scope.flows[parentIndex].steps[index];
 
             if ( index == 0){
                 console.log('match')
                 // if this is the first step in a flow, log the flow start
                 // then log the step start
+                
+                var arr = $scope.flows[parentIndex].users;
+                console.log('flow users', arr);
+
+                if(arr.indexOf($scope.user._id) == -1){
+                    $scope.flows[parentIndex].users.push($scope.user._id);
+                }
+
+                arr = $scope.flows[parentIndex].steps[index].users
+                if(arr.indexOf($scope.user._id) == -1){
+                    $scope.flows[parentIndex].steps[index].users.push($scope.user._id);
+                }
+
+                console.log('post flow users', $scope.flows[parentIndex].users)
+                console.log('post step users', $scope.flows[parentIndex].steps[index].users)
+
                 var message = {};
                 message.title='Starting Flow'
                 message.body=$scope.flows[parentIndex].name;
                 $scope.timeline.push(message);
 
-                var data_out = {user : $scope.user._id};
-                var url = '/api/flow/'+$scope.flows[parentIndex]._id;
-
-                console.log(data_out);
-                console.log(url)
-
-                
-                $http
-                    .put(url,data_out)
-                    .success(function(data){
-                        console.log('user added ', data);
-                    })
-                    .error(function(data){
-                        console.log('Error: ' + data);
-                    })
+              
             }
             else {
                 var message = {};
@@ -783,18 +785,16 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
                 $scope.timeline.push(message);
 
-                var data_out = {user : $scope.user._id};
-                var url = '/api/step/'+$scope.flows[parentIndex].steps[index]._id;
-                
-                $http
-                    .put(url,data_out)
-                    .success(function(data){
-                        console.log('user added ', data);
-                    })
-                    .error(function(data){
-                        console.log('Error: ' + data);
-                })
+                var arr = $scope.flows[parentIndex].steps[index].users;
+                console.log('users step', $scope.flows[parentIndex].steps[index].users);
+                if(arr.indexOf($scope.user._id) == -1){
+                    $scope.flows[parentIndex].steps[index].users.push($scope.user._id);
+                }
+
             }
+
+            // console.log('parent', $scope.flows[parentIndex]._id)
+            console.log('activation', $scope.flows[parentIndex].users,$scope.flows[parentIndex].steps)
         };
 
         $scope.addUser = function(textfield){
@@ -861,22 +861,27 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             $scope.message='';
         }
 
-    $scope.postTest = function(session){
-        var url = '/api/session/'+session._id;
-        var dataOut = session;
+    $scope.postTest = function(){
+        console.log($scope.flows)
+        
+        console.log('touched end')
+        // var url = '/api/session/'+session._id;
+        // var dataOut = session;
 
-        console.log(session._id)
-        console.log(session)
+        // in here, we collect the updated steps and flows
+        // and push their users to the db
 
-        $http
-            .put(url, dataOut)
-            .success(function(data){
-                console.log('Session updated', data);
-                $location.path('/');
-            })
-            .error(function(data){
-                console.log('Error: ' + data);
-            })
+
+
+        // $http
+        //     .put(url, dataOut)
+        //     .success(function(data){
+        //         console.log('Session updated', data);
+        //         // $location.path('/');
+        //     })
+        //     .error(function(data){
+        //         console.log('Error: ' + data);
+        //     })
 
     }
 }]);
