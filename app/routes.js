@@ -582,50 +582,39 @@ router.route('/run/:session_id')
 			});
 	})
 	.post(function(req,res){
-		console.log(req.body)
-
-		Flow.find(req.params.session_id, function(err, flows){
-			if(err)
-				res.send(err)
-
-			console.log('found flows', flows);
-
-			for(var i = 0; i<flows.length;i++){
-				var arr = flows[i].users;
+		for(var i = 0; i < req.body.flows.length; i++){
+			console.log('flows', req.body.flows[i])
+			
+			Flow.findById(req.body.flows[i], function(err, flow){
 				
-				console.log('found flow', flows[i])
-				console.log('found flow users', flows[i].users)
-
-				if(arr.indexOf() == -1){
-					flows[i].users.push(req.body.flows[i].user)
+				if(flow.users.indexOf(req.body.user) == -1){
+					flow.users.push(req.body.user)
 				}
 
 				flow.save(function(err, data){
 					if(err)
-						res.send(err);
-					
-					// Step.find(req.body.flows[i].steps[k]._id, function(err, step){
-					// 		if(err)
-					// 			res.send(err)
+						res.send(err)
+					console.log('saved', data._id)
+				})
+			})
+		}
 
-					// 		var arr = step.users;
+		for(var i = 0; i < req.body.steps.length; i++){
+			console.log('steps', req.body.steps[i])
+			Step.findById(req.body.steps[i], function(err, step){
 
-					// 		if(arr.indexOf(req.body.flows[i].steps[k].user) == -1){
-					// 			step.users.push(req.body.flows[i].steps[k].user)
-					// 		}
+				if(step.users.indexOf(req.body.user) == -1){
+					step.users.push(req.body.user)
+				}
 
-					// 		step.save(function(err, data){
-					// 			if(err)
-					// 				res.send(err);
-
-					// 			console.log('step', data);
-					// 		})
-					// 	})
-
-					console.log('flow', data);
-				});
-			}
-		})
+				step.save(function(err, data){
+					if(err)
+						res.send(err)
+					console.log('saved', data._id)
+				})
+			})
+		}
+		
 	});
 
 // SUMMARY ROUTES ============================================

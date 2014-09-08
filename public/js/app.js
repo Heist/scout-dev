@@ -708,7 +708,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $scope.update.flows = [];
     $scope.update.steps = [];
 
-
     $scope.timeline = []; // holds all messages currently in flow
 
     $scope.testKey = keygen();
@@ -781,14 +780,14 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
                 $scope.timeline.push(message);
 
-                if($scope.updateArray.indexOf($scope.flows[parentIndex].steps[selectedIndex]._id) == -1){
+                if($scope.update.steps.indexOf($scope.flows[parentIndex].steps[selectedIndex]._id) == -1){
                     console.log('other step push')
                     $scope.update.steps.push($scope.flows[parentIndex].steps[selectedIndex]._id)
                 }
 
             }
 
-            console.log('updateArray', $scope.updateArray)
+            console.log('updateArray', $scope.update)
             $scope.step.current = $scope.flows[parentIndex].steps[selectedIndex];
         };
 
@@ -857,24 +856,25 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         }
 
     $scope.postTest = function(){
-        console.log('touched end', $scope.updateArray)
-        var url = '/api/run/'+$stateParams.sessionId;
-        var dataOut = {flow: $scope.update.flow, steps: $scope.update.steps, user: $scope.user.name};
 
+        var url = '/api/run/'+$stateParams.sessionId;
+        var dataOut = {flows: $scope.update.flows, steps: $scope.update.steps, user: $scope.user._id};
+
+        console.log('touched end', dataOut);
         // collects all the flows and steps and outputs them as a collected object
         // to the session api link
         // where they are parsed 
         // and their individual user lists are updated.
 
-        // $http
-        //     .post(url, dataOut)
-        //     .success(function(data){
-        //         console.log('Updated flows', data);
-        //         // $location.path('/');
-        //     })
-        //     .error(function(data){
-        //         console.log('Error: ' + data);
-        //     })
+        $http
+            .post(url, dataOut)
+            .success(function(data){
+                console.log('Updated flows', data);
+                // $location.path('/');
+            })
+            .error(function(data){
+                console.log('Error: ' + data);
+            })
 
     }
 }]);
