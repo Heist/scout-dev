@@ -858,25 +858,25 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
     $scope.postTest = function(){
         console.log($scope.flows)
-        
+         
         console.log('touched end')
-        // var url = '/api/session/'+session._id;
-        // var dataOut = session;
+        var url = '/api/run/'+session._id;
+        var dataOut = $scope.flows;
 
-        // in here, we collect the updated steps and flows
-        // and push their users to the db
+        // collects all the flows and steps and outputs them as a collected object
+        // to the session api link
+        // where they are parsed 
+        // and their individual user lists are updated.
 
-
-
-        // $http
-        //     .put(url, dataOut)
-        //     .success(function(data){
-        //         console.log('Session updated', data);
-        //         // $location.path('/');
-        //     })
-        //     .error(function(data){
-        //         console.log('Error: ' + data);
-        //     })
+        $http
+            .put(url, dataOut)
+            .success(function(data){
+                console.log('Session updated', data);
+                // $location.path('/');
+            })
+            .error(function(data){
+                console.log('Error: ' + data);
+            })
 
     }
 }]);
