@@ -740,18 +740,14 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
         })
 
-        $scope.activate = function(parentIndex, index) {
-            // console.log('parent', $scope.flows[parentIndex]._id)
-            // console.log('step', $scope.flows[parentIndex].steps)
+        $scope.activate = function(parentIndex, selectedIndex) {
+            console.log('parent', parentIndex)
+            console.log('step',  selectedIndex)
 
             $scope.parentIndex = parentIndex;
-            $scope.selectedIndex = index;
+            $scope.selectedIndex = selectedIndex;
 
-            $scope.step.current = $scope.flows[parentIndex].steps[index];
-
-            var step = $scope.flows[parentIndex].steps[index];
-
-            if ( index == 0){
+            if( selectedIndex == 0){
                 console.log('match')
                 // if this is the first step in a flow, log the flow start
                 // then log the step start
@@ -763,38 +759,37 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                     $scope.flows[parentIndex].users.push($scope.user._id);
                 }
 
-                arr = $scope.flows[parentIndex].steps[index].users
+                arr = $scope.flows[parentIndex].steps[selectedIndex].users
                 if(arr.indexOf($scope.user._id) == -1){
-                    $scope.flows[parentIndex].steps[index].users.push($scope.user._id);
+                    $scope.flows[parentIndex].steps[selectedIndex].users.push($scope.user._id);
                 }
-
-                console.log('post flow users', $scope.flows[parentIndex].users)
-                console.log('post step users', $scope.flows[parentIndex].steps[index].users)
 
                 var message = {};
                 message.title='Starting Flow'
                 message.body=$scope.flows[parentIndex].name;
                 $scope.timeline.push(message);
 
-              
+
             }
             else {
+                console.log('not a match with first index')
                 var message = {};
-                message.body = step.name;
+                message.body = $scope.flows[parentIndex].steps[selectedIndex].name;
                 message.title = 'Starting step';
 
                 $scope.timeline.push(message);
 
-                var arr = $scope.flows[parentIndex].steps[index].users;
-                console.log('users step', $scope.flows[parentIndex].steps[index].users);
+                var arr = $scope.flows[parentIndex].steps[selectedIndex].users;
+
+                console.log('users step', $scope.flows[parentIndex].steps[selectedIndex].users);
                 if(arr.indexOf($scope.user._id) == -1){
-                    $scope.flows[parentIndex].steps[index].users.push($scope.user._id);
+                    $scope.flows[parentIndex].steps[selectedIndex].users.push($scope.user._id);
                 }
 
             }
 
-            // console.log('parent', $scope.flows[parentIndex]._id)
             console.log('activation', $scope.flows[parentIndex].users,$scope.flows[parentIndex].steps)
+            $scope.step.current = $scope.flows[parentIndex].steps[selectedIndex];
         };
 
         $scope.addUser = function(textfield){

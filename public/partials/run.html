@@ -63,7 +63,7 @@
 				
 					<li ng-repeat="step in flow.steps" 
 						ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
-             			ng-click="activate($index, $parent.$index, step)">
+             			ng-click="activate($parent.$index, $index)">
              			
              			<span>{{step.name}}</span>
              			
