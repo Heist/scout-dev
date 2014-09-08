@@ -583,8 +583,50 @@ router.route('/run/:session_id')
 	})
 	.post(function(req,res){
 		console.log(req.body)
-	})
-	;
+
+		Flow.find(req.params.session_id, function(err, flows){
+			if(err)
+				res.send(err)
+
+			console.log('found flows', flows);
+
+			for(var i = 0; i<flows.length;i++){
+				var arr = flows[i].users;
+				
+				console.log('found flow', flows[i])
+				console.log('found flow users', flows[i].users)
+
+				if(arr.indexOf() == -1){
+					flows[i].users.push(req.body.flows[i].user)
+				}
+
+				flow.save(function(err, data){
+					if(err)
+						res.send(err);
+					
+					// Step.find(req.body.flows[i].steps[k]._id, function(err, step){
+					// 		if(err)
+					// 			res.send(err)
+
+					// 		var arr = step.users;
+
+					// 		if(arr.indexOf(req.body.flows[i].steps[k].user) == -1){
+					// 			step.users.push(req.body.flows[i].steps[k].user)
+					// 		}
+
+					// 		step.save(function(err, data){
+					// 			if(err)
+					// 				res.send(err);
+
+					// 			console.log('step', data);
+					// 		})
+					// 	})
+
+					console.log('flow', data);
+				});
+			}
+		})
+	});
 
 // SUMMARY ROUTES ============================================
 

@@ -703,6 +703,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $scope.flows = {};
     $scope.step = {};
     $scope.user = {};
+    $scope.updateArray = [];
 
     $scope.timeline = []; // holds all messages currently in flow
 
@@ -752,16 +753,14 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 // if this is the first step in a flow, log the flow start
                 // then log the step start
                 
-                var arr = $scope.flows[parentIndex].users;
-                console.log('flow users', arr);
-
-                if(arr.indexOf($scope.user._id) == -1){
-                    $scope.flows[parentIndex].users.push($scope.user._id);
+                if($scope.updateArray.indexOf($scope.flows[parentIndex]._id) == -1){
+                    console.log('flow push')
+                    $scope.updateArray.push($scope.flows[parentIndex]._id)
                 }
 
-                arr = $scope.flows[parentIndex].steps[selectedIndex].users
-                if(arr.indexOf($scope.user._id) == -1){
-                    $scope.flows[parentIndex].steps[selectedIndex].users.push($scope.user._id);
+                if($scope.updateArray.indexOf($scope.flows[parentIndex].steps[selectedIndex]._id) == -1){
+                    console.log('step push')
+                    $scope.updateArray.push($scope.flows[parentIndex].steps[selectedIndex]._id)
                 }
 
                 var message = {};
@@ -769,26 +768,24 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 message.body=$scope.flows[parentIndex].name;
                 $scope.timeline.push(message);
 
-
             }
             else {
                 console.log('not a match with first index')
+
                 var message = {};
                 message.body = $scope.flows[parentIndex].steps[selectedIndex].name;
                 message.title = 'Starting step';
 
                 $scope.timeline.push(message);
 
-                var arr = $scope.flows[parentIndex].steps[selectedIndex].users;
-
-                console.log('users step', $scope.flows[parentIndex].steps[selectedIndex].users);
-                if(arr.indexOf($scope.user._id) == -1){
-                    $scope.flows[parentIndex].steps[selectedIndex].users.push($scope.user._id);
+                if($scope.updateArray.indexOf($scope.flows[parentIndex].steps[selectedIndex]._id) == -1){
+                    console.log('other step push')
+                    $scope.updateArray.push($scope.flows[parentIndex].steps[selectedIndex]._id)
                 }
 
             }
 
-            console.log('activation', $scope.flows[parentIndex].users,$scope.flows[parentIndex].steps)
+            console.log('updateArray', $scope.updateArray)
             $scope.step.current = $scope.flows[parentIndex].steps[selectedIndex];
         };
 
@@ -857,24 +854,24 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         }
 
     $scope.postTest = function(){
-        console.log('touched end')
+        console.log('touched end', $scope.updateArray)
         var url = '/api/run/'+$stateParams.sessionId;
-        var dataOut = $scope.flows;
+        var dataOut = {flows: $scope.flows};
 
         // collects all the flows and steps and outputs them as a collected object
         // to the session api link
         // where they are parsed 
         // and their individual user lists are updated.
 
-        $http
-            .post(url, dataOut)
-            .success(function(data){
-                console.log('Updated flows', data);
-                // $location.path('/');
-            })
-            .error(function(data){
-                console.log('Error: ' + data);
-            })
+        // $http
+        //     .post(url, dataOut)
+        //     .success(function(data){
+        //         console.log('Updated flows', data);
+        //         // $location.path('/');
+        //     })
+        //     .error(function(data){
+        //         console.log('Error: ' + data);
+        //     })
 
     }
 }]);
