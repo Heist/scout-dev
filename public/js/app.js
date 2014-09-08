@@ -858,7 +858,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $scope.postTest = function(){
 
         var url = '/api/run/'+$stateParams.sessionId;
-        var dataOut = {flows: $scope.update.flows, steps: $scope.update.steps, user: $scope.user._id};
+        var dataOut = {session: $scope.session, flows: $scope.update.flows, steps: $scope.update.steps, user: $scope.user._id};
 
         console.log('touched end', dataOut);
         // collects all the flows and steps and outputs them as a collected object
@@ -870,7 +870,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             .post(url, dataOut)
             .success(function(data){
                 console.log('Updated flows', data);
-                // $location.path('/');
+                $location.path('/');
             })
             .error(function(data){
                 console.log('Error: ' + data);

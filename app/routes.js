@@ -582,6 +582,22 @@ router.route('/run/:session_id')
 			});
 	})
 	.post(function(req,res){
+		Session.findById(req.params.session_id, function(err, session){
+			if (err)
+				res.send(err);
+			
+			
+			session.runcount = req.body.session.runcount;
+			
+			session.save(function(err, data) {
+				if (err)
+					res.send(err);
+
+				res.json(session);
+			
+			})
+		})
+
 		for(var i = 0; i < req.body.flows.length; i++){
 			console.log('flows', req.body.flows[i])
 			
