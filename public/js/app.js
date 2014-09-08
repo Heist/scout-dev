@@ -703,7 +703,11 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $scope.flows = {};
     $scope.step = {};
     $scope.user = {};
-    $scope.updateArray = [];
+
+    $scope.update = {};
+    $scope.update.flows = [];
+    $scope.update.steps = [];
+
 
     $scope.timeline = []; // holds all messages currently in flow
 
@@ -730,13 +734,12 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $http
         .get('/api/run/'+$stateParams.sessionId)
         .success(function(data){
-            console.log('session', data)
-            
             $scope.session = data;
             $scope.flows = data.flows;
 
             console.log('how is data.flows built', $scope.flows);
-            // // set the initial timeline contents
+            
+            // set the initial timeline contents
             var message = {};
 
         })
@@ -753,14 +756,14 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 // if this is the first step in a flow, log the flow start
                 // then log the step start
                 
-                if($scope.updateArray.indexOf($scope.flows[parentIndex]._id) == -1){
+                if($scope.update.flows.indexOf($scope.flows[parentIndex]._id) == -1){
                     console.log('flow push')
-                    $scope.updateArray.push($scope.flows[parentIndex]._id)
+                    $scope.update.flows.push($scope.flows[parentIndex]._id)
                 }
 
-                if($scope.updateArray.indexOf($scope.flows[parentIndex].steps[selectedIndex]._id) == -1){
+                if($scope.update.steps.indexOf($scope.flows[parentIndex].steps[selectedIndex]._id) == -1){
                     console.log('step push')
-                    $scope.updateArray.push($scope.flows[parentIndex].steps[selectedIndex]._id)
+                    $scope.update.steps.push($scope.flows[parentIndex].steps[selectedIndex]._id)
                 }
 
                 var message = {};
@@ -780,7 +783,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
                 if($scope.updateArray.indexOf($scope.flows[parentIndex].steps[selectedIndex]._id) == -1){
                     console.log('other step push')
-                    $scope.updateArray.push($scope.flows[parentIndex].steps[selectedIndex]._id)
+                    $scope.update.steps.push($scope.flows[parentIndex].steps[selectedIndex]._id)
                 }
 
             }
@@ -856,7 +859,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $scope.postTest = function(){
         console.log('touched end', $scope.updateArray)
         var url = '/api/run/'+$stateParams.sessionId;
-        var dataOut = {flows: $scope.flows};
+        var dataOut = {flow: $scope.update.flow, steps: $scope.update.steps, user: $scope.user.name};
 
         // collects all the flows and steps and outputs them as a collected object
         // to the session api link
