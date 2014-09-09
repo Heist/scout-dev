@@ -817,7 +817,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             note._flow = $scope.step.current._flow;
             note._session = $stateParams.sessionId;
 
-            note.user = $scope.user.name;
+            note.user = $scope.user._id;
             note.key = $scope.testKey;
 
             $scope.timeline.push(note);
