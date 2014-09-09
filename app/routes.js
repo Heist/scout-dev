@@ -584,8 +584,7 @@ router.route('/run/:session_id')
 	.post(function(req,res){
 		Session.findById(req.params.session_id, function(err, session){
 			if (err)
-				res.send(err);
-			
+				res.send(err);			
 			
 			session.runcount = req.body.session.runcount;
 			
@@ -639,17 +638,6 @@ router.route('/summary/:_id')
 	.get(function(req, res){
 		// console.log('touched summary', req.params._id)
 		var reply = {};
-
-		// We need: the flow
-		// all steps and tags in the flow
-		// all messages ... which can be sorted by step.
-
-		// reply.flow
-		// reply.flow.steps
-		// reply.flow.tags
-		// reply.flow.messages
-		/// on front end: messages, sort by user, return name of message.user once per sort.
-		// step.user.messages ?
 
 		Flow.findById(req.params._id)
 			.populate('tags users')

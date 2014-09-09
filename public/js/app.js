@@ -267,13 +267,30 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $http.get('/api/summary/'+$stateParams.summaryID)
         .success(function(data){
           console.log(data);
+
           $scope.flow = data.flow;
+          $scope.flow.steps = [];
+          $scope.flow.steps.users = [];
+          $scope.flow.steps.users.messages = [];
+
           $scope.messages = data.messages;
           $scope.steps = data.steps;
+          
           $scope.users = data.flow.users;
           $scope.tags = data.flow.tags;
 
-          console.log('steps', data.steps ,' users',data.flow.users, 'messages', $scope.messages)
+          for(var i = 0; i < data.steps.length; i++){
+            $scope.flow.steps.push(data.steps[i]);
+            for(var j = 0; j < data.steps[i].users; j++ ){
+                $scope.flow.steps[i].users.push(data.steps[i].users[j]);
+                for(var j = 0; j < data.messages.length; j++)
+                if(data.steps[i].users[j]._id == data.messages[j]._user){
+                    $scope.flow.steps[i].users[j].messages.push(data.messages[j])
+                    console.log('messages in here?', $scope.flow.steps)
+                }
+            }
+          }
+          console.log('steps', $scope.flow.steps ,' users',data.flow.users, 'messages', $scope.messages)
 
           // what I want here is 
           // step.messages by user
@@ -343,7 +360,8 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     }    
         
     $scope.saveFav = function(message){
-        console.log('touched fav');
+        console.log('touched fav', message);
+
         if(message.fav){
             message.fav = false;
         } else if (!message.fav){
