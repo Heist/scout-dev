@@ -279,10 +279,11 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         $scope.selectedIndex = index;
         $scope.parentIndex = parentIndex;
 
-        // passes the step title to the global variable from flows[0].steps[step]
+        // passes the step to the global variable
         $scope.step = step;
+        
         console.log('step', step);
-        //pass all of the tags inside of flows[allflows].steps[step] to an array 
+        
     };
 
     // Switch to tag summary view

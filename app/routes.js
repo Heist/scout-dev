@@ -659,31 +659,23 @@ router.route('/run/:session_id')
 
 router.route('/summary/:_id')
 	.get(function(req, res){
-		// console.log('touched summary', req.params._id)
-		var reply = {};
+		// how to populate sub-subdocuments is in here.
+		// the answer is a loop.
 
-		Flow.findById(req.params._id)
-			.populate('tags steps')
-			.exec(function(err, flow){
-				if (err)
-					res.send(err);
-				reply.flow=flow;
+		Flow.findById(req.params._id).populate('tags users steps').exec(function(err,flow){
+			if(err) res.send(err);
+				Step.populate(flow.steps, {path:'users'}, function(err, steps){
+					for(var i = 0; i < steps.length; i++){
+						User.populate(steps[i].users, {path:'messages'}, function(err,msgs){
+							// console.log('messages', msgs)
+							// console.log('flow', flow)
+							var reply = {'flow' : flow};
+							res.json(reply);
+						})
+					}
+				});
+			});
 
-				Message.find({_flow:req.params._id})
-					.sort('step user')
-					.exec(function(err, msgs){
-						if (err)
-							res.send(err);
-
-						Step.populate(flow.steps, {path: 'users messages'}, function (err, steps) {
-						 	console.log(steps);
-				             
-
-
-				             res.json(reply)
-				         })
-					})
-			})
 	});
 
 // REPORT ROUTES =============================================
