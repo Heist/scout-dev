@@ -462,6 +462,16 @@ router.route('/message/')
 
 			res.json(msg);
 
+			Step.findById( req.body._step, function(err,step){
+				console.log(msg._id);
+
+				step.messages.push(msg._id);
+				step.save(function(err,data){
+					if (err)
+						res.send(err);
+				})
+			})
+
 			//if there are tags, add them to the DB and the Flow (and the Step?)
 			if(req.body.tags){
 				for( var i = 0; i < req.body.tags.length; i++){
@@ -476,7 +486,7 @@ router.route('/message/')
 					tag.save(function(err, tag){
 						if (err)
 							res.send(err);
-	
+
 						Flow.findById( req.body._flow, function(err,flow){
 							console.log(flow)
 
@@ -486,6 +496,7 @@ router.route('/message/')
 									res.send(err);									
 							})
 						})
+
 						console.log(tag)
 					})
 				}
@@ -640,7 +651,7 @@ router.route('/summary/:_id')
 		var reply = {};
 
 		Flow.findById(req.params._id)
-			.populate('tags users')
+			.populate('tags steps')
 			.exec(function(err, flow){
 				if (err)
 					res.send(err);
@@ -654,15 +665,12 @@ router.route('/summary/:_id')
 						reply.messages = msgs;
 						console.log(reply.messages)
 
-						Step.find({_flow:req.params._id})
-							.populate('users')
-							.exec(function(err,steps){
-								if (err)
-									res.send(err);
-								reply.steps = steps;
-								console.log('steps ', reply.steps)
-								res.json(reply);
-							})
+						Step.populate(flow.steps, {path: 'users messages'}, function (err, steps) {
+						 	console.log(steps);
+				             reply.steps = steps;
+				             
+				             res.json(reply)
+				         })
 					})
 			})
 	});

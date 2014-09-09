@@ -16,6 +16,7 @@ var StepSchema = new Schema ({
 		type: Schema.Types.ObjectId, 
 		ref: 'Session'
 	},
+	messages:[{ type: Schema.Types.ObjectId, ref: 'Message'}],
 	users: [{ type: Schema.Types.ObjectId, ref: 'User'}],
 	desc : {
 			type : String,
