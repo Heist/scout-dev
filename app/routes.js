@@ -662,12 +662,9 @@ router.route('/summary/:_id')
 					.exec(function(err, msgs){
 						if (err)
 							res.send(err);
-						reply.messages = msgs;
-						console.log(reply.messages)
 
 						Step.populate(flow.steps, {path: 'users messages'}, function (err, steps) {
 						 	console.log(steps);
-				             reply.steps = steps;
 				             
 				             res.json(reply)
 				         })

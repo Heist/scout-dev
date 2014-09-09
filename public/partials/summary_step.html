@@ -28,7 +28,7 @@
 <div id="right-pane" ng-model="step">
 	<div id="timeline" ng-show="step.name">
 		<ul>
-		
+			
 			<li class="message status">
 				<div class="message-details">
 					<div class="message-details-avatar">
@@ -36,6 +36,7 @@
 					</div>
 				</div>
 				<strong>All users for &ldquo;{{step.name}}&rdquo;</strong>
+				<!-- {{step}} -->
 			</li>
 		
 			<li ng-repeat="user in step.users"  class="message">
@@ -45,9 +46,9 @@
 					</div>
 					</div>
 					<small>Comments on participant</small><br><strong>{{user.name}}</strong>
-				
+				<!-- 
 				<ul>
-					<li ng-repeat="message in messages | orderBy:['user'] | filter:step._id:message._step" class="message">
+					<li ng-repeat="message in flow.steps.messages | orderBy:['user'] | filter:step._id:message._step" class="message">
 						<div class="message-body">
 							<p ng-bind-html="message.body | hashtag"></p>
 							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>
@@ -63,7 +64,7 @@
 						</div>
 						<div class="clear"></div>
 					</li>
-				</ul>
+				</ul> -->
 					
 				</div>
 				<div class="message-fave">

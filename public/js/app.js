@@ -269,25 +269,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
           console.log(data);
 
           $scope.flow = data.flow;
-          $scope.flow.steps = [];
-          $scope.flow.steps.users = [];
-          $scope.flow.steps.users.messages = [];
-
-          $scope.messages = data.messages;
-          $scope.steps = data.steps;
           
-          $scope.users = data.flow.users;
-          $scope.tags = data.flow.tags;
-
-          for(var i = 0; i < data.steps.length; i++){
-            $scope.flow.steps.push(data.steps[i]);
-            for(var j = 0; j < data.steps[i].users; j++ ){
-                $scope.flow.steps[i].users.push(data.steps[i].users[j]);
-                console.log('jay', j)
-            }
-          }
-          console.log('steps', data.steps ,' users',data.flow.users, 'messages', $scope.messages)
-
           // what I want here is 
           // step.messages by user
           // message where message._step == _selected._id order by user.
