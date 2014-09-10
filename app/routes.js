@@ -579,29 +579,29 @@ router.route('/message/')
 						if(!doc) {
 							console.log( 'no tags match this call', tag_body, req.body._flow)
 
-							// var tag = new Tag();
+							var tag = new Tag();
 							
-							// tag._messages.push(msg._id);
-							// tag._steps.push(req.body._step);
+							tag._messages.push(msg._id);
+							tag._steps.push(req.body._step);
 
-							// tag._flow	 = req.body._flow;
-							// tag._session = req.body._session;
-							// tag.body	 = req.body.tags[i];
+							tag._flow	 = req.body._flow;
+							tag._session = req.body._session;
+							tag.body	 = tag_body;
 
-							// tag.save(function(err, tag){
-							// 	if (err) res.send(err);
+							tag.save(function(err, tag){
+								if (err) res.send(err);
 
-							// 	Flow.findById( req.body._flow, function(err,flow){
-							// 		console.log(flow)
+								Flow.findById( req.body._flow, function(err,flow){
+									console.log(flow)
 
-							// 		flow.tags.push(tag._id);
-							// 		flow.save(function(err,data){
-							// 			if (err)
-							// 				res.send(err);
-							// 			console.log(data);
-							// 		})
-							// 	})
-							// })
+									flow.tags.push(tag._id);
+									flow.save(function(err,data){
+										if (err)
+											res.send(err);
+										console.log(data);
+									})
+								})
+							})
 						}
 					})
 				}
