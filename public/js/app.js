@@ -283,6 +283,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         $scope.step = step;
         
         console.log('step', step);
+        console.log('flow step', $scope.flow.steps[index])
         
     };
 
