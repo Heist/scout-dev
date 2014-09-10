@@ -47,9 +47,9 @@
 					</div>
 					<small>Comments on participant</small><br><strong>{{user.name}}</strong>
 				
-				<!-- 
+
 				<ul>
-					<li ng-repeat="message in flow.steps.messages | orderBy:['user'] | filter:step._id:message._step" class="message">
+					<li ng-repeat="message in user.messages" class="message">
 						<div class="message-body">
 							<p ng-bind-html="message.body | hashtag"></p>
 							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>
@@ -65,7 +65,7 @@
 						</div>
 						<div class="clear"></div>
 					</li>
-				</ul> -->
+				</ul>
 					
 				</div>
 				<div class="message-fave">

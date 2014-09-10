@@ -261,8 +261,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 	$scope.flow = {};
     $scope.timeline = [];
 
-    // set selected step for main flow
-    $scope.step = {};
 
     $http.get('/api/summary/'+$stateParams.summaryID)
         .success(function(data){
@@ -281,9 +279,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
         // passes the step to the global variable
         $scope.step = step;
-        
-        console.log('step', step);
-        console.log('flow step', $scope.flow.steps[index])
+        console.log('step', step)
         
     };
 
