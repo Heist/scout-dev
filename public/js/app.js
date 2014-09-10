@@ -51,10 +51,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('summary.step', {
             templateUrl: 'partials/summary_step.html'
         })
-        .state('summary_tags', {
-            url: '/summary/:summaryID/tags/',
-            templateUrl: 'partials/summary_tags.html'
-        })
 
         // REPORT PAGE WITH NESTED VIEWS =====================
         .state('report', {
@@ -188,18 +184,21 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
           console.log(data);
 
           $scope.flow = data.flow;
-            console.log('tags', data.flow.tags)          
+            console.log('tags', data.flow.tags)
+            $scope.activate(0,0)
           // what I want here is 
           // step.messages by user
           // message where message._step == _selected._id order by user.
         })
 
-    $scope.activate = function (index, parentIndex, step) {
-        $scope.selectedIndex = index;
+    $scope.activate = function (parentIndex, selectedIndex, step) {
+        $scope.selectedIndex = selectedIndex;
         $scope.parentIndex = parentIndex;
 
         // passes the step to the global variable
-        $scope.step = step;
+        if(step){
+                $scope.step = step;
+            }
         console.log('step', step)
         
     };

@@ -20,7 +20,6 @@
 	
 	
 	<div id="header-nav">
-		<button class="button small" ng-click="summary_tags(flow)">Add summaries for tags &raquo;</button>
 		<button class="button small" ng-click="completeSummary(flow)">&check; Done Summarizing</button>
 	</div>
 			
@@ -39,7 +38,7 @@
 		
 		<div class="questions-group active">
 			<ul>
-				<li ng-model='flow' ui-sref=".flow" ng-click="activate($index, $parent.$index, flow)"><!-- flow.name --><small>Flow</small><br/>
+				<li ng-model='flow' ui-sref=".flow" ng-click="activate($parent.$index, $index)"><!-- flow.name --><small>Flow</small><br/>
 					{{flow.name}}</li>
 				<li class="question" ng-repeat="step in flow.steps" ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }" ng-click="activate($index, $parent.$index, step)"
 				ui-sref=".step">

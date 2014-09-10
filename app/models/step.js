@@ -32,7 +32,8 @@ var StepSchema = new Schema ({
 	pass_fail: {
 		type: Boolean,
 		default: false
-	}
+	},
+	index: Number
 })
 
 StepSchema.pre('save', function(next){

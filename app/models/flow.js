@@ -35,7 +35,8 @@ var FlowSchema = new Schema({
 			type: Date
 		},
 		runcount : Number,
-		summary: String
+		summary: String,
+		index: Number
 	});
 
 FlowSchema.pre('save', function(next){
