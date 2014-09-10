@@ -248,6 +248,22 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         console.log($scope.step);
     }  
 
+    // Summarize Tags controller functions
+    $scope.selectTag = function (tag){
+        $scope.selectedTag = tag;
+        $scope.summary.text = $scope.selectedTag.summary;
+    }
+
+    $scope.clearTagSummary = function(summary){
+        summary.text = '';
+        $scope.selectedTag.summary = summary.text;
+    }
+
+    $scope.saveTagSummary = function(summary){
+        console.log('touched save summary', summary);
+        $scope.selectedTag.summary = summary.text;
+    }
+
    
 }])
 
