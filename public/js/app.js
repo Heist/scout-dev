@@ -185,7 +185,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
           $scope.flow = data.flow;
             console.log('tags', data.flow.tags)
-            $scope.activate()
+            $scope.activate($scope.flow)
           // what I want here is 
           // step.messages by user
           // message where message._step == _selected._id order by user.
@@ -195,10 +195,17 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         // passes the step to the global variable
         $scope.selectedIndex = selectedIndex;
         
+        if(selectedIndex > -1){
+            $state.go("summary.step");
+        } else {
+            $state.go("summary.flow");
+        }
         if(step){
                 $scope.step = step;
                 console.log('step', step)
-        }        
+        }
+
+
     };
 
     // Switch to tag summary view

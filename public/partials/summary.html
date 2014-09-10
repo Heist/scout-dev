@@ -40,8 +40,7 @@
 			<ul>
 				<li ng-model='flow' ui-sref=".flow" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(flow, $index)"><!-- flow.name --><small>Flow</small><br/>
 					{{flow.name}}</li>
-				<li class="question" ng-repeat="step in flow.steps" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(step, $index)"
-				ui-sref=".step">
+				<li class="question" ng-repeat="step in flow.steps" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(step, $index)">
 					<span>{{step.name}}</span>
 					
 					<div class="step-rating" ng-click="passFail(step)">
