@@ -38,9 +38,9 @@
 		
 		<div class="questions-group active">
 			<ul>
-				<li ng-model='flow' ui-sref=".flow" ng-click="activate($parent.$index, $index)"><!-- flow.name --><small>Flow</small><br/>
+				<li ng-model='flow' ui-sref=".flow" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(flow, $index)"><!-- flow.name --><small>Flow</small><br/>
 					{{flow.name}}</li>
-				<li class="question" ng-repeat="step in flow.steps" ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }" ng-click="activate($index, $parent.$index, step)"
+				<li class="question" ng-repeat="step in flow.steps" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(step, $index)"
 				ui-sref=".step">
 					<span>{{step.name}}</span>
 					
