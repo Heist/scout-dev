@@ -194,7 +194,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $scope.activate = function(step, selectedIndex) {
         // passes the step to the global variable
         $scope.selectedIndex = selectedIndex;
-        
+
         if(selectedIndex > -1){
             $state.go("summary.step");
         } else {
@@ -204,28 +204,9 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 $scope.step = step;
                 console.log('step', step)
         }
-
-
     };
 
-    // Switch to tag summary view
-    $scope.summary_tags = function(summary){
-        // upsert summary to DB
-
-        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/';
-        var dataOut = summary;
-        
-         $http.put(url, dataOut)   
-            .success(function(data){
-                // console.log('sent a summary upsert - steps '+ JSON.stringify(data));
-            })
-            .error(function(data){
-            });
-
-        $location.path('/summary/'+ $stateParams.summaryID +'/tags/');
-        $scope.flow = summary;
-    }
-
+   
     $scope.completeSummary = function(summary){
         // this is the Save A New Summary button
         // it saves a summary in complete mode when done writing it up
@@ -246,20 +227,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         $location.path('/');
     }
 
-    // Summarize Steps controller functions 
-    $scope.showHideTag = function(tag, index){
-        // this sets visible/not visible on the repeated tags in steps.tags_single
-        // it should also propagate to steps.tags
-        // console.log(tag);
-        if(tag.visible){
-            tag.visible=false;
-            // $scope.step.tags_single[index].visible = false;
-        } else if (!tag.visible){
-            tag.visible=true;
-            // $scope.step.tags_single[index].visible = true;
-        }
-    }    
-        
     $scope.saveFav = function(message){
         console.log('touched fav', message);
 
