@@ -738,8 +738,6 @@ router.route('/summary/:_id')
 		Flow.findById(req.params._id).populate('tag users steps').exec(function(err, flow){
 			Step.find({'_flow':req.params._id}).populate('users').exec(function(err, docs){
 				if(err) res.send(err);
-				// console.log('steps',  steps[0].users[1].messages);
-				// res.json(steps);
 
 				Step.populate(docs, {path: 'users.messages', model:'Message'}, function(err, data){
 						flow.steps = data;
