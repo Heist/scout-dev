@@ -39,16 +39,18 @@
 		
 		<div class='clear'></div>
 		<br />
-		<h3>Summary for #{{selectedTag.body}}</h3>
-		<p>Add a summary for this tag to capture any notable themes or usage patterns.</p>
-		
-		<ul class="lined" ng-model="summary">
-			<li>
-				<textarea class="input" id="field-textarea" placeholder="Your summary" ng-model="summary.text"></textarea><br>
-				<button class="button small" ng-click="saveTagSummary(summary)" >Done</button>
-				<button class="button destructive small" ng-click="clearTagSummary(summary)">Remove summary</button>
-			</li>		
-		</ul>
+		<div ng-show="selectedTag.body" ng-model="selectedTag">
+			<h3>Summary for #{{selectedTag.body}}</h3>
+			<p>Add a summary for this tag to capture any notable themes or usage patterns.</p>
+			
+			<ul class="lined">
+				<li>
+					<textarea class="input" id="field-textarea" placeholder="Your summary" ng-model="selectedTag.summary"></textarea><br>
+					<button class="button small" ng-click="saveTagSummary(summary)" >Done</button>
+					<button class="button destructive small" ng-click="clearTagSummary(summary)">Remove summary</button>
+				</li>		
+			</ul>
+		</div>
 	</div>
 	
 		

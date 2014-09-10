@@ -249,19 +249,24 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     }  
 
     // Summarize Tags controller functions
+
+    // TODO: on click "save"
+    // pass the summary to the tag.summary
+    // on click 'clear'
+    // remove summary from tag
     $scope.selectTag = function (tag){
         $scope.selectedTag = tag;
-        $scope.summary.text = $scope.selectedTag.summary;
+
     }
 
-    $scope.clearTagSummary = function(summary){
-        summary.text = '';
-        $scope.selectedTag.summary = summary.text;
+    $scope.clearTagSummary = function(tag){
+        tag.summary = '';
+        $scope.selectedTag.summary = tag.summary;
     }
 
-    $scope.saveTagSummary = function(summary){
-        console.log('touched save summary', summary);
-        $scope.selectedTag.summary = summary.text;
+    $scope.saveTagSummary = function(tag){
+        console.log('touched save summary', tag);
+        $scope.selectedTag.summary = tag.summary;
     }
 
    
