@@ -245,6 +245,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         } else if (!step.fail){
             step.pass_fail = true;
         }
+
         console.log($scope.step);
     }  
 
@@ -254,19 +255,28 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     // pass the summary to the tag.summary
     // on click 'clear'
     // remove summary from tag
+
     $scope.selectTag = function (tag){
         $scope.selectedTag = tag;
-
+        console.log(tag.summary);
+        $scope.tagSummary = '';
     }
 
-    $scope.clearTagSummary = function(tag){
-        tag.summary = '';
-        $scope.selectedTag.summary = tag.summary;
+    $scope.clearTagSummary = function(data, sum){
+        console.log('clear this tag summary', data, 'this value', sum)
+        
+        $scope.selectedTag.summary = '';
+
+        console.log('tagSummary', $scope.tagSummary)
+        $scope.tagSummary = '';
+        sum = '';
+
+        console.log('sum',sum, 'scope value', $scope.tagSummary)
     }
 
-    $scope.saveTagSummary = function(tag){
-        console.log('touched save summary', tag);
-        $scope.selectedTag.summary = tag.summary;
+    $scope.saveTagSummary = function(summary){
+        console.log('touched save summary', summary);
+        $scope.selectedTag.summary = summary;
     }
 
    
