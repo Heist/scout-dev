@@ -176,85 +176,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 }])
 
 
-// SUMMARY CONTROLLER - TAGS  ========================================================
-.controller('summary_tags', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
-    // holds main flow structure
-    $scope.flow = {};
-
-   // for summarizing tags
-    $scope.summary = {};
-
-    // on load, get our information
-    $http.get('/api/summary/'+$stateParams.summaryID+'/tags/')
-        .success(function(data){
-          $scope.flow = data;
-        })
-
-    // Return to summarizing steps
-    $scope.summarizeSteps = function(summary){
-        
-        // upsert summary to DB
-        
-        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/';
-        var dataOut = summary;
-
-        // console.log('put', summary);
-        // console.log('post route',  url);
-        
-        $http.put(url, dataOut)   
-            .success(function(data){
-                console.log('sent a summary upsert - tags '+ JSON.stringify(data));
-            })
-            .error(function(data){
-
-            });
-
-        $location.path('/summary/'+ $stateParams.summaryID +'/flow/');
-        
-        // this shit needs to forcibly reapply/maintain the existing [flow] - at present it does not
-
-    }
-
-    // complete the Summary
-    $scope.completeSummary = function(summary){
-        // this is the Save A New Summary button
-        // it saves a summary in complete mode when done writing it up
-        // then returns you to /
-        // this runs on a really weird, delayed time cycle! I do not know why.
-        
-        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/';
-        var dataOut = summary;
-
-         $http.put(url, dataOut)   
-            .success(function(data){
-                // console.log('sent a new summary '+ JSON.stringify(data));
-            })
-            .error(function(data){
-                console.log('error', data);
-            });        
-
-        $location.path('/');
-    }
-
-    // Summarize Tags controller functions
-    $scope.selectTag = function (tag){
-        $scope.selectedTag = tag;
-        $scope.summary.text = $scope.selectedTag.summary;
-    }
-
-    $scope.clearTagSummary = function(summary){
-        summary.text = '';
-        $scope.selectedTag.summary = summary.text;
-    }
-
-    $scope.saveTagSummary = function(summary){
-        console.log('touched save summary', summary);
-        $scope.selectedTag.summary = summary.text;
-    }
-
-}])
-
-
 // SUMMARY CONTROLLER ==========================================
 
 .controller('summary', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
@@ -267,7 +188,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
           console.log(data);
 
           $scope.flow = data.flow;
-          
+            console.log('tags', data.flow.tags)          
           // what I want here is 
           // step.messages by user
           // message where message._step == _selected._id order by user.
@@ -343,9 +264,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         } else if (!message.fav){
             message.fav = true;
         }
-        // TODO: when we save the summary, it will save all messages with message.fav = true
-        // to the summary file. 
-        // haha this shi
+        // TODO: when we change screens, save all messages with message.fav = true
     }
 
     $scope.passFail = function(step){

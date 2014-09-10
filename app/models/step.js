@@ -18,6 +18,7 @@ var StepSchema = new Schema ({
 	},
 	messages:[{ type: Schema.Types.ObjectId, ref: 'Message'}],
 	users: [{ type: Schema.Types.ObjectId, ref: 'User'}],
+	tags: [{ type: Schema.Types.ObjectId, ref: 'Tag'}],
 	desc : {
 			type : String,
 			trim : true

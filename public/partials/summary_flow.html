@@ -9,7 +9,15 @@
 				<li>
 					<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="flow.summary"></textarea>
 				</li>
-				
+				<li id="tags-showhide">
+					<label>You can show or hide tags used in &ldquo;{{flow.name}}&rdquo; comments. Hidden tags will not be shown in the summary.</label>
+					
+					<ul class="tags">
+						<li ng-repeat="tag in flow.tags track by $index" ng-click="showHideTag(tag)" ng-class="{ 'deactivated': !tag.visible }" ><span>{{tag.body}} &nbsp; &times;</span></li>
+					</ul>
+					
+					<div class="clear"></div>
+				</li>
 								
 			</ul>
 	</div>
@@ -19,53 +27,27 @@
 <div id="right-pane" ng-model='flow'>
 	<!-- looking for your users or messages? they're in summary_flow and summary_step -->
 	<div id="timeline" ng-show="flow.name">
-		<ul>
-		
-			<li class="message status">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						&nbsp;
-					</div>
-				</div>
-				<strong>All users for &ldquo;{{flow.name}}&rdquo;</strong>
-			</li>
-		
-			<!-- <li ng-repeat="user in step.session_by_user"  class="message">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="http://rdjpg.com/51/51" />
-					</div>
-					</div>
-					<small>Comments on participant</small><br><strong>{{user.user}}</strong>
-				 -->
-				<ul>
-					<li ng-repeat="user in flow.users | orderBy: 'user' " class="message">
-						<div class="message-body">
-							{{user.created | date:'yyyy-MM-dd'}}
-							{{user.name}}
-						</div>
-
-<!-- 						<div class="message-fave">
-							<a ng-click="saveFav(message)" ng-if="message.fav">
-								&#9733;
-							</a>
-							<a ng-click="saveFav(message)" ng-if="!message.fav">
-								&#9734;
-							</a>
-						</div> -->
-						<div class="clear"></div>
-					</li>
-				</ul>
+		<h3>Tags from &ldquo;{{flow.name}}&rdquo;</h3>
+			<p>You can add summaries or insights to tags from this session.</p>
 			
-			<!-- 
-				</div>
-				<div class="message-fave">
-					<a href="#">&#9734;</a>
-				</div>
-				<div class="clear"></div>
-			</li> -->
-			
+			<ul class="tags">
+				<li ng-repeat="tag in flow.tags" ng-click="selectTag(tag)" ng-class="{ 'active': selectedTag.body == tag.body}">
+					<span ng-if="tag.summary">{{tag.body}} &#x2713;</span>
+					<span ng-if="!tag.summary">{{tag.body}}</span>
+				</li>
+			</ul>
 		
+		<div class='clear'></div>
+		<br />
+		<h3>Summary for #{{selectedTag.body}}</h3>
+		<p>Add a summary for this tag to capture any notable themes or usage patterns.</p>
+		
+		<ul class="lined" ng-model="summary">
+			<li>
+				<textarea class="input" id="field-textarea" placeholder="Your summary" ng-model="summary.text"></textarea><br>
+				<button class="button small" ng-click="saveTagSummary(summary)" >Done</button>
+				<button class="button destructive small" ng-click="clearTagSummary(summary)">Remove summary</button>
+			</li>		
 		</ul>
 	</div>
 	

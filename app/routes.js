@@ -559,32 +559,50 @@ router.route('/message/')
 				})
 			})
 
-			//if there are tags, add them to the DB and the Flow (and the Step?)
+			// if there are tags, add them to the DB and then add their Flow to them
 			if(req.body.tags){
 				for( var i = 0; i < req.body.tags.length; i++){
-					var tag = new Tag();
+					console.log(req.body.tags[i])
+					var tag_body = req.body.tags[i];
 
-					tag._step	 = req.body._step;
-					tag._flow	 = req.body._flow;
-					tag._session = req.body._session;
-					tag._message = msg._id;
-					tag.body	 = req.body.tags[i];
+					Tag.findOne({body: tag_body, _flow: req.body._flow}).exec(function(err, doc){
+						if(err) res.send(err);
+						console.log('tag_body', tag_body);
+						if(doc) { 
+							console.log( 'this tag matched a call', doc)
+							// doc._messages.push(msg._id);
+							// doc.save(function(err, data){
+							// 	if (err) res.send(err);
+							// 	console.log(data)
+							// })
+						 }
+						if(!doc) {
+							console.log( 'no tags match this call', tag_body, req.body._flow)
 
-					tag.save(function(err, tag){
-						if (err)
-							res.send(err);
+							// var tag = new Tag();
+							
+							// tag._messages.push(msg._id);
+							// tag._steps.push(req.body._step);
 
-						Flow.findById( req.body._flow, function(err,flow){
-							console.log(flow)
+							// tag._flow	 = req.body._flow;
+							// tag._session = req.body._session;
+							// tag.body	 = req.body.tags[i];
 
-							flow.tags.push(tag._id);
-							flow.save(function(err,data){
-								if (err)
-									res.send(err);									
-							})
-						})
+							// tag.save(function(err, tag){
+							// 	if (err) res.send(err);
 
-						console.log(tag)
+							// 	Flow.findById( req.body._flow, function(err,flow){
+							// 		console.log(flow)
+
+							// 		flow.tags.push(tag._id);
+							// 		flow.save(function(err,data){
+							// 			if (err)
+							// 				res.send(err);
+							// 			console.log(data);
+							// 		})
+							// 	})
+							// })
+						}
 					})
 				}
 			}
@@ -735,14 +753,17 @@ router.route('/summary/:_id')
 	.get(function(req, res){
 
 		// how to populate grandchildren sub-subdocuments is in here.
-		Flow.findById(req.params._id).populate('tag users steps').exec(function(err, flow){
+		Flow.findById(req.params._id).populate('tags users steps').exec(function(err, flow){
 			Step.find({'_flow':req.params._id}).populate('users').exec(function(err, docs){
 				if(err) res.send(err);
 
-				Step.populate(docs, {path: 'users.messages', model:'Message'}, function(err, data){
+				var opts = [
+					{path: 'users.messages', model:'Message'},
+					{path: 'tags', model:'Tag'}
+				]
+
+				Step.populate(docs, opts, function(err, data){
 						flow.steps = data;
-						console.log(flow)
-						console.log(flow.steps[0].users[1].messages)
 						res.json({'flow' : flow})
 				})
 			});

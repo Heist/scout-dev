@@ -5,22 +5,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var TagSchema = new Schema({
-	_step:{ 
-		type: Schema.Types.ObjectId, 
-		ref: 'Step'
-	},
-	_flow:{
-		type: Schema.Types.ObjectId, 
-		ref: 'Flow'
-	},
-	_session : {
-		type: Schema.Types.ObjectId, 
-		ref: 'Session'
-	},
-	_message: {
-		type: Schema.Types.ObjectId, 
-		ref: 'Message'
-	},
+	_steps	 : [{ type: Schema.Types.ObjectId, ref: 'Step'}],
+	_messages: [{ type: Schema.Types.ObjectId, ref: 'Message'}],
+	
+	_flow 	 : {  type: Schema.Types.ObjectId, ref: 'Flow'},
+	_session : {  type: Schema.Types.ObjectId, ref: 'Session' },
+
 	body: {
 		type: String,
 		trim: true
