@@ -570,11 +570,11 @@ router.route('/message/')
 						console.log('tag_body', tag_body);
 						if(doc) { 
 							console.log( 'this tag matched a call', doc)
-							// doc._messages.push(msg._id);
-							// doc.save(function(err, data){
-							// 	if (err) res.send(err);
-							// 	console.log(data)
-							// })
+							doc._messages.push(msg._id);
+							doc.save(function(err, data){
+								if (err) res.send(err);
+								console.log(data)
+							})
 						 }
 						if(!doc) {
 							console.log( 'no tags match this call', tag_body, req.body._flow)
