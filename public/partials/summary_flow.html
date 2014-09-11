@@ -38,7 +38,7 @@
 				<li>
 					<textarea class="input" id="field-textarea" placeholder="Your summary" ng-model="selectedTag.summary"></textarea><br>
 					<button class="button small" ng-click="saveTagSummary()" >Done</button>
-					<button class="button destructive small" ng-click="clearTagSummary()">Remove summary</button>
+					<button class="button destructive small" ng-click="clearTagSummary(); selectedTag.summary=''">Remove summary</button>
 				</li>		
 			</ul>
 		</div>
