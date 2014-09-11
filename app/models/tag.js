@@ -22,7 +22,18 @@ var TagSchema = new Schema({
 	summary: {
 		type:String,
 		trim:true
+	},
+	summarized : {
+		type:Boolean,
+		default:false
 	}
+});
+
+TagSchema.pre('save', function(next){
+  if(this.summary){
+  	this.summarized = true
+  }
+  next();
 });
 
 module.exports = mongoose.model('Tag', TagSchema);

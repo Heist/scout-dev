@@ -258,17 +258,15 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
     $scope.selectTag = function (tag){
         $scope.selectedTag = tag;
-        console.log(tag.summary);
-        $scope.tagSummary = '';
     }
 
     $scope.clearTagSummary = function(){
         $scope.selectedTag.summary = '';
+        $scope.selectedTag.summarized = false;
     }
 
-    $scope.saveTagSummary = function(summary){
-        console.log('touched save summary', summary);
-        $scope.selectedTag.summary = summary;
+    $scope.saveTagSummary = function(){
+        $scope.selectedTag.summarized = true;
     }
 
    

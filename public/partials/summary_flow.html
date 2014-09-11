@@ -23,8 +23,8 @@
 			
 			<ul class="tags">
 				<li ng-repeat="tag in flow.tags" ng-click="selectTag(tag)" ng-class="{ 'active': selectedTag.body == tag.body}">
-					<span ng-if="tag.summary">{{tag.body}} &#x2713;</span>
-					<span ng-if="!tag.summary">{{tag.body}}</span>
+					<span ng-if="tag.summarized">{{tag.body}} &#x2713;</span>
+					<span ng-if="!tag.summarized">{{tag.body}}</span>
 				</li>
 			</ul>
 		
@@ -36,9 +36,9 @@
 			
 			<ul class="lined">
 				<li>
-					<textarea class="input" id="field-textarea" placeholder="Your summary" ng-model="tagSummary"></textarea><br>
-					<button class="button small" ng-click="saveTagSummary(tagSummary)" >Done</button>
-					<button class="button destructive small" ng-click="tagSummary=''; clearTagSummary()">Remove summary</button>
+					<textarea class="input" id="field-textarea" placeholder="Your summary" ng-model="selectedTag.summary"></textarea><br>
+					<button class="button small" ng-click="saveTagSummary()" >Done</button>
+					<button class="button destructive small" ng-click="clearTagSummary()">Remove summary</button>
 				</li>		
 			</ul>
 		</div>
