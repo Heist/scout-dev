@@ -698,10 +698,20 @@ router.route('/summary/:_id')
 
 		promise.then(function(flow){
 			reply.flow = flow;
-			return Message.find({'_flow':req.params._id}).select('_id').exec();
-		}).then(function(messages){
-			console.log('reply', reply.flow._id, 'messages', messages)
+			return Step.find({'_flow':req.params._id}).select('_id summary').exec();
+		})
+		.then(function(steps){
+			reply.steps = steps;
+			return Message.find({'_flow':req.params._id}).select('_id fav pass_fail').exec();
+		})
+		.then(function(messages){
 			reply.messages = messages;
+			return Tag.find({'_flow':req.params._id}).select('_id summary').exec();
+		})
+		.then(function(tags){
+			reply.tags = tags;
+			console.log('reply', reply.flow._id, 'messages', reply.messages, 'steps', reply.steps)
+			res.json(reply)
 		})
 		.then(null, function(err){
 			if(err) return res.send (err)
@@ -709,16 +719,19 @@ router.route('/summary/:_id')
 		
 	})
 	.put(function(req, res){
-		console.log(req.body.steps)
-		var flow = req.body;
-		var steps = req.body.steps;
-		
+		console.log('touched summary put', req.body.summary)
 
-		Flow.findByIdandUpdate(req.body._id, req.body.summary);
+		Flow.where({'_id':req.body._id}).update({'summary' : req.body.summary}, function(err, flow){
+			console.log('flow updated', flow)
+		});
 		
-		for(var i = 0; i < req.body.steps.length; i++){
-			Step.update({'_id': req.body.steps[i]._id}, {summary: req.body.steps[i].summary})
-		}
+		// for(var i = 0; i < req.body.steps.length; i++){
+		// 	Step.update({'_id': req.body.steps[i]._id}, {summary: req.body.steps[i].summary})
+		// }
+
+		// for(var i = 0; i < req.body.tags.length; i++){
+		// 	Tag.update({'_id': req.body.tags[i]._id}, {summary: req.body.steps[i].summary})
+		// }
 
 		// if an update happened to a message
 		// update that message

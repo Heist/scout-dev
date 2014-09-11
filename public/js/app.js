@@ -183,13 +183,14 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .success(function(data){
           console.log(data);
 
-          $scope.flow = data.flow;
+            $scope.flow = data.flow;
             console.log('tags', data.flow.tags)
             $scope.activate($scope.flow)
 
-          // what I want here is 
-          // step.messages by user
-          // message where message._step == _selected._id order by user.
+            $scope.messages = data.messages;
+            $scope.steps = data.steps;
+            $scope.tags = data.tags;
+
         })
 
     $scope.activate = function(step, selectedIndex) {
@@ -231,6 +232,8 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
     $scope.saveFav = function(message){
         console.log('touched fav', message);
+        // get the matching message from scope.messages
+        // set its fav status
 
         if(message.fav){
             message.fav = false;
@@ -269,6 +272,10 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
     $scope.saveTagSummary = function(){
         $scope.selectedTag.summarized = true;
+        console.log($scope.selectedTag._id);
+        
+        // $scope.tags._id[$scope.selectedTag._id].summary=$scope.selectedTag.summary;
+        
     }
 
    
