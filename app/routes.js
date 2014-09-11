@@ -733,13 +733,12 @@ router.route('/summary/:_id')
 					console.log('tag updated', tag)
 				});
 			}
-		// for(var i = 0; i < req.body.steps.length; i++){
-		// 	Step.update({'_id': req.body.steps[i]._id}, {summary: req.body.steps[i].summary})
-		// }
 
-		// for(var i = 0; i < req.body.tags.length; i++){
-		// 	Tag.update({'_id': req.body.tags[i]._id}, {summary: req.body.steps[i].summary})
-		// }
+		for(var i = 0; i < req.body.flow.steps.length; i++){
+			Step.where({'_id':req.body.flow.steps[i]._id}).update({'summary' : req.body.steps[i].summary}, function(err, tag){
+					console.log('step updated', step)
+				});
+		}	
 
 		// if an update happened to a message
 		// update that message

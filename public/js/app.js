@@ -184,11 +184,9 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
           console.log(data);
 
             $scope.flow = data.flow;
-            console.log('tags', data.flow.tags)
             $scope.activate($scope.flow)
 
             $scope.messages = data.messages;
-            $scope.steps = data.steps;
             $scope.tags = data.tags;
 
         })
@@ -436,14 +434,14 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     }
 
     // Launch the current report
-    $scope.loadReport = function(testKey){
-        console.log('touched a report', testKey);
-        $location.path('/report/'+ testKey +'/');
+    $scope.loadReport = function(session_id){
+        console.log('touched a report', session_id);
+        $location.path('/report/session/'+ session_id );
     }
 
-    $scope.viewFlowReport = function(flow, testKey){
-        console.log('touched a flow report', testKey,flow);
-        $location.path('/report/'+ testKey +'/flow/'+flow.title);
+    $scope.viewFlowReport = function(flow_id){
+        console.log('touched a flow report', flow_id);
+        $location.path('/report/flow/'+ flow_id);
     }
 }])
 

@@ -80,14 +80,14 @@
 				</div>
 			
 				<div class="session-flow-controls">
-					<button class="button small" ng-click="summarizeFlow(flow._id)" ng-show="selected.runcount > 0" >Summarize</button>
+					<button class="button small" ng-click="summarizeFlow(flow._id)" ng-show="!flow.summary" >Summarize</button>
 
 					<button class="button small" ng-click="summarizeFlow(flow._id)" ng-show="flow.summary" >Summary</button>
 					
 					&nbsp;&nbsp;
 					
 					<!-- TODO: we want to view a report just for this flow -->
-					<button class="button small" ng-click="viewFlowReport(flow, selected._id)" ng-show="flow.summary" >View Report</button> 
+					<button class="button small" ng-click="viewFlowReport(flow)" ng-show="flow.summary" >View Report</button> 
 					
 					&nbsp;&nbsp;
 
