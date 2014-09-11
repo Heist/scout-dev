@@ -52,31 +52,30 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             templateUrl: 'partials/summary_step.html'
         })
 
-        // REPORT PAGE WITH NESTED VIEWS =====================
+        // REPORT PAGE FOR SINGLE FLOW =======================
         .state('report', {
-            url: '/report/:session_id/',
+            url: '/report/flow/:flow_id',
             templateUrl: 'partials/report.html'
         })
         .state('report.flow', {
             templateUrl: 'partials/report_flow.html'
         })
         .state('report.step', {
-            // url: '/report/:testKey/',
             templateUrl: 'partials/report_step.html'
         })
 
-        // REPORT PAGE FOR SINGLE FLOW =======================
-        .state('reportflow', {
-            url: '/report/:testKey/flow/:flowName',
-            templateUrl: 'partials/report.html'
-        })
-        .state('reportflow.flow', {
-            templateUrl: 'partials/report_flow.html'
-        })
-        .state('reportflow.step', {
-            // url: '/report/:testKey/',
-            templateUrl: 'partials/report_step.html'
-        })
+        // // REPORT PAGE FOR SESSION =====================
+        // .state('reportflow', {
+        //     url: '/report/session/:session_id',
+        //     templateUrl: 'partials/report.html'
+        // })
+        // .state('reportflow.flow', {
+        //     templateUrl: 'partials/report_flow.html'
+        // })
+        // .state('reportflow.step', {
+        //     // url: '/report/:testKey/',
+        //     templateUrl: 'partials/report_step.html'
+        // })
         ;
 })
 
@@ -131,22 +130,22 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     // holds the relevant summary
     $scope.session = {};
 
-    if($stateParams.flowName){
-        $http.get('/api/report/'+$stateParams.session_id+'/flow/'+$stateParams.flowName)
-            .success(function(data){
-              $scope.session = data;
-              console.log('the report object', $scope.session);
-              $scope.selected = data.summaries[0];
+    // if($stateParams.flow_id){
+    //     $http.get('/api/report/flow/'+$stateParams.flow_id)
+    //         .success(function(data){
+    //           $scope.session = data;
+    //           console.log('the report object', $scope.session);
+    //           $scope.selected = data.summaries[0];
 
-              console.log($scope.selected);
-        })
-    } else {
-        $http.get('/api/report/'+$stateParams.session_id)
-            .success(function(data){
-              $scope.session = data;
-              console.log('the report object', $scope.session);
-            })
-        }
+    //           console.log($scope.selected);
+    //     })
+    // } else {
+    //     $http.get('/api/report/session/'+$stateParams.session_id)
+    //         .success(function(data){
+    //           $scope.session = data;
+    //           console.log('the report object', $scope.session);
+    //         })
+    //     }
 
     $scope.select = function(selector){
         $scope.selected = selector;
@@ -441,7 +440,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
     $scope.viewFlowReport = function(flow_id){
         console.log('touched a flow report', flow_id);
-        $location.path('/report/flow/'+ flow_id);
+        $location.path('/report/flow/'+flow_id);
     }
 }])
 

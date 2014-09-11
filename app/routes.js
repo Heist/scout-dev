@@ -752,7 +752,7 @@ router.route('/summary/:_id')
 
 // REPORT ROUTES =============================================
 
-router.route('/report/:session_id')
+router.route('/report/flow/:flow_id')
 	.get(function(req, res){
 		console.log('touched report get')
 	});		
