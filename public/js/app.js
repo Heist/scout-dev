@@ -209,13 +209,13 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     };
 
    
-    $scope.completeSummary = function(summarized_flow){
+    $scope.completeSummary = function(){
         // post all the summary changes to the flow
         // post summary changes to the tags
         // post fav'd statuses to relevant messages
 
         var url = '/api/summary/'+ $stateParams.flow_id;
-        var data_out = summarized_flow;
+        var data_out = {flow: $scope.flow, tags:$scope.tags} ;
         console.log(data_out)
 
         
@@ -262,20 +262,20 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     // remove summary from tag
 
     $scope.selectTag = function (index){
-        $scope.selectedTag = tag;
+        $scope.selectedTag = $scope.tags[index];
+        $scope.selectedTag.index = index;
     }
 
     $scope.clearTagSummary = function(){
-        $scope.tags[].selectedTag.summary = '';
+        // $scope.tags[].selectedTag.summary = '';
         $scope.selectedTag.summarized = false;
     }
 
     $scope.saveTagSummary = function(){
-        $scope.tags[].summarized = true;
-        console.log($scope.selectedTag._id);
         
-        // $scope.tags._id[$scope.selectedTag._id].summary=$scope.selectedTag.summary;
-        
+        $scope.tags[$scope.selectedTag.index].summary = $scope.selectedTag.summary;
+        $scope.selectedTag.summarized = true;
+        console.log($scope.tags);
     }
 
    

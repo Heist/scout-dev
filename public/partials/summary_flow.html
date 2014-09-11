@@ -22,7 +22,7 @@
 			<p>You can add summaries or insights to tags from this session.</p>
 			
 			<ul class="tags">
-				<li ng-repeat="tag in tags" ng-click="selectTag(tag)" ng-class="{ 'active': selectedTag.body == tag.body}">
+				<li ng-repeat="tag in tags" ng-click="selectTag($index)" ng-class="{ 'active': selectedTag.body == tag.body}">
 					<span ng-if="tag.summarized">{{tag.body}} &#x2713;</span>
 					<span ng-if="!tag.summarized">{{tag.body}}</span>
 				</li>
