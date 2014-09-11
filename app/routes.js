@@ -706,7 +706,7 @@ router.route('/summary/:_id')
 		})
 		.then(function(messages){
 			reply.messages = messages;
-			return Tag.find({'_flow':req.params._id}).select('_id summary body').exec();
+			return Tag.find({'_flow':req.params._id}).select('_id summary summarized body').exec();
 		})
 		.then(function(tags){
 			reply.tags = tags;
@@ -729,7 +729,7 @@ router.route('/summary/:_id')
 				console.log('tag', req.body.tags[i]._id, 'summary', req.body.tags[i].summary)
 				var id = req.body.tags[i]._id
 				var summary = req.body.tags[i].summary
-				Tag.where({'_id':req.body.tags[i]._id}).update({'summary' : req.body.tags[i].summary}, function(err, tag){
+				Tag.where({'_id':req.body.tags[i]._id}).update({'summary' : req.body.tags[i].summary, 'summarized' : req.body.tags[i].summarized, }, function(err, tag){
 					console.log('tag updated', tag)
 				});
 			}

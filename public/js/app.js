@@ -272,6 +272,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $scope.saveTagSummary = function(){
         
         $scope.tags[$scope.selectedTag.index].summary = $scope.selectedTag.summary;
+        $scope.tags[$scope.selectedTag.index].summarized = true;
         $scope.selectedTag.summarized = true;
         console.log($scope.tags);
     }
