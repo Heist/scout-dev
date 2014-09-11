@@ -42,7 +42,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
         // SUMMARIZE VIEW ====================================
         .state('summary', {
-            url: '/summary/:summaryID',
+            url: '/summary/:flow_id',
             templateUrl: 'partials/summary.html'
         })
         .state('summary.flow', {
@@ -177,15 +177,16 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 .controller('summary', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
 	$scope.flow = {};
     $scope.timeline = [];
+    $scope.flow.messages = {};
 
-
-    $http.get('/api/summary/'+$stateParams.summaryID)
+    $http.get('/api/summary/'+$stateParams.flow_id)
         .success(function(data){
           console.log(data);
 
           $scope.flow = data.flow;
             console.log('tags', data.flow.tags)
             $scope.activate($scope.flow)
+
           // what I want here is 
           // step.messages by user
           // message where message._step == _selected._id order by user.
@@ -207,16 +208,17 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     };
 
    
-    $scope.completeSummary = function(summary){
-        // this is the Save A New Summary button
-        // it saves a summary in complete mode when done writing it up
-        // then returns you to /
-        // this runs on a really weird, delayed time cycle! I do not know why.
-        var url = '/api/summary/'+ $stateParams.summaryID +'/flow/';
-        var dataOut = summary;
+    $scope.completeSummary = function(summarized_flow){
+        // post all the summary changes to the flow
+        // post summary changes to the tags
+        // post fav'd statuses to relevant messages
+
+        var url = '/api/summary/'+ $stateParams.flow_id;
+        var data_out = summarized_flow;
+        console.log(data_out)
 
         
-         $http.put(url, dataOut)   
+         $http.put(url, data_out)   
             .success(function(data){
                 // console.log('sent a new summary '+ JSON.stringify(data));
             })
@@ -319,9 +321,9 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             session.name = 'New Session';
         }
 
-        var dataOut = {name:session.name};
+        var data_out = {name:session.name};
 
-        $http.put(url, dataOut)
+        $http.put(url, data_out)
                 .success(function(data){
                     console.log('sent new title : ', data);
                 })
@@ -747,9 +749,9 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             console.log('note', note);
 
             var url = '/api/message/';
-            var dataOut = note;
+            var data_out = note;
 
-            $http.post(url, dataOut)
+            $http.post(url, data_out)
                 .success(function(data){
                     console.log('Message pushed: ', data);
                 })
@@ -763,16 +765,16 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $scope.postTest = function(){
 
         var url = '/api/run/'+$stateParams.sessionId;
-        var dataOut = {session: $scope.session, flows: $scope.update.flows, steps: $scope.update.steps, user: $scope.user._id};
+        var data_out = {session: $scope.session, flows: $scope.update.flows, steps: $scope.update.steps, user: $scope.user._id};
 
-        console.log('touched end', dataOut);
+        console.log('touched end', data_out);
         // collects all the flows and steps and outputs them as a collected object
         // to the session api link
         // where they are parsed 
         // and their individual user lists are updated.
 
         $http
-            .post(url, dataOut)
+            .post(url, data_out)
             .success(function(data){
                 console.log('Updated flows', data);
                 $location.path('/');

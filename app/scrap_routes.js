@@ -71,17 +71,17 @@ router.route('/test/:testKey/flow/:flowKey')
 
 // get the summary to fill in from the database
 
-router.route('/summary/:summaryID/flow/')
+router.route('/summary/:flow_id/flow/')
 	.get(function(req,res){
-		Summary.findById(req.params.summaryID, function(err, summary) {
+		Summary.findById(req.params.flow_id, function(err, summary) {
 				if (err)
 					res.send(err);
-				console.log('touched /:summaryID', req.params.summaryID);
+				console.log('touched /:flow_id', req.params.flow_id);
 				res.json(summary);
 			});
 	})
 	.put(function(req,res){
-		console.log('touched put for summaryID', req.body);
+		console.log('touched put for flow_id', req.body);
 
 		Summary.findById(req.body._id, function (err, summary) {	
 			if (err)
@@ -102,9 +102,9 @@ router.route('/summary/:summaryID/flow/')
 
 	});
 
-router.route('/summary/:summaryId')
+router.route('/summary/:flow_id')
 	.get(function(req,res){
-		Summary.findById(req.params.summaryId, function(err, summary) {
+		Summary.findById(req.params.flow_id, function(err, summary) {
 				if (err)
 					res.send(err);
 				console.log('touched /:sessionId');
@@ -112,14 +112,14 @@ router.route('/summary/:summaryId')
 			});
 	})
 	.delete(function(req,res){
-		console.log(req.params.summaryId);
+		console.log(req.params.flow_id);
 		Summary.remove({
-			'_id': req.params.summaryId
+			'_id': req.params.flow_id
 		}, function(err, summary) {
 			if (err)
 				res.send(err);
 
-			res.json({ message: 'Successfully deleted summary with '+req.params.summaryId });
+			res.json({ message: 'Successfully deleted summary with '+req.params.flow_id });
 		});
 	})
 	;
@@ -228,9 +228,9 @@ router.route('/report/:testKey')
 						users.splice(i, 1);
 					}
 				}
-				var dataOut = {'users': users, 'summaries':summaries};
+				var data_out = {'users': users, 'summaries':summaries};
 				
-				res.json(dataOut);
+				res.json(data_out);
 			});
 	});
 router.route('/report/:testKey/flow/:flowName')
@@ -312,8 +312,8 @@ router.route('/report/:testKey/flow/:flowName')
 						users.splice(i, 1);
 					}
 				}
-				var dataOut = {'users': users, 'summaries':summaries};
+				var data_out = {'users': users, 'summaries':summaries};
 				
-				res.json(dataOut);
+				res.json(data_out);
 			});
 	});
