@@ -261,17 +261,17 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     // on click 'clear'
     // remove summary from tag
 
-    $scope.selectTag = function (tag){
+    $scope.selectTag = function (index){
         $scope.selectedTag = tag;
     }
 
     $scope.clearTagSummary = function(){
-        $scope.selectedTag.summary = '';
+        $scope.tags[].selectedTag.summary = '';
         $scope.selectedTag.summarized = false;
     }
 
     $scope.saveTagSummary = function(){
-        $scope.selectedTag.summarized = true;
+        $scope.tags[].summarized = true;
         console.log($scope.selectedTag._id);
         
         // $scope.tags._id[$scope.selectedTag._id].summary=$scope.selectedTag.summary;
