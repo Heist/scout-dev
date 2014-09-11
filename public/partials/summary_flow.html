@@ -9,15 +9,6 @@
 				<li>
 					<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="flow.summary"></textarea>
 				</li>
-				<li id="tags-showhide">
-					<label>You can show or hide tags used in &ldquo;{{flow.name}}&rdquo; comments. Hidden tags will not be shown in the summary.</label>
-					
-					<ul class="tags">
-						<li ng-repeat="tag in flow.tags track by $index" ng-click="showHideTag(tag)" ng-class="{ 'deactivated': !tag.visible }" ><span>{{tag.body}} &nbsp; &times;</span></li>
-					</ul>
-					
-					<div class="clear"></div>
-				</li>
 								
 			</ul>
 	</div>
@@ -47,7 +38,7 @@
 				<li>
 					<textarea class="input" id="field-textarea" placeholder="Your summary" ng-model="tagSummary"></textarea><br>
 					<button class="button small" ng-click="saveTagSummary(tagSummary)" >Done</button>
-					<button class="button destructive small" ng-click="clearTagSummary(selectedTag, tagSummary)">Remove summary</button>
+					<button class="button destructive small" ng-click="tagSummary=''; clearTagSummary()">Remove summary</button>
 				</li>		
 			</ul>
 		</div>

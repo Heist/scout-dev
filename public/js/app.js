@@ -262,16 +262,8 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         $scope.tagSummary = '';
     }
 
-    $scope.clearTagSummary = function(data, sum){
-        console.log('clear this tag summary', data, 'this value', sum)
-        
+    $scope.clearTagSummary = function(){
         $scope.selectedTag.summary = '';
-
-        console.log('tagSummary', $scope.tagSummary)
-        $scope.tagSummary = '';
-        sum = '';
-
-        console.log('sum',sum, 'scope value', $scope.tagSummary)
     }
 
     $scope.saveTagSummary = function(summary){
