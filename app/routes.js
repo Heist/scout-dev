@@ -719,23 +719,29 @@ router.route('/summary/:_id')
 		
 	})
 	.put(function(req, res){
-		console.log('touched summary put', req.body.summary)
-		console.log(req.body)
+
 		Flow.where({'_id':req.body._id}).update({'summary' : req.body.summary}, function(err, flow){
 			console.log('flow updated', flow)
 		});
 		
 		for(var i = 0; i < req.body.tags.length; i++){
-				
 				Tag.where({'_id':req.body.tags[i]._id}).update({'summary' : req.body.tags[i].summary, 'summarized' : req.body.tags[i].summarized, }, function(err, tag){
 					console.log('tag updated', tag)
 				});
 			}
 
 		for(var i = 0; i < req.body.flow.steps.length; i++){
-			Step.where({'_id':req.body.flow.steps[i]._id}).update({'summary' : req.body.steps[i].summary}, function(err, tag){
-					console.log('step updated', step)
-				});
+			var step = req.body.flow.steps[i];
+			
+			if(step.summary){
+				console.log(step._id)
+				console.log(step.summary)
+				console.log(step.pass_fail)
+				
+				Step.where({'_id':step._id}).update({'summary' : step.summary, 'pass_fail': step.pass_fail}, function(err, step){
+						console.log('step updated', step)
+					});
+				}
 		}	
 
 		// if an update happened to a message

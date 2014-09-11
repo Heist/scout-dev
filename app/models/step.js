@@ -33,7 +33,11 @@ var StepSchema = new Schema ({
 		type: Boolean,
 		default: false
 	},
-	index: Number
+	index: Number,
+	summary:{
+			type : String,
+			trim : true
+		}
 })
 
 StepSchema.pre('save', function(next){
