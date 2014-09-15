@@ -159,8 +159,6 @@ router.route('/session/:_id/flow/')
 			  	
 			})
 	});
-	
-
 
 // FLOW ROUTES ===================================================
 	
@@ -720,29 +718,32 @@ router.route('/summary/:_id')
 	})
 	.put(function(req, res){
 		// There is a Pending Problem in here somewhere for 54118cbe3535a25c5d230d3b
-		Flow.where({'_id':req.body._id}).update({'summary' : req.body.summary}, function(err, flow){
+
+		console.log('touched summary put', req.body.flow._id);
+		Flow.where({'_id':req.body.flow._id}).update({'summary' : req.body.flow.summary}, function(err, flow){
 			console.log('flow updated', flow)
+			res.json('flow updated - server')
 		});
 		
-		for(var i = 0; i < req.body.tags.length; i++){
-				Tag.where({'_id':req.body.tags[i]._id}).update({'summary' : req.body.tags[i].summary, 'summarized' : req.body.tags[i].summarized, }, function(err, tag){
-					console.log('tag updated', tag)
-				});
-			}
+		// for(var i = 0; i < req.body.tags.length; i++){
+		// 		Tag.where({'_id':req.body.tags[i]._id}).update({'summary' : req.body.tags[i].summary, 'summarized' : req.body.tags[i].summarized, }, function(err, tag){
+		// 			console.log('tag updated', tag)
+		// 		});
+		// 	}
 
-		for(var i = 0; i < req.body.flow.steps.length; i++){
-			var step = req.body.flow.steps[i];
+		// for(var i = 0; i < req.body.flow.steps.length; i++){
+		// 	var step = req.body.flow.steps[i];
 			
-			if(step.summary){
-				console.log(step._id)
-				console.log(step.summary)
-				console.log(step.pass_fail)
+		// 	if(step.summary){
+		// 		console.log(step._id)
+		// 		console.log(step.summary)
+		// 		console.log(step.pass_fail)
 				
-				Step.where({'_id':step._id}).update({'summary' : step.summary, 'pass_fail': step.pass_fail}, function(err, step){
-						console.log('step updated', step)
-					});
-				}
-		}	
+		// 		Step.where({'_id':step._id}).update({'summary' : step.summary, 'pass_fail': step.pass_fail}, function(err, step){
+		// 				console.log('step updated', step)
+		// 			});
+		// 		}
+		// }	
 
 		// if an update happened to a message
 		// update that message

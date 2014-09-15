@@ -35,7 +35,6 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         }
     };
 
-   
     $scope.completeSummary = function(){
         // post all the summary changes to the flow
         // post summary changes to the tags
@@ -49,12 +48,16 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
          $http.put(url, data_out)   
             .success(function(data){
                 // console.log('sent a new summary '+ JSON.stringify(data));
+                $location.path('/');
+                console.log(data);
+                // note: this MUST stay inside the Success
+                // as that prevents the weird pending bug 
+                // which is caused by there being invisibly no data at some point.
             })
             .error(function(data){
                 console.log('error', data);
             });        
 
-        $location.path('/');
     }
 
     $scope.saveFav = function(message){
