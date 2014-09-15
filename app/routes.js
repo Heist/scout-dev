@@ -731,7 +731,7 @@ router.route('/summary/:_id')
 			}
 
 		res.json('flow updated - server')
-		if(req.body.steps){
+		if(req.body.flow.steps){
 			console.log('steps found')
 		for(var i = 0; i < req.body.flow.steps.length; i++){
 			var step = req.body.flow.steps[i];

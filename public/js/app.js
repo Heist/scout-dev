@@ -32,21 +32,18 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         })
         .state('flow', {
             url: '/edit/flow/:flow_id',
-            controller:'flow',
             templateUrl: 'partials/flow.html'
         })
 
         // RUN TEST ==========================================
         .state('run', {
             url: '/run/:sessionId',
-            controller: 'run',
             templateUrl: 'partials/run.html'
         })
 
         // SUMMARIZE VIEW ====================================
         .state('summary', {
             url: '/summary/:flow_id',
-            controller:'summary',
             templateUrl: 'partials/summary.html'
         })
         .state('summary.flow', {
@@ -59,7 +56,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         // REPORT PAGE FOR SINGLE FLOW =======================
         .state('report', {
             url: '/report/flow/:flow_id',
-            controller:'report',
             templateUrl: 'partials/report.html'
         })
         .state('report.flow', {

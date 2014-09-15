@@ -1,12 +1,11 @@
 'use strict';
 // summary.js
 
-// REPORT CONTROLLER ===========================================================
+// SUMMARY CONTROLLER ===========================================================
 
 angular.module('field_guide_controls').controller('summary', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
 	$scope.flow = {};
     $scope.timeline = [];
-    $scope.flow.messages = {};
 
     $http.get('/api/summary/'+$stateParams.flow_id)
         .success(function(data){
@@ -15,8 +14,9 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
             $scope.flow = data.flow;
             $scope.activate($scope.flow)
 
-            $scope.messages = data.messages;
             $scope.tags = data.tags;
+
+            console.log('steps', $scope.flow.steps);
 
         })
 
@@ -31,7 +31,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         }
         if(step){
                 $scope.step = step;
-                console.log('step', step)
+                // console.log('step', step)
         }
     };
 
@@ -41,7 +41,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         // post fav'd statuses to relevant messages
 
         var url = '/api/summary/'+ $stateParams.flow_id;
-        var data_out = {flow: $scope.flow, tags:$scope.tags} ;
+        var data_out = {flow: $scope.flow, tags:$scope.tags, messages:$scope.messages} ;
         console.log(data_out)
 
         
