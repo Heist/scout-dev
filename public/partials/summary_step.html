@@ -39,10 +39,12 @@
 				
 
 				<ul ng-model='messages'>
-					<li ng-repeat="message in messages | orderBy:'user' | filter:msgFilter" class="message">
-						step: {{step._id}}
-						msg.step:{{message._step}}
-						msg.user:{{message.user}}
+					<li ng-repeat="message in messages " class="message">
+						step: {{step._id}}<br/>
+						user: {{user.name}}<br/>
+						msg.step:{{message._step}}<br/>
+						msg.user:{{message.user}}<br/>
+						
 						<div class="message-body">
 							<p ng-bind-html="message.body | hashtag"></p>
 							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>

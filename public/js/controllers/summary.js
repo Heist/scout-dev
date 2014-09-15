@@ -72,8 +72,9 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         }
         // TODO: when we change screens, save all messages with message.fav = true
     }
-     $scope.msgFilter = function (message, step){
+     $scope.msgFilter = function (message){
         if (message._step == $scope.step._id) {
+            console.log(message)
                 return true;
             }
             return false;

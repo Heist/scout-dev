@@ -695,11 +695,11 @@ router.route('/summary/:_id')
 
 		promise.then(function(flow){
 			reply.flow = flow;
-			return Step.find({'_flow':req.params._id}).select('_id summary').exec();
+			return Step.find({'_flow':req.params._id}).select('_id summary pass_fail').exec();
 		})
 		.then(function(steps){
 			reply.steps = steps;
-			return Message.find({'_flow':req.params._id}).select('_id fav _step user pass_fail').exec();
+			return Message.find({'_flow':req.params._id}).select('_id fav _step user body').exec();
 		})
 		.then(function(messages){
 			reply.messages = messages;
