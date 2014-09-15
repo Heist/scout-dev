@@ -72,6 +72,12 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         }
         // TODO: when we change screens, save all messages with message.fav = true
     }
+     $scope.msgFilter = function (message, step){
+        if (message._step == $scope.step._id) {
+                return true;
+            }
+            return false;
+      };
 
     $scope.passFail = function(step){
         console.log('touched pass-fail')
