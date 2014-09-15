@@ -684,7 +684,6 @@ router.route('/summary/:_id')
 
 					var opts = [
 						{path: 'users.messages', model:'Message'},
-						{path: 'tags', model:'Tag'}
 					]
 
 					Step.populate(docs, opts, function(err, data){
@@ -700,7 +699,7 @@ router.route('/summary/:_id')
 		})
 		.then(function(steps){
 			reply.steps = steps;
-			return Message.find({'_flow':req.params._id}).select('_id fav pass_fail').exec();
+			return Message.find({'_flow':req.params._id}).select('_id fav _step user pass_fail').exec();
 		})
 		.then(function(messages){
 			reply.messages = messages;
@@ -733,19 +732,19 @@ router.route('/summary/:_id')
 		res.json('flow updated - server')
 		if(req.body.flow.steps){
 			console.log('steps found')
-		for(var i = 0; i < req.body.flow.steps.length; i++){
-			var step = req.body.flow.steps[i];
-			
-			if(step.summary){
-				console.log(step._id)
-				console.log(step.summary)
-				console.log(step.pass_fail)
+			for(var i = 0; i < req.body.flow.steps.length; i++){
+				var step = req.body.flow.steps[i];
 				
-				Step.where({'_id':step._id}).update({'summary' : step.summary, 'pass_fail': step.pass_fail}, function(err, step){
-						console.log('step updated', step)
-					});
-				}
-			}	
+				if(step.summary){
+					console.log(step._id)
+					console.log(step.summary)
+					console.log(step.pass_fail)
+					
+					Step.where({'_id':step._id}).update({'summary' : step.summary, 'pass_fail': step.pass_fail}, function(err, step){
+							console.log('step updated', step)
+						});
+					}
+				}	
 		}
 		// if an update happened to a message
 		// update that message

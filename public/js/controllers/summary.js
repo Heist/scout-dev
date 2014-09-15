@@ -15,7 +15,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
             $scope.activate($scope.flow)
 
             $scope.tags = data.tags;
-
+            $scope.messages = data.messages;
             console.log('steps', $scope.flow.steps);
 
         })
