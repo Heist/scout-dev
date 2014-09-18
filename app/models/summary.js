@@ -5,11 +5,13 @@ var Schema = mongoose.Schema;
 
 var SummarySchema = new Schema ({
   _session : { type: Schema.Types.ObjectId, ref: 'Session' },
-  _flow   : { type: Schema.Types.ObjectId, ref: 'Flow' },
-  _steps  : [{ type: Schema.Types.ObjectId, ref: 'Step' }],
-  _tag    : [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
+  _test   : { type: Schema.Types.ObjectId, ref: 'Test' },
+  _tasks  : [{ type: Schema.Types.ObjectId, ref: 'Task' }],
+  _tags    : [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
+
   title   : {type: String, trim: true},
 	summary : {type: String, trim: true},
+  
   created : Date,
 	updated : Date
 })

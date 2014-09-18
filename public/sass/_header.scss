@@ -10,7 +10,7 @@
 	@include dropshadow;
 	width: 100%;
 	height: 50px;
-	overflow: hidden;
+	overtest: hidden;
 	z-index: 999999;
 	padding: 0 $pad;
 	
@@ -54,7 +54,7 @@
 			width: 28px;
 			margin: $pad/2 0 0 $pad/2;
 			@include radius(20px);
-			overflow: hidden;
+			overtest: hidden;
 			float: left;
 			
 			img {

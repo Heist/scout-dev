@@ -51,17 +51,17 @@
 	</div>
 	
 	
-	<!-- create a flow -->
+	<!-- create a test -->
 	
-	<div id="left-pane" ng-model="flows">
+	<div id="left-pane" ng-model="tests">
 		
 		<div id="questions">
 	
-			<div class="questions-group" ng-repeat="flow in flows" ng-class="{ 'active': $index == parentIndex }" ng-show="flow.steps.length > 0">
+			<div class="questions-group" ng-repeat="test in tests" ng-class="{ 'active': $index == parentIndex }" ng-show="test.steps.length > 0">
 				<ul>
-					<li class="title"><small>Flow</small><h3>{{flow.name}}</h3></li>
+					<li class="title"><small>test</small><h3>{{test.name}}</h3></li>
 				
-					<li ng-repeat="step in flow.steps" 
+					<li ng-repeat="step in test.steps" 
 						ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
              			ng-click="activate($parent.$index, $index)">
              			

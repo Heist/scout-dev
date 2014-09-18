@@ -1,14 +1,14 @@
-<!-- report_flow.html -->
+<!-- report_test.html -->
 
-<!-- flow general info -->
+<!-- test general info -->
 			<h1>{{selected.title}}</h1>
 			<p class="report-detail">Report generated July 12 2014</p>		
 			<p>{{selected.summary}}</p>
 			<p class="report-participants">
 				 <ng-pluralize count="session.users.length"
-	                when="{'0': 'This flow has not been run.',
-	                       'one': 'This flow has been tested once.',
-	                       'other': 'This flow has been tested {} times.'}">
+	                when="{'0': 'This test has not been run.',
+	                       'one': 'This test has been tested once.',
+	                       'other': 'This test has been tested {} times.'}">
 	  			</ng-pluralize>
 			</p>
 				
@@ -17,7 +17,7 @@
 			</ul>
 		
 			
-			<!-- flow theme summary -->
+			<!-- test theme summary -->
 			<div class="report-block">
 				<div ng-repeat="tag in selected.tags">
 

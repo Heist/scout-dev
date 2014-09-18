@@ -177,9 +177,9 @@
 
 
 
-/* CREATE FLOW */
+/* CREATE test */
 
-#view-createflow {
+#view-createtest {
 	margin: 0;
 	padding: 0;
 	height: 100%;
@@ -346,7 +346,7 @@
 		padding: 0;
 		margin: 0;
 		position: relative;
-		overflow: hidden;
+		overtest: hidden;
 		background: $white;
 		border-left: 2px solid $line;
 		border-right: 2px solid $line;
@@ -358,7 +358,7 @@
 			width: 100%;
 			padding: $pad/2;
 			height: 150px;
-			overflow: hidden;
+			overtest: hidden;
 			background: $background-dark;
 			border-top: 2px solid $line;
 			z-index: 9999;
@@ -445,12 +445,12 @@
 		padding: 0;
 		margin: 0;
 		background: $white;	
-		overflow: hidden;
+		overtest: hidden;
 	}
 	
 	#timeline {
 		margin-top: 50px;
-		overflow: auto;
+		overtest: auto;
 		
 		.message {
 			.message-body {
@@ -570,7 +570,7 @@
 				width: 40px;
 				height: 40px;
 				@include radius(40px);
-				overflow: hidden;
+				overtest: hidden;
 				
 				img {
 					width: 40px;
@@ -695,7 +695,7 @@
 			margin-bottom: $pad;
 		}
 		
-		.session-flow {
+		.session-test {
 			border-top: 2px solid $line;
 			background: $white;
 			padding: $pad/2 0 $pad 0;			
@@ -707,14 +707,14 @@
 				margin: -6px 0 0 0;
 			}
 		
-			.session-flow-controls {
+			.session-test-controls {
 				padding-top: $pad/2;
 				float: right;
 				opacity: 0.2;
 				@include animate;	
 			}
 			
-			.flow-hamburger {
+			.test-hamburger {
 				font-size: $type-size-base*2;
 				float: left;
 				margin: 0 $pad/2 0 0;
@@ -730,7 +730,7 @@
 			}
 			
 			&:hover {
-				.session-flow-controls {
+				.session-test-controls {
 					opacity: 1.0;
 					@include animate;
 				}
@@ -753,9 +753,9 @@
 
 
 
-/* pulled out flow view boxes so we can use those everywhere */
+/* pulled out test view boxes so we can use those everywhere */
 
-.session-flow {
+.session-test {
 	background: $background-dark;
 	@include radius(10px);
 	padding: $pad*0.5 $pad 0 $pad;
@@ -777,7 +777,7 @@
 	}
 	
 		
-	.session-flow-controls {
+	.session-test-controls {
 		padding: 0;
 		line-height: $type-line-base*0.8;
 		
@@ -827,7 +827,7 @@
 				width: 30px;
 				height: 30px;
 				@include radius(30px);
-				overflow: hidden;
+				overtest: hidden;
 				margin: 0 $pad/2 0 0;
 				border: 3px solid $background;
 				

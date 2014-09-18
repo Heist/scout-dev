@@ -4,21 +4,21 @@
 // RUN CONTROLLER ===========================================================
 
 angular.module('field_guide_controls').controller('run', ['$scope','$http', '$location','$stateParams','$state', function($scope, $http,$location,$stateParams,$state){
+    
     // set up controller-wide variables
     $scope.session = {};
-    $scope.flows = {};
+    $scope.tests = {};
     $scope.step = {};
     $scope.user = {};
 
     $scope.update = {};
-    $scope.update.flows = [];
+    $scope.update.tests = [];
     $scope.update.steps = [];
 
-    $scope.timeline = []; // holds all messages currently in flow
+    $scope.timeline = []; // holds all messages currently in test
 
     $scope.testKey = keygen();
 
-      
     // // refresh warning to prevent whoops-I-deleted-the-Session
     // var leavingPageText = "If you refresh, you will lose this test.";
     // window.onbeforeunload = function(){
@@ -36,13 +36,13 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
     // });
 
     $http
-        .get('/api/run/'+$stateParams.sessionId)
+        .get('/api/run/'+$stateParams._id)
         .success(function(data){
             $scope.session = data;
-            $scope.flows = data.flows;
+            $scope.tests = data.tests;
 
-            console.log('how is data.flows built', $scope.flows);
-            
+            console.log('how is data.tests built', $scope.tests);
+
             // set the initial timeline contents
             var message = {};
 
@@ -57,22 +57,22 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
 
             if( selectedIndex == 0){
                 console.log('match')
-                // if this is the first step in a flow, log the flow start
+                // if this is the first step in a test, log the test start
                 // then log the step start
                 
-                if($scope.update.flows.indexOf($scope.flows[parentIndex]._id) == -1){
-                    console.log('flow push')
-                    $scope.update.flows.push($scope.flows[parentIndex]._id)
+                if($scope.update.tests.indexOf($scope.tests[parentIndex]._id) == -1){
+                    console.log('test push')
+                    $scope.update.tests.push($scope.tests[parentIndex]._id)
                 }
 
-                if($scope.update.steps.indexOf($scope.flows[parentIndex].steps[selectedIndex]._id) == -1){
+                if($scope.update.steps.indexOf($scope.tests[parentIndex].steps[selectedIndex]._id) == -1){
                     console.log('step push')
-                    $scope.update.steps.push($scope.flows[parentIndex].steps[selectedIndex]._id)
+                    $scope.update.steps.push($scope.tests[parentIndex].steps[selectedIndex]._id)
                 }
 
                 var message = {};
-                message.title='Starting Flow'
-                message.body=$scope.flows[parentIndex].name;
+                message.title='Starting test'
+                message.body=$scope.tests[parentIndex].name;
                 $scope.timeline.push(message);
 
             }
@@ -80,20 +80,20 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                 console.log('not a match with first index')
 
                 var message = {};
-                message.body = $scope.flows[parentIndex].steps[selectedIndex].name;
+                message.body = $scope.tests[parentIndex].steps[selectedIndex].name;
                 message.title = 'Starting step';
 
                 $scope.timeline.push(message);
 
-                if($scope.update.steps.indexOf($scope.flows[parentIndex].steps[selectedIndex]._id) == -1){
+                if($scope.update.steps.indexOf($scope.tests[parentIndex].steps[selectedIndex]._id) == -1){
                     console.log('other step push')
-                    $scope.update.steps.push($scope.flows[parentIndex].steps[selectedIndex]._id)
+                    $scope.update.steps.push($scope.tests[parentIndex].steps[selectedIndex]._id)
                 }
 
             }
 
             console.log('updateArray', $scope.update)
-            $scope.step.current = $scope.flows[parentIndex].steps[selectedIndex];
+            $scope.step.current = $scope.tests[parentIndex].steps[selectedIndex];
         };
 
         $scope.addUser = function(textfield){
@@ -123,7 +123,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             note.created = new Date();
              
             note._step = $scope.step.current._id;
-            note._flow = $scope.step.current._flow;
+            note._test = $scope.step.current._test;
             note._session = $stateParams.sessionId;
 
             note.user = $scope.user._id;
@@ -162,11 +162,12 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
 
     $scope.postTest = function(){
 
-        var url = '/api/run/'+$stateParams.sessionId;
-        var data_out = {session: $scope.session, flows: $scope.update.flows, steps: $scope.update.steps, user: $scope.user._id};
+        var url = '/api/run/'+$stateParams._id;
+        var data_out = {session: $scope.session, tests: $scope.update.tests, steps: $scope.update.steps, user: $scope.user._id};
 
         console.log('touched end', data_out);
-        // collects all the flows and steps and outputs them as a collected object
+
+        // collects all the tests and steps and outputs them as a collected object
         // to the session api link
         // where they are parsed 
         // and their individual user lists are updated.
@@ -174,7 +175,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
         $http
             .post(url, data_out)
             .success(function(data){
-                console.log('Updated flows', data);
+                console.log('Updated tests', data);
                 $location.path('/');
             })
             .error(function(data){

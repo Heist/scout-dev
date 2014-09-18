@@ -2,7 +2,7 @@
 
 
 #timeline {
-	overflow: auto;
+	overtest: auto;
 	padding: 50px 0 170px 0;
 	height: 100%;
 	margin: 0;
@@ -30,7 +30,7 @@
 				.message-details-avatar {
 					width: 20px;
 					text-align: center;
-					overflow: hidden;
+					overtest: hidden;
 					margin: 0 $pad/2 0 0;
 					padding: 0;
 					background: $white;
@@ -112,7 +112,7 @@
 	.timeline-user-avatar {
 		display: inline-block;
 		vertical-align: middle;
-		overflow: hidden;
+		overtest: hidden;
 	}
 	
 }

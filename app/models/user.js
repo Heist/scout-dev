@@ -4,10 +4,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema ({
-	name: {type:String, trim:true},
-	_flows : [{ type: Schema.Types.ObjectId, ref: 'Flow' }],
-  messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
-	created : Date,
+	_tests : [{ type: Schema.Types.ObjectId, ref: 'Test' }],
+  _messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
+	
+  name: {type:String, trim:true},
+  
+  created : Date,
 	updated : Date
 })
 

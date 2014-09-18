@@ -24,56 +24,56 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $httpProvider.defaults.timeout = 3000;
 
     $stateProvider
-        // OVERVIEW AND FLOW CREATION ========================
+        // OVERVIEW AND test CREATION ========================
         .state('home', {
             url: '/',
             controller: 'overview',
             templateUrl: 'partials/overview.html'
         })
-        .state('flow', {
-            url: '/edit/flow/:flow_id',
-            templateUrl: 'partials/flow.html'
+        .state('test', {
+            url: '/test/:test_id',
+            templateUrl: 'partials/test.html'
         })
 
         // RUN TEST ==========================================
         .state('run', {
-            url: '/run/:sessionId',
+            url: '/run/:_id',
             templateUrl: 'partials/run.html'
         })
 
         // SUMMARIZE VIEW ====================================
         .state('summary', {
-            url: '/summary/:flow_id',
+            url: '/summary/:_id',
             templateUrl: 'partials/summary.html'
         })
-        .state('summary.flow', {
-            templateUrl: 'partials/summary_flow.html'
+        .state('summary.test', {
+            templateUrl: 'partials/summary_test.html'
         })
-        .state('summary.step', {
-            templateUrl: 'partials/summary_step.html'
+        .state('summary.task', {
+            templateUrl: 'partials/summary_task.html'
         })
 
-        // REPORT PAGE FOR SINGLE FLOW =======================
+        // REPORT PAGE FOR SINGLE test =======================
         .state('report', {
-            url: '/report/flow/:flow_id',
+            url: '/report/:test_id',
             templateUrl: 'partials/report.html'
         })
-        .state('report.flow', {
-            templateUrl: 'partials/report_flow.html'
+        .state('report.test', {
+            templateUrl: 'partials/report_test.html'
         })
-        .state('report.step', {
-            templateUrl: 'partials/report_step.html'
+        .state('report.task', {
+            templateUrl: 'partials/report_task.html'
         })
 
         // // REPORT PAGE FOR SESSION =====================
-        // .state('reportflow', {
+        // .state('reporttest', {
         //     url: '/report/session/:session_id',
         //     templateUrl: 'partials/report.html'
         // })
-        // .state('reportflow.flow', {
-        //     templateUrl: 'partials/report_flow.html'
+        // .state('reporttest.test', {
+        //     templateUrl: 'partials/report_test.html'
         // })
-        // .state('reportflow.step', {
+        // .state('reporttest.step', {
         //     // url: '/report/:testKey/',
         //     templateUrl: 'partials/report_step.html'
         // })

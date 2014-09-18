@@ -4,28 +4,21 @@
 // OVERVIEW CONTROLLER ===========================================================
 angular.module('field_guide_controls').controller('overview', ['$scope','$http', '$location', '$stateParams', function($scope, $http, $location, $stateParams){
     
-    // get all sessions and their flows on first load
-    $http.get('/api/session/', {timeout : 5000})
+    // get all sessions and their tests on first load
+    $http
+        .get('/api/session/', {timeout : 5000})
         .success(function(data) {
             $scope.sessions = data;
-            
-            // select the default active session, if there is one.
-            if($stateParams.session_id){
-                for (var i = 0; i < data.length; i++){
-                    console.log(data[i]._id, $stateParams.session_id)
-                    if(data[i]._id == $stateParams.session_id){
-                        $scope.selected = data[i];
-                    }    
-                }
-                
-            } else {
-                $scope.selected = data[0]
-            }
+
+            // initially selected session
+            $scope.selected = data[0];
         })
         .error(function(data) {
             console.log('Error: ' + data);
         });
 
+
+    // SESSION ROUTES =====================================
 
     $scope.select = function (session){
         console.log('touched session', session)
@@ -37,18 +30,19 @@ angular.module('field_guide_controls').controller('overview', ['$scope','$http',
         textfield.editing = 'true';
     }
 
-    $scope.blurTitle= function(session){
-        session.editing ='false';
-        $scope.editedTitle = null;
+    $scope.blurTitle = function(session){
         
-        // var index = $scope.session.flows.indexOf(flow);
+        $scope.editedTitle = null;
+        session.editing ='false';
+        
+        
         var url = '/api/session/'+session._id;
         
         if (!session.name) {
             session.name = 'New Session';
         }
 
-        var data_out = {name:session.name};
+        var data_out = {name : session.name};
 
         $http.put(url, data_out)
                 .success(function(data){
@@ -59,20 +53,21 @@ angular.module('field_guide_controls').controller('overview', ['$scope','$http',
                 })
     }
 
-    // Add and remove tests
-    $scope.addSession = function(test){
+    $scope.addSession = function(session){
         
         $http.post('/api/session/')
             .success(function(data){
+
                 console.log('added a new session '+ JSON.stringify(data));
-                $scope.sessions = data;
+                
+                $scope.sessions.push(data);
+
                 // TODO add an auto-select for the new session here
-                 $scope.selected = data[data.length-1];
+                 $scope.selected = $scope.sessions[$scope.sessions.length-1];
             })
             .error(function(data){
-
-            });
-        
+                console.log('error', data)
+            });   
     }
    
     $scope.removeSession = function(session){
@@ -82,51 +77,45 @@ angular.module('field_guide_controls').controller('overview', ['$scope','$http',
         $http.delete(url)
             .success(function(data){
                 console.log(data);
+
                 $scope.sessions.splice(index, 1);
                 $scope.selected = $scope.sessions[$scope.sessions.length-1];
             })
             .error(function(data){
-                console.log('Error: ' + data);
+                console.log('error', data)
             })
     }
 
-    // Add and remove flows from tests.
-    $scope.postFlow = function(session){
-            console.log('touched addaflow ', session);
+    // TEST ROUTES ========================================
+    $scope.postTest = function(session){
+            console.log('touched addatest ', session);
 
-            var flow = {};
+            var test = {};
 
-            flow.name = 'New flow name';
-            flow._session = session._id;
+            test.name = 'New test name';
+            test._session = session._id;
 
-            var url = '/api/flow/';
-            var data_out = flow
+            var url = '/api/test/';
+            var data_out = test
             
             $http
                 .post(url, data_out)
                 .success(function(data){
-                    console.log('new flow added '+ JSON.stringify(data));
-                    session.flows.push(data);
-
+                    console.log('new test added '+ JSON.stringify(data));
+                    session.tests.push(data);
                 })
                 .error(function(data){
-                    console.log(JSON.stringify(data))
+                    console.log('error', data)
                 })
-                ;
-    };
+    }
 
-    $scope.removeFlow = function(flow){ 
-        // delete a flow from the database
+    $scope.removeTest = function(test){ 
+        // delete a test from the database
         
-        var index = $scope.selected.flows.indexOf(flow);
-        var url = '/api/flow/'+flow._id;
-        
+        var index = $scope.selected.tests.indexOf(test);
+        var url = '/api/test/'+test._id;
 
-        console.log('delete flow', url);
-        console.log('index', index);
-        console.log($scope.selected.flows[index])
-        
-        $scope.selected.flows.splice(index, 1);
+        $scope.selected.tests.splice(index, 1);
 
         $http
             .delete(url)
@@ -138,31 +127,25 @@ angular.module('field_guide_controls').controller('overview', ['$scope','$http',
             })
     }
 
-    // move to the flow edit screen
-    $scope.editFlow = function(flow){
-        console.log('touched flow', flow)
-        $location.path('/edit/flow/'+ flow._id);        
+    $scope.editTest = function(test){
+        console.log('touched test', test)
+        $location.path('/edit/test/'+ test._id);        
     }
      
-    $scope.runTest = function(session){
-        $location.path('/run/'+session._id);
+    $scope.run = function(test){
+        console.log('touched run', test._id)
+        $location.path('/run/'+test._id);
     }
 
-    // add a new summary and launch summary
-    $scope.summarizeFlow = function(flow_id){
-
-        console.log('touched key', flow_id)
-        $location.path('/summary/'+ flow_id);
+    $scope.summarize = function(test_id){
+        console.log('touched summary', test_id)
+        $location.path('/summary/'+ test_id);
     }
 
-    // Launch the current report
-    $scope.loadReport = function(session_id){
-        console.log('touched a report', session_id);
-        $location.path('/report/session/'+ session_id );
+    $scope.loadReport = function(test){
+        console.log('touched a report', test._id);
+        $location.path('/report/'+ test._id );
     }
 
-    $scope.viewFlowReport = function(flow_id){
-        console.log('touched a flow report', flow_id);
-        $location.path('/report/flow/'+flow_id);
-    }
+
 }])

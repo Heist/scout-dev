@@ -1,42 +1,21 @@
+
 'use strict';
 //  message.js
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var MessageSchema = new Schema ({
-	_step:{ 
-		type: Schema.Types.ObjectId, 
-		ref: 'Step'
-	},
-	_flow:{
-		type: Schema.Types.ObjectId, 
-		ref: 'Flow'
-	},
-	_session : {
-		type: Schema.Types.ObjectId, 
-		ref: 'Session'
-	},
-	key:{
-		type: Number
-	},
-	created: {
-			type: Date
-		},
-	created_by: {
-		type: String,
-		trim: true
-	},
-	body : {
-			type: String, 
-			trim: true
-		},
-	user:{
-		type: String,
-		trim:true
-	},
-	fav : {type: Boolean,
-		default: false
-	}
+	_task: { type: Schema.Types.ObjectId, ref: 'Task' },
+	_test: { type: Schema.Types.ObjectId, ref: 'Test' },
+	_session : { type: Schema.Types.ObjectId, ref: 'Session'},
+
+	body : { type: String, trim: true },
+	created_by : { type: String, trim: true },
+	user : { type: String, trim: true },
+	fav : { type: Boolean, default: false },
+	
+	key : Number,
+	created: Date
 })
 
 MessageSchema.pre('save', function(next){

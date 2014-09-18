@@ -4,61 +4,69 @@
 // SUMMARY CONTROLLER ===========================================================
 
 angular.module('field_guide_controls').controller('summary', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
-	$scope.flow = {};
+	$scope.test = {};
     $scope.timeline = [];
 
-    $http.get('/api/summary/'+$stateParams.flow_id)
+    $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
           console.log(data);
 
-            $scope.flow = data.flow;
-            $scope.activate($scope.flow)
+            $scope.test = data.test;
+            $scope.activate($scope.test)
 
             $scope.tags = data.tags;
             $scope.messages = data.messages;
-            console.log('steps', $scope.flow.steps);
+            console.log('tasks', $scope.test.tasks);
 
         })
 
-    $scope.activate = function(step, selectedIndex) {
-        // passes the step to the global variable
+    // TASK FUNCTIONS =====================================
+
+    $scope.activate = function(task, selectedIndex) {
+        // passes the task to the global variable
         $scope.selectedIndex = selectedIndex;
 
         if(selectedIndex > -1){
-            $state.go("summary.step");
+            $state.go("summary.task");
         } else {
-            $state.go("summary.flow");
+            $state.go("summary.test");
         }
-        if(step){
-                $scope.step = step;
-                // console.log('step', step)
+     
+        if(task){
+            $scope.task = task;
         }
     };
 
-    $scope.completeSummary = function(){
-        // post all the summary changes to the flow
-        // post summary changes to the tags
-        // post fav'd statuses to relevant messages
+    $scope.passFail = function(task){
+        console.log('touched pass-fail')
 
-        var url = '/api/summary/'+ $stateParams.flow_id;
-        var data_out = {flow: $scope.flow, tags:$scope.tags, messages:$scope.messages} ;
-        console.log(data_out)
+        if(task.pass_fail){
+            task.pass_fail = false;
+        } else if (!task.fail){
+            task.pass_fail = true;
+        }
 
-        
-         $http.put(url, data_out)   
-            .success(function(data){
-                // console.log('sent a new summary '+ JSON.stringify(data));
-                $location.path('/');
-                console.log(data);
-                // note: this MUST stay inside the Success
-                // as that prevents the weird pending bug 
-                // which is caused by there being invisibly no data at some point.
-            })
-            .error(function(data){
-                console.log('error', data);
-            });        
+        console.log($scope.task);
+    }  
 
-    }
+
+    // SAVE MESSAGE functions  ============================
+
+    $scope.msgFilter = function(message){
+        // FILTER that filters the message array
+        // so messages display when their _task is the same as the current selected task
+        // and they only display to their current user
+
+        if ((message._task == $scope.task._id)) {
+                return true;
+
+                // check to see what the current user is.
+                console.log($scope.user)
+            }
+
+        console.log('false', $scope.user)
+        return false;
+    };
 
     $scope.saveFav = function(message){
         console.log('touched fav', message);
@@ -70,33 +78,17 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         } else if (!message.fav){
             message.fav = true;
         }
+        
         // TODO: when we change screens, save all messages with message.fav = true
     }
-     $scope.msgFilter = function (message){
-        if (message._step == $scope.step._id) {
-            console.log(message)
-                return true;
-            }
-            return false;
-      };
 
-    $scope.passFail = function(step){
-        console.log('touched pass-fail')
-        if(step.pass_fail){
-            step.pass_fail = false;
-        } else if (!step.fail){
-            step.pass_fail = true;
-        }
-
-        console.log($scope.step);
-    }  
-
-    // Summarize Tags controller functions
-
+    // TAG FUNCTIONS ======================================
+    
     // TODO: on click "save"
     // pass the summary to the tag.summary
     // on click 'clear'
     // remove summary from tag
+
 
     $scope.selectTag = function (index){
         $scope.selectedTag = $scope.tags[index];
@@ -104,7 +96,6 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
     }
 
     $scope.clearTagSummary = function(){
-        // $scope.tags[].selectedTag.summary = '';
         $scope.selectedTag.summarized = false;
     }
 
@@ -112,8 +103,36 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         $scope.tags[$scope.selectedTag.index].summary = $scope.selectedTag.summary;
         $scope.tags[$scope.selectedTag.index].summarized = true;
         $scope.selectedTag.summarized = true;
+
         console.log($scope.tags);
     }
 
+    //  TEST FUNCTIONS ====================================
+
+    $scope.completeSummary = function(){
+        // post all the summary changes to the test
+        // post summary changes to the tags
+        // post fav'd statuses to relevant messages
+
+        var url = '/api/summary/'+ $stateParams.test_id;
+        var data_out = {test: $scope.test, tags:$scope.tags, messages:$scope.messages} ;
+
+        console.log(data_out)
+        
+         $http.put(url, data_out)   
+            .success(function(data){
+                console.log(data);
+
+                $location.path('/');
+
+                // note: this MUST stay inside the Success
+                // To prevent the weird pending bug 
+                // caused by a state-change race condition.
+            })
+            .error(function(data){
+                console.log('error', data);
+            });        
+
+    }
    
 }]);

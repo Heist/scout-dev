@@ -18,11 +18,11 @@
 			<div id="questions">
 		
 			<div class="questions-group active">
-				<ul ng-repeat="flow in session.flows">
-						<li ui-sref=".flow" ng-click="select(flow)" ng-class="{ 'active': flow.title == selected.title}">
-							<!-- flow title --><small>Flow</small> {{flow.title}}
+				<ul ng-repeat="test in session.tests">
+						<li ui-sref=".test" ng-click="select(test)" ng-class="{ 'active': test.title == selected.title}">
+							<!-- test title --><small>test</small> {{test.title}}
 						</li>
-						<li ui-sref=".step" ng-click="select(step)" class="question" ng-class="{ 'active': step._id == selected._id}" ng-repeat="step in flow.steps" >
+						<li ui-sref=".step" ng-click="select(step)" class="question" ng-class="{ 'active': step._id == selected._id}" ng-repeat="step in test.steps" >
 								{{step.name}}
 								<div class="question-rating green" ng-show="step.pass_fail == true" ></div>
 								<div class="question-rating red" ng-show="step.pass_fail == false"></div>
@@ -34,6 +34,6 @@
 		</div>		
 		
 		<div id="large-pane" ui-view >
-			<!-- looking for your views? they're in partials>> report_flow report_step -->
+			<!-- looking for your views? they're in partials>> report_test report_step -->
 		</div>
 </div>

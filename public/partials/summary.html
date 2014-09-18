@@ -2,14 +2,14 @@
 
 <div id="view-summarizing" ng-controller="summary" id="#view-summarizingtags">
 <!-- header nav -->
-<div ng-model='flow'>
+<div ng-model='test'>
 <div id="header">
 	
 	<div id="header-logo">
 		&nbsp;
 	</div>
 	
-	<div id="header-title">Summarizing &ldquo;{{flow.name}}&rdquo;</div>
+	<div id="header-title">Summarizing &ldquo;{{test.name}}&rdquo;</div>
 	
 	<div id="header-account">
 		<div id="header-account-avatar">
@@ -20,7 +20,7 @@
 	
 	
 	<div id="header-nav">
-		<button class="button small" ng-click="completeSummary(flow)">&check; Done Summarizing</button>
+		<button class="button small" ng-click="completeSummary(test)">&check; Done Summarizing</button>
 	</div>
 			
 			
@@ -30,7 +30,7 @@
 <!-- / header nav -->
 
 
-<!-- create a flow -->
+<!-- create a test -->
 
 <div id="left-pane" >
 	
@@ -38,9 +38,9 @@
 		
 		<div class="questions-group active">
 			<ul>
-				<li ng-model='flow' ui-sref=".flow" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(flow, $index)"><!-- flow.name --><small>Flow</small><br/>
-					{{flow.name}}</li>
-				<li class="question" ng-repeat="step in flow.steps" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(step, $index)">
+				<li ng-model='test' ui-sref=".test" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(test, $index)"><!-- test.name --><small>test</small><br/>
+					{{test.name}}</li>
+				<li class="question" ng-repeat="step in test.steps" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(step, $index)">
 					<span>{{step.name}}</span>
 					
 					<div class="step-rating" ng-click="passFail(step)">
@@ -59,7 +59,7 @@
 </div>
 
 <div ui-view >
-	<!-- this pane is set in summary_flow and summary_step -->
+	<!-- this pane is set in summary_test and summary_step -->
 </div>
-<!-- / create a flow -->
+<!-- / create a test -->
 </div>

@@ -6,17 +6,16 @@ var mongoose = require('mongoose'); // so we can generate ObjectIDs for tests
 
 // // load models for routes
 var Message = require('./models/message');
-var Step 	= require('./models/step');
-var Flow    = require('./models/flow');
+var Tag = require('./models/tag');
+var Task 	= require('./models/task');
+var Test    = require('./models/test');
 var Session = require('./models/session');
 var Summary = require('./models/summary');
-var Tag = require('./models/tag');
 var User = require('./models/user');
 
 // console logging =====================================================
 
 router.use(function(req, res, next) {
-	// do logging
 	console.log('Something is happening.');
 	next(); // make sure we go to the next routes and don't stop here
 });
@@ -26,231 +25,200 @@ router.use(function(req, res, next) {
 // get/post to /api routes.
 router.route('/')
 	.get(function(req, res) {
-		// get all the flows in the db
+		// get all the tests in the db
 		// do nothing with them - this route is for testing
-			Session.find({})
-			.populate('flows')
-			.exec(
-				function(err, sessions) {
-					if (err)
-						res.send(err);
-			             res.json(sessions)
-
-			         })
+		Session.find({})
+			.populate('_tests')
+			.exec( function(err, docs) {
+				if(err) res.send(err);
+	        	
+	        	res.json(docs)
+	        })
 	});
 
 
 // SESSION ROUTES ================================================
 	
 router.route('/session/')
-	// get all sessions
-	// get all flows by session
-	// get all flow steps by flow
 	.get(function(req,res){
 		Session.find({})
-			.populate('flows')
-			.exec(
-				function(err, sessions) {
-					if (err)
-						res.send(err);
-					// in here, get the flow steps and parse them out
-					// check for distinct keys
-					// count the number of distinct keys and return as 
-					// sessions.runcount
-					res.json(sessions);
-				})
+			.populate('_tests')
+			.exec(function(err, docs){
+				if(err) res.send(err);
+
+				res.json(docs);
+			})
 	})
 
-	// add a new session - this could be an upsert?
+	// add a new session
+	// this should then just push the new session back to the front end.
+
 	.post(function(req, res){
-				var session = new Session();
- 			
-	 			session.name = 'New Session';
-	 			session.runcount = 0;
+		var session = new Session();
+	
+		session.name = 'New Session';
+		session.runcount = 0;
 
-	 			session.save(function(err) {
-					if (err)
-						res.send(err);
+		session.save(function(err, data) {
+			if(err) res.send(err);
 
-					Session.find({}, function(err, sessions) {
-						if (err)
-							res.send(err);
-						res.json(sessions);
-					});
-				});
+			res.json(data)			        	
+        });
 	});
 
 router.route('/session/:_id')
 	.get(function(req,res){
 		Session.findById(req.params._id)
-			.populate('flows')
-			.exec(function(err, session){
-				console.log('session, populated', session);
-				res.json(session);
+			.populate('_tests')
+			.exec(function(err, docs){
+				if(err) res.send(err);
+
+				res.json(docs);
 			})
 	})
-	// deletes all sessions and subdocuments - steps, flows, reports, summaries.
+	// deletes all sessions and subdocuments - tasks, tests, reports, summaries.
 	.delete(function(req,res){
 		console.log('session delete', req.params._id);
 
 		Session.findById(req.params._id).remove(function(err){
-			if (err)
-				res.send(err);
+			if(err) res.send(err);
 		});
 
-		Flow.find({_session:req.params._id}).remove(function(err){
-			if (err)
-				res.send(err);
+		Test.find({_session:req.params._id}).remove(function(err){
+			if(err) res.send(err);
 		});
 
-		Step.find({_session:req.params._id}).remove(function(err){
-			if (err)
-				res.send(err);
+		Task.find({_session:req.params._id}).remove(function(err){
+			if(err) res.send(err);
 		});
 
 		Message.find({_session:req.params._id}).remove(function(err){
-			if (err)
-				res.send(err);
+			if(err) res.send(err);
 		});
 
 		Tag.find({_session:req.params._id}).remove(function(err){
-			if (err)
-				res.send(err);
+			if(err) res.send(err);
 		});
 
-		res.json(req.params._id);
+		res.json('deleted session', req.params._id);
 	})
 
 	// change the name of the session
 	.put(function(req,res){
-		console.log('session put request', req.body);
 		console.log('session put request', req.params._id);
 
-		Session.findById(req.params._id, function(err, session){
-			if (err)
-				res.send(err);
+		Session.findById(req.params._id)
+			.exec(function(err, session){
+				if(err) res.send(err);
 			
-			if(req.body.name){
+				if(req.body.name){
 						session.name = req.body.name;
 					}
-			if(req.body.runcount){
+
+				if(req.body.runcount){
 						session.runcount = req.body.runcount;
 					}
 
 			session.save(function(err, data) {
-				if (err)
-					res.send(err);
+				if(err) res.send(err);
 
-				res.json(session);
-			
+				res.json(data);			
 			})
 		})
 	});
 
-router.route('/session/:_id/flow/')
-	// get all flows by session
+router.route('/session/:_id/test/')
+	// get all tests by session
 	.get(function(req,res){
-		Flow.find({'session': req.params._id})
-			.exec(function (err, flows) {
-	  			if (err)
-					res.send(err);
+		Test.find({'_session': req.params._id})
+			.exec(function (err, docs) {
+	  			if(err) res.send(err);
 
-			  	console.log('flows', flows);
+			  	console.log('tests', docs);
 			  	
 			})
 	});
 
-// FLOW ROUTES ===================================================
+// TEST ROUTES ===================================================
 	
-router.route('/flow/')
-	// get all of the flows	
+router.route('/test/')
+	// get all of the tests	
 	.get(function(req,res){
-		Flow.find(function(err, flows) {
-				if (err)
-					res.send(err);
+		Test.find({})
+			.exec(function(err, docs) {
+				if(err) res.send(err);
 
-				res.json(flows);
+				res.json(docs);
 			})
 	})
-	// add a new flow to the session
+	// add a new test
 	.post(function(req,res){
-			var flow = new Flow();
+			var test = new test();
 
-			flow.name = req.body.name;
-			flow._session = req.body._session;
+			test.name = req.body.name;
+			test._session = req.body._session;
 			
-			flow.save(function(err, flow){
-				if (err)
-					res.send(err);
+			test.save(function(err, test){
+				if(err) res.send(err);
 				
-				Session.findById( flow._session, function(err,session){
-					console.log(flow._id);
+				Session.findById( test._session)
+					.exec(function(err,session){
+						console.log(test._id);
 
-					session.flows.push(flow._id);
-					session.save(function(err,data){
-						if (err)
-							res.send(err);
-					})
-				
-				res.json(flow);				
+						session._tests.push(test._id);
+
+						session.save(function(err,data){
+							if (err) res.send(err);
+						})
+					
+					res.json(test);
 				});
 			})
 	});
 
 
-router.route('/flow/:_id')
+router.route('/test/:_id')
 	.get(function(req,res){
-		// get one specific flow
-		console.log('hello hello flow')
-		var reply = {};
+		// get one test
 
-		// we need to find the flow itself
-		Flow.findById(req.params._id)
-			.populate('steps')
-			.exec(function(err,flow){
-				if (err)
-					res.send(err);
-			console.log('i touched a flow', flow)
-			res.json(flow);
-		});
+		Test.findById(req.params._id)
+			.populate('_tasks')
+			.exec(function(err,test){
+				if(err) res.send(err);
 
-		// we need to know if there are steps belonging to flow
-		
-
-		console.log('reply', reply)
-		
+				console.log('single test', test)
+				res.json(test);
+		});		
 	})
 
-	// update one flow with new information
+	// update one test with new information
 	.put(function(req,res){
-		console.log('touched flow put', req.body)
-		var steps = [];
+		console.log('touched test put', req.body)
 
-		// TODO - this might kick up weird bugs if there are no steps.
-		if(req.body.steps){
-			for(var i = 0; i < req.body.steps.length; i++){
-				steps.push(req.body.steps[i]._id);
+		var tasks = [];
+		if(req.body.tasks){
+			for(var i = 0; i < req.body.tasks.length; i++){
+				tasks.push(req.body.tasks[i]._id);
 			}
 		}
 
-		console.log('steps', steps);
+		console.log('tasks', tasks);
 
-		Flow.findById(req.params._id)
-			.exec(function(err,flow){
-				console.log('touched flow update', flow)
+		Test.findById(req.params._id)
+			.exec(function(err,test){
+				console.log('touched test update', test)
 				
-				if(req.body.name){flow.name = req.body.name}
-				if(req.body.desc){flow.desc = req.body.desc}
-				if(req.body.platform){flow.platform = req.body.platform}
-				if(req.body.steps){flow.steps = steps}
-				if(req.body.link){flow.link = req.body.link}
-				if(req.body.user){flow.users.push(req.body.user)}
+				if(req.body.name){test.name = req.body.name}
+				if(req.body.desc){test.desc = req.body.desc}
+				if(req.body.platform){test.platform = req.body.platform}
+				if(req.body.tasks){test._tasks = tasks}
+				if(req.body.link){test.link = req.body.link}
+				if(req.body.user){test._users.push(req.body.user)}
 				
-				console.log(flow);
+				console.log(test);
 
-				flow.save(function(err, data){
-					if(err)
-						res.send(err)
+				test.save(function(err, data){
+					if (err) res.send(err);
 
 					res.json(data);
 				})
@@ -258,175 +226,178 @@ router.route('/flow/:_id')
 	})
 
 	.delete(function(req,res){
-		// deletes a single flow by id
+		// deletes a single test by id
+		// from session list of tests
+		// and then removes 
+		// all tasks
+		// all messages
+		// all tags
+		// that belonged to that test.
 
-		console.log('delete this flow', req.params._id)
+		console.log('delete this test', req.params._id)
 
-		Flow.findById(req.params._id, function(err, flow){
-			if (err)
-				res.send(err);
+		Test.findById(req.params._id)
+			.exec(function(err, test){
+				if (err) res.send(err);
 
-			Session.findOne({'_id': flow._session}, function(err, session){
-				console.log('found session ', session._id);
-				console.log(session.flows);
+				Session.findOne({'_id': test._session})
+					.exec(function(err, session){
+						console.log('found session ', session._id);
+						console.log('session tests', session._tests);
 
-				session.flows.remove(req.params._id)
+						session.tests.remove(req.params._id)
 
-				session.save(function(err,data){
-					if (err)
-						res.send(err);
+						session.save(function(err,data){
+							if(err) res.send(err);
 
-					console.log(data);
+							console.log(data);
+							res.json(req.params._id);
+						})
+					})
 
-
-
-					res.json(req.params._id);
-				})
-
+				console.log(test);
 			})
+			.remove(function(err){
+				if (err) res.send(err);
+			});
 
-			console.log(flow);
+		Task.find({_test:req.params._id})
+			.remove(function(err){
+				if (err) res.send(err);
+			});
 
-		})
-		.remove(function(err){
-			if (err)
-					res.send(err);
-		});
+		Message.find({_test:req.params._id})
+			.remove(function(err){
+				if (err) res.send(err);
+			});
 
-		Step.find({_flow:req.params._id}).remove(function(err){
-			if (err)
-				res.send(err);
-		});
-
-		Message.find({_flow:req.params._id}).remove(function(err){
-			if (err)
-				res.send(err);
-		});
-
-		Tag.find({_flow:req.params._id}).remove(function(err){
-			if (err)
-				res.send(err);
-		});
+		Tag.find({_test:req.params._id})
+			.remove(function(err){
+				if (err) res.send(err);
+			});
 
 	});
 
-// STEP ROUTES ===================================================
-	// these are a subset of flow routes
+// TASK ROUTES ===================================================
 
-router.route('/step/')
-	// get all steps
+router.route('/task/')
+	// get all tasks
 	.get(function(req,res){
-		Step.find(function(err, steps) {
-				if (err)
-					res.send(err);
+		Task.find({})
+			.exec(function(err, tasks) {
+				if(err) res.send(err);
 
-				res.json(steps);
+				res.json(tasks);
 			});
 	})
 	.post(function(req,res){
-		var step = new Step();
+		var task = new Task();
 
-		step.name = req.body.name;
-		step._flow = req.body._flow;
-		step._session =  req.body._session;
+		task.name = req.body.name;
+		task._test = req.body._test;
+		task._session =  req.body._session;
 
-		step.save(function(err, step){
+		task.save(function(err, task){
 			if (err)
 				res.send(err);
 			
-			Flow.findById( step._flow, function(err,flow){
-				console.log(step._id);
+			Test.findById( task._test, function(err,test){
+				console.log(task._id);
 
-				flow.steps.push(step._id);
-				flow.save(function(err,data){
-					if (err)
-						res.send(err);
+				test._tasks.push(task._id);
 
+				test.save(function(err,data){
+					if(err) res.send(err);
 				})
 			
-			res.json(step);
-
+				res.json(task);
 			});
 		})
 	});
 
-router.route('/step/:_id')
-	// get single step
+router.route('/task/:_id')
+	// get single task
 	.get(function(req,res){
-		Step.findById(req.params._id)
-			.exec(function(err,step){
-				if (err)
-					res.send(err);
-			console.log(step)
-			res.json(step);
+		Task.findById(req.params._id)
+			.exec(function(err,task){
+				if(err) res.send(err);
+
+				console.log(task)
+				res.json(task);
 			})
 	})
 	
-	// update a single step
+	// update a single task
 	.put(function(req,res){
-		console.log('touched step', req.body)
-		Step.findById(req.params._id, function(err, step){
-			if (err)
-				res.send(err);
+		console.log('touched task', req.body)
 
-			if(req.body.name){step.name = req.body.name}
-			if(req.body._flow){step._flow = req.body._flow}	
-			if(req.body._session){step._session = req.body._session}
-			if(req.body.user){step.users.push(req.body.user)}
+		Task.findById(req.params._id)
+			.exec(function(err, task){
+				if (err) res.send(err);
 
-			step.save(function(err,data){
-				if (err)
-					res.send(err);
-				console.log(data);
-				res.json(data);
-			})
+				if(req.body.name){task.name = req.body.name}
+				if(req.body._test){task._test = req.body._test}	
+				if(req.body._session){task._session = req.body._session}
+				if(req.body._user){task._users.push(req.body._user)}
+
+				task.save(function(err,task){
+					if(err) res.send(err);
+
+					console.log('updated task', task);
+					res.json(task);
+				})
 
 		})
 	})
 
-	// delete a step
+	// delete a task
 	.delete(function(req,res){
-		console.log('delete this step', req.params._id)
+		console.log('delete this task', req.params._id)
 
-		Step.findById(req.params._id, function(err, step){
-			if (err)
-				res.send(err);
+		// find a task
+		// remove it from its test
+		// then remove all messages
+		// and tags 
+		// related to that task
 
-			console.log(step);
+		Task.findById(req.params._id)
+			.exec(function(err, task){
+				if (err) res.send(err);
 
-			Flow.findOne({'_id': step._flow}, function(err, flow){
-				console.log('found flow ', flow._id);
-				console.log(flow.steps);
+				console.log('single task found', task);
 
-				// TODO: when this sort of thing fails to work,
-				// it populates the array in question with a ton of ghosts.
-				flow.steps.remove(req.params._id)
+				Test.findOne({'_id': task._test})
+					.exec(function(err, test){
+						if (err) res.send(err);
 
-				flow.save(function(err,data){
-					if (err)
-						res.send(err);
+						console.log('found test ', test._id);
+						console.log(test._tasks);
 
-					console.log(data);
-					res.json(req.params._id);
+						// TODO: when this sort of thing fails to work,
+						// it populates the array in question with a ton of ghosts.
+						test._tasks.remove(req.params._id)
+
+						test.save(function(err,data){
+							if(err) res.send(err);
+
+							console.log(data);
+							res.json(req.params._id);
+						})
+					})
 				})
+			.remove(function(err){
+				if(err) res.send(err);
+			});
 
-			})
-		})
-		.remove(function(err){
-			if (err)
-					res.send(err);
-		});
+		Message.find({_task:req.params._id})
+			.remove(function(err){
+				if (err) res.send(err);
+			});
 
-
-		Message.find({_step:req.params._id}).remove(function(err){
-			if (err)
-				res.send(err);
-		});
-
-		Tag.find({_step:req.params._id}).remove(function(err){
-			if (err)
-				res.send(err);
-		});
+		Tag.find({_task:req.params._id})
+			.remove(function(err){
+				if (err) res.send(err);
+			});
 
 	});
 
@@ -434,101 +405,118 @@ router.route('/step/:_id')
 
 router.route('/message/')
 	.get(function(req,res){
-		Message.find(function(err, messages) {
-				if (err)
-					res.send(err);
+		Message.find({})
+			.exec(function(err, messages) {
+				if(err) res.send(err);
 				res.json(messages);
 			});
 	})
 	.post(function(req,res){
 		console.log('touched new message ', req.body)
+
 		var msg = new Message();
+
 		console.log('message id', msg._id)
 
-		msg.created_by  = req.body.created_by;
-		msg._step	 = req.body._step;
-		msg._flow	 = req.body._flow;
+		msg._task	 = req.body._task;
+		msg._test	 = req.body._test;
 		msg._session = req.body._session;
-		msg.body	 = req.body.body;
-		msg.user 	 = req.body.user;
-		msg.key		 = req.body.key;
+		msg._user 	 = req.body._user;
+
+		msg.created_by  = req.body.created_by; // this is to do with authentication.
+		msg.body	 	= req.body.body;
 		
 		msg.save(function(err, msg){
 			// save the new message
-			if (err)
-				res.send(err);
+			if (err) res.send(err);
 
 			res.json(msg);
 
-			Step.findById( req.body._step, function(err,step){
-				console.log(msg._id);
+			Task.findById( req.body._task )
+				.exec(function(err,task){
+					if (err) res.send(err);
 
-				step.messages.push(msg._id);
-				step.save(function(err,data){
-					if (err)
-						res.send(err);
+					console.log(msg._id);
+
+					task._messages.push(msg._id);
+					
+					task.save(function(err,data){
+						if(err) res.send(err);
+					})
 				})
+
+			console.log('user', req.body._user)
+
+			User.findById( req.body._user)
+				.exec(function(err,user){
+					if (err) res.send(err);
+
+					console.log('message', msg._id, user);
+
+					user._messages.push(msg._id);
+
+					user.save(function(err,data){
+						if(err) res.send(err);
+					})
 			})
 
-			console.log('user', req.body.user)
-			User.findById( req.body.user, function(err,user){
-				console.log('message', msg._id, user);
-
-				user.messages.push(msg._id);
-
-				user.save(function(err,data){
-					if (err)
-						res.send(err);
-				})
-			})
-
-			// if there are tags, add them to the DB and then add their Flow to them
+			// if there are tags, add them to the DB and then add their test to them
 			if(req.body.tags){
 				for( var i = 0; i < req.body.tags.length; i++){
 					console.log(req.body.tags[i])
 					var tag_body = req.body.tags[i];
 
-					Tag.findOne({body: tag_body, _flow: req.body._flow}).exec(function(err, doc){
-						if(err) res.send(err);
-						console.log('tag_body', tag_body);
-						if(doc) { 
-							console.log( 'this tag matched a call', doc)
-							doc._messages.push(msg._id);
-							doc.save(function(err, data){
-								if (err) res.send(err);
-								console.log(data)
-							})
-						 }
-						if(!doc) {
-							console.log( 'no tags match this call', tag_body, req.body._flow)
+					Tag.findOne({body: tag_body, _test: req.body._test})
+						.exec(function(err, doc){
+							if(err) res.send(err);
 
-							var tag = new Tag();
-							
-							tag._messages.push(msg._id);
-							tag._steps.push(req.body._step);
-
-							tag._flow	 = req.body._flow;
-							tag._session = req.body._session;
-							tag.body	 = tag_body;
-
-							tag.save(function(err, tag){
-								if (err) res.send(err);
-
-								Flow.findById( req.body._flow, function(err,flow){
-									console.log(flow)
-
-									flow.tags.push(tag._id);
-									flow.save(function(err,data){
-										if (err)
-											res.send(err);
-										console.log(data);
-									})
+							console.log('tag_body', tag_body);
+						
+							if(doc) { 
+								console.log( 'this tag matched a call', doc)
+								
+								doc._messages.push(msg._id);
+								
+								doc.save(function(err, data){
+									if (err) res.send(err);
+									
+									console.log(data)
 								})
-							})
-						}
-					})
+							 }
+
+							if(!doc) {
+								console.log( 'no tags match this call', tag_body, req.body._test)
+
+								var tag = new Tag();
+								
+								tag._messages.push(msg._id);
+								tag._tasks.push(req.body._task);
+
+								tag._test	 = req.body._test;
+								tag._session = req.body._session;
+								tag.body	 = tag_body;
+
+								tag.save(function(err, tag){
+									if (err) res.send(err);
+
+									Test.findById( req.body._test)
+										.exec(function(err,test){
+											console.log(test)
+
+											test.tags.push(tag._id);
+
+											test.save(function(err,data){
+												if (err)
+													res.send(err);
+											
+												console.log(data);
+											})
+										})
+									})
+							}
+						})
+					}
 				}
-			}
 		})
 	});
 		
@@ -536,14 +524,14 @@ router.route('/message/')
 
 router.route('/message/:_id')
 	.get(function(req,res){
-		// get one specific flow
+		// get one specific test
 		console.log(req)
 		Message.findById(req.params._id)
 			.exec(function(err,msg){
-				if (err)
-					res.send(err);
-			console.log(msg)
-			res.json(msg);
+				if(err) res.send(err);
+				
+				console.log(msg)
+				res.json(msg);
 			})
 	});
 
@@ -551,8 +539,7 @@ router.route('/message/:_id')
 router.route('/tag/')
 	.get(function(req,res){
 		Tag.find(function(err, tags) {
-				if (err)
-					res.send(err);
+				if(err) res.send(err);
 
 				res.json(tags);
 			})
@@ -560,35 +547,38 @@ router.route('/tag/')
 
 router.route('/tag/:_id')
 	.get(function(req,res){
-		Tag.findById(req.params._id,function(err, tags) {
-				if (err)
-					res.send(err);
+		Tag.findById(req.params._id)
+			.exec(function(err, tags) {
+				if(err) res.send(err);
+
 				res.json(tags);
 			})
 	})
 	.post(function(req,res){
-
+		console.log('tag post touched')
+		res.json('tag post touched')
 	});
 
 // USER ROUTES ===============================================
 router.route('/user/')
 	.get(function(req,res){
-			User.find(function(err,users){
-				if(err)
-					res.send(err);
-				res.json(users)	
-			})
+			User.find({})
+				.exec(function(err,users){
+					if(err) res.send(err);
+					
+					res.json(users)	
+				})
 		})
 	.post(function(req,res){
 			console.log('touched add user', req.body);
 
 			var user = new User();
 
-			user.name	 = req.body.name;
+			user.name = req.body.name;
 			
 			user.save(function(err, data){
-				if(err)
-					res.send(err);
+				if(err) res.send(err);
+				
 				console.log(data);
 				res.json(data)
 			});
@@ -598,76 +588,86 @@ router.route('/user/')
 // RUN ROUTES ================================================
 router.route('/run/')
 	.get(function(req,res){
+			console.log('touched run get')
+			res.json('touched run get')
 		});
 
 // How to populate subdocuments is in here.
 router.route('/run/:session_id')
 	.get(function(req,res){
 		console.log('touched run route',req.params.session_id )
+
 		Session.findById(req.params.session_id)
-			.populate('flows')
-			.exec(
-				function(err, session) {
-					if (err)
-						res.send(err);
+			.populate('tests')
+			.exec(function(err, session) {
+				if(err) res.send(err);
 
-				 Flow.populate(session.flows, {path: 'steps'}, function (err, flows) {
-				 	console.log(flows);
-		             session.flows = flows;
-		             session.runcount = session.runcount + 1;
-		             res.json(session)
+				// subdocument population must be done on the Model
+				Test.populate(session._tests, {path: 'tasks'})
+					.exec(function (err, tests) {
+					 	console.log(tests);
 
-		         })
+			            session.tests = tests;
+			            session.runcount = session.runcount + 1;
+			            
+			            res.json(session)
+		         	})
 			});
 	})
 	.post(function(req,res){
-		Session.findById(req.params.session_id, function(err, session){
-			if (err)
-				res.send(err);			
-			
-			session.runcount = req.body.session.runcount;
-			
-			session.save(function(err, data) {
-				if (err)
-					res.send(err);
+		console.log('touched run post')
 
-				res.json(session);
-			
-			})
-		})
-
-		for(var i = 0; i < req.body.flows.length; i++){
-			console.log('flows', req.body.flows[i])
-			
-			Flow.findById(req.body.flows[i], function(err, flow){
+		Session.findById(req.params.session_id)
+			.exec(function(err, session){
+				if(err) res.send(err);	
 				
-				if(flow.users.indexOf(req.body.user) == -1){
-					flow.users.push(req.body.user)
-				}
+				session.runcount = req.body.session.runcount;
+				
+				session.save(function(err, data) {
+					if(err) res.send(err);
 
-				flow.save(function(err, data){
-					if(err)
-						res.send(err)
-					console.log('saved', data._id)
+					res.json(session);
+				
 				})
 			})
-		}
 
-		for(var i = 0; i < req.body.steps.length; i++){
-			console.log('steps', req.body.steps[i])
-			Step.findById(req.body.steps[i], function(err, step){
+			// for each test in session
+			// add a user to that test if it has run.
+			for(var i = 0; i < req.body.tests.length; i++){
+				console.log('tests', req.body.tests[i])
+				
+				Test.findById(req.body.tests[i], function(err, test){
+					
+					if(test.users.indexOf(req.body.user) == -1){
+						test.users.push(req.body.user)
+					}
 
-				if(step.users.indexOf(req.body.user) == -1){
-					step.users.push(req.body.user)
-				}
+					test.save(function(err, data){
+						if(err) res.send(err);
 
-				step.save(function(err, data){
-					if(err)
-						res.send(err)
-					console.log('saved', data._id)
+						console.log('saved', data._id)
+					})
 				})
-			})
-		}
+			}
+
+			// for each task in a run test
+			// if a user has hit that task,
+			// push the user to its user array
+			for(var i = 0; i < req.body.tasks.length; i++){
+				console.log('tasks', req.body.tasks[i])
+				Task.findById(req.body.tasks[i], function(err, task){
+
+					if(task.users.indexOf(req.body.user) == -1){
+						task.users.push(req.body.user)
+					}
+
+					task.save(function(err, data){
+						if(err) res.send(err);
+
+						console.log('saved', data._id)
+					})
+				})
+			}
 	});
 
 // SUMMARY ROUTES ============================================
@@ -677,37 +677,40 @@ router.route('/summary/:_id')
 
 		// how to populate grandchildren sub-subdocuments is in here.
 		var reply = {};
+
+		// the promise gets your main document, with its populated subs
 		var	promise = 
-			Flow.findById(req.params._id).populate('tags users steps').exec(function(err, flow){
-				Step.find({'_flow':req.params._id}).populate('users').exec(function(err, docs){
+			Test.findById(req.params._id).populate('tags users tasks').exec(function(err, test){
+				Task.find({'_test':req.params._id}).populate('users').exec(function(err, docs){
 					if(err) res.send(err);
 
 					var opts = [
 						{path: 'users.messages', model:'Message'},
 					]
 
-					Step.populate(docs, opts, function(err, data){
-							flow.steps = data;
-							// res.json({flow : flow})
+					Task.populate(docs, opts, function(err, data){
+							test.tasks = data;
+							// res.json({test : test})
 					})
 				});
 			});
 
-		promise.then(function(flow){
-			reply.flow = flow;
-			return Step.find({'_flow':req.params._id}).select('_id summary pass_fail').exec();
+		promise.then(function(test){
+			reply.test = test;
+			// a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
+			return Task.find({'_test':req.params._id}).select('_id summary pass_fail').exec();
 		})
-		.then(function(steps){
-			reply.steps = steps;
-			return Message.find({'_flow':req.params._id}).select('_id fav _step user body').exec();
+		.then(function(tasks){
+			reply.tasks = tasks;
+			return Message.find({'_test':req.params._id}).select('_id fav _task user body').exec();
 		})
 		.then(function(messages){
 			reply.messages = messages;
-			return Tag.find({'_flow':req.params._id}).select('_id summary summarized body').exec();
+			return Tag.find({'_test':req.params._id}).select('_id summary summarized body').exec();
 		})
 		.then(function(tags){
 			reply.tags = tags;
-			console.log('reply', reply.flow._id, 'messages', reply.messages, 'steps', reply.steps)
+			console.log('reply', reply.test._id, 'messages', reply.messages, 'tasks', reply.tasks)
 			res.json(reply)
 		})
 		.then(null, function(err){
@@ -716,36 +719,48 @@ router.route('/summary/:_id')
 		
 	})
 	.put(function(req, res){
-		// There is a Pending Problem in here somewhere for 54118cbe3535a25c5d230d3b
+		console.log('touched summary put', req.body.test._id);
 
-		console.log('touched summary put', req.body.flow._id);
-		Flow.where({'_id':req.body.flow._id}).update({'summary' : req.body.flow.summary}, function(err, flow){
-			console.log('flow updated', flow)
-		});
+		Test.where({'_id':req.body.test._id})
+			.update({'summary' : req.body.test.summary})
+			.exec(function(err, test){
+				console.log('test updated', test)
+			});
 		
 		for(var i = 0; i < req.body.tags.length; i++){
-				Tag.where({'_id':req.body.tags[i]._id}).update({'summary' : req.body.tags[i].summary, 'summarized' : req.body.tags[i].summarized, }, function(err, tag){
-					console.log('tag updated', tag)
-				});
-			}
-
-		res.json('flow updated - server')
-		if(req.body.flow.steps){
-			console.log('steps found')
-			for(var i = 0; i < req.body.flow.steps.length; i++){
-				var step = req.body.flow.steps[i];
-				
-				if(step.summary){
-					console.log(step._id)
-					console.log(step.summary)
-					console.log(step.pass_fail)
-					
-					Step.where({'_id':step._id}).update({'summary' : step.summary, 'pass_fail': step.pass_fail}, function(err, step){
-							console.log('step updated', step)
-						});
-					}
-				}	
+			Tag.where({'_id':req.body.tags[i]._id})
+				.update({'summary' : req.body.tags[i].summary, 'summarized' : req.body.tags[i].summarized, })
+				.exec(function(err, tag){
+				console.log('tag updated', tag)
+			});
 		}
+
+		res.json('test updated - server')
+
+		// for each task found on update
+		// update that task's summary
+		if(req.body.test.tasks){
+			
+			console.log('tasks found')
+
+			for(var i = 0; i < req.body.test.tasks.length; i++){
+				var task = req.body.test.tasks[i];
+				
+				if(task.summary){
+
+					console.log(task._id)
+					console.log(task.summary)
+					console.log(task.pass_fail)
+					
+					Task.where({'_id':task._id})
+						.update({'summary' : task.summary, 'pass_fail': task.pass_fail})
+						.exec(function(err, task){
+							console.log('task updated', task)
+						});
+				}
+			}	
+		}
+
 		// if an update happened to a message
 		// update that message
 
@@ -754,7 +769,7 @@ router.route('/summary/:_id')
 
 // REPORT ROUTES =============================================
 
-router.route('/report/flow/:flow_id')
+router.route('/report/test/:test_id')
 	.get(function(req, res){
 		console.log('touched report get')
 	});		

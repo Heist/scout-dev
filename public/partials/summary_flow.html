@@ -1,13 +1,13 @@
 <!-- summary_step -->
 <div id="middle-pane" ui-view >
-	<div ng-model='flow' ng-show="flow.name">
-			<h3>&ldquo;{{flow.name}}&rdquo; summary</h3>
-			<p>Add a summary for this flow to capture any notable outcomes, directions, or action items.</p>
+	<div ng-model='test' ng-show="test.name">
+			<h3>&ldquo;{{test.name}}&rdquo; summary</h3>
+			<p>Add a summary for this test to capture any notable outcomes, directions, or action items.</p>
 			
 			<ul class="lined">
 				
 				<li>
-					<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="flow.summary"></textarea>
+					<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="test.summary"></textarea>
 				</li>
 								
 			</ul>
@@ -15,10 +15,10 @@
 </div>
 
 
-<div id="right-pane" ng-model='flow'>
-	<!-- looking for your users or messages? they're in summary_flow and summary_step -->
-	<div id="timeline" ng-show="flow.name">
-		<h3>Tags from &ldquo;{{flow.name}}&rdquo;</h3>
+<div id="right-pane" ng-model='test'>
+	<!-- looking for your users or messages? they're in summary_test and summary_step -->
+	<div id="timeline" ng-show="test.name">
+		<h3>Tags from &ldquo;{{test.name}}&rdquo;</h3>
 			<p>You can add summaries or insights to tags from this session.</p>
 			
 			<ul class="tags">

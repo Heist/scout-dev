@@ -1,12 +1,12 @@
-<!-- Add Flow -->
-<div id="view-createflow" ng-controller="flow">
+<!-- Add test -->
+<div id="view-createtest" ng-controller="test">
 <div id="header">
 	
 	<div id="header-logo">
 		&nbsp;
 	</div>
 	
-	<div id="header-title">Flow</div>
+	<div id="header-title">test</div>
 	
 	<div id="header-account">
 		<div id="header-account-avatar">
@@ -17,7 +17,7 @@
 	
 	
 	<div id="header-nav">
-		<button class="button small" ng-click=" goHome(flow)">&check; Done creating flow</button>
+		<button class="button small" ng-click=" goHome(test)">&check; Done creating test</button>
 	</div>
 			
 	
@@ -25,17 +25,17 @@
 
 <!-- / header nav -->
 
-<!-- create a flow -->
-<div ng-model="flow">
+<!-- create a test -->
+<div ng-model="test">
 <div id="left-pane" >
-	<h3>Create a flow</h3>
-	<p>Let&lsquo;s start with a few pieces of information about your flow.</p>
+	<h3>Create a test</h3>
+	<p>Let&lsquo;s start with a few pieces of information about your test.</p>
 	
 
 	<ul class="lined">
 		<li>
-			<label for="field-flowname">Flow name</label><br>
-			<input class="input" type="text" ng-model="flow.name" id="field-flowname" placeholder="What will you be testing?" />
+			<label for="field-testname">test name</label><br>
+			<input class="input" type="text" ng-model="test.name" id="field-testname" placeholder="What will you be testing?" />
 		</li>
 		
 
@@ -43,29 +43,29 @@
 
 		<li>
 			<label for="field-prototype">Prototype link</label><br>
-			<input class="input" type="text" id="field-prototype" placeholder="What&lsquo;s the URL for your prototype?" ng-model="flow.link" />
+			<input class="input" type="text" id="field-prototype" placeholder="What&lsquo;s the URL for your prototype?" ng-model="test.link" />
 		</li>
 		 
 		<li>
 			<div class="device-selector">
 				<label for="field-device-mobile"><img src="../assets/platform-icons/mobile.svg"><br>Mobile</label><br>
-				<input type="radio" class="replace-control" name="field-device" id="field-device-mobile" ng-model="flow.platform" value="mobile" />
+				<input type="radio" class="replace-control" name="field-device" id="field-device-mobile" ng-model="test.platform" value="mobile" />
 			</div>
 			<div class="device-selector">
 				<label for="field-device-tablet"><img src="../assets/platform-icons/tablet.svg"><br>Tablet</label><br>
-				<input type="radio" class="replace-control" name="field-device" id="field-device-tablet" ng-model="flow.platform" value="tablet" />
+				<input type="radio" class="replace-control" name="field-device" id="field-device-tablet" ng-model="test.platform" value="tablet" />
 			</div>
 			<div class="device-selector">
 				<label for="field-device-desktop"><img src="../assets/platform-icons/desktop.svg"><br>Desktop</label><br>
-				<input type="radio" class="replace-control" name="field-device" id="field-device-desktop" ng-model="flow.platform" value="desktop" />
+				<input type="radio" class="replace-control" name="field-device" id="field-device-desktop" ng-model="test.platform" value="desktop" />
 			</div>
 			<div class="clear"></div>
 		</li>
 		-->
 
 		<li>
-			<label for="field-description">Flow description</label><br>
-			<textarea class="input" id="field-textarea" placeholder="What are the overall goals or outcomes you&lsquo;d like to achieve with this flow?" ng-model="flow.desc"></textarea>
+			<label for="field-description">test description</label><br>
+			<textarea class="input" id="field-textarea" placeholder="What are the overall goals or outcomes you&lsquo;d like to achieve with this test?" ng-model="test.desc"></textarea>
 		</li>
 		
 	</ul>
@@ -75,9 +75,9 @@
 	<h3>Add Steps</h3>
 	<p>Steps are the pages or views in your prototype. They should follow the intended user path of your prototype pretty closely.</p>
 
-	<ul id="steps" class="lined" ui-sortable="sortableOptions" ng-model='flow.steps' >
+	<ul id="steps" class="lined" ui-sortable="sortableOptions" ng-model='test.steps' >
 
-		<li ng-repeat="step in flow.steps" ng-class="{selected: isActive(step)}" ng-click="select(step)" ng-blur="">
+		<li ng-repeat="step in test.steps" ng-class="{selected: isActive(step)}" ng-click="select(step)" ng-blur="">
 		
 			<div class="step-hamburger">≡</div>
 
