@@ -4,20 +4,18 @@
   "description": "Scout app",
   "version": "0.0.1",
   "dependencies": {
-    "express": "~4.0.0",
-
-    "morgan": "latest",
+    "bcrypt-nodejs": "latest",
     "body-parser": "~1.0.1",
+    "connect-flash": "~0.1.1",
     "cookie-parser": "~1.0.0",
-    "method-override": "~1.0.0",
+    "express": "~4.0.0",
     "express-session": "~1.0.0",
-
+    "method-override": "~1.0.0",
     "mongoose": "~3.8.1",
-
-    "passport": "^0.2.1"
-    "passport-local" : "~0.1.6",
-    "connect-flash" : "~0.1.1",   
-    "bcrypt-nodejs" : "latest"
+    "morgan": "latest",
+    "passport": "^0.2.1",
+    "passport-local": "~0.1.6",
+    "underscore": "^1.7.0"
   },
   "engines": {
     "node": "0.10.x"

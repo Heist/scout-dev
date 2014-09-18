@@ -1,6 +1,7 @@
 // routes.js
 var express = require('express');
-var router = express.Router();  // get an instance of the express Router
+var _ 		= require('underscore');
+var router  = express.Router();  // get an instance of the express Router
 var util = require('util');
 var mongoose = require('mongoose'); // so we can generate ObjectIDs for tests
 
@@ -36,6 +37,19 @@ router.route('/')
 	        })
 	});
 
+// AUTHORIZED ROUTES =============================================
+// mobile users can access a list of tests
+// authorized users with moderator status can edit and run tests
+// observer users can join a test that is currently running and comment on it
+
+
+
+
+
+
+// PUBLIC ROUTES =================================================
+// public routes should only permit read access on the database
+// specifically, the only read access supplied is for the reports view
 
 // SESSION ROUTES ================================================
 	
