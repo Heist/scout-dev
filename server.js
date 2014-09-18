@@ -2,18 +2,23 @@
 
 // modules ============================================
 var express = require('express');
-var bodyParser = require ('body-parser');
-var logger	= require ('morgan');
 var mongoose = require('mongoose');
+var passport = require('passport');
+var flash 	 = require('connect-flash');
+
+// express modules
+var logger       = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser   = require('body-parser');
+var session      = require('express-session');
+
 
 var app = express();
-
 var port = Number(process.env.PORT || 5000);
+var db = require('./config/db');
+
 
 // configuration ======================================
-
-// database
-var db = require('./config/db');
 
 mongoose.connect(db.url);
 	// this segment does not work right now.
@@ -22,14 +27,22 @@ mongoose.connect(db.url);
 	//  		// yay!
 	// });
 
-// express 4.0
+require('./config/passport')(passport); // pass passport for configuration
 
+// express 4.0 basic configuration
 app.use(logger('\033[90m:date :method :url :response-time\\ms\033[0m \033[31m:referrer \033[0m'));
-app.use(express.static(__dirname + '/public'));
-app.use(bodyParser());
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(express.static(__dirname + '/public')); // where is our static files directory
+app.use(bodyParser()); // get information from html forms
 
-// bring in routes ================================================
-var router = require('./app/routes');
+// passport configuration
+app.use(session({ secret: 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+// routes ================================================
+var router = require('./app/routes')(app, passport); // theoretically load app and passport from same file
 
 app.use('/api', router);
 

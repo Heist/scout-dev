@@ -11,7 +11,7 @@ var MessageSchema = new Schema ({
 
 	body : { type: String, trim: true },
 	created_by : { type: String, trim: true },
-	user : { type: String, trim: true },
+	subject : { type: String, trim: true },
 	fav : { type: Boolean, default: false },
 	
 	key : Number,

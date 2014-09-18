@@ -9,7 +9,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
     $scope.session = {};
     $scope.tests = {};
     $scope.step = {};
-    $scope.user = {};
+    $scope.subject = {};
 
     $scope.update = {};
     $scope.update.tests = [];
@@ -96,17 +96,17 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             $scope.step.current = $scope.tests[parentIndex].steps[selectedIndex];
         };
 
-        $scope.addUser = function(textfield){
+        $scope.addSubject = function(textfield){
             console.log(textfield);
 
-            var url = 'api/user/';
+            var url = 'api/subject/';
             var data_out = {name : textfield};
 
             $http
                 .post(url, data_out)
                 .success(function(data){
-                    $scope.user = data;
-                    $scope.user.toggle = true;
+                    $scope.subject = data;
+                    $scope.subject.toggle = true;
                     $scope.activate(0,0);
                 })
                 .error(function(data){
@@ -126,7 +126,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             note._test = $scope.step.current._test;
             note._session = $stateParams.sessionId;
 
-            note.user = $scope.user._id;
+            note.subject = $scope.subject._id;
             note.key = $scope.testKey;
 
             $scope.timeline.push(note);
@@ -163,14 +163,14 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
     $scope.postTest = function(){
 
         var url = '/api/run/'+$stateParams._id;
-        var data_out = {session: $scope.session, tests: $scope.update.tests, steps: $scope.update.steps, user: $scope.user._id};
+        var data_out = {session: $scope.session, tests: $scope.update.tests, steps: $scope.update.steps, subject: $scope.subject._id};
 
         console.log('touched end', data_out);
 
         // collects all the tests and steps and outputs them as a collected object
         // to the session api link
         // where they are parsed 
-        // and their individual user lists are updated.
+        // and their individual subject lists are updated.
 
         $http
             .post(url, data_out)

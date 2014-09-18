@@ -7,7 +7,7 @@ var TestSchema = new Schema({
 		_session : { type: Schema.Types.ObjectId, ref: 'Session' },
 		_tags : [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
 		_tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
-		_users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+		_subjects: [{ type: Schema.Types.ObjectId, ref: 'Subject' }],
 
 		desc	: { type: String, trim: true },
 		link	: { type: String, trim: true },

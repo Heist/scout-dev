@@ -55,16 +55,16 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
     $scope.msgFilter = function(message){
         // FILTER that filters the message array
         // so messages display when their _task is the same as the current selected task
-        // and they only display to their current user
+        // and they only display to their current subject
 
         if ((message._task == $scope.task._id)) {
                 return true;
 
-                // check to see what the current user is.
-                console.log($scope.user)
+                // check to see what the current subject is.
+                console.log($scope.subject)
             }
 
-        console.log('false', $scope.user)
+        console.log('false', $scope.subject)
         return false;
     };
 

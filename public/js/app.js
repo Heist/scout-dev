@@ -85,7 +85,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
  
 .filter('hashtag', ['$sce', function($sce){
         return function(message) {
-            // TODO : this runs on users? Fix.
+            // TODO : this runs on subjects? Fix.
             var hashCatch = new RegExp(/\S*#\S+/gi); 
             var tagIt = message.match(hashCatch);
             
