@@ -1,6 +1,5 @@
 // routes.js
 
-
 // CONFIGURATION =====================================================
 // Module dependencies
 var express = require('express');
@@ -20,34 +19,46 @@ var Subject = require('./models/data/subject');
 // load auth models
 var User 	= require('./models/auth/user');
 
-
 // console logging
 router.use(function(req, res, next) {
 	console.log('Something is happening.');
 	next(); // make sure we go to the next routes and don't stop here
 });
 
-// ROUTES  ==========================================================
+// Authenticator
+// As with any middleware it is quintessential to call next()
+// if the user is authenticated
 
+function isAuthenticated(req, res, next) {
+	// do any checks you want to in here
+
+	// CHECK THE USER STORED IN SESSION FOR A CUSTOM VARIABLE
+	// you can do this however you want with whatever variables you set up
+	if (req.user.authenticated)
+		return next();
+
+	// IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE
+	res.redirect('/');
+}
+
+// ROUTE PARAMETERS =================================================
+// invoked for any requests passed to this router
+router.use(function(req, res, next) {
+  // .. some logic here .. like any other middleware
+  isAuthenticated
+  next();
+});
+
+// ROUTES  ==========================================================
 // get/post to /api routes.
-router.route('/')
-	.get(function(req, res) {
-		// get all the tests in the db
-		// do nothing with them - this route is for testing
-		Session.find({})
-			.populate('_tests')
-			.exec( function(err, docs) {
-				if(err) res.send(err);
-	        	
-	        	res.json(docs)
-	        })
-	});
+// router.route('/')
+// 	.get({
+// 	});
 
 // AUTHORIZED ROUTES =============================================
 // mobile users can access a list of tests
 // authorized users with moderator status can edit and run tests
 // observer users can join a test that is currently running and comment on it
-
 
 router.route('/signup/')
 	.post(function(req,res){

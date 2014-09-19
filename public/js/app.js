@@ -33,11 +33,17 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     //         }
     //     };
     // });
+    
+    $urlRouterProvider.otherwise("/login");
 
     $stateProvider
         // OVERVIEW AND test CREATION ========================
-        .state('home', {
-            url: '/',
+        .state('login', {
+            url: '/login',
+            templateUrl: 'partials/login.html'
+        })
+        .state('overview', {
+            url: '/overview',
             controller: 'overview',
             templateUrl: 'partials/overview.html'
         })
