@@ -7,7 +7,6 @@ Master Sass
 /* components */
 
 @import "variables";
-@import "breakpoints";
 @import "colours";
 @import "fonts";
 @import "helpers";
@@ -17,7 +16,6 @@ Master Sass
 @import "timeline";
 @import "questionlist";
 @import "typography";
-@import "elements";
 
 /* code that is NOT specific to a component or module */
 

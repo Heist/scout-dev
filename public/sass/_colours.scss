@@ -8,45 +8,54 @@ specific colours
 
 /* generic */
 
-$green: #7a9900;
-$red: #ee4300;
-
 $white: #fff;
 
-/* new */
-$scout-brown: #41454a;
+
+/* FG colours */
+
+$fg-cream: #fbfbf9;
 
 
-$scout-tan: #f3f3ed;
-$scout-blue: #00b1b7;
+$fg-brown: #2e2723;
+$fg-brown-light: #483e38;
+$fg-brown-dark: #231e1b;
 
+$fg-green: #71901f;
+$fg-green-light: #86aa25;
+$fg-green-dark: #576e17;
 
+$fg-red: #b5213c;
+$fg-red-light: #d62747;
+$fg-red-dark: #8a192e;
 
-$scout-tan-overlay: transparentize(desaturate(darken($scout-tan, 13%), 17%), 0.1);
+$fg-header-red: #f37960;
+$fg-header-red-dark: #872717;
+
+$fg-tan: #f2f2f0;
+$fg-tan-dark: darken($fg-tan, 6%);
 
 /*
 interpreted colours
 */
 
-$text: $scout-brown;
-$text-light: transparentize($scout-brown, 0.7);
-
-$dark: $scout-brown;
-$dark-light: lighten($dark, 10%);
+$text: #646a72;
+$text-light: transparentize($text, 0.7);
 
 
-$background: $scout-tan;
+$background: $fg-cream;
 $background-dark: darken($background, 5%);
 
-$link: $scout-blue;
-$link-bg: lighten(desaturate($link, 60%), 55%);
 
+
+$link: $fg-green;
 $link-hover: darken($link, 7%);
-$field: darken($scout-tan, 5%);
 
-$line: darken($scout-tan, 2%);
-$line-dark: transparentize($scout-tan, 0.8);
-$line-tan: darken($scout-tan, 5%);
+$field: darken($background, 5%);
 
-$success: $green;
-$failure: $red;
+$line: darken($background, 10%);
+$line-for-dark: lighten($fg-brown-light, 7%);
+
+
+
+
+
