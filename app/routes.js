@@ -20,6 +20,7 @@ var Subject = require('./models/data/subject');
 // load auth models
 var User 	= require('./models/auth/user');
 
+
 // console logging
 router.use(function(req, res, next) {
 	console.log('Something is happening.');

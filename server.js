@@ -52,7 +52,7 @@ app.get('*', function(req, res) {
 // turn on the application ========================================
 
 app.listen(port);
-console.log('app listening on ', port);
+console.log('scout listening on ', port);
 
 exports = module.exports = app; 						// expose app
 
