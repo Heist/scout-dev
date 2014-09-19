@@ -18,8 +18,7 @@ var port = Number(process.env.PORT || 5000);
 var db = require('./config/db');
 
 
-// configuration ======================================
-
+// configuration ======================================================
 mongoose.connect(db.url);
 	// this segment does not work right now.
 	// db.on('error', console.error.bind(console, 'connection error:'));
@@ -27,15 +26,15 @@ mongoose.connect(db.url);
 	//  		// yay!
 	// });
 
-require('./config/passport')(passport); // pass passport for configuration
-
-// express 4.0 basic configuration
+// express 4.0 basic configuration ====================================
 app.use(logger('\033[90m:date :method :url :response-time\\ms\033[0m \033[31m:referrer \033[0m'));
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(express.static(__dirname + '/public')); // where is our static files directory
 app.use(bodyParser()); // get information from html forms
 
-// passport configuration
+// passport configuration =============================================
+require('./config/passport')(passport); // pass passport for configuration
+
 app.use(session({ secret: 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
