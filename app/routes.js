@@ -1,27 +1,33 @@
 // routes.js
+
+
+// CONFIGURATION =====================================================
+// Module dependencies
 var express = require('express');
 var _ 		= require('underscore');
 var router  = express.Router();  // get an instance of the express Router
 var util = require('util');
 var mongoose = require('mongoose'); // so we can generate ObjectIDs for tests
 
-// // load models for routes
-var Message = require('./models/message');
-var Tag = require('./models/tag');
-var Task 	= require('./models/task');
-var Test    = require('./models/test');
-var Session = require('./models/session');
-var Summary = require('./models/summary');
-var Subject = require('./models/subject');
+// load data storage models
+var Message = require('./models/data/message');
+var Task 	= require('./models/data/task');
+var Test    = require('./models/data/test');
+var Session = require('./models/data/session');
+var Summary = require('./models/data/summary');
+var Subject = require('./models/data/subject');
 
-// console logging =====================================================
+// load auth models
+var User 	= require('./models/auth/user');
 
+
+// console logging
 router.use(function(req, res, next) {
 	console.log('Something is happening.');
 	next(); // make sure we go to the next routes and don't stop here
 });
 
-// backend routes ======================================================
+// ROUTES  ==========================================================
 
 // get/post to /api routes.
 router.route('/')
