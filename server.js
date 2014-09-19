@@ -41,8 +41,8 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
-// routes ================================================
-var router = require('./app/routes')(app, passport); // theoretically load app and passport from same file
+// server /api/ routes ================================================
+var router = require('./app/routes');
 
 app.use('/api', router);
 
@@ -50,7 +50,7 @@ app.get('*', function(req, res) {
 			res.sendfile(__dirname + '/public/index.html');
 		});
 
-// Turn on the application ========================================
+// turn on the application ========================================
 
 app.listen(port);
 console.log('scout listening on ', port);

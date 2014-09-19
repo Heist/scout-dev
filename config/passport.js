@@ -3,7 +3,7 @@
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
 
-// load up the user model
+// load up the authorized person model
 var User = require('../app/models/user');
 
 // expose this function to our app using module.exports
