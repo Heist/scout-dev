@@ -3,52 +3,63 @@ custom fonts
 ========================
 */
 
+@mixin type-extralight {
+	@include pna-extralight;
+}
 
 @mixin type-light {
-	@include adelle-light;
+	@include pna-light;
 }
 
 @mixin type-regular {
-	@include adelle-regular;
+	@include pna-regular;
 }
 
 @mixin type-bold {
-	@include adelle-bold;
+	@include pna-bold;
 }
 
 @mixin type-extrabold {
-	@include adelle-extrabold;
+	@include pna-extrabold;
 }
 
 
 
-/* adelle sans */
+/* p n a */
 
-@mixin adelle-light {
-	font-family: "adelle-sans", sans-serif;
+@mixin pna-extralight {
+	font-family: "proxima-nova",sans-serif;
 	font-style: normal;
 	font-weight: 100;
+	
 }
 
-@mixin adelle-regular {
-	font-family: "adelle-sans", sans-serif;
+
+@mixin pna-light {
+	font-family: "proxima-nova",sans-serif;
+	font-style: normal;
+	font-weight: 300;
+	
+}
+
+@mixin pna-regular {
+	font-family: "proxima-nova",sans-serif;
 	font-style: normal;
 	font-weight: 400;
+	
 }
 
-@mixin adelle-bold {
-	font-family: "adelle-sans", sans-serif;
+@mixin pna-bold {
+	font-family: "proxima-nova",sans-serif;
+	font-style: normal;
+	font-weight: 600;
+	
+}
+
+@mixin pna-extrabold {
+	font-family: "proxima-nova",sans-serif;
 	font-style: normal;
 	font-weight: 700;
+	
 }
-
-@mixin adelle-extrabold {
-	font-family: "adelle-sans", sans-serif;
-	font-style: normal;
-	font-weight: 800;
-}
-
-
-
-
 

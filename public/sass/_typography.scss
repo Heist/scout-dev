@@ -109,7 +109,7 @@ p.small {
 	margin-right: $pad/4;
 	text-align: center;
 	vertical-align: middle;
-	background: $scout-brown;
+	background: $fg-brown;
 	color: $background;
 	@include radius(40px);
 }
@@ -151,16 +151,16 @@ ul {
 			span {
 				display: inline-block;
 				@include radius;
-				background: $scout-tan-overlay;
+				background: $fg-tan;
 				padding: $pad/3 $pad/2;
-				border: 2px solid $scout-tan-overlay;
+				border: 2px solid $fg-tan;
 			}
 			
 			a {
 				display: inline-block;
 				@include radius;
-				background: $link-bg;
-				border: 2px solid $link-bg;
+				background: $fg-tan;
+				border: 2px solid $fg-tan;
 				padding: $pad/3 $pad/2;
 				
 				&:hover {
@@ -189,7 +189,7 @@ ul.lined {
 .tag {
 	display: inline-block;
 	@include radius;
-	background: $scout-tan-overlay;
+	background: $fg-tan;
 	padding: $pad/3 $pad/2;
 }
 

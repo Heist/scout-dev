@@ -5,7 +5,7 @@
 /* LOGIN */
 
 #view-login {
-	background: $scout-brown;
+	background: $fg-brown;
 	color: $white;
 
 	input, button {
@@ -23,7 +23,7 @@
 
 
 #view-observer-login {
-	background: $scout-brown;
+	background: $fg-brown;
 	background-size: cover;
 	color: $white;
 
@@ -46,7 +46,7 @@
 	#form-observer-login {
 		margin: $pad*2 0 0 0;
 		padding: $pad $pad 0 $pad;
-		background: transparentize($scout-brown, 0.3);
+		background: transparentize($fg-brown, 0.3);
 		@include radius;
 	}
 	
@@ -79,7 +79,7 @@
 				float: left;
 				font-size: $type-size-base*0.8;
 				font-weight: bold;
-				color: $text-light;
+				color: $text;
 				width: 80%;
 							
 				h4 {
@@ -222,13 +222,13 @@
 			padding: $pad/2 $pad/2;
 			
 			&.selected {
-				background: $scout-brown;
+				background: $fg-brown;
 				color: $white;
 				@include radius;
 				position: relative;
 				
 				.selected-arrow {
-					color: $scout-brown;
+					color: $fg-brown;
 					position: absolute;
 					top: 11px;
 					right: -12px;
@@ -311,7 +311,7 @@
 		padding: 0;
 		
 		.questions-group {
-			border-top: 2px solid $line-dark;
+			border-top: 2px solid $line;
 			
 			&:nth-child(1) {
 				border-top: none;
@@ -359,7 +359,7 @@
 			padding: $pad/2;
 			height: 150px;
 			overtest: hidden;
-			background: $background-dark;
+			background: $background;
 			border-top: 2px solid $line;
 			z-index: 9999;
 			
@@ -384,7 +384,7 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: transparentize($scout-brown, 0.06);
+	background: transparentize($fg-brown, 0.06);
 	z-index: 99999;
 	color: $white;
 	margin: 0;
@@ -481,9 +481,9 @@
 		background: $background;
 	
 		.active span {
-			background: $scout-blue;
+			background: $fg-green;
 			color: $white;
-			border: 2px solid $scout-blue;
+			border: 2px solid $fg-green;
 		}
 	}
 	
@@ -528,7 +528,7 @@
 	
 	h1, h2, h3 {	
 		span {
-			color: $text-light;
+			color: $text;
 		}
 	}
 	
@@ -540,7 +540,7 @@
 	
 	.report-detail {
 		font-weight: bold;
-		color: $text-light;
+		color: $text;
 		margin-top: -$pad;
 	}
 	
@@ -615,7 +615,7 @@
 					text-align: center;
 					background: none;
 					padding: $pad;
-					border: 2px dashed $line-dark;
+					border: 2px dashed $line;
 					@include radius(10px);
 				}
 			}
@@ -756,7 +756,7 @@
 /* pulled out test view boxes so we can use those everywhere */
 
 .session-test {
-	background: $background-dark;
+	background: $background;
 	@include radius(10px);
 	padding: $pad*0.5 $pad 0 $pad;
 	
