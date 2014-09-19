@@ -43,7 +43,14 @@ router.route('/')
 // observer users can join a test that is currently running and comment on it
 
 
-
+router.route('/signup/')
+	.post(function(req,res){
+		passport.authenticate('local-signup', {
+			successRedirect : '/profile', // redirect to the secure profile section
+			failureRedirect : '/signup', // redirect back to the signup page if there is an error
+			failureFlash : true // allow flash messages
+		})
+	});
 
 
 
