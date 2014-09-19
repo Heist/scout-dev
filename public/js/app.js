@@ -23,16 +23,16 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
     $httpProvider.defaults.timeout = 3000;
     
-    $httpProvider.interceptors.push(function($q, $location) {
-        return {
-            'responseError': function(response) {
-                if(response.status === 401 || response.status === 403) {
-                    $location.path('/login');
-                }
-                return $q.reject(response);
-            }
-        };
-    });
+    // $httpProvider.interceptors.push(function($q, $location) {
+    //     return {
+    //         'responseError': function(response) {
+    //             if(response.status === 401 || response.status === 403) {
+    //                 $location.path('/login');
+    //             }
+    //             return $q.reject(response);
+    //         }
+    //     };
+    // });
 
     $stateProvider
         // OVERVIEW AND test CREATION ========================
@@ -74,38 +74,38 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         })
         .state('report.task', {
             templateUrl: 'partials/report_task.html'
-        })
-        .state('/admin', {
-            templateUrl: 'partials/admin.post.list.html',
-            controller: 'AdminPostListCtrl',
-            access: { requiredAuthentication: true }
-        })
-        .state('/admin/post/create', {
-            templateUrl: 'partials/admin.post.create.html',
-            controller: 'AdminPostCreateCtrl',
-            access: { requiredAuthentication: true }
-        })
-        .state('/admin/post/edit/:id', {
-            templateUrl: 'partials/admin.post.edit.html',
-            controller: 'AdminPostEditCtrl',
-            access: { requiredAuthentication: true }
-        })
-        .state('/admin/register', {
-            templateUrl: 'partials/admin.register.html',
-            controller: 'AdminUserCtrl'
-        })
-        .state('/admin/login', {
-            templateUrl: 'partials/admin.signin.html',
-            controller: 'AdminUserCtrl'
-        })
-        .state('/admin/logout', {
-            templateUrl: 'partials/admin.logout.html',
-            controller: 'AdminUserCtrl',
-            access: { requiredAuthentication: true }
-        })
-        .otherwise({
-            redirectTo: '/'
-        })
+        });
+        // .state('/admin', {
+        //     templateUrl: 'partials/admin.post.list.html',
+        //     controller: 'AdminPostListCtrl',
+        //     access: { requiredAuthentication: true }
+        // })
+        // .state('/admin/post/create', {
+        //     templateUrl: 'partials/admin.post.create.html',
+        //     controller: 'AdminPostCreateCtrl',
+        //     access: { requiredAuthentication: true }
+        // })
+        // .state('/admin/post/edit/:id', {
+        //     templateUrl: 'partials/admin.post.edit.html',
+        //     controller: 'AdminPostEditCtrl',
+        //     access: { requiredAuthentication: true }
+        // })
+        // .state('/admin/register', {
+        //     templateUrl: 'partials/admin.register.html',
+        //     controller: 'AdminUserCtrl'
+        // })
+        // .state('/admin/login', {
+        //     templateUrl: 'partials/admin.signin.html',
+        //     controller: 'AdminUserCtrl'
+        // })
+        // .state('/admin/logout', {
+        //     templateUrl: 'partials/admin.logout.html',
+        //     controller: 'AdminUserCtrl',
+        //     access: { requiredAuthentication: true }
+        // })
+        // .otherwise({
+        //     redirectTo: '/'
+        // })
 
         // // REPORT PAGE FOR SESSION =====================
         // .state('reporttest', {
@@ -118,63 +118,62 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         // .state('reporttest.step', {
         //     // url: '/report/:testKey/',
         //     templateUrl: 'partials/report_step.html'
-        // })
-        ;
+        // });
 
     // FIX for trailing slashes. Gracefully "borrowed" from https://github.com/angular-ui/ui-router/issues/50
-    $urlRouterProvider.rule(function($injector, $location) {
-        if($location.protocol() === 'file')
-            return;
+//     $urlRouterProvider.rule(function($injector, $location) {
+//         if($location.protocol() === 'file')
+//             return;
 
-        var path = $location.path()
-        // Note: misnomer. This returns a query object, not a search string
-            , search = $location.search()
-            , params
-            ;
+//         var path = $location.path()
+//         // Note: misnomer. This returns a query object, not a search string
+//             , search = $location.search()
+//             , params
+//             ;
 
-        // check to see if the path already ends in '/'
-        if (path[path.length - 1] === '/') {
-            return;
-        }
+//         // check to see if the path already ends in '/'
+//         if (path[path.length - 1] === '/') {
+//             return;
+//         }
 
-        // If there was no search string / query params, return with a `/`
-        if (Object.keys(search).length === 0) {
-            return path + '/';
-        }
+//         // If there was no search string / query params, return with a `/`
+//         if (Object.keys(search).length === 0) {
+//             return path + '/';
+//         }
 
-        // Otherwise build the search string and return a `/?` prefix
-        params = [];
-        angular.forEach(search, function(v, k){
-            params.push(k + '=' + v);
-        });
-        return path + '/?' + params.join('&');
-    });
-})
+//         // Otherwise build the search string and return a `/?` prefix
+//         params = [];
+//         angular.forEach(search, function(v, k){
+//             params.push(k + '=' + v);
+//         });
+//         return path + '/?' + params.join('&');
+//     });
+// })
 
-.run(['$rootScope', '$state', 'Auth', function ($rootScope, $state, Auth) {
+// .run(['$rootScope', '$state', 'Auth', function ($rootScope, $state, Auth) {
 
-    $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+//     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
         
-        if(!('data' in toState) || !('access' in toState.data)){
-            $rootScope.error = "Access undefined for this state";
-            event.preventDefault();
-        }
-        else if (!Auth.authorize(toState.data.access)) {
-            $rootScope.error = "Seems like you tried accessing a route you don't have access to...";
-            event.preventDefault();
+//         if(!('data' in toState) || !('access' in toState.data)){
+//             $rootScope.error = "Access undefined for this state";
+//             event.preventDefault();
+//         }
+//         else if (!Auth.authorize(toState.data.access)) {
+//             $rootScope.error = "Seems like you tried accessing a route you don't have access to...";
+//             event.preventDefault();
 
-            if(fromState.url === '^') {
-                if(Auth.isLoggedIn()) {
-                    $state.go('user.home');
-                } else {
-                    $rootScope.error = null;
-                    $state.go('anon.login');
-                }
-            }
-        }
-    });
+//             if(fromState.url === '^') {
+//                 if(Auth.isLoggedIn()) {
+//                     $state.go('user.home');
+//                 } else {
+//                     $rootScope.error = null;
+//                     $state.go('anon.login');
+//                 }
+//             }
+//         }
+//     });
 
-}]);
+});
 // FILTERS ============================================================================
 angular.module('field_guide_filters', []);
 
