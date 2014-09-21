@@ -26,7 +26,7 @@ module.exports = function(config) {
       './js/*.js',
       './js/controllers/*.js',
       './js/filters/*.js',
-      '../test/**/*.js'
+      '../test/client/**/*.js'
     ],
 
 
