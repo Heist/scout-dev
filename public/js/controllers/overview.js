@@ -113,10 +113,10 @@ angular.module('field_guide_controls')
     $scope.removeTest = function(test){ 
         // delete a test from the database
         
-        var index = $scope.selected.tests.indexOf(test);
+        var index = $scope.selected._tests.indexOf(test);
         var url = '/api/test/'+test._id;
 
-        $scope.selected.tests.splice(index, 1);
+        $scope.selected._tests.splice(index, 1);
 
         $http
             .delete(url)

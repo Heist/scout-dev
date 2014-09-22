@@ -39,18 +39,18 @@
 		
 		<div id="questions">
 	
-			<div class="questions-group" ng-repeat="test in tests" ng-class="{ 'active': $index == parentIndex }" ng-show="test.steps.length > 0">
+			<div class="questions-group" ng-repeat="test in tests" ng-class="{ 'active': $index == parentIndex }" ng-show="test._tasks.length > 0">
 				<ul>
 					<li class="title"><small>test</small><h3>{{test.name}}</h3></li>
 				
-					<li ng-repeat="step in test.steps" 
+					<li ng-repeat="task in test._tasks" 
 						ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
              			ng-click="activate($parent.$index, $index)">
              			
-             			<span>{{step.name}}</span>
+             			<span>{{task.name}}</span>
              			
-						<h3>{{step.name}}</h3>
-						<p ng-bind-html="step.desc | linebreaker"></p>
+						<h3>{{task.name}}</h3>
+						<p ng-bind-html="task.desc | linebreaker"></p>
 					</li>
 				</ul>
 			</div>

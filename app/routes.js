@@ -275,16 +275,14 @@ router.route('/test/:_id')
 
 		console.log('delete this test', req.params._id)
 
-		Test.findById(req.params._id)
-			.exec(function(err, test){
+		Test.findById(req.params._id, function(err, test){
 				if (err) res.send(err);
 
-				Session.findOne({'_id': test._session})
-					.exec(function(err, session){
+				Session.findOne({'_id': test._session}, function(err, session){
 						console.log('found session ', session._id);
 						console.log('session tests', session._tests);
 
-						session.tests.remove(req.params._id)
+						session._tests.remove(req.params._id)
 
 						session.save(function(err,data){
 							if(err) res.send(err);

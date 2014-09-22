@@ -38,7 +38,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
     $http
         .get('/api/run/'+$stateParams._id)
         .success(function(data){
-            $scope.session = data;
+            $scope.tests = data;
             console.log('how is data built', data);
 
             // set the initial timeline contents
