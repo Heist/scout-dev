@@ -51,8 +51,15 @@ app.get('*', function(req, res) {
 
 // turn on the application ========================================
 
-app.listen(port);
+var server = app.listen(port);
 console.log('scout listening on ', port);
+
+app.shutdown = function() {
+	console.log('shut it down');
+	server.close(function() {
+		console.log('in theory I have shut down');
+	});
+}
 
 exports = module.exports = app; 						// expose app
 
