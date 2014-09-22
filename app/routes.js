@@ -399,8 +399,7 @@ router.route('/task/:_id')
 		// and tags 
 		// related to that task
 
-		Task.findById(req.params._id)
-			.exec(function(err, task){
+		Task.findById(req.params._id, function(err, task){
 				if (err) res.send(err);
 
 				console.log('single task found', task);
@@ -428,11 +427,13 @@ router.route('/task/:_id')
 				if(err) res.send(err);
 			});
 
+		// find messages that belong to the task and delete them
 		Message.find({_task:req.params._id})
 			.remove(function(err){
 				if (err) res.send(err);
 			});
 
+		// find tags that belong to the task and delete them
 		Tag.find({_task:req.params._id})
 			.remove(function(err){
 				if (err) res.send(err);
