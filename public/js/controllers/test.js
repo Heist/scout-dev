@@ -5,7 +5,7 @@
 
 angular.module('field_guide_controls').controller('test', ['$scope','$http', '$stateParams','$state', '$location', function($scope, $http,$stateParams,$state, $location){
     console.log('loaded test controller');
-    // if(!$scope.selected && $scope.test){
+    // if(!$scope.selectedTask && $scope.test){
         
     // };
     
@@ -18,7 +18,7 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
 
             if($scope.test._tasks){
                 console.log($scope.test._tasks.length);
-                $scope.selected = $scope.test._tasks[$scope.test._tasks.length-1];
+                $scope.selectedTask = $scope.test._tasks[$scope.test._tasks.length-1];
             };
         })
         .error(function(data) {
@@ -57,7 +57,7 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
                 console.log('new task added '+ JSON.stringify(data));
 
                 $scope.test._tasks.push(data);
-                $scope.selected = $scope.test._tasks[$scope.test._tasks.length()-1];
+                $scope.selectedTask = $scope.test._tasks[$scope.test._tasks.length-1];
             })
             .error(function(data){
                 console.log(JSON.stringify(data))
@@ -80,6 +80,7 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
         $http.delete(url)
             .success(function(data){
                 console.log(data);
+                $scope.selectedTask = $scope.test._tasks[$scope.test._tasks.length-1];
             })
             .error(function(data){
                 console.log('Error: ' + data);
@@ -118,11 +119,11 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
 	};
 
     $scope.select= function(task) {
-        $scope.selected = task;         
+        $scope.selectedTask = task;         
     };
     
     $scope.isActive = function(task) {
-       return $scope.selected === task;
+       return $scope.selectedTask === task;
     };
 
     $scope.updateTask = function(task){
@@ -141,9 +142,11 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
             });
     }
 
-    $scope.updateTest = function(test){
-             // function asPromise(f) { return $q(function(resolve, reject) { resolve(f()); } };ca
-        console.log('touched update test', test)
+    $scope.updateTest = function(){
+        // function asPromise(f) { return $q(function(resolve, reject) { resolve(f()); } };ca
+        var test = $scope.test;
+        
+        console.log('touched update test', test);
 
         var url = '/api/test/'+$stateParams.test_id;
         var data_out = test;
@@ -164,10 +167,10 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
             });
 	};
 
-    $scope.goHome = function(test){
+    $scope.goHome = function(){
         // fun facts! This might cause a race condition.
         // TODO: see if THEN will work here.
-        $scope.updateTest(test)
+        $scope.updateTest()
             .then(function(){
                 $location.path('/');
             });

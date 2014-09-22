@@ -88,17 +88,17 @@
 </div>
 
 <div id="right-pane">
-	<div ng-hide="!selected">
+	<div ng-hide="!selectedTask">
 		<!-- if a task is not selected do not show -->
-			<h3>&ldquo;{{ selected.name }}&rdquo; questions</h3>
+			<h3>&ldquo;{{ selectedTask.name }}&rdquo; questions</h3>
 			<p>Add questions to answer or tasks to complete about particular design elements in this step.</p>
 			
 			<ul class="lined">
 				<li>
 					<label for="field-description">Questions for this task</label><br>
-					<textarea ng-model="selected.desc" class="input" id="field-textarea" ng-blur="updateTask(selected)"placeholder="{{selected.desc}}">
+					<textarea ng-model="selectedTask.desc" class="input" id="field-textarea" ng-blur="updateTask(selectedTask)"placeholder="{{selectedTask.desc}}">
 					</textarea>
-					<button class="button small" ng-click="goHome(selected)">Return To Overview</button>
+					<button class="button small" ng-click="goHome()">Return To Overview</button>
 				</li>
 			</ul>
 	</div>
