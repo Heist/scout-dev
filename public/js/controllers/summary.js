@@ -12,11 +12,11 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
           console.log('returned test information', data);
 
             $scope.test = data.test;
-            // $scope.activate($scope.test)
+            $scope.tasks = data.tasks;
+            $scope.subjects = data.subjects;
 
-            // $scope.tags = data.tags;
-            // $scope.messages = data.messages;
-            console.log('tasks', $scope.test.tasks);
+            console.log('test', $scope.test, 'tasks',$scope.tasks,'subjects',$scope.subjects)
+            // $scope.activate($scope.test)
 
         })
 

@@ -5,7 +5,6 @@
 			<p>Add a summary for this test to capture any notable outcomes, directions, or action items.</p>
 			
 			<ul class="lined">
-				
 				<li>
 					<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="test.summary"></textarea>
 				</li>
@@ -22,7 +21,7 @@
 			<p>You can add summaries or insights to tags from this session.</p>
 			
 			<ul class="tags">
-				<li ng-repeat="tag in tags" ng-click="selectTag($index)" ng-class="{ 'active': selectedTag.body == tag.body}">
+				<li ng-repeat="tag in test._tags" ng-click="selectTag($index)" ng-class="{ 'active': selectedTag.body == tag.body}">
 					<span ng-if="tag.summarized">{{tag.body}} &#x2713;</span>
 					<span ng-if="!tag.summarized">{{tag.body}}</span>
 				</li>

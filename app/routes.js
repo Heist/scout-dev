@@ -717,14 +717,14 @@ router.route('/summary/:_id')
 
 		// the promise gets your main document, with its populated subs
 		var	promise = 
-			Test.findById(req.params._id).populate('tags').exec(function(err, test){
+			Test.findById(req.params._id).populate('_tags').exec(function(err, test){
 				if(err) res.send(err);
 			});
 
 		promise.then(function(test){
 			reply.test = test;
 			// a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
-			return Task.find({'_test':req.params._id}).select('_id summary pass_fail').exec();
+			return Task.find({'_test':req.params._id}).select('_id summary name pass_fail').exec();
 		})
 		.then(function(tasks){
 			reply.tasks = tasks;
@@ -732,7 +732,7 @@ router.route('/summary/:_id')
 		})
 		.then(function(subjects){
 			reply.subjects = subjects;
-			console.log('reply', reply.test._id, 'subjects', reply.subjects, 'tasks', reply.tasks, 'tags', reply.tags)
+			console.log('reply', reply.test._id, 'subjects', reply.subjects, 'tasks', reply.tasks)
 			res.json(reply)
 		})
 		.then(null, function(err){
