@@ -191,7 +191,7 @@ router.route('/test/')
 	})
 	// add a new test
 	.post(function(req,res){
-			var test = new test();
+			var test = new Test();
 
 			test.name = req.body.name;
 			test._session = req.body._session;

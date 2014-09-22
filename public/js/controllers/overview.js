@@ -102,7 +102,7 @@ angular.module('field_guide_controls').controller('overview', ['$scope','$http',
                 .post(url, data_out)
                 .success(function(data){
                     console.log('new test added '+ JSON.stringify(data));
-                    session.tests.push(data);
+                    session._tests.push(data);
                 })
                 .error(function(data){
                     console.log('error', data)

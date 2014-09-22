@@ -33,8 +33,9 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     //         }
     //     };
     // });
-    
+
     $urlRouterProvider.otherwise("/login");
+
 
     $stateProvider
         // OVERVIEW AND test CREATION ========================
@@ -184,5 +185,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 angular.module('field_guide_filters', []);
 
 // CONTROLLERS ========================================================================
+angular.module('field_guide_controls', ['ui','ui.router']); 
 
-angular.module('field_guide_controls', []);
+// names of the modules this module depends on
+// go in the square brackets
