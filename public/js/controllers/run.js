@@ -5,19 +5,19 @@
 
 angular.module('field_guide_controls').controller('run', ['$scope','$http', '$location','$stateParams','$state', function($scope, $http,$location,$stateParams,$state){
     
-    // set up controller-wide variables
-    $scope.session = {};
-    $scope.tests = {};
-    $scope.step = {};
-    $scope.subject = {};
+    // // set up controller-wide variables
+    // $scope.session = {};
+    // $scope.tests = {};
+    // $scope.step = {};
+    // $scope.subject = {};
 
-    $scope.update = {};
-    $scope.update.tests = [];
-    $scope.update.steps = [];
+    // $scope.update = {};
+    // $scope.update.tests = [];
+    // $scope.update.steps = [];
 
     $scope.timeline = []; // holds all messages currently in test
 
-    $scope.testKey = keygen();
+    // $scope.testKey = keygen();
 
     // // refresh warning to prevent whoops-I-deleted-the-Session
     // var leavingPageText = "If you refresh, you will lose this test.";
@@ -39,9 +39,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
         .get('/api/run/'+$stateParams._id)
         .success(function(data){
             $scope.session = data;
-            $scope.tests = data.tests;
-
-            console.log('how is data.tests built', $scope.tests);
+            console.log('how is data built', data);
 
             // set the initial timeline contents
             var message = {};
@@ -55,48 +53,48 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             $scope.parentIndex = parentIndex;
             $scope.selectedIndex = selectedIndex;
 
-            if( selectedIndex == 0){
-                console.log('match')
-                // if this is the first step in a test, log the test start
-                // then log the step start
+            // if( selectedIndex == 0){
+            //     console.log('match')
+            //     // if this is the first step in a test, log the test start
+            //     // then log the step start
                 
-                if($scope.update.tests.indexOf($scope.tests[parentIndex]._id) == -1){
-                    console.log('test push')
-                    $scope.update.tests.push($scope.tests[parentIndex]._id)
-                }
+            //     if($scope.update._tests.indexOf($scope.tests[parentIndex]._id) == -1){
+            //         console.log('test push')
+            //         $scope.update._tests.push($scope.tests[parentIndex]._id)
+            //     }
 
-                if($scope.update.steps.indexOf($scope.tests[parentIndex].steps[selectedIndex]._id) == -1){
-                    console.log('step push')
-                    $scope.update.steps.push($scope.tests[parentIndex].steps[selectedIndex]._id)
-                }
+            //     if($scope.update._tasks.indexOf($scope.tests[parentIndex]._tasks[selectedIndex]._id) == -1){
+            //         console.log('step push')
+            //         $scope.update._tasks.push($scope.tests[parentIndex]._tasks[selectedIndex]._id)
+            //     }
 
-                var message = {};
-                message.title='Starting test'
-                message.body=$scope.tests[parentIndex].name;
-                $scope.timeline.push(message);
+            //     var message = {};
+            //     message.title='Starting test'
+            //     message.body=$scope.tests[parentIndex].name;
+            //     $scope.timeline.push(message);
 
-            }
-            else {
-                console.log('not a match with first index')
+            // }
+            // else {
+            //     console.log('not a match with first index')
 
-                var message = {};
-                message.body = $scope.tests[parentIndex].steps[selectedIndex].name;
-                message.title = 'Starting step';
+            //     var message = {};
+            //     message.body = $scope.tests[parentIndex]._tasks[selectedIndex].name;
+            //     message.title = 'Starting step';
 
-                $scope.timeline.push(message);
+            //     $scope.timeline.push(message);
 
-                if($scope.update.steps.indexOf($scope.tests[parentIndex].steps[selectedIndex]._id) == -1){
-                    console.log('other step push')
-                    $scope.update.steps.push($scope.tests[parentIndex].steps[selectedIndex]._id)
-                }
+            //     if($scope.update._tasks.indexOf($scope.tests[parentIndex]._tasks[selectedIndex]._id) == -1){
+            //         console.log('other step push')
+            //         $scope.update._tasks.push($scope.tests[parentIndex]._tasks[selectedIndex]._id)
+            //     }
 
-            }
+            // }
 
-            console.log('updateArray', $scope.update)
-            $scope.step.current = $scope.tests[parentIndex].steps[selectedIndex];
+            // console.log('updateArray', $scope.update)
+            // $scope.step.current = $scope.tests[parentIndex]._tasks[selectedIndex];
         };
 
-        $scope.addSubject = function(textfield){
+        $scope.addUser = function(textfield){
             console.log(textfield);
 
             var url = 'api/subject/';
@@ -105,9 +103,9 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             $http
                 .post(url, data_out)
                 .success(function(data){
-                    $scope.subject = data;
-                    $scope.subject.toggle = true;
-                    $scope.activate(0,0);
+                    $scope.user = data;
+                    $scope.user.toggle = true;
+                    // $scope.activate(0,0);
                 })
                 .error(function(data){
                     console.log('Error: ' + data);

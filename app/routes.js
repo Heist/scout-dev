@@ -638,22 +638,13 @@ router.route('/run/:session_id')
 	.get(function(req,res){
 		console.log('touched run route',req.params.session_id )
 
-		Session.findById(req.params.session_id)
-			.populate('tests')
-			.exec(function(err, session) {
+		Test.find({_session:req.params.session_id})
+			.populate('_tasks')
+			.exec(function(err, docs){
 				if(err) res.send(err);
 
-				// subdocument population must be done on the Model
-				Test.populate(session._tests, {path: 'tasks'})
-					.exec(function (err, tests) {
-					 	console.log(tests);
-
-			            session.tests = tests;
-			            session.runcount = session.runcount + 1;
-			            
-			            res.json(session)
-		         	})
-			});
+				res.json(docs)
+			})
 	})
 	.post(function(req,res){
 		console.log('touched run post')
