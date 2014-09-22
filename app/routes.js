@@ -656,11 +656,7 @@ router.route('/run/:session_id')
 			.exec(function(err, subject){
 				console.log('subject tests', subject._tests);
 				
-				for(var i = 0; i < req.body.tests.length; i++ ){
-					if(subject._tests.indexOf(req.body.tests[i]) == -1){
-						subject._tests.push(req.body.tests[i])
-					}
-				}
+				subject._tests = req.body.tests;
 
 				subject.save(function(err,data){
 					if(err) res.send(err);
@@ -675,8 +671,8 @@ router.route('/run/:session_id')
 			
 			Test.findById(req.body.tests[i], function(err, test){
 				
-				if(test.subjects.indexOf(req.body.subject) == -1){
-					test.subjects.push(req.body.subject)
+				if(test._subjects.indexOf(req.body.subject) == -1){
+					test._subjects.push(req.body.subject)
 				}
 
 				test.save(function(err, data){
@@ -684,7 +680,9 @@ router.route('/run/:session_id')
 
 					console.log('saved', data._id)
 				})
-			})
+			});
+
+			
 		}
 
 		// for each task in a run test
@@ -694,8 +692,8 @@ router.route('/run/:session_id')
 			console.log('tasks', req.body.tasks[i])
 			Task.findById(req.body.tasks[i], function(err, task){
 
-				if(task.subjects.indexOf(req.body.subject) == -1){
-					task.subjects.push(req.body.subject)
+				if(task._subjects.indexOf(req.body.subject) == -1){
+					task._subjects.push(req.body.subject)
 				}
 
 				task.save(function(err, data){
@@ -705,6 +703,8 @@ router.route('/run/:session_id')
 				})
 			})
 		}
+
+		res.json('tests updated', req.body.tests)
 	});
 
 // SUMMARY ROUTES ============================================
