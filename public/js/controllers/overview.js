@@ -2,7 +2,8 @@
 // overview.js
 
 // OVERVIEW CONTROLLER ===========================================================
-angular.module('field_guide_controls').controller('overview', ['$scope','$http', '$location', '$stateParams', function($scope, $http, $location, $stateParams){
+angular.module('field_guide_controls')
+    .controller('overview', ['$scope','$http', '$location', '$stateParams', function($scope, $http, $location, $stateParams){
     
     // get all sessions and their tests on first load
     $http

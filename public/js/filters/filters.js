@@ -12,7 +12,6 @@ angular.module('field_guide_filters')
             return $sce.trustAsHtml(msg);
         };
 }])
-
 .filter('truncate', function () {
         return function (text, length, end) {
             if (isNaN(length))
@@ -30,7 +29,6 @@ angular.module('field_guide_filters')
 
         };
     })
-
 .filter('linebreaker', ['$sce', function($sce){
     return function(text) {
         text = text.replace(/\r?\n/g, '<br />');

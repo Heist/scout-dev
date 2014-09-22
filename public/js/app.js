@@ -1,7 +1,7 @@
 'use strict';
 // app.js
 
-var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize','field_guide_controls']);
+var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize','field_guide_controls','field_guide_filters']);
 
 // function list for working with arrays
 
@@ -183,7 +183,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
 });
 // FILTERS ============================================================================
-angular.module('field_guide_filters', []);
+angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);
 
 // CONTROLLERS ========================================================================
 angular.module('field_guide_controls', ['ui','ui.router']); 
