@@ -728,7 +728,7 @@ router.route('/summary/:_id')
 		})
 		.then(function(tasks){
 			reply.tasks = tasks;
-			return Subject.find({'_test':req.params._id}).populate('_messages').exec();
+			return Subject.find({'_tests': { $in: [req.params._id] }}).populate('_messages').exec();
 		})
 		.then(function(subjects){
 			reply.subjects = subjects;
