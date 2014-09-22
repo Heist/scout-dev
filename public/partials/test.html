@@ -55,24 +55,24 @@
 	<h3>Add Steps</h3>
 	<p>Steps are the pages or views in your prototype. They should follow the intended user path of your prototype pretty closely.</p>
 
-	<ul id="steps" class="lined" ui-sortable="sortableOptions" ng-model='test.steps' >
+	<ul id="steps" class="lined" ui-sortable="sortableOptions" ng-model='test.tasks' >
 
-		<li ng-repeat="step in test.steps" ng-class="{selected: isActive(step)}" ng-click="select(step)" ng-blur="">
+		<li ng-repeat="task in test._tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="">
 		
 			<div class="step-hamburger">≡</div>
 
 
-			<div class="step-name" ng-hide="step.title_edit">
-				{{step.name | truncate:36}} &nbsp;<img class="pointer" src="/assets/pencil-rev.svg" ng-click="editTitle(step)">
+			<div class="step-name" ng-hide="task.title_edit">
+				{{task.name | truncate:36}} &nbsp;<img class="pointer" src="/assets/pencil-rev.svg" ng-click="editTitle(task)">
 			</div>
 
 			
-			<div class="step-delete pointer big" ng-click="removeStep(step)">×</div>
+			<div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
 
 
-			<form ng-show="step.title_edit">
+			<form ng-show="task.title_edit">
 
-				<input class="edit" ng-trim="false" ng-model="step.name" ng-focus="editTitle(step)" ng-blur="blurTitle(step)"> <span class="pointer">&check;</span>
+				<input class="edit" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"> <span class="pointer">&check;</span>
 
 			</form>
 			
@@ -83,22 +83,22 @@
 	</ul>
 
 	<div class="step empty">
-		<button class="button small" ng-click="postStep()">+ Add a step</a>
+		<button class="button small" ng-click="newTask()">+ Add a task</a>
 	</div>
 </div>
 
 <div id="right-pane">
 	<div ng-hide="!selected">
-		<!-- if a step is not selected do not show -->
+		<!-- if a task is not selected do not show -->
 			<h3>&ldquo;{{ selected.name }}&rdquo; questions</h3>
 			<p>Add questions to answer or tasks to complete about particular design elements in this step.</p>
 			
 			<ul class="lined">
 				<li>
-					<label for="field-description">Questions for this step</label><br>
+					<label for="field-description">Questions for this task</label><br>
 					<textarea ng-model="selected.desc" class="input" id="field-textarea" placeholder="{{selected.desc}}">
 					</textarea>
-					<button class="button small" ng-click="updateStep(selected)">Done</button> 
+					<button class="button small" ng-click="updateTask(selected)">Done</button> 
 				</li>
 			</ul>
 	</div>

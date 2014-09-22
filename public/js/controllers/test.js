@@ -30,7 +30,7 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
 
     // TASK FUNCTIONS =====================================
 
-	$scope.postTask = function() {
+	$scope.newTask = function() {
         console.log('touched add a task');
 
         var task = {};
