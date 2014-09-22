@@ -5,19 +5,18 @@
 
 angular.module('field_guide_controls').controller('run', ['$scope','$http', '$location','$stateParams','$state', function($scope, $http,$location,$stateParams,$state){
     
-    // // set up controller-wide variables
-    // $scope.session = {};
-    // $scope.tests = {};
-    // $scope.step = {};
-    // $scope.subject = {};
+    // set up controller-wide variables
+    $scope.task = {};
 
-    // $scope.update = {};
-    // $scope.update.tests = [];
-    // $scope.update.steps = [];
+    $scope.update = {};
+    $scope.update.tests = [];
+    $scope.update.tasks = [];
 
     $scope.timeline = []; // holds all messages currently in test
-
-    // $scope.testKey = keygen();
+    
+    // $scope.subject = {};
+    // $scope.session = {};
+    // $scope.tests = {};
 
     // // refresh warning to prevent whoops-I-deleted-the-Session
     // var leavingPageText = "If you refresh, you will lose this test.";
@@ -47,51 +46,77 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
         })
 
         $scope.activate = function(parentIndex, selectedIndex) {
-            console.log('parent', parentIndex)
-            console.log('step',  selectedIndex)
+            console.log('test', parentIndex)
+            console.log('task',  selectedIndex)
 
-            $scope.parentIndex = parentIndex;
-            $scope.selectedIndex = selectedIndex;
+            if ($scope.parentIndex == parentIndex && $scope.selectedIndex == selectedIndex){
+                return
+            }
 
-            // if( selectedIndex == 0){
-            //     console.log('match')
-            //     // if this is the first step in a test, log the test start
-            //     // then log the step start
+            else{
+                $scope.parentIndex = parentIndex;
+                $scope.selectedIndex = selectedIndex;
+    
+                // activate 
+                // pushes the identity of a test or task
+                // to the update array
+                // which is then output to server when things are updated
+                // this prevents the session from bulk-updating everything onscreen
+                // if it has not in fact been touched.
+    
+                var test = $scope.tests[parentIndex];
+                var task = $scope.tests[parentIndex]._tasks[selectedIndex];
                 
-            //     if($scope.update._tests.indexOf($scope.tests[parentIndex]._id) == -1){
-            //         console.log('test push')
-            //         $scope.update._tests.push($scope.tests[parentIndex]._id)
-            //     }
+                if( selectedIndex == 0){
+                    console.log('match')
+                    // if this is the first step in a test, log the test start
+                    // then log the step start
+    
+                    if($scope.update.tests.indexOf(test._id) == -1){
+                        // console.log($scope.tests)
+                        console.log('test push', $scope.update.tests)
+                        $scope.update.tests.push(test._id)
 
-            //     if($scope.update._tasks.indexOf($scope.tests[parentIndex]._tasks[selectedIndex]._id) == -1){
-            //         console.log('step push')
-            //         $scope.update._tasks.push($scope.tests[parentIndex]._tasks[selectedIndex]._id)
-            //     }
-
-            //     var message = {};
-            //     message.title='Starting test'
-            //     message.body=$scope.tests[parentIndex].name;
-            //     $scope.timeline.push(message);
-
-            // }
-            // else {
-            //     console.log('not a match with first index')
-
-            //     var message = {};
-            //     message.body = $scope.tests[parentIndex]._tasks[selectedIndex].name;
-            //     message.title = 'Starting step';
-
-            //     $scope.timeline.push(message);
-
-            //     if($scope.update._tasks.indexOf($scope.tests[parentIndex]._tasks[selectedIndex]._id) == -1){
-            //         console.log('other step push')
-            //         $scope.update._tasks.push($scope.tests[parentIndex]._tasks[selectedIndex]._id)
-            //     }
-
-            // }
-
-            // console.log('updateArray', $scope.update)
-            // $scope.step.current = $scope.tests[parentIndex]._tasks[selectedIndex];
+                        var message   = {};
+                        message.title = 'Starting test';
+                        message.body  = test.name;
+        
+                        $scope.timeline.push(message);
+                    }
+    
+                    if($scope.update.tasks.indexOf(task._id) == -1){
+                        console.log('task push', $scope.update.tasks )
+                        $scope.update.tasks.push(task._id)
+                    }
+    
+                    message = {};
+                    
+                    message.title = 'Starting task';
+                    message.body = task.name;
+                    
+                    $scope.timeline.push(message);
+                }
+                else {
+                    console.log('not a match with first index')
+    
+                    var message   = {};
+                    message.body  = task.name;
+                    message.title = 'Starting task';
+    
+                    $scope.timeline.push(message);
+    
+                    if($scope.update.tasks.indexOf(task._id) == -1){
+                        console.log('other task push')
+                        $scope.update.tasks.push(task._id)
+                    }
+    
+                }
+    
+                // console.log('updateArray', $scope.update)
+                // don't remember what I was trying with updatearray
+    
+                $scope.task = $scope.tests[parentIndex]._tasks[selectedIndex];
+            }
         };
 
         $scope.addUser = function(textfield){
@@ -105,7 +130,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                 .success(function(data){
                     $scope.user = data;
                     $scope.user.toggle = true;
-                    // $scope.activate(0,0);
+                    $scope.activate(0,0);
                 })
                 .error(function(data){
                     console.log('Error: ' + data);
@@ -120,8 +145,8 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             note.tags = [];
             note.created = new Date();
              
-            note._step = $scope.step.current._id;
-            note._test = $scope.step.current._test;
+            note._task = $scope.task._id;
+            note._test = $scope.task._test;
             note._session = $stateParams.sessionId;
 
             note.subject = $scope.subject._id;
@@ -131,6 +156,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
 
             // TODO: this will catch things on both sides of the hash. 
             // if message has # with no space, post that to message.tags
+
             var hashCatch = new RegExp(/\S*#\S+/gi);
             var hashPull = new RegExp(/#/gi);
             var tagIt = message.match(hashCatch);          
@@ -161,7 +187,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
     $scope.postTest = function(){
 
         var url = '/api/run/'+$stateParams._id;
-        var data_out = {session: $scope.session, tests: $scope.update.tests, steps: $scope.update.steps, subject: $scope.subject._id};
+        var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
 
         console.log('touched end', data_out);
 
