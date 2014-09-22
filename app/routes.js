@@ -282,7 +282,7 @@ router.route('/test/:_id')
 						console.log('found session ', session._id);
 						console.log('session tests', session._tests);
 
-						session._tests.remove(req.params._id)
+						session.tests.remove(req.params._id)
 
 						session.save(function(err,data){
 							if(err) res.send(err);

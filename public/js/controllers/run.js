@@ -14,7 +14,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
 
     $scope.timeline = []; // holds all messages currently in test
     
-    // $scope.subject = {};
+    // $scope.user = {};
     // $scope.session = {};
     // $scope.tests = {};
 
@@ -149,7 +149,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             note._test = $scope.task._test;
             note._session = $stateParams.sessionId;
 
-            note.subject = $scope.subject._id;
+            note.subject = $scope.user._id;
             note.key = $scope.testKey;
 
             $scope.timeline.push(note);
@@ -187,7 +187,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
     $scope.postTest = function(){
 
         var url = '/api/run/'+$stateParams._id;
-        var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
+        var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.user._id};
 
         console.log('touched end', data_out);
 
