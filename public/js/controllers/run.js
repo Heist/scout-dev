@@ -149,7 +149,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             note._test = $scope.task._test;
             note._session = $stateParams.sessionId;
 
-            note.subject = $scope.user._id;
+            note._subject = $scope.user._id;
             note.key = $scope.testKey;
 
             $scope.timeline.push(note);

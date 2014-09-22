@@ -460,7 +460,7 @@ router.route('/message/')
 		msg._task	 = req.body._task;
 		msg._test	 = req.body._test;
 		msg._session = req.body._session;
-		msg._subject 	 = req.body._subject;
+		msg._subject = req.body._subject;
 
 		msg.created_by  = req.body.created_by; // this is to do with authentication.
 		msg.body	 	= req.body.body;
@@ -486,7 +486,7 @@ router.route('/message/')
 
 			console.log('Subject', req.body._subject)
 
-			Subject.findById( req.body._subject)
+			Subject.findById(req.body._subject)
 				.exec(function(err,subject){
 					if (err) res.send(err);
 
