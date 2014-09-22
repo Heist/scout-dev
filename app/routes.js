@@ -375,6 +375,7 @@ router.route('/task/:_id')
 				if (err) res.send(err);
 
 				if(req.body.name){task.name = req.body.name}
+				if(req.body.desc){task.desc = req.body.desc}
 				if(req.body._test){task._test = req.body._test}	
 				if(req.body._session){task._session = req.body._session}
 				if(req.body._subject){task._subjects.push(req.body._subject)}

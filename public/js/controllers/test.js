@@ -5,12 +5,21 @@
 
 angular.module('field_guide_controls').controller('test', ['$scope','$http', '$stateParams','$state', '$location', function($scope, $http,$stateParams,$state, $location){
     console.log('loaded test controller');
+    // if(!$scope.selected && $scope.test){
+        
+    // };
+    
 
     $http
         .get('/api/test/'+$stateParams.test_id, {timeout : 5000, cache:false})
         .success(function(data) {
             $scope.test = data;
             console.log('test', $scope.test)
+
+            if($scope.test._tasks){
+                console.log($scope.test._tasks.length);
+                $scope.selected = $scope.test._tasks[$scope.test._tasks.length-1];
+            };
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -48,6 +57,7 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
                 console.log('new task added '+ JSON.stringify(data));
 
                 $scope.test._tasks.push(data);
+                $scope.selected = $scope.test._tasks[$scope.test._tasks.length()-1];
             })
             .error(function(data){
                 console.log(JSON.stringify(data))
@@ -108,7 +118,7 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
 	};
 
     $scope.select= function(task) {
-       $scope.selected = task;
+        $scope.selected = task;         
     };
     
     $scope.isActive = function(task) {
@@ -116,12 +126,12 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
     };
 
     $scope.updateTask = function(task){
-        console.log('touched update task', task._id)
+        console.log('touched update task', task._id, task.desc)
 
         var url = '/api/task/'+task._id;
         var data_out = task;
 
-        $http
+        return $http
             .put(url, data_out)
             .success(function(data){
                 console.log('task has pushed', data);
