@@ -34,15 +34,16 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     //     };
     // });
 
-    $urlRouterProvider.otherwise("/login");
+    // $urlRouterProvider.otherwise("/login");
+    $urlRouterProvider.otherwise("/overview");
 
 
     $stateProvider
         // OVERVIEW AND test CREATION ========================
-        .state('login', {
-            url: '/login',
-            templateUrl: 'partials/login.html'
-        })
+        // .state('login', {
+        //     url: '/login',
+        //     templateUrl: 'partials/login.html'
+        // })
         .state('overview', {
             url: '/overview',
             controller: 'overview',
