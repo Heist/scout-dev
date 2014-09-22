@@ -132,6 +132,7 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
     }
 
     $scope.updateTest = function(test){
+             // function asPromise(f) { return $q(function(resolve, reject) { resolve(f()); } };ca
         console.log('touched update test', test)
 
         var url = '/api/test/'+$stateParams.test_id;
@@ -142,10 +143,11 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
         }
 
         // reminder: this pushes an update to an already-created test
-		$http
+		return $http
             .put(url, data_out, {timeout:5000})
             .success(function(data){
                 console.log('test has pushed', data);
+                
              })
             .error(function(data){
                 console.log('error', data)
@@ -155,8 +157,11 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
     $scope.goHome = function(test){
         // fun facts! This might cause a race condition.
         // TODO: see if THEN will work here.
-
-        $scope.update(test)
-        $location.path('/'+test._session);
+        $scope.updateTest(test)
+            .then(function(){
+                $location.path('/');
+            });
+        
+        
     }
 }]);
