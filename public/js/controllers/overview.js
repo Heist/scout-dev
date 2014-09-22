@@ -87,7 +87,7 @@ angular.module('field_guide_controls').controller('overview', ['$scope','$http',
     }
 
     // TEST ROUTES ========================================
-    $scope.postTest = function(session){
+    $scope.newTest = function(session){
             console.log('touched addatest ', session);
 
             var test = {};
@@ -132,12 +132,12 @@ angular.module('field_guide_controls').controller('overview', ['$scope','$http',
         $location.path('/edit/test/'+ test._id);        
     }
      
-    $scope.run = function(test){
+    $scope.runTest = function(test){
         console.log('touched run', test._id)
         $location.path('/run/'+test._id);
     }
 
-    $scope.summarize = function(test_id){
+    $scope.summarizeTest = function(test_id){
         console.log('touched summary', test_id)
         $location.path('/summary/'+ test_id);
     }

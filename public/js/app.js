@@ -50,7 +50,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             templateUrl: 'partials/overview.html'
         })
         .state('test', {
-            url: '/test/:test_id',
+            url: '/edit/test/:test_id',
             templateUrl: 'partials/test.html'
         })
 
