@@ -9,13 +9,13 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
 
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
-          console.log(data);
+          console.log('returned test information', data);
 
             $scope.test = data.test;
-            $scope.activate($scope.test)
+            // $scope.activate($scope.test)
 
-            $scope.tags = data.tags;
-            $scope.messages = data.messages;
+            // $scope.tags = data.tags;
+            // $scope.messages = data.messages;
             console.log('tasks', $scope.test.tasks);
 
         })

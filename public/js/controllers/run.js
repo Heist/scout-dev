@@ -14,10 +14,6 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
 
     $scope.timeline = []; // holds all messages currently in test
     
-    // $scope.user = {};
-    // $scope.session = {};
-    // $scope.tests = {};
-
     // // refresh warning to prevent whoops-I-deleted-the-Session
     // var leavingPageText = "If you refresh, you will lose this test.";
     // window.onbeforeunload = function(){
@@ -67,6 +63,9 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                 var test = $scope.tests[parentIndex];
                 var task = $scope.tests[parentIndex]._tasks[selectedIndex];
                 
+                $scope.task = task;
+                console.log('scope task', $scope.task)
+
                 if( selectedIndex == 0){
                     console.log('match')
                     // if this is the first step in a test, log the test start
@@ -76,6 +75,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                         // console.log($scope.tests)
                         console.log('test push', $scope.update.tests)
                         $scope.update.tests.push(test._id)
+                        $scope.user._tests.push(test._id)
 
                         var message   = {};
                         message.title = 'Starting test';
@@ -115,7 +115,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                 // console.log('updateArray', $scope.update)
                 // don't remember what I was trying with updatearray
     
-                $scope.task = $scope.tests[parentIndex]._tasks[selectedIndex];
+
             }
         };
 
@@ -147,13 +147,12 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
              
             note._task = $scope.task._id;
             note._test = $scope.task._test;
-            note._session = $stateParams.sessionId;
+            note._session = $stateParams._id;
 
             note._subject = $scope.user._id;
-            note.key = $scope.testKey;
 
             $scope.timeline.push(note);
-
+            console.log('note being pushed', note)
             // TODO: this will catch things on both sides of the hash. 
             // if message has # with no space, post that to message.tags
 

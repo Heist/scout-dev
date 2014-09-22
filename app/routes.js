@@ -542,7 +542,7 @@ router.route('/message/')
 										.exec(function(err,test){
 											console.log(test)
 
-											test.tags.push(tag._id);
+											test._tags.push(tag._id);
 
 											test.save(function(err,data){
 												if (err)
@@ -636,7 +636,7 @@ router.route('/run/:session_id')
 	.get(function(req,res){
 		console.log('touched run route',req.params.session_id )
 
-		Test.find({_session:req.params.session_id})
+		Test.find({"_session":req.params.session_id, "_tasks": {$not: {$size: 0}}})
 			.populate('_tasks')
 			.exec(function(err, docs){
 				if(err) res.send(err);
@@ -645,59 +645,66 @@ router.route('/run/:session_id')
 			})
 	})
 	.post(function(req,res){
-		console.log('touched run post')
+		console.log('touched run post', req.body)
 
-		Session.findById(req.params.session_id)
-			.exec(function(err, session){
-				if(err) res.send(err);	
+		// on post:
+		// add subject to tests that have been updated with that subject
+		// add subject to tasks that have been updated with that subject
+		// add tests to subject that has been part of that test
+
+		Subject.findById(req.body.subject)
+			.exec(function(err, subject){
+				console.log('subject tests', subject._tests);
 				
-				session.runcount = req.body.session.runcount;
+				for(var i = 0; i < req.body.tests.length; i++ ){
+					if(subject._tests.indexOf(req.body.tests[i]) == -1){
+						subject._tests.push(req.body.tests[i])
+					}
+				}
+
+				subject.save(function(err,data){
+					if(err) res.send(err);
+				});
+			});
+	
+
+		// for each test in session
+		// add a subject to that test if it has run.
+		for(var i = 0; i < req.body.tests.length; i++){
+			console.log('tests', req.body.tests[i])
+			
+			Test.findById(req.body.tests[i], function(err, test){
 				
-				session.save(function(err, data) {
+				if(test.subjects.indexOf(req.body.subject) == -1){
+					test.subjects.push(req.body.subject)
+				}
+
+				test.save(function(err, data){
 					if(err) res.send(err);
 
-					res.json(session);
-				
+					console.log('saved', data._id)
 				})
 			})
+		}
 
-			// for each test in session
-			// add a subject to that test if it has run.
-			for(var i = 0; i < req.body.tests.length; i++){
-				console.log('tests', req.body.tests[i])
-				
-				Test.findById(req.body.tests[i], function(err, test){
-					
-					if(test.subjects.indexOf(req.body.subject) == -1){
-						test.subjects.push(req.body.subject)
-					}
+		// for each task in a run test
+		// if a subject has hit that task,
+		// push the subject to its subject array
+		for(var i = 0; i < req.body.tasks.length; i++){
+			console.log('tasks', req.body.tasks[i])
+			Task.findById(req.body.tasks[i], function(err, task){
 
-					test.save(function(err, data){
-						if(err) res.send(err);
+				if(task.subjects.indexOf(req.body.subject) == -1){
+					task.subjects.push(req.body.subject)
+				}
 
-						console.log('saved', data._id)
-					})
+				task.save(function(err, data){
+					if(err) res.send(err);
+
+					console.log('saved', data._id)
 				})
-			}
-
-			// for each task in a run test
-			// if a subject has hit that task,
-			// push the subject to its subject array
-			for(var i = 0; i < req.body.tasks.length; i++){
-				console.log('tasks', req.body.tasks[i])
-				Task.findById(req.body.tasks[i], function(err, task){
-
-					if(task.subjects.indexOf(req.body.subject) == -1){
-						task.subjects.push(req.body.subject)
-					}
-
-					task.save(function(err, data){
-						if(err) res.send(err);
-
-						console.log('saved', data._id)
-					})
-				})
-			}
+			})
+		}
 	});
 
 // SUMMARY ROUTES ============================================
@@ -710,19 +717,8 @@ router.route('/summary/:_id')
 
 		// the promise gets your main document, with its populated subs
 		var	promise = 
-			Test.findById(req.params._id).populate('tags subjects tasks').exec(function(err, test){
-				Task.find({'_test':req.params._id}).populate('subjects').exec(function(err, docs){
-					if(err) res.send(err);
-
-					var opts = [
-						{path: 'subjects.messages', model:'Message'},
-					]
-
-					Task.populate(docs, opts, function(err, data){
-							test.tasks = data;
-							// res.json({test : test})
-					})
-				});
+			Test.findById(req.params._id).populate('tags').exec(function(err, test){
+				if(err) res.send(err);
 			});
 
 		promise.then(function(test){
@@ -732,15 +728,11 @@ router.route('/summary/:_id')
 		})
 		.then(function(tasks){
 			reply.tasks = tasks;
-			return Message.find({'_test':req.params._id}).select('_id fav _task subject body').exec();
+			return Subject.find({'_test':req.params._id}).populate('_messages').exec();
 		})
-		.then(function(messages){
-			reply.messages = messages;
-			return Tag.find({'_test':req.params._id}).select('_id summary summarized body').exec();
-		})
-		.then(function(tags){
-			reply.tags = tags;
-			console.log('reply', reply.test._id, 'messages', reply.messages, 'tasks', reply.tasks)
+		.then(function(subjects){
+			reply.subjects = subjects;
+			console.log('reply', reply.test._id, 'subjects', reply.subjects, 'tasks', reply.tasks, 'tags', reply.tags)
 			res.json(reply)
 		})
 		.then(null, function(err){
