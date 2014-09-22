@@ -19,12 +19,12 @@
 			<ul>
 				<li ng-model='test' ui-sref=".test" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(test, $index)"><!-- test.name --><small>test</small><br/>
 					{{test.name}}</li>
-				<li class="question" ng-repeat="task in tasks" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(step, $index)">
+				<li class="question" ng-repeat="task in tasks" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(task, $index)">
 					<span>{{task.name}}</span>
 					
-					<div class="step-rating" ng-click="passFail(step)">
-						<img src="/assets/rate-positive.svg" ng-show="step.pass_fail == true"/>
-						<img src="/assets/rate-negative.svg" ng-show="step.pass_fail == false">
+					<div class="step-rating" ng-click="passFail(task)">
+						<img src="/assets/rate-positive.svg" ng-show="task.pass_fail == true"/>
+						<img src="/assets/rate-negative.svg" ng-show="task.pass_fail == false">
 					</div>
 					
 					<h3>{{task.name}}</h3>
@@ -38,7 +38,7 @@
 </div>
 
 <div ui-view >
-	<!-- this pane is set in summary_test and summary_step -->
+	<!-- this pane is set in summary_test and summary_task -->
 </div>
 <!-- / create a test -->
 </div>

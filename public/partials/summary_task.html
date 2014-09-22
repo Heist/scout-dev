@@ -1,22 +1,21 @@
 <!-- summary_step -->
 <div id="middle-pane" ui-view >
-	<div ng-model='step' ng-show="step.name">
-			<h3>&ldquo;{{step.name}}&rdquo; summary</h3>
-			<p>Add a summary for this step to capture any notable outcomes, directions, or action items.</p>
+	<div ng-model='task' ng-show="task.name">
+			<h3>&ldquo;{{task.name}}&rdquo; summary</h3>
+			<p>Add a summary for this task to capture any notable outcomes, directions, or action items.</p>
 			
 			<ul class="lined">
 				
 				<li>
-					<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="step.summary"></textarea>
+					<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="task.summary"></textarea>
 				</li>
 				
 			</ul>
 	</div>
 </div>
 
-
-<div id="right-pane" ng-model="step">
-	<div id="timeline" ng-show="step.name">
+<div id="right-pane" ng-model="task">
+	<div id="timeline" ng-show="task.name">
 		<ul>
 			
 			<li class="message status">
@@ -25,11 +24,11 @@
 						&nbsp;
 					</div>
 				</div>
-				<strong>All users for &ldquo;{{step.name}}&rdquo;</strong>
-				<!-- {{step}} -->
+				<strong>All users for &ldquo;{{task.name}}&rdquo;</strong>
+				<!-- {{task}} -->
 			</li>
 		
-			<li ng-repeat="user in step.users"  class="message" ng-model="user">
+			<li ng-repeat="user in task.users"  class="message" ng-model="user">
 				<div class="message-details">
 					<div class="message-details-avatar">
 						<img src="http://rdjpg.com/51/51" />
@@ -40,12 +39,6 @@
 
 				<ul ng-model='messages'>
 					<li ng-repeat="message in messages | filter:msgFilter" class="message">
-						step: {{step._id}}<br/>
-						msg.step:{{message._step}}<br/>
-
-						msg.user:{{message.user}}<br/>
-						user: {{user._id}}<br/>
-
 						<div class="message-body">
 							<p ng-bind-html="message.body | hashtag"></p>
 							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>
