@@ -115,7 +115,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
 
 
     $scope.selectTag = function (index){
-        $scope.selectedTag = $scope.tags[index];
+        $scope.selectedTag = $scope.test._tags[index];
         $scope.selectedTag.index = index;
     }
 
@@ -124,11 +124,11 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
     }
 
     $scope.saveTagSummary = function(){
-        $scope.tags[$scope.selectedTag.index].summary = $scope.selectedTag.summary;
-        $scope.tags[$scope.selectedTag.index].summarized = true;
+        $scope.test._tags[$scope.selectedTag.index].summary = $scope.selectedTag.summary;
+        $scope.test._tags[$scope.selectedTag.index].summarized = true;
         $scope.selectedTag.summarized = true;
 
-        console.log($scope.tags);
+        console.log($scope.test._tags);
     }
 
     //  TEST FUNCTIONS ====================================
@@ -138,7 +138,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         // post summary changes to the tags
         // post fav'd statuses to relevant messages
 
-        var url = '/api/summary/'+ $stateParams.test_id;
+        var url = '/api/summary/'+ $stateParams._id;
         var data_out = {test: $scope.test, tags:$scope.tags, messages:$scope.messages} ;
 
         console.log(data_out)

@@ -737,11 +737,6 @@ router.route('/summary/:_id')
 						  	 	_id: '$_task',
 						  	 	messages: { $push: { subject: '$_subject', body: '$body', fav:'$fav', _id:'$_id' } }
 						  	})
-						  // .group({ _task : $_task})
-						  // .group({ 
-						  // 		_id : "$_task",
-						  // 		subjects : {$push: "$_subject"}
-						  // })
 						  .exec(function(err, msg){
 						  	if(err) res.send(err);
 
@@ -749,7 +744,6 @@ router.route('/summary/:_id')
 						  	// 	if (err) res.send(err);
 						  	// });
 						});
-			 // { $group : { _id : { state : "$state", city : "$city" }, pop : { $sum : "$pop" } } }
 		})
 		.then(function(messages){
 			reply.messages = messages;
@@ -766,7 +760,7 @@ router.route('/summary/:_id')
 		
 	})
 	.put(function(req, res){
-		console.log('touched summary put', req.body.test._id);
+		console.log('touched summary put', req.body);
 
 		Test.where({'_id':req.body.test._id})
 			.update({'summary' : req.body.test.summary})
@@ -774,9 +768,9 @@ router.route('/summary/:_id')
 				console.log('test updated', test)
 			});
 		
-		for(var i = 0; i < req.body.tags.length; i++){
-			Tag.where({'_id':req.body.tags[i]._id})
-				.update({'summary' : req.body.tags[i].summary, 'summarized' : req.body.tags[i].summarized, })
+		for(var i = 0; i < req.body.test._tags.length; i++){
+			Tag.where({'_id':req.body.test._tags[i]._id})
+				.update({'summary' : req.body.test._tags[i].summary, 'summarized' : req.body.test._tags[i].summarized, })
 				.exec(function(err, tag){
 				console.log('tag updated', tag)
 			});
@@ -786,12 +780,12 @@ router.route('/summary/:_id')
 
 		// for each task found on update
 		// update that task's summary
-		if(req.body.test.tasks){
+		if(req.body.test._tasks){
 			
 			console.log('tasks found')
 
-			for(var i = 0; i < req.body.test.tasks.length; i++){
-				var task = req.body.test.tasks[i];
+			for(var i = 0; i < req.body.test._tasks.length; i++){
+				var task = req.body.test._tasks[i];
 				
 				if(task.summary){
 
