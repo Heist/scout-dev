@@ -34,6 +34,9 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
      
         if(task){
             $scope.task = task;
+            console.log('task', task._id)
+            
+            console.log('$scope.task.messages', $scope.task.messages)
         }
     };
 
