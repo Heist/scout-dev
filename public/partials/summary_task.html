@@ -15,7 +15,7 @@
 </div>
 
 <div id="right-pane" ng-model="task">
-	<div id="timeline" ng-show="task.name">
+	<div id="timeline" >
 		<ul>
 			
 			<li class="message status">
@@ -28,7 +28,7 @@
 				<!-- {{task}} -->
 			</li>
 		
-			<li ng-repeat="message in messages"  class="message" ng-model="message">
+			<li ng-repeat="user in task.users"  class="message" ng-model="user">
 				<div class="message-details">
 					<div class="message-details-avatar">
 						<img src="http://rdjpg.com/51/51" />
@@ -38,7 +38,7 @@
 				
 
 				<ul ng-model='messages'>
-					<li ng-repeat="message in messages | filter:msgFilter" class="message">
+					<li ng-repeat="message in user.messages | filter:msgFilter" class="message">
 						<div class="message-body">
 							<p ng-bind-html="message.body | hashtag"></p>
 							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>

@@ -15,6 +15,18 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
             $scope.tasks = data.tasks;
             $scope.messages = data.messages;
 
+            var collect = [];
+            
+            // for each task
+            // break out the message block with _id matching task._id
+            // sort it by username
+            // insert it into task.username.messages
+
+
+            // break open messages
+            // group by user
+           
+
             console.log('test', $scope.test, 'tasks',$scope.tasks,'messages',$scope.messages)
             $scope.activate($scope.test)
 
@@ -22,7 +34,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
 
     // TASK FUNCTIONS =====================================
 
-    $scope.activate = function(task, selectedIndex) {
+    $scope.activate = function(obj, selectedIndex) {
         // passes the task to the global variable
         $scope.selectedIndex = selectedIndex;
 
@@ -32,11 +44,9 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
             $state.go("summary.test");
         }
      
-        if(task){
-            $scope.task = task;
-            console.log('task', task._id)
-            
-            console.log('$scope.task.messages', $scope.task.messages)
+        if(obj){
+            $scope.task = obj;
+            console.log('task or test', obj._id)
         }
     };
 

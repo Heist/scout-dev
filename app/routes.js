@@ -730,14 +730,12 @@ router.route('/summary/:_id')
 			reply.tasks = tasks;
 			console.log(req.params._id);
 
-			return Message.aggregate(
-							{ $match: { '_test':{$in: [mongoose.Types.ObjectId(req.params._id)]} } }
-							)
-						  // .match({ "_test" : req.params._id })
+			return Message.aggregate({ 
+							$match: { '_test':{$in: [mongoose.Types.ObjectId(req.params._id)]} } 
+						  })
 						  .group({ 
 						  	 	_id: '$_task',
 						  	 	messages: { $push: { subject: '$_subject', body: '$body', fav:'$fav', _id:'$_id' } }
-						  	  
 						  	})
 						  // .group({ _task : $_task})
 						  // .group({ 
