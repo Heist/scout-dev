@@ -769,18 +769,38 @@ router.route('/summary/:_id')
 				if(err) return res.send (err)
 				console.log('test updated', test)
 			});
-		
-		for(var i = 0; i < req.body.tags.length; i++){
 
+		// TODO: Add null pointer checks in here.
+		for(var i = 0; i < req.body.tags.length; i++){
 			Tag.findOneAndUpdate(
 				{'_id' : req.body.tags[i]._id}, 
 				{'summary': req.body.tags[i].summary,
 				 'summarized' : req.body.tags[i].summarized},
 				 function(err, tag){
-				 	console.log('tag updated', tag)
+				 	console.log('tags updated')
 				 });
 		}
+
+		for(var i = 0; i < req.body.tasks.length; i++){
+			Task.findOneAndUpdate(
+				{'_id' : req.body.tasks[i]._id},
+				{'summary' : req.body.tasks[i].summary},
+				function(err,task){
+					console.log('tasks updated')
+				});
+		}
 		
+		for(var i = 0; i < req.body.tasks.length; i++){
+			for(var j = 0; j < req.body.tasks[i].messages.length;j++){
+					Message.findOneAndUpdate(
+						{'_id' : req.body.tasks[i].messages[j]._id},
+						{'fav' : req.body.tasks[i].messages[j].fav},
+						function(err,msg){
+							console.log('msgs updated', msg.fav)
+						});
+				}
+
+		}
 		res.json('test updated - server')
 
 		// for each task found on update
