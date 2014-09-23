@@ -728,26 +728,25 @@ router.route('/summary/:_id')
 		})
 		.then(function(tasks){
 			reply.tasks = tasks;
+			console.log(req.params._id);
+
 			return Message.aggregate()
-						  // .match({ '_test' : req.params._id })
+						  // .match({ "_test" : req.params._id })
+						  .group( 
+						  	{_id: { task: '$_task', subject: '$_subject' },
+						  	  messages: { $push: { body: '$body', fav:'$fav' } }
+						  	})
 						  // .group({ _task : $_task})
-						  .group({
-						  		// _task : '$_task',
-								  	_id: "$_subject", 
-								  	message: { $push: {
-									        body: '$body',
-									        fav: '$fav',
-									        created_by : '$created_by',
-									        _id : '$_id'
-									    	}
-								  		}
-						  })
+						  // .group({ 
+						  // 		_id : "$_task",
+						  // 		subjects : {$push: "$_subject"}
+						  // })
 						  .exec(function(err, msg){
 						  	if(err) res.send(err);
 
-						  	Subject.populate(msg, {'path':'_id', 'select':'name'}, function(err, subjects){
-						  		if (err) res.send(err);
-						  	});
+						  	// Subject.populate(msg, {'path':'_id', 'select':'name -_id'}, function(err, subjects){
+						  	// 	if (err) res.send(err);
+						  	// });
 						});
 			 // { $group : { _id : { state : "$state", city : "$city" }, pop : { $sum : "$pop" } } }
 		})
