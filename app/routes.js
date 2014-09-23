@@ -802,42 +802,36 @@ router.route('/summary/:_id')
 
 		}
 		res.json('test updated - server')
-
-		// for each task found on update
-		// update that task's summary
-		// if(req.body.test._tasks){
-			
-		// 	console.log('tasks found')
-
-		// 	for(var i = 0; i < req.body.test._tasks.length; i++){
-		// 		var task = req.body.test._tasks[i];
-				
-		// 		if(task.summary){
-
-		// 			console.log(task._id)
-		// 			console.log(task.summary)
-		// 			console.log(task.pass_fail)
-					
-		// 			Task.where({'_id':task._id})
-		// 				.update({'summary' : task.summary, 'pass_fail': task.pass_fail})
-		// 				.exec(function(err, task){
-		// 					console.log('task updated', task)
-		// 				});
-		// 		}
-		// 	}	
-		// }
-
-		// if an update happened to a message
-		// update that message
-
 	});
 
 
 // REPORT ROUTES =============================================
 
-router.route('/report/test/:test_id')
+router.route('/report/:_id')
 	.get(function(req, res){
-		console.log('touched report get')
+		console.log('touched report get');
+
+		var reply = {};
+		var promise = 
+			Test.findOne({'_id' : req.params._id}).exec(function(err, test){
+				if(err) res.send(err);
+			});
+
+		promise.then(function(test){
+			reply.test = test;
+			// a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
+			return Task.find({'_test':req.params._id}).select('_id summary name pass_fail').exec();
+		})
+		.then(function(tasks){
+			reply.tasks = tasks;
+			res.json(reply);
+		})
+		.then(null, function(err){
+			if(err) return res.send (err)
+			
+		});
+
+
 	});		
 
 module.exports = router;

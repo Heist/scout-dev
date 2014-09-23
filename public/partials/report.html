@@ -1,25 +1,21 @@
 <div id="view-report" ng-controller='report'>
-<div ng-model="session">
+<div ng-model="report">
 	
 	<ng-include src="'partials/header.html'"></ng-include>
 		
-
-		
 		<div id="left-pane">
-			
 			<div id="questions">
-		
-			<div class="questions-group active">
-				<ul ng-repeat="test in session.tests">
-						<li ui-sref=".test" ng-click="select(test)" ng-class="{ 'active': test.title == selected.title}">
-							<!-- test title --><small>test</small> {{test.title}}
-						</li>
-						<li ui-sref=".step" ng-click="select(step)" class="question" ng-class="{ 'active': step._id == selected._id}" ng-repeat="step in test.steps" >
-								{{step.name}}
-								<div class="question-rating green" ng-show="step.pass_fail == true" ></div>
-								<div class="question-rating red" ng-show="step.pass_fail == false"></div>
-						</li>
-					</ul>
+			<div class="questions-group active" >
+			<ul>
+				<li ng-model="test" ui-sref=".test" ng-click="select(test)" ng-class="{ 'active': task._id == selected._id}">
+					<small>test</small> {{test.name}}
+				</li>
+				<li ui-sref=".task" ng-click="select(task)" class="question" ng-class="{ 'active': task._id == selected._id}" ng-repeat="task in tasks" >
+								{{task.name}}
+								<div class="question-rating green" ng-show="task.pass_fail == true" ></div>
+								<div class="question-rating red" ng-show="task.pass_fail == false"></div>
+				</li>
+			</ul>
 				</div>
 			</div>	
 				

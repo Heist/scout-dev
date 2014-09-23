@@ -143,9 +143,9 @@ angular.module('field_guide_controls')
         $location.path('/summary/'+ test_id);
     }
 
-    $scope.loadReport = function(test){
-        console.log('touched a report', test._id);
-        $location.path('/report/'+ test._id );
+    $scope.loadReport = function(test_id){
+        console.log('touched a report', test_id);
+        $location.path('/report/'+ test_id);
     }
 
 
