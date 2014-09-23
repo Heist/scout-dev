@@ -28,13 +28,13 @@
 				<!-- {{task}} -->
 			</li>
 		
-			<li ng-repeat="user in task.users"  class="message" ng-model="user">
+			<li ng-repeat="message in messages"  class="message" ng-model="message">
 				<div class="message-details">
 					<div class="message-details-avatar">
 						<img src="http://rdjpg.com/51/51" />
 					</div>
 					</div>
-					<small>Comments on participant</small><br><strong>{{user.name}}</strong>
+					<small>Comments on participant</small><br><strong>{{message._id.subject.name}}</strong>
 				
 
 				<ul ng-model='messages'>

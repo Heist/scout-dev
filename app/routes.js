@@ -729,20 +729,23 @@ router.route('/summary/:_id')
 		.then(function(tasks){
 			reply.tasks = tasks;
 			return Message.aggregate()
+						  // .match({ '_test' : req.params._id })
+						  // .group({ _task : $_task})
 						  .group({
-							  	_id:{subject:"$_subject", task:"$_task"}, 
-							  	message: { $push: {
-								        body: '$body',
-								        fav: '$fav',
-								        created_by : '$created_by',
-								        _id : '$_id'
-								    	}
-							  		}
+						  		// _task : '$_task',
+								  	_id: "$_subject", 
+								  	message: { $push: {
+									        body: '$body',
+									        fav: '$fav',
+									        created_by : '$created_by',
+									        _id : '$_id'
+									    	}
+								  		}
 						  })
 						  .exec(function(err, msg){
 						  	if(err) res.send(err);
 
-						  	Subject.populate(msg, {'path':'_id.subject'}, function(err, subjects){
+						  	Subject.populate(msg, {'path':'_id', 'select':'name'}, function(err, subjects){
 						  		if (err) res.send(err);
 						  	});
 						});
