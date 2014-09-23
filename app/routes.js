@@ -728,10 +728,32 @@ router.route('/summary/:_id')
 		})
 		.then(function(tasks){
 			reply.tasks = tasks;
-			return Message.find({'_test': { $in: [req.params._id] }}).populate('_subject _task').exec();
+			return Message.aggregate()
+						  .group({
+							  	_id:{subject:"$_subject", task:"$_task"}, 
+							  	message: { $push: {
+								        body: '$body',
+								        fav: '$fav',
+								        created_by : '$created_by',
+								        _id : '$_id'
+								    	}
+							  		}
+						  })
+						  .exec(function(err, msg){
+						  	if(err) res.send(err);
+
+						  	Subject.populate(msg, {'path':'_id.subject'}, function(err, subjects){
+						  		if (err) res.send(err);
+						  	});
+						});
+			 // { $group : { _id : { state : "$state", city : "$city" }, pop : { $sum : "$pop" } } }
 		})
 		.then(function(messages){
 			reply.messages = messages;
+			return Subject.find({'_tests': { $in: [req.params._id] }}).populate('_messages').exec();
+		})
+		.then(function(subjects){
+			reply.subjects = subjects
 			console.log('reply', reply.test._id, 'messages', reply.messages, 'tasks', reply.tasks)
 			res.json(reply)
 		})
