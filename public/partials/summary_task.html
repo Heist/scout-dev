@@ -16,29 +16,10 @@
 
 <div id="right-pane" ng-model="task">
 	<div id="timeline" >
-		<ul>
-			
-			<li class="message status">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						&nbsp;
-					</div>
-				</div>
-				<strong>All users for &ldquo;{{task.name}}&rdquo;</strong>
-				<!-- {{task}} -->
-			</li>
-		
-			<li ng-repeat="user in task.users"  class="message" ng-model="user">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="http://rdjpg.com/51/51" />
-					</div>
-					</div>
-					<small>Comments on participant</small><br><strong>{{message._id.subject.name}}</strong>
+		<strong>All users for &ldquo;{{task.name}}&rdquo;</strong>
 				
-
-				<ul ng-model='messages'>
-					<li ng-repeat="message in user.messages | filter:msgFilter" class="message">
+				<ul>
+					<li ng-repeat="message in task.messages" class="message">
 						<div class="message-body">
 							<p ng-bind-html="message.body | hashtag"></p>
 							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>
