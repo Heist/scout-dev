@@ -13,7 +13,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
 
             $scope.test = data.test;
             $scope.tasks = data.tasks;
-            $scope.subjects = data.subjects;
+            $scope.messages = data.messages;
 
             console.log('test', $scope.test, 'tasks',$scope.tasks,'subjects',$scope.subjects)
             $scope.activate($scope.test)

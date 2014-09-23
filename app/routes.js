@@ -728,11 +728,11 @@ router.route('/summary/:_id')
 		})
 		.then(function(tasks){
 			reply.tasks = tasks;
-			return Subject.find({'_tests': { $in: [req.params._id] }}).populate('_messages').exec();
+			return Message.find({'_test': { $in: [req.params._id] }}).populate('_subject _task').exec();
 		})
-		.then(function(subjects){
-			reply.subjects = subjects;
-			console.log('reply', reply.test._id, 'subjects', reply.subjects, 'tasks', reply.tasks)
+		.then(function(messages){
+			reply.messages = messages;
+			console.log('reply', reply.test._id, 'messages', reply.messages, 'tasks', reply.tasks)
 			res.json(reply)
 		})
 		.then(null, function(err){
