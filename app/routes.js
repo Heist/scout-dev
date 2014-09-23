@@ -762,45 +762,47 @@ router.route('/summary/:_id')
 	.put(function(req, res){
 		console.log('touched summary put', req.body);
 
-		Test.where({'_id':req.body.test._id})
-			.update({'summary' : req.body.test.summary})
-			.exec(function(err, test){
+		var query = {'_id':req.body.test._id};
+		var update = {summary: req.body.test.summary}
+
+		Test.findOneAndUpdate(query, update,function(err,test){
+				if(err) return res.send (err)
 				console.log('test updated', test)
 			});
 		
-		for(var i = 0; i < req.body.test._tags.length; i++){
-			Tag.where({'_id':req.body.test._tags[i]._id})
-				.update({'summary' : req.body.test._tags[i].summary, 'summarized' : req.body.test._tags[i].summarized, })
-				.exec(function(err, tag){
-				console.log('tag updated', tag)
-			});
-		}
+		// for(var i = 0; i < req.body.test._tags.length; i++){
+		// 	Tag.where({'_id':req.body.test._tags[i]._id})
+		// 		.update({'summary' : req.body.test._tags[i].summary, 'summarized' : req.body.test._tags[i].summarized, })
+		// 		.exec(function(err, tag){
+		// 		console.log('tag updated', tag)
+		// 	});
+		// }
 
 		res.json('test updated - server')
 
 		// for each task found on update
 		// update that task's summary
-		if(req.body.test._tasks){
+		// if(req.body.test._tasks){
 			
-			console.log('tasks found')
+		// 	console.log('tasks found')
 
-			for(var i = 0; i < req.body.test._tasks.length; i++){
-				var task = req.body.test._tasks[i];
+		// 	for(var i = 0; i < req.body.test._tasks.length; i++){
+		// 		var task = req.body.test._tasks[i];
 				
-				if(task.summary){
+		// 		if(task.summary){
 
-					console.log(task._id)
-					console.log(task.summary)
-					console.log(task.pass_fail)
+		// 			console.log(task._id)
+		// 			console.log(task.summary)
+		// 			console.log(task.pass_fail)
 					
-					Task.where({'_id':task._id})
-						.update({'summary' : task.summary, 'pass_fail': task.pass_fail})
-						.exec(function(err, task){
-							console.log('task updated', task)
-						});
-				}
-			}	
-		}
+		// 			Task.where({'_id':task._id})
+		// 				.update({'summary' : task.summary, 'pass_fail': task.pass_fail})
+		// 				.exec(function(err, task){
+		// 					console.log('task updated', task)
+		// 				});
+		// 		}
+		// 	}	
+		// }
 
 		// if an update happened to a message
 		// update that message
