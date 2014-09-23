@@ -139,7 +139,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         // post fav'd statuses to relevant messages
 
         var url = '/api/summary/'+ $stateParams._id;
-        var data_out = {test: $scope.test, tags:$scope.tags, messages:$scope.messages} ;
+        var data_out = {test: $scope.test, tags:$scope.test._tags, messages:$scope.messages} ;
 
         console.log(data_out)
         

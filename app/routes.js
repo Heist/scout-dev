@@ -770,14 +770,17 @@ router.route('/summary/:_id')
 				console.log('test updated', test)
 			});
 		
-		// for(var i = 0; i < req.body.test._tags.length; i++){
-		// 	Tag.where({'_id':req.body.test._tags[i]._id})
-		// 		.update({'summary' : req.body.test._tags[i].summary, 'summarized' : req.body.test._tags[i].summarized, })
-		// 		.exec(function(err, tag){
-		// 		console.log('tag updated', tag)
-		// 	});
-		// }
+		for(var i = 0; i < req.body.tags.length; i++){
 
+			Tag.findOneAndUpdate(
+				{'_id' : req.body.tags[i]._id}, 
+				{'summary': req.body.tags[i].summary,
+				 'summarized' : req.body.tags[i].summarized},
+				 function(err, tag){
+				 	console.log('tag updated', tag)
+				 });
+		}
+		
 		res.json('test updated - server')
 
 		// for each task found on update
