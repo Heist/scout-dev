@@ -22,7 +22,18 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
             // sort it by username
             // insert it into task.username.messages
 
+            for(var i = 0; i < data.tasks.length; i++){
+                // for each task....
+                for (var j = 0; j < data.messages.length;j++){
+                  // for each message block...
+                    if(data.tasks[i]._id == data.messages[j]._id){
+                        console.log(data.tasks[i]._id, data.messages[j]._id);
+                        $scope.tasks[i].messages =  data.messages[j].messages;
+                    }
+                }
+            }
 
+            console.log('$scope.tasks.messages', $scope.tasks)
             // break open messages
             // group by user
            
