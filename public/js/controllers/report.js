@@ -15,8 +15,9 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
         }) 
 
     $scope.select = function(obj){
-        console.log('touched object', obj)
+        console.log('selected object', obj)
         $scope.selected = obj;
+
     }
 
     // there is nothing in reports right now.

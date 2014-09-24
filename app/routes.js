@@ -810,7 +810,7 @@ router.route('/report/:_id')
 		promise.then(function(test){
 			reply.test = test;
 			// a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
-			return Task.find({'_test':req.params._id}).select('_id summary name pass_fail').exec();
+			return Task.find({'_test':req.params._id}).populate({'path': '_messages', match: { fav : true }}).select('_id summary name pass_fail desc _messages').exec();
 			// in here, this has to have all the messages for this task that are also fav'd
 		})
 		.then(function(tasks){

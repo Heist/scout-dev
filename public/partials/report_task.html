@@ -11,10 +11,10 @@
 			<!-- <div class="float-right">
 				<button class="button">&#9654; Watch User Interactions</button>
 			</div>
-			
-			<div class="clear"></div> -->
+			 -->
 			
 			<!-- captured media here -->
+			<div class="clear"></div>
 			
 		</div>
 		
@@ -32,14 +32,14 @@
 			
 		<div class="theme-messages">
 		
-			<div class="message" ng-repeat="fav in selected.favs">
+			<div class="message" ng-repeat="message in selected._messages">
 				<div class="message-details">
 					<div class="message-details-avatar">
 						<img src="http://rdjpg.com/30/30" />
 					</div>
 				</div>
 				<div class="message-body">
-					<p ng-bind-html="fav.body | hashtag"></p>
+					<p ng-bind-html="message.body | hashtag"></p>
 					<small>Testing with {{fav.user_id}}</small>
 				</div>
 				<div class="clear"></div>
