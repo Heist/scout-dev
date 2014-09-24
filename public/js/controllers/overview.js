@@ -7,12 +7,12 @@ angular.module('field_guide_controls')
     
     // get all sessions and their tests on first load
     $http
-        .get('/api/session/', {timeout : 5000})
+        .get('/api/test/', {timeout : 5000})
         .success(function(data) {
-            $scope.sessions = data;
-
-            // initially selected session
-            $scope.selected = data[0];
+            $scope.tests = data;
+            console.log('tests', data)
+            // initially selected 
+            // $scope.selected = data[0];
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -88,13 +88,12 @@ angular.module('field_guide_controls')
     }
 
     // TEST ROUTES ========================================
-    $scope.newTest = function(session){
-            console.log('touched addatest ', session);
+    $scope.newTest = function(){
+            console.log('touched addatest ');
 
             var test = {};
 
             test.name = 'New test name';
-            test._session = session._id;
 
             var url = '/api/test/';
             var data_out = test
@@ -103,7 +102,7 @@ angular.module('field_guide_controls')
                 .post(url, data_out)
                 .success(function(data){
                     console.log('new test added '+ JSON.stringify(data));
-                    session._tests.push(data);
+                    $scope.tests.push(data);
                 })
                 .error(function(data){
                     console.log('error', data)

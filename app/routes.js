@@ -195,23 +195,21 @@ router.route('/test/')
 			var test = new Test();
 
 			test.name = req.body.name;
-			test._session = req.body._session;
+
+			// later, we will be building playlists
+			// sessions should store tests but tests 
+			// don't need to know they belong to any playlist specially.
+			// sessions should store their own ordering data, etc.
+
+			if(test._session){
+					test._session = req.body._session;
+				}
 			
 			test.save(function(err, test){
 				if(err) res.send(err);
 				
-				Session.findById( test._session)
-					.exec(function(err,session){
-						console.log(test._id);
+				res.json(test);
 
-						session._tests.push(test._id);
-
-						session.save(function(err,data){
-							if (err) res.send(err);
-						})
-					
-					res.json(test);
-				});
 			})
 	});
 
@@ -632,11 +630,11 @@ router.route('/run/')
 		});
 
 // How to populate subdocuments is in here.
-router.route('/run/:session_id')
+router.route('/run/:_id')
 	.get(function(req,res){
-		console.log('touched run route',req.params.session_id )
+		console.log('touched run route',req.params._id )
 
-		Test.find({"_session":req.params.session_id, "_tasks": {$not: {$size: 0}}})
+		Test.find({"_id":req.params._id, "_tasks": {$not: {$size: 0}}})
 			.populate('_tasks')
 			.exec(function(err, docs){
 				if(err) res.send(err);

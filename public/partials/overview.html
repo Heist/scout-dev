@@ -2,60 +2,13 @@
 	
 	<ng-include src="'partials/header.html'"></ng-include>
 	
-	<div id="left-pane" ng-model="sessions">
-		
-		<div id="questions">
-			
-			<div class="questions-group active">
-				<ul>
-					<li class="test-newtest">
-						<div class="test-newtest-create">
-							<button class="button" ng-click="addSession()">+ Add a new session</button>		
-						</div>
-					</li>
-					
-					<li class="question" ng-repeat="session in sessions track by $index" ng-click="select(session)" ng-class="{ 'active': session._id == selected._id}">
-						<div class="test-controls">
-							<button class="button small secondary" ng-click="runTest(session)">Run Test</button>
-							
-<!-- 							<button class="button small" ng-click="loadReport(session._id)" ng-show="session.runcount > 0">Report</button> -->
-							
-							<button class="button small destructive" ng-click="removeSession(session)">&times;</button> 
-						</div>
-						
-						<div class="session-name">
-							<h4 ng-hide="session.editing">
-								<img src="/assets/pencil-rev.svg" ng-click="editTitle(session)">&nbsp;&nbsp;{{session.name}} {{session.runcount}}
-							</h4>
-							<form ng-show="session.editing">
-								<input class="edit input" ng-trim="true" ng-model="session.name" ng-focus="editTitle(session)" ng-blur="blurTitle(session)">
-							</form>
-						</div>
-						<small ng-show='test.updated > test.created'>Last run {{test.updated | date: 'MMM dd, yyyy'}} / 
-							<ng-pluralize count="ssincount"
-		                		when="{'0': 'Never run.',
-		                       'one': 'One participants',
-		                       'other': '{} participants'}">
-  							</ng-pluralize>
-  					</small>	
-					</li>
-				</ul>
-			</div>
-			
-	
-		</div>
-			
-	</div>
-	
-	
 	<div id="large-pane">
 	
-	<!-- show the tests associated with this test -->
-		<div ng-model="selected" ng-show="selected">
-			<h3><span>{{selected.name}}</span></h3>
+	<!-- show tests in db -->
+		<div >
+			<h3><span>{{user.name}}</span></h3>
 			
-				
-			<div class="session-test" ng-repeat="test in selected._tests | orderBy:'created'">
+			<div class="session-test" ng-repeat="test in tests | orderBy:'created'">
 				<div class="test-hamburger">
 					&equiv;
 				</div>
@@ -65,17 +18,18 @@
 
 					<button class="button small" ng-click="summarizeTest(test._id)" ng-show="test.summary" >Summary</button>
 					
-					&nbsp;&nbsp;
-					
 					<!-- TODO: we want to view a report just for this test -->
 					<button class="button small" ng-click="loadReport(test._id)" ng-show="test.summary" >View Report</button> 
 					
-					&nbsp;&nbsp;
 
 					<button class="button small secondary" ng-click="editTest(test)" ng-hide="test.count > 0" >Edit</button>
+					&nbsp;&nbsp;
 					
+					<button class="button small secondary" ng-click="runTest(test)">Run Test</button>
 					<button class="button small destructive" ng-click="removeTest(test)">&times;</button>
 				</div>	
+
+					
 				
 				<small>test 
 					<ng-pluralize count="test.count"
@@ -93,7 +47,7 @@
 				
 				
 			<div class="session-test empty">
-				<button class="button" ng-click="newTest(selected)">+ Add a new test</button>		
+				<button class="button" ng-click="newTest()">+ Add a new test</button>		
 			</div>	</div>
 			
 	</div>
