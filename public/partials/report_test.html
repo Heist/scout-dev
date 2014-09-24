@@ -1,11 +1,11 @@
 <!-- report_test.html -->
 
 <!-- test general info -->
-			<h1>{{selected.title}}</h1>
+			<h1>{{selected.name}}</h1>
 			<p class="report-detail">Report generated July 12 2014</p>		
 			<p>{{selected.summary}}</p>
 			<p class="report-participants">
-				 <ng-pluralize count="session.users.length"
+				 <ng-pluralize count=""
 	                when="{'0': 'This test has not been run.',
 	                       'one': 'This test has been tested once.',
 	                       'other': 'This test has been tested {} times.'}">
@@ -13,15 +13,15 @@
 			</p>
 				
 			<ul class="report-participants">
-				<li ng-repeat="user in selected.users"><div class="report-part-img"><img src="http://rdjpg.com/40/40" /></div>{{user}}</li>
+				<li ng-repeat="subject in selected._subjects"><div class="report-part-img"><img src="http://rdjpg.com/40/40" /></div>{{subject.name}}</li>
 			</ul>
 		
 			
 			<!-- test theme summary -->
 			<div class="report-block">
-				<div ng-repeat="tag in selected.tags">
+				<div ng-repeat="tag in selected._tags" ng-hide="!tag.summary">
 
-					<h2><span>Theme:</span> {{tag.tag}}</h2>
+					<h2><span>Theme:</span> {{tag.body}}</h2>
 					<p class="report-detail">
 					<ng-pluralize count="tag.count"
 		                when="{'0': 'Never mentioned.',

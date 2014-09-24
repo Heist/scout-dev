@@ -749,7 +749,7 @@ router.route('/summary/:_id')
 
 		Test.findOneAndUpdate(query, update,function(err,test){
 				if(err) return res.send (err)
-				console.log('test updated', test)
+				// console.log('test updated', test)
 			});
 
 		// TODO: Add null pointer checks in here.
@@ -759,30 +759,35 @@ router.route('/summary/:_id')
 				{'summary': req.body.tags[i].summary,
 				 'summarized' : req.body.tags[i].summarized},
 				 function(err, tag){
-				 	console.log('tags updated')
+				 	// console.log('tags updated')
 				 });
 		}
-
-		for(var i = 0; i < req.body.tasks.length; i++){
-			Task.findOneAndUpdate(
-				{'_id' : req.body.tasks[i]._id},
-				{'summary' : req.body.tasks[i].summary},
-				function(err,task){
-					console.log('tasks updated')
-				});
-		}
 		
-		for(var i = 0; i < req.body.tasks.length; i++){
-			for(var j = 0; j < req.body.tasks[i].messages.length;j++){
-					Message.findOneAndUpdate(
-						{'_id' : req.body.tasks[i].messages[j]._id},
-						{'fav' : req.body.tasks[i].messages[j].fav},
-						function(err,msg){
-							console.log('msgs updated', msg.fav)
-						});
-				}
 
+		for(var i = 0; i < req.body.tasks.length; i++){
+			console.log('how many tasks',req.body.tasks.length)
+			var eyedee = req.body.tasks[i]._id;
+			console.log('task to update', eyedee, req.body.tasks[i].pass_fail)
+			
+			Task.findByIdAndUpdate(
+				eyedee,
+				{'summary' : req.body.tasks[i].summary, 
+				 'pass_fail' : req.body.tasks[i].pass_fail},
+				function(err,tsk){
+					console.log('task updated', tsk)
+				});
+
+			// for(var j = 0; j < req.body.tasks[i].messages.length;j++){
+			// 		Message.findOneAndUpdate(
+			// 			{'_id' : req.body.tasks[i].messages[j]._id},
+			// 			{'fav' : req.body.tasks[i].messages[j].fav},
+			// 			function(err,msg){
+			// 				// console.log('msgs updated', msg.fav)
+			// 			});
+			// 	}
 		}
+
+		console.log('test updated - server')
 		res.json('test updated - server')
 	});
 
@@ -795,7 +800,7 @@ router.route('/report/:_id')
 
 		var reply = {};
 		var promise = 
-			Test.findOne({'_id' : req.params._id}).exec(function(err, test){
+			Test.findOne({'_id' : req.params._id}).populate('_subjects _tags').exec(function(err, test){
 				if(err) res.send(err);
 			});
 

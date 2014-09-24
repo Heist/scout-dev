@@ -46,7 +46,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         // })
         .state('overview', {
             url: '/overview',
-            controller: 'overview',
             templateUrl: 'partials/overview.html'
         })
         .state('test', {

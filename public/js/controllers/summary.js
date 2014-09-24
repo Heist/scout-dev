@@ -141,7 +141,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         var url = '/api/summary/'+ $stateParams._id;
         var data_out = {test: $scope.test, tags:$scope.test._tags, tasks:$scope.tasks} ;
 
-        console.log(data_out)
+        console.log('this is our data out', data_out)
         
          $http.put(url, data_out)   
             .success(function(data){
