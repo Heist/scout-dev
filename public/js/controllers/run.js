@@ -34,9 +34,9 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
         .get('/api/run/'+$stateParams._id)
         .success(function(data){
             $scope.tests = data;
-            // // console.log('how is data built', data);
+            console.log('how is data built', data);
 
-            // set the initial timeline contents
+            // reset variables to clear cache from state changes.
             $scope.task = {};
             var message = {};
 

@@ -39,7 +39,7 @@
 		
 		<div id="questions">
 	
-			<div class="questions-group" ng-repeat="test in tests" ng-class="{ 'active': $index == parentIndex }">
+			<div class="questions-group" ng-repeat="test in tests  | orderBy:['created']" ng-class="{ 'active': $index == parentIndex }">
 				<ul>
 					<li class="title"><small>test</small><h3>{{test.name}}</h3></li>
 				
