@@ -23,7 +23,7 @@
 
 					<h2><span>Theme:</span> {{tag.body}}</h2>
 					<p class="report-detail">
-					<ng-pluralize count="tag.count"
+					<ng-pluralize count="tag._messages.length"
 		                when="{'0': 'Never mentioned.',
 		                       'one': 'Mentioned once.',
 		                       'other': 'Mentioned {} times.'}">
