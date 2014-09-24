@@ -34,15 +34,16 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
         .get('/api/run/'+$stateParams._id)
         .success(function(data){
             $scope.tests = data;
-            console.log('how is data built', data);
+            // // console.log('how is data built', data);
 
             // set the initial timeline contents
+            $scope.task = {};
             var message = {};
 
         })
 
         $scope.activate = function(parentIndex, selectedIndex) {
-            console.log('test', parentIndex)
+            // console.log('test', parentIndex)
             console.log('task',  selectedIndex)
 
             if ($scope.parentIndex == parentIndex && $scope.selectedIndex == selectedIndex){
@@ -64,16 +65,17 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                 var task = $scope.tests[parentIndex]._tasks[selectedIndex];
                 
                 $scope.task = task;
-                console.log('scope task', $scope.task)
+
+                // TODO: there is a bug in here where steps are not always stored properly
+                // this needs to not be a bug!
+
+                console.log('active task', $scope.task.name, $scope.task._id)
 
                 if( selectedIndex == 0){
-                    console.log('match')
                     // if this is the first step in a test, log the test start
                     // then log the step start
     
                     if($scope.update.tests.indexOf(test._id) == -1){
-                        // console.log($scope.tests)
-                        console.log('test push', $scope.update.tests)
                         $scope.update.tests.push(test._id)
                         $scope.user._tests.push(test._id)
 
@@ -85,7 +87,6 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                     }
     
                     if($scope.update.tasks.indexOf(task._id) == -1){
-                        console.log('task push', $scope.update.tasks )
                         $scope.update.tasks.push(task._id)
                     }
     
@@ -97,7 +98,6 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                     $scope.timeline.push(message);
                 }
                 else {
-                    console.log('not a match with first index')
     
                     var message   = {};
                     message.body  = task.name;
@@ -106,21 +106,16 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                     $scope.timeline.push(message);
     
                     if($scope.update.tasks.indexOf(task._id) == -1){
-                        console.log('other task push')
                         $scope.update.tasks.push(task._id)
                     }
     
                 }
-    
-                // console.log('updateArray', $scope.update)
-                // don't remember what I was trying with updatearray
-    
 
             }
         };
 
         $scope.addUser = function(textfield){
-            console.log(textfield);
+            // console.log(textfield);
 
             var url = 'api/subject/';
             var data_out = {name : textfield};
@@ -133,7 +128,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                     $scope.activate(0,0);
                 })
                 .error(function(data){
-                    console.log('Error: ' + data);
+                    // console.log('Error: ' + data);
                 })
         }
 
@@ -152,7 +147,9 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             note._subject = $scope.user._id;
 
             $scope.timeline.push(note);
-            console.log('note being pushed', note)
+            console.log('message pushing to', $scope.task._id)
+
+            // console.log('note being pushed', note)
             // TODO: this will catch things on both sides of the hash. 
             // if message has # with no space, post that to message.tags
 
@@ -167,17 +164,17 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                 }
             }
             
-            console.log('note', note);
+            // console.log('note', note);
 
             var url = '/api/message/';
             var data_out = note;
 
             $http.post(url, data_out)
                 .success(function(data){
-                    console.log('Message pushed: ', data);
+                    // console.log('Message pushed: ', data);
                 })
                 .error(function(data){
-                    console.log('Error: ' + data);
+                    // console.log('Error: ' + data);
                 })
 
             $scope.message='';
@@ -188,7 +185,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
         var url = '/api/run/'+$stateParams._id;
         var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.user._id};
 
-        console.log('touched end', data_out);
+        // console.log('touched end', data_out);
 
         // collects all the tests and steps and outputs them as a collected object
         // to the session api link
@@ -198,11 +195,11 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
         $http
             .post(url, data_out)
             .success(function(data){
-                console.log('Updated tests', data);
+                // console.log('Updated tests', data);
                 $location.path('/');
             })
             .error(function(data){
-                console.log('Error: ' + data);
+                // console.log('Error: ' + data);
             })
 
     }
