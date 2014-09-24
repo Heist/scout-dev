@@ -34,7 +34,7 @@
 					
 					<div class="theme-messages">
 				
-						<div class="message" ng-repeat="message in tag.messages">
+						<div class="message" ng-repeat="message in tag._messages">
 							<div class="message-body">
 								<p ng-bind-html="message.body | hashtag"></p>
 								<small>Testing with {{message.user_id}}</small>

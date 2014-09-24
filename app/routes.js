@@ -777,14 +777,14 @@ router.route('/summary/:_id')
 					console.log('task updated', tsk)
 				});
 
-			// for(var j = 0; j < req.body.tasks[i].messages.length;j++){
-			// 		Message.findOneAndUpdate(
-			// 			{'_id' : req.body.tasks[i].messages[j]._id},
-			// 			{'fav' : req.body.tasks[i].messages[j].fav},
-			// 			function(err,msg){
-			// 				// console.log('msgs updated', msg.fav)
-			// 			});
-			// 	}
+			for(var j = 0; j < req.body.tasks[i].messages.length;j++){
+					Message.findOneAndUpdate(
+						{'_id' : req.body.tasks[i].messages[j]._id},
+						{'fav' : req.body.tasks[i].messages[j].fav},
+						function(err,msg){
+							// console.log('msgs updated', msg.fav)
+						});
+				}
 		}
 
 		console.log('test updated - server')
@@ -793,7 +793,7 @@ router.route('/summary/:_id')
 
 
 // REPORT ROUTES =============================================
-
+// http://mongoosejs.com/docs/api.html#model_Model.populate
 router.route('/report/:_id')
 	.get(function(req, res){
 		console.log('touched report get');
@@ -802,6 +802,9 @@ router.route('/report/:_id')
 		var promise = 
 			Test.findOne({'_id' : req.params._id}).populate('_subjects _tags').exec(function(err, test){
 				if(err) res.send(err);
+
+				Tag.populate(test._tags, {'path': '_messages', match: { fav : true }});
+
 			});
 
 		promise.then(function(test){
