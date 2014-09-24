@@ -273,25 +273,7 @@ router.route('/test/:_id')
 
 		console.log('delete this test', req.params._id)
 
-		Test.findById(req.params._id, function(err, test){
-				if (err) res.send(err);
-
-				Session.findOne({'_id': test._session}, function(err, session){
-						console.log('found session ', session._id);
-						console.log('session tests', session._tests);
-
-						session.tests.remove(req.params._id)
-
-						session.save(function(err,data){
-							if(err) res.send(err);
-
-							console.log(data);
-							res.json(req.params._id);
-						})
-					})
-
-				console.log(test);
-			})
+		Test.find({_id:req.params._id})
 			.remove(function(err){
 				if (err) res.send(err);
 			});
@@ -310,6 +292,8 @@ router.route('/test/:_id')
 			.remove(function(err){
 				if (err) res.send(err);
 			});
+
+		res.json('test removed', req.params._id);
 
 	});
 
