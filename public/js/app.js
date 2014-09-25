@@ -42,7 +42,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         // OVERVIEW AND test CREATION =====================
         .state('overview', {
             url: '/overview',
-            // controller: 'overview',
+            controller: 'overview',
             templateUrl: 'partials/app/overview.html'
         })
         .state('test', {
