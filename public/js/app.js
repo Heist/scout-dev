@@ -18,26 +18,26 @@ function keygen(){
 
 // FRONT-END ROUTE CONFIGURATION ==============================================
 field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
-	$locationProvider
-		.html5Mode(true);
+	
+    $locationProvider.html5Mode(true);
 
     $httpProvider.defaults.timeout = 3000;
 
     // this effectively blocks loading
-    // $httpProvider.responseInterceptors.push(function($q, $location) { 
-    //     return function(promise) { 
-    //         return promise.then( 
-    //             // Success: just return the response 
-    //             function(response){ return response; }, 
-    //             // Error: check the error status to get only the 401 
-    //             function(response) { 
-    //                 if (response.status === 401)
-    //                     $location.url('/login'); 
-    //                     return $q.reject(response); 
-    //                 }
-    //             ); 
-    //     }
-    // });
+    $httpProvider.interceptors.push(function($q, $location) { 
+        return function(promise) { 
+            return promise.then( 
+                // Success: just return the response 
+                function(response){ return response; }, 
+                // Error: check the error status to get only the 401 
+                function(response) { 
+                    if (response.status === 401)
+                        $location.url('/login'); 
+                        return $q.reject(response); 
+                    }
+                ); 
+        }
+    });
 
     $urlRouterProvider.otherwise("/login");
     // $urlRouterProvider.otherwise("/overview");
