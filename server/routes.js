@@ -712,6 +712,8 @@ router.route('/summary/:_id')
 			reply.tasks = tasks;
 			console.log('test requested', req.params._id);
 
+			// TODO: this is SUPER WEIRD and COMPLETELY DIFFERENT than anything else
+			// because Mongoose itself doesn't offer a "group" pipe on Finds.
 			return Message.aggregate({ 
 							$match: { '_test':{$in: [mongoose.Types.ObjectId(req.params._id)]} } 
 						  })
@@ -752,39 +754,46 @@ router.route('/summary/:_id')
 				// console.log('test updated', test)
 			});
 
-		// TODO: Add null pointer checks in here.
-		for(var i = 0; i < req.body.tags.length; i++){
-			Tag.findOneAndUpdate(
-				{'_id' : req.body.tags[i]._id}, 
-				{'summary': req.body.tags[i].summary,
-				 'summarized' : req.body.tags[i].summarized},
-				 function(err, tag){
-				 	// console.log('tags updated')
-				 });
+		// if we have tags, update them in the db.
+		if(req.body.tags){
+			for(var i = 0; i < req.body.tags.length; i++){
+				Tag.findOneAndUpdate(
+					{'_id' : req.body.tags[i]._id}, 
+					{'summary': req.body.tags[i].summary,
+					 'summarized' : req.body.tags[i].summarized},
+					 function(err, tag){
+					 	// console.log('tags updated')
+					 });
+			}
 		}
 		
+		// if we have tasks, update them in the db.
+		if(req.body.tasks){
+			for(var i = 0; i < req.body.tasks.length; i++){
+				console.log('how many tasks',req.body.tasks.length)
+				var eyedee = req.body.tasks[i]._id;
+				console.log('task to update', eyedee, req.body.tasks[i].pass_fail)
+				
+				Task.findByIdAndUpdate(
+					eyedee,
+					{'summary' : req.body.tasks[i].summary, 
+					 'pass_fail' : req.body.tasks[i].pass_fail},
+					function(err,tsk){
+						console.log('task updated', tsk)
+					});
 
-		for(var i = 0; i < req.body.tasks.length; i++){
-			console.log('how many tasks',req.body.tasks.length)
-			var eyedee = req.body.tasks[i]._id;
-			console.log('task to update', eyedee, req.body.tasks[i].pass_fail)
-			
-			Task.findByIdAndUpdate(
-				eyedee,
-				{'summary' : req.body.tasks[i].summary, 
-				 'pass_fail' : req.body.tasks[i].pass_fail},
-				function(err,tsk){
-					console.log('task updated', tsk)
-				});
-
-			for(var j = 0; j < req.body.tasks[i].messages.length;j++){
-					Message.findOneAndUpdate(
-						{'_id' : req.body.tasks[i].messages[j]._id},
-						{'fav' : req.body.tasks[i].messages[j].fav},
-						function(err,msg){
-							// console.log('msgs updated', msg.fav)
-						});
+				// if the task object contains messages, update those.
+				if(req.body.tasks[i].messages){
+					for(var j = 0; j < req.body.tasks[i].messages.length;j++){
+						Message.findOneAndUpdate(
+							{'_id' : req.body.tasks[i].messages[j]._id},
+							{'fav' : req.body.tasks[i].messages[j].fav},
+							function(err,msg){
+								// console.log('msgs updated', msg.fav)
+							});
+					}
 				}
+			}
 		}
 
 		console.log('test updated - server')
