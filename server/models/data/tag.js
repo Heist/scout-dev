@@ -1,8 +1,10 @@
-'use strict';
 //  tag.js
+'use strict';
 
-var db = require('./server/db/db');
-var Schema = db.Schema;
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema;
+
+var db = require('../../db/db');
 
 var TagSchema = new Schema({
 	_tasks	 : [{ type: Schema.Types.ObjectId, ref: 'Task'}],

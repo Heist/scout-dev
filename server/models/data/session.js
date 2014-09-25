@@ -1,7 +1,10 @@
-'use strict';
 //  session.js
-var db = require('./server/db/db');
-var Schema = db.Schema;
+'use strict';
+
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema;
+
+var db = require('../../db/db');
 
 var SessionSchema = new Schema({
 		_tests  : [{ type: Schema.Types.ObjectId, ref: 'Test'}],

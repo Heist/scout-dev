@@ -21,7 +21,9 @@ var auth = require('./server/db/auth_db');
 
 
 // configuration ======================================================
-
+global.rootRequire = function(name) {
+    return require(__dirname + '/' + name);
+}
 	// this segment does not work right now.
 	// db.on('error', console.error.bind(console, 'connection error:'));
 	// db.once('open', function callback () {
@@ -31,7 +33,9 @@ var auth = require('./server/db/auth_db');
 // express 4.0 basic configuration ====================================
 app.use(logger('\033[90m:date :method :url :response-time\\ms\033[0m \033[31m:referrer \033[0m'));
 app.use(cookieParser()); // read cookies (needed for auth)
-app.use(express.static(__dirname + '/public')); // where is our static files directory
+
+app.use(express.static(__dirname + '/public')); // this sets the root for the whole app, as well as our public files.
+
 app.use(bodyParser()); // get information from html forms
 
 // passport configuration =============================================
@@ -43,7 +47,7 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // server /api/ routes ================================================
-var router = require('./app/routes');
+var router = require('./server/routes');
 
 app.use('/api', router);
 

@@ -1,7 +1,10 @@
+// flow.js
 'use strict';
-//  flow.js
-var db = require('./server/db/db');
-var Schema = db.Schema;
+
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema;
+
+var db = require('../../db/db');
 
 var TestSchema = new Schema({
 		_session : { type: Schema.Types.ObjectId, ref: 'Session' },

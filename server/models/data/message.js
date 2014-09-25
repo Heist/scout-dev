@@ -1,8 +1,11 @@
-
-'use strict';
 //  message.js
-var db = require('./server/db/db');
-var Schema = db.Schema;
+'use strict';
+
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema;
+
+var db = require('../../db/db');
+
 
 var MessageSchema = new Schema ({
 	_task: { type: Schema.Types.ObjectId, ref: 'Task' },

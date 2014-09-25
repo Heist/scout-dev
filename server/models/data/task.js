@@ -1,7 +1,10 @@
+// task.js
 'use strict';
-//  step.js
-var db = require('./server/db/db');
-var Schema = db.Schema;
+
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema;
+
+var db = require('../../db/db');
 
 var TaskSchema = new Schema ({
 	
