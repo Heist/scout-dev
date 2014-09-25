@@ -33,9 +33,7 @@ global.rootRequire = function(name) {
 // express 4.0 basic configuration ====================================
 app.use(logger('\033[90m:date :method :url :response-time\\ms\033[0m \033[31m:referrer \033[0m'));
 app.use(cookieParser()); // read cookies (needed for auth)
-
 app.use(express.static(__dirname + '/public')); // this sets the root for the whole app, as well as our public files.
-
 app.use(bodyParser()); // get information from html forms
 
 // passport configuration =============================================

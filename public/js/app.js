@@ -16,7 +16,7 @@ function keygen(){
     return Math.round((new Date().valueOf() * Math.random()));
 }
 
-// FRONT-END ROUTE CONFIGURATION ================================================
+// FRONT-END ROUTE CONFIGURATION ==============================================
 field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
 	$locationProvider
 		.html5Mode(true);
@@ -39,29 +39,29 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
 
     $stateProvider
-        // OVERVIEW AND test CREATION ========================
-        // .state('login', {
-        //     url: '/login',
-        //     templateUrl: 'partials/login.html'
-        // })
+        // OVERVIEW AND test CREATION =====================
         .state('overview', {
             url: '/overview',
-            templateUrl: 'partials/overview.html'
+            // controller: 'overview',
+            templateUrl: 'partials/app/overview.html'
         })
         .state('test', {
             url: '/edit/test/:test_id',
+            controller:'test',
             templateUrl: 'partials/test.html'
         })
 
-        // RUN TEST ==========================================
+        // RUN TEST =======================================
         .state('run', {
             url: '/run/:_id',
+            controller:'run',
             templateUrl: 'partials/run.html'
         })
 
-        // SUMMARIZE VIEW ====================================
+        // SUMMARIZE VIEW =================================
         .state('summary', {
             url: '/summary/:_id',
+            controller:'summary',
             templateUrl: 'partials/summary.html'
         })
         .state('summary.test', {
@@ -71,9 +71,10 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             templateUrl: 'partials/summary_task.html'
         })
 
-        // REPORT PAGE FOR SINGLE test =======================
+        // REPORT PAGE FOR SINGLE test ====================
         .state('report', {
             url: '/report/:test_id',
+            controller:'report',
             templateUrl: 'partials/report.html'
         })
         .state('report.test', {
@@ -82,50 +83,18 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('report.task', {
             templateUrl: 'partials/report_task.html'
         });
-        // .state('/admin', {
-        //     templateUrl: 'partials/admin.post.list.html',
-        //     controller: 'AdminPostListCtrl',
-        //     access: { requiredAuthentication: true }
-        // })
-        // .state('/admin/post/create', {
-        //     templateUrl: 'partials/admin.post.create.html',
-        //     controller: 'AdminPostCreateCtrl',
-        //     access: { requiredAuthentication: true }
-        // })
-        // .state('/admin/post/edit/:id', {
-        //     templateUrl: 'partials/admin.post.edit.html',
-        //     controller: 'AdminPostEditCtrl',
-        //     access: { requiredAuthentication: true }
-        // })
-        // .state('/admin/register', {
-        //     templateUrl: 'partials/admin.register.html',
-        //     controller: 'AdminUserCtrl'
-        // })
-        // .state('/admin/login', {
-        //     templateUrl: 'partials/admin.signin.html',
-        //     controller: 'AdminUserCtrl'
-        // })
-        // .state('/admin/logout', {
-        //     templateUrl: 'partials/admin.logout.html',
-        //     controller: 'AdminUserCtrl',
-        //     access: { requiredAuthentication: true }
-        // })
-        // .otherwise({
-        //     redirectTo: '/'
-        // })
 
-        // // REPORT PAGE FOR SESSION =====================
-        // .state('reporttest', {
-        //     url: '/report/session/:session_id',
-        //     templateUrl: 'partials/report.html'
+        // LOGIN AND REGISTRATION PAGES ===================
+        // .state('/register', {
+        //     url: '/register',
+        //     templateUrl: 'partials/register.html',
         // })
-        // .state('reporttest.test', {
-        //     templateUrl: 'partials/report_test.html'
+        // .state('/login', {
+        //     url: '/login',
+        //     controller:'login',
+        //     templateUrl: 'partials/login.html',
         // })
-        // .state('reporttest.step', {
-        //     // url: '/report/:testKey/',
-        //     templateUrl: 'partials/report_step.html'
-        // });
+    
 
     // FIX for trailing slashes. Gracefully "borrowed" from https://github.com/angular-ui/ui-router/issues/50
 //     $urlRouterProvider.rule(function($injector, $location) {
