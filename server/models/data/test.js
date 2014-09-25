@@ -1,7 +1,7 @@
 'use strict';
 //  flow.js
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var db = require('./server/db/db');
+var Schema = db.Schema;
 
 var TestSchema = new Schema({
 		_session : { type: Schema.Types.ObjectId, ref: 'Session' },
@@ -30,4 +30,4 @@ TestSchema.pre('save', function(next){
   next();
 });
 
-module.exports = mongoose.model('Test', TestSchema);
+module.exports = db.model('Test', TestSchema);

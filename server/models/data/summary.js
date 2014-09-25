@@ -1,7 +1,7 @@
 'use strict';
 // summary.js
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var db = require('./server/db/db');
+var Schema = db.Schema;
 
 var SummarySchema = new Schema ({
   _session : { type: Schema.Types.ObjectId, ref: 'Session' },
@@ -25,4 +25,4 @@ SummarySchema.pre('save', function(next){
   next();
 });
 
-module.exports = mongoose.model('Summary', SummarySchema);
+module.exports = db.model('Summary', SummarySchema);

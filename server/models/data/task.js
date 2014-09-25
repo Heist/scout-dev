@@ -1,7 +1,7 @@
 'use strict';
 //  step.js
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var db = require('./server/db/db');
+var Schema = db.Schema;
 
 var TaskSchema = new Schema ({
 	
@@ -30,4 +30,4 @@ TaskSchema.pre('save', function(next){
   next();
 });
 
-module.exports = mongoose.model('Task', TaskSchema);
+module.exports = db.model('Task', TaskSchema);

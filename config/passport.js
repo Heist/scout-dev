@@ -1,10 +1,11 @@
 // config/passport.js
+'use strict';
 
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
 
 // load up the user model
-var User = require('../app/models/auth/user');
+var User = require('../server/models/auth/user');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {

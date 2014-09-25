@@ -6,7 +6,7 @@ var express = require('express');
 var _ 		= require('underscore');
 var router  = express.Router();  // get an instance of the express Router
 var util = require('util');
-var mongoose = require('mongoose'); // so we can generate ObjectIDs for tests
+// var db = require('./config/db/db'); // so we can generate ObjectIDs for tests
 
 // load data storage models
 var Message = require('./models/data/message');

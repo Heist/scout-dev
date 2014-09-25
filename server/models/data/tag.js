@@ -1,8 +1,8 @@
 'use strict';
 //  tag.js
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var db = require('./server/db/db');
+var Schema = db.Schema;
 
 var TagSchema = new Schema({
 	_tasks	 : [{ type: Schema.Types.ObjectId, ref: 'Task'}],
@@ -25,4 +25,4 @@ TagSchema.pre('save', function(next){
   next();
 });
 
-module.exports = mongoose.model('Tag', TagSchema);
+module.exports = db.model('Tag', TagSchema);

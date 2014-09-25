@@ -15,11 +15,13 @@ var session      = require('express-session');
 
 var app = express();
 var port = Number(process.env.PORT || 5000);
-var db = require('./config/db');
+
+var db = require('./server/db/db');
+var auth = require('./server/db/auth_db');
 
 
 // configuration ======================================================
-mongoose.connect(db.url);
+
 	// this segment does not work right now.
 	// db.on('error', console.error.bind(console, 'connection error:'));
 	// db.once('open', function callback () {
@@ -52,6 +54,7 @@ app.get('*', function(req, res) {
 // turn on the application ========================================
 
 var server = app.listen(port);
+
 console.log('scout listening on ', port);
 
 app.shutdown = function() {

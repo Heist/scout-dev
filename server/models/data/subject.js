@@ -1,7 +1,7 @@
 'use strict';
 //  subject.js
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var db = require('./server/db/db');
+var Schema = db.Schema;
 
 var SubjectSchema = new Schema ({
 	_tests : [{ type: Schema.Types.ObjectId, ref: 'Test' }],
@@ -22,4 +22,4 @@ SubjectSchema.pre('save', function(next){
   next();
 });
 
-module.exports = mongoose.model('Subject', SubjectSchema);
+module.exports = db.model('Subject', SubjectSchema);

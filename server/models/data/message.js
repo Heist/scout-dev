@@ -1,8 +1,8 @@
 
 'use strict';
 //  message.js
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var db = require('./server/db/db');
+var Schema = db.Schema;
 
 var MessageSchema = new Schema ({
 	_task: { type: Schema.Types.ObjectId, ref: 'Task' },
@@ -25,4 +25,4 @@ MessageSchema.pre('save', function(next){
   next();
 });
 
-module.exports = mongoose.model('Message', MessageSchema);
+module.exports = db.model('Message', MessageSchema);

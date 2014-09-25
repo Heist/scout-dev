@@ -1,7 +1,8 @@
-// app/models/user.js
+// server/models/auth/user.js
 // controls user accounts
+'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('../../db/auth_db');
 var bcrypt   = require('bcrypt-nodejs');
 
 // define the schema for our user model
