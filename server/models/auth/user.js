@@ -2,7 +2,8 @@
 // controls user accounts
 'use strict';
 
-var mongoose = require('../../db/auth_db');
+var mongoose = require('mongoose');
+var connection = require('../../db/auth_db');
 var bcrypt   = require('bcrypt-nodejs');
 
 // define the schema for our user model
@@ -27,4 +28,4 @@ userSchema.methods.validPassword = function(password) {
 };
 
 // create the model for users and expose it to our app
-module.exports = mongoose.model('User', userSchema);
+module.exports = connection.model('User', userSchema);

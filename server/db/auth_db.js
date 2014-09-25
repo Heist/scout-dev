@@ -3,6 +3,6 @@
 
 var mongoose = require('mongoose');
 
-mongoose.createConnection('mongodb://localhost/field_guide_users');
+var auth_db = mongoose.createConnection('mongodb://localhost/field_guide_users');
 
-module.exports = mongoose;
+module.exports = auth_db;
