@@ -30,18 +30,14 @@ router.use(function(req, res, next) {
 // invoked for any requests passed to this router
 // this is where we put auth for routes to client
 
-// router.use(function(req, res, next) {
-//   // .. some logic here .. like any other middleware
-//   isAuthenticated
-//   next();
-// });
-
-// ROUTES  ==========================================================
-// get/post to /api routes.
-// router.route('/')
-// 	.get({
-// 	});
-
+router.use(function(req, res, next) {
+// Define a middleware function to be used for every secured routes 
+	var auth = function(req, res, next){ 
+		if (!req.isAuthenticated()) res.send(401); 
+		else next(); 
+	};
+});
+ 
 // AUTHORIZED ROUTES =============================================
 // mobile users can access a list of tests
 // authorized users with moderator status can edit and run tests

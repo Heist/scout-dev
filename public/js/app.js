@@ -22,20 +22,25 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 		.html5Mode(true);
 
     $httpProvider.defaults.timeout = 3000;
-    
-    // $httpProvider.interceptors.push(function($q, $location) {
-    //     return {
-    //         'responseError': function(response) {
-    //             if(response.status === 401 || response.status === 403) {
-    //                 $location.path('/login');
-    //             }
-    //             return $q.reject(response);
-    //         }
-    //     };
+
+    // this effectively blocks loading
+    // $httpProvider.responseInterceptors.push(function($q, $location) { 
+    //     return function(promise) { 
+    //         return promise.then( 
+    //             // Success: just return the response 
+    //             function(response){ return response; }, 
+    //             // Error: check the error status to get only the 401 
+    //             function(response) { 
+    //                 if (response.status === 401)
+    //                     $location.url('/login'); 
+    //                     return $q.reject(response); 
+    //                 }
+    //             ); 
+    //     }
     // });
 
-    // $urlRouterProvider.otherwise("/login");
-    $urlRouterProvider.otherwise("/overview");
+    $urlRouterProvider.otherwise("/login");
+    // $urlRouterProvider.otherwise("/overview");
 
 
     $stateProvider
@@ -82,18 +87,18 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         })
         .state('report.task', {
             templateUrl: 'partials/report_task.html'
-        });
+        })
 
         // LOGIN AND REGISTRATION PAGES ===================
         // .state('/register', {
         //     url: '/register',
         //     templateUrl: 'partials/register.html',
         // })
-        // .state('/login', {
-        //     url: '/login',
-        //     controller:'login',
-        //     templateUrl: 'partials/login.html',
-        // })
+        .state('/login', {
+            url: '/login',
+            controller:'login',
+            templateUrl: 'partials/auth/login.html',
+        });
     
 
     // FIX for trailing slashes. Gracefully "borrowed" from https://github.com/angular-ui/ui-router/issues/50
