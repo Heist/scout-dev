@@ -6,7 +6,7 @@ var express = require('express');
 var _ 		= require('underscore');
 var router  = express.Router();  // get an instance of the express Router
 var util = require('util');
-// var db = require('./config/db/db'); // so we can generate ObjectIDs for tests
+var mongoose = require('mongoose'); // so we can generate ObjectIDs for tests
 
 // load data storage models
 var Message = require('./models/data/message');
@@ -706,11 +706,11 @@ router.route('/summary/:_id')
 		promise.then(function(test){
 			reply.test = test;
 			// a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
-			return Task.find({'_test':req.params._id}).select('_id summary name pass_fail').exec();
+			return Task.find({'_test':req.params._id}).select('_id summary name pass_fail').exec(function(err, task){if (err) console.log(err)});
 		})
 		.then(function(tasks){
 			reply.tasks = tasks;
-			console.log(req.params._id);
+			console.log('test requested', req.params._id);
 
 			return Message.aggregate({ 
 							$match: { '_test':{$in: [mongoose.Types.ObjectId(req.params._id)]} } 
@@ -722,9 +722,9 @@ router.route('/summary/:_id')
 						  .exec(function(err, msg){
 						  	if(err) res.send(err);
 
-						  	// Subject.populate(msg, {'path':'_id', 'select':'name -_id'}, function(err, subjects){
-						  	// 	if (err) res.send(err);
-						  	// });
+						  	Subject.populate(msg, {'path':'_id', 'select':'name -_id'}, function(err, subjects){
+						  		if (err) res.send(err);
+						  	});
 						});
 		})
 		.then(function(messages){
