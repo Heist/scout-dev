@@ -17,41 +17,11 @@ var Session = require('./models/data/session');
 var Summary = require('./models/data/summary');
 var Subject = require('./models/data/subject');
 
-// load auth models
-var User 	= require('./models/auth/user'); 
-
 // console logging
 router.use(function(req, res, next) {
 	console.log('Something is happening.');
 	next(); // make sure we go to the next routes and don't stop here
 });
-
-// ROUTE PARAMETERS =================================================
-// invoked for any requests passed to this router
-// this is where we put auth for routes to client
-
-router.use(function(req, res, next) {
-// Define a middleware function to be used for every secured routes 
-	var auth = function(req, res, next){ 
-		if (!req.isAuthenticated()) res.send(401); 
-		else next(); 
-	};
-});
- 
-// AUTHORIZED ROUTES =============================================
-// mobile users can access a list of tests
-// authorized users with moderator status can edit and run tests
-// observer users can join a test that is currently running and comment on it
-
-router.route('/signup/')
-	.post(function(req,res){
-		passport.authenticate('local-signup', {
-			successRedirect : '/profile', // redirect to the secure profile section
-			failureRedirect : '/signup', // redirect back to the signup page if there is an error
-			failureFlash : true // allow flash messages
-		})
-	});
-
 
 
 // PUBLIC ROUTES =================================================

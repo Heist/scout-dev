@@ -23,7 +23,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
     $httpProvider.defaults.timeout = 3000;
 
-    // this effectively blocks loading
+    // this effectively blocks loading despite the weird syntax
     $httpProvider.interceptors.push(function($q, $location) { 
         return function(promise) { 
             return promise.then( 

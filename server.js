@@ -17,7 +17,7 @@ var app = express();
 var port = Number(process.env.PORT || 5000);
 
 var db = require('./server/db/db');
-var auth = require('./server/db/auth_db');
+var auth_db = require('./server/db/auth_db');
 
 
 // configuration ======================================================
@@ -46,8 +46,10 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 // server /api/ routes ================================================
 var router = require('./server/routes');
+var auth = require('./server/auth_routes');
 
 app.use('/api', router);
+app.use('/auth', auth);
 
 app.get('*', function(req, res) {
 			res.sendfile(__dirname + '/public/index.html');
