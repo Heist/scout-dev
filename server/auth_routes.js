@@ -12,7 +12,7 @@ router.use(function (req, res, next) {
 
   if (req.method === 'POST' && req.url === '/login') {
     // Log #1
-    console.log(passport);
+    console.log('passport', passport);
 
     passport.authenticate('login', { 
       successRedirect: '/',
@@ -21,9 +21,7 @@ router.use(function (req, res, next) {
     });
 
   } else {
-
     next();
-
   }
 });
 

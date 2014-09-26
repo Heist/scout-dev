@@ -7,4 +7,23 @@ angular.module('field_guide_controls')
     
     // LOGIN FUNCTIONS ====================================
     console.log('loaded login controller');
+
+    $scope.register = function(credentials){
+    	console.log(credentials);
+    }
+
+    $scope.login = function(credentials){
+    	console.log(credentials);
+    	var url = '/login/'+credentials.username
+    	
+    	$http
+    		.post(url)
+    		.success(function(data){
+    			console.log('success!')
+    		})
+    		.error(function(error){
+    			console.log('login no bueno.')
+    		});
+
+    }
 }]);
