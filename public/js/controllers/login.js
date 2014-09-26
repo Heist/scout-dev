@@ -14,7 +14,7 @@ angular.module('field_guide_controls')
 
     $scope.login = function(credentials){
     	console.log(credentials);
-    	var url = '/login/'+credentials.username
+    	var url = '/auth/login'
     	
     	$http
     		.post(url)
@@ -22,7 +22,7 @@ angular.module('field_guide_controls')
     			console.log('success!')
     		})
     		.error(function(error){
-    			console.log('login no bueno.')
+    			console.log('login no bueno.', error)
     		});
 
     }
