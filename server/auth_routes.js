@@ -8,24 +8,24 @@ var mongoose = require('mongoose');
 var router 	 = express.Router();
 
 // MIDDLEWARE FOR AUTHENTICATION ==========================
-// router.use(function (req, res, next) {
+router.use(function (req, res, next) {
 
-//   if (req.method === 'POST' && req.url === '/login') {
-//     // Log #1
-//     console.log('passport', passport);
+  if (req.method === 'POST' && req.url === '/login') {
+    // Log #1
+    console.log('passport', passport);
 
-//     passport.authenticate('login', { 
-//       successRedirect: '/',
-//       failureRedirect: '/login',
-//       failureFlash: true 
-//     });
+    passport.authenticate('login', { 
+      successRedirect: '/',
+      failureRedirect: '/login',
+      failureFlash: true 
+    });
 
-//   } else {
-//     next();
-//   }
-// });
+  } else {
+    next();
+  }
+});
 
-// ACTUAL ROUTES ==========================================
+// AUTH ROUTES ==========================================
 
 router.route('/login')
       .post(function (req, res) {
@@ -37,6 +37,5 @@ router.route('/login')
         });
       });
 
-// app.use('/', router);
 
 module.exports = router;
