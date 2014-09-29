@@ -7,58 +7,47 @@
 
 var connect = require('../../db/auth_db')
   , mongoose = require('mongoose')
-  , async = require('async')
-  , _ = require('underscore')
   , bcrypt = require('bcrypt-nodejs')
   , Schema = mongoose.Schema;
  
-var UserSchema = new Schema({
+
+// define the schema for our user model
+var userSchema = new Schema({
 
     local            : {
         email        : String,
         password     : String,
+    },
+    facebook         : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
+    },
+    twitter          : {
+        id           : String,
+        token        : String,
+        displayName  : String,
+        username     : String
+    },
+    google           : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
     }
 
 });
 
-UserSchema.pre('save', function (next) {
-  var user = this;
-  if (!user.isModified('password')) return next();
-  user.encryptPassword(user.password, function (error, hash) {
-    if (hash) user.password = hash;
-    next(error);
-  });
-});
- 
-UserSchema.methods.authenticate = function (password, callback) {
-  bcrypt.compare(password, this.password, callback);
+// generating a hash
+userSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
- 
-UserSchema.methods.encryptPassword = function (password, callback) {
-  bcrypt.genSalt(10, function (error, salt) {
-    bcrypt.hash(password, salt, callback);
-  });
+
+// checking if password is valid
+userSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.local.password);
 };
- 
-UserSchema.statics.login = function (user, callback) {
-  var password = user.password
-    , User = connect.model('User');
- 
-  async.waterfall([
-    function (callback) {
-      User.findOne({email: user.email}, callback);
-    },
-    function (returnedUser, callback) {
-      if (!returnedUser) return callback(new Error('Authentication failed.'));
-      user = returnedUser;
-      user.authenticate(password, callback);
-    },
-    function (matched, callback) {
-      if (!matched) return callback(new Error('Authentication failed.'));
-      user.lastLoggedIn = Date.now();
-      user.save(callback);
-    }
-  ], callback);
-};
- 
-module.exports = connect.model('User', UserSchema);
+
+// create the model for users and expose it to our app
+module.exports = connect.model('User', userSchema);

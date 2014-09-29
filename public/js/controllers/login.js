@@ -12,7 +12,7 @@ angular.module('field_guide_controls')
     $scope.register = function(user){
     	console.log(user)
     	var url = '/auth/signup/';
-    	var dataOut = user;
+    	var dataOut = {email: user.email, password: user.password};
     	
     	$http
     		.post(url, dataOut)
@@ -28,7 +28,7 @@ angular.module('field_guide_controls')
 
     $scope.login = function(user){
     	var url = '/auth/login';
-    	var dataOut = user;
+    	var dataOut =  {email: user.email, password: user.password};
 
     	$http
     		.post(url, dataOut)

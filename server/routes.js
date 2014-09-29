@@ -72,7 +72,7 @@ app.post('/auth/login', function(req, res, next) {
 });
 
 // process the signup form
-app.post('/signup', function(req, res, next) {
+app.post('/auth/signup', function(req, res, next) {
     if (!req.body.email || !req.body.password) {
         return res.json({ error: 'Email and Password required' });
     }
@@ -92,7 +92,13 @@ app.post('/signup', function(req, res, next) {
     })(req, res);
 });
 
-
+app.route('/user/')
+	.get(function(req,res){
+		User.find({})
+			.exec(function(err, docs){
+				res.json(docs)
+			})
+	})
 
 // PUBLIC ROUTES =================================================
 // public routes should only permit read access on the database
