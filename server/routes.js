@@ -111,20 +111,17 @@ app.post('/auth/logout', function(req, res) {
 // specifically, the only read access supplied is for the reports view
 
 // MIDDLEWARE TO BLOCK NON-AUTHORIZED USERS ===============
-
-// app.use(function (req, res, next) {
-  
-
-
-//   next();
-// })
+app.use('/api', function (req, res, next) {
+	// for calls that start with api....
+	console.log('touched the api tag')
+  next();
+})
 
 
 // PRIVATE ROUTES =========================================
 
-app.use('/api', app.router);
 // SESSION ROUTES =========================================
-app.route('/session/')
+app.route('/api/session/')
 	.get(function(req,res){
 		Session.find({})
 			.populate('_tests')
@@ -212,7 +209,7 @@ app.route('/session/:_id')
 		})
 	});
 
-app.route('/session/:_id/test/')
+app.route('/api/session/:_id/test/')
 	// get all tests by session
 	.get(function(req,res){
 		Test.find({'_session': req.params._id})
@@ -226,7 +223,7 @@ app.route('/session/:_id/test/')
 
 // TEST ROUTES ===================================================
 	
-app.route('/test/')
+app.route('/api/test/')
 	// get all of the tests	
 	.get(function(req,res){
 		Test.find({})
@@ -345,7 +342,7 @@ app.route('/test/:_id')
 
 // TASK ROUTES ===================================================
 
-app.route('/task/')
+app.route('/api/task/')
 	// get all tasks
 	.get(function(req,res){
 		Task.find({})
@@ -380,7 +377,7 @@ app.route('/task/')
 		})
 	});
 
-app.route('/task/:_id')
+app.route('/api/task/:_id')
 	// get single task
 	.get(function(req,res){
 		Task.findById(req.params._id)
@@ -470,7 +467,7 @@ app.route('/task/:_id')
 
 // MESSAGE ROUTES  ================================================
 
-app.route('/message/')
+app.route('/api/message/')
 	.get(function(req,res){
 		Message.find({})
 			.exec(function(err, messages) {
@@ -589,7 +586,7 @@ app.route('/message/')
 		
 
 
-app.route('/message/:_id')
+app.route('/api/message/:_id')
 	.get(function(req,res){
 		// get one specific test
 		console.log(req)
@@ -603,7 +600,7 @@ app.route('/message/:_id')
 	});
 
 // TAG ROUTES ================================================
-app.route('/tag/')
+app.route('/api/tag/')
 	.get(function(req,res){
 		Tag.find(function(err, tags) {
 				if(err) res.send(err);
@@ -612,7 +609,7 @@ app.route('/tag/')
 			})
 		});
 
-app.route('/tag/:_id')
+app.route('/api/tag/:_id')
 	.get(function(req,res){
 		Tag.findById(req.params._id)
 			.exec(function(err, tags) {
@@ -627,7 +624,7 @@ app.route('/tag/:_id')
 	});
 
 // SUBJECT ROUTES ===============================================
-app.route('/subject/')
+app.route('/api/subject/')
 	.get(function(req,res){
 			Subject.find({})
 				.exec(function(err,subjects){
@@ -653,14 +650,14 @@ app.route('/subject/')
 
 
 // RUN ROUTES ================================================
-app.route('/run/')
+app.route('/api/run/')
 	.get(function(req,res){
 			console.log('touched run get')
 			res.json('touched run get')
 		});
 
 // How to populate subdocuments is in here.
-app.route('/run/:_id')
+app.route('/api/run/:_id')
 	.get(function(req,res){
 		console.log('touched run route',req.params._id )
 
@@ -737,7 +734,7 @@ app.route('/run/:_id')
 
 // SUMMARY ROUTES ============================================
 
-app.route('/summary/:_id')
+app.route('/api/summary/:_id')
 	.get(function(req, res){
 
 		// how to populate grandchildren sub-subdocuments is in here.
@@ -849,7 +846,7 @@ app.route('/summary/:_id')
 
 // REPORT ROUTES =============================================
 // http://mongoosejs.com/docs/api.html#model_Model.populate
-app.route('/report/:_id')
+app.route('/api/report/:_id')
 	.get(function(req, res){
 		console.log('touched report get');
 

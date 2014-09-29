@@ -1,42 +1,106 @@
 // auth_routes.js
 'use strict';
 
-var express  = require('express');
-var passport = require('passport');
-var mongoose = require('mongoose');
+module.exports = function(app, passport){
+// load auth models 
+var User = require('./models/auth/user');
 
-var router 	 = express.Router();
-
-var User = require('../server/models/auth/user');
-
-// Below from @artcommacode
-router.routes.get('/auth/login', function (req, res, next) {
-  res.render('authentication/views/login', {
-    controller: 'authentication',
-    action: 'login'
-  });
+// console logging
+app.use(function(req, res, next) {
+  console.log('Something is happening.');
+  next(); // make sure we go to the next routes and don't stop here
 });
- 
-router.routes.post('/auth/login', function (req, res, next) {
-  mongoose.model('User').login(req.body.user, function (error, user) {
-    if (error) {
-      req.flash('error', error.message);
-      res.redirect('back');
+
+
+// AUTH ROUTES ============================================
+// route middleware to ensure user is logged in - ajax get
+function isLoggedInAjax(req, res, next) {
+    if (!req.isAuthenticated()) {
+        return res.json( { redirect: '/login' } );
     } else {
-      req.session.user = user;
-      res.redirect('/admin/pages');
+        next();
     }
-  });
-});
- 
-router.routes.get('*', function (req, res, next) {
-  if (req.session && req.session.user) {
-    res.locals.user = req.session.user;
-    next();
-  } else {
-    req.flash('error', 'Please log in.');
-    res.redirect('/admin/auth/login');
-  }
+}
+
+// route middleware to ensure user is logged in
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+
+    res.redirect('/overview');
+}
+
+auth.get('/auth/login', isLoggedInAjax, function(req, res) {
+        return res.json(req.user);
+    });
+
+// process the login form
+auth.post('/auth/login', function(req, res, next) {
+    if (!req.body.email || !req.body.password) {
+        return res.json({ error: 'Email and Password required' });
+    }
+    passport.authenticate('local-login', function(err, user, info) {
+        if (err) { 
+            return res.json(err);
+        }
+        if (user.error) {
+            return res.json({ error: user.error });
+        }
+        req.logIn(user, function(err) {
+            if (err) {
+                return res.json(err);
+            }
+            return res.json({ redirect: '/overview' });
+        });
+    })(req, res);
 });
 
-module.exports = router;
+// process the signup form
+auth.post('/auth/signup', function(req, res, next) {
+    if (!req.body.email || !req.body.password) {
+        return res.json({ error: 'Email and Password required' });
+    }
+    passport.authenticate('local-signup', function(err, user, info) {
+        if (err) { 
+            return res.json(err);
+        }
+        if (user.error) {
+            return res.json({ error: user.error });
+        }
+        req.logIn(user, function(err) {
+            if (err) {
+                return res.json(err);
+            }
+            return res.json({ redirect: '/overview' });
+        });
+    })(req, res);
+});
+
+auth.post('/auth/logout', function(req, res) {
+   req.logout();
+   res.json({ redirect: '/login' });
+});
+
+
+// app.route('/user/')
+//  .get(function(req,res){
+//    User.find({})
+//      .exec(function(err, docs){
+//        res.json(docs)
+//      })
+//  })
+
+// PUBLIC ROUTES ==========================================
+// public routes should only permit read access on the database
+// specifically, the only read access supplied is for the reports view
+
+// MIDDLEWARE TO BLOCK NON-AUTHORIZED USERS ===============
+
+// app.use(function (req, res, next) {
+  
+
+
+//   next();
+// })}
+
+
