@@ -1,6 +1,6 @@
 <!-- header -->
 
-<div id="header">
+<div id="header" ng-controller="login">
 	
 	<div id="header-logo">
 		<a href="/"><img src="/layout/assets/fg-binocs-header.png" /></a> 
@@ -10,6 +10,7 @@
 		<ul>
 			<li><a href="/">Nav</a></li>
 			<li><a href="/">Other Nav</a></li>
+			<li><button class="button small header button-testing" ng-click="logout()">Log Out</button></li>
 		</ul>
 	</div>
 	

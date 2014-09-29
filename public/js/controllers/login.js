@@ -42,4 +42,18 @@ angular.module('field_guide_controls')
     		});
 
     }
+
+    $scope.logout = function(){
+        var url = '/auth/logout'
+
+        $http
+            .post(url)
+            .success(function(data){
+                console.log('Success! Logged out.', data)
+                $location.path(data.redirect)
+            })
+            .error(function(error){
+                console.log('logout no bueno.', error)
+            });
+    }
 }]);

@@ -43,7 +43,7 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
 
-    res.redirect('/');
+    res.redirect('/overview');
 }
 
 app.get('/auth/login', isLoggedInAjax, function(req, res) {
@@ -92,20 +92,38 @@ app.post('/auth/signup', function(req, res, next) {
     })(req, res);
 });
 
-app.route('/user/')
-	.get(function(req,res){
-		User.find({})
-			.exec(function(err, docs){
-				res.json(docs)
-			})
-	})
+app.post('/auth/logout', function(req, res) {
+   req.logout();
+   res.json({ redirect: '/login' });
+});
 
-// PUBLIC ROUTES =================================================
+
+// app.route('/user/')
+// 	.get(function(req,res){
+// 		User.find({})
+// 			.exec(function(err, docs){
+// 				res.json(docs)
+// 			})
+// 	})
+
+// PUBLIC ROUTES ==========================================
 // public routes should only permit read access on the database
 // specifically, the only read access supplied is for the reports view
 
-// SESSION ROUTES ================================================
-	
+// MIDDLEWARE TO BLOCK NON-AUTHORIZED USERS ===============
+
+// app.use(function (req, res, next) {
+  
+
+
+//   next();
+// })
+
+
+// PRIVATE ROUTES =========================================
+
+app.use('/api', app.router);
+// SESSION ROUTES =========================================
 app.route('/session/')
 	.get(function(req,res){
 		Session.find({})
