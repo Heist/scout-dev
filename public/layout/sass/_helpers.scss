@@ -15,6 +15,12 @@ mixins
 	box-shadow: $shadow $intensity;
 }
 
+@mixin insetshadow {
+	-webkit-box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.2);
+	box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.2);
+}
+
 @mixin radius($radius: 4px) {
 	-moz-border-radius: $radius;
 	-webkit-border-radius: $radius;
@@ -36,16 +42,14 @@ mixins
 
 
 @mixin button-colour($bg, $text) {
-	background: none;
-	color: $bg;	
-	border: 2px solid $bg;
-	@include animate;
+	background: $bg;
+	color: $text;
+	text-decoration: none;
 	text-decoration: none;
 		
 	&:hover {
-		background: $bg;
+		background: darken($bg, 10%);
 		color: $text;
-		@include animate;
 		text-decoration: none;
 	}
 }

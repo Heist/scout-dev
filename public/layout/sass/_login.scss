@@ -1,0 +1,26 @@
+/* login & registration forms etc. */
+
+#view-login {
+	background: $fg-header-red;
+	color: $white;
+	height: 100%;
+	padding: 15% 0 0 0;	
+	
+	input, button {
+		width: 100%;
+		margin-bottom: $pad/5;
+	}
+	
+	
+	a {
+		color: $white;
+	}
+	
+	#logo {
+		img {
+			width: 70px;
+			height: auto;
+		}
+	}
+}
+

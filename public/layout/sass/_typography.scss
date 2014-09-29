@@ -76,6 +76,7 @@ a {
 	color: $link;
 	@include type-bold;
 	text-decoration: none;
+	cursor: pointer;
 	
 	&:hover {
 		text-decoration: underline;

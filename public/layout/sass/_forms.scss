@@ -11,23 +11,21 @@ form {
 
 .input, .button {
 	display: inline-block;
-	margin: 0 1px;
+	margin: 0;
+	padding: $pad/1.5;
 	@include radius;
 	@include type-regular;
 	font-size: $type-size-base;
-	line-height: $type-size-base;
 	outline: none;
+	border: none;
 }
-
 
 
 .input {
 	background: $white; 
-	border: 2px solid $line;
-	padding: $pad/2;
 
 	&:focus {
-		border: 2px solid $fg-green;
+		@include insetshadow;
 	}
 	
 }
@@ -46,7 +44,6 @@ textarea.input {
 .button {
 	@include button-colour($fg-green, $white);
 	cursor: pointer;
-	padding: $pad/2 $pad/1.5;
 	
 	&.small {
 		font-size: $type-size-base*0.8;
@@ -57,6 +54,10 @@ textarea.input {
 	&.disabled {
 		cursor: not-allowed;
 		opacity: 0.4;
+	}
+	
+	&.dark {
+		@include button-colour($fg-black, $white);
 	}
 	
 	&.destructive {
