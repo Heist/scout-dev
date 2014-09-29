@@ -4,6 +4,7 @@
   "description": "Scout app",
   "version": "0.0.1",
   "dependencies": {
+    "async":"latest",
     "bcrypt-nodejs": "latest",
     "body-parser": "~1.0.1",
     "connect-flash": "~0.1.1",
@@ -14,6 +15,7 @@
     "karma": "^0.12.23",
     "karma-cli": "0.0.4",
     "karma-jasmine": "^0.2.2",
+    "lockit": "^1.2.1",
     "method-override": "~1.0.0",
     "mongoose": "~3.8.1",
     "morgan": "latest",

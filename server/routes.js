@@ -1,12 +1,12 @@
 // routes.js
-
+module.exports = function(app, passport) {
 // CONFIGURATION =====================================================
 // Module dependencies
-var express = require('express');
-var _ 		= require('underscore');
-var router  = express.Router();  // get an instance of the express Router
-var util = require('util');
-var mongoose = require('mongoose'); // so we can generate ObjectIDs for tests
+// var express = require('express');
+// var app  = express.Router();  // get an instance of the express Router
+// var _ 		= require('underscore');
+// var util = require('util');
+// var mongoose = require('mongoose'); // so we can generate ObjectIDs for tests
 
 // load data storage models
 var Message = require('./models/data/message');
@@ -17,11 +17,81 @@ var Session = require('./models/data/session');
 var Summary = require('./models/data/summary');
 var Subject = require('./models/data/subject');
 
+
+// load auth models 
+var User = require('./models/auth/user');
+
 // console logging
-router.use(function(req, res, next) {
+app.use(function(req, res, next) {
 	console.log('Something is happening.');
 	next(); // make sure we go to the next routes and don't stop here
 });
+
+
+// AUTH ROUTES ============================================
+// route middleware to ensure user is logged in - ajax get
+function isLoggedInAjax(req, res, next) {
+    if (!req.isAuthenticated()) {
+        return res.json( { redirect: '/login' } );
+    } else {
+        next();
+    }
+}
+
+// route middleware to ensure user is logged in
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+
+    res.redirect('/');
+}
+
+app.get('/auth/login', isLoggedInAjax, function(req, res) {
+        return res.json(req.user);
+    });
+
+// process the login form
+app.post('/auth/login', function(req, res, next) {
+    if (!req.body.email || !req.body.password) {
+        return res.json({ error: 'Email and Password required' });
+    }
+    passport.authenticate('local-login', function(err, user, info) {
+        if (err) { 
+            return res.json(err);
+        }
+        if (user.error) {
+            return res.json({ error: user.error });
+        }
+        req.logIn(user, function(err) {
+            if (err) {
+                return res.json(err);
+            }
+            return res.json({ redirect: '/profile' });
+        });
+    })(req, res);
+});
+
+// process the signup form
+app.post('/signup', function(req, res, next) {
+    if (!req.body.email || !req.body.password) {
+        return res.json({ error: 'Email and Password required' });
+    }
+    passport.authenticate('local-signup', function(err, user, info) {
+        if (err) { 
+            return res.json(err);
+        }
+        if (user.error) {
+            return res.json({ error: user.error });
+        }
+        req.logIn(user, function(err) {
+            if (err) {
+                return res.json(err);
+            }
+            return res.json({ redirect: '/profile' });
+        });
+    })(req, res);
+});
+
 
 
 // PUBLIC ROUTES =================================================
@@ -30,7 +100,7 @@ router.use(function(req, res, next) {
 
 // SESSION ROUTES ================================================
 	
-router.route('/session/')
+app.route('/session/')
 	.get(function(req,res){
 		Session.find({})
 			.populate('_tests')
@@ -57,7 +127,7 @@ router.route('/session/')
         });
 	});
 
-router.route('/session/:_id')
+app.route('/session/:_id')
 	.get(function(req,res){
 		Session.findById(req.params._id)
 			.populate('_tests')
@@ -118,7 +188,7 @@ router.route('/session/:_id')
 		})
 	});
 
-router.route('/session/:_id/test/')
+app.route('/session/:_id/test/')
 	// get all tests by session
 	.get(function(req,res){
 		Test.find({'_session': req.params._id})
@@ -132,7 +202,7 @@ router.route('/session/:_id/test/')
 
 // TEST ROUTES ===================================================
 	
-router.route('/test/')
+app.route('/test/')
 	// get all of the tests	
 	.get(function(req,res){
 		Test.find({})
@@ -166,7 +236,7 @@ router.route('/test/')
 	});
 
 
-router.route('/test/:_id')
+app.route('/test/:_id')
 	.get(function(req,res){
 		// get one test
 
@@ -251,7 +321,7 @@ router.route('/test/:_id')
 
 // TASK ROUTES ===================================================
 
-router.route('/task/')
+app.route('/task/')
 	// get all tasks
 	.get(function(req,res){
 		Task.find({})
@@ -286,7 +356,7 @@ router.route('/task/')
 		})
 	});
 
-router.route('/task/:_id')
+app.route('/task/:_id')
 	// get single task
 	.get(function(req,res){
 		Task.findById(req.params._id)
@@ -376,7 +446,7 @@ router.route('/task/:_id')
 
 // MESSAGE ROUTES  ================================================
 
-router.route('/message/')
+app.route('/message/')
 	.get(function(req,res){
 		Message.find({})
 			.exec(function(err, messages) {
@@ -495,7 +565,7 @@ router.route('/message/')
 		
 
 
-router.route('/message/:_id')
+app.route('/message/:_id')
 	.get(function(req,res){
 		// get one specific test
 		console.log(req)
@@ -509,7 +579,7 @@ router.route('/message/:_id')
 	});
 
 // TAG ROUTES ================================================
-router.route('/tag/')
+app.route('/tag/')
 	.get(function(req,res){
 		Tag.find(function(err, tags) {
 				if(err) res.send(err);
@@ -518,7 +588,7 @@ router.route('/tag/')
 			})
 		});
 
-router.route('/tag/:_id')
+app.route('/tag/:_id')
 	.get(function(req,res){
 		Tag.findById(req.params._id)
 			.exec(function(err, tags) {
@@ -533,7 +603,7 @@ router.route('/tag/:_id')
 	});
 
 // SUBJECT ROUTES ===============================================
-router.route('/subject/')
+app.route('/subject/')
 	.get(function(req,res){
 			Subject.find({})
 				.exec(function(err,subjects){
@@ -559,14 +629,14 @@ router.route('/subject/')
 
 
 // RUN ROUTES ================================================
-router.route('/run/')
+app.route('/run/')
 	.get(function(req,res){
 			console.log('touched run get')
 			res.json('touched run get')
 		});
 
 // How to populate subdocuments is in here.
-router.route('/run/:_id')
+app.route('/run/:_id')
 	.get(function(req,res){
 		console.log('touched run route',req.params._id )
 
@@ -643,7 +713,7 @@ router.route('/run/:_id')
 
 // SUMMARY ROUTES ============================================
 
-router.route('/summary/:_id')
+app.route('/summary/:_id')
 	.get(function(req, res){
 
 		// how to populate grandchildren sub-subdocuments is in here.
@@ -755,7 +825,7 @@ router.route('/summary/:_id')
 
 // REPORT ROUTES =============================================
 // http://mongoosejs.com/docs/api.html#model_Model.populate
-router.route('/report/:_id')
+app.route('/report/:_id')
 	.get(function(req, res){
 		console.log('touched report get');
 
@@ -782,8 +852,5 @@ router.route('/report/:_id')
 			if(err) return res.send (err)
 			
 		});
-
-
 	});		
-
-module.exports = router;
+}

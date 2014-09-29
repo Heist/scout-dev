@@ -7,19 +7,33 @@ angular.module('field_guide_controls')
     
     // LOGIN FUNCTIONS ====================================
     console.log('loaded login controller');
+    $scope.user = {}
 
-    $scope.register = function(credentials){
-    	console.log(credentials);
-    }
-
-    $scope.login = function(credentials){
-    	console.log(credentials);
-    	var url = '/auth/login'
+    $scope.register = function(user){
+    	console.log(user)
+    	var url = '/auth/signup/';
+    	var dataOut = user;
     	
     	$http
-    		.post(url)
+    		.post(url, dataOut)
     		.success(function(data){
-    			console.log('success!')
+    			console.log('success!', data)
+
+    		})
+    		.error(function(error){
+    			console.log('signup no bueno.', error)
+    		});
+
+    }
+
+    $scope.login = function(user){
+    	var url = '/auth/login';
+    	var dataOut = user;
+
+    	$http
+    		.post(url, dataOut)
+    		.success(function(data){
+    			console.log('success!', data)
     		})
     		.error(function(error){
     			console.log('login no bueno.', error)

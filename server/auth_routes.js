@@ -7,35 +7,36 @@ var mongoose = require('mongoose');
 
 var router 	 = express.Router();
 
-// MIDDLEWARE FOR AUTHENTICATION ==========================
-router.use(function (req, res, next) {
+var User = require('../server/models/auth/user');
 
-  if (req.method === 'POST' && req.url === '/login') {
-    // Log #1
-    console.log('passport', passport);
-
-    passport.authenticate('login', { 
-      successRedirect: '/',
-      failureRedirect: '/login',
-      failureFlash: true 
-    });
-
-  } else {
+// Below from @artcommacode
+router.routes.get('/auth/login', function (req, res, next) {
+  res.render('authentication/views/login', {
+    controller: 'authentication',
+    action: 'login'
+  });
+});
+ 
+router.routes.post('/auth/login', function (req, res, next) {
+  mongoose.model('User').login(req.body.user, function (error, user) {
+    if (error) {
+      req.flash('error', error.message);
+      res.redirect('back');
+    } else {
+      req.session.user = user;
+      res.redirect('/admin/pages');
+    }
+  });
+});
+ 
+router.routes.get('*', function (req, res, next) {
+  if (req.session && req.session.user) {
+    res.locals.user = req.session.user;
     next();
+  } else {
+    req.flash('error', 'Please log in.');
+    res.redirect('/admin/auth/login');
   }
 });
-
-// AUTH ROUTES ==========================================
-
-router.route('/login')
-      .post(function (req, res) {
-        console.log('Post on /login');
-      })
-      .get(function (req, res) {
-        res.render('login', {
-          message: req.flash('loginMessage')
-        });
-      });
-
 
 module.exports = router;

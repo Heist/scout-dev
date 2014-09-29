@@ -45,17 +45,19 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // server /api/ routes ================================================
-var router = require('./server/routes');
-var auth = require('./server/auth_routes');
+// var auth = require('./server/auth_routes');
+// app.use('/auth', auth);
 
-app.use('/api', router);
-app.use('/auth', auth);
+var router = require('./server/routes')(app, passport);
+// app.use('/api', router);
 
+
+// DEFAULT ROUTE goes here to prevent ENOENT error ====================
 app.get('*', function(req, res) {
 			res.sendfile(__dirname + '/public/index.html');
 		});
 
-// turn on the application ========================================
+// turn on the application ============================================
 
 var server = app.listen(port);
 

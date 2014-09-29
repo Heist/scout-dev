@@ -13,20 +13,20 @@
 				<img src="../assets/scout-rev.png" />
 			</p>
 			
-			<form ng-model="credentials">
+			<form ng-model="user">
 				<ul class="nobullets withlabels">
 				
 					<li>
-						<input class="input" type="text" name="username" value="" placeholder="Your username" ng-model="credentials.username"/>
+						<input class="input" type="text" name="username" value="" placeholder="Your username" ng-model="user.local.email"/>
 					</li>
 					
 					<li>
-						<input class="input" type="password" id="field-password" name="" value="" placeholder="Your password"  ng-model="credentials.password"/>
+						<input class="input" type="password" id="field-password" name="" value="" placeholder="Your password"  ng-model="user.local.password"/>
 					</li>
 								
 					<li>
-						<button class="button" type="submit" ng-click="login(credentials)">Login</button> 
-						<button class="button" type="submit" ng-click="register()">Register?</button> 
+						<button class="button" type="submit" ng-click="login(user)">Login</button> 
+						<button class="button" type="submit" ng-click="register(user)">Register?</button> 
 					</li>
 					
 				</ul>
