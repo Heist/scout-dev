@@ -82,17 +82,17 @@ textarea.input { line-height: 24px; }
 
 /* button colour mixin */
 .button { background: #71901f; color: white; text-decoration: none; text-decoration: none; cursor: pointer; }
-.button:hover { background: #506616; color: white; text-decoration: none; }
+.button:hover { background: rgba(113, 144, 31, 0.8); color: white; text-decoration: none; }
 .button.small { font-size: 12.8px; padding: 2.5px 10px; }
 .button.disabled { cursor: not-allowed; opacity: 0.4; }
 .button.dark { background: #323539; color: white; text-decoration: none; text-decoration: none; }
-.button.dark:hover { background: #1a1c1e; color: white; text-decoration: none; }
+.button.dark:hover { background: rgba(50, 53, 57, 0.8); color: white; text-decoration: none; }
 .button.destructive { background: #f37960; color: white; text-decoration: none; text-decoration: none; }
-.button.destructive:hover { background: #ef5131; color: white; text-decoration: none; }
+.button.destructive:hover { background: rgba(243, 121, 96, 0.8); color: white; text-decoration: none; }
 .button.secondary { background: #646a72; color: white; text-decoration: none; text-decoration: none; }
-.button.secondary:hover { background: #4c5157; color: white; text-decoration: none; }
+.button.secondary:hover { background: rgba(100, 106, 114, 0.8); color: white; text-decoration: none; }
 .button.header { background: white; color: #f37960; text-decoration: none; text-decoration: none; }
-.button.header:hover { background: #e6e6e6; color: #f37960; text-decoration: none; }
+.button.header:hover { background: rgba(255, 255, 255, 0.8); color: #f37960; text-decoration: none; }
 
 label { padding: 0; margin: 0; font-size: 12.8px; opacity: 0.4; }
 
@@ -108,10 +108,8 @@ ul.withlabels .controls .input { width: 100%; }
 /* fixes for stupid Firefox */
 button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner { border: 0; padding: 0; margin: 0; }
 
-.container { width: 100%; padding: 0; margin: 0; }
-
-.grid { max-width: 980px; margin: 0 auto; }
-.grid:after { content: ""; display: table; clear: both; }
+.container { max-width: 980px; margin: 0 auto; }
+.container:after { content: ""; display: table; clear: both; }
 
 .module { display: inline-block; float: left; padding-left: 10px; padding-right: 10px; }
 
@@ -220,22 +218,32 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-login a { color: white; }
 #view-login #logo img { width: 70px; height: auto; }
 
+/* overview screen */
+#view-overview { margin: 0; padding: 50px 0 0 0; }
+#view-overview #overview-tests { padding: 40px 0; }
+#view-overview #overview-tests .overview-test { border: 1px solid #333; }
+
+/* sub-bar styles */
+#sub-bar { width: 100%; background: #f2f2f0; margin: 0; padding: 30px 0; border-bottom: 1px solid #e4e4e0; }
+#sub-bar h1 { float: left; padding: 0; margin: 0; }
+#sub-bar .sub-bar-controls { float: right; }
+
 /*
 typography
 ========================
 */
 html, body { width: 100%; height: 100%; }
 
-body { font-size: 16px; line-height: 24px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { font-size: 16px; line-height: 24px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; font-feature-settings: "kern"; -webkit-font-feature-settings: "kern"; -moz-font-feature-settings: "kern"; -moz-font-feature-settings: "kern=1"; }
 
 /* headers */
 h1, h2, h3, h4, h5, h6 { line-height: 1; padding: 0; }
 h1.underline, h2.underline, h3.underline, h4.underline, h5.underline, h6.underline { margin: 0 0 20px 0; }
 h1.underline span, h2.underline span, h3.underline span, h4.underline span, h5.underline span, h6.underline span { border-bottom: 3px solid #e7e7da; }
 
-h1 { font-size: 52px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 300; letter-spacing: -1px; margin: 0 0 20px 0; }
+h1 { font-size: 32px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 300; letter-spacing: -1px; margin: 0 0 20px 0; }
 
-h2 { font-size: 36px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 300; letter-spacing: -1px; margin: 0 0 20px 0; }
+h2 { font-size: 32px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 300; letter-spacing: -1px; margin: 0 0 20px 0; }
 
 h3 { font-size: 20px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 700; margin: 0 0 10px 0; }
 
@@ -296,8 +304,9 @@ body { background: #fbfbf9; color: #646a72; margin: 0; padding: 0; }
 #header #header-nav { float: left; font-size: 12.8px; }
 #header #header-nav ul { padding: 0; margin: 0; list-style: none; }
 #header #header-nav ul li { float: left; padding: 13.33333px 13.33333px 0 0; }
-#header #header-buttons { float: right; padding: 8px 20px 0 0; margin: 0; }
+#header #header-buttons { float: right; padding: 10px 20px 0 0; margin: 0; }
 #header #header-buttons .button { display: none; }
+#header #header-buttons .button-logout { display: block; }
 #header #header-account { float: right; cursor: pointer; }
 #header #header-account #header-account-avatar { height: 28px; width: 28px; margin: 10px 0 0 10px; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; overflow: hidden; float: left; }
 #header #header-account #header-account-avatar img { width: 28px; height: auto; }
@@ -319,18 +328,6 @@ body { background: #fbfbf9; color: #646a72; margin: 0; padding: 0; }
 #view-observer-login #form-observer-login { margin: 40px 0 0 0; padding: 20px 20px 0 20px; background: rgba(46, 39, 35, 0.7); -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
 #view-observer-login p { font-size: 12.8px; margin: 0; padding: 0; }
 #view-observer-login h2 { padding: 0; margin: 0; }
-
-/* SESSION OVERVIEW */
-#view-overview { padding-top: 80px; }
-#view-overview .session .session-meta { border-bottom: 2px solid #e7e7da; margin: 20px 0; /* when editing title */ }
-#view-overview .session .session-meta .session-name { float: left; font-size: 12.8px; font-weight: bold; color: #646a72; width: 80%; }
-#view-overview .session .session-meta .session-name h4 { margin: 0; padding: 0; line-height: 33.6px; display: inline-block; color: #646a72; }
-#view-overview .session .session-meta .session-name h4 img { height: 14px; width: auto; opacity: 0.3; }
-#view-overview .session .session-meta form { padding: 0; margin: 0; width: 80%; float: left; }
-#view-overview .session .session-meta form input { margin: 0; padding: 0; border: none; font-size: 20px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 300; line-height: 33.6px; display: inline-block; color: #646a72; width: 80%; background: none; outline: none; }
-#view-overview .session .session-meta .session-controls { float: right; margin: 0 0 10px 0; }
-#view-overview .session .session-meta .session-controls .button { line-height: 19.2px; }
-#view-overview .session .session-meta .session-controls .button.destructive { margin-left: 10px; }
 
 /* CREATE SESSION */
 #view-createsession { margin: 0; padding: 0; height: 100%; width: 100%; }
@@ -411,31 +408,6 @@ body { background: #fbfbf9; color: #646a72; margin: 0; padding: 0; }
 #view-report ul.report-participants li .report-part-img { width: 40px; height: 40px; -moz-border-radius: 40px; -webkit-border-radius: 40px; border-radius: 40px; overtest: hidden; }
 #view-report ul.report-participants li .report-part-img img { width: 40px; height: auto; }
 #view-report .report-block { margin-top: 40px; padding-top: 40px; border-top: 2px solid #e7e7da; }
-
-/* rebuild of overview screen */
-#view-overview-neu { margin: 0; padding: 0; height: 100%; width: 100%; }
-#view-overview-neu #left-pane { padding: 0; }
-#view-overview-neu #left-pane #questions .test-newtest { cursor: default; }
-#view-overview-neu #left-pane #questions .test-newtest:hover { box-shadow: none; }
-#view-overview-neu #left-pane #questions .test-newtest .test-newtest-create { text-align: center; background: none; padding: 20px; border: 2px dashed #e7e7da; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; }
-#view-overview-neu #left-pane #questions .question { padding: 20px; }
-#view-overview-neu #left-pane #questions .question .session-name img { width: 14px; height: auto; opacity: 0.4; display: none; }
-#view-overview-neu #left-pane #questions .question.active .session-name img { display: inline-block; cursor: pointer; }
-#view-overview-neu #left-pane #questions .question h4 { font-size: 17.6px; line-height: 21.6px; margin-bottom: 0; }
-#view-overview-neu #left-pane #questions .question .input { font-size: 17.6px; line-height: 21.6px; margin-bottom: 0; padding: 0; color: white; background: none; outline: none; border: none; }
-#view-overview-neu #left-pane #questions .question small { font-size: 11.2px; font-weight: bold; text-transform: uppercase; }
-#view-overview-neu #left-pane #questions .question .test-controls { float: right; padding: 0; margin-left: 20px; margin-top: -3px; display: none; }
-#view-overview-neu #left-pane #questions .question.active .test-controls { display: block; }
-#view-overview-neu #left-pane #questions .question.active h4 { font-weight: normal; }
-#view-overview-neu #large-pane { padding: 100px 60px 60px 60px; background: white; border-left: 2px solid #e7e7da; }
-#view-overview-neu #large-pane h3 { margin-bottom: 20px; }
-#view-overview-neu #large-pane .session-test { border-top: 2px solid #e7e7da; background: white; padding: 10px 0 20px 0; -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0; }
-#view-overview-neu #large-pane .session-test h3 { border: none; padding: 0; margin: -6px 0 0 0; }
-#view-overview-neu #large-pane .session-test .session-test-controls { padding-top: 10px; float: right; opacity: 0.2; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; }
-#view-overview-neu #large-pane .session-test .test-hamburger { font-size: 32px; float: left; margin: 0 10px 0 0; padding: 13.33333px 0 0 0; cursor: move; }
-#view-overview-neu #large-pane .session-test.empty { margin-top: 10px; padding: 10px; border: 2px dashed #e7e7da; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; }
-#view-overview-neu #large-pane .session-test:hover .session-test-controls { opacity: 1.0; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; }
-#view-overview-neu h1 span, #view-overview-neu h2 span, #view-overview-neu h3 span { color: rgba(100, 106, 114, 0.3); }
 
 /* pulled out test view boxes so we can use those everywhere */
 .session-test { background: #fbfbf9; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; padding: 10px 20px 0 20px; }

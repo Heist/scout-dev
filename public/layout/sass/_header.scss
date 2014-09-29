@@ -9,7 +9,7 @@
 	color: $fg-header-red-dark;
 	border-bottom: 2px solid darken($fg-header-red, 7%);
 	width: 100%;
-	height: 50px;
+	height: $pad*2.5;
 	overflow: hidden;
 	z-index: 999999;
 	padding: 0 $pad;
@@ -57,14 +57,19 @@
 		}		
 	}
 	
+	
 	/* header buttons based on location in app */
 	#header-buttons {
 		float: right;
-		padding: $pad/2.5 $pad 0 0;
+		padding: $pad/2 $pad 0 0;
 		margin: 0;
 		
 		.button {
 			display: none;
+		}
+		
+		.button-logout {
+			display: block;
 		}
 	}
 		

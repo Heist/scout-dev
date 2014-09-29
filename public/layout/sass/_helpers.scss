@@ -48,7 +48,7 @@ mixins
 	text-decoration: none;
 		
 	&:hover {
-		background: darken($bg, 10%);
+		background: transparentize($bg, 0.2);
 		color: $text;
 		text-decoration: none;
 	}
