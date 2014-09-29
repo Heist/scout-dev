@@ -71,26 +71,28 @@ FORMS!
 form { padding: 0; margin: 0; }
 
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
-.input, .button { display: inline-block; margin: 0 1px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; font-size: 16px; line-height: 16px; outline: none; }
+.input, .button { display: inline-block; margin: 0; padding: 13.33333px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; font-size: 16px; outline: none; border: none; }
 
-.input { background: white; border: 2px solid #e7e7da; padding: 10px; }
-.input:focus { border: 2px solid #71901f; }
+.input { background: white; }
+.input:focus { -webkit-box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.2); box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.2); }
 
 textarea.input { line-height: 24px; }
 
 .placeholder { color: rgba(100, 106, 114, 0.6); }
 
 /* button colour mixin */
-.button { background: none; color: #71901f; border: 2px solid #71901f; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; text-decoration: none; cursor: pointer; padding: 10px 13.33333px; }
-.button:hover { background: #71901f; color: white; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; text-decoration: none; }
+.button { background: #71901f; color: white; text-decoration: none; text-decoration: none; cursor: pointer; }
+.button:hover { background: #506616; color: white; text-decoration: none; }
 .button.small { font-size: 12.8px; padding: 2.5px 10px; }
 .button.disabled { cursor: not-allowed; opacity: 0.4; }
-.button.destructive { background: none; color: #f37960; border: 2px solid #f37960; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; text-decoration: none; }
-.button.destructive:hover { background: #f37960; color: white; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; text-decoration: none; }
-.button.secondary { background: none; color: #646a72; border: 2px solid #646a72; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; text-decoration: none; }
-.button.secondary:hover { background: #646a72; color: white; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; text-decoration: none; }
-.button.header { background: none; color: white; border: 2px solid white; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; text-decoration: none; }
-.button.header:hover { background: white; color: #f37960; -webkit-transition-duration: 0.2s; -webkit-transition-timing: ease-out; -o-transition-duration: 0.2s; -o-transition-timing: ease-out; -moz-transition-duration: 0.2s; -moz-transition-timing: ease-out; -ms-transition-duration: 0.2s; -ms-transition-timing: ease-out; transition-duration: 0.2s; transition-timing: ease-out; text-decoration: none; }
+.button.dark { background: #323539; color: white; text-decoration: none; text-decoration: none; }
+.button.dark:hover { background: #1a1c1e; color: white; text-decoration: none; }
+.button.destructive { background: #f37960; color: white; text-decoration: none; text-decoration: none; }
+.button.destructive:hover { background: #ef5131; color: white; text-decoration: none; }
+.button.secondary { background: #646a72; color: white; text-decoration: none; text-decoration: none; }
+.button.secondary:hover { background: #4c5157; color: white; text-decoration: none; }
+.button.header { background: white; color: #f37960; text-decoration: none; text-decoration: none; }
+.button.header:hover { background: #e6e6e6; color: #f37960; text-decoration: none; }
 
 label { padding: 0; margin: 0; font-size: 12.8px; opacity: 0.4; }
 
@@ -108,7 +110,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 
 .container { width: 100%; padding: 0; margin: 0; }
 
-.grid { max-width: 980px; min-width: 280px; margin: 0 auto; }
+.grid { max-width: 980px; margin: 0 auto; }
 .grid:after { content: ""; display: table; clear: both; }
 
 .module { display: inline-block; float: left; padding-left: 10px; padding-right: 10px; }
@@ -212,6 +214,12 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 
 #large-pane .question-rating { width: 20px; height: 20px; padding: 0; margin: 0; display: inline-block; }
 
+/* login & registration forms etc. */
+#view-login { background: #f37960; color: white; height: 100%; padding: 15% 0 0 0; }
+#view-login input, #view-login button { width: 100%; margin-bottom: 4px; }
+#view-login a { color: white; }
+#view-login #logo img { width: 70px; height: auto; }
+
 /*
 typography
 ========================
@@ -238,7 +246,7 @@ p { padding: 0; margin: 0 0 20px 0; }
 
 strong { font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; }
 
-a { color: #71901f; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; text-decoration: none; }
+a { color: #71901f; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; text-decoration: none; cursor: pointer; }
 a:hover { text-decoration: underline; color: #5a7319; }
 
 .big, big { font-size: 20px; line-height: inherit; }
@@ -303,11 +311,6 @@ body { background: #fbfbf9; color: #646a72; margin: 0; padding: 0; }
 #view-summarizing #header .button-summarizing, #view-summarizingtags #header .button-summarizing { display: inline-block; }
 
 /* styles for specific pages */
-/* LOGIN */
-#view-login { background: #2e2723; color: white; }
-#view-login input, #view-login button { width: 100%; }
-#view-login #logo img { width: auto; height: 40px; }
-
 #view-observer-login { background: #2e2723; background-size: cover; color: white; }
 #view-observer-login input, #view-observer-login button { width: 100%; }
 #view-observer-login #logo { margin: 0 0 20px 0; }

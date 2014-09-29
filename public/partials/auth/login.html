@@ -1,4 +1,5 @@
 <div id="view-login">
+
 	<div class="grid pad-bottom">
 	
 		<div class="module third">
@@ -10,7 +11,7 @@
 		<div class="module third">
 			
 			<p id="logo" class="text-center">
-				<img src="../assets/scout-rev.png" />
+				<img src="/layout/assets/fg-binocs-header.png" />
 			</p>
 			
 			<form ng-model="user">
@@ -24,9 +25,9 @@
 						<input class="input" type="password" id="field-password" name="" value="" placeholder="Your password"  ng-model="user.password"/>
 					</li>
 								
-					<li>
-						<button class="button" type="submit" ng-click="login(user)">Login</button> 
-						<button class="button" type="submit" ng-click="register(user)">Register?</button> 
+					<li class="text-center">
+						<button class="button dark" type="submit" ng-click="login(user)">Login</button> 
+						<small><a ng-click="register(user)">Register?</a></small>
 					</li>
 					
 				</ul>
