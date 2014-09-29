@@ -66,7 +66,7 @@ app.post('/auth/login', function(req, res, next) {
             if (err) {
                 return res.json(err);
             }
-            return res.json({ redirect: '/profile' });
+            return res.json({ redirect: '/overview' });
         });
     })(req, res);
 });
@@ -87,7 +87,7 @@ app.post('/auth/signup', function(req, res, next) {
             if (err) {
                 return res.json(err);
             }
-            return res.json({ redirect: '/profile' });
+            return res.json({ redirect: '/overview' });
         });
     })(req, res);
 });

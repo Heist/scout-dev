@@ -18,6 +18,7 @@ angular.module('field_guide_controls')
     		.post(url, dataOut)
     		.success(function(data){
     			console.log('success!', data)
+                $location.path(data.redirect)
 
     		})
     		.error(function(error){
@@ -34,6 +35,7 @@ angular.module('field_guide_controls')
     		.post(url, dataOut)
     		.success(function(data){
     			console.log('success!', data)
+                $location.path(data.redirect)
     		})
     		.error(function(error){
     			console.log('login no bueno.', error)
