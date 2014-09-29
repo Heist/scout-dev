@@ -148,7 +148,7 @@ app.route('/api/session/')
         });
 	});
 
-app.route('/session/:_id')
+app.route('/api/session/:_id')
 	.get(function(req,res){
 		Session.findById(req.params._id)
 			.populate('_tests')

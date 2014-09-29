@@ -53,40 +53,40 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('test', {
             url: '/edit/test/:test_id',
             controller:'test',
-            templateUrl: 'partials/test.html'
+            templateUrl: 'partials/app/test.html'
         })
 
         // RUN TEST =======================================
         .state('run', {
             url: '/run/:_id',
             controller:'run',
-            templateUrl: 'partials/run.html'
+            templateUrl: 'partials/app/run.html'
         })
 
         // SUMMARIZE VIEW =================================
         .state('summary', {
             url: '/summary/:_id',
             controller:'summary',
-            templateUrl: 'partials/summary.html'
+            templateUrl: 'partials/app/summary.html'
         })
         .state('summary.test', {
-            templateUrl: 'partials/summary_test.html'
+            templateUrl: 'partials/app/summary_test.html'
         })
         .state('summary.task', {
-            templateUrl: 'partials/summary_task.html'
+            templateUrl: 'partials/app/summary_task.html'
         })
 
         // REPORT PAGE FOR SINGLE test ====================
         .state('report', {
             url: '/report/:test_id',
             controller:'report',
-            templateUrl: 'partials/report.html'
+            templateUrl: 'partials/app/report.html'
         })
         .state('report.test', {
-            templateUrl: 'partials/report_test.html'
+            templateUrl: 'partials/app/report_test.html'
         })
         .state('report.task', {
-            templateUrl: 'partials/report_task.html'
+            templateUrl: 'partials/app/report_task.html'
         })
 
         // LOGIN AND REGISTRATION PAGES ===================
