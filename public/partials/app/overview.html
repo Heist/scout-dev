@@ -1,18 +1,30 @@
-<div id="view-overview-neu">
+<div id="view-overview">
 	
 	<ng-include src="'partials/app/header.html'"></ng-include>
 	
-	<div id="large-pane">
 	
+	
+	<!-- sub bar -->
+	<div id="sub-bar">
+		<div class="container">
+			<h1>Tests</h1>
+			
+			<div class="sub-bar-controls">
+				<button class="button dark small" ng-click="newTest()">+ New test</button>
+			</div>
+			
+			<div class="clear"></div>
+		</div>
+	</div>
+		
+		
+		
 	<!-- show tests in db -->
-		<div >
-			<h3><span>{{user.name}}</span></h3>
-			
-			<div class="session-test" ng-repeat="test in tests | orderBy:'created'">
-				<div class="test-hamburger">
-					&equiv;
-				</div>
-			
+	<div class="container" id="overview-tests">	
+		
+		<!-- test -->	
+		<div class="overview-test module quarter" ng-repeat="test in tests | orderBy:'created'">
+		
 				<div class="session-test-controls">
 					<button class="button small" ng-click="summarizeTest(test._id)" ng-show="!test.summary" >Summarize</button>
 
@@ -28,8 +40,7 @@
 					<button class="button small secondary" ng-click="runTest(test)">Run Test</button>
 					<button class="button small destructive" ng-click="removeTest(test)">&times;</button>
 				</div>	
-
-					
+	
 				
 				<small>test 
 					<ng-pluralize count="test.count"
@@ -44,11 +55,12 @@
 				<div class="clear"></div>
 				
 			</div>	
-				
-				
-			<div class="session-test empty">
-				<button class="button" ng-click="newTest()">+ Add a new test</button>		
-			</div>	</div>
+		<!-- / test -->
+	
+		<div class="clear"></div>		
 			
 	</div>
+	
+	
+
 </div>

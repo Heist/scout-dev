@@ -6,14 +6,8 @@
 // see http://codepen.io/zakkain/pen/mLbfk for an example, or google “Don't Overthink It Grids”
 */
 
+
 .container {
-	width: 100%;
-	padding: 0;
-	margin: 0;
-}
-
-
-.grid {
     max-width: $max-width;
     //min-width: $min-width;
     margin: 0 auto;
@@ -51,6 +45,7 @@
     .five-twelfths { width: 41.6665%; }
 
  
+
 
 /* flexible columns for three-column pages */
 

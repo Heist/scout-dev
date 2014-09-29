@@ -1,0 +1,18 @@
+/* overview screen */
+
+
+#view-overview {
+	margin: 0;
+	padding: $pad*2.5 0 0 0;
+	
+	#overview-tests {
+		padding: $pad*2 0;
+	
+		.overview-test {
+			border: 1px solid #333;
+		}
+	
+	}
+	
+}
+

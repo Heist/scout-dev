@@ -6,23 +6,25 @@
 		<a href="/"><img src="/layout/assets/fg-binocs-header.png" /></a> 
 	</div>
 	
+	<!--
 	<div id="header-nav">
 		<ul>
 			<li><a href="/">Nav</a></li>
 			<li><a href="/">Other Nav</a></li>
-			<li><button class="button small header button-testing" ng-click="logout()">Log Out</button></li>
 		</ul>
 	</div>
+	-->
 	
 	
 	
-<!-- 	<div id="header-account">
+ 	<div id="header-account">
 		<div id="header-account-avatar">
-			<img src="https://s3.amazonaws.com/uifaces/faces/twitter/jackiesaik/128.jpg">
+			<img src="/layout/assets/avatar-header.png">
 		</div>
 		<div id="header-account-dropdown">&#9662;</div>
+
 	</div>			
- -->
+
 
 	<div id="header-buttons">
 		<!-- creating a flow -->
@@ -34,6 +36,8 @@
 		<!-- summarizing -->
 		<button class="button small header button-summarizing" ng-click="summary_tags(flow)">Add summaries for tags &raquo;</button>
 		<button class="button small header button-summarizing" ng-click="completeSummary(flow)">&check; Done Summarizing</button>
+		
+		<button class="button small header button-logout" ng-click="logout()">Log Out</button>
 	</div>
 
 
