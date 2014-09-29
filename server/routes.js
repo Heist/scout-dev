@@ -257,7 +257,7 @@ app.route('/api/test/')
 	});
 
 
-app.route('/test/:_id')
+app.route('/api/test/:_id')
 	.get(function(req,res){
 		// get one test
 
