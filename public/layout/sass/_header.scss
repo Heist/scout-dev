@@ -184,12 +184,15 @@
 				img {
 					width: 28px;
 					height: auto;
+					opacity: 0.2;
 				}
 			}
 			
 			#header-account-dropdown {
 				float: left;
 				padding: $pad/1.8 0 0 $pad/3;
+				color: #000;
+				opacity: 0.2;
 				
 			}
 					

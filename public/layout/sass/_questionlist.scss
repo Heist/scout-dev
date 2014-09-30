@@ -20,11 +20,13 @@
 			margin: 0; 
 			padding: 0;
 			opacity: 0.5;
+			text-transform: uppercase;
 		}
 		
 		h3 {
 			margin: 0; 
 			padding: 0;
+			@include type-light;
 		}
 		
 		
@@ -34,12 +36,24 @@
 			list-style: none;
 			
 			li {
-				padding: $pad;
+				padding: $pad/1.5 $pad;
 				margin: 0;
-
+				color: darken($white, 20%);
+				
+				h3 {
+					margin: 0 0 2px 0; 
+					padding: 0;
+				}
+				
+				p {
+					margin: 0; 
+					padding: 0;
+					font-size: $type-size-base*0.8;
+					line-height: $type-line-base*0.8;
+				}
 				
 				&:hover {
-					box-shadow: inset 0px 0px 0px 3px transparentize($white, 0.8);
+					box-shadow: inset 0px 0px 0px 2px transparentize($white, 0.8);
 					cursor: pointer;
 				}
 								
@@ -58,6 +72,7 @@
 					}
 				}
 				
+				
 				&.title {				
 					&:hover {
 						cursor: auto;
@@ -72,7 +87,7 @@
 				&.active {
 					background: $fg-black;
 					position: relative;
-					
+					color: $white;
 					
 					&:hover {
 						cursor: auto;

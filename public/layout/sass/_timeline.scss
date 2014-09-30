@@ -68,6 +68,25 @@
 		
 	}
 	
+	/* first-run message on timeline */
+	
+	#firstrun {
+		.message-body, .message-details {
+			padding-top: $pad;
+			padding-bottom: $pad;
+		}
+		
+		.message-body {
+			color: $fg-black;
+			font-size: $type-size-base;
+			line-height: $type-line-base;
+			
+			.tag {
+				padding: 0 $pad/4;
+			}
+		}
+	}
+	
 }
 
 
