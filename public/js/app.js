@@ -31,6 +31,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 function(response){ return response; }, 
                 // Error: check the error status to get only the 401 
                 function(response) { 
+                    console.log('interceptor response', response)
                     if (response.status === 401)
                         $location.url('/login'); 
                         return $q.reject(response); 

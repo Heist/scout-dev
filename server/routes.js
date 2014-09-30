@@ -32,7 +32,8 @@ app.use(function(req, res, next) {
 // route middleware to ensure user is logged in - ajax get
 function isLoggedInAjax(req, res, next) {
     if (!req.isAuthenticated()) {
-        return res.json( { redirect: '/login' } );
+    	return res.send( 401, "unauthorized request");
+        // return res.json( { redirect: '/login' } );
     } else {
         next();
     }
@@ -107,16 +108,18 @@ app.post('/auth/logout', function(req, res) {
 // 	})
 
 // PUBLIC ROUTES ==========================================
-// public routes should only permit read access on the database
-// specifically, the only read access supplied is for the reports view
+
+
+
 
 // MIDDLEWARE TO BLOCK NON-AUTHORIZED USERS ===============
-app.use('/api', function (req, res, next) {
+// this effectively prevents unlogged users from getting data
+app.use('/api',  isLoggedInAjax, function (req, res, next) {
 	// for calls that start with api....
 	console.log('touched the api tag')
+
   next();
 })
-
 
 // PRIVATE ROUTES =========================================
 

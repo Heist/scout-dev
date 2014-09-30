@@ -38,7 +38,6 @@ var userSchema = new Schema({
         email        : String,
         name         : String
     }
-
 });
 
 // generating a hash

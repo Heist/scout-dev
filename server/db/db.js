@@ -10,7 +10,7 @@ var auth_db = db.useDb('field_guide_users');
 module.exports = {auth: auth_db, db: db};
 
 // this segment does not work right now.
-	// db.on('error', console.error.bind(console, 'connection error:'));
-	// db.once('open', function callback () {
-	//  		// yay!
-	// });
+	db.on('error', console.error.bind(console, 'connection error:'));
+	db.once('open', function callback () {
+	 		// yay!
+	});
