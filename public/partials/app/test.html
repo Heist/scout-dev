@@ -1,107 +1,119 @@
 <!-- Add test -->
 <div id="view-createtest">
 
-<ng-include src="'partials/app/header.html'"></ng-include>
-
-
-
-<!-- create a test -->
-<div ng-model="test">
-<div id="left-pane" >
-	<h3>Create a test</h3>
-	<p>Let&lsquo;s start with a few pieces of information about your test.</p>
+	<ng-include src="'partials/app/header.html'"></ng-include>
 	
-
-	<ul class="lined">
-		<li>
-			<label for="field-testname">test name</label><br>
-			<input class="input" type="text" ng-model="test.name" id="field-testname" placeholder="What will you be testing?" />
-		</li>
-		
-
-		<!-- hide prototype stuff for now
-
-		<li>
-			<label for="field-prototype">Prototype link</label><br>
-			<input class="input" type="text" id="field-prototype" placeholder="What&lsquo;s the URL for your prototype?" ng-model="test.link" />
-		</li>
-		 
-		<li>
-			<div class="device-selector">
-				<label for="field-device-mobile"><img src="/layout/assets/platform-icons/mobile.svg"><br>Mobile</label><br>
-				<input type="radio" class="replace-control" name="field-device" id="field-device-mobile" ng-model="test.platform" value="mobile" />
+	
+	<!-- sub bar -->
+	<div id="sub-bar">
+		<div class="container">
+			<h1><span>Editing</span> {{test.name}}</h1>
+			
+			<div class="sub-bar-controls">
+				<button class="button small dark" ng-click="goHome()">Return To Overview</button>
 			</div>
-			<div class="device-selector">
-				<label for="field-device-tablet"><img src="/layout/assets/platform-icons/tablet.svg"><br>Tablet</label><br>
-				<input type="radio" class="replace-control" name="field-device" id="field-device-tablet" ng-model="test.platform" value="tablet" />
-			</div>
-			<div class="device-selector">
-				<label for="field-device-desktop"><img src="/layout/assets/platform-icons/desktop.svg"><br>Desktop</label><br>
-				<input type="radio" class="replace-control" name="field-device" id="field-device-desktop" ng-model="test.platform" value="desktop" />
-			</div>
+			
 			<div class="clear"></div>
-		</li>
-		-->
-
-		<li>
-			<label for="field-description">test description</label><br>
-			<textarea class="input" id="field-textarea" placeholder="What are the overall goals or outcomes you&lsquo;d like to achieve with this test?" ng-model="test.desc"></textarea>
-		</li>
-		
-	</ul>
-</div>
-
-<div id="middle-pane">
-	<h3>Add Steps</h3>
-	<p>Steps are the pages or views in your prototype. They should follow the intended user path of your prototype pretty closely.</p>
-
-	<ul id="steps" class="lined" ui-sortable="sortableOptions" ng-model='test.tasks' >
-
-		<li ng-repeat="task in test._tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="">
-		
-			<div class="step-hamburger">≡</div>
-
-
-			<div class="step-name" ng-hide="task.title_edit">
-				{{task.name | truncate:36}} &nbsp;<img class="pointer" src="/layout/assets/pencil-rev.svg" ng-click="editTitle(task)">
-			</div>
-
-			
-			<div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
-
-
-			<form ng-show="task.title_edit">
-
-				<input class="edit" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"> <span class="pointer">&check;</span>
-
-			</form>
-			
-
-			<div class="clear"></div>		
-		</li>
-		
-	</ul>
-
-	<div class="step empty">
-		<button class="button small" ng-click="newTask()">+ Add a task</a>
+		</div>
 	</div>
-</div>
-
-<div id="right-pane">
-	<div ng-hide="!selectedTask">
-		<!-- if a task is not selected do not show -->
-			<h3>&ldquo;{{ selectedTask.name }}&rdquo; questions</h3>
-			<p>Add questions to answer or tasks to complete about particular design elements in this step.</p>
-			
-			<ul class="lined">
+	
+		
+		
+	
+	<!-- task creation/editing -->
+	<div ng-model="test" class="container" id="createtest-container">
+		
+		<div class="module third">
+			<h3>Your Test</h3>
+	
+			<ul class="nobullets">
 				<li>
-					<label for="field-description">Questions for this task</label><br>
-					<textarea ng-model="selectedTask.desc" class="input" id="field-textarea" ng-blur="updateTask(selectedTask)"placeholder="{{selectedTask.desc}}">
-					</textarea>
-					<button class="button small" ng-click="goHome()">Return To Overview</button>
+					<label for="field-testname">test name</label>
+					<input class="input hollow" type="text" ng-model="test.name" id="field-testname" placeholder="What are you testing?" />
 				</li>
+				
+				
+				<!-- hide prototype stuff for now 
+				
+				<label for="field-prototype">Prototype link</label><br>
+				<input class="input" type="text" id="field-prototype" placeholder="What&lsquo;s the URL for your prototype?" ng-model="test.link" />
+	
+				
+				<li>
+					<div class="device-selector">
+						<label for="field-device-mobile"><img src="/layout/assets/platform-icons/mobile.svg"><br>Mobile</label><br>
+						<input type="radio" class="replace-control" name="field-device" id="field-device-mobile" ng-model="test.platform" value="mobile" />
+					</div>
+					<div class="device-selector">
+						<label for="field-device-tablet"><img src="/layout/assets/platform-icons/tablet.svg"><br>Tablet</label><br>
+						<input type="radio" class="replace-control" name="field-device" id="field-device-tablet" ng-model="test.platform" value="tablet" />
+					</div>
+					<div class="device-selector">
+						<label for="field-device-desktop"><img src="/layout/assets/platform-icons/desktop.svg"><br>Desktop</label><br>
+						<input type="radio" class="replace-control" name="field-device" id="field-device-desktop" ng-model="test.platform" value="desktop" />
+					</div>
+					<div class="clear"></div>
+				</li>
+				-->
+		
+				<li>
+					<label for="field-description">test description</label>
+					<textarea class="input small hollow" id="field-textarea" placeholder="What are the overall goals or outcomes you&lsquo;d like to achieve with this test?" ng-model="test.desc"></textarea>
+				</li>
+			
 			</ul>
+		
+		</div>
+	
+		<div class="module two-thirds">
+	
+			<h3>Tasks in this Test</h3>
+			<p>Tasks allow you to sort your notes &amp; feedback into groups.</p>
+		
+			<ul id="steps" ui-sortable="sortableOptions" ng-model='test.tasks'>
+		
+				<li ng-repeat="task in test._tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="">
+				
+					<div class="step-hamburger">≡</div>
+		
+					<div class="step-contents">
+			
+						<form>
+			
+							<input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
+							<textarea ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
+							</textarea>
+			
+						</form>
+						
+					</div>
+					
+					<div class="step-controls">
+						<div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
+					</div>
+							
+					<div class="clear"></div>		
+				</li>
+				
+				
+				<!-- add a task -->
+				<li>
+					<div class="step-hamburger">&nbsp;</div>
+					<div class="step-content"><button class="button" ng-click="newTask()">+ Add a task</a></button></div>
+				</li>
+				
+				
+			</ul>
+		
+			
+		
+	
+	
 	</div>
-</div>
+		
+		<div class="clear"></div>
+		
+	</div>	
+		
 
 </div>

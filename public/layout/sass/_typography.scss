@@ -105,20 +105,7 @@ p.small {
 	line-height: $type-line-base*0.8;
 }
 
-/* fun styling */
 
-.numberball {
-	display: inline-block;
-	min-width: 30px;
-	padding: $pad/4;
-	margin-top: -$pad/4;
-	margin-right: $pad/4;
-	text-align: center;
-	vertical-align: middle;
-	background: $fg-brown;
-	color: $background;
-	@include radius(40px);
-}
 
 /* lists */
 
@@ -133,6 +120,10 @@ ul {
 	&.nobullets {
 		list-style: none;
 		padding: 0;
+		
+		label {
+			display: block;
+		}
 	}
 	
 	&.lined {

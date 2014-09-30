@@ -10,15 +10,21 @@ Master Sass
 @import "colours";
 @import "fonts";
 @import "helpers";
-
+@import "typography";
 @import "forms";
 @import "grid";
+
+/* components */ 
+@import "header";
 @import "timeline";
 @import "questionlist";
+
+/* specific views */
+@import "views";
 @import "login";
 @import "overview";
 @import "subbar";
-@import "typography";
+@import "edittest";
 
 /* code that is NOT specific to a component or module */
 
@@ -39,12 +45,6 @@ body {
 	margin: 0;
 	padding: 0;
 }
-
-
-/* specific modules */
-
-@import "header";
-@import "views";
 
 
 /* form styling */
