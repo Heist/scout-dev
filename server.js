@@ -16,19 +16,15 @@ var session      = require('express-session');
 var app = express();
 var port = Number(process.env.PORT || 8080);
 
-var db = require('./server/db/db');
-var auth_db = require('./server/db/auth_db');
+var database = require('./server/db/db');
+var db = database.db;
+var auth_db = database.auth_db;
 
 
 // configuration ======================================================
 global.rootRequire = function(name) {
     return require(__dirname + '/' + name);
 }
-	// this segment does not work right now.
-	// db.on('error', console.error.bind(console, 'connection error:'));
-	// db.once('open', function callback () {
-	//  		// yay!
-	// });
 
 // express 4.0 basic configuration ====================================
 app.use(logger('\033[90m:date :method :url :response-time\\ms\033[0m \033[31m:referrer \033[0m'));

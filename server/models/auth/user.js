@@ -5,10 +5,12 @@
 // var mongoose = require('mongoose');
 // var connection = require('../../db/auth_db');
 
-var connect = require('../../db/auth_db')
-  , mongoose = require('mongoose')
-  , bcrypt = require('bcrypt-nodejs')
-  , Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var connect = require('../../db/db');
+connect = connect.auth;
+
+var bcrypt = require('bcrypt-nodejs');
+var Schema = mongoose.Schema;
  
 
 // define the schema for our user model
@@ -36,7 +38,6 @@ var userSchema = new Schema({
         email        : String,
         name         : String
     }
-
 });
 
 // generating a hash

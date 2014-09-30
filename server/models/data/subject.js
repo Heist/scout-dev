@@ -4,7 +4,8 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 
-var db = require('../../db/db');
+var connect = require('../../db/db');
+var db = connect.db;
 
 var SubjectSchema = new Schema ({
 	_tests : [{ type: Schema.Types.ObjectId, ref: 'Test' }],
