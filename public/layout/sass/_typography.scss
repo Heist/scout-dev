@@ -59,8 +59,8 @@ h3 {
 }
 
 h4 {
-	font-size: $type-size-base*1.25;
-	@include type-light;
+	font-size: $type-size-base;
+	@include type-bold;
 	margin: 0 0 $pad/2 0;
 }
 

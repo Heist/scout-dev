@@ -27,17 +27,22 @@ mixins
 	border-radius: $radius;
 }
 
-@mixin animate($time: 0.2s) {
-	-webkit-transition-duration: $time;
-	-webkit-transition-timing: ease-out; 
-	-o-transition-duration: $time;
-	-o-transition-timing: ease-out;
-	-moz-transition-duration: $time;
-	-moz-transition-timing: ease-out;
-	-ms-transition-duration: $time;
-	-ms-transition-timing: ease-out;
-	transition-duration: $time;
-	transition-timing: ease-out; 
+@mixin radius-top($radius: 4px) {
+	-webkit-border-top-left-radius: $radius;
+	-webkit-border-top-right-radius: $radius;
+	-moz-border-radius-topleft: $radius;
+	-moz-border-radius-topright: $radius;
+	border-top-left-radius: $radius;
+	border-top-right-radius: $radius;
+}
+
+@mixin radius-bottom($radius: 4px) {
+	-webkit-border-bottom-right-radius: $radius;
+	-webkit-border-bottom-left-radius: $radius;
+	-moz-border-radius-bottomright: $radius;
+	-moz-border-radius-bottomleft: $radius;
+	border-bottom-right-radius: $radius;
+	border-bottom-left-radius: $radius;
 }
 
 
@@ -45,10 +50,23 @@ mixins
 	background: $bg;
 	color: $text;
 	text-decoration: none;
-	text-decoration: none;
 		
 	&:hover {
 		background: transparentize($bg, 0.2);
+		color: $text;
+		text-decoration: none;
+	}
+}
+
+@mixin button-colour-hollow($bg, $text) {
+	background: none;
+	border: 1px solid transparentize($bg, 0.8);
+	@include type-light;
+	color: $bg;
+	text-decoration: none;
+		
+	&:hover {
+		background: $bg;
 		color: $text;
 		text-decoration: none;
 	}
