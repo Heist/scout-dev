@@ -36,7 +36,14 @@ app.use(bodyParser()); // get information from html forms
 require('./config/passport')(passport); // pass passport for configuration
 
 // session secret 
-app.use(session({ secret: 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT' })); 
+app.use(session(
+		{ secret: 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT', 
+		  cookie: {
+		        path: '/',
+		        expires: false, // Alive Until Browser Exits
+		        httpOnly: true
+		    }
+		 })); 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
