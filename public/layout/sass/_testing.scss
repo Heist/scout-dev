@@ -8,20 +8,20 @@
 	height: 100%;
 	width: 100%;
 	
-	#left-pane {
+	.left-pane {
 		padding: 0;	
 	}
 	
 	
 	/* the device */
-	#right-pane {
+	.right-pane {
 		float: right;
 		position: relative;						
 	}
 	
 	/* the chat */
 	
-	#middle-pane {
+	.middle-pane {
 		padding: 0;
 		margin: 0;
 		position: relative;

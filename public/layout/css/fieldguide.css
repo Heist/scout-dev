@@ -200,13 +200,13 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 .five-twelfths { width: 41.6665%; }
 
 /* flexible columns for three-column pages */
-#left-pane, #middle-pane, #right-pane, #large-pane { float: left; height: 100% !important; padding: 70px 30px 20px 30px; overtest-x: hidden; overtest-y: auto; }
+.left-pane, .middle-pane, .right-pane, .large-pane { float: left; height: 100% !important; padding: 70px 30px 20px 30px; overtest-x: hidden; overtest-y: auto; }
 
-#left-pane, #right-pane { width: 33%; }
+.left-pane, .right-pane { width: 33%; }
 
-#middle-pane { width: 34%; }
+.middle-pane { width: 34%; }
 
-#large-pane { width: 67%; }
+.large-pane { width: 67%; }
 
 /* fix up Angular containers so everything sits correctly */
 .ng-valid, .ng-invalid, .ng-dirty, .ng-pristine, .ng-touched, .ng-untouched { height: 100%; }
@@ -231,10 +231,25 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #header #header-account-drawer { width: 120px; padding: 0 6.66667px 6.66667px 6.66667px; position: absolute; top: 48px; right: 20px; background: #f37960; z-index: 9999; -webkit-border-bottom-right-radius: 8px; -webkit-border-bottom-left-radius: 8px; -moz-border-radius-bottomright: 8px; -moz-border-radius-bottomleft: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; }
 #header #header-account-drawer .button { width: 100%; }
 
-/* adjust button visibility based on where we are in the app */
-#view-createflow #header .button-createflow { display: inline-block; }
+/* active test header */
+/* header-specific styles */
+#header-run { position: fixed; top: 0; left: 0; width: 100%; height: 50px; z-index: 999999; padding: 0; }
+#header-run .left-pane { background: rgba(243, 121, 96, 0.95); color: #872717; height: 50px; padding: 0 20px !important; }
+#header-run .left-pane #header-logo { float: left; padding: 15px 0 0 0; margin: 0 20px 0 0; }
+#header-run .left-pane #header-logo a { border: none; }
+#header-run .left-pane #header-logo img { height: 20px; width: auto; }
+#header-run .large-pane { padding: 0 20px; background: #f2f2f0; border-bottom: 1px solid #e1e1dd; height: 50px; overflow: hidden; }
+#header-run .large-pane #header-buttons { float: right; padding: 10px 20px 0 0; margin: 0; }
+#header-run .large-pane #header-buttons .button { display: none; }
+#header-run .large-pane #header-account { float: right; cursor: pointer; }
+#header-run .large-pane #header-account #header-account-avatar { height: 28px; width: 28px; margin: 10px 0 0 10px; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; overflow: hidden; float: left; }
+#header-run .large-pane #header-account #header-account-avatar img { width: 28px; height: auto; }
+#header-run .large-pane #header-account #header-account-dropdown { float: left; padding: 11.11111px 0 0 6.66667px; }
+#header-run .large-pane #header-account-drawer { width: 120px; padding: 0 6.66667px 6.66667px 6.66667px; position: absolute; top: 48px; right: 20px; background: #f2f2f0; z-index: 9999; -webkit-border-bottom-right-radius: 8px; -webkit-border-bottom-left-radius: 8px; -moz-border-radius-bottomright: 8px; -moz-border-radius-bottomleft: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; }
+#header-run .large-pane #header-account-drawer .button { width: 100%; }
 
-#view-testing #header .button-testing { display: inline-block; }
+/* adjust button visibility based on where we are in the app */
+#view-testing #header-run #header-buttons .button-testing { display: inline-block; }
 
 #view-summarizing #header .button-summarizing, #view-summarizingtags #header .button-summarizing { display: inline-block; }
 
@@ -396,11 +411,11 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 
 /* SESSION IN PROGRESS */
 #view-testing { margin: 0; padding: 0; height: 100%; width: 100%; /* the device */ /* the chat */ }
-#view-testing #left-pane { padding: 0; }
-#view-testing #right-pane { float: right; position: relative; }
-#view-testing #middle-pane { padding: 0; margin: 0; position: relative; overtest: hidden; border-right: 1px solid #e7e7da; }
-#view-testing #middle-pane #session-input { position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px; height: 150px; overtest: hidden; background: white; z-index: 9999; }
-#view-testing #middle-pane #session-input textarea { width: 100%; height: 100%; margin: 0; }
+#view-testing .left-pane { padding: 0; }
+#view-testing .right-pane { float: right; position: relative; }
+#view-testing .middle-pane { padding: 0; margin: 0; position: relative; overtest: hidden; border-right: 1px solid #e7e7da; }
+#view-testing .middle-pane #session-input { position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px; height: 150px; overtest: hidden; background: white; z-index: 9999; }
+#view-testing .middle-pane #session-input textarea { width: 100%; height: 100%; margin: 0; }
 
 /* WHO ARE WE TESTING */
 #view-testing-userentry { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(66, 71, 76, 0.94); z-index: 999999999; color: white; margin: 0; padding: 18% 0 0 0; text-align: center; }

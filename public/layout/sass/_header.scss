@@ -115,20 +115,117 @@
 
 
 
-/* adjust button visibility based on where we are in the app */
+/* active test header */
+/* header-specific styles */
 
-#view-createflow {
-	#header {
-		.button-createflow {
-			display: inline-block;
+
+#header-run {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: $pad*2.5;
+	z-index: 999999;
+	padding: 0;
+	
+	.left-pane {
+		background: transparentize($fg-header-red, 0.05);
+		color: $fg-header-red-dark;
+		height: $pad*2.5;
+		padding: 0 $pad !important;
+		
+		#header-logo {
+			float: left;
+			padding: 15px 0 0 0;
+			margin: 0 $pad 0 0;
+			
+			a {
+				border: none;
+			}
+			
+			img {
+				height: 20px;
+				width: auto;
+			}
 		}
 	}
+	
+	
+	.large-pane {
+		padding: 0 $pad;
+		background: $fg-tan;
+		border-bottom: 1px solid darken($fg-tan, 7%);
+		height: $pad*2.5;
+		overflow: hidden;
+		
+		#header-buttons {
+			float: right;
+			padding: $pad/2 $pad 0 0;
+			margin: 0;
+			
+			.button {
+				display: none;
+			}
+		}
+			
+		
+		#header-account {
+			float: right;
+			cursor: pointer;
+			
+			#header-account-avatar {
+				height: 28px;
+				width: 28px;
+				margin: $pad/2 0 0 $pad/2;
+				@include radius(20px);
+				overflow: hidden;
+				float: left;
+				
+				img {
+					width: 28px;
+					height: auto;
+				}
+			}
+			
+			#header-account-dropdown {
+				float: left;
+				padding: $pad/1.8 0 0 $pad/3;
+				
+			}
+					
+		}
+		
+		#header-account-drawer {
+			width: 120px;
+			padding: 0 $pad/3 $pad/3 $pad/3;
+			position: absolute;
+			top: 48px;
+			right: $pad;
+			background: $fg-tan;
+			z-index: 9999;
+			@include radius-bottom(8px);
+			
+			.button {
+				width: 100%;
+			}
+		}
+		
+	}
+	
+	
+	
 }
 
+
+
+/* adjust button visibility based on where we are in the app */
+
 #view-testing {
-	#header {
-		.button-testing {
-			display: inline-block;
+	#header-run {
+		#header-buttons {
+			.button-testing {
+				display: inline-block;
+			}
 		}
 	}
 }
