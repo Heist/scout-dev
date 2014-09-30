@@ -28,7 +28,8 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         return {
             'response': function (response) {
                 //Will only be called for HTTP up to 300
-                // console.log('a response', response);
+                // console.log(response);
+                
                 return response;
             },
             'responseError': function (rejection) {
