@@ -4,7 +4,9 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 
-var db = require('../../db/db');
+var connect = require('../../db/db');
+var db = connect.db;
+
 
 var TestSchema = new Schema({
 		_session : { type: Schema.Types.ObjectId, ref: 'Session' },

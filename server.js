@@ -16,8 +16,9 @@ var session      = require('express-session');
 var app = express();
 var port = Number(process.env.PORT || 8080);
 
-var db = require('./server/db/db');
-var auth_db = require('./server/db/auth_db');
+var database = require('./server/db/db');
+var db = database.db;
+var auth_db = database.auth_db;
 
 
 // configuration ======================================================
