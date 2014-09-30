@@ -14,6 +14,7 @@ var TestSchema = new Schema({
 		_tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
 		_subjects: [{ type: Schema.Types.ObjectId, ref: 'Subject' }],
 
+		created_by : { type: String, trim: true },
 		desc	: { type: String, trim: true },
 		link	: { type: String, trim: true },
 		name 	: { type: String, trim: true, default: 'my new flow name' },
