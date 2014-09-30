@@ -35,9 +35,11 @@ app.use(bodyParser()); // get information from html forms
 // passport configuration =============================================
 require('./config/passport')(passport); // pass passport for configuration
 
-app.use(session({ secret: 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT' })); // session secret
+// session secret 
+app.use(session({ secret: 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT' })); 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // server /api/ routes ================================================
