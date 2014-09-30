@@ -33,8 +33,8 @@ app.use(function(req, res, next) {
 function isLoggedInAjax(req, res, next) {
     if (!req.isAuthenticated()) {
     	return res.send( 401, "unauthorized request");
-        // return res.json( { redirect: '/login' } );
     } else {
+    	console.log('login good')
         next();
     }
 }
@@ -43,8 +43,6 @@ function isLoggedInAjax(req, res, next) {
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
-
-    res.redirect('/overview');
 }
 
 app.get('/auth/login', isLoggedInAjax, function(req, res) {
@@ -67,7 +65,7 @@ app.post('/auth/login', function(req, res, next) {
             if (err) {
                 return res.json(err);
             }
-            return res.json({ redirect: '/overview' });
+            return res.json({ user: req.user._id, redirect: '/overview' });
         });
     })(req, res);
 });

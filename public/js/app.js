@@ -23,22 +23,25 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
     $httpProvider.defaults.timeout = 3000;
 
+    // New interceptor from http://stackoverflow.com/questions/21230417/capture-http-401-with-angular-js-interceptor
+    var interceptor = function ($q) {
+        return {
+            'response': function (response) {
+                //Will only be called for HTTP up to 300
+                // console.log('a response', response);
+                return response;
+            },
+            'responseError': function (rejection) {
+                if(rejection.status === 401) {
+                    window.location = '/login'
+                }
+                return $q.reject(rejection);
+            }
+        };
+    }
+
     // this effectively blocks loading despite the weird syntax
-    $httpProvider.interceptors.push(function($q, $location) { 
-        return function(promise) { 
-            return promise.then( 
-                // Success: just return the response 
-                function(response){ return response; }, 
-                // Error: check the error status to get only the 401 
-                function(response) { 
-                    console.log('interceptor response', response)
-                    if (response.status === 401)
-                        $location.url('/login'); 
-                        return $q.reject(response); 
-                    }
-                ); 
-        }
-    });
+    $httpProvider.interceptors.push(interceptor);
 
     $urlRouterProvider.otherwise("/login");
     // $urlRouterProvider.otherwise("/overview");
@@ -47,7 +50,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $stateProvider
         // OVERVIEW AND test CREATION =====================
         .state('overview', {
-            url: '/overview',
+            url: '/overview/:user_id',
             controller: 'overview',
             templateUrl: 'partials/app/overview.html'
         })
