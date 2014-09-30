@@ -65,7 +65,8 @@ app.post('/auth/login', function(req, res, next) {
             if (err) {
                 return res.json(err);
             }
-            return res.json({ user: req.user._id, redirect: '/overview' });
+            var user = {id:req.user._id, email:req.user.local.email};
+            return res.json({ user: user, redirect: '/overview' });
         });
     })(req, res);
 });

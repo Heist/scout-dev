@@ -18,7 +18,8 @@ angular.module('field_guide_controls')
     		.post(url, dataOut)
     		.success(function(data){
     			console.log('success!', data)
-                $location.path(data.redirect+'/'+data.user)
+                $rootScope.user = data.user;
+                $location.path(data.redirect);
     		})
     		.error(function(error){
     			console.log('signup no bueno.', error)
@@ -33,7 +34,7 @@ angular.module('field_guide_controls')
     	$http
     		.post(url, dataOut)
     		.success(function(data){
-    			console.log('success!', data)
+    			console.log('login controller success', data)
                 $location.path(data.redirect+'/'+data.user)
     		})
     		.error(function(error){

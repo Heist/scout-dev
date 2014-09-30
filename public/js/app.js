@@ -28,8 +28,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         return {
             'response': function (response) {
                 //Will only be called for HTTP up to 300
-                // console.log(response);
-                
                 return response;
             },
             'responseError': function (rejection) {
@@ -51,7 +49,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $stateProvider
         // OVERVIEW AND test CREATION =====================
         .state('overview', {
-            url: '/overview/:user_id',
+            url: '/overview',
             controller: 'overview',
             templateUrl: 'partials/app/overview.html'
         })
