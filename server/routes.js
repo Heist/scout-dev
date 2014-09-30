@@ -33,7 +33,6 @@ app.use(function(req, res, next) {
 function isLoggedInAjax(req, res, next) {
     if (!req.isAuthenticated()) {
     	return res.send( 401, "unauthorized request");
-        // return res.json( { redirect: '/login' } );
     } else {
         next();
     }
