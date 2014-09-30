@@ -9,7 +9,61 @@
 		padding: $pad*2 0;
 	
 		.overview-test {
-			border: 1px solid #333;
+			
+			.overview-test-container {
+				width: 100%;
+			}
+			
+			.test-controls {
+				background: $fg-green-dark;
+				padding: $pad $pad/2 $pad/2 $pad/2;
+				text-align: center;
+				@include radius-top;
+				
+				.button {
+					width: 85%;
+					@include button-colour-hollow($white, $fg-green-dark);
+					margin: 0 0 $pad/2 0;
+				}
+			}
+			
+			.test-info {
+				padding: $pad/1.5 $pad/2;
+				text-align: center;
+				@include dropshadow;
+				@include radius-bottom;
+				font-size: $type-size-base*0.8;
+				position: relative;
+				
+				&:hover {
+					.removeTest {
+						display: block;
+					}
+				}
+				
+				.removeTest {
+					font-size: $type-size-base*2;
+					position: absolute;
+					bottom: 2px;
+					right: 4px;
+					text-decoration: none;
+					display: none;
+					
+					&:hover {
+						color: $fg-red;
+					}
+				}
+				
+				a {
+					text-decoration: underline;
+				}	
+				
+				h4 {
+					color: $fg-black;
+					margin: 0;
+				}	
+			}
+			
 		}
 	
 	}

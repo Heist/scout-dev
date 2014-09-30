@@ -24,37 +24,33 @@
 		
 		<!-- test -->	
 		<div class="overview-test module quarter" ng-repeat="test in tests | orderBy:'created'">
-		
-				<div class="session-test-controls">
-					<button class="button small" ng-click="summarizeTest(test._id)" ng-show="!test.summary" >Summarize</button>
-
-					<button class="button small" ng-click="summarizeTest(test._id)" ng-show="test.summary" >Summary</button>
-					
-					<!-- TODO: we want to view a report just for this test -->
-					<button class="button small" ng-click="loadReport(test._id)" ng-show="test.summary" >View Report</button> 
-					
-
-					<button class="button small secondary" ng-click="editTest(test)" ng-hide="test.count > 0" >Edit</button>
-					&nbsp;&nbsp;
-					
-					<button class="button small secondary" ng-click="runTest(test)">Run Test</button>
-					<button class="button small destructive" ng-click="removeTest(test)">&times;</button>
-				</div>	
+			
+				<div class="overview-test-container">
+				
+					<div class="test-controls">
+							
+						<button class="button small" ng-click="editTest(test)">Edit Test</button><br/>
+						
+						<button class="button small" ng-click="runTest(test)">Run Test</button><br/>
+						
+						<button class="button small" ng-click="summarizeTest(test._id)" ng-show="!test.summary" >Create Summary</button>
 	
+						<button class="button small" ng-click="summarizeTest(test._id)" ng-show="test.summary" >Edit Summary</button>
+						
+						
+					</div>	
+	
+					<div class="test-info">
+						<h4>{{test.name}}</h4>
 				
-				<small>test 
-					<ng-pluralize count="test.count"
-                		when="{'0': 'never run.',
-                       'one': 'run once.',
-                       '2': 'run twice.',
-                       'other': 'run {} times.'}">
-					</ng-pluralize>
-  				</small>
-				<h3>{{test.name}}</h3>
-				<p>{{test.summary}}</p>
-				<div class="clear"></div>
+						&nbsp;<a ng-click="loadReport(test._id)" ng-show="test.summary" >View Report</a>&nbsp;
+						
+						<a class="removeTest" ng-click="removeTest(test)">&times;</a>
+					</div>
+					
+			</div>
 				
-			</div>	
+		</div>	
 		<!-- / test -->
 	
 		<div class="clear"></div>		
