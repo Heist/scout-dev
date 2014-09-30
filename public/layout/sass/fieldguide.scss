@@ -25,6 +25,7 @@ Master Sass
 @import "overview";
 @import "subbar";
 @import "edittest";
+@import "testing";
 
 /* code that is NOT specific to a component or module */
 
@@ -40,7 +41,7 @@ html {
 }
 
 body {
-	background: $background;
+	background: $white;
 	color: $text;
 	margin: 0;
 	padding: 0;

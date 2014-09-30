@@ -1,0 +1,83 @@
+
+
+/* SESSION IN PROGRESS */
+
+#view-testing {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	
+	#left-pane {
+		padding: 0;	
+	}
+	
+	
+	/* the device */
+	#right-pane {
+		float: right;
+		position: relative;						
+	}
+	
+	/* the chat */
+	
+	#middle-pane {
+		padding: 0;
+		margin: 0;
+		position: relative;
+		overtest: hidden;
+		border-right: 1px solid $line;
+		
+		#session-input {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			padding: $pad/2;
+			height: 150px;
+			overtest: hidden;
+			background: $white;
+			z-index: 9999;
+			
+			textarea {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+			}
+		}
+		
+	}
+
+	
+}
+
+
+/* WHO ARE WE TESTING */
+
+#view-testing-userentry {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: transparentize($fg-slate, 0.06);
+	z-index: 999999999;
+	color: $white;
+	margin: 0;
+	padding: 18% 0 0 0;
+	text-align: center;
+	
+	.input, .button {
+		width: 100%;
+	}
+	
+	img {
+		height: 40px;
+		width: auto;
+	}
+	
+	.third {
+		padding: 0 $pad*2;
+	}
+}
+
