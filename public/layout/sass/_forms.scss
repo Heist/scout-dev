@@ -12,7 +12,7 @@ form {
 .input, .button {
 	display: inline-block;
 	margin: 0;
-	padding: $pad/1.5;
+	padding: $pad/2 $pad/1.5;
 	@include radius;
 	@include type-regular;
 	font-size: $type-size-base;
@@ -22,10 +22,30 @@ form {
 
 
 .input {
-	background: $white; 
+	background: $white;
+	border: 1px solid $line; 
 
 	&:focus {
 		@include insetshadow;
+	}
+	
+	&.small {
+		font-size: $type-size-base*0.8;
+		line-height: 1.5;
+	}
+	
+	&.tight {
+		padding: $pad/3 $pad/2;
+	}
+	
+	&.hollow {
+		background: none;
+		border: 1px solid transparentize($line, 0.5);
+		
+		&:focus {
+			background: $white;
+			border: 1px solid $line; 
+		} 
 	}
 	
 }
@@ -78,36 +98,12 @@ textarea.input {
 label {
 	padding: 0;
 	margin: 0;
-	font-size: $type-size-base*0.8;
-	opacity: 0.4;
+	font-size: $type-size-base*0.7;
+	opacity: 0.5;
+	text-transform: uppercase;
 }
 
-/* built-in form formatting */
 
-ul.withlabels {
-	li {
-		&:after {
-		  content: "";
-		  display: table;
-		  clear: both;
-		}
-	}
-
-	.label {
-		width: 35%;
-		float: left;
-	}
-		
-	.controls {
-		width: 65%;
-		float: left;
-		
-		.input {
-			width: 100%;
-		}
-	}
-	
-}
 
 /* replace radio butts and checkboxes */
 

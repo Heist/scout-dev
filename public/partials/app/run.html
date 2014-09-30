@@ -1,7 +1,7 @@
 <div id="view-testing">	
 	
 	
-	<ng-include src="'partials/app/header.html'"></ng-include>
+	<ng-include src="'partials/app/header-run.html'"></ng-include>
 	
 	
 
@@ -33,6 +33,8 @@
 	</div>
 	
 	
+	
+	
 	<!-- create a test -->
 	
 	<div id="left-pane" ng-model="tests">
@@ -46,9 +48,7 @@
 					<li ng-repeat="task in test._tasks" 
 						ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
              			ng-click="activate($parent.$index, $index)">
-             			
-             			<span>{{task.name}}</span>
-             			
+
 						<h3>{{task.name}}</h3>
 						<p ng-bind-html="task.desc | linebreaker"></p>
 					</li>
@@ -72,6 +72,19 @@
 		<!-- timeline -->
 		<div id="timeline" >
 			<ul ng-model='timeline'>
+				
+				<!-- empty state -->
+				<li class="message">
+					<div class="message-details">
+						<div class="message-details-avatar">&nbsp;</div>
+					</div>
+					<div class="message-body">
+						Hey now this is my first-run message
+						You can use <span class="tag">#hashtags</span> or whatever!
+					</div>
+					<div class="clear"></div>
+				</li>				
+				<!-- /empty state -->
 						
 				<li class="message" ng-repeat="message in timeline track by $index">
 					
@@ -84,7 +97,6 @@
 						<small ng-if="message.title">{{message.title}}</small>
 						<p ng-bind-html="message.body | hashtag"></p>
 						<small>{{message.created | date : 'hh:mm'}}</small>
-
 					</div>
 					
 					<!--
@@ -118,15 +130,11 @@
 				<small>Testing with</small>
 				<h2>{{user.name}}</h2>
 				
-				<button class="button">New participant</button>
+				<!--<button class="button">New participant</button>-->
 				
 			</div>	
 		</div>
 		
-	
-		<div id="timeline-timer">
-			<h3>05:37</h3>
-		</div>
 			
 	</div>
 	

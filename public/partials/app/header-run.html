@@ -1,0 +1,50 @@
+<!-- header -->
+
+<div id="header" ng-controller="login">
+	
+	<div id="header-logo">
+		<a href="/overview"><img src="/layout/assets/fg-binocs-header.png" /></a> 
+	</div>
+	
+	<!--
+	<div id="header-nav">
+		<ul>
+			<li><a href="/">Nav</a></li>
+			<li><a href="/">Other Nav</a></li>
+		</ul>
+	</div>
+	-->
+	
+	
+	
+ 	<div id="header-account" ng-model="collapsed" ng-click="collapsed=!collapsed">
+		<div id="header-account-avatar">
+			<img src="/layout/assets/avatar-header.png">
+		</div>
+		<div id="header-account-dropdown">&#9662;</div>
+	</div>			
+	
+	<div id="header-account-drawer" ng-show="collapsed">
+		<button class="button small header" ng-click="logout()">Log Out</button>
+	</div>
+	
+
+	<div id="header-buttons">
+		<!-- creating a flow -->
+		<button class="button small header button-createflow" ng-click="updateTest()">&check; Done creating flow</button>
+		
+		<!-- running a test -->
+		<button class="button small header button-testing" ng-click="postTest()">Stop Testing</button>
+		
+		<!-- summarizing -->
+		<button class="button small header button-summarizing" ng-click="summary_tags(flow)">Add summaries for tags &raquo;</button>
+		<button class="button small header button-summarizing" ng-click="completeSummary(flow)">&check; Done Summarizing</button>
+		
+	</div>
+
+
+	<div class="clear"></div>
+
+</div>
+
+<!-- /header -->
