@@ -51,6 +51,7 @@ angular.module('field_guide_controls')
             .success(function(data){
                 console.log('Success! Logged out.', data);
                 $location.path(data.redirect);
+                $rootScope.user = '';
             })
             .error(function(error){
                 console.log('logout no bueno.', error);

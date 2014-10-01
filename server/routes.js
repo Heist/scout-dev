@@ -89,6 +89,7 @@ app.post('/auth/signup', function(req, res, next) {
 });
 
 app.post('/auth/logout', function(req, res) {
+	console.log('logout request', req)
    req.logout();
    res.json({ redirect: '/login' });
 });
