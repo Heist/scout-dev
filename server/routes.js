@@ -822,7 +822,7 @@ app.route('/api/summary/:_id')
 		// if we have tasks, update them in the db.
 		if(req.body.tasks){
 			for(var i = 0; i < req.body.tasks.length; i++){
-				console.log('how many tasks',req.body.tasks.length)
+				console.log('task',req.body.tasks[i])
 
 				var eyedee = req.body.tasks[i]._id;
 				var summary = req.body.tasks[i].summary;
