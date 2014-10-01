@@ -827,25 +827,21 @@ app.route('/api/summary/:_id')
 				var eyedee = req.body.tasks[i]._id;
 				var summary = req.body.tasks[i].summary;
 				var pass_fail = req.body.tasks[i].pass_fail;
+				// console.log('summary, pass_fail', summary, pass_fail);
 
-				Task.findOne({_id: req.body.tasks[i]._id})
-					.exec(function(err, tsk){
-						// console.log('request variables', eyedee, summary, pass_fail)
-						if(err) res.send(err);
-						if(summary){tsk.summary = summary}
-						if(pass_fail){tsk.pass_fail = pass_fail}
-
-				 		tsk.save(function(err, data){
-				 			if(err) res.send(err);
-				 			console.log('task save data');
-				 		});
-
+				Task.findByIdAndUpdate(
+					req.body.tasks[i]._id,
+					{'pass_fail': pass_fail,
+					 'summary':summary },
+					function(err, task){
+						if(err) res.send(err)
+						// console.log('task updated', task)
 					});
 				
 				
 				// if the task object contains messages, update those.
 				if(req.body.tasks[i].messages){
-					console.log('messages length', req.body.tasks[i].messages.length);
+					// console.log('messages length', req.body.tasks[i].messages.length);
 					for(var j = 0; j < req.body.tasks[i].messages.length;j++){
 						for(var k = 0; k < req.body.tasks[i].messages[j].length; k++){
 
@@ -855,7 +851,7 @@ app.route('/api/summary/:_id')
 
 							Message.findByIdAndUpdate(msg_id, { 'fav' : fav}, function(err, mess){
 								if(err) res.send(err);
-								console.log('message saved', mess)
+								// console.log('message saved', mess)
 							});
 						}
 					}
