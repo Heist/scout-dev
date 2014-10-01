@@ -1,10 +1,6 @@
 /* styles for specific pages */
 
 
-
-
-
-
 #view-observer-login {
 	background: $fg-brown;
 	background-size: cover;
@@ -49,107 +45,6 @@
 
 
 
-
-
-
-/* THE SUMMARY */
-
-#view-summarizing {
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	width: 100%;
-	
-	#left-pane {
-		border-right: 2px solid $line;
-		padding: 0;
-	}
-	
-	#middle-pane {
-		border-right: 2px solid $line;
-		
-		textarea {
-			width: 100%;
-			height: 240px;
-		}
-		
-		#field-addtags {
-			width: 100%;
-		}
-		
-		#tags-showhide {
-			label {
-				display: block;
-				margin: $pad/4 0 $pad/2 0;
-				line-height: $type-line-base*0.8;
-			}
-			
-			.deactivated {
-				opacity: 0.4;
-			}
-		}
-	}
-	
-	#right-pane {
-		padding: 0;
-		margin: 0;
-		background: $white;	
-		overtest: hidden;
-	}
-	
-	#timeline {
-		margin-top: 50px;
-		overtest: auto;
-		
-		.message {
-			.message-body {
-				width: 75%;
-			}
-			
-			.message-fave {
-				float: left;
-				margin: 0 0 0 $pad/2;
-				font-size: $type-size-base*1.5;
-			}
-		}
-	}
-	
-}
-
-
-/* let's summarize TAGS */
-
-#view-summarizingtags {
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	width: 100%;
-	background: $white;
-	
-	#left-pane {
-		background: $background;
-	
-		.active span {
-			background: $fg-green;
-			color: $white;
-			border: 2px solid $fg-green;
-		}
-	}
-	
-	#middle-pane {
-		border-left: 2px solid $line;
-		border-right: 2px solid $line;
-		
-		textarea {
-			width: 100%;
-			height: 240px;
-		}
-		
-		.destructive {
-			float: right;
-		}
-	}	
-}
 
 
 

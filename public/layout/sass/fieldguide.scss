@@ -17,15 +17,17 @@ Master Sass
 /* components */ 
 @import "header";
 @import "timeline";
-@import "questionlist";
+@import "tasklist";
+@import "tasklist-sidebar";
 
 /* specific views */
 @import "views";
 @import "login";
 @import "overview";
 @import "subbar";
-@import "edittest";
+@import "editing";
 @import "testing";
+@import "summarizing";
 
 /* code that is NOT specific to a component or module */
 

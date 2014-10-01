@@ -2,19 +2,12 @@
 
 
 
-#view-createtest {
+#view-editing {
 	margin: 0;
 	padding: $pad*2.5 0 0 0;
 	
-	#sub-bar {
-		h1 {
-			span {
-				opacity: 0.4;
-			}
-		}
-	}
 	
-	#createtest-container {
+	#editing-container {
 		padding: $pad*2 0;
 		
 		.third {

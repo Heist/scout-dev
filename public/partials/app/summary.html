@@ -1,44 +1,74 @@
 <!-- summary.html -->
 
-<div id="view-summarizing" id="#view-summarizingtags">
+<div id="view-summarizing" ng-model='test'>
 
-
-<div ng-model='test'>
-
-
-<ng-include src="'partials/app/header.html'"></ng-include>
-
-
-<!-- create a test -->
-
-<div id="left-pane" >
 	
-	<div id="questions">
-		
-		<div class="questions-group active">
-			<ul>
-				<li ng-model='test' ui-sref=".test" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(test, $index)"><!-- test.name --><small>test</small><br/>
-					{{test.name}}</li>
-				<li class="question" ng-repeat="task in tasks" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(task, $index)">
-					<span>{{task.name}}</span>
-					
-					<div class="step-rating" ng-click="passFail(task)">
-						<img src="/layout/assets/rate-positive.svg" ng-show="task.pass_fail == true"/>
-						<img src="/layout/assets/rate-negative.svg" ng-show="task.pass_fail == false">
-					</div>
-					
-					<h3>{{task.name}}</h3>
-					<p class="question-body" ng-show="$index == selectedIndex && $parent.$index == parentIndex">
-						{{task.desc}}
-					</p>
-				</li>
-			</ul>
+	<ng-include src="'partials/app/header.html'"></ng-include>
+	
+	
+	<!-- sub bar -->
+	<div id="sub-bar">
+		<div class="container">
+			<h1><span>Summarizing</span> {{test.name}}</h1>
+			
+			<div class="sub-bar-controls">
+				<button class="button small dark button-summarizing" ng-click="completeSummary(flow)">&check; Done Summarizing</button>
+			</div>
+			
+			<div class="clear"></div>
 		</div>
-	</div>		
+	</div>
+	
+	
+	
+	<div class="container" id="summarizing-container">
+	
+	
+		<div class="module third">
+	
+			<div id="sidebar">	
+			
+				<ul>
+					<li ng-model='test' ui-sref=".test" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(test, $index)">
+						<small>test</small>
+						<h3>{{test.name}}</h3>
+					</li>
+						
+					<li class="question" ng-repeat="task in tasks" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(task, $index)">
+										
+						<!--<div class="step-rating" ng-click="passFail(task)">
+							<img src="/layout/assets/rate-positive.svg" ng-show="task.pass_fail == true"/>
+							<img src="/layout/assets/rate-negative.svg" ng-show="task.pass_fail == false">
+						</div>-->
+						
+						<h3>{{task.name}}</h3>
+						<p>{{task.desc}}</p>
+						
+					</li>
+				</ul>
+			
+			</div>
+			
+			
+		</div>
+		
+		
+		<!-- the summarizing area -->
+		<div class="module two-thirds">
+		<div ui-view >
+			<!-- this pane is set in summary_test and summary_task -->
+		</div>
+		</div>
+		
+		<div class="clear"></div>
+	
+	</div>
+
 </div>
 
-<div ui-view >
-	<!-- this pane is set in summary_test and summary_task -->
-</div>
-<!-- / create a test -->
-</div>
+
+
+
+
+
+

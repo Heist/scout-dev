@@ -7,10 +7,8 @@
 
 	<!-- participant definition overlay -->
 	<div id="view-testing-userentry" ng-model="user" ng-hide="user.toggle">
-	    
-	    <div class="module third">&nbsp;</div>
 	        
-	    <div class="module third">
+	   <div id="user-entry">
 	    
 	        <img src="/layout/assets/avatar-rev.svg" />
 	        
@@ -29,7 +27,6 @@
 	        
 	    </div>
 	    
-	    <div class="clear"></div>
 	</div>
 	
 	
@@ -39,22 +36,20 @@
 	
 	<div class="left-pane" ng-model="tests">
 		
-		<div id="questions">
-	
-			<div class="questions-group" ng-repeat="test in tests  | orderBy:['created']" ng-class="{ 'active': $index == parentIndex }">
-				<ul>
-					<li class="title"><small>test</small><h3>{{test.name}}</h3></li>
-				
-					<li ng-repeat="task in test._tasks" 
-						ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
-             			ng-click="activate($parent.$index, $index)">
+		<div id="tasklist">
 
-						<h3>{{task.name}}</h3>
-						<p ng-bind-html="task.desc | linebreaker"></p>
-					</li>
-				</ul>
-			</div>
+			<ul ng-repeat="test in tests  | orderBy:['created']" ng-class="{ 'active': $index == parentIndex }">
+				<li class="title"><small>test</small><h3>{{test.name}}</h3></li>
 			
+				<li ng-repeat="task in test._tasks" 
+					ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
+         			ng-click="activate($parent.$index, $index)">
+
+					<h3>{{task.name}}</h3>
+					<p ng-bind-html="task.desc | linebreaker"></p>
+				</li>
+			</ul>
+		
 		</div>
 			
 	</div>
@@ -79,7 +74,7 @@
 						<div class="message-details-avatar">&bull;</div>
 					</div>
 					<div class="message-body">
-						Your test is running! Remember, it&rsquo;s all about volume &mdash;
+						Your test is running! Remember, it&rsquo;s all about capturing notes &mdash;
 						you&rsquo;ll have an opportunity to pick the best
 						feedback later. Use <span class="tag">#hashtags</span> to capture themes.
 					</div>

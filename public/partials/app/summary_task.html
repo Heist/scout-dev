@@ -1,5 +1,5 @@
 <!-- summary_step -->
-<div id="middle-pane" ui-view >
+<div ui-view >
 	<div ng-model='task' ng-show="task.name">
 			<h3>&ldquo;{{task.name}}&rdquo; summary</h3>
 			<p>Add a summary for this task to capture any notable outcomes, directions, or action items.</p>
@@ -14,7 +14,7 @@
 	</div>
 </div>
 
-<div id="right-pane" ng-model="task">
+<div ng-model="task">
 	<div id="timeline" >
 		<strong>All users for &ldquo;{{task.name}}&rdquo;</strong>
 				
