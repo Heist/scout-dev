@@ -18,7 +18,7 @@ var TaskSchema = new Schema ({
 	name: { type : String, trim : true },
 	desc : { type : String, trim : true },
 	summary: { type : String, trim : true },
-	pass_fail: { type: Boolean, default: false },
+	pass_fail: { type: Boolean, default: true },
 	
 	index: Number,
 	created: Date,
