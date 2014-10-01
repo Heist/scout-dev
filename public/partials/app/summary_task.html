@@ -19,21 +19,26 @@
 		<strong>All users for &ldquo;{{task.name}}&rdquo;</strong>
 				
 				<ul>
-					<li ng-repeat="message in task.messages" class="message">
-						<div class="message-body">
-							<p ng-bind-html="message.body | hashtag"></p>
-							<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>
-						</div>
-
-						<div class="message-fave">
-							<a ng-click="saveFav(message)" ng-if="message.fav">
-								&#9733;
-							</a>
-							<a ng-click="saveFav(message)" ng-if="!message.fav">
-								&#9734;
-							</a>
-						</div>
-						<div class="clear"></div>
+					<li ng-repeat="user in task.messages" class="message">
+						{{user[0].subject.name}}
+						<ul>	
+							<li ng-repeat="message in user">
+								<div class="message-body">
+									<p ng-bind-html="message.body | hashtag"></p>
+									<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>
+								</div>
+		
+								<div class="message-fave">
+									<a ng-click="saveFav(message)" ng-if="message.fav">
+										&#9733;
+									</a>
+									<a ng-click="saveFav(message)" ng-if="!message.fav">
+										&#9734;
+									</a>
+								</div>
+								<div class="clear"></div>
+							</li>
+						</ul>
 					</li>
 				</ul>
 					

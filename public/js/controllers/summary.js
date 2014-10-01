@@ -21,31 +21,21 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
             // break out the message block with _id matching task._id
             // sort it by username
             // insert it into task.messages
+            // TODO: underscore could probably do this better.
 
             for(var i = 0; i < data.tasks.length; i++){
                 // for each task....
                 for (var j = 0; j < data.messages.length;j++){
                   // for each message block...
                     if(data.tasks[i]._id == data.messages[j]._id){
-                        console.log(data.tasks[i]._id, data.messages[j]._id);
+                        // console.log(data.tasks[i]._id, data.messages[j]._id);
                         $scope.tasks[i].messages =  data.messages[j].messages;
                     }
                 }
-
-                var messages = _.groupBy($scope.tasks[i].messages, function(z){return z.subject.name});
-                console.log('messages for task', messages)
-                console.log('task messages', $scope.tasks[i].messages )
+                // group by subject.name using underscore.
+                $scope.tasks[i].messages = _.groupBy($scope.tasks[i].messages, function(z){return z.subject.name});
             }
-
-
-            // break open messages
-            // group by subject.name
-           
-
-            console.log('$scope.tasks.messages', $scope.tasks)
-           
-
-
+            
             console.log('test', $scope.test, 'tasks',$scope.tasks,'messages',$scope.messages)
             $scope.activate($scope.test)
 
