@@ -3,6 +3,7 @@ module.exports = function(app, passport) {
 // CONFIGURATION =====================================================
 // Module dependencies
 var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
+var _ = require('underscore');
 
 // load data storage models
 var Message = require('./models/data/message');
@@ -655,6 +656,14 @@ app.route('/api/subject/')
 			});
 	});
 
+app.route('/api/subject/:_id')
+	.get(function(req, res){
+		Subject.findById(req.params._id)
+			.exec(function(err, subject){
+				if(err) res.send(err);
+				res.json(subject)
+			});
+	});
 
 // RUN ROUTES ================================================
 app.route('/api/run/')
@@ -885,11 +894,54 @@ app.route('/api/report/:_id')
 		promise.then(function(test){
 			reply.test = test;
 			// a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
-			return Task.find({'_test':req.params._id}).populate({'path': '_messages', match: { fav : true }}).select('_id summary name pass_fail desc _messages').exec();
+			return Task.find({'_test':req.params._id})
+						.populate({'path': '_messages', match: { fav : true }})
+						.select('_id summary name pass_fail desc _messages')
+						.exec(function(err, tasks){
+							if(err) res.send(err);
+							// console.log('tasks', tasks);
+						});
 			// in here, this has to have all the messages for this task that are also fav'd
 		})
 		.then(function(tasks){
 			reply.tasks = tasks;
+			console.log(tasks)
+			
+				// for each task, populate the _messages._subject name
+				// Subject.find({'_tests': { $in: [req.params._id] }})
+			return	Message.find({'_test':req.params._id, 'fav' : true})
+						.populate({path: '_subject', 'select': 'name -_id'})
+						.select('_subject body created_by _id')
+						.exec(function(err, message){
+							// console.log(message)
+						})
+						
+			
+		}).then(function(messages){
+			console.log('hello', reply.tasks.length)
+			console.log('messages', messages)
+
+			for(var i =0; i<reply.tasks.length; i++){
+				if(reply.tasks[i]._messages){
+					for(var j = 0; j<reply.tasks[i]._messages.length; j++){
+					console.log('reply task message id', reply.tasks[i]._messages[j]._id)
+						for(var k = 0; k < messages.length; k++){
+							msg_id = messages[k]._id.toString();
+							rply_id = reply.tasks[i]._messages[j]._id.toString();
+
+							console.log('msg_id', msg_id)
+							console.log('rply_id', rply_id)
+
+							if( msg_id == rply_id){
+								console.log('ping')
+								reply.tasks[i]._messages[j] = messages[k]
+							}
+						}
+					}
+				}
+				console.log(reply.tasks[i]._messages)	
+			}
+			
 			res.json(reply);
 		})
 		.then(null, function(err){
