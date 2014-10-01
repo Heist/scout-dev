@@ -247,7 +247,7 @@ app.route('/api/test/')
 			var test = new Test();
 
 			test.name = req.body.name;
-			test.created_by = req.body.created_by;
+			// test.created_by = req.body.created_by;
 
 			// later, we will be building playlists
 			// sessions should store tests but tests 
