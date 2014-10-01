@@ -5,6 +5,7 @@
 	overtest: auto;
 	padding: 50px 0 170px 0;
 	height: 100%;
+	overflow: auto;
 	margin: 0;
 	background: url('../assets/timeline-line.gif') repeat-y 24px top;
 		
@@ -43,7 +44,7 @@
 			.message-body {
 				float: left;
 				width: 80%;
-				
+				color: $fg-black;
 								
 				p {
 					margin-bottom: 0;
@@ -77,7 +78,7 @@
 		}
 		
 		.message-body {
-			color: $fg-black;
+			color: $text;
 			font-size: $type-size-base;
 			line-height: $type-line-base;
 			

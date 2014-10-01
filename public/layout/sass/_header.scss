@@ -55,18 +55,6 @@
 			}
 		}		
 	}
-	
-	
-	/* header buttons based on location in app */
-	#header-buttons {
-		float: right;
-		padding: $pad/2 $pad 0 0;
-		margin: 0;
-		
-		.button {
-			display: none;
-		}
-	}
 		
 	
 	#header-account {
@@ -153,7 +141,7 @@
 	
 	.large-pane {
 		padding: 0 $pad;
-		background: $fg-tan;
+		background: transparentize($fg-tan, 0.1);
 		border-bottom: 1px solid darken($fg-tan, 7%);
 		height: $pad*2.5;
 		overflow: hidden;

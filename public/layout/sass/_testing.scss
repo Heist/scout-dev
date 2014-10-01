@@ -60,11 +60,12 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
+	overflow: hidden;
 	background: transparentize($fg-slate, 0.06);
 	z-index: 999999999;
 	color: $white;
 	margin: 0;
-	padding: 18% 0 0 0;
+	padding: 0;
 	text-align: center;
 	
 	.input, .button {
@@ -76,8 +77,15 @@
 		width: auto;
 	}
 	
-	.third {
-		padding: 0 $pad*2;
+	#user-entry {
+		width: 28%;
+		display: block;
+		padding: 15% 0 0 0;
+		margin: 0 auto;
 	}
 }
+
+
+
+
 
