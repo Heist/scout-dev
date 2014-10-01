@@ -20,24 +20,22 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
             // for each task
             // break out the message block with _id matching task._id
             // sort it by username
-            // insert it into task.username.messages
+            // insert it into task.messages
+            // TODO: underscore could probably do this better.
 
             for(var i = 0; i < data.tasks.length; i++){
                 // for each task....
                 for (var j = 0; j < data.messages.length;j++){
                   // for each message block...
                     if(data.tasks[i]._id == data.messages[j]._id){
-                        console.log(data.tasks[i]._id, data.messages[j]._id);
+                        // console.log(data.tasks[i]._id, data.messages[j]._id);
                         $scope.tasks[i].messages =  data.messages[j].messages;
                     }
                 }
+                // group by subject.name using underscore.
+                $scope.tasks[i].messages = _.groupBy($scope.tasks[i].messages, function(z){return z.subject.name});
             }
-
-            console.log('$scope.tasks.messages', $scope.tasks)
-            // break open messages
-            // group by user
-           
-
+            
             console.log('test', $scope.test, 'tasks',$scope.tasks,'messages',$scope.messages)
             $scope.activate($scope.test)
 
@@ -81,7 +79,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         // so messages display when their _task is the same as the current selected task
         // and they only display to their current subject
 
-        if ((message._task == $scope.task._id)) {
+        if ((message._id == $scope.task._id)) {
                 return true;
 
                 // check to see what the current subject is.

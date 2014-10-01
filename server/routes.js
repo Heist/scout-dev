@@ -243,7 +243,7 @@ app.route('/api/test/')
 			var test = new Test();
 
 			test.name = req.body.name;
-			test.created_by = req.body.created_by;
+			// test.created_by = req.body.created_by;
 
 			// later, we will be building playlists
 			// sessions should store tests but tests 
@@ -771,14 +771,17 @@ app.route('/api/summary/:_id')
 						  	})
 						  .exec(function(err, msg){
 						  	if(err) res.send(err);
-
-						  	Subject.populate(msg, {'path':'_id', 'select':'name -_id'}, function(err, subjects){
+						  	console.log('message to populate', msg);
+						  	
+						  	Subject.populate(msg, {'path':'messages.subject', 'select' :'name -_id'}, function(err, subjects){
 						  		if (err) res.send(err);
+						  		console.log('subjects', subjects);
 						  	});
 						});
 		})
 		.then(function(messages){
 			reply.messages = messages;
+			console.log('reply messages', reply.messages)
 			return Subject.find({'_tests': { $in: [req.params._id] }}).populate('_messages').exec();
 		})
 		.then(function(subjects){

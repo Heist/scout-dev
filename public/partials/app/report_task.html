@@ -1,48 +1,36 @@
 <!-- report_steps -->
 
-		<div class="report-title">
 	
-			<h2 class="float-left">{{selected.name}}
-				<div class="question-rating green" ng-show="selected.pass_fail == true"></div>
-				<div class="question-rating red" ng-show="selected.pass_fail == false"></div>
-			</h2>
-			
-			<!-- play media -->
-			<!-- <div class="float-right">
-				<button class="button">&#9654; Watch User Interactions</button>
-			</div>
-			 -->
-			
-			<!-- captured media here -->
-			<div class="clear"></div>
-			
-		</div>
-		
-	
-		<p><strong>{{selected.desc}}</strong>
-		</p>
-		
-		<h3><span>Summary</span></h3>
-	
-		<p>{{selected.summary}}
-			<br/>
-		</p>
-			
-		<h3><span>Quotes</span></h3>
-			
-		<div class="theme-messages">
-		
-			<div class="message" ng-repeat="message in selected._messages">
-				<div class="message-details">
-					<div class="message-details-avatar">
-						<img src="http://rdjpg.com/30/30" />
-					</div>
-				</div>
-				<div class="message-body">
-					<p ng-bind-html="message.body | hashtag"></p>
-					<small>Testing with {{fav.user_id}}</small>
-				</div>
-				<div class="clear"></div>
-			</div>
+	<h2>{{selected.name}}
+		<div class="question-rating green" ng-show="selected.pass_fail == true"></div>
+		<div class="question-rating red" ng-show="selected.pass_fail == false"></div>
+	</h2>
 
+	
+	<p>{{selected.desc}}</p>
+		
+	<h3><span>Summary</span></h3>
+	
+	<p>{{selected.summary}}
+		<br/>
+	</p>
+			
+	<h3><span>Quotes</span></h3>
+			
+	<div class="theme-messages">
+	
+		<div class="message" ng-repeat="message in selected._messages">
+			<div class="message-details">
+				<div class="message-details-avatar">
+					<img src="http://rdjpg.com/30/30" />
+				</div>
+			</div>
+			<div class="message-body">
+				<p ng-bind-html="message.body | hashtag"></p>
+				<small>Testing with {{fav.user_id}}</small>
+			</div>
+			<div class="clear"></div>
+		</div>
+	
 	</div>
+

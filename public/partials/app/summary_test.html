@@ -1,47 +1,37 @@
 <!-- summary_step -->
 <div ui-view >
-	<div ng-model='test' ng-show="test.name">
-			<h3>&ldquo;{{test.name}}&rdquo; summary</h3>
+	<div ng-model='test' ng-show="test.name" id="summary-test">
+			<h4>&ldquo;{{test.name}}&rdquo; summary</h4>
 			<p>Add a summary for this test to capture any notable outcomes, directions, or action items.</p>
 			
-			<ul class="lined">
-				<li>
-					<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="test.summary"></textarea>
-				</li>
-								
-			</ul>
+			<textarea class="input" id="field-textarea" placeholder="A top-level summary of this test." ng-model="test.summary"></textarea>
 	</div>
 </div>
 
 
-<div ng-model='test'>
+<div ng-model='test' id="summary-tags">
 	
-	<div id="timeline" ng-show="test.name">
-		<h3>Tags from &ldquo;{{test.name}}&rdquo;</h3>
-			<p>You can add summaries or insights to tags from this session.</p>
-			
-			<ul class="tags">
-				<li ng-repeat="tag in test._tags" ng-click="selectTag($index)" ng-class="{ 'active': selectedTag.body == tag.body}">
-					<span ng-if="tag.summarized">{{tag.body}} &#x2713;</span>
-					<span ng-if="!tag.summarized">{{tag.body}}</span>
-				</li>
-			</ul>
+	
+		<h4>Tags from &ldquo;{{test.name}}&rdquo;</h4>
+		<p>Add summaries to tags to capture any notable themes or patterns.</p>
+		
+		<ul class="tags">
+			<li ng-repeat="tag in test._tags" ng-click="selectTag($index)" ng-class="{ 'active': selectedTag.body == tag.body}">
+				<span ng-if="tag.summarized">{{tag.body}} &#x2713;</span>
+				<span ng-if="!tag.summarized">{{tag.body}}</span>
+			</li>
+		</ul>
 		
 		<div class='clear'></div>
-		<br />
-		<div ng-show="selectedTag.body" ng-model="selectedTag">
-			<h3>Summary for #{{selectedTag.body}}</h3>
-			<p>Add a summary for this tag to capture any notable themes or usage patterns.</p>
-			
-			<ul class="lined">
-				<li>
-					<textarea class="input" id="field-textarea" placeholder="Your summary" ng-model="selectedTag.summary"></textarea><br>
-					<button class="button small" ng-click="saveTagSummary()" >Done</button>
-					<button class="button destructive small" ng-click="clearTagSummary(); selectedTag.summary=''">Remove summary</button>
-				</li>		
-			</ul>
-		</div>
-	</div>
+		
 	
+		<div ng-show="selectedTag.body" ng-model="selectedTag" class="summary-tag">
+			<h4>Summary for #{{selectedTag.body}}</h4>
+				
+			<textarea class="input" id="field-textarea" placeholder="Your summary" ng-model="selectedTag.summary"></textarea><br>
+			<button class="button small" ng-click="saveTagSummary()" >Save summary</button>
+			<button class="button destructive small" ng-click="clearTagSummary(); selectedTag.summary=''">Remove summary</button>
+		</div>
+		
 		
 </div>

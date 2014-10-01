@@ -51,6 +51,16 @@
 				}		
 			}
 			
+			&.empty {
+				border: none;
+				padding: $pad $pad $pad/4 $pad;
+				
+				&:hover {
+					cursor: auto;
+					border: none;
+				}
+			}
+			
 			
 		}
 			

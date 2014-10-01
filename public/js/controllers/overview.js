@@ -89,12 +89,12 @@ angular.module('field_guide_controls')
 
     // TEST ROUTES ========================================
     $scope.newTest = function(){
-            console.log('touched addatest', $stateParams.user_id );
+            // console.log('touched addatest', $stateParams.user_id );
 
             var test = {};
 
             test.name = 'New test name';
-            test.created_by = $stateParams.user_id;
+            // test.created_by = $stateParams.user_id;
 
             var url = '/api/test/';
             var data_out = test;
