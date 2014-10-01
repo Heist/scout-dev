@@ -20,7 +20,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
             // for each task
             // break out the message block with _id matching task._id
             // sort it by username
-            // insert it into task.username.messages
+            // insert it into task.messages
 
             for(var i = 0; i < data.tasks.length; i++){
                 // for each task....
@@ -34,6 +34,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
             }
 
             console.log('$scope.tasks.messages', $scope.tasks)
+            
             // break open messages
             // group by user
            
@@ -81,7 +82,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         // so messages display when their _task is the same as the current selected task
         // and they only display to their current subject
 
-        if ((message._task == $scope.task._id)) {
+        if ((message._id == $scope.task._id)) {
                 return true;
 
                 // check to see what the current subject is.

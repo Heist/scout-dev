@@ -171,7 +171,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
 
             $http.post(url, data_out)
                 .success(function(data){
-                    // console.log('Message pushed: ', data);
+                    console.log('Message pushed: ', data);
                 })
                 .error(function(data){
                     // console.log('Error: ' + data);
