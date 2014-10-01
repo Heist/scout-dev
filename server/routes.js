@@ -2,10 +2,6 @@
 module.exports = function(app, passport) {
 // CONFIGURATION =====================================================
 // Module dependencies
-// var express = require('express');
-// var app  = express.Router();  // get an instance of the express Router
-// var _ 		= require('underscore');
-// var util = require('util');
 var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 
 // load data storage models
@@ -30,72 +26,72 @@ app.use(function(req, res, next) {
 
 // AUTH ROUTES ============================================
 // route middleware to ensure user is logged in - ajax get
-// function isLoggedInAjax(req, res, next) {
-//     if (!req.isAuthenticated()) {
-//     	return res.send( 401, "unauthorized request");
-//     } else {
-//     	console.log('login good')
-//         next();
-//     }
-// }
+function isLoggedInAjax(req, res, next) {
+    if (!req.isAuthenticated()) {
+		return res.send( 401, "unauthorized request");
+	} else {
+		console.log('login good');
+        next();
+    }
+}
 
-// // route middleware to ensure user is logged in
-// function isLoggedIn(req, res, next) {
-//     if (req.isAuthenticated())
-//         return next();
-// }
+// route middleware to ensure user is logged in
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+}
 
-// app.get('/auth/login', isLoggedInAjax, function(req, res) {
-//         return res.json(req.user);
-//     });
+app.get('/auth/login', isLoggedInAjax, function(req, res) {
+        return res.json(req.user);
+    });
 
-// // process the login form
-// app.post('/auth/login', function(req, res, next) {
-//     if (!req.body.email || !req.body.password) {
-//         return res.json({ error: 'Email and Password required' });
-//     }
-//     passport.authenticate('local-login', function(err, user, info) {
-//         if (err) { 
-//             return res.json(err);
-//         }
-//         if (user.error) {
-//             return res.json({ error: user.error });
-//         }
-//         req.logIn(user, function(err) {
-//             if (err) {
-//                 return res.json(err);
-//             }
-//             var user = {id:req.user._id, email:req.user.local.email};
-//             return res.json({ user: user, redirect: '/overview' });
-//         });
-//     })(req, res);
-// });
+// process the login form
+app.post('/auth/login', function(req, res, next) {
+    if (!req.body.email || !req.body.password) {
+        return res.json({ error: 'Email and Password required' });
+    }
+    passport.authenticate('local-login', function(err, user, info) {
+        if (err) {
+            return res.json(err);
+        }
+        if (user.error) {
+            return res.json({ error: user.error });
+        }
+        req.logIn(user, function(err) {
+            if (err) {
+                return res.json(err);
+            }
+            var user = {id:req.user._id, email:req.user.local.email};
+            return res.json({ user: user, redirect: '/overview' });
+        });
+    })(req, res);
+});
 
-// // process the signup form
-// app.post('/auth/signup', function(req, res, next) {
-//     if (!req.body.email || !req.body.password) {
-//         return res.json({ error: 'Email and Password required' });
-//     }
-//     passport.authenticate('local-signup', function(err, user, info) {
-//         if (err) { 
-//             return res.json(err);
-//         }
-//         if (user.error) {
-//             return res.json({ error: user.error });
-//         }
-//         req.logIn(user, function(err) {
-//             if (err) {
-//                 return res.json(err);
-//             }
-//             return res.json({ redirect: '/overview' });
-//         });
-//     })(req, res);
-// });
+// process the signup form
+app.post('/auth/signup', function(req, res, next) {
+    if (!req.body.email || !req.body.password) {
+        return res.json({ error: 'Email and Password required' });
+    }
+    passport.authenticate('local-signup', function(err, user, info) {
+        if (err) {
+            return res.json(err);
+        }
+        if (user.error) {
+            return res.json({ error: user.error });
+        }
+        req.logIn(user, function(err) {
+            if (err) {
+                return res.json(err);
+            }
+            return res.json({ redirect: '/overview' });
+        });
+    })(req, res);
+});
 
-// app.post('/auth/logout', function(req, res) {
-//    req.logout();
-//    res.json({ redirect: '/login' });
-// });
+app.post('/auth/logout', function(req, res) {
+   req.logout();
+   res.json({ redirect: '/login' });
+});
 
 
 // app.route('/user/')
@@ -759,7 +755,7 @@ app.route('/api/summary/:_id')
 		promise.then(function(test){
 			reply.test = test;
 			// a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
-			return Task.find({'_test':req.params._id}).select('_id summary name pass_fail').exec(function(err, task){if (err) console.log(err)});
+			return Task.find({'_test':req.params._id}).select('_id summary name desc pass_fail').exec(function(err, task){if (err) console.log(err)});
 		})
 		.then(function(tasks){
 			reply.tasks = tasks;

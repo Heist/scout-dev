@@ -4,7 +4,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var flash 	 = require('connect-flash');
+var flash = require('connect-flash');
 
 // express modules
 var logger       = require('morgan');
@@ -24,7 +24,7 @@ var auth_db = database.auth_db;
 // configuration ======================================================
 global.rootRequire = function(name) {
     return require(__dirname + '/' + name);
-}
+};
 
 // express 4.0 basic configuration ====================================
 app.use(logger('\033[90m:date :method :url :response-time\\ms\033[0m \033[31m:referrer \033[0m'));
@@ -38,12 +38,13 @@ require('./config/passport')(passport); // pass passport for configuration
 // session secret 
 app.use(session(
 		{ secret: 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT', 
-		  cookie: {
-		        path: '/',
-		        expires: false, // Alive Until Browser Exits
-		        httpOnly: true
-		    }
-		 })); 
+			cookie: {
+				path: '/',
+				expires: false, // Alive Until Browser Exits
+				httpOnly: true
+			}
+		}));
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
@@ -68,7 +69,8 @@ app.shutdown = function() {
 	server.close(function() {
 		console.log('in theory I have shut down');
 	});
-}
+};
 
-exports = module.exports = app; 						// expose app
+// expose app
+exports = module.exports = app;
 

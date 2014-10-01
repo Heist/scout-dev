@@ -1,5 +1,5 @@
-'use strict';
 // app.js
+'use strict';
 
 var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize','field_guide_controls','field_guide_filters']);
 
@@ -9,7 +9,7 @@ var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSan
 function keysrt(key,desc) {
   return function(a,b){
    return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
-  }
+  };
 }
 
 function keygen(){
@@ -24,26 +24,25 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $httpProvider.defaults.timeout = 3000;
 
     // New interceptor from http://stackoverflow.com/questions/21230417/capture-http-401-with-angular-js-interceptor
-    // var interceptor = function ($q) {
-    //     return {
-    //         'response': function (response) {
-    //             //Will only be called for HTTP up to 300
-    //             return response;
-    //         },
-    //         'responseError': function (rejection) {
-    //             if(rejection.status === 401) {
-    //                 window.location = '/login'
-    //             }
-    //             return $q.reject(rejection);
-    //         }
-    //     };
-    // }
+    var interceptor = function ($q) {
+        return {
+            'response': function (response) {
+                //Will only be called for HTTP up to 300
+                return response;
+            },
+            'responseError': function (rejection) {
+                if(rejection.status === 401) {
+                    window.location = '/login';
+                }
+                return $q.reject(rejection);
+            }
+        };
+    };
 
-    // this effectively blocks loading despite the weird syntax
-    // $httpProvider.interceptors.push(interceptor);
+    $httpProvider.interceptors.push(interceptor);
 
-    // $urlRouterProvider.otherwise("/login");
-    $urlRouterProvider.otherwise("/overview");
+    $urlRouterProvider.otherwise("/login");
+    // $urlRouterProvider.otherwise("/overview");
 
 
     $stateProvider
@@ -97,11 +96,11 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         //     url: '/register',
         //     templateUrl: 'partials/register.html',
         // })
-        // .state('/login', {
-        //     url: '/login',
-        //     controller:'login',
-        //     templateUrl: 'partials/auth/login.html',
-        // });
+        .state('/login', {
+            url: '/login',
+            controller:'login',
+            templateUrl: 'partials/auth/login.html',
+        });
     
 
     // FIX for trailing slashes. Gracefully "borrowed" from https://github.com/angular-ui/ui-router/issues/50
@@ -158,11 +157,35 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 //     });
 
 });
-// FILTERS ============================================================================
+
+// SERVICES (factories, etc) ==================================================
+// demo from http://stackoverflow.com/questions/18880737/how-do-i-use-rootscope-in-angular-to-store-variables
+// app.factory('items', function() {
+//     var items = [];
+//     var itemsService = {};
+
+//     itemsService.add = function(item) {
+//         items.push(item);
+//     };
+//     itemsService.list = function() {
+//         return items;
+//     };
+
+//     return itemsService;
+// });
+
+// function Ctrl1($scope,items) {
+//     $scope.list = items.list; 
+// }
+
+// function Ctrl2($scope, items) {
+//     $scope.add = items.add;
+// }
+
+
+
+// FILTERS ====================================================================
 angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);
 
-// CONTROLLERS ========================================================================
+// CONTROLLERS ================================================================
 angular.module('field_guide_controls', ['ui','ui.router']); 
-
-// names of the modules this module depends on
-// go in the square brackets
