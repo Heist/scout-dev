@@ -11,25 +11,20 @@
 	
 	<p>{{selected.summary}}</p>
 	
-	
-	
-	
-			
-	<h4><span>Selected Quotes</span></h4>
+
 	
 			
-	<div class="theme-messages">
+	<div class="message-group report-messages">
 	
-		<div class="message" ng-repeat="message in selected._messages">
-			<div class="message-details">
-				<div class="message-details-avatar">
-					<img src="http://rdjpg.com/30/30" />
-				</div>
-			</div>
+		<h4><span>Selected Quotes</span></h4>
+	
+		<div ng-repeat="message in selected._messages" class="message">
+			
 			<div class="message-body">
 				<p ng-bind-html="message.body | hashtag"></p>
 				<small>Testing with {{message._subject.name}}</small>
 			</div>
+	
 			<div class="clear"></div>
 		</div>
 	

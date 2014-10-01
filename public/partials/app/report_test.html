@@ -1,50 +1,48 @@
 <!-- report_test.html -->
 
 <!-- test general info -->
-			<h2>{{selected.name}}</h2>
-		
-			<p>{{selected.summary}}</p>
-			
-			<!--<p class="report-participants">
-				 <ng-pluralize count=""
-	                when="{'0': 'This test has not been run.',
-	                       'one': 'This test has been tested once.',
-	                       'other': 'This test has been tested {} times.'}">
-	  			</ng-pluralize>
-			</p>-->
-			
-			<!--	
-			<ul class="report-participants">
-				<li ng-repeat="subject in selected._subjects"><div class="report-part-img"><img src="http://rdjpg.com/40/40" /></div>{{subject.name}}</li>
-			</ul>
-			-->
-		
-			
-			<!-- test theme summary -->
-			<div class="report-block">
-				<div ng-repeat="tag in selected._tags" ng-hide="!tag.summary">
+<!--<h2>{{selected.name}}</h2>-->
 
-					<h4><span>Theme:</span> {{tag.body}} &mdash; <ng-pluralize count="tag._messages.length"
-					    when="{'0': 'Never mentioned.',
-					           'one': 'Mentioned once.',
-					           'other': 'Mentioned {} times.'}">
-						</ng-pluralize>
-					</h4>
-					
-					
-					<p>{{tag.summary}}</p>
-					
-					<div class="theme-messages">
-				
-						<div class="message" ng-repeat="message in tag._messages">
-							<div class="message-body">
-								<p ng-bind-html="message.body | hashtag"></p>
-								<small>Testing with {{message.user_id}}</small>
-							</div>
-							<div class="clear"></div>
-						</div>
+<p><big>{{selected.summary}}</big></p>
 
-					</div>
-				
-				</div>
+<!--<p class="report-participants">
+	 <ng-pluralize count=""
+        when="{'0': 'This test has not been run.',
+               'one': 'This test has been tested once.',
+               'other': 'This test has been tested {} times.'}">
+		</ng-pluralize>
+</p>-->
+
+<!--	
+<ul class="report-participants">
+	<li ng-repeat="subject in selected._subjects"><div class="report-part-img"><img src="http://rdjpg.com/40/40" /></div>{{subject.name}}</li>
+</ul>
+-->
+
+
+<!-- test theme summary -->
+
+<div ng-repeat="tag in selected._tags" ng-hide="!tag.summary">
+
+	<div class="message-group report-messages">
+		<h4><span>Theme:</span> {{tag.body}} &mdash; <ng-pluralize count="tag._messages.length"
+		    when="{'0': 'never mentioned.',
+		           'one': 'mentioned once.',
+		           'other': 'mentioned {} times.'}">
+			</ng-pluralize>
+		</h4>
+		
+		
+		<p>{{tag.summary}}</p>
+
+		<div class="message" ng-repeat="message in tag._messages">
+			<div class="message-body">
+				<p ng-bind-html="message.body | hashtag"></p>
+				<small>Testing with {{message.user_id}}</small>
+			</div>
+			<div class="clear"></div>
 		</div>
+
+	</div>
+
+</div>

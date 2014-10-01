@@ -51,8 +51,28 @@
 .message-group {
 	margin: 0;
 	padding: $pad/2 0 0 0;
+	
+	&.report-messages {
+		border-top: 1px solid $line;
+		padding: $pad 0 0 0;
+		
+		.message {
+			padding: $pad/2 0;
+			
+			.message-body p {
+				margin-bottom: -4px;
+			}
+			
+			&:hover {
+				background: none;
+			}
+		}
+		
+	}
 				
 }
+
+
 
 .message {
 	padding: $pad/3;
@@ -92,6 +112,12 @@
 			.tag {
 				padding: 0 $pad/6;
 			}
+		}
+		
+		small {
+			margin: 0;
+			padding: 0;
+			opacity: 0.5;
 		}
 		
 	}
@@ -135,6 +161,10 @@
 	margin: 0;
 	font-size: $type-size-base*0.8;
 	@include radius;
+	
+	.float-left {
+		padding-top: $pad/6;
+	}
 	
 	.button {
 		&.hollow {
