@@ -1,16 +1,15 @@
 <!-- summary_step -->
-<div ui-view >
-	<div ng-model='task' ng-show="task.name">
-			<h3>&ldquo;{{task.name}}&rdquo; summary</h3>
-			<p>Add a summary for this task to capture any notable outcomes, directions, or action items.</p>
-			
-			<ul class="lined">
+
+<div id="summary-task">
+
+	<div ui-view >
+		<div ng-model='task' ng-show="task.name">
+				<h4>&ldquo;{{task.name}}&rdquo; summary</h4>
+				<p>Add a summary for this task to capture any notable outcomes, directions, or action items.</p>
 				
-				<li>
-					<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="task.summary"></textarea>
-				</li>
+				<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="task.summary"></textarea>
 				
-			</ul>
+		</div>
 	</div>
 </div>
 
@@ -41,17 +40,6 @@
 						</ul>
 					</li>
 				</ul>
-					
-				</div>
-				<div class="message-fave">
-					<a href="#">&#9734;</a>
-				</div>
-				<div class="clear"></div>
-			</li>
 			
-		
-		</ul>
 	</div>
-	
-		
 </div>
