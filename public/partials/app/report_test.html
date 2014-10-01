@@ -1,36 +1,38 @@
 <!-- report_test.html -->
 
 <!-- test general info -->
-			<h1>{{selected.name}}</h1>
-			<p class="report-detail">Report generated July 12 2014</p>		
+			<h2>{{selected.name}}</h2>
+		
 			<p>{{selected.summary}}</p>
-			<p class="report-participants">
+			
+			<!--<p class="report-participants">
 				 <ng-pluralize count=""
 	                when="{'0': 'This test has not been run.',
 	                       'one': 'This test has been tested once.',
 	                       'other': 'This test has been tested {} times.'}">
 	  			</ng-pluralize>
-			</p>
-				
+			</p>-->
+			
+			<!--	
 			<ul class="report-participants">
 				<li ng-repeat="subject in selected._subjects"><div class="report-part-img"><img src="http://rdjpg.com/40/40" /></div>{{subject.name}}</li>
 			</ul>
+			-->
 		
 			
 			<!-- test theme summary -->
 			<div class="report-block">
 				<div ng-repeat="tag in selected._tags" ng-hide="!tag.summary">
 
-					<h2><span>Theme:</span> {{tag.body}}</h2>
-					<p class="report-detail">
-					<ng-pluralize count="tag._messages.length"
-		                when="{'0': 'Never mentioned.',
-		                       'one': 'Mentioned once.',
-		                       'other': 'Mentioned {} times.'}">
-		  			</ng-pluralize>
-					</p>	
-					<p>{{tag.summary}}
-					</p>
+					<h4><span>Theme:</span> {{tag.body}} &mdash; <ng-pluralize count="tag._messages.length"
+					    when="{'0': 'Never mentioned.',
+					           'one': 'Mentioned once.',
+					           'other': 'Mentioned {} times.'}">
+						</ng-pluralize>
+					</h4>
+					
+					
+					<p>{{tag.summary}}</p>
 					
 					<div class="theme-messages">
 				

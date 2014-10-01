@@ -38,11 +38,6 @@
 					<li class="empty"><small>Tasks</small></li>
 						
 					<li class="question" ng-repeat="task in tasks" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(task, $index)">
-										
-						<!--<div class="step-rating" ng-click="passFail(task)">
-							<img src="/layout/assets/rate-positive.svg" ng-show="task.pass_fail == true"/>
-							<img src="/layout/assets/rate-negative.svg" ng-show="task.pass_fail == false">
-						</div>-->
 						
 						<h3>{{task.name}}</h3>
 						<p>{{task.desc}}</p>

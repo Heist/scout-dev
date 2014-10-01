@@ -67,3 +67,30 @@
 	}
 		
 }
+
+
+/* style up task scores when we're look at reports */
+
+#view-report {
+	#sidebar {
+		h3 {
+			display: inline-block;
+			margin: 0;
+			width: 90%;
+		}
+		
+		.task-score {
+			width: 12px;
+			height: 12px;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+

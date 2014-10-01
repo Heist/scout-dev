@@ -208,9 +208,6 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 
 .large-pane { width: 67%; }
 
-/* fix up Angular containers so everything sits correctly */
-.ng-valid, .ng-invalid, .ng-dirty, .ng-pristine, .ng-touched, .ng-untouched { height: 100%; }
-
 /* components */
 /* header-specific styles */
 #header { position: fixed; top: 0; left: 0; background: rgba(243, 121, 96, 0.95); color: #872717; border-bottom: 2px solid #f05d3f; width: 100%; height: 50px; z-index: 999999; padding: 0 20px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; }
@@ -288,16 +285,6 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #tasklist ul li.active:hover { cursor: auto; box-shadow: none; }
 #tasklist ul li.title:hover { cursor: auto; box-shadow: none; }
 
-/* styles for question-rating boops */
-.question-rating { display: block; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
-.question-rating.green { background: #6cb100; }
-.question-rating.yellow { background: #ffde00; }
-.question-rating.red { background: #ed4e00; }
-
-#questions .question-rating { width: 16px; height: 16px; padding: 0; margin: 2px 0 0 0; float: right; }
-
-#large-pane .question-rating { width: 20px; height: 20px; padding: 0; margin: 0; display: inline-block; }
-
 /* task control sidebar for summarizing and reports */
 #sidebar ul { padding: 0; margin: 0; list-style: none; width: 90%; }
 #sidebar ul li { padding: 13.33333px 20px; margin: 0; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; border: 2px solid white; }
@@ -310,8 +297,12 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #sidebar ul li.empty { border: none; padding: 20px 20px 5px 20px; }
 #sidebar ul li.empty:hover { cursor: auto; border: none; }
 
+/* style up task scores when we're look at reports */
+#view-report #sidebar h3 { display: inline-block; margin: 0; width: 90%; }
+#view-report #sidebar .task-score { width: 12px; height: 12px; }
+
 /* specific views */
-/* styles for specific pages */
+/* styles for things */
 #view-observer-login { background: #2e2723; background-size: cover; color: white; }
 #view-observer-login input, #view-observer-login button { width: 100%; }
 #view-observer-login #logo { margin: 0 0 20px 0; }
@@ -321,27 +312,31 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-observer-login p { font-size: 12.8px; margin: 0; padding: 0; }
 #view-observer-login h2 { padding: 0; margin: 0; }
 
-/* pulled out test view boxes so we can use those everywhere */
-.session-test { background: #fbfbf9; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; padding: 10px 20px 0 20px; }
-.session-test.empty { text-align: center; background: none; padding: 20px; border: 2px dashed #e7e7da; }
-.session-test h3 { margin-bottom: 20px; font-size: 24px; }
-.session-test small { color: rgba(100, 106, 114, 0.3); }
-.session-test .session-test-controls { padding: 0; line-height: 19.2px; }
-.session-test .session-test-controls ul { border-top: 2px solid #e7e7da; padding: 10px 0 20px 0; }
-.session-test .session-test-controls ul li { padding: 4px 0; }
+/* how we style notes within summaries and reports */
+.message-group { margin: 0; padding: 10px 0 0 0; }
 
-/* how we style notes within reports */
-.theme-messages .message { padding: 10px 0; font-size: 14.4px; line-height: 19.2px; border-top: 1px solid rgba(231, 231, 218, 0.6); }
-.theme-messages .message.title, .theme-messages .message.status { padding: 10px 0 0 16px; }
-.theme-messages .message.title .message-details .message-details-avatar, .theme-messages .message.status .message-details .message-details-avatar { border: none; }
-.theme-messages .message.title small, .theme-messages .message.status small { opacity: 0.5; }
-.theme-messages .message .message-details { float: left; }
-.theme-messages .message .message-details .message-details-avatar { width: 30px; height: 30px; -moz-border-radius: 30px; -webkit-border-radius: 30px; border-radius: 30px; overtest: hidden; margin: 0 10px 0 0; border: 3px solid #fbfbf9; }
-.theme-messages .message .message-details .message-details-avatar img { width: 25px; height: auto; }
-.theme-messages .message .message-body { float: left; width: 90%; }
-.theme-messages .message .message-body p { margin-bottom: 0; }
-.theme-messages .message .message-body p .tag { padding: 0 3.33333px; }
-.theme-messages .message .message-body small { font-size: 9.6px; line-height: 14.4px; opacity: 0.5; padding: 0; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+.message { padding: 6.66667px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; /* when it's the user header */ }
+.message:hover { background: #f2f2f0; }
+.message:hover .message-body .tag { background: #e4e4e0; }
+.message .message-details { float: left; margin: 2px 0 0 0; width: 25px; height: 16px; }
+.message .message-details .message-details-avatar img { width: 16px; height: auto; }
+.message .message-body { float: left; width: 90%; color: #323539; }
+.message .message-body p { margin-bottom: 0; }
+.message .message-body p .tag { padding: 0 3.33333px; }
+.message .message-fave { float: right; font-size: 24px; }
+.message .message-fave a { text-decoration: none; }
+.message.message-user .message-body { font-size: 12.8px; text-transform: uppercase; opacity: 0.6; }
+.message.message-user .message-details { opacity: 0.4; }
+.message.message-user:hover { background: none; }
+
+/* task rating input */
+.task-rating { width: 100%; background: #f2f2f0; padding: 10px; margin: 0; font-size: 12.8px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
+.task-rating .button.hollow { opacity: 0.3; }
+
+/* task rating output */
+.task-score { -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; float: right; margin: 5px 0 0 0; }
+.task-score.green { background: #71901f; }
+.task-score.red { background: #f37960; }
 
 /* login & registration forms etc. */
 #view-login { background: #f37960; color: white; height: 100%; padding: 15% 0 0 0; }
@@ -408,10 +403,14 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-summarizing #summary-tags .summary-tag { padding: 20px 0 20px 0; margin: 0; }
 #view-summarizing #summary-tags .summary-tag .input { width: 100%; }
 #view-summarizing #summary-task .input { width: 100%; height: 100px; }
+#view-summarizing .summary-task-notes { margin: 40px 0 0 0; }
+#view-summarizing .summary-task-notes h4 { margin-bottom: 10px; }
 
 /* The report */
-#view-report { margin: 0; padding: 50px 0 0 0; }
+#view-report { margin: 0; padding: 50px 0 0 0; /* report content */ }
 #view-report #report-container { padding: 40px 0; }
+#view-report .two-thirds .task-score { font-size: 12.8px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; text-transform: uppercase; letter-spacing: 0; color: white; padding: 5px 10px; }
+#view-report .two-thirds h2 { padding-bottom: 20px; border-bottom: 1px solid #e7e7da; }
 
 /* code that is NOT specific to a component or module */
 *, *:before, *:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
