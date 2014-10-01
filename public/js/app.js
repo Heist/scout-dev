@@ -182,6 +182,32 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 //     $scope.add = items.add;
 // }
 
+// a factory to provide sockets to the app
+// http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/
+// this should be a straight-up feed from that site
+// field_guide_app.factory('socket', function ($rootScope) {
+//   var socket = io.connect();
+//   return {
+//     on: function (eventName, callback) {
+//       socket.on(eventName, function () {  
+//         var args = arguments;
+//         $rootScope.$apply(function () {
+//           callback.apply(socket, args);
+//         });
+//       });
+//     },
+//     emit: function (eventName, data, callback) {
+//       socket.emit(eventName, data, function () {
+//         var args = arguments;
+//         $rootScope.$apply(function () {
+//           if (callback) {
+//             callback.apply(socket, args);
+//           }
+//         });
+//       })
+//     }
+//   };
+// });
 
 
 // FILTERS ====================================================================

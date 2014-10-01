@@ -6,7 +6,7 @@ angular.module('field_guide_controls')
        .controller('login', ['$scope','$http', '$location', '$stateParams','$rootScope', function($scope, $http, $location, $stateParams, $rootScope){
     
     // LOGIN FUNCTIONS ====================================
-    console.log('loaded login controller');
+    console.log('loaded login controller, user is', $rootScope.user);
     $scope.user = {};
 
     $scope.login = function(user){

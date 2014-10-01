@@ -94,7 +94,7 @@ angular.module('field_guide_controls')
             var test = {};
 
             test.name = 'New test name';
-            // test.created_by = $stateParams.user_id;
+            test.created_by = $rootScope.user;
 
             var url = '/api/test/';
             var data_out = test;
