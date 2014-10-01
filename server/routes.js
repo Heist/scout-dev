@@ -775,10 +775,12 @@ app.route('/api/summary/:_id')
 						  	})
 						  .exec(function(err, msg){
 						  	if(err) res.send(err);
+						  	console.log('message to populate', msg);
 						  	
-						  	// Subject.populate(msg, {'path':'_id', 'select':'name -_id'}, function(err, subjects){
-						  	// 	if (err) res.send(err);
-						  	// });
+						  	Subject.populate(msg, {'path':'messages.subject', 'select' :'name -_id'}, function(err, subjects){
+						  		if (err) res.send(err);
+						  		console.log('subjects', subjects);
+						  	});
 						});
 		})
 		.then(function(messages){

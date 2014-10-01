@@ -31,13 +31,20 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
                         $scope.tasks[i].messages =  data.messages[j].messages;
                     }
                 }
+
+                var messages = _.groupBy($scope.tasks[i].messages, function(z){return z.subject.name});
+                console.log('messages for task', messages)
+                console.log('task messages', $scope.tasks[i].messages )
             }
 
-            console.log('$scope.tasks.messages', $scope.tasks)
-            
+
             // break open messages
-            // group by user
+            // group by subject.name
            
+
+            console.log('$scope.tasks.messages', $scope.tasks)
+           
+
 
             console.log('test', $scope.test, 'tasks',$scope.tasks,'messages',$scope.messages)
             $scope.activate($scope.test)
