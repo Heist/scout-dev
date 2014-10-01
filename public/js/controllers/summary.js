@@ -136,6 +136,10 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         // post summary changes to the tags
         // post fav'd statuses to relevant messages
 
+        for(var i = 0; i < $scope.tasks.length; i++){
+                $scope.tasks[i].messages = _.toArray($scope.tasks[i].messages);
+            }
+
         var url = '/api/summary/'+ $stateParams._id;
         var data_out = {test: $scope.test, tags:$scope.test._tags, tasks:$scope.tasks} ;
 

@@ -2,10 +2,6 @@
 module.exports = function(app, passport) {
 // CONFIGURATION =====================================================
 // Module dependencies
-// var express = require('express');
-// var app  = express.Router();  // get an instance of the express Router
-// var _ 		= require('underscore');
-// var util = require('util');
 var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 
 // load data storage models
@@ -30,72 +26,73 @@ app.use(function(req, res, next) {
 
 // AUTH ROUTES ============================================
 // route middleware to ensure user is logged in - ajax get
-// function isLoggedInAjax(req, res, next) {
-//     if (!req.isAuthenticated()) {
-//     	return res.send( 401, "unauthorized request");
-//     } else {
-//     	console.log('login good')
-//         next();
-//     }
-// }
+function isLoggedInAjax(req, res, next) {
+    if (!req.isAuthenticated()) {
+		return res.send( 401, "unauthorized request");
+	} else {
+		console.log('login good');
+        next();
+    }
+}
 
-// // route middleware to ensure user is logged in
-// function isLoggedIn(req, res, next) {
-//     if (req.isAuthenticated())
-//         return next();
-// }
+// route middleware to ensure user is logged in
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+}
 
-// app.get('/auth/login', isLoggedInAjax, function(req, res) {
-//         return res.json(req.user);
-//     });
+app.get('/auth/login', isLoggedInAjax, function(req, res) {
+        return res.json(req.user);
+    });
 
-// // process the login form
-// app.post('/auth/login', function(req, res, next) {
-//     if (!req.body.email || !req.body.password) {
-//         return res.json({ error: 'Email and Password required' });
-//     }
-//     passport.authenticate('local-login', function(err, user, info) {
-//         if (err) { 
-//             return res.json(err);
-//         }
-//         if (user.error) {
-//             return res.json({ error: user.error });
-//         }
-//         req.logIn(user, function(err) {
-//             if (err) {
-//                 return res.json(err);
-//             }
-//             var user = {id:req.user._id, email:req.user.local.email};
-//             return res.json({ user: user, redirect: '/overview' });
-//         });
-//     })(req, res);
-// });
+// process the login form
+app.post('/auth/login', function(req, res, next) {
+    if (!req.body.email || !req.body.password) {
+        return res.json({ error: 'Email and Password required' });
+    }
+    passport.authenticate('local-login', function(err, user, info) {
+        if (err) {
+            return res.json(err);
+        }
+        if (user.error) {
+            return res.json({ error: user.error });
+        }
+        req.logIn(user, function(err) {
+            if (err) {
+                return res.json(err);
+            }
+            var user = {id:req.user._id, email:req.user.local.email};
+            return res.json({ user: user, redirect: '/overview' });
+        });
+    })(req, res);
+});
 
-// // process the signup form
-// app.post('/auth/signup', function(req, res, next) {
-//     if (!req.body.email || !req.body.password) {
-//         return res.json({ error: 'Email and Password required' });
-//     }
-//     passport.authenticate('local-signup', function(err, user, info) {
-//         if (err) { 
-//             return res.json(err);
-//         }
-//         if (user.error) {
-//             return res.json({ error: user.error });
-//         }
-//         req.logIn(user, function(err) {
-//             if (err) {
-//                 return res.json(err);
-//             }
-//             return res.json({ redirect: '/overview' });
-//         });
-//     })(req, res);
-// });
+// process the signup form
+app.post('/auth/signup', function(req, res, next) {
+    if (!req.body.email || !req.body.password) {
+        return res.json({ error: 'Email and Password required' });
+    }
+    passport.authenticate('local-signup', function(err, user, info) {
+        if (err) {
+            return res.json(err);
+        }
+        if (user.error) {
+            return res.json({ error: user.error });
+        }
+        req.logIn(user, function(err) {
+            if (err) {
+                return res.json(err);
+            }
+            return res.json({ redirect: '/overview' });
+        });
+    })(req, res);
+});
 
-// app.post('/auth/logout', function(req, res) {
-//    req.logout();
-//    res.json({ redirect: '/login' });
-// });
+app.post('/auth/logout', function(req, res) {
+	console.log('logout request', req)
+   req.logout();
+   res.json({ redirect: '/login' });
+});
 
 
 // app.route('/user/')
@@ -124,8 +121,8 @@ app.use('/api', function (req, res, next) {
 	// for calls that start with api....
 	console.log('touched the api tag')
 
-  next();
-})
+	next();
+});
 
 // PRIVATE ROUTES =========================================
 
@@ -799,7 +796,7 @@ app.route('/api/summary/:_id')
 		
 	})
 	.put(function(req, res){
-		console.log('touched summary put', req.body);
+		// console.log('touched summary put', req.body);
 
 		var query = {'_id':req.body.test._id};
 		var update = {summary: req.body.test.summary}
@@ -826,26 +823,41 @@ app.route('/api/summary/:_id')
 		if(req.body.tasks){
 			for(var i = 0; i < req.body.tasks.length; i++){
 				console.log('how many tasks',req.body.tasks.length)
-				var eyedee = req.body.tasks[i]._id;
-				console.log('task to update', eyedee, req.body.tasks[i].pass_fail)
-				
-				Task.findByIdAndUpdate(
-					eyedee,
-					{'summary' : req.body.tasks[i].summary, 
-					 'pass_fail' : req.body.tasks[i].pass_fail},
-					function(err,tsk){
-						console.log('task updated', tsk)
-					});
 
+				var eyedee = req.body.tasks[i]._id;
+				var summary = req.body.tasks[i].summary;
+				var pass_fail = req.body.tasks[i].pass_fail;
+
+				Task.findOne({_id: req.body.tasks[i]._id})
+					.exec(function(err, tsk){
+						// console.log('request variables', eyedee, summary, pass_fail)
+						if(err) res.send(err);
+						if(summary){tsk.summary = summary}
+						if(pass_fail){tsk.pass_fail = pass_fail}
+
+				 		tsk.save(function(err, data){
+				 			if(err) res.send(err);
+				 			console.log('task save data');
+				 		});
+
+					});
+				
+				
 				// if the task object contains messages, update those.
 				if(req.body.tasks[i].messages){
+					console.log('messages length', req.body.tasks[i].messages.length);
 					for(var j = 0; j < req.body.tasks[i].messages.length;j++){
-						Message.findOneAndUpdate(
-							{'_id' : req.body.tasks[i].messages[j]._id},
-							{'fav' : req.body.tasks[i].messages[j].fav},
-							function(err,msg){
-								// console.log('msgs updated', msg.fav)
+						for(var k = 0; k < req.body.tasks[i].messages[j].length; k++){
+
+							var fav = req.body.tasks[i].messages[j][k].fav;
+							var msg_id = req.body.tasks[i].messages[j][k]._id;
+							console.log(req.body.tasks[i].messages[j][k].fav, req.body.tasks[i].messages[j][k]._id)
+
+							Message.findByIdAndUpdate(msg_id, { 'fav' : fav}, function(err, mess){
+								if(err) res.send(err);
+								console.log('message saved', mess)
 							});
+						}
 					}
 				}
 			}
