@@ -33,6 +33,9 @@
 						<small>test</small>
 						<h3>{{test.name}}</h3>
 					</li>
+					
+					<!-- put in a placeholder title to delineate tasks -->
+					<li class="empty"><small>Tasks</small></li>
 						
 					<li class="question" ng-repeat="task in tasks" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(task, $index)">
 										
