@@ -33,8 +33,8 @@
 					
 					<li ui-sref=".task" ng-click="select(task)" class="question" ng-class="{ 'active': task._id == selected._id}" ng-repeat="task in tasks" >
 						<h3>{{task.name}}</h3>
-						<div class="question-rating green" ng-show="task.pass_fail == true" ></div>
-						<div class="question-rating red" ng-show="task.pass_fail == false"></div>
+						<div class="task-score green" ng-show="task.pass_fail == true" >&nbsp;</div>
+						<div class="task-score red" ng-show="task.pass_fail == false">&nbsp;</div>
 					</li>
 				</ul>
 			</div>

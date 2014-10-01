@@ -9,19 +9,22 @@
 				
 				<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="task.summary"></textarea>
 				
+				
 			
-				<div class="step-rating" ng-show="task.pass_fail == true" ng-click="passFail(task)">
+				<div class="task-rating" ng-show="task.pass_fail == false">
 					<div class="float-left">Was this task completed successfully?</div>
 					<div class="float-right">
-						<button class="button small">Yay!</button>
+						<button class="button small hollow" ng-click="passFail(task)">Passed</button>
+						<button class="button small destructive">Needs work</button>
 					</div>
 					<div class="clear"></div>
 				</div>
 				
-				<div class="step-rating" ng-show="task.pass_fail == false" ng-click="passFail(task)">
+				<div class="task-rating" ng-show="task.pass_fail == true">
 					<div class="float-left">Was this task completed successfully?</div>
 					<div class="float-right">
-						<button class="button small destructive">Nope!</button>
+						<button class="button small">Passed</button>
+						<button class="button small destructive hollow" ng-click="passFail(task)">Needs work</button>
 					</div>
 					<div class="clear"></div>
 				</div>

@@ -285,16 +285,6 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #tasklist ul li.active:hover { cursor: auto; box-shadow: none; }
 #tasklist ul li.title:hover { cursor: auto; box-shadow: none; }
 
-/* styles for question-rating boops */
-.question-rating { display: block; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
-.question-rating.green { background: #6cb100; }
-.question-rating.yellow { background: #ffde00; }
-.question-rating.red { background: #ed4e00; }
-
-#questions .question-rating { width: 16px; height: 16px; padding: 0; margin: 2px 0 0 0; float: right; }
-
-#large-pane .question-rating { width: 20px; height: 20px; padding: 0; margin: 0; display: inline-block; }
-
 /* task control sidebar for summarizing and reports */
 #sidebar ul { padding: 0; margin: 0; list-style: none; width: 90%; }
 #sidebar ul li { padding: 13.33333px 20px; margin: 0; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; border: 2px solid white; }
@@ -306,6 +296,10 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #sidebar ul li.active:hover { cursor: auto; border: 2px solid white; }
 #sidebar ul li.empty { border: none; padding: 20px 20px 5px 20px; }
 #sidebar ul li.empty:hover { cursor: auto; border: none; }
+
+/* style up task scores when we're look at reports */
+#view-report #sidebar h3 { display: inline-block; margin: 0; width: 90%; }
+#view-report #sidebar .task-score { width: 12px; height: 12px; }
 
 /* specific views */
 /* styles for things */
@@ -335,8 +329,14 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 .message.message-user .message-details { opacity: 0.4; }
 .message.message-user:hover { background: none; }
 
-/* step rating settings */
-.step-rating { width: 100%; background: #f2f2f0; padding: 10px; margin: 0; font-size: 12.8px; }
+/* task rating input */
+.task-rating { width: 100%; background: #f2f2f0; padding: 10px; margin: 0; font-size: 12.8px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
+.task-rating .button.hollow { opacity: 0.3; }
+
+/* task rating output */
+.task-score { -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; float: right; margin: 5px 0 0 0; }
+.task-score.green { background: #71901f; }
+.task-score.red { background: #f37960; }
 
 /* login & registration forms etc. */
 #view-login { background: #f37960; color: white; height: 100%; padding: 15% 0 0 0; }
@@ -407,8 +407,10 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-summarizing .summary-task-notes h4 { margin-bottom: 10px; }
 
 /* The report */
-#view-report { margin: 0; padding: 50px 0 0 0; }
+#view-report { margin: 0; padding: 50px 0 0 0; /* report content */ }
 #view-report #report-container { padding: 40px 0; }
+#view-report .two-thirds .task-score { font-size: 12.8px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; text-transform: uppercase; letter-spacing: 0; color: white; padding: 5px 10px; }
+#view-report .two-thirds h2 { padding-bottom: 20px; border-bottom: 1px solid #e7e7da; }
 
 /* code that is NOT specific to a component or module */
 *, *:before, *:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }

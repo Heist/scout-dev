@@ -126,15 +126,41 @@
 
 
 
-/* step rating settings */
+/* task rating input */
 
-.step-rating {
+.task-rating {
 	width: 100%;
 	background: $fg-tan;
 	padding: $pad/2;
 	margin: 0;
 	font-size: $type-size-base*0.8;
+	@include radius;
+	
+	.button {
+		&.hollow {
+			opacity: 0.3;
+		}
+	}
 }
+
+
+/* task rating output */
+
+.task-score {
+	@include radius(20px);
+	float: right;
+	margin: 5px 0 0 0;
+	
+	&.green {
+		background: $fg-green;
+	}
+	
+	&.red {
+		background: $fg-header-red;
+	}
+}
+	
+
 	
 
 

@@ -2,20 +2,21 @@
 
 	
 	<h2>{{selected.name}}
-		<div class="question-rating green" ng-show="selected.pass_fail == true"></div>
-		<div class="question-rating red" ng-show="selected.pass_fail == false"></div>
+		<div class="task-score green" ng-show="selected.pass_fail == true">Passed</div>
+		<div class="task-score red" ng-show="selected.pass_fail == false">Needs work</div>
 	</h2>
 
 	
-	<p>{{selected.desc}}</p>
-		
-	<h3><span>Summary</span></h3>
+	<!--<p>{{selected.desc}}</p>-->
 	
-	<p>{{selected.summary}}
-		<br/>
-	</p>
+	<p>{{selected.summary}}</p>
+	
+	
+	
+	
 			
-	<h3><span>Quotes</span></h3>
+	<h4><span>Selected Quotes</span></h4>
+	
 			
 	<div class="theme-messages">
 	
