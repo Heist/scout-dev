@@ -110,19 +110,19 @@ app.post('/auth/logout', function(req, res) {
 
 // MIDDLEWARE TO BLOCK NON-AUTHORIZED USERS ===============
 // this effectively prevents unlogged users from getting data
-// app.use('/api',  isLoggedInAjax, function (req, res, next) {
-// 	// for calls that start with api....
-// 	console.log('touched the api tag')
-
-//   next();
-// })
-
-app.use('/api', function (req, res, next) {
+app.use('/api',  isLoggedInAjax, function (req, res, next) {
 	// for calls that start with api....
 	console.log('touched the api tag')
 
   next();
 })
+
+// app.use('/api', function (req, res, next) {
+// 	// for calls that start with api....
+// 	console.log('touched the api tag')
+
+// 	next();
+// });
 
 // PRIVATE ROUTES =========================================
 
