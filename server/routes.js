@@ -851,7 +851,7 @@ app.route('/api/summary/:_id')
 
 							var fav = req.body.tasks[i].messages[j][k].fav;
 							var msg_id = req.body.tasks[i].messages[j][k]._id;
-							console.log(req.body.tasks[i].messages[j][k].fav, req.body.tasks[i].messages[j][k]._id)
+							// console.log(req.body.tasks[i].messages[j][k].fav, req.body.tasks[i].messages[j][k]._id)
 
 							Message.findByIdAndUpdate(msg_id, { 'fav' : fav}, function(err, mess){
 								if(err) res.send(err);
