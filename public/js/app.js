@@ -24,26 +24,26 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $httpProvider.defaults.timeout = 3000;
 
     // New interceptor from http://stackoverflow.com/questions/21230417/capture-http-401-with-angular-js-interceptor
-    var interceptor = function ($q) {
-        return {
-            'response': function (response) {
-                //Will only be called for HTTP up to 300
-                return response;
-            },
-            'responseError': function (rejection) {
-                if(rejection.status === 401) {
-                    window.location = '/login'
-                }
-                return $q.reject(rejection);
-            }
-        };
-    }
+    // var interceptor = function ($q) {
+    //     return {
+    //         'response': function (response) {
+    //             //Will only be called for HTTP up to 300
+    //             return response;
+    //         },
+    //         'responseError': function (rejection) {
+    //             if(rejection.status === 401) {
+    //                 window.location = '/login'
+    //             }
+    //             return $q.reject(rejection);
+    //         }
+    //     };
+    // }
 
     // this effectively blocks loading despite the weird syntax
-    $httpProvider.interceptors.push(interceptor);
+    // $httpProvider.interceptors.push(interceptor);
 
-    $urlRouterProvider.otherwise("/login");
-    // $urlRouterProvider.otherwise("/overview");
+    // $urlRouterProvider.otherwise("/login");
+    $urlRouterProvider.otherwise("/overview");
 
 
     $stateProvider
@@ -97,11 +97,11 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         //     url: '/register',
         //     templateUrl: 'partials/register.html',
         // })
-        .state('/login', {
-            url: '/login',
-            controller:'login',
-            templateUrl: 'partials/auth/login.html',
-        });
+        // .state('/login', {
+        //     url: '/login',
+        //     controller:'login',
+        //     templateUrl: 'partials/auth/login.html',
+        // });
     
 
     // FIX for trailing slashes. Gracefully "borrowed" from https://github.com/angular-ui/ui-router/issues/50

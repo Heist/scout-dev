@@ -6,7 +6,7 @@ module.exports = function(app, passport) {
 // var app  = express.Router();  // get an instance of the express Router
 // var _ 		= require('underscore');
 // var util = require('util');
-// var mongoose = require('mongoose'); // so we can generate ObjectIDs for tests
+var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 
 // load data storage models
 var Message = require('./models/data/message');
@@ -30,72 +30,72 @@ app.use(function(req, res, next) {
 
 // AUTH ROUTES ============================================
 // route middleware to ensure user is logged in - ajax get
-function isLoggedInAjax(req, res, next) {
-    if (!req.isAuthenticated()) {
-    	return res.send( 401, "unauthorized request");
-    } else {
-    	console.log('login good')
-        next();
-    }
-}
+// function isLoggedInAjax(req, res, next) {
+//     if (!req.isAuthenticated()) {
+//     	return res.send( 401, "unauthorized request");
+//     } else {
+//     	console.log('login good')
+//         next();
+//     }
+// }
 
-// route middleware to ensure user is logged in
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
-}
+// // route middleware to ensure user is logged in
+// function isLoggedIn(req, res, next) {
+//     if (req.isAuthenticated())
+//         return next();
+// }
 
-app.get('/auth/login', isLoggedInAjax, function(req, res) {
-        return res.json(req.user);
-    });
+// app.get('/auth/login', isLoggedInAjax, function(req, res) {
+//         return res.json(req.user);
+//     });
 
-// process the login form
-app.post('/auth/login', function(req, res, next) {
-    if (!req.body.email || !req.body.password) {
-        return res.json({ error: 'Email and Password required' });
-    }
-    passport.authenticate('local-login', function(err, user, info) {
-        if (err) { 
-            return res.json(err);
-        }
-        if (user.error) {
-            return res.json({ error: user.error });
-        }
-        req.logIn(user, function(err) {
-            if (err) {
-                return res.json(err);
-            }
-            var user = {id:req.user._id, email:req.user.local.email};
-            return res.json({ user: user, redirect: '/overview' });
-        });
-    })(req, res);
-});
+// // process the login form
+// app.post('/auth/login', function(req, res, next) {
+//     if (!req.body.email || !req.body.password) {
+//         return res.json({ error: 'Email and Password required' });
+//     }
+//     passport.authenticate('local-login', function(err, user, info) {
+//         if (err) { 
+//             return res.json(err);
+//         }
+//         if (user.error) {
+//             return res.json({ error: user.error });
+//         }
+//         req.logIn(user, function(err) {
+//             if (err) {
+//                 return res.json(err);
+//             }
+//             var user = {id:req.user._id, email:req.user.local.email};
+//             return res.json({ user: user, redirect: '/overview' });
+//         });
+//     })(req, res);
+// });
 
-// process the signup form
-app.post('/auth/signup', function(req, res, next) {
-    if (!req.body.email || !req.body.password) {
-        return res.json({ error: 'Email and Password required' });
-    }
-    passport.authenticate('local-signup', function(err, user, info) {
-        if (err) { 
-            return res.json(err);
-        }
-        if (user.error) {
-            return res.json({ error: user.error });
-        }
-        req.logIn(user, function(err) {
-            if (err) {
-                return res.json(err);
-            }
-            return res.json({ redirect: '/overview' });
-        });
-    })(req, res);
-});
+// // process the signup form
+// app.post('/auth/signup', function(req, res, next) {
+//     if (!req.body.email || !req.body.password) {
+//         return res.json({ error: 'Email and Password required' });
+//     }
+//     passport.authenticate('local-signup', function(err, user, info) {
+//         if (err) { 
+//             return res.json(err);
+//         }
+//         if (user.error) {
+//             return res.json({ error: user.error });
+//         }
+//         req.logIn(user, function(err) {
+//             if (err) {
+//                 return res.json(err);
+//             }
+//             return res.json({ redirect: '/overview' });
+//         });
+//     })(req, res);
+// });
 
-app.post('/auth/logout', function(req, res) {
-   req.logout();
-   res.json({ redirect: '/login' });
-});
+// app.post('/auth/logout', function(req, res) {
+//    req.logout();
+//    res.json({ redirect: '/login' });
+// });
 
 
 // app.route('/user/')
@@ -113,7 +113,14 @@ app.post('/auth/logout', function(req, res) {
 
 // MIDDLEWARE TO BLOCK NON-AUTHORIZED USERS ===============
 // this effectively prevents unlogged users from getting data
-app.use('/api',  isLoggedInAjax, function (req, res, next) {
+// app.use('/api',  isLoggedInAjax, function (req, res, next) {
+// 	// for calls that start with api....
+// 	console.log('touched the api tag')
+
+//   next();
+// })
+
+app.use('/api', function (req, res, next) {
 	// for calls that start with api....
 	console.log('touched the api tag')
 
@@ -758,8 +765,7 @@ app.route('/api/summary/:_id')
 			reply.tasks = tasks;
 			console.log('test requested', req.params._id);
 
-			// TODO: this is SUPER WEIRD and COMPLETELY DIFFERENT than anything else
-			// because Mongoose itself doesn't offer a "group" pipe on Finds.
+			// TODO: REDO THIS SO WE DON'T NEED TO REQUIRE MONGOOSE.
 			return Message.aggregate({ 
 							$match: { '_test':{$in: [mongoose.Types.ObjectId(req.params._id)]} } 
 						  })
