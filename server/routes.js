@@ -822,7 +822,7 @@ app.route('/api/summary/:_id')
 		// if we have tasks, update them in the db.
 		if(req.body.tasks){
 			for(var i = 0; i < req.body.tasks.length; i++){
-				console.log('task',req.body.tasks[i])
+				// console.log('task',req.body.tasks[i])
 
 				var eyedee = req.body.tasks[i]._id;
 				var summary = req.body.tasks[i].summary;
@@ -835,7 +835,7 @@ app.route('/api/summary/:_id')
 					 'summary':summary },
 					function(err, task){
 						if(err) res.send(err)
-						// console.log('task updated', task)
+						console.log('task updated', task.summary, task.pass_fail)
 					});
 				
 				
@@ -849,10 +849,13 @@ app.route('/api/summary/:_id')
 							var msg_id = req.body.tasks[i].messages[j][k]._id;
 							// console.log(req.body.tasks[i].messages[j][k].fav, req.body.tasks[i].messages[j][k]._id)
 
-							Message.findByIdAndUpdate(msg_id, { 'fav' : fav}, function(err, mess){
-								if(err) res.send(err);
-								// console.log('message saved', mess)
-							});
+							Message.findByIdAndUpdate(
+								msg_id, 
+								{ 'fav' : fav}, 
+								function(err, mess){
+									if(err) res.send(err);
+									// console.log('message saved', mess)
+								});
 						}
 					}
 				}
