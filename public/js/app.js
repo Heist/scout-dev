@@ -210,8 +210,31 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 //   };
 // });
 
+// DIRECTIVES
+ field_guide_app.directive('scrollItem',function(){
+    return{
+    restrict: "A",
+    link: function(scope, element, attributes) {
+        if (scope.$last){
+           scope.$emit("Finished");
+       }
+    }
+   }
+})
+.directive('scrollIf', function() {
+return{
+    restrict: "A",
+    link: function(scope, element, attributes) {
+        scope.$on("Finished",function(){
+            var chat_height = element.outerHeight();
+            console.log(chat_height);
+            element.scrollTop(chat_height); 
+        });
+    }
+   }
+  });
 
-// FILTERS ====================================================================
+// FILTERS ============================================================================
 angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);
 
 // CONTROLLERS ================================================================

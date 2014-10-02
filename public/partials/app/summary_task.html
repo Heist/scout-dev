@@ -9,36 +9,71 @@
 				
 				<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="task.summary"></textarea>
 				
+				
+			
+				<div class="task-rating" ng-show="task.pass_fail == false">
+					<div class="float-left">Was this task completed successfully?</div>
+					<div class="float-right">
+						<button class="button small hollow" ng-click="passFail(task)">Passed</button>
+						<button class="button small destructive">Needs work</button>
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+				<div class="task-rating" ng-show="task.pass_fail == true">
+					<div class="float-left">Was this task completed successfully?</div>
+					<div class="float-right">
+						<button class="button small">Passed</button>
+						<button class="button small destructive hollow" ng-click="passFail(task)">Needs work</button>
+					</div>
+					<div class="clear"></div>
+				</div>
+			
+				
 		</div>
 	</div>
 </div>
 
-<div ng-model="task">
-	<div id="timeline" >
-		<strong>All users for &ldquo;{{task.name}}&rdquo;</strong>
-				
-				<ul>
-					<li ng-repeat="user in task.messages" class="message">
-						{{user[0].subject.name}}
-						<ul>	
-							<li ng-repeat="message in user">
-								<div class="message-body">
-									<p ng-bind-html="message.body | hashtag"></p>
-									<small>Message.createdBy &mdash; {{message.created | date : 'HH:mm' }}</small>
-								</div>
+
+<div ng-model="task" class="summary-task-notes">
+
+	<h4 class="float-left">Notes for &ldquo;{{task.name}}&rdquo;</h4>
+	<h4 class="float-right">Fave?</h4>
+	<div class="clear"></div>
+	
+	
+
+	<div ng-repeat="user in task.messages" class="message-group">
 		
-								<div class="message-fave">
-									<a ng-click="saveFav(message)" ng-if="message.fav">
-										&#9733;
-									</a>
-									<a ng-click="saveFav(message)" ng-if="!message.fav">
-										&#9734;
-									</a>
-								</div>
-								<div class="clear"></div>
-							</li>
-						</ul>
-					</li>
-				</ul>
+		<!-- participant name -->
+		<div class="message message-user">
+			<div class="message-details"><div class="message-details-avatar"><img src="/layout/assets/avatar.svg"></div></div>
+			<div class="message-body">{{user[0].subject.name}}</div>
+			<div class="clear"></div>
+		</div>
+		
+		<!-- participant messages -->
+		<div ng-repeat="message in user" class="message">
+			<div class="message-details">&nbsp;</div>
+			<div class="message-body">
+				<p ng-bind-html="message.body | hashtag"></p>
+				<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
+			</div>
+
+			<div class="message-fave">
+				<a ng-click="saveFav(message)" ng-if="message.fav">
+					&#9733;
+				</a>
+				<a ng-click="saveFav(message)" ng-if="!message.fav">
+					&#9734;
+				</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+
 	</div>
+
+			
+	
 </div>

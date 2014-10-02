@@ -65,8 +65,8 @@
 		</div>
 		
 		<!-- timeline -->
-		<div id="timeline" >
-			<ul ng-model='timeline'>
+		<div id="timeline" scroll-if>
+			<ul ng-model='timeline' >
 				
 				<!-- empty state -->
 				<li class="message" id="firstrun">
@@ -82,7 +82,7 @@
 				</li>				
 				<!-- /empty state -->
 						
-				<li class="message" ng-repeat="message in timeline track by $index">
+				<li class="message" ng-repeat="message in timeline track by $index" scroll-item>
 					
 					<div class="message-details"><!-- show the user's avatar -->
 						<div class="message-details-avatar" ng-if="message.title">&bull;</div>

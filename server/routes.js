@@ -3,6 +3,7 @@ module.exports = function(app, passport) {
 // CONFIGURATION =====================================================
 // Module dependencies
 var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
+var _ = require('underscore');
 
 // load data storage models
 var Message = require('./models/data/message');
@@ -114,8 +115,8 @@ app.use('/api',  isLoggedInAjax, function (req, res, next) {
 	// for calls that start with api....
 	console.log('touched the api tag')
 
-  next();
-})
+	next();
+});
 
 // app.use('/api', function (req, res, next) {
 // 	// for calls that start with api....
@@ -655,6 +656,14 @@ app.route('/api/subject/')
 			});
 	});
 
+app.route('/api/subject/:_id')
+	.get(function(req, res){
+		Subject.findById(req.params._id)
+			.exec(function(err, subject){
+				if(err) res.send(err);
+				res.json(subject)
+			});
+	});
 
 // RUN ROUTES ================================================
 app.route('/api/run/')
@@ -796,7 +805,7 @@ app.route('/api/summary/:_id')
 		
 	})
 	.put(function(req, res){
-		console.log('touched summary put', req.body);
+		// console.log('touched summary put', req.body);
 
 		var query = {'_id':req.body.test._id};
 		var update = {summary: req.body.test.summary}
@@ -822,27 +831,41 @@ app.route('/api/summary/:_id')
 		// if we have tasks, update them in the db.
 		if(req.body.tasks){
 			for(var i = 0; i < req.body.tasks.length; i++){
-				console.log('how many tasks',req.body.tasks.length)
-				var eyedee = req.body.tasks[i]._id;
-				console.log('task to update', eyedee, req.body.tasks[i].pass_fail)
-				
-				Task.findByIdAndUpdate(
-					eyedee,
-					{'summary' : req.body.tasks[i].summary, 
-					 'pass_fail' : req.body.tasks[i].pass_fail},
-					function(err,tsk){
-						console.log('task updated', tsk)
-					});
+				// console.log('task',req.body.tasks[i])
 
+				var eyedee = req.body.tasks[i]._id;
+				var summary = req.body.tasks[i].summary;
+				var pass_fail = req.body.tasks[i].pass_fail;
+				// console.log('summary, pass_fail', summary, pass_fail);
+
+				Task.findByIdAndUpdate(
+					req.body.tasks[i]._id,
+					{'pass_fail': pass_fail,
+					 'summary':summary },
+					function(err, task){
+						if(err) res.send(err)
+						console.log('task updated', task.summary, task.pass_fail)
+					});
+				
+				
 				// if the task object contains messages, update those.
 				if(req.body.tasks[i].messages){
+					// console.log('messages length', req.body.tasks[i].messages.length);
 					for(var j = 0; j < req.body.tasks[i].messages.length;j++){
-						Message.findOneAndUpdate(
-							{'_id' : req.body.tasks[i].messages[j]._id},
-							{'fav' : req.body.tasks[i].messages[j].fav},
-							function(err,msg){
-								// console.log('msgs updated', msg.fav)
-							});
+						for(var k = 0; k < req.body.tasks[i].messages[j].length; k++){
+
+							var fav = req.body.tasks[i].messages[j][k].fav;
+							var msg_id = req.body.tasks[i].messages[j][k]._id;
+							// console.log(req.body.tasks[i].messages[j][k].fav, req.body.tasks[i].messages[j][k]._id)
+
+							Message.findByIdAndUpdate(
+								msg_id, 
+								{ 'fav' : fav}, 
+								function(err, mess){
+									if(err) res.send(err);
+									// console.log('message saved', mess)
+								});
+						}
 					}
 				}
 			}
@@ -871,11 +894,54 @@ app.route('/api/report/:_id')
 		promise.then(function(test){
 			reply.test = test;
 			// a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
-			return Task.find({'_test':req.params._id}).populate({'path': '_messages', match: { fav : true }}).select('_id summary name pass_fail desc _messages').exec();
+			return Task.find({'_test':req.params._id})
+						.populate({'path': '_messages', match: { fav : true }})
+						.select('_id summary name pass_fail desc _messages')
+						.exec(function(err, tasks){
+							if(err) res.send(err);
+							// console.log('tasks', tasks);
+						});
 			// in here, this has to have all the messages for this task that are also fav'd
 		})
 		.then(function(tasks){
 			reply.tasks = tasks;
+			console.log(tasks)
+			
+				// for each task, populate the _messages._subject name
+				// Subject.find({'_tests': { $in: [req.params._id] }})
+			return	Message.find({'_test':req.params._id, 'fav' : true})
+						.populate({path: '_subject', 'select': 'name -_id'})
+						.select('_subject body created_by _id')
+						.exec(function(err, message){
+							// console.log(message)
+						})
+						
+			
+		}).then(function(messages){
+			console.log('hello', reply.tasks.length)
+			console.log('messages', messages)
+
+			for(var i =0; i<reply.tasks.length; i++){
+				if(reply.tasks[i]._messages){
+					for(var j = 0; j<reply.tasks[i]._messages.length; j++){
+					console.log('reply task message id', reply.tasks[i]._messages[j]._id)
+						for(var k = 0; k < messages.length; k++){
+							msg_id = messages[k]._id.toString();
+							rply_id = reply.tasks[i]._messages[j]._id.toString();
+
+							console.log('msg_id', msg_id)
+							console.log('rply_id', rply_id)
+
+							if( msg_id == rply_id){
+								console.log('ping')
+								reply.tasks[i]._messages[j] = messages[k]
+							}
+						}
+					}
+				}
+				console.log(reply.tasks[i]._messages)	
+			}
+			
 			res.json(reply);
 		})
 		.then(null, function(err){

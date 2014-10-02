@@ -10,6 +10,22 @@
 		padding: $pad*2 0;
 	}
 	
+	/* report content */
+	.two-thirds {
+		.task-score {
+			font-size: $type-size-base*0.8;
+			@include type-bold;
+			text-transform: uppercase;
+			letter-spacing: 0;
+			color: $white;
+			padding: $pad/4 $pad/2;
+		}
+		
+		h2 {
+			padding-bottom: $pad;
+			border-bottom: 1px solid $line;
+		}
+	}
 
 }
 

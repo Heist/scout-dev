@@ -2,33 +2,29 @@
 
 	
 	<h2>{{selected.name}}
-		<div class="question-rating green" ng-show="selected.pass_fail == true"></div>
-		<div class="question-rating red" ng-show="selected.pass_fail == false"></div>
+		<div class="task-score green" ng-show="selected.pass_fail == true">Passed</div>
+		<div class="task-score red" ng-show="selected.pass_fail == false">Needs work</div>
 	</h2>
 
 	
-	<p>{{selected.desc}}</p>
-		
-	<h3><span>Summary</span></h3>
+	<!--<p>{{selected.desc}}</p>-->
 	
-	<p>{{selected.summary}}
-		<br/>
-	</p>
-			
-	<h3><span>Quotes</span></h3>
-			
-	<div class="theme-messages">
+	<p>{{selected.summary}}</p>
 	
-		<div class="message" ng-repeat="message in selected._messages">
-			<div class="message-details">
-				<div class="message-details-avatar">
-					<img src="http://rdjpg.com/30/30" />
-				</div>
-			</div>
+
+	
+			
+	<div class="message-group report-messages">
+	
+		<h4><span>Selected Quotes</span></h4>
+	
+		<div ng-repeat="message in selected._messages" class="message">
+			
 			<div class="message-body">
 				<p ng-bind-html="message.body | hashtag"></p>
-				<small>Testing with {{fav.user_id}}</small>
+				<small>Testing with {{message._subject.name}}</small>
 			</div>
+	
 			<div class="clear"></div>
 		</div>
 	
