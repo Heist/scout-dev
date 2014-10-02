@@ -29,7 +29,7 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
 
     // what is our drag handle - this should be a directive.
     $scope.sortableOptions = {
-        handle: '> .task-hamburger',
+        handle: '> .step-hamburger',
         update: function(e, ui) {
             console.log('touched sortable list')
             console.log($scope.test);
