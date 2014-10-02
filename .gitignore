@@ -43,10 +43,10 @@ Thumbs.db
 node-webkit.app/*
 nwsnapshot
 
-*.gif
-*.jpg
-*.jpeg
-*.png
+#*.gif
+#*.jpg
+#*.jpeg
+#*.png
 *.mp4
 *.webm
 
