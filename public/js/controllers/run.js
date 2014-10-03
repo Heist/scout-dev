@@ -77,7 +77,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
     
                     if($scope.update.tests.indexOf(test._id) == -1){
                         $scope.update.tests.push(test._id)
-                        $scope.user._tests.push(test._id)
+                        $scope.subject._tests.push(test._id)
 
                         var message   = {};
                         message.title = 'Starting test';
@@ -114,8 +114,8 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             }
         };
 
-        $scope.addUser = function(textfield){
-            // console.log(textfield);
+        $scope.addSubject = function(textfield){
+            console.log('touched addSubject', textfield);
 
             var url = 'api/subject/';
             var data_out = {name : textfield};
@@ -123,8 +123,8 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             $http
                 .post(url, data_out)
                 .success(function(data){
-                    $scope.user = data;
-                    $scope.user.toggle = true;
+                    $scope.subject = data;
+                    $scope.subject.toggle = true;
                     $scope.activate(0,0);
                 })
                 .error(function(data){
@@ -144,7 +144,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             note._test = $scope.task._test;
             note._session = $stateParams._id;
 
-            note._subject = $scope.user._id;
+            note._subject = $scope.subject._id;
 
             $scope.timeline.push(note);
             console.log('message pushing to', $scope.task._id)
@@ -183,7 +183,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
     $scope.postTest = function(){
 
         var url = '/api/run/'+$stateParams._id;
-        var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.user._id};
+        var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
 
         // console.log('touched end', data_out);
 
@@ -196,7 +196,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             .post(url, data_out)
             .success(function(data){
                 // console.log('Updated tests', data);
-                $location.path('/');
+                $location.path('/overview');
             })
             .error(function(data){
                 // console.log('Error: ' + data);

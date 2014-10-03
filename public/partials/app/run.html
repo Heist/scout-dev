@@ -6,7 +6,7 @@
 	
 
 	<!-- participant definition overlay -->
-	<div id="view-testing-userentry" ng-model="user" ng-hide="user.toggle">
+	<div id="view-testing-userentry" ng-model="subject" ng-hide="subject.toggle">
 	        
 	   <div id="user-entry">
 	    
@@ -17,12 +17,12 @@
 	        <ul class="nobullets">
 	            <li>
 	            	<input class="input" type="text" name="participantname" value="" 
-	            		placeholder="Participant&rsquo;s name" ng-model="user.name"
-	            		ui-keypress="{13:'addUser(user.name)'}" />
+	            		placeholder="Participant&rsquo;s name" ng-model="subject.name"
+	            		ui-keypress="{13:'addSubject(subject.name)'}" />
 					</input>
 	                
 	            </li>
-	            <li><button class="button" type="submit" ng-click="addUser(user.name)">Start testing!</button></li>   
+	            <li><button class="button" type="submit" ng-click="addSubject(subject.name)">Start testing!</button></li>   
 	        </ul>
 	        
 	    </div>
@@ -112,7 +112,7 @@
 	
 	
 	
-	<div class="right-pane" ng-model='user'>
+	<div class="right-pane" ng-model='subject'>
 		
 		<div id="timeline-user-input"> </div>
 		
@@ -124,7 +124,7 @@
 				</div>
 				
 				<small>Testing with</small>
-				<h2>{{user.name}}</h2>
+				<h2>{{subject.name}}</h2>
 				
 				<!--<button class="button">New participant</button>-->
 				

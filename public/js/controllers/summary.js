@@ -149,7 +149,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
             .success(function(data){
                 console.log(data);
 
-                $location.path('/');
+                $location.path('/overview');
 
                 // note: this MUST stay inside the Success
                 // To prevent the weird pending bug 
