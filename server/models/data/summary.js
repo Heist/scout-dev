@@ -12,7 +12,7 @@ var SummarySchema = new Schema ({
   _test   : { type: Schema.Types.ObjectId, ref: 'Test' },
   _tasks  : [{ type: Schema.Types.ObjectId, ref: 'Task' }],
   _tags    : [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
-
+  created_by : {type: Schema.Types.ObjectId},
   title   : {type: String, trim: true},
 	summary : {type: String, trim: true},
   

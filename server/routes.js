@@ -507,8 +507,9 @@ app.route('/api/message/')
 		msg._test	 = req.body._test;
 		msg._session = req.body._session;
 		msg._subject = req.body._subject;
+		msg.created_by = req.user._id;
 
-		msg.created_by  = req.body.created_by; // this is to do with authentication.
+		// msg.created_by  = req.body.created_by; // this is to do with authentication.
 		msg.body	 	= req.body.body;
 		
 		msg.save(function(err, msg){

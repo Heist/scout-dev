@@ -15,7 +15,7 @@ var MessageSchema = new Schema ({
 	_subject : { type: Schema.Types.ObjectId, ref: 'Subject' },
 
 	body : { type: String, trim: true },
-	created_by : { type: String, trim: true },
+	created_by : { type: Schema.Types.ObjectId },
 	fav : { type: Boolean, default: false },
 	
 	created: Date
