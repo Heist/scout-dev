@@ -7,7 +7,7 @@ angular.module('field_guide_controls')
     
     // LOGIN FUNCTIONS ====================================
     console.log('loaded login controller, user is', $rootScope.user);
-    $scope.user = {};
+    $scope.user = $rootScope.user;
 
     $scope.login = function(user){
         var url = '/auth/login';
@@ -17,7 +17,6 @@ angular.module('field_guide_controls')
             .post(url, dataOut)
             .success(function(data){
                 console.log('login controller success', data);
-                $rootScope.user = data.user;
                 $location.path(data.redirect);
             })
             .error(function(error){

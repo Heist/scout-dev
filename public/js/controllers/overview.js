@@ -3,7 +3,7 @@
 
 // OVERVIEW CONTROLLER ===========================================================
 angular.module('field_guide_controls')
-    .controller('overview', ['$scope','$http', '$location', '$stateParams', function($scope, $http, $location, $stateParams){
+    .controller('overview', ['$scope','$http', '$location', '$stateParams','$rootScope', function($scope, $http, $location, $stateParams, $rootScope){
     
     // get all sessions and their tests on first load
     $http
@@ -89,12 +89,17 @@ angular.module('field_guide_controls')
 
     // TEST ROUTES ========================================
     $scope.newTest = function(){
-            // console.log('touched addatest', $stateParams.user_id );
+            console.log('touched addatest');
 
             var test = {};
 
             test.name = 'New test name';
-            test.created_by = $rootScope.user;
+            if($rootScope.user){
+                console.log($rootScope.user)
+                test.created_by = $rootScope.user;
+            }else{
+                console.log('whoops, needs a checkin')
+            };
 
             var url = '/api/test/';
             var data_out = test;

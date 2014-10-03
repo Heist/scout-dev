@@ -28,7 +28,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         return {
             'response': function (response) {
                 //Will only be called for HTTP up to 300
-                console.log('response', response);
+                // console.log('response', response);
                 return response;
             },
             'responseError': function (rejection) {
@@ -43,16 +43,24 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ 
         // Initialize a new promise 
+        // This is going to need to check in with Express to see if someone's session
+        // is still active. How?
+
         var deferred = $q.defer(); 
         // Make an AJAX call to check if the user is logged in 
         $http
             .get('/loggedin')
             .success(function(user){
                 // Authenticated 
-                if (user !== '0') $timeout(deferred.resolve, 0); 
+                if (user !== '0') {
+                    console.log('yeah you logged in', user);
+                    $timeout(deferred.resolve, 0);
+                    $rootScope.user = user.replace(/(^"|"$)/g, '');
+                }
 
                 // Not Authenticated 
                 else { 
+                    console.log('welp, that flunked');
                     $rootScope.message = 'You need to log in.'; 
                     $timeout(function(){deferred.reject();}, 0);
                     $location.url('/login');

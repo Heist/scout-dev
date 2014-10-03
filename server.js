@@ -41,6 +41,7 @@ app.use(session(
 			cookie: {
 				path: '/',
 				expires: false, // Alive Until Browser Exits
+				// secure: true, // TODO: implement https
 				httpOnly: true
 			}
 		}));

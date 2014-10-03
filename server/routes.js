@@ -47,12 +47,12 @@ function isLoggedIn(req, res, next) {
 
 // is someone logged in?
 app.get('/loggedin', function(req, res) { 
-		res.send(req.isAuthenticated() ? req.user : '0'); 
+		res.send(req.isAuthenticated() ? req.user._id : '0'); 
 	});
 
 // who's logged in?
 app.get('/auth/login', isLoggedInAjax, function(req, res) {
-        return res.json(req.user);
+        return res.json(req.user._id);
     });
 
 // process the login form
@@ -71,8 +71,10 @@ app.post('/auth/login', function(req, res, next) {
             if (err) {
                 return res.json(err);
             }
-            var user = {id:req.user._id, email:req.user.local.email};
-            return res.json({ user: user, redirect: '/overview' });
+            console.log('user _id login', req.user._id);
+            var user = req.user._id;
+            // mongoose.Types.ObjectId();
+            return res.json({ user: mongoose.Types.ObjectId(user), redirect: '/overview' });
         });
     })(req, res);
 });
@@ -93,7 +95,9 @@ app.post('/auth/signup', function(req, res, next) {
             if (err) {
                 return res.json(err);
             }
-            return res.json({ redirect: '/overview' });
+            console.log('user _id register', req.user._id);
+            var user = req.user._id;
+            return res.json({ user: user, redirect: '/overview' });
         });
     })(req, res);
 });
@@ -251,10 +255,11 @@ app.route('/api/test/')
 	})
 	// add a new test
 	.post(function(req,res){
+		console.log('post a new test', req.body)
 			var test = new Test();
 
 			test.name = req.body.name;
-			// test.created_by = req.body.created_by;
+			test.created_by = req.body.created_by;
 
 			// later, we will be building playlists
 			// sessions should store tests but tests 
