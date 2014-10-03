@@ -5,11 +5,7 @@
 
 angular.module('field_guide_controls').controller('test', ['$scope','$http', '$stateParams','$state', '$location', function($scope, $http,$stateParams,$state, $location){
     console.log('loaded test controller');
-    // if(!$scope.selectedTask && $scope.test){
-        
-    // };
     
-
     $http
         .get('/api/test/'+$stateParams.test_id, {timeout : 5000, cache:false})
         .success(function(data) {
@@ -18,7 +14,8 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
 
             if($scope.test._tasks){
                 console.log($scope.test._tasks.length);
-                $scope.selectedTask = $scope.test._tasks[$scope.test._tasks.length-1];
+                $scope.tasks = $scope.test._tasks;
+                $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
             };
         })
         .error(function(data) {
@@ -29,11 +26,15 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
 
     // what is our drag handle - this should be a directive.
     $scope.sortableOptions = {
-        handle: '> .task-hamburger',
+        handle: '> .step-hamburger',
         update: function(e, ui) {
-            console.log('touched sortable list')
-            console.log($scope.test);
-            $scope.updatetest($scope.test)
+             $(this).sortable('serialize')
+             $scope.test._tasks = $scope.tasks;
+             $scope.updateTest($scope.test)
+    //     // // POST to server using $.post or $.ajax
+    //     //     console.log('touched sortable list', ui, e)
+    //     //     console.log($scope.test);
+            
           }
     };
 
@@ -56,8 +57,8 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
             .success(function(data){
                 console.log('new task added '+ JSON.stringify(data));
 
-                $scope.test._tasks.push(data);
-                $scope.selectedTask = $scope.test._tasks[$scope.test._tasks.length-1];
+                $scope.tasks.push(data);
+                $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
             })
             .error(function(data){
                 console.log(JSON.stringify(data))
@@ -69,10 +70,10 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
         task.edit=false;
     	task.title_edit=false;
 
-        var index = $scope.test._tasks.indexOf(task)
+        var index = $scope.tasks.indexOf(task)
   		var url = '/api/task/'+task._id;
         
-        $scope.test._tasks.splice(index, 1);
+        $scope.tasks.splice(index, 1);
 
         console.log('delete task', url);
         console.log('index', index);
@@ -80,7 +81,7 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
         $http.delete(url)
             .success(function(data){
                 console.log(data);
-                $scope.selectedTask = $scope.test._tasks[$scope.test._tasks.length-1];
+                $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
             })
             .error(function(data){
                 console.log('Error: ' + data);
@@ -109,14 +110,6 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
 
         $scope.updateTask(task)
 	}
-
-	$scope.revertEdit = function (task) {
-		// on escape, revert editing
-        // this appears to not be currently in use
-		tasks[tasks.indexOf(task)] = $scope.original;
-
-		$scope.doneEdit($scope.original);
-	};
 
     $scope.select= function(task) {
         $scope.selectedTask = task;         

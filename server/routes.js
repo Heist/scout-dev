@@ -281,25 +281,22 @@ app.route('/api/test/:_id')
 
 	// update one test with new information
 	.put(function(req,res){
-		console.log('touched test put', req.body)
+		// console.log('touched test put', req.body)
 
-		var tasks = [];
-		if(req.body.tasks){
-			for(var i = 0; i < req.body.tasks.length; i++){
-				tasks.push(req.body.tasks[i]._id);
-			}
+		if(req.body._tasks){
+			var tasks = _.pluck(req.body._tasks, '_id');
 		}
 
 		console.log('tasks', tasks);
 
 		Test.findById(req.params._id)
 			.exec(function(err,test){
-				console.log('touched test update', test)
+				// console.log('touched test update', test)
 				
 				if(req.body.name){test.name = req.body.name}
 				if(req.body.desc){test.desc = req.body.desc}
 				if(req.body.platform){test.platform = req.body.platform}
-				if(req.body.tasks){test._tasks = tasks}
+				if(req.body._tasks){test._tasks = tasks}
 				if(req.body.link){test.link = req.body.link}
 				if(req.body.subject){test._subjects.push(req.body.subject)}
 				
@@ -488,7 +485,7 @@ app.route('/api/message/')
 
 		var msg = new Message();
 
-		console.log('message id', msg._id)
+		// console.log('message id', msg._id)
 
 		msg._task	 = req.body._task;
 		msg._test	 = req.body._test;
@@ -508,7 +505,7 @@ app.route('/api/message/')
 				.exec(function(err,task){
 					if (err) res.send(err);
 
-					console.log(msg._id);
+					// console.log(msg._id);
 
 					task._messages.push(msg._id);
 					
@@ -517,7 +514,7 @@ app.route('/api/message/')
 					})
 				})
 
-			console.log('Subject', req.body._subject)
+			// console.log('Subject', req.body._subject)
 
 			Subject.findById(req.body._subject)
 				.exec(function(err,subject){
@@ -535,24 +532,23 @@ app.route('/api/message/')
 			// if there are tags, add them to the DB and then add their test to them
 			if(req.body.tags){
 				for( var i = 0; i < req.body.tags.length; i++){
-					console.log(req.body.tags[i])
+					console.log('tags', req.body.tags[i])
 					var tag_body = req.body.tags[i];
 
 					Tag.findOne({body: tag_body, _test: req.body._test})
 						.exec(function(err, doc){
 							if(err) res.send(err);
-
 							console.log('tag_body', tag_body);
 						
 							if(doc) { 
-								console.log( 'this tag matched a call', doc)
+								console.log( 'this tag matched a tag in the db', doc._id)
 								
 								doc._messages.push(msg._id);
 								
 								doc.save(function(err, data){
 									if (err) res.send(err);
 									
-									console.log(data)
+									console.log(data._messages)
 								})
 							 }
 
@@ -887,7 +883,7 @@ app.route('/api/report/:_id')
 			Test.findOne({'_id' : req.params._id}).populate('_subjects _tags').exec(function(err, test){
 				if(err) res.send(err);
 
-				Tag.populate(test._tags, {'path': '_messages', match: { fav : true }});
+				// Tag.populate(test._tags, {'path': '_messages', match: { fav : true }});
 
 			});
 
@@ -905,7 +901,7 @@ app.route('/api/report/:_id')
 		})
 		.then(function(tasks){
 			reply.tasks = tasks;
-			console.log(tasks)
+			// console.log(tasks)
 			
 				// for each task, populate the _messages._subject name
 				// Subject.find({'_tests': { $in: [req.params._id] }})
@@ -918,28 +914,63 @@ app.route('/api/report/:_id')
 						
 			
 		}).then(function(messages){
-			console.log('hello', reply.tasks.length)
-			console.log('messages', messages)
+			// console.log('hello', reply.tasks.length)
+			// console.log('messages', messages)
 
+			// TODO: NONE OF THIS SCALES AT ALL.
+			// replace tag messages with messages that are populated
+			for (var i = 0; i < reply.test._tags.length; i++ ){
+				var baseTag = reply.test._tags[i];
+				// console.log('baseTag', baseTag._id);
+				if(baseTag._messages.length > 0){
+					// console.log('there are messages', baseTag._messages.length)
+
+					for(var j = 0; j < baseTag._messages.length; j++){
+						console.log('baseTag message _id', baseTag._messages[j])
+						// console.log('messages array', messages.length)
+						for(var k = 0; k < messages.length; k++){
+							// console.log(messages[k]._id)
+
+							msg_id = messages[k]._id.toString();
+							rply_id = baseTag._messages[j].toString();
+							
+							// console.log('msg_id', msg_id)
+							// console.log('rply_id', rply_id)
+							
+							if( msg_id == rply_id){
+								console.log('ping')
+								baseTag._messages[j] = messages[k];
+							}
+						}
+					}
+
+				}
+
+				// console.log('new messages', baseTag._messages);
+			}
+
+			// console.log('reply tags', reply.test._tags )
+			// tear out whatever tasks think are their messages
+			// replace with their actual messages
 			for(var i =0; i<reply.tasks.length; i++){
 				if(reply.tasks[i]._messages){
 					for(var j = 0; j<reply.tasks[i]._messages.length; j++){
-					console.log('reply task message id', reply.tasks[i]._messages[j]._id)
+					// console.log('reply task message id', reply.tasks[i]._messages[j]._id)
 						for(var k = 0; k < messages.length; k++){
 							msg_id = messages[k]._id.toString();
 							rply_id = reply.tasks[i]._messages[j]._id.toString();
 
-							console.log('msg_id', msg_id)
-							console.log('rply_id', rply_id)
+							// console.log('msg_id', msg_id)
+							// console.log('rply_id', rply_id)
 
 							if( msg_id == rply_id){
-								console.log('ping')
+								// console.log('ping')
 								reply.tasks[i]._messages[j] = messages[k]
 							}
 						}
 					}
 				}
-				console.log(reply.tasks[i]._messages)	
+				// console.log(reply.tasks[i]._messages)	
 			}
 			
 			res.json(reply);

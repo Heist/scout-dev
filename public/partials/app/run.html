@@ -38,7 +38,7 @@
 		
 		<div id="tasklist">
 
-			<ul ng-repeat="test in tests  | orderBy:['created']" ng-class="{ 'active': $index == parentIndex }">
+			<ul ng-repeat="test in tests" ng-class="{ 'active': $index == parentIndex }">
 				<li class="title"><small>test</small><h3>{{test.name}}</h3></li>
 			
 				<li ng-repeat="task in test._tasks" 
@@ -86,7 +86,7 @@
 					
 					<div class="message-details"><!-- show the user's avatar -->
 						<div class="message-details-avatar" ng-if="message.title">&bull;</div>
-						<div class="message-details-avatar" ng-if="!message.title">TC <!-- tester/observer initials --></div>
+						<div class="message-details-avatar" ng-if="!message.title">DC <!-- tester/observer initials --></div>
 					</div>
 
 					<div class="message-body">

@@ -7,19 +7,20 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
     $http.get('/api/report/'+$stateParams.test_id)
             .success(function(data){
               console.log('the report object', data);
+
               $scope.report = data;
               $scope.tasks = data.tasks;
               $scope.test = data.test;
 
              console.log('tasks', data.tasks, 'test', $scope.test)
+
+             $scope.select(data.test)
+             $state.go("report.test");
         }) 
 
     $scope.select = function(obj){
         console.log('selected object', obj)
         $scope.selected = obj;
-
     }
-
-    // there is nothing in reports right now.
 
 }]);

@@ -17,8 +17,6 @@
 		</div>
 	</div>
 	
-		
-		
 	
 	<!-- task creation/editing -->
 	<div ng-model="test" class="container" id="editing-container">
@@ -26,7 +24,7 @@
 		<div class="module third">
 			<h3>Your Test</h3>
 	
-			<ul class="nobullets">
+			<ul class="nobullets" >
 				<li>
 					<label for="field-testname">test name</label>
 					<input class="input hollow" type="text" ng-model="test.name" id="field-testname" placeholder="What are you testing?" />
@@ -70,14 +68,13 @@
 			<h3>Tasks in this Test</h3>
 			<p>Tasks allow you to sort your notes &amp; feedback into groups.</p>
 		
-			<ul id="steps" ui-sortable="sortableOptions" ng-model='test.tasks'>
+			<ul id="steps" ui-sortable="sortableOptions" ng-model='tasks'>
 		
-				<li ng-repeat="task in test._tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="">
+				<li ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="">
 				
 					<div class="step-hamburger">≡</div>
 		
 					<div class="step-contents">
-			
 						<form>
 			
 							<input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
