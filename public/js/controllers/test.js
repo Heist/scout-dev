@@ -165,7 +165,7 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
         // TODO: see if THEN will work here.
         $scope.updateTest()
             .then(function(){
-                $location.path('/');
+                $location.path('/overview');
             });
         
         

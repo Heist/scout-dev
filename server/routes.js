@@ -143,6 +143,7 @@ app.use('/api',  isLoggedInAjax, function (req, res, next) {
 // SESSION ROUTES =========================================
 app.route('/api/session/')
 	.get(function(req,res){
+
 		Session.find({})
 			.populate('_tests')
 			.exec(function(err, docs){
@@ -246,7 +247,8 @@ app.route('/api/session/:_id/test/')
 app.route('/api/test/')
 	// get all of the tests	
 	.get(function(req,res){
-		Test.find({})
+		console.log(' get all tests ', req.isAuthenticated(), req.user._id)
+		Test.find({created_by:req.user._id})
 			.exec(function(err, docs) {
 				if(err) res.send(err);
 
