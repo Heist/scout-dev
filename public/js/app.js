@@ -40,6 +40,26 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         };
     };
 
+
+    var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ 
+        // Initialize a new promise 
+        var deferred = $q.defer(); 
+        // Make an AJAX call to check if the user is logged in 
+        $http
+            .get('/loggedin')
+            .success(function(user){
+                // Authenticated 
+                if (user !== '0') $timeout(deferred.resolve, 0); 
+
+                // Not Authenticated 
+                else { 
+                    $rootScope.message = 'You need to log in.'; 
+                    $timeout(function(){deferred.reject();}, 0);
+                    $location.url('/login');
+                }
+            });
+        };
+
     $httpProvider.interceptors.push(interceptor);
 
     $urlRouterProvider.otherwise("/login");
@@ -51,26 +71,30 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('overview', {
             url: '/overview',
             controller: 'overview',
-            templateUrl: 'partials/app/overview.html'
+            templateUrl: 'partials/app/overview.html',
+            resolve: { loggedin: checkLoggedin }
         })
         .state('test', {
             url: '/edit/test/:test_id',
             controller:'test',
-            templateUrl: 'partials/app/test.html'
+            templateUrl: 'partials/app/test.html',
+            resolve: { loggedin: checkLoggedin }
         })
 
         // RUN TEST =======================================
         .state('run', {
             url: '/run/:_id',
             controller:'run',
-            templateUrl: 'partials/app/run.html'
+            templateUrl: 'partials/app/run.html',
+            resolve: { loggedin: checkLoggedin }
         })
 
         // SUMMARIZE VIEW =================================
         .state('summary', {
             url: '/summary/:_id',
             controller:'summary',
-            templateUrl: 'partials/app/summary.html'
+            templateUrl: 'partials/app/summary.html',
+            resolve: { loggedin: checkLoggedin }
         })
         .state('summary.test', {
             templateUrl: 'partials/app/summary_test.html'
@@ -93,10 +117,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         })
 
         // LOGIN AND REGISTRATION PAGES ===================
-        // .state('/register', {
-        //     url: '/register',
-        //     templateUrl: 'partials/register.html',
-        // })
         .state('/login', {
             url: '/login',
             controller:'login',

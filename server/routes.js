@@ -42,6 +42,15 @@ function isLoggedIn(req, res, next) {
         return next();
 }
 
+
+// LOGIN ROUTES ===========================================
+
+// is someone logged in?
+app.get('/loggedin', function(req, res) { 
+		res.send(req.isAuthenticated() ? req.user : '0'); 
+	});
+
+// who's logged in?
 app.get('/auth/login', isLoggedInAjax, function(req, res) {
         return res.json(req.user);
     });
