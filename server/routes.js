@@ -281,25 +281,22 @@ app.route('/api/test/:_id')
 
 	// update one test with new information
 	.put(function(req,res){
-		console.log('touched test put', req.body)
+		// console.log('touched test put', req.body)
 
-		var tasks = [];
-		if(req.body.tasks){
-			for(var i = 0; i < req.body.tasks.length; i++){
-				tasks.push(req.body.tasks[i]._id);
-			}
+		if(req.body._tasks){
+			var tasks = _.pluck(req.body._tasks, '_id');
 		}
 
 		console.log('tasks', tasks);
 
 		Test.findById(req.params._id)
 			.exec(function(err,test){
-				console.log('touched test update', test)
+				// console.log('touched test update', test)
 				
 				if(req.body.name){test.name = req.body.name}
 				if(req.body.desc){test.desc = req.body.desc}
 				if(req.body.platform){test.platform = req.body.platform}
-				if(req.body.tasks){test._tasks = tasks}
+				if(req.body._tasks){test._tasks = tasks}
 				if(req.body.link){test.link = req.body.link}
 				if(req.body.subject){test._subjects.push(req.body.subject)}
 				

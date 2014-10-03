@@ -38,7 +38,7 @@
 		
 		<div id="tasklist">
 
-			<ul ng-repeat="test in tests  | orderBy:['updated']" ng-class="{ 'active': $index == parentIndex }">
+			<ul ng-repeat="test in tests" ng-class="{ 'active': $index == parentIndex }">
 				<li class="title"><small>test</small><h3>{{test.name}}</h3></li>
 			
 				<li ng-repeat="task in test._tasks" 

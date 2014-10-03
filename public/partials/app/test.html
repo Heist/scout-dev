@@ -68,14 +68,13 @@
 			<h3>Tasks in this Test</h3>
 			<p>Tasks allow you to sort your notes &amp; feedback into groups.</p>
 		
-			<ul id="steps" ui-sortable="sortableOptions" ng-model='test.tasks'>
+			<ul id="steps" ui-sortable="sortableOptions" ng-model='tasks'>
 		
-				<li ng-repeat="task in test._tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="">
+				<li ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="">
 				
 					<div class="step-hamburger">≡</div>
 		
 					<div class="step-contents">
-			
 						<form>
 			
 							<input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
