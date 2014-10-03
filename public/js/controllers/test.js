@@ -31,9 +31,13 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
     $scope.sortableOptions = {
         handle: '> .step-hamburger',
         update: function(e, ui) {
-            console.log('touched sortable list')
-            console.log($scope.test);
-            $scope.updatetest($scope.test)
+            console.log(ui)
+             var data = ui.serialize();
+             console.log(data)
+        // // POST to server using $.post or $.ajax
+        //     console.log('touched sortable list', ui, e)
+        //     console.log($scope.test);
+        //     $scope.updateTest($scope.test)
           }
     };
 
