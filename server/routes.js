@@ -857,7 +857,7 @@ app.route('/api/summary/:_id')
 					 'summary':summary },
 					function(err, task){
 						if(err) res.send(err)
-						console.log('task updated', task.summary, task.pass_fail)
+						console.log('task updated', task)
 					});
 				
 				
