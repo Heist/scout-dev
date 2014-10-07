@@ -13,7 +13,6 @@ var Task    = require('../models/data/task');
 var Test    = require('../models/data/test');
 var Tag     = require('../models/data/tag');
 var Session = require('../models/data/session');
-var Summary = require('../models/data/summary');
 var Subject = require('../models/data/subject');
 
 // REPORT ROUTES =============================================

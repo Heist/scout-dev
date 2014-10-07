@@ -35,7 +35,6 @@ function isLoggedIn(req, res, next) {
         return next();
 }
 
-
 // LOGIN ROUTES ===========================================
 
 // is someone logged in?
