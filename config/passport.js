@@ -3,6 +3,7 @@
 
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
+var TrelloStrategy = require('passport-trello').Strategy
 
 // load up the user model
 var User = require('../server/models/auth/user');
@@ -27,6 +28,29 @@ module.exports = function(passport) {
             done(err, user);
         });
     });
+
+// =========================================================================
+// TRELLO LOGIN ============================================================
+// =========================================================================
+
+// passport.use ('trello', new TrelloStrategy({
+//     consumerKey: TRELLO_ID,
+//     consumerSecret: TRELLO_SECRET,
+//     callbackURL: TRELLO_CALLBACK,
+//     passReqToCallback: true,
+//     trelloParams:{
+//             scope: "read,write",
+//             name: "Field Guide",
+//             expiration: "never"},
+//     function (req, token, tokenSecret, profile, done){
+//         if (!req.user){
+//             // user is not authenticated, log in via trello or do something else
+//         } else {
+//             // authorize user to use Trello api
+//         }
+//     }
+        
+// });
 
 // =========================================================================
 // LOCAL LOGIN =============================================================
