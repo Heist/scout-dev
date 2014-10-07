@@ -4,7 +4,7 @@
   "description": "Scout app",
   "version": "0.0.1",
   "dependencies": {
-    "async":"latest",
+    "async": "latest",
     "bcrypt-nodejs": "latest",
     "body-parser": "~1.0.1",
     "connect-flash": "~0.1.1",
@@ -21,6 +21,7 @@
     "morgan": "latest",
     "passport": "^0.2.1",
     "passport-local": "~0.1.6",
+    "passport-trello": "^0.1.4",
     "request": "^2.44.0",
     "underscore": "^1.7.0"
   },
