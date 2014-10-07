@@ -4,20 +4,12 @@ module.exports = function(app, passport) {
 
 // Module dependencies
 var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
-var _ = require('underscore');
 
 // load data storage models
 var Message = require('./models/data/message');
 var Task    = require('./models/data/task');
 var Test    = require('./models/data/test');
 var Tag     = require('./models/data/tag');
-var Session = require('./models/data/session');
-var Summary = require('./models/data/summary');
-var Subject = require('./models/data/subject');
-
-
-// load auth models 
-var User = require('./models/auth/user');
 
 // console logging
 app.use(function(req, res, next) {
