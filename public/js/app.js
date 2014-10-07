@@ -75,6 +75,25 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
 
     $stateProvider
+        // REPORT PAGE FOR SINGLE test ====================
+        .state('report', {
+            url: '/report/:test_id',
+            controller:'report',
+            templateUrl: 'partials/app/report.html'
+        })
+        .state('report.test', {
+            templateUrl: 'partials/app/report_test.html'
+        })
+        .state('report.task', {
+            templateUrl: 'partials/app/report_task.html'
+        })
+
+        // LOGIN AND REGISTRATION PAGES ===================
+        .state('/login', {
+            url: '/login',
+            controller:'login',
+            templateUrl: 'partials/auth/login.html',
+        })
         // OVERVIEW AND test CREATION =====================
         .state('overview', {
             url: '/overview',
@@ -109,26 +128,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         })
         .state('summary.task', {
             templateUrl: 'partials/app/summary_task.html'
-        })
-
-        // REPORT PAGE FOR SINGLE test ====================
-        .state('report', {
-            url: '/report/:test_id',
-            controller:'report',
-            templateUrl: 'partials/app/report.html'
-        })
-        .state('report.test', {
-            templateUrl: 'partials/app/report_test.html'
-        })
-        .state('report.task', {
-            templateUrl: 'partials/app/report_task.html'
-        })
-
-        // LOGIN AND REGISTRATION PAGES ===================
-        .state('/login', {
-            url: '/login',
-            controller:'login',
-            templateUrl: 'partials/auth/login.html',
         });
     
 
