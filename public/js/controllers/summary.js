@@ -127,7 +127,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         $scope.tags[$scope.selectedTag.index].summarized = true;
         $scope.selectedTag.summarized = true;
 
-        console.log($scope.test._tags);
+        console.log($scope.tags);
     }
 
     //  TEST FUNCTIONS ====================================
@@ -142,7 +142,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
             }
 
         var url = '/api/summary/'+ $stateParams._id;
-        var data_out = {test: $scope.test, tags:$scope.test._tags, tasks:$scope.tasks} ;
+        var data_out = {test: $scope.test, tags:$scope.tags, tasks:$scope.tasks} ;
 
         console.log('this is our data out', data_out)
         

@@ -22,7 +22,7 @@
 
 <!-- test theme summary -->
 
-<div ng-repeat="tag in selected._tags" ng-hide="!tag.summary">
+<div ng-repeat="tag in tags" ng-hide="!tag.summary">
 
 	<div class="message-group report-messages">
 		<h4><span>Theme:</span> {{tag.body}} &mdash; <ng-pluralize count="tag._messages.length"
