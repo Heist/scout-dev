@@ -435,9 +435,9 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-account #account-container { padding: 40px 0; }
 #view-account .pm-app { border: 1px solid #e7e7da; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; padding: 13.33333px 20px 13.33333px 60px; margin: 0 0 13.33333px 0; }
 #view-account .pm-app.github { background: url("/layout/assets/app-github.png") no-repeat 10px 10px; background-size: 30px 30px; }
-#view-account .pm-app.github.connected { border: 1px solid #2f2f2f; }
+#view-account .pm-app.github.connected { color: #2f2f2f; border: 1px solid #2f2f2f; }
 #view-account .pm-app.jira { background: url("/layout/assets/app-jira.png") no-repeat 10px 10px; background-size: 30px 30px; }
-#view-account .pm-app.jira.connected { border: 1px solid #003366; }
+#view-account .pm-app.jira.connected { color: #003366; border: 1px solid #003366; }
 #view-account .pm-app.trello { background: url("/layout/assets/app-trello.png") no-repeat 10px 10px; background-size: 30px 30px; }
 #view-account .pm-app.trello.connected { color: #247096; border: 1px solid #247096; }
 #view-account .pm-app.connected { cursor: default; }
