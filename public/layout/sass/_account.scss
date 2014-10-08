@@ -15,7 +15,6 @@
 		@include radius;
 		padding: $pad/1.5 $pad $pad/1.5 $pad*3;
 		margin: 0 0 $pad/1.5 0;
-		cursor: pointer;
 		
 		&.github {
 			background: url('/layout/assets/app-github.png') no-repeat 10px 10px;

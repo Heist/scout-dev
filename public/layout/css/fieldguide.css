@@ -131,7 +131,7 @@ form { padding: 0; margin: 0; }
 .input, .button { display: inline-block; margin: 0; padding: 10px 13.33333px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; font-size: 16px; outline: none; border: none; }
 
 .input { background: white; border: 1px solid #e7e7da; }
-.input:focus { -webkit-box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.2); box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.2); }
+.input:focus { -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.15); -moz-box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.15); box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.15); }
 .input.small { font-size: 12.8px; line-height: 1.5; }
 .input.tight { padding: 6.66667px 10px; }
 .input.hollow { background: none; border: 1px solid rgba(231, 231, 218, 0.5); }
@@ -143,17 +143,17 @@ textarea.input { line-height: 24px; }
 
 /* button colour mixin */
 .button { background: #71901f; color: white; text-decoration: none; cursor: pointer; }
-.button:hover { background: rgba(113, 144, 31, 0.8); color: white; text-decoration: none; }
+.button:hover { background: #67831c; color: white; text-decoration: none; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
 .button.small { font-size: 12.8px; padding: 2.5px 10px; }
 .button.disabled { cursor: not-allowed; opacity: 0.4; }
 .button.dark { background: #323539; color: white; text-decoration: none; }
-.button.dark:hover { background: rgba(50, 53, 57, 0.8); color: white; text-decoration: none; }
+.button.dark:hover { background: #2b2d31; color: white; text-decoration: none; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
 .button.destructive { background: #f37960; color: white; text-decoration: none; }
-.button.destructive:hover { background: rgba(243, 121, 96, 0.8); color: white; text-decoration: none; }
+.button.destructive:hover { background: #f26d52; color: white; text-decoration: none; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
 .button.secondary { background: #646a72; color: white; text-decoration: none; }
-.button.secondary:hover { background: rgba(100, 106, 114, 0.8); color: white; text-decoration: none; }
+.button.secondary:hover { background: #5d626a; color: white; text-decoration: none; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
 .button.header { background: white; color: #f37960; text-decoration: none; }
-.button.header:hover { background: rgba(255, 255, 255, 0.8); color: #f37960; text-decoration: none; }
+.button.header:hover { background: #f7f7f7; color: #f37960; text-decoration: none; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
 
 label { padding: 0; margin: 0; font-size: 11.2px; opacity: 0.5; text-transform: uppercase; }
 
@@ -433,7 +433,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 /* everything account related */
 #view-account { margin: 0; padding: 50px 0 0 0; /* connected app statuses */ }
 #view-account #account-container { padding: 40px 0; }
-#view-account .pm-app { border: 1px solid #e7e7da; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; padding: 13.33333px 20px 13.33333px 60px; margin: 0 0 13.33333px 0; cursor: pointer; }
+#view-account .pm-app { border: 1px solid #e7e7da; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; padding: 13.33333px 20px 13.33333px 60px; margin: 0 0 13.33333px 0; }
 #view-account .pm-app.github { background: url("/layout/assets/app-github.png") no-repeat 10px 10px; background-size: 30px 30px; }
 #view-account .pm-app.github.connected { border: 1px solid #2f2f2f; }
 #view-account .pm-app.jira { background: url("/layout/assets/app-jira.png") no-repeat 10px 10px; background-size: 30px 30px; }
