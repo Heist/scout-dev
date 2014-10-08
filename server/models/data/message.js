@@ -13,6 +13,7 @@ var MessageSchema = new Schema ({
 	_test: { type: Schema.Types.ObjectId, ref: 'Test' },
 	_session : { type: Schema.Types.ObjectId, ref: 'Session' },
 	_subject : { type: Schema.Types.ObjectId, ref: 'Subject' },
+	_tags : [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
 
 	body : { type: String, trim: true },
 	created_by : { type: Schema.Types.ObjectId },

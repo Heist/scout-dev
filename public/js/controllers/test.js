@@ -129,6 +129,7 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
             .put(url, data_out)
             .success(function(data){
                 console.log('task has pushed', data);
+                console.log('current test tasklist', data._tasks);
              })
             .error(function(data){
                 console.log('error', data)

@@ -114,6 +114,25 @@ app.route('/debug/test')
 			});
 	});
 
+app.route('/debug/task')
+	.get(function(req,res){
+		Task.find()
+			.exec(function(err, docs) {
+				if(err) res.send(err);
+
+				res.json(docs);
+			});
+	});
+
+app.route('/debug/tag/')
+		.get(function(req,res){
+			Tag.find(function(err, tags) {
+					if(err) res.send(err);
+
+					res.json(tags);
+				})
+			});
+
 // Report Route ------------------
 // for some reason I can't require this and still have it be public
 //  ¯\_(ツ)_/¯

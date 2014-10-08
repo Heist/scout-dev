@@ -160,11 +160,12 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             if (tagIt){
                 for (var i=0; i < tagIt.length; ++i) {
                     var msg = tagIt[i].replace(hashPull,'');
+                    console.log('tag being pushed', msg)
                     note.tags.push(msg);
                 }
             }
             
-            // console.log('note', note);
+            console.log('note tags', note.tags);
 
             var url = '/api/message/';
             var data_out = note;
