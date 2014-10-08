@@ -93,6 +93,7 @@ strong { font-family: "proxima-nova",sans-serif; font-style: normal; font-weight
 
 a { color: #71901f; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; text-decoration: none; cursor: pointer; }
 a:hover { text-decoration: underline; color: #5a7319; }
+a.caution { color: #f37960; }
 
 .big, big { font-size: 20px; line-height: inherit; }
 
@@ -223,10 +224,6 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #header #header-account #header-account-avatar { height: 28px; width: 28px; margin: 10px 0 0 10px; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; overflow: hidden; float: left; }
 #header #header-account #header-account-avatar img { width: 28px; height: auto; }
 #header #header-account #header-account-dropdown { float: left; padding: 11.11111px 0 0 6.66667px; }
-#header #header-account-drawer { width: 120px; padding: 0 6.66667px 6.66667px 6.66667px; position: absolute; top: 48px; right: 20px; background: #f37960; z-index: 9999; -webkit-border-bottom-right-radius: 8px; -webkit-border-bottom-left-radius: 8px; -moz-border-radius-bottomright: 8px; -moz-border-radius-bottomleft: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; }
-#header #header-account-drawer .button { width: 100%; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; }
-#header #header-account-drawer ul { width: 100%; padding: 0; margin: 0; list-style: none; }
-#header #header-account-drawer ul li { font-size: 12.8px; padding: 6.66667px 10px; text-align: center; margin: 0; border-top: 1px solid rgba(255, 255, 255, 0.15); }
 
 /* active test header */
 /* header-specific styles */
@@ -242,8 +239,12 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #header-run .large-pane #header-account #header-account-avatar { height: 28px; width: 28px; margin: 10px 0 0 10px; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; overflow: hidden; float: left; }
 #header-run .large-pane #header-account #header-account-avatar img { width: 28px; height: auto; opacity: 0.2; }
 #header-run .large-pane #header-account #header-account-dropdown { float: left; padding: 11.11111px 0 0 6.66667px; color: #000; opacity: 0.2; }
-#header-run .large-pane #header-account-drawer { width: 120px; padding: 0 6.66667px 6.66667px 6.66667px; position: absolute; top: 48px; right: 20px; background: #f2f2f0; z-index: 9999; -webkit-border-bottom-right-radius: 8px; -webkit-border-bottom-left-radius: 8px; -moz-border-radius-bottomright: 8px; -moz-border-radius-bottomleft: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; }
-#header-run .large-pane #header-account-drawer .button { width: 100%; }
+
+/* the dropdown */
+#header-account-drawer { width: 120px; padding: 0 6.66667px; position: absolute; top: 48px; right: 20px; background: #f37960; z-index: 9999; -webkit-border-bottom-right-radius: 8px; -webkit-border-bottom-left-radius: 8px; -moz-border-radius-bottomright: 8px; -moz-border-radius-bottomleft: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; }
+#header-account-drawer .button { width: 100%; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; }
+#header-account-drawer ul { width: 100%; padding: 0; margin: 0; list-style: none; }
+#header-account-drawer ul li { font-size: 12.8px; padding: 6.66667px 10px; text-align: center; margin: 0; border-top: 1px solid rgba(255, 255, 255, 0.15); }
 
 /* adjust button visibility based on where we are in the app */
 #view-testing #header-run #header-buttons .button-testing { display: inline-block; }
@@ -430,8 +431,17 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-report .two-thirds h2 { padding-bottom: 20px; border-bottom: 1px solid #e7e7da; }
 
 /* everything account related */
-#view-account { margin: 0; padding: 50px 0 0 0; }
+#view-account { margin: 0; padding: 50px 0 0 0; /* connected app statuses */ }
 #view-account #account-container { padding: 40px 0; }
+#view-account .pm-app { border: 1px solid #e7e7da; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; padding: 13.33333px 20px 13.33333px 60px; margin: 0 0 13.33333px 0; cursor: pointer; }
+#view-account .pm-app.github { background: url("/layout/assets/app-github.png") no-repeat 10px 10px; background-size: 30px 30px; }
+#view-account .pm-app.github.connected { border: 1px solid #2f2f2f; }
+#view-account .pm-app.jira { background: url("/layout/assets/app-jira.png") no-repeat 10px 10px; background-size: 30px 30px; }
+#view-account .pm-app.jira.connected { border: 1px solid #003366; }
+#view-account .pm-app.trello { background: url("/layout/assets/app-trello.png") no-repeat 10px 10px; background-size: 30px 30px; }
+#view-account .pm-app.trello.connected { color: #247096; border: 1px solid #247096; }
+#view-account .pm-app.connected { cursor: default; }
+#view-account .pm-app.connected a { text-decoration: underline; }
 
 /* code that is NOT specific to a component or module */
 *, *:before, *:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
