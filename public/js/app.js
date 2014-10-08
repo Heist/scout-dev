@@ -87,7 +87,13 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('report.task', {
             templateUrl: 'partials/app/report_task.html'
         })
-
+        // ACCOUNT MANAGEMENT =============================
+        .state('account', {
+            url: '/account',
+            // controller: 'account',
+            templateUrl : 'partials/app/account.html'
+            // ,resolve: { loggedin: checkLoggedin }
+        })
         // LOGIN AND REGISTRATION PAGES ===================
         .state('/login', {
             url: '/login',
@@ -107,6 +113,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             templateUrl: 'partials/app/test.html',
             resolve: { loggedin: checkLoggedin }
         })
+
 
         // RUN TEST =======================================
         .state('run', {
