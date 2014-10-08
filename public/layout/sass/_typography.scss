@@ -87,6 +87,10 @@ a {
 		text-decoration: underline;
 		color: $link-hover;
 	}
+	
+	&.caution {
+		color: $fg-header-red;
+	}
 }
 
 .big, big {

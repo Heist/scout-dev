@@ -16,9 +16,9 @@ mixins
 }
 
 @mixin insetshadow {
-	-webkit-box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.2);
-	-moz-box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.2);
-	box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.2);
+	-webkit-box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.15);
+	-moz-box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.15);
+	box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.15);
 }
 
 @mixin radius($radius: 4px) {
@@ -52,9 +52,10 @@ mixins
 	text-decoration: none;
 		
 	&:hover {
-		background: transparentize($bg, 0.2);
+		background: darken($bg, 3%);
 		color: $text;
 		text-decoration: none;
+		@include dropshadow(0 1px 3px, rgba(0,0,0,0.3));
 	}
 }
 

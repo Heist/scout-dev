@@ -3,7 +3,7 @@
 <div id="header" ng-controller="login">
 	
 	<div id="header-logo" ng-model="user">
-		<a href="/overview"><img src="../layout/assets/fg-binocs-header.png" /></a> Hi, {{user}}
+		<a href="/overview"><img src="../layout/assets/fg-binocs-header.png" /></a> <!-- Hi, {{user}} -->
 	</div>
 	
 	<!--
@@ -25,7 +25,10 @@
 	</div>			
 	
 	<div id="header-account-drawer" ng-show="collapsed">
-		<button class="button small header" ng-click="logout()">Log Out</button>
+		<ul>
+			<li><a href="/account">My Account</a></li>
+			<li><a ng-click="logout()">Log Out</a></li>
+		</ul>
 	</div>
 	
 

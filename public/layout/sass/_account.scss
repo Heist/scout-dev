@@ -1,0 +1,82 @@
+/* everything account related */
+
+#view-account {
+	margin: 0;
+	padding: $pad*2.5 0 0 0;
+	
+	#account-container {
+		padding: $pad*2 0;
+	}
+	
+	/* connected app statuses */
+	
+	.pm-app {
+		border: 1px solid $line;
+		@include radius;
+		padding: $pad/1.5 $pad $pad/1.5 $pad*3;
+		margin: 0 0 $pad/1.5 0;
+		
+		&.github {
+			background: url('/layout/assets/app-github.png') no-repeat 10px 10px;
+			background-size: 30px 30px;
+			
+			&.connected {
+				color: #2f2f2f;
+				border: 1px solid #2f2f2f;
+			}
+		}
+		
+		&.jira {
+			background: url('/layout/assets/app-jira.png') no-repeat 10px 10px;
+			background-size: 30px 30px;
+			
+			&.connected {
+				color: #003366;
+				border: 1px solid #003366;
+			}
+		}
+		
+		&.trello {
+			background: url('/layout/assets/app-trello.png') no-repeat 10px 10px;
+			background-size: 30px 30px;
+			
+			&.connected {
+				color: #247096;
+				border: 1px solid #247096;
+			}
+		}
+		
+		&.connected {
+			cursor: default;
+			
+			a {
+				text-decoration: underline;
+			}
+		}
+
+		form {
+			padding: 0;
+			margin: $pad/2 0 $pad 0;
+			
+			.input {
+				width: 100%;
+				margin: 0 0 $pad/4 0;
+			}
+		}
+		
+	}
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+

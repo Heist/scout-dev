@@ -2,4 +2,72 @@
 	
 	<ng-include src="'partials/app/header.html'"></ng-include>
 	
+	
+	<!-- sub bar -->
+	<div id="sub-bar" class="tabbed">
+		<div class="container">
+		
+			<ul class="tabbed-nav">
+				<li><a href="#">Account Information</a></li>
+				<li><a href="#">Team</a></li>
+				<li><a href="#">Billing</a></li>
+				<li><a href="#">Notifications</a></li>
+				<li class="active"><a href="/account">Connected Apps</a></li>
+				
+			</ul>
+			
+			<div class="clear"></div>
+		</div>
+	</div>
+	
+	
+	<div class="container" id="account-container">
+			<div class="module quarter">&nbsp;</div>
+			
+			<div class="module half">
+			
+				<h2>Connected Apps</h2>
+				<p>Connecting other apps to your Field Guide account will allow you to export tasks and notes from your tests into your project
+				management workflow.</p>
+				
+				<!-- connect with apps -->
+				
+				<!-- unconnected -->
+				<div class="pm-app trello">
+					Connect your Trello account
+				</div>
+				
+				<!-- connection process -->
+				<div class="pm-app trello">
+					Connect your Trello account
+					
+					<form>
+						<input type="text" class="input small" name="trello-apikey" placeholder="Put your API key here" />
+						<input type="text" class="input small" name="trello-secret" placeholder="Put your app secret here" />
+						<button class="button small">Connect Trello</button>
+					</form>
+					
+					<small><a href="#">Where can I find this information?</a></small>
+				</div>
+				
+				<!-- connected -->
+				<div class="pm-app connected trello">
+					Your Trello account is connected. <a href="#" class="caution">Disconnect?</a>
+				</div>
+				
+				<div class="pm-app github">
+					Connect your Github account
+				</div>
+				
+				<div class="pm-app jira">
+					Connect your Jira account
+				</div>
+				
+			</div>
+			
+			<div class="clear"></div>
+	</div>
+	
+		
+	
 </div>
