@@ -25,5 +25,57 @@
 	.container {
 		padding: 0 $pad/2;
 	}
+	
+	&.tabbed {
+		padding-bottom: 0;
+		text-align: center;
+	}
 }
+
+
+
+/* tab-style navigation for sub-bar */
+
+.tabbed-nav {
+	list-style: none;
+	padding: 0;
+	margin: 0 auto;
+	
+	li {
+		display: inline-block;
+		padding: 0 0 $pad 0;
+		margin: 0 $pad;
+		
+		a {
+			padding: 0;
+			margin: 0;
+			color: $text-light;
+			text-decoration: none;
+			
+			&:hover {
+				color: $text;
+			}
+		}
+		
+		&.active {
+			border-bottom: 3px solid $text;
+		
+			a {
+				color: $text;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -224,7 +224,9 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #header #header-account #header-account-avatar img { width: 28px; height: auto; }
 #header #header-account #header-account-dropdown { float: left; padding: 11.11111px 0 0 6.66667px; }
 #header #header-account-drawer { width: 120px; padding: 0 6.66667px 6.66667px 6.66667px; position: absolute; top: 48px; right: 20px; background: #f37960; z-index: 9999; -webkit-border-bottom-right-radius: 8px; -webkit-border-bottom-left-radius: 8px; -moz-border-radius-bottomright: 8px; -moz-border-radius-bottomleft: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; }
-#header #header-account-drawer .button { width: 100%; }
+#header #header-account-drawer .button { width: 100%; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; }
+#header #header-account-drawer ul { width: 100%; padding: 0; margin: 0; list-style: none; }
+#header #header-account-drawer ul li { font-size: 12.8px; padding: 6.66667px 10px; text-align: center; margin: 0; border-top: 1px solid rgba(255, 255, 255, 0.15); }
 
 /* active test header */
 /* header-specific styles */
@@ -370,6 +372,15 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #sub-bar h1 span { opacity: 0.4; }
 #sub-bar .sub-bar-controls { float: right; }
 #sub-bar .container { padding: 0 10px; }
+#sub-bar.tabbed { padding-bottom: 0; text-align: center; }
+
+/* tab-style navigation for sub-bar */
+.tabbed-nav { list-style: none; padding: 0; margin: 0 auto; }
+.tabbed-nav li { display: inline-block; padding: 0 0 20px 0; margin: 0 20px; }
+.tabbed-nav li a { padding: 0; margin: 0; color: rgba(100, 106, 114, 0.3); text-decoration: none; }
+.tabbed-nav li a:hover { color: #646a72; }
+.tabbed-nav li.active { border-bottom: 3px solid #646a72; }
+.tabbed-nav li.active a { color: #646a72; }
 
 /* editing a test */
 #view-editing { margin: 0; padding: 50px 0 0 0; }
@@ -417,6 +428,10 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-report #report-container { padding: 40px 0; }
 #view-report .two-thirds .task-score { font-size: 12.8px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; text-transform: uppercase; letter-spacing: 0; color: white; padding: 5px 10px; }
 #view-report .two-thirds h2 { padding-bottom: 20px; border-bottom: 1px solid #e7e7da; }
+
+/* everything account related */
+#view-account { margin: 0; padding: 50px 0 0 0; }
+#view-account #account-container { padding: 40px 0; }
 
 /* code that is NOT specific to a component or module */
 *, *:before, *:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
