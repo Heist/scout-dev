@@ -11,6 +11,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         .success(function(data){
           console.log('returned test information', data);
 
+            $scope.tags = data.tags;
             $scope.test = data.test;
             $scope.tasks = data.tasks;
             $scope.messages = data.messages;
@@ -36,10 +37,10 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
                 $scope.tasks[i].messages = _.groupBy($scope.tasks[i].messages, function(z){return z.subject.name});
             }
             
-            console.log('test', $scope.test, 'tasks',$scope.tasks,'messages',$scope.messages)
-            $scope.activate($scope.test)
+            console.log('test', $scope.test, 'tasks',$scope.tasks,'tags', $scope.tags,'messages',$scope.messages);
+            $scope.activate($scope.test);
 
-        })
+        });
 
     // TASK FUNCTIONS =====================================
 
@@ -113,7 +114,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
 
 
     $scope.selectTag = function (index){
-        $scope.selectedTag = $scope.test._tags[index];
+        $scope.selectedTag = $scope.tags[index];
         $scope.selectedTag.index = index;
     }
 
@@ -122,8 +123,8 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
     }
 
     $scope.saveTagSummary = function(){
-        $scope.test._tags[$scope.selectedTag.index].summary = $scope.selectedTag.summary;
-        $scope.test._tags[$scope.selectedTag.index].summarized = true;
+        $scope.tags[$scope.selectedTag.index].summary = $scope.selectedTag.summary;
+        $scope.tags[$scope.selectedTag.index].summarized = true;
         $scope.selectedTag.summarized = true;
 
         console.log($scope.test._tags);

@@ -25,7 +25,7 @@ app.route('/api/summary/:_id')
 
 		// the promise gets your main document, with its populated subs
 		var	promise = 
-			Test.findById(req.params._id).populate('_tags').exec(function(err, test){
+			Test.findById(req.params._id).exec(function(err, test){
 				if(err) res.send(err);
 			});
 
@@ -63,13 +63,16 @@ app.route('/api/summary/:_id')
 		})
 		.then(function(subjects){
 			reply.subjects = subjects
-			console.log('reply', reply.test._id, 'messages', reply.messages, 'tasks', reply.tasks)
+			return Tag.find({'_test' : reply.test._id}).exec();
+ 		})
+		.then(function(tags){
+			reply.tags = tags;
+			console.log('reply', reply.test._tags, 'messages', reply.messages, 'tasks', reply.tasks)
 			res.json(reply)
 		})
 		.then(null, function(err){
 			if(err) return res.send (err)
 		});
-		
 	})
 	.put(function(req, res){
 		// console.log('touched summary put', req.body);

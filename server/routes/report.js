@@ -23,10 +23,11 @@ app.route('/api/report/:_id')
 
 		var reply = {};
 		var promise = 
-			Test.findOne({'_id' : req.params._id}).populate('_subjects _tags').exec(function(err, test){
+			Test.findOne({'_id' : req.params._id}).populate('_subjects').exec(function(err, test){
 				if(err) res.send(err);
 
-				// Tag.populate(test._tags, {'path': '_messages', match: { fav : true }});
+				Tag.find({_test : test._id})
+					.populate({'path': '_messages', match: { fav : true }});
 
 			});
 

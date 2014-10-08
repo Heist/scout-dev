@@ -32,14 +32,14 @@ app.route('/api/message/')
 
 		//console.log('message id', msg._id)
 
-		msg._task	 = req.body._task;
-		msg._test	 = req.body._test;
+		msg._task = req.body._task;
+		msg._test = req.body._test;
 		msg._session = req.body._session;
 		msg._subject = req.body._subject;
 		msg.created_by = req.user._id;
 
 		//msg.created_by  = req.body.created_by; //this is to do with authentication.
-		msg.body	 	= req.body.body;
+		msg.body = req.body.body;
 		
 		msg.save(function(err, msg){
 			//save the new message
@@ -55,8 +55,8 @@ app.route('/api/message/')
 					
 					task.save(function(err,data){
 						if(err) res.send(err);
-					})
-				})
+					});
+				});
 
 			//console.log('Subject', req.body._subject)
 
@@ -70,16 +70,10 @@ app.route('/api/message/')
 
 					subject.save(function(err,data){
 						if(err) res.send(err);
-					})
-			})
-
-			//if there are tags, add them to the DB and then add their test to them
-
-			//FUCK THIS AND THAT AND FUCK STUPID DAMN AAAAGH PROMISES FUCK FUCK FUCK
+					});
+			});
 
 			if(req.body.tags){
-			//if there are tags is fine, but a loop is unacceptable for resolving promises FOR WHATEVER REASON.
-			//this needs to be rewritten.
 			//solution from http://stackoverflow.com/questions/16960349/mongoose-findoneandupdate-callback-with-array-of-ids
 
 				//for each tag
@@ -97,27 +91,18 @@ app.route('/api/message/')
 					var runLoop = function(tag, done) {
 						Tag.findOneAndUpdate(
 							{body: tag, _test: test},
-							{ $push: { _messages: msg._id, 
-										_tasks : task 
+							{ $push: { _messages: msg._id,
+										_tasks : task
 									},
-							  body: tag,
-							  _test: test,
-							  _session: session
+								body: tag,
+								_test: test,
+								_session: session
 							},
 							{upsert:true},
 							function(err, rows){
 								returnData.push(rows._id);
-
-								//probably this is where the test is found and updated
-								Test.findOneAndUpdate(
-									{_id : test},
-									{
-										$push: { _tags : rows._id }
-									},
-									function(err, test){
-										done();
-										res.json(msg);
-									});
+								res.json(msg);
+								done();
 							}
 						);
 					};
@@ -127,74 +112,15 @@ app.route('/api/message/')
 					};
 
 					async.forEachSeries(input, runLoop, doneLoop);
-				}
+				};
 
 				loop(tags, function(updatedArray){
-				    console.log(updatedArray);
-				    //carry on....
-				}); 
-				
-
-			//TODO: THIS SHIT
-			//var upsertData = {
-					//$push: { _messages : msg._id, _tasks : req.body._task},
-					//_test : req.body._test,
-					//_session : req.body._session,
-					//body = req.body.tags[i]
-					//};
-
-			//tag.save(function(err, tag){
-			//			if (err) res.send(err);
-
-			//			Test.findById( req.body._test)
-			//				.exec(function(err,test){
-			//					//console.log(test)
-
-			//					test._tags.push(tag._id);
-
-			//					test.save(function(err,data){
-			//						if (err)
-			//							res.send(err);
-									
-			//						res.json(msg);
-			//						//console.log(data);
-			//					})
-			//				})
-			//		})
-
-			//Promise: check for tags, then if there are tags, return them, and if not, move to the next step
-				//for( var i = 0; i < req.body.tags.length; i++){
-				//	console.log('tags', req.body.tags[i], req.body._test)
-				//	var promise = 
-				//	Tag.findOne({body: req.body.tags[i], _test: req.body._test})
-				//		.exec(function(err, doc){
-				//			if(err) res.send(err);
-
-				//			console.log('tag_body', req.body.tags[i]);
-						
-				//			if(doc) { 
-				//				console.log( 'this tag matched a tag in the db', doc._id)
-								
-				//				doc._messages.push(msg._id);
-								
-				//				doc.save(function(err, data){
-				//					if (err) res.send(err);
-									
-				//					console.log(data._messages)
-				//				})
-				//			 }
-
-				//			if(!doc) {
-				//				console.log( 'no tags match this call', req.body.tags[i], req.body._test)
-				//				return
-				//			}
-				//		});
-
+					console.log(updatedArray);
+					//carry on....
+				});
 					
-				//	}
-					
-				}
-		})
+			}
+		});
 	});
 		
 
@@ -209,6 +135,6 @@ app.route('/api/message/:_id')
 				
 				console.log(msg)
 				res.json(msg);
-			})
+			});
 	});
-}
+};
