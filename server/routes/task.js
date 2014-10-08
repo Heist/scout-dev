@@ -33,7 +33,8 @@ app.route('/api/task/')
 		task.name = req.body.name;
 		task._test = req.body._test;
 		task._session =  req.body._session;
-
+		task.index = req.body.index;
+		
 		task.save(function(err, task){
 			if (err)
 				res.send(err);
@@ -66,7 +67,7 @@ app.route('/api/task/:_id')
 	
 	// update a single task
 	.put(function(req,res){
-		console.log('touched task', req.body)
+		console.log('touched task', req.body, req.body.index)
 
 		Task.findById(req.params._id)
 			.exec(function(err, task){
@@ -74,7 +75,8 @@ app.route('/api/task/:_id')
 
 				if(req.body.name){task.name = req.body.name}
 				if(req.body.desc){task.desc = req.body.desc}
-				if(req.body._test){task._test = req.body._test}	
+				if(req.body._test){task._test = req.body._test}
+				if(req.body.index){task.index = req.body.index}
 				if(req.body._session){task._session = req.body._session}
 				if(req.body._subject){task._subjects.push(req.body._subject)}
 

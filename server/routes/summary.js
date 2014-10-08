@@ -32,7 +32,7 @@ app.route('/api/summary/:_id')
 		promise.then(function(test){
 			reply.test = test;
 			// a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
-			return Task.find({'_test':req.params._id}).select('_id summary name desc pass_fail').exec(function(err, task){if (err) console.log(err)});
+			return Task.find({'_test':req.params._id}).sort({ index: 'asc'}).select('_id summary name desc pass_fail').exec(function(err, task){if (err) console.log(err)});
 		})
 		.then(function(tasks){
 			reply.tasks = tasks;

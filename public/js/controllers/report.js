@@ -29,14 +29,14 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
                         return {_id : message}
                       }
                     });
-                });
-
+                });              
 
               $scope.report = data;
               $scope.tasks = data.tasks;
               $scope.test = data.test;
               $scope.tags = data.tags;
               $scope.messages = data.messages;
+
 
              console.log('tasks', data.tasks, 'test', $scope.test, 'tags', $scope.tags  )
 

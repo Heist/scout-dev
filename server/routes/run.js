@@ -79,6 +79,8 @@ var Subject = require('../models/data/subject');
 			// for each task in a run test
 			// if a subject has hit that task,
 			// push the subject to its subject array
+
+			//TODO: Fix this to be async
 			for(var i = 0; i < req.body.tasks.length; i++){
 				console.log('tasks', req.body.tasks[i])
 				Task.findById(req.body.tasks[i], function(err, task){

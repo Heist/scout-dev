@@ -28,12 +28,17 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
     $scope.sortableOptions = {
         handle: '> .step-hamburger',
         update: function(e, ui) {
-             $(this).sortable('serialize')
-             $scope.test._tasks = $scope.tasks;
-             $scope.updateTest($scope.test)
-    //     // // POST to server using $.post or $.ajax
-    //     //     console.log('touched sortable list', ui, e)
-    //     //     console.log($scope.test);
+             console.log('update: '+ui.item.index());
+             console.log('task to update', $scope.tasks[ui.item.index()]);
+
+             $scope.tasks[ui.item.index()].index = ui.item.index();
+             $scope.updateTask($scope.tasks[ui.item.index()]);
+
+            // $scope.test._tasks = $scope.tasks;
+            // $scope.updateTest($scope.test)
+            // POST to server using $.post or $.ajax
+            //     console.log('touched sortable list', ui, e)
+            //     console.log($scope.test);
             
           }
     };
@@ -48,6 +53,7 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
         task.name = "edit me";
         task._test = $stateParams.test_id;
         task._session = $scope.test._session;
+        task.index = $scope.tasks.length;
          
         var url = '/api/task/';
         var data_out = task;
