@@ -5,6 +5,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
+var cors = require('cors');
 
 // express modules
 var logger       = require('morgan');
@@ -22,6 +23,8 @@ var auth_db = database.auth_db;
 
 
 // configuration ======================================================
+app.use(cors()); // permit cross-site requests, ie: passport.
+
 global.rootRequire = function(name) {
     return require(__dirname + '/' + name);
 };

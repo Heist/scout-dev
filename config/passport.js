@@ -74,7 +74,7 @@ passport.use('local-signup', new LocalStrategy({
     passwordField : 'password',
     passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
-    function(req, email, password, done){ 
+    function(req, email, password, done){
     if (email) {email = email.toLowerCase()}; // Use lower-case e-mails to avoid case-sensitive e-mail matching
 
         // asynchronous
@@ -135,22 +135,32 @@ passport.use('trello-authz', new TrelloStrategy({
     consumerKey: configAuth.trelloAuth.clientID,
     consumerSecret: configAuth.trelloAuth.clientSecret,
     callbackURL: configAuth.trelloAuth.callbackURL,
-    passReqToCallback: true,
-    trelloParams:{
+    passReqToCallback: true, // we are not using trello to log in to our app.
+    trelloParams: {
             scope: "read,write",
             name: "Field Guide",
-            expiration: "never"},
-    function (req, token, tokenSecret, profile, done){
-        console.log('successful trello hit', req);
-        if (!req.user){
-            // user is not authenticated, log in via trello or do something else
-            
+            expiration: "never"
+          }
+    }, 
+    function(req, token, tokenSecret, profile, done) {
+        if (!req.user) {
+            console.log('nope! No user');
         } else {
-            // authorize user to use Trello api
+        User.findOne({ 'trello.id': profile.id}, function(err, user) {
+              if (err) { return done(err); }
+              if (user) { return done(null, user); }
 
+              var user = new User();
+              
+              user.trello.id = profile.id;
+              user.trello.token = token;
+              user.trello.tokenSecret = tokenSecret;
+              
+              user.save(function(err,data){
+                return done(null, user);
+              });
+            });
         }
-    }
-        
-});
+    }));
 
 }

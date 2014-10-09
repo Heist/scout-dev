@@ -101,13 +101,22 @@ app.post('/auth/logout', function(req, res) {
 });
 
 // CONNECT ROUTES =========================================
+
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+    next();
+ });
+ 
 app.get('/connect/trello',
   passport.authorize('trello-authz', { failureRedirect: '/account' })
-  );
+ );
   
 
 app.get('/connect/trello/callback',
-  passport.authorize('trello-authz', { failureRedirect: '/account' }),
+  // passport.authorize('trello-authz', { failureRedirect: '/account' }),
   function(req, res) {
   	console.log('routes successful trello call', req);
     var user = req.user;

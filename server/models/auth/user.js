@@ -22,10 +22,14 @@ var userSchema = new Schema({
         name         : String
     },
     trello           : {
-        
+        id           : String,
+        token        : String,
+        tokenSecret  : String
     },
     github           : {
-        
+        id           : String,
+        token        : String,
+        tokenSecret  : String
     },
     google           : {
         id           : String,

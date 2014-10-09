@@ -90,7 +90,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         // ACCOUNT MANAGEMENT =============================
         .state('account', {
             url: '/account',
-            // controller: 'account',
+            controller: 'account',
             templateUrl : 'partials/app/account.html'
             // ,resolve: { loggedin: checkLoggedin }
         })
