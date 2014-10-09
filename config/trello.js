@@ -1,3 +1,0 @@
-
-Trello dev key: 3db0f3dee26d4be56033d04b47c53e7b
-Trello application secret: dcc5e3171042186dc7ff33a947acae806d73ab2993a7c8be2701fb48157b96bc

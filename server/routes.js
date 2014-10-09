@@ -100,6 +100,29 @@ app.post('/auth/logout', function(req, res) {
    res.json({ redirect: '/login' });
 });
 
+// CONNECT ROUTES =========================================
+app.get('/connect/trello',
+  passport.authorize('trello-authz', { failureRedirect: '/account' })
+  );
+  
+
+app.get('/connect/trello/callback',
+  passport.authorize('trello-authz', { failureRedirect: '/account' }),
+  function(req, res) {
+  	console.log('routes successful trello call', req);
+    var user = req.user;
+    var account = req.account;
+
+    // Associate the Twitter account with the logged-in user.
+    account.userId = user.id;
+    account.save(function(err) {
+      if (err) { return self.error(err); }
+      self.redirect('/');
+    });
+  }
+);
+
+
 
 // PUBLIC ROUTES ==========================================
 

@@ -15,20 +15,20 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
     $scope.timeline = []; // holds all messages currently in test
     
     // // refresh warning to prevent whoops-I-deleted-the-Session
-    var leavingPageText = "If you refresh, you will lose this test.";
-    window.onbeforeunload = function(){
-        return leavingPageText;
-    }
+    // var leavingPageText = "If you refresh, you will lose this test.";
+    // window.onbeforeunload = function(){
+    //     return leavingPageText;
+    // }
 
-    $scope.$on('$destroy', function() {
-        window.onbeforeunload = undefined;
-    });
+    // $scope.$on('$destroy', function() {
+    //     window.onbeforeunload = undefined;
+    // });
 
-    $scope.$on('$locationChangeStart', function(event, next, current) {
-        if(!confirm(leavingPageText + "\n\nAre you sure you want to leave this page?")) {
-            event.preventDefault();
-        }
-    });
+    // $scope.$on('$locationChangeStart', function(event, next, current) {
+    //     if(!confirm(leavingPageText + "\n\nAre you sure you want to leave this page?")) {
+    //         event.preventDefault();
+    //     }
+    // });
 
     $http
         .get('/api/run/'+$stateParams._id)

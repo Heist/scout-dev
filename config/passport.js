@@ -8,6 +8,9 @@ var TrelloStrategy = require('passport-trello').Strategy
 // load up the user model
 var User = require('../server/models/auth/user');
 
+// load the auth variables
+var configAuth = require('./auth');
+
 // expose this function to our app using module.exports
 module.exports = function(passport) {
 
@@ -28,29 +31,6 @@ module.exports = function(passport) {
             done(err, user);
         });
     });
-
-// =========================================================================
-// TRELLO LOGIN ============================================================
-// =========================================================================
-
-// passport.use ('trello', new TrelloStrategy({
-//     consumerKey: TRELLO_ID,
-//     consumerSecret: TRELLO_SECRET,
-//     callbackURL: TRELLO_CALLBACK,
-//     passReqToCallback: true,
-//     trelloParams:{
-//             scope: "read,write",
-//             name: "Field Guide",
-//             expiration: "never"},
-//     function (req, token, tokenSecret, profile, done){
-//         if (!req.user){
-//             // user is not authenticated, log in via trello or do something else
-//         } else {
-//             // authorize user to use Trello api
-//         }
-//     }
-        
-// });
 
 // =========================================================================
 // LOCAL LOGIN =============================================================
@@ -146,4 +126,31 @@ passport.use('local-signup', new LocalStrategy({
         });
     }
 ));
+
+// =========================================================================
+// TRELLO AUTHORIZATION ====================================================
+// =========================================================================
+
+passport.use('trello-authz', new TrelloStrategy({
+    consumerKey: configAuth.trelloAuth.clientID,
+    consumerSecret: configAuth.trelloAuth.clientSecret,
+    callbackURL: configAuth.trelloAuth.callbackURL,
+    passReqToCallback: true,
+    trelloParams:{
+            scope: "read,write",
+            name: "Field Guide",
+            expiration: "never"},
+    function (req, token, tokenSecret, profile, done){
+        console.log('successful trello hit', req);
+        if (!req.user){
+            // user is not authenticated, log in via trello or do something else
+            
+        } else {
+            // authorize user to use Trello api
+
+        }
+    }
+        
+});
+
 }
