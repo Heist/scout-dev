@@ -2,7 +2,7 @@
 'use strict';
 
 // ACCOUNT CONTROLLER ===========================================================
-angular.module('field_guide_controls').controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', function($scope, $http,$stateParams,$state, $location, $window){
+angular.module('field_guide_controls').controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', '$rootScope', function($scope, $http, $stateParams,$state, $location, $window, $rootScope){
 	console.log('account touched');
 
 	$scope.connectTrello = function(){
@@ -13,5 +13,15 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 		// 		console.log(data)
 		// 		// 
 		// 	});
+	}
+
+	$scope.disconnectTrello = function() {
+		console.log('touched disconnect');
+
+		$http.delete('/connect/trello')
+			.success(function(err, data){
+				console.log(data);
+			});
+
 	}
 }]);

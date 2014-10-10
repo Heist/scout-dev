@@ -251,15 +251,20 @@ app.get('/connect/trello',
   
 
 app.get('/connect/trello/callback',
-	// on connect, do a get to trello
-	// then pass that to passport.authorize, which is in config.passport
-	// and handles all the shit we actually do here.
   passport.authorize('trello-authz', { failureRedirect: '/account' }),
   function(req, res) {
-  	// do shit with passport-authorize's callbacks!
-  	console.log('things happened on passport.authorize');
-  }
-);
+  	// this sends things to the popup window.
+	res.send("Thanks for attaching your account. You can close this window now.");
+  });
+
+app.delete('/connect/trello', function(req, res){
+	console.log(req.body);
+
+	req.user.trello.id = '';
+	req.user.trello.token = '';
+	req.user.trello.tokenSecret = '';
+	req.user.save();
+});
 
 // OBJECT ROUTES =========================================
 

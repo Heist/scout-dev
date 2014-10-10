@@ -146,24 +146,27 @@ passport.use('trello-authz', new TrelloStrategy({
         console.log('touched passport trello');
         if (!req.user) {
             console.log('nope! the user is not logged in');
-
+            var reply = 'Sorry, that user is not logged in to Field Guide.'
+            return done(null, reply)
         } else {
-            console.log('yep, looks like someone is logged in', req.user.id)
+        
+        console.log('yep, looks like someone is logged in', req.user.id)
         // this is how you authorize someone, but you could do
         // service.id: profile.id and authenticate them
         // then add a new account otherwise.
+        
         User.findById(req.user.id)
             .exec(function(err, user) {
               if (err) { return done(err); }
               console.log('gotcha,', user._id);
-              // if (user) { return done(null, user); }
               
               user.trello.id = profile.id;
               user.trello.token = token;
               user.trello.tokenSecret = tokenSecret;
               
               user.save(function(err,data){
-                return done(null, user);
+                // pass the user back to routes.js
+                return done(null, data);
               });
             });
         }
