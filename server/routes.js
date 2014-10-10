@@ -136,13 +136,21 @@ app.route('/debug/message')
 
 app.route('/debug/tag/')
 		.get(function(req,res){
-			Tag.find(function(err, tags) {
+			Tag.find(function(err, docs) {
 					if(err) res.send(err);
 
-					res.json(tags);
+					res.json(docs);
 				})
 			});
 
+app.route('/debug/user/')
+		.get(function(req,res){
+			User.find(function(err, users) {
+					if(err) res.send(err);
+
+					res.json(users);
+				})
+			});
 
 // Report Route ------------------
 // for some reason I can't require this and still have it be public

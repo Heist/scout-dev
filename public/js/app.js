@@ -91,8 +91,8 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('account', {
             url: '/account',
             controller: 'account',
-            templateUrl : 'partials/app/account.html'
-            // ,resolve: { loggedin: checkLoggedin }
+            templateUrl : 'partials/app/account.html',
+            resolve: { loggedin: checkLoggedin }
         })
         // LOGIN AND REGISTRATION PAGES ===================
         .state('/login', {
