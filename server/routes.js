@@ -100,38 +100,6 @@ app.post('/auth/logout', function(req, res) {
    res.json({ redirect: '/login' });
 });
 
-// CONNECT ROUTES =========================================
-
-app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Origin', req.headers.origin);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-    next();
- });
- 
-app.get('/connect/trello',
-  passport.authorize('trello-authz', { failureRedirect: '/account' })
- );
-  
-
-app.get('/connect/trello/callback',
-  // passport.authorize('trello-authz', { failureRedirect: '/account' }),
-  function(req, res) {
-  	console.log('routes successful trello call', req);
-    var user = req.user;
-    var account = req.account;
-
-    // Associate the Twitter account with the logged-in user.
-    account.userId = user.id;
-    account.save(function(err) {
-      if (err) { return self.error(err); }
-      self.redirect('/');
-    });
-  }
-);
-
-
 
 // PUBLIC ROUTES ==========================================
 
@@ -257,6 +225,32 @@ app.use('/api',  isLoggedInAjax, function (req, res, next) {
 
 //	next();
 // });
+
+// CONNECT ROUTES =========================================
+
+// app.use(function (req, res, next) {
+//     res.header('Access-Control-Allow-Credentials', true);
+//     res.header('Access-Control-Allow-Origin', req.headers.origin);
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH');
+//     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+//     next();
+//  });
+ 
+app.get('/connect/trello',
+  passport.authorize('trello-authz', { failureRedirect: '/account' })
+ );
+  
+
+app.get('/connect/trello/callback',
+	// on connect, do a get to trello
+	// then pass that to passport.authorize, which is in config.passport
+	// and handles all the shit we actually do here.
+  passport.authorize('trello-authz', { failureRedirect: '/account' }),
+  function(req, res) {
+  	// do shit with passport-authorize's callbacks!
+  	console.log('things happened on passport.authorize');
+  }
+);
 
 // OBJECT ROUTES =========================================
 

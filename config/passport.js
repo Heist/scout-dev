@@ -143,9 +143,12 @@ passport.use('trello-authz', new TrelloStrategy({
           }
     }, 
     function(req, token, tokenSecret, profile, done) {
+        console.log('touched passport trello');
         if (!req.user) {
-            console.log('nope! No user');
+            console.log('nope! the user is not logged in');
+
         } else {
+            console.log('yep, looks like someone is logged in')
         User.findOne({ 'trello.id': profile.id}, function(err, user) {
               if (err) { return done(err); }
               if (user) { return done(null, user); }
