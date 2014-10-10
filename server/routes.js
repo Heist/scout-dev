@@ -10,6 +10,7 @@ var Message = require('./models/data/message');
 var Task    = require('./models/data/task');
 var Test    = require('./models/data/test');
 var Tag     = require('./models/data/tag');
+var User    = require('./models/auth/user');
 
 // console logging
 app.use(function(req, res, next) {
