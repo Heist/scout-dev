@@ -166,6 +166,7 @@ passport.use('trello-authz', new TrelloStrategy({
               
               user.save(function(err,data){
                 // pass the user back to routes.js
+                console.log('user saved')
                 return done(null, data);
               });
             });

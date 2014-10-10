@@ -21,7 +21,7 @@
 	</div>
 	
 	
-	<div class="container" id="account-container">
+	<div class="container" id="account-container" ng-model='account'>
 			<div class="module quarter">&nbsp;</div>
 			
 			<div class="module half">
@@ -33,26 +33,16 @@
 				<!-- connect with apps -->
 				
 				<!-- unconnected -->
-				<div class="pm-app trello">
+				<div class="pm-app trello" ng-show="!account.trello">
 					Connect your Trello account
-				</div>
-				
-				<!-- connection process -->
-				<div class="pm-app trello">
-					Connect your Trello account
+					<div class="clear"></div>
+					<button class="button small" ng-click="connectTrello()">Connect Trello</button>
 					
-					<form>
-						<input type="text" class="input small" name="trello-apikey" placeholder="Put your API key here" />
-						<input type="text" class="input small" name="trello-secret" placeholder="Put your app secret here" />
-						<button class="button small" ng-click="connectTrello()">Connect Trello</button>
-					</form>
-					
-					<small><a href="#">Where can I find this information?</a></small>
 				</div>
 				
 				<!-- connected -->
-				<div class="pm-app connected trello">
-					Your Trello account is connected. <a href="#" class="caution" ng-click="disconnectTrello()">Disconnect?</a>
+				<div class="pm-app connected trello" ng-show="account.trello">
+					Your Trello account is connected. <div class="clear"></div><a href="#" class="caution" ng-click="disconnectTrello()" >Disconnect?</a>
 				</div>
 				
 				<div class="pm-app github">

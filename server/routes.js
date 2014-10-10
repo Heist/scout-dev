@@ -64,7 +64,6 @@ app.post('/auth/login', function(req, res, next) {
             if (err) {
                 return res.json(err);
             }
-            
 
             console.log('user _id login', req.user._id);
 
@@ -229,9 +228,11 @@ app.use('/api',  isLoggedInAjax, function (req, res, next) {
 // CONNECT ROUTES =========================================
 
 app.get('/connect/trello',
-  passport.authorize('trello-authz', { failureRedirect: '/account' })
+  passport.authorize('trello-authz', { failureRedirect: '/account' }, function(req,res){
+  	console.log('touched connect-trello')
+  	res.send({trello : true});
+  })
  );
-  
 
 app.get('/connect/trello/callback',
   passport.authorize('trello-authz', { failureRedirect: '/account' }),
@@ -248,13 +249,34 @@ app.delete('/connect/trello', function(req, res){
 	req.user.trello.tokenSecret = '';
 	req.user.save();
 
+	res.json({trello : false})
 });
 
 // ACCOUNT ROUTES =========================================
-// app.route('/api/account')
-// 	.get(function(req,res){
-// 		console.log(req.user);
-// 	});
+app.route('/api/account/:_user')
+	.get(function(req,res){
+		var getUser =  mongoose.Types.ObjectId(req.params._user);
+
+		var promise = 
+		 User.findById(getUser).exec();
+
+		promise.then(function(user){
+			console.log('touched user', user)
+			
+			var reply = {}
+			reply.id = user._id;
+			reply.trello = false;
+
+			if (user.trello.id){ reply.trello = true}
+
+			console.log(reply);
+			res.json(reply);
+
+		}).then(null, function(err){
+			if(err) return res.send (err);
+		});
+		
+	});
 
 // OBJECT ROUTES ==========================================
 
