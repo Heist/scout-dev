@@ -65,12 +65,10 @@ app.post('/auth/login', function(req, res, next) {
                 return res.json(err);
             }
             
-            console.log('user _id login', req.user._id);
-            
-            
 
-            // mongoose.Types.ObjectId();
-            return res.json({ user: mongoose.Types.ObjectId(user), redirect: '/overview' });
+            console.log('user _id login', req.user._id);
+
+            return res.json({ user: mongoose.Types.ObjectId(req.user._id), redirect: '/overview' });
         });
     })(req, res);
 });
@@ -230,7 +228,6 @@ app.use('/api',  isLoggedInAjax, function (req, res, next) {
 
 // CONNECT ROUTES =========================================
 
- 
 app.get('/connect/trello',
   passport.authorize('trello-authz', { failureRedirect: '/account' })
  );
@@ -239,7 +236,7 @@ app.get('/connect/trello',
 app.get('/connect/trello/callback',
   passport.authorize('trello-authz', { failureRedirect: '/account' }),
   function(req, res) {
-  	// this sends things to the popup window.
+	// this sends things to the popup window.
 	res.send("Thanks for attaching your account. You can close this window now.");
   });
 
@@ -253,7 +250,13 @@ app.delete('/connect/trello', function(req, res){
 
 });
 
-// OBJECT ROUTES =========================================
+// ACCOUNT ROUTES =========================================
+// app.route('/api/account')
+// 	.get(function(req,res){
+// 		console.log(req.user);
+// 	});
+
+// OBJECT ROUTES ==========================================
 
 // Session Routes
 require('./routes/session')(app);
