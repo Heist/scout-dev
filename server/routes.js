@@ -64,8 +64,11 @@ app.post('/auth/login', function(req, res, next) {
             if (err) {
                 return res.json(err);
             }
+            
             console.log('user _id login', req.user._id);
-            var user = req.user._id;
+            
+            
+
             // mongoose.Types.ObjectId();
             return res.json({ user: mongoose.Types.ObjectId(user), redirect: '/overview' });
         });
@@ -195,18 +198,8 @@ app.route('/api/report/:_id')
 			return Tag.find({'_test' : reply.test._id})
 						.exists('summary')
 						.exec();
- 		
- 		}).then(function(tags){
-
- 			// console.log('faved messages generally', reply.messages)
- 			// how to do a nested loop join.
-
- 			// tags = JSON.stringify(tags);
- 			// var msgs = JSON.stringify(reply.messages);
-
- 			
-
-			// console.log(visible_array);
+		
+		}).then(function(tags){
 
 			reply.tags = tags;
 			console.log('reply', reply.tags);
@@ -237,13 +230,6 @@ app.use('/api',  isLoggedInAjax, function (req, res, next) {
 
 // CONNECT ROUTES =========================================
 
-// app.use(function (req, res, next) {
-//     res.header('Access-Control-Allow-Credentials', true);
-//     res.header('Access-Control-Allow-Origin', req.headers.origin);
-//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH');
-//     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-//     next();
-//  });
  
 app.get('/connect/trello',
   passport.authorize('trello-authz', { failureRedirect: '/account' })
@@ -264,6 +250,7 @@ app.delete('/connect/trello', function(req, res){
 	req.user.trello.token = '';
 	req.user.trello.tokenSecret = '';
 	req.user.save();
+
 });
 
 // OBJECT ROUTES =========================================

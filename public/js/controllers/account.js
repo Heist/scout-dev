@@ -7,12 +7,6 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 
 	$scope.connectTrello = function(){
 		$window.open('/connect/trello', 'Connect Field Guide to Trello', 'width=450, height=600');
-		// $http
-		// 	.get('/connect/trello', {timeout : 5000})
-		// 	.success(function(err,data){
-		// 		console.log(data)
-		// 		// 
-		// 	});
 	}
 
 	$scope.disconnectTrello = function() {
@@ -20,7 +14,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 
 		$http.delete('/connect/trello')
 			.success(function(err, data){
-				console.log(data);
+				console.log('Trello disconnected');
 			});
 
 	}
