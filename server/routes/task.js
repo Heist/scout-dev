@@ -22,7 +22,7 @@ app.route('/api/task/')
 	.get(function(req,res){
 		Task.find({})
 			.exec(function(err, tasks) {
-				if(err) res.send(err);
+				if(err){res.send(err);}
 
 				res.json(tasks);
 			});
@@ -45,7 +45,7 @@ app.route('/api/task/')
 				test._tasks.push(task._id);
 
 				test.save(function(err,data){
-					if(err) res.send(err);
+					if(err){res.send(err);}
 				})
 			
 				res.json(task);
@@ -58,7 +58,7 @@ app.route('/api/task/:_id')
 	.get(function(req,res){
 		Task.findById(req.params._id)
 			.exec(function(err,task){
-				if(err) res.send(err);
+				if(err){res.send(err);}
 
 				console.log(task)
 				res.json(task);
@@ -81,7 +81,7 @@ app.route('/api/task/:_id')
 				if(req.body._subject){task._subjects.push(req.body._subject)}
 
 				task.save(function(err,task){
-					if(err) res.send(err);
+					if(err){res.send(err);}
 
 					console.log('updated task', task);
 					res.json(task);
@@ -117,7 +117,7 @@ app.route('/api/task/:_id')
 						test._tasks.remove(req.params._id)
 
 						test.save(function(err,data){
-							if(err) res.send(err);
+							if(err){res.send(err);}
 
 							console.log(data);
 							res.json(req.params._id);
@@ -125,7 +125,7 @@ app.route('/api/task/:_id')
 					})
 				})
 			.remove(function(err){
-				if(err) res.send(err);
+				if(err){res.send(err);}
 			});
 
 		// find messages that belong to the task and delete them

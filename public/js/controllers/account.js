@@ -6,6 +6,9 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 	console.log('account touched', $rootScope.user);
 	var user_id = $rootScope.user;
 
+	// https://trello.com/1/members/my/boards?key=substitutewithyourapplicationkey&token=substitutethispartwiththeauthorizationtokenthatyougotfromtheuser
+	// https://trello.com/docs/api/card/index.html#post-1-cards
+	
 	$http
 		.get('/api/account/'+ user_id)
 		.success(function(data){

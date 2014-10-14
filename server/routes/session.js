@@ -23,7 +23,7 @@ app.route('/api/session/')
 		Session.find({})
 			.populate('_tests')
 			.exec(function(err, docs){
-				if(err) res.send(err);
+				if(err){res.send(err);}
 
 				res.json(docs);
 			})
@@ -39,7 +39,7 @@ app.route('/api/session/')
 		session.runcount = 0;
 
 		session.save(function(err, data) {
-			if(err) res.send(err);
+			if(err){res.send(err);}
 
 			res.json(data)			        	
         });
@@ -50,7 +50,7 @@ app.route('/api/session/:_id')
 		Session.findById(req.params._id)
 			.populate('_tests')
 			.exec(function(err, docs){
-				if(err) res.send(err);
+				if(err){res.send(err);}
 
 				res.json(docs);
 			})
@@ -60,23 +60,23 @@ app.route('/api/session/:_id')
 		console.log('session delete', req.params._id);
 
 		Session.findById(req.params._id).remove(function(err){
-			if(err) res.send(err);
+			if(err){res.send(err);}
 		});
 
 		Test.find({_session:req.params._id}).remove(function(err){
-			if(err) res.send(err);
+			if(err){res.send(err);}
 		});
 
 		Task.find({_session:req.params._id}).remove(function(err){
-			if(err) res.send(err);
+			if(err){res.send(err);}
 		});
 
 		Message.find({_session:req.params._id}).remove(function(err){
-			if(err) res.send(err);
+			if(err){res.send(err);}
 		});
 
 		Tag.find({_session:req.params._id}).remove(function(err){
-			if(err) res.send(err);
+			if(err){res.send(err);}
 		});
 
 		res.json('deleted session', req.params._id);
@@ -88,7 +88,7 @@ app.route('/api/session/:_id')
 
 		Session.findById(req.params._id)
 			.exec(function(err, session){
-				if(err) res.send(err);
+				if(err){res.send(err);}
 			
 				if(req.body.name){
 						session.name = req.body.name;
@@ -99,7 +99,7 @@ app.route('/api/session/:_id')
 					}
 
 			session.save(function(err, data) {
-				if(err) res.send(err);
+				if(err){res.send(err);}
 
 				res.json(data);			
 			})
@@ -111,7 +111,7 @@ app.route('/api/session/:_id/test/')
 	.get(function(req,res){
 		Test.find({'_session': req.params._id})
 			.exec(function (err, docs) {
-	  			if(err) res.send(err);
+	  			if(err){res.send(err);}
 
 			  	console.log('tests', docs);
 			  	

@@ -20,7 +20,7 @@ var Subject = require('../models/data/subject');
 		.get(function(req,res){
 				Subject.find({})
 					.exec(function(err,subjects){
-						if(err) res.send(err);
+						if(err){res.send(err);}
 						
 						res.json(subjects)	
 					})
@@ -33,7 +33,7 @@ var Subject = require('../models/data/subject');
 				subject.name = req.body.name;
 				
 				subject.save(function(err, data){
-					if(err) res.send(err);
+					if(err){res.send(err);}
 					
 					console.log(data);
 					res.json(data)
@@ -44,7 +44,7 @@ var Subject = require('../models/data/subject');
 		.get(function(req, res){
 			Subject.findById(req.params._id)
 				.exec(function(err, subject){
-					if(err) res.send(err);
+					if(err){res.send(err);}
 					res.json(subject)
 				});
 		});

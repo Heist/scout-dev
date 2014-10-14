@@ -23,7 +23,7 @@ app.route('/api/test/')
 		console.log(' get all tests ', req.isAuthenticated(), req.user._id)
 		Test.find({created_by:req.user._id})
 			.exec(function(err, docs) {
-				if(err) res.send(err);
+				if(err){res.send(err);}
 
 				res.json(docs);
 			})
@@ -46,7 +46,7 @@ app.route('/api/test/')
 				}
 			
 			test.save(function(err, test){
-				if(err) res.send(err);
+				if(err){res.send(err);}
 				
 				res.json(test);
 
@@ -61,7 +61,7 @@ app.route('/api/test/:_id')
 		Test.findById(req.params._id)
 			.populate('_tasks')
 			.exec(function(err,test){
-				if(err) res.send(err);
+				if(err){res.send(err);}
 
 				console.log('single test', test)
 				res.json(test);

@@ -1,15 +1,16 @@
-'use strict';
 // summary.js
+'use strict';
 
 // SUMMARY CONTROLLER ===========================================================
 
-angular.module('field_guide_controls').controller('summary', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
+angular.module('field_guide_controls')
+    .controller('summary', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
 	$scope.test = {};
     $scope.timeline = [];
 
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
-          console.log('returned test information', data);
+            console.log('returned test information', data);
 
             $scope.tags = data.tags;
             $scope.test = data.test;
@@ -22,19 +23,19 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
             // break out the message block with _id matching task._id
             // sort it by username
             // insert it into task.messages
+            
             // TODO: underscore could probably do this better.
-
             for(var i = 0; i < data.tasks.length; i++){
                 // for each task....
                 for (var j = 0; j < data.messages.length;j++){
                   // for each message block...
-                    if(data.tasks[i]._id == data.messages[j]._id){
+                    if(data.tasks[i]._id === data.messages[j]._id){
                         // console.log(data.tasks[i]._id, data.messages[j]._id);
                         $scope.tasks[i].messages =  data.messages[j].messages;
                     }
                 }
                 // group by subject.name using underscore.
-                $scope.tasks[i].messages = _.groupBy($scope.tasks[i].messages, function(z){return z.subject.name});
+                $scope.tasks[i].messages = _.groupBy($scope.tasks[i].messages, function(z){return z.subject.name;});
             }
             
             console.log('test', $scope.test, 'tasks',$scope.tasks,'tags', $scope.tags,'messages',$scope.messages);
@@ -56,12 +57,12 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
      
         if(obj){
             $scope.task = obj;
-            console.log('task or test', obj._id)
+            console.log('task or test', obj._id);
         }
     };
 
     $scope.passFail = function(task){
-        console.log('touched pass-fail')
+        console.log('touched pass-fail');
 
         if(task.pass_fail){
             task.pass_fail = false;
@@ -70,7 +71,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         }
 
         console.log($scope.task);
-    }  
+    };
 
 
     // SAVE MESSAGE functions  ============================
@@ -80,30 +81,27 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         // so messages display when their _task is the same as the current selected task
         // and they only display to their current subject
 
-        if ((message._id == $scope.task._id)) {
-                return true;
+        if ((message._id === $scope.task._id)) {
+            return true;
+        }
 
-                // check to see what the current subject is.
-                console.log($scope.subject)
-            }
-
-        console.log('false', $scope.subject)
+        console.log('false', $scope.subject);
         return false;
     };
 
     $scope.saveFav = function(message){
         console.log('touched fav', message);
         // get the matching message from scope.messages
-        // set its fav status
+        // set its fav_task status
 
         if(message.fav){
-            message.fav = false;
+            message.fav_task = false;
         } else if (!message.fav){
-            message.fav = true;
+            message.fav_task = true;
         }
         
-        // TODO: when we change screens, save all messages with message.fav = true
-    }
+        // TODO: when we change screens, save all messages with message.fav_task = true
+    };
 
     // TAG FUNCTIONS ======================================
     
@@ -116,11 +114,11 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
     $scope.selectTag = function (index){
         $scope.selectedTag = $scope.tags[index];
         $scope.selectedTag.index = index;
-    }
+    };
 
     $scope.clearTagSummary = function(){
         $scope.selectedTag.summarized = false;
-    }
+    };
 
     $scope.saveTagSummary = function(){
         $scope.tags[$scope.selectedTag.index].summary = $scope.selectedTag.summary;
@@ -128,7 +126,7 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         $scope.selectedTag.summarized = true;
 
         console.log($scope.tags);
-    }
+    };
 
     //  TEST FUNCTIONS ====================================
 
@@ -137,29 +135,35 @@ angular.module('field_guide_controls').controller('summary', ['$scope','$http', 
         // post summary changes to the tags
         // post fav'd statuses to relevant messages
 
-        for(var i = 0; i < $scope.tasks.length; i++){
-                $scope.tasks[i].messages = _.toArray($scope.tasks[i].messages);
-            }
+        // TODO: for each task push each of their messages to $scope.messages
+        // no good in the new format, messages need to be their own array
+        // displayed for both task and tag.
 
-        var url = '/api/summary/'+ $stateParams._id;
-        var data_out = {test: $scope.test, tags:$scope.tags, tasks:$scope.tasks} ;
+        var holder = _.($scope.tasks, messages) ;
+        console.log(holder)
+        // for(var i = 0; i < $scope.tasks.length; i++){
+        //     $scope.messages.push($scope.tasks[i].messages);
+        // }
 
-        console.log('this is our data out', data_out)
+        // var url = '/api/summary/'+ $stateParams._id;
+        // var data_out = {test: $scope.test, tags:$scope.tags, tasks:$scope.tasks, messages:$scope.messages} ;
+
+        // console.log('this is our data out', data_out);
         
-         $http.put(url, data_out)   
-            .success(function(data){
-                console.log(data);
+        // $http.put(url, data_out)   
+        //     .success(function(data){
+        //         console.log(data);
 
-                $location.path('/overview');
+        //         $location.path('/overview');
 
-                // note: this MUST stay inside the Success
-                // To prevent the weird pending bug 
-                // caused by a state-change race condition.
-            })
-            .error(function(data){
-                console.log('error', data);
-            });        
+        //         // note: this MUST stay inside the Success
+        //         // To prevent the weird pending bug 
+        //         // caused by a state-change race condition.
+        //     })
+        //     .error(function(data){
+        //         console.log('error', data);
+        //     });        
 
-    }
+    };
    
 }]);

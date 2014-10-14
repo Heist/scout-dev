@@ -1,11 +1,12 @@
 // summary.js
 'use strict';
 
-module.exports = function(app, passport) {
+module.exports = function (app, passport) {
 
 // Module dependencies
 var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 var _ = require('underscore');
+var async = require('async');
 
 // load data storage models
 var Message = require('../models/data/message');
@@ -26,7 +27,7 @@ app.route('/api/summary/:_id')
 		// the promise gets your main document, with its populated subs
 		var	promise = 
 			Test.findById(req.params._id).exec(function(err, test){
-				if(err) res.send(err);
+				if(err){res.send(err);}
 			});
 
 		promise.then(function(test){
@@ -44,10 +45,10 @@ app.route('/api/summary/:_id')
 						})
 						.group({ 
 							_id: '$_task',
-							messages: { $push: { subject: '$_subject', body: '$body', fav:'$fav', _id:'$_id' } }
+							messages: { $push: { subject: '$_subject', body: '$body', fav_task:'$fav_task', fav_tag: '$fav_tag', _id:'$_id' } }
 							})
 						.exec(function(err, msg){
-							if(err) res.send(err);
+							if(err){res.send(err);}
 							console.log('message to populate', msg);
 							
 							Subject.populate(msg, {'path':'messages.subject', 'select' :'name -_id'}, function(err, subjects){
@@ -86,60 +87,61 @@ app.route('/api/summary/:_id')
 			});
 
 		// if we have tags, update them in the db.
+		// NO FUNCTIONS IN A LOOP.
 		if(req.body.tags){
-			for(var i = 0; i < req.body.tags.length; i++){
+			async.each(req.body.tags, function(tag, callback){
 				Tag.findOneAndUpdate(
-					{'_id' : req.body.tags[i]._id}, 
-					{'summary': req.body.tags[i].summary,
-					 'summarized' : req.body.tags[i].summarized},
-					 function(err, tag){
-					 	// console.log('tags updated')
-					 });
-			}
+					{'_id' : tag._id}, 
+					{'summary': tag.summary,
+					'summarized' : tag.summarized},
+					function(err, data){
+					// console.log('tags updated')
+					});
+			})
 		}
 		
-		// if we have tasks, update them in the db.
 		if(req.body.tasks){
-			for(var i = 0; i < req.body.tasks.length; i++){
-				// console.log('task',req.body.tasks[i])
-
-				var eyedee = req.body.tasks[i]._id;
-				var summary = req.body.tasks[i].summary;
-				var pass_fail = req.body.tasks[i].pass_fail;
+			async.each(req.body.tasks, function(task, callback){
+				var eyedee = task._id;
+				var summary = task.summary;
+				var pass_fail = task.pass_fail;
 				// console.log('summary, pass_fail', summary, pass_fail);
 
 				Task.findByIdAndUpdate(
-					req.body.tasks[i]._id,
+					task._id,
 					{'pass_fail': pass_fail,
 					 'summary':summary },
-					function(err, task){
+					function(err, data){
 						if(err) res.send(err)
-						console.log('task updated', task)
+						console.log('task updated', data)
 					});
-				
-				
-				// if the task object contains messages, update those.
-				if(req.body.tasks[i].messages){
-					// console.log('messages length', req.body.tasks[i].messages.length);
-					for(var j = 0; j < req.body.tasks[i].messages.length;j++){
-						for(var k = 0; k < req.body.tasks[i].messages[j].length; k++){
-
-							var fav = req.body.tasks[i].messages[j][k].fav;
-							var msg_id = req.body.tasks[i].messages[j][k]._id;
-							// console.log(req.body.tasks[i].messages[j][k].fav, req.body.tasks[i].messages[j][k]._id)
-
-							Message.findByIdAndUpdate(
-								msg_id, 
-								{ 'fav' : fav}, 
-								function(err, mess){
-									if(err) res.send(err);
-									// console.log('message saved', mess)
-								});
-						}
-					}
-				}
-			}
+			})
 		}
+		
+		// this is actually users, not messages.
+		// messages needs to be returned separately on the front end.
+		// perhaps try underscore_pop or something.
+
+		if(req.body.messages){
+			async.each(req.body.messages, function(msg, callback){
+
+				var fav_task = msg.fav_task;
+				var fav_tag = msg.fav_tag;
+				var msg_id = msg._id;
+				
+				Message.findByIdAndUpdate(
+					msg_id, 
+					{ 'fav_task' : fav_task,
+					  'fav_tag'  : fav_tag
+					}, 
+					function(err, mess){
+						if(err){res.send(err);}
+						// console.log('message saved', mess)
+					});
+			})
+		}
+				
+		
 
 		console.log('test updated - server')
 		res.json('test updated - server')

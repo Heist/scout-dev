@@ -30,7 +30,7 @@ var Subject = require('../models/data/subject');
 			Test.find({"_id":req.params._id, "_tasks": {$not: {$size: 0}}})
 				.populate('_tasks')
 				.exec(function(err, docs){
-					if(err) res.send(err);
+					if(err){res.send(err);}
 
 					res.json(docs)
 				})
@@ -50,7 +50,7 @@ var Subject = require('../models/data/subject');
 					subject._tests = req.body.tests;
 
 					subject.save(function(err,data){
-						if(err) res.send(err);
+						if(err){res.send(err);}
 					});
 				});
 		
@@ -67,7 +67,7 @@ var Subject = require('../models/data/subject');
 					}
 
 					test.save(function(err, data){
-						if(err) res.send(err);
+						if(err){res.send(err);}
 
 						console.log('saved', data._id)
 					})
@@ -90,7 +90,7 @@ var Subject = require('../models/data/subject');
 					}
 
 					task.save(function(err, data){
-						if(err) res.send(err);
+						if(err){res.send(err);}
 
 						console.log('saved', data._id)
 					})

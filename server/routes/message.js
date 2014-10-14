@@ -21,7 +21,7 @@ app.route('/api/message/')
 	.get(function(req,res){
 		Message.find({})
 			.exec(function(err, messages) {
-				if(err) res.send(err);
+				if(err){res.send(err);}
 				res.json(messages);
 			});
 	})
@@ -54,7 +54,7 @@ app.route('/api/message/')
 					task._messages.push(msg._id);
 					
 					task.save(function(err,data){
-						if(err) res.send(err);
+						if(err){res.send(err);}
 					});
 				});
 
@@ -69,7 +69,7 @@ app.route('/api/message/')
 					subject._messages.push(msg._id);
 
 					subject.save(function(err,data){
-						if(err) res.send(err);
+						if(err){res.send(err);}
 					});
 			});
 
@@ -131,7 +131,7 @@ app.route('/api/message/:_id')
 		console.log(req)
 		Message.findById(req.params._id)
 			.exec(function(err,msg){
-				if(err) res.send(err);
+				if(err){res.send(err);}
 				
 				console.log(msg)
 				res.json(msg);

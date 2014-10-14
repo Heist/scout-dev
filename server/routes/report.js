@@ -29,7 +29,7 @@ app.route('/api/report/:_id')
 			Test.findOne({_id: test_id})
 				.populate('_subjects')
 				.exec(function(err, test){
-					if(err) res.send(err);
+					if(err){res.send(err);}
 					console.log('test found', test._id)
 				});
 

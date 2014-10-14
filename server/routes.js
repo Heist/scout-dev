@@ -109,7 +109,7 @@ app.route('/debug/test')
 	.get(function(req,res){
 		Test.find()
 			.exec(function(err, docs) {
-				if(err) res.send(err);
+				if(err){res.send(err);}
 
 				res.json(docs);
 			});
@@ -119,7 +119,7 @@ app.route('/debug/task')
 	.get(function(req,res){
 		Task.find()
 			.exec(function(err, docs) {
-				if(err) res.send(err);
+				if(err){res.send(err);}
 
 				res.json(docs);
 			});
@@ -129,7 +129,7 @@ app.route('/debug/message')
 	.get(function(req,res){
 		Message.find()
 			.exec(function(err, docs) {
-				if(err) res.send(err);
+				if(err){res.send(err);}
 
 				res.json(docs);
 			});
@@ -138,7 +138,7 @@ app.route('/debug/message')
 app.route('/debug/tag/')
 		.get(function(req,res){
 			Tag.find(function(err, docs) {
-					if(err) res.send(err);
+					if(err){res.send(err);}
 
 					res.json(docs);
 				})
@@ -147,7 +147,7 @@ app.route('/debug/tag/')
 app.route('/debug/user/')
 		.get(function(req,res){
 			User.find(function(err, users) {
-					if(err) res.send(err);
+					if(err){res.send(err);}
 
 					res.json(users);
 				})
@@ -165,7 +165,7 @@ app.route('/api/report/:_id')
 		var reply = {};
 		var promise =
 			Test.findOne({'_id' : test_id}).populate('_subjects').exec(function(err, test){
-				if(err) res.send(err);
+				if(err){res.send(err);}
 
 			});
 
@@ -173,16 +173,16 @@ app.route('/api/report/:_id')
 			reply.test = test;
 
 			return Task.find({'_test':req.params._id})
-						.populate({'path': '_messages', match: { fav : true }})
+						.populate({'path': '_messages', match: { fav_task : true }})
 						.select('_id summary name pass_fail desc _messages')
 						.exec(function(err, tasks){
-							if(err) res.send(err);
+							if(err){res.send(err);}
 							// console.log('tasks', tasks);
 						});
 		}).then(function(tasks){
 			reply.tasks = tasks;
 
-			return	Message.find({'_test':req.params._id, 'fav' : true})
+			return	Message.find({'_test':req.params._id, 'fav_task' : true})
 						.populate({path: '_subject', 'select': 'name -_id'})
 						.select('_subject body created_by _id _test _task')
 						.exec(function(err, message){

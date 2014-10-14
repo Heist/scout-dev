@@ -32,5 +32,10 @@
   "devDependencies": {
     "karma-chrome-launcher": "^0.1.4",
     "karma-phantomjs-launcher": "^0.1.4"
+  },
+  "jshintConfig",
+  {
+    "undef": false,
+    "unused": true
   }
 }
