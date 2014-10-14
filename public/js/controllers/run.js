@@ -13,22 +13,6 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
     $scope.update.tasks = [];
 
     $scope.timeline = []; // holds all messages currently in test
-    
-    // // refresh warning to prevent whoops-I-deleted-the-Session
-    // var leavingPageText = "If you refresh, you will lose this test.";
-    // window.onbeforeunload = function(){
-    //     return leavingPageText;
-    // }
-
-    // $scope.$on('$destroy', function() {
-    //     window.onbeforeunload = undefined;
-    // });
-
-    // $scope.$on('$locationChangeStart', function(event, next, current) {
-    //     if(!confirm(leavingPageText + "\n\nAre you sure you want to leave this page?")) {
-    //         event.preventDefault();
-    //     }
-    // });
 
     $http
         .get('/api/run/'+$stateParams._id)
@@ -62,12 +46,10 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                 // if it has not in fact been touched.
     
                 var test = $scope.tests[parentIndex];
-                var task = $scope.tests[parentIndex]._tasks[selectedIndex];
-                
-                $scope.task = task;
 
-                // TODO: there is a bug in here where steps are not always stored properly
-                // this needs to not be a bug!
+                $scope.task = $scope.tests[parentIndex]._tasks[selectedIndex];
+
+                // TODO: WHY ARE THESE MESSAGES NOT SURE WHAT TASK THEY BELONG TO?
 
                 console.log('active task', $scope.task.name, $scope.task._id)
 

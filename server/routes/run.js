@@ -6,6 +6,7 @@ module.exports = function(app, passport) {
 // Module dependencies
 var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 var _ = require('underscore');
+var async = require('async');
 
 // load data storage models
 var Message = require('../models/data/message');
@@ -32,11 +33,11 @@ var Subject = require('../models/data/subject');
 				.exec(function(err, docs){
 					if(err){res.send(err);}
 
-					res.json(docs)
-				})
+					res.json(docs);
+				});
 		})
 		.post(function(req,res){
-			// console.log('touched run post', req.body)
+			console.log('touched run post', req.body);
 
 			// on post:
 			// add subject to tests that have been updated with that subject
@@ -54,49 +55,41 @@ var Subject = require('../models/data/subject');
 					});
 				});
 		
-
 			// for each test in session
 			// add a subject to that test if it has run.
-			for(var i = 0; i < req.body.tests.length; i++){
-				// console.log('tests', req.body.tests[i])
-				
-				Test.findById(req.body.tests[i], function(err, test){
-					
-					if(test._subjects.indexOf(req.body.subject) == -1){
-						test._subjects.push(req.body.subject)
-					}
 
-					test.save(function(err, data){
-						if(err){res.send(err);}
-
-						// console.log('saved', data._id)
-					})
+			if(req.body.tests){
+				async.each(req.body.tests, function(test){
+					Test.findById(test, function(err, doc){
+						
+						if(doc._subjects.indexOf(req.body.subject) === -1){
+							doc._subjects.push(req.body.subject);
+						}
+	
+						test.save(function(err, data){
+							if(err){res.send(err);}
+						});
+					});
 				});
-
-				
 			}
 
 			// for each task in a run test
 			// if a subject has hit that task,
 			// push the subject to its subject array
 
-			//TODO: Fix this to be async
-			for(var i = 0; i < req.body.tasks.length; i++){
-				// console.log('tasks', req.body.tasks[i])
-				Task.findById(req.body.tasks[i], function(err, task){
+			async.each(req.body.tasks, function(task){
+				Task.findById(task, function(err, doc){
 
-					if(task._subjects.indexOf(req.body.subject) == -1){
-						task._subjects.push(req.body.subject)
+					if(doc._subjects.indexOf(req.body.subject) === -1){
+						doc._subjects.push(req.body.subject);
 					}
 
 					task.save(function(err, data){
 						if(err){res.send(err);}
-
-						// console.log('saved', data._id)
-					})
-				})
-			}
-
-			res.json('tests updated', req.body.tests)
+					});
+				});
+			});
+			
+			res.json('tests updated', req.body.tests);
 		});
-}
+};

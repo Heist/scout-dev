@@ -30,39 +30,43 @@ app.route('/api/message/')
 
 		var msg = new Message();
 
-		//// console.log('message id', msg._id)
+		console.log('message id', msg._id);
 
-		msg._task = req.body._task;
-		msg._test = req.body._test;
-		msg._session = req.body._session;
-		msg._subject = req.body._subject;
+		msg._task = mongoose.Types.ObjectId(req.params._task);
+		msg._test = mongoose.Types.ObjectId(req.params._test);
+		msg._session = mongoose.Types.ObjectId(req.params._session);
+		msg._subject = mongoose.Types.ObjectId(req.params._subject);
 		msg.created_by = req.user._id;
 
 		//msg.created_by  = req.body.created_by; //this is to do with authentication.
 		msg.body = req.body.body;
 		
-		msg.save(function(err, msg){
+		msg.save(function(err, doc){
 			//save the new message
-			if (err) res.send(err);
+			if (err) {res.send(err);}
 
-			Task.findById( req.body._task )
-				.exec(function(err,task){
-					if (err) res.send(err);
+			console.log('msg',doc);
 
-					//// console.log(msg._id);
-
-					task._messages.push(msg._id);
-					
-					task.save(function(err,data){
-						if(err){res.send(err);}
+			if (msg._task){
+				console.log(msg._task);
+				Task.findById( msg._task )
+					.exec(function(err, msg_task){
+						if (err) {res.send(err);}
+	
+						console.log('can we find a task', msg_task);
+	
+						// msg_task._messages.push(doc._id);
+						
+						// msg_task.save(function(err,data){
+						// 	if(err){res.send(err);}
+						// });
 					});
-				});
-
+			}
 			//// console.log('Subject', req.body._subject)
 
 			Subject.findById(req.body._subject)
 				.exec(function(err,subject){
-					if (err) res.send(err);
+					if (err) {res.send(err);}
 
 					//// console.log('message', msg._id, subject);
 
@@ -71,25 +75,20 @@ app.route('/api/message/')
 					subject.save(function(err,data){
 						if(err){res.send(err);}
 					});
-			});
+				});
 
 			if(req.body.tags){
-			//solution from http://stackoverflow.com/questions/16960349/mongoose-findoneandupdate-callback-with-array-of-ids
+			// if there are tags, do things with them
 
-				//for each tag
-				//update or upsert the tag into the Tag collection 
+			// for each tag
+			// update or upsert the tag into the Tag collection 
 
-				var tags = req.body.tags;
 				var test = req.body._test;
 				var task = req.body._task;
 				var session = req.body._session;
 
-				var updatedArray = [];
-
-				var loop = function(input, cb){
-					var returnData = [];
-					var runLoop = function(tag, done) {
-						Tag.findOneAndUpdate(
+				async.each(req.body.tags, function(tag){
+					Tag.findOneAndUpdate(
 							{body: tag, _test: test},
 							{ $push: { _messages: msg._id,
 										_tasks : task
@@ -99,27 +98,10 @@ app.route('/api/message/')
 								_session: session
 							},
 							{upsert:true},
-							function(err, rows){
-								returnData.push(rows._id);
-								res.json(msg);
-								done();
-							}
-						);
-					};
-
-					var doneLoop = function(err) {
-						cb(returnData);
-					};
-
-					async.forEachSeries(input, runLoop, doneLoop);
-				};
-
-				loop(tags, function(updatedArray){
-					// console.log(updatedArray);
-					//carry on....
+							function(err, data){});
 				});
-					
-			}
+
+			}		
 		});
 	});
 		

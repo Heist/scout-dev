@@ -45,7 +45,8 @@
 					ng-class="{ 'active': $index == selectedIndex && $parent.$index == parentIndex }"
          			ng-click="activate($parent.$index, $index)">
 
-					<h3>{{task.name}}</h3>
+					<h3>{{task.name}}<br />{{task._id}}</h3>
+
 					<p ng-bind-html="task.desc | linebreaker"></p>
 				</li>
 			</ul>

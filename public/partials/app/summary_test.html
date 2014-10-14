@@ -43,7 +43,7 @@
 			</div>
 			
 			<!-- participant messages -->
-			<div ng-repeat="message in user" class="message" >
+			<div ng-repeat="message in user" class="message" ng-show="show(message, selectedTag._id)">
 				<div class="message-details">&nbsp;</div>
 
 				<div class="message-body">

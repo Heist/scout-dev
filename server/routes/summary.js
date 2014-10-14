@@ -42,6 +42,11 @@ app.route('/api/summary/:_id')
 		.then(function(tasks){
 			reply.tasks = tasks;
 
+			return Tag.find({'_test' : reply.test._id}).exec();
+		})
+		.then(function(tags){
+			reply.tags = tags;
+			
 			return Message.find({ '_test':{$in: [mongoose.Types.ObjectId(req.params._id)]}})
 						.lean()
 						.populate({path:'_subject', select: 'name' })
@@ -50,15 +55,6 @@ app.route('/api/summary/:_id')
 		.then(function(messages){
 			reply.messages = messages;
 
-			return Subject.find({'_tests': { $in: [req.params._id] }}).populate('_messages').exec();
-		})
-		.then(function(subjects){
-			reply.subjects = subjects;
-			return Tag.find({'_test' : reply.test._id}).exec();
-		})
-		.then(function(tags){
-			reply.tags = tags;
-			
 			res.json(reply);
 		})
 		.then(null, function(err){

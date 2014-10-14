@@ -55,8 +55,9 @@ angular.module('field_guide_controls')
     };
 
 
-    $scope.show = function (message, tags) {
-        return message._tags.indexOf(tags.body) >= 0;
+    $scope.show = function (message, select) {
+        // if a message's _id matches any value in the _messages list of .selected, return.
+        return selected._messages.indexOf(message._id) >= 0;
     }
 
     // SAVE MESSAGE functions  ============================
