@@ -24,76 +24,49 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             $scope.task = {};
             var message = {};
 
-        })
+        });
 
-        $scope.activate = function(parentIndex, selectedIndex) {
+        $scope.select = function(testIndex, taskIndex) {
             // console.log('test', parentIndex)
-            console.log('task',  selectedIndex)
+            console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);
 
-            if ($scope.parentIndex == parentIndex && $scope.selectedIndex == selectedIndex){
-                return
+            // TODO: if we get more tests in a session, this will need work.
+
+            // select
+            // pushes the identity of a test or task
+            // to the update array
+            // which is then output to server when things are updated
+            // this prevents the session from bulk-updating everything onscreen
+            // if it has not in fact been touched.
+
+            // if it's the first task, push the test to the timeline
+            // then push the task to the timeline
+            if(taskIndex === 0){
+            // otherwise, push the task to the timeline
+                var m   = {};
+                m.title = 'Starting test';
+                m.body  = $scope.tests[0].name;
+
+                $scope.timeline.push(m);
+
+                if($scope.update.tests.indexOf($scope.tests[0]._id) === -1){
+                    $scope.update.tests.push($scope.tests[0]._id);
+                    $scope.subject._tests.push($scope.tests[0]._id);
+                }
+
             }
+            
+            var em   = {};
+            em.title = 'Starting task';
+            em.body  = $scope.tests[testIndex]._tasks[taskIndex].name;
 
-            else{
-                $scope.parentIndex = parentIndex;
-                $scope.selectedIndex = selectedIndex;
-    
-                // activate 
-                // pushes the identity of a test or task
-                // to the update array
-                // which is then output to server when things are updated
-                // this prevents the session from bulk-updating everything onscreen
-                // if it has not in fact been touched.
-    
-                var test = $scope.tests[parentIndex];
+            $scope.timeline.push(em);
 
-                $scope.task = $scope.tests[parentIndex]._tasks[selectedIndex];
-
-                // TODO: WHY ARE THESE MESSAGES NOT SURE WHAT TASK THEY BELONG TO?
-
-                console.log('active task', $scope.task.name, $scope.task._id)
-                if( selectedIndex == 0){
-                    // if this is the first step in a test, log the test start
-                    // then log the step start
-    
-                    if($scope.update.tests.indexOf(test._id) == -1){
-                        $scope.update.tests.push(test._id)
-                        $scope.subject._tests.push(test._id)
-
-                        var message   = {};
-                        message.title = 'Starting test';
-                        message.body  = test.name;
-        
-                        $scope.timeline.push(message);
-                    }
-    
-                    if($scope.update.tasks.indexOf(task._id) == -1){
-                        $scope.update.tasks.push(task._id)
-                    }
-    
-                    message = {};
-                    
-                    message.title = 'Starting task';
-                    message.body = task.name;
-                    
-                    $scope.timeline.push(message);
-                }
-                else {
-    
-                    var message   = {};
-                    message.body  = task.name;
-                    message.title = 'Starting task';
-    
-                    $scope.timeline.push(message);
-    
-                    if($scope.update.tasks.indexOf(task._id) == -1){
-                        $scope.update.tasks.push(task._id)
-                    }
-    
-                }
-
+            if($scope.update.tasks.indexOf($scope.tests[testIndex]._tasks[taskIndex]._id) === -1){
+                $scope.update.tasks.push($scope.tests[testIndex]._tasks[taskIndex]._id);
             }
         };
+
 
         $scope.addSubject = function(textfield){
             console.log('touched addSubject', textfield);
@@ -107,13 +80,12 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                     console.log(subject);
                     $scope.subject = subject;
                     $scope.subject.toggle = true;
-                    $scope.activate(0,0);
-
+                    $scope.select(0,0);
                 })
                 .error(function(data){
                     // console.log('Error: ' + data);
-                })
-        }
+            });
+        };
 
         $scope.postMessage = function(message){
             // here we create a note object
@@ -130,7 +102,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             note._subject = $scope.subject._id;
 
             $scope.timeline.push(note);
-            console.log('message pushing to', $scope.task._id)
+            console.log('message pushing to', $scope.task._id);
 
             // console.log('note being pushed', note)
             // TODO: this will catch things on both sides of the hash. 
