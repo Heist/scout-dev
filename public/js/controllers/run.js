@@ -6,8 +6,6 @@
 angular.module('field_guide_controls').controller('run', ['$scope','$http', '$location','$stateParams','$state', function($scope, $http,$location,$stateParams,$state){
     
     // set up controller-wide variables
-    $scope.task = {};
-
     $scope.update = {};
     $scope.update.tests = [];
     $scope.update.tasks = [];
@@ -30,7 +28,9 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             // console.log('test', parentIndex)
             console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);
 
-            // TODO: if we get more tests in a session, this will need work.
+            var test = $scope.tests[testIndex];
+
+            $scope.selected = test._tasks[taskIndex];
 
             // select
             // pushes the identity of a test or task
@@ -39,31 +39,28 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             // this prevents the session from bulk-updating everything onscreen
             // if it has not in fact been touched.
 
-            // if it's the first task, push the test to the timeline
-            // then push the task to the timeline
             if(taskIndex === 0){
-            // otherwise, push the task to the timeline
+            
                 var m   = {};
                 m.title = 'Starting test';
-                m.body  = $scope.tests[0].name;
+                m.body  = test.name;
 
                 $scope.timeline.push(m);
 
-                if($scope.update.tests.indexOf($scope.tests[0]._id) === -1){
-                    $scope.update.tests.push($scope.tests[0]._id);
-                    $scope.subject._tests.push($scope.tests[0]._id);
+                if($scope.update.tests.indexOf(test._id) === -1){
+                    $scope.update.tests.push(test._id);
+                    $scope.subject._tests.push(test._id);
                 }
-
             }
-            
+
             var em   = {};
             em.title = 'Starting task';
-            em.body  = $scope.tests[testIndex]._tasks[taskIndex].name;
+            em.body  = test._tasks[taskIndex].name;
 
             $scope.timeline.push(em);
 
-            if($scope.update.tasks.indexOf($scope.tests[testIndex]._tasks[taskIndex]._id) === -1){
-                $scope.update.tasks.push($scope.tests[testIndex]._tasks[taskIndex]._id);
+            if($scope.update.tasks.indexOf(test._tasks[taskIndex]._id) === -1){
+                $scope.update.tasks.push(test._tasks[taskIndex]._id);
             }
         };
 
@@ -81,6 +78,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                     $scope.subject = subject;
                     $scope.subject.toggle = true;
                     $scope.select(0,0);
+                    console.log('selected', $scope.selected);
                 })
                 .error(function(data){
                     // console.log('Error: ' + data);
@@ -95,14 +93,14 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             note.tags = [];
             note.created = new Date();
              
-            note._task = $scope.task._id;
-            note._test = $scope.task._test;
+            note._task = $scope.selected._id;
+            note._test = $scope.selected._test;
             note._session = $stateParams._id;
 
             note._subject = $scope.subject._id;
 
             $scope.timeline.push(note);
-            console.log('message pushing to', $scope.task._id);
+            console.log('message pushing to', $scope.selected._id);
 
             // console.log('note being pushed', note)
             // TODO: this will catch things on both sides of the hash. 
