@@ -61,7 +61,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 // Not Authenticated 
                 else { 
                     // console.log('welp, that flunked');
-                    $rootScope.message = 'You need to log in.'; 
+                    $rootScope.userNote = 'You need to log in.'; 
                     $timeout(function(){deferred.reject();}, 0);
                     $location.url('/login');
                 }

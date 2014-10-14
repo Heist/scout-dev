@@ -52,7 +52,6 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                 // TODO: WHY ARE THESE MESSAGES NOT SURE WHAT TASK THEY BELONG TO?
 
                 console.log('active task', $scope.task.name, $scope.task._id)
-
                 if( selectedIndex == 0){
                     // if this is the first step in a test, log the test start
                     // then log the step start
@@ -104,10 +103,12 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
 
             $http
                 .post(url, data_out)
-                .success(function(data){
-                    $scope.subject = data;
+                .success(function(subject){
+                    console.log(subject);
+                    $scope.subject = subject;
                     $scope.subject.toggle = true;
                     $scope.activate(0,0);
+
                 })
                 .error(function(data){
                     // console.log('Error: ' + data);

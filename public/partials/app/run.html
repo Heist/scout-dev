@@ -93,7 +93,7 @@
 					<div class="message-body">
 						<small ng-if="message.title">{{message.title}}</small>
 						<p ng-bind-html="message.body | hashtag"></p>
-						<small>{{message.created | date : 'hh:mm'}}</small>
+						<small>{{message.created | date : 'hh:mm'}}{{task._id}}</small>
 					</div>
 					
 					<!--
