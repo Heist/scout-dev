@@ -33,57 +33,47 @@ app.route('/api/summary/:_id')
 		promise.then(function(test){
 			reply.test = test;
 			// a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
-			return Task.find({'_test':req.params._id}).sort({ index: 'asc'}).select('_id summary name desc pass_fail').exec(function(err, task){if (err) console.log(err)});
+			return Task.find({'_test':req.params._id}).sort({ index: 'asc'})
+						.select('_id summary name desc pass_fail')
+						.exec(function(err, task){
+							if (err) {console.log(err);}
+						});
 		})
 		.then(function(tasks){
 			reply.tasks = tasks;
-			console.log('test requested', req.params._id);
 
-			// TODO: REDO THIS SO WE DON'T NEED TO REQUIRE MONGOOSE.
-			return Message.aggregate({
-							$match: { '_test':{$in: [mongoose.Types.ObjectId(req.params._id)]} }
-						})
-						.group({ 
-							_id: '$_task',
-							messages: { $push: { subject: '$_subject', body: '$body', fav_task:'$fav_task', fav_tag: '$fav_tag', _id:'$_id' } }
-							})
-						.exec(function(err, msg){
-							if(err){res.send(err);}
-							console.log('message to populate', msg);
-							
-							Subject.populate(msg, {'path':'messages.subject', 'select' :'name -_id'}, function(err, subjects){
-								if (err) res.send(err);
-								console.log('subjects', subjects);
-							});
-						});
+			return Message.find({ '_test':{$in: [mongoose.Types.ObjectId(req.params._id)]}})
+						.lean()
+						.populate({path:'_subject', select: 'name' })
+						.exec();
 		})
 		.then(function(messages){
 			reply.messages = messages;
-			console.log('reply messages', reply.messages)
+
 			return Subject.find({'_tests': { $in: [req.params._id] }}).populate('_messages').exec();
 		})
 		.then(function(subjects){
-			reply.subjects = subjects
+			reply.subjects = subjects;
 			return Tag.find({'_test' : reply.test._id}).exec();
- 		})
+		})
 		.then(function(tags){
 			reply.tags = tags;
-			console.log('reply', reply.test._tags, 'messages', reply.messages, 'tasks', reply.tasks)
-			res.json(reply)
+			
+			res.json(reply);
 		})
 		.then(null, function(err){
-			if(err) return res.send (err)
+			if(err) {return res.send (err);}
 		});
 	})
 	.put(function(req, res){
-		// console.log('touched summary put', req.body);
+		// // console.log('touched summary put', req.body);
 
 		var query = {'_id':req.body.test._id};
-		var update = {summary: req.body.test.summary}
+		var update = {summary: req.body.test.summary};
 
 		Test.findOneAndUpdate(query, update,function(err,test){
-				if(err) return res.send (err)
-				// console.log('test updated', test)
+				if(err) {return res.send (err);}
+				// // console.log('test updated', test)
 			});
 
 		// if we have tags, update them in the db.
@@ -95,9 +85,9 @@ app.route('/api/summary/:_id')
 					{'summary': tag.summary,
 					'summarized' : tag.summarized},
 					function(err, data){
-					// console.log('tags updated')
-					});
-			})
+					// // console.log('tags updated')
+				});
+			});
 		}
 		
 		if(req.body.tasks){
@@ -105,17 +95,17 @@ app.route('/api/summary/:_id')
 				var eyedee = task._id;
 				var summary = task.summary;
 				var pass_fail = task.pass_fail;
-				// console.log('summary, pass_fail', summary, pass_fail);
+				// // console.log('summary, pass_fail', summary, pass_fail);
 
 				Task.findByIdAndUpdate(
 					task._id,
 					{'pass_fail': pass_fail,
-					 'summary':summary },
+					'summary':summary },
 					function(err, data){
-						if(err) res.send(err)
-						console.log('task updated', data)
+						if(err) {return res.send (err);}
+						// console.log('task updated', data);
 					});
-			})
+			});
 		}
 		
 		// this is actually users, not messages.
@@ -132,18 +122,16 @@ app.route('/api/summary/:_id')
 				Message.findByIdAndUpdate(
 					msg_id, 
 					{ 'fav_task' : fav_task,
-					  'fav_tag'  : fav_tag
+					'fav_tag'  : fav_tag,
 					}, 
 					function(err, mess){
 						if(err){res.send(err);}
-						// console.log('message saved', mess)
+						// // console.log('message saved', mess)
 					});
-			})
+			});
 		}
-				
 		
-
-		console.log('test updated - server')
-		res.json('test updated - server')
+		// console.log('test updated - server');
+		res.json('test updated - server');
 	});	
-}
+};

@@ -28,7 +28,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         return {
             'response': function (response) {
                 //Will only be called for HTTP up to 300
-                // console.log('response', response);
+                // // console.log('response', response);
                 return response;
             },
             'responseError': function (rejection) {
@@ -53,14 +53,14 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             .success(function(user){
                 // Authenticated 
                 if (user !== '0') {
-                    console.log('yeah you logged in', user);
+                    // console.log('yeah you logged in', user);
                     $timeout(deferred.resolve, 0);
                     $rootScope.user = user.replace(/(^"|"$)/g, '');
                 }
 
                 // Not Authenticated 
                 else { 
-                    console.log('welp, that flunked');
+                    // console.log('welp, that flunked');
                     $rootScope.message = 'You need to log in.'; 
                     $timeout(function(){deferred.reject();}, 0);
                     $location.url('/login');
@@ -261,7 +261,7 @@ return{
     link: function(scope, element, attributes) {
         scope.$on("Finished",function(){
             var chat_height = element.outerHeight();
-            console.log(chat_height);
+            // console.log(chat_height);
             element.scrollTop(chat_height); 
         });
     }

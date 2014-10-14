@@ -57,7 +57,7 @@ app.route('/api/session/:_id')
 	})
 	// deletes all sessions and subdocuments - tasks, tests, reports, summaries.
 	.delete(function(req,res){
-		console.log('session delete', req.params._id);
+		// console.log('session delete', req.params._id);
 
 		Session.findById(req.params._id).remove(function(err){
 			if(err){res.send(err);}
@@ -84,7 +84,7 @@ app.route('/api/session/:_id')
 
 	// change the name of the session
 	.put(function(req,res){
-		console.log('session put request', req.params._id);
+		// console.log('session put request', req.params._id);
 
 		Session.findById(req.params._id)
 			.exec(function(err, session){
@@ -113,7 +113,7 @@ app.route('/api/session/:_id/test/')
 			.exec(function (err, docs) {
 	  			if(err){res.send(err);}
 
-			  	console.log('tests', docs);
+			  	// console.log('tests', docs);
 			  	
 			})
 	});

@@ -26,11 +26,11 @@ app.route('/api/message/')
 			});
 	})
 	.post(function(req,res){
-		//console.log('touched new message ', req.body)
+		//// console.log('touched new message ', req.body)
 
 		var msg = new Message();
 
-		//console.log('message id', msg._id)
+		//// console.log('message id', msg._id)
 
 		msg._task = req.body._task;
 		msg._test = req.body._test;
@@ -49,7 +49,7 @@ app.route('/api/message/')
 				.exec(function(err,task){
 					if (err) res.send(err);
 
-					//console.log(msg._id);
+					//// console.log(msg._id);
 
 					task._messages.push(msg._id);
 					
@@ -58,13 +58,13 @@ app.route('/api/message/')
 					});
 				});
 
-			//console.log('Subject', req.body._subject)
+			//// console.log('Subject', req.body._subject)
 
 			Subject.findById(req.body._subject)
 				.exec(function(err,subject){
 					if (err) res.send(err);
 
-					//console.log('message', msg._id, subject);
+					//// console.log('message', msg._id, subject);
 
 					subject._messages.push(msg._id);
 
@@ -115,7 +115,7 @@ app.route('/api/message/')
 				};
 
 				loop(tags, function(updatedArray){
-					console.log(updatedArray);
+					// console.log(updatedArray);
 					//carry on....
 				});
 					
@@ -128,12 +128,12 @@ app.route('/api/message/')
 app.route('/api/message/:_id')
 	.get(function(req,res){
 		//get one specific test
-		console.log(req)
+		// console.log(req)
 		Message.findById(req.params._id)
 			.exec(function(err,msg){
 				if(err){res.send(err);}
 				
-				console.log(msg)
+				// console.log(msg)
 				res.json(msg);
 			});
 	});

@@ -26,7 +26,7 @@ var Subject = require('../models/data/subject');
 					})
 			})
 		.post(function(req,res){
-				console.log('touched add subject', req.body);
+				// console.log('touched add subject', req.body);
 
 				var subject = new Subject();
 
@@ -35,7 +35,7 @@ var Subject = require('../models/data/subject');
 				subject.save(function(err, data){
 					if(err){res.send(err);}
 					
-					console.log(data);
+					// console.log(data);
 					res.json(data)
 				});
 		});

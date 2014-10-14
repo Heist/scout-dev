@@ -40,7 +40,7 @@ app.route('/api/task/')
 				res.send(err);
 			
 			Test.findById( task._test, function(err,test){
-				console.log(task._id);
+				// console.log(task._id);
 
 				test._tasks.push(task._id);
 
@@ -60,14 +60,14 @@ app.route('/api/task/:_id')
 			.exec(function(err,task){
 				if(err){res.send(err);}
 
-				console.log(task)
+				// console.log(task)
 				res.json(task);
 			})
 	})
 	
 	// update a single task
 	.put(function(req,res){
-		console.log('touched task', req.body, req.body.index)
+		// console.log('touched task', req.body, req.body.index)
 
 		Task.findById(req.params._id)
 			.exec(function(err, task){
@@ -83,7 +83,7 @@ app.route('/api/task/:_id')
 				task.save(function(err,task){
 					if(err){res.send(err);}
 
-					console.log('updated task', task);
+					// console.log('updated task', task);
 					res.json(task);
 				})
 
@@ -92,7 +92,7 @@ app.route('/api/task/:_id')
 
 	// delete a task
 	.delete(function(req,res){
-		console.log('delete this task', req.params._id)
+		// console.log('delete this task', req.params._id)
 
 		// find a task
 		// remove it from its test
@@ -103,14 +103,14 @@ app.route('/api/task/:_id')
 		Task.findById(req.params._id, function(err, task){
 				if (err) res.send(err);
 
-				console.log('single task found', task);
+				// console.log('single task found', task);
 
 				Test.findOne({'_id': task._test})
 					.exec(function(err, test){
 						if (err) res.send(err);
 
-						console.log('found test ', test._id);
-						console.log(test._tasks);
+						// console.log('found test ', test._id);
+						// console.log(test._tasks);
 
 						// TODO: when this sort of thing fails to work,
 						// it populates the array in question with a ton of ghosts.
@@ -119,7 +119,7 @@ app.route('/api/task/:_id')
 						test.save(function(err,data){
 							if(err){res.send(err);}
 
-							console.log(data);
+							// console.log(data);
 							res.json(req.params._id);
 						})
 					})

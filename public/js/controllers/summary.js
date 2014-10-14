@@ -15,29 +15,10 @@ angular.module('field_guide_controls')
             $scope.tags = data.tags;
             $scope.test = data.test;
             $scope.tasks = data.tasks;
-            $scope.messages = data.messages;
 
-            var collect = [];
-            
-            // for each task
-            // break out the message block with _id matching task._id
-            // sort it by username
-            // insert it into task.messages
-            
-            // TODO: underscore could probably do this better.
-            for(var i = 0; i < data.tasks.length; i++){
-                // for each task....
-                for (var j = 0; j < data.messages.length;j++){
-                  // for each message block...
-                    if(data.tasks[i]._id === data.messages[j]._id){
-                        // console.log(data.tasks[i]._id, data.messages[j]._id);
-                        $scope.tasks[i].messages =  data.messages[j].messages;
-                    }
-                }
-                // group by subject.name using underscore.
-                $scope.tasks[i].messages = _.groupBy($scope.tasks[i].messages, function(z){return z.subject.name;});
-            }
-            
+            // group messages by users
+            $scope.messages = _.groupBy(data.messages, function(z){return z._subject.name;});
+
             console.log('test', $scope.test, 'tasks',$scope.tasks,'tags', $scope.tags,'messages',$scope.messages);
             $scope.activate($scope.test);
 
@@ -139,11 +120,28 @@ angular.module('field_guide_controls')
         // no good in the new format, messages need to be their own array
         // displayed for both task and tag.
 
-        var holder = _.($scope.tasks, messages) ;
-        console.log(holder)
-        // for(var i = 0; i < $scope.tasks.length; i++){
-        //     $scope.messages.push($scope.tasks[i].messages);
-        // }
+        // extract messages from wherever I've placed them in the main body?
+        // this is a terrible way to do this. Rethink.
+
+
+        var holder = _.pluck($scope.tasks, 'messages');
+
+        var arr = []
+
+        for(var i = 0 ; i < holder.length; i++){
+            console.log('i', holder[i])
+            var arr1 = _.toArray(holder[i])
+            for(var j = 0 ; j < arr1.length; j++){
+                console.log('j', arr1[j])
+                for(var k = 0; k < arr1[j].length; k++){
+                    console.log('k', arr1[j][k])
+                    arr.push(arr1[j][k]);
+                }
+            }
+        }
+
+        console.log(holder, arr);
+
 
         // var url = '/api/summary/'+ $stateParams._id;
         // var data_out = {test: $scope.test, tags:$scope.tags, tasks:$scope.tasks, messages:$scope.messages} ;
@@ -161,7 +159,7 @@ angular.module('field_guide_controls')
         //         // caused by a state-change race condition.
         //     })
         //     .error(function(data){
-        //         console.log('error', data);
+        //         console.log('er;ror', data);
         //     });        
 
     };

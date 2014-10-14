@@ -1,0 +1,10 @@
+Searching 20 files for "message to populate" (case sensitive)
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/routes/summary.js:
+   50  						.exec(function(err, msg){
+   51  							if(err){res.send(err);}
+   52: 							console.log('message to populate', msg);
+   53  							
+   54  							Subject.populate(msg, {'path':'messages.subject', 'select' :'name -_id'}, function(err, subjects){
+
+1 match in 1 file

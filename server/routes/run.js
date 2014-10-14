@@ -18,14 +18,14 @@ var Subject = require('../models/data/subject');
 // RUN ROUTES =============================================
 	app.route('/api/run/')
 		.get(function(req,res){
-				console.log('touched run get')
+				// console.log('touched run get')
 				res.json('touched run get')
 			});
 
 	// How to populate subdocuments is in here.
 	app.route('/api/run/:_id')
 		.get(function(req,res){
-			console.log('touched run route',req.params._id )
+			// console.log('touched run route',req.params._id )
 
 			Test.find({"_id":req.params._id, "_tasks": {$not: {$size: 0}}})
 				.populate('_tasks')
@@ -36,7 +36,7 @@ var Subject = require('../models/data/subject');
 				})
 		})
 		.post(function(req,res){
-			console.log('touched run post', req.body)
+			// console.log('touched run post', req.body)
 
 			// on post:
 			// add subject to tests that have been updated with that subject
@@ -45,7 +45,7 @@ var Subject = require('../models/data/subject');
 
 			Subject.findById(req.body.subject)
 				.exec(function(err, subject){
-					console.log('subject tests', subject._tests);
+					// console.log('subject tests', subject._tests);
 					
 					subject._tests = req.body.tests;
 
@@ -58,7 +58,7 @@ var Subject = require('../models/data/subject');
 			// for each test in session
 			// add a subject to that test if it has run.
 			for(var i = 0; i < req.body.tests.length; i++){
-				console.log('tests', req.body.tests[i])
+				// console.log('tests', req.body.tests[i])
 				
 				Test.findById(req.body.tests[i], function(err, test){
 					
@@ -69,7 +69,7 @@ var Subject = require('../models/data/subject');
 					test.save(function(err, data){
 						if(err){res.send(err);}
 
-						console.log('saved', data._id)
+						// console.log('saved', data._id)
 					})
 				});
 
@@ -82,7 +82,7 @@ var Subject = require('../models/data/subject');
 
 			//TODO: Fix this to be async
 			for(var i = 0; i < req.body.tasks.length; i++){
-				console.log('tasks', req.body.tasks[i])
+				// console.log('tasks', req.body.tasks[i])
 				Task.findById(req.body.tasks[i], function(err, task){
 
 					if(task._subjects.indexOf(req.body.subject) == -1){
@@ -92,7 +92,7 @@ var Subject = require('../models/data/subject');
 					task.save(function(err, data){
 						if(err){res.send(err);}
 
-						console.log('saved', data._id)
+						// console.log('saved', data._id)
 					})
 				})
 			}

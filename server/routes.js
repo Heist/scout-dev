@@ -14,7 +14,7 @@ var User    = require('./models/auth/user');
 
 // console logging
 app.use(function(req, res, next) {
-	console.log('Something is happening.');
+	// console.log('Something is happening.');
 	next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -25,7 +25,7 @@ function isLoggedInAjax(req, res, next) {
     if (!req.isAuthenticated()) {
 		return res.send( 401, "unauthorized request");
 	} else {
-		console.log('login good');
+		// console.log('login good');
         next();
     }
 }
@@ -65,7 +65,7 @@ app.post('/auth/login', function(req, res, next) {
                 return res.json(err);
             }
 
-            console.log('user _id login', req.user._id);
+            // console.log('user _id login', req.user._id);
 
             return res.json({ user: mongoose.Types.ObjectId(req.user._id), redirect: '/overview' });
         });
@@ -88,7 +88,7 @@ app.post('/auth/signup', function(req, res, next) {
             if (err) {
                 return res.json(err);
             }
-            console.log('user _id register', req.user._id);
+            // console.log('user _id register', req.user._id);
             var user = req.user._id;
             return res.json({ user: user, redirect: '/overview' });
         });
@@ -96,7 +96,7 @@ app.post('/auth/signup', function(req, res, next) {
 });
 
 app.post('/auth/logout', function(req, res) {
-	console.log('logout request', req);
+	// console.log('logout request', req);
    req.logout();
    res.json({ redirect: '/login' });
 });
@@ -159,7 +159,7 @@ app.route('/debug/user/')
 
 app.route('/api/report/:_id')
 	.get(function(req, res){
-		console.log('touched report get', req.params._id);
+		// console.log('touched report get', req.params._id);
 
 		var test_id = mongoose.Types.ObjectId(req.params._id);
 		var reply = {};
@@ -177,7 +177,7 @@ app.route('/api/report/:_id')
 						.select('_id summary name pass_fail desc _messages')
 						.exec(function(err, tasks){
 							if(err){res.send(err);}
-							// console.log('tasks', tasks);
+							// // console.log('tasks', tasks);
 						});
 		}).then(function(tasks){
 			reply.tasks = tasks;
@@ -186,11 +186,14 @@ app.route('/api/report/:_id')
 						.populate({path: '_subject', 'select': 'name -_id'})
 						.select('_subject body created_by _id _test _task')
 						.exec(function(err, message){
-							// console.log(message)
+							// // console.log(message)
 						});
 			
 		}).then(function(messages){
+		
+
 			reply.messages = messages;
+
 
 			return Tag.find({'_test' : reply.test._id})
 						.exists('summary')
@@ -199,7 +202,7 @@ app.route('/api/report/:_id')
 		}).then(function(tags){
 
 			reply.tags = tags;
-			console.log('reply', reply.tags);
+			// console.log('reply', reply.tags);
 			res.json(reply);
 		
 		}).then(null, function(err){
@@ -213,14 +216,14 @@ app.route('/api/report/:_id')
 
 app.use('/api',  isLoggedInAjax, function (req, res, next) {
 	// for calls that start with api....
-	console.log('touched the api tag');
+	// console.log('touched the api tag');
 
 	next();
 });
 
 // app.use('/api', function (req, res, next) {
 // // for calls that start with api....
-// console.log('touched the api tag');
+// // console.log('touched the api tag');
 
 //	next();
 // });
@@ -229,7 +232,7 @@ app.use('/api',  isLoggedInAjax, function (req, res, next) {
 
 app.get('/connect/trello',
   passport.authorize('trello-authz', { failureRedirect: '/account' }, function(req,res){
-  	console.log('touched connect-trello')
+  	// console.log('touched connect-trello')
   	res.send({trello : true});
   })
  );
@@ -242,7 +245,7 @@ app.get('/connect/trello/callback',
   });
 
 app.delete('/connect/trello', function(req, res){
-	console.log(req.body);
+	// console.log(req.body);
 
 	req.user.trello.id = '';
 	req.user.trello.token = '';
@@ -261,7 +264,7 @@ app.route('/api/account/:_user')
 		 User.findById(getUser).exec();
 
 		promise.then(function(user){
-			console.log('touched user', user)
+			// console.log('touched user', user)
 			
 			var reply = {}
 			reply.id = user._id;
@@ -269,7 +272,7 @@ app.route('/api/account/:_user')
 
 			if (user.trello.id){ reply.trello = true}
 
-			console.log(reply);
+			// console.log(reply);
 			res.json(reply);
 
 		}).then(null, function(err){

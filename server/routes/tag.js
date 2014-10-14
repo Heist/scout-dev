@@ -35,7 +35,7 @@ var Subject = require('../models/data/subject');
 				})
 		})
 		.post(function(req,res){
-			console.log('tag post touched')
+			// console.log('tag post touched')
 			res.json('tag post touched')
 		});
 }
