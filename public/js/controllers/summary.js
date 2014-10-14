@@ -37,7 +37,7 @@ angular.module('field_guide_controls')
         }
      
         if(obj){
-            $scope.task = obj;
+            $scope.selected = obj;
             console.log('task or test', obj._id);
         }
     };
@@ -54,6 +54,10 @@ angular.module('field_guide_controls')
         console.log($scope.task);
     };
 
+
+    $scope.show = function (message, tags) {
+        return message._tags.indexOf(tags.body) >= 0;
+    }
 
     // SAVE MESSAGE functions  ============================
 

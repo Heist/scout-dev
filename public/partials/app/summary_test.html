@@ -32,6 +32,38 @@
 			<button class="button small" ng-click="saveTagSummary()" >Save summary</button>
 			<button class="button destructive small" ng-click="clearTagSummary(); selectedTag.summary=''">Remove summary</button>
 		</div>
+
+		<div ng-repeat="user in messages" class="message-group">
+		
+			<!-- participant name -->
+			<div class="message message-user">
+				<div class="message-details"><div class="message-details-avatar"><img src="/layout/assets/avatar.svg"></div></div>
+				<div class="message-body">{{user[0]._subject.name}}</div>
+				<div class="clear"></div>
+			</div>
+			
+			<!-- participant messages -->
+			<div ng-repeat="message in user" class="message" >
+				<div class="message-details">&nbsp;</div>
+
+				<div class="message-body">
+					<p ng-bind-html="message.body | hashtag"></p>
+					<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
+				</div>
+
+				<div class="message-fave">
+					<a ng-click="saveFav(message)" ng-if="message.fav">
+						&#9733;
+					</a>
+					<a ng-click="saveFav(message)" ng-if="!message.fav">
+						&#9734;
+					</a>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+
+		</div>
 		
 		
 </div>
