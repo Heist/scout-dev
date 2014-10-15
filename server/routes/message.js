@@ -26,82 +26,58 @@ app.route('/api/message/')
 			});
 	})
 	.post(function(req,res){
-		//// console.log('touched new message ', req.body)
+		console.log('touched new message ', req.body);
 
-		var msg = new Message();
+		var m = {}; // surface message id for use in promises.
+		var msg = {};
+				
+		if (req.body._task) {msg._task = mongoose.Types.ObjectId(req.body._task);}
+		if (req.body._test) {msg._test = mongoose.Types.ObjectId(req.body._test);}
+		if (req.body._session) {msg._session = mongoose.Types.ObjectId(req.body._session);}
+		if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
+		if (req.user._id) {msg.created_by = mongoose.Types.ObjectId(req.user._id);}
 
-		console.log('message id', msg._id);
+		var promise = Message.create(msg);
 
-		msg._task = mongoose.Types.ObjectId(req.params._task);
-		msg._test = mongoose.Types.ObjectId(req.params._test);
-		msg._session = mongoose.Types.ObjectId(req.params._session);
-		msg._subject = mongoose.Types.ObjectId(req.params._subject);
-		msg.created_by = req.user._id;
-
-		//msg.created_by  = req.body.created_by; //this is to do with authentication.
-		msg.body = req.body.body;
-		
-		msg.save(function(err, doc){
-			//save the new message
-			if (err) {res.send(err);}
-
-			console.log('msg',doc);
-
+		promise.then(function(msg){
+			
+			m._id = mongoose.Types.ObjectId(m._id);
+			
 			if (msg._task){
+				
 				console.log(msg._task);
-				Task.findById( msg._task )
-					.exec(function(err, msg_task){
-						if (err) {res.send(err);}
-	
-						console.log('can we find a task', msg_task);
-	
-						// msg_task._messages.push(doc._id);
-						
-						// msg_task.save(function(err,data){
-						// 	if(err){res.send(err);}
-						// });
-					});
+				
+				var update = { $push: {_messages : m._id} };
+
+				Task.findByIdAndUpdate( msg._task, update, function(err,doc){ if (err) {res.send(err);} });
 			}
-			//// console.log('Subject', req.body._subject)
+		}).then(function(){
+			
+			var update = { $push: {_messages : m._id} };
 
-			Subject.findById(req.body._subject)
-				.exec(function(err,subject){
-					if (err) {res.send(err);}
-
-					//// console.log('message', msg._id, subject);
-
-					subject._messages.push(msg._id);
-
-					subject.save(function(err,data){
-						if(err){res.send(err);}
-					});
-				});
-
-			if(req.body.tags){
-			// if there are tags, do things with them
-
-			// for each tag
-			// update or upsert the tag into the Tag collection 
-
-				var test = req.body._test;
-				var task = req.body._task;
-				var session = req.body._session;
+			Subject.findByIdAndUpdate(msg._subject, update, function(err,doc){ if (err) {res.send(err);} });
+				
+		}).then(function(){
+			
+			if(req.body.tags){ // reminder: the tags are not attached to the message. The message is attached to tags.
+				var test = msg._test;
+				var task = msg._task;
+				var session = msg._session;
 
 				async.each(req.body.tags, function(tag){
-					Tag.findOneAndUpdate(
-							{body: tag, _test: test},
-							{ $push: { _messages: msg._id,
-										_tasks : task
+					var q = {body: tag, _test: msg._test};
+					var u = { $push: { _messages: m._id,
+										_tasks : msg._task
 									},
 								body: tag,
-								_test: test,
-								_session: session
-							},
-							{upsert:true},
-							function(err, data){});
-				});
+								_test: msg._test,
+								_session: msg._session
+							};
+					var o = {upsert:true};
 
-			}		
+					Tag.findOneAndUpdate( q, u, o, function(err, data){});
+				});
+			}	
 		});
 	});
 		

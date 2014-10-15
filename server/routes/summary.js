@@ -116,7 +116,7 @@ app.route('/api/summary/:_id')
 				Message.findByIdAndUpdate(
 					msg_id, 
 					{ 'fav_task' : fav_task,
-					'fav_tag'  : fav_tag,
+					  'fav_tag'  : fav_tag,
 					}, 
 					function(err, mess){
 						if(err){res.send(err);}

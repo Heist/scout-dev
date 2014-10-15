@@ -97,6 +97,8 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             note._test = $scope.selected._test;
             note._session = $stateParams._id;
 
+            console.log('note test', $scope.selected._test);
+
             note._subject = $scope.subject._id;
 
             $scope.timeline.push(note);
