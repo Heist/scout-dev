@@ -44,8 +44,9 @@ app.route('/api/message/')
 
 		promise.then(function(msg){
 			console.log('made a message', msg);
-			
-			m._id = mongoose.Types.ObjectId(m._id);
+
+			// fun fact: get this wrong and mongoose silently creates a new object._id that exists nowhere else.
+			m._id = mongoose.Types.ObjectId(msg._id);
 			
 			if (call._task){
 				
@@ -59,7 +60,7 @@ app.route('/api/message/')
 			console.log('made a task update', task);
 			var u = { $push: {_messages : m._id} };
 
-			return Subject.findByIdAndUpdate(call._subject, u, function(err,doc){ if (err) {res.send(err);} });
+			return Subject.findByIdAndUpdate(req.body._subject, u, function(err,doc){ if (err) {res.send(err);} });
 				
 		}).then(function(subject){
 			console.log('made a subject update', subject);
