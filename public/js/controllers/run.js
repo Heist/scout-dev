@@ -93,7 +93,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             note.tags = [];
             note.created = new Date();
              
-            // note._task = $scope.selected._id;
+            note._task = $scope.selected._id;
             note._test = $scope.selected._test;
             // note._session = $stateParams._id;
             note._subject = $scope.subject._id;
