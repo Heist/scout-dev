@@ -37,10 +37,10 @@ app.route('/api/message/')
 		if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
 		if (req.user._id) {msg.created_by = mongoose.Types.ObjectId(req.user._id);}
 
-		var promise = Message.create(msg);
+		var promise = Message.create(msg, function(err, msg){if (err) {res.send(err);} console.log(msg); });
 
 		promise.then(function(msg){
-			
+			console.log('made a message', msg);
 			m._id = mongoose.Types.ObjectId(m._id);
 			
 			if (msg._task){
@@ -49,21 +49,20 @@ app.route('/api/message/')
 				
 				var update = { $push: {_messages : m._id} };
 
-				Task.findByIdAndUpdate( msg._task, update, function(err,doc){ if (err) {res.send(err);} });
+				return Task.findByIdAndUpdate( msg._task, update, function(err,doc){ if (err) {res.send(err);} });
 			}
-		}).then(function(){
-			
+		}).then(function(task){
+			console.log('made a task update', task);
 			var update = { $push: {_messages : m._id} };
 
-			Subject.findByIdAndUpdate(msg._subject, update, function(err,doc){ if (err) {res.send(err);} });
+			return Subject.findByIdAndUpdate(msg._subject, update, function(err,doc){ if (err) {res.send(err);} });
 				
-		}).then(function(){
+		}).then(function(subject){
+			console.log('made a subject update', subject);
 			
 			if(req.body.tags){ // reminder: the tags are not attached to the message. The message is attached to tags.
-				var test = msg._test;
-				var task = msg._task;
-				var session = msg._session;
-
+				console.log('tags msg', msg);
+			
 				async.each(req.body.tags, function(tag){
 					var q = {body: tag, _test: msg._test};
 					var u = { $push: { _messages: m._id,
@@ -77,7 +76,11 @@ app.route('/api/message/')
 
 					Tag.findOneAndUpdate( q, u, o, function(err, data){});
 				});
-			}	
+				
+			}
+			res.send('done');
+		}).then(null, function(err){
+			if(err) {return res.send (err);}
 		});
 	});
 		
