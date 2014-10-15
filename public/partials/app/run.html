@@ -43,7 +43,7 @@
 			
 				<li ng-repeat="task in test._tasks" 
 					ng-class="{ 'active': task._id === selected._id }"
-         			ng-click="select($index)">
+         			ng-click="select($parent.$index, $index)">
 
 					<h3>{{task.name}}<br />{{task._id}}</h3>
 

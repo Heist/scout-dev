@@ -45,12 +45,12 @@ var Subject = require('../models/data/subject');
 			// add tests to subject that has been part of that test
 
 			Subject.findById(req.body.subject)
-				.exec(function(err, subject){
+				.exec(function(err, doc){
 					// console.log('subject tests', subject._tests);
 					
-					subject._tests = req.body.tests;
+					doc._tests = req.body.tests;
 
-					subject.save(function(err,data){
+					doc.save(function(err,data){
 						if(err){res.send(err);}
 					});
 				});
@@ -60,13 +60,16 @@ var Subject = require('../models/data/subject');
 
 			if(req.body.tests){
 				async.each(req.body.tests, function(test){
+					console.log('test', test);
+					test = mongoose.Types.ObjectId(test);
+
 					Test.findById(test, function(err, doc){
 						
 						if(doc._subjects.indexOf(req.body.subject) === -1){
 							doc._subjects.push(req.body.subject);
 						}
 	
-						test.save(function(err, data){
+						doc.save(function(err, data){
 							if(err){res.send(err);}
 						});
 					});
@@ -84,7 +87,7 @@ var Subject = require('../models/data/subject');
 						doc._subjects.push(req.body.subject);
 					}
 
-					task.save(function(err, data){
+					doc.save(function(err, data){
 						if(err){res.send(err);}
 					});
 				});
