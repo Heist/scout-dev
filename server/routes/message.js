@@ -30,47 +30,51 @@ app.route('/api/message/')
 
 		var m = {}; // surface message id for use in promises.
 		var msg = {};
-				
-		if (req.body._task) {msg._task = mongoose.Types.ObjectId(req.body._task);}
-		if (req.body._test) {msg._test = mongoose.Types.ObjectId(req.body._test);}
-		if (req.body._session) {msg._session = mongoose.Types.ObjectId(req.body._session);}
+		var call = {};
+
+		if (req.body.body) {msg.body = req.body.body;}		
 		if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
 		if (req.user._id) {msg.created_by = mongoose.Types.ObjectId(req.user._id);}
+
+		if (req.body._task) {call._task = mongoose.Types.ObjectId(req.body._task);}
+		if (req.body._test) {call._test = mongoose.Types.ObjectId(req.body._test);}
+		if (req.body._session) {call._session = mongoose.Types.ObjectId(req.body._session);}
 
 		var promise = Message.create(msg, function(err, msg){if (err) {res.send(err);} console.log(msg); });
 
 		promise.then(function(msg){
 			console.log('made a message', msg);
+			
 			m._id = mongoose.Types.ObjectId(m._id);
 			
-			if (msg._task){
+			if (call._task){
 				
-				console.log(msg._task);
+				console.log(call._task);
 				
 				var update = { $push: {_messages : m._id} };
 
-				return Task.findByIdAndUpdate( msg._task, update, function(err,doc){ if (err) {res.send(err);} });
+				return Task.findByIdAndUpdate( call._task, update, function(err,doc){ if (err) {res.send(err);} });
 			}
 		}).then(function(task){
 			console.log('made a task update', task);
-			var update = { $push: {_messages : m._id} };
+			var u = { $push: {_messages : m._id} };
 
-			return Subject.findByIdAndUpdate(msg._subject, update, function(err,doc){ if (err) {res.send(err);} });
+			return Subject.findByIdAndUpdate(call._subject, u, function(err,doc){ if (err) {res.send(err);} });
 				
 		}).then(function(subject){
 			console.log('made a subject update', subject);
 			
 			if(req.body.tags){ // reminder: the tags are not attached to the message. The message is attached to tags.
-				console.log('tags msg', msg);
+				console.log('tags call', call);
 			
 				async.each(req.body.tags, function(tag){
-					var q = {body: tag, _test: msg._test};
+					var q = {body: tag, _test: call._test};
 					var u = { $push: { _messages: m._id,
-										_tasks : msg._task
+										_tasks : call._task
 									},
 								body: tag,
-								_test: msg._test,
-								_session: msg._session
+								_test: call._test,
+								_session: call._session
 							};
 					var o = {upsert:true};
 

@@ -26,14 +26,14 @@
 		
 	
 		<div ng-show="selectedTag.body" ng-model="selectedTag" class="summary-tag">
-			<h4>Summary for #{{selectedTag.body}}</h4>
+			<h4>Summary for #{{selectedTag.body}}  {{selectedTag._id}}</h4>
 				
 			<textarea class="input" id="field-textarea" placeholder="Your summary" ng-model="selectedTag.summary"></textarea><br>
 			<button class="button small" ng-click="saveTagSummary()" >Save summary</button>
 			<button class="button destructive small" ng-click="clearTagSummary(); selectedTag.summary=''">Remove summary</button>
 		</div>
 
-		<div ng-repeat="user in messages" class="message-group">
+		<div ng-repeat="user in messages" class="message-group" ng-show="selectedTag">
 		
 			<!-- participant name -->
 			<div class="message message-user">
@@ -47,6 +47,7 @@
 				<div class="message-details">&nbsp;</div>
 
 				<div class="message-body">
+					{{message._id}} {{selectedTag._messages}}
 					<p ng-bind-html="message.body | hashtag"></p>
 					<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 				</div>

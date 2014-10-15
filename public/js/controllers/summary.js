@@ -55,10 +55,11 @@ angular.module('field_guide_controls')
         // console.log($scope.task);
     };
 
-    $scope.show = function (message) {
+    $scope.show = function (msg_id, selected_obj) {
         // if a message's _id matches any value in the _messages list of .selected, return.
-        console.log(message);
-        return $scope.selected._messages.indexOf(message._id) >= 0;
+        console.log(msg_id);
+
+        return selected_obj._messages.indexOf(msg_id._id) >= 0;
     };
 
     // SAVE MESSAGE functions  ============================

@@ -7,8 +7,7 @@
 				<h4>&ldquo;{{selected.name}}&rdquo; summary</h4>
 				<p>Add a summary for this task to capture any notable outcomes, directions, or action items.</p>
 				
-				<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="selected.summary"></textarea>
-				
+				<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="selected.summary"></textarea>				
 				
 			
 				<div class="task-rating" ng-show="selected.pass_fail == false">
@@ -37,7 +36,7 @@
 
 <div ng-model="selected" class="summary-task-notes">
 
-	<h4 class="float-left">Notes for &ldquo;{{selected.name}}&rdquo;</h4>
+	<h4 class="float-left">Notes for &ldquo;{{selected.name}} {{selected._id}}&rdquo;</h4>
 	<h4 class="float-right">Fave?</h4>
 	<div class="clear"></div>
 	
@@ -57,6 +56,8 @@
 			<div class="message-details">&nbsp;</div>
 
 			<div class="message-body">
+				{{message._id}} {{selected}}
+
 				<p ng-bind-html="message.body | hashtag"></p>
 				<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 			</div>

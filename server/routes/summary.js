@@ -3,22 +3,22 @@
 
 module.exports = function (app, passport) {
 
-// Module dependencies
-var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
-var _ = require('underscore');
-var async = require('async');
+	// Module dependencies
+	var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
+	var _ = require('underscore');
+	var async = require('async');
 
-// load data storage models
-var Message = require('../models/data/message');
-var Task    = require('../models/data/task');
-var Test    = require('../models/data/test');
-var Tag     = require('../models/data/tag');
-var Session = require('../models/data/session');
-var Subject = require('../models/data/subject');
+	// load data storage models
+	var Message = require('../models/data/message');
+	var Task    = require('../models/data/task');
+	var Test    = require('../models/data/test');
+	var Tag     = require('../models/data/tag');
+	var Session = require('../models/data/session');
+	var Subject = require('../models/data/subject');
 
 // SUMMARY ROUTES ============================================
 
-app.route('/api/summary/:_id')
+	app.route('/api/summary/:_id')
 	.get(function(req, res){
 
 		// how to populate grandchildren sub-subdocuments is in here.
@@ -34,7 +34,7 @@ app.route('/api/summary/:_id')
 			reply.test = test;
 			// a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
 			return Task.find({'_test':req.params._id}).sort({ index: 'asc'})
-						.select('_id summary name desc pass_fail')
+						.select('_id summary name desc pass_fail _messages')
 						.exec(function(err, task){
 							if (err) {console.log(err);}
 						});
@@ -109,14 +109,10 @@ app.route('/api/summary/:_id')
 		if(req.body.messages){
 			async.each(req.body.messages, function(msg, callback){
 
-				var fav_task = msg.fav_task;
-				var fav_tag = msg.fav_tag;
-				var msg_id = msg._id;
-				
 				Message.findByIdAndUpdate(
-					msg_id, 
-					{ 'fav_task' : fav_task,
-					  'fav_tag'  : fav_tag,
+					msg._id, 
+					{ 'fav_task' : msg.fav_task,
+					'fav_tag'  : msg.fav_tag,
 					}, 
 					function(err, mess){
 						if(err){res.send(err);}
@@ -127,5 +123,5 @@ app.route('/api/summary/:_id')
 		
 		// console.log('test updated - server');
 		res.json('test updated - server');
-	});	
+	});
 };
