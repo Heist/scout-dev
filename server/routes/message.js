@@ -31,9 +31,11 @@ app.route('/api/message/')
 		var m = {}; // surface message id for use in promises.
 		var msg = {};
 		var call = {};
+		var reply = {};
 
 		if (req.body.body) {msg.body = req.body.body;}		
 		if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
+		if (req.body._test) {msg._test = mongoose.Types.ObjectId(req.body._test);}
 		if (req.user._id) {msg.created_by = mongoose.Types.ObjectId(req.user._id);}
 
 		if (req.body._task) {call._task = mongoose.Types.ObjectId(req.body._task);}
@@ -44,7 +46,7 @@ app.route('/api/message/')
 
 		promise.then(function(msg){
 			console.log('made a message', msg);
-
+			reply.msg = msg;
 			// fun fact: get this wrong and mongoose silently creates a new object._id that exists nowhere else.
 			m._id = mongoose.Types.ObjectId(msg._id);
 			
@@ -57,6 +59,7 @@ app.route('/api/message/')
 				return Task.findByIdAndUpdate( call._task, update, function(err,doc){ if (err) {res.send(err);} });
 			}
 		}).then(function(task){
+			reply.task = task;
 			console.log('made a task update', task);
 			var u = { $push: {_messages : m._id} };
 
@@ -65,25 +68,25 @@ app.route('/api/message/')
 		}).then(function(subject){
 			console.log('made a subject update', subject);
 			
+			reply.subject = subject;
+
 			if(req.body.tags){ // reminder: the tags are not attached to the message. The message is attached to tags.
-				console.log('tags call', call);
+				console.log('tags call', call, m._id, req.body.tags);
 			
-				async.each(req.body.tags, function(tag){
+			async.each(req.body.tags, function(tag){
 					var q = {body: tag, _test: call._test};
-					var u = { $push: { _messages: m._id,
-										_tasks : call._task
+					var u = { $push: { _messages: m._id
 									},
 								body: tag,
-								_test: call._test,
-								_session: call._session
+								_test: call._test
 							};
 					var o = {upsert:true};
 
-					Tag.findOneAndUpdate( q, u, o, function(err, data){});
+					Tag.findOneAndUpdate( q, u, o, function(err, data){ console.log(data); });
 				});
-				
 			}
-			res.send('done');
+
+			res.json(reply);
 		}).then(null, function(err){
 			if(err) {return res.send (err);}
 		});
