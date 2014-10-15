@@ -45,7 +45,7 @@ app.route('/api/message/')
 		var promise = Message.create(msg, function(err, msg){if (err) {res.send(err);} console.log(msg); });
 
 		promise.then(function(msg){
-			console.log('made a message', msg);
+			console.log('made a message', msg, 'call_task', call._task);
 			reply.msg = msg;
 			// fun fact: get this wrong and mongoose silently creates a new object._id that exists nowhere else.
 			m._id = mongoose.Types.ObjectId(msg._id);
