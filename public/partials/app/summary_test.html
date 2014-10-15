@@ -26,7 +26,7 @@
 		
 	
 		<div ng-show="selectedTag.body" ng-model="selectedTag" class="summary-tag">
-			<h4>Summary for #{{selectedTag.body}}  {{selectedTag._id}}</h4>
+			<h4>Summary for #{{selectedTag.body}}</h4>
 				
 			<textarea class="input" id="field-textarea" placeholder="Your summary" ng-model="selectedTag.summary"></textarea><br>
 			<button class="button small" ng-click="saveTagSummary()" >Save summary</button>
@@ -43,20 +43,19 @@
 			</div>
 			
 			<!-- participant messages -->
-			<div ng-repeat="message in user" class="message" >
+			<div ng-repeat="message in user" class="message" ng-show="show(message._id, selectedTag)">
 				<div class="message-details">&nbsp;</div>
 
 				<div class="message-body">
-					{{message._id}} {{selectedTag._messages}}
 					<p ng-bind-html="message.body | hashtag"></p>
 					<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 				</div>
 
 				<div class="message-fave">
-					<a ng-click="saveFav(message)" ng-if="message.fav">
+					<a ng-click="saveFavTag(message)" ng-if="message.fav_tag">
 						&#9733;
 					</a>
-					<a ng-click="saveFav(message)" ng-if="!message.fav">
+					<a ng-click="saveFavTag(message)" ng-if="!message.fav_tag">
 						&#9734;
 					</a>
 				</div>

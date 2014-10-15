@@ -79,25 +79,19 @@ module.exports = function (app, passport) {
 					{'summary': tag.summary,
 					'summarized' : tag.summarized},
 					function(err, data){
-					// // console.log('tags updated')
-				});
+						if(err) {return res.send (err);}
+					});
 			});
 		}
 		
 		if(req.body.tasks){
 			async.each(req.body.tasks, function(task, callback){
-				var eyedee = task._id;
-				var summary = task.summary;
-				var pass_fail = task.pass_fail;
-				// // console.log('summary, pass_fail', summary, pass_fail);
-
 				Task.findByIdAndUpdate(
 					task._id,
-					{'pass_fail': pass_fail,
-					'summary':summary },
+					{'pass_fail': task.pass_fail,
+					'summary': task.summary },
 					function(err, data){
 						if(err) {return res.send (err);}
-						// console.log('task updated', data);
 					});
 			});
 		}
@@ -108,7 +102,7 @@ module.exports = function (app, passport) {
 
 		if(req.body.messages){
 			async.each(req.body.messages, function(msg, callback){
-
+				console.log(msg);
 				Message.findByIdAndUpdate(
 					msg._id, 
 					{ 'fav_task' : msg.fav_task,
@@ -116,12 +110,10 @@ module.exports = function (app, passport) {
 					}, 
 					function(err, mess){
 						if(err){res.send(err);}
-						// // console.log('message saved', mess)
 					});
 			});
 		}
 		
-		// console.log('test updated - server');
-		res.json('test updated - server');
+		res.send("test updated - server");
 	});
 };

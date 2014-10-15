@@ -57,9 +57,10 @@ angular.module('field_guide_controls')
 
     $scope.show = function (msg_id, selected_obj) {
         // if a message's _id matches any value in the _messages list of .selected, return.
-        console.log(msg_id);
-
-        return selected_obj._messages.indexOf(msg_id._id) >= 0;
+        if(selected_obj._messages.indexOf(msg_id) >= 0){
+            return true;
+        }
+        
     };
 
     // SAVE MESSAGE functions  ============================
@@ -77,15 +78,19 @@ angular.module('field_guide_controls')
         return false;
     };
 
-    $scope.saveFav = function(message){
-        // console.log('touched fav', message);
-        // get the matching message from scope.messages
-        // set its fav_task status
-
-        if(message.fav){
+    $scope.saveFavTask = function(message){
+        if(message.fav_task){
             message.fav_task = false;
-        } else if (!message.fav){
+        } else if (!message.fav_task){
             message.fav_task = true;
+        }
+    };
+
+    $scope.saveFavTag = function(message){
+        if(message.fav_tag){
+            message.fav_tag = false;
+        } else if (!message.fav_tag){
+            message.fav_tag = true;
         }
         
         // TODO: when we change screens, save all messages with message.fav_task = true
@@ -127,47 +132,26 @@ angular.module('field_guide_controls')
         // no good in the new format, messages need to be their own array
         // displayed for both task and tag.
 
-        // extract messages from wherever I've placed them in the main body?
-        // this is a terrible way to do this. Rethink.
-
-
-        var holder = _.pluck($scope.tasks, 'messages');
-
-        var arr = []
-
-        for(var i = 0 ; i < holder.length; i++){
-            // console.log('i', holder[i])
-            var arr1 = _.toArray(holder[i])
-            for(var j = 0 ; j < arr1.length; j++){
-                // console.log('j', arr1[j])
-                for(var k = 0; k < arr1[j].length; k++){
-                    // console.log('k', arr1[j][k])
-                    arr.push(arr1[j][k]);
-                }
-            }
-        }
-
-        // console.log(holder, arr);
-
-
-        // var url = '/api/summary/'+ $stateParams._id;
-        // var data_out = {test: $scope.test, tags:$scope.tags, tasks:$scope.tasks, messages:$scope.messages} ;
-
-        // // console.log('this is our data out', data_out);
+        var msg_arr = [];
+    
+        $scope.messages = _.map($scope.messages, function(val, key){ return val; });
         
-        // $http.put(url, data_out)   
-        //     .success(function(data){
-        //         // console.log(data);
+        console.log('messages', $scope.messages[0]);
 
-        //         $location.path('/overview');
+        var url = '/api/summary/'+ $stateParams._id;
+        var data_out = {test: $scope.test, tags:$scope.tags, tasks:$scope.tasks, messages:$scope.messages[0]} ;
+        
+        console.log(data_out);
+        
+        $http.put(url, data_out)
+            .success(function(data){
+                console.log(data);
 
-        //         // note: this MUST stay inside the Success
-        //         // To prevent the weird pending bug 
-        //         // caused by a state-change race condition.
-        //     })
-        //     .error(function(data){
-        //         // console.log('er;ror', data);
-        //     });        
+                $location.path('/overview');
+            })
+            .error(function(data){
+                // console.log('er;ror', data);
+            });        
 
     };
    

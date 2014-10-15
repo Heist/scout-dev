@@ -36,7 +36,7 @@
 
 <div ng-model="selected" class="summary-task-notes">
 
-	<h4 class="float-left">Notes for &ldquo;{{selected.name}} {{selected._id}}&rdquo;</h4>
+	<h4 class="float-left">Notes for &ldquo;{{selected.name}}&rdquo;</h4>
 	<h4 class="float-right">Fave?</h4>
 	<div class="clear"></div>
 	
@@ -52,21 +52,19 @@
 		</div>
 		
 		<!-- participant messages -->
-		<div ng-repeat="message in user" class="message">
+		<div ng-repeat="message in user" class="message" ng-show="show(message._id, selected)">
 			<div class="message-details">&nbsp;</div>
 
 			<div class="message-body">
-				{{message._id}} {{selected}}
-
 				<p ng-bind-html="message.body | hashtag"></p>
 				<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 			</div>
 
 			<div class="message-fave">
-				<a ng-click="saveFav(message)" ng-if="message.fav">
+				<a ng-click="saveFavTask(message)" ng-if="message.fav_task">
 					&#9733;
 				</a>
-				<a ng-click="saveFav(message)" ng-if="!message.fav">
+				<a ng-click="saveFavTask(message)" ng-if="!message.fav_task">
 					&#9734;
 				</a>
 			</div>
