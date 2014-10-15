@@ -41,20 +41,18 @@ app.route('/api/summary/:_id')
 		})
 		.then(function(tasks){
 			reply.tasks = tasks;
-
 			return Tag.find({'_test' : reply.test._id}).exec();
 		})
 		.then(function(tags){
 			reply.tags = tags;
 			
-			return Message.find({ '_test':{$in: [mongoose.Types.ObjectId(req.params._id)]}})
-						.lean()
+			return Message.find({ '_test':{$in: [req.params._id]}})
 						.populate({path:'_subject', select: 'name' })
 						.exec();
 		})
 		.then(function(messages){
 			reply.messages = messages;
-
+			console.log(messages);
 			res.json(reply);
 		})
 		.then(null, function(err){
