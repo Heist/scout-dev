@@ -173,7 +173,6 @@ app.route('/api/report/:_id')
 			reply.test = test;
 
 			return Task.find({'_test':req.params._id})
-						.populate({'path': '_messages', $or: [{ fav_task : true }, { fav_tag : true }]})
 						.select('_id summary name pass_fail desc _messages')
 						.exec(function(err, tasks){
 							if(err){res.send(err);}
@@ -182,24 +181,21 @@ app.route('/api/report/:_id')
 		}).then(function(tasks){
 			reply.tasks = tasks;
 
-			return	Message.find({'_test':req.params._id, $or: [{ fav_task : true }, { fav_tag : true }]})
-						.populate({path: '_subject', 'select': 'name -_id'})
-						.select('_subject body created_by _id _test _task')
-						.exec(function(err, message){
-							// // console.log(message)
-						});
-			
-		}).then(function(messages){
-			reply.messages = messages;
-
 			return Tag.find({'_test' : reply.test._id})
 						.exists('summary')
 						.exec();
 		
 		}).then(function(tags){
-
 			reply.tags = tags;
-			// console.log('reply', reply.tags);
+			
+			return	Message.find({'_test':req.params._id, $or: [{ fav_task : true }, { fav_tag : true }]})
+						.populate({path: '_subject', 'select': 'name -_id'})
+						.select('_subject body created_by _id _test _task')
+						.exec(function(err, message){});
+			
+		}).then(function(messages){
+			reply.messages = messages;
+
 			res.json(reply);
 		
 		}).then(null, function(err){
