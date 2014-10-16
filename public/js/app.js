@@ -41,7 +41,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     };
 
 
-    var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ 
+    function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
         // Initialize a new promise 
         // This is going to need to check in with Express to see if someone's session
         // is still active. How?
@@ -67,9 +67,9 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                     $location.url('/login');
                 }
             });
-        };
+    }
 
-    var reportLogin = function($q, $timeout, $http, $location, $rootScope){ 
+    function reportLogin($q, $timeout, $http, $location, $rootScope){ 
         // Initialize a new promise 
         // This is going to need to check in with Express to see if someone's session
         // is still active. How?
@@ -94,7 +94,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                     console.log('no user', $rootScope.user);
                 }
             });
-        };
+    }
 
     $httpProvider.interceptors.push(interceptor);
 
