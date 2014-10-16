@@ -61,9 +61,37 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 // Not Authenticated 
                 else { 
                     // console.log('welp, that flunked');
+
                     $rootScope.userNote = 'You need to log in.'; 
                     $timeout(function(){deferred.reject();}, 0);
                     $location.url('/login');
+                }
+            });
+        };
+
+    var reportLogin = function($q, $timeout, $http, $location, $rootScope){ 
+        // Initialize a new promise 
+        // This is going to need to check in with Express to see if someone's session
+        // is still active. How?
+
+        var deferred = $q.defer(); 
+        // Make an AJAX call to check if the user is logged in 
+        $http
+            .get('/loggedin')
+            .success(function(user){
+                // Authenticated - show authorized hookups
+                if (user !== '0') {
+                    // console.log('yeah you logged in', user);
+                    $timeout(deferred.resolve, 0);
+                    $rootScope.user = user.replace(/(^"|"$)/g, '');
+                    console.log('logged in user', $rootScope.user);
+                }
+
+                // Not Authenticated - send to public route
+                else { 
+                    console.log('user', user);
+                    $timeout(deferred.resolve, 0);
+                    console.log('no user', $rootScope.user);
                 }
             });
         };
@@ -79,7 +107,8 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('report', {
             url: '/report/:test_id',
             controller:'report',
-            templateUrl: 'partials/app/report.html'
+            templateUrl: 'partials/app/report.html',
+            resolve: { loggedin: reportLogin }
         })
         .state('report.test', {
             templateUrl: 'partials/app/report_test.html'

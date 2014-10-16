@@ -35,47 +35,46 @@ module.exports = function(passport) {
 // =========================================================================
 // LOCAL LOGIN =============================================================
 // =========================================================================
-passport.use('local-login', new LocalStrategy({
-    // by default, local strategy uses username and password, we will override with email
-    usernameField : 'email',
-    passwordField : 'password',
-    passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+    passport.use('local-login', new LocalStrategy({
+        // by default, local strategy uses username and password, we will override with email
+        usernameField : 'email',
+        passwordField : 'password',
+        passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     }, function(req, email, password, done) {
-        if (email)
-            email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
+        if (email) {email = email.toLowerCase();} // Use lower-case e-mails to avoid case-sensitive e-mail matching
 
         // asynchronous
         process.nextTick(function() {
             User.findOne({ 'local.email' :  email }, function(err, user) {
                 // if there are any errors, return the error
                 if (err)
-                    return done(err);
+                    {return done(err);}
 
                 // if no user is found, return the message
                 if (!user)
-                    return done(null, { error: 'No user found. ' });
+                    {return done(null, { error: 'No user found. ' });}
 
                 if (!user.validPassword(password))
-                    return done(null, { error: 'Oops! Wrong password.' });
+                    {return done(null, { error: 'Oops! Wrong password.' });}
 
                 // all is well, return user
                 else
-                    return done(null, user);
+                    {return done(null, user);}
             });
         });
-}));
+    }));
 
 // =========================================================================
 // LOCAL SIGNUP =============================================================
 // =========================================================================
-passport.use('local-signup', new LocalStrategy({
-    // by default, local strategy uses username and password, we will override with email
-    usernameField : 'email',
-    passwordField : 'password',
-    passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+    passport.use('local-signup', new LocalStrategy({
+        // by default, local strategy uses username and password, we will override with email
+        usernameField : 'email',
+        passwordField : 'password',
+        passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, email, password, done){
-    if (email) {email = email.toLowerCase()}; // Use lower-case e-mails to avoid case-sensitive e-mail matching
+        if (email) {email = email.toLowerCase();} // Use lower-case e-mails to avoid case-sensitive e-mail matching
 
         // asynchronous
         process.nextTick(function() {
@@ -83,8 +82,7 @@ passport.use('local-signup', new LocalStrategy({
             if (!req.user) {
                 User.findOne({ 'local.email' :  email }, function(err, user) {
                     // if there are any errors, return the error
-                    if (err)
-                        return done(err);
+                    if (err){return done(err);}
 
                     console.log(user);
                     // check to see if theres already a user with that email
@@ -99,8 +97,7 @@ passport.use('local-signup', new LocalStrategy({
                         newUser.local.password = newUser.generateHash(password);
 
                         newUser.save(function(err) {
-                            if (err)
-                                throw err;
+                            if (err){throw err;}
 
                             return done(null, newUser);
                         });
@@ -111,11 +108,11 @@ passport.use('local-signup', new LocalStrategy({
             } else if ( !req.user.local.email ) {
                 // ...presumably they're trying to connect a local account
                 var user            = req.user;
-                    user.local.email    = email;
+                user.local.email    = email;
                 user.local.password = user.generateHash(password);
                 user.save(function(err) {
                     if (err)
-                        throw err;
+                        {throw err;}
                     return done(null, user);
                 });
             } else {
@@ -131,46 +128,47 @@ passport.use('local-signup', new LocalStrategy({
 // TRELLO AUTHORIZATION ====================================================
 // =========================================================================
 
-passport.use('trello-authz', new TrelloStrategy({
-    consumerKey: configAuth.trelloAuth.clientID,
-    consumerSecret: configAuth.trelloAuth.clientSecret,
-    callbackURL: configAuth.trelloAuth.callbackURL,
-    passReqToCallback: true, // we are not using trello to log in to our app.
-    trelloParams: {
-            scope: "read,write",
-            name: "Field Guide",
-            expiration: "never"
-          }
-    }, 
+    passport.use('trello-authz', new TrelloStrategy({
+        consumerKey: configAuth.trelloAuth.clientID,
+        consumerSecret: configAuth.trelloAuth.clientSecret,
+        callbackURL: configAuth.trelloAuth.callbackURL,
+        passReqToCallback: true, // we are not using trello to log in to our app.
+        trelloParams: {
+                scope: "read,write",
+                name: "Field Guide",
+                expiration: "never"
+            }
+        }, 
     function(req, token, tokenSecret, profile, done) {
-        console.log('touched passport trello');
-        if (!req.user) {
-            console.log('nope! the user is not logged in');
-            var reply = 'Sorry, that user is not logged in to Field Guide.'
-            return done(null, reply)
-        } else {
+            console.log('touched passport trello');
+            
+            if (!req.user) {
+                console.log('nope! the user is not logged in');
+                var reply = 'Sorry, that user is not logged in to Field Guide.';
+                return done(null, reply);
+            } else {
         
-        console.log('yep, looks like someone is logged in', req.user.id)
+                console.log('yep, looks like someone is logged in', req.user.id);
+        
         // this is how you authorize someone, but you could do
         // service.id: profile.id and authenticate them
         // then add a new account otherwise.
         
-        User.findById(req.user.id)
-            .exec(function(err, user) {
-              if (err) { return done(err); }
-              console.log('gotcha,', user._id);
-              
-              user.trello.id = profile.id;
-              user.trello.token = token;
-              user.trello.tokenSecret = tokenSecret;
-              
-              user.save(function(err,data){
-                // pass the user back to routes.js
-                console.log('user saved')
-                return done(null, data);
-              });
-            });
-        }
-    }));
+                User.findById(req.user.id)
+                .exec(function(err, user) {
+                    if (err) { return done(err); }
+                    console.log('gotcha,', user._id);
 
-}
+                    user.trello.id = profile.id;
+                    user.trello.token = token;
+                    user.trello.tokenSecret = tokenSecret;
+
+                    user.save(function(err,data){
+                    // pass the user back to routes.js
+                        console.log('user saved');
+                        return done(null, data);
+                    });
+                });
+            }
+        }));
+};

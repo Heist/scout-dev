@@ -7,7 +7,7 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
 
     $http.get('/api/report/'+$stateParams.test_id)
             .success(function(data){
-                console.log('the report object', data);
+                // console.log('the report object', data);
 
                 $scope.report = data;
                 $scope.tasks = data.tasks;
@@ -16,29 +16,29 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
                 $scope.messages = data.messages;
 
 
-                console.log('tasks', data.tasks, 'test', $scope.test, 'tags', $scope.tags  );
+                // console.log('tasks', data.tasks, 'test', $scope.test, 'tags', $scope.tags  );
 
                 $scope.select(data.test);
                 $state.go("report.test");
             }); 
 
     $scope.select = function(obj){
-        // console.log('selected object', obj)
+        // // console.log('selected object', obj)
         $scope.selected = obj;
     };
 
     $scope.showTask = function(msg, task){
 
         if((task._messages.indexOf(msg._id) >= 0) && (msg.fav_task === true)){
-            console.log('task shown');
+            // console.log('task shown');
             return true;
         }
     };
 
     $scope.showTag = function(msg, tag){
-        console.log(msg, tag._messages);
+        // console.log(msg, tag._messages);
         if((tag._messages.indexOf(msg._id) >= 0) && (msg.fav_tag === true)){
-            console.log('tag shown');
+            // console.log('tag shown');
             return true;
         }
     };

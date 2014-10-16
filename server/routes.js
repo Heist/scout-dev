@@ -21,85 +21,86 @@ app.use(function(req, res, next) {
 
 // AUTH ROUTES ============================================
 // route middleware to ensure user is logged in - ajax get
-function isLoggedInAjax(req, res, next) {
-    if (!req.isAuthenticated()) {
-		return res.send( 401, "unauthorized request");
-	} else {
-		// console.log('login good');
-        next();
+    function isLoggedInAjax(req, res, next) {
+        if (!req.isAuthenticated()) {
+            return res.send( 401, "unauthorized request");
+        } else {
+            // console.log('login good');
+            next();
+        }
     }
-}
 
 // route middleware to ensure user is logged in
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
-}
+    function isLoggedIn(req, res, next) {
+        if (req.isAuthenticated()){
+            return next();
+        }
+    }
 
 // LOGIN ROUTES ===========================================
 
-// is someone logged in?
-app.get('/loggedin', function(req, res) {
-		res.send(req.isAuthenticated() ? req.user._id : '0');
+	// is someone logged in?
+	app.get('/loggedin', function(req, res) {
+			res.send(req.isAuthenticated() ? req.user._id : '0');
+		});
+
+	// who's logged in?
+	app.get('/auth/login', isLoggedInAjax, function(req, res) {
+            return res.json(req.user._id);
+        });
+
+	// process the login form
+	app.post('/auth/login', function(req, res, next) {
+		if (!req.body.email || !req.body.password) {
+            return res.json({ error: 'Email and Password required' });
+        }
+        passport.authenticate('local-login', function(err, user, info) {
+            if (err) {
+                return res.json(err);
+            }
+            if (user.error) {
+                return res.json({ error: user.error });
+            }
+            req.logIn(user, function(err) {
+                if (err) {
+                    return res.json(err);
+                }
+
+                // console.log('user _id login', req.user._id);
+
+                return res.json({ user: mongoose.Types.ObjectId(req.user._id), redirect: '/overview' });
+            });
+		})(req, res);
 	});
 
-// who's logged in?
-app.get('/auth/login', isLoggedInAjax, function(req, res) {
-        return res.json(req.user._id);
-    });
-
-// process the login form
-app.post('/auth/login', function(req, res, next) {
-    if (!req.body.email || !req.body.password) {
-        return res.json({ error: 'Email and Password required' });
-    }
-    passport.authenticate('local-login', function(err, user, info) {
-        if (err) {
-            return res.json(err);
+	// process the signup form
+	app.post('/auth/signup', function(req, res, next) {
+        if (!req.body.email || !req.body.password) {
+            return res.json({ error: 'Email and Password required' });
         }
-        if (user.error) {
-            return res.json({ error: user.error });
-        }
-        req.logIn(user, function(err) {
+        passport.authenticate('local-signup', function(err, user, info) {
             if (err) {
                 return res.json(err);
             }
-
-            // console.log('user _id login', req.user._id);
-
-            return res.json({ user: mongoose.Types.ObjectId(req.user._id), redirect: '/overview' });
-        });
-    })(req, res);
-});
-
-// process the signup form
-app.post('/auth/signup', function(req, res, next) {
-    if (!req.body.email || !req.body.password) {
-        return res.json({ error: 'Email and Password required' });
-    }
-    passport.authenticate('local-signup', function(err, user, info) {
-        if (err) {
-            return res.json(err);
-        }
-        if (user.error) {
-            return res.json({ error: user.error });
-        }
-        req.logIn(user, function(err) {
-            if (err) {
-                return res.json(err);
+            if (user.error) {
+                return res.json({ error: user.error });
             }
-            // console.log('user _id register', req.user._id);
-            var user = req.user._id;
-            return res.json({ user: user, redirect: '/overview' });
-        });
-    })(req, res);
-});
+            req.logIn(user, function(err) {
+                if (err) {
+                    return res.json(err);
+                }
+                // console.log('user _id register', req.user._id);
+                var user = req.user._id;
+                return res.json({ user: user, redirect: '/overview' });
+            });
+        })(req, res);
+	});
 
-app.post('/auth/logout', function(req, res) {
-	// console.log('logout request', req);
-   req.logout();
-   res.json({ redirect: '/login' });
-});
+	app.post('/auth/logout', function(req, res) {
+		// console.log('logout request', req);
+        req.logout();
+        res.json({ redirect: '/login' });
+	});
 
 
 // PUBLIC ROUTES ==========================================
@@ -141,8 +142,8 @@ app.route('/debug/tag/')
 					if(err){res.send(err);}
 
 					res.json(docs);
-				})
-			});
+				});
+		});
 
 app.route('/debug/user/')
 		.get(function(req,res){
@@ -150,8 +151,8 @@ app.route('/debug/user/')
 					if(err){res.send(err);}
 
 					res.json(users);
-				})
-			});
+				});
+		});
 
 // Report Route ------------------
 // for some reason I can't require this and still have it be public
@@ -221,30 +222,30 @@ app.use('/api',  isLoggedInAjax, function (req, res, next) {
 
 // CONNECT ROUTES =========================================
 
-app.get('/connect/trello',
-  passport.authorize('trello-authz', { failureRedirect: '/account' }, function(req,res){
-  	// console.log('touched connect-trello')
-  	res.send({trello : true});
-  })
- );
+    app.get('/connect/trello',
+        passport.authorize('trello-authz', { failureRedirect: '/account' })
+        // console.log('touched connect-trello')
+        // res.send({trello : true});
+    );
 
-app.get('/connect/trello/callback',
-  passport.authorize('trello-authz', { failureRedirect: '/account' }),
-  function(req, res) {
-	// this sends things to the popup window.
-	res.send("Thanks for attaching your account. You can close this window now.");
-  });
 
-app.delete('/connect/trello', function(req, res){
-	// console.log(req.body);
+    app.get('/connect/trello/callback',
+      passport.authorize('trello-authz', { failureRedirect: '/account' }),
+      function(req, res) {
+        // this sends things to the popup window.
+        res.send("Thanks for attaching your account. You can close this window now.");
+    });
 
-	req.user.trello.id = '';
-	req.user.trello.token = '';
-	req.user.trello.tokenSecret = '';
-	req.user.save();
+    app.delete('/connect/trello', function(req, res){
+        // console.log(req.body);
 
-	res.json({trello : false})
-});
+        req.user.trello.id = '';
+        req.user.trello.token = '';
+        req.user.trello.tokenSecret = '';
+        req.user.save();
+
+        res.json({trello : false});
+    });
 
 // ACCOUNT ROUTES =========================================
 app.route('/api/account/:_user')

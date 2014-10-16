@@ -17,6 +17,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 		});
 
 	$scope.connectTrello = function(){
+		$scope.connector = true;
 		$window.open('/connect/trello', 'Connect Field Guide to Trello', 'width=450, height=600');
 		// in here I gotta put a $scope.watch or some shit to see if a thing changes.
 	}
