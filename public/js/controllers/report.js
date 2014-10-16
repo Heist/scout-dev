@@ -8,29 +8,6 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
     $http.get('/api/report/'+$stateParams.test_id)
             .success(function(data){
                 console.log('the report object', data);
-      
-                var messagesById = {}; 
-
-                data.messages.forEach(function(m) { 
-                    messagesById[m._id] = m;
-                    // console.log('message id', m._id)
-                });
-
-                // console.log('messagesById', messagesById);
-                // // var visible_array = [];
-
-                data.tags.forEach(function(p) {
-                //  p.visible_array = [];
-                //  console.log('tag message', p._messages);
-                    p._messages = p._messages.map(function(message) { 
-                        if (messagesById[message]){
-                          // console.log('id', message, messagesById[message])
-                            return messagesById[message];
-                        } else {
-                            return {_id : message};
-                        }
-                    });
-                });              
 
                 $scope.report = data;
                 $scope.tasks = data.tasks;
@@ -48,6 +25,20 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
     $scope.select = function(obj){
         // console.log('selected object', obj)
         $scope.selected = obj;
-    }
+    };
 
+    $scope.showTask = function(msg, task){
+
+        if((task._messages.indexOf(msg._id) >= 0) && (msg.fav_task === true)){
+            console.log('task shown');
+            return true;
+        }
+    };
+
+    $scope.showTag = function(msg, tag){
+        if((tag._messages.indexOf(msg._id) >= 0) && (msg.fav_tag === true)){
+            console.log('tag shown');
+            return true;
+        }
+    };
 }]);

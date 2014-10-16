@@ -10,15 +10,12 @@
 	<!--<p>{{selected.desc}}</p>-->
 	
 	<p>{{selected.summary}}</p>
-	
-
-	
 			
 	<div class="message-group report-messages">
 	
 		<h4><span>Selected Quotes</span></h4>
 	
-		<div ng-repeat="message in selected._messages" class="message">
+		<div ng-repeat="message in messages" class="message" ng-show="showTask(message, selected)">
 			
 			<div class="message-body">
 				<p ng-bind-html="message.body | hashtag"></p>

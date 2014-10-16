@@ -174,14 +174,12 @@ app.route('/api/report/:_id')
 
 			return Task.find({'_test':req.params._id})
 						.select('_id summary name pass_fail desc _messages')
-						.exec(function(err, tasks){
-							if(err){res.send(err);}
-							// // console.log('tasks', tasks);
-						});
+						.exec();
+
 		}).then(function(tasks){
 			reply.tasks = tasks;
 
-			return Tag.find({'_test' : reply.test._id})
+			return Tag.find({'_test' : req.params._id})
 						.exists('summary')
 						.exec();
 		
@@ -191,16 +189,16 @@ app.route('/api/report/:_id')
 			return	Message.find({'_test':req.params._id, $or: [{ fav_task : true }, { fav_tag : true }]})
 						.populate({path: '_subject', 'select': 'name -_id'})
 						.select('_subject body created_by _id _test _task')
-						.exec(function(err, message){});
+						.exec();
 			
 		}).then(function(messages){
+			
 			reply.messages = messages;
 
 			res.json(reply);
 		
 		}).then(null, function(err){
-			if(err) return res.send (err);
-			
+			if(err) {return res.send (err);}
 		});
 	});
 
