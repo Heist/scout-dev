@@ -188,7 +188,7 @@ app.route('/api/report/:_id')
 			
 			return	Message.find({'_test':req.params._id, $or: [{ fav_task : true }, { fav_tag : true }]})
 						.populate({path: '_subject', 'select': 'name -_id'})
-						.select('_subject body created_by _id _test _task')
+						.select('_subject body created_by _id _test _task fav_tag fav_task')
 						.exec();
 			
 		}).then(function(messages){

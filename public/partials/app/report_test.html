@@ -37,7 +37,6 @@
 		<h4>Select quotes on "{{tag.body}}"</h4>
 		<div class="message" ng-repeat="message in messages"  ng-show="showTag(message, tag)">
 			<div class="message-body">
-				{{message._id}} {{tag._messages}}
 				<p ng-bind-html="message.body | hashtag"></p>
 				<small>Testing with {{message._subject.name}}</small>
 			</div>
