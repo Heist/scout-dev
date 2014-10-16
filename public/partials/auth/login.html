@@ -16,7 +16,7 @@
 			
 			<form ng-model="user">
 				<ul class="nobullets withlabels">
-				
+					<li ng-show="flashmessage">{{flashmessage}}</li>
 					<li>
 						<input class="input" type="text" name="username" value="" placeholder="Your username" ng-model="user.email"/>
 					</li>
@@ -24,7 +24,7 @@
 					<li>
 						<input class="input" type="password" id="field-password" name="" value="" placeholder="Your password"  ng-model="user.password"/>
 					</li>
-								
+					
 					<li class="text-center">
 						<button class="button dark" type="submit" ng-click="login(user)">Login</button> 
 						<small><a ng-click="register(user)">Register?</a></small>

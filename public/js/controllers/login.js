@@ -16,11 +16,12 @@ angular.module('field_guide_controls')
         $http
             .post(url, dataOut)
             .success(function(data){
-                // console.log('login controller success', data);
+                console.log('login controller success', data.error);
+                $scope.flashmessage = data.error;
                 $location.path(data.redirect);
             })
             .error(function(error){
-                // console.log('login no bueno.', error);
+                console.log('login no bueno.', error);
             });
     };
 
