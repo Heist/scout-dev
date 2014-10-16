@@ -7,10 +7,10 @@ var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSan
 
 // sorts an array of objects by key.
 function keysrt(key,desc) {
-  return function(a,b){
-   return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
-  };
-}
+        return function(a,b){
+            return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
+        };
+    }
 
 function keygen(){
     return Math.round((new Date().valueOf() * Math.random()));
@@ -53,9 +53,9 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             .success(function(user){
                 // Authenticated 
                 if (user !== '0') {
-                    // console.log('yeah you logged in', user);
+                    console.log('yeah you logged in', user);
                     $timeout(deferred.resolve, 0);
-                    $rootScope.user = user.replace(/(^"|"$)/g, '');
+                    $rootScope.user = user;
                 }
 
                 // Not Authenticated 
@@ -165,60 +165,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('summary.task', {
             templateUrl: 'partials/app/summary_task.html'
         });
-    
-
-    // FIX for trailing slashes. Gracefully "borrowed" from https://github.com/angular-ui/ui-router/issues/50
-//     $urlRouterProvider.rule(function($injector, $location) {
-//         if($location.protocol() === 'file')
-//             return;
-
-//         var path = $location.path()
-//         // Note: misnomer. This returns a query object, not a search string
-//             , search = $location.search()
-//             , params
-//             ;
-
-//         // check to see if the path already ends in '/'
-//         if (path[path.length - 1] === '/') {
-//             return;
-//         }
-
-//         // If there was no search string / query params, return with a `/`
-//         if (Object.keys(search).length === 0) {
-//             return path + '/';
-//         }
-
-//         // Otherwise build the search string and return a `/?` prefix
-//         params = [];
-//         angular.forEach(search, function(v, k){
-//             params.push(k + '=' + v);
-//         });
-//         return path + '/?' + params.join('&');
-//     });
-// })
-
-// .run(['$rootScope', '$state', 'Auth', function ($rootScope, $state, Auth) {
-
-//     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-        
-//         if(!('data' in toState) || !('access' in toState.data)){
-//             $rootScope.error = "Access undefined for this state";
-//             event.preventDefault();
-//         }
-//         else if (!Auth.authorize(toState.data.access)) {
-//             $rootScope.error = "Seems like you tried accessing a route you don't have access to...";
-//             event.preventDefault();
-
-//             if(fromState.url === '^') {
-//                 if(Auth.isLoggedIn()) {
-//                     $state.go('user.home');
-//                 } else {
-//                     $rootScope.error = null;
-//                     $state.go('anon.login');
-//                 }
-//             }
-//         }
-//     });
 
 });
 
@@ -273,29 +219,29 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 //   };
 // });
 
-// DIRECTIVES
- field_guide_app.directive('scrollItem',function(){
-    return{
-    restrict: "A",
-    link: function(scope, element, attributes) {
-        if (scope.$last){
-           scope.$emit("Finished");
-       }
-    }
-   }
+// DIRECTIVES =============================================
+field_guide_app.directive('scrollItem',function(){
+    return {
+        restrict: "A",
+        link: function(scope, element, attributes) {
+            if (scope.$last){
+                scope.$emit("Finished");
+            }
+        }
+    };
 })
 .directive('scrollIf', function() {
-return{
-    restrict: "A",
-    link: function(scope, element, attributes) {
-        scope.$on("Finished",function(){
-            var chat_height = element.outerHeight();
-            // console.log(chat_height);
-            element.scrollTop(chat_height); 
-        });
-    }
-   }
-  });
+    return {
+        restrict: "A",
+        link: function(scope, element, attributes) {
+            scope.$on("Finished",function(){
+                var chat_height = element.outerHeight();
+                // console.log(chat_height);
+                element.scrollTop(chat_height); 
+            });
+        }
+    };
+});
 
 // FILTERS ============================================================================
 angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);

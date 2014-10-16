@@ -3,20 +3,20 @@ module.exports = function(app, passport) {
 // CONFIGURATION =====================================================
 
 // Module dependencies
-var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
+    var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 
-// load data storage models
-var Message = require('./models/data/message');
-var Task    = require('./models/data/task');
-var Test    = require('./models/data/test');
-var Tag     = require('./models/data/tag');
-var User    = require('./models/auth/user');
+    // load data storage models
+    var Message = require('./models/data/message');
+    var Task    = require('./models/data/task');
+    var Test    = require('./models/data/test');
+    var Tag     = require('./models/data/tag');
+    var User    = require('./models/auth/user');
 
-// console logging
-app.use(function(req, res, next) {
-	// console.log('Something is happening.');
-	next(); // make sure we go to the next routes and don't stop here
-});
+    // console logging
+    app.use(function(req, res, next) {
+        // console.log('Something is happening.');
+        next(); // make sure we go to the next routes and don't stop here
+    });
 
 
 // AUTH ROUTES ============================================
@@ -41,7 +41,7 @@ app.use(function(req, res, next) {
 
 	// is someone logged in?
 	app.get('/loggedin', function(req, res) {
-			res.send(req.isAuthenticated() ? req.user._id : '0');
+			res.send(req.isAuthenticated() ? {_id : req.user._id, trello : req.user.trello.id } : '0');
 		});
 
 	// who's logged in?
@@ -224,16 +224,19 @@ app.use('/api',  isLoggedInAjax, function (req, res, next) {
 
     app.get('/connect/trello',
         passport.authorize('trello-authz', { failureRedirect: '/account' })
-        // console.log('touched connect-trello')
-        // res.send({trello : true});
-    );
+        // ,function(req, res) {
+        //     res.send({trello : true});
+        // }
+        );
 
 
     app.get('/connect/trello/callback',
       passport.authorize('trello-authz', { failureRedirect: '/account' }),
       function(req, res) {
         // this sends things to the popup window.
-        res.send("Thanks for attaching your account. You can close this window now.");
+        // var script = '$scope.parentWindow = window.opener.$windowScope;
+        //              console.log($scope.connector);';
+        res.send('<html><head><script>window.opener.document.getElementById("trello").innerHTML = "Trello connected."; window.close();</script></head><body><h1>Thanks for attaching your account.</h1></body></html>');
     });
 
     app.delete('/connect/trello', function(req, res){

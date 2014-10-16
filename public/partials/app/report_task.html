@@ -1,9 +1,11 @@
 <!-- report_steps -->
 
 	
-	<h2>{{selected.name}}
+	<h2>{{selected.name}} {{user}}
+		<button class="task-score green" ng-show="">Send to Trello?</button>
 		<div class="task-score green" ng-show="selected.pass_fail == true">Passed</div>
 		<div class="task-score red" ng-show="selected.pass_fail == false">Needs work</div>
+
 	</h2>
 
 	
