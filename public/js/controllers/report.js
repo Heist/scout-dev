@@ -36,7 +36,8 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
     };
 
     $scope.showTag = function(msg, tag){
-        if((tag._messages.indexOf(msg._id) >= 0) && (msg.fav_tag === true)){
+        console.log(msg, tag._messages);
+        if((tag._messages.indexOf(msg._id) >= 0)){
             console.log('tag shown');
             return true;
         }
