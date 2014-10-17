@@ -18,7 +18,11 @@ var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
 
-var port = Number(process.env.PORT || 8080);
+var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
+
+// for later use with Redis if it becomes important
+// process.title = 'field_guide_app';
+// var throttle = process.env.FIELD_GUIDE_THROTTLE || 100;
 
 var database = require('./server/db/db');
 var db = database.db;
