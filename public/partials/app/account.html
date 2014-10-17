@@ -33,21 +33,23 @@
 				<!-- connect with apps -->
 				
 				<!-- unconnected -->
-				<div class="pm-app trello" ng-show="!account.trello && !connector">
-					Connect your Trello account
+				<div class="pm-app trello">
+					{{connector.message}}
+					<a href="#" class="caution" ng-click="disconnectTrello()" ng-show="connector.toggle === 1" >Disconnect?</a>
+					<button class="button small" ng-click="connectTrello()" ng-show="connector.toggle === 2" >Connect Trello</button>
 					<div class="clear"></div>
-					<button class="button small" ng-click="connectTrello()">Connect Trello</button>
+					
 				</div>
 				
-				<div class="pm-app trello" ng-show="!account.trello && connector" id="trello">
+				<!-- <div class="pm-app trello" ng-show="!account.trello && connector" id="trello">
 					Connecting your Trello account...
 					<div class="clear"></div>
 				</div>
 
 				<!-- connected -->
-				<div class="pm-app connected trello" ng-show="account.trello">
-					Your Trello account is connected. <div class="clear"></div><a href="#" class="caution" ng-click="disconnectTrello()" >Disconnect?</a>
-				</div>
+				<!-- <div class="pm-app connected trello" ng-show="account.trello">
+					Your Trello account is connected. 
+				</div> -->
 				
 
 

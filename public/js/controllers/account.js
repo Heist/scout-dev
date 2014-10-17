@@ -6,21 +6,46 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 	var user_id = $rootScope.user._id;
 
 	$scope.account = $rootScope.user;
+
 	// https://trello.com/1/members/my/boards?key=substitutewithyourapplicationkey&token=substitutethispartwiththeauthorizationtokenthatyougotfromtheuser
 	// https://trello.com/docs/api/card/index.html#post-1-cards
 	
 	// $http
-	// 	.get('/api/account/'+ user_id)
-	// 	.success(function(data){
-	// 		console.log(data);
-	// 		$scope.account = data;
-	// 	});
+	//	.get('/api/account/'+ user_id)
+	//	.success(function(data){
+	//		console.log(data);
+	//		$scope.account = data;
+	//	});
+	$scope.connector = {};
+	
+	if($scope.account.trello){
+		$scope.connector.message = "Your Trello account is connected.";
+		$scope.connector.toggle = 1;
+	} 
+
+	if (!$scope.account.trello) {
+		$scope.connector.message = "Connect your Trello account.";
+		$scope.connector.toggle = 2;
+	}
+
+	$window.inviteCallback = function(){
+		$scope.connector.message = "Your Trello account is connected.";
+		$scope.connector.toggle = 1;
+		console.log('called back');
+		$scope.$apply();
+	};
 
 	$scope.connectTrello = function(){
-		$scope.connector = true;
+		$scope.connector.message = "Connecting your Trello account...";
+		$scope.connector.toggle = 3;
 		// $window.open('views/anotherWindow.html', '_blank','menubar=yes,toolbar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,personalbar=yes');
 		$window.open('/connect/trello', 'Connect Field Guide to Trello', 'width=450, height=600');
-	}
+		$scope.$watch('inviteCallback', function(){
+			console.log('hello callback!');
+			// $scope.connector = false;
+			// $scope.account.trello = true;
+		});
+	};
 
 	$scope.disconnectTrello = function() {
 		console.log('touched disconnect');
@@ -29,7 +54,10 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 			.success(function(err, data){
 				console.log('Trello disconnected');
 				$scope.account.trello=false;
+
+				$scope.connector.message = "Connect your Trello account.";
+				$scope.connector.toggle = 2;
 			});
 
-	}
+	};
 }]);

@@ -236,7 +236,7 @@ app.use('/api',  isLoggedInAjax, function (req, res, next) {
         // this sends things to the popup window.
         // var script = '$scope.parentWindow = window.opener.$windowScope;
         //              console.log($scope.connector);';
-        res.send('<html><head><script>window.opener.document.getElementById("trello").innerHTML = "Trello connected."; window.close();</script></head><body><h1>Thanks for attaching your account.</h1></body></html>');
+        res.send('<html><head><script>window.opener.inviteCallback(); window.close();</script></head><body><h1>Thanks for attaching your account.</h1></body></html>');
     });
 
     app.delete('/connect/trello', function(req, res){

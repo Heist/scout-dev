@@ -25,7 +25,6 @@ angular.module('field_guide_controls')
             });
     };
 
-
     $scope.register = function(user){
         // console.log(user);
         var url = '/auth/signup/';
