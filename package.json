@@ -3,6 +3,10 @@
   "node-main": "server.js",
   "description": "Scout app",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Heist/scout-dev.git"
+  },
   "dependencies": {
     "async": "latest",
     "bcrypt-nodejs": "latest",
@@ -24,6 +28,7 @@
     "passport-local": "~0.1.6",
     "passport-trello": "^0.1.4",
     "request": "^2.44.0",
+    "socket.io": "^1.1.0",
     "underscore": "^1.7.0"
   },
   "engines": {
@@ -32,10 +37,5 @@
   "devDependencies": {
     "karma-chrome-launcher": "^0.1.4",
     "karma-phantomjs-launcher": "^0.1.4"
-  },
-  "jshintConfig",
-  {
-    "undef": false,
-    "unused": true
   }
 }
