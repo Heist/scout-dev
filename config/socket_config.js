@@ -1,0 +1,31 @@
+// socket_config.js
+'use strict';
+
+module.exports = function(io){
+    io.on('connection', function(socket){
+        console.log('a user connected');
+    });
+    
+    // io.sockets.on('connection', function(client){
+
+    //     client.on('message', function(err, msg){
+    //         var k = Object.keys(io.sockets.manager.roomClients[client.id]);
+    //         if (k[1] !== undefined) {
+    //             var chan = k[1].substring(1, k[1].length);
+    //             client.broadcast.to(chan).emit('message', err);
+    //         }
+    //     });
+
+    //     // client.on('subscribe', function(data) { 
+    //     //     var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
+    //     //     console.log('joining room', hash);
+    //     //     var k = Object.keys(io.sockets.manager.roomClients[client.id]);
+    //     //     client.join(hash); 
+    //     // });
+
+    //     client.on('channel', function(data) { 
+    //         console.log('joining room', data.room.toLowerCase());
+    //         client.join(data.room); 
+    //     });
+    // });
+};

@@ -168,55 +168,32 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 });
 
 // SERVICES (factories, etc) ==================================================
-// demo from http://stackoverflow.com/questions/18880737/how-do-i-use-rootscope-in-angular-to-store-variables
-// app.factory('items', function() {
-//     var items = [];
-//     var itemsService = {};
-
-//     itemsService.add = function(item) {
-//         items.push(item);
-//     };
-//     itemsService.list = function() {
-//         return items;
-//     };
-
-//     return itemsService;
-// });
-
-// function Ctrl1($scope,items) {
-//     $scope.list = items.list; 
-// }
-
-// function Ctrl2($scope, items) {
-//     $scope.add = items.add;
-// }
-
 // a factory to provide sockets to the app
 // http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/
 // this should be a straight-up feed from that site
-// field_guide_app.factory('socket', function ($rootScope) {
-//   var socket = io.connect();
-//   return {
-//     on: function (eventName, callback) {
-//       socket.on(eventName, function () {  
-//         var args = arguments;
-//         $rootScope.$apply(function () {
-//           callback.apply(socket, args);
-//         });
-//       });
-//     },
-//     emit: function (eventName, data, callback) {
-//       socket.emit(eventName, data, function () {
-//         var args = arguments;
-//         $rootScope.$apply(function () {
-//           if (callback) {
-//             callback.apply(socket, args);
-//           }
-//         });
-//       })
-//     }
-//   };
-// });
+field_guide_app.factory('socket', function ($rootScope) {
+    var socket = io.connect();
+    return {
+        on: function (eventName, callback) {
+            socket.on(eventName, function () {  
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    callback.apply(socket, args);
+                });
+            });
+        },
+        emit: function (eventName, data, callback) {
+            socket.emit(eventName, data, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    if (callback) {
+                        callback.apply(socket, args);
+                    }
+                });
+            });
+        }
+    };
+});
 
 // DIRECTIVES =============================================
 field_guide_app.directive('scrollItem',function(){
