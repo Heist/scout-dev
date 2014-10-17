@@ -2,8 +2,20 @@
 'use strict';
 
 module.exports = function(io){
+    io.total = 0;
     io.on('connection', function(socket){
         console.log('a user connected');
+
+
+        var req = socket.request;
+        var ip = forwarded(req, req.headers);
+        debug('client ip %s', ip);
+
+        // keep track of connected clients
+        updateCount(++io.total);
+        socket.on('disconnect', function(){
+        updateCount(--io.total);
+        });
     });
     
     // io.sockets.on('connection', function(client){

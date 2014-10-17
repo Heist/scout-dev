@@ -8,7 +8,6 @@ var io = require('socket.io')(http);
 
 var mongoose = require('mongoose');
 var passport = require('passport');
-// var flash = require('connect-flash');
 var cors = require('cors');
 
 
