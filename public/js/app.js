@@ -102,6 +102,12 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
 
     $stateProvider
+         // REMOTE SCREEN ==================================
+        .state('remote', {
+            url: '/remote',
+            controller:'remote',
+            templateUrl: 'partials/remote/remote.html'
+        })    
         // REPORT PAGE FOR SINGLE test ====================
         .state('report', {
             url: '/report/:test_id',
@@ -122,6 +128,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             templateUrl : 'partials/app/account.html',
             resolve: { loggedin: checkLoggedin }
         })
+
         // LOGIN AND REGISTRATION PAGES ===================
         .state('/login', {
             url: '/login',
@@ -141,7 +148,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             templateUrl: 'partials/app/test.html',
             resolve: { loggedin: checkLoggedin }
         })
-
 
         // RUN TEST =======================================
         .state('run', {
