@@ -6,9 +6,9 @@ module.exports = function(io){
     io.on('connection', function(socket){
         var updateCount = ++io.total;
         socket.on('disconnect', function(){
-             updateCount(--io.total);
-        });
-        
+                --io.total;
+            });
+
         console.log('a user connected', io.total);
         var req = socket.request;
 
