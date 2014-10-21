@@ -135,6 +135,7 @@ function screenshotButtonHook(lcarousel,rcarousel, container) {
     
     container.insertAdjacentHTML('afterbegin', text); 
 
+    var canvas = document.getElementById("test");
     var canvas2 = $('.screenshot')[0];
     var context2 = canvas2.getContext('2d');
     
@@ -193,7 +194,7 @@ function screenshotButtonHook(lcarousel,rcarousel, container) {
 
     function save() {
         document.getElementById("canvasimg").style.border = "2px solid";
-        var dataURL = canvas.toDataURL();
+        var dataURL = document.getElementById("test").toDataURL();
         document.getElementById("canvasimg").src = dataURL;
         document.getElementById("canvasimg").style.display = "inline";
     }
@@ -341,24 +342,24 @@ $(document).ready(function() {
         closeModal($('#stream-id')[0].value);
     });
 
-    $('#cancel-email').bind('click', function() {
-        $('#email-modal').modal('hide');
-    });
+    // $('#cancel-email').bind('click', function() {
+    //     $('#email-modal').modal('hide');
+    // });
 
-    $('#go-email').bind('click', function() {
-        $('#email-modal').modal('hide');
-        emailButtonHook();
-    });
+    // $('#go-email').bind('click', function() {
+    //     $('#email-modal').modal('hide');
+    //     emailButtonHook();
+    // });
 
-    $('#email-id').bind('keypress', function(e) {
-        if (e.keyCode === 13) {
-            $('#email-modal').modal('hide');
-            emailButtonHook();
-        }
-    });
+    // $('#email-id').bind('keypress', function(e) {
+    //     if (e.keyCode === 13) {
+    //         $('#email-modal').modal('hide');
+    //         emailButtonHook();
+    //     }
+    // });
 
     // Create SocketIO instance, connect
-    var socket = new io.connect('http://api.fuckitstreamit.com:2000'); 
+    // var socket = new io.connect('http://api.fuckitstreamit.com:2000'); 
 
     // Add a connect listener
     socket.on('connect',function() {
@@ -379,8 +380,8 @@ $(document).ready(function() {
         last_conn_time = new Date().getTime() / 1000;
         made_connection = true;
         image.src = "data:image/jpg;base64,"+data;
-        canvas.width = 358;
-        canvas.height = 358 * image.height / image.width;
+        document.getElementById("test").width = 358;
+        document.getElementById("test").height = 358 * image.height / image.width;
 
         context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
     });

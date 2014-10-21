@@ -178,10 +178,10 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 // http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/
 // this should be a straight-up feed from that site
 field_guide_app.factory('socket', function ($rootScope) {
-    var socket = io.connect();
+    var socket = io.connect('url');
     return {
         on: function (eventName, callback) {
-            socket.on(eventName, function () {  
+            socket.on(eventName, function () {
                 var args = arguments;
                 $rootScope.$apply(function () {
                     callback.apply(socket, args);
@@ -197,9 +197,18 @@ field_guide_app.factory('socket', function ($rootScope) {
                     }
                 });
             });
+        },
+        removeAllListeners: function (eventName, callback) {
+            socket.removeAllListeners(eventName, function() {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    callback.apply(socket, args);
+                });
+            }); 
         }
     };
 });
+
 
 // DIRECTIVES =============================================
 field_guide_app.directive('scrollItem',function(){
