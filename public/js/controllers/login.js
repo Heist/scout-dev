@@ -27,7 +27,7 @@ angular.module('field_guide_controls')
 
     $scope.register = function(user){
         // console.log(user);
-        var url = '/auth/signup/';
+        var url = '/auth/signup/:acct?';
         var dataOut = {email: user.email, password: user.password};
         
         $http
