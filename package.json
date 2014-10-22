@@ -1,7 +1,7 @@
 {
-  "name": "scout",
+  "name": "field_guide_app",
   "node-main": "server.js",
-  "description": "Scout app",
+  "description": "Field Guide app",
   "version": "0.0.1",
   "repository": {
     "type": "git",

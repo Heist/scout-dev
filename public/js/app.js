@@ -131,10 +131,13 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
         // LOGIN AND REGISTRATION PAGES ===================
         .state('/login', {
-            url: '/login',
+            url: '/login{acct:(?:/[^/]+)?}',
             controller:'login',
             templateUrl: 'partials/auth/login.html',
         })
+
+        // url: '/login{acct:(?:/[^/]+)?}'
+
         // OVERVIEW AND test CREATION =====================
         .state('overview', {
             url: '/overview',
