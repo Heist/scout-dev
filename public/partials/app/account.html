@@ -35,10 +35,10 @@
 				<ul class="team-members">
 				
 					<!-- individual member -->
-					<li class="self">
+					<li class="self" ng-show="user">
 						<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
 						<div class="team-member-info">
-							<p>Xenophilus McLongnamersonbergstein</p>
+							<p>{{user.name}}</p>
 							<small>That's you!</small>
 						</div>
 						<div class="team-member-remove"><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
