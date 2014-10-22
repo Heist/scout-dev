@@ -78,21 +78,21 @@
 		border-top: 1px solid $line;
 		
 		li {
-			padding: $pad/1.5 $pad/2 $pad/2 $pad/2;
+			padding: $pad/1.5 $pad/2;
 			margin: 0;
 			border-bottom: 1px solid $line;
 			
 			.team-member-avatar {
 				float: left;
-				width: 30px;
-				height: 30px;
+				width: 24px;
+				height: 24px;
 				overflow: hidden;
-				@include radius(30px);
+				@include radius(24px);
 				padding: 0;
 				margin: 0 $pad 0 0;
 				
 				img {
-					width: 30px;
+					width: 24px;
 					height: auto;
 				}
 			}
@@ -108,10 +108,9 @@
 				
 				p {
 					color: $fg-black;
-					margin: 0;
-					padding: $pad/4 0 0 0;
 					font-size: $type-size-base*1.2;
-					line-height: $type-size-base*0.8;
+					margin: 0;
+					padding: 1px 0 0 0;
 				}
 				
 				.tag {
@@ -135,6 +134,14 @@
 				.team-member-remove {
 					display: block;
 					float: right;
+					
+					a {
+						text-decoration: none;
+						
+						&:hover {
+							color: $fg-red;
+						}
+					}
 				}
 			}
 			

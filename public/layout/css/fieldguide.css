@@ -445,16 +445,18 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-account .pm-app form { padding: 0; margin: 10px 0 20px 0; }
 #view-account .pm-app form .input { width: 100%; margin: 0 0 5px 0; }
 #view-account .team-members { padding: 0; margin: 0; list-style: none; border-top: 1px solid #e7e7da; }
-#view-account .team-members li { padding: 13.33333px 10px 10px 10px; margin: 0; border-bottom: 1px solid #e7e7da; }
-#view-account .team-members li .team-member-avatar { float: left; width: 30px; height: 30px; overflow: hidden; -moz-border-radius: 30px; -webkit-border-radius: 30px; border-radius: 30px; padding: 0; margin: 0 20px 0 0; }
-#view-account .team-members li .team-member-avatar img { width: 30px; height: auto; }
+#view-account .team-members li { padding: 13.33333px 10px; margin: 0; border-bottom: 1px solid #e7e7da; }
+#view-account .team-members li .team-member-avatar { float: left; width: 24px; height: 24px; overflow: hidden; -moz-border-radius: 24px; -webkit-border-radius: 24px; border-radius: 24px; padding: 0; margin: 0 20px 0 0; }
+#view-account .team-members li .team-member-avatar img { width: 24px; height: auto; }
 #view-account .team-members li input { width: 80%; }
 #view-account .team-members li .team-member-info { float: left; }
-#view-account .team-members li .team-member-info p { color: #323539; margin: 0; padding: 5px 0 0 0; font-size: 19.2px; line-height: 12.8px; }
+#view-account .team-members li .team-member-info p { color: #323539; font-size: 19.2px; margin: 0; padding: 1px 0 0 0; }
 #view-account .team-members li .team-member-info .tag { padding: 0 6.66667px; }
 #view-account .team-members li .team-member-remove { display: none; }
 #view-account .team-members li.self:hover .team-member-remove { display: none; }
 #view-account .team-members li:hover .team-member-remove { display: block; float: right; }
+#view-account .team-members li:hover .team-member-remove a { text-decoration: none; }
+#view-account .team-members li:hover .team-member-remove a:hover { color: #b5213c; }
 
 /* code that is NOT specific to a component or module */
 *, *:before, *:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
