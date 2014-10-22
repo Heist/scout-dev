@@ -4,11 +4,11 @@
 	margin: 0;
 	padding: $pad*2.5 0 0 0;
 	
-	#account-container {
+	.account-container {
 		padding: $pad*2 0;
 	}
 	
-	/* connected app statuses */
+	/* connected app styles */
 	
 	.pm-app {
 		border: 1px solid $line;
@@ -66,6 +66,80 @@
 		
 	}
 	
+	/* end connected app styles */
+	
+	
+	/* team members */
+	
+	.team-members {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		border-top: 1px solid $line;
+		
+		li {
+			padding: $pad/1.5 $pad/2 $pad/2 $pad/2;
+			margin: 0;
+			border-bottom: 1px solid $line;
+			
+			.team-member-avatar {
+				float: left;
+				width: 30px;
+				height: 30px;
+				overflow: hidden;
+				@include radius(30px);
+				padding: 0;
+				margin: 0 $pad 0 0;
+				
+				img {
+					width: 30px;
+					height: auto;
+				}
+			}
+			
+			
+			input {
+				width: 80%;
+			}
+			
+			
+			.team-member-info {
+				float: left;
+				
+				p {
+					color: $fg-black;
+					margin: 0;
+					padding: $pad/4 0 0 0;
+					font-size: $type-size-base*1.2;
+					line-height: $type-size-base*0.8;
+				}
+				
+				.tag {
+					padding: 0 $pad/3;
+				}
+			}
+			
+			.team-member-remove {
+				display: none;
+			}
+			
+			&.self {
+				&:hover {
+					.team-member-remove {
+						display: none;
+					}
+				}
+			}
+			
+			&:hover {
+				.team-member-remove {
+					display: block;
+					float: right;
+				}
+			}
+			
+		}
+	}
 	
 }
 

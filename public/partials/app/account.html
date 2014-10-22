@@ -9,10 +9,10 @@
 		
 			<ul class="tabbed-nav">
 				<li><a href="#">Account Information</a></li>
-				<li><a href="#">Team</a></li>
+				<li class="active"><a href="#">Team</a></li>
 				<li><a href="#">Billing</a></li>
 				<li><a href="#">Notifications</a></li>
-				<li class="active"><a href="/account">Connected Apps</a></li>
+				<li><a href="/account">Connected Apps</a></li>
 				
 			</ul>
 			
@@ -21,7 +21,80 @@
 	</div>
 	
 	
-	<div class="container" id="account-container" ng-model='account'>
+	
+	<!-- CONNECTED APPS -->
+		
+		<div class="container account-container">
+			<div class="module quarter">&nbsp;</div>
+			
+			<div class="module half">
+				<h2>Team</h2>
+				<p>Invite your team to collaborate on tests and reports.</p>
+				
+				<!-- list of team members -->
+				<ul class="team-members">
+				
+					<!-- individual member -->
+					<li class="self">
+						<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
+						<div class="team-member-info">
+							<p>Xenophilus McLongnamersonbergstein</p>
+							<small>That's you!</small>
+						</div>
+						<div class="team-member-remove"><button class="button small destructive">&times;</button></div> <!-- don't allow me to remove myself -->
+						<div class="clear"></div>
+					</li>
+					<!-- / individual member -->
+					
+					<!-- individual member -->
+					<li>
+						<div class="team-member-avatar"><img src="http://rdjpg.com/30/30" /></div>
+						<div class="team-member-info">
+							<p>Robert Downey Jr.</p>
+							<small>rdj@ironman.com</small>
+						</div>
+						<div class="team-member-remove"><button class="button small destructive">&times;</button></div> <!-- don't allow me to remove myself -->
+						<div class="clear"></div>
+					</li>
+					<!-- / individual member -->
+					
+					<!-- individual member -->
+					<li>
+						<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
+						<div class="team-member-info">
+							<p>Paul Walker</p>
+							<small>2fast@2furious.com <span class="tag">Pending &mdash; <a href="#">Resend invite?</a></span></small>
+						</div>
+						<div class="team-member-remove"><button class="button small destructive">&times;</button></div> <!-- don't allow me to remove myself -->
+						<div class="clear"></div>
+					</li>
+					<!-- / individual member -->
+					
+					<!-- add a new member -->
+					<li>
+						<form>
+							<label for="newteammember">Invite a new team member</label>
+							<input class="input" id="newteammember" name="newteammember" placeholder="Your team member&rsquo;s e-mail address" />
+							<button class="button">Invite</button>
+						</form>
+					</li>
+					
+				</ul>
+				
+				
+			</div>
+			
+			<div class="clear"></div>
+		</div>
+		
+		<!-- / CONNECTED APPS -->
+	
+	
+	
+	
+	<!-- CONNECTED APPS -->
+	
+	<div class="container account-container" ng-model='account'>
 			<div class="module quarter">&nbsp;</div>
 			
 			<div class="module half">
@@ -66,6 +139,7 @@
 			<div class="clear"></div>
 	</div>
 	
+	<!-- / CONNECTED APPS -->
 		
 	
 </div>
