@@ -15,7 +15,7 @@ var Schema = mongoose.Schema;
 
 // define the schema for our user model
 var userSchema = new Schema({
-    _account: {type: Schema.Types.ObjectId, ref: 'Account'},
+    _account: {type: Schema.Types.ObjectId},
     local            : {
         email        : String,
         password     : String,
@@ -48,6 +48,15 @@ userSchema.methods.generateHash = function(password) {
 userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
+
+// if a user's shared account key does not exist, create an account key.
+userSchema.pre('save', function(next){
+    var account = new ObjectId();
+    if ( !this._account ) {
+        this._account = account;
+    }
+    next();
+});
 
 // create the model for users and expose it to our app
 module.exports = connect.model('User', userSchema);

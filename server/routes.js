@@ -11,6 +11,7 @@ module.exports = function(app, passport) {
     var Test    = require('./models/data/test');
     var Tag     = require('./models/data/tag');
     var User    = require('./models/auth/user');
+    var User    = require('./models/auth/user');
 
     // console logging
     app.use(function(req, res, next) {

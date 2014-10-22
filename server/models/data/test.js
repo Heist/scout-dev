@@ -1,7 +1,7 @@
 // flow.js
 'use strict';
 
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var connect = require('../../db/db');
@@ -13,10 +13,11 @@ var TestSchema = new Schema({
 		_tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
 		_subjects: [{ type: Schema.Types.ObjectId, ref: 'Subject' }],
 
-		created_by : {type: Schema.Types.ObjectId},
+		created_by_account : {type: Schema.Types.ObjectId},
+        created_by_user : {type: Schema.Types.ObjectId},
 		desc	: { type: String, trim: true },
 		link	: { type: String, trim: true },
-		name 	: { type: String, trim: true, default: 'my new flow name' },
+        name    : { type: String, trim: true, default: 'my new flow name' },
 		platform: { type: String, trim: true, default: 'mobile' },
 		
 		created: Date,
@@ -27,12 +28,12 @@ var TestSchema = new Schema({
 	});
 
 TestSchema.pre('save', function(next){
-  var now = new Date();
-  this.updated = now;
-  if ( !this.created ) {
-    this.created = now;
-  }
-  next();
+    var now = new Date();
+    this.updated = now;
+    if ( !this.created ) {
+        this.created = now;
+    }
+    next();
 });
 
 module.exports = db.model('Test', TestSchema);

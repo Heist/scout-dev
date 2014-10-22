@@ -26,7 +26,7 @@ app.route('/api/test/')
 				if(err){res.send(err);}
 
 				res.json(docs);
-			})
+			});
 	})
 	// add a new test
 	.post(function(req,res){
@@ -34,7 +34,9 @@ app.route('/api/test/')
 			var test = new Test();
 
 			test.name = req.body.name;
-			test.created_by = req.body.created_by;
+			test.created_by_user = req.body.created_by_user;
+
+			console.log('user account', req.user._account);
 
 			// later, we will be building playlists
 			// sessions should store tests but tests 
@@ -42,16 +44,16 @@ app.route('/api/test/')
 			// sessions should store their own ordering data, etc.
 
 			if(test._session){
-					test._session = req.body._session;
-				}
+				test._session = req.body._session;
+			}
 			
 			test.save(function(err, test){
 				if(err){res.send(err);}
 				
 				res.json(test);
 
-			})
-	});
+			});
+		});
 
 
 app.route('/api/test/:_id')
