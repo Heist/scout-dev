@@ -1,5 +1,5 @@
 {
-  "name": "Field Guide",
+  "name": "field_guide_app",
   "node-main": "server.js",
   "description": "Field Guide app",
   "version": "0.0.1",
