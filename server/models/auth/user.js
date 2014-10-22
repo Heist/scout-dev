@@ -12,7 +12,6 @@ connect = connect.auth;
 var bcrypt = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
  
-
 // define the schema for our user model
 var userSchema = new Schema({
     _account: {type: Schema.Types.ObjectId},
@@ -51,10 +50,11 @@ userSchema.methods.validPassword = function(password) {
 
 // if a user's shared account key does not exist, create an account key.
 userSchema.pre('save', function(next){
-    var account = new ObjectId();
+    var account = mongoose.Types.ObjectId();
     if ( !this._account ) {
         this._account = account;
     }
+    console.log('account', account);
     next();
 });
 
