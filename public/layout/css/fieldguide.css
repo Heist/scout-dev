@@ -431,8 +431,8 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-report .two-thirds h2 { padding-bottom: 20px; border-bottom: 1px solid #e7e7da; }
 
 /* everything account related */
-#view-account { margin: 0; padding: 50px 0 0 0; /* connected app statuses */ }
-#view-account #account-container { padding: 40px 0; }
+#view-account { margin: 0; padding: 50px 0 0 0; /* connected app styles */ /* end connected app styles */ /* team members */ }
+#view-account .account-container { padding: 40px 0; }
 #view-account .pm-app { border: 1px solid #e7e7da; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; padding: 13.33333px 20px 13.33333px 60px; margin: 0 0 13.33333px 0; }
 #view-account .pm-app.github { background: url("/layout/assets/app-github.png") no-repeat 10px 10px; background-size: 30px 30px; }
 #view-account .pm-app.github.connected { color: #2f2f2f; border: 1px solid #2f2f2f; }
@@ -444,6 +444,19 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-account .pm-app.connected a { text-decoration: underline; }
 #view-account .pm-app form { padding: 0; margin: 10px 0 20px 0; }
 #view-account .pm-app form .input { width: 100%; margin: 0 0 5px 0; }
+#view-account .team-members { padding: 0; margin: 0; list-style: none; border-top: 1px solid #e7e7da; }
+#view-account .team-members li { padding: 13.33333px 10px; margin: 0; border-bottom: 1px solid #e7e7da; }
+#view-account .team-members li .team-member-avatar { float: left; width: 24px; height: 24px; overflow: hidden; -moz-border-radius: 24px; -webkit-border-radius: 24px; border-radius: 24px; padding: 0; margin: 0 20px 0 0; }
+#view-account .team-members li .team-member-avatar img { width: 24px; height: auto; }
+#view-account .team-members li input { width: 80%; }
+#view-account .team-members li .team-member-info { float: left; }
+#view-account .team-members li .team-member-info p { color: #323539; font-size: 19.2px; margin: 0; padding: 1px 0 0 0; }
+#view-account .team-members li .team-member-info .tag { padding: 0 6.66667px; }
+#view-account .team-members li .team-member-remove { display: none; }
+#view-account .team-members li.self:hover .team-member-remove { display: none; }
+#view-account .team-members li:hover .team-member-remove { display: block; float: right; }
+#view-account .team-members li:hover .team-member-remove a { text-decoration: none; }
+#view-account .team-members li:hover .team-member-remove a:hover { color: #b5213c; }
 
 /* code that is NOT specific to a component or module */
 *, *:before, *:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
