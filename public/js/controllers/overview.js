@@ -97,6 +97,7 @@ angular.module('field_guide_controls')
             if($rootScope.user){
                 console.log($rootScope.user)
                 test.created_by = $rootScope.user;
+
             }else{
                 console.log('whoops, needs a checkin')
             };

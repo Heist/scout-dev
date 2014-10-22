@@ -41,7 +41,7 @@ module.exports = function(app, passport) {
 
 	// is someone logged in?
 	app.get('/loggedin', function(req, res) {
-			res.send(req.isAuthenticated() ? {_id : req.user._id, trello : req.user.trello.id } : '0');
+			res.send(req.isAuthenticated() ? {_id : req.user._id, name: req.user.local.email, account:req.user._account, trello : req.user.trello.id } : '0');
 		});
 
 	// who's logged in?
@@ -263,6 +263,7 @@ app.route('/api/account/:_user')
 			
 			var reply = {}
 			reply.id = user._id;
+            reply.name = user.local.email;
 			reply.trello = false;
 
 			if (user.trello.id){ reply.trello = true}

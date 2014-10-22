@@ -8,6 +8,7 @@ angular.module('field_guide_controls')
     // LOGIN FUNCTIONS ====================================
     // console.log('loaded login controller, user is', $rootScope.user);
     $scope.user = $rootScope.user;
+    
     if($stateParams.acct){
         $scope.acct = $stateParams.acct.replace( /\//gi,"");
         console.log($scope.acct);

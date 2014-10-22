@@ -21,7 +21,7 @@ app.route('/api/test/')
 	// get all of the tests	
 	.get(function(req,res){
 		// console.log(' get all tests ', req.isAuthenticated(), req.user._id)
-		Test.find({created_by:req.user._id})
+		Test.find({created_by_account:req.user._account})
 			.exec(function(err, docs) {
 				if(err){res.send(err);}
 
@@ -33,10 +33,13 @@ app.route('/api/test/')
 		// console.log('post a new test', req.body)
 			var test = new Test();
 
+			console.log('fish through this to get data', req.body);
 			test.name = req.body.name;
-			test.created_by_user = req.body.created_by_user;
 
-			console.log('user account', req.user._account);
+			test.created_by_user = req.body.created_by._id;
+			test.created_by_account = req.body.created_by.account;
+
+			console.log('user account - test add route', req.user._account);
 
 			// later, we will be building playlists
 			// sessions should store tests but tests 
