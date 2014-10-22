@@ -54,7 +54,8 @@ userSchema.pre('save', function(next){
     if ( !this._account ) {
         this._account = account;
     }
-    console.log('account', account);
+    
+    console.log('account', this._account);
     next();
 });
 

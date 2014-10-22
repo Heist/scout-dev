@@ -30,8 +30,20 @@ angular.module('field_guide_controls')
 
     $scope.register = function(user){
         // console.log(user);
-        var url = '/auth/signup/:acct?';
-        var dataOut = {email: user.email, password: user.password};
+        var url, 
+            dataOut,
+            acct;
+
+        if($stateParams.acct){
+            acct = $stateParams.acct.replace( /\//gi,"");
+            console.log('touched account', acct);
+            url = '/auth/signup/';
+            dataOut = {email: user.email, password: user.password, _account: acct};
+        } else {
+            console.log('cannot see stateparams.acct')
+            url = '/auth/signup/';
+            dataOut = {email: user.email, password: user.password};
+        }
         
         $http
             .post(url, dataOut)
