@@ -18,7 +18,6 @@ module.exports = function(app, passport) {
         next(); // make sure we go to the next routes and don't stop here
     });
 
-
 // AUTH ROUTES ============================================
 // route middleware to ensure user is logged in - ajax get
     function isLoggedInAjax(req, res, next) {
