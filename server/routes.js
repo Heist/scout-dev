@@ -251,27 +251,38 @@ app.use('/api',  isLoggedInAjax, function (req, res, next) {
     });
 
 // ACCOUNT ROUTES =========================================
+
+//if there's a user, get a user
+// if there's an account, get the users attached to that account
+
 app.route('/api/account/:_user')
 	.get(function(req,res){
 		var getUser =  mongoose.Types.ObjectId(req.params._user);
 
+        var reply = {};
 		var promise = 
 		 User.findById(getUser).exec();
 
 		promise.then(function(user){
 			// console.log('touched user', user)
-			
-			var reply = {}
+						
 			reply.id = user._id;
             reply.name = user.local.email;
+            reply.account = user._account;
 			reply.trello = false;
 
 			if (user.trello.id){ reply.trello = true}
 
 			// console.log(reply);
-			res.json(reply);
+            return User.find({_account: user._account}).exec();
 
-		}).then(null, function(err){
+		})
+        .then(function(team_members){
+            reply.team = team_members;
+            
+            res.json(reply);
+        })  
+        .then(null, function(err){
 			if(err) return res.send (err);
 		});
 		

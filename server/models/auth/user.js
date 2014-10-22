@@ -15,6 +15,7 @@ var Schema = mongoose.Schema;
 // define the schema for our user model
 var userSchema = new Schema({
     _account: {type: Schema.Types.ObjectId},
+    name: {type:String, trim:true},
     local            : {
         email        : String,
         password     : String,

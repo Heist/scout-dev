@@ -5,8 +5,9 @@
 angular.module('field_guide_controls').controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', '$rootScope', function($scope, $http, $stateParams,$state, $location, $window, $rootScope){
 	var user_id = $rootScope.user._id;
 
-	$scope.account = $rootScope.user;
-
+	$scope.live_user = $rootScope.user;
+	$scope.account = $rootScope.user.account;
+	
 	// https://trello.com/1/members/my/boards?key=substitutewithyourapplicationkey&token=substitutethispartwiththeauthorizationtokenthatyougotfromtheuser
 	// https://trello.com/docs/api/card/index.html#post-1-cards
 	
@@ -14,16 +15,17 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 	//	.get('/api/account/'+ user_id)
 	//	.success(function(data){
 	//		console.log(data);
-	//		$scope.account = data;
+	//		$scope.live_user = data;
 	//	});
+
 	$scope.connector = {};
 	
-	if($scope.account.trello){
+	if($scope.live_user.trello){
 		$scope.connector.message = "Your Trello account is connected.";
 		$scope.connector.toggle = 1;
 	} 
 
-	if (!$scope.account.trello) {
+	if (!$scope.live_user.trello) {
 		$scope.connector.message = "Connect your Trello account.";
 		$scope.connector.toggle = 2;
 	}
@@ -43,7 +45,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 		$scope.$watch('inviteCallback', function(){
 			console.log('hello callback!');
 			// $scope.connector = false;
-			// $scope.account.trello = true;
+			// $scope.live_user.trello = true;
 		});
 	};
 
@@ -53,7 +55,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 		$http.delete('/connect/trello')
 			.success(function(err, data){
 				console.log('Trello disconnected');
-				$scope.account.trello=false;
+				$scope.live_user.trello=false;
 
 				$scope.connector.message = "Connect your Trello account.";
 				$scope.connector.toggle = 2;
