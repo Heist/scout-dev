@@ -33,6 +33,7 @@
 <script type="text/javascript" src="/js/controllers/report.js"></script>
 <script type="text/javascript" src="/js/controllers/login.js"></script>
 <script type="text/javascript" src="/js/controllers/account.js"></script>
+<script type="text/javascript" src="/js/controllers/remote.js"></script>
 
 <!-- Filters -->
 <script type="text/javascript" src="/js/filters/filters.js"></script>
@@ -45,16 +46,8 @@
 <link href="/css/scout.css" rel="stylesheet" type="text/css">
 <link href="/layout/css/fieldguide.css" rel="stylesheet" type="text/css">
 
-
-
 </head>
-<script>
-  var socket = io.connect('http://127.0.0.1');
-  // socket.on('news', function (data) {
-  //   console.log(data);
-  //   socket.emit('my other event', { my: 'data' });
-  // });
-</script>
+
 <body ng-app="field_guide_app" >
 <div ui-view style="margin: 0;
 padding: 0;

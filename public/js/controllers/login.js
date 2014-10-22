@@ -3,7 +3,7 @@
 
 // LOGIN CONTROLLER ===========================================================
 angular.module('field_guide_controls')
-       .controller('login', ['$scope','$http', '$location', '$stateParams','$rootScope', function($scope, $http, $location, $stateParams, $rootScope){
+       .controller('login', ['$scope','$http', '$location', '$stateParams','$rootScope', 'socket', function($scope, $http, $location, $stateParams, $rootScope, socket){
     
     // LOGIN FUNCTIONS ====================================
     // console.log('loaded login controller, user is', $rootScope.user);
@@ -39,7 +39,7 @@ angular.module('field_guide_controls')
             })
             .error(function(error){
                 // console.log('signup no bueno.', error);
-            });
+        });
     };
 
     $scope.logout = function(){

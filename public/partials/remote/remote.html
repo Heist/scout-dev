@@ -1,7 +1,28 @@
- <script src="/socket.io/socket.io.js"></script>
- <script src="/js/libs/canvas2image.js"></script>
-
- <div>
+<div>
     <object type="text/html" data="http://invis.io/831H56SRB" width="800px" height="600px" style="overflow:auto;border:5px ridge blue">
     </object>
+</div>
+
+<div id="hidden_partial">
+    <div class="item active">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">' + time + '</h4>
+            </div>
+    
+            <div class="panel-screenview panel-body">
+                <canvas class="screenshot"></canvas>
+            </div>
+    
+            <div class="panel-footer">
+                <button type="button" class="download-link btn btn-default">
+                    Download <span class="glyphicon glyphicon-download"></span>
+                </button>
+    
+                <button type="button" class="emailBtn btn btn-default">
+                    Email <span class="glyphicon glyphicon-envelope"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

@@ -178,7 +178,9 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 // http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/
 // this should be a straight-up feed from that site
 field_guide_app.factory('socket', function ($rootScope) {
-    var socket = io.connect('url');
+    
+    var socket = io.connect('http://127.0.0.1:8080');
+    
     return {
         on: function (eventName, callback) {
             socket.on(eventName, function () {
