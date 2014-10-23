@@ -41,7 +41,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 	$scope.removeTeamMember = function(person){
 		console.log('remove this person', person._id );
 		var index = $scope.live_user.team.indexOf(person);
-		
+
 		$http
 			.delete('/api/account/'+person._id)
 			.success(function(err, data){
@@ -62,6 +62,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 			.post(url, dataOut)
 			.success(function(err, data){
 				console.log('invitation sent', data);
+				$scope.live_user.invites.push({ user_email: email.address, pending:true});
 			});
 
 	};
