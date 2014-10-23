@@ -63,6 +63,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 			.success(function(err, data){
 				console.log('invitation sent', data);
 				$scope.live_user.invites.push({ user_email: email.address, pending:true});
+				email.address = "";
 			});
 
 	};
