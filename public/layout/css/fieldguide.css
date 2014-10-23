@@ -1,4 +1,3 @@
-@import url("../assets/flat/flat.css");
 /*
 Field Guide
 Master Sass
@@ -211,7 +210,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 
 /* components */
 /* header-specific styles */
-#header { position: fixed; top: 0; left: 0; background: rgba(243, 121, 96, 0.95); color: #872717; border-bottom: 2px solid #f05d3f; width: 100%; height: 50px; z-index: 999999; padding: 0 20px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; }
+#header { position: fixed; top: 0; left: 0; background: rgba(243, 121, 96, 0.95); color: #872717; border-bottom: 2px solid #f05d3f; width: 100%; height: 50px; z-index: 999999; padding: 0 20px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; /* non-auth normal header */ }
 #header a { color: #872717; text-decoration: none; }
 #header a:hover { border-bottom: 2px solid rgba(135, 39, 23, 0.2); }
 #header #header-logo { float: left; padding: 15px 0 0 0; margin: 0 20px 0 0; }
@@ -224,6 +223,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #header #header-account #header-account-avatar { height: 28px; width: 28px; margin: 10px 0 0 10px; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; overflow: hidden; float: left; }
 #header #header-account #header-account-avatar img { width: 28px; height: auto; }
 #header #header-account #header-account-dropdown { float: left; padding: 11.11111px 0 0 6.66667px; }
+#header.header-nonauth { background: white; border-bottom: 1px solid #e7e7da; }
 
 /* active test header */
 /* header-specific styles */
@@ -347,11 +347,19 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 .task-score.green { background: #71901f; }
 .task-score.red { background: #f37960; }
 
+/* error messaging */
+.messaging { width: 100%; padding: 10px; margin: 0 0 10px 0; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; text-align: center; }
+.messaging.messaging-problem { background: #f37960; color: white; }
+.messaging.messaging-success { background: #86aa25; color: white; }
+
 /* login & registration forms etc. */
 #view-login { background: #f37960; color: white; height: 100%; padding: 15% 0 0 0; }
 #view-login input, #view-login button { width: 100%; margin-bottom: 4px; }
 #view-login a { color: white; }
 #view-login #logo img { width: 70px; height: auto; }
+#view-login .messaging { border: 1px solid rgba(255, 255, 255, 0.25); }
+
+#form-signup { display: none; }
 
 /* overview screen */
 #view-overview { margin: 0; padding: 50px 0 0 0; }
@@ -466,3 +474,6 @@ html { margin: 0; padding: 0; }
 body { background: white; color: #646a72; margin: 0; padding: 0; }
 
 /* form styling */
+/*
+@import url("../assets/flat/flat.css");
+*/

@@ -6,16 +6,6 @@
 		<a href="/overview"><img src="../layout/assets/fg-binocs-header.png" /></a> Hi, {{user.name}} {{user.account}}
 	</div>
 	
-	<!--
-	<div id="header-nav">
-		<ul>
-			<li><a href="/">Nav</a></li>
-			<li><a href="/">Other Nav</a></li>
-		</ul>
-	</div>
-	-->
-	
-	
 	
  	<div id="header-account" ng-model="collapsed" ng-click="collapsed=!collapsed">
 		<div id="header-account-avatar">
@@ -38,12 +28,14 @@
 
 <!-- /header -->
 
-<!-- header -->
 
-<div id="header" ng-show="!user">
+
+<!-- non-auth header -->
+
+<div id="header" class="header-nonauth" ng-show="!user">
 	
 	<div id="header-logo">
-		<img src="../layout/assets/fg-binocs-header.png" /> Field Guide Report
+		<a href="/"><img src="../layout/assets/fg-binocs-full.png" /></a>
 	</div>
 	
 	<div class="clear"></div>

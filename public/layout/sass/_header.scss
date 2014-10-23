@@ -84,6 +84,13 @@
 	}
 	
 	
+	/* non-auth normal header */
+	&.header-nonauth {
+		background: $white;
+		border-bottom: 1px solid $line;
+	}
+	
+	
 }
 
 
