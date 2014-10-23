@@ -40,16 +40,18 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 
 	$scope.removeTeamMember = function(person){
 		console.log('remove this person', person._id );
-
+		var index = $scope.live_user.team.indexOf(person);
+		
 		$http
 			.delete('/api/account/'+person._id)
 			.success(function(err, data){
 				console.log('deleted', data);
+				$scope.live_user.team.splice(index, 1);
 			});
 	};
 
 	$scope.inviteTeamMember = function(email){
-		console.log('touched invitation', email.address)
+		console.log('touched invitation', email.address);
 		var url, 
 			dataOut;
 
@@ -59,10 +61,21 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 		$http
 			.post(url, dataOut)
 			.success(function(err, data){
-				console.log('invitation sent', data)
+				console.log('invitation sent', data);
 			});
 
-	}
+	};
+
+	$scope.deleteInvite = function(invite){
+		var index = $scope.live_user.invites.indexOf(invite);
+
+		$http
+			.delete('/api/invite/'+invite._id)
+			.success(function(err, data){
+				console.log('invitation removed');
+				$scope.live_user.invites.splice(index, 1);
+			});
+	};
 
 	$scope.connectTrello = function(){
 		$scope.connector.message = "Connecting your Trello account...";

@@ -290,7 +290,7 @@ app.route('/api/account/:_user')
         .then(function(team_members){
             reply.team = team_members;
             
-            return Invitation.find({_account: reply.account}).exec();
+            return Invitation.find({_account: reply.account, pending: true}).exec();
         })
         .then(function(invites){
             reply.invites = invites;
@@ -346,6 +346,17 @@ app.route('/api/account/:_user')
         });
     });
 
+
+app.route('/api/invite/:_id')
+    .delete(function(req,res){
+
+        Invitation.remove({'_id': req.params._id}, function(err, invite){
+            if(err) {return res.send (err);}
+
+            res.json('Invitation recalled');
+        })
+
+    });
 // OBJECT ROUTES ==========================================
 
 // Session Routes

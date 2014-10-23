@@ -49,13 +49,12 @@
 					
 					
 					<!-- individual member -->
-					<li>
+					<li ng-repeat="invite in live_user.invites">
 						<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
 						<div class="team-member-info">
-							
-							<small>2fast@2furious.com <span class="tag">Pending &mdash; <a href="#">Resend invite?</a></span></small>
+							<small>{{invite.user_email}}<span class="tag">Pending &mdash; <a href="#">Resend invite?</a></span></small>
 						</div>
-						<div class="team-member-remove"><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
+						<div class="team-member-remove" ng-click="deleteInvite(invite)"><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
 						<div class="clear"></div>
 					</li>
 					<!-- / individual member -->
