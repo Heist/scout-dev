@@ -54,8 +54,8 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 			dataOut;
 
 		url = '/api/account/'+$scope.account;
-		dataOut = email.address;
-		
+		dataOut = email;
+
 		$http
 			.post(url, dataOut)
 			.success(function(err, data){

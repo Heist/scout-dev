@@ -11,6 +11,7 @@ module.exports = function(app, passport) {
     var Test    = require('./models/data/test');
     var Tag     = require('./models/data/tag');
     var User    = require('./models/auth/user');
+    var Invitation = require('./models/auth/invitation');
 
     // console logging
     app.use(function(req, res, next) {
@@ -288,8 +289,21 @@ app.route('/api/account/:_user')
 		
 	})
     .post(function(req,res){
-        console.log('user posting invite', req.user);
-        res.json('user invite sent');
+        console.log('user posting invite',req.user, req.body);
+
+        var promise = User.find({local : { email: req.body.address }}).exec();
+
+        promise.then(function(user){
+            if(user){ 
+                // if there's a user, say "there's already a user"
+                // maybe reset that user's password?
+                // send something to imply a user by that name already exists?
+            } else {
+                Invitation.
+            }
+        })
+
+        res.send('user invite sent');
     })
     .delete(function(req,res){
         console.log('touched delete user');
