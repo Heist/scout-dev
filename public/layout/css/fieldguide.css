@@ -349,6 +349,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 /* error messaging */
 .messaging { width: 100%; padding: 10px; margin: 0 0 10px 0; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; text-align: center; }
 .messaging.messaging-problem { background: #f37960; color: white; }
+.messaging.messaging-success { background: #86aa25; color: white; }
 
 /* login & registration forms etc. */
 #view-login { background: #f37960; color: white; height: 100%; padding: 15% 0 0 0; }

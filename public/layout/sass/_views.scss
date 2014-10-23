@@ -205,6 +205,11 @@
 		background: $fg-header-red;
 		color: $white;
 	}
+	
+	&.messaging-success {
+		background: $fg-green-light;
+		color: $white;
+	}
 }
 
 
