@@ -62,10 +62,10 @@
 					
 					<!-- add a new member -->
 					<li>
-						<form>
+						<form model="team_mail">
 							<label for="newteammember">Invite a new team member</label>
-							<input class="input" id="newteammember" name="newteammember" placeholder="Your team member&rsquo;s e-mail address" />
-							<button class="button">Invite</button>
+							<input class="input" id="newteammember" name="newteammember" placeholder="Your team member&rsquo;s e-mail address" ng-model="team_mail.address" />
+							<button class="button" ng-click="inviteTeamMember(team_mail)">Invite</button>
 						</form>
 					</li>
 					

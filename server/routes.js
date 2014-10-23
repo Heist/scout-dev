@@ -287,8 +287,17 @@ app.route('/api/account/:_user')
 		});
 		
 	})
+    .post(function(req,res){
+        console.log('user posting invite', req.user);
+        res.json('user invite sent');
+    })
     .delete(function(req,res){
-        
+        console.log('touched delete user');
+        User.remove({'_id' : req.params._user}, function(err, doc){
+            if(err) {return res.send (err);}
+
+            res.json('User removed');
+        });
     });
 
 // OBJECT ROUTES ==========================================
