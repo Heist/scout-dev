@@ -26,6 +26,7 @@
     "mongoose": "~3.8.1",
     "morgan": "latest",
     "nodemailer": "^1.3.0",
+    "nodemailer-smtp-transport": "^0.1.13",
     "passport": "^0.2.1",
     "passport-local": "~0.1.6",
     "passport-trello": "^0.1.4",
