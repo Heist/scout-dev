@@ -154,6 +154,15 @@ app.route('/debug/user/')
 				});
 		});
 
+app.route('/debug/invite/')
+        .get(function(req,res){
+            Invitation.find(function(err, invites) {
+                    if(err){res.send(err);}
+
+                    res.json(invites);
+                });
+        });
+
 // Report Route ------------------
 // for some reason I can't require this and still have it be public
 //  ¯\_(ツ)_/¯
@@ -281,8 +290,13 @@ app.route('/api/account/:_user')
         .then(function(team_members){
             reply.team = team_members;
             
+            return Invitation.find({_account: reply.account}).exec();
+        })
+        .then(function(invites){
+            reply.invites = invites;
+
             res.json(reply);
-        })  
+        })
         .then(null, function(err){
 			if(err) {return res.send (err);}
 		});
@@ -313,6 +327,7 @@ app.route('/api/account/:_user')
 
                 invite.save(function(err,data){
                     if(err) {return res.send (err);}
+                    
                     res.json(data);
                 });
             }
