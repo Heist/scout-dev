@@ -289,19 +289,36 @@ app.route('/api/account/:_user')
 		
 	})
     .post(function(req,res){
-        console.log('user posting invite',req.user, req.body);
+        console.log('user posting invite', req.body);
 
-        var promise = User.find({local : { email: req.body.address }}).exec();
+        var promise = User.findOne({'local.email' : req.body.address }).exec(function(err, docs){
+            if(err) {return res.send (err);}
+            console.log('docs',docs);
+        });
 
         promise.then(function(user){
-            if(user){ 
+            console.log('next promise', user);
+            if(user !== null){ 
+                res.send('A user with that address already exists.');
                 // if there's a user, say "there's already a user"
                 // maybe reset that user's password?
                 // send something to imply a user by that name already exists?
             } else {
-                Invitation.
+                console.log('no user with that e-mail');
+                var invite = new Invitation();
+    
+                invite._account = req.user._account;
+                invite.created_by = req.user._id;
+                invite.user_email = req.body.address;
+
+                invite.save(function(err,data){
+                    if(err) {return res.send (err);}
+                    res.json(data);
+                });
             }
-        })
+
+            
+        });
 
         res.send('user invite sent');
     })
