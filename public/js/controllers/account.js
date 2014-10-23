@@ -11,12 +11,12 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 	// https://trello.com/1/members/my/boards?key=substitutewithyourapplicationkey&token=substitutethispartwiththeauthorizationtokenthatyougotfromtheuser
 	// https://trello.com/docs/api/card/index.html#post-1-cards
 	
-	// $http
-	//	.get('/api/account/'+ user_id)
-	//	.success(function(data){
-	//		console.log(data);
-	//		$scope.live_user = data;
-	//	});
+	$http
+		.get('/api/account/'+ user_id)
+		.success(function(data){
+			console.log(data);
+			$scope.live_user = data;
+		});
 
 	$scope.connector = {};
 	
@@ -47,6 +47,17 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 			// $scope.connector = false;
 			// $scope.live_user.trello = true;
 		});
+	};
+
+	$scope.removeTeamMember = function(user){
+		console.log('remove this user', user._id );
+
+		$http
+			.delete('/account/'+user._id)
+			.success(function(err, data){
+				console.log('deleted', data);
+			});
+
 	};
 
 	$scope.disconnectTrello = function() {

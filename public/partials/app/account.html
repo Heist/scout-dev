@@ -35,28 +35,18 @@
 				<ul class="team-members">
 				
 					<!-- individual member -->
-					<li class="self" ng-show="user">
+					<li ng-repeat="member in live_user.team" ng-class="{self: member.local.email == live_user.email }">
 						<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
 						<div class="team-member-info">
-							<p>{{user.name}}</p>
-							<small>That's you!</small>
+							<p ng-show="member.name">{{member.name}}<br /></p>
+							<small  ng-show="member.local.email == live_user.email">That's you!</small>
+							<small>{{member.local.email}}</small>
 						</div>
-						<div class="team-member-remove"><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
+						<div class="team-member-remove"  ng-click="removeTeamMember(member)" ><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
 						<div class="clear"></div>
 					</li>
 					<!-- / individual member -->
 					
-					<!-- individual member -->
-					<li>
-						<div class="team-member-avatar"><img src="http://rdjpg.com/30/30" /></div>
-						<div class="team-member-info">
-							<p>Robert Downey Jr.</p>
-							<small>rdj@ironman.com</small>
-						</div>
-						<div class="team-member-remove"><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
-						<div class="clear"></div>
-					</li>
-					<!-- / individual member -->
 					
 					<!-- individual member -->
 					<li>

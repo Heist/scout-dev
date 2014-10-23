@@ -11,7 +11,6 @@ module.exports = function(app, passport) {
     var Test    = require('./models/data/test');
     var Tag     = require('./models/data/tag');
     var User    = require('./models/auth/user');
-    var User    = require('./models/auth/user');
 
     // console logging
     app.use(function(req, res, next) {
@@ -261,20 +260,21 @@ app.route('/api/account/:_user')
 
         var reply = {};
 		var promise = 
-		 User.findById(getUser).exec();
+            User.findById(getUser).exec();
 
 		promise.then(function(user){
 			// console.log('touched user', user)
 						
 			reply.id = user._id;
-            reply.name = user.local.email;
+            reply.email = user.local.email;
+            reply.name = user.name;
             reply.account = user._account;
 			reply.trello = false;
 
-			if (user.trello.id){ reply.trello = true}
+			if (user.trello.id){ reply.trello = true; }
 
 			// console.log(reply);
-            return User.find({_account: user._account}).exec();
+            return User.find({_account: user._account}).select('local.email name _account').exec();
 
 		})
         .then(function(team_members){
@@ -283,10 +283,13 @@ app.route('/api/account/:_user')
             res.json(reply);
         })  
         .then(null, function(err){
-			if(err) return res.send (err);
+			if(err) {return res.send (err);}
 		});
 		
-	});
+	})
+    .delete(function(req,res){
+        
+    });
 
 // OBJECT ROUTES ==========================================
 
