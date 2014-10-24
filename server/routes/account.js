@@ -57,32 +57,6 @@ module.exports = function(app){
         .post(function(req,res){
             console.log('user posting invite', req.body);
 
-
-            var transporter = nodemailer.createTransport({
-                host: 'smtp.mandrillapp.com',
-                port: 587,
-                auth: {
-                    user: 'mandrill@fieldguideapp.com',
-                    pass: 'jvVhe4uJxHB7MFfHabelbg'
-                }
-            });
-
-            var mailOptions = {
-                from: 'fieldguide@heistmade.com', // sender address
-                to: 'tom@heistmade.com', // list of receivers
-                subject: 'Hello from Field Guide', // Subject line
-                text: 'Hello world', // plaintext body
-                html: '<b>Hello world</b>' // html body
-            };
-
-            transporter.sendMail(mailOptions, function(error, info){
-                if(error){
-                    console.log(error);
-                }else{
-                    console.log('Message sent: ' + info.response);
-                }
-            });
-
             var promise = User.findOne({'local.email' : req.body.address }).exec(function(err, docs){
                 if(err) {return res.send (err);}
                 console.log('docs',docs);
@@ -105,11 +79,39 @@ module.exports = function(app){
 
                     invite.save(function(err,data){
                         if(err) {return res.send (err);}
-                        
-                        res.json(data);
+                        return data;
+                        // res.json(data);
                     });
                 }
+            })
+            .then(function(invite){
 
+                 var transporter = nodemailer.createTransport({
+                        service: 'Mandrill',
+                        auth: {
+                            user: 'mandrill@fieldguideapp.com',
+                            pass: 'jvVhe4uJxHB7MFfHabelbg'
+                        },
+                        host:           "smtp.mandrillapp.com",
+                        port:           587
+                    });
+
+                    var mailOptions = {
+                        from: 'Field Guide Invitations <invite@fieldguide.com>', // sender address
+                        to: 'tom@heistmade.com, alex.leitch@gmail.com', // list of receivers
+                        subject: 'Hello ✔ Welcome to Field Guide', // Subject line
+                        text: 'Hello world ✔', // plaintext body
+                        html: '<b>Hello world ✔</b>' // html body
+                    };
+
+
+                    transporter.sendMail(mailOptions, function(error, info){
+                        if(error){
+                            console.log(error);
+                        }else{
+                            console.log('Message sent: ' + info.response);
+                        }
+                    });
                 
             });
 
