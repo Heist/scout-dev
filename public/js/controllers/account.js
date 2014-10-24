@@ -55,15 +55,20 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 		var url, 
 			dataOut;
 
-		url = '/api/account/'+$scope.account;
+		url = '/api/invite/';
 		dataOut = email;
 
 		$http
 			.post(url, dataOut)
 			.success(function(data){
 				console.log('invitation sent', data);
-				$scope.live_user.invites.push({ user_email: email.address, pending:true});
-				email.address = "";
+				if(data.user_email){
+					$scope.live_user.invites.push({ user_email: data.user_email, pending:true});
+					email.address = "";
+					$scope.message = "User invite link is <a href='http://127.0.0.1:8080/login/"+data._account+"'>http://127.0.0.1:8080/login/"+data._account+"</a>";
+				} else {
+					$scope.message = data;
+				}
 			});
 
 	};
@@ -74,7 +79,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 		$http
 			.delete('/api/invite/'+invite._id)
 			.success(function(err, data){
-				console.log('invitation removed');
+				console.log('invitation removed', data);
 				$scope.live_user.invites.splice(index, 1);
 			});
 	};

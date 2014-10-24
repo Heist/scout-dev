@@ -54,6 +54,17 @@ module.exports = function(app){
             });
             
         })
+        .delete(function(req,res){
+            console.log('touched delete user');
+            User.remove({'_id' : req.params._user}, function(err, doc){
+                if(err) {return res.send (err);}
+
+                res.json('User removed');
+            });
+        });
+
+
+    app.route('/api/invite/')
         .post(function(req,res){
             console.log('user posting invite', req.body);
 
@@ -69,8 +80,17 @@ module.exports = function(app){
                     // if there's a user, say "there's already a user"
                     // maybe reset that user's password?
                     // send something to imply a user by that name already exists?
+                }
+                
+                return Invitation.findOne({'user_email' : req.body.address}).exec();
+            })
+            .then(function(i){
+                console.log(i);
+                if(i){
+                    res.send('You have already sent that invitation.');
                 } else {
-                    console.log('no user with that e-mail');
+                    console.log('no invitation exists');
+                    
                     var invite = new Invitation();
         
                     invite._account = req.user._account;
@@ -86,9 +106,6 @@ module.exports = function(app){
             })
             .then(function(invite){
                 console.log('invite', invite);
-                var reply = JSON.stringify(invite);
-                reply = JSON.parse(reply);
-
                 res.json(invite);
                  // var transporter = nodemailer.createTransport({
                  //        service: 'Mandrill',
@@ -118,20 +135,11 @@ module.exports = function(app){
                  //    });
 
             });
-        })
-        .delete(function(req,res){
-            console.log('touched delete user');
-            User.remove({'_id' : req.params._user}, function(err, doc){
-                if(err) {return res.send (err);}
-
-                res.json('User removed');
-            });
         });
-
 
     app.route('/api/invite/:_id')
         .delete(function(req,res){
-
+            console.log(req.params._id);
             Invitation.remove({'_id': req.params._id}, function(err, invite){
                 if(err) {return res.send (err);}
 

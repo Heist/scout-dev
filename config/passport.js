@@ -7,6 +7,7 @@ var TrelloStrategy = require('passport-trello').Strategy
 
 // load up the user model
 var User = require('../server/models/auth/user');
+var Invitation = require('../server/models/auth/invitation');
 
 // load the auth variables
 var configAuth = require('./auth');
@@ -92,17 +93,29 @@ module.exports = function(passport) {
                         return done(null, { error: 'That email is already taken.' });
                     } else {
 
-                        // create the user
-                        var newUser            = new User();
+                        var promise = 
+                            User.create({'local.email' : email , 'local.password' : User.generateHash(password)});
 
-                        newUser.local.email    = email;
-                        newUser.local.password = newUser.generateHash(password);
-                        if(req.body._account){ newUser._account = req.body._account; }
+                        promise.then(function(user){
+                            // if there's an account - ie, this is by invitation
+                            // find the invitation and set it to accepted
+                            // then update the user _account to exist
 
-                        newUser.save(function(err) {
-                            if (err){throw err;}
-                            console.log('newUser',newUser);
-                            return done(null, newUser);
+                            if(req.body._account){ 
+                            
+                                Invitation.findOneAndUpdate({user_email:user.local.email}, {pending:false}, function(err, data){
+                                    console.log(data);
+
+                                    user._account = req.body._account;
+                                    user.save(function(err, data){
+                                        if (err){throw err;}
+                                        return data;
+                                    });
+                                });
+                            }
+
+                        }).then(function(data){
+                            return done(null, data);
                         });
                     }
 
