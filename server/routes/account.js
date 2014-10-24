@@ -79,43 +79,45 @@ module.exports = function(app){
 
                     invite.save(function(err,data){
                         if(err) {return res.send (err);}
-                        return data;
-                        // res.json(data);
                     });
+
+                    return invite;
                 }
             })
             .then(function(invite){
+                console.log('invite', invite);
+                var reply = JSON.stringify(invite);
+                reply = JSON.parse(reply);
 
-                 var transporter = nodemailer.createTransport({
-                        service: 'Mandrill',
-                        auth: {
-                            user: 'mandrill@fieldguideapp.com',
-                            pass: 'jvVhe4uJxHB7MFfHabelbg'
-                        },
-                        host:           "smtp.mandrillapp.com",
-                        port:           587
-                    });
+                res.json(invite);
+                 // var transporter = nodemailer.createTransport({
+                 //        service: 'Mandrill',
+                 //        auth: {
+                 //            user: 'mandrill@fieldguideapp.com',
+                 //            pass: 'jvVhe4uJxHB7MFfHabelbg'
+                 //        },
+                 //        host:           "smtp.mandrillapp.com",
+                 //        port:           587
+                 //    });
 
-                    var mailOptions = {
-                        from: 'Field Guide Invitations <invite@fieldguide.com>', // sender address
-                        to: 'tom@heistmade.com, alex.leitch@gmail.com', // list of receivers
-                        subject: 'Hello ✔ Welcome to Field Guide', // Subject line
-                        text: 'Hello world ✔', // plaintext body
-                        html: '<b>Hello world ✔</b>' // html body
-                    };
+                 //    var mailOptions = {
+                 //        from: 'Field Guide Invitations <invite@fieldguide.com>', // sender address
+                 //        to: 'tom@heistmade.com, alex.leitch@gmail.com', // list of receivers
+                 //        subject: 'Hello ✔ Welcome to Field Guide', // Subject line
+                 //        text: 'Hello world ✔', // plaintext body
+                 //        html: '<b>Hello world ✔</b>' // html body
+                 //    };
 
 
-                    transporter.sendMail(mailOptions, function(error, info){
-                        if(error){
-                            console.log(error);
-                        }else{
-                            console.log('Message sent: ' + info.response);
-                        }
-                    });
-                
+                 //    transporter.sendMail(mailOptions, function(error, info){
+                 //        if(error){
+                 //            console.log(error);
+                 //        }else{
+                 //            console.log('Message sent: ' + info.response);
+                 //        }
+                 //    });
+
             });
-
-            res.send('user invite sent');
         })
         .delete(function(req,res){
             console.log('touched delete user');

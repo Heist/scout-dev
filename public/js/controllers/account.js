@@ -60,7 +60,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 
 		$http
 			.post(url, dataOut)
-			.success(function(err, data){
+			.success(function(data){
 				console.log('invitation sent', data);
 				$scope.live_user.invites.push({ user_email: email.address, pending:true});
 				email.address = "";
