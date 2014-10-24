@@ -52,7 +52,8 @@
 					<li ng-repeat="invite in live_user.invites">
 						<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
 						<div class="team-member-info">
-							<small>{{invite.user_email}}<span class="tag">Pending &mdash; <a href="#">Resend invite?</a></span></small>
+							<label ng-model="user_message" ng-show="user_message" ng-bind-html="user_message"></label>
+							<small>{{invite.user_email}}  <span class="tag">Pending &mdash; <a href="#" ng-click="resendInvite(invite)">Resend invite?</a></span></small>
 						</div>
 						<div class="team-member-remove" ng-click="deleteInvite(invite)"><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
 						<div class="clear"></div>

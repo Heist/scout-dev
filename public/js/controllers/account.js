@@ -73,6 +73,27 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 
 	};
 
+	$scope.resendInvite = function(invite){
+		var url, 
+			dataOut;
+
+		url = '/api/invite/'+invite._id;
+		dataOut = invite;
+		console.log(invite);
+
+		$http
+			.post(url, dataOut)
+			.success(function(data){
+				console.log('invitation sent', data);
+				if(data.user_email){
+					$scope.user_message = "User invite link is <a href='http://127.0.0.1:8080/register/"+data._account+"'>http://127.0.0.1:8080/register/"+data._account+"</a>";
+				} else {
+					$scope.user_message = data;
+				}
+			});
+
+	};
+
 	$scope.deleteInvite = function(invite){
 		var index = $scope.live_user.invites.indexOf(invite);
 
