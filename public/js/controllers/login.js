@@ -12,6 +12,7 @@ angular.module('field_guide_controls')
     if($stateParams.acct){
         $scope.acct = $stateParams.acct.replace( /\//gi,"");
         console.log($scope.acct);
+        $scope.reg_toggle = true;
     }
     $scope.login = function(user){
         var url = '/auth/login';
