@@ -65,7 +65,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 				if(data.user_email){
 					$scope.live_user.invites.push({ user_email: data.user_email, pending:true});
 					email.address = "";
-					$scope.message = "User invite link is <a href='http://127.0.0.1:8080/login/"+data._account+"'>http://127.0.0.1:8080/login/"+data._account+"</a>";
+					$scope.message = "User invite link is <a href='http://127.0.0.1:8080/register/"+data._account+"'>http://127.0.0.1:8080/register/"+data._account+"</a>";
 				} else {
 					$scope.message = data;
 				}

@@ -135,7 +135,7 @@ angular.module('field_guide_controls')
 
     $scope.editTest = function(test){
         console.log('touched test', test)
-        $location.path('/edit/test/'+ test._id);        
+        $location.path('/edit/test/'+ test._id);
     }
      
     $scope.runTest = function(test){

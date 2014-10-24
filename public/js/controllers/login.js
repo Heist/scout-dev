@@ -29,33 +29,9 @@ angular.module('field_guide_controls')
             });
     };
 
-    $scope.register = function(user){
-        // console.log(user);
-        var url, 
-            dataOut,
-            acct;
-
-        if($stateParams.acct){
-            acct = $stateParams.acct.replace( /\//gi,"");
-            console.log('touched account', acct);
-            url = '/auth/signup/';
-            dataOut = {email: user.email, password: user.password, _account: acct};
-        } else {
-            console.log('cannot see stateparams.acct')
-            url = '/auth/signup/';
-            dataOut = {email: user.email, password: user.password};
-        }
-        
-        $http
-            .post(url, dataOut)
-            .success(function(data){
-                // console.log('register controller success', data);
-                $rootScope.user = data.user;
-                $location.path(data.redirect);
-            })
-            .error(function(error){
-                // console.log('signup no bueno.', error);
-        });
+    $scope.register = function(){
+        console.log('touched register');
+        $location.path('/register/');
     };
 
     $scope.logout = function(){
@@ -70,6 +46,6 @@ angular.module('field_guide_controls')
             })
             .error(function(error){
                 // console.log('logout no bueno.', error);
-            });
-    }
+        });
+    };
 }]);
