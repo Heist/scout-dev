@@ -15,7 +15,7 @@
 			</p>
 			
 			<!-- login form -->
-			<div id="form-login">
+			<div id="form-login" ng-hide="reg_toggle == true">
 			
 				<form ng-model="user">
 					<ul class="nobullets withlabels">
@@ -37,16 +37,17 @@
 				</form>
 				
 				<p class="text-center">
-					<small>Don&rsquo;t have an account yet? <a ng-click="register">Register right now</a>.</small>
+					<small>Don&rsquo;t have an account yet? <a ng-click="showReg()">Register right now</a>.</small>
 				</p>
 			
 			</div>
+			<div ng-show="reg_toggle == true"> TEST THIS </div>
 			<!-- / login form -->
 			
 			
 			
 			<!-- signup form form -->
-			<div id="form-signup">
+			<div id="form-signup" ng-show="reg_toggle == true">
 			
 				<form ng-model="user">
 					<ul class="nobullets withlabels">
@@ -76,7 +77,7 @@
 				</form>
 				
 				<p class="text-center">
-					<small>Already signed up? <a>Login</a>.</small>
+					<small>Already signed up? <a ng-click="showLogin()">Login</a>.</small>
 				</p>
 			
 			</div>
