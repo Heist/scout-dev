@@ -107,6 +107,7 @@ module.exports = function(app){
             .then(function(invite){
                 console.log('invite', invite);
                 res.json(invite);
+
                  // var transporter = nodemailer.createTransport({
                  //        service: 'Mandrill',
                  //        auth: {
@@ -119,10 +120,10 @@ module.exports = function(app){
 
                  //    var mailOptions = {
                  //        from: 'Field Guide Invitations <invite@fieldguide.com>', // sender address
-                 //        to: 'tom@heistmade.com, alex.leitch@gmail.com', // list of receivers
+                 //        to: invite.user_email, // list of receivers
                  //        subject: 'Hello ✔ Welcome to Field Guide', // Subject line
                  //        text: 'Hello world ✔', // plaintext body
-                 //        html: '<b>Hello world ✔</b>' // html body
+                 //        html: '<a href="http://"'+app.locals.real_url+'/>Sign up for Field Guide!</a>' // html body
                  //    };
 
 

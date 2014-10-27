@@ -1,19 +1,19 @@
 // config/passport.js
 'use strict';
 
-// load all the things we need
-var LocalStrategy   = require('passport-local').Strategy;
-var TrelloStrategy = require('passport-trello').Strategy
-
-// load up the user model
-var User = require('../server/models/auth/user');
-var Invitation = require('../server/models/auth/invitation');
-
-// load the auth variables
-var configAuth = require('./auth');
-
 // expose this function to our app using module.exports
-module.exports = function(passport) {
+module.exports = function(app, passport) {
+
+        // load all the things we need
+    var LocalStrategy   = require('passport-local').Strategy;
+    var TrelloStrategy = require('passport-trello').Strategy;
+
+    // load up the user model
+    var User = require('../server/models/auth/user');
+    var Invitation = require('../server/models/auth/invitation');
+
+    // load the auth variables
+    var configAuth = require('./auth')(app);
 
     // =========================================================================
     // passport session setup ==================================================

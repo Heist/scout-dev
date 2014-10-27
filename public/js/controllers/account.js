@@ -51,21 +51,19 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 	};
 
 	$scope.inviteTeamMember = function(email){
-		console.log('touched invitation', email.address);
-		var url, 
-			dataOut;
-
-		url = '/api/invite/';
-		dataOut = email;
+		var url = '/api/invite/',
+			dataOut = email,
+			new_url = $location.protocol+'//'+$location.host;
 
 		$http
 			.post(url, dataOut)
 			.success(function(data){
 				console.log('invitation sent', data);
+
 				if(data.user_email){
 					$scope.live_user.invites.push({ user_email: data.user_email, pending:true});
 					email.address = "";
-					$scope.message = "User invite link is <a href='http://127.0.0.1:8080/login/"+data._account+"'>http://127.0.0.1:8080/login/"+data._account+"</a>";
+					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data._account+"'>"+new_url+"/login/"+data._account+"</a>";
 				} else {
 					$scope.message = data;
 				}
@@ -74,19 +72,16 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 	};
 
 	$scope.resendInvite = function(invite){
-		var url, 
-			dataOut;
-
-		url = '/api/invite/'+invite._id;
-		dataOut = invite;
-		console.log(invite);
+		var url = '/api/invite/'+invite._id,
+			dataOut = invite,
+			new_url = $location.protocol+'//'+$location.host;
 
 		$http
 			.post(url, dataOut)
 			.success(function(data){
 				console.log('invitation sent', data);
 				if(data.user_email){
-					$scope.user_message = "User invite link is <a href='http://127.0.0.1:8080/login/"+data._account+"'>http://127.0.0.1:8080/login/"+data._account+"</a>";
+					$scope.user_message = "User invite link is <a href='"+new_url+"/login/"+data._account+"'>"+new_url+"/login/"+data._account+"</a>";
 				} else {
 					$scope.user_message = data;
 				}

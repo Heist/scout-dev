@@ -28,6 +28,9 @@ var database = require('./server/db/db');
 var db = database.db;
 var auth_db = database.auth_db;
 
+// Global application variables =====================================
+
+app.locals.real_url = '127.0.0.1:8080';
 
 // configuration ====================================================
 app.use(cors()); // permit cross-site requests, ie: passport.
@@ -43,7 +46,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser());
 
 // passport configuration ===========================================
-require('./config/passport')(passport);
+require('./config/passport')(app, passport);
 
 // session secret 
 app.use(session({
@@ -68,7 +71,7 @@ app.get('*', function(req, res) {
 		});
 
 // Socket.io configuration ==========================================
-var socket = require('./config/socket_config')(io);
+// var socket = require('./config/socket_config')(io);
 
 // turn on the application ==========================================
 http.listen(port, function(){
