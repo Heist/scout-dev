@@ -33,7 +33,7 @@ describe('overview', function(){
 	describe('$scope.select', function(){
 		var scope;
 		var controller;
-
+		
 		beforeEach(inject(function($rootScope, $controller){
 			scope = $rootScope.$new();
 			controller = $controller('overview', {$scope:scope}); 

@@ -17,82 +17,82 @@ var Session = require('../models/data/session');
 var Subject = require('../models/data/subject');
 
 // RUN ROUTES =============================================
-	app.route('/api/run/')
-		.get(function(req,res){
-				// console.log('touched run get')
-				res.json('touched run get')
-			});
+    app.route('/api/run/')
+        .get(function(req,res){
+                // console.log('touched run get')
+                res.json('touched run get')
+            });
 
-	// How to populate subdocuments is in here.
-	app.route('/api/run/:_id')
-		.get(function(req,res){
-			// console.log('touched run route',req.params._id )
+    // How to populate subdocuments is in here.
+    app.route('/api/run/:_id')
+        .get(function(req,res){
+            // console.log('touched run route',req.params._id )
 
-			Test.find({"_id":req.params._id, "_tasks": {$not: {$size: 0}}})
-				.populate('_tasks')
-				.exec(function(err, docs){
-					if(err){res.send(err);}
+            Test.find({"_id":req.params._id, "_tasks": {$not: {$size: 0}}})
+                .populate('_tasks')
+                .exec(function(err, docs){
+                    if(err){res.send(err);}
 
-					res.json(docs);
-				});
-		})
-		.post(function(req,res){
-			console.log('touched run post', req.body);
+                    res.json(docs);
+                });
+        })
+        .post(function(req,res){
+            console.log('touched run post', req.body);
 
-			// on post:
-			// add subject to tests that have been updated with that subject
-			// add subject to tasks that have been updated with that subject
-			// add tests to subject that has been part of that test
+            // on post:
+            // add subject to tests that have been updated with that subject
+            // add subject to tasks that have been updated with that subject
+            // add tests to subject that has been part of that test
 
-			Subject.findById(req.body.subject)
-				.exec(function(err, doc){
-					// console.log('subject tests', subject._tests);
-					
-					doc._tests = req.body.tests;
+            Subject.findById(req.body.subject)
+                .exec(function(err, doc){
+                    // console.log('subject tests', subject._tests);
+                    
+                    doc._tests = req.body.tests;
 
-					doc.save(function(err,data){
-						if(err){res.send(err);}
-					});
-				});
-		
-			// for each test in session
-			// add a subject to that test if it has run.
+                    doc.save(function(err,data){
+                        if(err){res.send(err);}
+                    });
+                });
+        
+            // for each test in session
+            // add a subject to that test if it has run.
 
-			if(req.body.tests){
-				async.each(req.body.tests, function(test){
-					console.log('test', test);
-					test = mongoose.Types.ObjectId(test);
+            if(req.body.tests){
+                async.each(req.body.tests, function(test){
+                    console.log('test', test);
+                    test = mongoose.Types.ObjectId(test);
 
-					Test.findById(test, function(err, doc){
-						
-						if(doc._subjects.indexOf(req.body.subject) === -1){
-							doc._subjects.push(req.body.subject);
-						}
-	
-						doc.save(function(err, data){
-							if(err){res.send(err);}
-						});
-					});
-				});
-			}
+                    Test.findById(test, function(err, doc){
+                        
+                        if(doc._subjects.indexOf(req.body.subject) === -1){
+                            doc._subjects.push(req.body.subject);
+                        }
+    
+                        doc.save(function(err, data){
+                            if(err){res.send(err);}
+                        });
+                    });
+                });
+            }
 
-			// for each task in a run test
-			// if a subject has hit that task,
-			// push the subject to its subject array
+            // for each task in a run test
+            // if a subject has hit that task,
+            // push the subject to its subject array
 
-			async.each(req.body.tasks, function(task){
-				Task.findById(task, function(err, doc){
+            async.each(req.body.tasks, function(task){
+                Task.findById(task, function(err, doc){
 
-					if(doc._subjects.indexOf(req.body.subject) === -1){
-						doc._subjects.push(req.body.subject);
-					}
+                    if(doc._subjects.indexOf(req.body.subject) === -1){
+                        doc._subjects.push(req.body.subject);
+                    }
 
-					doc.save(function(err, data){
-						if(err){res.send(err);}
-					});
-				});
-			});
-			
-			res.json('tests updated', req.body.tests);
-		});
+                    doc.save(function(err, data){
+                        if(err){res.send(err);}
+                    });
+                });
+            });
+            
+            res.json('tests updated', req.body.tests);
+        });
 };

@@ -118,9 +118,9 @@ angular.module('field_guide_controls')
 
     $scope.removeTest = function(test){ 
         // delete a test from the database
-        var url = '/api/test/'+test._id;
-
-        var index = $scope.tests.indexOf(test);
+        var url = '/api/test/'+test._id,
+            index = $scope.tests.indexOf(test);
+        
         $scope.tests.splice(index, 1);
 
         $http
@@ -130,6 +130,23 @@ angular.module('field_guide_controls')
             })
             .error(function(data){
                 console.log('Error: ' + data);
+            })
+    }
+
+    $scope.dupeTest = function(test){
+        console.log('touched dupe test', test._id);
+
+        var url = '/api/test/'+test._id;
+        var data_out = test;
+        
+        $http
+            .post(url, data_out)
+            .success(function(data){
+                console.log('new test added '+ JSON.stringify(data));
+                $scope.tests.push(data);
+            })
+            .error(function(data){
+                console.log('error', data)
             })
     }
 

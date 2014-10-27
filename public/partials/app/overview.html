@@ -45,7 +45,10 @@
 				
 						&nbsp;<a ng-click="loadReport(test._id)" ng-show="test.summary" >View Report</a>&nbsp;
 						
-						<a class="removeTest" ng-click="removeTest(test)">&times;</a>
+						<div class ="removeTest">
+							<a ng-click="removeTest(test)">&times;</a>
+							<a ng-click="dupeTest(test)" style="float:left;">+</a>
+						</div>
 					</div>
 					
 			</div>

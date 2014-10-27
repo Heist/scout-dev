@@ -1,21 +1,21 @@
 How to change this:
 var messages = [{id:0, body:murgh}, {id:1, body:blerch}, {id:2, body:snrk}]
 var array = [{name: foo, messages: [0, 1]},
-			 {name: bar, messages: [2]}]
+             {name: bar, messages: [2]}]
 
 to this:
 var array = [{name: foo, messages: [{id:0, body:murgh}, {id:1, body:blerch}]},
-			 {name: bar, messages: [{id:2, body:snrk}]}]
+             {name: bar, messages: [{id:2, body:snrk}]}]
 
 
 var messagesById = {}; 
-	messages.forEach(function(m) { 
-			messagesById[m.id] = m; 
-		});
+    messages.forEach(function(m) { 
+            messagesById[m.id] = m; 
+        });
 
 
 array.forEach(function(p) { 
-	p.messages = p.messages.map(function(id) { 
-		return messagesById[id]; 
-		}); 
-	});
+    p.messages = p.messages.map(function(id) { 
+        return messagesById[id]; 
+        }); 
+    });

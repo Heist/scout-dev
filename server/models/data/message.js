@@ -9,15 +9,15 @@ var db = connect.db;
 
 
 var MessageSchema = new Schema ({
-	_subject : { type: Schema.Types.ObjectId, ref: 'Subject' },
-	_test : { type: Schema.Types.ObjectId, ref: 'Test' },
+    _subject : { type: Schema.Types.ObjectId, ref: 'Subject' },
+    _test : { type: Schema.Types.ObjectId, ref: 'Test' },
 
-	body : { type: String, trim: true },
-	created_by : { type: Schema.Types.ObjectId },
-	fav_task : { type: Boolean, default: false },
-	fav_tag : { type: Boolean, default: false },
-	
-	created: Date
+    body : { type: String, trim: true },
+    created_by : { type: Schema.Types.ObjectId },
+    fav_task : { type: Boolean, default: false },
+    fav_tag : { type: Boolean, default: false },
+    
+    created: Date
 });
 
 MessageSchema.pre('save', function(next){

@@ -16,36 +16,36 @@ var Session = require('../models/data/session');
 var Subject = require('../models/data/subject');
 
 // SUBJECT ROUTES ===============================================
-	app.route('/api/subject/')
-		.get(function(req,res){
-				Subject.find({})
-					.exec(function(err,subjects){
-						if(err){res.send(err);}
-						
-						res.json(subjects)	
-					})
-			})
-		.post(function(req,res){
-				// console.log('touched add subject', req.body);
+    app.route('/api/subject/')
+        .get(function(req,res){
+                Subject.find({})
+                    .exec(function(err,subjects){
+                        if(err){res.send(err);}
+                        
+                        res.json(subjects)    
+                    })
+            })
+        .post(function(req,res){
+                // console.log('touched add subject', req.body);
 
-				var subject = new Subject();
+                var subject = new Subject();
 
-				subject.name = req.body.name;
-				
-				subject.save(function(err, data){
-					if(err){res.send(err);}
-					
-					// console.log(data);
-					res.json(data)
-				});
-		});
+                subject.name = req.body.name;
+                
+                subject.save(function(err, data){
+                    if(err){res.send(err);}
+                    
+                    // console.log(data);
+                    res.json(data)
+                });
+        });
 
-	app.route('/api/subject/:_id')
-		.get(function(req, res){
-			Subject.findById(req.params._id)
-				.exec(function(err, subject){
-					if(err){res.send(err);}
-					res.json(subject)
-				});
-		});
+    app.route('/api/subject/:_id')
+        .get(function(req, res){
+            Subject.findById(req.params._id)
+                .exec(function(err, subject){
+                    if(err){res.send(err);}
+                    res.json(subject)
+                });
+        });
 }

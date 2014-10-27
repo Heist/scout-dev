@@ -16,26 +16,26 @@ var Session = require('../models/data/session');
 var Subject = require('../models/data/subject');
 
 // TAG ROUTES ================================================
-	app.route('/api/tag/')
-		.get(function(req,res){
-			Tag.find(function(err, tags) {
-					if(err){res.send(err);}
+    app.route('/api/tag/')
+        .get(function(req,res){
+            Tag.find(function(err, tags) {
+                    if(err){res.send(err);}
 
-					res.json(tags);
-				})
-			});
+                    res.json(tags);
+                })
+            });
 
-	app.route('/api/tag/:_id')
-		.get(function(req,res){
-			Tag.findById(req.params._id)
-				.exec(function(err, tags) {
-					if(err){res.send(err);}
+    app.route('/api/tag/:_id')
+        .get(function(req,res){
+            Tag.findById(req.params._id)
+                .exec(function(err, tags) {
+                    if(err){res.send(err);}
 
-					res.json(tags);
-				})
-		})
-		.post(function(req,res){
-			// console.log('tag post touched')
-			res.json('tag post touched')
-		});
+                    res.json(tags);
+                })
+        })
+        .post(function(req,res){
+            // console.log('tag post touched')
+            res.json('tag post touched')
+        });
 }

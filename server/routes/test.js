@@ -6,6 +6,7 @@ module.exports = function(app, passport) {
 // Module dependencies
 var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 var _ = require('underscore');
+var async = require('async');
 
 // load data storage models
 var Message = require('../models/data/message');
@@ -18,124 +19,167 @@ var Subject = require('../models/data/subject');
 // TEST ROUTES ===================================================
 
 app.route('/api/test/')
-	// get all of the tests	
-	.get(function(req,res){
-		// console.log(' get all tests ', req.isAuthenticated(), req.user._id)
-		Test.find({created_by_account:req.user._account})
-			.exec(function(err, docs) {
-				if(err){res.send(err);}
+    // get all of the tests    
+    .get(function(req,res){
+        // console.log(' get all tests ', req.isAuthenticated(), req.user._id)
+        Test.find({created_by_account:req.user._account})
+            .exec(function(err, docs) {
+                if(err){res.send(err);}
 
-				res.json(docs);
-			});
-	})
-	// add a new test
-	.post(function(req,res){
-		// console.log('post a new test', req.body)
-			var test = new Test();
+                res.json(docs);
+            });
+    })
+    // add a new test
+    .post(function(req,res){
+        // console.log('post a new test', req.body)
+            var test = new Test();
 
-			console.log('fish through this to get data', req.body);
-			test.name = req.body.name;
+            console.log('fish through this to get data', req.body);
+            test.name = req.body.name;
 
-			test.created_by_user = req.body.created_by._id;
-			test.created_by_account = req.body.created_by.account;
+            test.created_by_user = req.body.created_by._id;
+            test.created_by_account = req.body.created_by.account;
 
-			console.log('user account - test add route', req.user._account);
+            console.log('user account - test add route', req.user._account);
 
-			// later, we will be building playlists
-			// sessions should store tests but tests 
-			// don't need to know they belong to any playlist specially.
-			// sessions should store their own ordering data, etc.
+            // later, we will be building playlists
+            // sessions should store tests but tests 
+            // don't need to know they belong to any playlist specially.
+            // sessions should store their own ordering data, etc.
 
-			if(test._session){
-				test._session = req.body._session;
-			}
-			
-			test.save(function(err, test){
-				if(err){res.send(err);}
-				
-				res.json(test);
+            if(test._session){
+                test._session = req.body._session;
+            }
+            
+            test.save(function(err, test){
+                if(err){res.send(err);}
+                
+                res.json(test);
 
-			});
-		});
+            });
+        });
 
 
 app.route('/api/test/:_id')
-	.get(function(req,res){
-		// get one test
+    .get(function(req,res){
+        // get one test
 
-		Test.findById(req.params._id)
-			.populate('_tasks')
-			.exec(function(err,test){
-				if(err){res.send(err);}
+        Test.findById(req.params._id)
+            .populate('_tasks')
+            .exec(function(err,test){
+                if(err){res.send(err);}
 
-				// console.log('single test', test)
-				res.json(test);
-		});		
-	})
+                // console.log('single test', test)
+                res.json(test);
+        });        
+    })
+    // Duplicate a test with new steps and things but which appears to be identical
+    .post(function(req,res){
+        var obj = {};
+        var reply = {};
+        var promise = Test.findById(req.params._id).populate({path:'_tasks', select:'-id name desc summary pass_fail'}).exec();
 
-	// update one test with new information
-	.put(function(req,res){
-		// // console.log('touched test put', req.body)
+        promise.then(function(test){
+            console.log('test duped', test)
+            obj = test;
 
-		if(req.body._tasks){
-			var tasks = _.pluck(req.body._tasks, '_id');
-		}
+            var update = {
+                created_by_account : test.created_by_account,
+                created_by_user : test.created_by_user,
+                desc    : test.desc,
+                link    : test.link,
+                name    : test.name,
+                platform: test.platform
+            };
 
-		// console.log('tasks', tasks);
+            return Test.create(update, function(err, test){});
 
-		Test.findById(req.params._id)
-			.exec(function(err,test){
-				// // console.log('touched test update', test)
-				
-				if(req.body.name){test.name = req.body.name}
-				if(req.body.desc){test.desc = req.body.desc}
-				if(req.body.platform){test.platform = req.body.platform}
-				if(req.body._tasks){test._tasks = tasks}
-				if(req.body.link){test.link = req.body.link}
-				if(req.body.subject){test._subjects.push(req.body.subject)}
-				
-				// console.log(test);
+        })
+        .then(function(new_test){
+            console.log('test duped', new_test)
+                reply.new_test = new_test._id;
 
-				test.save(function(err, data){
-					if (err) res.send(err);
+                var arr = obj._tasks;
+                
+                var promise = Task.create(arr);
 
-					res.json(data);
-				})
-			});
-	})
+                promise.then(function(tasks){
+                    async.each(tasks, function(task){
+                        var update = { $push : {_tasks : task._id}};
+                        Test.findOneAndUpdate(new_test._id, update, function(err, test){});
+                    });
 
-	.delete(function(req,res){
-		// deletes a single test by id
-		// from session list of tests
-		// and then removes 
-		// all tasks
-		// all messages
-		// all tags
-		// that belonged to that test.
+                    return Test.findOne(new_test._id);
+                })
+            })
+        .then(function(new_test){
+            console.log('test duped - last step', new_test)
+            res.json(new_test);
+        });
+    })
+    // update one test with new information
+    .put(function(req,res){
+        // // console.log('touched test put', req.body)
 
-		// console.log('delete this test', req.params._id)
+        if(req.body._tasks){
+            var tasks = _.pluck(req.body._tasks, '_id');
+        }
 
-		Test.find({_id:req.params._id})
-			.remove(function(err){
-				if (err) res.send(err);
-			});
+        // console.log('tasks', tasks);
 
-		Task.find({_test:req.params._id})
-			.remove(function(err){
-				if (err) res.send(err);
-			});
+        Test.findById(req.params._id)
+            .exec(function(err,test){
+                // // console.log('touched test update', test)
+                
+                if(req.body.name){test.name = req.body.name}
+                if(req.body.desc){test.desc = req.body.desc}
+                if(req.body.platform){test.platform = req.body.platform}
+                if(req.body._tasks){test._tasks = tasks}
+                if(req.body.link){test.link = req.body.link}
+                if(req.body.subject){test._subjects.push(req.body.subject)}
+                
+                // console.log(test);
 
-		Message.find({_test:req.params._id})
-			.remove(function(err){
-				if (err) res.send(err);
-			});
+                test.save(function(err, data){
+                    if (err) res.send(err);
 
-		Tag.find({_test:req.params._id})
-			.remove(function(err){
-				if (err) res.send(err);
-			});
+                    res.json(data);
+                })
+            });
+    })
 
-		res.json('test removed', req.params._id);
+    .delete(function(req,res){
+        // deletes a single test by id
+        // from session list of tests
+        // and then removes 
+        // all tasks
+        // all messages
+        // all tags
+        // that belonged to that test.
 
-	});
+        // console.log('delete this test', req.params._id)
+
+        Test.find({_id:req.params._id})
+            .remove(function(err){
+                if (err) res.send(err);
+            });
+
+        Task.find({_test:req.params._id})
+            .remove(function(err){
+                if (err) res.send(err);
+            });
+
+        Message.find({_test:req.params._id})
+            .remove(function(err){
+                if (err) res.send(err);
+            });
+
+        Tag.find({_test:req.params._id})
+            .remove(function(err){
+                if (err) res.send(err);
+            });
+
+        res.json('test removed', req.params._id);
+
+    });
 }

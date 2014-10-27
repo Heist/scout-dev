@@ -39,19 +39,19 @@ module.exports = function(app, passport) {
 
 // LOGIN ROUTES ===========================================
 
-	// is someone logged in?
-	app.get('/loggedin', function(req, res) {
-			res.send(req.isAuthenticated() ? {_id : req.user._id, name: req.user.local.email, account:req.user._account, trello : req.user.trello.id } : '0');
-		});
+    // is someone logged in?
+    app.get('/loggedin', function(req, res) {
+            res.send(req.isAuthenticated() ? {_id : req.user._id, name: req.user.local.email, account:req.user._account, trello : req.user.trello.id } : '0');
+        });
 
-	// who's logged in?
-	app.get('/auth/login', isLoggedInAjax, function(req, res) {
+    // who's logged in?
+    app.get('/auth/login', isLoggedInAjax, function(req, res) {
             return res.json(req.user._id);
         });
 
-	// process the login form
-	app.post('/auth/login', function(req, res, next) {
-		if (!req.body.email || !req.body.password) {
+    // process the login form
+    app.post('/auth/login', function(req, res, next) {
+        if (!req.body.email || !req.body.password) {
             return res.json({ error: 'Email and Password required' });
         }
         passport.authenticate('local-login', function(err, user, info) {
@@ -70,11 +70,11 @@ module.exports = function(app, passport) {
 
                 return res.json({ user: mongoose.Types.ObjectId(req.user._id), redirect: '/overview' });
             });
-		})(req, res);
-	});
+        })(req, res);
+    });
 
-	// process the signup form
-	app.post('/auth/signup', function(req, res, next) {
+    // process the signup form
+    app.post('/auth/signup', function(req, res, next) {
         if (!req.body.email || !req.body.password) {
             return res.json({ error: 'Email and Password required' });
         }
@@ -94,65 +94,65 @@ module.exports = function(app, passport) {
                 return res.json({ user: user, redirect: '/overview' });
             });
         })(req, res);
-	});
+    });
 
-	app.post('/auth/logout', function(req, res) {
-		// console.log('logout request', req);
+    app.post('/auth/logout', function(req, res) {
+        // console.log('logout request', req);
         req.logout();
         res.json({ redirect: '/login' });
-	});
+    });
 
 
 // PUBLIC ROUTES ==========================================
 
 // Debug Route -------------------
 app.route('/debug/test')
-	.get(function(req,res){
-		Test.find()
-			.exec(function(err, docs) {
-				if(err){res.send(err);}
+    .get(function(req,res){
+        Test.find()
+            .exec(function(err, docs) {
+                if(err){res.send(err);}
 
-				res.json(docs);
-			});
-	});
+                res.json(docs);
+            });
+    });
 
 app.route('/debug/task')
-	.get(function(req,res){
-		Task.find()
-			.exec(function(err, docs) {
-				if(err){res.send(err);}
+    .get(function(req,res){
+        Task.find()
+            .exec(function(err, docs) {
+                if(err){res.send(err);}
 
-				res.json(docs);
-			});
-	});
+                res.json(docs);
+            });
+    });
 
 app.route('/debug/message')
-	.get(function(req,res){
-		Message.find()
-			.exec(function(err, docs) {
-				if(err){res.send(err);}
+    .get(function(req,res){
+        Message.find()
+            .exec(function(err, docs) {
+                if(err){res.send(err);}
 
-				res.json(docs);
-			});
-	});
+                res.json(docs);
+            });
+    });
 
 app.route('/debug/tag/')
-		.get(function(req,res){
-			Tag.find(function(err, docs) {
-					if(err){res.send(err);}
+        .get(function(req,res){
+            Tag.find(function(err, docs) {
+                    if(err){res.send(err);}
 
-					res.json(docs);
-				});
-		});
+                    res.json(docs);
+                });
+        });
 
 app.route('/debug/user/')
-		.get(function(req,res){
-			User.find(function(err, users) {
-					if(err){res.send(err);}
+        .get(function(req,res){
+            User.find(function(err, users) {
+                    if(err){res.send(err);}
 
-					res.json(users);
-				});
-		});
+                    res.json(users);
+                });
+        });
 
 app.route('/debug/invite/')
         .get(function(req,res){
@@ -168,65 +168,65 @@ app.route('/debug/invite/')
 //  ¯\_(ツ)_/¯
 
 app.route('/api/report/:_id')
-	.get(function(req, res){
-		// console.log('touched report get', req.params._id);
+    .get(function(req, res){
+        // console.log('touched report get', req.params._id);
 
-		var test_id = mongoose.Types.ObjectId(req.params._id);
-		var reply = {};
-		var promise =
-			Test.findOne({'_id' : test_id}).populate('_subjects').exec(function(err, test){
-				if(err){res.send(err);}
+        var test_id = mongoose.Types.ObjectId(req.params._id);
+        var reply = {};
+        var promise =
+            Test.findOne({'_id' : test_id}).populate('_subjects').exec(function(err, test){
+                if(err){res.send(err);}
 
-			});
+            });
 
-		promise.then(function(test){
-			reply.test = test;
+        promise.then(function(test){
+            reply.test = test;
 
-			return Task.find({'_test':req.params._id})
-						.select('_id summary name pass_fail desc _messages')
-						.exec();
+            return Task.find({'_test':req.params._id})
+                        .select('_id summary name pass_fail desc _messages')
+                        .exec();
 
-		}).then(function(tasks){
-			reply.tasks = tasks;
+        }).then(function(tasks){
+            reply.tasks = tasks;
 
-			return Tag.find({'_test' : req.params._id})
-						.exists('summary')
-						.exec();
-		
-		}).then(function(tags){
-			reply.tags = tags;
-			
-			return	Message.find({'_test':req.params._id, $or: [{ fav_task : true }, { fav_tag : true }]})
-						.populate({path: '_subject', 'select': 'name -_id'})
-						.select('_subject body created_by _id _test _task fav_tag fav_task')
-						.exec();
-			
-		}).then(function(messages){
-			
-			reply.messages = messages;
+            return Tag.find({'_test' : req.params._id})
+                        .exists('summary')
+                        .exec();
+        
+        }).then(function(tags){
+            reply.tags = tags;
+            
+            return    Message.find({'_test':req.params._id, $or: [{ fav_task : true }, { fav_tag : true }]})
+                        .populate({path: '_subject', 'select': 'name -_id'})
+                        .select('_subject body created_by _id _test _task fav_tag fav_task')
+                        .exec();
+            
+        }).then(function(messages){
+            
+            reply.messages = messages;
 
-			res.json(reply);
-		
-		}).then(null, function(err){
-			if(err) {return res.send (err);}
-		});
-	});
+            res.json(reply);
+        
+        }).then(null, function(err){
+            if(err) {return res.send (err);}
+        });
+    });
 
 // MIDDLEWARE TO BLOCK NON-AUTHORIZED USERS ===============
 // this effectively prevents unlogged users from getting data
 
 app.use('/api',  isLoggedInAjax, function (req, res, next) {
-	// for calls that start with api....
-	// console.log('touched the api tag');
+    // for calls that start with api....
+    // console.log('touched the api tag');
 
-	next();
+    next();
 });
 
 // app.use('/api', function (req, res, next) {
 // // for calls that start with api....
 // // console.log('touched the api tag');
 
-//	next();
+//    next();
 // });
 
 // CONNECT ROUTES =========================================
