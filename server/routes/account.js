@@ -145,34 +145,33 @@ module.exports = function(app){
                 console.log('invite', doc);
                 res.json(doc);
 
-                // var transporter = nodemailer.createTransport({
-                 //        service: 'Mandrill',
-                 //        auth: {
-                 //            user: 'mandrill@fieldguideapp.com',
-                 //            pass: 'jvVhe4uJxHB7MFfHabelbg'
-                 //        },
-                 //        host:           "smtp.mandrillapp.com",
-                 //        port:           587
-                 //    });
+                var mailOptions = {
+                    from: 'Field Guide Invitations <invite@fieldguide.com>', // sender address
+                    to: 'tom@heistmade.com, alex.leitch@gmail.com', // list of receivers
+                    subject: 'Hello ✔ Welcome to Field Guide', // Subject line
+                    text: 'Hello world ✔', // plaintext body
+                    html: {path : '../templates/mail-html.html'}
+                };
 
-                 //    var mailOptions = {
-                 //        from: 'Field Guide Invitations <invite@fieldguide.com>', // sender address
-                 //        to: 'tom@heistmade.com, alex.leitch@gmail.com', // list of receivers
-                 //        subject: 'Hello ✔ Welcome to Field Guide', // Subject line
-                 //        text: 'Hello world ✔', // plaintext body
-                 //        html: '<b>Hello world ✔</b>' // html body
-                 //    };
+                var transporter = nodemailer.createTransport({
+                        service: 'Mandrill',
+                        auth: {
+                            user: 'mandrill@fieldguideapp.com',
+                            pass: 'jvVhe4uJxHB7MFfHabelbg'
+                        },
+                        host:           "smtp.mandrillapp.com",
+                        port:           587
+                    });
 
+                transporter.sendMail(mailOptions, function(error, info){
+                    if(error){
+                        console.log(error);
+                    }else{
+                        console.log('Message sent: ' + info.response);
+                    }
+                });
 
-                 //    transporter.sendMail(mailOptions, function(error, info){
-                 //        if(error){
-                 //            console.log(error);
-                 //        }else{
-                 //            console.log('Message sent: ' + info.response);
-                 //        }
-                 //    });
-
-            })
+            });
         })
         .delete(function(req,res){
             console.log(req.params._id);
