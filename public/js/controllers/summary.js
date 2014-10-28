@@ -107,7 +107,7 @@ angular.module('field_guide_controls')
     };
 
     $scope.editMessage = function(message, index){
-        $scope.messageEditToggle = index;
+        $scope.messageEditToggle = message._id;
     };
 
     $scope.saveEdit = function(message){
