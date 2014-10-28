@@ -106,6 +106,14 @@ angular.module('field_guide_controls')
         // TODO: when we change screens, save all messages with message.fav_task = true
     };
 
+    $scope.editMessage = function(message, index){
+        $scope.messageEditToggle = index;
+    };
+
+    $scope.saveEdit = function(message){
+        $scope.messageEditToggle = false;
+    };
+
     // TAG FUNCTIONS ======================================
     
     // TODO: on click "save"
