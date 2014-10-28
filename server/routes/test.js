@@ -75,12 +75,14 @@ app.route('/api/test/:_id')
     })
     // Duplicate a test with new steps and things but which appears to be identical
     .post(function(req,res){
+        console.log('touched dupe test',req.params._id, req.body);
         var obj = {};
         var reply = {};
-        var promise = Test.findById(req.params._id).populate({path:'_tasks', select:'-id name desc summary pass_fail'}).exec();
+
+        var promise = Test.findById(req.params._id).populate({path:'_tasks'}).exec();
 
         promise.then(function(test){
-            console.log('test duped', test)
+            console.log('test duped', test);
             obj = test;
 
             var update = {
@@ -96,25 +98,30 @@ app.route('/api/test/:_id')
 
         })
         .then(function(new_test){
-            console.log('test duped', new_test)
-                reply.new_test = new_test._id;
+            console.log('test duped step 2', new_test);
+                
+            reply.new_test = new_test._id;
 
+            if (obj._tasks){
                 var arr = obj._tasks;
                 
                 var promise = Task.create(arr);
-
+    
                 promise.then(function(tasks){
                     async.each(tasks, function(task){
                         var update = { $push : {_tasks : task._id}};
                         Test.findOneAndUpdate(new_test._id, update, function(err, test){});
                     });
-
-                    return Test.findOne(new_test._id);
-                })
-            })
-        .then(function(new_test){
-            console.log('test duped - last step', new_test)
-            res.json(new_test);
+    
+                    return Test.findOne(new_test._id, function(err, test){
+                        console.log('test returned', test);
+                    });
+                });
+            }
+        })
+        .then(function(last_step){
+            console.log('test duped - last step', last_step);
+            res.json(obj);
         });
     })
     // update one test with new information
