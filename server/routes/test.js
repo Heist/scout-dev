@@ -101,8 +101,7 @@ app.route('/api/test/:_id')
         })
         .then(function(new_test){
             console.log('test duped step 2', new_test._id, obj._id);
-
-            // var arr = [];
+            reply.new_test = new_test._id;
 
             if (obj._tasks){
                 console.log('obj._tasks.length', obj._tasks.length);
