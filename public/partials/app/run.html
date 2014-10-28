@@ -24,13 +24,8 @@
 	            </li>
 	            <li><button class="button" type="submit" ng-click="addSubject(subject.name)">Start testing!</button></li>   
 	        </ul>
-	        
 	    </div>
-	    
 	</div>
-	
-	
-	
 	
 	<!-- create a test -->
 	
@@ -45,7 +40,7 @@
 					ng-class="{ 'active': task._id === selected._id }"
          			ng-click="select($parent.$index, $index)">
 
-					<h3>{{task.name}}<br />{{task._id}}</h3>
+					<h3>{{task.name}}<br /></h3>
 
 					<p ng-bind-html="task.desc | linebreaker"></p>
 				</li>

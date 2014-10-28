@@ -10,7 +10,7 @@ angular.module('field_guide_controls')
 
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
-            // console.log('returned test information', data);
+            // // console.log('returned test information', data);
 
             $scope.tags = data.tags;
             $scope.test = data.test;
@@ -19,7 +19,7 @@ angular.module('field_guide_controls')
             // group messages by users
             $scope.messages = _.groupBy(data.messages, function(z){return z._subject.name;});
             
-            console.log('messages', $scope.messages, data.messages);
+            // console.log('messages', $scope.messages, data.messages);
             
             $scope.activate($scope.test);
 
@@ -39,12 +39,12 @@ angular.module('field_guide_controls')
      
         if(obj){
             $scope.selected = obj;
-            // console.log('task or test', obj._id);
+            // // console.log('task or test', obj._id);
         }
     };
 
     $scope.passFail = function(task){
-        // console.log('touched pass-fail');
+        // // console.log('touched pass-fail');
 
         if(task.pass_fail){
             task.pass_fail = false;
@@ -52,15 +52,25 @@ angular.module('field_guide_controls')
             task.pass_fail = true;
         }
 
-        // console.log($scope.task);
+        // // console.log($scope.task);
     };
 
-    $scope.show = function (msg_id, selected_obj) {
+    $scope.show = function (msg_id) {
         // if a message's _id matches any value in the _messages list of .selected, return.
-        if(selected_obj._messages.indexOf(msg_id) >= 0){
+        // console.log($scope.selected);
+        if($scope.selected._messages.indexOf(msg_id) >= 0){
             return true;
         }
-        
+    };
+
+    $scope.showTest = function (msg_id) {
+        // if a message's _id matches any value in the _messages list of .selected, return.
+        if($scope.selectedTag){
+            // console.log($scope.selectedTag);
+            if($scope.selectedTag._messages.indexOf(msg_id) >= 0){
+                return true;
+            }
+        }
     };
 
     // SAVE MESSAGE functions  ============================
@@ -74,7 +84,7 @@ angular.module('field_guide_controls')
             return true;
         }
 
-        // console.log('false', $scope.subject);
+        // // console.log('false', $scope.subject);
         return false;
     };
 
@@ -118,7 +128,7 @@ angular.module('field_guide_controls')
         $scope.tags[$scope.selectedTag.index].summarized = true;
         $scope.selectedTag.summarized = true;
 
-        // console.log($scope.tags);
+        // // console.log($scope.tags);
     };
 
     //  TEST FUNCTIONS ====================================
@@ -136,21 +146,21 @@ angular.module('field_guide_controls')
     
         $scope.messages = _.map($scope.messages, function(val, key){ return val; });
         
-        console.log('messages', $scope.messages[0]);
+        // console.log('messages', $scope.messages[0]);
 
         var url = '/api/summary/'+ $stateParams._id;
         var data_out = {test: $scope.test, tags:$scope.tags, tasks:$scope.tasks, messages:$scope.messages[0]} ;
         
-        console.log(data_out);
+        // console.log(data_out);
         
         $http.put(url, data_out)
             .success(function(data){
-                console.log(data);
+                // console.log(data);
 
                 $location.path('/overview');
             })
             .error(function(data){
-                // console.log('er;ror', data);
+                // // console.log('er;ror', data);
             });        
 
     };
