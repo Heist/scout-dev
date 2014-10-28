@@ -47,7 +47,8 @@
 				<div class="message-details">&nbsp;</div>
 
 				<div class="message-body">
-					<p ng-bind-html="message.body | hashtag"></p>
+					<p ng-bind-html="message.body | hashtag" ng-click="editMessage(message, $index)" ng-hide="messageEditToggle == message._id"></p>
+					<input ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}" ng-blur="saveEdit(message)"></input>
 					<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 				</div>
 

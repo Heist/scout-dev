@@ -107,6 +107,7 @@ module.exports = function (app, passport) {
                     msg._id, 
                     { 'fav_task' : msg.fav_task,
                     'fav_tag'  : msg.fav_tag,
+                    'body'  : msg.body,
                     }, 
                     function(err, mess){
                         if(err){res.send(err);}
