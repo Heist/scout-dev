@@ -142,6 +142,8 @@ module.exports = function(app){
     app.route('/api/invite/:_id')
         .post(function(req,res){
             // this is to resend an invitation already sent!
+            console.log(req.user.name);
+            console.log(req.body);
 
             Invitation.findById(req.params._id).exec(function(err,doc){
                 
@@ -150,8 +152,9 @@ module.exports = function(app){
 
                 var envelope_options = {
                     to: {
-                        email: doc.user_email
+                        email: doc.user_email,
                     },
+                    author: req.user.name,
                     subject: "Invite from Field Guide",
                     template: "invite"
                 };
