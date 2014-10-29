@@ -4,7 +4,7 @@
 			<h4>&ldquo;{{test.name}}&rdquo; summary</h4>
 			<p>Add a summary for this test to capture any notable outcomes, directions, or action items.</p>
 			
-			<textarea class="input" id="field-textarea" placeholder="A top-level summary of this test." ng-model="test.summary"></textarea>
+			<textarea class="input" id="field-textarea" placeholder="A top-level summary of this test." ng-model="test.summary" ng-blur="saveTestSummary(test)"></textarea>
 	</div>
 </div>
 

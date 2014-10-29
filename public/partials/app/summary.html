@@ -40,6 +40,7 @@
 					<li class="question" ng-repeat="task in tasks | orderBy : 'index'" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(task, $index)">
 						
 						<h3>{{task.name}}</h3>
+
 						<p>{{task.desc}}</p>
 						
 					</li>

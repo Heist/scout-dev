@@ -105,5 +105,19 @@ app.route('/api/message/:_id')
                 // console.log(msg)
                 res.json(msg);
             });
+    })
+    .put(function(req, res){
+
+        var update = {
+            fav_task : req.body.fav_task, 
+            fav_tag : req.body.fav_tag,
+            body : req.body.body
+        };
+
+        Message.findOneAndUpdate({'_id' : req.params._id}, update, function(err, msg){
+            if(err){return console.log(err);}
+            res.json(msg);
+        });
+
     });
 };

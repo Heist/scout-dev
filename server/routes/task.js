@@ -71,23 +71,23 @@ app.route('/api/task/:_id')
 
         Task.findById(req.params._id)
             .exec(function(err, task){
-                if (err) res.send(err);
+                if (err) {res.send(err);}
 
-                if(req.body.name){task.name = req.body.name}
-                if(req.body.desc){task.desc = req.body.desc}
-                if(req.body._test){task._test = req.body._test}
-                if(req.body.index){task.index = req.body.index}
-                if(req.body._session){task._session = req.body._session}
-                if(req.body._subject){task._subjects.push(req.body._subject)}
+                if(req.body.name){task.name = req.body.name;}
+                if(req.body.summary){task.summary = req.body.summary;}
+                if(req.body.desc){task.desc = req.body.desc;}
+                if(req.body._test){task._test = req.body._test;}
+                if(req.body.index){task.index = req.body.index;}
+                if(req.body._session){task._session = req.body._session;}
+                if(req.body._subject){task._subjects.push(req.body._subject);}
 
                 task.save(function(err,task){
                     if(err){res.send(err);}
 
                     // console.log('updated task', task);
                     res.json(task);
-                })
-
-        })
+                });
+        });
     })
 
     // delete a task

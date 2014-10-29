@@ -52,7 +52,8 @@ angular.module('field_guide_controls')
             task.pass_fail = true;
         }
 
-        // // console.log($scope.task);
+        $scope.saveTaskSummary(task);
+        
     };
 
     $scope.show = function (msg_id) {
@@ -94,6 +95,12 @@ angular.module('field_guide_controls')
         } else if (!message.fav_task){
             message.fav_task = true;
         }
+
+        $http
+            .put('/api/message/'+message._id, message)
+            .success(function(err, msg){
+                console.log('msg_success');
+            });
     };
 
     $scope.saveFavTag = function(message){
@@ -102,8 +109,12 @@ angular.module('field_guide_controls')
         } else if (!message.fav_tag){
             message.fav_tag = true;
         }
-        
-        // TODO: when we change screens, save all messages with message.fav_task = true
+
+        $http
+            .put('/api/message/'+message._id, message)
+            .success(function(err, msg){
+                console.log('msg_success');
+            });
     };
 
     $scope.editMessage = function(message, index){
@@ -112,6 +123,12 @@ angular.module('field_guide_controls')
 
     $scope.saveEdit = function(message){
         $scope.messageEditToggle = false;
+
+        $http
+            .put('/api/message/'+message._id, message)
+            .success(function(err, msg){
+                console.log('msg_success');
+            });
     };
 
     // TAG FUNCTIONS ======================================
@@ -132,14 +149,37 @@ angular.module('field_guide_controls')
     };
 
     $scope.saveTagSummary = function(){
-        $scope.tags[$scope.selectedTag.index].summary = $scope.selectedTag.summary;
-        $scope.tags[$scope.selectedTag.index].summarized = true;
+        var tag = $scope.tags[$scope.selectedTag.index];
+        tag.summary = $scope.selectedTag.summary;
+        tag.summarized = true;
         $scope.selectedTag.summarized = true;
 
-        // // console.log($scope.tags);
+        $http
+            .put('/api/tag/'+ tag._id, tag)
+            .success(function(err, tag){
+                console.log('tag_success');
+            });
+
+    };
+
+    // TASK FUNCTIONS =====================================
+    $scope.saveTaskSummary = function(task){
+        $http
+            .put('/api/task/'+ task._id, task)
+            .success(function(err, task){
+                console.log('task_success');
+            });
     };
 
     //  TEST FUNCTIONS ====================================
+
+    $scope.saveTestSummary = function(test){
+        $http
+            .put('/api/test/'+ test._id, test)
+            .success(function(err, test){
+                console.log('test_success');
+            });
+    };
 
     $scope.completeSummary = function(){
         // post all the summary changes to the test
@@ -153,8 +193,12 @@ angular.module('field_guide_controls')
         var msg_arr = [];
     
         $scope.messages = _.map($scope.messages, function(val, key){ return val; });
-        
-        // console.log('messages', $scope.messages[0]);
+    
+        // Error with multiple users - messages do not save properly. This needs to be 
+        // refactored to saved when fav hit _regardless_.
+
+
+        console.log('messages', $scope.messages);
 
         var url = '/api/summary/'+ $stateParams._id;
         var data_out = {test: $scope.test, tags:$scope.tags, tasks:$scope.tasks, messages:$scope.messages[0]} ;

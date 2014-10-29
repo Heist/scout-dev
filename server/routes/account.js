@@ -11,7 +11,7 @@ module.exports = function(app){
 
     var User    = require('../models/auth/user');
     var Invitation = require('../models/auth/invitation');
-    var nodemailer = require('nodemailer');
+    var Emailer  = require('../models/mailer');
 
     //if there's a user, get a user
     // if there's an account, get the users attached to that account
@@ -108,71 +108,69 @@ module.exports = function(app){
                 console.log('invite', invite);
                 res.json(invite);
 
-                 // var transporter = nodemailer.createTransport({
-                 //        service: 'Mandrill',
-                 //        auth: {
-                 //            user: 'mandrill@fieldguideapp.com',
-                 //            pass: 'jvVhe4uJxHB7MFfHabelbg'
-                 //        },
-                 //        host:           "smtp.mandrillapp.com",
-                 //        port:           587
-                 //    });
+                var envelope_options = {
+                    to: {
+                        email: invite.user_email,
+                    },
+                    author: invite._account,
+                    subject: "Invite from Field Guide",
+                    template: "invite"
+                };
 
-                 //    var mailOptions = {
-                 //        from: 'Field Guide Invitations <invite@fieldguide.com>', // sender address
-                 //        to: invite.user_email, // list of receivers
-                 //        subject: 'Hello ✔ Welcome to Field Guide', // Subject line
-                 //        text: 'Hello world ✔', // plaintext body
-                 //        html: '<a href="http://"'+app.locals.real_url+'/>Sign up for Field Guide!</a>' // html body
-                 //    };
+                var message_variables = {
+                    created_by: "Field Guide",
+                    invite_link: app.locals.real_url+'/login/'+invite._account
+                };
 
+                var mailer = new Emailer(envelope_options, message_variables);
 
-                 //    transporter.sendMail(mailOptions, function(error, info){
-                 //        if(error){
-                 //            console.log(error);
-                 //        }else{
-                 //            console.log('Message sent: ' + info.response);
-                 //        }
-                 //    });
+                mailer.send(function(err, result) {
+                    if (err) {
+                        return console.log(err);
+                    }else{
+                        console.log('Message sent: ' + result.response);
+                    }
+                });
 
             });
         });
 
     app.route('/api/invite/:_id')
         .post(function(req,res){
+            // this is to resend an invitation already sent!
+            console.log(req.user.name);
+            console.log(req.body);
+
             Invitation.findById(req.params._id).exec(function(err,doc){
                 
                 console.log('invite', doc);
                 res.json(doc);
 
-                // var transporter = nodemailer.createTransport({
-                 //        service: 'Mandrill',
-                 //        auth: {
-                 //            user: 'mandrill@fieldguideapp.com',
-                 //            pass: 'jvVhe4uJxHB7MFfHabelbg'
-                 //        },
-                 //        host:           "smtp.mandrillapp.com",
-                 //        port:           587
-                 //    });
+                var envelope_options = {
+                    to: {
+                        email: doc.user_email,
+                    },
+                    author: req.user.name,
+                    subject: "Invite from Field Guide",
+                    template: "invite"
+                };
 
-                 //    var mailOptions = {
-                 //        from: 'Field Guide Invitations <invite@fieldguide.com>', // sender address
-                 //        to: 'tom@heistmade.com, alex.leitch@gmail.com', // list of receivers
-                 //        subject: 'Hello ✔ Welcome to Field Guide', // Subject line
-                 //        text: 'Hello world ✔', // plaintext body
-                 //        html: '<b>Hello world ✔</b>' // html body
-                 //    };
+                var message_variables = {
+                    created_by: "Field Guide",
+                    invite_link: app.locals.real_url+'/login/'+req.body._account
+                };
 
+                var mailer = new Emailer(envelope_options, message_variables);
 
-                 //    transporter.sendMail(mailOptions, function(error, info){
-                 //        if(error){
-                 //            console.log(error);
-                 //        }else{
-                 //            console.log('Message sent: ' + info.response);
-                 //        }
-                 //    });
+                mailer.send(function(err, result) {
+                    if (err) {
+                        return console.log(err);
+                    }else{
+                        console.log('Message sent: ' + result.response);
+                    }
+                });
 
-            })
+            });
         })
         .delete(function(req,res){
             console.log(req.params._id);
