@@ -8,12 +8,12 @@ var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN T
 var _ = require('underscore');
 
 // load data storage models
-var Message = require('../models/data/message');
-var Task    = require('../models/data/task');
-var Test    = require('../models/data/test');
-var Tag     = require('../models/data/tag');
-var Session = require('../models/data/session');
-var Subject = require('../models/data/subject');
+    var Message = require('../models/data/message');
+    var Task    = require('../models/data/task');
+    var Test    = require('../models/data/test');
+    var Tag     = require('../models/data/tag');
+    var Session = require('../models/data/session');
+    var Subject = require('../models/data/subject');
 
 // TAG ROUTES ================================================
     app.route('/api/tag/')
@@ -22,8 +22,8 @@ var Subject = require('../models/data/subject');
                     if(err){res.send(err);}
 
                     res.json(tags);
-                })
-            });
+                });
+        });
 
     app.route('/api/tag/:_id')
         .get(function(req,res){
@@ -32,10 +32,21 @@ var Subject = require('../models/data/subject');
                     if(err){res.send(err);}
 
                     res.json(tags);
-                })
+                });
         })
         .post(function(req,res){
             // console.log('tag post touched')
-            res.json('tag post touched')
-        });
-}
+            res.json('tag post touched');
+        })
+        .put(function(req, res){
+            var update = {
+                summary : req.body.summary, 
+                summarized : req.body.summarized,
+            };
+
+            Tag.findOneAndUpdate({'_id' : req.params._id}, update, function(err, tag){
+                if(err){return console.log(err);}
+                res.json(tag);
+            });
+        });        
+};

@@ -122,7 +122,7 @@ angular.module('field_guide_controls')
 
     $scope.saveEdit = function(message){
         $scope.messageEditToggle = false;
-        
+
         $http
             .put('/api/message/'+message._id, message)
             .success(function(err, msg){
@@ -148,11 +148,17 @@ angular.module('field_guide_controls')
     };
 
     $scope.saveTagSummary = function(){
-        $scope.tags[$scope.selectedTag.index].summary = $scope.selectedTag.summary;
-        $scope.tags[$scope.selectedTag.index].summarized = true;
+        var tag = $scope.tags[$scope.selectedTag.index];
+        tag.summary = $scope.selectedTag.summary;
+        tag.summarized = true;
         $scope.selectedTag.summarized = true;
 
-        // // console.log($scope.tags);
+        $http
+            .put('/api/tag/'+ tag._id, tag)
+            .success(function(err, tag){
+                console.log('tag_success');
+            });
+
     };
 
     //  TEST FUNCTIONS ====================================
