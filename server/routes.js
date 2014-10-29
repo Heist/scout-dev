@@ -136,7 +136,7 @@ app.route('/debug/message')
             });
     });
 
-app.route('/debug/tag/')
+app.route('/debug/tag')
         .get(function(req,res){
             Tag.find(function(err, docs) {
                     if(err){res.send(err);}
@@ -145,7 +145,7 @@ app.route('/debug/tag/')
                 });
         });
 
-app.route('/debug/user/')
+app.route('/debug/user')
         .get(function(req,res){
             User.find(function(err, users) {
                     if(err){res.send(err);}
@@ -154,7 +154,7 @@ app.route('/debug/user/')
                 });
         });
 
-app.route('/debug/invite/')
+app.route('/debug/invite')
         .get(function(req,res){
             Invitation.find(function(err, invites) {
                     if(err){res.send(err);}

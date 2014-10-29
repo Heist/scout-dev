@@ -94,6 +94,12 @@ angular.module('field_guide_controls')
         } else if (!message.fav_task){
             message.fav_task = true;
         }
+
+        $http
+            .put('/api/message/'+message._id, message)
+            .success(function(err, msg){
+                console.log('msg_success');
+            });
     };
 
     $scope.saveFavTag = function(message){
@@ -102,8 +108,12 @@ angular.module('field_guide_controls')
         } else if (!message.fav_tag){
             message.fav_tag = true;
         }
-        
-        // TODO: when we change screens, save all messages with message.fav_task = true
+
+        $http
+            .put('/api/message/'+message._id, message)
+            .success(function(err, msg){
+                console.log('msg_success');
+            });
     };
 
     $scope.editMessage = function(message, index){
@@ -112,6 +122,12 @@ angular.module('field_guide_controls')
 
     $scope.saveEdit = function(message){
         $scope.messageEditToggle = false;
+        
+        $http
+            .put('/api/message/'+message._id, message)
+            .success(function(err, msg){
+                console.log('msg_success');
+            });
     };
 
     // TAG FUNCTIONS ======================================
@@ -156,7 +172,8 @@ angular.module('field_guide_controls')
     
         // Error with multiple users - messages do not save properly. This needs to be 
         // refactored to saved when fav hit _regardless_.
-                
+
+
         console.log('messages', $scope.messages);
 
         var url = '/api/summary/'+ $stateParams._id;
