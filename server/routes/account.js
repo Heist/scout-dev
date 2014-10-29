@@ -12,7 +12,6 @@ module.exports = function(app){
     var User    = require('../models/auth/user');
     var Invitation = require('../models/auth/invitation');
     var Emailer  = require('../models/mailer');
-    var nodemailer = require('nodemailer');
 
     //if there's a user, get a user
     // if there's an account, get the users attached to that account
