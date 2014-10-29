@@ -11,6 +11,7 @@ module.exports = function(app){
 
     var User    = require('../models/auth/user');
     var Invitation = require('../models/auth/invitation');
+    var Emailer  = require('../models/mailer');
     var nodemailer = require('nodemailer');
 
     //if there's a user, get a user
@@ -145,29 +146,29 @@ module.exports = function(app){
                 console.log('invite', doc);
                 res.json(doc);
 
-                var mailOptions = {
-                    from: 'Field Guide Invitations <invite@fieldguide.com>', // sender address
-                    to: 'tom@heistmade.com, alex.leitch@gmail.com', // list of receivers
-                    subject: 'Hello ✔ Welcome to Field Guide', // Subject line
-                    text: 'Hello world ✔', // plaintext body
-                    html: {path : '../templates/mail-html.html'}
+                var options = {
+                    to: {
+                        email: "username@domain.com",
+                        name: "Rick",
+                        surname: "Roll",
+                        subject: "Invite from Field Guide",
+                        template: "mail-html"
+                    }
                 };
 
-                var transporter = nodemailer.createTransport({
-                        service: 'Mandrill',
-                        auth: {
-                            user: 'mandrill@fieldguideapp.com',
-                            pass: 'jvVhe4uJxHB7MFfHabelbg'
-                        },
-                        host:           "smtp.mandrillapp.com",
-                        port:           587
-                    });
+                var data = {
+                    name: "Rick",
+                    surname: "Roll",
+                    id: "3434_invite_id"
+                };
 
-                transporter.sendMail(mailOptions, function(error, info){
-                    if(error){
-                        console.log(error);
+                var mailer = new Emailer(options, data);
+
+                mailer.send(function(err, result) {
+                    if (err) {
+                        return console.log(err);
                     }else{
-                        console.log('Message sent: ' + info.response);
+                        console.log('Message sent: ' + result.response);
                     }
                 });
 

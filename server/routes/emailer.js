@@ -52,7 +52,7 @@ Emailer = (function() {
 
     Emailer.prototype.getHtml = function(templateName, data) {
         var encoding, templateContent, templatePath;
-        templatePath = "./views/emails/" + templateName + ".html";
+        templatePath = "../template/" + templateName + ".html";
         templateContent = fs.readFileSync(templatePath, encoding = "utf8");
         return _.template(templateContent, data, {
             interpolate: /\{\{(.+?)\}\}/g
