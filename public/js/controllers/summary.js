@@ -52,7 +52,8 @@ angular.module('field_guide_controls')
             task.pass_fail = true;
         }
 
-        // // console.log($scope.task);
+        $scope.saveTaskSummary(task);
+        
     };
 
     $scope.show = function (msg_id) {
@@ -161,7 +162,24 @@ angular.module('field_guide_controls')
 
     };
 
+    // TASK FUNCTIONS =====================================
+    $scope.saveTaskSummary = function(task){
+        $http
+            .put('/api/task/'+ task._id, task)
+            .success(function(err, task){
+                console.log('task_success');
+            });
+    };
+
     //  TEST FUNCTIONS ====================================
+
+    $scope.saveTestSummary = function(test){
+        $http
+            .put('/api/test/'+ test._id, test)
+            .success(function(err, test){
+                console.log('test_success');
+            });
+    };
 
     $scope.completeSummary = function(){
         // post all the summary changes to the test

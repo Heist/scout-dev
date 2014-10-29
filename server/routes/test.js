@@ -147,20 +147,21 @@ app.route('/api/test/:_id')
             .exec(function(err,test){
                 // // console.log('touched test update', test)
                 
-                if(req.body.name){test.name = req.body.name}
-                if(req.body.desc){test.desc = req.body.desc}
-                if(req.body.platform){test.platform = req.body.platform}
-                if(req.body._tasks){test._tasks = tasks}
-                if(req.body.link){test.link = req.body.link}
-                if(req.body.subject){test._subjects.push(req.body.subject)}
+                if(req.body.name){test.name = req.body.name;}
+                if(req.body.summary){test.name = req.body.summary;}
+                if(req.body.desc){test.desc = req.body.desc;}
+                if(req.body.platform){test.platform = req.body.platform;}
+                if(req.body._tasks){test._tasks = tasks;}
+                if(req.body.link){test.link = req.body.link;}
+                if(req.body.subject){test._subjects.push(req.body.subject);}
                 
                 // console.log(test);
 
                 test.save(function(err, data){
-                    if (err) res.send(err);
+                    if (err){res.send(err);}
 
                     res.json(data);
-                })
+                });
             });
     })
 
