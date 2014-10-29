@@ -36,10 +36,11 @@
 					
 					<!-- put in a placeholder title to delineate tasks -->
 					<li class="empty"><small>Tasks</small></li>
-						
-					<li class="question" ng-repeat="task in tasks" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(task, $index)">
-						
-						<h3>{{task.name}}</h3>
+					
+					<!-- TODO: orderby task.index -->
+					<li class="question" ng-repeat="task in tasks | orderBy : 'index' " ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(task, $index)">
+							
+						<h3>{{task.name}} {{task.index}}</h3>
 						<p>{{task.desc}}</p>
 						
 					</li>

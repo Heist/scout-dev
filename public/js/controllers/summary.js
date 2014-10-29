@@ -153,8 +153,11 @@ angular.module('field_guide_controls')
         var msg_arr = [];
     
         $scope.messages = _.map($scope.messages, function(val, key){ return val; });
-        
-        // console.log('messages', $scope.messages[0]);
+    
+        // Error with multiple users - messages do not save properly. This needs to be 
+        // refactored to saved when fav hit _regardless_.
+                
+        console.log('messages', $scope.messages);
 
         var url = '/api/summary/'+ $stateParams._id;
         var data_out = {test: $scope.test, tags:$scope.tags, tasks:$scope.tasks, messages:$scope.messages[0]} ;
