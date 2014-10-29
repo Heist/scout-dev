@@ -183,7 +183,7 @@ app.route('/api/report/:_id')
             reply.test = test;
 
             return Task.find({'_test':req.params._id})
-                        .select('_id summary name pass_fail desc _messages')
+                        .select('_id summary name pass_fail desc _messages index')
                         .exec();
 
         }).then(function(tasks){

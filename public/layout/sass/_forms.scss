@@ -91,7 +91,41 @@ textarea.input {
 	&.header {
 		@include button-colour($white, $fg-header-red);
 	}
+
 }
+
+
+/* Do some stuff to deal with the reprehensible state of 'select' elements */
+.input-select {
+    border: 1px solid $line;
+    width: 100%;
+    @include radius;
+    overflow: hidden;
+    background: $white url("/layout/assets/select-arrow.svg") no-repeat 97% 50%;
+    background-size: auto 18%;
+    
+	select {
+        padding: $pad/2 $pad/1.5;
+		width: 100%;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+        background-image: none;
+        -webkit-appearance: none;
+        @include type-regular;
+        font-size: $type-size-base;
+        outline: none;
+        border: none;
+        
+		&:focus {
+            outline: none;
+        }
+    }
+    
+}
+
+
+
 
 
 

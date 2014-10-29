@@ -1,17 +1,19 @@
 <!-- report_steps -->
+	
+	<div class="task-score green inverted" ng-show="selected.pass_fail == true">Passed</div>
+	<div class="task-score red inverted" ng-show="selected.pass_fail == false">Needs work</div>
+		
+	<h2>{{selected.name}}</h2>
 
 	
-	<h2>{{selected.name}}
-		<button class="task-score green" ng-show="user.trello" ng-click="sendCardToTrello()">Send to Trello?</button>
-		<div class="task-score green" ng-show="selected.pass_fail == true">Passed</div>
-		<div class="task-score red" ng-show="selected.pass_fail == false">Needs work</div>
-
-	</h2>
-
+	<div class="clear"></div>
 	
-	<!--<p>{{selected.desc}}</p>-->
+	<div class="float-right"><button class="button small" ng-show="user.trello" ng-click="sendCardToTrello()">Send to Trello</button></div>
 	
-	<p>{{selected.summary}}</p>
+	
+	<p><strong>Talking points:</strong> {{selected.desc}}</p>
+	
+	<p><strong>Results:</strong> {{selected.summary}}</p>
 			
 	<div class="message-group report-messages">
 	
@@ -28,4 +30,3 @@
 		</div>
 	
 	</div>
-

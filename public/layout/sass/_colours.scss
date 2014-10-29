@@ -49,6 +49,7 @@ $text-light: transparentize($text, 0.7);
 $background: $fg-cream;
 $background-dark: darken($background, 5%);
 
+$modal-bg: transparentize($fg-slate, 0.2);
 
 $link: $fg-green;
 $link-hover: darken($link, 7%);

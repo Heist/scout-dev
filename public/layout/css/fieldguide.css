@@ -154,6 +154,11 @@ textarea.input { line-height: 24px; }
 .button.header { background: white; color: #f37960; text-decoration: none; }
 .button.header:hover { background: #f7f7f7; color: #f37960; text-decoration: none; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
 
+/* Do some stuff to deal with the reprehensible state of 'select' elements */
+.input-select { border: 1px solid #e7e7da; width: 100%; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; overflow: hidden; background: white url("/layout/assets/select-arrow.svg") no-repeat 97% 50%; background-size: auto 18%; }
+.input-select select { padding: 10px 13.33333px; width: 100%; border: none; box-shadow: none; background: transparent; background-image: none; -webkit-appearance: none; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; font-size: 16px; outline: none; border: none; }
+.input-select select:focus { outline: none; }
+
 label { padding: 0; margin: 0; font-size: 11.2px; opacity: 0.5; text-transform: uppercase; }
 
 /* replace radio butts and checkboxes */
@@ -302,19 +307,10 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 
 /* style up task scores when we're look at reports */
 #view-report #sidebar h3 { display: inline-block; margin: 0; width: 90%; }
-#view-report #sidebar .task-score { width: 12px; height: 12px; }
+#view-report #sidebar .task-score { width: 12px; height: 12px; float: right; display: block; }
 
 /* specific views */
-/* styles for things */
-#view-observer-login { background: #2e2723; background-size: cover; color: white; }
-#view-observer-login input, #view-observer-login button { width: 100%; }
-#view-observer-login #logo { margin: 0 0 20px 0; }
-#view-observer-login #logo img { width: auto; height: 30px; }
-#view-observer-login form { padding-top: 20px; }
-#view-observer-login #form-observer-login { margin: 40px 0 0 0; padding: 20px 20px 0 20px; background: rgba(46, 39, 35, 0.7); -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
-#view-observer-login p { font-size: 12.8px; margin: 0; padding: 0; }
-#view-observer-login h2 { padding: 0; margin: 0; }
-
+/* styles for bits */
 /* how we style notes within summaries and reports */
 .message-group { margin: 0; padding: 10px 0 0 0; }
 .message-group.report-messages { border-top: 1px solid #e7e7da; padding: 20px 0 0 0; }
@@ -343,9 +339,11 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 .task-rating .button.hollow { opacity: 0.3; }
 
 /* task rating output */
-.task-score { -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; float: right; margin: 5px 0 0 0; }
+.task-score { -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; margin: 5px 0 0 0; }
 .task-score.green { background: #71901f; }
+.task-score.green.inverted { border: 2px solid #86aa25; color: #86aa25 !important; background: white; }
 .task-score.red { background: #f37960; }
+.task-score.red.inverted { border: 2px solid #f37960; color: #f37960 !important; background: white; }
 
 /* error messaging */
 .messaging { width: 100%; padding: 10px; margin: 0 0 10px 0; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; text-align: center; }
@@ -359,7 +357,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-login #logo img { width: 70px; height: auto; }
 #view-login .messaging { border: 1px solid rgba(255, 255, 255, 0.25); }
 
-/*#form-signup {}*/
+#form-signup { display: none; }
 
 /* overview screen */
 #view-overview { margin: 0; padding: 50px 0 0 0; }
@@ -371,8 +369,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-overview #overview-tests .overview-test .test-info { padding: 13.33333px 10px; text-align: center; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); -webkit-border-bottom-right-radius: 4px; -webkit-border-bottom-left-radius: 4px; -moz-border-radius-bottomright: 4px; -moz-border-radius-bottomleft: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; font-size: 12.8px; position: relative; }
 #view-overview #overview-tests .overview-test .test-info:hover .removeTest { display: block; }
 #view-overview #overview-tests .overview-test .test-info .removeTest { font-size: 32px; position: absolute; bottom: 2px; right: 4px; text-decoration: none; display: none; }
-#view-overview #overview-tests .overview-test .test-info .removeTest a { font-size: 32px; text-decoration:none;}
-#view-overview #overview-tests .overview-test .test-info .removeTest a:hover { color: #b5213c; text-decoration:none;}
+#view-overview #overview-tests .overview-test .test-info .removeTest:hover { color: #b5213c; }
 #view-overview #overview-tests .overview-test .test-info a { text-decoration: underline; }
 #view-overview #overview-tests .overview-test .test-info h4 { color: #323539; margin: 0; }
 
@@ -413,10 +410,20 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-testing .middle-pane #session-input textarea { width: 100%; height: 100%; margin: 0; }
 
 /* WHO ARE WE TESTING */
-#view-testing-userentry { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; background: rgba(66, 71, 76, 0.94); z-index: 999999999; color: white; margin: 0; padding: 0; text-align: center; }
+#view-testing-userentry { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; background: rgba(66, 71, 76, 0.8); z-index: 999999999; color: white; margin: 0; padding: 0; text-align: center; }
 #view-testing-userentry .input, #view-testing-userentry .button { width: 100%; }
 #view-testing-userentry img { height: 40px; width: auto; }
 #view-testing-userentry #user-entry { width: 28%; display: block; padding: 15% 0 0 0; margin: 0 auto; }
+
+/* observer login */
+#view-observer-login { background: #2e2723; background-size: cover; color: white; }
+#view-observer-login input, #view-observer-login button { width: 100%; }
+#view-observer-login #logo { margin: 0 0 20px 0; }
+#view-observer-login #logo img { width: auto; height: 30px; }
+#view-observer-login form { padding-top: 20px; }
+#view-observer-login #form-observer-login { margin: 40px 0 0 0; padding: 20px 20px 0 20px; background: rgba(46, 39, 35, 0.7); -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
+#view-observer-login p { font-size: 12.8px; margin: 0; padding: 0; }
+#view-observer-login h2 { padding: 0; margin: 0; }
 
 /* THE SUMMARY */
 #view-summarizing { margin: 0; padding: 50px 0 0 0; }
@@ -436,8 +443,18 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 /* The report */
 #view-report { margin: 0; padding: 50px 0 0 0; /* report content */ }
 #view-report #report-container { padding: 40px 0; }
-#view-report .two-thirds .task-score { font-size: 12.8px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; text-transform: uppercase; letter-spacing: 0; color: white; padding: 5px 10px; }
+#view-report .two-thirds .task-score { font-size: 12.8px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; text-transform: uppercase; letter-spacing: 0; color: white; margin: 0; padding: 5px 10px; float: right; }
 #view-report .two-thirds h2 { padding-bottom: 20px; border-bottom: 1px solid #e7e7da; }
+
+/* export to tool */
+#report-export { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(66, 71, 76, 0.8); z-index: 99999999; }
+#report-export #report-export-modal { background: white; padding: 30px 40px 0 40px; margin: 10% 0 0 0; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; -moz-box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3); box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3); }
+#report-export #report-export-modal .input { width: 100%; }
+#report-export #report-export-modal li { padding: 10px 0; }
+#report-export #report-export-modal li:last-child { border: none; }
+#report-export #report-export-modal #report-export-modal-title { text-align: center; margin: 0; padding: 0 0 10px 0; }
+#report-export #report-export-modal #report-export-modal-title h3 { font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 300; }
+#report-export #report-export-modal #report-export-modal-title img { width: 30px; height: auto; margin: 0 0 5px 0; }
 
 /* everything account related */
 #view-account { margin: 0; padding: 50px 0 0 0; /* connected app styles */ /* end connected app styles */ /* team members */ }

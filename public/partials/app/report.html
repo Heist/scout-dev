@@ -31,7 +31,7 @@
 					
 					<li class="empty"><small>Tasks</small></li>
 					
-					<li ui-sref=".task" ng-click="select(task)" class="question" ng-class="{ 'active': task._id == selected._id}" ng-repeat="task in tasks" >
+					<li ui-sref=".task" ng-click="select(task)" class="question" ng-class="{ 'active': task._id == selected._id}" ng-repeat="task in tasks | orderBy : 'index'" >
 						<h3>{{task.name}}</h3>
 						<div class="task-score green" ng-show="task.pass_fail == true" >&nbsp;</div>
 						<div class="task-score red" ng-show="task.pass_fail == false">&nbsp;</div>
@@ -53,3 +53,70 @@
 	</div>
 		
 </div>
+
+
+
+
+
+
+
+<!-- fire'er off to third party PM tools -->
+
+<div id="report-export">
+
+		<div class="module third">&nbsp;</div>
+		
+		<div class="module third" id="report-export-modal">
+			
+			<div id="report-export-modal-title">
+				<img src="/layout/assets/app-trello.png" />
+				<h3>Export this task as a Trello card</h3>
+			</div>
+			
+			<ul class="nobullets lined" >
+				<li>
+					<label for="field-cardname">Card name</label>
+					<input class="input" type="text" id="field-cardname" placeholder="What do you want to name this card?" value="Test results - Task name" />
+				</li>
+				
+		
+				<li>
+					<label>What board?</label>
+					<div class="input-select">
+						<select>
+							<option>Choose a board</option>
+							<option>This is a board name</option>
+							<option>this is another board name also</option>
+							<option>This too is a board name
+						</select>
+					</option>
+				</li>
+				
+				<li>
+					<label>What list?</label>
+					<div class="input-select">
+						<select>
+							<option>Choose a list</option>
+							<option>these are the lists in the board I chose</option>
+							<option>So I guess some kind of ajax needs to happen</option>
+							<option>That's fun</option>
+						</select>
+					</div>
+				</li>
+				
+				<li class="text-center">
+					<button class="button small">Send to Trello</button>
+				</li>
+			
+			</ul>
+			
+		</div>
+		
+		<div class="clear"></div>
+</div>
+
+
+
+
+
+

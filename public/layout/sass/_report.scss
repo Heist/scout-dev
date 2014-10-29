@@ -12,13 +12,16 @@
 	
 	/* report content */
 	.two-thirds {
+	
 		.task-score {
 			font-size: $type-size-base*0.8;
 			@include type-bold;
 			text-transform: uppercase;
 			letter-spacing: 0;
 			color: $white;
+			margin: 0;
 			padding: $pad/4 $pad/2;
+			float: right;
 		}
 		
 		h2 {
@@ -28,4 +31,59 @@
 	}
 
 }
+
+/* export to tool */
+
+#report-export {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: $modal-bg;
+	z-index: 99999999;
+	
+	#report-export-modal {
+		background: $white;
+		padding: $pad*1.5 $pad*2 0 $pad*2;
+		margin: 10% 0 0 0;
+		@include radius;
+		@include dropshadowULTRA;
+		
+		.input {
+			width: 100%;
+		}
+			
+		li {
+			padding: $pad/2 0;
+			
+			&:last-child {
+				border: none;
+			}
+		}
+
+		
+		#report-export-modal-title {
+			text-align: center;
+			margin: 0;
+			padding: 0 0 $pad/2 0;
+			
+			h3 {
+				@include type-light;
+			}
+			
+			img {
+				width: 30px;
+				height: auto;
+				margin: 0 0 $pad/4 0;
+			}
+		}
+	}
+}
+
+
+
+
+
+
 
