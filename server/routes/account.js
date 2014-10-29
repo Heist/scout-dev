@@ -141,32 +141,37 @@ module.exports = function(app){
 
     app.route('/api/invite/:_id')
         .post(function(req,res){
+            // this is to resend an invitation already sent!
 
-            var data = req.body; 
-            console.log('invite data', data);
+            Invitation.findById(req.params._id).exec(function(err,doc){
+                
+                console.log('invite', doc);
+                res.json(doc);
 
-            // var invite = new Invitation();
-            
-             // send an e-mail to the invitee
-             // creating an invitation should be decoupled from sending an e-mail.
-             // lets me see what's going on better.
-            
-            // var options = {
-            //     to: {
-            //         email: this.email,
-            //         name: this.name,
-            //         surname: this.surname
-            //     },
-            //     subject: "Invitation from Field Guide",
-            //     template: "invite"
-            // };
-          
-            // var mail = new Emailer(options, this);
+                var envelope_options = {
+                    to: {
+                        email: doc.user_email
+                    },
+                    subject: "Invite from Field Guide",
+                    template: "invite"
+                };
 
-            // mail.send(function(err, result) {
-            //     if (err) { return console.log(err); }
-            // });
+                var message_variables = {
+                    created_by: "Field Guide",
+                    invite_link: app.locals.real_url+'/login/'+req.body._account
+                };
 
+                var mailer = new Emailer(envelope_options, message_variables);
+
+                mailer.send(function(err, result) {
+                    if (err) {
+                        return console.log(err);
+                    }else{
+                        console.log('Message sent: ' + result.response);
+                    }
+                });
+
+            });
         })
         .delete(function(req,res){
             console.log(req.params._id);

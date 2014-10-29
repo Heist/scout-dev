@@ -7,14 +7,14 @@ var _ = require("underscore");
 
 
 var Emailer = (function() {
-    function mail(options, data) {
-        this.options = options;
-        this.data = data;
+    function mail(envelope_options, message_variables) {
+        this.envelope_options = envelope_options;
+        this.message_variables = message_variables;
     }
+    
+    mail.prototype.envelope_options =  {};
 
-    mail.prototype.options = {};
-
-    mail.prototype.data = {};
+    mail.prototype.message_variables = {};
 
     mail.prototype.attachments = [{
             fileName: "logo.png",
@@ -24,12 +24,12 @@ var Emailer = (function() {
 
     mail.prototype.send = function(callback) {
         var attachments, html, messageData, transport;
-        html = this.getHtml(this.options.template, this.data);
+        html = this.getHtml(this.envelope_options.template, this.message_variables);
         attachments = this.getAttachments(html);
         messageData = {
-            to: "'" + this.options.to.name + " " + this.options.to.surname + "' <" + this.options.to.email + ">",
-            from: "'Field Guide'",
-            subject: this.options.subject,
+            to: "<" + this.envelope_options.to.email + ">",
+            from: this.envelope_options.author,
+            subject: this.envelope_options.subject,
             html: html,
             generateTextFromHTML: true,
             attachments: attachments
@@ -50,11 +50,11 @@ var Emailer = (function() {
             });
     };
 
-    mail.prototype.getHtml = function(templateName, data) {
+    mail.prototype.getHtml = function(templateName, message_variables) {
         var encoding, templateContent, templatePath;
         templatePath = "./views/emails/" + templateName + ".html";
         templateContent = fs.readFileSync(templatePath, encoding = "utf8");
-        return _.template(templateContent, data, {
+        return _.template(templateContent, message_variables, {
             interpolate: /\{\{(.+?)\}\}/g
         });
     };
