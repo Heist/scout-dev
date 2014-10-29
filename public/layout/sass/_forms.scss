@@ -101,7 +101,7 @@ textarea.input {
     width: 100%;
     @include radius;
     overflow: hidden;
-    background: $white url("/layout/assets/select-arrow.svg") no-repeat 97% 50%;
+    background: $white url("/layout/assets/select-arrow.svg") no-repeat calc(100% - 10px) 50%;
     background-size: auto 18%;
     
 	select {

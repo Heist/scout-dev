@@ -155,7 +155,7 @@ textarea.input { line-height: 24px; }
 .button.header:hover { background: #f7f7f7; color: #f37960; text-decoration: none; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
 
 /* Do some stuff to deal with the reprehensible state of 'select' elements */
-.input-select { border: 1px solid #e7e7da; width: 100%; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; overflow: hidden; background: white url("/layout/assets/select-arrow.svg") no-repeat 97% 50%; background-size: auto 18%; }
+.input-select { border: 1px solid #e7e7da; width: 100%; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; overflow: hidden; background: white url("/layout/assets/select-arrow.svg") no-repeat calc(100% - 10px) 50%; background-size: auto 18%; }
 .input-select select { padding: 10px 13.33333px; width: 100%; border: none; box-shadow: none; background: transparent; background-image: none; -webkit-appearance: none; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; font-size: 16px; outline: none; border: none; }
 .input-select select:focus { outline: none; }
 
