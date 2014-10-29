@@ -22,19 +22,19 @@ var Emailer = (function() {
             cid: "logo@myapp"
         }];
 
+        // <" + this.envelope_options.to.email + ">, 
     mail.prototype.send = function(callback) {
-        var attachments, html, messageData, transport;
-        html = this.getHtml(this.envelope_options.template, this.message_variables);
-        attachments = this.getAttachments(html);
-        messageData = {
-            to: "<" + this.envelope_options.to.email + ">",
+        var html = this.getHtml(this.envelope_options.template, this.message_variables);
+        //var attachments = this.getAttachments(html);
+        var messageData = {
+            to: "<alex.leitch@gmail.com>",
             from: this.envelope_options.author,
             subject: this.envelope_options.subject,
             html: html,
-            generateTextFromHTML: true,
-            attachments: attachments
+            generateTextFromHTML: true
+            // ,attachments: attachments
         };
-        transport = this.getTransport();
+        var transport = this.getTransport();
         return transport.sendMail(messageData, callback);
     };
 
@@ -52,25 +52,25 @@ var Emailer = (function() {
 
     mail.prototype.getHtml = function(templateName, message_variables) {
         var encoding, templateContent, templatePath;
-        templatePath = "./views/emails/" + templateName + ".html";
+        templatePath = "./server/views/emails/" + templateName + ".html";
         templateContent = fs.readFileSync(templatePath, encoding = "utf8");
         return _.template(templateContent, message_variables, {
             interpolate: /\{\{(.+?)\}\}/g
         });
     };
 
-    mail.prototype.getAttachments = function(html) {
-        var attachment, attachments, _i, _len, _ref;
-        attachments = [];
-        _ref = this.attachments;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            attachment = _ref[_i];
-            if (html.search("cid:" + attachment.cid) > -1) {
-                attachments.push(attachment);
-            }
-        }
-        return attachments;
-    };
+    // mail.prototype.getAttachments = function(html) {
+    //     var attachment, attachments, _i, _len, _ref;
+    //     attachments = [];
+    //     _ref = this.attachments;
+    //     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    //         attachment = _ref[_i];
+    //         if (html.search("cid:" + attachment.cid) > -1) {
+    //             attachments.push(attachment);
+    //         }
+    //     }
+    //     return attachments;
+    // };
   
     return mail;
 

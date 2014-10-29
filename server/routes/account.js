@@ -109,32 +109,29 @@ module.exports = function(app){
                 console.log('invite', invite);
                 res.json(invite);
 
-                 // var transporter = nodemailer.createTransport({
-                 //        service: 'Mandrill',
-                 //        auth: {
-                 //            user: 'mandrill@fieldguideapp.com',
-                 //            pass: 'jvVhe4uJxHB7MFfHabelbg'
-                 //        },
-                 //        host:           "smtp.mandrillapp.com",
-                 //        port:           587
-                 //    });
+                var envelope_options = {
+                    to: {
+                        email: invite.user_email,
+                    },
+                    author: invite._account,
+                    subject: "Invite from Field Guide",
+                    template: "invite"
+                };
 
-                 //    var mailOptions = {
-                 //        from: 'Field Guide Invitations <invite@fieldguide.com>', // sender address
-                 //        to: invite.user_email, // list of receivers
-                 //        subject: 'Hello ✔ Welcome to Field Guide', // Subject line
-                 //        text: 'Hello world ✔', // plaintext body
-                 //        html: '<a href="http://"'+app.locals.real_url+'/>Sign up for Field Guide!</a>' // html body
-                 //    };
+                var message_variables = {
+                    created_by: "Field Guide",
+                    invite_link: app.locals.real_url+'/login/'+invite._account
+                };
 
+                var mailer = new Emailer(envelope_options, message_variables);
 
-                 //    transporter.sendMail(mailOptions, function(error, info){
-                 //        if(error){
-                 //            console.log(error);
-                 //        }else{
-                 //            console.log('Message sent: ' + info.response);
-                 //        }
-                 //    });
+                mailer.send(function(err, result) {
+                    if (err) {
+                        return console.log(err);
+                    }else{
+                        console.log('Message sent: ' + result.response);
+                    }
+                });
 
             });
         });
