@@ -24,6 +24,7 @@ var inviteSchema = new Schema({
 });
 
 inviteSchema.pre('save', function(next){
+    // set up the date
     var now = new Date();
     if ( !this.created ) {
         this.created = now;

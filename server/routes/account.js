@@ -141,38 +141,32 @@ module.exports = function(app){
 
     app.route('/api/invite/:_id')
         .post(function(req,res){
-            Invitation.findById(req.params._id).exec(function(err,doc){
-                
-                console.log('invite', doc);
-                res.json(doc);
 
-                var options = {
-                    to: {
-                        email: "username@domain.com",
-                        name: "Rick",
-                        surname: "Roll",
-                        subject: "Invite from Field Guide",
-                        template: "mail-html"
-                    }
-                };
+            var data = req.body; 
+            console.log('invite data', data);
 
-                var data = {
-                    name: "Rick",
-                    surname: "Roll",
-                    id: "3434_invite_id"
-                };
+            // var invite = new Invitation();
+            
+             // send an e-mail to the invitee
+             // creating an invitation should be decoupled from sending an e-mail.
+             // lets me see what's going on better.
+            
+            // var options = {
+            //     to: {
+            //         email: this.email,
+            //         name: this.name,
+            //         surname: this.surname
+            //     },
+            //     subject: "Invitation from Field Guide",
+            //     template: "invite"
+            // };
+          
+            // var mail = new Emailer(options, this);
 
-                var mailer = new Emailer(options, data);
+            // mail.send(function(err, result) {
+            //     if (err) { return console.log(err); }
+            // });
 
-                mailer.send(function(err, result) {
-                    if (err) {
-                        return console.log(err);
-                    }else{
-                        console.log('Message sent: ' + result.response);
-                    }
-                });
-
-            });
         })
         .delete(function(req,res){
             console.log(req.params._id);
