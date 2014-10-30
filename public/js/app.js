@@ -23,36 +23,15 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
     $httpProvider.defaults.timeout = 3000;
 
-    // New interceptor from http://stackoverflow.com/questions/21230417/capture-http-401-with-angular-js-interceptor
-    var interceptor = function ($q) {
-        return {
-            'response': function (response) {
-                //Will only be called for HTTP up to 300
-                // // console.log('response', response);
-                return response;
-            },
-            'responseError': function (rejection) {
-                if(rejection.status === 401) {
-                    window.location = '/login';
-                }
-                return $q.reject(rejection);
-            }
-        };
-    };
-
-
+    // TODO: this should probably be an Interceptor, but it works on load for now.
     function checkLoggedin($q, $timeout, $http, $location, $rootScope, $localStorage){ 
-        // Initialize a new promise 
-        // This is going to need to check in with Express to see if someone's session
-        // is still active. How?
         console.log('checkLoggedin $localStorage.user', $localStorage.user);
 
         // Make an AJAX call to check if the user is logged in
-
         if($localStorage.user){
             $rootScope.user = $localStorage.user;
         } else {
-            var deferred = $q.defer(); 
+        var deferred = $q.defer(); 
             $http
                 .get('/loggedin')
                 .success(function(user){
@@ -63,7 +42,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                         $localStorage.user = user;
                         $rootScope.user = $localStorage.user;
                     }
-    
+
                     // Not Authenticated 
                     else { 
                         // console.log('welp, that flunked', $location.url());
@@ -81,10 +60,8 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                     }
                 });
         }
+        
     }
-
-
-    $httpProvider.interceptors.push(interceptor);
 
     $urlRouterProvider.otherwise("/login");
     // $urlRouterProvider.otherwise("/overview");

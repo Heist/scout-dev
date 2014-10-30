@@ -174,7 +174,7 @@ app.route('/api/report/:_id')
     .get(function(req, res){
         // console.log('touched report get', req.params._id);
 
-        var t = new Trello ();
+        // var t = new Trello ();
 
         var test_id = mongoose.Types.ObjectId(req.params._id);
         var reply = {};
