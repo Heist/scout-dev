@@ -51,8 +51,8 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
         if($localStorage.user){
             $rootScope.user = $localStorage.user;
-
         } else {
+            var deferred = $q.defer(); 
             $http
                 .get('/loggedin')
                 .success(function(user){
@@ -66,15 +66,23 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     
                     // Not Authenticated 
                     else { 
-                        // console.log('welp, that flunked');
+                        // console.log('welp, that flunked', $location.url());
                         $rootScope.userNote = 'You need to log in.'; 
                         $timeout(function(){deferred.reject();}, 0);
-                        $localStorage.$reset;
-                        $location.url('/login');
+
+                        var loc = $location.url();
+                        var patt = new RegExp(/\/report/i);
+                        var isReport = patt.test(loc);
+
+                        $localStorage.$reset();
+                        if( !isReport){
+                            $location.url('/login');
+                        }
                     }
                 });
         }
     }
+
 
     $httpProvider.interceptors.push(interceptor);
 
