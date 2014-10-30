@@ -7,6 +7,7 @@ module.exports = function(app, passport) {
         // load all the things we need
     var LocalStrategy   = require('passport-local').Strategy;
     var TrelloStrategy = require('passport-trello').Strategy;
+    var bcrypt = require('bcrypt-nodejs');
 
     // load up the user model
     var User = require('../server/models/auth/user');
@@ -79,6 +80,10 @@ module.exports = function(app, passport) {
         
         console.log('new user signup account touched', req.body._account);
 
+        function generateHash(password) {
+            return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+        }
+
         // asynchronous
         process.nextTick(function() {
             // if the user is not already logged in:
@@ -87,14 +92,15 @@ module.exports = function(app, passport) {
                     // if there are any errors, return the error
                     if (err){return done(err);}
 
-                    console.log(user);
+                    console.log('found a user?', user);
                     // check to see if theres already a user with that email
                     if (user) {
                         return done(null, { error: 'That email is already taken.' });
                     } else {
+                        console.log('made it to signups', req.body);
 
                         var promise = 
-                            User.create({'local.email' : email , 'local.password' : User.generateHash(password)});
+                            User.create({'local.email' : email , 'local.password' : generateHash(password)});
 
                         promise.then(function(user){
                             // if there's an account - ie, this is by invitation
@@ -112,6 +118,8 @@ module.exports = function(app, passport) {
                                         return data;
                                     });
                                 });
+                            } else {
+                                return user;
                             }
 
                         }).then(function(data){

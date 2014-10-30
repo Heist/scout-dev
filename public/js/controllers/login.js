@@ -63,7 +63,7 @@ angular.module('field_guide_controls')
         $http
             .post(url, dataOut)
             .success(function(data){
-                // console.log('register controller success', data);
+                console.log('register controller success', data);
                 $rootScope.user = data.user;
                 $location.path(data.redirect);
             })
