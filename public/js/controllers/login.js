@@ -34,8 +34,8 @@ angular.module('field_guide_controls')
     };
 
     $scope.showReg = function(){
-        console.log('touched register', $scope.reg_toggle);
         $scope.reg_toggle = true;
+        console.log('touched register', $scope.reg_toggle);
     };
 
     $scope.showLogin = function(){
