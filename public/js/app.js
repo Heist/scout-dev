@@ -1,7 +1,7 @@
 // app.js
 'use strict';
 
-var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize','field_guide_controls','field_guide_filters']);
+var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize','ngStorage','field_guide_controls','field_guide_filters']);
 
 // function list for working with arrays
 
@@ -17,7 +17,7 @@ function keygen(){
 }
 
 // FRONT-END ROUTE CONFIGURATION ==============================================
-field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
+field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider, $localStorage,) {
 	
     $locationProvider.html5Mode(true);
 
@@ -41,13 +41,14 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     };
 
 
-    function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
+    function checkLoggedin($q, $timeout, $http, $location, $rootScope, $localStorage){ 
         // Initialize a new promise 
         // This is going to need to check in with Express to see if someone's session
         // is still active. How?
+        console.log('checkLoggedin $localStorage.user', $localStorage.user);
 
         var deferred = $q.defer(); 
-        // Make an AJAX call to check if the user is logged in 
+        // Make an AJAX call to check if the user is logged in
         $http
             .get('/loggedin')
             .success(function(user){
@@ -55,7 +56,8 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 if (user !== '0') {
                     console.log('yeah you logged in', user);
                     $timeout(deferred.resolve, 0);
-                    $rootScope.user = user;
+                    $localStorage.user = user;
+                    $rootScope.user = $localStorage.user;
                 }
 
                 // Not Authenticated 
@@ -68,32 +70,32 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             });
     }
 
-    function reportLogin($q, $timeout, $http, $location, $rootScope){ 
-        // Initialize a new promise 
-        // This is going to need to check in with Express to see if someone's session
-        // is still active. How?
+    // function reportLogin($q, $timeout, $http, $location, $rootScope){ 
+    //     // Initialize a new promise 
+    //     // This is going to need to check in with Express to see if someone's session
+    //     // is still active. How?
 
-        var deferred = $q.defer(); 
-        // Make an AJAX call to check if the user is logged in 
-        $http
-            .get('/loggedin')
-            .success(function(user){
-                // Authenticated - show authorized hookups
-                if (user !== '0') {
-                    // console.log('yeah you logged in', user);
-                    $timeout(deferred.resolve, 0);
-                    $rootScope.user = user.replace(/(^"|"$)/g, '');
-                    console.log('logged in user', $rootScope.user);
-                }
+    //     var deferred = $q.defer(); 
+    //     // Make an AJAX call to check if the user is logged in 
+    //     $http
+    //         .get('/loggedin')
+    //         .success(function(user){
+    //             // Authenticated - show authorized hookups
+    //             if (user !== '0') {
+    //                 // console.log('yeah you logged in', user);
+    //                 $timeout(deferred.resolve, 0);
+    //                 $rootScope.user = user.replace(/(^"|"$)/g, '');
+    //                 console.log('logged in user', $rootScope.user);
+    //             }
 
-                // Not Authenticated - send to public route
-                else { 
-                    console.log('user', user);
-                    $timeout(deferred.resolve, 0);
-                    console.log('no user', $rootScope.user);
-                }
-            });
-    }
+    //             // Not Authenticated - send to public route
+    //             else { 
+    //                 console.log('user', user);
+    //                 $timeout(deferred.resolve, 0);
+    //                 console.log('no user', $rootScope.user);
+    //             }
+    //         });
+    // }
 
     $httpProvider.interceptors.push(interceptor);
 
@@ -102,18 +104,23 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
 
     $stateProvider
-         // REMOTE SCREEN ==================================
+        // PUBLIC ROUTES
+         // REMOTE SCREEN =================================
         .state('remote', {
             url: '/remote',
             controller:'remote',
             templateUrl: 'partials/remote/remote.html'
         })    
+
+
+        // PRIVATE ROUTES =================================
+
         // REPORT PAGE FOR SINGLE test ====================
         .state('report', {
-            url: '/report/:test_id',
+            url: '/report/:test_id/:user_id',
             controller:'report',
             templateUrl: 'partials/app/report.html',
-            resolve: { loggedin: reportLogin }
+            resolve: { loggedin: checkLoggedin }
         })
         .state('report.test', {
             templateUrl: 'partials/app/report_test.html'
@@ -121,6 +128,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('report.task', {
             templateUrl: 'partials/app/report_task.html'
         })
+
         // ACCOUNT MANAGEMENT =============================
         .state('account', {
             url: '/account',

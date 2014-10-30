@@ -5,6 +5,9 @@ module.exports = function(app, passport) {
 // Module dependencies
     var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 
+    // various api hooks for reports
+    var Trello  = require('node-trello');
+
     // load data storage models
     var Message = require('./models/data/message');
     var Task    = require('./models/data/task');
@@ -163,13 +166,15 @@ app.route('/debug/invite')
                 });
         });
 
-// Report Route ------------------
+// PUBLIC REPORT ROUTE ====================================
 // for some reason I can't require this and still have it be public
 //  ¯\_(ツ)_/¯
 
 app.route('/api/report/:_id')
     .get(function(req, res){
         // console.log('touched report get', req.params._id);
+
+        var t = new Trello ();
 
         var test_id = mongoose.Types.ObjectId(req.params._id);
         var reply = {};
@@ -228,6 +233,57 @@ app.use('/api',  isLoggedInAjax, function (req, res, next) {
 
 //    next();
 // });
+
+// PRIVATE REPORT ROUTE ===================================
+
+
+app.route('/api/report/:_id/:_user')
+    .get(function(req, res){
+        // console.log('touched report get', req.params._id);
+
+        var t = new Trello ();
+
+        var test_id = mongoose.Types.ObjectId(req.params._id);
+        var reply = {};
+        var promise =
+            Test.findOne({'_id' : test_id}).populate('_subjects').exec(function(err, test){
+                if(err){res.send(err);}
+
+            });
+
+        promise.then(function(test){
+            reply.test = test;
+
+            return Task.find({'_test':req.params._id})
+                        .select('_id summary name pass_fail desc _messages index')
+                        .exec();
+
+        }).then(function(tasks){
+            reply.tasks = tasks;
+
+            return Tag.find({'_test' : req.params._id})
+                        .exists('summary')
+                        .exec();
+        
+        }).then(function(tags){
+            reply.tags = tags;
+            
+            return    Message.find({'_test':req.params._id, $or: [{ fav_task : true }, { fav_tag : true }]})
+                        .populate({path: '_subject', 'select': 'name -_id'})
+                        .select('_subject body created_by _id _test _task fav_tag fav_task')
+                        .exec();
+            
+        }).then(function(messages){
+            
+            reply.messages = messages;
+
+            res.json(reply);
+        
+        }).then(null, function(err){
+            if(err) {return res.send (err);}
+        });
+    });
+
 
 // CONNECT ROUTES =========================================
 
