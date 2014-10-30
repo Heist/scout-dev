@@ -5,6 +5,9 @@ module.exports = function(app, passport) {
 // Module dependencies
     var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 
+    // various api hooks for reports
+    var Trello  = require('node-trello');
+
     // load data storage models
     var Message = require('./models/data/message');
     var Task    = require('./models/data/task');
@@ -163,13 +166,15 @@ app.route('/debug/invite')
                 });
         });
 
-// Report Route ------------------
+// PUBLIC REPORT ROUTE ====================================
 // for some reason I can't require this and still have it be public
 //  ¯\_(ツ)_/¯
 
 app.route('/api/report/:_id')
     .get(function(req, res){
         // console.log('touched report get', req.params._id);
+
+        var t = new Trello ();
 
         var test_id = mongoose.Types.ObjectId(req.params._id);
         var reply = {};

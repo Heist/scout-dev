@@ -34,11 +34,7 @@ module.exports = function (app, passport) {
             reply.test = test;
             // a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
             return Task.find({'_test':req.params._id}).sort({ index: 'asc'})
-<<<<<<< HEAD
                         .select('_id summary name desc pass_fail _messages index')
-=======
-                        .select('_id summary name desc index pass_fail _messages')
->>>>>>> 490d3804b45f5473c4d6d72dc33c11ee948bb839
                         .exec(function(err, task){
                             if (err) {console.log(err);}
                         });
