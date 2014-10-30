@@ -156,7 +156,7 @@ textarea.input { line-height: 24px; }
 
 /* Do some stuff to deal with the reprehensible state of 'select' elements */
 .input-select { border: 1px solid #e7e7da; width: 100%; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; overflow: hidden; background: white url("/layout/assets/select-arrow.svg") no-repeat calc(100% - 10px) 50%; background-size: auto 18%; }
-.input-select select { padding: 10px 13.33333px; width: 100%; border: none; box-shadow: none; background: transparent; background-image: none; -webkit-appearance: none; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; font-size: 16px; outline: none; border: none; }
+.input-select select { padding: 10px 13.33333px; width: 100%; border: none; box-shadow: none; background: transparent; background-image: none; -webkit-appearance: none; -moz-appearance: none; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; font-size: 16px; outline: none; border: none; }
 .input-select select:focus { outline: none; }
 
 label { padding: 0; margin: 0; font-size: 11.2px; opacity: 0.5; text-transform: uppercase; }
@@ -309,6 +309,16 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-report #sidebar h3 { display: inline-block; margin: 0; width: 90%; }
 #view-report #sidebar .task-score { width: 12px; height: 12px; float: right; display: block; }
 
+/* modal styles */
+.modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(66, 71, 76, 0.8); z-index: 99999999; }
+.modal .modal-interior { background: white; padding: 30px 40px 0 40px; margin: 10% 0 0 0; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; -moz-box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3); box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3); }
+.modal .modal-interior .input { width: 100%; }
+.modal .modal-interior li { padding: 10px 0; }
+.modal .modal-interior li:last-child { border: none; }
+.modal .modal-interior .modal-interior-title { text-align: center; margin: 0; padding: 0 0 10px 0; }
+.modal .modal-interior .modal-interior-title h3 { font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 300; }
+.modal .modal-interior .modal-interior-title img { width: 30px; height: auto; margin: 0 0 5px 0; }
+
 /* specific views */
 /* styles for bits */
 /* how we style notes within summaries and reports */
@@ -445,16 +455,6 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-report #report-container { padding: 40px 0; }
 #view-report .two-thirds .task-score { font-size: 12.8px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; text-transform: uppercase; letter-spacing: 0; color: white; margin: 0; padding: 5px 10px; float: right; }
 #view-report .two-thirds h2 { padding-bottom: 20px; border-bottom: 1px solid #e7e7da; }
-
-/* export to tool */
-#report-export { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(66, 71, 76, 0.8); z-index: 99999999; }
-#report-export #report-export-modal { background: white; padding: 30px 40px 0 40px; margin: 10% 0 0 0; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; -moz-box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3); box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3); }
-#report-export #report-export-modal .input { width: 100%; }
-#report-export #report-export-modal li { padding: 10px 0; }
-#report-export #report-export-modal li:last-child { border: none; }
-#report-export #report-export-modal #report-export-modal-title { text-align: center; margin: 0; padding: 0 0 10px 0; }
-#report-export #report-export-modal #report-export-modal-title h3 { font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 300; }
-#report-export #report-export-modal #report-export-modal-title img { width: 30px; height: auto; margin: 0 0 5px 0; }
 
 /* everything account related */
 #view-account { margin: 0; padding: 50px 0 0 0; /* connected app styles */ /* end connected app styles */ /* team members */ }

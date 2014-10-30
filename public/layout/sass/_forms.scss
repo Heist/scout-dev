@@ -112,6 +112,7 @@ textarea.input {
         background: transparent;
         background-image: none;
         -webkit-appearance: none;
+        -moz-appearance: none;
         @include type-regular;
         font-size: $type-size-base;
         outline: none;
