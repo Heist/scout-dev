@@ -66,7 +66,8 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data._account+"'>"+new_url+"/login/"+data._account+"</a>";
 				}
 				if(data.email){
-					$scope.live_user.team.push({ 'local.email': data.email, 'name': data.name});
+					$scope.live_user.team.push({ local : {email : data.email}, 'name': data.name});
+					console.log($scope.live_user.team);
 					email.address = "";
 					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data._account+"'>"+new_url+"/login/"+data._account+"</a>";
 				} else {
