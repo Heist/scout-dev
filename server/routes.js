@@ -114,63 +114,63 @@ module.exports = function(app, passport) {
 
 // PUBLIC ROUTES ==========================================
 
-// Debug Route -------------------
-app.route('/debug/test')
-    .get(function(req,res){
-        Test.find()
-            .exec(function(err, docs) {
-                if(err){res.send(err);}
+// // Debug Route -------------------
+// app.route('/debug/test')
+//     .get(function(req,res){
+//         Test.find()
+//             .exec(function(err, docs) {
+//                 if(err){res.send(err);}
 
-                res.json(docs);
-            });
-    });
+//                 res.json(docs);
+//             });
+//     });
 
-app.route('/debug/task')
-    .get(function(req,res){
-        Task.find()
-            .exec(function(err, docs) {
-                if(err){res.send(err);}
+// app.route('/debug/task')
+//     .get(function(req,res){
+//         Task.find()
+//             .exec(function(err, docs) {
+//                 if(err){res.send(err);}
 
-                res.json(docs);
-            });
-    });
+//                 res.json(docs);
+//             });
+//     });
 
-app.route('/debug/message')
-    .get(function(req,res){
-        Message.find()
-            .exec(function(err, docs) {
-                if(err){res.send(err);}
+// app.route('/debug/message')
+//     .get(function(req,res){
+//         Message.find()
+//             .exec(function(err, docs) {
+//                 if(err){res.send(err);}
 
-                res.json(docs);
-            });
-    });
+//                 res.json(docs);
+//             });
+//     });
 
-app.route('/debug/tag')
-        .get(function(req,res){
-            Tag.find(function(err, docs) {
-                    if(err){res.send(err);}
+// app.route('/debug/tag')
+//         .get(function(req,res){
+//             Tag.find(function(err, docs) {
+//                     if(err){res.send(err);}
 
-                    res.json(docs);
-                });
-        });
+//                     res.json(docs);
+//                 });
+//         });
 
-app.route('/debug/user')
-        .get(function(req,res){
-            User.find(function(err, users) {
-                    if(err){res.send(err);}
+// app.route('/debug/user')
+//         .get(function(req,res){
+//             User.find(function(err, users) {
+//                     if(err){res.send(err);}
 
-                    res.json(users);
-                });
-        });
+//                     res.json(users);
+//                 });
+//         });
 
-app.route('/debug/invite')
-        .get(function(req,res){
-            Invitation.find(function(err, invites) {
-                    if(err){res.send(err);}
+// app.route('/debug/invite')
+//         .get(function(req,res){
+//             Invitation.find(function(err, invites) {
+//                     if(err){res.send(err);}
 
-                    res.json(invites);
-                });
-        });
+//                     res.json(invites);
+//                 });
+//         });
 
 // PUBLIC REPORT ROUTE ====================================
 // for some reason I can't require this and still have it be public
