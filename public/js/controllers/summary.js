@@ -167,7 +167,7 @@ angular.module('field_guide_controls')
         $http
             .put('/api/task/'+ task._id, task)
             .success(function(err, task){
-                console.log('task_success');
+                console.log('task_success', task);
             });
     };
 
