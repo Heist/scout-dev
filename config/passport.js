@@ -100,7 +100,7 @@ module.exports = function(app, passport) {
                         console.log('made it to signups', req.body);
 
                         var promise = 
-                            User.create({'local.email' : email , 'local.password' : generateHash(password)});
+                            User.create({'local.email' : email , 'name' : req.body.name,'local.password' : generateHash(password)});
 
                         promise.then(function(user){
                             // if there's an account - ie, this is by invitation
