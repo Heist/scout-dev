@@ -107,12 +107,15 @@ module.exports = function(app, passport) {
                             // find the invitation and set it to accepted
                             // then update the user _account to exist
                             console.log('inside promise user passport', user);
+
+                            // find some invitations
                             return Invitation.findOne({'user_email' : user.local.email}).exec(function(err, invite){
                                 if (err){throw err;}
-                                console.log('inside passport invite', invite);
+                                console.log('inside passport invite', invite, user);
                                 if (!invite){
                                     // there are no invitations for that user
-                                    return;
+                                    console.log('no invite');
+                                    return done(null, user);
                                 } else {
                                     // attach the appropriate account to the user and return
                                     user._account = invite._account;
@@ -126,10 +129,12 @@ module.exports = function(app, passport) {
                                     user.save(function(err, usr){
                                         if (err){throw err;}
                                         // return done(null, usr);
+                                        return done(null, usr);
                                     });
                                 }
                             });
                         }).then(function(data){
+                            // send the new user object back, having fixed up their invitational status.
                             return done(null, data);
                         });
                     }
