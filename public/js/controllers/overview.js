@@ -10,7 +10,7 @@ angular.module('field_guide_controls')
         .get('/api/test/', {timeout : 5000})
         .success(function(data) {
             $scope.tests = data;
-            console.log('tests', data)
+            console.log('tests', data);
             // initially selected 
             // $scope.selected = data[0];
         })
@@ -22,14 +22,14 @@ angular.module('field_guide_controls')
     // SESSION ROUTES =====================================
 
     $scope.select = function (session){
-        console.log('touched session', session)
+        console.log('touched session', session);
         $scope.selected = session;
-    }
+    };
 
     // edit titles inline.
     $scope.editTitle = function(textfield){
         textfield.editing = 'true';
-    }
+    };
 
     $scope.blurTitle = function(session){
         
@@ -51,8 +51,8 @@ angular.module('field_guide_controls')
                 })
                 .error(function(data){
                     console.log('Error: ' + data);
-                })
-    }
+                });
+    };
 
     $scope.addSession = function(session){
         
@@ -64,12 +64,12 @@ angular.module('field_guide_controls')
                 $scope.sessions.push(data);
 
                 // TODO add an auto-select for the new session here
-                 $scope.selected = $scope.sessions[$scope.sessions.length-1];
+                $scope.selected = $scope.sessions[$scope.sessions.length-1];
             })
             .error(function(data){
-                console.log('error', data)
+                console.log('error', data);
             });   
-    }
+    };
    
     $scope.removeSession = function(session){
         var url = '/api/session/'+session._id;
@@ -83,9 +83,9 @@ angular.module('field_guide_controls')
                 $scope.selected = $scope.sessions[$scope.sessions.length-1];
             })
             .error(function(data){
-                console.log('error', data)
-            })
-    }
+                console.log('error', data);
+            });
+    };
 
     // TEST ROUTES ========================================
     $scope.newTest = function(){
@@ -95,12 +95,12 @@ angular.module('field_guide_controls')
 
             test.name = 'New test name';
             if($rootScope.user){
-                console.log($rootScope.user)
+                console.log($rootScope.user);
                 test.created_by = $rootScope.user;
 
             }else{
-                console.log('whoops, needs a checkin')
-            };
+                console.log('whoops, needs a checkin');
+            }
 
             var url = '/api/test/';
             var data_out = test;
@@ -109,12 +109,13 @@ angular.module('field_guide_controls')
                 .post(url, data_out)
                 .success(function(data){
                     console.log('new test added '+ JSON.stringify(data));
+                    $location.path('/edit/test/'+ data._id);
                     $scope.tests.push(data);
                 })
                 .error(function(data){
-                    console.log('error', data)
-                })
-    }
+                    console.log('error', data);
+                });
+        };
 
     $scope.removeTest = function(test){ 
         // delete a test from the database
@@ -130,8 +131,8 @@ angular.module('field_guide_controls')
             })
             .error(function(data){
                 console.log('Error: ' + data);
-            })
-    }
+            });
+    };
 
     $scope.dupeTest = function(test){
         console.log('touched dupe test', test._id);
@@ -146,29 +147,29 @@ angular.module('field_guide_controls')
                 $scope.tests.push(data);
             })
             .error(function(data){
-                console.log('error', data)
-            })
-    }
+                console.log('error', data);
+            });
+    };
 
     $scope.editTest = function(test){
-        console.log('touched test', test)
+        console.log('touched test', test);
         $location.path('/edit/test/'+ test._id);
-    }
+    };
      
     $scope.runTest = function(test){
-        console.log('touched run', test._id)
+        console.log('touched run', test._id);
         $location.path('/run/'+test._id);
-    }
+    };
 
     $scope.summarizeTest = function(test_id){
-        console.log('touched summary', test_id)
+        console.log('touched summary', test_id);
         $location.path('/summary/'+ test_id);
-    }
+    };
 
     $scope.loadReport = function(test_id){
         console.log('touched a report', test_id);
         $location.path('/report/'+ test_id);
-    }
+    };
 
 
-}])
+}]);

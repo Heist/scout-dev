@@ -13,8 +13,8 @@
 				<div class="task-rating" ng-show="selected.pass_fail == false">
 					<div class="float-left">Was this task completed successfully?</div>
 					<div class="float-right">
-						<button class="button small hollow" ng-click="passFail(task)">Passed</button>
-						<button class="button small destructive">Needs work</button>
+						<button class="button small hollow" ng-click="passFail(selected)">Passed</button>
+						<button class="button small destructive" ng-click="passFail(selected)">Needs work</button>
 					</div>
 					<div class="clear"></div>
 				</div>

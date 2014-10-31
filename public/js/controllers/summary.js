@@ -44,7 +44,7 @@ angular.module('field_guide_controls')
     };
 
     $scope.passFail = function(task){
-        // console.log('touched pass-fail');
+        console.log('touched pass-fail', task);
 
         if(task.pass_fail){
             task.pass_fail = false;

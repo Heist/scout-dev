@@ -32,10 +32,11 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         //     $rootScope.user = $localStorage.user;
         // } else {
         var deferred = $q.defer(); 
+
         $http
             .get('/loggedin')
             .success(function(user){
-                // Authenticated 
+                // Authenticated
                 if (user !== '0') {
                     console.log('yeah you logged in', user);
                     $timeout(deferred.resolve, 0);
