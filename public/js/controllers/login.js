@@ -44,7 +44,7 @@ angular.module('field_guide_controls')
     };
 
     $scope.register = function(user){
-        console.log(user);
+        // console.log(user);
         var url, 
             dataOut,
             acct;
@@ -55,7 +55,7 @@ angular.module('field_guide_controls')
             url = '/auth/signup/';
             dataOut = {email: user.email, name:user.name, password: user.password, _account: acct};
         } else {
-            // console.log('cannot see stateparams.acct');
+            console.log('cannot see stateparams.acct');
             url = '/auth/signup/';
             dataOut = {email: user.email, name:user.name, password: user.password};
         }

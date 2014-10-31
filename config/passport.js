@@ -122,11 +122,7 @@ module.exports = function(app, passport) {
                                     });
                                 }
                             });
-                        })
-                        // .then(function(data){
-                        //     return done(null, data);
-                        // })
-                        ;
+                        });
                     }
 
                 });
