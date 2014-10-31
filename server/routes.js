@@ -88,19 +88,17 @@ module.exports = function(app, passport) {
             return res.json({ error: 'Email and Password required' });
         }
         passport.authenticate('local-signup', function(err, user, info) {
-            if (err) {
-                return res.json(err);
-            }
+            if (err) { return res.json(err); }
+            
             if (user.error) {
                 return res.json({ error: user.error });
             }
+
             req.logIn(user, function(err) {
-                if (err) {
-                    return res.json(err);
-                }
-                // console.log('user _id register', req.user._id);
+                if (err) { return res.json(err); }
+                console.log('user _id register', req.user._id);
                 var user = req.user._id;
-                return res.json({ user: user, redirect: '/overview' });
+                return res.json({ 'user': user, redirect: '/overview' });
             });
         })(req, res);
     });

@@ -66,23 +66,35 @@ module.exports = function(app){
 
     app.route('/api/invite/')
         .post(function(req,res){
-            console.log('user posting invite', req.body);
+            console.log('user posting invite', req.body, req.user._account);
 
             var promise = User.findOne({'local.email' : req.body.address }).exec(function(err, docs){
-                if(err) {return res.send (err);}
+                if(err) {return res.send(err);}
                 console.log('docs',docs);
+
+                if(docs){
+                    docs._account = req.user._account;
+                    docs.save(function(err,data){
+                        return res.json({user : data});
+                    });
+                }
+                // throw new Error('User found'); 
             });
 
             promise.then(function(user){
                 console.log('next promise', user);
                 if(user !== null){ 
-                    res.send('A user with that address already exists.');
+                    res.json(user);
+                    // throw new Error('abort promise chain');
+                    throw new Error('User found');
+
                     // if there's a user, say "there's already a user"
                     // maybe reset that user's password?
                     // send something to imply a user by that name already exists?
+
+                } else{
+                    return Invitation.findOne({'user_email' : req.body.address}).exec();
                 }
-                
-                return Invitation.findOne({'user_email' : req.body.address}).exec();
             })
             .then(function(i){
                 console.log(i);
