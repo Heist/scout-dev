@@ -54,8 +54,9 @@ h2 {
 
 h3 {
 	font-size: $type-size-base*1.25;
-	@include type-extrabold;
+	@include type-bold;
 	margin: 0 0 $pad/2 0;
+	letter-spacing: -1px;
 }
 
 h4 {
@@ -90,6 +91,14 @@ a {
 	
 	&.caution {
 		color: $fg-header-red;
+	}
+	
+	&.alt {
+		color: $link-alt;
+		&:hover {
+			text-decoration: underline;
+			color: $link-alt-hover;
+		}
 	}
 }
 

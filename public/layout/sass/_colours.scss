@@ -21,10 +21,15 @@ $fg-brown-dark: #231e1b;
 
 $fg-slate: #42474c;
 
+$fg-blue: #0abcd7;
 
 $fg-green: #71901f;
 $fg-green-light: #86aa25;
 $fg-green-dark: #627136;
+
+$fg-butter: lighten(#fee49b, 10%);
+$fg-butter-brown: #c88649;
+$fg-butter-text: #624429;
 
 $fg-black: #323539;
 
@@ -53,6 +58,9 @@ $modal-bg: transparentize($fg-slate, 0.2);
 
 $link: $fg-green;
 $link-hover: darken($link, 7%);
+
+$link-alt: $fg-blue;
+$link-alt-hover: darken($link-alt, 7%);
 
 $field: darken($background, 5%);
 

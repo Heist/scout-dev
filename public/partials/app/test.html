@@ -7,110 +7,256 @@
 	<!-- sub bar -->
 	<div id="sub-bar">
 		<div class="container">
-			<h1><span>Editing</span> {{test.name}}</h1>
 			
-			<div class="sub-bar-controls">
-				<button class="button small dark" ng-click="goHome()">Save &amp; Return To Overview</button>
+			
+			<ul class="stepped-nav">
+				<li class="step-left step-completed"><a href="#">Choose a test type</a><div class="step-state"></div></li>
+				<li class="step-middle step-active"><a href="#">Set up tasks</a><div class="step-state"></div></li>
+				<li class="step-middle step-inactive"><a href="#">Create some themes</a><div class="step-state"></div></li>
+				<li class="step-right step-inactive"><a href="#">You're done!</a><div class="step-state"></div></li>
+				<div class="clear"></div>
+			</ul>
+	
+		
+			
+			
+			
+			<h1><span>Create a new test</span></h1>
+			
+		</div>
+	</div>
+
+		
+	
+	<!-- step1 - test type -->
+	<div class="container editing-container">
+		<div class="module quarter">
+			
+			<div class="explanation">
+				<div class="explanation-main">
+					<small>What is a test?</small>
+					
+					<p>A <strong>Test</strong> is a series of screens, goals, or steps for your customers to interact with. For example, you could use a <strong>Test</strong> to capture a sign-up process.
+					</p>
+				</div>
+				
+				<!-- these tips will only appear when you choose a test type -->
+				<div class="explanation-tips">
+					<small>Tips</small>
+					<p>Testing your prototype on an <strong>iPhone</strong> or <strong>iPad</strong>? Download the Field Guide
+					app from the <a href="#" class="alt">App Store</a>.</p>
+					
+				</div>
+			</div>
+			
+		</div>
+		
+		<div class="module three-quarters">
+			
+			
+			<!-- choose a test type -->
+			<div class="module third test-type">
+				<img src="/layout/assets/testtype-ethno.png">
+				<h3>Interview</h3>
+				<p>You have a <strong>discussion-style</strong> test that doesn’t have any visuals associated with it.</p>
+				<button class="button small hollow disabled">Coming soon</button>
+				<div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
+			</div>
+			
+			<div class="module third test-type selected">
+				<img src="/layout/assets/testtype-proto.png">
+				<h3>Prototype</h3>
+				<p>You have a <strong>screen-based prototype</strong> in Invision, Marvel, or on the web.</p>
+				<button class="button small">Select</button>
+				<div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
+			</div>
+			
+			<div class="module third test-type">
+				<img src="/layout/assets/testtype-video.png">
+				<h3>Video</h3>
+				<p>You want to capture notes from a <strong>pre-recorded video</strong>, like on Youtube or usertesting.com.</p>
+				<button class="button small hollow disabled">Coming soon</button>
+				<div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
 			</div>
 			
 			<div class="clear"></div>
-		</div>
-	</div>
-	
-	
-	<!-- task creation/editing -->
-	<div ng-model="test" class="container" id="editing-container">
-		
-		<div class="module third">
-			<h3>Your Test</h3>
-	
-			<ul class="nobullets" >
-				<li>
-					<label for="field-testname">test name</label>
-					<input class="input hollow" type="text" ng-model="test.name" id="field-testname" placeholder="What are you testing?" />
-				</li>
-				
-				
-				<!-- hide prototype stuff for now 
-				
-				<label for="field-prototype">Prototype link</label><br>
-				<input class="input" type="text" id="field-prototype" placeholder="What&lsquo;s the URL for your prototype?" ng-model="test.link" />
-	
-				
-				<li>
-					<div class="device-selector">
-						<label for="field-device-mobile"><img src="/layout/assets/platform-icons/mobile.svg"><br>Mobile</label><br>
-						<input type="radio" class="replace-control" name="field-device" id="field-device-mobile" ng-model="test.platform" value="mobile" />
-					</div>
-					<div class="device-selector">
-						<label for="field-device-tablet"><img src="/layout/assets/platform-icons/tablet.svg"><br>Tablet</label><br>
-						<input type="radio" class="replace-control" name="field-device" id="field-device-tablet" ng-model="test.platform" value="tablet" />
-					</div>
-					<div class="device-selector">
-						<label for="field-device-desktop"><img src="/layout/assets/platform-icons/desktop.svg"><br>Desktop</label><br>
-						<input type="radio" class="replace-control" name="field-device" id="field-device-desktop" ng-model="test.platform" value="desktop" />
-					</div>
-					<div class="clear"></div>
-				</li>
-				-->
-		
-				<li>
-					<label for="field-description">test description</label>
-					<textarea class="input small hollow" id="field-textarea" placeholder="What are the overall goals or outcomes you&lsquo;d like to achieve with this test?" ng-model="test.desc"></textarea>
-				</li>
 			
-			</ul>
-		
-		</div>
-	
-		<div class="module two-thirds">
-	
-			<h3>Tasks in this Test</h3>
-			<p>Tasks allow you to sort your notes &amp; feedback into groups.</p>
-		
-			<ul id="steps" ui-sortable="sortableOptions" ng-model='tasks'>
-		
-				<li ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="">
-				
-					<div class="step-hamburger">≡</div>
-		
-					<div class="step-contents">
-						<form>
 			
-							<input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
-							<textarea ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
-							</textarea>
 			
-						</form>
+			<!-- this is technically step 2, this will only appear when you select a test-type -->
+			
+			<div class="module two-thirds test-details">
+				<ul class="nobullets" >
+					<li>
+						<label for="field-testname">Your test name</label>
 						
-					</div>
+						<input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="e.g. Onboarding flow" />
+					</li>
 					
-					<div class="step-controls">
-						<div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
-					</div>
-							
-					<div class="clear"></div>		
-				</li>
+					<li>
+						<label for="field-testname">What type of device is your prototype for?</label>
+					
+						
+						<div class="test-details-devicetype phone selected">
+							<img src="/layout/assets/platform-icons/mobile.png" /><br>
+							iPhone
+						</div>
+						<div class="test-details-devicetype tablet">
+							<img src="/layout/assets/platform-icons/tablet.png" /><br>
+							iPad
+						</div>
+						<div class="test-details-devicetype desktop unavailable">
+							<img src="/layout/assets/platform-icons/laptop-unavailable.png" /><br>
+							Desktop <small class="">coming soon</small>
+						</div>	
+						<div class="clear"></div>			
+					</li>
+					
+					<li>
+						<label for="field-prototypeurl">Your prototype URL</label>
+						
+						<input class="input" id="field-prototypeurl" ng-model="test.link" type="text" value="" placeholder="http://invis.io/ABC123" />
+						<small><a href="#" class="alt">How do I find my prototype URL?</a></small>
+					</li>
+					
+					<li>
+						<label for="field-prototypeurl">Your test objectives</label>
+						
+						<textarea class="input" id="field-objective" type="text" value="" ng-model="test.desc" placeholder="What is the purpose of this test?" />
+					</li>
+					
+					<li>
+						<button class="button small" type="submit">Next step</button>
+					</li>
 				
-				
-				<!-- add a task -->
-				<li>
-					<div class="step-hamburger">&nbsp;</div>
-					<div class="step-content"><button class="button" ng-click="newTask()">+ Add a task</a></button></div>
-				</li>
-				
-				
-			</ul>
-		
+				</ul>
+			</div>
 			
-		
-	
-	
-	</div>
+			<div class="clear"></div>
+			
+			
+			
+			
+		</div>
 		
 		<div class="clear"></div>
 		
-	</div>	
-		
+	</div>
+	<!-- / step 1 -->
+	
+	
+	
+	
+	
+	
+	<!-- step3 - add tasks -->
+	<div class="container editing-container">
+		<div class="module quarter">
+			
+			<div class="explanation">
+				<div class="explanation-main">
+					<small>What is a test?</small>
+					
+					<p><strong>Tasks</strong> allow you to define important steps in your prototype, website, or app. <strong>Talking points</strong> are the notes and ideas you want to ask the person you’re testing with. You define steps to <strong>sort and organize</strong> your notes and feedback.
+					</p>
+				</div>
+				
 
+			</div>
+			
+		</div>
+		
+		<div class="module three-quarters">
+	
+			<div class="module two-thirds test-tasks">
+			
+				<h3>Tasks in this Test</h3>
+				
+				
+				<ul id="steps" ui-sortable="sortableOptions" ng-model='tasks'>
+				
+					<li ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="">
+					
+						<div class="step-hamburger">≡</div>
+						
+						<div class="step-controls">
+							<div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
+						</div>
+						
+			
+						<div class="step-contents">
+							<form>
+				
+								<input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
+								<textarea ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
+								</textarea>
+				
+							</form>
+							
+						</div>
+		
+						<div class="clear"></div>		
+					</li>
+					
+					
+				</ul>
+				
+				
+				<button class="float-left button small" ng-click="newTask()">+ Add a task</a></button>
+				<small class="float-right"><a href="#" class="alt">I&rsquo;m done adding tasks</a></small>
+				<div class="clear"></div>
+				
+			</div>				
+			
+		</div>
+		
+		<div class="clear"></div>
+		
+	</div>
+	<!-- / step 3 -->
+	
+	
+	<!-- step 4 - define tasks -->
+	<!-- we're not doing this yet -->
+	<!-- / step 4 -->
+	
+
+	
+	<!-- step 5 - you're done! -->
+
+
+	<div class="container editing-container">
+		<div class="module quarter">
+			
+			<div class="explanation">
+				<div class="explanation-main">
+					<small>Next steps</small>
+					
+					<p>Round up some testers - you&rsquo;re ready to test. This would be a good time to schedule in some test participants.
+					</p>
+				</div>
+	
+			</div>
+			
+		</div>
+		
+		<div class="module three-quarters">
+	
+			<div class="module two-thirds test-done">
+			
+				<h1>You're done!</h1>
+				<p>Great job building that test. Go back to the <a href="/overview">Overview</a> screen and start testing!</p>
+				
+			</div>				
+			
+		</div>
+		
+		<div class="clear"></div>
+		
+	</div>
+	<!-- / step 5 -->
+
+	
+	
+	
 </div>

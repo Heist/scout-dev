@@ -91,6 +91,11 @@ textarea.input {
 	&.header {
 		@include button-colour($white, $fg-header-red);
 	}
+	
+	&.hollow {
+		@include button-colour($white, $text);
+		border: 1px solid lighten($text, 20%);
+	}
 
 }
 
@@ -134,7 +139,7 @@ label {
 	padding: 0;
 	margin: 0;
 	font-size: $type-size-base*0.7;
-	opacity: 0.5;
+	opacity: 0.8;
 	text-transform: uppercase;
 }
 
