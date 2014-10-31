@@ -39,9 +39,10 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 // Authenticated
                 if (user !== '0') {
                     console.log('yeah you logged in', user);
-                    $timeout(deferred.resolve, 0);
                     $localStorage.user = user;
                     $rootScope.user = $localStorage.user;
+                    
+                    $timeout(deferred.resolve, 0);
                 }
 
                 // Not Authenticated 

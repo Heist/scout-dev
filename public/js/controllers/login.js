@@ -8,7 +8,8 @@ angular.module('field_guide_controls')
 
     // LOGIN FUNCTIONS ====================================
     // console.log('loaded login controller, user is', $rootScope.user);
-    $scope.user = $rootScope.user;
+    $scope.user = $localStorage.user;
+    
     console.log('$scope.login $localStorage.user', $localStorage.user);
 
     if($stateParams.acct){
@@ -65,7 +66,7 @@ angular.module('field_guide_controls')
             .success(function(data){
                 $scope.flashmessage = data.error;
                 console.log('register controller success', data);
-                $rootScope.user = data.user;
+                $localStorage.user = data.user;
                 $location.path(data.redirect);
             })
             .error(function(error){

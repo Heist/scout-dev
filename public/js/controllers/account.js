@@ -74,7 +74,6 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 					$scope.message = data;
 				}
 			});
-
 	};
 
 	$scope.resendInvite = function(invite){
