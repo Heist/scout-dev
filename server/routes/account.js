@@ -84,7 +84,7 @@ module.exports = function(app){
             promise.then(function(user){
                 console.log('next promise', user);
                 if(user !== null){ 
-                    res.json(user);
+                    res.json({email: user.local.email, name: user.name, _id: user._id, account: user._account});
                     // throw new Error('abort promise chain');
                     throw new Error('User found');
 
@@ -117,8 +117,8 @@ module.exports = function(app){
                 }
             })
             .then(function(invite){
-                console.log('invite', invite);
-                res.json(invite);
+                console.log('invite new no id', invite);
+                res.json({invite: invite.user_email, account: invite._account});
 
                 var envelope_options = {
                     to: {
@@ -156,7 +156,7 @@ module.exports = function(app){
             Invitation.findById(req.params._id).exec(function(err,doc){
                 
                 console.log('invite', doc);
-                res.json(doc);
+                res.json(doc.local.email);
 
                 var envelope_options = {
                     to: {
