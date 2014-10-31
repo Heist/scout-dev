@@ -9,7 +9,9 @@ angular.module('field_guide_controls')
     // LOGIN FUNCTIONS ====================================
     // console.log('loaded login controller, user is', $rootScope.user);
     $scope.user = $rootScope.user;
+
     console.log('$scope.login $localStorage.user', $localStorage.user);
+    console.log('$scope.login $rootScope.user', $rootScope.user);
 
     if($stateParams.acct){
         $scope.acct = $stateParams.acct.replace( /\//gi,"");
@@ -44,7 +46,7 @@ angular.module('field_guide_controls')
     };
 
     $scope.register = function(user){
-        console.log(user);
+        // console.log(user);
         var url, 
             dataOut,
             acct;
@@ -65,7 +67,7 @@ angular.module('field_guide_controls')
             .success(function(data){
                 $scope.flashmessage = data.error;
                 console.log('register controller success', data);
-                $rootScope.user = data.user;
+                $localStorage.user = data.user;
                 $location.path(data.redirect);
             })
             .error(function(error){

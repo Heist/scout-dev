@@ -106,23 +106,35 @@ module.exports = function(app, passport) {
                             // if there's an account - ie, this is by invitation
                             // find the invitation and set it to accepted
                             // then update the user _account to exist
+                            console.log('inside promise user passport', user);
 
-                            if(req.body._account){ 
-                            
-                                Invitation.findOneAndUpdate({user_email:user.local.email}, {pending:false}, function(err, data){
-                                    console.log(data);
-
-                                    user._account = req.body._account;
-                                    user.save(function(err, data){
+                            // find some invitations
+                            return Invitation.findOne({'user_email' : user.local.email}).exec(function(err, invite){
+                                if (err){throw err;}
+                                console.log('inside passport invite', invite, user);
+                                if (!invite){
+                                    // there are no invitations for that user
+                                    console.log('no invite');
+                                    return done(null, user);
+                                } else {
+                                    // attach the appropriate account to the user and return
+                                    user._account = invite._account;
+                                    invite.pending = false;
+                                    
+                                    invite.save(function(err, usr){
                                         if (err){throw err;}
-                                        return data;
+                                        // return done(null, usr);
                                     });
-                                });
-                            } else {
-                                return user;
-                            }
 
+                                    user.save(function(err, usr){
+                                        if (err){throw err;}
+                                        // return done(null, usr);
+                                        return done(null, usr);
+                                    });
+                                }
+                            });
                         }).then(function(data){
+                            // send the new user object back, having fixed up their invitational status.
                             return done(null, data);
                         });
                     }
@@ -134,10 +146,21 @@ module.exports = function(app, passport) {
                 var user            = req.user;
                 user.local.email    = email;
                 user.local.password = user.generateHash(password);
-                user.save(function(err) {
-                    if (err)
-                        {throw err;}
-                    return done(null, user);
+                user.save(function(err, data) {
+                    if (err) {throw err;}
+
+                    Invitation.findOne({'user_email' : data.local.email}).exec(function(err, docs){
+                        if (!docs){
+                            return done(null, data);        
+                        } else {
+                            data._account = docs._account;
+                            data.save(function(err, saved){
+                                return done(null, saved);
+                            });
+                        }
+                    });
+
+                    
                 });
             } else {
                 // user is logged in and already has a local account. Ignore signup. (You should log out before trying to create a new account, user!)
