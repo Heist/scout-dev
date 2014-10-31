@@ -28,38 +28,38 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         console.log('checkLoggedin $localStorage.user', $localStorage.user);
 
         // Make an AJAX call to check if the user is logged in
-        if($localStorage.user){
-            $rootScope.user = $localStorage.user;
-        } else {
+        // if($localStorage.user){
+        //     $rootScope.user = $localStorage.user;
+        // } else {
         var deferred = $q.defer(); 
-            $http
-                .get('/loggedin')
-                .success(function(user){
-                    // Authenticated 
-                    if (user !== '0') {
-                        console.log('yeah you logged in', user);
-                        $timeout(deferred.resolve, 0);
-                        $localStorage.user = user;
-                        $rootScope.user = $localStorage.user;
+        $http
+            .get('/loggedin')
+            .success(function(user){
+                // Authenticated 
+                if (user !== '0') {
+                    console.log('yeah you logged in', user);
+                    $timeout(deferred.resolve, 0);
+                    $localStorage.user = user;
+                    $rootScope.user = $localStorage.user;
+                }
+
+                // Not Authenticated 
+                else { 
+                    // console.log('welp, that flunked', $location.url());
+                    $rootScope.userNote = 'You need to log in.'; 
+                    $timeout(function(){deferred.reject();}, 0);
+
+                    var loc = $location.url();
+                    var patt = new RegExp(/\/report/i);
+                    var isReport = patt.test(loc);
+
+                    $localStorage.$reset();
+                    if( !isReport){
+                        $location.url('/login');
                     }
-
-                    // Not Authenticated 
-                    else { 
-                        // console.log('welp, that flunked', $location.url());
-                        $rootScope.userNote = 'You need to log in.'; 
-                        $timeout(function(){deferred.reject();}, 0);
-
-                        var loc = $location.url();
-                        var patt = new RegExp(/\/report/i);
-                        var isReport = patt.test(loc);
-
-                        $localStorage.$reset();
-                        if( !isReport){
-                            $location.url('/login');
-                        }
-                    }
-                });
-        }
+                }
+            });
+        // }
         
     }
 
