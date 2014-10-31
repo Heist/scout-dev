@@ -63,6 +63,7 @@ angular.module('field_guide_controls')
         $http
             .post(url, dataOut)
             .success(function(data){
+                $scope.flashmessage = data.error;
                 console.log('register controller success', data);
                 $rootScope.user = data.user;
                 $location.path(data.redirect);

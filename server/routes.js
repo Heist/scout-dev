@@ -44,7 +44,13 @@ module.exports = function(app, passport) {
 
     // is someone logged in?
     app.get('/loggedin', function(req, res) {
-            res.send(req.isAuthenticated() ? {_id : req.user._id, email: req.user.local.email, account:req.user._account, trello : req.user.trello.id } : '0');
+            res.send(req.isAuthenticated() ? {
+                    _id : req.user._id, 
+                    name: req.user.name, 
+                    email: req.user.local.email, 
+                    account:req.user._account, 
+                    trello : req.user.trello.id 
+                } : '0');
         });
 
     // who's logged in?
