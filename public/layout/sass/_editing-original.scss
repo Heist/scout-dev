@@ -1,0 +1,66 @@
+/* editing a test */
+
+
+
+#view-editing {
+	margin: 0;
+	padding: $pad*2.5 0 0 0;
+	
+	
+	#editing-container {
+		padding: $pad*2 0;
+		
+		.third {
+			.input {
+				width: 90%;
+				margin: 0 0 $pad/2 0;
+			}
+			
+			textarea {
+				height: 120px;
+			}
+		}
+		
+		/* steps list */
+		#steps {
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			
+			li {
+				.step-hamburger {
+					font-size: $type-size-base*1.75;
+					cursor: move;
+					line-height: $type-line-base/1.33;
+					float: left;
+					width: 5%;
+				}
+				
+				.step-contents {
+					float: left;
+					width: 90%;
+					
+					.input {
+						width: 100%;
+						margin: 0 0 2px 0;
+					}
+				}
+				
+				.step-controls {
+					float: right;
+					width: 5%;
+					display: none;
+					text-align: right;
+				}
+				
+				&:hover {
+					.step-controls {
+						display: block;
+					}
+				}
+				
+			}
+		}
+	}
+		
+}

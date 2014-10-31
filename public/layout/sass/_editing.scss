@@ -4,22 +4,180 @@
 
 #view-editing {
 	margin: 0;
-	padding: $pad*2.5 0 0 0;
+	padding: $pad*7 0 0 0;
 	
 	
-	#editing-container {
-		padding: $pad*2 0;
+	.editing-container {
+		padding: $pad*3 0;
+	}
+	
+	#sub-bar {
+		position: fixed;
+		top: $pad*2.5;
+		left: 0;
+		z-index: 999999;
+		text-align: center;
+		padding-bottom: $pad/2;
+		background: transparentize($fg-tan, 0.05);
 		
-		.third {
-			.input {
-				width: 90%;
-				margin: 0 0 $pad/2 0;
-			}
+		h1 {
+			padding-top: $pad/6;
+		}
+	}
+	
+	/* sidebar tips */
+	
+	.explanation {
+		width: 90%;
+		font-size: $type-size-base*0.9;
+		line-height: $type-line-base*0.9;
+		
+		small {
+			color: $fg-butter-brown;
+			text-transform: uppercase;
+		}
+		
+		p {
+			margin: 0;
+			padding: $pad/2 0 0 0;
 			
-			textarea {
-				height: 120px;
+			strong {
+				@include type-extrabold;
 			}
 		}
+		
+		img {
+			display: block;
+			width: 80%;
+			height: auto;
+			padding: 0;
+			margin: 0 auto;
+		}
+		
+		.explanation-main {
+			color: $fg-butter-text;
+			background: $fg-butter;
+			padding: $pad/1.25 $pad;
+			@include radius;
+		}
+		
+		.explanation-tips {
+			color: $fg-butter-text;
+			background: lighten($fg-butter, 5%);
+			margin-top: 1px;
+			padding: $pad/1.25 $pad;
+			@include radius;
+		}
+	
+	}
+	
+	/* step 1 */
+	
+
+	.test-type {
+		padding: $pad/2;
+		text-align: center;
+		position: relative;
+		
+		.selected-arrow {
+			display: none;
+		}
+		
+		&.selected {
+			@include radius;
+			border: 1px solid $fg-green-light;
+			color: $fg-green;
+			
+			.selected-arrow {
+				position: absolute;
+				display: block;
+				width: 100%;
+				text-align: center;
+				height: 7px;
+				bottom: -7px;
+				left: 0;
+				
+				img {
+					width: 14px;
+					height: auto;
+				}
+			}
+		}
+		
+		strong {
+			border-bottom: 1px dashed $line;
+		}
+		
+		img {
+			width: 100px;
+			height: auto;
+			padding: 0 0 $pad/2 0;
+		}
+	}
+
+
+	/* step 2 */
+
+	.test-details {
+		float: none;
+		padding: $pad 0 $pad*2 0;
+		margin: $pad*2 0 0 16.5%;
+		
+		.input {
+			width: 100%;
+		}
+		
+		li {
+			padding: 0 0 $pad 0;
+		}
+		
+		.test-details-devicetype {
+			cursor: pointer;
+			float: left;
+			text-align: center;
+			padding: $pad/2 $pad/2 0 $pad/2;
+			font-size: $type-size-base*0.8;
+			
+			img {
+				height: 100px;
+				width: auto;
+				opacity: 0.4;
+			}
+			
+			&.phone, &.tablet {
+				width: 25%;
+			}
+			&.desktop {
+				width: 50%;
+			}
+			
+			&.unavailable {
+				cursor: not-allowed;
+			}
+			
+			&.selected {
+				@include type-bold;
+				color: $fg-green;
+				@include radius;
+				border: 1px solid $fg-green-light;
+				
+				img {
+					opacity: 1.0;
+				}	
+			}
+		}
+		
+
+	}
+	
+	
+	/* step 3 */
+	
+	.test-tasks {
+		float: none;
+		padding: 0 0 $pad*2 0;
+		margin: 0 0 0 16.5%;
+		
 		
 		/* steps list */
 		#steps {
@@ -28,17 +186,21 @@
 			list-style: none;
 			
 			li {
+				position: relative;
+				
 				.step-hamburger {
+					position: absolute;
 					font-size: $type-size-base*1.75;
 					cursor: move;
 					line-height: $type-line-base/1.33;
-					float: left;
-					width: 5%;
+					top: 10px;
+					left: -25px;
+					width: 20px;
 				}
 				
 				.step-contents {
 					float: left;
-					width: 90%;
+					width: 100%;
 					
 					.input {
 						width: 100%;
@@ -47,20 +209,40 @@
 				}
 				
 				.step-controls {
-					float: right;
-					width: 5%;
-					display: none;
+					position: absolute;
+					width: 20px;
 					text-align: right;
+					top: 10px;
+					right: -25px;
 				}
 				
-				&:hover {
-					.step-controls {
-						display: block;
-					}
-				}
 				
 			}
 		}
-	}
 		
+		
+	}
+	
+	
+	/* step 5 */
+	
+	.test-done {
+		float: none;
+		padding: 0 0 $pad*2 0;
+		margin: 0 0 0 16.5%;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
