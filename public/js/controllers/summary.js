@@ -44,7 +44,7 @@ angular.module('field_guide_controls')
     };
 
     $scope.passFail = function(task){
-        // // console.log('touched pass-fail');
+        console.log('touched pass-fail', task);
 
         if(task.pass_fail){
             task.pass_fail = false;
@@ -167,7 +167,7 @@ angular.module('field_guide_controls')
         $http
             .put('/api/task/'+ task._id, task)
             .success(function(err, task){
-                console.log('task_success');
+                console.log('task_success', task);
             });
     };
 

@@ -5,6 +5,9 @@ module.exports = function(app, passport) {
 // Module dependencies
     var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 
+    // various api hooks for reports
+    var Trello  = require('node-trello');
+
     // load data storage models
     var Message = require('./models/data/message');
     var Task    = require('./models/data/task');
@@ -41,7 +44,13 @@ module.exports = function(app, passport) {
 
     // is someone logged in?
     app.get('/loggedin', function(req, res) {
-            res.send(req.isAuthenticated() ? {_id : req.user._id, name: req.user.local.email, account:req.user._account, trello : req.user.trello.id } : '0');
+            res.send(req.isAuthenticated() ? {
+                    _id : req.user._id, 
+                    name: req.user.name, 
+                    email: req.user.local.email, 
+                    account:req.user._account, 
+                    trello : req.user.trello.id 
+                } : '0');
         });
 
     // who's logged in?
@@ -79,19 +88,17 @@ module.exports = function(app, passport) {
             return res.json({ error: 'Email and Password required' });
         }
         passport.authenticate('local-signup', function(err, user, info) {
-            if (err) {
-                return res.json(err);
-            }
+            if (err) { return res.json(err); }
+            
             if (user.error) {
                 return res.json({ error: user.error });
             }
+
             req.logIn(user, function(err) {
-                if (err) {
-                    return res.json(err);
-                }
-                // console.log('user _id register', req.user._id);
+                if (err) { return res.json(err); }
+                console.log('user _id register', req.user._id);
                 var user = req.user._id;
-                return res.json({ user: user, redirect: '/overview' });
+                return res.json({ 'user': user, redirect: '/overview' });
             });
         })(req, res);
     });
@@ -105,71 +112,73 @@ module.exports = function(app, passport) {
 
 // PUBLIC ROUTES ==========================================
 
-// Debug Route -------------------
-app.route('/debug/test')
-    .get(function(req,res){
-        Test.find()
-            .exec(function(err, docs) {
-                if(err){res.send(err);}
+// // Debug Route -------------------
+// app.route('/debug/test')
+//     .get(function(req,res){
+//         Test.find()
+//             .exec(function(err, docs) {
+//                 if(err){res.send(err);}
 
-                res.json(docs);
-            });
-    });
+//                 res.json(docs);
+//             });
+//     });
 
-app.route('/debug/task')
-    .get(function(req,res){
-        Task.find()
-            .exec(function(err, docs) {
-                if(err){res.send(err);}
+// app.route('/debug/task')
+//     .get(function(req,res){
+//         Task.find()
+//             .exec(function(err, docs) {
+//                 if(err){res.send(err);}
 
-                res.json(docs);
-            });
-    });
+//                 res.json(docs);
+//             });
+//     });
 
-app.route('/debug/message')
-    .get(function(req,res){
-        Message.find()
-            .exec(function(err, docs) {
-                if(err){res.send(err);}
+// app.route('/debug/message')
+//     .get(function(req,res){
+//         Message.find()
+//             .exec(function(err, docs) {
+//                 if(err){res.send(err);}
 
-                res.json(docs);
-            });
-    });
+//                 res.json(docs);
+//             });
+//     });
 
-app.route('/debug/tag')
-        .get(function(req,res){
-            Tag.find(function(err, docs) {
-                    if(err){res.send(err);}
+// app.route('/debug/tag')
+//         .get(function(req,res){
+//             Tag.find(function(err, docs) {
+//                     if(err){res.send(err);}
 
-                    res.json(docs);
-                });
-        });
+//                     res.json(docs);
+//                 });
+//         });
 
-app.route('/debug/user')
-        .get(function(req,res){
-            User.find(function(err, users) {
-                    if(err){res.send(err);}
+// app.route('/debug/user')
+//         .get(function(req,res){
+//             User.find(function(err, users) {
+//                     if(err){res.send(err);}
 
-                    res.json(users);
-                });
-        });
+//                     res.json(users);
+//                 });
+//         });
 
-app.route('/debug/invite')
-        .get(function(req,res){
-            Invitation.find(function(err, invites) {
-                    if(err){res.send(err);}
+// app.route('/debug/invite')
+//         .get(function(req,res){
+//             Invitation.find(function(err, invites) {
+//                     if(err){res.send(err);}
 
-                    res.json(invites);
-                });
-        });
+//                     res.json(invites);
+//                 });
+//         });
 
-// Report Route ------------------
+// PUBLIC REPORT ROUTE ====================================
 // for some reason I can't require this and still have it be public
 //  ¯\_(ツ)_/¯
 
 app.route('/api/report/:_id')
     .get(function(req, res){
         // console.log('touched report get', req.params._id);
+
+        // var t = new Trello ();
 
         var test_id = mongoose.Types.ObjectId(req.params._id);
         var reply = {};

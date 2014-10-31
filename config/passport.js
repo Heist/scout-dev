@@ -7,6 +7,7 @@ module.exports = function(app, passport) {
         // load all the things we need
     var LocalStrategy   = require('passport-local').Strategy;
     var TrelloStrategy = require('passport-trello').Strategy;
+    var bcrypt = require('bcrypt-nodejs');
 
     // load up the user model
     var User = require('../server/models/auth/user');
@@ -79,6 +80,10 @@ module.exports = function(app, passport) {
         
         console.log('new user signup account touched', req.body._account);
 
+        function generateHash(password) {
+            return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+        }
+
         // asynchronous
         process.nextTick(function() {
             // if the user is not already logged in:
@@ -87,34 +92,49 @@ module.exports = function(app, passport) {
                     // if there are any errors, return the error
                     if (err){return done(err);}
 
-                    console.log(user);
+                    console.log('found a user?', user);
                     // check to see if theres already a user with that email
                     if (user) {
                         return done(null, { error: 'That email is already taken.' });
                     } else {
+                        console.log('made it to signups', req.body);
 
                         var promise = 
-                            User.create({'local.email' : email , 'local.password' : User.generateHash(password)});
+                            User.create({'local.email' : email , 'name' : req.body.name,'local.password' : generateHash(password)});
 
                         promise.then(function(user){
                             // if there's an account - ie, this is by invitation
                             // find the invitation and set it to accepted
                             // then update the user _account to exist
+                            console.log('inside promise user passport', user);
 
-                            if(req.body._account){ 
-                            
-                                Invitation.findOneAndUpdate({user_email:user.local.email}, {pending:false}, function(err, data){
-                                    console.log(data);
-
-                                    user._account = req.body._account;
-                                    user.save(function(err, data){
+                            // find some invitations
+                            return Invitation.findOne({'user_email' : user.local.email}).exec(function(err, invite){
+                                if (err){throw err;}
+                                console.log('inside passport invite', invite, user);
+                                if (!invite){
+                                    // there are no invitations for that user
+                                    console.log('no invite');
+                                    return done(null, user);
+                                } else {
+                                    // attach the appropriate account to the user and return
+                                    user._account = invite._account;
+                                    invite.pending = false;
+                                    
+                                    invite.save(function(err, usr){
                                         if (err){throw err;}
-                                        return data;
+                                        // return done(null, usr);
                                     });
-                                });
-                            }
 
+                                    user.save(function(err, usr){
+                                        if (err){throw err;}
+                                        // return done(null, usr);
+                                        return done(null, usr);
+                                    });
+                                }
+                            });
                         }).then(function(data){
+                            // send the new user object back, having fixed up their invitational status.
                             return done(null, data);
                         });
                     }
@@ -126,10 +146,21 @@ module.exports = function(app, passport) {
                 var user            = req.user;
                 user.local.email    = email;
                 user.local.password = user.generateHash(password);
-                user.save(function(err) {
-                    if (err)
-                        {throw err;}
-                    return done(null, user);
+                user.save(function(err, data) {
+                    if (err) {throw err;}
+
+                    Invitation.findOne({'user_email' : data.local.email}).exec(function(err, docs){
+                        if (!docs){
+                            return done(null, data);        
+                        } else {
+                            data._account = docs._account;
+                            data.save(function(err, saved){
+                                return done(null, saved);
+                            });
+                        }
+                    });
+
+                    
                 });
             } else {
                 // user is logged in and already has a local account. Ignore signup. (You should log out before trying to create a new account, user!)

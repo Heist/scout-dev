@@ -67,7 +67,7 @@ app.route('/api/task/:_id')
     
     // update a single task
     .put(function(req,res){
-        // console.log('touched task', req.body, req.body.index)
+        // console.log('touched task', req.body.pass_fail, req.body._id, req.params._id);
 
         Task.findById(req.params._id)
             .exec(function(err, task){
@@ -75,6 +75,7 @@ app.route('/api/task/:_id')
 
                 if(req.body.name){task.name = req.body.name;}
                 if(req.body.summary){task.summary = req.body.summary;}
+                if(req.body.pass_fail !== null){ task.pass_fail = req.body.pass_fail;}
                 if(req.body.desc){task.desc = req.body.desc;}
                 if(req.body._test){task._test = req.body._test;}
                 if(req.body.index){task.index = req.body.index;}

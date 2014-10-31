@@ -66,23 +66,35 @@ module.exports = function(app){
 
     app.route('/api/invite/')
         .post(function(req,res){
-            console.log('user posting invite', req.body);
+            console.log('user posting invite', req.body, req.user._account);
 
             var promise = User.findOne({'local.email' : req.body.address }).exec(function(err, docs){
-                if(err) {return res.send (err);}
+                if(err) {return res.send(err);}
                 console.log('docs',docs);
+
+                if(docs){
+                    docs._account = req.user._account;
+                    docs.save(function(err,data){
+                        return res.json({user : data});
+                    });
+                }
+                // throw new Error('User found'); 
             });
 
             promise.then(function(user){
                 console.log('next promise', user);
                 if(user !== null){ 
-                    res.send('A user with that address already exists.');
+                    res.json({email: user.local.email, name: user.name, _id: user._id, account: user._account});
+                    // throw new Error('abort promise chain');
+                    throw new Error('User found');
+
                     // if there's a user, say "there's already a user"
                     // maybe reset that user's password?
                     // send something to imply a user by that name already exists?
+
+                } else{
+                    return Invitation.findOne({'user_email' : req.body.address}).exec();
                 }
-                
-                return Invitation.findOne({'user_email' : req.body.address}).exec();
             })
             .then(function(i){
                 console.log(i);
@@ -105,8 +117,8 @@ module.exports = function(app){
                 }
             })
             .then(function(invite){
-                console.log('invite', invite);
-                res.json(invite);
+                console.log('invite new no id', invite);
+                res.json({invite: invite.user_email, account: invite._account});
 
                 var envelope_options = {
                     to: {
@@ -144,7 +156,7 @@ module.exports = function(app){
             Invitation.findById(req.params._id).exec(function(err,doc){
                 
                 console.log('invite', doc);
-                res.json(doc);
+                res.json(doc.local.email);
 
                 var envelope_options = {
                     to: {
