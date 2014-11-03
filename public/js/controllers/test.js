@@ -77,6 +77,12 @@ angular.module('field_guide_controls')
         // $scope.explanation.body = ;
     };
 
+
+    $scope.saveStart = function(){
+        $scope.updateTest();
+        $scope.showAnchor(3);
+    }
+
     // TIPS ===============================================
     $scope.tip = function(test){
         
@@ -187,7 +193,6 @@ angular.module('field_guide_controls')
     }
 
     $scope.updateTest = function(){
-        // function asPromise(f) { return $q(function(resolve, reject) { resolve(f()); } };ca
         var test = $scope.test;
         
         console.log('touched update test', test);
