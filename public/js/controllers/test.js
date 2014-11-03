@@ -38,8 +38,13 @@ angular.module('field_guide_controls')
     };
 
     $scope.selectPrototype = function(type){
-        console.log('touched select', type)
+        console.log('touched prototype', type);
         $scope.test.type = type;
+    }
+
+    $scope.selectPlatform = function(type){
+        $scope.test.platform = type;
+        console.log('touched platform', $scope.test.platform);
     }
 
     $scope.showAnchor = function(x) {

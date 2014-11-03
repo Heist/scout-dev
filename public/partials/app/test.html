@@ -1,5 +1,5 @@
 <!-- Add test -->
-<div id="view-editing">
+<div id="view-editing" ng-model="test">
 
     <ng-include src="'partials/app/header.html'"></ng-include>
     
@@ -87,16 +87,20 @@
                     <li>
                         <label for="field-testname">What type of device is your prototype for?</label>
                     
-                        
-                        <div class="test-details-devicetype phone selected">
+                        <div class="test-details-devicetype phone" 
+                        	 ng-click='selectPlatform("mobile")'
+                        	 ng-class="{'selected' : test.platform === 'mobile' }">
                             <img src="/layout/assets/platform-icons/mobile.png" /><br>
                             iPhone
                         </div>
-                        <div class="test-details-devicetype tablet">
+
+                        <div class="test-details-devicetype tablet"
+                        	 ng-class="{'selected' : test.platform === 'tablet' }"
+                        	 ng-click='selectPlatform("tablet")'>
                             <img src="/layout/assets/platform-icons/tablet.png" /><br>
                             iPad
                         </div>
-                        <div class="test-details-devicetype desktop unavailable">
+                        <div class="test-details-devicetype desktop unavailable" >
                             <img src="/layout/assets/platform-icons/laptop-unavailable.png" /><br>
                             Desktop <small class="">coming soon</small>
                         </div>  
