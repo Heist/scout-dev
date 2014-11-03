@@ -334,16 +334,22 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 
 .message { padding: 6.66667px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; /* when it's the user header */ }
 .message:hover { background: #f2f2f0; }
+.message:hover .message-details .message-edit { display: block; }
 .message:hover .message-body .tag { background: #e4e4e0; }
 .message .message-details { float: left; margin: 2px 0 0 0; width: 25px; height: 16px; }
 .message .message-details .message-details-avatar img { width: 16px; height: auto; }
+.message .message-details .message-edit { display: none; }
+.message .message-details .message-edit img { width: 12px; height: auto; opacity: 0.5; }
 .message .message-body { float: left; width: 90%; color: #323539; }
 .message .message-body p { margin-bottom: 0; }
 .message .message-body p .tag { padding: 0 3.33333px; }
 .message .message-body small { margin: 0; padding: 0; opacity: 0.5; }
-.message .message-fave { float: right; font-size: 24px; }
+.message .message-body textarea { width: 100%; }
+.message .message-fave { float: right; }
 .message .message-fave a { text-decoration: none; }
-.message.message-user .message-body { font-size: 12.8px; text-transform: uppercase; opacity: 0.6; }
+.message .message-fave img { width: 16px; height: auto; }
+.message.message-user .message-body { width: 50%; font-size: 12.8px; text-transform: uppercase; opacity: 0.6; }
+.message.message-user .message-fave { font-size: 12.8px; opacity: 0.6; }
 .message.message-user .message-details { opacity: 0.4; }
 .message.message-user:hover { background: none; }
 
@@ -490,7 +496,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-summarizing #summarizing-container { padding: 40px 0; }
 #view-summarizing #timeline { margin-top: 50px; overtest: auto; }
 #view-summarizing #timeline .message .message-body { width: 75%; }
-#view-summarizing #timeline .message .message-fave { float: left; margin: 0 0 0 10px; font-size: 24px; }
+#view-summarizing #timeline .message .message-fave { float: right; margin: 0 0 0 10px; }
 #view-summarizing #summary-test .input { width: 100%; height: 100px; }
 #view-summarizing #summary-tags { padding: 0; margin: 40px 0 0 0; }
 #view-summarizing #summary-tags .tags li { cursor: pointer; }

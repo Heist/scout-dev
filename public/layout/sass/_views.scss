@@ -37,6 +37,10 @@
 	&:hover {
 		background: $fg-tan;
 		
+		.message-details .message-edit {
+			display: block;
+		}
+		
 		.message-body .tag {
 			background: darken($fg-tan, 6%);
 		}
@@ -55,6 +59,16 @@
 			}
 		}
 		
+		.message-edit {
+			display: none;
+			
+			img {
+				width: 12px;
+				height: auto;
+				opacity: 0.5;
+			}
+		}
+		
 	}
 	
 	.message-body {
@@ -70,28 +84,43 @@
 			}
 		}
 		
+		
 		small {
 			margin: 0;
 			padding: 0;
 			opacity: 0.5;
 		}
 		
+		textarea {
+			width: 100%;
+		}
+		
 	}
 	
 	.message-fave {
 		float: right;
-		font-size: $type-size-base*1.5;
 		
 		a {
 			text-decoration: none;
+		}
+		
+		img {
+			width: 16px;
+			height: auto;
 		}
 	}
 	
 	/* when it's the user header */
 	&.message-user {
 		.message-body {
+			width: 50%;
 			font-size: $type-size-base*0.8;
 			text-transform: uppercase;
+			opacity: 0.6;
+		}
+		
+		.message-fave {
+			font-size: $type-size-base*0.8;
 			opacity: 0.6;
 		}
 		
