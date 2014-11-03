@@ -300,7 +300,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 /* task control sidebar for summarizing and reports */
 #sidebar ul { padding: 0; margin: 0; list-style: none; width: 90%; }
 #sidebar ul li { padding: 13.33333px 20px; margin: 0; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; border: 2px solid white; }
-#sidebar ul li h3 { margin: 0 0 2px 0; padding: 0; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 300; }
+#sidebar ul li h3 { margin: 0 0 2px 0; padding: 0; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; }
 #sidebar ul li p { margin: 0; padding: 0; font-size: 12.8px; line-height: 19.2px; }
 #sidebar ul li small { text-transform: uppercase; margin: 0; padding: 0; opacity: 0.5; }
 #sidebar ul li:hover { border: 2px solid rgba(66, 71, 76, 0.2); cursor: pointer; }
@@ -501,6 +501,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 /* The report */
 #view-report { margin: 0; padding: 50px 0 0 0; /* report content */ }
 #view-report #report-container { padding: 40px 0; }
+#view-report #sub-bar .sub-bar-controls .input { width: 160px; padding-right: 0; }
 #view-report .two-thirds .task-score { font-size: 12.8px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; text-transform: uppercase; letter-spacing: 0; color: white; margin: 0; padding: 5px 10px; float: right; }
 #view-report .two-thirds h2 { padding-bottom: 20px; border-bottom: 1px solid #e7e7da; }
 
