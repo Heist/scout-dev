@@ -68,7 +68,7 @@ angular.module('field_guide_controls')
                 title : 'What is a task?',
                 body : '<strong>Tasks</strong> allow you to define important steps in your prototype, website, or app. <strong>Talking points</strong> are the notes and ideas you want to ask the person you’re testing with. You define steps to <strong>sort and organize</strong> your notes and feedback.'
             },
-            {   anchor : 4,
+            {   anchor : 5,
                 title : 'Next steps',
                 body : 'Round up some testers - you&rsquo;re ready to test. This would be a good time to schedule in some test participants.'
             }
@@ -80,9 +80,9 @@ angular.module('field_guide_controls')
     };
 
 
-    $scope.saveStart = function(){
+    $scope.saveAndMove = function(anchor){
         $scope.updateTest();
-        $scope.showAnchor(3);
+        $scope.showAnchor(anchor);
     };
 
     // TIPS ===============================================
