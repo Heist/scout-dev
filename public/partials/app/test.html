@@ -43,31 +43,34 @@
         <!-- step1 - test type -->
 
         <!-- choose a test type -->
-            <div class="module third test-type" ng-show="anchor === 1 && !test.type">
-                <img src="/layout/assets/testtype-ethno.png">
-                <h3>Interview</h3>
-                <p>You have a <strong>discussion-style</strong> test that doesn’t have any visuals associated with it.</p>
-                <button class="button small hollow disabled">Coming soon</button>
-                <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
+
+            <div ng-show="anchor === 1 && !test.type">
+            	<div class="module third test-type" >
+            	    <img src="/layout/assets/testtype-ethno.png">
+            	    <h3>Interview</h3>
+            	    <p>You have a <strong>discussion-style</strong> test that doesn’t have any visuals associated with it.</p>
+            	    <button class="button small hollow disabled">Coming soon</button>
+            	    <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
+            	</div>
+            	
+            	<div class="module third test-type selected">
+            	    <img src="/layout/assets/testtype-proto.png">
+            	    <h3>Prototype</h3>
+            	    <p>You have a <strong>screen-based prototype</strong> in Invision, Marvel, or on the web.</p>
+            	    <button class="button small" ng-click='selectPrototype("web")'>Select</button>
+            	    <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
+            	</div>
+            	
+            	<div class="module third test-type">
+            	    <img src="/layout/assets/testtype-video.png">
+            	    <h3>Video</h3>
+            	    <p>You want to capture notes from a <strong>pre-recorded video</strong>, like on Youtube or usertesting.com.</p>
+            	    <button class="button small hollow disabled">Coming soon</button>
+            	    <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
+            	</div>
+            	
+            	<div class="clear"></div>
             </div>
-            
-            <div class="module third test-type selected">
-                <img src="/layout/assets/testtype-proto.png">
-                <h3>Prototype</h3>
-                <p>You have a <strong>screen-based prototype</strong> in Invision, Marvel, or on the web.</p>
-                <button class="button small">Select</button>
-                <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
-            </div>
-            
-            <div class="module third test-type">
-                <img src="/layout/assets/testtype-video.png">
-                <h3>Video</h3>
-                <p>You want to capture notes from a <strong>pre-recorded video</strong>, like on Youtube or usertesting.com.</p>
-                <button class="button small hollow disabled">Coming soon</button>
-                <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
-            </div>
-            
-            <div class="clear"></div>
             
             
             

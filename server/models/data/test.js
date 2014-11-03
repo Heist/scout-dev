@@ -19,6 +19,7 @@ var TestSchema = new Schema({
         link    : { type: String, trim: true },
         name    : { type: String, trim: true, default: 'my new flow name' },
         platform: { type: String, trim: true, default: 'mobile' },
+        type    : { type: String, trim: true },
         
         created: Date,
         updated: Date,

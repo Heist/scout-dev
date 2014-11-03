@@ -37,6 +37,11 @@ angular.module('field_guide_controls')
         }
     };
 
+    $scope.selectPrototype = function(type){
+        console.log('touched select', type)
+        $scope.test.type = type;
+    }
+
     $scope.showAnchor = function(x) {
         // var newHash = 'anchor' + x;
         // if ($location.hash() !== newHash) {

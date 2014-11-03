@@ -91,7 +91,8 @@ app.route('/api/test/:_id')
                 desc    : org_test.desc,
                 link    : org_test.link,
                 name    : org_test.name,
-                platform: org_test.platform
+                platform: org_test.platform,
+                type    : org_test.type
             };
 
             return Test.create(update, function(err, test){
