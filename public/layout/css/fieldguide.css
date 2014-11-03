@@ -300,7 +300,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 /* task control sidebar for summarizing and reports */
 #sidebar ul { padding: 0; margin: 0; list-style: none; width: 90%; }
 #sidebar ul li { padding: 13.33333px 20px; margin: 0; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; border: 2px solid white; }
-#sidebar ul li h3 { margin: 0 0 2px 0; padding: 0; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 300; }
+#sidebar ul li h3 { margin: 0 0 2px 0; padding: 0; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; }
 #sidebar ul li p { margin: 0; padding: 0; font-size: 12.8px; line-height: 19.2px; }
 #sidebar ul li small { text-transform: uppercase; margin: 0; padding: 0; opacity: 0.5; }
 #sidebar ul li:hover { border: 2px solid rgba(66, 71, 76, 0.2); cursor: pointer; }
@@ -334,16 +334,22 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 
 .message { padding: 6.66667px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; /* when it's the user header */ }
 .message:hover { background: #f2f2f0; }
+.message:hover .message-details .message-edit { display: block; }
 .message:hover .message-body .tag { background: #e4e4e0; }
 .message .message-details { float: left; margin: 2px 0 0 0; width: 25px; height: 16px; }
 .message .message-details .message-details-avatar img { width: 16px; height: auto; }
+.message .message-details .message-edit { display: none; }
+.message .message-details .message-edit img { width: 12px; height: auto; opacity: 0.5; }
 .message .message-body { float: left; width: 90%; color: #323539; }
 .message .message-body p { margin-bottom: 0; }
 .message .message-body p .tag { padding: 0 3.33333px; }
 .message .message-body small { margin: 0; padding: 0; opacity: 0.5; }
-.message .message-fave { float: right; font-size: 24px; }
+.message .message-body textarea { width: 100%; }
+.message .message-fave { float: right; }
 .message .message-fave a { text-decoration: none; }
-.message.message-user .message-body { font-size: 12.8px; text-transform: uppercase; opacity: 0.6; }
+.message .message-fave img { width: 16px; height: auto; }
+.message.message-user .message-body { width: 50%; font-size: 12.8px; text-transform: uppercase; opacity: 0.6; }
+.message.message-user .message-fave { font-size: 12.8px; opacity: 0.6; }
 .message.message-user .message-details { opacity: 0.4; }
 .message.message-user:hover { background: none; }
 
@@ -374,16 +380,18 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 /* overview screen */
 #view-overview { margin: 0; padding: 50px 0 0 0; }
 #view-overview #overview-tests { padding: 40px 0; }
-#view-overview #overview-tests .overview-test .overview-test-container { width: 100%; margin-bottom: 20px; }
-#view-overview #overview-tests .overview-test .test-controls { background: #627136; padding: 20px 10px 10px 10px; text-align: center; -webkit-border-top-left-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; border-top-left-radius: 4px; border-top-right-radius: 4px; }
-#view-overview #overview-tests .overview-test .test-controls .button { width: 85%; background: none; border: 1px solid rgba(255, 255, 255, 0.2); font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 300; color: white; text-decoration: none; margin: 0 0 10px 0; }
-#view-overview #overview-tests .overview-test .test-controls .button:hover { background: white; color: #627136; text-decoration: none; }
-#view-overview #overview-tests .overview-test .test-info { padding: 13.33333px 10px; text-align: center; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); -webkit-border-bottom-right-radius: 4px; -webkit-border-bottom-left-radius: 4px; -moz-border-radius-bottomright: 4px; -moz-border-radius-bottomleft: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; font-size: 12.8px; position: relative; }
+#view-overview #overview-tests .overview-test { margin-bottom: 20px; }
+#view-overview #overview-tests .overview-test .overview-test-container { width: 100%; }
+#view-overview #overview-tests .overview-test .test-info { padding: 13.33333px 10px 6.66667px 10px; text-align: center; position: relative; -webkit-border-top-left-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; border-top-left-radius: 4px; border-top-right-radius: 4px; border: 1px solid #e7e7da; }
 #view-overview #overview-tests .overview-test .test-info:hover .removeTest { display: block; }
-#view-overview #overview-tests .overview-test .test-info .removeTest { font-size: 32px; position: absolute; bottom: 2px; right: 4px; text-decoration: none; display: none; }
-#view-overview #overview-tests .overview-test .test-info .removeTest:hover { color: #b5213c; }
+#view-overview #overview-tests .overview-test .test-info .removeTest { background: white; font-size: 12.8px; position: absolute; text-align: center; width: 99%; top: 2px; left: 2px; text-decoration: none; display: none; padding: 5px 0; }
+#view-overview #overview-tests .overview-test .test-info .removeTest .dangerous:hover { color: #f37960; }
 #view-overview #overview-tests .overview-test .test-info a { text-decoration: underline; }
-#view-overview #overview-tests .overview-test .test-info h4 { color: #323539; margin: 0; }
+#view-overview #overview-tests .overview-test .test-info h3 { color: #323539; margin: 0; }
+#view-overview #overview-tests .overview-test .test-controls { background: #42474c; padding: 20px 13.33333px 13.33333px 13.33333px; text-align: center; -webkit-border-bottom-right-radius: 4px; -webkit-border-bottom-left-radius: 4px; -moz-border-radius-bottomright: 4px; -moz-border-radius-bottomleft: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+#view-overview #overview-tests .overview-test .test-controls .test-control { float: left; width: 33.3%; text-align: center; font-size: 12.8px; line-height: 16.8px; }
+#view-overview #overview-tests .overview-test .test-controls .test-control a { color: white; }
+#view-overview #overview-tests .overview-test .test-controls .test-control img { opacity: 0.5; display: inline-block; padding: 0 0 5px 0; margin: 0; width: 20px; height: auto; }
 
 /* sub-bar styles */
 #sub-bar { width: 100%; background: #f2f2f0; margin: 0; padding: 30px 0; border-bottom: 1px solid #e4e4e0; }
@@ -488,7 +496,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 #view-summarizing #summarizing-container { padding: 40px 0; }
 #view-summarizing #timeline { margin-top: 50px; overtest: auto; }
 #view-summarizing #timeline .message .message-body { width: 75%; }
-#view-summarizing #timeline .message .message-fave { float: left; margin: 0 0 0 10px; font-size: 24px; }
+#view-summarizing #timeline .message .message-fave { float: right; margin: 0 0 0 10px; }
 #view-summarizing #summary-test .input { width: 100%; height: 100px; }
 #view-summarizing #summary-tags { padding: 0; margin: 40px 0 0 0; }
 #view-summarizing #summary-tags .tags li { cursor: pointer; }
@@ -501,6 +509,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 /* The report */
 #view-report { margin: 0; padding: 50px 0 0 0; /* report content */ }
 #view-report #report-container { padding: 40px 0; }
+#view-report #sub-bar .sub-bar-controls .input { width: 160px; padding-right: 0; }
 #view-report .two-thirds .task-score { font-size: 12.8px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; text-transform: uppercase; letter-spacing: 0; color: white; margin: 0; padding: 5px 10px; float: right; }
 #view-report .two-thirds h2 { padding-bottom: 20px; border-bottom: 1px solid #e7e7da; }
 

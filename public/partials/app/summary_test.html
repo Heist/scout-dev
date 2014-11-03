@@ -27,6 +27,7 @@
 	
 		<div ng-show="selectedTag.body" ng-model="selectedTag" class="summary-tag">
 			<h4>Summary for #{{selectedTag.body}}</h4>
+	
 				
 			<textarea class="input" id="field-textarea" placeholder="Your summary" ng-model="selectedTag.summary"></textarea><br>
 			<button class="button small" ng-click="saveTagSummary()" >Save summary</button>
@@ -39,25 +40,26 @@
 			<div class="message message-user">
 				<div class="message-details"><div class="message-details-avatar"><img src="/layout/assets/avatar.svg"></div></div>
 				<div class="message-body">{{user[0]._subject.name}}</div>
+				<div class="message-fave">Include in report?</div>
 				<div class="clear"></div>
 			</div>
 			
 			<!-- participant messages -->
 			<div ng-repeat="message in user" class="message" ng-show="showTest(message._id)">
-				<div class="message-details">&nbsp;</div>
+				<div class="message-details"><div class="message-edit"><img src="/layout/assets/pencil.svg" ng-click="editMessage(message, $index)" /></div></div>
 
 				<div class="message-body">
-					<p ng-bind-html="message.body | hashtag" ng-click="editMessage(message, $index)" ng-hide="messageEditToggle == message._id"></p>
-					<input ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}" ng-blur="saveEdit(message)"></input>
+					<p ng-bind-html="message.body | hashtag" ng-hide="messageEditToggle == message._id"></p>
+					<textarea class="input small" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}" ng-blur="saveEdit(message)"></textarea>
 					<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 				</div>
 
 				<div class="message-fave">
 					<a ng-click="saveFavTag(message)" ng-if="message.fav_tag">
-						&#9733;
+						<img src="/layout/assets/checkbox-filled.svg" />
 					</a>
 					<a ng-click="saveFavTag(message)" ng-if="!message.fav_tag">
-						&#9734;
+						<img src="/layout/assets/checkbox-empty.svg" />
 					</a>
 				</div>
 				<div class="clear"></div>

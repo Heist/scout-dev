@@ -36,11 +36,8 @@
 
 <div ng-model="selected" class="summary-task-notes">
 
-	<h4 class="float-left">Notes for &ldquo;{{selected.name}}&rdquo;</h4>
-	<h4 class="float-right">Fave?</h4>
-	<div class="clear"></div>
-	
-	
+	<!--<h4>Notes for &ldquo;{{selected.name}}&rdquo;</h4>-->
+
 
 	<div ng-repeat="user in messages" class="message-group">
 		
@@ -48,25 +45,26 @@
 		<div class="message message-user">
 			<div class="message-details"><div class="message-details-avatar"><img src="/layout/assets/avatar.svg"></div></div>
 			<div class="message-body">{{user[0]._subject.name}}</div>
+			<div class="message-fave">Include in report?</div>
 			<div class="clear"></div>
 		</div>
 		
 		<!-- participant messages -->
 		<div ng-repeat="message in user" class="message" ng-show="show(message._id)">
-			<div class="message-details">&nbsp;</div>
+			<div class="message-details"><div class="message-edit"><img src="/layout/assets/pencil.svg" ng-click="editMessage(message, $index)" /></div></div>
 
 			<div class="message-body">
-				<p ng-bind-html="message.body | hashtag" ng-click="editMessage(message, $index)" ng-hide="messageEditToggle == message._id"></p>
-				<input ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}" ng-blur="saveEdit(message)"></input>
+				<p ng-bind-html="message.body | hashtag" ng-hide="messageEditToggle == message._id"></p>
+				<textarea class="input small" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}" ng-blur="saveEdit(message)"></textarea>
 				<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 			</div>
 
 			<div class="message-fave">
 				<a ng-click="saveFavTask(message)" ng-if="message.fav_task">
-					&#9733;
+					<img src="/layout/assets/checkbox-filled.svg" />
 				</a>
 				<a ng-click="saveFavTask(message)" ng-if="!message.fav_task">
-					&#9734;
+					<img src="/layout/assets/checkbox-empty.svg" />
 				</a>
 			</div>
 			<div class="clear"></div>
