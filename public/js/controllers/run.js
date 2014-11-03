@@ -11,6 +11,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
     $scope.update.tasks = [];
 
     $scope.timeline = []; // holds all messages currently in test
+    $scope.glued = true;
 
     $http
         .get('/api/run/'+$stateParams._id)
