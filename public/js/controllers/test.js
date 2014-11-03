@@ -15,6 +15,7 @@ angular.module('field_guide_controls')
         .get('/api/test/'+$stateParams.test_id, {timeout : 5000, cache:false})
         .success(function(data) {
             $scope.test = data;
+            $scope.tasks = data._tasks;
             console.log('test', $scope.test);
 
             $scope.showAnchor(1);
@@ -37,15 +38,15 @@ angular.module('field_guide_controls')
         }
     };
 
-    $scope.selectPrototype = function(type){
-        console.log('touched prototype', type);
-        $scope.test.type = type;
-    }
+    $scope.selectPrototype = function(kind){
+        console.log('touched prototype', kind);
+        $scope.test.kind = kind;
+    };
 
-    $scope.selectPlatform = function(type){
-        $scope.test.platform = type;
+    $scope.selectPlatform = function(kind){
+        $scope.test.platform = kind;
         console.log('touched platform', $scope.test.platform);
-    }
+    };
 
     $scope.showAnchor = function(x) {
         // var newHash = 'anchor' + x;
@@ -57,6 +58,7 @@ angular.module('field_guide_controls')
         //   // call $anchorScroll() explicitly,
         //   // since $location.hash hasn't changed
         //   $anchorScroll();
+
         var explanations = [
             {   anchor : 1,
                 title : 'What is a test?',
@@ -81,7 +83,7 @@ angular.module('field_guide_controls')
     $scope.saveStart = function(){
         $scope.updateTest();
         $scope.showAnchor(3);
-    }
+    };
 
     // TIPS ===============================================
     $scope.tip = function(test){

@@ -92,7 +92,7 @@ app.route('/api/test/:_id')
                 link    : org_test.link,
                 name    : org_test.name,
                 platform: org_test.platform,
-                type    : org_test.type
+                kind    : org_test.kind
             };
 
             return Test.create(update, function(err, test){
@@ -137,33 +137,34 @@ app.route('/api/test/:_id')
     // update one test with new information
     .put(function(req,res){
         // // console.log('touched test put', req.body)
+        var t = req.body;
+        // console.log(test);
 
-        if(req.body._tasks){
-            var tasks = _.pluck(req.body._tasks, '_id');
+        if(t._tasks){
+            var tasks = _.pluck(t._tasks, '_id');
         }
+        
+        var id = mongoose.Types.ObjectId(t._id);
 
-        // console.log('tasks', tasks);
+        var update = {
+                desc    : t.desc,
+                link    : t.link,
+                name    : t.name,
+                platform: t.platform,
+                kind    : t.kind
+            };
 
-        Test.findById(req.params._id)
-            .exec(function(err,test){
-                // // console.log('touched test update', test)
-                
-                if(req.body.name){test.name = req.body.name;}
-                if(req.body.summary){test.name = req.body.summary;}
-                if(req.body.desc){test.desc = req.body.desc;}
-                if(req.body.platform){test.platform = req.body.platform;}
-                if(req.body._tasks){test._tasks = tasks;}
-                if(req.body.link){test.link = req.body.link;}
-                if(req.body.subject){test._subjects.push(req.body.subject);}
-                
-                // console.log(test);
+        var options = {
+            upsert : true
+        };
 
-                test.save(function(err, data){
-                    if (err){res.send(err);}
-
-                    res.json(data);
-                });
-            });
+        Test.findOneAndUpdate({_id:req.params._id}, update, function (err, doc) {
+            if (err){console.log(err);}
+            console.log('found', doc);
+            res.json(doc);
+        });
+        
+            
     })
 
     .delete(function(req,res){
@@ -179,25 +180,25 @@ app.route('/api/test/:_id')
 
         Test.find({_id:req.params._id})
             .remove(function(err){
-                if (err) res.send(err);
+                if (err) {res.send(err);}
             });
 
         Task.find({_test:req.params._id})
             .remove(function(err){
-                if (err) res.send(err);
+                if (err) {res.send(err);}
             });
 
         Message.find({_test:req.params._id})
             .remove(function(err){
-                if (err) res.send(err);
+                if (err) {res.send(err);}
             });
 
         Tag.find({_test:req.params._id})
             .remove(function(err){
-                if (err) res.send(err);
+                if (err) {res.send(err);}
             });
 
         res.json('test removed', req.params._id);
 
     });
-}
+};
