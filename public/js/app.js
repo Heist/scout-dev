@@ -189,29 +189,8 @@ field_guide_app.factory('socket', function ($rootScope, $location) {
 
 // DIRECTIVES =============================================
 field_guide_app
-// .directive('scrollItem',function(){
-//     return {
-//         restrict: "A",
-//         link: function(scope, element, attributes) {
-//             if (scope.$last){
-//                 scope.$emit("Finished");
-//             }
-//         }
-//     };
-// })
-// .directive('scrollIf', function() {
-//     return {
-//         restrict: "A",
-//         link: function(scope, element, attributes) {
-//             scope.$on("Finished",function(){
-//                 var chat_height = element.outerHeight();
-//                 // console.log(chat_height);
-//                 element.scrollTop(chat_height); 
-//             });
-//         }
-//     };
-// })
 .directive('scrollGlue', ['$parse', function($parse){
+    // via https://github.com/Luegg/angularjs-scroll-glue/blob/master/src/scrollglue.js
         function unboundState(initValue){
             var activated = initValue;
             return {
