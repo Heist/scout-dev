@@ -3,20 +3,21 @@
 
 // TEST CONTROLLER ===========================================================
 
-angular.module('field_guide_controls').controller('test', ['$scope','$http', '$stateParams','$state', '$location', function($scope, $http,$stateParams,$state, $location){
+angular.module('field_guide_controls')
+.run(['$anchorScroll', function($anchorScroll) {
+    $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
+}])
+.controller('test', ['$scope','$http', '$stateParams','$state', '$location','$window','$rootScope', '$anchorScroll',
+    function($scope, $http,$stateParams,$state, $location,$window,$rootScope,$anchorScroll){
     console.log('loaded test controller');
     
     $http
         .get('/api/test/'+$stateParams.test_id, {timeout : 5000, cache:false})
         .success(function(data) {
             $scope.test = data;
-            console.log('test', $scope.test)
+            console.log('test', $scope.test);
 
-            if($scope.test._tasks){
-                console.log($scope.test._tasks.length);
-                $scope.tasks = $scope.test._tasks;
-                $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
-            };
+            $scope.showAnchor(1);
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -28,19 +29,52 @@ angular.module('field_guide_controls').controller('test', ['$scope','$http', '$s
     $scope.sortableOptions = {
         handle: '> .step-hamburger',
         update: function(e, ui) {
-             console.log('update: '+ui.item.index());
-             console.log('task to update', $scope.tasks[ui.item.index()]);
+            console.log('update: '+ui.item.index());
+            console.log('task to update', $scope.tasks[ui.item.index()]);
 
-             $scope.tasks[ui.item.index()].index = ui.item.index();
-             $scope.updateTask($scope.tasks[ui.item.index()]);
+            $scope.tasks[ui.item.index()].index = ui.item.index();
+            $scope.updateTask($scope.tasks[ui.item.index()]);
+        }
+    };
 
-            // $scope.test._tasks = $scope.tasks;
-            // $scope.updateTest($scope.test)
-            // POST to server using $.post or $.ajax
-            //     console.log('touched sortable list', ui, e)
-            //     console.log($scope.test);
-            
-          }
+    $scope.showAnchor = function(x) {
+        // var newHash = 'anchor' + x;
+        // if ($location.hash() !== newHash) {
+        //   // set the $location.hash to `newHash` and
+        //   // $anchorScroll will automatically scroll to it
+        //   $location.hash('anchor' + x);
+        // } else {
+        //   // call $anchorScroll() explicitly,
+        //   // since $location.hash hasn't changed
+        //   $anchorScroll();
+        var explanations = [
+            {   anchor : 1,
+                title : 'What is a test?',
+                body : 'A <strong>Test</strong> is a series of screens, goals, or steps for your customers to interact with. For example, you could use a <strong>Test</strong> to capture a sign-up process.'
+            },
+            {   anchor : 3,
+                title : 'What is a task?',
+                body : '<strong>Tasks</strong> allow you to define important steps in your prototype, website, or app. <strong>Talking points</strong> are the notes and ideas you want to ask the person you’re testing with. You define steps to <strong>sort and organize</strong> your notes and feedback.'
+            },
+            {   anchor : 4,
+                title : 'Next steps',
+                body : 'Round up some testers - you&rsquo;re ready to test. This would be a good time to schedule in some test participants.'
+            }
+        ];
+
+        $scope.anchor = x;
+        $scope.explanation = _.findWhere(explanations, {anchor:x});
+        // $scope.explanation.body = ;
+    };
+
+    // TIPS ===============================================
+    $scope.tip = function(test){
+        
+        // $scope.tip.body = 'Testing your prototype on an <strong>iPhone</strong> or <strong>iPad</strong>? Download the Field Guide
+        //             app from the <a href="#" class="alt">App Store</a>.'
+
+        // do something HTML-rendering-and-sanitizing related in here.
+        // perhaps implement a Markdown directive?
     };
 
     // TASK FUNCTIONS =====================================
