@@ -31,11 +31,11 @@
 							
 						<button class="button small" ng-click="editTest(test)">Edit Test</button><br/>
 						
-						<button class="button small" ng-click="runTest(test)">Run Test</button><br/>
+						<button class="button small" ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run Test</button><br/>
 						
-						<button class="button small" ng-click="summarizeTest(test._id)" ng-show="!test.summary" >Create Summary</button>
+						<button class="button small" ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0">Create Summary</button>
 	
-						<button class="button small" ng-click="summarizeTest(test._id)" ng-show="test.summary" >Edit Summary</button>
+						<button class="button small" ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0" >Edit Summary</button>
 						
 						
 					</div>	

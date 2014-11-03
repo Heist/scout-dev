@@ -34,8 +34,19 @@
 				<!-- list of team members -->
 				<ul class="team-members">
 				
+					<li model="live_user">
+						<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
+						<div class="team-member-info">
+							<p ng-show="live_user.name">{{live_user.name}}<br /></p>
+							<small>That's you!</small>
+							<small>{{live_user.local.email}}</small>
+						</div>
+						<div class="team-member-remove"  ng-click="removeTeamMember(member)" ><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
+						<div class="clear"></div>
+					</li>
+
 					<!-- individual member -->
-					<li ng-repeat="member in live_user.team" ng-class="{self: member.local.email == live_user.email }">
+					<li ng-repeat="member in live_user.team" ng-hide="member.local.email == live_user.email">
 						<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
 						<div class="team-member-info">
 							<p ng-show="member.name">{{member.name}}<br /></p>
