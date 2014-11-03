@@ -53,7 +53,7 @@
 							<small  ng-show="member.local.email == live_user.email">That's you!</small>
 							<small>{{member.local.email}}</small>
 						</div>
-						<div class="team-member-remove"  ng-click="removeTeamMember(member)" ><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
+						<div class="team-member-remove"  ng-click="removeTeamMember(member)" ng-show=""><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
 						<div class="clear"></div>
 					</li>
 					<!-- / individual member -->

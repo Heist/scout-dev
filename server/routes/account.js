@@ -53,15 +53,15 @@ module.exports = function(app){
                 if(err) {return res.send (err);}
             });
             
-        })
-        .delete(function(req,res){
-            console.log('touched delete user');
-            User.remove({'_id' : req.params._user}, function(err, doc){
-                if(err) {return res.send (err);}
-
-                res.json('User removed');
-            });
         });
+        // .delete(function(req,res){
+        //     console.log('touched delete user');
+        //     User.remove({'_id' : req.params._user}, function(err, doc){
+        //         if(err) {return res.send (err);}
+
+        //         res.json('User removed');
+        //     });
+        // });
 
 
     app.route('/api/invite/')

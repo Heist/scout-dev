@@ -38,17 +38,17 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 	};
 
 
-	$scope.removeTeamMember = function(person){
-		console.log('remove this person', person._id );
-		var index = $scope.live_user.team.indexOf(person);
+	// $scope.removeTeamMember = function(person){
+	// 	console.log('remove this person', person._id );
+	// 	var index = $scope.live_user.team.indexOf(person);
 
-		$http
-			.delete('/api/account/'+person._id)
-			.success(function(err, data){
-				console.log('deleted', data);
-				$scope.live_user.team.splice(index, 1);
-			});
-	};
+	// 	$http
+	// 		.delete('/api/account/'+person._id)
+	// 		.success(function(err, data){
+	// 			console.log('deleted', data);
+	// 			$scope.live_user.team.splice(index, 1);
+	// 		});
+	// };
 
 	$scope.inviteTeamMember = function(email){
 		var url = '/api/invite/',
