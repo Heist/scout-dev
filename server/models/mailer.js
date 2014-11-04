@@ -20,10 +20,11 @@ var Emailer = (function() {
     mail.prototype.message_variables = {};
 
     mail.prototype.attachments = [{
-            fileName: "logo.png",
-            filePath: "./public/images/email/logo.png",
-            cid: "logo@myapp"
+            fileName: "fg-email-logo.gif",
+            filePath: ".public/layout/assets/fg-email-logo.gif",
+            cid: "logo@fieldguideapp"
         }];
+
 
     mail.prototype.send = function(callback) {
         var template = './server/views/emails/'+this.envelope_options.template+'.ejs';
@@ -44,6 +45,7 @@ var Emailer = (function() {
                 cid: 'source@app.fieldguide.com'
             }]
         };
+
         var transport = this.getTransport();
         return transport.sendMail(messageData, function(err, message){
             console.log('sent message to', message);
