@@ -152,7 +152,7 @@ module.exports = function(app){
             // this is to resend an invitation already sent!
             console.log(req.user.name);
             console.log(req.body);
-
+            
             Invitation.findById(req.params._id).exec(function(err,doc){
                 
                 console.log('invite', doc);
