@@ -78,7 +78,7 @@
 					<li>
 						<form model="team_mail">
 							<label for="newteammember">Invite a new team member</label>
-							<label ng-model="message" ng-show="message" ng-bind-html="message"></label>
+							<div class="messaging messaging-problem" ng-model="message" ng-show="message" ng-bind-html="message"></div>
 							<input class="input" id="newteammember" name="newteammember" placeholder="Your team member&rsquo;s e-mail address" ng-model="team_mail.address" />
 							<button class="button" ng-click="inviteTeamMember(team_mail)">Invite</button>
 						</form>
