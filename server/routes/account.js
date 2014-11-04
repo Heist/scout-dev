@@ -84,7 +84,7 @@ module.exports = function(app){
             promise.then(function(user){
                 console.log('next promise', user);
                 if(user !== null){ 
-                    res.json({email: user.local.email, name: user.name, _id: user._id, account: user._account});
+                    res.json({email: user.local.email, name: user.name, _id: user._id, account: user._account, msg:'user found'});
                     // throw new Error('abort promise chain');
                     throw new Error('User found');
 
@@ -155,7 +155,7 @@ module.exports = function(app){
             
             Invitation.findById(req.params._id).exec(function(err,doc){
                 
-                console.log('invite', doc);
+                console.log('resent invitation', doc);
                 res.json(doc.user_email);
 
                 var envelope_options = {
