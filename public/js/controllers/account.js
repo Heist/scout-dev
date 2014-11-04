@@ -53,7 +53,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 	$scope.inviteTeamMember = function(email){
 		var url = '/api/invite/',
 			dataOut = email,
-			new_url = $location.protocol()+'://'+$location.host();
+			new_url = $location.protocol()+'://'+$location.host()+':8080';
 
 		$http
 			.post(url, dataOut)
@@ -80,7 +80,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 	$scope.resendInvite = function(invite){
 		var url = '/api/invite/'+invite._id,
 			dataOut = invite,
-			new_url = $location.protocol()+'://'+$location.host();
+			new_url = $location.protocol()+'://'+$location.host()+':8080';
 
 		$http
 			.post(url, dataOut)
