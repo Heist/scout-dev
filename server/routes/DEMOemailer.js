@@ -30,7 +30,7 @@ Emailer = (function() {
         attachments = this.getAttachments(html);
         messageData = {
             to: "'" + this.options.to.name + " " + this.options.to.surname + "' <" + this.options.to.email + ">",
-            from: "'Myapp.com'",
+            from: "'Field Guide'",
             subject: this.options.subject,
             html: html,
             generateTextFromHTML: true,

@@ -60,17 +60,18 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 			.success(function(data){
 				console.log('invitation sent', data);
 
-				if(data.user_email){
-					$scope.live_user.invites.push({ user_email: data.user_email, pending:true});
+				if(data.invite){
+					$scope.live_user.invites.push({ user_email: data.invite, pending:true});
 					email.address = "";
 					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data._account+"' target='_blank'>"+new_url+"/login/"+data._account+"</a>";
 				}
-				if(data.email){
+				else if(data.email){
 					$scope.live_user.team.push({ local : {email : data.email}, 'name': data.name});
 					console.log($scope.live_user.team);
 					email.address = "";
 					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data._account+"' target='_blank'>"+new_url+"/login/"+data._account+"</a>";
-				} else {
+				} 
+				else {
 					$scope.message = data;
 				}
 			});
