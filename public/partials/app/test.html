@@ -11,14 +11,12 @@
             
             <ul class="stepped-nav">
                 <li class="step-left"
-				ng-class="{'step-active': anchor === 1 ,'step-inactive': anchor !== 1 , 'step-completed': test.desc}"
-				ng-class="{}"
-				>
+                ng-class="{'step-completed': test.desc, 'step-active': anchor === 1 , 'step-inactive': anchor !== 1}">
                 	<a href="#" ng-click="showAnchor(1)">Choose a test type</a><div class="step-state"></div>
                 </li>
                 
                 <li class="step-middle"
-                ng-class="{'step-active': anchor === 3 ,'step-inactive': anchor !== 3, 'step-completed': test.desc }">
+                ng-class="{'step-completed': test._tasks.length > 0, 'step-active': anchor === 3 ,'step-inactive': anchor !== 3}">
                 	<a href="#" ng-click="showAnchor(3)">Set up tasks</a><div class="step-state"></div>
                 </li>
 
@@ -55,7 +53,7 @@
 
         <!-- choose a test type -->
 
-            <div ng-show="anchor === 1 && !test.kind">
+            <div ng-show="anchor === 1">
             	<div class="module third test-type" >
             	    <img src="/layout/assets/testtype-ethno.png">
             	    <h3>Interview</h3>

@@ -418,15 +418,15 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 .stepped-nav li .step-state { display: block; height: 20px; padding: 0; margin: 0; }
 .stepped-nav li.step-left.step-active a { opacity: 1.0; }
 .stepped-nav li.step-left.step-active .step-state { background: url("/layout/assets/stepped/left-active.png") no-repeat center center; background-size: cover; }
-.stepped-nav li.step-left.step-completed .step-state { background: url("/layout/assets/stepped/left-completed.png") no-repeat center center; background-size: cover; }
+.stepped-nav li.step-left.step-completed .step-state { background: url("/layout/assets/stepped/left-completed.png") no-repeat center center !important; background-size: cover; }
 .stepped-nav li.step-left.step-inactive .step-state { background: url("/layout/assets/stepped/left-off.png") no-repeat center center; background-size: cover; }
 .stepped-nav li.step-middle.step-active a { opacity: 1.0; }
 .stepped-nav li.step-middle.step-active .step-state { background: url("/layout/assets/stepped/middle-active.png") no-repeat center center; background-size: cover; }
-.stepped-nav li.step-middle.step-completed .step-state { background: url("/layout/assets/stepped/middle-completed.png") no-repeat center center; background-size: cover; }
+.stepped-nav li.step-middle.step-completed .step-state { background: url("/layout/assets/stepped/middle-completed.png") no-repeat center center !important; background-size: cover; }
 .stepped-nav li.step-middle.step-inactive .step-state { background: url("/layout/assets/stepped/middle-off.png") no-repeat center center; background-size: cover; }
 .stepped-nav li.step-right.step-active a { opacity: 1.0; }
 .stepped-nav li.step-right.step-active .step-state { background: url("/layout/assets/stepped/right-active.png") no-repeat center center; background-size: cover; }
-.stepped-nav li.step-right.step-completed .step-state { background: url("/layout/assets/stepped/right-completed.png") no-repeat center center; background-size: cover; }
+.stepped-nav li.step-right.step-completed .step-state { background: url("/layout/assets/stepped/right-completed.png") no-repeat center center !important; background-size: cover; }
 .stepped-nav li.step-right.step-inactive .step-state { background: url("/layout/assets/stepped/right-off.png") no-repeat center center; background-size: cover; }
 
 /* editing a test */
