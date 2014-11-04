@@ -63,13 +63,13 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 				if(data.invite){
 					$scope.live_user.invites.push({ user_email: data.invite, pending:true});
 					email.address = "";
-					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data._account+"' target='_blank'>"+new_url+"/login/"+data._account+"</a>";
+					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data.account+"' target='_blank'>"+new_url+"/login/"+data.account+"</a>";
 				}
 				else if(data.email){
 					$scope.live_user.team.push({ local : {email : data.email}, 'name': data.name});
 					console.log($scope.live_user.team);
 					email.address = "";
-					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data._account+"' target='_blank'>"+new_url+"/login/"+data._account+"</a>";
+					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data.account+"' target='_blank'>"+new_url+"/login/"+data.account+"</a>";
 				} 
 				else {
 					$scope.message = data;
@@ -90,7 +90,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 				if(data.user_email){
 					$scope.user_message = "User invite link is <a href='"+new_url+"/login/"+data._account+"'>"+new_url+"/login/"+data._account+"</a>";
 				} else {
-					$scope.user_message = data;
+					// $scope.user_message = data;
 				}
 			});
 

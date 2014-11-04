@@ -156,7 +156,7 @@ module.exports = function(app){
             Invitation.findById(req.params._id).exec(function(err,doc){
                 
                 console.log('invite', doc);
-                res.json(doc.local.email);
+                res.json(doc.user_email);
 
                 var envelope_options = {
                     to: {
