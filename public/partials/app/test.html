@@ -54,26 +54,26 @@
         <!-- choose a test type -->
 
             <div ng-show="anchor === 1">
-            	<div class="module third test-type" >
+            	<div class="module third test-type" ng-class="{selected: test.kind}">
             	    <img src="/layout/assets/testtype-ethno.png">
             	    <h3>Interview</h3>
             	    <p>You have a <strong>discussion-style</strong> test that doesn’t have any visuals associated with it.</p>
-            	    <button class="button small hollow disabled">Coming soon</button>
+            	    <button class="button small" ng-click='selectPrototype("interview")'>Select</button>
             	    <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
             	</div>
             	
-            	<div class="module third test-type selected">
+            	<div class="module third test-type">
             	    <img src="/layout/assets/testtype-proto.png">
             	    <h3>Prototype</h3>
             	    <p>You have a <strong>screen-based prototype</strong> in Invision, Marvel, or on the web.</p>
-            	    <button class="button small" ng-click='selectPrototype("web")'>Select</button>
+            	    <button class="button small hollow disabled">Coming soon</button>
             	    <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
             	</div>
             	
             	<div class="module third test-type">
             	    <img src="/layout/assets/testtype-video.png">
             	    <h3>Video</h3>
-            	    <p>You want to capture notes from a <strong>pre-recorded video</strong>, like on Youtube or usertesting.com.</p>
+            	    <p>You want to capture notes from a <strong>pre-recorded video</strong>, such as on usertesting.com.</p>
             	    <button class="button small hollow disabled">Coming soon</button>
             	    <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
             	</div>
@@ -93,6 +93,7 @@
                         <input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="e.g. Onboarding flow" ng-blur="updateTest()" />
                     </li>
                     
+                    <!--
                     <li>
                         <label for="field-testname">What type of device is your prototype for?</label>
                     
@@ -120,13 +121,15 @@
                         <label for="field-prototypeurl">Your prototype URL</label>
                         
                         <input class="input" id="field-prototypeurl" ng-model="test.link" type="text" value="" placeholder="http://invis.io/ABC123" />
-                        <!--<small><a href="#" class="alt">How do I find my prototype URL?</a></small>-->
+                        <small><a href="#" class="alt">How do I find my prototype URL?</a></small>
                     </li>
+                    
+                    -->
                     
                     <li>
                         <label for="field-prototypeurl">Your test objectives</label>
                         
-                        <textarea class="input" id="field-objective" type="text" value="" ng-model="test.description" placeholder="What is the purpose of this test?" />
+                        <textarea class="input" id="field-objective" type="text" value="" ng-model="test.description" placeholder="What is the purpose of this test? What do you want to learn?" />
                     </li>
                     
                     <li>
