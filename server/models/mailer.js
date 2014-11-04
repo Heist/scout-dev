@@ -1,9 +1,11 @@
 // emailer.js
 'use strict';
 
-var nodemailer = require("nodemailer");
-var fs = require("fs");
-var _ = require("underscore");
+var nodemailer = require('nodemailer'),
+    ejs = require('ejs'),
+    fs = require('fs'),
+    _ = require('underscore');
+    
 
 
 var Emailer = (function() {
@@ -24,18 +26,16 @@ var Emailer = (function() {
         }];
 
     mail.prototype.send = function(callback) {
-        
-        // this is clever but doesn't do jack shit.
-        // var html = this.getHtml(this.envelope_options.template, this.message_variables);
-        // var html = 
-        // console.log('html',html);
+        var template = './server/views/emails/'+this.envelope_options.template+'.ejs';
+        var str = fs.readFileSync(template, 'utf8');
+        var html = ejs.render(str, this.message_variables);
         
         //var attachments = this.getAttachments(html);
         var messageData = {
             to: "<tom@heistmade.com>",
             from: "Field Guide App <contact@fieldguideapp.com>",
             subject: this.envelope_options.subject,
-            html: {path:'./server/views/emails/invite.html'},
+            html: html,
             generateTextFromHTML: true
             // ,attachments: attachments
         };
