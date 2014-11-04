@@ -197,6 +197,10 @@ angular.module('field_guide_controls')
     $scope.updateTest = function(){
         var test = $scope.test;
         
+        if($scope.test.description){
+            test.desc = test.description;
+        }
+        
         console.log('touched update test', test);
 
         var url = '/api/test/'+$stateParams.test_id;
