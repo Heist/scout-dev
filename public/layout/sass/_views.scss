@@ -211,6 +211,14 @@
 
 
 
+/* quickie style for boxes with a line on top */
+
+.line-top {
+	border-top: 1px solid $line;
+	padding: $pad 0;
+	margin: $pad 0 0 0;
+}
+
 
 
 

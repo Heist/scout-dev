@@ -195,7 +195,7 @@
 	top: 48px;
 	right: $pad;
 	background: $fg-header-red;
-	z-index: 9999;
+	z-index: 9999999;
 	@include radius-bottom(8px);
 	
 	.button {

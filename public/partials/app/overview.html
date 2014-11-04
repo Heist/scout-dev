@@ -7,7 +7,7 @@
 	<!-- sub bar -->
 	<div id="sub-bar">
 		<div class="container">
-			<h1>Tests</h1>
+			<h1>My Tests</h1>
 			
 			<div class="sub-bar-controls">
 				<button class="button small" ng-click="newTest()">+ New test</button>
@@ -40,17 +40,17 @@
 				<div class="test-controls">
 				
 					<div class="test-control">
-						<a ng-click="editTest(test)"><img src="/layout/assets/test-action-edit.svg" /><br>Edit Tasks</a>
+						<a ng-click="editTest(test)"><img src="/layout/assets/test-action-edit.svg" /><br>Edit<br>Tasks</a>
 					</div>
 						
 					<div class="test-control">
-						<a ng-click="runTest(test)" ng-show="test._tasks.length > 0"><img src="/layout/assets/test-action-test.svg" /><br>Run Test</a>
+						<a ng-click="runTest(test)" ng-show="test._tasks.length > 0"><img src="/layout/assets/test-action-test.svg" /><br>Run<br>Test</a>
 					</div>
 					
 					<div class="test-control">
-						<a ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0"><img src="/layout/assets/test-action-report.svg" /><br>Create Report</a>
+						<a ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0"><img src="/layout/assets/test-action-report.svg" /><br>Create<br>Report</a>
 						
-						<a ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0" ><img src="/layout/assets/test-action-report.svg" /><br>Edit Report</a>
+						<a ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0" ><img src="/layout/assets/test-action-report.svg" /><br>Edit<br>Report</a>
 					</div>
 					
 					<div class="clear"></div>

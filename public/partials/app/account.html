@@ -8,11 +8,11 @@
 		<div class="container">
 		
 			<ul class="tabbed-nav">
-				<li><a href="#">Account Information</a></li>
+				<!--<li><a href="#">Account Information</a></li>-->
 				<li class="active"><a href="#">Team</a></li>
-				<li><a href="#">Billing</a></li>
+				<!--<li><a href="#">Billing</a></li>
 				<li><a href="#">Notifications</a></li>
-				<li><a href="/account">Connected Apps</a></li>
+				<li><a href="/account">Connected Apps</a></li>-->
 				
 			</ul>
 			
@@ -34,6 +34,7 @@
 				<!-- list of team members -->
 				<ul class="team-members">
 				
+				
 					<li model="live_user">
 						<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
 						<div class="team-member-info">
@@ -41,16 +42,16 @@
 							<small>That's you!</small>
 							<small>{{live_user.local.email}}</small>
 						</div>
-						<div class="team-member-remove"  ng-click="removeTeamMember(member)" ><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
+						<!-- <div class="team-member-remove"  ng-click="removeTeamMember(member)" ><a href="#">&times;</a></div>--> <!-- don't allow me to remove myself -->
 						<div class="clear"></div>
 					</li>
 
-					<!-- individual member -->
+					<!-- individual member - confirmed -->
 					<li ng-repeat="member in live_user.team" ng-hide="member.local.email == live_user.email">
 						<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
 						<div class="team-member-info">
 							<p ng-show="member.name">{{member.name}}<br /></p>
-							<small  ng-show="member.local.email == live_user.email">That's you!</small>
+							<small ng-show="member.local.email == live_user.email">That's you!</small>
 							<small>{{member.local.email}}</small>
 						</div>
 						<div class="team-member-remove"  ng-click="removeTeamMember(member)" ng-show=""><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
@@ -59,7 +60,7 @@
 					<!-- / individual member -->
 					
 					
-					<!-- individual member -->
+					<!-- individual member - invited -->
 					<li ng-repeat="invite in live_user.invites">
 						<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
 						<div class="team-member-info">
@@ -70,6 +71,8 @@
 						<div class="clear"></div>
 					</li>
 					<!-- / individual member -->
+					
+					
 					
 					<!-- add a new member -->
 					<li>

@@ -26,7 +26,7 @@
 
                 <li class="step-right"
                 ng-class="{'step-active': anchor === 5 ,'step-inactive': anchor !== 5 }">
-                	<a href="#" ng-click="showAnchor(5)">You're done!</a><div class="step-state"></div>
+                	<a>You're done!</a><div class="step-state"></div>
                 </li>
                 <div class="clear"></div>
             </ul>
@@ -122,7 +122,7 @@
                         <label for="field-prototypeurl">Your prototype URL</label>
                         
                         <input class="input" id="field-prototypeurl" ng-model="test.link" type="text" value="" placeholder="http://invis.io/ABC123" />
-                        <small><a href="#" class="alt">How do I find my prototype URL?</a></small>
+                        <!--<small><a href="#" class="alt">How do I find my prototype URL?</a></small>-->
                     </li>
                     
                     <li>
@@ -176,9 +176,11 @@
                 </ul>
                 
                 
-                <button class="float-left button small" ng-click="newTask()">+ Add a task</a></button>
-                <small class="float-right"><a href="#" class="alt"  ng-click="saveAndMove(5)">I&rsquo;m done adding tasks</a></small>
-                <div class="clear"></div>
+                <button class="button small hollow" ng-click="newTask()">+ Add a task</a></button>
+                
+                <div class="line-top">
+                	<button class="button small" ng-click="saveAndMove(5)">Next step</button>
+                </div>
                 
             </div>
         <!-- / step 3 -->
@@ -191,7 +193,7 @@
             <div class="module two-thirds test-done" ng-show="anchor === 5">
             
                 <h1>You're done!</h1>
-                <p>Great job building that test. Go back to the <a href="/overview">Overview</a> screen and start testing!</p>
+                <p>Great job building that test. Go back to the <a href="/overview">My Tests</a> screen and start testing!</p>
                 
             </div>              
             
