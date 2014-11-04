@@ -10,6 +10,7 @@ var Emailer = (function() {
     function mail(envelope_options, message_variables) {
         this.envelope_options = envelope_options;
         this.message_variables = message_variables;
+        console.log('envelope_options', envelope_options, 'message_variables', message_variables);
     }
     
     mail.prototype.envelope_options =  {};
@@ -21,21 +22,25 @@ var Emailer = (function() {
             filePath: "./public/images/email/logo.png",
             cid: "logo@myapp"
         }];
-
+        // this.envelope_options.subject
         // <" + this.envelope_options.to.email + ">, 
     mail.prototype.send = function(callback) {
         var html = this.getHtml(this.envelope_options.template, this.message_variables);
+        console.log('html',html);
+        console.log('subject',this.envelope_options.subject);
         //var attachments = this.getAttachments(html);
         var messageData = {
             to: "<alex.leitch@gmail.com>",
-            from: this.envelope_options.author,
+            from: "Field Guide App <contact@fieldguideapp.com>",
             subject: this.envelope_options.subject,
             html: html,
             generateTextFromHTML: true
             // ,attachments: attachments
         };
         var transport = this.getTransport();
-        return transport.sendMail(messageData, callback);
+        return transport.sendMail(messageData, function(err, message){
+            console.log('sent message to', message);
+        });
     };
 
     mail.prototype.getTransport = function() {
