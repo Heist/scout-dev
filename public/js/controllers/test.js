@@ -59,6 +59,7 @@ angular.module('field_guide_controls')
         //   // since $location.hash hasn't changed
         //   $anchorScroll();
 
+
         var explanations = [
             {   anchor : 1,
                 title : 'What is a test?',
@@ -76,9 +77,7 @@ angular.module('field_guide_controls')
 
         $scope.anchor = x;
         $scope.explanation = _.findWhere(explanations, {anchor:x});
-        // $scope.explanation.body = ;
     };
-
 
     $scope.saveAndMove = function(anchor){
         $scope.updateTest();
@@ -200,7 +199,7 @@ angular.module('field_guide_controls')
         if($scope.test.description){
             test.desc = test.description;
         }
-        
+
         console.log('touched update test', test);
 
         var url = '/api/test/'+$stateParams.test_id;

@@ -4,8 +4,8 @@
 // REPORT CONTROLLER ===========================================================
 angular.module('field_guide_controls').controller('report', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
-    
 
+    $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/report/'+$stateParams.test_id;
     $http.get('/api/report/'+$stateParams.test_id)
             .success(function(data){
                 // console.log('the report object', data);
@@ -18,10 +18,13 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
 
 
                 // console.log('tasks', data.tasks, 'test', $scope.test, 'tags', $scope.tags  );
-
+                console.log($scope.reportLink);
                 $scope.select(data.test);
                 $state.go("report.test");
+
             }); 
+
+
 
     $scope.select = function(obj){
         console.log('selected object', obj)
