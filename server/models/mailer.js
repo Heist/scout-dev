@@ -32,7 +32,7 @@ var Emailer = (function() {
         
         //var attachments = this.getAttachments(html);
         var messageData = {
-            to: "<alex.leitch@gmail.com>",
+            to: "<tom@heistmade.com>",
             from: "Field Guide App <contact@fieldguideapp.com>",
             subject: this.envelope_options.subject,
             html: {path:'./server/views/emails/invite.html'},
