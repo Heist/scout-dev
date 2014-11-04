@@ -35,7 +35,7 @@ var Emailer = (function() {
             to: "<alex.leitch@gmail.com>",
             from: "Field Guide App <contact@fieldguideapp.com>",
             subject: this.envelope_options.subject,
-            html: '<p>Hello from Field Guide</p>',
+            html: {path:'./server/views/emails/invite.html'},
             generateTextFromHTML: true
             // ,attachments: attachments
         };
