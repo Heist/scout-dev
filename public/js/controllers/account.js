@@ -58,10 +58,11 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 		$http
 			.post(url, dataOut)
 			.success(function(data){
-				// console.log('invitation sent', data);
+				console.log('invitation sent', data);
 
 				if(data.invite){
-					$scope.live_user.invites.push({ user_email: data.invite, pending:true});
+					$scope.live_user.invites.push({ user_email: data.invite, invite_id: data.invite_id, pending:true});
+					console.log('$scope.live_user.invites', $scope.live_user.invites);
 					email.address = "";
 					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data.account+"' target='_blank'>"+new_url+"/login/"+data.account+"</a>";
 				}
@@ -78,19 +79,23 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 	};
 
 	$scope.resendInvite = function(invite){
-		var url = '/api/invite/'+invite._id,
+		console.log('sent', invite);
+		var url = '/api/invite/'+invite.invite_id,
 			dataOut = invite,
 			new_url = $location.protocol()+'://'+$location.host()+':8080';
+		
+		
 
 		$http
 			.post(url, dataOut)
 			.success(function(data){
-				// console.log('reinvitation sent', data);
+				console.log('reinvitation sent', data);
 				
 				if(data.user_email){
-					$scope.user_message = "User invite link is <a href='"+new_url+"/login/"+data._account+"'>"+new_url+"/login/"+data._account+"</a>";
+					// this is I DON'T FUCKING KNOW
+					$scope.message = "User invite link is <a href='"+new_url+"/login/"+invite.account+"'>"+new_url+"/login/"+invite.account+"</a>";
 				} else {
-					// $scope.user_message = data;
+					$scope.message = "Reinvitation sent to"+ data +"<br /> Invite link is <a href='"+new_url+"/login/"+invite.account+"'>"+new_url+"/login/"+invite.account+"</a>";
 				}
 			});
 

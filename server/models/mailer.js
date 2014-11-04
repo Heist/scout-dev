@@ -30,9 +30,9 @@ var Emailer = (function() {
         var str = fs.readFileSync(template, 'utf8');
         var html = ejs.render(str, this.message_variables);
         
-        //var attachments = this.getAttachments(html);
+        
         var messageData = {
-            to: "<tom@heistmade.com>",
+            to: "<alex.leitch@gmail.com>",
             from: "Field Guide App <contact@fieldguideapp.com>",
             subject: this.envelope_options.subject,
             html: html,

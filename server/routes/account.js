@@ -118,7 +118,7 @@ module.exports = function(app){
             })
             .then(function(invite){
                 console.log('invite new no id', invite);
-                res.json({invite: invite.user_email, account: invite._account});
+                res.json({invite: invite.user_email, account: invite._account, invite_id: invite._id});
 
                 var envelope_options = {
                     to: {
