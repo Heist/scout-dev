@@ -207,6 +207,11 @@
 		background: $fg-green-light;
 		color: $white;
 	}
+	
+	&.messaging-neutral {
+		background: $line;
+		color: $text
+	}
 }
 
 
