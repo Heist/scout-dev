@@ -131,7 +131,7 @@ module.exports = function(app){
 
                 var message_variables = {
                     created_by: "Field Guide",
-                    invite_link: app.locals.real_url+'/login/'+invite._account
+                    invite_link: 'http://'+app.locals.real_url+'/login/'+invite._account
                 };
 
                 var mailer = new Emailer(envelope_options, message_variables);
