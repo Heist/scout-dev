@@ -71,7 +71,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 					$scope.live_user.invites.push(data);
 					// console.log('$scope.live_user.invites', $scope.live_user.invites);
 					email.address = "";
-					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data._account+"' target='_blank'>"+new_url+"/login/"+data._account+"</a>";
+					$scope.message = "We&rsquo;ve sent an e-mail invitation to your team member. Just in case, you can also invite them using this personalized link: <a href='"+new_url+"/login/"+data._account+"' target='_blank'>"+new_url+"/login/"+data._account+"</a>";
 				}
 				else if(data.msg === 'user found'){
 					// an existing user was found
@@ -79,7 +79,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 					
 					$scope.live_user.team.push({ local : {email : data.email}, 'name': data.name});
 					email.address = "";
-					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data._account+"' target='_blank'>"+new_url+"/login/"+data._account+"</a>";
+					$scope.message = "This team member is already a Field Guide user. Invite them to your team using this personalized link: <a href='"+new_url+"/login/"+data._account+"' target='_blank'>"+new_url+"/login/"+data._account+"</a>";
 				} 
 				else {
 					$scope.message = data;
@@ -99,7 +99,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 			.post(url, dataOut)
 			.success(function(data){
 				// console.log('reinvitation sent', data);
-				$scope.message = "Reinvitation sent to "+ data.user_email +"<br /> Invite link is <a href='"+new_url+"/login/"+data._account+"'>"+new_url+"/login/"+data._account+"</a>";
+				$scope.message = "Reinvitation sent to "+ data.user_email +"<br /> Here is a personalized invitation link you can share with them: <a href='"+new_url+"/login/"+data._account+"'>"+new_url+"/login/"+data._account+"</a>";
 			});
 
 	};
