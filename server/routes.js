@@ -60,6 +60,9 @@ module.exports = function(app, passport) {
 
     // process the login form
     app.post('/auth/login', function(req, res, next) {
+        // make sure that you're logged out before trying to log anyone else in
+        // req.logout();
+
         if (!req.body.email || !req.body.password) {
             return res.json({ error: 'Email and Password required' });
         }
@@ -77,7 +80,7 @@ module.exports = function(app, passport) {
 
                 // console.log('user _id login', req.user._id);
 
-                return res.json({ user: mongoose.Types.ObjectId(req.user._id), redirect: '/overview' });
+                return res.json({ user: mongoose.Types.ObjectId(req.user._id), redirect: '/overview', msg:'login worked' });
             });
         })(req, res);
     });
@@ -93,12 +96,19 @@ module.exports = function(app, passport) {
             if (user.error) {
                 return res.json({ error: user.error });
             }
+            if (info){
+                console.log('auth signup info', info);
+            }
 
+            if (user){
+                console.log('auth signup user', user);
+            }
+            
             req.logIn(user, function(err) {
                 if (err) { return res.json(err); }
-                console.log('user _id register', req.user._id);
-                var user = req.user._id;
-                return res.json({ 'user': user, redirect: '/overview' });
+                console.log('auth/signup authenticated user', req.user);
+
+                return res.json({ 'user': req.user._id, 'name':req.user.name, redirect: '/overview', msg:'register user worked' });
             });
         })(req, res);
     });

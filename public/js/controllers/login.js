@@ -45,7 +45,7 @@ angular.module('field_guide_controls')
     };
 
     $scope.register = function(user){
-        // console.log(user);
+        console.log('register this user', user);
         var url, 
             dataOut,
             acct;
@@ -55,8 +55,8 @@ angular.module('field_guide_controls')
             console.log('touched account', acct);
             url = '/auth/signup/';
             dataOut = {email: user.email, name:user.name, password: user.password, _account: acct};
-        } else {
-            console.log('cannot see stateparams.acct');
+        } else if (!$stateParams.acct) {
+            console.log('this signup does not include an account (stateparams.acct)');
             url = '/auth/signup/';
             dataOut = {email: user.email, name:user.name, password: user.password};
         }
@@ -65,8 +65,9 @@ angular.module('field_guide_controls')
             .post(url, dataOut)
             .success(function(data){
                 $scope.flashmessage = data.error;
-                console.log('register controller success', data);
-                $rootScope.user = data.user;
+                console.log('register controller success passed back this', data);
+                
+                $rootScope.user = data._id;
                 $location.path(data.redirect);
             })
             .error(function(error){

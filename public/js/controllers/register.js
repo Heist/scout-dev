@@ -12,6 +12,4 @@ angular.module('field_guide_controls')
         console.log($scope.acct);
     }
 
-    
-
 }]);
