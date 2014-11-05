@@ -78,7 +78,6 @@ module.exports = function(app){
                         return res.json({'user' : user});
                     });
                 }
-                // throw new Error('User found'); 
             });
 
             promise.then(function(user){
