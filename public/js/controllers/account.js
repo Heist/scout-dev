@@ -58,12 +58,12 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 		$http
 			.post(url, dataOut)
 			.success(function(data){
-				// console.log('invitation sent', data);
+				console.log('invitation sent', data);
 
 				if(data.user_email){
-					// this is the message that will show when a new invitation is created
-					// for a user who is not already on the system
 					// user_email exists only on the Invite model.
+					// if an invitation then exists, do the following.
+					
 					$scope.live_user.invites.push(data);
 					// console.log('$scope.live_user.invites', $scope.live_user.invites);
 					email.address = "";
@@ -72,6 +72,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 				else if(data.msg === 'user found'){
 					// an existing user was found
 					// their existing account identity was wiped out and they have been added to the new team
+					
 					$scope.live_user.team.push({ local : {email : data.email}, 'name': data.name});
 					email.address = "";
 					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data._account+"' target='_blank'>"+new_url+"/login/"+data._account+"</a>";
@@ -94,7 +95,6 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 			.post(url, dataOut)
 			.success(function(data){
 				// console.log('reinvitation sent', data);
-				
 				$scope.message = "Reinvitation sent to "+ data.user_email +"<br /> Invite link is <a href='"+new_url+"/login/"+data._account+"'>"+new_url+"/login/"+data._account+"</a>";
 			});
 
@@ -106,7 +106,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 		$http
 			.delete('/api/invite/'+invite._id)
 			.success(function(err, data){
-				// // console.log('invitation removed', data);
+				// console.log('invitation removed', data);
 				$scope.live_user.invites.splice(index, 1);
 			});
 	};

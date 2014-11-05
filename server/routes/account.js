@@ -83,7 +83,13 @@ module.exports = function(app){
             promise.then(function(user){
                 console.log('next promise', user);
                 if(user !== null){ 
-                    res.json({email: user.local.email, name: user.name, _id: user._id, account: user._account, msg:'user found'});
+                    res.json({
+                        email: user.local.email, 
+                        name: user.name, 
+                        _id: user._id, 
+                        _account: user._account, 
+                        msg:'user found'
+                    });
                     // throw new Error('abort promise chain');
                     throw new Error('User found');
 
