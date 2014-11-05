@@ -24,13 +24,10 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $httpProvider.defaults.timeout = 3000;
 
     // TODO: this should probably be an Interceptor, but it works on load for now.
-    function checkLoggedin($q, $timeout, $http, $location, $rootScope, $localStorage){ 
-        console.log('checkLoggedin $localStorage.user', $localStorage.user);
+    function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
+        console.log('checkLoggedin $localStorage.user');
 
         // Make an AJAX call to check if the user is logged in
-        // if($localStorage.user){
-        //     $rootScope.user = $localStorage.user;
-        // } else {
         var deferred = $q.defer(); 
 
         $http
@@ -39,8 +36,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 // Authenticated
                 if (user !== '0') {
                     console.log('yeah you logged in', user);
-                    $localStorage.user = user;
-                    $rootScope.user = $localStorage.user;
+                    $rootScope.user = user;
                     
                     $timeout(deferred.resolve, 0);
                 }
@@ -55,7 +51,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                     var patt = new RegExp(/\/report/i);
                     var isReport = patt.test(loc);
 
-                    $localStorage.$reset();
                     if( !isReport){
                         $location.url('/login');
                     }
