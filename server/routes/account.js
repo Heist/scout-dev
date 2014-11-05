@@ -130,7 +130,7 @@ module.exports = function(app){
                 };
 
                 var message_variables = {
-                    created_by: "Field Guide",
+                    created_by: req.user.name,
                     invite_link: 'http://'+app.locals.real_url+'/login/'+invite._account
                 };
 
