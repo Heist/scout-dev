@@ -68,14 +68,14 @@ module.exports = function(app){
         .post(function(req,res){
             console.log('user posting invite', req.body, req.user._account);
 
-            var promise = User.findOne({'local.email' : req.body.address }).exec(function(err, docs){
+            var promise = User.findOne({'local.email' : req.body.address }).exec(function(err, user){
                 if(err) {return res.send(err);}
-                console.log('docs',docs);
+                console.log('docs',user);
 
-                if(docs){
-                    docs._account = req.user._account;
-                    docs.save(function(err,data){
-                        return res.json({user : data});
+                if(user){
+                    user._account = req.user._account;
+                    user.save(function(err,data){
+                        return res.json({'user' : user});
                     });
                 }
                 // throw new Error('User found'); 
@@ -118,7 +118,7 @@ module.exports = function(app){
             })
             .then(function(invite){
                 console.log('invite new no id', invite);
-                res.json({invite: invite.user_email, account: invite._account, invite_id: invite._id});
+                res.json(invite);
 
                 var envelope_options = {
                     to: {
@@ -149,18 +149,19 @@ module.exports = function(app){
 
     app.route('/api/invite/:_id')
         .post(function(req,res){
-            // this is to resend an invitation already sent!
+            // this is to resend an invitation already sent
             console.log(req.user.name);
             console.log(req.body);
-            
-            Invitation.findById(req.params._id).exec(function(err,doc){
+            console.log(req.params._id);            
+
+            Invitation.findById(req.params._id).exec(function(err,invite){
                 
-                console.log('resent invitation', doc);
-                res.json(doc.user_email);
+                console.log('resent invitation', invite);
+                res.json(invite);
 
                 var envelope_options = {
                     to: {
-                        email: doc.user_email,
+                        email: invite.user_email,
                     },
                     author: req.user.name,
                     subject: "Invite from Field Guide",

@@ -60,17 +60,21 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 			.success(function(data){
 				console.log('invitation sent', data);
 
-				if(data.invite){
-					$scope.live_user.invites.push({ user_email: data.invite, invite_id: data.invite_id, pending:true});
+				if(data.user_email){
+					// this is the message that will show when a new invitation is created
+					// for a user who is not already on the system
+					// user_email exists only on the Invite model.
+					$scope.live_user.invites.push(data);
 					console.log('$scope.live_user.invites', $scope.live_user.invites);
 					email.address = "";
-					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data.account+"' target='_blank'>"+new_url+"/login/"+data.account+"</a>";
+					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data._account+"' target='_blank'>"+new_url+"/login/"+data._account+"</a>";
 				}
-				else if(data.email){
+				else if(data.msg === 'user found'){
+					// an existing user was found
+					// their existing account identity was wiped out and they have been added to the new team
 					$scope.live_user.team.push({ local : {email : data.email}, 'name': data.name});
-					// console.log($scope.live_user.team);
 					email.address = "";
-					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data.account+"' target='_blank'>"+new_url+"/login/"+data.account+"</a>";
+					$scope.message = "User invite link is <a href='"+new_url+"/login/"+data._account+"' target='_blank'>"+new_url+"/login/"+data._account+"</a>";
 				} 
 				else {
 					$scope.message = data;
@@ -79,24 +83,26 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 	};
 
 	$scope.resendInvite = function(invite){
+		// this will resend a pending invitation for a non-existent user
+		// it requires that the previous invitation supply an invitation._id
 		console.log('sent', invite);
-		var url = '/api/invite/'+invite.invite_id,
+		var url = '/api/invite/'+invite._id,
 			dataOut = invite,
 			new_url = $location.protocol()+'://'+$location.host()+':8080';
-		
-		
 
 		$http
 			.post(url, dataOut)
 			.success(function(data){
 				console.log('reinvitation sent', data);
 				
-				if(data.user_email){
-					// this is I DON'T FUCKING KNOW
-					$scope.message = "User invite link is <a href='"+new_url+"/login/"+invite.account+"'>"+new_url+"/login/"+invite.account+"</a>";
-				} else {
-					$scope.message = "Reinvitation sent to"+ data +"<br /> Invite link is <a href='"+new_url+"/login/"+invite.account+"'>"+new_url+"/login/"+invite.account+"</a>";
-				}
+				$scope.message = "Reinvitation sent to "+ data.user_email +"<br /> Invite link is <a href='"+new_url+"/login/"+data._account+"'>"+new_url+"/login/"+data._account+"</a>";
+				// if(data.user_email){
+				// 	// If there is an existing invitation already on the system, this shows
+				// 	$scope.message = "User invite link is <a href='"+new_url+"/login/"+invite.account+"'>"+new_url+"/login/"+invite.account+"</a>";
+				// } else {
+				// 	// If there is ... not an existing invitation already on the system, this shows?
+					
+				// }
 			});
 
 	};
