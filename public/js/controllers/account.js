@@ -49,6 +49,10 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 	// 			$scope.live_user.team.splice(index, 1);
 	// 		});
 	// };
+	// $scope.team_mail = function(){
+
+	// }
+	$scope.team_mail = {};
 
 	$scope.inviteTeamMember = function(email){
 		var url = '/api/invite/',
@@ -63,7 +67,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 				if(data.user_email){
 					// user_email exists only on the Invite model.
 					// if an invitation then exists, do the following.
-					
+
 					$scope.live_user.invites.push(data);
 					// console.log('$scope.live_user.invites', $scope.live_user.invites);
 					email.address = "";

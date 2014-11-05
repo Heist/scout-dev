@@ -80,17 +80,22 @@
 					
 					<!-- add a new member -->
 					<li>
-						<form model="team_mail">
+						<form model="team_mail" name="email_input">
 							<label for="newteammember">Invite a new team member</label>
 							<div class="messaging messaging-neutral" ng-model="message" ng-show="message" ng-bind-html="message"></div>
-							<input class="input" id="newteammember" name="newteammember" placeholder="Your team member&rsquo;s e-mail address" ng-model="team_mail.address" />
-							<button class="button" ng-click="inviteTeamMember(team_mail)">Invite</button>
+
+							<input type="email" class="input" id="newteammember" name="newteammember" placeholder="Your team member&rsquo;s e-mail address" ng-model="team_mail.address" required/>
+
+							<button class="button disabled" ng-show="!email_input.$valid">Invite</button>
+							<button class="button"
+									ng-show='email_input.$valid'
+									ng-click="inviteTeamMember(team_mail)">
+									Invite
+							</button>
 						</form>
 					</li>
 					
 				</ul>
-				
-				
 			</div>
 			
 			<div class="clear"></div>
