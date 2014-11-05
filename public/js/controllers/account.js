@@ -96,13 +96,6 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 				console.log('reinvitation sent', data);
 				
 				$scope.message = "Reinvitation sent to "+ data.user_email +"<br /> Invite link is <a href='"+new_url+"/login/"+data._account+"'>"+new_url+"/login/"+data._account+"</a>";
-				// if(data.user_email){
-				// 	// If there is an existing invitation already on the system, this shows
-				// 	$scope.message = "User invite link is <a href='"+new_url+"/login/"+invite.account+"'>"+new_url+"/login/"+invite.account+"</a>";
-				// } else {
-				// 	// If there is ... not an existing invitation already on the system, this shows?
-					
-				// }
 			});
 
 	};
