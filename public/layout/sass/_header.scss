@@ -59,7 +59,13 @@
 	
 	#header-account {
 		float: right;
-		cursor: pointer;
+		
+		#header-account-username {
+			font-size: $type-size-base*0.8;
+			float: left;
+			padding: $pad/1.5 $pad/2 0 0;
+			display: block;
+		}
 		
 		#header-account-avatar {
 			height: 28px;
@@ -68,6 +74,7 @@
 			@include radius(20px);
 			overflow: hidden;
 			float: left;
+			cursor: pointer;
 			
 			img {
 				width: 28px;
