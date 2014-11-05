@@ -3,14 +3,13 @@
 
 // LOGIN CONTROLLER ===========================================================
 angular.module('field_guide_controls')
-   .controller('login', ['$scope','$http', '$location', '$stateParams','$rootScope', '$localStorage', 'socket', 
-    function($scope, $http, $location, $stateParams, $rootScope, $localStorage, socket){
+   .controller('login', ['$scope','$http', '$location', '$stateParams','$rootScope', 'socket', 
+    function($scope, $http, $location, $stateParams, $rootScope, socket){
 
     // LOGIN FUNCTIONS ====================================
     // console.log('loaded login controller, user is', $rootScope.user);
     $scope.user = $rootScope.user;
 
-    console.log('$scope.login $localStorage.user', $localStorage.user);
     console.log('$scope.login $rootScope.user', $rootScope.user);
 
     if($stateParams.acct){
@@ -67,7 +66,7 @@ angular.module('field_guide_controls')
             .success(function(data){
                 $scope.flashmessage = data.error;
                 console.log('register controller success', data);
-                $localStorage.user = data.user;
+                $rootScope.user = data.user;
                 $location.path(data.redirect);
             })
             .error(function(error){
@@ -84,7 +83,6 @@ angular.module('field_guide_controls')
                 // console.log('Success! Logged out.', data);
                 $location.path(data.redirect);
                 $rootScope.user = '';
-                $localStorage.$reset();
             })
             .error(function(error){
                 // console.log('logout no bueno.', error);
