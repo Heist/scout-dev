@@ -15,16 +15,13 @@ $(document).ready(function() {
         video = document.getElementById('main-screen'),
         btnScreenshot = document.getElementById('btn-screenshot'),
         mainRow = document.getElementById('main-row'),
-        streamChooser = document.getElementById('stream-chooser');
+        streamChooser = document.getElementById('stream-chooser'),
+        channelChange = document.getElementById('#change-channel-btn');
         
 
-    // TODO -- make this a proper function call to screenshotButtonHook();
     btnScreenshot.onclick = function(){ screenshotButtonHook(col); };
-
-    $('#change-channel-btn').click(function(){
-        $('#login-modal').modal('show');
-    });
-
+    channelChange.onclick = function(){ $('#login-modal').modal('show'); };
+    
     $('.carousel').carousel({
         interval: 0
     });
