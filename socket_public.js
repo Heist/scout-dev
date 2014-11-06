@@ -341,7 +341,8 @@ var downloadButtonHook = function (e) {
     return;
 };
 
-// Create SocketIO instance, connect
+// SOCKET THINGS BEGIN ==============================================
+
 var socket = new io.connect('http://api.fuckitstreamit.com:2000'); 
 
 function joinChannel(chan) {
@@ -352,34 +353,32 @@ function joinChannel(chan) {
 // Add a connect listener
 socket.on('connect',function() {
     console.log('Client has connected to the server!');
- 
 });
-i=0;
 
-var image = document.getElementById("ia");
-var canvas = document.getElementById("test");
-var context = canvas.getContext('2d');
+var i=0,
+    image = document.getElementById("ia"),
+    canvas = document.getElementById("test"),
+    context = canvas.getContext('2d');
+
 // Add a connect listener
 socket.on('message',function(data) {
-  idleDisplayed = false;
-  load_gif.css('display', 'none');
-  last_conn_time = new Date().getTime() / 1000;
-  made_connection = true;
-  image.src = "data:image/jpg;base64,"+data;
-  canvas.width = 358;
-  canvas.height = 358 * image.height / image.width;
+    idleDisplayed = false;
+    load_gif.css('display', 'none');
+    last_conn_time = new Date().getTime() / 1000;
+    made_connection = true;
+    image.src = "data:image/jpg;base64,"+data;
+    canvas.width = 358;
+    canvas.height = 358 * image.height / image.width;
 
-  context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
-
-
-
-
+    context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
 });
 
 socket.on('disconnect',function() {
-  console.log('The client has disconnected!');
+    console.log('The client has disconnected!');
 });
 
+
+// MISCELLANEOUS FUNCTIONS AND ANIMATIONS ===========================
 jQuery.fn.shake = function(intShakes, intDistance, intDuration) { 
     this.each(function() { 
         $(this).css("position","relative"); 
@@ -397,19 +396,22 @@ jQuery.fn.shake = function(intShakes, intDistance, intDuration) {
 var idleDisplayed = false;
 
 var displayIdle = function() {
-    if (idleDisplayed == false) {
+    if (idleDisplayed === false) {
         idleDisplayed = true;
 
         load_gif.css('display', 'none');
-        thecanvas = $("#test")[0];
-        thecontext = thecanvas.getContext("2d");
+        
+        var thecanvas = $("#test")[0];
+        var thecontext = thecanvas.getContext("2d");
+        
         thecontext.fillStyle = "rgba(75,75,75,0.8)";
-        thecontext.fillRect(0,0, thecanvas.width, thecanvas.height);  
+        thecontext.fillRect(0,0, thecanvas.width, thecanvas.height);
         thecontext.fillStyle = "white";
         thecontext.font = "15px Helvetica";
         thecontext.textAlign = "center";
-        thecontext.fillText("(no stream detected)", thecanvas.width/2, thecanvas.height/2);
-    }
+        thecontext.fillText = "(no stream detected) "+ (thecanvas.width/2) +' '+ (thecanvas.height/2);
+            
+    }      
 };
 
 
