@@ -12,6 +12,7 @@
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
     </style>
+    <script src="assets/js/jquery-2.1.0.js"></script>
   </head>
   <body>
     <ul id="messages"></ul>
@@ -20,7 +21,12 @@
     </form>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io();
+       var socket = io();
+        $('form').submit(function(){
+          socket.emit('chat message', $('#m').val());
+          $('#m').val('');
+          return false;
+        });
     </script>
   </body>
 </html>
