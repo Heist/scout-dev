@@ -90,7 +90,6 @@ angular.module('field_guide_controls').controller('remote', ['$scope','$http', '
             name: name
         }, function (result) {
             if (!result) {
-                console.log('There was an error changing your name');
                 $scope.observer.toggle=true;
                 $scope.$apply();
             } else {
