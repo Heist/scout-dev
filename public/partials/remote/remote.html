@@ -1,15 +1,10 @@
 <div id="view-testing"> 
-  
-  
   <ng-include src="'partials/app/header_run.html'"></ng-include>
-  
-
-  
   
   <!-- participant definition modal -->
 
   
-  <div class="modal" ng-model="observer" ng-hide="subject.toggle">
+  <div class="modal" ng-model="observer" ng-hide="observer.toggle">
   
       <div class="module third">&nbsp;</div>
       
@@ -22,10 +17,11 @@
         
         <ul class="nobullets lined" >
           <li>
-            <label for="field-cardname">User name</label>
+            <label for="field-cardname">Observer name</label>
             
-            <input class="input" type="text" name="participantname" value="" 
-              placeholder="&lsquo;Jane&rsquo; or &lsquo;Tester 2&rsquo;, for example" ng-model="observer.name"
+            <input class="input" type="text" name="participantname" value="{observer.name}" 
+              placeholder="&lsquo;Jane&rsquo; or &lsquo;Tester 2&rsquo;, for example" 
+              ng-model="observer.name"
               ui-keypress="{13:'registerGuest(observer.name)'}" />
             </input>
           </li>
@@ -44,12 +40,6 @@
   
   
   <!-- / participant definition modal -->
-  
-  
-  
-  
-  
-  
   
   <!-- create a test -->
   
@@ -73,8 +63,6 @@
     </div>
       
   </div>
-  
-  
   
   <div class="middle-pane" >
     

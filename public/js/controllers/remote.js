@@ -17,20 +17,28 @@ angular.module('field_guide_controls').controller('remote', ['$scope','$http', '
     });
 
     socket.on('init', function (data) {
-        $scope.name = data.name;
-        $scope.users = data.users;
         console.log('init received', data);
+
+        $scope.observer = {name: data.name};
+        $scope.observer.toggle = false;
+        $scope.users = data.users;
+
+        // we are going to get SUPER USED to using this now.
+        $scope.$apply();
     });
 
     socket.on('send:message', function (message) {
+        console.log('message sent', message);
         $scope.messages.push(message);
     });
 
     socket.on('change:name', function (data) {
+        console.log('name changed', data);
         changeName(data.oldName, data.newName);
     });
 
     socket.on('user:join', function (data) {
+        console.log('user joined', data);
         $scope.messages.push({
             user: 'chatroom',
             text: 'User ' + data.name + ' has joined.'
@@ -40,6 +48,7 @@ angular.module('field_guide_controls').controller('remote', ['$scope','$http', '
 
     // add a message to the conversation when a user disconnects or leaves the room
     socket.on('user:left', function (data) {
+        console.log('user left', data);
         $scope.messages.push({
             user: 'chatroom',
             text: 'User ' + data.name + ' has left.'
@@ -75,36 +84,76 @@ angular.module('field_guide_controls').controller('remote', ['$scope','$http', '
     // Methods published to the scope
     // ==============================
 
-    $scope.registerGuest = function (name) {
-        console.log('registered', name);
+    $scope.registerGuest = function(name) {
+        console.log('registration touched');
         socket.emit('change:name', {
             name: name
         }, function (result) {
             if (!result) {
                 console.log('There was an error changing your name');
+                $scope.observer.toggle=true;
+                $scope.$apply();
             } else {
-
+                console.log('registered', name);
                 changeName(name, $scope.newName);
 
                 $scope.observer.name = $scope.newName;
                 $scope.newName = '';
+                $scope.observer.toggle=true;
+                $scope.$apply();
             }
         });
     };
 
-    $scope.sendMessage = function () {
+    $scope.postMessage = function(message){
+        // here we create a note object
+        var note = {};
+
+        note.body = message;
+        note.tags = [];
+        note.created = new Date();
+         
+        note._task = $scope.selected._id;
+        note._test = $scope.selected._test;
+        note._subject = $scope.subject._id;
+
+        // TODO: this will catch things on both sides of the hash. 
+        // if message has # with no space, post that to message.tags
+
+        // Extract any tags and shove 'em around
+        var hashCatch = new RegExp(/\S*#\S+/gi);
+        var hashPull = new RegExp(/#/gi);
+        var tagIt = message.match(hashCatch);          
+        
+        if (tagIt){
+            for (var i=0; i < tagIt.length; ++i) {
+                var msg = tagIt[i].replace(hashPull,'');
+                // console.log('tag being pushed', msg)
+                note.tags.push(msg);
+            }
+        }
+        
+        $scope.timeline.push(note);
+
+        // SOCKET THINGS ==================================
         socket.emit('send:message', {
-            message: $scope.message
+            message: note
         });
 
-    // add the message to our model locally
-        $scope.messages.push({
-            user: $scope.name,
-            text: $scope.message
+        // it's possible this no longer matters.
+        var url = '/api/message/';
+        var data_out = note;
+
+        $http
+        .post(url, data_out)
+            .success(function(data){
+                // console.log('Message pushed: ', data);
+        })
+            .error(function(data){
+                // console.log('Error: ' + data);
         });
 
-    // clear message box
-        $scope.message = '';
+        $scope.message='';
     };
 
     // ==============================================================
@@ -131,50 +180,4 @@ angular.module('field_guide_controls').controller('remote', ['$scope','$http', '
 
         });
 
-
-        $scope.postMessage = function(message){
-            // here we create a note object
-            var note = {};
-
-            note.body = message;
-            note.tags = [];
-            note.created = new Date();
-             
-            note._task = $scope.selected._id;
-            note._test = $scope.selected._test;
-            // note._session = $stateParams._id;
-            note._subject = $scope.subject._id;
-
-            $scope.timeline.push(note);
-            // console.log('message pushing to', $scope.selected._id);
-
-            // TODO: this will catch things on both sides of the hash. 
-            // if message has # with no space, post that to message.tags
-
-            var hashCatch = new RegExp(/\S*#\S+/gi);
-            var hashPull = new RegExp(/#/gi);
-            var tagIt = message.match(hashCatch);          
-            
-            if (tagIt){
-                for (var i=0; i < tagIt.length; ++i) {
-                    var msg = tagIt[i].replace(hashPull,'');
-                    // console.log('tag being pushed', msg)
-                    note.tags.push(msg);
-                }
-            }
-            
-            // console.log('note tags', note.tags);
-            var url = '/api/message/';
-            var data_out = note;
-
-            $http.post(url, data_out)
-                .success(function(data){
-                    // console.log('Message pushed: ', data);
-                })
-                .error(function(data){
-                    // console.log('Error: ' + data);
-                })
-
-            $scope.message='';
-        }
 }]);
