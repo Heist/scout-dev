@@ -14,10 +14,11 @@ angular.module('field_guide_controls').controller('remote', ['$scope','$http', '
         console.log('hello received', data);
     });
 
-    // socket.on('init', function (data) {
-    //     $scope.name = data.name;
-    //     $scope.users = data.users;
-    // });
+    socket.on('init', function (data) {
+        $scope.name = data.name;
+        $scope.users = data.users;
+        console.log('init received', data);
+    });
 
     // socket.on('send:message', function (message) {
     //     $scope.messages.push(message);
