@@ -71,7 +71,7 @@ app.get('*', function(req, res) {
 		});
 
 // Socket.io configuration ==========================================
-// var socket = require('./config/socket_config')(io);
+require('./server/socket_config')(io);
 
 // turn on the application ==========================================
 http.listen(port, function(){
