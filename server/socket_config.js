@@ -68,6 +68,7 @@ module.exports = function (io) {
             users: userNames.get()
         });
 
+        console.log('userlist', userNames.get());
         // notify other clients that a new user has joined
         socket.broadcast.emit('user:join', {
             name: name
@@ -84,8 +85,7 @@ module.exports = function (io) {
         // validate a user's name change, and broadcast it on success
         socket.on('change:name', function (data, fn) {
             console.log('touched namechange', data);
-            console.log('userlist', userNames.get());
-            
+
             if (userNames.claim(data.name)) {
 
                 var oldName = name;
@@ -98,8 +98,10 @@ module.exports = function (io) {
                     newName: name
                 });
                 
+                console.log('userlist new', userNames.get());
                 fn(true);
             } else {
+                console.log('userlist old', userNames.get());
                 fn(false);
             }
         });
