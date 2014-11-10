@@ -4,7 +4,7 @@
 // REPORT CONTROLLER ===========================================================
 angular.module('field_guide_controls').controller('remote', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', 'socket', function($scope, $http, $location,$stateParams,$state, $sanitize, socket){
 
-    var socket = io.connect('http://127.0.0.1');
+    var socket = io.connect('http://127.0.0.1:8080/');
     // pure chatroom model, do what one likes with it.
 
      // Socket listeners

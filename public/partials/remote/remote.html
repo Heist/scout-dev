@@ -1,50 +1,27 @@
-<script>
-    var iframe = document.getElementsByTagName('iframe')[0];
-    var url = iframe.src;
-    var getData = function (data) {
-        if (data && data.query && data.query.results && data.query.results.resources && data.query.results.resources.content && data.query.results.resources.status == 200) loadHTML(data.query.results.resources.content);
-        else if (data && data.error && data.error.description) loadHTML(data.error.description);
-        else loadHTML('Error: Cannot load ' + url);
-    };
-    var loadURL = function (src) {
-        url = src;
-        var script = document.createElement('script');
-        script.src = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20data.headers%20where%20url%3D%22' + encodeURIComponent(url) + '%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=getData';
-        document.body.appendChild(script);
-    };
-    var loadHTML = function (html) {
-        iframe.src = 'about:blank';
-        iframe.contentWindow.document.open();
-        iframe.contentWindow.document.write(html.replace(/<head>/i, '<head><base href="' + url + '"><scr' + 'ipt>document.addEventListener("click", function(e) { if(e.target && e.target.nodeName == "A") { e.preventDefault(); parent.loadURL(e.target.href); } });</scr' + 'ipt>'));
-        iframe.contentWindow.document.close();
-    } 
-    loadURL(iframe.src);    
-</script>
-
-<div>
-    <iframe src="https://projects.invisionapp.com/share/831H56SRB"></iframe>
+<div></div>
+<div class="col">
+  <h3>Messages</h3>
+  <div class="overflowable">
+    <p ng-repeat="message in messages">{{message.user}}: {{message.text}}</p>
+  </div>
 </div>
-
-<div id="hidden_partial">
-    <div class="item active">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h4 class="panel-title">' + time + '</h4>
-            </div>
-    
-            <div class="panel-screenview panel-body">
-                <canvas class="screenshot"></canvas>
-            </div>
-    
-            <div class="panel-footer">
-                <button type="button" class="download-link btn btn-default">
-                    Download <span class="glyphicon glyphicon-download"></span>
-                </button>
-    
-                <button type="button" class="emailBtn btn btn-default">
-                    Email <span class="glyphicon glyphicon-envelope"></span>
-                </button>
-            </div>
-        </div>
-    </div>
+<div class="col">
+  <h3>Users</h3>
+  <div class="overflowable">
+    <p ng-repeat="user in users">{{user}}</p>
+  </div>
+</div>
+<div class="clr">
+  <form ng-submit="sendMessage()">Message: 
+    <input size="60" ng-model="message">
+    <input type="submit" value="Send">
+  </form>
+</div>
+<div class="clr">
+  <h3>Change your name</h3>
+  <p>Your current user name is {{name}}</p>
+  <form ng-submit="changeName()">
+    <input ng-model="newName">
+    <input type="submit" value="Change Name">
+  </form>
 </div>

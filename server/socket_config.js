@@ -6,6 +6,7 @@ module.exports = function (io) {
 // http://chariotsolutions.com/blog/post/getting-chatty-angular-socket-io-nodeexpress-bootstrap/
 
   io.on('connection', function (socket) {
+    console.log('connected a user');
     socket.on('message', function (from, msg) {
  
       console.log('recieved message from', 

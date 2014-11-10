@@ -3,7 +3,7 @@
 
 // RUN CONTROLLER ===========================================================
 
-angular.module('field_guide_controls').controller('run', ['$scope','$http', '$location','$stateParams','$state', function($scope, $http,$location,$stateParams,$state){
+angular.module('field_guide_controls').controller('run', ['$scope','$http', '$location','$stateParams','$state','socket', function($scope, $http,$location,$stateParams,$state, socket){
     
     // set up controller-wide variables
     $scope.update = {};
@@ -17,7 +17,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
         .get('/api/run/'+$stateParams._id)
         .success(function(data){
             $scope.tests = data;
-            console.log('how is data built', data);
+            // console.log('how is data built', data);
 
             // reset variables to clear cache from state changes.
             $scope.task = {};
@@ -26,8 +26,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
         });
 
         $scope.select = function(testIndex, taskIndex) {
-            // console.log('test', parentIndex)
-            console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);
+            // console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);
 
             var test = $scope.tests[testIndex];
 
@@ -67,7 +66,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
 
 
         $scope.addSubject = function(textfield){
-            console.log('touched addSubject', textfield);
+            // console.log('touched addSubject', textfield);
 
             var url = 'api/subject/';
             var data_out = {name : textfield};
@@ -75,11 +74,11 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             $http
                 .post(url, data_out)
                 .success(function(subject){
-                    console.log(subject);
+                    // console.log(subject);
                     $scope.subject = subject;
                     $scope.subject.toggle = true;
                     $scope.select(0,0);
-                    console.log('selected', $scope.selected);
+                    // console.log('selected', $scope.selected);
                 })
                 .error(function(data){
                     // console.log('Error: ' + data);
@@ -100,9 +99,8 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             note._subject = $scope.subject._id;
 
             $scope.timeline.push(note);
-            console.log('message pushing to', $scope.selected._id);
+            // console.log('message pushing to', $scope.selected._id);
 
-            // console.log('note being pushed', note)
             // TODO: this will catch things on both sides of the hash. 
             // if message has # with no space, post that to message.tags
 
@@ -113,19 +111,19 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             if (tagIt){
                 for (var i=0; i < tagIt.length; ++i) {
                     var msg = tagIt[i].replace(hashPull,'');
-                    console.log('tag being pushed', msg)
+                    // console.log('tag being pushed', msg)
                     note.tags.push(msg);
                 }
             }
             
-            console.log('note tags', note.tags);
+            // console.log('note tags', note.tags);
 
             var url = '/api/message/';
             var data_out = note;
 
             $http.post(url, data_out)
                 .success(function(data){
-                    console.log('Message pushed: ', data);
+                    // console.log('Message pushed: ', data);
                 })
                 .error(function(data){
                     // console.log('Error: ' + data);
