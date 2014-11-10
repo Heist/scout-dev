@@ -7,96 +7,100 @@ angular.module('field_guide_controls').controller('remote', ['$scope','$http', '
     var socket = io.connect('http://127.0.0.1:8080/');
     // pure chatroom model, do what one likes with it.
 
-     // Socket listeners
-      // ================
+    // Socket listeners
+    // ================
 
-    socket.on('init', function (data) {
-        $scope.name = data.name;
-        $scope.users = data.users;
+    socket.on('hello', function(data){
+        console.log('hello received', data);
     });
 
-    socket.on('send:message', function (message) {
-        $scope.messages.push(message);
-    });
+    // socket.on('init', function (data) {
+    //     $scope.name = data.name;
+    //     $scope.users = data.users;
+    // });
 
-    socket.on('change:name', function (data) {
-        changeName(data.oldName, data.newName);
-    });
+    // socket.on('send:message', function (message) {
+    //     $scope.messages.push(message);
+    // });
 
-    socket.on('user:join', function (data) {
-        $scope.messages.push({
-            user: 'chatroom',
-            text: 'User ' + data.name + ' has joined.'
-        });
-        $scope.users.push(data.name);
-    });
+    // socket.on('change:name', function (data) {
+    //     changeName(data.oldName, data.newName);
+    // });
 
-    // add a message to the conversation when a user disconnects or leaves the room
-    socket.on('user:left', function (data) {
-        $scope.messages.push({
-            user: 'chatroom',
-            text: 'User ' + data.name + ' has left.'
-        });
-        var i, user;
-        for (i = 0; i < $scope.users.length; i++) {
-            user = $scope.users[i];
-            if (user === data.name) {
-                $scope.users.splice(i, 1);
-                break;
-            }
-        }
-    });
+    // socket.on('user:join', function (data) {
+    //     $scope.messages.push({
+    //         user: 'chatroom',
+    //         text: 'User ' + data.name + ' has joined.'
+    //     });
+    //     $scope.users.push(data.name);
+    // });
 
-    // Private helpers
-    // ===============
+    // // add a message to the conversation when a user disconnects or leaves the room
+    // socket.on('user:left', function (data) {
+    //     $scope.messages.push({
+    //         user: 'chatroom',
+    //         text: 'User ' + data.name + ' has left.'
+    //     });
+    //     var i, user;
+    //     for (i = 0; i < $scope.users.length; i++) {
+    //         user = $scope.users[i];
+    //         if (user === data.name) {
+    //             $scope.users.splice(i, 1);
+    //             break;
+    //         }
+    //     }
+    // });
 
-    var changeName = function (oldName, newName) {
-    // rename user in list of users
-        var i;
-        for (i = 0; i < $scope.users.length; i++) {
-            if ($scope.users[i] === oldName) {
-                $scope.users[i] = newName;
-            }
-        }
+    // // Private helpers
+    // // ===============
 
-        $scope.messages.push({
-                user: 'chatroom',
-                text: 'User ' + oldName + ' is now known as ' + newName + '.'
-            });
-    };
+    // var changeName = function (oldName, newName) {
+    // // rename user in list of users
+    //     var i;
+    //     for (i = 0; i < $scope.users.length; i++) {
+    //         if ($scope.users[i] === oldName) {
+    //             $scope.users[i] = newName;
+    //         }
+    //     }
 
-    // Methods published to the scope
-    // ==============================
+    //     $scope.messages.push({
+    //             user: 'chatroom',
+    //             text: 'User ' + oldName + ' is now known as ' + newName + '.'
+    //         });
+    // };
 
-    $scope.changeName = function () {
-        socket.emit('change:name', {
-            name: $scope.newName
-        }, function (result) {
-            if (!result) {
-                console.log('There was an error changing your name');
-            } else {
+    // // Methods published to the scope
+    // // ==============================
 
-                changeName($scope.name, $scope.newName);
+    // $scope.changeName = function () {
+    //     socket.emit('change:name', {
+    //         name: $scope.newName
+    //     }, function (result) {
+    //         if (!result) {
+    //             console.log('There was an error changing your name');
+    //         } else {
 
-                $scope.name = $scope.newName;
-                $scope.newName = '';
-            }
-        });
-    };
+    //             changeName($scope.name, $scope.newName);
 
-    $scope.sendMessage = function () {
-        socket.emit('send:message', {
-            message: $scope.message
-        });
+    //             $scope.name = $scope.newName;
+    //             $scope.newName = '';
+    //         }
+    //     });
+    // };
 
-    // add the message to our model locally
-        $scope.messages.push({
-            user: $scope.name,
-            text: $scope.message
-        });
+    // $scope.sendMessage = function () {
+    //     socket.emit('send:message', {
+    //         message: $scope.message
+    //     });
 
-    // clear message box
-        $scope.message = '';
-    };
+    // // add the message to our model locally
+    //     $scope.messages.push({
+    //         user: $scope.name,
+    //         text: $scope.message
+    //     });
+
+    // // clear message box
+    //     $scope.message = '';
+    // };
 
 }]);
