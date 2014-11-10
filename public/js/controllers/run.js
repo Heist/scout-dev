@@ -13,6 +13,8 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
     $scope.timeline = []; // holds all messages currently in test
     $scope.glued = true;
 
+    var socket = io.connect('http://127.0.0.1:8080/');
+
     $http
         .get('/api/run/'+$stateParams._id)
         .success(function(data){

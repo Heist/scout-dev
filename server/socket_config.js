@@ -56,6 +56,14 @@ module.exports = function (io) {
 
 // SOCKET MANAGEMENT  ===============================================
 
+// TODO: io.of('/:_account');
+    // var nsp = io.of('/my-namespace');
+    // nsp.on('connection', function(socket){
+    //         console.log('someone connected');
+    //     });
+    // nsp.emit('hi', 'everyone!');
+
+
     io.on('connection', function (socket) {
         console.log('connected a user');
 
@@ -69,6 +77,7 @@ module.exports = function (io) {
         });
 
         console.log('userlist', userNames.get());
+
         // notify other clients that a new user has joined
         socket.broadcast.emit('user:join', {
             name: name
