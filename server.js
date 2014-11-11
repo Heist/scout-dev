@@ -28,10 +28,6 @@ var database = require('./server/db/db');
 var db = database.db;
 var auth_db = database.auth_db;
 
-// Global application variables =====================================
-
-app.locals.real_url = '127.0.0.1:8080';
-
 // configuration ====================================================
 app.use(cors()); // permit cross-site requests, ie: passport.
 
@@ -62,21 +58,43 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
+// Global application variables =====================================
+app.locals.real_url = '127.0.0.1:8080';
+
+// app.use(function(req, res, next){ app.locals.user = session.user; });
+
 // server /api/ routes ==============================================
 var router = require('./server/routes')(app, passport);
 
-// DEFAULT ROUTE goes here to prevent ENOENT error ==================
+// DEFAULT ROUTE ====================================================
+// Prevents the ENOENT rendering error
 app.get('*', function(req, res) {
 			res.sendfile(__dirname + '/public/index.html');
 		});
 
-// Socket.io configuration ==========================================
-require('./server/socket_config')(io);
 
-// turn on the application ==========================================
+// SOCKET.IO ========================================================
+// lives after normal routes
+
+	io.use(function(socket, next) {
+        var req = socket.handshake;
+        var res = {};
+        cookieParser(req, res, function(err) {
+            if (err) {return next(err);}
+            passport.session(req, res, next);
+        });
+	});
+
+
+
+
+// require('./server/socket_config')(io, app, passport);
+
+
+// TURN ON THE APPLICATION ==========================================
 http.listen(port, function(){
 	console.log('listening on ', port);
 });
 
-// expose app
+// EXPOSE APP AS OBJECT =============================================
 exports = module.exports = app;

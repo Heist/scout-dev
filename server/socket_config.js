@@ -1,7 +1,8 @@
 // socket_config.js
 'use strict';
 
-module.exports = function (io) {
+
+module.exports = function(io, app, passport) {
 // Guest name management 
 // Keep track of which names are used so that there are no duplicates
     var userNames = (function () {
@@ -63,10 +64,46 @@ module.exports = function (io) {
     //     });
     // nsp.emit('hi', 'everyone!');
 
-
     io.on('connection', function (socket) {
-        console.log('connected a user');
+        console.log(
+        'A socket with sessionID ' + 
+        socket.handshake.sessionID + 
+        ' connected!');
 
+
+
+// ROOM SETUP - MODERATOR SIDE ======================================
+
+// Run test - add a subject to open a room for observers to join
+// Add the current user to that room.
+
+        socket.on('send:newRoom', function(room_id){
+            // console.log('room name', subject);
+
+            // store the room name in the socket session for this client
+            socket.room = room_id;
+
+            // store the username in the socket session for this client
+            socket.username = username;
+
+            // add the client's username to the global list
+            usernames[username] = username;
+
+            // send client to room 1
+            socket.join(room_id);
+
+            // echo to client they've connected
+            socket.emit('updatechat', 'SERVER', 'you have connected to room1');
+            // echo to room 1 that a person has connected to their room
+            socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
+            socket.emit('updaterooms', rooms, 'room1');
+        });
+
+// Moderator joins the channel and gets assigned their name goes down below
+
+
+// OBSERVER ROUTES ==================================================
+// - an observer joins a channel and gets a name
         var name = userNames.getGuestName();
         socket.emit('hello', {greeting: 'hello '+name});
 
