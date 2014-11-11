@@ -18,8 +18,9 @@ var session      = require('express-session');
 
 // Session storage and recall for socket.io
 var MongoStore = require('connect-mongostore')(session);
-// var passportSocketIo = require('passport.socketio');
-
+var store = new MongoStore({'db': 'sessions'});
+var secret = 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT';
+// var name = 'connect.sid'; // this is actually the default value of name on session
 
 var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
 
@@ -50,14 +51,14 @@ require('./config/passport')(app, passport);
 
 // session start ====================================================
 app.use(session({
-	secret: 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT', 
+	secret: secret, 
 	cookie: {
 		path: '/',
 		expires: false, // Alive Until Browser Exits
 		// secure: true, // TODO: implement https
 		httpOnly: true
 	},
-	store: new MongoStore({'db': 'sessions'})
+	store: store
 }));
 
 app.use(passport.initialize());
@@ -77,19 +78,23 @@ app.get('*', function(req, res) {
 			res.sendfile(__dirname + '/public/index.html');
 		});
 
-
 // SOCKET.IO ========================================================
 // lives after normal routes
-// io.use(function(socket, next) {
-//   var handshakeData = socket.request;
-//   console.log(handshakeData);
-  
-//   // make sure the handshake data looks good as before
-//   // if error do this:
-//     // next(new Error('not authorized');
-//   // else just call next
-//   next();
-// });
+io.use(function ioSession(socket, next) {
+    // create the fake req that cookieParser will expect                          
+    var req = {
+        "headers": {
+            "cookie": socket.request.headers.cookie,
+        },
+    };
+
+	// run the parser and store the sessionID
+	cookieParser(secret)(req, null, function() {});
+	var name = 'connect.sid';
+	socket.sessionID = req.signedCookies[name] || req.cookies[name];
+	console.log(socket.sessionID);
+	next();
+});
 
 // function onAuthorizeSuccess(data, accept){
 // 	console.log('successful connection to socket.io');
