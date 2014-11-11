@@ -10,12 +10,15 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var cors = require('cors');
 
-
 // express modules
 var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
+
+// Session storage and recall for socket.io
+var MongoStore = require('connect-mongostore')(session);
+// var passportSocketIo = require('passport.socketio');
 
 
 var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
@@ -44,7 +47,8 @@ app.use(bodyParser());
 // passport configuration ===========================================
 require('./config/passport')(app, passport);
 
-// session secret 
+
+// session start ====================================================
 app.use(session({
 	secret: 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT', 
 	cookie: {
@@ -52,7 +56,8 @@ app.use(session({
 		expires: false, // Alive Until Browser Exits
 		// secure: true, // TODO: implement https
 		httpOnly: true
-	}
+	},
+	store: new MongoStore({'db': 'sessions'})
 }));
 
 app.use(passport.initialize());
@@ -75,17 +80,45 @@ app.get('*', function(req, res) {
 
 // SOCKET.IO ========================================================
 // lives after normal routes
+// io.use(function(socket, next) {
+//   var handshakeData = socket.request;
+//   console.log(handshakeData);
+  
+//   // make sure the handshake data looks good as before
+//   // if error do this:
+//     // next(new Error('not authorized');
+//   // else just call next
+//   next();
+// });
 
-	io.use(function(socket, next) {
-        var req = socket.handshake;
-        var res = {};
-        cookieParser(req, res, function(err) {
-            if (err) {return next(err);}
-            passport.session(req, res, next);
-        });
-	});
+// function onAuthorizeSuccess(data, accept){
+// 	console.log('successful connection to socket.io');
 
+// 	// The accept-callback still allows us to decide whether to
+// 	// accept the connection or not.
+// 	accept(null, true);
 
+// 	// OR
+
+// 	// If you use socket.io@1.X the callback looks different
+// 	accept();
+// }
+
+// function onAuthorizeFail(data, message, error, accept){
+// 	if(error){throw new Error(message);}
+// 	console.log('failed connection to socket.io:', message);
+
+// 	// We use this callback to log all of our failed connections.
+// 	accept(null, false);
+
+// 	// OR
+
+// 	// If you use socket.io@1.X the callback looks different
+// 	// If you don't want to accept the connection
+// 	if(error){accept(new Error(message));}
+// 	// this error will be sent to the user as a special error-package
+// 	// see: http://socket.io/docs/client-api/#socket > error-object
+// }
 
 
 // require('./server/socket_config')(io, app, passport);
