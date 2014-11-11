@@ -18,11 +18,14 @@ var session      = require('express-session');
 
 // Session storage and recall for socket.io
 var MongoStore = require('connect-mongostore')(session);
-var store = new MongoStore({'db': 'sessions'});
-var secret = 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT';
 // var name = 'connect.sid'; // this is actually the default value of name on session
 
 var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
+
+// Global application variables =====================================
+app.locals.store = new MongoStore({'db': 'sessions'});
+app.locals.real_url = '127.0.0.1:8080';
+app.locals.secret = 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT';
 
 // for later use with Redis if it becomes important
 // process.title = 'field_guide_app';
@@ -51,21 +54,18 @@ require('./config/passport')(app, passport);
 
 // session start ====================================================
 app.use(session({
-	secret: secret, 
+	secret: app.locals.secret, 
 	cookie: {
 		path: '/',
 		expires: false, // Alive Until Browser Exits
 		// secure: true, // TODO: implement https
 		httpOnly: true
 	},
-	store: store
+	store: app.locals.store
 }));
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-
-// Global application variables =====================================
-app.locals.real_url = '127.0.0.1:8080';
 
 // app.use(function(req, res, next){ app.locals.user = session.user; });
 
@@ -80,29 +80,7 @@ app.get('*', function(req, res) {
 
 // SOCKET.IO ========================================================
 // lives after normal routes
-io.use(function ioSession(socket, next) {
-    // create the fake req that cookieParser will expect                          
-    var req = {
-        "headers": {
-            "cookie": socket.request.headers.cookie,
-        },
-    };
-
-	// run the parser and store the sessionID
-	cookieParser(secret)(req, null, function() {});
-	var name = 'connect.sid';
-	socket.sessionID = req.signedCookies[name] || req.cookies[name];
-	console.log(socket.sessionID);
-	if (socket.sessionID) {
-        store.get(socket.sessionID, function(err, session) {
-            console.log(session);
-            
-        });
-    }
-    next();
-});
-
-// require('./server/socket_config')(io, app, passport);
+require('./server/socket_config')(io, app, passport);
 
 
 // TURN ON THE APPLICATION ==========================================

@@ -56,6 +56,33 @@ module.exports = function(io, app, passport) {
 
 
 // SOCKET MANAGEMENT  ===============================================
+    var cookieParser = require('cookie-parser');
+
+    // Fetch us the user who is
+    io.use(function ioSession(socket, next) {
+        // create the fake req that cookieParser will expect                          
+        var req = {
+            "headers": {
+                "cookie": socket.request.headers.cookie,
+            },
+        };
+
+        // run the parser and store the sessionID
+        cookieParser(app.locals.secret)(req, null, function() {});
+        
+        var name = 'connect.sid';
+        socket.sessionID = req.signedCookies[name] || req.cookies[name];
+        console.log(socket.sessionID);
+        if (socket.sessionID) {
+            app.locals.store.get(socket.sessionID, function(err, session) {
+                console.log(session);
+
+            });
+        }
+        next();
+    });
+
+
 
 // TODO: io.of('/:_account');
     // var nsp = io.of('/my-namespace');
