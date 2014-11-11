@@ -56,45 +56,39 @@ module.exports = function(io, app, passport) {
 
 
 // SOCKET MANAGEMENT  ===============================================
-    var cookieParser = require('cookie-parser');
+    var cookieParser = require('cookie-parser'),
+        passportSocketIo = require("passport.socketio"),
+        user = {};
 
-    // Fetch us the user who is
-    io.use(function ioSession(socket, next) {
-        // create the fake req that cookieParser will expect                          
-        var req = {
-            "headers": {
-                "cookie": socket.request.headers.cookie,
-            },
-        };
+    io.use(passportSocketIo.authorize({
+        cookieParser: cookieParser,
+        key:         'connect.sid',       // the name of the cookie where express/connect stores its session_id
+        secret:      app.locals.secret,    // the session_secret to parse the cookie
+        store:       app.locals.store,        // we NEED to use a sessionstore. no memorystore please
+        success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
+        fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
+    }));
 
-        // run the parser and store the sessionID
-        cookieParser(app.locals.secret)(req, null, function() {});
-        
-        var name = 'connect.sid';
-        socket.sessionID = req.signedCookies[name] || req.cookies[name];
-        console.log(socket.sessionID);
-        if (socket.sessionID) {
-            app.locals.store.get(socket.sessionID, function(err, session) {
-                console.log(session);
+    function onAuthorizeSuccess(data, accept){
+        console.log('successful connection to socket.io', data);
+      // // If you use socket.io@1.X the callback looks different
+        user = data.user;
+        accept();
+    }
 
-            });
+    function onAuthorizeFail(data, message, error, accept){
+        if(error){
+            accept(new Error(message));
+            console.log('failed connection to socket.io:', message);
         }
-        next();
-    });
-
-
-
-// TODO: io.of('/:_account');
-    // var nsp = io.of('/my-namespace');
-    // nsp.on('connection', function(socket){
-    //         console.log('someone connected');
-    //     });
-    // nsp.emit('hi', 'everyone!');
+      // this error will be sent to the user as a special error-package
+      // see: http://socket.io/docs/client-api/#socket > error-object
+    }
 
     io.on('connection', function (socket) {
         console.log(
-        'A socket with sessionID ' + 
-        socket.handshake.sessionID + 
+        'Hello ' + 
+         user.name + 
         ' connected!');
 
 
