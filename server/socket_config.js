@@ -161,14 +161,14 @@ module.exports = function(io, app, passport) {
 
             if (userNames.claim(data.name)) {
 
-                var oldName = name;
+                var oldName = user.name;
                 userNames.free(oldName);
 
-                name = data.name;
+                user.name = data.name;
 
                 socket.broadcast.emit('change:name', {
                     oldName: oldName,
-                    newName: name
+                    newName: user.name
                 });
                 
                 console.log('userlist new', userNames.get());
