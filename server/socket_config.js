@@ -58,7 +58,8 @@ module.exports = function(io, app, passport) {
 // SOCKET MANAGEMENT  ===============================================
     var cookieParser = require('cookie-parser'),
         passportSocketIo = require("passport.socketio"),
-        user = {};
+        user = {},
+        connectedUsers = [];
 
     io.use(passportSocketIo.authorize({
         cookieParser: cookieParser,
@@ -70,8 +71,8 @@ module.exports = function(io, app, passport) {
     }));
 
     function onAuthorizeSuccess(data, accept){
-        console.log('successful connection to socket.io', data);
-      // // If you use socket.io@1.X the callback looks different
+        // console.log('successful connection to socket.io', data);
+        userNames.claim(data.user.name);
         user = data.user;
         accept();
     }
@@ -79,7 +80,7 @@ module.exports = function(io, app, passport) {
     function onAuthorizeFail(data, message, error, accept){
         if(error){
             accept(new Error(message));
-            console.log('failed connection to socket.io:', message);
+            // console.log('failed connection to socket.io:', message);
         }
       // this error will be sent to the user as a special error-package
       // see: http://socket.io/docs/client-api/#socket > error-object
@@ -105,19 +106,20 @@ module.exports = function(io, app, passport) {
             socket.room = room_id;
 
             // store the username in the socket session for this client
-            socket.username = username;
+            socket.username = user.name;
 
             // add the client's username to the global list
-            usernames[username] = username;
+            // hmmm, this may actually just be a bad var leftover from Rooms
+            userNames[user.name] = user.name;
 
             // send client to room 1
             socket.join(room_id);
 
             // echo to client they've connected
-            socket.emit('updatechat', 'SERVER', 'you have connected to room1');
-            // echo to room 1 that a person has connected to their room
-            socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
-            socket.emit('updaterooms', rooms, 'room1');
+            // socket.emit('updatechat', 'SERVER', 'you have connected to room1');
+            // // echo to room 1 that a person has connected to their room
+            // socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
+            // socket.emit('updaterooms', rooms, 'room1');
         });
 
 // Moderator joins the channel and gets assigned their name goes down below
@@ -125,12 +127,16 @@ module.exports = function(io, app, passport) {
 
 // OBSERVER ROUTES ==================================================
 // - an observer joins a channel and gets a name
-        var name = userNames.getGuestName();
-        socket.emit('hello', {greeting: 'hello '+name});
+// check to see if the username already exists
+// if it doesn't already exist, get a guest name and register it
+
+        // var name = userNames.getGuestName();
+
+        // socket.emit('hello', {greeting: 'hello '+name});
 
         // send the new user their name and a list of users
         socket.emit('init', {
-            name: name,
+            name: user.name,
             users: userNames.get()
         });
 
@@ -138,13 +144,13 @@ module.exports = function(io, app, passport) {
 
         // notify other clients that a new user has joined
         socket.broadcast.emit('user:join', {
-            name: name
+            name: user.name
         });
 
         // broadcast a user's message to other users
         socket.on('send:message', function (data) {
             socket.broadcast.emit('send:message', {
-                user: name,
+                user: user.name,
                 text: data.message
             });
         });
