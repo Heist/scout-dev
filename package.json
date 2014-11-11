@@ -16,6 +16,7 @@
     "cors": "^2.4.2",
     "ejs": "^1.0.0",
     "express": "~4.0.0",
+    "express-mongoose-store": "^1.0.4",
     "express-session": "~1.0.0",
     "jasmine-node": "^2.0.0",
     "karma": "^0.12.23",
