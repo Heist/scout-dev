@@ -15,8 +15,13 @@ angular.module('field_guide_controls').controller('remote', ['$scope','$http', '
         // Socket listeners
         // ================
 
-        socket.on('hello', function(data){
+        socket.on('init', function(data){
             console.log('hello received', data);
+
+            $scope.observer = {name: data.name};
+            $scope.observer.toggle = false;
+            $scope.users = data.users;
+            
         });
 
         // socket.on('init', function (data) {

@@ -110,16 +110,13 @@ module.exports = function(io, app, passport) {
     
 
     io.on('connection', function (socket) {
-        console.log(
-        'Hello ' + 
-         name + 
-        ' connected!');
+        
+        var users = userNames.get();
+        var room = ''; // room isn't set yet.
+        console.log( 'Hello ' +  name +  ' connected!', users);
 
-// ROOM SETUP - MODERATOR SIDE ======================================
-
-// Run test - add a subject to open a room for observers to join
-// Add the current user to that room.
-        socket.on('send:newRoom', function(test_id){
+        // join the room for the test, if you are a moderator
+        socket.on('send:join_room', function(test_id){
             console.log('room name', test_id);
             
             // store the room name in the socket session for this client
@@ -129,6 +126,25 @@ module.exports = function(io, app, passport) {
             socket.join(test_id);
         });
 
+
+
+
+// ROOM SETUP - MODERATOR SIDE ======================================
+
+// Run test - add a subject to open a room for observers to join
+// Add the current user to that room.
+
+            socket.join();
+
+            socket.emit('init', {
+                name: name,
+                users: userNames.get()
+            });
+
+
+// SOCKET.ON EVENTS =================================================
+
+        
         socket.on('send:joinRoom', function(test_id){
             if(socket.room === test_id){
                 console.log('room acquired by remote', test_id);
@@ -145,24 +161,6 @@ module.exports = function(io, app, passport) {
             io.sockets.in(socket.room).emit('updatechat', data);
         });
 
-
-// Moderator joins the channel and gets assigned their name goes down below
-
-
-// OBSERVER ROUTES ==================================================
-// - an observer joins a channel and gets a name
-// check to see if the username already exists
-// if it doesn't already exist, get a guest name and register it
-
-        // var name = userNames.getGuestName();
-
-        // socket.emit('hello', {greeting: 'hello '+name});
-
-        // send the new user their name and a list of users
-        socket.emit('hello', {
-            name: name,
-            users: userNames.get()
-        });
 
         // console.log('userlist', userNames.get());
 
@@ -204,12 +202,12 @@ module.exports = function(io, app, passport) {
         // });
 
         // // clean up when a user leaves, and broadcast it to other users
-        // socket.on('disconnect', function () {
-        //     console.log('goodbye user');
-        //     socket.broadcast.emit('user:left', {
-        //         name: name
-        //     });
-        //     userNames.free(name);
-        // });
+        socket.on('disconnect', function () {
+            console.log('goodbye user');
+            socket.broadcast.emit('user:left', {
+                name: name
+            });
+            userNames.free(name);
+        });
     });
 };

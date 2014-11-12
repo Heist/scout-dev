@@ -20,14 +20,13 @@ var Subject = require('../models/data/subject');
     app.route('/api/run/')
         .get(function(req,res){
                 // console.log('touched run get')
-                res.json('touched run get')
+                res.json('touched run get');
             });
 
     // How to populate subdocuments is in here.
     app.route('/api/run/:_id')
         .get(function(req,res){
             // console.log('touched run route',req.params._id )
-
             Test.find({"_id":req.params._id, "_tasks": {$not: {$size: 0}}})
                 .populate('_tasks')
                 .exec(function(err, docs){

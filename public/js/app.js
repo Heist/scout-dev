@@ -69,7 +69,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         // PUBLIC ROUTES
          // REMOTE SCREEN =================================
         .state('remote', {
-            url: '/remote{_subject:(?:/[^/]+)?}',
+            url: '/remote/:test_id',
             controller:'remote',
             templateUrl: 'partials/remote/remote.html'
         })    
