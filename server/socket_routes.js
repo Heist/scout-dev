@@ -54,13 +54,16 @@ module.exports = function(io, app, passport) {
         };
     }());
 
-
 // SOCKET MANAGEMENT  ===============================================
+
+// Modules ================================================
     var cookieParser = require('cookie-parser'),
         passportSocketIo = require("passport.socketio"),
         user = {},
-        connectedUsers = [];
+        // connectedUsers = [],
+        nsp = '';
 
+// CONFIG =================================================
     io.use(passportSocketIo.authorize({
         cookieParser: cookieParser,
         key:         'connect.sid',       // the name of the cookie where express/connect stores its session_id
@@ -70,23 +73,35 @@ module.exports = function(io, app, passport) {
         fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
     }));
 
+// CONNECT ================================================
+// // '' and '/' are equal
+// io.of('').on('connection', function(){
+//   // Connecting to '/' will do the trick
+// });
+// // 'abc' and '/abc' are equal
+// io.of('abc').on('connection', function(){
+//   // Connecting to '/abc' will do the trick
+// });
+
+    
     function onAuthorizeSuccess(data, accept){
-        // console.log('successful connection to socket.io', data);
+        // console.log('successful connection to socket.io', data.user);
         userNames.claim(data.user.name);
         user = data.user;
+        // nsp = io.of('/'+user._account); // Each account has its own chat namespace.
         accept();
     }
 
     function onAuthorizeFail(data, message, error, accept){
         if(error){
             accept(new Error(message));
-            // console.log('failed connection to socket.io:', message);
+            console.log('failed connection to socket.io:', message);
         }
       // this error will be sent to the user as a special error-package
       // see: http://socket.io/docs/client-api/#socket > error-object
     }
-
-    io.on('connection', function (socket) {
+    
+    io.of('/'+user._account).on('connection', function (socket) {
         console.log(
         'Hello ' + 
          user.name + 
@@ -100,26 +115,17 @@ module.exports = function(io, app, passport) {
 // Add the current user to that room.
 
         socket.on('send:newRoom', function(room_id){
-            // console.log('room name', subject);
-
+            console.log('room name', room_id);
+            
             // store the room name in the socket session for this client
             socket.room = room_id;
-
-            // store the username in the socket session for this client
-            socket.username = user.name;
-
-            // add the client's username to the global list
-            // hmmm, this may actually just be a bad var leftover from Rooms
-            userNames[user.name] = user.name;
-
-            // send client to room 1
+            
+            // join the room yourself
             socket.join(room_id);
+        });
 
-            // echo to client they've connected
-            // socket.emit('updatechat', 'SERVER', 'you have connected to room1');
-            // // echo to room 1 that a person has connected to their room
-            // socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
-            // socket.emit('updaterooms', rooms, 'room1');
+        socket.on('send:joinRoom', function(room_id){
+            socket.join(room_id);
         });
 
 // Moderator joins the channel and gets assigned their name goes down below
@@ -149,7 +155,7 @@ module.exports = function(io, app, passport) {
 
         // broadcast a user's message to other users
         socket.on('send:message', function (data) {
-            socket.broadcast.emit('send:message', {
+            socket.broadcast.to().emit('send:message', {
                 user: user.name,
                 text: data.message
             });

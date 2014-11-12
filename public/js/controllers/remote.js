@@ -6,6 +6,7 @@ angular.module('field_guide_controls').controller('remote', ['$scope','$http', '
 
     $scope.messages = [];
 
+    var socket = io('/'+$stateParams._account);
     var socket = io.connect('http://127.0.0.1:8080/');
     // pure chatroom model, do what one likes with it.
 
@@ -23,7 +24,8 @@ angular.module('field_guide_controls').controller('remote', ['$scope','$http', '
         $scope.observer.toggle = false;
         $scope.users = data.users;
 
-        // we are going to get SUPER USED to using this now.
+        // we are going to get SUPER USED to using this now, since 
+        // this is how we tell Angular that Sockets has Done A Thing. Fucking Angular.
         $scope.$apply();
     });
 

@@ -86,7 +86,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
                 // Subject has been created, now open a room with that subject_id
                 socket.emit('send:newRoom', { 
-                    room : subject._id, 
+                    room : subject._id
                 });
 
             })
