@@ -6,12 +6,13 @@ angular.module('field_guide_controls').controller('remote', ['$scope','$http', '
 
     $scope.messages = [];
 
-    var socket = io('/'+$stateParams._account);
     var socket = io.connect('http://127.0.0.1:8080/');
-    // pure chatroom model, do what one likes with it.
-
+    // TODO: this should be namespaced, but cannot be namespaced.
+    
+    
     // Socket listeners
     // ================
+
 
     socket.on('hello', function(data){
         console.log('hello received', data);

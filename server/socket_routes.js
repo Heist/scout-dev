@@ -59,7 +59,8 @@ module.exports = function(io, app, passport) {
 // Modules ================================================
     var cookieParser = require('cookie-parser'),
         passportSocketIo = require("passport.socketio"),
-        user = {};
+        user = {},
+        name = '';
         // connectedUsers = [],
         // nsp = '',
 
@@ -86,16 +87,21 @@ module.exports = function(io, app, passport) {
     
     function onAuthorizeSuccess(data, accept){
         // console.log('successful connection to socket.io', data.user);
-        userNames.claim(data.user.name);
         user = data.user;
+        name = data.user.name;
+
+        userNames.claim(name);
         // nsp = io.of('/'+user._account); // Each account has its own chat namespace.
         accept();
     }
 
     function onAuthorizeFail(data, message, error, accept){
         if(error){
-            accept(new Error(message));
+            // accept(new Error(message));
             console.log('failed connection to socket.io:', message);
+            name = userNames.getGuestName();
+
+            accept();
         }
       // this error will be sent to the user as a special error-package
       // see: http://socket.io/docs/client-api/#socket > error-object
@@ -105,16 +111,13 @@ module.exports = function(io, app, passport) {
     io.on('connection', function (socket) {
         console.log(
         'Hello ' + 
-         user.name + 
+         name + 
         ' connected!');
-
-
 
 // ROOM SETUP - MODERATOR SIDE ======================================
 
 // Run test - add a subject to open a room for observers to join
 // Add the current user to that room.
-
         socket.on('send:newRoom', function(room_id){
             console.log('room name', room_id);
             
@@ -143,7 +146,7 @@ module.exports = function(io, app, passport) {
 
         // send the new user their name and a list of users
         socket.emit('init', {
-            name: user.name,
+            name: name,
             users: userNames.get()
         });
 
@@ -151,13 +154,13 @@ module.exports = function(io, app, passport) {
 
         // notify other clients that a new user has joined
         socket.broadcast.emit('user:join', {
-            name: user.name
+            name: name
         });
 
         // broadcast a user's message to other users
         socket.on('send:message', function (data) {
             socket.broadcast.to().emit('send:message', {
-                user: user.name,
+                user: name,
                 text: data.message
             });
         });
@@ -168,14 +171,14 @@ module.exports = function(io, app, passport) {
 
             if (userNames.claim(data.name)) {
 
-                var oldName = user.name;
+                var oldName = name;
                 userNames.free(oldName);
 
-                user.name = data.name;
+                name = data.name;
 
                 socket.broadcast.emit('change:name', {
                     oldName: oldName,
-                    newName: user.name
+                    newName: name
                 });
                 
                 console.log('userlist new', userNames.get());
