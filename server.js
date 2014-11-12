@@ -68,7 +68,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-// app.use(function(req, res, next){ app.locals.user = session.user; });
 
 // server /api/ routes ==============================================
 var router = require('./server/routes')(app, passport);

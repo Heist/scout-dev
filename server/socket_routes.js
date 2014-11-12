@@ -59,9 +59,9 @@ module.exports = function(io, app, passport) {
 // Modules ================================================
     var cookieParser = require('cookie-parser'),
         passportSocketIo = require("passport.socketio"),
-        user = {},
+        user = {};
         // connectedUsers = [],
-        nsp = '';
+        // nsp = '',
 
 // CONFIG =================================================
     io.use(passportSocketIo.authorize({
@@ -101,7 +101,8 @@ module.exports = function(io, app, passport) {
       // see: http://socket.io/docs/client-api/#socket > error-object
     }
     
-    io.of('/'+user._account).on('connection', function (socket) {
+
+    io.on('connection', function (socket) {
         console.log(
         'Hello ' + 
          user.name + 
