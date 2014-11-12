@@ -81,7 +81,7 @@ app.get('*', function(req, res) {
 
 // SOCKET.IO ========================================================
 // lives after normal routes
-require('./server/socket_config')(io, app, passport);
+require('./server/socket_routes')(io, app, passport);
 
 
 // TURN ON THE APPLICATION ==========================================
