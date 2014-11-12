@@ -27,6 +27,11 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
             $scope.task = {};
             var message = {};
 
+            // Subject has been created, now open a room with that subject_id
+            socket.emit('send:newRoom', { 
+                room : $stateParams._id
+            });
+
         });
 
     $scope.select = function(testIndex, taskIndex) {
@@ -84,11 +89,6 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
                 $scope.select(0,0);
                 // console.log('selected', $scope.selected);
 
-                // Subject has been created, now open a room with that subject_id
-                socket.emit('send:newRoom', { 
-                    room : subject._id
-                });
-
             })
             .error(function(data){
                 // console.log('Error: ' + data);
@@ -135,6 +135,8 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
             .post(url, data_out)
             .success(function(data){
                 // console.log('Message pushed: ', data);
+                socket.emit('send:note', { note: data });
+                // socket.emit('my other event', { my: 'data' });
             })
             .error(function(data){
                 // console.log('Error: ' + data);

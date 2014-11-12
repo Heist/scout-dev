@@ -119,19 +119,32 @@ module.exports = function(io, app, passport) {
 
 // Run test - add a subject to open a room for observers to join
 // Add the current user to that room.
-        socket.on('send:newRoom', function(room_id){
-            console.log('room name', room_id);
+        socket.on('send:newRoom', function(test_id){
+            console.log('room name', test_id);
             
             // store the room name in the socket session for this client
-            socket.room = room_id;
+            socket.room = test_id;
             
             // join the room yourself
-            socket.join(room_id);
+            socket.join(test_id);
         });
 
-        socket.on('send:joinRoom', function(room_id){
-            socket.join(room_id);
+        socket.on('send:joinRoom', function(test_id){
+            if(socket.room === test_id){
+                console.log('room acquired by remote', test_id);
+                socket.join(test_id);
+            } else {
+                console.log('no test running by that name');
+                // do something if that room doesn't exist
+            }
         });
+
+        // when the client emits 'sendchat', this listens and executes
+        socket.on('send:note', function (data) {
+        // we tell the client to execute 'updatechat' with 2 parameters
+            io.sockets.in(socket.room).emit('updatechat', data);
+        });
+
 
 // Moderator joins the channel and gets assigned their name goes down below
 
@@ -146,57 +159,57 @@ module.exports = function(io, app, passport) {
         // socket.emit('hello', {greeting: 'hello '+name});
 
         // send the new user their name and a list of users
-        socket.emit('init', {
+        socket.emit('hello', {
             name: name,
             users: userNames.get()
         });
 
-        console.log('userlist', userNames.get());
+        // console.log('userlist', userNames.get());
 
-        // notify other clients that a new user has joined
-        socket.broadcast.emit('user:join', {
-            name: name
-        });
+        // // notify other clients that a new user has joined
+        // socket.broadcast.emit('user:join', {
+        //     name: name
+        // });
 
-        // broadcast a user's message to other users
-        socket.on('send:message', function (data) {
-            socket.broadcast.to().emit('send:message', {
-                user: name,
-                text: data.message
-            });
-        });
+        // // broadcast a user's message to other users
+        // socket.on('send:message', function (data) {
+        //     socket.broadcast.to().emit('send:message', {
+        //         user: name,
+        //         text: data.message
+        //     });
+        // });
 
-        // validate a user's name change, and broadcast it on success
-        socket.on('change:name', function (data, fn) {
-            console.log('touched namechange', data);
+        // // validate a user's name change, and broadcast it on success
+        // socket.on('change:name', function (data, fn) {
+        //     console.log('touched namechange', data);
 
-            if (userNames.claim(data.name)) {
+        //     if (userNames.claim(data.name)) {
 
-                var oldName = name;
-                userNames.free(oldName);
+        //         var oldName = name;
+        //         userNames.free(oldName);
 
-                name = data.name;
+        //         name = data.name;
 
-                socket.broadcast.emit('change:name', {
-                    oldName: oldName,
-                    newName: name
-                });
+        //         socket.broadcast.emit('change:name', {
+        //             oldName: oldName,
+        //             newName: name
+        //         });
                 
-                console.log('userlist new', userNames.get());
-                fn(true);
-            } else {
-                console.log('userlist old', userNames.get());
-                fn(false);
-            }
-        });
+        //         console.log('userlist new', userNames.get());
+        //         fn(true);
+        //     } else {
+        //         console.log('userlist old', userNames.get());
+        //         fn(false);
+        //     }
+        // });
 
-        // clean up when a user leaves, and broadcast it to other users
-        socket.on('disconnect', function () {
-            console.log('goodbye user');
-            socket.broadcast.emit('user:left', {
-                name: name
-            });
-            userNames.free(name);
-        });
+        // // clean up when a user leaves, and broadcast it to other users
+        // socket.on('disconnect', function () {
+        //     console.log('goodbye user');
+        //     socket.broadcast.emit('user:left', {
+        //         name: name
+        //     });
+        //     userNames.free(name);
+        // });
     });
 };
