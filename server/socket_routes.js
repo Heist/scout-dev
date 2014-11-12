@@ -96,16 +96,17 @@ module.exports = function(io, app, passport) {
     }
 
     function onAuthorizeFail(data, message, error, accept){
-
         if(error){ console.log(error);}
-            // accept(new Error(message));
-            console.log('failed connection to socket.io:', message);
-            name = userNames.getGuestName();
+            // accept(new Error(message)); 
+                // this is if we wish to reject unauthorized connections.
+                // this error will be sent to the user as a special error-package
+                // see: http://socket.io/docs/client-api/#socket > error-object
 
-            accept();
-        // }
-      // this error will be sent to the user as a special error-package
-      // see: http://socket.io/docs/client-api/#socket > error-object
+        console.log('unauthorized connection to socket.io:', message);        
+        
+        name = userNames.getGuestName();
+
+        accept();
     }
     
 
@@ -161,9 +162,6 @@ module.exports = function(io, app, passport) {
             io.sockets.in(socket.room).emit('updatechat', data);
         });
 
-
-        // console.log('userlist', userNames.get());
-
         // // notify other clients that a new user has joined
         // socket.broadcast.emit('user:join', {
         //     name: name
@@ -201,7 +199,7 @@ module.exports = function(io, app, passport) {
         //     }
         // });
 
-        // // clean up when a user leaves, and broadcast it to other users
+        // clean up when a user leaves, and broadcast it to other users
         socket.on('disconnect', function () {
             console.log('goodbye user');
             socket.broadcast.emit('user:left', {
