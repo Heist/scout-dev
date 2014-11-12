@@ -96,13 +96,14 @@ module.exports = function(io, app, passport) {
     }
 
     function onAuthorizeFail(data, message, error, accept){
-        if(error){
+
+        if(error){ console.log(error);}
             // accept(new Error(message));
             console.log('failed connection to socket.io:', message);
             name = userNames.getGuestName();
 
             accept();
-        }
+        // }
       // this error will be sent to the user as a special error-package
       // see: http://socket.io/docs/client-api/#socket > error-object
     }

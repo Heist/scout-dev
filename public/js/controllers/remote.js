@@ -8,8 +8,8 @@ angular.module('field_guide_controls').controller('remote', ['$scope','$http', '
 
     var socket = io.connect('http://127.0.0.1:8080/');
     // TODO: this should be namespaced, but cannot be namespaced.
-    
-    
+
+
     // Socket listeners
     // ================
 
@@ -170,16 +170,15 @@ angular.module('field_guide_controls').controller('remote', ['$scope','$http', '
     $scope.timeline = []; // holds all messages currently in test
     $scope.glued = true;
 
-    $http
-        .get('/api/run/'+$stateParams._id)
-        .success(function(data){
-            $scope.tests = data;
-            // console.log('how is data built', data);
+    // $http
+    //     .get('/api/run/'+$stateParams._id)
+    //     .success(function(data){
+    //         $scope.tests = data;
+    //         // console.log('how is data built', data);
 
-            // reset variables to clear cache from state changes.
-            $scope.task = {};
-            var message = {};
-
-        });
+    //         // reset variables to clear cache from state changes.
+    //         $scope.task = {};
+    //         var message = {};
+    // }); 
 
 }]);
