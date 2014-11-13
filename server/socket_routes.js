@@ -57,9 +57,9 @@ module.exports = function(io, app, passport) {
     io.on('connection', function (socket) {
         console.log('hello user', user._account);
         
-        socket.broadcast.to('545d38f67f39f488ecfa6c0a').emit('announce', {data: 'announcement'});
-        socket.to('545d38f67f39f488ecfa6c0a').emit('announce', {data: 'socket room'});
-        io.to('545d38f67f39f488ecfa6c0a').emit('announce', {data: room});
+        socket.broadcast.to(room).emit('announce', {data: 'announcement'});
+        socket.to(room).emit('announce', {data: 'socket room'});
+        io.to(room).emit('announce', {data: room});
         
         socket.emit('announce', 'control announcement');
         // socket.broadcast('announce', {data: 'control broadcast'});
