@@ -36,7 +36,7 @@ module.exports = function(io, app, passport) {
         // console.log('successful connection to socket.io', data.user);
         user = data.user;
         name = data.user.name;
-        // userNames.claim(name);
+        userNames.claim(name);
         // Each account has its own chat namespace.
         accept();
     }
@@ -57,71 +57,73 @@ module.exports = function(io, app, passport) {
     io.on('connection', function (socket) {
         console.log('hello user', user._account);
         
+        // send it to everyone but sender
         socket.broadcast.to(room).emit('announce', {data: 'announcement'});
         socket.to(room).emit('announce', {data: 'socket room'});
+        
+        // send it to everyone period
         io.to(room).emit('announce', {data: room});
         
         socket.emit('announce', 'control announcement');
-        // socket.broadcast('announce', {data: 'control broadcast'});
 
         socket.on('disconnect', function () {
             console.log('goodbye user');
             socket.broadcast.emit('user:left', {
                 name: name
             });
-            // userNames.free(name);
+            userNames.free(name);
         });
     });
 
 
 // Guest name management 
 // Keep track of which names are used so that there are no duplicates
-    // var userNames = (function () {
-    //     var names = {};
+    var userNames = (function () {
+        var names = {};
 
-    //     var claim = function (name) {
-    //         if (!name || names[name]) {
-    //             return false;
-    //         } else {
-    //             names[name] = true;
-    //             return true;
-    //         }
-    //     };
+        var claim = function (name) {
+            if (!name || names[name]) {
+                return false;
+            } else {
+                names[name] = true;
+                return true;
+            }
+        };
 
-    //     // find the lowest unused "guest" name and claim it
-    //     var getGuestName = function () {
-    //         var name,
-    //             nextUserId = 1;
+        // find the lowest unused "guest" name and claim it
+        var getGuestName = function () {
+            var name,
+                nextUserId = 1;
 
-    //         do {
-    //             name = 'Guest ' + nextUserId;
-    //             nextUserId += 1;
-    //         } while (!claim(name));
+            do {
+                name = 'Guest ' + nextUserId;
+                nextUserId += 1;
+            } while (!claim(name));
 
-    //         return name;
-    //     };
+            return name;
+        };
 
-    //     // serialize claimed names as an array
-    //     var get = function () {
-    //         var res = [];
-    //         for (var user in names) {
-    //             res.push(user);
-    //         }
+        // serialize claimed names as an array
+        var get = function () {
+            var res = [];
+            for (var user in names) {
+                res.push(user);
+            }
 
-    //         return res;
-    //     };
+            return res;
+        };
 
-    //     var free = function (name) {
-    //         if (names[name]) {
-    //             delete names[name];
-    //         }
-    //     };
+        var free = function (name) {
+            if (names[name]) {
+                delete names[name];
+            }
+        };
 
-    //     return {
-    //         claim: claim,
-    //         free: free,
-    //         get: get,
-    //         getGuestName: getGuestName
-    //     };
-    // }());
+        return {
+            claim: claim,
+            free: free,
+            get: get,
+            getGuestName: getGuestName
+        };
+    }());
 };
