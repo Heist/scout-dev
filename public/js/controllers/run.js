@@ -15,7 +15,13 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     $scope.timeline = []; // holds all messages currently in test
     $scope.glued = true;
 
-    var socket = io.connect('http://127.0.0.1:8080/');
+
+    var socket = io('http://127.0.0.1:8080/');
+
+    socket.on('news', function (data) {
+        console.log(data);
+        socket.emit('my other event', { my: 'data' });
+    });
 
     $http
         .get('/api/run/'+$stateParams._id)
@@ -28,9 +34,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
             var message = {};
 
             // Subject has been created, now open a room with that subject_id
-            socket.emit('send:newRoom', { 
-                room : $stateParams._id
-            });
+           
 
         });
 

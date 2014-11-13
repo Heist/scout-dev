@@ -5,54 +5,54 @@
 module.exports = function(io, app, passport) {
 // Guest name management 
 // Keep track of which names are used so that there are no duplicates
-    var userNames = (function () {
-        var names = {};
+    // var userNames = (function () {
+    //     var names = {};
 
-        var claim = function (name) {
-            if (!name || names[name]) {
-                return false;
-            } else {
-                names[name] = true;
-                return true;
-            }
-        };
+    //     var claim = function (name) {
+    //         if (!name || names[name]) {
+    //             return false;
+    //         } else {
+    //             names[name] = true;
+    //             return true;
+    //         }
+    //     };
 
-        // find the lowest unused "guest" name and claim it
-        var getGuestName = function () {
-            var name,
-                nextUserId = 1;
+    //     // find the lowest unused "guest" name and claim it
+    //     var getGuestName = function () {
+    //         var name,
+    //             nextUserId = 1;
 
-            do {
-                name = 'Guest ' + nextUserId;
-                nextUserId += 1;
-            } while (!claim(name));
+    //         do {
+    //             name = 'Guest ' + nextUserId;
+    //             nextUserId += 1;
+    //         } while (!claim(name));
 
-            return name;
-        };
+    //         return name;
+    //     };
 
-        // serialize claimed names as an array
-        var get = function () {
-            var res = [];
-            for (var user in names) {
-                res.push(user);
-            }
+    //     // serialize claimed names as an array
+    //     var get = function () {
+    //         var res = [];
+    //         for (var user in names) {
+    //             res.push(user);
+    //         }
 
-            return res;
-        };
+    //         return res;
+    //     };
 
-        var free = function (name) {
-            if (names[name]) {
-                delete names[name];
-            }
-        };
+    //     var free = function (name) {
+    //         if (names[name]) {
+    //             delete names[name];
+    //         }
+    //     };
 
-        return {
-            claim: claim,
-            free: free,
-            get: get,
-            getGuestName: getGuestName
-        };
-    }());
+    //     return {
+    //         claim: claim,
+    //         free: free,
+    //         get: get,
+    //         getGuestName: getGuestName
+    //     };
+    // }());
 
 // SOCKET MANAGEMENT  ===============================================
 
@@ -84,13 +84,16 @@ module.exports = function(io, app, passport) {
 //   // Connecting to '/abc' will do the trick
 // });
 
+// on connect, it tried to connect to the default, gets authorized, and if not authorized cannot connect.
+// it is then passed to the namespace for that socket, which is _account.
+// TODO: Unauthorized users should be able to connect to watch a test in progress.
     
     function onAuthorizeSuccess(data, accept){
         // console.log('successful connection to socket.io', data.user);
         user = data.user;
         name = data.user.name;
 
-        userNames.claim(name);
+        // userNames.claim(name);
         // nsp = io.of('/'+user._account); // Each account has its own chat namespace.
         accept();
     }
@@ -100,31 +103,45 @@ module.exports = function(io, app, passport) {
         if(error){ console.log(error);}
             // accept(new Error(message));
             console.log('failed connection to socket.io:', message);
-            name = userNames.getGuestName();
+            // name = userNames.getGuestName();
 
             accept();
         // }
       // this error will be sent to the user as a special error-package
       // see: http://socket.io/docs/client-api/#socket > error-object
     }
-    
+     
 
-    io.on('connection', function (socket) {
+io.on('connection', function (socket) {
         
-        var users = userNames.get();
-        var room = ''; // room isn't set yet.
-        console.log( 'Hello ' +  name +  ' connected!', users);
+        socket.emit('news', { hello: 'world' });
+        
+        socket.on('my other event', function (data) {
+            console.log(data);
+        });
+        // var users = userNames.get();
+        // var room = ''; // room isn't set yet.
+        // console.log( 'Hello ' +  name +  ' connected!');
+
+        // socket.on('message', function (data) {
+        //     // we tell the client to execute 'updatechat' with 2 parameters
+        //     console.log('message hit', data);
+        //     socket.emit('announce', 'hello world');
+        //     io.sockets.in(socket.room).emit('announce', data);
+        // });
 
         // join the room for the test, if you are a moderator
-        socket.on('send:join_room', function(test_id){
-            console.log('room name', test_id);
+        // socket.on('send:join_room', function(test_id){
+        //     console.log('room name', test_id);
             
-            // store the room name in the socket session for this client
-            socket.room = test_id;
+        //     // store the room name in the socket session for this client
+        //     socket.room = test_id;
             
-            // join the room yourself
-            socket.join(test_id);
-        });
+        //     // join the room yourself
+        //     socket.join(test_id);
+        // });
+
+
 
 
 
@@ -134,32 +151,32 @@ module.exports = function(io, app, passport) {
 // Run test - add a subject to open a room for observers to join
 // Add the current user to that room.
 
-            socket.join();
+//             socket.join();
 
-            socket.emit('init', {
-                name: name,
-                users: userNames.get()
-            });
+//             socket.emit('init', {
+//                 name: name,
+//                 users: userNames.get()
+//             });
 
 
-// SOCKET.ON EVENTS =================================================
+// // SOCKET.ON EVENTS =================================================
 
         
-        socket.on('send:joinRoom', function(test_id){
-            if(socket.room === test_id){
-                console.log('room acquired by remote', test_id);
-                socket.join(test_id);
-            } else {
-                console.log('no test running by that name');
-                // do something if that room doesn't exist
-            }
-        });
+//         socket.on('send:joinRoom', function(test_id){
+//             if(socket.room === test_id){
+//                 console.log('room acquired by remote', test_id);
+//                 socket.join(test_id);
+//             } else {
+//                 console.log('no test running by that name');
+//                 // do something if that room doesn't exist
+//             }
+//         });
 
-        // when the client emits 'sendchat', this listens and executes
-        socket.on('send:note', function (data) {
-        // we tell the client to execute 'updatechat' with 2 parameters
-            io.sockets.in(socket.room).emit('updatechat', data);
-        });
+//         // when the client emits 'sendchat', this listens and executes
+//         socket.on('send:note', function (data) {
+//         // we tell the client to execute 'updatechat' with 2 parameters
+//             io.sockets.in(socket.room).emit('updatechat', data);
+//         });
 
 
         // console.log('userlist', userNames.get());
@@ -207,7 +224,7 @@ module.exports = function(io, app, passport) {
             socket.broadcast.emit('user:left', {
                 name: name
             });
-            userNames.free(name);
+            // userNames.free(name);
         });
     });
 };
