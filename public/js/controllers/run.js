@@ -15,9 +15,9 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     $scope.timeline = []; // holds all messages currently in test
     $scope.glued = true;
 
-
-    var socket = io('http://127.0.0.1:8080/');
-
+var socket = io('http://127.0.0.1:8080/'+$stateParams._id);
+    socket = io('/'+$rootScope.user.account);
+    
     socket.on('handshake', function (data) {
         console.log('handshake', data);
         socket.emit('send:join_room', {room: $stateParams._id});
@@ -27,7 +27,6 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         console.log('announce', data);
     });
 
-    socket.emit('message', 'message from socket connection RUN');
 
     $http
         .get('/api/run/'+$stateParams._id)

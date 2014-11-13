@@ -111,43 +111,80 @@ module.exports = function(io, app, passport) {
       // see: http://socket.io/docs/client-api/#socket > error-object
     }
      
+    function findClientsSocketByRoomId(roomId) {
+        var res = []
+        , room = io.sockets.adapter.rooms[roomId];
+        if (room) {
+            for (var id in room) {
+            res.push(io.sockets.adapter.nsp.connected[id]);
+            }
+        }
+        return res;
+    }
 
 io.on('connection', function (socket) {
-        // variables namespaced to this connection
-        var room = '';
-
+        console.log('hello user', user._account);
+        
         socket.emit('handshake', { hello: 'world' });
         
-        // socket.on('my other event', function (data) {
-        //     console.log(data);
-        // });
-
         socket.on('send:join_room', function(data){
-            console.log('room name', data.room);
-            
-            // store the room name in the socket session for this client
-            room = data.room;
-            
-            // join the room yourself
-            socket.join(room);
-            socket.emit('announce', 'hello world '+data.room);
-            console.log('send.joinroom socket room', room);
+            spacer = data.room;
+            console.log(spacer);
+            console.log('user account', user);
         });
 
-        console.log('socket object', socket);
-        // var users = userNames.get();
-        // var room = ''; // room isn't set yet.
-        // console.log( 'Hello ' +  name +  ' connected!');
+        var nsp = io.of('/'+user._account);
 
-        socket.on('message', function (data) {
-            // we tell the client to execute 'updatechat' with 2 parameters
-            console.log('message hit', data);
-            console.log('socket room',  room);
-            socket.emit('message', 'hello world');
-
-            io.sockets.emit('announce', 'message announcement');
-            io.sockets.in(room).emit('announce', 'message announcement');
+        nsp.on('connection', function(socket){
+            console.log('someone connected', user._account);
+            nsp.emit('announce', 'hi everyone!');
         });
+
+        nsp.on('hello', function(data){
+            nsp.emit('announce', 'hello emit');
+        });
+
+
+
+        // variables namespaced to this connection
+        // var room = '';
+
+        // socket.emit('handshake', { hello: 'world' });
+        
+        // // socket.on('my other event', function (data) {
+        // //     console.log(data);
+        // // });
+
+        // socket.on('send:join_room', function(data){
+        //     console.log('room name', data.room);
+            
+        //     // store the room name in the socket session for this client
+        //     room = data.room;
+        //     var clientlist = findClientsSocketByRoomId(room);
+
+        //     // join the room yourself
+        //     socket.join(room);
+        //     socket.emit('announce', 'hello world '+data.room);
+        //     console.log('send.joinroom socket room', room);
+        //     console.log('clientlist', clientlist);
+            
+        // });
+ 
+        // // console.log('socket object', socket);
+        // // var users = userNames.get();
+        // // var room = ''; // room isn't set yet.
+        // // console.log( 'Hello ' +  name +  ' connected!');
+
+        // socket.on('message', function (data) {
+        //     // we tell the client to execute 'updatechat' with 2 parameters
+        //     console.log('message hit', data);
+        //     console.log('socket room',  room);
+        //     socket.emit('message', 'hello world');
+
+        //     // io.sockets.emit('announce', 'message announcement sockets.emit');
+        //     io.sockets.in(room).emit('announce', 'message announcement io.sockets.in.room');
+
+        // });
 
         // join the room for the test, if you are a moderator
         
