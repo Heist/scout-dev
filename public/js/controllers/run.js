@@ -27,6 +27,8 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         console.log('announce', data);
     });
 
+    socket.emit('message', 'message from socket connection RUN');
+
     $http
         .get('/api/run/'+$stateParams._id)
         .success(function(data){

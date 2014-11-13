@@ -113,7 +113,9 @@ module.exports = function(io, app, passport) {
      
 
 io.on('connection', function (socket) {
-        
+        // variables namespaced to this connection
+        var room = '';
+
         socket.emit('handshake', { hello: 'world' });
         
         // socket.on('my other event', function (data) {
@@ -121,25 +123,31 @@ io.on('connection', function (socket) {
         // });
 
         socket.on('send:join_room', function(data){
-            console.log('room name', data);
-            socket.emit('announce', 'hello world');
+            console.log('room name', data.room);
+            
             // store the room name in the socket session for this client
-            // socket.room = test_id;
+            room = data.room;
             
             // join the room yourself
-            // socket.join(test_id);
+            socket.join(room);
+            socket.emit('announce', 'hello world '+data.room);
+            console.log('send.joinroom socket room', room);
         });
 
+        console.log('socket object', socket);
         // var users = userNames.get();
         // var room = ''; // room isn't set yet.
         // console.log( 'Hello ' +  name +  ' connected!');
 
-        // socket.on('message', function (data) {
-        //     // we tell the client to execute 'updatechat' with 2 parameters
-        //     console.log('message hit', data);
-        //     socket.emit('announce', 'hello world');
-        //     io.sockets.in(socket.room).emit('announce', data);
-        // });
+        socket.on('message', function (data) {
+            // we tell the client to execute 'updatechat' with 2 parameters
+            console.log('message hit', data);
+            console.log('socket room',  room);
+            socket.emit('message', 'hello world');
+
+            io.sockets.emit('announce', 'message announcement');
+            io.sockets.in(room).emit('announce', 'message announcement');
+        });
 
         // join the room for the test, if you are a moderator
         
