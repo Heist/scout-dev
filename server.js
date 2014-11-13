@@ -70,7 +70,7 @@ app.use(passport.session()); // persistent login sessions
 
 
 // server /api/ routes ==============================================
-var router = require('./server/routes')(app, passport);
+var router = require('./server/routes')(app, passport, io);
 
 // DEFAULT ROUTE ====================================================
 // Prevents the ENOENT rendering error

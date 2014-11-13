@@ -15,18 +15,6 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     $scope.timeline = []; // holds all messages currently in test
     $scope.glued = true;
 
-var socket = io('http://127.0.0.1:8080/');
-    // socket = io('/'+$rootScope.user.account);
-    
-    socket.on('handshake', function (data) {
-        console.log('handshake', data);
-        socket.emit('hello', {room: $stateParams._id});
-    });
-
-    socket.on('announce', function(data){
-        console.log('announce', data);
-    });
-
 
     $http
         .get('/api/run/'+$stateParams._id)
@@ -37,11 +25,17 @@ var socket = io('http://127.0.0.1:8080/');
             // reset variables to clear cache from state changes.
             $scope.task = {};
             var message = {};
-
             // Subject has been created, now open a room with that subject_id
            
 
         });
+    
+    var socket = io('http://127.0.0.1:8080/?test='+$stateParams._id);
+
+    socket.on('announce', function(data){
+        console.log('announce', data);
+    });
+
 
     $scope.select = function(testIndex, taskIndex) {
         // console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);

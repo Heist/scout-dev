@@ -1,8 +1,79 @@
 // socket_config.js
 'use strict';
 
-
 module.exports = function(io, app, passport) {
+    var cookieParser = require('cookie-parser'),
+        passportSocketIo = require("passport.socketio"),
+        user = {},
+        nsp = io.of('/'+ user.account),
+        name = '',
+        room = '';
+
+
+    // Get the room name
+    io.use(function(socket, next) {
+        console.log(socket.request._query);
+        var query = socket.request._query;
+        room = query.test;
+
+        socket.join(room);
+        console.log('room joined', room);
+        
+        next();
+    });
+
+    // Authenticate things
+    io.use(passportSocketIo.authorize({
+        cookieParser: cookieParser,
+        key:         'connect.sid',       // the name of the cookie where express/connect stores its session_id
+        secret:      app.locals.secret,    // the session_secret to parse the cookie
+        store:       app.locals.store,        // we NEED to use a sessionstore. no memorystore please
+        success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
+        fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
+    }));
+
+    function onAuthorizeSuccess(data, accept){
+        // console.log('successful connection to socket.io', data.user);
+        user = data.user;
+        name = data.user.name;
+        // userNames.claim(name);
+        // Each account has its own chat namespace.
+        accept();
+    }
+
+    function onAuthorizeFail(data, message, error, accept){
+
+        if(error){ console.log(error);}
+        // accept(new Error(message));
+        console.log('failed connection to socket.io:', message);
+        // name = userNames.getGuestName();
+
+        accept();
+        // }
+      // this error will be sent to the user as a special error-package
+      // see: http://socket.io/docs/client-api/#socket > error-object
+    }
+
+    io.on('connection', function (socket) {
+        console.log('hello user', user._account);
+        
+        socket.broadcast.to('545d38f67f39f488ecfa6c0a').emit('announce', {data: 'announcement'});
+        socket.to('545d38f67f39f488ecfa6c0a').emit('announce', {data: 'socket room'});
+        io.to('545d38f67f39f488ecfa6c0a').emit('announce', {data: room});
+        
+        socket.emit('announce', 'control announcement');
+        // socket.broadcast('announce', {data: 'control broadcast'});
+
+        socket.on('disconnect', function () {
+            console.log('goodbye user');
+            socket.broadcast.emit('user:left', {
+                name: name
+            });
+            // userNames.free(name);
+        });
+    });
+
+
 // Guest name management 
 // Keep track of which names are used so that there are no duplicates
     // var userNames = (function () {
@@ -53,238 +124,4 @@ module.exports = function(io, app, passport) {
     //         getGuestName: getGuestName
     //     };
     // }());
-
-// SOCKET MANAGEMENT  ===============================================
-
-// Modules ================================================
-    var cookieParser = require('cookie-parser'),
-        passportSocketIo = require("passport.socketio"),
-        user = {},
-        name = '';
-        // connectedUsers = [],
-        // nsp = '',
-
-// CONFIG =================================================
-    io.use(passportSocketIo.authorize({
-        cookieParser: cookieParser,
-        key:         'connect.sid',       // the name of the cookie where express/connect stores its session_id
-        secret:      app.locals.secret,    // the session_secret to parse the cookie
-        store:       app.locals.store,        // we NEED to use a sessionstore. no memorystore please
-        success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
-        fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
-    }));
-
-// CONNECT ================================================
-// // '' and '/' are equal
-// io.of('').on('connection', function(){
-//   // Connecting to '/' will do the trick
-// });
-// // 'abc' and '/abc' are equal
-// io.of('abc').on('connection', function(){
-//   // Connecting to '/abc' will do the trick
-// });
-
-// on connect, it tried to connect to the default, gets authorized, and if not authorized cannot connect.
-// it is then passed to the namespace for that socket, which is _account.
-// TODO: Unauthorized users should be able to connect to watch a test in progress.
-    
-    function onAuthorizeSuccess(data, accept){
-        // console.log('successful connection to socket.io', data.user);
-        user = data.user;
-        name = data.user.name;
-
-        // userNames.claim(name);
-        // nsp = io.of('/'+user._account); // Each account has its own chat namespace.
-        accept();
-    }
-
-    function onAuthorizeFail(data, message, error, accept){
-
-        if(error){ console.log(error);}
-            // accept(new Error(message));
-            console.log('failed connection to socket.io:', message);
-            // name = userNames.getGuestName();
-
-            accept();
-        // }
-      // this error will be sent to the user as a special error-package
-      // see: http://socket.io/docs/client-api/#socket > error-object
-    }
-     
-    function findClientsSocketByRoomId(roomId) {
-        var res = []
-        , room = io.sockets.adapter.rooms[roomId];
-        if (room) {
-            for (var id in room) {
-            res.push(io.sockets.adapter.nsp.connected[id]);
-            }
-        }
-        return res;
-    }
-
-io.on('connection', function (socket) {
-        // console.log('hello user', user._account);
-        
-        socket.emit('handshake', { hello: 'world' });
-
-        socket.join(user._account);
-
-        socket.broadcast.to(user._account).emit('announce', {data: 'announcement'});
-        socket.to(user._account).emit('announce', {data: 'socket room'});
-        io.to(user._account).emit('announce', {data: user._account});
-        // io.to('mork').broadcast('announce', {data: 'broadcast'});
-
-        socket.on('disconnect', function () {
-            console.log('goodbye user');
-            socket.broadcast.emit('user:left', {
-                name: name
-            });
-            // userNames.free(name);
-        });
-    });
-
-// io.to('mork').emit('announce', {data: 'hello'});
-
-        // var nsp = io.of('/'+user._account);
-
-        // // works
-        // nsp.on('connection', function(socket){
-        //     console.log('someone connected', user._account);
-        //     nsp.emit('announce', 'hi everyone!');
-        // });
-
-        // // never works even a little
-        // nsp.on('hello', function(data){
-        //     console.log('nsp hello');
-        //     // console.log(spacer);
-        //     console.log('user account', user);
-        //     nsp.join(data.room);
-        //     nsp.broadcast('announce', {broadcast: data.room});
-        //     io.to(data.room).emit('announce', {data: data.room});
-        //     nsp.emit('announce', {emit : data.room});
-        // });
-
-
-        // variables namespaced to this connection
-        // var room = '';
-
-        // socket.emit('handshake', { hello: 'world' });
-        
-        // // socket.on('my other event', function (data) {
-        // //     console.log(data);
-        // // });
-
-        // socket.on('send:join_room', function(data){
-        //     console.log('room name', data.room);
-            
-        //     // store the room name in the socket session for this client
-        //     room = data.room;
-        //     var clientlist = findClientsSocketByRoomId(room);
-
-        //     // join the room yourself
-        //     socket.join(room);
-        //     socket.emit('announce', 'hello world '+data.room);
-        //     console.log('send.joinroom socket room', room);
-        //     console.log('clientlist', clientlist);
-            
-        // });
- 
-        // // console.log('socket object', socket);
-        // // var users = userNames.get();
-        // // var room = ''; // room isn't set yet.
-        // // console.log( 'Hello ' +  name +  ' connected!');
-
-        // socket.on('message', function (data) {
-        //     // we tell the client to execute 'updatechat' with 2 parameters
-        //     console.log('message hit', data);
-        //     console.log('socket room',  room);
-        //     socket.emit('message', 'hello world');
-
-        //     // io.sockets.emit('announce', 'message announcement sockets.emit');
-        //     io.sockets.in(room).emit('announce', 'message announcement io.sockets.in.room');
-
-        // });
-
-        // join the room for the test, if you are a moderator
-        
-
-
-
-
-
-
-// ROOM SETUP - MODERATOR SIDE ======================================
-
-// Run test - add a subject to open a room for observers to join
-// Add the current user to that room.
-
-//             socket.join();
-
-//             socket.emit('init', {
-//                 name: name,
-//                 users: userNames.get()
-//             });
-
-
-// // SOCKET.ON EVENTS =================================================
-
-        
-//         socket.on('send:joinRoom', function(test_id){
-//             if(socket.room === test_id){
-//                 console.log('room acquired by remote', test_id);
-//                 socket.join(test_id);
-//             } else {
-//                 console.log('no test running by that name');
-//                 // do something if that room doesn't exist
-//             }
-//         });
-
-//         // when the client emits 'sendchat', this listens and executes
-//         socket.on('send:note', function (data) {
-//         // we tell the client to execute 'updatechat' with 2 parameters
-//             io.sockets.in(socket.room).emit('updatechat', data);
-//         });
-
-
-        // console.log('userlist', userNames.get());
-
-        // // notify other clients that a new user has joined
-        // socket.broadcast.emit('user:join', {
-        //     name: name
-        // });
-
-        // // broadcast a user's message to other users
-        // socket.on('send:message', function (data) {
-        //     socket.broadcast.to().emit('send:message', {
-        //         user: name,
-        //         text: data.message
-        //     });
-        // });
-
-        // // validate a user's name change, and broadcast it on success
-        // socket.on('change:name', function (data, fn) {
-        //     console.log('touched namechange', data);
-
-        //     if (userNames.claim(data.name)) {
-
-        //         var oldName = name;
-        //         userNames.free(oldName);
-
-        //         name = data.name;
-
-        //         socket.broadcast.emit('change:name', {
-        //             oldName: oldName,
-        //             newName: name
-        //         });
-                
-        //         console.log('userlist new', userNames.get());
-        //         fn(true);
-        //     } else {
-        //         console.log('userlist old', userNames.get());
-        //         fn(false);
-        //     }
-        // });
-
-        // // clean up when a user leaves, and broadcast it to other users
-        
 };
