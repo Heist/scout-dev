@@ -3,14 +3,16 @@
 
 module.exports = function(io, app, passport) {
     var cookieParser = require('cookie-parser'),
-        passportSocketIo = require("passport.socketio"),
+        passportSocketIo = require('passport.socketio'),
         user = {},
         nsp = io.of('/'+ user.account),
         name = '',
         room = '';
 
 
-    // Get the room name
+    // ROOM REGISTRATION BASED ON CONNECTION QUERYSTRING ============
+    // http://blog.seafuj.com/migrating-to-socketio-1-0
+
     io.use(function(socket, next) {
         console.log(socket.request._query);
         var query = socket.request._query;
@@ -22,7 +24,7 @@ module.exports = function(io, app, passport) {
         next();
     });
 
-    // Authenticate things
+    // AUTHENTICATION MIDDLEWARE ====================================
     io.use(passportSocketIo.authorize({
         cookieParser: cookieParser,
         key:         'connect.sid',       // the name of the cookie where express/connect stores its session_id
@@ -33,16 +35,17 @@ module.exports = function(io, app, passport) {
     }));
 
     function onAuthorizeSuccess(data, accept){
-        // console.log('successful connection to socket.io', data.user);
+        // Passport has heard of them ===========
+        
         user = data.user;
         name = data.user.name;
         userNames.claim(name);
-        // Each account has its own chat namespace.
+        
         accept();
     }
 
     function onAuthorizeFail(data, message, error, accept){
-        // Assumed to be a guest user
+        // Assumed to be a guest user ===========
 
         if(error){ console.log(error);}
         
@@ -50,7 +53,7 @@ module.exports = function(io, app, passport) {
         name = userNames.getGuestName();
         accept();
         
-        // If they are not a guest user, we may wish to do this:
+        // If they are not a guest user =========
         // accept(new Error(message));
         // this error will be sent to the user as a special error-package
         // see: http://socket.io/docs/client-api/#socket > error-object
@@ -79,8 +82,9 @@ module.exports = function(io, app, passport) {
     });
 
 
-// Guest name management 
+// Guest name management ============================================
 // Keep track of which names are used so that there are no duplicates
+
     var userNames = (function () {
         var names = {};
 
