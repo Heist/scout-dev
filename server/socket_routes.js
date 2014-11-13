@@ -123,27 +123,46 @@ module.exports = function(io, app, passport) {
     }
 
 io.on('connection', function (socket) {
-        console.log('hello user', user._account);
+        // console.log('hello user', user._account);
         
         socket.emit('handshake', { hello: 'world' });
-        
-        socket.on('send:join_room', function(data){
-            spacer = data.room;
-            console.log(spacer);
-            console.log('user account', user);
+
+        socket.join(user._account);
+
+        socket.broadcast.to(user._account).emit('announce', {data: 'announcement'});
+        socket.to(user._account).emit('announce', {data: 'socket room'});
+        io.to(user._account).emit('announce', {data: user._account});
+        // io.to('mork').broadcast('announce', {data: 'broadcast'});
+
+        socket.on('disconnect', function () {
+            console.log('goodbye user');
+            socket.broadcast.emit('user:left', {
+                name: name
+            });
+            // userNames.free(name);
         });
+    });
 
-        var nsp = io.of('/'+user._account);
+// io.to('mork').emit('announce', {data: 'hello'});
 
-        nsp.on('connection', function(socket){
-            console.log('someone connected', user._account);
-            nsp.emit('announce', 'hi everyone!');
-        });
+        // var nsp = io.of('/'+user._account);
 
-        nsp.on('hello', function(data){
-            nsp.emit('announce', 'hello emit');
-        });
+        // // works
+        // nsp.on('connection', function(socket){
+        //     console.log('someone connected', user._account);
+        //     nsp.emit('announce', 'hi everyone!');
+        // });
 
+        // // never works even a little
+        // nsp.on('hello', function(data){
+        //     console.log('nsp hello');
+        //     // console.log(spacer);
+        //     console.log('user account', user);
+        //     nsp.join(data.room);
+        //     nsp.broadcast('announce', {broadcast: data.room});
+        //     io.to(data.room).emit('announce', {data: data.room});
+        //     nsp.emit('announce', {emit : data.room});
+        // });
 
 
         // variables namespaced to this connection
@@ -267,12 +286,5 @@ io.on('connection', function (socket) {
         // });
 
         // // clean up when a user leaves, and broadcast it to other users
-        socket.on('disconnect', function () {
-            console.log('goodbye user');
-            socket.broadcast.emit('user:left', {
-                name: name
-            });
-            // userNames.free(name);
-        });
-    });
+        
 };
