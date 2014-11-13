@@ -42,18 +42,21 @@ module.exports = function(io, app, passport) {
     }
 
     function onAuthorizeFail(data, message, error, accept){
+        // Assumed to be a guest user
 
         if(error){ console.log(error);}
-        // accept(new Error(message));
+        
         console.log('failed connection to socket.io:', message);
-        // name = userNames.getGuestName();
-
+        name = userNames.getGuestName();
         accept();
-        // }
-      // this error will be sent to the user as a special error-package
-      // see: http://socket.io/docs/client-api/#socket > error-object
+        
+        // If they are not a guest user, we may wish to do this:
+        // accept(new Error(message));
+        // this error will be sent to the user as a special error-package
+        // see: http://socket.io/docs/client-api/#socket > error-object
     }
 
+// TODO: Namespace these connections, perhaps.
     io.on('connection', function (socket) {
         console.log('hello user', user._account);
         

@@ -79,7 +79,8 @@ app.get('*', function(req, res) {
 		});
 
 // SOCKET.IO ========================================================
-// lives after normal routes
+// lives after normal routes, is dynamic routes accessed separately
+// has its own auth functions
 require('./server/socket_routes')(io, app, passport);
 
 
