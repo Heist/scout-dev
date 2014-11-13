@@ -26,7 +26,7 @@ app.route('/api/message/')
             });
     })
     .post(function(req,res){
-        console.log('touched new message ', req.body);
+        // console.log('touched new message ', req.body);
 
         var m = {}; // surface message id for use in promises.
         var msg = {};
@@ -45,14 +45,14 @@ app.route('/api/message/')
         var promise = Message.create(msg, function(err, msg){if (err) {res.send(err);} console.log(msg); });
 
         promise.then(function(msg){
-            console.log('made a message', msg, 'call_task', call._task);
+            // console.log('made a message', msg, 'call_task', call._task);
             reply.msg = msg;
             // fun fact: get this wrong and mongoose silently creates a new object._id that exists nowhere else.
             m._id = mongoose.Types.ObjectId(msg._id);
             
             if (call._task){
                 
-                console.log(call._task);
+                // console.log(call._task);
                 
                 var update = { $push: {_messages : m._id} };
 
@@ -60,18 +60,18 @@ app.route('/api/message/')
             }
         }).then(function(task){
             reply.task = task;
-            console.log('made a task update', task);
+            // console.log('made a task update', task);
             var u = { $push: {_messages : m._id} };
 
             return Subject.findByIdAndUpdate(req.body._subject, u, function(err,doc){ if (err) {res.send(err);} });
                 
         }).then(function(subject){
-            console.log('made a subject update', subject);
+            // console.log('made a subject update', subject);
             
             reply.subject = subject;
 
             if(req.body.tags){ // reminder: the tags are not attached to the message. The message is attached to tags.
-                console.log('tags call', call, m._id, req.body.tags);
+                // console.log('tags call', call, m._id, req.body.tags);
             
             async.each(req.body.tags, function(tag){
                     var q = {body: tag, _test: call._test};
@@ -82,7 +82,9 @@ app.route('/api/message/')
                             };
                     var o = {upsert:true};
 
-                    Tag.findOneAndUpdate( q, u, o, function(err, data){ console.log(data); });
+                    Tag.findOneAndUpdate( q, u, o, function(err, data){ 
+                        // console.log(data); 
+                        });
                 });
             }
 

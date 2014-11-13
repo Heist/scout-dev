@@ -97,16 +97,16 @@ module.exports = function(app, passport) {
                 return res.json({ error: user.error });
             }
             if (info){
-                console.log('auth signup info', info);
+                // console.log('auth signup info', info);
             }
 
             if (user){
-                console.log('auth signup user', user);
+                // console.log('auth signup user', user);
             }
             
             req.logIn(user, function(err) {
                 if (err) { return res.json(err); }
-                console.log('auth/signup authenticated user', req.user);
+                // console.log('auth/signup authenticated user', req.user);
 
                 return res.json({ 'user': req.user._id, 'name':req.user.name, redirect: '/overview', msg:'register user worked' });
             });

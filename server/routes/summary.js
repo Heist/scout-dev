@@ -52,7 +52,7 @@ module.exports = function (app, passport) {
         })
         .then(function(messages){
             reply.messages = messages;
-            console.log(messages);
+            // console.log(messages);
             res.json(reply);
         })
         .then(null, function(err){
@@ -60,14 +60,14 @@ module.exports = function (app, passport) {
         });
     })
     .put(function(req, res){
-        // // console.log('touched summary put', req.body);
+        // console.log('touched summary put', req.body);
 
         var query = {'_id':req.body.test._id};
         var update = {summary: req.body.test.summary};
 
         Test.findOneAndUpdate(query, update,function(err,test){
                 if(err) {return res.send (err);}
-                // // console.log('test updated', test)
+                // console.log('test updated', test)
             });
 
         // if we have tags, update them in the db.
@@ -102,7 +102,7 @@ module.exports = function (app, passport) {
 
         if(req.body.messages){
             async.each(req.body.messages, function(msg, callback){
-                console.log(msg);
+                // console.log(msg);
                 Message.findByIdAndUpdate(
                     msg._id, 
                     { 'fav_task' : msg.fav_task,

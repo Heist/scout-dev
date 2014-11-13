@@ -34,13 +34,13 @@ app.route('/api/test/')
         // console.log('post a new test', req.body)
             var test = new Test();
 
-            console.log('fish through this to get data', req.body);
+            // console.log('fish through this to get data', req.body);
             test.name = req.body.name;
 
             test.created_by_user = req.body.created_by._id;
             test.created_by_account = req.body.created_by.account;
 
-            console.log('user account - test add route', req.user._account);
+            // console.log('user account - test add route', req.user._account);
 
             // later, we will be building playlists
             // sessions should store tests but tests 
@@ -75,14 +75,14 @@ app.route('/api/test/:_id')
     })
     // Duplicate a test with new steps and things but which appears to be identical
     .post(function(req,res){
-        console.log('touched dupe test',req.params._id, req.body);
+        // console.log('touched dupe test',req.params._id, req.body);
         var obj = {};
         var reply = {};
 
         var promise = Test.findById(req.params._id).populate({path:'_tasks'}).exec();
 
         promise.then(function(org_test){
-            console.log('test duped', org_test._id);
+            // console.log('test duped', org_test._id);
             obj = org_test;
 
             var update = {
@@ -97,15 +97,15 @@ app.route('/api/test/:_id')
 
             return Test.create(update, function(err, test){
                 if (err){console.log(err);}
-                console.log(test._id);
+                // console.log(test._id);
             });
         })
         .then(function(new_test){
-            console.log('test duped step 2', new_test._id, obj._id);
+            // console.log('test duped step 2', new_test._id, obj._id);
             reply.new_test = new_test._id;
 
             if (obj._tasks){
-                console.log('obj._tasks.length', obj._tasks.length);
+                // console.log('obj._tasks.length', obj._tasks.length);
                 async.each(obj._tasks, function(task){
                     // console.log('async task',task);
                     var make =  {
@@ -119,16 +119,16 @@ app.route('/api/test/:_id')
                         if (err){ console.log(err); }
                         
                         var update = { $push : { _tasks : task._id } }; 
-                        console.log('new_test._id', new_test._id);
+                        // console.log('new_test._id', new_test._id);
                         Test.findOneAndUpdate({'_id' : new_test._id}, update, function(err, test){
-                            console.log(test._id);
+                            // console.log(test._id);
                         });
                     });
                 });
             }
         })
         .then(function(){
-            console.log('test duped - last step');
+            // console.log('test duped - last step');
             Test.findById(reply.new_test).exec(function(err, test){
                 res.json(test);
             });
@@ -136,7 +136,7 @@ app.route('/api/test/:_id')
     })
     // update one test with new information
     .put(function(req,res){
-        // // console.log('touched test put', req.body)
+        // console.log('touched test put', req.body)
         var t = req.body;
         // console.log(test);
 
@@ -160,7 +160,7 @@ app.route('/api/test/:_id')
 
         Test.findOneAndUpdate({_id:req.params._id}, update, function (err, doc) {
             if (err){console.log(err);}
-            console.log('found', doc);
+            // console.log('found', doc);
             res.json(doc);
         });
         

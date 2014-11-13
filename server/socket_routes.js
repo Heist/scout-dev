@@ -67,9 +67,16 @@ module.exports = function(io, app, passport) {
         socket.broadcast.to(room).emit('announce', {data: 'announcement'});
         socket.to(room).emit('announce', {data: 'socket room'});
         
-        // send it to everyone period
+        // send it to everyone in the room
         io.to(room).emit('announce', {data: room});
         
+        socket.on('send:note', function(data){
+            console.log('note sent', data);
+            // io.to(room).emit('note', data);
+            socket.to(room).emit('note', data);
+        });
+
+
         socket.emit('announce', 'control announcement');
 
         socket.on('disconnect', function () {

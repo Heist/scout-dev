@@ -36,7 +36,7 @@ var Subject = require('../models/data/subject');
                 });
         })
         .post(function(req,res){
-            console.log('touched run post', req.body);
+            // console.log('touched run post', req.body);
 
             // on post:
             // add subject to tests that have been updated with that subject
@@ -59,7 +59,7 @@ var Subject = require('../models/data/subject');
 
             if(req.body.tests){
                 async.each(req.body.tests, function(test){
-                    console.log('test', test);
+                    // console.log('test', test);
                     test = mongoose.Types.ObjectId(test);
 
                     Test.findById(test, function(err, doc){
