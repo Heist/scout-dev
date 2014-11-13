@@ -18,9 +18,13 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
     var socket = io('http://127.0.0.1:8080/');
 
-    socket.on('news', function (data) {
-        console.log(data);
-        socket.emit('my other event', { my: 'data' });
+    socket.on('handshake', function (data) {
+        console.log('handshake', data);
+        socket.emit('send:join_room', {room: $stateParams._id});
+    });
+
+    socket.on('announce', function(data){
+        console.log('announce', data);
     });
 
     $http

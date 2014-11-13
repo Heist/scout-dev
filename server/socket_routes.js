@@ -114,11 +114,22 @@ module.exports = function(io, app, passport) {
 
 io.on('connection', function (socket) {
         
-        socket.emit('news', { hello: 'world' });
+        socket.emit('handshake', { hello: 'world' });
         
-        socket.on('my other event', function (data) {
-            console.log(data);
+        // socket.on('my other event', function (data) {
+        //     console.log(data);
+        // });
+
+        socket.on('send:join_room', function(data){
+            console.log('room name', data);
+            socket.emit('announce', 'hello world');
+            // store the room name in the socket session for this client
+            // socket.room = test_id;
+            
+            // join the room yourself
+            // socket.join(test_id);
         });
+
         // var users = userNames.get();
         // var room = ''; // room isn't set yet.
         // console.log( 'Hello ' +  name +  ' connected!');
@@ -131,15 +142,7 @@ io.on('connection', function (socket) {
         // });
 
         // join the room for the test, if you are a moderator
-        // socket.on('send:join_room', function(test_id){
-        //     console.log('room name', test_id);
-            
-        //     // store the room name in the socket session for this client
-        //     socket.room = test_id;
-            
-        //     // join the room yourself
-        //     socket.join(test_id);
-        // });
+        
 
 
 
