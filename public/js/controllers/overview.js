@@ -159,6 +159,11 @@ angular.module('field_guide_controls')
         console.log('touched test', test);
         $location.path('/edit/test/'+ test._id);
     };
+
+    $scope.watchTest = function(test){
+        console.log('touched watch', test);
+        $location.path('/watch/'+test._id);
+    };
      
     $scope.runTest = function(test){
         console.log('touched run', test._id);
