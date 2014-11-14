@@ -64,18 +64,16 @@ module.exports = function(io, app, passport) {
         console.log('hello user', user._account);
         
         // send it to everyone but sender
-        socket.broadcast.to(room).emit('announce', {data: 'announcement'});
-        socket.to(room).emit('announce', {data: 'socket room'});
+        // socket.broadcast.to(room).emit('announce', {data: 'announcement'});
+        // socket.to(room).emit('announce', {data: 'socket room'});
         
-        // send it to everyone in the room
-        io.to(room).emit('announce', {data: room});
+        // // send it to everyone in the room
+        // io.to(room).emit('announce', {data: room});
         
         socket.on('send:note', function(data){
             console.log('note sent', data);
-            // io.to(room).emit('note', data);
             socket.to(room).emit('note', data);
         });
-
 
         socket.emit('announce', 'control announcement');
 
