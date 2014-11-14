@@ -11,8 +11,6 @@ module.exports = function(io, app, passport) {
         room = '';
 
 
-    // ('test_string', { test_string: req.params._id });
-    // console.log(app.get('test_string'));
     // ROOM REGISTRATION BASED ON CONNECTION QUERYSTRING ============
     // http://blog.seafuj.com/migrating-to-socketio-1-0
 
@@ -66,7 +64,25 @@ module.exports = function(io, app, passport) {
         // see: http://socket.io/docs/client-api/#socket > error-object
     }
 
-// TODO: Namespace these connections, perhaps.
+// CONNECT TO THE SOCKETS ===========================================
+
+/*
+
+TODO: 
+On Watch, we need to know what rooms are presently available for a given test.
+A Room is a test that has a subject set. 
+On connection, a user gets passed to a default room, with the test name.
+When that room gets a subject added to it, that subject should get sent to all people in the room
+
+The Subject becomes a new room
+All Watchers then get the chance to join that room, which is added to a list on Client.
+
+
+TODO 2: Namespace this to /test, and Namespace /stream separately with the same identifiers.
+*/
+
+
+
     io.on('connection', function (socket) {
         console.log('hello user', user._account);
         
