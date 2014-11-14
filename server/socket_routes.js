@@ -11,6 +11,8 @@ module.exports = function(io, app, passport) {
         room = '';
 
 
+    // ('test_string', { test_string: req.params._id });
+    // console.log(app.get('test_string'));
     // ROOM REGISTRATION BASED ON CONNECTION QUERYSTRING ============
     // http://blog.seafuj.com/migrating-to-socketio-1-0
 
@@ -22,7 +24,7 @@ module.exports = function(io, app, passport) {
         socketData[socket.id] = {
             room: room
         };
-        
+
         socket.join(room);
         console.log('room joined', room);
 

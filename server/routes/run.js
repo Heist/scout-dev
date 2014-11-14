@@ -34,6 +34,8 @@ var Subject = require('../models/data/subject');
 
                     res.json(docs);
                 });
+
+            app.set('test_name', req.params._id);
         })
         .post(function(req,res){
             // console.log('touched run post', req.body);

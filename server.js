@@ -71,12 +71,12 @@ app.use(passport.session()); // persistent login sessions
 
 // server /api/ routes ==============================================
 var router = require('./server/routes')(app, passport, io);
-
 // DEFAULT ROUTE ====================================================
 // Prevents the ENOENT rendering error
 app.get('*', function(req, res) {
 			res.sendfile(__dirname + '/public/index.html');
 		});
+
 
 // SOCKET.IO ========================================================
 // lives after normal routes, is dynamic routes accessed separately
