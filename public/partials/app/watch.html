@@ -16,14 +16,10 @@
           <h3>Please select a test to join</h3>
         </div>
         <!-- $scope.roomList -->
-        <select ng-model="roomList" ng-options="room.subject.name for room in roomList">
-          <option value="">-- choose color --</option>
+        <select ng-model="selectedRoom" ng-options="room.subject.name for room in roomList" ng-change="joinRoom()">
+          <option value="">Available Rooms</option>
         </select>
         
-        <ul>
-          <li ng-repeat="room in roomList">{{room.subject.name}}</li>
-
-        </ul>
         <!-- <ul class="nobullets lined" ng-model="subject" >
           <li>
             <label for="field-cardname">Participant's name</label>

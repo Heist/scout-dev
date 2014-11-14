@@ -42,6 +42,10 @@ $scope.roomList = [];
     });
 
 // ANGULAR ROUTES ===================================================
+    $scope.joinRoom = function(room){
+        console.log('I want to join this room', $scope.selectedRoom);
+    };
+
 
     $scope.postMessage = function(message){
         // here we create a note object
