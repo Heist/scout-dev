@@ -33,6 +33,8 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
 
             $scope.selected = test._tasks[taskIndex];
 
+            mixpanel.track('Task changed', {
+            });
             // select
             // pushes the identity of a test or task
             // to the update array
@@ -80,6 +82,9 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                     $scope.subject.toggle = true;
                     $scope.select(0,0);
                     console.log('selected', $scope.selected);
+                    
+                    mixpanel.track('Test Subject Added', {
+                    });
                 })
                 .error(function(data){
                     // console.log('Error: ' + data);
@@ -126,6 +131,8 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             $http.post(url, data_out)
                 .success(function(data){
                     console.log('Message pushed: ', data);
+                    mixpanel.track('Note recorded', {
+                    });
                 })
                 .error(function(data){
                     // console.log('Error: ' + data);
@@ -139,6 +146,8 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
         var url = '/api/run/'+$stateParams._id;
         var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
 
+        mixpanel.track('Test completed', {
+        });
         // console.log('touched end', data_out);
 
         // collects all the tests and steps and outputs them as a collected object

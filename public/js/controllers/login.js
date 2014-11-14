@@ -16,8 +16,16 @@ angular.module('field_guide_controls')
         $scope.acct = $stateParams.acct.replace( /\//gi,"");
         console.log($scope.acct);
         $scope.reg_toggle = true;
+        mixpanel.track('registration page touch', {
+            'account': $stateParams.acct
+        });
     }
     
+    $scope.tracker = function(){
+        mixpanel.track('myAccount', {
+            'account': $stateParams.acct
+        });
+    }
     $scope.login = function(user){
         var url = '/auth/login';
         var dataOut =  {email: user.email, password: user.password};
@@ -37,6 +45,12 @@ angular.module('field_guide_controls')
     $scope.showReg = function(){
         $scope.reg_toggle = true;
         console.log('touched register', $scope.reg_toggle);
+
+        
+        mixpanel.track('registration page touch', {
+            'account': 'n/a'
+        });
+
     };
 
     $scope.showLogin = function(){
@@ -69,6 +83,11 @@ angular.module('field_guide_controls')
                 
                 $rootScope.user = data._id;
                 $location.path(data.redirect);
+
+                mixpanel.track('registered new user', {
+                    'name': data.email
+                });
+
             })
             .error(function(error){
                 // console.log('signup no bueno.', error);
