@@ -81,6 +81,14 @@ All Watchers then get the chance to join that room, which is added to a list on 
 
 
 TODO 2: Namespace this to /test, and Namespace /stream separately with the same identifiers.
+
+
+TODO 3:
+
+On connect watch, join default room
+Get client list of default room
+Get list of rooms all other clients are in within default room? (IE: list of available rooms still open)
+
 */
 
 

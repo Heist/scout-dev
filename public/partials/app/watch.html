@@ -17,7 +17,7 @@
         </div>
         <!-- $scope.roomList -->
         <select ng-model="selectedRoom" ng-options="room.subject.name for room in roomList" ng-change="joinRoom()">
-          <option value="">Available Rooms</option>
+          <option value="">Available Rooms in {{testName}}</option>
         </select>
         
         <!-- <ul class="nobullets lined" ng-model="subject" >
