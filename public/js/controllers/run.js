@@ -30,21 +30,29 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         });
     
 // SOCKET ROUTES ================================================
-    var socket = io('http://127.0.0.1:8080/?test='+$stateParams._id);
+    // var socket = io('http://127.0.0.1:8080/?test='+$stateParams._id);
+    socket = io('http://127.0.0.1:8080/545d38e47f39f488ecfa6c08/?mynumber=123');
 
-    socket.on('announce', function(data){
-        console.log('announce', data);
-    });
+        // socket.on('disconnect', function(data)
+        // {
+        //     console.log('disconnect');
+        // });
+        // socket.disconnect();
 
-    socket.on('note', function(data){
-        console.log('note', data);
-        $scope.timeline.push(data.note.msg);
-        $scope.$apply();
-    });
 
-    socket.on('subject', function(data){
-        socket.emit('join_subject_test', data);
-    });
+    // socket.on('announce', function(data){
+    //     console.log('announce', data);
+    // });
+
+    // socket.on('note', function(data){
+    //     console.log('note', data);
+    //     $scope.timeline.push(data.note.msg);
+    //     $scope.$apply();
+    // });
+
+    // socket.on('subject', function(data){
+    //     socket.emit('join_subject_test', data);
+    // });
 
     // socket.on('current_subject', function(data){
     //     console.log('current subject', data);

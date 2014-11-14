@@ -6,7 +6,6 @@ module.exports = function(io, app, passport) {
         passportSocketIo = require('passport.socketio'),
         user = {},
         nsp = io.of('/'+ user.account),
-        socketData = {},
         name = '',
         room = '';
 
@@ -15,17 +14,13 @@ module.exports = function(io, app, passport) {
     // http://blog.seafuj.com/migrating-to-socketio-1-0
 
     io.use(function(socket, next) {
-        console.log(socket.request._query, socket.id);
+        console.log(socket.request._query);
         var query = socket.request._query;
         room = query.test;
 
-        socketData[socket.id] = {
-            room: room
-        };
-        
         socket.join(room);
         console.log('room joined', room);
-
+        
         next();
     });
 
@@ -68,19 +63,6 @@ module.exports = function(io, app, passport) {
     io.on('connection', function (socket) {
         console.log('hello user', user._account);
         
-        var room = socketData[socket.id].room;
-
-        // console.log(myNumber, 'connected');
-
-        // return clients in given room
-        var roomClients = io.of('').adapter.rooms[room];
-        
-        for(var socketId in roomClients){
-            if(roomClients.hasOwnProperty(socketId)){
-                console.log(io.of('').connected[socketId].id, 'is in myroom');
-            }
-        }
-
         // send it to everyone but sender
         // socket.broadcast.to(room).emit('announce', {data: 'announcement'});
         // socket.to(room).emit('announce', {data: 'socket room'});
