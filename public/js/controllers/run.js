@@ -46,13 +46,13 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         socket.emit('join_subject_test', data);
     });
 
-    socket.on('current_subject', function(data){
-        console.log('current subject', data);
-        $scope.subject = data.subject;
-        $scope.live = true;
-        $scope.select(0,0);
-        $scope.$apply();
-    });
+    // socket.on('current_subject', function(data){
+    //     console.log('current subject', data);
+    //     $scope.subject = data.subject;
+    //     $scope.live = true;
+    //     $scope.select(0,0);
+    //     $scope.$apply();
+    // });
 
 // ANGULAR ROUTES ===================================================
     $scope.select = function(testIndex, taskIndex) {

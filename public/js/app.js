@@ -68,12 +68,11 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $stateProvider
         // PUBLIC ROUTES
          // REMOTE SCREEN =================================
-        .state('remote', {
-            url: '/remote/:test_id',
-            controller:'remote',
-            templateUrl: 'partials/remote/remote.html'
+        .state('watch', {
+            url: '/watch',
+            controller:'watch',
+            templateUrl: 'partials/app/watch.html'
         })    
-
 
         // PRIVATE ROUTES =================================
 
