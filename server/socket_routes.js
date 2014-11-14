@@ -75,6 +75,18 @@ module.exports = function(io, app, passport) {
             socket.to(room).emit('note', data);
         });
 
+        socket.on('send:subject_added', function(data){
+            console.log('subject added socket', data);
+            // socket.join(data.subject);
+            socket.to(room).emit('subject', data);
+        });
+
+        socket.on('join_subject_test', function(data){
+            console.log('join test touched', data);
+            socket.join(data.subject);
+            socket.emit('current_subject', data);
+        });
+
         socket.emit('announce', 'control announcement');
 
         socket.on('disconnect', function () {

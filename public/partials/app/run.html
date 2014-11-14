@@ -9,7 +9,7 @@
 	<!-- participant definition modal -->
 
 	
-	<div class="modal" ng-model="subject" ng-hide="subject.toggle">
+	<div class="modal" ng-model="live" ng-hide="live">
 	
 			<div class="module third">&nbsp;</div>
 			
@@ -20,7 +20,7 @@
 					<h3>Who are you testing with?</h3>
 				</div>
 				
-				<ul class="nobullets lined" >
+				<ul class="nobullets lined" ng-model="subject" >
 					<li>
 						<label for="field-cardname">Participant's name</label>
 						

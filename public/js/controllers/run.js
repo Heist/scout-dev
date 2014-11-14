@@ -29,6 +29,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
         });
     
+// SOCKET ROUTES ================================================
     var socket = io('http://127.0.0.1:8080/?test='+$stateParams._id);
 
     socket.on('announce', function(data){
@@ -39,8 +40,21 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         console.log('note', data);
         $scope.timeline.push(data.note.msg);
         $scope.$apply();
-    })
+    });
 
+    socket.on('subject', function(data){
+        socket.emit('join_subject_test', data);
+    });
+
+    socket.on('current_subject', function(data){
+        console.log('current subject', data);
+        $scope.subject = data.subject;
+        $scope.live = true;
+        $scope.select(0,0);
+        $scope.$apply();
+    });
+
+// ANGULAR ROUTES ===================================================
     $scope.select = function(testIndex, taskIndex) {
         // console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);
 
@@ -92,10 +106,10 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
             .success(function(subject){
                 // console.log(subject);
                 $scope.subject = subject;
-                $scope.subject.toggle = true;
+                $scope.live = true;
                 $scope.select(0,0);
                 // console.log('selected', $scope.selected);
-
+                socket.emit('send:subject_added', {subject: subject._id});
             })
             .error(function(data){
                 // console.log('Error: ' + data);
