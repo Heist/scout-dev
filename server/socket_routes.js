@@ -70,7 +70,9 @@ module.exports = function(io, app, passport) {
 
 TODO: 
 On Watch, we need to know what rooms are presently available for a given test.
-A Room is a test that has a subject set. 
+
+A useful room is a test that has a subject set. 
+
 On connection, a user gets passed to a default room, with the test name.
 When that room gets a subject added to it, that subject should get sent to all people in the room
 
@@ -82,11 +84,10 @@ TODO 2: Namespace this to /test, and Namespace /stream separately with the same 
 */
 
 
-
     io.on('connection', function (socket) {
         console.log('hello user', user._account);
         
-        var room = socketData[socket.id].room;
+        var origin_room = socketData[socket.id].room;
 
         // console.log(myNumber, 'connected');
 
@@ -108,19 +109,19 @@ TODO 2: Namespace this to /test, and Namespace /stream separately with the same 
         
         socket.on('send:note', function(data){
             console.log('note sent', data);
-            socket.to(room).emit('note', data);
+            socket.to(origin_room).emit('note', data);
         });
 
         socket.on('send:subject_added', function(data){
             console.log('subject added socket', data);
             // socket.join(data.subject);
-            socket.to(room).emit('subject', data);
+            socket.to(origin_room).emit('subject', data);
         });
 
         socket.on('join_subject_test', function(data){
             console.log('join test touched', data);
             socket.join(data.subject);
-            socket.emit('current_subject', data);
+            socket.to(origin_room).emit('add_subject', data);
         });
 
         socket.emit('announce', 'control announcement');

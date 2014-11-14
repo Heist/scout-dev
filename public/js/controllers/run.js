@@ -101,7 +101,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
                 $scope.live = true;
                 $scope.select(0,0);
                 // console.log('selected', $scope.selected);
-                socket.emit('send:subject_added', {subject: subject._id});
+                socket.emit('send:subject_added', {subject: subject});
             })
             .error(function(data){
                 // console.log('Error: ' + data);

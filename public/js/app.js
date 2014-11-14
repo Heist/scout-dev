@@ -70,7 +70,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         
         // WATCH A TEST ===================================
         .state('watch', {
-            url: '/watch',
+            url: '/watch/:_id',
             controller:'watch',
             templateUrl: 'partials/app/watch.html'
         })    

@@ -7,12 +7,23 @@ angular.module('field_guide_controls')
            ['$scope','$http','$location','$stateParams','$state','$sanitize','socket', 
     function($scope,  $http,  $location,  $stateParams,  $state,  $sanitize,  socket){
 
+
+$scope.roomList = [];
 // SOCKET ROUTES ================================================
     var socket = io('http://127.0.0.1:8080/?test='+$stateParams._id);
 
     socket.on('announce', function(data){
         console.log('announce', data);
     });
+
+    // socket.on('add_subject', function(data){
+    //     console.log('current subject', data);
+    //     $scope.roomList.push(data);
+    //     // $scope.subject = data.subject;
+    //     // $scope.live = true;
+    //     // $scope.select(0,0);
+    //     $scope.$apply();
+    // });
 
     socket.on('note', function(data){
         console.log('note', data);
@@ -21,15 +32,13 @@ angular.module('field_guide_controls')
     });
 
     socket.on('subject', function(data){
-        socket.emit('join_subject_test', data);
-    });
-
-    socket.on('current_subject', function(data){
-        console.log('current subject', data);
-        $scope.subject = data.subject;
-        $scope.live = true;
-        $scope.select(0,0);
+        $scope.roomList.push(data);
+        console.log($scope.roomList);
+        // $scope.subject = data.subject;
+        // $scope.live = true;
+        // $scope.select(0,0);
         $scope.$apply();
+        // socket.emit('join_subject_test', data);
     });
 
 // ANGULAR ROUTES ===================================================

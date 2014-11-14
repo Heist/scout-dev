@@ -13,10 +13,18 @@
         
         <div class="modal-interior-title">
           <img src="/layout/assets/avatar-large.png">
-          <h3>Who are you testing with?</h3>
+          <h3>Please select a test to join</h3>
         </div>
+        <!-- $scope.roomList -->
+        <select ng-model="roomList" ng-options="room.subject.name for room in roomList">
+          <option value="">-- choose color --</option>
+        </select>
         
-        <ul class="nobullets lined" ng-model="subject" >
+        <ul>
+          <li ng-repeat="room in roomList">{{room.subject.name}}</li>
+
+        </ul>
+        <!-- <ul class="nobullets lined" ng-model="subject" >
           <li>
             <label for="field-cardname">Participant's name</label>
             
@@ -31,7 +39,7 @@
             <button class="button" type="submit" ng-click="addSubject(subject.name)">Start testing!</button>
           </li>
         
-        </ul>
+        </ul> -->
         
       </div>
       
