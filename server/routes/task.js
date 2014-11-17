@@ -27,6 +27,31 @@ app.route('/api/task/')
                 res.json(tasks);
             });
     })
+    .put(function(req,res){
+        console.log('batch task update', req.body);
+        // async.each(req.body.tasks, function(task){
+        //     Task.findById(task._id)
+        //     .exec(function(err, task){
+        //         if (err) {res.send(err);}
+
+        //         if(req.body.name){task.name = req.body.name;}
+        //         if(req.body.summary){task.summary = req.body.summary;}
+        //         if(req.body.pass_fail !== null){ task.pass_fail = req.body.pass_fail;}
+        //         if(req.body.desc){task.desc = req.body.desc;}
+        //         if(req.body._test){task._test = req.body._test;}
+        //         if(req.body.index){task.index = req.body.index;}
+        //         if(req.body._session){task._session = req.body._session;}
+        //         if(req.body._subject){task._subjects.push(req.body._subject);}
+
+        //         task.save(function(err,task){
+        //             if(err){res.send(err);}
+
+        //             // console.log('updated task', task);
+        //             res.json(task);
+        //         });
+        //     });
+        // });
+    })
     .post(function(req,res){
         var task = new Task();
 
@@ -64,11 +89,9 @@ app.route('/api/task/:_id')
                 res.json(task);
             })
     })
-    
     // update a single task
     .put(function(req,res){
         // console.log('touched task', req.body.pass_fail, req.body._id, req.params._id);
-
         Task.findById(req.params._id)
             .exec(function(err, task){
                 if (err) {res.send(err);}

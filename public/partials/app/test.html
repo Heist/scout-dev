@@ -144,13 +144,10 @@
 
         <!-- step 3 - add tasks -->
             <div class="module two-thirds test-tasks" ng-show="anchor === 3">
-            
                 <h3>Tasks in this Test</h3>
-                {{sortingLog}}
 
-                <ul id="steps" ui-sortable="sortableOptions" ng-model='tasks'>
-                
-                    <li ng-repeat="task in tasks track by $index" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}">
+                <ul id="steps" ng-model='tasks'>
+                    <li ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
                     
                         <div class="step-hamburger">≡</div>
                         
@@ -161,7 +158,7 @@
             
                         <div class="step-contents">
                             <form>
-                                {{task.index}}
+                                {{task.index}} {{$index}}
                                 <input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
                                 <textarea ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
                                 </textarea>
