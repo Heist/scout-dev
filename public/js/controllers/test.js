@@ -208,8 +208,8 @@ angular.module('field_guide_controls')
     $scope.updateTest = function(){
         var test = $scope.test;
         
-        if($scope.test.description){
-            test.desc = test.description;
+        if($scope.test.desc){
+            test.desc = test.desc;
             mixpanel.track('Test description changed', {
                 'user': $rootScope.user
             });
