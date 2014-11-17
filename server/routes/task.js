@@ -6,6 +6,7 @@ module.exports = function(app, passport) {
 // Module dependencies
 var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 var _ = require('underscore');
+var async = require('async');
 
 // load data storage models
 var Message = require('../models/data/message');
@@ -29,28 +30,30 @@ app.route('/api/task/')
     })
     .put(function(req,res){
         console.log('batch task update', req.body);
-        // async.each(req.body.tasks, function(task){
-        //     Task.findById(task._id)
-        //     .exec(function(err, task){
-        //         if (err) {res.send(err);}
+        var arr = _.toArray(req.body);
+        console.log(arr.length);
+        async.each(req.body, function(key, err){
+            
+            Task.findById(key._id)
+            .exec(function(err, task){
+                if (err) {res.send(err);}
 
-        //         if(req.body.name){task.name = req.body.name;}
-        //         if(req.body.summary){task.summary = req.body.summary;}
-        //         if(req.body.pass_fail !== null){ task.pass_fail = req.body.pass_fail;}
-        //         if(req.body.desc){task.desc = req.body.desc;}
-        //         if(req.body._test){task._test = req.body._test;}
-        //         if(req.body.index){task.index = req.body.index;}
-        //         if(req.body._session){task._session = req.body._session;}
-        //         if(req.body._subject){task._subjects.push(req.body._subject);}
+                if(key.name){task.name = key.name;}
+                if(key.summary){task.summary = key.summary;}
+                if(key.pass_fail !== null){ task.pass_fail = key.pass_fail;}
+                if(key.desc){task.desc = key.desc;}
+                if(key._test){task._test = key._test;}
+                if(key.index){task.index = key.index; console.log(task.index);}
+                if(key._session){task._session = key._session;}
+                if(key._subject){task._subjects.push(key._subject);}
 
-        //         task.save(function(err,task){
-        //             if(err){res.send(err);}
-
-        //             // console.log('updated task', task);
-        //             res.json(task);
-        //         });
-        //     });
-        // });
+                task.save(function(err,data){
+                    if(err){res.send(err);}
+                    // console.log('updated task', task);
+                    res.json(data);
+                });
+            });
+        });
     })
     .post(function(req,res){
         var task = new Task();

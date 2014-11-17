@@ -37,11 +37,15 @@ angular.module('field_guide_controls')
     //     containment: '#board'//optional param.
     // };
 
-    $scope.sortableOptions = {
-        accept: true, //override to determine drag is allowed or not. default is true.
-        itemMoved: function (event) {}, //Do what you want},
-        orderChanged: function(event) {}, //Do what you want},
-        containment: '#steps'//optional param.
+    $scope.treeOptions = {
+        dropped: function(e) {
+            console.log (e.source.nodesScope);
+            console.log($scope.tasks);
+            _.each($scope.tasks, function(task){
+                task.index = $scope.tasks.indexOf(task);
+            });
+            $scope.batchTask();
+        }
     };
 
     $scope.selectPrototype = function(kind){
@@ -195,8 +199,8 @@ angular.module('field_guide_controls')
     };
 
     $scope.batchTask = function(){
+        console.log('touched batchTash', $scope.tasks);
 
-        console.log($scope.tasks);
         var dataOut = $scope.tasks;
         var url = '/api/task/';
 
