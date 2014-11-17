@@ -1,7 +1,7 @@
 // app.js
 'use strict';
 
-var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize','field_guide_controls','field_guide_filters','ui.sortable']);
+var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize','field_guide_controls','field_guide_filters','ui.tree']);
 
 // function list for working with arrays
 
