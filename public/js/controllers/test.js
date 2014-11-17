@@ -11,6 +11,8 @@ angular.module('field_guide_controls')
     function($scope, $http,$stateParams,$state, $location,$window,$rootScope,$anchorScroll){
     console.log('loaded test controller');
     
+    var tmpList = [];
+
     $http
         .get('/api/test/'+$stateParams.test_id, {timeout : 5000, cache:false})
         .success(function(data) {
@@ -19,6 +21,7 @@ angular.module('field_guide_controls')
             console.log('test', $scope.test);
 
             $scope.showAnchor(1);
+
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -27,14 +30,35 @@ angular.module('field_guide_controls')
     // DIRECTIVES AND FUNCTIONS ===========================
 
     // what is our drag handle - this should be a directive.
+    // $scope.sortableOptions = {
+    //     
+    //     stop: function(e, ui){
+    //         _.each($scope.tasks, function(task){
+    //             console.log();
+    //         });
+    //     }
+    // };
+
+    $scope.sortingLog = [];
+
     $scope.sortableOptions = {
         handle: '> .step-hamburger',
         update: function(e, ui) {
-            console.log('update: '+ui.item.index());
-            console.log('task to update', $scope.tasks[ui.item.index()]);
 
-            $scope.tasks[ui.item.index()].index = ui.item.index();
-            $scope.updateTask($scope.tasks[ui.item.index()]);
+            var logEntry = $scope.tasks.map(function(i){
+                return i.name;
+            }).join(', ');
+            
+            $scope.sortingLog.push('Update: ' + logEntry);
+        },
+        stop: function(e, ui) {
+            // this callback has the changed model
+
+            var logEntry = $scope.tasks.map(function(i){
+                return i.name;
+            }).join(', ');
+
+            $scope.sortingLog.push('Stop: ' + logEntry);
         }
     };
 
@@ -189,20 +213,32 @@ angular.module('field_guide_controls')
     };
 
     $scope.updateTask = function(task){
-        console.log('touched update task', task._id, task.desc)
+            console.log('update task tasks', $scope.tasks);
 
-        var url = '/api/task/'+task._id;
-        var data_out = task;
+            var tasks = $scope.tasks;
+            console.log('after pass to variable', tasks);
 
-        return $http
-            .put(url, data_out)
-            .success(function(data){
-                console.log('task has pushed', data);
-                console.log('current test tasklist', data._tasks);
-             })
-            .error(function(data){
-                console.log('error', data)
-            });
+            console.log('arrayed tasks', _.toArray(tasks));
+        
+
+        // if(task){
+        //     console.log('touched update task', task._id, task.desc);
+
+        //     var url = '/api/task/'+task._id;
+        //     var data_out = task;
+
+
+
+        //     return $http
+        //         .put(url, data_out)
+        //         .success(function(data){
+        //             console.log('task has pushed', data);
+        //             console.log('current test tasklist', data._tasks);
+        //          })
+        //         .error(function(data){
+        //             console.log('error', data);
+        //         });
+        // }
     }
 
     $scope.updateTest = function(){
