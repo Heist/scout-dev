@@ -42,7 +42,7 @@ $scope.roomList = [];
     });
 
 // ANGULAR ROUTES ===================================================
-    $scope.testName = $stateParams._id;
+    $scope.testName = $stateParams._id; 
 
     $scope.joinRoom = function(room){
         console.log('I want to join this room', $scope.selectedRoom);

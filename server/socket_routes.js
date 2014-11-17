@@ -70,24 +70,21 @@ module.exports = function(io, app, passport) {
 
 TODO: 
 On Watch, we need to know what rooms are presently available for a given test.
-
 A useful room is a test that has a subject set. 
-
 On connection, a user gets passed to a default room, with the test name.
 When that room gets a subject added to it, that subject should get sent to all people in the room
-
-The Subject becomes a new room
+The Subject becomes a new room.
 All Watchers then get the chance to join that room, which is added to a list on Client.
 
+TODO 2:
 
-TODO 2: Namespace this to /test, and Namespace /stream separately with the same identifiers.
+On connect watch, join default room - done
+
+Get client list of default room - Not Done
+Get list of rooms all other clients are in within default room? (IE: list of available rooms still open)x
 
 
-TODO 3:
-
-On connect watch, join default room
-Get client list of default room
-Get list of rooms all other clients are in within default room? (IE: list of available rooms still open)
+TODO 3: Namespace this to /test, and Namespace /stream separately with the same identifiers.
 
 */
 
