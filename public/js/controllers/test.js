@@ -55,10 +55,14 @@ angular.module('field_guide_controls')
             // this callback has the changed model
 
             var logEntry = $scope.tasks.map(function(i){
+
                 return i.name;
             }).join(', ');
 
-            $scope.sortingLog.push('Stop: ' + logEntry);
+            _.each($scope.tasks, function(e, index){
+                e.index = index;
+                console.log('each in stop', e.name, index, e.index);
+            });
         }
     };
 
