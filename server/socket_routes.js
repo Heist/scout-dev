@@ -25,7 +25,6 @@ module.exports = function(io, app, passport) {
 
         socket.join(room);
         console.log('room joined', room);
-
         next();
     });
 

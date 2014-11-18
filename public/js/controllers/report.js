@@ -24,7 +24,8 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
 
             }); 
 
-
+        mixpanel.track('Report Loaded', {
+        });
 
     $scope.select = function(obj){
         console.log('selected object', obj)

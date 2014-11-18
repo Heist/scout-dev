@@ -90,13 +90,17 @@ angular.module('field_guide_controls')
     // TEST ROUTES ========================================
     $scope.newTest = function(){
             console.log('touched addatest');
-
+            
             var test = {};
 
             test.name = 'New test name';
             if($rootScope.user){
                 console.log($rootScope.user);
                 test.created_by = $rootScope.user;
+               
+                mixpanel.track('test added', {
+                    'user' : $rootScope.user
+                });
 
             }else{
                 console.log('whoops, needs a checkin');
@@ -155,15 +159,25 @@ angular.module('field_guide_controls')
         console.log('touched test', test);
         $location.path('/edit/test/'+ test._id);
     };
+
+    $scope.watchTest = function(test){
+        console.log('touched watch', test);
+        $location.path('/watch/'+test._id);
+    };
      
     $scope.runTest = function(test){
         console.log('touched run', test._id);
         $location.path('/run/'+test._id);
+        mixpanel.track('Run test', {
+            'user': $rootScope.user
+        });
     };
 
     $scope.summarizeTest = function(test_id){
         console.log('touched summary', test_id);
         $location.path('/summary/'+ test_id);
+        mixpanel.track('Summary clicked', {
+        });
     };
 
     $scope.loadReport = function(test_id){

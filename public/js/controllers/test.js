@@ -7,8 +7,10 @@ angular.module('field_guide_controls')
 .run(['$anchorScroll', function($anchorScroll) {
     $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
 }])
-.controller('test', ['$scope','$http', '$stateParams','$state', '$location','$window','$rootScope', '$anchorScroll',
-    function($scope, $http,$stateParams,$state, $location,$window,$rootScope,$anchorScroll){
+.controller('test', 
+            ['$scope','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
+    function( $scope,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
+    
     console.log('loaded test controller');
     
     $http
@@ -16,9 +18,11 @@ angular.module('field_guide_controls')
         .success(function(data) {
             $scope.test = data;
             $scope.tasks = data._tasks;
-            console.log('test', $scope.test);
 
+            console.log('test', $scope.test);
+            console.log('tasks', $scope.tasks);
             $scope.showAnchor(1);
+
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -26,21 +30,30 @@ angular.module('field_guide_controls')
 
     // DIRECTIVES AND FUNCTIONS ===========================
 
-    // what is our drag handle - this should be a directive.
-    $scope.sortableOptions = {
-        handle: '> .step-hamburger',
-        update: function(e, ui) {
-            console.log('update: '+ui.item.index());
-            console.log('task to update', $scope.tasks[ui.item.index()]);
+    // $scope.dragControlListeners = {
+    //     accept: function (sourceItemHandleScope, destSortableScope) {return boolean} //override to determine drag is allowed or not. default is true.
+    //     itemMoved: function (event) {//Do what you want},
+    //     orderChanged: function(event) {//Do what you want},
+    //     containment: '#board'//optional param.
+    // };
 
-            $scope.tasks[ui.item.index()].index = ui.item.index();
-            $scope.updateTask($scope.tasks[ui.item.index()]);
+    $scope.treeOptions = {
+        dropped: function(e) {
+            console.log (e.source.nodesScope);
+            console.log($scope.tasks);
+            _.each($scope.tasks, function(task){
+                task.index = $scope.tasks.indexOf(task);
+            });
+            $scope.batchTask();
         }
     };
 
     $scope.selectPrototype = function(kind){
         console.log('touched prototype', kind);
         $scope.test.kind = kind;
+        mixpanel.track('Type of Test', {
+            'test type' : kind
+        });
     };
 
     $scope.selectPlatform = function(kind){
@@ -77,6 +90,11 @@ angular.module('field_guide_controls')
 
         $scope.anchor = x;
         $scope.explanation = _.findWhere(explanations, {anchor:x});
+        if(x === 5){
+            mixpanel.track('Test setup completion page', {
+                'user': $rootScope.user
+            });
+        }
     };
 
     $scope.saveAndMove = function(anchor){
@@ -105,7 +123,11 @@ angular.module('field_guide_controls')
         task._test = $stateParams.test_id;
         task._session = $scope.test._session;
         task.index = $scope.tasks.length;
-         
+        
+        mixpanel.track('Task added', {
+            'user': $rootScope.user
+        });
+
         var url = '/api/task/';
         var data_out = task;
         
@@ -118,17 +140,17 @@ angular.module('field_guide_controls')
                 $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
             })
             .error(function(data){
-                console.log(JSON.stringify(data))
+                console.log(JSON.stringify(data));
             });
-    }
+    };
     
     $scope.removeTask = function(task){
     
         task.edit=false;
-    	task.title_edit=false;
+        task.title_edit=false;
 
-        var index = $scope.tasks.indexOf(task)
-  		var url = '/api/task/'+task._id;
+        var index = $scope.tasks.indexOf(task);
+        var url = '/api/task/'+task._id;
         
         $scope.tasks.splice(index, 1);
 
@@ -142,8 +164,8 @@ angular.module('field_guide_controls')
             })
             .error(function(data){
                 console.log('Error: ' + data);
-            })
-    }
+            });
+    };
 
 	$scope.editTitle = function (task){
 		// edit the title box for a task
@@ -152,7 +174,7 @@ angular.module('field_guide_controls')
 
 		// Clone the original item to restore it on demand.
 		$scope.original = angular.extend({}, task);
-	}
+	};
 
 	$scope.blurTitle = function (task){
 		// on losing the focus, save the name of the task
@@ -165,19 +187,36 @@ angular.module('field_guide_controls')
 			$scope.removeTask(task);
 		}
 
-        $scope.updateTask(task)
-	}
+        $scope.updateTask(task);
+	};
 
     $scope.select= function(task) {
         $scope.selectedTask = task;         
     };
     
     $scope.isActive = function(task) {
-       return $scope.selectedTask === task;
+        return $scope.selectedTask === task;
+    };
+
+    $scope.batchTask = function(){
+        console.log('touched batchTash', $scope.tasks);
+
+        var dataOut = $scope.tasks;
+        var url = '/api/task/';
+
+        $http
+            .put(url, dataOut)
+            .success(function(data){
+                console.log('tasks pushed', data);
+            })
+            .error(function(data){
+                console.log('error', data);
+            });
+
     };
 
     $scope.updateTask = function(task){
-        console.log('touched update task', task._id, task.desc)
+        console.log('touched update task', task._id, task.desc);
 
         var url = '/api/task/'+task._id;
         var data_out = task;
@@ -189,9 +228,10 @@ angular.module('field_guide_controls')
                 console.log('current test tasklist', data._tasks);
              })
             .error(function(data){
-                console.log('error', data)
+                console.log('error', data);
             });
-    }
+        
+    };
 
     $scope.updateTest = function(){
         var test = $scope.test;
@@ -214,10 +254,9 @@ angular.module('field_guide_controls')
             .put(url, data_out, {timeout:5000})
             .success(function(data){
                 console.log('test has pushed', data);
-                
-             })
+            })
             .error(function(data){
-                console.log('error', data)
+                console.log('error', data);
             });
 	};
 
@@ -228,7 +267,5 @@ angular.module('field_guide_controls')
             .then(function(){
                 $location.path('/overview');
             });
-        
-        
-    }
+    };
 }]);

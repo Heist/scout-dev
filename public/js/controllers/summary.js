@@ -194,9 +194,8 @@ angular.module('field_guide_controls')
     
         $scope.messages = _.map($scope.messages, function(val, key){ return val; });
     
-        // Error with multiple users - messages do not save properly. This needs to be 
-        // refactored to saved when fav hit _regardless_.
-
+        mixpanel.track('Summary complete', {
+        });
 
         console.log('messages', $scope.messages);
 

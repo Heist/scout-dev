@@ -6,6 +6,7 @@ module.exports = function(app, passport) {
 // Module dependencies
 var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 var _ = require('underscore');
+var async = require('async');
 
 // load data storage models
 var Message = require('../models/data/message');
@@ -26,6 +27,33 @@ app.route('/api/task/')
 
                 res.json(tasks);
             });
+    })
+    .put(function(req,res){
+        console.log('batch task update', req.body);
+        var arr = _.toArray(req.body);
+        console.log(arr.length);
+        async.each(req.body, function(key, err){
+            
+            Task.findById(key._id)
+            .exec(function(err, task){
+                if (err) {res.send(err);}
+
+                if(key.name){task.name = key.name;}
+                if(key.summary){task.summary = key.summary;}
+                if(key.pass_fail !== null){ task.pass_fail = key.pass_fail;}
+                if(key.desc){task.desc = key.desc;}
+                if(key._test){task._test = key._test;}
+                if(key.index){task.index = key.index; console.log(task.index);}
+                if(key._session){task._session = key._session;}
+                if(key._subject){task._subjects.push(key._subject);}
+
+                task.save(function(err,data){
+                    if(err){res.send(err);}
+                    // console.log('updated task', task);
+                    res.json(data);
+                });
+            });
+        });
     })
     .post(function(req,res){
         var task = new Task();
@@ -64,11 +92,9 @@ app.route('/api/task/:_id')
                 res.json(task);
             })
     })
-    
     // update a single task
     .put(function(req,res){
         // console.log('touched task', req.body.pass_fail, req.body._id, req.params._id);
-
         Task.findById(req.params._id)
             .exec(function(err, task){
                 if (err) {res.send(err);}
