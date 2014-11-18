@@ -15,7 +15,7 @@ module.exports = function(io, app, passport) {
     // http://blog.seafuj.com/migrating-to-socketio-1-0
 
     io.use(function(socket, next) {
-        console.log(socket.request._query, socket.id);
+        console.log('socket query', socket.request._query, socket.id);
         var query = socket.request._query;
         room = query.test;
 
@@ -91,7 +91,12 @@ TODO 3: Namespace this to /test, and Namespace /stream separately with the same 
     io.on('connection', function (socket) {
         console.log('hello user', user._account);
         
+        // All of these variables die with the connection.
+        // This probably works to kill old rooms and things?
+
         var origin_room = socketData[socket.id].room;
+        var roomList = [];
+        var testRoom = {};
 
         // console.log(myNumber, 'connected');
 
@@ -112,9 +117,21 @@ TODO 3: Namespace this to /test, and Namespace /stream separately with the same 
         // io.to(room).emit('announce', {data: room});
 
 // CONNECTION ROUTES ================================================
-    socket.on('get_room_list', function(data){
-        
-    });
+    // Note to self: all sockets receive their default room from
+    // the URL /:test_id as $stateParams._id
+    // After they're logged
+    // The moderator can open _another_ room, 
+    // which becomes a pool of IDs available for connection
+    // {name: name, room: _id}
+    // 
+    // On connection of a Watch socket, that room list
+    // is output to the newly connected user, who then
+    // selects their room from the list
+    // and joins that channel as well as the previous channel.
+
+        socket.on('get_room_list', function(data){
+            console.log('get room list', roomList);
+        });
 
 
 // MESSAGING ROUTES =================================================
@@ -125,9 +142,23 @@ TODO 3: Namespace this to /test, and Namespace /stream separately with the same 
         });
 
         socket.on('send:subject_added', function(data){
-            console.log('subject added socket', data);
-            // socket.join(data.subject);
-            socket.to(origin_room).emit('subject', data);
+            console.log('subject added socket', data.subject);
+            
+            // Join the subject test
+            socket.join(data.subject._id);
+            
+            // store the subject test on an accessible variable
+            testRoom = data.subject._id;
+
+            // add the available rooms to the room list
+            // TODO: Garbage collection: roomList will need to self-destruct on disconnection?
+            // How will this clean up, since it lives on Server forever? HMM.
+            roomList.push({name: data.subject.name, room: data.subject._id}); 
+
+            console.log('subject add roomlist', roomList);
+
+            // Tell anyone in the origin room we have a new subject somewhere
+            socket.to(origin_room).emit('room_list_update', roomList);
         });
 
         socket.on('join_subject_test', function(data){

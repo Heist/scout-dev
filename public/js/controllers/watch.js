@@ -33,9 +33,9 @@ $scope.roomList = [];
         $scope.$apply();
     });
 
-    socket.on('subject', function(data){
-        $scope.roomList.push(data);
-        console.log($scope.roomList);
+    socket.on('room_list_update', function(data){
+        // $scope.roomList.push(data);
+        console.log(data);
         // $scope.subject = data.subject;
         // $scope.live = true;
         // $scope.select(0,0);
