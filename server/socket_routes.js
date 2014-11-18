@@ -110,7 +110,15 @@ TODO 3: Namespace this to /test, and Namespace /stream separately with the same 
         
         // // send it to everyone in the room
         // io.to(room).emit('announce', {data: room});
+
+// CONNECTION ROUTES ================================================
+    socket.on('get_room_list', function(data){
         
+    });
+
+
+// MESSAGING ROUTES =================================================
+
         socket.on('send:note', function(data){
             console.log('note sent', data);
             socket.to(origin_room).emit('note', data);

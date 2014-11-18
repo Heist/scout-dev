@@ -12,6 +12,8 @@ $scope.roomList = [];
 // SOCKET ROUTES ================================================
     var socket = io('http://127.0.0.1:8080/?test='+$stateParams._id);
 
+    socket.emit('get_room_list', { test: $stateParams._id });
+
     socket.on('announce', function(data){
         console.log('announce', data);
     });
