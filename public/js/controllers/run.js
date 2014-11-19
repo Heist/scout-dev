@@ -15,7 +15,6 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     $scope.timeline = []; // holds all messages currently in test
     $scope.glued = true;
 
-
     $http
         .get('/api/run/'+$stateParams._id)
         .success(function(data){
@@ -45,6 +44,15 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     socket.on('subject', function(data){
         socket.emit('join_subject_test', data);
     });
+
+    // somewhere in here,
+    // emit the relevant information for the tasks in the test
+    // we need name, desc, and _id
+    // When one is selected, emit that to the entire channel
+    // then on Watch, watch for that selected task
+    // and set it to Selected.
+
+    
 
 // ANGULAR ROUTES ===================================================
     $scope.select = function(testIndex, taskIndex) {
