@@ -87,15 +87,34 @@ TODO 3: Namespace this to /test, and Namespace /stream separately with the same 
 
 */
 
+// This needs to not be a global, AND YET. 
+
+// The roomList should store an object per session that has the test key
+// Then a list of things that live with that test key. 
+// (It may need to live in Mongo or another session storage system)
+// roomlist[test].[channel]; is the ideal object structure
+// When a test is deleted, it removes itself from the roomList.
+
+function testSession(main, channel){
+
+    /*
+
+    pseudocode: if main, then join a main room
+    on new room channel, add channels to channel object
+    on new client, add client to testSession object
+    on disconnect, pop open this object, find client and channel
+    destroy client and channel
+
+    */
+
+}
 
     io.on('connection', function (socket) {
         console.log('hello user', user._account);
-        
         // All of these variables die with the connection.
         // This probably works to kill old rooms and things?
 
         var origin_room = socketData[socket.id].room;
-        var roomList = [];
         var testRoom = {};
 
         // console.log(myNumber, 'connected');
@@ -153,7 +172,7 @@ TODO 3: Namespace this to /test, and Namespace /stream separately with the same 
             // add the available rooms to the room list
             // TODO: Garbage collection: roomList will need to self-destruct on disconnection?
             // How will this clean up, since it lives on Server forever? HMM.
-            roomList.push({name: data.subject.name, room: data.subject._id}); 
+            roomList.push({subject: data.subject, room: data.subject._id}); 
 
             console.log('subject add roomlist', roomList);
 

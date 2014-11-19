@@ -13,20 +13,24 @@ var cors = require('cors');
 
 // express modules
 var logger       = require('morgan');
+var cookie = require('cookie');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
-// Session storage and recall for socket.io
+// SESSION STORAGE ==================================================
 var MongoStore = require('connect-mongostore')(session);
-// var name = 'connect.sid'; // this is actually the default value of name on session
 
+
+// PROCESS PORT =====================================================
 var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
 
-// Global application variables =====================================
+// GLOBAL VARIABLES =================================================
 app.locals.store = new MongoStore({'db': 'sessions'});
 app.locals.real_url = '127.0.0.1:8080';
 app.locals.secret = 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT';
+var COOKIE_NAME = 'connect.sid'; // default name value
+var COOKIE_SECRET = app.locals.secret;
 
 // for later use with Redis if it becomes important
 // process.title = 'field_guide_app';
@@ -52,7 +56,6 @@ app.use(bodyParser());
 // passport configuration ===========================================
 require('./config/passport')(app, passport);
 
-
 // session start ====================================================
 app.use(session({
 	secret: app.locals.secret, 
@@ -71,6 +74,7 @@ app.use(passport.session()); // persistent login sessions
 
 // server /api/ routes ==============================================
 var router = require('./server/routes')(app, passport, io);
+
 // DEFAULT ROUTE ====================================================
 // Prevents the ENOENT rendering error
 app.get('*', function(req, res) {
@@ -81,6 +85,37 @@ app.get('*', function(req, res) {
 // SOCKET.IO ========================================================
 // lives after normal routes, is dynamic routes accessed separately
 // has its own auth functions
+io.use(function(socket, next) {
+    try {
+        var data = socket.handshake || socket.request;
+        if (! data.headers.cookie) {
+            return next(new Error('Missing cookie headers'));
+        }
+        console.log('cookie header ( %s )', JSON.stringify(data.headers.cookie));
+        var cookies = cookie.parse(data.headers.cookie);
+        console.log('cookies parsed ( %s )', JSON.stringify(cookies));
+        if (! cookies[COOKIE_NAME]) {
+            return next(new Error('Missing cookie ' + COOKIE_NAME));
+        }
+        var sid = cookieParser.signedCookie(cookies[COOKIE_NAME], COOKIE_SECRET);
+        if (! sid) {
+            return next(new Error('Cookie signature is not valid'));
+        }
+        console.log('session ID ( %s )', sid);
+        data.sid = sid;
+        
+        app.locals.store.get(sid, function(err, session) {
+            if (err) {return next(err);}
+            if (! session) {return next(new Error('session not found'));}
+            data.session = session;
+            next();
+        });
+    } catch (err) {
+        console.error(err.stack);
+        next(new Error('Internal server error'));
+    }
+});
+
 require('./server/socket_routes')(io, app, passport);
 
 
