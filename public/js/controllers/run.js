@@ -51,7 +51,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     // When one is selected, emit that to the entire channel
     // then on Watch, watch for that selected task
     // and set it to Selected.
-
+    // 
     
 
 // ANGULAR ROUTES ===================================================

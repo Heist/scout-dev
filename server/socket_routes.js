@@ -134,6 +134,10 @@ function testSession(main, channel){
         
         // // send it to everyone in the room
         // io.to(room).emit('announce', {data: room});
+// DRAW ROUTES ======================================================
+
+
+
 
 // CONNECTION ROUTES ================================================
     // Note to self: all sockets receive their default room from
