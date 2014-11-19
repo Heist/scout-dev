@@ -178,7 +178,7 @@ function testSession(main, channel){
             console.log('subject add roomlist', roomList);
 
             // Tell anyone in the origin room we have a new subject somewhere
-            socket.to(origin_room).emit('room_list_update', roomList);
+            socket.to(origin_room).emit('room_list_update', {rooms: roomList});
         });
 
         socket.on('join_subject_test', function(data){

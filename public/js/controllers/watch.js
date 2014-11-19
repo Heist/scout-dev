@@ -35,14 +35,18 @@ $scope.roomList = [];
     socket.on('room_list', function(data){
         console.log('room_list', data);
         $scope.roomList = data.rooms;
+
+        console.log('current roomList on channel load', $scope.roomList);
         $scope.$apply();
     });
 
     socket.on('room_list_update', function(data){
         console.log('room_list_update', data);
 
-        // Add the subject to the room list
-        $scope.roomList.push(data);
+        // this receives the entire list of active rooms back from the server.
+        $scope.roomList = data.rooms;
+
+        console.log('roomList after push', $scope.roomList);
 
         $scope.$apply();
     });
@@ -53,6 +57,7 @@ $scope.roomList = [];
 
     $scope.joinRoom = function(room){
         console.log('I want to join this room', $scope.selectedRoom);
+        // socket.emit('join_room', $scope.selectedRoom.room);
     };
 
 
