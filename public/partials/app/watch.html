@@ -16,7 +16,7 @@
           <h3>Please select a test to join</h3>
         </div>
         <!-- $scope.roomList -->
-        <select ng-model="selectedRoom" ng-options="subject.name for room in roomList" ng-change="joinRoom()">
+        <select ng-model="selectedRoom" ng-options="room.subject.name for room in roomList" ng-change="joinRoom()">
           <option value="">Available Rooms in {{testName}}</option>
         </select>
         

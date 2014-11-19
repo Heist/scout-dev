@@ -32,8 +32,14 @@ $scope.roomList = [];
         $scope.$apply();
     });
 
+    socket.on('room_list', function(data){
+        console.log('room_list', data);
+        $scope.roomList = data.rooms;
+        $scope.$apply();
+    });
+
     socket.on('room_list_update', function(data){
-        console.log(data);
+        console.log('room_list_update', data);
 
         // Add the subject to the room list
         $scope.roomList.push(data);

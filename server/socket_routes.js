@@ -96,7 +96,6 @@ TODO 3: Namespace this to /test, and Namespace /stream separately with the same 
 // When a test is deleted, it removes itself from the roomList.
 
 function testSession(main, channel){
-
     /*
 
     pseudocode: if main, then join a main room
@@ -106,10 +105,9 @@ function testSession(main, channel){
     destroy client and channel
 
     */
-
 }
 
-var roomList = [];
+    var roomList = [];
 
     io.on('connection', function (socket) {
         console.log('hello user', user._account);
@@ -152,6 +150,7 @@ var roomList = [];
 
         socket.on('get_room_list', function(data){
             console.log('get room list', roomList);
+            socket.emit('room_list', {rooms: roomList});
         });
 
 
