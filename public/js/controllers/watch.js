@@ -57,7 +57,8 @@ $scope.roomList = [];
 
     $scope.joinRoom = function(room){
         console.log('I want to join this room', $scope.selectedRoom);
-        // socket.emit('join_room', $scope.selectedRoom.room);
+        socket.emit('join_room', $scope.selectedRoom.room);
+        $scope.live = true;
     };
 
 
