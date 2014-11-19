@@ -109,6 +109,8 @@ function testSession(main, channel){
 
 }
 
+var roomList = [];
+
     io.on('connection', function (socket) {
         console.log('hello user', user._account);
         // All of these variables die with the connection.

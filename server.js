@@ -21,7 +21,6 @@ var session      = require('express-session');
 // SESSION STORAGE ==================================================
 var MongoStore = require('connect-mongostore')(session);
 
-
 // PROCESS PORT =====================================================
 var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
 
@@ -85,6 +84,8 @@ app.get('*', function(req, res) {
 // SOCKET.IO ========================================================
 // lives after normal routes, is dynamic routes accessed separately
 // has its own auth functions
+
+// our kickoff configuration for sockets....
 io.use(function(socket, next) {
     try {
         var data = socket.handshake || socket.request;
@@ -116,6 +117,7 @@ io.use(function(socket, next) {
     }
 });
 
+// and our real configuration, which does a second, passport-based auth.
 require('./server/socket_routes')(io, app, passport);
 
 
