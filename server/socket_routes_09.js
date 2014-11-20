@@ -8,16 +8,9 @@ module.exports = function(io, app, passport) {
         passportSocketIo = require('passport.socketio'),
         _ = require('underscore'),
         user = {},
-        nsp = io.of('/'+ user.account),
         socketData = {},
         name = '',
-        room = '',
-        COOKIE_NAME = app.locals.cookie_name,
-        COOKIE_SECRET = app.locals.secret;
-
-
-
-
+        default_room = '';
 
     // // our kickoff configuration for sockets 1.0 ....
     // io.use(function(socket, next) {
@@ -66,11 +59,16 @@ module.exports = function(io, app, passport) {
     function onAuthorizeSuccess(data, accept){
         // Passport has heard of them ===========
         
+        console.log('authwin socket connection info', data.query.test);
+
         user = data.user;
         name = data.user.name;
         userNames.claim(name);
         
-        accept();
+        default_room = data.query.test;
+
+        accept(null, true);
+
     }
 
     function onAuthorizeFail(data, message, error, accept){
@@ -79,9 +77,14 @@ module.exports = function(io, app, passport) {
         if(error){ console.log(error);}
         
         console.log('failed connection to socket.io:', message);
+        console.log('authfail socket connection info', data.query.test, default_room);
         name = userNames.getGuestName();
-        accept();
+        default_room = data.query.test;
+
+        accept(null, true);
         
+        // accept();
+
         // If they are not a guest user =========
         // accept(new Error(message));
         // this error will be sent to the user as a special error-package
@@ -93,15 +96,14 @@ module.exports = function(io, app, passport) {
 // ROOM REGISTRATION BASED ON CONNECTION QUERYSTRING ============
     // http://blog.seafuj.com/migrating-to-socketio-1-0
     // SOCKET 0.9 VARIANT
-    
-    io.set('authorization', function(data, accept)
-    {
-        console.log('socket auth data', data);
-        var query = data.query;
-        data.testRoom = query.testroom;
 
-        accept(null, true);
-    });
+
+    // io.set('authorization', function(data, accept)
+    // {
+    //     // socket 0.9 middleware for logging data
+    //     // console.log('socket auth data', data);
+      
+    // });
 
     var roomList = [];
 
@@ -109,6 +111,79 @@ module.exports = function(io, app, passport) {
     io.sockets.on('connection', function (socket) {
         console.log('hello user', user._account);
         console.log('someone connected from somewhere');
-        
+        console.log('do we have a test room?', default_room);
+
+        // Connect to default room from querystring.
+        // var master_room_collection = {};
+        // var origin_room = testRoom;
+
+        // console.log(testRoom, 'connected');
+
+        // return clients in given room
+        // console.log(testRoom, 'connected');
+
+        // join this socket to the default chat room from the querystring
+        // socket.join(testRoom);
+
+        // var roomClients = io.of('').clients(testRoom);
+
+        // _.each(roomClients, function(client){
+        //     console.log(client.handshake.testRoom, 'is in myroom');
+        // });
+
+
     });
+
+// Guest name management ============================================
+    // Keep track of which names are used so that there are no duplicates
+
+        var userNames = (function () {
+            var names = {};
+
+            var claim = function (name) {
+                if (!name || names[name]) {
+                    return false;
+                } else {
+                    names[name] = true;
+                    return true;
+                }
+            };
+
+            // find the lowest unused "guest" name and claim it
+            var getGuestName = function () {
+                var name,
+                    nextUserId = 1;
+
+                do {
+                    name = 'Guest ' + nextUserId;
+                    nextUserId += 1;
+                } while (!claim(name));
+
+                return name;
+            };
+
+            // serialize claimed names as an array
+            var get = function () {
+                var res = [];
+                for (var user in names) {
+                    res.push(user);
+                }
+
+                return res;
+            };
+
+            var free = function (name) {
+                if (names[name]) {
+                    delete names[name];
+                }
+            };
+
+            return {
+                claim: claim,
+                free: free,
+                get: get,
+                getGuestName: getGuestName
+            };
+        }());
+
 };
