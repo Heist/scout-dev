@@ -3,6 +3,7 @@
 
 module.exports = function(io, app, passport) {
     var cookieParser = require('cookie-parser'),
+        crypto = require('crypto'),
         passportSocketIo = require('passport.socketio'),
         user = {},
         nsp = io.of('/'+ user.account),
@@ -134,19 +135,71 @@ function testSession(main, channel){
         
         // // send it to everyone in the room
         // io.to(room).emit('announce', {data: room});
-// DRAW ROUTES ======================================================
+// CANVAS ROUTES ======================================================
+    socket.emit('connected', {socket: socket});
 
-    socket.on('message',function(data) {
-      idleDisplayed = false;
-      load_gif.css('display', 'none');
-      last_conn_time = new Date().getTime() / 1000;
-      made_connection = true;
-      image.src = "data:image/jpg;base64,"+data;
-      canvas.width = 358;
-      canvas.height = 358 * image.height / image.width;
+    var k = '';
+    
+    socket.on('message', function(err, msg){
+            k = Object.keys(io.sockets.manager.roomClients[socket.id]);
+            if (k[1] !== undefined) {
+                var chan = k[1].substring(1, k[1].length);
+                socket.broadcast.to(chan).emit('message', err);
+            }
+        });
+    
+    socket.on('pics', function(data, err){
+        // if (sendgrid == undefined) {
+        //     console.log("received email request but could not service");
+        //     return;
+        // }
+        // console.log("pics rec'd");
 
-      context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+        // imgs = data.msg.img_array;
+        // email_addr = unescape(data.msg.email);
+
+        // today = new Date();
+
+        // var email = new sendgrid.Email();
+        
+        // email.addTo(email_addr);
+        // email.setFrom("iOStream");
+        // email.setSubject('[iOStream] Screenshots from ' + today.toDateString());
+
+        // email.setText('Hi! Attached are your screenshots with annotations from ' + today.toLocaleString());
+        // email.addHeader({'X-Sent-Using': 'SendGrid-API'});
+        // email.addHeader({'X-Transport': 'web'});
+
+        // for (ii = 0; ii < imgs.length; ii++)
+        // {
+        // var b64string = unescape(imgs[ii]);
+        // b64string = b64string.substring(23);
+
+        // var buf = new Buffer(b64string, 'base64');
+
+        // email.addFile({content: buf, filename: 'ss'+ (ii + 1) +'.jpg'});
+        // }
+
+
+        // sendgrid.send(email, function(err, json) {  
+        // if (err) { return console.error(err); }
+        //   console.log(json);
+        // });
+
+
     });
+
+        socket.on('subscribe', function(data) { 
+            var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
+            console.log('joining room', hash);
+            k = Object.keys(io.sockets.manager.roomClients[socket.id]);
+            socket.join(hash); 
+        });
+
+        socket.on('channel', function(data) { 
+            console.log('joining room', data.room.toLowerCase());
+            socket.join(data.room); 
+        });
 
 // CONNECTION ROUTES ================================================
     // Note to self: all sockets receive their default room from

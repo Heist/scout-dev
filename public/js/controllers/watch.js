@@ -21,7 +21,7 @@ $scope.roomList = [];
 
     // socket.on('add_subject', function(data){    
     //     // $scope.subject = data.subject;
-    //     // $scope.live = true;
+    //     // $scope.live = true
     //     // $scope.select(0,0);
     //     $scope.$apply();
     // });
@@ -45,24 +45,23 @@ $scope.roomList = [];
 
         // this receives the entire list of active rooms back from the server.
         $scope.roomList = data.rooms;
-
         console.log('roomList after push', $scope.roomList);
-
         $scope.$apply();
     });
 
 // EMIT SCREENCAPS TO THE SOCKET ====================================
 
 socket.on('message',function(data) {
+    console.log('message landed', data);
   // idleDisplayed = false;
   // load_gif.css('display', 'none');
   // last_conn_time = new Date().getTime() / 1000;
   // made_connection = true;
-  image.src = "data:image/jpg;base64,"+data;
-  canvas.width = 358;
-  canvas.height = 358 * image.height / image.width;
+  // image.src = "data:image/jpg;base64,"+data;
+  // canvas.width = 358;
+  // canvas.height = 358 * image.height / image.width;
 
-  context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+  // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
 });
 
 // ANGULAR ROUTES ===================================================
