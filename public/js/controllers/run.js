@@ -28,8 +28,50 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
         });
     
-// SOCKET ROUTES ================================================
-    var socket = io('http://127.0.0.1:8080/?test='+$stateParams._id);
+// SOCKET ROUTES - 1.0 ==============================================
+// var socket = io('http://127.0.0.1:8080/?test='+$stateParams._id);
+
+// socket.on('disconnect', function(data)
+// {
+//     console.log('disconnect');
+// });
+
+// socket.disconnect();
+
+// SOCKET ROUTES - 0.9 ============================================== 
+    
+    var socket = io.connect('//127.0.0.1:8080/?test='+$stateParams._id, {
+            'force new connection': true});
+
+    socket.on('connect_failed', function(data)
+    {
+        console.log('connect_failed');
+    });
+    socket.on('connecting', function(data)
+    {
+        console.log('connecting');
+    });
+    socket.on('disconnect', function(data)
+    {
+        console.log('disconnect');
+        socket.socket.disconnect();
+    });
+    socket.on('error', function(reason)
+    {
+        console.log('error');
+    });
+    socket.on('reconnect_failed', function(data)
+    {
+        console.log('reconnect_failed');
+    });
+    socket.on('reconnect', function(data)
+    {
+        console.log('reconnect');
+    });
+    socket.on('reconnecting', function(data)
+    {
+        console.log('reconnecting');
+    });
 
     socket.on('announce', function(data){
         console.log('announce', data);

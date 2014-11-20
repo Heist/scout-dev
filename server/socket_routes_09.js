@@ -14,6 +14,10 @@ module.exports = function(io, app, passport) {
         COOKIE_NAME = app.locals.cookie_name,
         COOKIE_SECRET = app.locals.secret;
 
+
+
+
+
     // // our kickoff configuration for sockets 1.0 ....
     // io.use(function(socket, next) {
     //     try {
@@ -66,14 +70,16 @@ module.exports = function(io, app, passport) {
     // });
 
     // AUTHENTICATION MIDDLEWARE ====================================
-    // io.use(passportSocketIo.authorize({
-    //     cookieParser: cookieParser,
-    //     key:         'connect.sid',       // the name of the cookie where express/connect stores its session_id
-    //     secret:      app.locals.secret,    // the session_secret to parse the cookie
-    //     store:       app.locals.store,        // we NEED to use a sessionstore. no memorystore please
-    //     success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
-    //     fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
-    // }));
+    io.configure(function () {
+        io.set('authorization', passportSocketIo.authorize({
+            cookieParser: cookieParser,
+            key:         'connect.sid',       // the name of the cookie where express/connect stores its session_id
+            secret:      'session_secret',    // the session_secret to parse the cookie
+            store:       sessionStore,        // we NEED to use a sessionstore. no memorystore please
+            success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
+            fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
+        }));
+    });
 
     function onAuthorizeSuccess(data, accept){
         // Passport has heard of them ===========
@@ -133,7 +139,7 @@ TODO 3: Namespace this to /test, and Namespace /stream separately with the same 
 // When a test is deleted, it removes itself from the roomList.
 
 function testSession(main, channel){
-    /*
+    
 
     pseudocode: if main, then join a main room
     on new room channel, add channels to channel object
@@ -141,7 +147,7 @@ function testSession(main, channel){
     on disconnect, pop open this object, find client and channel
     destroy client and channel
 
-    */
+    
 }
 
     var roomList = [];
