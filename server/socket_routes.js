@@ -112,6 +112,7 @@ function testSession(main, channel){
 
     io.on('connection', function (socket) {
         console.log('hello user', user._account);
+        console.log('someone connected from somewhere');
         // All of these variables die with the connection.
         // This probably works to kill old rooms and things?
 
@@ -139,7 +140,7 @@ function testSession(main, channel){
     socket.emit('connected', {socket: socket});
 
     var k = '';
-    
+
     socket.on('message', function(err, msg){
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
             if (k[1] !== undefined) {
