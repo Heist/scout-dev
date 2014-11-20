@@ -11,7 +11,7 @@ angular.module('field_guide_controls')
 $scope.roomList = [];
 
 // SOCKET ROUTES ================================================
-    var socket = io('http://127.0.0.1:8080/?test='+$stateParams._id);
+    var socket = io('http://127.0.0.1:8080/?testroom='+$stateParams._id);
 
     socket.emit('get_room_list', { test: $stateParams._id });
 

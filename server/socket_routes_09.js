@@ -6,6 +6,7 @@ module.exports = function(io, app, passport) {
         cookieParser = require('cookie-parser'),
         crypto = require('crypto'),
         passportSocketIo = require('passport.socketio'),
+        _ = require('underscore'),
         user = {},
         nsp = io.of('/'+ user.account),
         socketData = {},
@@ -50,32 +51,13 @@ module.exports = function(io, app, passport) {
     //     }
     // });
 
-
-    // ROOM REGISTRATION BASED ON CONNECTION QUERYSTRING ============
-    // http://blog.seafuj.com/migrating-to-socketio-1-0
-    // this is only good on Socket 1.0+ - we are presently using Socket 0.9
-
-    // io.use(function(socket, next) {
-    //     console.log('socket query', socket.request._query, socket.id);
-    //     var query = socket.request._query;
-    //     room = query.test;
-
-    //     socketData[socket.id] = {
-    //         room: room
-    //     };
-
-    //     socket.join(room);
-    //     console.log('room joined', room);
-    //     next();
-    // });
-
     // AUTHENTICATION MIDDLEWARE ====================================
     io.configure(function () {
         io.set('authorization', passportSocketIo.authorize({
             cookieParser: cookieParser,
             key:         'connect.sid',       // the name of the cookie where express/connect stores its session_id
             secret:      'session_secret',    // the session_secret to parse the cookie
-            store:       sessionStore,        // we NEED to use a sessionstore. no memorystore please
+            store:       app.locals.store,        // we NEED to use a sessionstore. no memorystore please
             success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
             fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
         }));
@@ -108,47 +90,57 @@ module.exports = function(io, app, passport) {
 
 // CONNECT TO THE SOCKETS ===========================================
 
-/*
-
-TODO: 
-On Watch, we need to know what rooms are presently available for a given test.
-A useful room is a test that has a subject set. 
-On connection, a user gets passed to a default room, with the test name.
-When that room gets a subject added to it, that subject should get sent to all people in the room
-The Subject becomes a new room.
-All Watchers then get the chance to join that room, which is added to a list on Client.
-
-TODO 2:
-
-On connect watch, join default room - done
-
-Get client list of default room - Not Done
-Get list of rooms all other clients are in within default room? (IE: list of available rooms still open)x
-
-
-TODO 3: Namespace this to /test, and Namespace /stream separately with the same identifiers.
-
-*/
-
-// This needs to not be a global, AND YET. 
-
-// The roomList should store an object per session that has the test key
-// Then a list of things that live with that test key. 
-// (It may need to live in Mongo or another session storage system)
-// roomlist[test].[channel]; is the ideal object structure
-// When a test is deleted, it removes itself from the roomList.
-
-function testSession(main, channel){
+// ROOM REGISTRATION BASED ON CONNECTION QUERYSTRING ============
+    // http://blog.seafuj.com/migrating-to-socketio-1-0
+    // SOCKET 0.9 VARIANT
     
+    io.set('authorization', function(data, accept)
+    {
+        console.log('socket auth data', data);
+        var query = data.query;
+        data.testRoom = query.testroom;
 
-    pseudocode: if main, then join a main room
-    on new room channel, add channels to channel object
-    on new client, add client to testSession object
-    on disconnect, pop open this object, find client and channel
-    destroy client and channel
+        accept(null, true);
+    });
 
-    
-}
+
+    function testSession(main, channel){
+        // pseudocode: if main, then join a main room
+        // on new room channel, add channels to channel object
+        // on new client, add client to testSession object
+        // on disconnect, pop open this object, find client and channel
+        // destroy client and channel  
+
+        /*
+
+        TODO: 
+        On Watch, we need to know what rooms are presently available for a given test.
+        A useful room is a test that has a subject set. 
+        On connection, a user gets passed to a default room, with the test name.
+        When that room gets a subject added to it, that subject should get sent to all people in the room
+        The Subject becomes a new room.
+        All Watchers then get the chance to join that room, which is added to a list on Client.
+
+        TODO 2:
+
+        On connect watch, join default room - done
+
+        Get client list of default room - Not Done
+        Get list of rooms all other clients are in within default room? (IE: list of available rooms still open)x
+
+
+        TODO 3: Namespace this to /test, and Namespace /stream separately with the same identifiers.
+
+        */
+
+        // This needs to not be a global, AND YET. 
+
+        // The roomList should store an object per session that has the test key
+        // Then a list of things that live with that test key. 
+        // (It may need to live in Mongo or another session storage system)
+        // roomlist[test].[channel]; is the ideal object structure
+        // When a test is deleted, it removes itself from the roomList.  
+    }
 
     var roomList = [];
 
@@ -158,26 +150,26 @@ function testSession(main, channel){
         // All of these variables die with the connection.
         // This probably works to kill old rooms and things?
 
-        var origin_room = socketData[socket.id].room;
-        var testRoom = {};
+        // Connection middleware to set default room on connection
 
-        // console.log(myNumber, 'connected');
+        var master_room_collection = {};
+        var origin_room = testRoom;
+
+        console.log(testRoom, 'connected');
 
         // return clients in given room
-        var roomClients = io.of('').adapter.rooms[room];
-        
-        for(var socketId in roomClients){
-            if(roomClients.hasOwnProperty(socketId)){
-                console.log(io.of('').connected[socketId].id, 'is in myroom');
-            }
-        }
+        var testRoom = socket.handshake.testRoom;
+        console.log(testRoom, 'connected');
 
-        // send it to everyone but sender
-        // socket.broadcast.to(room).emit('announce', {data: 'announcement'});
-        // socket.to(room).emit('announce', {data: 'socket room'});
-        
-        // // send it to everyone in the room
-        // io.to(room).emit('announce', {data: room});
+        // join this socket to the default chat room from the querystring
+        socket.join(testRoom);
+
+        var roomClients = io.of('').clients(testRoom);
+
+        _.each(roomClients, function(client){
+            console.log(client.handshake.testRoom, 'is in myroom');
+        });
+
 // CANVAS ROUTES ======================================================
         socket.emit('connected', {socket: socket});
 
