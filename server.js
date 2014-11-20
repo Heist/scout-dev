@@ -85,7 +85,8 @@ app.get('*', function(req, res) {
 // lives after normal routes, is dynamic routes accessed separately
 // has its own auth functions
 
-// our kickoff configuration for sockets....
+// our kickoff configuration for sockets 1.0 ....
+
 io.use(function(socket, next) {
     try {
         var data = socket.handshake || socket.request;

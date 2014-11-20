@@ -14,6 +14,7 @@ module.exports = function(io, app, passport) {
 
     // ROOM REGISTRATION BASED ON CONNECTION QUERYSTRING ============
     // http://blog.seafuj.com/migrating-to-socketio-1-0
+    // this is only good on Socket 1.0+ - we are presently using Socket 0.9
 
     io.use(function(socket, next) {
         console.log('socket query', socket.request._query, socket.id);
@@ -137,58 +138,58 @@ function testSession(main, channel){
         // // send it to everyone in the room
         // io.to(room).emit('announce', {data: room});
 // CANVAS ROUTES ======================================================
-    socket.emit('connected', {socket: socket});
+        socket.emit('connected', {socket: socket});
 
-    var k = '';
+        var k = '';
 
-    socket.on('message', function(err, msg){
-            k = Object.keys(io.sockets.manager.roomClients[socket.id]);
-            if (k[1] !== undefined) {
-                var chan = k[1].substring(1, k[1].length);
-                socket.broadcast.to(chan).emit('message', err);
-            }
-        });
-    
-    socket.on('pics', function(data, err){
-        // if (sendgrid == undefined) {
-        //     console.log("received email request but could not service");
-        //     return;
-        // }
-        // console.log("pics rec'd");
-
-        // imgs = data.msg.img_array;
-        // email_addr = unescape(data.msg.email);
-
-        // today = new Date();
-
-        // var email = new sendgrid.Email();
+        socket.on('message', function(err, msg){
+                k = Object.keys(io.sockets.manager.roomClients[socket.id]);
+                if (k[1] !== undefined) {
+                    var chan = k[1].substring(1, k[1].length);
+                    socket.broadcast.to(chan).emit('message', err);
+                }
+            });
         
-        // email.addTo(email_addr);
-        // email.setFrom("iOStream");
-        // email.setSubject('[iOStream] Screenshots from ' + today.toDateString());
+        socket.on('pics', function(data, err){
+            // if (sendgrid == undefined) {
+            //     console.log("received email request but could not service");
+            //     return;
+            // }
+            // console.log("pics rec'd");
 
-        // email.setText('Hi! Attached are your screenshots with annotations from ' + today.toLocaleString());
-        // email.addHeader({'X-Sent-Using': 'SendGrid-API'});
-        // email.addHeader({'X-Transport': 'web'});
+            // imgs = data.msg.img_array;
+            // email_addr = unescape(data.msg.email);
 
-        // for (ii = 0; ii < imgs.length; ii++)
-        // {
-        // var b64string = unescape(imgs[ii]);
-        // b64string = b64string.substring(23);
+            // today = new Date();
 
-        // var buf = new Buffer(b64string, 'base64');
+            // var email = new sendgrid.Email();
+            
+            // email.addTo(email_addr);
+            // email.setFrom("iOStream");
+            // email.setSubject('[iOStream] Screenshots from ' + today.toDateString());
 
-        // email.addFile({content: buf, filename: 'ss'+ (ii + 1) +'.jpg'});
-        // }
+            // email.setText('Hi! Attached are your screenshots with annotations from ' + today.toLocaleString());
+            // email.addHeader({'X-Sent-Using': 'SendGrid-API'});
+            // email.addHeader({'X-Transport': 'web'});
+
+            // for (ii = 0; ii < imgs.length; ii++)
+            // {
+            // var b64string = unescape(imgs[ii]);
+            // b64string = b64string.substring(23);
+
+            // var buf = new Buffer(b64string, 'base64');
+
+            // email.addFile({content: buf, filename: 'ss'+ (ii + 1) +'.jpg'});
+            // }
 
 
-        // sendgrid.send(email, function(err, json) {  
-        // if (err) { return console.error(err); }
-        //   console.log(json);
-        // });
+            // sendgrid.send(email, function(err, json) {  
+            // if (err) { return console.error(err); }
+            //   console.log(json);
+            // });
 
 
-    });
+        });
 
         socket.on('subscribe', function(data) { 
             var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
