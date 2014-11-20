@@ -136,8 +136,17 @@ function testSession(main, channel){
         // io.to(room).emit('announce', {data: room});
 // DRAW ROUTES ======================================================
 
+    socket.on('message',function(data) {
+      idleDisplayed = false;
+      load_gif.css('display', 'none');
+      last_conn_time = new Date().getTime() / 1000;
+      made_connection = true;
+      image.src = "data:image/jpg;base64,"+data;
+      canvas.width = 358;
+      canvas.height = 358 * image.height / image.width;
 
-
+      context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+    });
 
 // CONNECTION ROUTES ================================================
     // Note to self: all sockets receive their default room from
