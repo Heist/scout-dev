@@ -26,7 +26,7 @@ var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
 
 // GLOBAL VARIABLES =================================================
 app.locals.store = new MongoStore({'db': 'sessions'});
-app.locals.real_url = '127.0.0.1:8080';
+app.locals.real_url = '127.0.0.1:'+port;
 app.locals.secret = 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT';
 var COOKIE_NAME = 'connect.sid'; // default name value
 var COOKIE_SECRET = app.locals.secret;
