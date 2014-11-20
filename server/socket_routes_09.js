@@ -1,8 +1,8 @@
-// socket_config_1.js
+// socket_routes_1.js
 'use strict';
 
 module.exports = function(io, app, passport) {
-    var var cookie = require('cookie'),
+    var cookie = require('cookie'),
         cookieParser = require('cookie-parser'),
         crypto = require('crypto'),
         passportSocketIo = require('passport.socketio'),
@@ -10,36 +10,70 @@ module.exports = function(io, app, passport) {
         nsp = io.of('/'+ user.account),
         socketData = {},
         name = '',
-        room = '';
+        room = '',
+        COOKIE_NAME = app.locals.cookie_name,
+        COOKIE_SECRET = app.locals.secret;
+
+    // // our kickoff configuration for sockets 1.0 ....
+    // io.use(function(socket, next) {
+    //     try {
+    //         var data = socket.handshake || socket.request;
+    //         if (! data.headers.cookie) {
+    //             return next(new Error('Missing cookie headers'));
+    //         }
+    //         console.log('cookie header ( %s )', JSON.stringify(data.headers.cookie));
+    //         var cookies = cookie.parse(data.headers.cookie);
+    //         console.log('cookies parsed ( %s )', JSON.stringify(cookies));
+    //         if (! cookies[COOKIE_NAME]) {
+    //             return next(new Error('Missing cookie ' + COOKIE_NAME));
+    //         }
+    //         var sid = cookieParser.signedCookie(cookies[COOKIE_NAME], COOKIE_SECRET);
+    //         if (! sid) {
+    //             return next(new Error('Cookie signature is not valid'));
+    //         }
+    //         console.log('session ID ( %s )', sid);
+    //         data.sid = sid;
+            
+    //         app.locals.store.get(sid, function(err, session) {
+    //             if (err) {return next(err);}
+    //             if (! session) {return next(new Error('session not found'));}
+    //             data.session = session;
+    //             next();
+    //         });
+    //     } catch (err) {
+    //         console.error(err.stack);
+    //         next(new Error('Internal server error'));
+    //     }
+    // });
 
 
     // ROOM REGISTRATION BASED ON CONNECTION QUERYSTRING ============
     // http://blog.seafuj.com/migrating-to-socketio-1-0
     // this is only good on Socket 1.0+ - we are presently using Socket 0.9
 
-    io.use(function(socket, next) {
-        console.log('socket query', socket.request._query, socket.id);
-        var query = socket.request._query;
-        room = query.test;
+    // io.use(function(socket, next) {
+    //     console.log('socket query', socket.request._query, socket.id);
+    //     var query = socket.request._query;
+    //     room = query.test;
 
-        socketData[socket.id] = {
-            room: room
-        };
+    //     socketData[socket.id] = {
+    //         room: room
+    //     };
 
-        socket.join(room);
-        console.log('room joined', room);
-        next();
-    });
+    //     socket.join(room);
+    //     console.log('room joined', room);
+    //     next();
+    // });
 
     // AUTHENTICATION MIDDLEWARE ====================================
-    io.use(passportSocketIo.authorize({
-        cookieParser: cookieParser,
-        key:         'connect.sid',       // the name of the cookie where express/connect stores its session_id
-        secret:      app.locals.secret,    // the session_secret to parse the cookie
-        store:       app.locals.store,        // we NEED to use a sessionstore. no memorystore please
-        success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
-        fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
-    }));
+    // io.use(passportSocketIo.authorize({
+    //     cookieParser: cookieParser,
+    //     key:         'connect.sid',       // the name of the cookie where express/connect stores its session_id
+    //     secret:      app.locals.secret,    // the session_secret to parse the cookie
+    //     store:       app.locals.store,        // we NEED to use a sessionstore. no memorystore please
+    //     success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
+    //     fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
+    // }));
 
     function onAuthorizeSuccess(data, accept){
         // Passport has heard of them ===========
@@ -112,7 +146,7 @@ function testSession(main, channel){
 
     var roomList = [];
 
-    io.on('connection', function (socket) {
+    io.sockets.on('connection', function (socket) {
         console.log('hello user', user._account);
         console.log('someone connected from somewhere');
         // All of these variables die with the connection.

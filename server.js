@@ -4,7 +4,6 @@
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
 
 
 var mongoose = require('mongoose');
@@ -13,7 +12,6 @@ var cors = require('cors');
 
 // express modules
 var logger       = require('morgan');
-var cookie = require('cookie');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
@@ -28,8 +26,7 @@ var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
 app.locals.store = new MongoStore({'db': 'sessions'});
 app.locals.real_url = '127.0.0.1:'+port;
 app.locals.secret = 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT';
-var COOKIE_NAME = 'connect.sid'; // default name value
-var COOKIE_SECRET = app.locals.secret;
+app.locals.cookie_name = 'connect.sid';
 
 // for later use with Redis if it becomes important
 // process.title = 'field_guide_app';
@@ -85,41 +82,13 @@ app.get('*', function(req, res) {
 // lives after normal routes, is dynamic routes accessed separately
 // has its own auth functions
 
-// our kickoff configuration for sockets 1.0 ....
+var io = require('socket.io').listen(http);
 
-io.use(function(socket, next) {
-    try {
-        var data = socket.handshake || socket.request;
-        if (! data.headers.cookie) {
-            return next(new Error('Missing cookie headers'));
-        }
-        console.log('cookie header ( %s )', JSON.stringify(data.headers.cookie));
-        var cookies = cookie.parse(data.headers.cookie);
-        console.log('cookies parsed ( %s )', JSON.stringify(cookies));
-        if (! cookies[COOKIE_NAME]) {
-            return next(new Error('Missing cookie ' + COOKIE_NAME));
-        }
-        var sid = cookieParser.signedCookie(cookies[COOKIE_NAME], COOKIE_SECRET);
-        if (! sid) {
-            return next(new Error('Cookie signature is not valid'));
-        }
-        console.log('session ID ( %s )', sid);
-        data.sid = sid;
-        
-        app.locals.store.get(sid, function(err, session) {
-            if (err) {return next(err);}
-            if (! session) {return next(new Error('session not found'));}
-            data.session = session;
-            next();
-        });
-    } catch (err) {
-        console.error(err.stack);
-        next(new Error('Internal server error'));
-    }
-});
+// socket 1.0 document is currently in reserve
+// require('./server/socket_routes_1')(io, app, passport);
 
-// and our real configuration, which does a second, passport-based auth.
-require('./server/socket_routes')(io, app, passport);
+// socket 0.9 in use to speak to Field Guide App
+require('./server/socket_routes_09')(io, app, passport);
 
 
 // TURN ON THE APPLICATION ==========================================
