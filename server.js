@@ -4,7 +4,7 @@
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var io = require('socket.io').listen(2000);
 
 
 var mongoose = require('mongoose');
@@ -21,7 +21,7 @@ var session      = require('express-session');
 // SESSION STORAGE ==================================================
 var MongoStore = require('connect-mongostore')(session);
 
-// PROCESS PORT =====================================================
+// PROCESS PORTS =====================================================
 var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
 
 // GLOBAL VARIABLES =================================================
