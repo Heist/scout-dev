@@ -11,9 +11,13 @@ angular.module('field_guide_controls')
 $scope.roomList = [];
 
 // SOCKET ROUTES ================================================
-    
-    var client = io('http://104.236.16.159:8080/');
 
+    // 1.0 -----------
+    // var client = io('http://104.236.16.159:8080/');
+
+    // 0.9 -----------
+    var socket = io.connect('//104.236.16.159:8080/?test='+$stateParams._id, {
+            'force new connection': true});
     // socket.emit('get_room_list', { test: $stateParams._id });
 
     // socket.on('announce', function(data){
