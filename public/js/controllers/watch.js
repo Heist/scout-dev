@@ -12,7 +12,7 @@ $scope.roomList = [];
 
 // SOCKET ROUTES ================================================
     
-    // var socket = io('http://104.236.16.159:8080/?test='+$stateParams._id);
+    var client = io('http://104.236.16.159:8080/');
 
     // socket.emit('get_room_list', { test: $stateParams._id });
 
