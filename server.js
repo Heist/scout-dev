@@ -82,7 +82,7 @@ app.get('*', function(req, res) {
 // lives after normal routes, is dynamic routes accessed separately
 // has its own auth functions
 
-var io = require('socket.io').listen(http);
+var io = require('socket.io').listen(http, { log: false });
 
 // socket 1.0 document is currently in reserve
 // require('./server/socket_routes_1')(io, app, passport);
