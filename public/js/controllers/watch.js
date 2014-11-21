@@ -18,41 +18,63 @@ $scope.roomList = [];
     // 0.9 -----------
     var socket = io.connect('//104.236.16.159:8080/?test='+$stateParams._id, {
             'force new connection': true});
-    // socket.emit('get_room_list', { test: $stateParams._id });
+    
+    
+    socket.on('connect_failed', function(data)
+    {
+        console.log('connect_failed');
+    });
+    socket.on('connecting', function(data)
+    {
+        console.log('connecting');
+    });
+    socket.on('disconnect', function(data)
+    {
+        console.log('disconnect');
+        socket.socket.disconnect();
+    });
+    socket.on('error', function(reason)
+    {
+        console.log('error');
+    });
+    socket.on('reconnect_failed', function(data)
+    {
+        console.log('reconnect_failed');
+    });
+    socket.on('reconnect', function(data)
+    {
+        console.log('reconnect');
+    });
+    socket.on('reconnecting', function(data)
+    {
+        console.log('reconnecting');
+    });
 
-    // socket.on('announce', function(data){
-    //     console.log('announce', data);
-    // });
+    socket.on('announce', function(data){
+        console.log('announce', data);
+    });
 
-    // // socket.on('add_subject', function(data){    
-    // //     // $scope.subject = data.subject;
-    // //     // $scope.live = true
-    // //     // $scope.select(0,0);
-    // //     $scope.$apply();
-    // // });
+    socket.on('note', function(data){
+        console.log('note', data);
+        $scope.timeline.push(data.note.msg);
+        $scope.$apply();
+    });
 
-    // socket.on('note', function(data){
-    //     console.log('note', data);
-    //     $scope.timeline.push(data.note.msg);
-    //     $scope.$apply();
-    // });
+    socket.on('subject', function(data){
+        socket.emit('join_subject_test', data);
+    });
 
-    // socket.on('room_list', function(data){
-    //     console.log('room_list', data);
-    //     $scope.roomList = data.rooms;
+    socket.on('message',function(data) {
+      // idleDisplayed = false;
+      // load_gif.css('display', 'none');
+      // last_conn_time = new Date().getTime() / 1000;
+      // made_connection = true;
+      image.src = "data:image/jpg;base64,"+data;
+      canvas.width = 358;
+      canvas.height = 358 * image.height / image.width;
 
-    //     console.log('current roomList on channel load', $scope.roomList);
-    //     $scope.$apply();
-    // });
-
-    // socket.on('room_list_update', function(data){
-    //     console.log('room_list_update', data);
-
-    //     // this receives the entire list of active rooms back from the server.
-    //     $scope.roomList = data.rooms;
-    //     console.log('roomList after push', $scope.roomList);
-    //     $scope.$apply();
-    // });
+      context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+    });
 
 // EMIT SCREENCAPS TO THE SOCKET ====================================
     var canvas = document.getElementById('channel'),
@@ -73,7 +95,7 @@ $scope.roomList = [];
 
     $scope.subscription = function(chan){
         console.log('touched a channel', chan);
-        socket.emit('subscribe', chan);
+        socket.emit('subscribe', { room: chan });
         socket.emit('channel', { room: chan });
     }
 

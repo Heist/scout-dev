@@ -128,8 +128,10 @@ module.exports = function(io, app, passport) {
         });
 
         socket.on('subscribe', function(data) { 
+            console.log('subscription arrived', data);
+
             var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
-            console.log('joining room', hash);
+            console.log('joining room hash', hash);
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
             socket.join(hash); 
         });
