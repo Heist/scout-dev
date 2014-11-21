@@ -113,6 +113,32 @@ module.exports = function(io, app, passport) {
         console.log('someone connected from somewhere');
         console.log('do we have a test room?', default_room);
 
+        // socket.emit('connected', {socket: socket});
+
+        var k = '';
+
+        socket.on('message', function(msg, err){
+            // if there's no channel, emit the message that there's no channel? IDK.
+            // console.log('message arrived!', msg, err);
+            k = Object.keys(io.sockets.manager.roomClients[socket.id]);
+            if (k[1] !== undefined) {
+                var chan = k[1].substring(1, k[1].length);
+                socket.broadcast.to(chan).emit('message', msg);
+            }
+        });
+
+        socket.on('subscribe', function(data) { 
+            var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
+            console.log('joining room', hash);
+            k = Object.keys(io.sockets.manager.roomClients[socket.id]);
+            socket.join(hash); 
+        });
+
+        socket.on('channel', function(data) { 
+            console.log('joining room', data.room.toLowerCase());
+            socket.join(data.room); 
+        });
+
         // Connect to default room from querystring.
         // var master_room_collection = {};
         // var origin_room = testRoom;

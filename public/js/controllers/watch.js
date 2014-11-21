@@ -11,65 +11,74 @@ angular.module('field_guide_controls')
 $scope.roomList = [];
 
 // SOCKET ROUTES ================================================
-    var socket = io('http://127.0.0.1:8080/?testroom='+$stateParams._id);
+    
+    // var socket = io('http://104.236.16.159:8080/?test='+$stateParams._id);
 
-    socket.emit('get_room_list', { test: $stateParams._id });
+    // socket.emit('get_room_list', { test: $stateParams._id });
 
-    socket.on('announce', function(data){
-        console.log('announce', data);
-    });
+    // socket.on('announce', function(data){
+    //     console.log('announce', data);
+    // });
 
-    // socket.on('add_subject', function(data){    
-    //     // $scope.subject = data.subject;
-    //     // $scope.live = true
-    //     // $scope.select(0,0);
+    // // socket.on('add_subject', function(data){    
+    // //     // $scope.subject = data.subject;
+    // //     // $scope.live = true
+    // //     // $scope.select(0,0);
+    // //     $scope.$apply();
+    // // });
+
+    // socket.on('note', function(data){
+    //     console.log('note', data);
+    //     $scope.timeline.push(data.note.msg);
     //     $scope.$apply();
     // });
 
-    socket.on('note', function(data){
-        console.log('note', data);
-        $scope.timeline.push(data.note.msg);
-        $scope.$apply();
-    });
+    // socket.on('room_list', function(data){
+    //     console.log('room_list', data);
+    //     $scope.roomList = data.rooms;
 
-    socket.on('room_list', function(data){
-        console.log('room_list', data);
-        $scope.roomList = data.rooms;
+    //     console.log('current roomList on channel load', $scope.roomList);
+    //     $scope.$apply();
+    // });
 
-        console.log('current roomList on channel load', $scope.roomList);
-        $scope.$apply();
-    });
+    // socket.on('room_list_update', function(data){
+    //     console.log('room_list_update', data);
 
-    socket.on('room_list_update', function(data){
-        console.log('room_list_update', data);
-
-        // this receives the entire list of active rooms back from the server.
-        $scope.roomList = data.rooms;
-        console.log('roomList after push', $scope.roomList);
-        $scope.$apply();
-    });
+    //     // this receives the entire list of active rooms back from the server.
+    //     $scope.roomList = data.rooms;
+    //     console.log('roomList after push', $scope.roomList);
+    //     $scope.$apply();
+    // });
 
 // EMIT SCREENCAPS TO THE SOCKET ====================================
+    var canvas = document.getElementById('channel'),
+        image = document.getElementById('ia'),
+        context = canvas.getContext('2d');
 
-socket.on('message',function(data) {
-    console.log('message landed', data);
-  // idleDisplayed = false;
-  // load_gif.css('display', 'none');
-  // last_conn_time = new Date().getTime() / 1000;
-  // made_connection = true;
-  // image.src = "data:image/jpg;base64,"+data;
-  // canvas.width = 358;
-  // canvas.height = 358 * image.height / image.width;
+    // socket.on('message',function(data) {
+    //     // console.log('message landed', data);
 
-  // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
-});
+    //     image.src = "data:image/jpg;base64,"+data;
+    //     canvas.width = 358;
+    //     canvas.height = 358 * image.height / image.width;
+    //     context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+    // });
+
+    $scope.connect = {};
+    $scope.connect.text = '71b';
+
+    $scope.subscription = function(chan){
+        console.log('touched a channel', chan);
+        socket.emit('subscribe', chan);
+        socket.emit('channel', { room: chan });
+    }
 
 // ANGULAR ROUTES ===================================================
     $scope.testName = $stateParams._id; 
 
     $scope.joinRoom = function(room){
         console.log('I want to join this room', $scope.selectedRoom);
-        socket.emit('join_room', $scope.selectedRoom.room);
+        // socket.emit('join_room', $scope.selectedRoom.room);
         $scope.live = true;
     };
 
@@ -113,7 +122,7 @@ socket.on('message',function(data) {
         $http
             .post(url, data_out)
             .success(function(data){
-                socket.emit('send:note', { note: data });
+                // socket.emit('send:note', { note: data });
             })
             .error(function(data){
                 // console.log('Error: ' + data);
