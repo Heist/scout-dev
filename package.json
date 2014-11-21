@@ -34,7 +34,7 @@
     "passport-local": "~0.1.6",
     "passport-trello": "^0.1.4",
     "passport.socketio": "^3.4.1",
-    "request": "^2.44.0",
+    "request": "^2.48.0",
     "socket.io": "~0.9",
     "underscore": "^1.7.0"
   },
