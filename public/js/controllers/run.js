@@ -40,7 +40,22 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
 // SOCKET ROUTES - 0.9 ============================================== 
     
-    var socket = io.connect('//127.0.0.1:8080/?test='+$stateParams._id, {
+    
+// EMIT SCREENCAPS TO THE SOCKET ====================================
+    var canvas = document.getElementById('channel'),
+        image = document.getElementById('ia'),
+        context = canvas.getContext('2d');
+
+    $scope.connect = {};
+    $scope.connect.text = '71b';
+
+    $scope.subscription = function(chan){
+        console.log('touched a channel', chan);
+        socket.emit('subscribe', { room: chan });
+        socket.emit('channel', { room: chan });
+    };
+    
+    var socket = io.connect('http://104.236.16.159:8080/?test='+$stateParams._id, {
             'force new connection': true});
 
     socket.on('connect_failed', function(data)
@@ -54,6 +69,13 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     socket.on('disconnect', function(data)
     {
         console.log('disconnect');
+
+        image.src = "/layout/assets/avatar-binocs.jpg";
+        canvas.width = 358;
+        canvas.height = 358 * image.height / image.width;
+
+        context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+
         socket.socket.disconnect();
     });
     socket.on('error', function(reason)
@@ -88,15 +110,12 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     });
 
     socket.on('message',function(data) {
-      // idleDisplayed = false;
-      // load_gif.css('display', 'none');
-      // last_conn_time = new Date().getTime() / 1000;
-      // made_connection = true;
-      image.src = "data:image/jpg;base64,"+data;
-      canvas.width = 358;
-      canvas.height = 358 * image.height / image.width;
 
-      context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+        image.src = "data:image/jpg;base64,"+data;
+        canvas.width = 358;
+        canvas.height = 358 * image.height / image.width;
+
+        context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
     });
 
     // somewhere in here,

@@ -98,13 +98,6 @@ module.exports = function(io, app, passport) {
     // SOCKET 0.9 VARIANT
 
 
-    // io.set('authorization', function(data, accept)
-    // {
-    //     // socket 0.9 middleware for logging data
-    //     // console.log('socket auth data', data);
-      
-    // });
-
     var roomList = [];
 
 // FIRE IT UP =======================================================
