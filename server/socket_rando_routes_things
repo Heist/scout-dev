@@ -84,18 +84,18 @@
             socket.join(data.room); 
         });
 
-    CONNECTION ROUTES ================================================
-        Note to self: all sockets receive their default room from
-        the URL /:test_id as $stateParams._id
-        After they're logged
-        The moderator can open _another_ room, 
-        which becomes a pool of IDs available for connection
-        {name: name, room: _id}
+    // CONNECTION ROUTES ================================================
+        // Note to self: all sockets receive their default room from
+        // the URL /:test_id as $stateParams._id
+        // After they're logged
+        // The moderator can open _another_ room, 
+        // which becomes a pool of IDs available for connection
+        // {name: name, room: _id}
         
-        On connection of a Watch socket, that room list
-        is output to the newly connected user, who then
-        selects their room from the list
-        and joins that channel as well as the previous channel.
+        // On connection of a Watch socket, that room list
+        // is output to the newly connected user, who then
+        // selects their room from the list
+        // and joins that channel as well as the previous channel.
 
             socket.on('get_room_list', function(data){
                 console.log('get room list', roomList);
@@ -103,7 +103,7 @@
             });
 
 
-    MESSAGING ROUTES =================================================
+    // MESSAGING ROUTES =================================================
 
             socket.on('send:note', function(data){
                 console.log('note sent', data);

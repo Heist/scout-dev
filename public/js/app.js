@@ -69,13 +69,13 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     // PUBLIC ROUTES ================================================
         
         // WATCH A TEST ===================================
-        .state('watch', {
-            url: '/watch/',
-            // url: '/watch/:_id',
-            controller:'watch',
-            templateUrl: 'partials/app/watch.html'
-        })    
-
+        // .state('watch', {
+        //     // url: '/watch/',
+        //     url: '/watch/:_id',
+        //     controller:'watch',
+        //     templateUrl: 'partials/app/watch.html'
+        // })
+        
     // PRIVATE ROUTES ===============================================
 
         // REPORT PAGE FOR SINGLE TEST ====================

@@ -42,7 +42,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     
     
 // EMIT SCREENCAPS TO THE SOCKET ====================================
-    var canvas = document.getElementById('channel'),
+    var canvas = document.getElementById('feed'),
         image = document.getElementById('ia'),
         context = canvas.getContext('2d');
 
@@ -54,7 +54,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         socket.emit('subscribe', { room: chan });
         socket.emit('channel', { room: chan });
     };
-    
+
     var socket = io.connect('http://104.236.16.159:8080/?test='+$stateParams._id, {
             'force new connection': true});
 
@@ -117,15 +117,6 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
         context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
     });
-
-    // somewhere in here,
-    // emit the relevant information for the tasks in the test
-    // we need name, desc, and _id
-    // When one is selected, emit that to the entire channel
-    // then on Watch, watch for that selected task
-    // and set it to Selected.
-    // 
-    
 
 // ANGULAR ROUTES ===================================================
     $scope.select = function(testIndex, taskIndex) {

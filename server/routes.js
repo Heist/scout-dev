@@ -122,6 +122,14 @@ module.exports = function(app, passport) {
 
 // PUBLIC ROUTES ==========================================
 
+    // WATCH ROUTES =================================================
+    app.route('/api/watch/:_id')
+        .get(function(req,res){
+                console.log('touched watch get', req.params._id);
+                res.json({"-JE3tiPtwErJZ-Lg2tMV":{"body":"http://invis.io/GZMQ4RRU","title":"Usage Mobile"},"-JE3uOAjrXP0Nlkqpqzt":{"body":"http://invis.io/B8MQ4ZDM","title":"Usage Tablet"},"-JE3xWsUIitNTk-g_8h0":{"body":"http://heist.is/thinking/","title":"Heist Is Thinking"},"-JE4aIAhldl9EzMJ3Bki":{"body":"tessalt.github.io/usage-static/meters.html","title":"Usage Dash"},"-JE4rm35sSTZo26B8pbq":{"body":"Http://google.com","title":"Google"},"-JI1JCCaEcacTiyOnjWf":{"body":"sdasd","title":"sdfsfk"}});
+            });
+
+
 // // Debug Route -------------------
 app.route('/debug/test')
     .get(function(req,res){
