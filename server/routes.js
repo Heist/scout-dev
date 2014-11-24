@@ -138,8 +138,14 @@ module.exports = function(app, passport) {
                     Test.findById(subject.test).exec(function(err, doc){ 
                         if(err){res.send(err);}
                         console.log('info for socket', doc.name, doc.link);
-                        // res.json({"-JE3tiPtwErJZ-Lg2tMV":{"body":"http://invis.io/GZMQ4RRU","title":"Usage Mobile"},"-JE3uOAjrXP0Nlkqpqzt":{"body":"http://invis.io/B8MQ4ZDM","title":"Usage Tablet"},"-JE3xWsUIitNTk-g_8h0":{"body":"http://heist.is/thinking/","title":"Heist Is Thinking"},"-JE4aIAhldl9EzMJ3Bki":{"body":"tessalt.github.io/usage-static/meters.html","title":"Usage Dash"},"-JE4rm35sSTZo26B8pbq":{"body":"http://google.com","title":"Google"},"-JI1JCCaEcacTiyOnjWf":{"body":"sdasd","title":"sdfsfk"}});
-                        res.json({ "0" : {"body": "http://google.com", "title": doc.name} });
+                        
+                        var reply = { "0" : {
+                                "title" : doc.name || "Test name undefined",
+                                "body"  : doc.link || "Test has no prototype link"
+                            }
+                        };
+
+                        res.json(reply);
                     });
                 });                
             });
