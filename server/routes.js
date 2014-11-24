@@ -138,10 +138,10 @@ module.exports = function(app, passport) {
                     Test.findById(subject.test).exec(function(err, doc){ 
                         if(err){res.send(err);}
                         console.log('info for socket', doc.name, doc.link);
-                        
+
                         var reply = { "0" : {
                                 "title" : doc.name || "Test name undefined",
-                                "body"  : doc.link || "Test has no prototype link"
+                                "body"  : doc.link || "http://heistmade.com"
                             }
                         };
 
