@@ -33,6 +33,7 @@ var Subject = require('../models/data/subject');
 
                 subject.name = req.body.name;
                 subject.testroom = req.body.testroom;
+                subject.test = req.body.test;
                 
                 subject.save(function(err, data){
                     if(err){res.send(err);}

@@ -168,8 +168,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         console.log($scope.subject);
 
         var url = 'api/subject/';
-        var data_out = {name : subject.name, testroom: subject.testroom};
-
+        var data_out = {name : subject.name, testroom: subject.testroom, test: $stateParams._id};
 
         $http
             .post(url, data_out)

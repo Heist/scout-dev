@@ -16,6 +16,8 @@ var Tag     = require('../models/data/tag');
 var Session = require('../models/data/session');
 var Subject = require('../models/data/subject');
 
+
+
 // RUN ROUTES =============================================
     app.route('/api/run/')
         .get(function(req,res){
@@ -36,7 +38,7 @@ var Subject = require('../models/data/subject');
                     res.json(docs);
                 });
 
-            // request.get('/api/run/:_id').pipe(request.put('http://104.236.16.159:8080/'))
+            // request('/api/run/:_id').pipe(request.put('http://104.236.16.159:8080/watch/'))
         })
         .post(function(req,res){
             // console.log('touched run post', req.body);

@@ -13,6 +13,7 @@ module.exports = function(app, passport) {
     var Task    = require('./models/data/task');
     var Test    = require('./models/data/test');
     var Tag     = require('./models/data/tag');
+    var Subject    = require('./models/data/subject');
     var User    = require('./models/auth/user');
     var Invitation = require('./models/auth/invitation');
 
@@ -125,8 +126,22 @@ module.exports = function(app, passport) {
     app.route('/api/watch/:_id')
         .get(function(req,res){
                 console.log('touched watch get', req.params._id);
+                // we have received a request with a room number
+                // we need to get  the test that room is in right now
+                // so we find it via the Subject object, which has a flow name attached
+                // then we sort through the results to get the test room.
+                
+                var promise = Subject.findOne({"testroom":req.params._id, 'test' : {$exists: true }}).exec();
 
-                res.json({"-JE3tiPtwErJZ-Lg2tMV":{"body":"http://invis.io/GZMQ4RRU","title":"Usage Mobile"},"-JE3uOAjrXP0Nlkqpqzt":{"body":"http://invis.io/B8MQ4ZDM","title":"Usage Tablet"},"-JE3xWsUIitNTk-g_8h0":{"body":"http://heist.is/thinking/","title":"Heist Is Thinking"},"-JE4aIAhldl9EzMJ3Bki":{"body":"tessalt.github.io/usage-static/meters.html","title":"Usage Dash"},"-JE4rm35sSTZo26B8pbq":{"body":"Http://google.com","title":"Google"},"-JI1JCCaEcacTiyOnjWf":{"body":"sdasd","title":"sdfsfk"}});
+                promise.then(function(subject){
+                    console.log(subject.test);
+                    Test.findById(subject.test).exec(function(err, doc){ 
+                        if(err){res.send(err);}
+                        res.json({"body": doc.link, "title":doc.name});
+                    });
+                });
+
+                // res.json({"-JE3tiPtwErJZ-Lg2tMV":{"body":"http://invis.io/GZMQ4RRU","title":"Usage Mobile"},"-JE3uOAjrXP0Nlkqpqzt":{"body":"http://invis.io/B8MQ4ZDM","title":"Usage Tablet"},"-JE3xWsUIitNTk-g_8h0":{"body":"http://heist.is/thinking/","title":"Heist Is Thinking"},"-JE4aIAhldl9EzMJ3Bki":{"body":"tessalt.github.io/usage-static/meters.html","title":"Usage Dash"},"-JE4rm35sSTZo26B8pbq":{"body":"Http://google.com","title":"Google"},"-JI1JCCaEcacTiyOnjWf":{"body":"sdasd","title":"sdfsfk"}});
             });
 
 
@@ -187,6 +202,16 @@ module.exports = function(app, passport) {
                     res.json(invites);
                 });
         });
+
+     app.route('/debug/subject')
+    .get(function(req,res){
+        Subject.find()
+            .exec(function(err, docs) {
+                if(err){res.send(err);}
+
+                res.json(docs);
+            });
+    });
 
 // PUBLIC REPORT ROUTE ====================================
 // for some reason I can't require this and still have it be public
