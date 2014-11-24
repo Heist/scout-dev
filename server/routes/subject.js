@@ -6,6 +6,7 @@ module.exports = function(app, passport) {
 // Module dependencies
 var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 var _ = require('underscore');
+var request = require('request');
 
 // load data storage models
 var Message = require('../models/data/message');
@@ -22,8 +23,8 @@ var Subject = require('../models/data/subject');
                     .exec(function(err,subjects){
                         if(err){res.send(err);}
                         
-                        res.json(subjects)    
-                    })
+                        res.json(subjects);
+                    });
             })
         .post(function(req,res){
                 // console.log('touched add subject', req.body);
@@ -36,7 +37,7 @@ var Subject = require('../models/data/subject');
                     if(err){res.send(err);}
                     
                     // console.log(data);
-                    res.json(data)
+                    res.json(data);
                 });
         });
 

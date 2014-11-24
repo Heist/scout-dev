@@ -27,14 +27,16 @@ var Subject = require('../models/data/subject');
     app.route('/api/run/:_id')
         .get(function(req,res){
             // console.log('touched run route',req.params._id )
+            // console.log('touched run route', req.body)
+            
             Test.find({"_id":req.params._id, "_tasks": {$not: {$size: 0}}})
                 .populate('_tasks')
                 .exec(function(err, docs){
                     if(err){res.send(err);}
-
                     res.json(docs);
                 });
 
+            request.get('/api/run/:_id').pipe(request.put('http://104.236.16.159:8080/'))
         })
         .post(function(req,res){
             // console.log('touched run post', req.body);

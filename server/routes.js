@@ -107,7 +107,6 @@ module.exports = function(app, passport) {
             req.logIn(user, function(err) {
                 if (err) { return res.json(err); }
                 // console.log('auth/signup authenticated user', req.user);
-
                 return res.json({ 'user': req.user._id, 'name':req.user.name, redirect: '/overview', msg:'register user worked' });
             });
         })(req, res);
@@ -126,15 +125,15 @@ module.exports = function(app, passport) {
     app.route('/api/watch/:_id')
         .get(function(req,res){
                 console.log('touched watch get', req.params._id);
-                
 
-                
+
+
                 res.json({"-JE3tiPtwErJZ-Lg2tMV":{"body":"http://invis.io/GZMQ4RRU","title":"Usage Mobile"},"-JE3uOAjrXP0Nlkqpqzt":{"body":"http://invis.io/B8MQ4ZDM","title":"Usage Tablet"},"-JE3xWsUIitNTk-g_8h0":{"body":"http://heist.is/thinking/","title":"Heist Is Thinking"},"-JE4aIAhldl9EzMJ3Bki":{"body":"tessalt.github.io/usage-static/meters.html","title":"Usage Dash"},"-JE4rm35sSTZo26B8pbq":{"body":"Http://google.com","title":"Google"},"-JI1JCCaEcacTiyOnjWf":{"body":"sdasd","title":"sdfsfk"}});
             });
 
 
 // // Debug Route -------------------
-app.route('/debug/test')
+    app.route('/debug/test')
     .get(function(req,res){
         Test.find()
             .exec(function(err, docs) {
@@ -144,7 +143,7 @@ app.route('/debug/test')
             });
     });
 
-app.route('/debug/task')
+    app.route('/debug/task')
     .get(function(req,res){
         Task.find()
             .exec(function(err, docs) {
@@ -154,7 +153,7 @@ app.route('/debug/task')
             });
     });
 
-app.route('/debug/message')
+    app.route('/debug/message')
     .get(function(req,res){
         Message.find()
             .exec(function(err, docs) {
@@ -164,7 +163,7 @@ app.route('/debug/message')
             });
     });
 
-app.route('/debug/tag')
+    app.route('/debug/tag')
         .get(function(req,res){
             Tag.find(function(err, docs) {
                     if(err){res.send(err);}
@@ -173,7 +172,7 @@ app.route('/debug/tag')
                 });
         });
 
-app.route('/debug/user')
+    app.route('/debug/user')
         .get(function(req,res){
             User.find(function(err, users) {
                     if(err){res.send(err);}
@@ -182,7 +181,7 @@ app.route('/debug/user')
                 });
         });
 
-app.route('/debug/invite')
+    app.route('/debug/invite')
         .get(function(req,res){
             Invitation.find(function(err, invites) {
                     if(err){res.send(err);}
@@ -195,7 +194,7 @@ app.route('/debug/invite')
 // for some reason I can't require this and still have it be public
 //  ¯\_(ツ)_/¯
 
-app.route('/api/report/:_id')
+    app.route('/api/report/:_id')
     .get(function(req, res){
         // console.log('touched report get', req.params._id);
 
@@ -245,12 +244,12 @@ app.route('/api/report/:_id')
 // MIDDLEWARE TO BLOCK NON-AUTHORIZED USERS ===============
 // this effectively prevents unlogged users from getting data
 
-app.use('/api',  isLoggedInAjax, function (req, res, next) {
-    // for calls that start with api....
-    // console.log('touched the api tag');
+    app.use('/api',  isLoggedInAjax, function (req, res, next) {
+        // for calls that start with api....
+        // console.log('touched the api tag');
 
-    next();
-});
+        next();
+    });
 
 // app.use('/api', function (req, res, next) {
 // // for calls that start with api....
@@ -275,7 +274,8 @@ app.use('/api',  isLoggedInAjax, function (req, res, next) {
         // this sends things to the popup window.
         // var script = '$scope.parentWindow = window.opener.$windowScope;
         //              console.log($scope.connector);';
-        res.send('<html><head><script>window.opener.inviteCallback(); window.close();</script></head><body><h1>Thanks for attaching your account.</h1></body></html>');
+        res.send('<html><head><script>window.opener.inviteCallback(); window.close();</script>'+
+                '</head><body><h1>Thanks for attaching your account.</h1></body></html>');
     });
 
     app.delete('/connect/trello', function(req, res){
@@ -290,35 +290,35 @@ app.use('/api',  isLoggedInAjax, function (req, res, next) {
     });
 
 // ACCOUNT ROUTES =========================================
-require('./routes/account')(app);
+    require('./routes/account')(app);
 
 // OBJECT ROUTES ==========================================
 
 // Session Routes
-require('./routes/session')(app);
+    require('./routes/session')(app);
 
 // Test Routes
-require('./routes/test')(app);
+    require('./routes/test')(app);
 
 // Task Routes 
-require('./routes/task')(app);
+    require('./routes/task')(app);
 
 // Task Routes 
-require('./routes/message')(app);
+    require('./routes/message')(app);
 
 // Tag Routes
-require('./routes/tag')(app);
+    require('./routes/tag')(app);
 
 // Subject Routes
-require('./routes/subject')(app);
+    require('./routes/subject')(app);
 
 
 // LIVE ROUTES ============================================
 
 // Run A Test
-require('./routes/run')(app);
+    require('./routes/run')(app);
 
 // Do A Summary
-require('./routes/summary')(app);
+    require('./routes/summary')(app);
 
 };
