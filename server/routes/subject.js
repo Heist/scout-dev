@@ -32,6 +32,7 @@ var Subject = require('../models/data/subject');
                 var subject = new Subject();
 
                 subject.name = req.body.name;
+                subject.testroom = req.body.testroom;
                 
                 subject.save(function(err, data){
                     if(err){res.send(err);}
@@ -39,14 +40,14 @@ var Subject = require('../models/data/subject');
                     // console.log(data);
                     res.json(data);
                 });
-        });
+            });
 
     app.route('/api/subject/:_id')
         .get(function(req, res){
             Subject.findById(req.params._id)
                 .exec(function(err, subject){
                     if(err){res.send(err);}
-                    res.json(subject)
+                    res.json(subject);
                 });
         });
-}
+};

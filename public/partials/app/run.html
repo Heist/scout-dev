@@ -26,13 +26,20 @@
 						
 						<input class="input" type="text" name="participantname" value="" 
 							placeholder="&lsquo;Jane&rsquo; or &lsquo;Tester 2&rsquo;, for example" ng-model="subject.name"
-							ui-keypress="{13:'addSubject(subject.name)'}" />
+							/>
 						</input>
+						<br />
+
+						<input class="input" type="text" name="testroom" value="" 
+							placeholder="71ff3a84 or similar" ng-model="subject.testroom"
+							ui-keypress="{13:'addSubject(subject)'}" >
+						</input>
+
 					</li>
 					
 					
 					<li class="text-center">
-						<button class="button" type="submit" ng-click="addSubject(subject.name)">Start testing!</button>
+						<button class="button" type="submit" ng-click="addSubject(subject)">Start testing!</button>
 					</li>
 				
 				</ul>

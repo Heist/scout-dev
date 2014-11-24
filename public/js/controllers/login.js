@@ -16,15 +16,15 @@ angular.module('field_guide_controls')
         $scope.acct = $stateParams.acct.replace( /\//gi,"");
         // console.log($scope.acct);
         $scope.reg_toggle = true;
-        mixpanel.track('registration page touch', {
-            'account': $stateParams.acct
-        });
+        // mixpanel.track('registration page touch', {
+        //     'account': $stateParams.acct
+        // });
     }
     
     $scope.tracker = function(){
-        mixpanel.track('myAccount', {
-            'account': $stateParams.acct
-        });
+        // mixpanel.track('myAccount', {
+        //     'account': $stateParams.acct
+        // });
     }
     $scope.login = function(user){
         var url = '/auth/login';
@@ -79,9 +79,9 @@ angular.module('field_guide_controls')
                 $rootScope.user = data._id;
                 $location.path(data.redirect);
 
-                mixpanel.track('registered new user', {
-                    'name': data.email
-                });
+                // mixpanel.track('registered new user', {
+                //     'name': data.email
+                // });
 
             })
             .error(function(error){

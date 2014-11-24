@@ -12,9 +12,10 @@ var SubjectSchema = new Schema ({
   _messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
     
   name: {type:String, trim:true},
-  
+  testroom : {type:String, trim:true},
+
   created : Date,
-    updated : Date
+  updated : Date
 })
 
 SubjectSchema.pre('save', function(next){

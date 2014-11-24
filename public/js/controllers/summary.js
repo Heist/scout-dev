@@ -194,8 +194,7 @@ angular.module('field_guide_controls')
     
         $scope.messages = _.map($scope.messages, function(val, key){ return val; });
     
-        mixpanel.track('Summary complete', {
-        });
+        // mixpanel.track('Summary complete', {});
 
         console.log('messages', $scope.messages);
 

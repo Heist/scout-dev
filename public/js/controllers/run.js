@@ -89,6 +89,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     socket.on('reconnect', function(data)
     {
         console.log('reconnect');
+        socket.emit('channel', {room : $scope.subject.testroom});
     });
     socket.on('reconnecting', function(data)
     {
@@ -159,21 +160,26 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     };
 
 
-    $scope.addSubject = function(textfield){
-        // console.log('touched addSubject', textfield);
+    $scope.addSubject = function(subject){
+        console.log('touched addSubject', subject);
+
+        $scope.subject = subject;
+        console.log($scope.subject);
 
         var url = 'api/subject/';
-        var data_out = {name : textfield};
+        var data_out = {name : subject.name, testroom: subject.testroom};
+
 
         $http
             .post(url, data_out)
             .success(function(subject){
-                // console.log(subject);
                 $scope.subject = subject;
                 $scope.live = true;
                 $scope.select(0,0);
-                // console.log('selected', $scope.selected);
-                socket.emit('send:subject_added', {subject: subject});
+
+                console.log('subject', $scope.subject);
+                // socket.emit('send:subject_added', {subject: subject});
+                socket.emit('channel', {room : subject.testroom});
             })
             .error(function(data){
                 // console.log('Error: ' + data);
@@ -233,8 +239,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         var url = '/api/run/'+$stateParams._id;
         var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
 
-        mixpanel.track('Test completed', {
-        });
+        // mixpanel.track('Test completed', {});
         // console.log('touched end', data_out);
 
         // collects all the tests and steps and outputs them as a collected object

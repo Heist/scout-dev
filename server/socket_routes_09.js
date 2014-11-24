@@ -129,7 +129,14 @@ module.exports = function(io, app, passport) {
             socket.join(hash); 
         });
 
+// these are from different elements of the client and are intended to subscribe
+// to channel output from phone app
         socket.on('channel', function(data) { 
+            console.log('joining channel', data.room.toLowerCase());
+            socket.join(data.room); 
+        });
+
+        socket.on('join_room', function(data) { 
             console.log('joining room', data.room.toLowerCase());
             socket.join(data.room); 
         });

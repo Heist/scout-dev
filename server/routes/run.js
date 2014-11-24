@@ -36,7 +36,7 @@ var Subject = require('../models/data/subject');
                     res.json(docs);
                 });
 
-            request.get('/api/run/:_id').pipe(request.put('http://104.236.16.159:8080/'))
+            // request.get('/api/run/:_id').pipe(request.put('http://104.236.16.159:8080/'))
         })
         .post(function(req,res){
             // console.log('touched run post', req.body);
