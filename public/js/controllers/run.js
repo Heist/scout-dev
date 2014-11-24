@@ -113,10 +113,10 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     socket.on('message',function(data) {
         console.log('message');
         image.src = "data:image/jpg;base64,"+data;
-        canvas.width = 250;
-        canvas.height = 250 * image.height / image.width;
+        canvas.width = 358;
+        canvas.height = 358 * image.height / image.width;
 
-        context.drawImage(image, 0, 0, 250, 250 * image.height / image.width);
+        context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
         // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
     });
 
