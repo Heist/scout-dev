@@ -109,7 +109,14 @@ app.route('/api/message/:_id')
             });
     })
     .put(function(req, res){
-
+        console.log('touched update message', req.body);
+        // sort through req.body for hashtags
+        // sort through Tag to see if Message is already in them
+        // Tag.find('name': $in : {tag_names})
+        // if the Tag doesn't exist
+        // upsert a Tag with this as the first message
+        // otherwise, add this message to the Tag that gets found
+        
         var update = {
             fav_task : req.body.fav_task, 
             fav_tag : req.body.fav_tag,
@@ -117,9 +124,29 @@ app.route('/api/message/:_id')
         };
 
         Message.findOneAndUpdate({'_id' : req.params._id}, update, function(err, msg){
-            if(err){return console.log(err);}
-            res.json(msg);
-        });
+                        if(err){return console.log(err);}
+                        res.json(msg);
+                    });
+
+        // promise.then(function(msg){
+        //     reply.msg = msg;
+        //     reply.tags = [];
+            
+
+        //     async.each(tags, function(tag){
+        //         Tag.findOneAndUpdate(
+        //             {'name': tag},
+        //             { $push: { _messages : tag } },
+        //             {upsert: true},
+        //             function(err, doc){
+        //                 if(err){console.log(err);}
+        //                 reply.tags.push(doc);
+        //             });
+        //     });
+        // }).then(function(){
+        //     console.log(reply);
+        //     res.json(reply);
+        // });
 
     });
 };

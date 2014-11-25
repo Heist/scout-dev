@@ -124,10 +124,27 @@ angular.module('field_guide_controls')
     $scope.saveEdit = function(message){
         $scope.messageEditToggle = false;
 
+        console.log(message);
+
+        var tags = [];
+        var hashCatch = new RegExp(/\S*#\S+/gi);
+        var hashPull = new RegExp(/#/gi);
+        var tagIt = message.body.match(hashCatch);
+        
+        if (tagIt){
+            _.each(tagIt, function(tag){
+                var msg = tag.replace(hashPull,'');
+                tags.push(msg);
+            });
+        }
+
+        console.log('tags', tags);
+
         $http
             .put('/api/message/'+message._id, message)
             .success(function(err, msg){
                 console.log('msg_success');
+                // update the messages in the report
             });
     };
 
