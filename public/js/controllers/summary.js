@@ -140,11 +140,11 @@ angular.module('field_guide_controls')
 
         console.log('tags', tags);
         message.tags = tags;
-        
+
         $http
             .put('/api/message/'+message._id, message)
             .success(function(err, msg){
-                console.log('msg_success');
+                console.log('msg_success', msg);
                 // update the messages in the report
             });
     };

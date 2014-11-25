@@ -161,25 +161,30 @@ app.route('/api/message/:_id')
                 // then return the list of updated tags to the summary
                 // lacking their messages
 
-                async.each(docs, function(doc){
-                    console.log('doc id', doc._id, doc.body);
-                    Tag.findById(doc._id)
-                       .exec(function(err, t){
-                            var index = _.indexOf(req.body.tags, t.body);
-                            if(index === -1){
+                _.each(docs, 
+                    function(doc){
+                        Tag.findById(doc._id)
+                           .exec(function(err, t){
+                                // find a tag, and if it does not exist in req body tags
+                                // delete the message from it
+                                if(err){console.log(err);}
+                                var index = _.indexOf(req.body.tags, t.body);
+                                if(index === -1){
+                                    var msg_index = t._messages.indexOf(id_search);
+                                    t._messages.splice(msg_index, 1);
+                                    t.save();
+                                }
+                            });
+                    });
 
-                                var msg_index = t._messages.indexOf(id_search);
-
-                                t._messages.splice(msg_index, 1);
-                                t.save(function(err, saved){
-                                    console.log('saved', saved);
-                                });
-                            }
-                        });
-                });
-
-            }).then(function(more){
-                // console.log(reply);
+            }).then(function(){
+                console.log('reply test', reply.msg._test);
+                return Tag.find({'_test' : reply.msg._test}).exec();
+                
+            }).then(function(tags){
+                reply.tags = tags;
+                // console.log('found tags', tags);
+                console.log('reply full', reply);
                 res.json(reply);
             });
 
