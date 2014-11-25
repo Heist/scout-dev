@@ -48,10 +48,41 @@ angular.module('field_guide_controls')
         }
     };
 
+
+    // ACTIONS ============================================
+    // an effort to manipulate order.... 
+    $scope.moveTask = function(old_index, new_index){
+        console.log(old_index, new_index)
+        new_index = old_index + new_index;
+
+        while (old_index < 0) {
+            old_index += this.length;
+        }
+        while (new_index < 0) {
+            new_index += this.length;
+        }
+        if (new_index >= this.length) {
+            var k = new_index - this.length;
+            while ((k--) + 1) {
+                this.push(undefined);
+            }
+        }
+        
+        $scope.tasks.splice(new_index, 0, $scope.tasks.splice(old_index, 1)[0]);
+
+        // set the stored index of the task properly
+        
+
+        return $scope.tasks; // for testing purposes
+    };
+
+    $scope.moveTaskDown = function(index){
+        task.index = task.index + 1;
+    };
+
     $scope.selectPrototype = function(kind){
         console.log('touched prototype', kind);
         $scope.test.kind = kind;
-
         // mixpanel.track('Type of Test', {'test type' : kind });
     };
 
@@ -75,15 +106,22 @@ angular.module('field_guide_controls')
         var explanations = [
             {   anchor : 1,
                 title : 'What is a test?',
-                body : 'A <strong>Test</strong> is a series of screens, goals, or steps for your customers to interact with. For example, you could use a <strong>Test</strong> to capture a sign-up process.'
+                body : 'A <strong>Test</strong> is a series of screens,' + 
+                       ' goals, or steps for your customers to interact with.'+
+                       ' For example, you could use a <strong>Test</strong> to'+
+                       ' capture a sign-up process.'
             },
             {   anchor : 3,
                 title : 'What is a task?',
-                body : '<strong>Tasks</strong> allow you to define important steps in your prototype, website, or app. <strong>Talking points</strong> are the notes and ideas you want to ask the person you’re testing with. You define steps to <strong>sort and organize</strong> your notes and feedback.'
+                body : '<strong>Tasks</strong> allow you to define important'+
+                       ' steps in your prototype, website, or app. <strong>Talking points</strong>'+
+                       ' are the notes and ideas you want to ask the person you’re testing with.'+
+                       ' You define steps to <strong>sort and organize</strong> your notes and feedback.'
             },
             {   anchor : 5,
                 title : 'Next steps',
-                body : 'Round up some testers - you&rsquo;re ready to test. This would be a good time to schedule in some test participants.'
+                body : 'Round up some testers - you&rsquo;re ready to test.'+
+                       ' This would be a good time to schedule in some test participants.'
             }
         ];
 
@@ -185,7 +223,7 @@ angular.module('field_guide_controls')
         $scope.updateTask(task);
 	};
 
-    $scope.select= function(task) {
+    $scope.select = function(task) {
         $scope.selectedTask = task;         
     };
     
@@ -243,6 +281,15 @@ angular.module('field_guide_controls')
         if (!test.title){
             test.title = 'New test Name Goes Here';
         }
+
+        var task_count=0;
+        _.each($scope.tasks, function(task){
+            task.index = task_count;
+            task_count++;
+            console.log(task.name, task.index);
+        });
+
+        console.log($scope.tasks);
 
         // reminder: this pushes an update to an already-created test
 		return $http

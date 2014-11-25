@@ -140,8 +140,22 @@ app.route('/api/test/:_id')
         var t = req.body;
         // console.log(test);
 
+        // Get the tasks so we can update their collected indices.
+        var tasks = [];
+
         if(t._tasks){
-            var tasks = _.pluck(t._tasks, '_id');
+            tasks = _.pluck(t._tasks, '_id');
+            console.log('tasks from updated test', tasks);
+            // console.log('unplucked _tasks', t._tasks);
+            async.each(t._tasks, function(task){
+                Task.findOneAndUpdate(
+                    {'_id':task._id},
+                    {index : task.index },
+                    function(err, doc){
+                        if(err){console.log(err);}
+                    });
+            });
+
         }
         
         var id = mongoose.Types.ObjectId(t._id);
@@ -151,7 +165,8 @@ app.route('/api/test/:_id')
                 link    : t.link,
                 name    : t.name,
                 platform: t.platform,
-                kind    : t.kind
+                kind    : t.kind,
+                _tasks  : tasks
             };
 
         var options = {
@@ -163,10 +178,8 @@ app.route('/api/test/:_id')
             // console.log('found', doc);
             res.json(doc);
         });
-        
-            
+      
     })
-
     .delete(function(req,res){
         // deletes a single test by id
         // from session list of tests

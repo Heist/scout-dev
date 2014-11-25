@@ -154,10 +154,11 @@
                 </ul>
                 </div> -->
 
-                <ul ui-tree="treeOptions" data-max-depth="1" id="steps" ui-tree-nodes="" ng-model="tasks">
-                    <li ui-tree-node ng-repeat="task in tasks | orderBy: 'index'" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
-                        <div class="step-hamburger" ui-tree-handle >≡</div>
-                        
+                <ul id="steps" ng-model="tasks">
+                    <li ng-repeat="task in tasks | orderBy: 'task.index'" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
+                        <div class="" ng-click="moveTask($index, 1)" style="width:50px; height:50px; display:block; float:left;">↓</div>
+                        <div class="" ng-click="moveTask($index, -1)" style="width:50px; height:50px; display:block; float:left;">↑</div>
+                         {{task.index}}
                         <div class="step-controls">
                             <div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
                         </div>
