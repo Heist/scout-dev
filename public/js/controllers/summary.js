@@ -139,7 +139,8 @@ angular.module('field_guide_controls')
         }
 
         console.log('tags', tags);
-
+        message.tags = tags;
+        
         $http
             .put('/api/message/'+message._id, message)
             .success(function(err, msg){

@@ -109,7 +109,8 @@ app.route('/api/message/:_id')
             });
     })
     .put(function(req, res){
-        console.log('touched update message', req.body);
+        console.log('touched update message');
+        // console.log('touched update message', req.body);
         // sort through req.body for hashtags
         // sort through Tag to see if Message is already in them
         // Tag.find('name': $in : {tag_names})
@@ -123,30 +124,60 @@ app.route('/api/message/:_id')
             body : req.body.body
         };
 
-        Message.findOneAndUpdate({'_id' : req.params._id}, update, function(err, msg){
+        var reply = {};
+
+        var promise = Message.findOneAndUpdate({'_id' : req.params._id}, update, function(err, msg){
                         if(err){return console.log(err);}
-                        res.json(msg);
                     });
 
-        // promise.then(function(msg){
-        //     reply.msg = msg;
-        //     reply.tags = [];
-            
+        // console.log(req.body.tags);
 
-        //     async.each(tags, function(tag){
-        //         Tag.findOneAndUpdate(
-        //             {'name': tag},
-        //             { $push: { _messages : tag } },
-        //             {upsert: true},
-        //             function(err, doc){
-        //                 if(err){console.log(err);}
-        //                 reply.tags.push(doc);
-        //             });
-        //     });
-        // }).then(function(){
-        //     console.log(reply);
-        //     res.json(reply);
-        // });
+        promise.then(function(msg){
+            reply.msg = msg;
+            reply.tags = [];
+            
+            console.log('reply.msg', reply.msg._id);
+
+            // for each tag that we've detected, get that tag.
+            // if it does not exist, create it.
+            // if it does exist, push the new message to it.
+
+            // ugh, we're going to have to use double pointers.
+            // wait, no. Check all tags within THIS TEST (whew)
+            // for existing message ._id
+            // if the message _id exists in a tag not found in tags list
+            // remove the message _id from that tag.
+
+            Tag.find({'_messages' : {$in: [reply.msg._id]} })
+                .exec(function(err, docs){
+                    // console.log('tags found', docs);
+                    // console.log('tags', req.body.tags);
+                    var id_search = reply.msg._id.toString();
+                    // if the name of the tag 
+                    // does not exist in the list of tags
+                    // remove the message._id from it
+                    async.each(docs, function(doc){
+
+                        var index = _.indexOf(req.body.tags, doc.body);
+                        if(index === -1){
+
+                            var msg_index = doc._messages.indexOf(id_search);
+
+                            console.log('msg index', id_search, msg_index, doc.body);
+                            console.log('messages', doc._messages);
+                            // doc._messages.splice(msg_index, 1);
+                        //     doc.save(function(err, saved){
+                        //         console.log('saved', saved);
+                        //     });
+                        }
+                    });
+                });
+
+
+        }).then(function(){
+            console.log(reply);
+            res.json(reply);
+        });
 
     });
 };
