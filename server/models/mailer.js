@@ -32,7 +32,7 @@ var Emailer = (function() {
         var html = ejs.render(str, this.message_variables);
 
         var messageData = {
-            to: '<alex.leitch@gmail.com>',
+            to: this.envelope_options.to.email,
             from: "Field Guide App <contact@fieldguideapp.com>",
             subject: this.envelope_options.subject,
             html: html,
