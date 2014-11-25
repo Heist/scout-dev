@@ -136,7 +136,7 @@ app.route('/api/message/:_id')
             reply.msg = msg;
             reply.tags = [];
             
-            console.log('reply.msg', reply.msg._id);
+            // console.log('reply.msg', reply.msg._id);
 
             // for each tag that we've detected, get that tag.
             // if it does not exist, create it.
@@ -148,36 +148,40 @@ app.route('/api/message/:_id')
             // if the message _id exists in a tag not found in tags list
             // remove the message _id from that tag.
 
-            Tag.find({'_messages' : {$in: [reply.msg._id]} })
-                .exec(function(err, docs){
-                    // console.log('tags found', docs);
-                    // console.log('tags', req.body.tags);
-                    var id_search = reply.msg._id.toString();
-                    // if the name of the tag 
-                    // does not exist in the list of tags
-                    // remove the message._id from it
-                    async.each(docs, function(doc){
+            return Tag.find({'_messages' : {$in: [reply.msg._id]}}).exec();
 
-                        var index = _.indexOf(req.body.tags, doc.body);
-                        if(index === -1){
+        }).then(function(docs){
+            // after we have a bunch of tags, do some things with them
+                var id_search = reply.msg._id.toString();
+                console.log('found docs', docs.length);
 
-                            var msg_index = doc._messages.indexOf(id_search);
+                // if the name of the tag
+                // does not exist in the list of tags
+                // remove the message._id from it
+                // then return the list of updated tags to the summary
+                // lacking their messages
 
-                            console.log('msg index', id_search, msg_index, doc.body);
-                            console.log('messages', doc._messages);
-                            // doc._messages.splice(msg_index, 1);
-                        //     doc.save(function(err, saved){
-                        //         console.log('saved', saved);
-                        //     });
-                        }
-                    });
+                async.each(docs, function(doc){
+                    console.log('doc id', doc._id, doc.body);
+                    Tag.findById(doc._id)
+                       .exec(function(err, t){
+                            var index = _.indexOf(req.body.tags, t.body);
+                            if(index === -1){
+
+                                var msg_index = t._messages.indexOf(id_search);
+
+                                t._messages.splice(msg_index, 1);
+                                t.save(function(err, saved){
+                                    console.log('saved', saved);
+                                });
+                            }
+                        });
                 });
 
-
-        }).then(function(){
-            console.log(reply);
-            res.json(reply);
-        });
+            }).then(function(more){
+                // console.log(reply);
+                res.json(reply);
+            });
 
     });
 };
