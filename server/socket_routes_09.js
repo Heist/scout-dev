@@ -135,13 +135,13 @@ module.exports = function(io, app, passport) {
         socket.on('channel', function(data) { 
             console.log('joining channel', data.room.toLowerCase());
             socket.join(data.room); 
-            socket.broadcast.to(data.room).emit('joined_channel', data.room);
+            io.sockets.in(data.room).emit('joined_channel', data.room);
         });
 
         socket.on('join_room', function(data) { 
             console.log('joining room', data.room.toLowerCase());
             socket.join(data.room); 
-            socket.broadcast.to(data.room).emit('joined_channel', data.room);
+            io.sockets.in(data.room).emit('joined_channel', data.room);
         });
 
         // Connect to default room from querystring.

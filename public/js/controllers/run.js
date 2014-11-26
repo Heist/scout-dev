@@ -100,6 +100,10 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         console.log('announce', data);
     });
 
+    socket.on('joined_channel', function(data){
+        console.log('joined_channel', data);
+    });
+
     socket.on('note', function(data){
         console.log('note', data);
         $scope.timeline.push(data.note.msg);
