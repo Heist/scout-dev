@@ -167,14 +167,17 @@ app.route('/api/message/:_id')
 
                         if(!tg){
                             // create a new tag and push a message to it, save and exit
-                            Tag.create({'body' : tag, 
-                                        '_test' : reply.msg._test, 
-                                        $push : {'_messages' : reply.msg._id }
-                                        },
-                                    function(err, tag){
-                                        if(err){console.log(err);}
-                                        console.log('created new tag', tag);
-                                    });
+                            var t = new Tag ();
+                            t.body = tag;
+                            t._test = reply.msg._test;
+                            t._messages.push(reply.msg._id);
+
+                            t.save(function(err, n){
+                                if(err){console.log(err);}
+                                console.log('created new tag', n.body);
+                                return;
+                            });
+                             
                         }
 
                         if(tg){
@@ -196,8 +199,10 @@ app.route('/api/message/:_id')
                     if(err){console.log(err);}
                 });
 
+                var test = mongoose.Types.ObjectId(reply.msg._test);
+
                 // return real tags
-                return Tag.find({'_test' : reply.msg._test}).exec();
+                return Tag.find({'_test' : reply.msg._test}).populate('_messages').exec();
                 
             }).then(function(tags){
                 reply.tags = tags;

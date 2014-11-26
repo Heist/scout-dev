@@ -143,8 +143,10 @@ angular.module('field_guide_controls')
 
         $http
             .put('/api/message/'+message._id, message)
-            .success(function(err, msg){
-                console.log('msg_success', msg);
+            .success(function(msg, err){
+                console.log('msg_success', msg, err);
+
+
                 // update the messages in the report
             });
     };
