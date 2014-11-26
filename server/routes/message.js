@@ -145,10 +145,10 @@ app.route('/api/message/:_id')
         }).then(function(docs){
         
                 var id_search = reply.msg._id.toString();
-                // if the name of the tag
-                // does not exist in the list of tags
+                
+                // If a tag exists with that message
+                // but does not exist within the list of tags
                 // remove the message._id from it
-
                 async.each(docs, function(doc){
                     Tag.findById(doc._id)
                        .exec(function(err, t){
@@ -164,29 +164,33 @@ app.route('/api/message/:_id')
                         });
                 });
 
-                // for each new tag in the list
-                // add that message to the tag's messages (right now there may be double messaging)
-                // if the tag does not exist, create it.
+                // for each existing tag in the list
+                // if a message is not already in the messages set
+                // add that message to the tag's messages
                 async.each(req.body.tags, function(tag){
-                    
-
-                    // { $push: { _messages: m._id
-                    //                 },
-                    //             body: tag,
-                    //             _test: call._test
-                    //         };
-
-                    //  _messages: { $nin: [ reply.msg._id ]}
-
-                    // this may not work - it will find a tag that doesn't have the message
-                    // and push that message
-                    // but it might not create a new tag if it finds nothing
-                    
                     Tag.findOneAndUpdate(
                         {'body' : tag,
                           _messages: { $nin: [ reply.msg._id ]}
                          },
                         { $push: { _messages: reply.msg._id },
+                          body: tag,
+                          _test: reply.msg._test
+                        },
+                        { upsert : false },
+                        function(err, update){
+                            if(err){console.log(err);}
+                            console.log('update', update);
+                        });
+                });
+
+                // if a tag does not exist, create it.
+                async.each(req.body.tags, function(tag){
+                    Tag.findOneAndUpdate(
+                        { $nor : [{'body' : {$exists : tag}},
+                                  {'_messages': { $nin: [ reply.msg._id ]}}
+                                 ]
+                         },
+                        { $push: { '_messages' : reply.msg._id },
                           body: tag,
                           _test: reply.msg._test
                         },
@@ -198,8 +202,15 @@ app.route('/api/message/:_id')
                 });
 
             }).then(function(){
+                // delete tags that have no messages in them?
                 // re-get the list of tags for the message
+
+                // {pictures: {$not: {$size: 0}}}
                 console.log('reply test', reply.msg._test);
+                Tag.find({'_messages' : {$size: 0}}).exec(function(err, empty){
+                    if(err){console.log(err);}
+                    console.log('empty tags', empty);
+                });
                 return Tag.find({'_test' : reply.msg._test}).exec();
                 
             }).then(function(tags){

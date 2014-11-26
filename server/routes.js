@@ -133,6 +133,10 @@ module.exports = function(app, passport) {
                 
                 var promise = Subject.findOne({"testroom":req.params._id, 'test' : {$exists: true }}).exec();
 
+// TODO: ADD A DEFAULT SUBJECT ROUTE
+// WHEN APP CONNECTS AND NO SUBJECT IS FOUND
+// GENERATE SPOOF TEMPORARILY
+
                 promise.then(function(subject){
                     console.log(subject.test);
                     Test.findById(subject.test).exec(function(err, doc){ 
@@ -190,6 +194,12 @@ module.exports = function(app, passport) {
                     res.json(docs);
                 });
         });
+        // .delete(function(req,res){ // TODO: HIDE THIS ON MAIN, IT IS FOR DEBUG ONLY
+        //     Tag.remove(function(err, tags){
+        //         if(err){console.log(err);}
+        //         res.send('deleted');
+        //     });
+        // });
 
     app.route('/debug/user')
         .get(function(req,res){
