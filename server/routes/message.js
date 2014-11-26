@@ -110,13 +110,6 @@ app.route('/api/message/:_id')
     })
     .put(function(req, res){
         console.log('touched update message');
-        // console.log('touched update message', req.body);
-        // sort through req.body for hashtags
-        // sort through Tag to see if Message is already in them
-        // Tag.find('name': $in : {tag_names})
-        // if the Tag doesn't exist
-        // upsert a Tag with this as the first message
-        // otherwise, add this message to the Tag that gets found
         
         var update = {
             fav_task : req.body.fav_task, 
@@ -185,20 +178,35 @@ app.route('/api/message/:_id')
 
                 // if a tag does not exist, create it.
                 async.each(req.body.tags, function(tag){
-                    Tag.findOneAndUpdate(
-                        { $nor : [{'body' : {$exists : tag}},
-                                  {'_messages': { $nin: [ reply.msg._id ]}}
-                                 ]
-                         },
-                        { $push: { '_messages' : reply.msg._id },
-                          body: tag,
-                          _test: reply.msg._test
-                        },
-                        { upsert : true },
-                        function(err, update){
-                            if(err){console.log(err);}
-                            console.log('update', update);
-                        });
+                    Tag.find({'body' : tag}).limit(1).exec(function(err,doc){
+                        if(err){console.log(err);}
+                        
+                        var tg = doc[0];
+
+                        if(!tg){
+                            // create a new tag and push a message to it, save and exit
+                            Tag.create({'body' : tag, 
+                                        '_test' : reply.msg._test, 
+                                        $push : {'_messages' : reply.msg._id }
+                                        },
+                                    function(err, tag){
+                                        if(err){console.log(err);}
+                                        console.log('created new tag', tag);
+                                    });
+                        }
+
+                        if(tg){
+                            // if the message does not already exist
+                            if(tg._messages.indexOf(reply.msg._id) === -1){
+                                tg._messages.push(reply.msg._id);
+                                tg.save(function(err, saved){
+                                    if(err){console.log(err);}
+                                    return;
+                                });
+                            }
+                        }
+
+                    });
                 });
 
             }).then(function(){
