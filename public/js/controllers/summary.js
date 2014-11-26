@@ -146,8 +146,8 @@ angular.module('field_guide_controls')
             .success(function(msg, err){
                 console.log('msg_success', msg, err);
 
-
-                // update the messages in the report
+                // we cheat and return everything en masse.
+                $scope.tags = msg.tags;
             });
     };
 
