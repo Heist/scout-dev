@@ -120,6 +120,7 @@ module.exports = function(io, app, passport) {
             }
         });
 
+        // subscription is used in the iOS app
         socket.on('subscribe', function(data) { 
             console.log('subscription arrived', data);
 
@@ -127,18 +128,20 @@ module.exports = function(io, app, passport) {
             console.log('joining room hash', hash);
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
             socket.join(hash); 
+
         });
 
-// these are from different elements of the client and are intended to subscribe
-// to channel output from phone app
+        // channel or join_room are used by the web app
         socket.on('channel', function(data) { 
             console.log('joining channel', data.room.toLowerCase());
             socket.join(data.room); 
+            socket.broadcast.to(data.room).emit('joined_channel', data.room);
         });
 
         socket.on('join_room', function(data) { 
             console.log('joining room', data.room.toLowerCase());
             socket.join(data.room); 
+            socket.broadcast.to(data.room).emit('joined_channel', data.room);
         });
 
         // Connect to default room from querystring.
