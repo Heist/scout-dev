@@ -28,6 +28,8 @@
 		D751475419F80C6400D6BE68 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D751475319F80C6400D6BE68 /* libicucore.dylib */; };
 		D751475619F80C6A00D6BE68 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D751475519F80C6A00D6BE68 /* Security.framework */; };
 		D751475819F80C7000D6BE68 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D751475719F80C7000D6BE68 /* CFNetwork.framework */; };
+		D7FA46691A25F80E00D9500F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7FA46681A25F80E00D9500F /* LoginViewController.m */; };
+		D7FA46701A265AEE00D9500F /* MySingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = D7FA466F1A265AEE00D9500F /* MySingleton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,12 +77,17 @@
 		D751474319F80B7400D6BE68 /* SocketIOTransportWebsocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportWebsocket.m; sourceTree = "<group>"; };
 		D751474419F80B7400D6BE68 /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = "<group>"; };
 		D751474519F80B7400D6BE68 /* SocketIOTransportXHR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportXHR.m; sourceTree = "<group>"; };
-		D751474619F80B7400D6BE68 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
+		D751474619F80B7400D6BE68 /* SocketROcket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketROcket-Prefix.pch"; sourceTree = "<group>"; };
 		D751474719F80B7400D6BE68 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
 		D751474819F80B7400D6BE68 /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
 		D751475319F80C6400D6BE68 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		D751475519F80C6A00D6BE68 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D751475719F80C7000D6BE68 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D7FA46671A25F80E00D9500F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		D7FA46681A25F80E00D9500F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		D7FA466A1A262E2700D9500F /* Variables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Variables.h; sourceTree = "<group>"; };
+		D7FA466E1A265AEE00D9500F /* MySingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySingleton.h; sourceTree = "<group>"; };
+		D7FA466F1A265AEE00D9500F /* MySingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySingleton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,8 +133,13 @@
 		D751470619F80AC000D6BE68 /* FieldGuide */ = {
 			isa = PBXGroup;
 			children = (
+				D7FA466A1A262E2700D9500F /* Variables.h */,
+				D7FA466E1A265AEE00D9500F /* MySingleton.h */,
+				D7FA466F1A265AEE00D9500F /* MySingleton.m */,
 				D751470B19F80AC000D6BE68 /* AppDelegate.h */,
 				D751470C19F80AC000D6BE68 /* AppDelegate.m */,
+				D7FA46671A25F80E00D9500F /* LoginViewController.h */,
+				D7FA46681A25F80E00D9500F /* LoginViewController.m */,
 				D751470E19F80AC000D6BE68 /* MasterViewController.h */,
 				D751470F19F80AC000D6BE68 /* MasterViewController.m */,
 				D751471119F80AC000D6BE68 /* DetailViewController.h */,
@@ -208,7 +220,7 @@
 				D751474319F80B7400D6BE68 /* SocketIOTransportWebsocket.m */,
 				D751474419F80B7400D6BE68 /* SocketIOTransportXHR.h */,
 				D751474519F80B7400D6BE68 /* SocketIOTransportXHR.m */,
-				D751474619F80B7400D6BE68 /* SocketRocket-Prefix.pch */,
+				D751474619F80B7400D6BE68 /* SocketROcket-Prefix.pch */,
 				D751474719F80B7400D6BE68 /* SRWebSocket.h */,
 				D751474819F80B7400D6BE68 /* SRWebSocket.m */,
 			);
@@ -329,8 +341,10 @@
 				D751474919F80B7400D6BE68 /* iOStream.m in Sources */,
 				D751474A19F80B7400D6BE68 /* base64.c in Sources */,
 				D751474E19F80B7400D6BE68 /* SocketIOJSONSerialization.m in Sources */,
+				D7FA46701A265AEE00D9500F /* MySingleton.m in Sources */,
 				D751471319F80AC000D6BE68 /* DetailViewController.m in Sources */,
 				D751474B19F80B7400D6BE68 /* KTouchPointerWindow.m in Sources */,
+				D7FA46691A25F80E00D9500F /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +468,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FieldGuide/Info.plist;
@@ -468,6 +483,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FieldGuide/Info.plist;

@@ -30,7 +30,7 @@
     UIColor *tintColor = [UIColor whiteColor];
     
     //Set the title of the page
-    self.title = @"PROTOTYPES";
+    self.title = @"Prototypes";
     
     //set row height
     self.tableView.rowHeight = 68.f;
@@ -41,7 +41,7 @@
     NSString *newURL = [NSString stringWithFormat:@"http://104.236.16.159:8080/api/watch/%@", hash];
     jsonURL = newURL;
     
-    NSLog(@"Error: %@", jsonURL);
+    NSLog(@"JSON: %@", jsonURL);
     
     //Get the JSON
     [self getJSON];
@@ -96,6 +96,7 @@
     
     NSError *error;
     NSData *data = [NSData dataWithContentsOfURL: url];
+    
     _items = [NSJSONSerialization JSONObjectWithData: data
                                              options: NSJSONReadingAllowFragments
                                                error: &error];
@@ -113,7 +114,7 @@
     }
     
     //Log returned JSON
-    //NSLog(@"%@",_items);
+    NSLog(@"%@",_items);
     
     if (error != nil)
     {

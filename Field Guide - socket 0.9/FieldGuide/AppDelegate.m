@@ -18,13 +18,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-    UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-    navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
-    splitViewController.delegate = self;
     
     iOStreamClient *client = [iOStreamClient sharedInstance];
-    client.frameInterval = 15; //10 FPS
+    client.frameInterval = 18; //10 FPS
     client.showsTouchPointer = YES; //show the touch pointer
     [client startStream];
     
