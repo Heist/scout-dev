@@ -135,13 +135,25 @@ module.exports = function(io, app, passport) {
         socket.on('channel', function(data) { 
             console.log('joining channel', data.room.toLowerCase());
             socket.join(data.room); 
-            io.sockets.in(data.room).emit('joined_channel', data.room);
+
+            io.sockets.in(data.room).emit('joined_channel', {data: data.room, name:'io.sockets.in'});
+            socket.broadcast.to(data.room).emit('joined_channel', {data: data.room, name:'socket.broadcast.to channel'});
+            io.sockets.emit('joined_channel', {data: data.room, name:'io.sockets.emit'});
+            // io.emit('joined_channel', {data: data.room, name:'io.emit'});
+            // socket.emit('joined_channel', {data: data.room, name:'socket.emit'});
+            io.sockets.to(data.room).emit('joined_channel', {data: data.room, name:'io.sockets.to'});
         });
 
         socket.on('join_room', function(data) { 
             console.log('joining room', data.room.toLowerCase());
-            socket.join(data.room); 
-            io.sockets.in(data.room).emit('joined_channel', data.room);
+            socket.join(data.room);
+
+        //     io.sockets.in(data.room).emit('joined_channel', {data: data.room, name:'io.sockets.in'});
+        //     socket.broadcast.to(data.room).emit('joined_channel', {data: data.room, name:'socket.broadcast.to join room'});
+        //     io.sockets.emit('joined_channel', {data: data.room, name:'io.sockets.emit'});
+        //     // io.emit('joined_channel', {data: data.room, name:'io.emit'});
+        //     // socket.emit('joined_channel', {data: data.room, name:'socket.emit'});
+        //     io.sockets.to(data.room).emit('joined_channel', {data: data.room, name:'io.sockets.to'});
         });
 
         // Connect to default room from querystring.
