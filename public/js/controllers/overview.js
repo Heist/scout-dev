@@ -98,7 +98,7 @@ angular.module('field_guide_controls')
                 console.log($rootScope.user);
                 test.created_by = $rootScope.user;
                
-                mixpanel.track('test added', {
+                mixpanel.track('Add new test', {
                     'user' : $rootScope.user
                 });
 

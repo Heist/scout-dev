@@ -33,8 +33,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
 
         $scope.selected = test._tasks[taskIndex];
 
-        mixpanel.track('Task changed', {
-        });
+        mixpanel.track('Task changed', {});
         // select
         // pushes the identity of a test or task
         // to the update array
@@ -83,7 +82,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
                 $scope.select(0,0);
                 console.log('selected', $scope.selected);
                 
-                mixpanel.track('Test Subject Added', {
+                mixpanel.track('Add Participant Name', {
                 });
             })
             .error(function(data){
