@@ -10,7 +10,7 @@
 		width: 90%;
 		
 		li {
-			padding: $pad/1.5 $pad;
+			padding: $pad/2 $pad/1.5;
 			margin: 0;
 			@include radius;
 			border: 2px solid $white;
@@ -61,6 +61,15 @@
 				}
 			}
 			
+			.sidebar-visibility {
+				float: right;
+				display: block;
+				
+				img {
+					width: 16px;
+					height: auto;
+				}
+			}
 			
 		}
 			

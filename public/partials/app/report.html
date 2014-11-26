@@ -64,13 +64,24 @@
 	
 	
 	
+	
+	
+	
 	<!-- sub bar -->
 	<div id="sub-bar">
 		<div class="container">
-			<h1>{{test.name}} <span>Report</span></h1>
+			<h1>{{test.name}} <span>Findings</span></h1>
 			
 			<div class="sub-bar-controls">
-				<small>Share this report:</small> <input class="input small tight" ng-model="reportLink"/>
+				
+				<small>Share this report:</small> <input class="input small" ng-model="reportLink"/>
+				
+				<span ng-show="user">
+					&nbsp;&nbsp;
+					<button class="button small  button-summarizing">&nbsp;Edit&nbsp;</button>
+					<span class="button small fake button-summarizing">&nbsp;Viewing&nbsp;</span>
+				</button>
+					
 			</div>
 			
 			<div class="clear"></div>
@@ -84,19 +95,27 @@
 			
 			<div id="sidebar">
 				<ul>
+					<!-- TEST overview -->
 					<li ng-model="test" ui-sref=".test" ng-click="select(test)" ng-class="{ 'active': test._id == selected._id}">
-						<small>test</small> 
-						<h3>{{test.name}}</h3>
+						<!--<small>test</small> -->
+						{{test.name}}
 					</li>
 					
-					<li class="empty"><small>Tasks</small></li>
+					<!-- TASKS -->
 					
 					<li ui-sref=".task" ng-click="select(task)" class="question" ng-class="{ 'active': task._id == selected._id}" ng-repeat="task in tasks | orderBy : 'index'" >
-						<h3>{{task.name}}</h3>
-
+						{{task.name}}
 						<div class="task-score green" ng-show="task.pass_fail == true" >&nbsp;</div>
 						<div class="task-score red" ng-show="task.pass_fail == false">&nbsp;</div>
 					</li>
+					
+					<!-- THEMES -->
+					
+					<li ui-sref=".tag" ng-repeat="tag in tags">
+						#{{tag.body}}
+					</li>
+					
+					
 				</ul>
 			</div>
 			

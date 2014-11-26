@@ -9,10 +9,11 @@
 	<!-- sub bar -->
 	<div id="sub-bar">
 		<div class="container">
-			<h1><span>Summarizing</span> {{test.name}}</h1>
+			<h1>{{test.name}} <span>Findings</span></h1>
 			
-			<div class="sub-bar-controls">
-				<button class="button small button-summarizing" ng-click="completeSummary(flow)">&check; Done Summarizing</button>
+			<div class="sub-bar-controls">	
+				<span class="button small fake button-summarizing">&nbsp;Editing&nbsp;</span>
+				<button class="button small button-summarizing" ng-click="completeSummary(flow)">&nbsp;View&nbsp;</button>
 			</div>
 			
 			<div class="clear"></div>
@@ -29,21 +30,32 @@
 			<div id="sidebar">	
 			
 				<ul>
+					<!-- OVERVIEW -->
+				
 					<li ng-model='test' ui-sref=".test" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(test, $index)">
-						<small>test</small>
-						<h3>{{test.name}}</h3>
+						<!--<small>test</small>-->
+						Overview
+						<div class="sidebar-visibility"><img src="/layout/assets/checkbox-filled.svg" /></div>
 					</li>
 					
-					<!-- put in a placeholder title to delineate tasks -->
-					<li class="empty"><small>Tasks</small></li>
+					<!-- TASKS -->
+					
+					<!-- placeholder title to delineate tasks -->
+					<!-- <li class="empty"><small>Tasks</small></li> -->
 						
-					<li class="question" ng-repeat="task in tasks | orderBy : 'index'" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(task, $index)">
-						
-						<h3>{{task.name}}</h3>
-
-						<!--<p>{{task.desc}}</p>-->
-						
+					<li ng-repeat="task in tasks | orderBy : 'index'" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(task, $index)">
+						{{task.name}}
+						<div class="sidebar-visibility"><img src="/layout/assets/checkbox-filled.svg" /></div>
+						<!--<p>{{task.desc}}</p>-->	
 					</li>
+					
+					<!-- THEMES! -->
+					
+					<li ng-repeat="tag in tags" ng-click="selectTag($index)">
+						#{{tag.body}}
+						<div class="sidebar-visibility"><img src="/layout/assets/checkbox-filled.svg" /></div>
+					</li>
+					
 				</ul>
 			
 			</div>
@@ -54,12 +66,14 @@
 		
 		<!-- the summarizing area -->
 		<div class="module two-thirds">
-		<div ui-view >
-			<!-- this pane is set in summary_test and summary_task -->
-		</div>
+			<div ui-view >
+			
+				<!-- this pane is set in summary_test and summary_task -->
+			</div>
 		</div>
 		
 		<div class="clear"></div>
+	
 	
 	</div>
 
