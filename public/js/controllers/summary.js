@@ -230,7 +230,7 @@ angular.module('field_guide_controls')
                 $location.path('/overview');
             })
             .error(function(data){
-                // // console.log('er;ror', data);
+                console.log('error', data);
             });        
 
     };
