@@ -54,7 +54,7 @@
         <!-- choose a test type -->
 
             <div ng-show="anchor === 1">
-            	<div class="module third test-type" ng-class="{selected: test.kind}">
+            	<div class="module third test-type" ng-class="{selected: test.kind == 'interview'}">
             	    <img src="/layout/assets/testtype-ethno.png">
             	    <h3>Interview</h3>
             	    <p>You have a <strong>discussion-style</strong> test that doesn’t have any visuals associated with it.</p>
@@ -62,11 +62,11 @@
             	    <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
             	</div>
             	
-            	<div class="module third test-type">
+            	<div class="module third test-type" ng-class="{selected: test.kind == 'prototype'}">
             	    <img src="/layout/assets/testtype-proto.png">
             	    <h3>Prototype</h3>
             	    <p>You have a <strong>screen-based prototype</strong> in Invision, Marvel, or on the web.</p>
-            	    <button class="button small hollow disabled">Coming soon</button>
+            	    <button class="button small" ng-click='selectPrototype("prototype")'>Select</button>
             	    <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
             	</div>
             	
@@ -117,14 +117,16 @@
                         <div class="clear"></div>           
                     </li>
                     
-                    <li>
+                    -->
+                    
+                    <li ng-show="test.kind == 'prototype'">
                         <label for="field-prototypeurl">Your prototype URL</label>
                         
                         <input class="input" id="field-prototypeurl" ng-model="test.link" type="text" value="" placeholder="http://invis.io/ABC123" />
-                        <small><a href="#" class="alt">How do I find my prototype URL?</a></small>
+                        <!--<small><a href="#" class="alt">How do I find my prototype URL?</a></small>-->
                     </li>
                     
-                    -->
+                 
                     
                     <li>
                         <label for="field-prototypeurl">Your test objectives</label>
