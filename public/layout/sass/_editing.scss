@@ -199,6 +199,23 @@
 					width: 20px;
 				}
 				
+				.step-ordering {
+					position: absolute;
+					top: 10px;
+					left: -25px;
+					width: 20px;
+					opacity: 0.2;
+					
+					div {
+						cursor: pointer;
+					}
+					
+					&:hover {
+						opacity: 1.0;
+					}
+				}
+				
+				
 				.step-contents {
 					float: left;
 					width: 100%;

@@ -158,11 +158,16 @@
 
                 <ul id="steps" ng-model="tasks">
                     <li ng-repeat="task in tasks | orderBy: 'task.index'" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
-                        <div class="" ng-click="moveTask($index, 1)" style="width:25px; height:25px; display:block; float:left;">↓</div>
-                        <div class="" ng-click="moveTask($index, -1)" style="width:25px; height:25px; display:block; float:left;">↑</div>
+                        
+                        <div class="step-ordering">
+                        	<div ng-click="moveTask($index, -1)" class="elevator elevator-up">&#9650;</div>
+                        	<div ng-click="moveTask($index, 1)" class="elevator elevator-down">&#9660;</div>
+                        </div>
+                    
                         <div class="step-controls">
                             <div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
                         </div>
+                    
                         <div class="step-contents">
                             <form>
                                 <input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
