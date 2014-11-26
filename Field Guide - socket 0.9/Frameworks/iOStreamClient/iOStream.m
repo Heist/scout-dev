@@ -1,6 +1,8 @@
 //  Based on ScreenRecorder by kishikawa katsumi
 
 #import "iOStream.h"
+#import "SocketIOPacket.h"
+#import "MySingleton.h"
 #import <CommonCrypto/CommonDigest.h>
 #import <UIKit/UIKit.h>
 
@@ -93,13 +95,41 @@ CVReturn CVPixelBufferCreateWithIOSurface(
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"room"];
     if (_connectedChan == NO) {
-        NSString *hash = [self md5: [[[UIDevice currentDevice] identifierForVendor] UUIDString]];
-        hash = [hash substringWithRange:NSMakeRange(0, 8)];
-        UIAlertView *room = [[UIAlertView alloc] initWithTitle:@"Your roomID is:" message:hash delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [room show];
+//        NSString *hash = [self md5: [[[UIDevice currentDevice] identifierForVendor] UUIDString]];
+//        hash = [hash substringWithRange:NSMakeRange(0, 8)];
+//        UIAlertView *room = [[UIAlertView alloc] initWithTitle:@"Your roomID is:" message:hash delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        //[room show];
         _connectedChan = YES;
     }
     [socketIO sendEvent:@"subscribe" withData:dict];
+}
+
+//Check for connection
+- (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
+{
+    //joined_channel
+    NSString *newData = packet.data;
+    //NSLog(@"didReceiveEvent >>> data: %@", newData);
+    
+    MySingleton *singleton = [MySingleton sharedMySingleton];
+    
+    //Check if its connected
+    if ([newData rangeOfString:@"joined_channel"].location != NSNotFound){
+        
+        // Get the static singleton's property value
+        singleton.isConnected = YES;
+        
+        [singleton.sharedLoginViewController checkRoomConnection];
+        
+        NSLog(@"JOINED", nil);
+        
+    }else{
+        singleton.isConnected = NO;
+        
+        [singleton.sharedLoginViewController checkRoomConnection];
+    }
+    
+    //[sharedLoginViewController checkRoomConnection];
 }
 
 - (void) socketIO:(SocketIO *)socket onError:(NSError *)error
