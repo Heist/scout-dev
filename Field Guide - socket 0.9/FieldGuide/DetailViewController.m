@@ -41,7 +41,6 @@
     _webView.delegate = self;
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     
     _endCallButton.titleLabel.font = [UIFont fontWithName:@"FreightSansMedium" size:10.f];
     
@@ -54,15 +53,15 @@
     if (self.detailItem) {
         
         NSString *detailWebURL = [_detailItem objectForKey:@"body"];
-        
-        //Check if its an invsion link
-        if ([detailWebURL rangeOfString:@"invis"].location != NSNotFound){
-            isInvision = YES;
-            NSLog(@"Invision Link!!!", nil);
-            
-        }else{
-            isInvision = NO;
-        }
+//        
+//        //Check if its an invsion link
+//        if ([detailWebURL rangeOfString:@"invis"].location != NSNotFound){
+//            isInvision = YES;
+//            NSLog(@"Invision Link!!!", nil);
+//            
+//        }else{
+//            isInvision = NO;
+//        }
         
         NSURL *url = [NSURL URLWithString:detailWebURL];
         
@@ -78,8 +77,8 @@
     
 }
 
-- (void) viewWillAppear:(BOOL)animated{
-    
+-(BOOL)prefersStatusBarHidden{
+    return YES;
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
@@ -106,49 +105,49 @@
 
 // I am capturing an image whenever the URL is changed, the issue is on load there are mulitple URL call which is why i needed to set a boolean value on if its loading or not and check for that whenever a URL is loading.
 //
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    
-    //Use the invision link check to see how to handle generating screenshots
-    if (navigationType == UIWebViewNavigationTypeOther && webViewLoaded && isInvision){
-        
-        NSURL *url = [request URL];
-        NSLog(@"%@", url);
-        
-        //		NSString *theTitle=[webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-        //		NSLog(@"%@", theTitle);
-        
-        double delayInSeconds = 0.2;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            //code to be executed on the main queue after delay
-            
-            UIImage *image = [self imageFromWebview:webView];
-            
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-            
-        });
-        
-        //        UIImage *image = [self imageFromWebview:webView];
-        //
-        //        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-        
-        
-    } else if (navigationType == UIWebViewNavigationTypeLinkClicked && webViewLoaded){
-        
-        NSURL *url = [request URL];
-        NSLog(@"%@", url);
-        
-        //		NSString *theTitle=[webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-        //		NSLog(@"%@", theTitle);
-        
-        UIImage *image = [self imageFromWebview:webView];
-        
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-        
-    }
-    
-    return YES;
-}
+//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+//    
+//    //Use the invision link check to see how to handle generating screenshots
+//    if (navigationType == UIWebViewNavigationTypeOther && webViewLoaded && isInvision){
+//        
+//        NSURL *url = [request URL];
+//        NSLog(@"%@", url);
+//        
+//        //		NSString *theTitle=[webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+//        //		NSLog(@"%@", theTitle);
+//        
+//        double delayInSeconds = 0.2;
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//            //code to be executed on the main queue after delay
+//            
+//            UIImage *image = [self imageFromWebview:webView];
+//            
+//            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+//            
+//        });
+//        
+//        //        UIImage *image = [self imageFromWebview:webView];
+//        //
+//        //        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+//        
+//        
+//    } else if (navigationType == UIWebViewNavigationTypeLinkClicked && webViewLoaded){
+//        
+//        NSURL *url = [request URL];
+//        NSLog(@"%@", url);
+//        
+//        //		NSString *theTitle=[webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+//        //		NSLog(@"%@", theTitle);
+//        
+//        UIImage *image = [self imageFromWebview:webView];
+//        
+//        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+//        
+//    }
+//    
+//    return YES;
+//}
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     
@@ -160,16 +159,16 @@
     
     webViewLoaded = YES;
     
-    double delayInSeconds = 0.2;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        //code to be executed on the main queue after delay
-        
-        UIImage *image = [self imageFromWebview:webView];
-        
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-        
-    });
+//    double delayInSeconds = 0.2;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        //code to be executed on the main queue after delay
+//        
+//        UIImage *image = [self imageFromWebview:webView];
+//        
+//        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+//        
+//    });
     
 }
 
