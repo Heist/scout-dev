@@ -157,26 +157,8 @@ app.route('/api/message/:_id')
                         });
                 });
 
-                // for each existing tag in the list
-                // if a message is not already in the messages set
-                // add that message to the tag's messages
-                async.each(req.body.tags, function(tag){
-                    Tag.findOneAndUpdate(
-                        {'body' : tag,
-                          _messages: { $nin: [ reply.msg._id ]}
-                         },
-                        { $push: { _messages: reply.msg._id },
-                          body: tag,
-                          _test: reply.msg._test
-                        },
-                        { upsert : false },
-                        function(err, update){
-                            if(err){console.log(err);}
-                            console.log('update', update);
-                        });
-                });
-
                 // if a tag does not exist, create it.
+                // if a tag exists but does not have the message in it, push the message in.
                 async.each(req.body.tags, function(tag){
                     Tag.find({'body' : tag}).limit(1).exec(function(err,doc){
                         if(err){console.log(err);}
@@ -205,26 +187,21 @@ app.route('/api/message/:_id')
                                 });
                             }
                         }
-
                     });
                 });
 
             }).then(function(){
-                // delete tags that have no messages in them?
-                // re-get the list of tags for the message
-
-                // {pictures: {$not: {$size: 0}}}
-                console.log('reply test', reply.msg._test);
-                Tag.find({'_messages' : {$size: 0}}).exec(function(err, empty){
+                // kill empty tags
+                Tag.remove({'_messages' : {$size : 0}, '_test' : reply.msg._test}, function(err){
                     if(err){console.log(err);}
-                    console.log('empty tags', empty);
                 });
+
+                // return real tags
                 return Tag.find({'_test' : reply.msg._test}).exec();
                 
             }).then(function(tags){
                 reply.tags = tags;
-                // console.log('found tags', tags);
-                console.log('reply full', reply);
+                
                 res.json(reply);
             });
 
