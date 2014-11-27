@@ -104,7 +104,7 @@ module.exports = function(io, app, passport) {
     io.sockets.on('connection', function (socket) {
         console.log('hello user', user._account);
         console.log('someone connected from somewhere');
-        console.log('do we have a test room?', default_room);
+        // console.log('do we have a test room?', default_room);
 
         // socket.emit('connected', {socket: socket});
 
@@ -133,14 +133,14 @@ module.exports = function(io, app, passport) {
 
         // channel or join_room are used by the web app
         socket.on('channel', function(data) { 
-            console.log('joining channel', data.test);
+            console.log('joining channel', data.room, data.test, data);
 
             // joins the test to the socket from remote device
             socket.join(data.room);
 
             // passes the phone the route for getting the appropriate test from the socket
-            io.sockets.in(data.room).emit('joined_channel', data.test);
-            
+            io.sockets.in(data.room).emit('joinedChannel', data.test);
+
         });
 
         socket.on('join_room', function(data) { 

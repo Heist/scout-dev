@@ -184,6 +184,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
                 console.log('subject', $scope.subject);
                 // socket.emit('send:subject_added', {subject: subject});
                 socket.emit('channel', { room: chan, test: $stateParams._id });
+    
             })
             .error(function(data){
                 // console.log('Error: ' + data);

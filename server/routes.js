@@ -123,7 +123,7 @@ module.exports = function(app, passport) {
 // PUBLIC ROUTES ==========================================
 
     // WATCH ROUTES =================================================
-    app.route('/api/watch/:_id')
+    app.route('/api/watch/:device_id/:test_id')
         .get(function(req,res){
                 console.log('touched watch get', req.params._id);
                 // we have received a request with a room number
@@ -131,15 +131,11 @@ module.exports = function(app, passport) {
                 // so we find it via the Subject object, which has a flow name attached
                 // then we sort through the results to get the test room.
                 
-                var promise = Subject.findOne({"testroom":req.params._id, 'test' : {$exists: true }}).exec();
-
 // TODO: ADD A DEFAULT SUBJECT ROUTE
 // WHEN APP CONNECTS AND NO SUBJECT IS FOUND
 // GENERATE SPOOF TEMPORARILY
 
-                promise.then(function(subject){
-                    console.log(subject.test);
-                    Test.findById(subject.test).exec(function(err, doc){ 
+                    Test.findById(req.params.test_id).exec(function(err, doc){ 
                         if(err){res.send(err);}
                         console.log('info for socket', doc.name, doc.link);
 
@@ -151,7 +147,6 @@ module.exports = function(app, passport) {
 
                         res.json(reply);
                     });
-                });                
             });
 
 
