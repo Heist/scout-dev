@@ -11,10 +11,6 @@
 #import "MySingleton.h"
 #import <CommonCrypto/CommonDigest.h>
 
-//
-//NSString *uniqueRoom = [self md5: [[[UIDevice currentDevice] identifierForVendor] UUIDString]];
-//uniqueRoom = [uniqueRoom substringWithRange:NSMakeRange(0, 8)];
-
 @implementation MasterViewController
 {
     NSDictionary *_items;
