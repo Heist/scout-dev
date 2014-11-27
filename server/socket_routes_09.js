@@ -133,15 +133,14 @@ module.exports = function(io, app, passport) {
 
         // channel or join_room are used by the web app
         socket.on('channel', function(data) { 
-            console.log('joining channel', data.room.toLowerCase());
-            socket.join(data.room); 
+            console.log('joining channel', data.test);
 
-            io.sockets.in(data.room).emit('joined_channel', {data: data.room, name:'io.sockets.in'});
-            socket.broadcast.to(data.room).emit('joined_channel', {data: data.room, name:'socket.broadcast.to channel'});
-            io.sockets.emit('joined_channel', {data: data.room, name:'io.sockets.emit'});
-            // io.emit('joined_channel', {data: data.room, name:'io.emit'});
-            // socket.emit('joined_channel', {data: data.room, name:'socket.emit'});
-            io.sockets.to(data.room).emit('joined_channel', {data: data.room, name:'io.sockets.to'});
+            // joins the test to the socket from remote device
+            socket.join(data.room);
+
+            // passes the phone the route for getting the appropriate test from the socket
+            io.sockets.in(data.room).emit('joined_channel', data.test);
+            
         });
 
         socket.on('join_room', function(data) { 

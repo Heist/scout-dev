@@ -51,8 +51,8 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
     $scope.subscription = function(chan){
         console.log('touched a channel', chan);
-        socket.emit('subscribe', { room: chan });
-        socket.emit('channel', { room: chan });
+        socket.emit('subscribe', { room: chan, test: $stateParams._id });
+        socket.emit('channel', { room: chan, test: $stateParams._id });
     };
 
     var socket = io.connect('http://104.236.16.159:8080/?test='+$stateParams._id, {
@@ -89,7 +89,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     socket.on('reconnect', function(data)
     {
         console.log('reconnect');
-        socket.emit('channel', {room : $scope.subject.testroom});
+        socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
     });
     socket.on('reconnecting', function(data)
     {
@@ -183,7 +183,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
                 console.log('subject', $scope.subject);
                 // socket.emit('send:subject_added', {subject: subject});
-                socket.emit('channel', {room : subject.testroom});
+                socket.emit('channel', { room: chan, test: $stateParams._id });
             })
             .error(function(data){
                 // console.log('Error: ' + data);
