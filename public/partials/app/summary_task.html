@@ -7,7 +7,7 @@
 				<h4>&ldquo;{{selected.name}}&rdquo; summary</h4>
 				<p>Add a summary to capture any notable outcomes, directions, or action items.</p>
 				
-				<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="selected.summary" ng-blur="saveSummary(selected)"></textarea>				
+				<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>				
 				
 			
 				<div class="task-rating" ng-show="selected.pass_fail == false">

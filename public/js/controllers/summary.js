@@ -40,8 +40,8 @@ angular.module('field_guide_controls')
         });
 
     // SAVE FUNCTIONS =====================================
-    $scope.saveSummary = function(obj){
-        console.log(obj);
+    $scope.saveObject = function(obj){
+        console.log('saving', obj);
 
         var url, data;
 
@@ -88,7 +88,7 @@ angular.module('field_guide_controls')
             obj.pass_fail = true;
         }
 
-        $scope.saveSummary(obj);
+        $scope.saveObject(obj);
         
     };
 
@@ -101,8 +101,11 @@ angular.module('field_guide_controls')
 
     $scope.toggleVis = function(obj){
         console.log('toggle me', obj);
-        if (obj.visible){ obj.visible = false; return;}
-        if (!obj.visible){ obj.visible = true; return;}
+
+        if (obj.visible){ obj.visible = false; $scope.saveObject(obj); return;}
+        if (!obj.visible){ obj.visible = true; $scope.saveObject(obj); return;}
+
+        
     };
 
     // MESSAGE FUNCTIONS ==================================

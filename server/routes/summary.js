@@ -121,17 +121,18 @@ module.exports = function (app, passport) {
         console.log('touched summary task', req.body.pass_fail, req.body._id);
 
         Task.findById(req.params._id)
-            .exec(function(err, task){
+            .exec(function(err, doc){
                 if (err) {res.send(err);}
 
-                if(req.body.summary){task.summary = req.body.summary;}
-                if(req.body.pass_fail !== null){ task.pass_fail = req.body.pass_fail;}
-                
-                task.save(function(err,task){
+                if(req.body.summary){doc.summary = req.body.summary;}
+                if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
+                if(req.body.visible !== null){ doc.visible = req.body.visible;}
+
+                doc.save(function(err,data){
                     if(err){res.send(err);}
 
                     // console.log('updated task', task);
-                    res.json(task);
+                    res.json(data);
                 });
         });
 
@@ -147,7 +148,8 @@ module.exports = function (app, passport) {
 
                 if(req.body.summary){doc.summary = req.body.summary;}
                 if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
-                
+                if(req.body.visible !== null){ doc.visible = req.body.visible;}
+
                 doc.save(function(err,data){
                     if(err){res.send(err);}
 
@@ -168,6 +170,7 @@ module.exports = function (app, passport) {
 
                 if(req.body.summary){doc.summary = req.body.summary;}
                 if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
+                if(req.body.visible !== null){ doc.visible = req.body.visible;}
                 
                 doc.save(function(err,data){
                     if(err){res.send(err);}
