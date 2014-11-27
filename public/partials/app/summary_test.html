@@ -18,17 +18,17 @@
 		<p>Add summaries to tags to capture any notable themes or patterns.</p>
 		
 		<ul class="tags">
-			<li ng-repeat="tag in tags" ng-click="selectTag($index)" ng-class="{ 'active': selectedTag.body == tag.body}">
-				<span ng-if="tag.summarized">{{tag.body}} &#x2713;</span>
-				<span ng-if="!tag.summarized">{{tag.body}}</span>
+			<li ng-repeat="tag in tags" ng-click="selectTag($index)" ng-class="{ 'active': selectedtag.name == tag.name}">
+				<span ng-if="tag.summarized">{{tag.name}} &#x2713;</span>
+				<span ng-if="!tag.summarized">{{tag.name}}</span>
 			</li>
 		</ul>
 		
 		<div class='clear'></div>
 		
 	
-		<div ng-show="selectedTag.body" ng-model="selectedTag" class="summary-tag">
-			<h4>Summary for #{{selectedTag.body}}</h4>
+		<div ng-show="selectedtag.name" ng-model="selectedTag" class="summary-tag">
+			<h4>Summary for #{{selectedtag.name}}</h4>
 	
 				
 			<textarea class="input" id="field-textarea" placeholder="Your summary" ng-model="selectedTag.summary"></textarea><br>

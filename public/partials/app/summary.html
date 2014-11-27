@@ -30,9 +30,9 @@
 				<ul>
 					<!-- OVERVIEW -->
 
-					<li ng-repeat="object in leftNavList | orderBy : 'index'" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(task, $index)">
-						{{task.name}}
-						<div class="sidebar-visibility"><button ng-click="toggleVis(task)"><img src="/layout/assets/checkbox-filled.svg" ng-show="task.visible" /></button></div>
+					<li ng-repeat="object in leftNavList | orderBy : 'index'" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(object, $index)">
+						{{object.name}}
+						<div class="sidebar-visibility"><button ng-click="toggleVis(object)"><img src="/layout/assets/checkbox-filled.svg" ng-show="object.visible" /></button></div>
 						<!--<p>{{task.desc}}</p>-->	
 					</li>
 					

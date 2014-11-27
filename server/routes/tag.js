@@ -39,6 +39,7 @@ var _ = require('underscore');
             res.json('tag post touched');
         })
         .put(function(req, res){
+            console.log('touched update tag', req.body)
             var update = {
                 summary : req.body.summary, 
                 summarized : req.body.summarized,

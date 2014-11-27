@@ -74,10 +74,10 @@ app.route('/api/message/')
                 // console.log('tags call', call, m._id, req.body.tags);
             
             async.each(req.body.tags, function(tag){
-                    var q = {body: tag, _test: call._test};
+                    var q = {name: tag, _test: call._test};
                     var u = { $push: { _messages: m._id
                                     },
-                                body: tag,
+                                name: tag,
                                 _test: call._test
                             };
                     var o = {upsert:true};
@@ -114,7 +114,7 @@ app.route('/api/message/:_id')
         var update = {
             fav_task : req.body.fav_task, 
             fav_tag : req.body.fav_tag,
-            body : req.body.body
+            name : req.body.name
         };
 
         var reply = {};
@@ -148,7 +148,7 @@ app.route('/api/message/:_id')
                             // find a tag, and if it does not exist in req body tags
                             // delete the message from it
                             if(err){console.log(err);}
-                            var index = _.indexOf(req.body.tags, t.body);
+                            var index = _.indexOf(req.body.tags, t.name);
                             if(index === -1){
                                 var msg_index = t._messages.indexOf(id_search);
                                 t._messages.splice(msg_index, 1);
@@ -160,7 +160,7 @@ app.route('/api/message/:_id')
                 // if a tag does not exist, create it.
                 // if a tag exists but does not have the message in it, push the message in.
                 async.each(req.body.tags, function(tag){
-                    Tag.find({'body' : tag}).limit(1).exec(function(err,doc){
+                    Tag.find({'name' : tag}).limit(1).exec(function(err,doc){
                         if(err){console.log(err);}
                         
                         var tg = doc[0];
@@ -168,13 +168,13 @@ app.route('/api/message/:_id')
                         if(!tg){
                             // create a new tag and push a message to it, save and exit
                             var t = new Tag ();
-                            t.body = tag;
+                            t.name = tag;
                             t._test = reply.msg._test;
                             t._messages.push(reply.msg._id);
 
                             t.save(function(err, n){
                                 if(err){console.log(err);}
-                                console.log('created new tag', n.body);
+                                console.log('created new tag', n.name);
                                 return;
                             });
                              

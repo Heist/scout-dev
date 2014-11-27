@@ -136,7 +136,7 @@ app.route('/api/test/:_id')
     })
     // update one test with new information
     .put(function(req,res){
-        // console.log('touched test put', req.body)
+        console.log('touched test put', req.body)
         var t = req.body;
         // console.log(test);
 

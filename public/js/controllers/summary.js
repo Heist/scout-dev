@@ -13,8 +13,7 @@ angular.module('field_guide_controls')
             console.log('returned test information', data);
 
             $scope.tags = data.tags;
-            $scope.test = [];
-            $scope.test.push(data.test);
+            $scope.test = data.test[0];
             $scope.tasks = data.tasks;
 
             $scope.leftNavList = [];
@@ -25,12 +24,11 @@ angular.module('field_guide_controls')
             _.each(data.tasks, function(task){
                 $scope.leftNavList.push(task);
             });
-
             _.each(data.tags, function(tag){
                 $scope.leftNavList.push(tag);
             });
 
-            console.log($scope.leftNavList)
+            console.log($scope.leftNavList);
 
             // group messages by users
             $scope.messages = _.groupBy(data.messages, function(z){return z._subject.name;});
@@ -41,17 +39,36 @@ angular.module('field_guide_controls')
 
         });
 
-    // TASK FUNCTIONS =====================================
+    // SAVE FUNCTIONS =====================================
+    $scope.saveSummary = function(obj){
+        console.log(obj);
+
+        var url, data;
+
+        if(obj.doctype === 'test'){
+            url = 'test/'+ obj._id;
+            data = obj;
+        }
+        if(obj.doctype === 'task'){
+            url = 'task/'+ obj._id;
+            data = obj;
+        }
+        if(obj.doctype === 'tag'){
+            url = 'tag/'+ obj._id;
+            data = obj;
+            obj.summarized = true;
+        }
+        $http
+            .put('/api/'+url, data)
+            .success(function(doc){
+                console.log('summary_success', doc);
+            });
+    };
 
     $scope.activate = function(obj, selectedIndex) {
         // passes the task to the global variable
         $scope.selectedIndex = selectedIndex;
-
-        if(selectedIndex > -1){
-            $state.go("summary.task");
-        } else {
-            $state.go("summary.test");
-        }
+        $state.go("summary.task");
      
         if(obj){
             $scope.selected = obj;
@@ -59,16 +76,16 @@ angular.module('field_guide_controls')
         }
     };
 
-    $scope.passFail = function(task){
-        console.log('touched pass-fail', task);
+    $scope.passFail = function(obj){
+        console.log('touched pass-fail', obj);
 
-        if(task.pass_fail){
-            task.pass_fail = false;
-        } else if (!task.fail){
-            task.pass_fail = true;
+        if(obj.pass_fail){
+            obj.pass_fail = false;
+        } else if (!obj.fail){
+            obj.pass_fail = true;
         }
 
-        $scope.saveTaskSummary(task);
+        $scope.saveSummary(obj);
         
     };
 
@@ -80,6 +97,14 @@ angular.module('field_guide_controls')
         }
     };
 
+    $scope.toggleVis = function(obj){
+        console.log('toggle me', obj);
+        if (obj.visible){ obj.visible = false; return;}
+        if (!obj.visible){ obj.visible = true; return;}
+    };
+
+    // TASK FUNCTIONS =====================================
+
     $scope.showTest = function (msg_id) {
         // if a message's _id matches any value in the _messages list of .selected, return.
         if($scope.selectedTag){
@@ -90,7 +115,7 @@ angular.module('field_guide_controls')
         }
     };
 
-    // SAVE MESSAGE functions  ============================
+    // MESSAGE FUNCTIONS ==================================
 
     $scope.msgFilter = function(message){
         // FILTER that filters the message array
@@ -133,12 +158,6 @@ angular.module('field_guide_controls')
             });
     };
 
-    $scope.toggleVis = function(obj){
-        console.log('toggle me', obj);
-        if (obj.visible){ obj.visible = false; return;}
-        if (!obj.visible){ obj.visible = true; return;}
-    };
-
     $scope.editMessage = function(message, index){
         $scope.messageEditToggle = message._id;
     };
@@ -173,6 +192,7 @@ angular.module('field_guide_controls')
             });
     };
 
+
     // TAG FUNCTIONS ======================================
     
     // TODO: on click "save"
@@ -181,47 +201,48 @@ angular.module('field_guide_controls')
     // remove summary from tag
 
 
-    $scope.selectTag = function (index){
-        $scope.selectedTag = $scope.tags[index];
-        $scope.selectedTag.index = index;
-    };
+    // $scope.selectTag = function (index){
+    //     $scope.selectedTag = $scope.tags[index];
+    //     $scope.selectedTag.index = index;
+    // };
 
-    $scope.clearTagSummary = function(){
-        $scope.selectedTag.summarized = false;
-    };
+    // $scope.clearTagSummary = function(){
+    //     $scope.selectedTag.summarized = false;
+    // };
 
-    $scope.saveTagSummary = function(){
-        var tag = $scope.tags[$scope.selectedTag.index];
-        tag.summary = $scope.selectedTag.summary;
-        tag.summarized = true;
-        $scope.selectedTag.summarized = true;
+    // $scope.saveTagSummary = function(){
+    //     var tag = $scope.tags[$scope.selectedTag.index];
+    //     tag.summary = $scope.selectedTag.summary;
+    //     tag.summarized = true;
+    //     $scope.selectedTag.summarized = true;
 
-        $http
-            .put('/api/tag/'+ tag._id, tag)
-            .success(function(err, tag){
-                console.log('tag_success');
-            });
+    //     $http
+    //         .put('/api/tag/'+ tag._id, tag)
+    //         .success(function(err, tag){
+    //             console.log('tag_success');
+    //         });
 
-    };
+    // };
 
     // TASK FUNCTIONS =====================================
-    $scope.saveTaskSummary = function(task){
-        $http
-            .put('/api/task/'+ task._id, task)
-            .success(function(err, task){
-                console.log('task_success', task);
-            });
-    };
+    // $scope.saveTaskSummary = function(obj){
+    //     console.log(obj)
+    //     $http
+    //         .put('/api/task/'+ task._id, task)
+    //         .success(function(err, task){
+    //             console.log('task_success', task);
+    //         });
+    // };
 
     //  TEST FUNCTIONS ====================================
 
-    $scope.saveTestSummary = function(test){
-        $http
-            .put('/api/test/'+ test._id, test)
-            .success(function(err, test){
-                console.log('test_success');
-            });
-    };
+    // $scope.saveTestSummary = function(test){
+    //     $http
+    //         .put('/api/test/'+ test._id, test)
+    //         .success(function(err, test){
+    //             console.log('test_success');
+    //         });
+    // };
 
     $scope.completeSummary = function(){
         // post all the summary changes to the test

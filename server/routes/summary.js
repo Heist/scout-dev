@@ -40,7 +40,7 @@ module.exports = function (app, passport) {
         })
         .then(function(tasks){
             reply.tasks = tasks;
-            return Tag.find({'_test' : reply.test._id, '_messages' : {$not :{$size : 0}}}).exec();
+            return Tag.find({'_test' : req.params._id, '_messages' : {$not :{$size : 0}}}).exec();
         })
         .then(function(tags){
             reply.tags = tags;

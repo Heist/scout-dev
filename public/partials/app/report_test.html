@@ -25,7 +25,7 @@
 <div ng-repeat="tag in tags" ng-hide="!tag.summary">
 
 	<div class="message-group report-messages">
-		<h4><span>Theme:</span> {{tag.body}} &mdash; <ng-pluralize count="tag._messages.length"
+		<h4><span>Theme:</span> {{tag.name}} &mdash; <ng-pluralize count="tag._messages.length"
 		    when="{'0': 'never mentioned.',
 		           'one': 'mentioned once.',
 		           'other': 'mentioned {} times.'}">
@@ -34,7 +34,7 @@
 		
 		
 		<p>{{tag.summary}}</p>
-		<h4>Select quotes on "{{tag.body}}"</h4>
+		<h4>Select quotes on "{{tag.name}}"</h4>
 		<div class="message" ng-repeat="message in messages"  ng-show="showTag(message, tag)">
 			<div class="message-body">
 				<p ng-bind-html="message.body | hashtag"></p>
