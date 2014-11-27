@@ -29,29 +29,11 @@
 			
 				<ul>
 					<!-- OVERVIEW -->
-				
-					<li ng-model='test' ui-sref=".test" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(test, $index)">
-						<!--<small>test</small>-->
-						Overview
-						<div class="sidebar-visibility"><img src="/layout/assets/checkbox-filled.svg" /></div>
-					</li>
-					
-					<!-- TASKS -->
-					
-					<!-- placeholder title to delineate tasks -->
-					<!-- <li class="empty"><small>Tasks</small></li> -->
-						
-					<li ng-repeat="task in tasks | orderBy : 'index'" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(task, $index)">
+
+					<li ng-repeat="object in leftNavList | orderBy : 'index'" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(task, $index)">
 						{{task.name}}
-						<div class="sidebar-visibility"><img src="/layout/assets/checkbox-filled.svg" /></div>
+						<div class="sidebar-visibility"><button ng-click="toggleVis(task)"><img src="/layout/assets/checkbox-filled.svg" ng-show="task.visible" /></button></div>
 						<!--<p>{{task.desc}}</p>-->	
-					</li>
-					
-					<!-- THEMES! -->
-					
-					<li ng-repeat="tag in tags" ng-click="selectTag($index)">
-						#{{tag.body}}
-						<div class="sidebar-visibility"><img src="/layout/assets/checkbox-filled.svg" /></div>
 					</li>
 					
 				</ul>

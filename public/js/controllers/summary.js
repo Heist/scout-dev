@@ -10,11 +10,27 @@ angular.module('field_guide_controls')
 
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
-            // // console.log('returned test information', data);
+            console.log('returned test information', data);
 
             $scope.tags = data.tags;
-            $scope.test = data.test;
+            $scope.test = [];
+            $scope.test.push(data.test);
             $scope.tasks = data.tasks;
+
+            $scope.leftNavList = [];
+
+            _.each(data.test, function(test){
+                $scope.leftNavList.push(test);
+            });
+            _.each(data.tasks, function(task){
+                $scope.leftNavList.push(task);
+            });
+
+            _.each(data.tags, function(tag){
+                $scope.leftNavList.push(tag);
+            });
+
+            console.log($scope.leftNavList)
 
             // group messages by users
             $scope.messages = _.groupBy(data.messages, function(z){return z._subject.name;});
@@ -115,6 +131,12 @@ angular.module('field_guide_controls')
             .success(function(err, msg){
                 console.log('msg_success');
             });
+    };
+
+    $scope.toggleVis = function(obj){
+        console.log('toggle me', obj);
+        if (obj.visible){ obj.visible = false; return;}
+        if (!obj.visible){ obj.visible = true; return;}
     };
 
     $scope.editMessage = function(message, index){

@@ -145,7 +145,7 @@ module.exports = function(io, app, passport) {
                 socket.join(data.room);
 
                 // passes the phone the route for getting the appropriate test from the socket
-                io.sockets.in(data.room).emit('joinedChannel', {body: test.link, title:test.name});
+                io.sockets.in(data.room).emit('joinedChannel', {data: {body: test.link, title:test.name}});
             });
         });
 

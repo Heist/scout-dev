@@ -20,12 +20,15 @@ var TestSchema = new Schema({
         name    : { type: String, trim: true, default: 'my new flow name' },
         platform: { type: String, trim: true, default: 'mobile' },
         kind    : { type: String, trim: true, default: '' },
+
+        index: Number,
+        visible: { type:Boolean, default: true },
         
         created: Date,
         updated: Date,
         runcount : Number,
-        summary: String,
-        index: Number
+        summary: String
+        
     });
 
 TestSchema.pre('save', function(next){

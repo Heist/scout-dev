@@ -19,19 +19,20 @@ var TaskSchema = new Schema ({
     desc : { type : String, trim : true },
     summary: { type : String, trim : true },
     pass_fail: { type: Boolean, default: true },
-    
+    visible: { type:Boolean, default: true },
+
     index: Number,
     created: Date,
     updated: Date,
-})
+});
 
 TaskSchema.pre('save', function(next){
-  var now = new Date();
-  this.updated = now;
-  if ( !this.created ) {
-    this.created = now;
-  }
-  next();
+    var now = new Date();
+    this.updated = now;
+    if ( !this.created ) {
+        this.created = now;
+    }
+    next();
 });
 
 module.exports = db.model('Task', TaskSchema);

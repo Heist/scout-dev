@@ -25,8 +25,8 @@ module.exports = function (app, passport) {
         var reply = {};
 
         // the promise gets your main document, with its populated subs
-        var    promise = 
-            Test.findById(req.params._id).exec(function(err, test){
+        var promise = 
+            Test.find({'_id' : req.params._id}).exec(function(err, test){
                 if(err){res.send(err);}
             });
 
@@ -34,7 +34,6 @@ module.exports = function (app, passport) {
             reply.test = test;
             // a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
             return Task.find({'_test':req.params._id}).sort({ index: 'asc'})
-                        .select('_id summary name desc pass_fail _messages index')
                         .exec(function(err, task){
                             if (err) {console.log(err);}
                         });
