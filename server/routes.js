@@ -198,7 +198,7 @@ module.exports = function(app, passport) {
 
     app.route('/api/report/:_id')
     .get(function(req, res){
-        // console.log('touched report get', req.params._id);
+        console.log('touched report get', req.params._id);
 
         // var t = new Trello ();
 
@@ -213,21 +213,22 @@ module.exports = function(app, passport) {
         promise.then(function(test){
             reply.test = test;
 
-            return Task.find({'_test':req.params._id, 'visible' : true})
-                        .select('_id summary name pass_fail desc _messages index')
+            return Task.find({'_test': test_id, 'visible' : true})
+                        .select('_id summary name pass_fail desc _messages index _test')
                         .exec();
 
         }).then(function(tasks){
             reply.tasks = tasks;
+            console.log('tasks', tasks);
+            console.log('report number', req.params._id);
 
-            return Tag.find({'_test' : req.params._id, 'visible' : true})
-                        .exists('summary')
-                        .exec();
+            return Tag.find({'_test' : test_id}).exec();
         
         }).then(function(tags){
             reply.tags = tags;
-            
-            return    Message.find({'_test':req.params._id, $or: [{ fav_task : true }, { fav_tag : true }]})
+            console.log(tags);
+
+            return    Message.find({'_test': test_id, $or: [{ fav_task : true }, { fav_tag : true }]})
                         .populate({path: '_subject', 'select': 'name -_id'})
                         .select('_subject body created_by _id _test _task fav_tag fav_task')
                         .exec();
