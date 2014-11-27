@@ -13,7 +13,6 @@
 		D751471319F80AC000D6BE68 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D751471219F80AC000D6BE68 /* DetailViewController.m */; };
 		D751471619F80AC000D6BE68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D751471419F80AC000D6BE68 /* Main.storyboard */; };
 		D751471819F80AC000D6BE68 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D751471719F80AC000D6BE68 /* Images.xcassets */; };
-		D751471B19F80AC000D6BE68 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D751471919F80AC000D6BE68 /* LaunchScreen.xib */; };
 		D751472719F80AC000D6BE68 /* FieldGuideTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D751472619F80AC000D6BE68 /* FieldGuideTests.m */; };
 		D751474919F80B7400D6BE68 /* iOStream.m in Sources */ = {isa = PBXBuildFile; fileRef = D751473319F80B7400D6BE68 /* iOStream.m */; };
 		D751474A19F80B7400D6BE68 /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = D751473519F80B7400D6BE68 /* base64.c */; };
@@ -28,6 +27,7 @@
 		D751475419F80C6400D6BE68 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D751475319F80C6400D6BE68 /* libicucore.dylib */; };
 		D751475619F80C6A00D6BE68 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D751475519F80C6A00D6BE68 /* Security.framework */; };
 		D751475819F80C7000D6BE68 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D751475719F80C7000D6BE68 /* CFNetwork.framework */; };
+		D7F716D71A26CB5D00893F31 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7F716D51A26CB5D00893F31 /* LaunchScreen.xib */; };
 		D7FA46691A25F80E00D9500F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7FA46681A25F80E00D9500F /* LoginViewController.m */; };
 		D7FA46701A265AEE00D9500F /* MySingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = D7FA466F1A265AEE00D9500F /* MySingleton.m */; };
 /* End PBXBuildFile section */
@@ -54,7 +54,6 @@
 		D751471219F80AC000D6BE68 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		D751471519F80AC000D6BE68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D751471719F80AC000D6BE68 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D751471A19F80AC000D6BE68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		D751472019F80AC000D6BE68 /* FieldGuideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FieldGuideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D751472519F80AC000D6BE68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D751472619F80AC000D6BE68 /* FieldGuideTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FieldGuideTests.m; sourceTree = "<group>"; };
@@ -83,6 +82,7 @@
 		D751475319F80C6400D6BE68 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		D751475519F80C6A00D6BE68 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D751475719F80C7000D6BE68 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D7F716D61A26CB5D00893F31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		D7FA46671A25F80E00D9500F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		D7FA46681A25F80E00D9500F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		D7FA466A1A262E2700D9500F /* Variables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Variables.h; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 				D751471219F80AC000D6BE68 /* DetailViewController.m */,
 				D751471419F80AC000D6BE68 /* Main.storyboard */,
 				D751471719F80AC000D6BE68 /* Images.xcassets */,
-				D751471919F80AC000D6BE68 /* LaunchScreen.xib */,
+				D7F716D51A26CB5D00893F31 /* LaunchScreen.xib */,
 				D751470719F80AC000D6BE68 /* Supporting Files */,
 			);
 			path = FieldGuide;
@@ -310,7 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D751471619F80AC000D6BE68 /* Main.storyboard in Resources */,
-				D751471B19F80AC000D6BE68 /* LaunchScreen.xib in Resources */,
+				D7F716D71A26CB5D00893F31 /* LaunchScreen.xib in Resources */,
 				D751471819F80AC000D6BE68 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,10 +375,10 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		D751471919F80AC000D6BE68 /* LaunchScreen.xib */ = {
+		D7F716D51A26CB5D00893F31 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D751471A19F80AC000D6BE68 /* Base */,
+				D7F716D61A26CB5D00893F31 /* Base */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
