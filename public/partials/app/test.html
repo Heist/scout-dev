@@ -93,32 +93,6 @@
                         <input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="e.g. Onboarding flow" ng-blur="updateTest()" />
                     </li>
                     
-                    <!--
-                    <li>
-                        <label for="field-testname">What type of device is your prototype for?</label>
-                    
-                        <div class="test-details-devicetype phone" 
-                        	 ng-click='selectPlatform("mobile")'
-                        	 ng-class="{'selected' : test.platform === 'mobile' }">
-                            <img src="/layout/assets/platform-icons/mobile.png" /><br>
-                            iPhone
-                        </div>
-
-                        <div class="test-details-devicetype tablet"
-                        	 ng-class="{'selected' : test.platform === 'tablet' }"
-                        	 ng-click='selectPlatform("tablet")'>
-                            <img src="/layout/assets/platform-icons/tablet.png" /><br>
-                            iPad
-                        </div>
-                        <div class="test-details-devicetype desktop unavailable" >
-                            <img src="/layout/assets/platform-icons/laptop-unavailable.png" /><br>
-                            Desktop <small class="">coming soon</small>
-                        </div>  
-                        <div class="clear"></div>           
-                    </li>
-                    
-                    -->
-                    
                     <li ng-show="test.kind == 'prototype'">
                         <label for="field-prototypeurl">Your prototype URL</label>
                         
@@ -147,14 +121,6 @@
         <!-- step 3 - add tasks -->
             <div class="module two-thirds test-tasks" ng-show="anchor === 3">
                 <h3>Tasks in this Test</h3>
-
-               <!--  <div ui-tree="treeOptions" data-max-depth="1">
-                <ul ui-tree-nodes="" ng-model="tasks">
-                   <li ui-tree-node ng-repeat="task in tasks">
-                      <div ui-tree-handle>THIS IS A HANDLE</div>
-                   </li>
-                </ul>
-                </div> -->
 
                 <ul id="steps" ng-model="tasks">
                     <li ng-repeat="task in tasks | orderBy: 'task.index'" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >

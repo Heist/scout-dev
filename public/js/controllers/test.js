@@ -76,10 +76,6 @@ angular.module('field_guide_controls')
         return $scope.tasks; // for testing purposes
     };
 
-    $scope.moveTaskDown = function(index){
-        task.index = task.index + 1;
-    };
-
     $scope.selectPrototype = function(kind){
         console.log('touched prototype', kind);
         $scope.test.kind = kind;

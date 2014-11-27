@@ -39,6 +39,32 @@ angular.module('field_guide_controls')
 
         });
 
+    // MOVE STEPS =========================================
+    $scope.moveTask = function(old_index, new_index){
+        console.log('touched moveTask', old_index, new_index);
+        new_index = old_index + new_index;
+
+        while (old_index < 0) {
+            old_index += this.length;
+        }
+        while (new_index < 0) {
+            new_index += this.length;
+        }
+        if (new_index >= this.length) {
+            var k = new_index - this.length;
+            while ((k--) + 1) {
+                this.push(undefined);
+            }
+        }
+        
+        $scope.leftNavList.splice(new_index, 0, $scope.leftNavList.splice(old_index, 1)[0]);
+
+        // set the stored index of the task properly
+        var nav = _.pluck($scope.leftNavList, 'name');
+        console.log(nav); // for testing purposes
+    };
+
+
     // SAVE FUNCTIONS =====================================
     $scope.saveObject = function(obj){
         console.log('saving', obj);

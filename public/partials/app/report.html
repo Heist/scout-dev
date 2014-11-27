@@ -87,7 +87,7 @@
 			
 			<div id="sidebar">
 				<ul>
-					<li ui-sref=".task" ng-repeat="object in leftNavList | orderBy : 'index'" ng-click="select(object)" class="question" ng-class="{ 'active': object._id == selected._id}" >
+					<li ui-sref=".task" ng-repeat="object in leftNavList | orderBy : 'object.index'" ng-click="select(object)" class="question" ng-class="{ 'active': object._id == selected._id}" >
 						{{object.name}}
 						<div class="task-score green" ng-show="task.pass_fail == true" >&nbsp;</div>
 						<div class="task-score red" ng-show="task.pass_fail == false">&nbsp;</div>

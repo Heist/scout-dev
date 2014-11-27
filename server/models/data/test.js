@@ -22,7 +22,7 @@ var TestSchema = new Schema({
         platform: { type: String, trim: true, default: 'mobile' },
         kind    : { type: String, trim: true, default: '' },
 
-        index: Number,
+        index: { type: Number, default: 0 },
         visible: { type:Boolean, default: true },
         
         created: Date,
