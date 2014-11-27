@@ -143,9 +143,11 @@ angular.module('field_guide_controls')
 
         $http
             .put('/api/message/'+message._id, message)
-            .success(function(err, msg){
-                console.log('msg_success', msg);
-                // update the messages in the report
+            .success(function(msg, err){
+                console.log('msg_success', msg, err);
+
+                // we cheat and return everything en masse.
+                $scope.tags = msg.tags;
             });
     };
 
@@ -228,7 +230,7 @@ angular.module('field_guide_controls')
                 $location.path('/overview');
             })
             .error(function(data){
-                // // console.log('er;ror', data);
+                console.log('error', data);
             });        
 
     };
