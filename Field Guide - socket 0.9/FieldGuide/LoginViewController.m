@@ -69,12 +69,12 @@
     if (isConnected == YES) {
         _loginButton.alpha = 1;
         _loginButton.enabled = TRUE;
-        [_loginButton setTitle: @"Start" forState: UIControlStateNormal];
+        [_loginButton setTitle: @"START" forState: UIControlStateNormal];
         
     } else {
         _loginButton.alpha = 0.4;
     _loginButton.enabled = FALSE;
-        [_loginButton setTitle: @"Connecting" forState: UIControlStateNormal];
+        [_loginButton setTitle: @"Connecting..." forState: UIControlStateNormal];
     }
 }
 

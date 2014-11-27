@@ -138,8 +138,8 @@ static char s_key;
 	for (UITouch* touch in self.touches) {
 		CGRect touchRect = CGRectZero;
 		touchRect.origin = [touch locationInView:self];
-		UIBezierPath* bp = [UIBezierPath bezierPathWithOvalInRect:CGRectInset(touchRect, -10, -10)];
-		[[UIColor colorWithRed:1 green:0 blue:0 alpha:0.6] set];
+		UIBezierPath* bp = [UIBezierPath bezierPathWithOvalInRect:CGRectInset(touchRect, -30, -30)];
+		[[UIColor colorWithRed:1 green:0 blue:0 alpha:0.5] set];
 		[bp fill];
 	}
 }
