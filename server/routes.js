@@ -213,8 +213,8 @@ module.exports = function(app, passport) {
         promise.then(function(test){
             reply.test = test;
 
-            return Task.find({'_test': test_id, 'visible' : true})
-                        .select('_id summary name pass_fail desc _messages index _test')
+            return Task.find({'_test': test_id})
+                        .select('_id summary name pass_fail desc _messages index _test visible')
                         .exec();
 
         }).then(function(tasks){
@@ -222,7 +222,8 @@ module.exports = function(app, passport) {
             console.log('tasks', tasks);
             console.log('report number', req.params._id);
 
-            return Tag.find({'_test' : test_id}).exec();
+            return Tag.find({'_test' : test_id})
+                      .exec();
         
         }).then(function(tags){
             reply.tags = tags;

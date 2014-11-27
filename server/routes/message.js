@@ -174,7 +174,7 @@ app.route('/api/message/:_id')
 
                             t.save(function(err, n){
                                 if(err){console.log(err);}
-                                console.log('created new tag', n.name);
+                                console.log('created new tag', n);
                                 return;
                             });
                              
