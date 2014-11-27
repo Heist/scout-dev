@@ -77,8 +77,9 @@
         [_loginButton setTitle: @"START" forState: UIControlStateNormal];
         
     } else {
+        
         _loginButton.alpha = 0.4;
-    _loginButton.enabled = FALSE;
+        _loginButton.enabled = FALSE;
         [_loginButton setTitle: @"Waiting for room connection..." forState: UIControlStateNormal];
     }
 }

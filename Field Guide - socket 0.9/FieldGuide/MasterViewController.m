@@ -27,8 +27,8 @@
 {
     [super viewDidLoad];
     
-    UIColor *bgRefreshColor = [UIColor colorWithRed:245/255.0f green:121/255.0f blue:91/255.0f alpha:1.0f];
-    UIColor *tintColor = [UIColor whiteColor];
+//    UIColor *bgRefreshColor = [UIColor colorWithRed:245/255.0f green:121/255.0f blue:91/255.0f alpha:1.0f];
+//    UIColor *tintColor = [UIColor whiteColor];
     
     //set row height
     self.tableView.rowHeight = 68.f;
@@ -39,29 +39,30 @@
     //Set the title of the page
     self.title = hash;
     
-    //Get Room Number
-    NSString *myRoom = [MySingleton sharedMySingleton].roomNumber;
-    NSLog(@"JSON: %@", myRoom);
+//    //Get Room Number
+//    NSString *myRoom = [MySingleton sharedMySingleton].roomNumber;
+//    NSLog(@"JSON: %@", myRoom);
     
-    NSString *newURL = [NSString stringWithFormat:@"http://104.236.16.159:8080/api/watch/%@", myRoom];
-    jsonURL = newURL;
-    
-    NSLog(@"JSON: %@", jsonURL);
+//    NSString *newURL = [NSString stringWithFormat:@"http://104.236.16.159:8080/api/watch/%@/%@", hash, myRoom];
+//    NSString *newURL = [NSString stringWithFormat:@"http://104.236.16.159:8080/api/watch/%@", myRoom];
+//    jsonURL = newURL;
+//    
+//    NSLog(@"JSON: %@", jsonURL);
     
     //Get the JSON
     [self getJSON];
     
     //Pull to refresh code
     //Create the pull to refresh element
-    UIRefreshControl *refresh = [[UIRefreshControl alloc]init];
-    
-    [refresh addTarget:self
-                action:@selector(refreshView:)
-      forControlEvents:UIControlEventValueChanged];
-    [refresh setTintColor:tintColor];
-    [refresh setBackgroundColor:bgRefreshColor];
-    
-    self.refreshControl = refresh;
+//    UIRefreshControl *refresh = [[UIRefreshControl alloc]init];
+//    
+//    [refresh addTarget:self
+//                action:@selector(refreshView:)
+//      forControlEvents:UIControlEventValueChanged];
+//    [refresh setTintColor:tintColor];
+//    [refresh setBackgroundColor:bgRefreshColor];
+//    
+//    self.refreshControl = refresh;
     
 }
 
@@ -74,37 +75,37 @@
     
 }
 
--(void)refreshView:(UIRefreshControl *)refresh {
-    
-    //Start refreshing the data with new JSON
-    [self getJSON];
-    
-    //NSLog(@"%@",_items);
-    
-    //Tell the control its done refreshing
-    [refresh endRefreshing];
-    
-    //Update the data in the table view
-    [self.tableView reloadData];
-}
+//-(void)refreshView:(UIRefreshControl *)refresh {
+//    
+//    //Start refreshing the data with new JSON
+//    [self getJSON];
+//    
+//    //NSLog(@"%@",_items);
+//    
+//    //Tell the control its done refreshing
+//    [refresh endRefreshing];
+//    
+//    //Update the data in the table view
+//    [self.tableView reloadData];
+//}
+
 -(void)getJSON
 {
-    //Input JSON URL and format it as a URL
-    NSURL *url = [NSURL URLWithString: jsonURL];
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL: url];
+//    //Input JSON URL and format it as a URL
+//    NSURL *url = [NSURL URLWithString: jsonURL];
+//    NSURLRequest *requestObj = [NSURLRequest requestWithURL: url];
+//    
+//    //Set the network activity indicator to on
+//    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+//    
+//    [NSURLConnection connectionWithRequest: requestObj
+//                                  delegate: self];
     
-    //Set the network activity indicator to on
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+      NSError *error;
+//    NSData *data = [NSData dataWithContentsOfURL: url];
+//
     
-    [NSURLConnection connectionWithRequest: requestObj
-                                  delegate: self];
-    
-    NSError *error;
-    NSData *data = [NSData dataWithContentsOfURL: url];
-    
-    _items = [NSJSONSerialization JSONObjectWithData: data
-                                             options: NSJSONReadingAllowFragments
-                                               error: &error];
+    _items = [MySingleton sharedMySingleton].roomInfo;
     
     if ([_items objectForKey: @"title"] == [NSNull null]){
         
@@ -187,9 +188,6 @@
     
     //Get Dictionary of returned JSON items and look for only the "title" row
     NSDictionary *item = [[_items allValues] objectAtIndex: indexPath.row];
-    
-    //Set new font
-    cell.textLabel.font = [UIFont fontWithName:@"FreightSansLight" size:20.f];
     
     //Set row text with "title" text
     cell.textLabel.text = [item objectForKey: @"title"];

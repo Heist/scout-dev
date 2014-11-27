@@ -107,25 +107,26 @@ CVReturn CVPixelBufferCreateWithIOSurface(
 //Check for connection
 - (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
 {
-    //joined_channel
+    MySingleton *singleton = [MySingleton sharedMySingleton];
+    
+    //Joined_channel
     NSString *newData = packet.data;
     NSLog(@"didReceiveEvent >>> data: %@", newData);
     
     NSData *jsonData = [newData dataUsingEncoding:NSUTF8StringEncoding];
     NSError *e;
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:&e];
-    NSLog(@"DICT: %@", dict);
-    NSArray *testArray = [dict objectForKey: @"args"];
-    NSString *testRoom = testArray[0];
-    NSLog(@"Room: %@", testRoom);
     
-    MySingleton *singleton = [MySingleton sharedMySingleton];
-    singleton.roomNumber = testRoom;
+    NSDictionary *testJSON = [[dict objectForKey: @"args" ] objectAtIndex: 0];
+    NSLog(@"didReceiveEvent >>> data: %@", testJSON);
+    
+    //Pass the dictionary over to the singleton to pass over to MasterViewController
+    singleton.roomInfo = testJSON;
     
     //Check if its connected
     if ([newData rangeOfString:@"joinedChannel"].location != NSNotFound){
         
-        // Get the static singleton's property value
+        // Get the static singleton's property value.
         singleton.isConnected = YES;
         
         [singleton.sharedLoginViewController checkRoomConnection];
