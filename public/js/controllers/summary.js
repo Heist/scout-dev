@@ -227,7 +227,7 @@ angular.module('field_guide_controls')
             .success(function(data){
                 // console.log(data);
 
-                $location.path('/overview');
+                $location.path('/report/'+ $stateParams._id);
             })
             .error(function(data){
                 console.log('error', data);
