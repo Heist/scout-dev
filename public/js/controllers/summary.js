@@ -46,15 +46,16 @@ angular.module('field_guide_controls')
         var url, data;
 
         if(obj.doctype === 'test'){
-            url = 'test/'+ obj._id;
+            console.log('put test');
+            url = 'summary/test/'+ obj._id;
             data = obj;
         }
         if(obj.doctype === 'task'){
-            url = 'task/'+ obj._id;
+            url = 'summary/task/'+ obj._id;
             data = obj;
         }
         if(obj.doctype === 'tag'){
-            url = 'tag/'+ obj._id;
+            url = 'summary/tag/'+ obj._id;
             data = obj;
             obj.summarized = true;
         }
@@ -67,6 +68,8 @@ angular.module('field_guide_controls')
 
     $scope.activate = function(obj, selectedIndex) {
         // passes the task to the global variable
+        console.log('activated', obj.name, obj.summary);
+
         $scope.selectedIndex = selectedIndex;
         $state.go("summary.task");
      
@@ -91,8 +94,7 @@ angular.module('field_guide_controls')
 
     $scope.show = function (msg_id) {
         // if a message's _id matches any value in the _messages list of .selected, return.
-        // console.log($scope.selected);
-        if($scope.selected._messages.indexOf(msg_id) >= 0){
+        if($scope.selected._messages && $scope.selected._messages.indexOf(msg_id) >= 0){
             return true;
         }
     };
@@ -103,7 +105,7 @@ angular.module('field_guide_controls')
         if (!obj.visible){ obj.visible = true; return;}
     };
 
-    // TASK FUNCTIONS =====================================
+    // MESSAGE FUNCTIONS ==================================
 
     $scope.showTest = function (msg_id) {
         // if a message's _id matches any value in the _messages list of .selected, return.
@@ -115,14 +117,10 @@ angular.module('field_guide_controls')
         }
     };
 
-    // MESSAGE FUNCTIONS ==================================
-
     $scope.msgFilter = function(message){
-        // FILTER that filters the message array
-        // so messages display when their _task is the same as the current selected task
-        // and they only display to their current subject
+        // Display messages that belong to the current selected item.
 
-        if ((message._id === $scope.task._id)) {
+        if ((message._id === $scope.selected._id)) {
             return true;
         }
 
@@ -192,58 +190,7 @@ angular.module('field_guide_controls')
             });
     };
 
-
-    // TAG FUNCTIONS ======================================
-    
-    // TODO: on click "save"
-    // pass the summary to the tag.summary
-    // on click 'clear'
-    // remove summary from tag
-
-
-    // $scope.selectTag = function (index){
-    //     $scope.selectedTag = $scope.tags[index];
-    //     $scope.selectedTag.index = index;
-    // };
-
-    // $scope.clearTagSummary = function(){
-    //     $scope.selectedTag.summarized = false;
-    // };
-
-    // $scope.saveTagSummary = function(){
-    //     var tag = $scope.tags[$scope.selectedTag.index];
-    //     tag.summary = $scope.selectedTag.summary;
-    //     tag.summarized = true;
-    //     $scope.selectedTag.summarized = true;
-
-    //     $http
-    //         .put('/api/tag/'+ tag._id, tag)
-    //         .success(function(err, tag){
-    //             console.log('tag_success');
-    //         });
-
-    // };
-
-    // TASK FUNCTIONS =====================================
-    // $scope.saveTaskSummary = function(obj){
-    //     console.log(obj)
-    //     $http
-    //         .put('/api/task/'+ task._id, task)
-    //         .success(function(err, task){
-    //             console.log('task_success', task);
-    //         });
-    // };
-
-    //  TEST FUNCTIONS ====================================
-
-    // $scope.saveTestSummary = function(test){
-    //     $http
-    //         .put('/api/test/'+ test._id, test)
-    //         .success(function(err, test){
-    //             console.log('test_success');
-    //         });
-    // };
-
+// CLOSE SUMMARY ==========================================
     $scope.completeSummary = function(){
         // post all the summary changes to the test
         // post summary changes to the tags

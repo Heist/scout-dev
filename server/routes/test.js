@@ -136,20 +136,21 @@ app.route('/api/test/:_id')
     })
     // update one test with new information
     .put(function(req,res){
-        console.log('touched test put', req.body)
+        console.log('touched test put', req.body);
         var t = req.body;
-        // console.log(test);
 
         // Get the tasks so we can update their collected indices.
         var tasks = [];
 
-        if(t._tasks){
-            tasks = _.pluck(t._tasks, '_id');
-            console.log('tasks from updated test', tasks);
+        if(t._tasks.length > 0){
+            // tasks = _.pluck(t._tasks, '_id');
+            console.log('tasks from updated test', t.tasks);
             // console.log('unplucked _tasks', t._tasks);
             async.each(t._tasks, function(task){
+                var find = mongoose.Types.ObjectId(task._id);
+
                 Task.findOneAndUpdate(
-                    {'_id':task._id},
+                    {'_id': find},
                     {index : task.index },
                     function(err, doc){
                         if(err){console.log(err);}

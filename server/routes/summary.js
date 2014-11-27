@@ -59,7 +59,7 @@ module.exports = function (app, passport) {
         });
     })
     .put(function(req, res){
-        // console.log('touched summary put', req.body);
+        console.log('touched summary put', req.body);
 
         var query = {'_id':req.body.test._id};
         var update = {summary: req.body.test.summary};
@@ -116,4 +116,67 @@ module.exports = function (app, passport) {
         
         res.send("test updated - server");
     });
+
+    app.route('/api/summary/task/:_id').put(function(req,res){
+        console.log('touched summary task', req.body.pass_fail, req.body._id);
+
+        Task.findById(req.params._id)
+            .exec(function(err, task){
+                if (err) {res.send(err);}
+
+                if(req.body.summary){task.summary = req.body.summary;}
+                if(req.body.pass_fail !== null){ task.pass_fail = req.body.pass_fail;}
+                
+                task.save(function(err,task){
+                    if(err){res.send(err);}
+
+                    // console.log('updated task', task);
+                    res.json(task);
+                });
+        });
+
+    });
+
+    app.route('/api/summary/test/:_id').put(function(req,res){
+
+        console.log('touched summary task', req.body.pass_fail, req.body._id);
+
+        Test.findById(req.params._id)
+            .exec(function(err, doc){
+                if (err) {res.send(err);}
+
+                if(req.body.summary){doc.summary = req.body.summary;}
+                if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
+                
+                doc.save(function(err,data){
+                    if(err){res.send(err);}
+
+                    // console.log('updated task', task);
+                    res.json(data);
+                });
+        });
+
+    });
+
+    app.route('/api/summary/tag/:_id').put(function(req,res){
+
+        console.log('touched summary task', req.body.pass_fail, req.body._id);
+
+        Tag.findById(req.params._id)
+            .exec(function(err, doc){
+                if (err) {res.send(err);}
+
+                if(req.body.summary){doc.summary = req.body.summary;}
+                if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
+                
+                doc.save(function(err,data){
+                    if(err){res.send(err);}
+
+                    // console.log('updated task', task);
+                    res.json(data);
+                });
+        });
+
+    });
+
 };
