@@ -42,8 +42,6 @@
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
-    _endCallButton.titleLabel.font = [UIFont fontWithName:@"FreightSansMedium" size:10.f];
-    
 }
 
 - (void)configureView
@@ -53,6 +51,7 @@
     if (self.detailItem) {
         
         NSString *detailWebURL = [_detailItem objectForKey:@"body"];
+        NSLog(@"Error: %@", detailWebURL);
        
 //        //Check if its an invsion link
 //        if ([detailWebURL rangeOfString:@"invis"].location != NSNotFound){

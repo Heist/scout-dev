@@ -204,6 +204,7 @@
         
         //Get the object reference ID for the selected row and create a dictionary
         NSDictionary *object = [[_items allValues] objectAtIndex: indexPath.row];
+        NSLog(@"Error: %@", object);
         
         //Pass the string to the webView controller on the details screen
         [[segue destinationViewController]
