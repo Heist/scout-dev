@@ -12,6 +12,9 @@ module.exports = function(io, app, passport) {
         name = '',
         default_room = '';
 
+
+    var Test = require('./models/data/test');
+
     // // our kickoff configuration for sockets 1.0 ....
     // io.use(function(socket, next) {
     //     try {
@@ -135,12 +138,15 @@ module.exports = function(io, app, passport) {
         socket.on('channel', function(data) { 
             console.log('joining channel', data.room, data.test, data);
 
-            // joins the test to the socket from remote device
-            socket.join(data.room);
+            var promise = Test.findOne({'_id': data.test}).select("name link").exec();
+            promise.then(function(test){
+                // joins the test to the socket from remote device
+                console.log('Test found', test);
+                socket.join(data.room);
 
-            // passes the phone the route for getting the appropriate test from the socket
-            io.sockets.in(data.room).emit('joinedChannel', data.test);
-
+                // passes the phone the route for getting the appropriate test from the socket
+                io.sockets.in(data.room).emit('joinedChannel', {body: test.link, title:test.name});
+            });
         });
 
         socket.on('join_room', function(data) { 
