@@ -6,16 +6,30 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/report/'+$stateParams.test_id;
+    
     $http.get('/api/report/'+$stateParams.test_id)
             .success(function(data){
-                // console.log('the report object', data);
+                console.log('the report object', data);
 
-                $scope.report = data;
+                // $scope.report = data;
                 $scope.tasks = data.tasks;
                 $scope.test = data.test;
                 $scope.tags = data.tags;
                 $scope.messages = data.messages;
 
+                $scope.leftNavList = [];
+
+                _.each(data.test, function(test){
+                    $scope.leftNavList.push(test);
+                });
+                _.each(data.tasks, function(task){
+                    $scope.leftNavList.push(task);
+                });
+                _.each(data.tags, function(tag){
+                    $scope.leftNavList.push(tag);
+                });
+
+            console.log($scope.leftNavList);
 
                 // console.log('tasks', data.tasks, 'test', $scope.test, 'tags', $scope.tags  );
                 console.log($scope.reportLink);

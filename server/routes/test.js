@@ -143,10 +143,13 @@ app.route('/api/test/:_id')
         var tasks = [];
 
         if(t._tasks.length > 0){
-            // tasks = _.pluck(t._tasks, '_id');
-            console.log('tasks from updated test', t.tasks);
-            // console.log('unplucked _tasks', t._tasks);
+            tasks = _.pluck(t._tasks, '_id');
+
+            console.log('unplucked _tasks', t._tasks);
+            console.log('plucked tasks', tasks);
+            
             async.each(t._tasks, function(task){
+                console.log('tasks from updated test', task);
                 var find = mongoose.Types.ObjectId(task._id);
 
                 Task.findOneAndUpdate(

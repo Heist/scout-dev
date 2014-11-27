@@ -74,7 +74,6 @@
 					<button class="button small  button-summarizing" ng-click='summarize()'>&nbsp;Edit&nbsp;</button>
 					<span class="button small fake button-summarizing">&nbsp;Viewing&nbsp;</span>
 				</button>
-					
 			</div>
 			
 			<div class="clear"></div>
@@ -88,27 +87,12 @@
 			
 			<div id="sidebar">
 				<ul>
-					<!-- TEST overview -->
-					<li ng-model="test" ui-sref=".test" ng-click="select(test)" ng-class="{ 'active': test._id == selected._id}">
-						<!--<small>test</small> -->
-						{{test.name}}
-					</li>
-					
-					<!-- TASKS -->
-					
-					<li ui-sref=".task" ng-click="select(task)" class="question" ng-class="{ 'active': task._id == selected._id}" ng-repeat="task in tasks | orderBy : 'index'" >
-						{{task.name}}
+					<li ui-sref=".task" ng-repeat="object in leftNavList | orderBy : 'index'" ng-click="select(object)" class="question" ng-class="{ 'active': object._id == selected._id}" >
+						{{object.name}}
 						<div class="task-score green" ng-show="task.pass_fail == true" >&nbsp;</div>
 						<div class="task-score red" ng-show="task.pass_fail == false">&nbsp;</div>
 					</li>
-					
-					<!-- THEMES -->
-					
-					<li ui-sref=".tag" ng-repeat="tag in tags">
-						#{{tag.name}}
-					</li>
-					
-					
+
 				</ul>
 			</div>
 			

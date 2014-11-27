@@ -122,31 +122,9 @@ module.exports = function(app, passport) {
 
 // PUBLIC ROUTES ==========================================
 
-    // WATCH ROUTES =================================================
-    app.route('/api/watch/:test_id') //-- this is insufficiently dynamic to really work with the app.
-        .get(function(req,res){
-                console.log('touched watch get', req.params._id);
-                // we have received a request with a room number
-                // we need to get  the test that room is in right now
-                // so we find it via the Subject object, which has a flow name attached
-                // then we sort through the results to get the test room.
-
-                Test.findById(req.params.test_id).exec(function(err, doc){ 
-                    if(err){res.send(err);}
-                    console.log('info for socket', doc.name, doc.link);
-
-                    var reply = { "0" : {
-                            "title" : doc.name || "Test name undefined",
-                            "body"  : doc.link || "http://heistmade.com"
-                        }
-                    };
-
-                    res.json(reply);
-                });
-            });
 
 
-// // Debug Route -------------------
+// Debug Routes -------------------
     app.route('/debug/test')
     .get(function(req,res){
         Test.find()
@@ -185,12 +163,6 @@ module.exports = function(app, passport) {
                     res.json(docs);
                 });
         });
-        // .delete(function(req,res){ // TODO: HIDE THIS ON MAIN, IT IS FOR DEBUG ONLY
-        //     Tag.remove(function(err, tags){
-        //         if(err){console.log(err);}
-        //         res.send('deleted');
-        //     });
-        // });
 
     app.route('/debug/user')
         .get(function(req,res){
@@ -233,7 +205,7 @@ module.exports = function(app, passport) {
         var test_id = mongoose.Types.ObjectId(req.params._id);
         var reply = {};
         var promise =
-            Test.findOne({'_id' : test_id}).populate('_subjects').exec(function(err, test){
+            Test.find({'_id' : test_id}).populate('_subjects').exec(function(err, test){
                 if(err){res.send(err);}
 
             });
@@ -241,14 +213,14 @@ module.exports = function(app, passport) {
         promise.then(function(test){
             reply.test = test;
 
-            return Task.find({'_test':req.params._id})
+            return Task.find({'_test':req.params._id, 'visible' : true})
                         .select('_id summary name pass_fail desc _messages index')
                         .exec();
 
         }).then(function(tasks){
             reply.tasks = tasks;
 
-            return Tag.find({'_test' : req.params._id})
+            return Tag.find({'_test' : req.params._id, 'visible' : true})
                         .exists('summary')
                         .exec();
         
