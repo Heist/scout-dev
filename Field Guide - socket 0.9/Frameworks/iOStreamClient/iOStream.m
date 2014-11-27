@@ -109,19 +109,28 @@ CVReturn CVPixelBufferCreateWithIOSurface(
 {
     //joined_channel
     NSString *newData = packet.data;
-    //NSLog(@"didReceiveEvent >>> data: %@", newData);
+    NSLog(@"didReceiveEvent >>> data: %@", newData);
+    
+    NSData *jsonData = [newData dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *e;
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:&e];
+    NSLog(@"DICT: %@", dict);
+    NSArray *testArray = [dict objectForKey: @"args"];
+    NSString *testRoom = testArray[0];
+    NSLog(@"Room: %@", testRoom);
     
     MySingleton *singleton = [MySingleton sharedMySingleton];
+    singleton.roomNumber = testRoom;
     
     //Check if its connected
-    if ([newData rangeOfString:@"joined_channel"].location != NSNotFound){
+    if ([newData rangeOfString:@"joinedChannel"].location != NSNotFound){
         
         // Get the static singleton's property value
         singleton.isConnected = YES;
         
         [singleton.sharedLoginViewController checkRoomConnection];
         
-        NSLog(@"JOINED", nil);
+        //NSLog(@"JOINED", nil);
         
     }else{
         singleton.isConnected = NO;

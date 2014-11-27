@@ -8,6 +8,7 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "MySingleton.h"
 #import <CommonCrypto/CommonDigest.h>
 
 //
@@ -29,16 +30,20 @@
     UIColor *bgRefreshColor = [UIColor colorWithRed:245/255.0f green:121/255.0f blue:91/255.0f alpha:1.0f];
     UIColor *tintColor = [UIColor whiteColor];
     
-    //Set the title of the page
-    self.title = @"Prototypes";
-    
     //set row height
     self.tableView.rowHeight = 68.f;
     
     hash = [self md5: [[[UIDevice currentDevice] identifierForVendor] UUIDString]];
     hash = [hash substringWithRange:NSMakeRange(0, 8)];
     
-    NSString *newURL = [NSString stringWithFormat:@"http://104.236.16.159:8080/api/watch/%@", hash];
+    //Set the title of the page
+    self.title = hash;
+    
+    //Get Room Number
+    NSString *myRoom = [MySingleton sharedMySingleton].roomNumber;
+    NSLog(@"JSON: %@", myRoom);
+    
+    NSString *newURL = [NSString stringWithFormat:@"http://104.236.16.159:8080/api/watch/%@", myRoom];
     jsonURL = newURL;
     
     NSLog(@"JSON: %@", jsonURL);

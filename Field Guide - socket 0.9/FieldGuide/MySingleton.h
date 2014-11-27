@@ -9,7 +9,7 @@
 
 @interface MySingleton : NSObject
 
-@property (nonatomic, retain) NSString *singletonValue;
+@property (nonatomic, retain) NSString *roomNumber;
 @property (assign) BOOL isConnected;
 @property (nonatomic, strong) LoginViewController *sharedLoginViewController;
 
