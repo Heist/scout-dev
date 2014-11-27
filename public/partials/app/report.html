@@ -100,8 +100,37 @@
 		</div>	
 					
 		<div class="module two-thirds">
-		<div ui-view >
-			<!-- looking for your views? they're in partials>> report_test report_step -->
+		<!-- report_steps -->
+	
+		<div class="task-score green inverted" ng-show="selected.pass_fail == true">Passed</div>
+		<div class="task-score red inverted" ng-show="selected.pass_fail == false">Needs work</div>
+			
+		<h2>{{selected.name}}</h2>
+
+		
+		<div class="clear"></div>
+		
+		<div class="float-right"><button class="button small" ng-show="user.trello" ng-click="sendCardToTrello()">Send to Trello</button></div>
+		
+		
+		<p><strong>Talking points:</strong> {{selected.desc}}</p>
+		
+		<p><strong>Results:</strong> {{selected.summary}}</p>
+				
+		<div class="message-group report-messages">
+		
+			<h4><span>Selected Quotes</span></h4>
+		
+			<div ng-repeat="message in messages" class="message" ng-show="showTask(message, selected)">
+				
+				<div class="message-body">
+					<p ng-bind-html="message.body | hashtag"></p>
+					<small>Testing with {{message._subject.name}}</small>
+				</div>
+		
+				<div class="clear"></div>
+			</div>
+		
 		</div>
 		</div>
 		

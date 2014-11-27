@@ -29,12 +29,11 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
                     $scope.leftNavList.push(tag);
                 });
 
-            console.log($scope.leftNavList);
+                console.log($scope.leftNavList);
 
                 // console.log('tasks', data.tasks, 'test', $scope.test, 'tags', $scope.tags  );
                 console.log($scope.reportLink);
-                $scope.select(data.test);
-                $state.go("report.test");
+                $scope.select($scope.leftNavList[0]);
 
             }); 
 
@@ -47,6 +46,7 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
     $scope.select = function(obj){
         console.log('selected object', obj);
         $scope.selected = obj;
+        $state.go("report.test");
     };
 
     $scope.showTask = function(msg, task){
