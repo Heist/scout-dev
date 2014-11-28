@@ -62,11 +62,14 @@ module.exports = function (app, passport) {
         console.log('touched summary put', req.body);
 
         var query = {'_id':req.body.test._id};
-        var update = {summary: req.body.test.summary};
+        var update = {
+            summary: req.body.test.summary,
+            report: true
+        };
 
         Test.findOneAndUpdate(query, update,function(err,test){
                 if(err) {return res.send (err);}
-                // console.log('test updated', test)
+                console.log('test updated', test)
             });
 
         // if we have tags, update them in the db.

@@ -231,7 +231,7 @@ angular.module('field_guide_controls')
         var msg_arr = [];
     
         $scope.messages = _.map($scope.messages, function(val, key){ return val; });
-    
+        $scope.test.report = true;
         // mixpanel.track('Summary complete', {});
 
         console.log('messages', $scope.messages);

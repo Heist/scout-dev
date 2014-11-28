@@ -24,6 +24,7 @@ var TestSchema = new Schema({
 
         index: { type: Number, default: 0 },
         visible: { type:Boolean, default: true },
+        report : { type:Boolean, default: false },
         
         created: Date,
         updated: Date,
