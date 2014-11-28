@@ -51,10 +51,84 @@
 		
 		<!-- the summarizing area -->
 		<div class="module two-thirds">
-			<div ui-view >
+			<!-- summary_step -->
+
+<div id="summary-task">
+
+	
+		<div ng-model='selected' ng-show="selected.name">
+				<h4>&ldquo;{{selected.name}}&rdquo; summary</h4>
+				<p>Add a summary to capture any notable outcomes, directions, or action items.</p>
+				
+				<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>				
+				
 			
-				<!-- this pane is set in summary_test and summary_task -->
+				<div class="task-rating" ng-show="selected.pass_fail == false">
+					<div class="float-left">Was this completed successfully?</div>
+					<div class="float-right">
+						<button class="button small hollow" ng-click="passFail(selected)">Passed</button>
+						<button class="button small destructive" ng-click="passFail(selected)">Needs work</button>
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+				<div class="task-rating" ng-show="selected.pass_fail == true">
+					<div class="float-left">Was this completed successfully?</div>
+					<div class="float-right">
+						<button class="button small">Passed</button>
+						<button class="button small destructive hollow" ng-click="passFail(selected)">Needs work</button>
+					</div>
+					<div class="clear"></div>
+				</div>
+			
+				
+		</div>
+
+</div>
+
+
+<div ng-model="selected" class="summary-task-notes">
+
+	<!--<h4>Notes for &ldquo;{{selected.name}}&rdquo;</h4>-->
+
+
+	<div ng-repeat="user in messages" class="message-group" ng-show="selected._messages">
+		
+		<!-- participant name -->
+		<div class="message message-user">
+			<div class="message-details"><div class="message-details-avatar"><img src="/layout/assets/avatar.svg"></div></div>
+			<div class="message-body">{{user[0]._subject.name}}</div>
+			<div class="message-fave">Include in report?</div>
+			<div class="clear"></div>
+		</div>
+		
+		<!-- participant messages -->
+		<div ng-repeat="message in user" class="message" ng-show="show(message._id)">
+			<div class="message-details"><div class="message-edit"><img src="/layout/assets/pencil.svg" ng-click="editMessage(message, $index)" /></div></div>
+
+			<div class="message-body">
+				<p ng-bind-html="message.body | hashtag" ng-hide="messageEditToggle == message._id"></p>
+				<textarea class="input small" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}" ng-blur="saveEdit(message)"></textarea>
+				<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 			</div>
+
+			<div class="message-fave">
+				<a ng-click="saveFavTask(message)" ng-if="message.fav_task">
+					<img src="/layout/assets/checkbox-filled.svg" />
+				</a>
+				<a ng-click="saveFavTask(message)" ng-if="!message.fav_task">
+					<img src="/layout/assets/checkbox-empty.svg" />
+				</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+
+	</div>
+
+			
+	
+</div>
 		</div>
 		
 		<div class="clear"></div>

@@ -87,6 +87,7 @@
             
             <div class="module two-thirds test-details" ng-show="anchor===1 && test.kind">
                 <ul class="nobullets" >
+                 <form name="prototypeForm">   
                     <li>
                         <label for="field-testname">Your test name</label>
                         
@@ -94,24 +95,25 @@
                     </li>
                     
                     <li ng-show="test.kind == 'prototype'">
+
                         <label for="field-prototypeurl">Your prototype URL</label>
+
+                        <input class="input" id="field-prototypeurl" ng-model="test.link" value="" placeholder="http://invis.io/ABC123" type="url" name="url"/>
+                        <span ng-show="!prototypeForm.$valid" style="color:red;">This appears to be an invalid URL.</span>
                         
-                        <input class="input" id="field-prototypeurl" ng-model="test.link" type="text" value="" placeholder="http://invis.io/ABC123" />
-                        <!--<small><a href="#" class="alt">How do I find my prototype URL?</a></small>-->
                     </li>
                     
                  
                     
                     <li>
                         <label for="field-prototypeurl">Your test objectives</label>
-                        
                         <textarea class="input" id="field-objective" type="text" value="" ng-model="test.desc" placeholder="What is the purpose of this test? What do you want to learn?" />
                     </li>
                     
                     <li>
-                        <button class="button small" type="submit" ng-click="saveAndMove(3)">Next step</button>
+                        <button class="button small" type="submit" ng-click="saveAndMove(3)" >Next step</button>
                     </li>
-                
+                </form>
                 </ul>
             </div>
             

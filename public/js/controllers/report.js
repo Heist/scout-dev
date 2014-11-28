@@ -46,7 +46,6 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
     $scope.select = function(obj){
         console.log('selected object', obj);
         $scope.selected = obj;
-        $state.go("report.test");
     };
 
     $scope.showTask = function(msg, task){

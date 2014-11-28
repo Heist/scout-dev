@@ -85,12 +85,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             templateUrl: 'partials/app/report.html',
             resolve: { loggedin: checkLoggedin }
         })
-        .state('report.test', {
-            templateUrl: 'partials/app/report_test.html'
-        })
-        .state('report.task', {
-            templateUrl: 'partials/app/report_task.html'
-        })
 
         // ACCOUNT MANAGEMENT =============================
         .state('account', {

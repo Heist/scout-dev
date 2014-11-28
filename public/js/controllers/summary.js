@@ -35,7 +35,7 @@ angular.module('field_guide_controls')
             
             // console.log('messages', $scope.messages, data.messages);
             
-            $scope.activate($scope.test);
+            $scope.activate($scope.leftNavList[0]);
 
         });
 
@@ -101,7 +101,6 @@ angular.module('field_guide_controls')
      
         if(obj){
             $scope.selected = obj;
-            // // console.log('task or test', obj._id);
         }
     };
 
