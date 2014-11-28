@@ -110,17 +110,19 @@ app.route('/api/message/:_id')
     })
     .put(function(req, res){
         // edit a message name and search for new tags
-        console.log('touched update message', req.body.tags, req.body.body);
+        console.log('touched update message');
   
         var reply = {},
             promise = Message.find({'_id' : req.params._id}).limit(1).exec();
 
         promise.then(function(msg){
-            reply.msg = msg;
+            reply.msg = msg[0];
             reply.tags = [];
-
+            console.log('test', reply.msg._test);
+            console.log('msg', msg);
             // return Tag.find({'_messages' : {$in: [reply.msg._id]}}).exec();
-            return Tag.find({}).exec();
+
+            return Tag.find({'_test' :  mongoose.Types.ObjectId(reply.msg._test) }).exec();
 
         }).then(function(tags){
             console.log('tags from message._id', tags);
