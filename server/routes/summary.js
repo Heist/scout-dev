@@ -120,6 +120,20 @@ module.exports = function (app, passport) {
         res.send("test updated - server");
     });
 
+    app.route('/api/summary/message/:_id').put(function(req,res){
+        // for adding favs to messages - include messages in reports.
+
+        var update = {
+            fav_task : req.body.fav_task, 
+            fav_tag : req.body.fav_tag,
+        };
+
+        Message.findOneAndUpdate({'_id' : req.params._id}, update, function(err, msg){
+                        if(err){return console.log(err);}
+                        res.json(msg);
+                    });
+    });
+
     app.route('/api/summary/task/:_id').put(function(req,res){
         console.log('touched summary task', req.body.pass_fail, req.body._id);
 

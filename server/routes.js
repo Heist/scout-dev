@@ -192,7 +192,7 @@ module.exports = function(app, passport) {
             });
     });
 
-// PUBLIC REPORT ROUTE ====================================
+// PUBLIC REPORT ROUTE ==============================================
 // for some reason I can't require this and still have it be public
 //  ¯\_(ツ)_/¯
 

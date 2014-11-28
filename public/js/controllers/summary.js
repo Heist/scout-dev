@@ -147,24 +147,14 @@ angular.module('field_guide_controls')
             else if (!message.fav_tag){ message.fav_tag = true;}
         }
 
-        // $http
-        //     .put('/api/message/'+message._id, message)
-        //     .success(function(err, msg){
-        //         console.log('msg_success');
-        //     });
+        $http
+            .put('/api/summary/message/'+message._id, message)
+            .success(function(data){
+                console.log('msg_success', data);
+            });
     };
 
     // MESSAGE FUNCTIONS ==================================
-
-    $scope.showTest = function (msg_id) {
-        // if a message's _id matches any value in the _messages list of .selected, return.
-        if($scope.selectedTag){
-            // console.log($scope.selectedTag);
-            if($scope.selectedTag._messages.indexOf(msg_id) >= 0){
-                return true;
-            }
-        }
-    };
 
     $scope.msgFilter = function(message){
         // Display messages that belong to the current selected item.
@@ -198,8 +188,9 @@ angular.module('field_guide_controls')
             });
         }
 
-        console.log('tags', tags);
+        
         message.tags = tags;
+        console.log('tags', message.tags);
 
         $http
             .put('/api/message/'+message._id, message)
