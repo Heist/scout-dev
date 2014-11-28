@@ -119,7 +119,8 @@ app.route('/api/message/:_id')
             reply.msg = msg;
             reply.tags = [];
 
-            return Tag.find({'_messages' : {$in: [reply.msg._id]}}).exec();
+            // return Tag.find({'_messages' : {$in: [reply.msg._id]}}).exec();
+            return Tag.find({}).exec();
 
         }).then(function(tags){
             console.log('tags from message._id', tags);
@@ -147,41 +148,41 @@ app.route('/api/message/:_id')
             // if a tag does not exist, create it.
             // if a tag exists but does not have the message in it, push the message in.
             
-            async.each(req.body.tags, function(tag){
-                Tag.find({'name' : tag}).limit(1).exec(function(err,doc){
-                    if(err){console.log(err);}
+            // async.each(req.body.tags, function(tag){
+            //     Tag.find({'name' : tag}).limit(1).exec(function(err,doc){
+            //         if(err){console.log(err);}
                     
-                    var tg = doc[0];
+            //         var tg = doc[0];
 
-                    if(!tg){
-                        // create a new tag and push a message to it, save and exit
-                        var t = new Tag ();
-                        t.name = tag;
-                        t._test = reply.msg._test;
-                        t._messages.push(reply.msg._id);
+            //         if(!tg){
+            //             // create a new tag and push a message to it, save and exit
+            //             var t = new Tag ();
+            //             t.name = tag;
+            //             t._test = reply.msg._test;
+            //             t._messages.push(reply.msg._id);
 
-                        t.save(function(err, n){
-                            if(err){console.log(err);}
-                            console.log('created new tag', n);
-                            return;
-                        });
+            //             t.save(function(err, n){
+            //                 if(err){console.log(err);}
+            //                 console.log('created new tag', n);
+            //                 return;
+            //             });
                          
-                    }
+            //         }
 
-                    if(tg){
-                        // if the message does not already exist
-                        if(tg._messages.indexOf(reply.msg._id) === -1){
-                            tg._messages.push(reply.msg._id);
-                            tg.save(function(err, saved){
-                                if(err){console.log(err);}
-                                return;
-                            });
-                        }
-                    }
-                });
-            });
+            //         if(tg){
+            //             // if the message does not already exist
+            //             if(tg._messages.indexOf(reply.msg._id) === -1){
+            //                 tg._messages.push(reply.msg._id);
+            //                 tg.save(function(err, saved){
+            //                     if(err){console.log(err);}
+            //                     return;
+            //                 });
+            //             }
+            //         }
+            //     });
+            // });
 
-            }).then(function(){
+        }).then(function(){
                 // kill empty tags
                 // Tag.remove({'_messages' : {$size : 0}, '_test' : reply.msg._test}, function(err){
                 //     if(err){console.log(err);}
