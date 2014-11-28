@@ -158,7 +158,7 @@ module.exports = function(io, app, passport) {
 // Guest name management ============================================
     // Keep track of which names are used so that there are no duplicates
 
-        var userNames = (function () {
+    var userNames = (function () {
             var names = {};
 
             var claim = function (name) {

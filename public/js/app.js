@@ -34,14 +34,14 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             .success(function(user){
                 // Authenticated
                 if (user !== '0') {
-                    // console.log('this user successfully logged in', user);
+                    console.log('this user successfully logged in', user);
                     $rootScope.user = user;
                     $timeout(deferred.resolve, 0);
                 }
 
                 // Not Authenticated 
                 else { 
-                    // console.log('welp, that flunked', user);
+                    console.log('welp, that flunked', user);
                     $rootScope.userNote = 'You need to log in.'; 
                     $timeout(function(){deferred.reject();}, 0);
 
@@ -55,7 +55,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                 }
             })
             .error(function(err){
-                // console.log(err);
+                console.log(err);
             });
         // }
         
@@ -102,6 +102,13 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         })
 
         // OVERVIEW AND test CREATION =====================
+        .state('default', {
+            url:'/',
+            controller: 'overview',
+            templateUrl: 'partials/app/overview.html',
+            resolve: { loggedin: checkLoggedin }
+        })
+
         .state('overview', {
             url: '/overview',
             controller: 'overview',
