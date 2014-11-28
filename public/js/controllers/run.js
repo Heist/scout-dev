@@ -231,9 +231,6 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
             .post(url, data_out)
             .success(function(data){
                 socket.emit('send:note', { note: data });
-            })
-            .error(function(data){
-                // console.log('Error: ' + data);
             });
 
         $scope.message='';
@@ -243,7 +240,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
         var url = '/api/run/'+$stateParams._id;
         var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
-
+        socket.emit('testComplete', {'data' : { 'body': '', 'title': 'Done'}});
         // mixpanel.track('Test completed', {});
         // console.log('touched end', data_out);
 

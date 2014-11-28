@@ -125,32 +125,11 @@ module.exports = function(io, app, passport) {
         socket.on('join_room', function(data) { 
             console.log('joining room', data.room.toLowerCase());
             socket.join(data.room);
-
-        //     io.sockets.in(data.room).emit('joined_channel', {data: data.room, name:'io.sockets.in'});
-        //     socket.broadcast.to(data.room).emit('joined_channel', {data: data.room, name:'socket.broadcast.to join room'});
-        //     io.sockets.emit('joined_channel', {data: data.room, name:'io.sockets.emit'});
-        //     // io.emit('joined_channel', {data: data.room, name:'io.emit'});
-        //     // socket.emit('joined_channel', {data: data.room, name:'socket.emit'});
-        //     io.sockets.to(data.room).emit('joined_channel', {data: data.room, name:'io.sockets.to'});
         });
 
-        // Connect to default room from querystring.
-        // var master_room_collection = {};
-        // var origin_room = testRoom;
-
-        // console.log(testRoom, 'connected');
-
-        // return clients in given room
-        // console.log(testRoom, 'connected');
-
-        // join this socket to the default chat room from the querystring
-        // socket.join(testRoom);
-
-        // var roomClients = io.of('').clients(testRoom);
-
-        // _.each(roomClients, function(client){
-        //     console.log(client.handshake.testRoom, 'is in myroom');
-        // });
+        socket.on('testComplete', function(data){
+            io.sockets.in(data.room).emit('endTest', data);
+        });
 
 
     });

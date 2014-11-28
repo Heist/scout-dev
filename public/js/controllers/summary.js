@@ -94,7 +94,7 @@ angular.module('field_guide_controls')
 
     $scope.activate = function(obj, selectedIndex) {
         // passes the task to the global variable
-        console.log('activated', obj.name, obj.summary);
+        console.log('activated', obj.name);
 
         $scope.selectedIndex = selectedIndex;
         $state.go("summary.task");
@@ -133,6 +133,27 @@ angular.module('field_guide_controls')
         
     };
 
+    $scope.saveFav = function(message){
+        console.log('touched message fav', message);
+        console.log('what kind of object is this?', $scope.selected.doctype);
+        
+        if($scope.selected.doctype === 'task'){
+            if(message.fav_task){ message.fav_task = false; }
+            else if (!message.fav_task){ message.fav_task = true; }
+        }
+
+        if($scope.selected.doctype === 'tag'){
+            if(message.fav_tag){ message.fav_tag = false; } 
+            else if (!message.fav_tag){ message.fav_tag = true;}
+        }
+
+        // $http
+        //     .put('/api/message/'+message._id, message)
+        //     .success(function(err, msg){
+        //         console.log('msg_success');
+        //     });
+    };
+
     // MESSAGE FUNCTIONS ==================================
 
     $scope.showTest = function (msg_id) {
@@ -154,34 +175,6 @@ angular.module('field_guide_controls')
 
         // // console.log('false', $scope.subject);
         return false;
-    };
-
-    $scope.saveFavTask = function(message){
-        if(message.fav_task){
-            message.fav_task = false;
-        } else if (!message.fav_task){
-            message.fav_task = true;
-        }
-
-        $http
-            .put('/api/message/'+message._id, message)
-            .success(function(err, msg){
-                console.log('msg_success');
-            });
-    };
-
-    $scope.saveFavTag = function(message){
-        if(message.fav_tag){
-            message.fav_tag = false;
-        } else if (!message.fav_tag){
-            message.fav_tag = true;
-        }
-
-        $http
-            .put('/api/message/'+message._id, message)
-            .success(function(err, msg){
-                console.log('msg_success');
-            });
     };
 
     $scope.editMessage = function(message, index){

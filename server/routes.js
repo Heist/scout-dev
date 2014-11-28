@@ -219,15 +219,16 @@ module.exports = function(app, passport) {
 
         }).then(function(tasks){
             reply.tasks = tasks;
-            console.log('tasks', tasks);
+            // console.log('tasks', tasks);
             console.log('report number', req.params._id);
+            console.log('test_id number', test_id);
 
             return Tag.find({'_test' : test_id})
                       .exec();
         
         }).then(function(tags){
             reply.tags = tags;
-            console.log(tags);
+            console.log('we got tags', tags);
 
             return    Message.find({'_test': test_id, $or: [{ fav_task : true }, { fav_tag : true }]})
                         .populate({path: '_subject', 'select': 'name -_id'})
@@ -255,12 +256,6 @@ module.exports = function(app, passport) {
         next();
     });
 
-// app.use('/api', function (req, res, next) {
-// // for calls that start with api....
-// // console.log('touched the api tag');
-
-//    next();
-// });
 
 // CONNECT ROUTES =========================================
 
