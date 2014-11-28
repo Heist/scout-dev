@@ -18,8 +18,8 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     $http
         .get('/api/run/'+$stateParams._id)
         .success(function(data){
-            $scope.tests = data;
-            // console.log('how is data built', data);
+            $scope.test = data[0];
+            console.log('how is data built', $scope.test.kind);
 
             // reset variables to clear cache from state changes.
             $scope.task = {};

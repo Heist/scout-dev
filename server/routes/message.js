@@ -110,83 +110,87 @@ app.route('/api/message/:_id')
     })
     .put(function(req, res){
         // edit a message name and search for new tags
-        console.log('touched update message', req.body.tags, req.body.body);
+        console.log('touched update message');
   
         var reply = {},
             promise = Message.find({'_id' : req.params._id}).limit(1).exec();
 
         promise.then(function(msg){
-            reply.msg = msg;
+            reply.msg = msg[0];
             reply.tags = [];
-
+            
             // return Tag.find({'_messages' : {$in: [reply.msg._id]}}).exec();
-            return Tag.find({}).exec();
+
+            return Tag.find({'_test' :  mongoose.Types.ObjectId(reply.msg._test) }).exec();
 
         }).then(function(tags){
-            console.log('tags from message._id', tags);
+            console.log('tags from message._id', tags.length);
             
             var id_search = reply.msg._id.toString();
                 
             // If a tag exists with that message
             // but does not exist within the list of tags
             // remove the message._id from it
-            // async.each(tags, function(doc){
-            //     Tag.findById(doc._id)
-            //        .exec(function(err, t){
-            //             // find a tag, and if it does not exist in req body tags
-            //             // delete the message from it
-            //             if(err){console.log(err);}
-            //             var index = _.indexOf(req.body.tags, t.name);
-            //             if(index === -1){
-            //                 var msg_index = t._messages.indexOf(id_search);
-            //                 t._messages.splice(msg_index, 1);
-            //                 t.save();
-            //             }
-            //         });
-            // });
+            async.each(tags, function(tag){
+
+                Tag.findById(tag._id)
+                   .exec(function(err, t){
+                        if(err){console.log(err);}
+
+                        // find a tag, and if it does not exist in req body tags
+                        // delete the message from it
+                        
+                        var index = _.indexOf(req.body.tags, t.name);
+                        
+                        if(index === -1){
+                            var msg_index = t._messages.indexOf(id_search);
+                            t._messages.splice(msg_index, 1);
+                            t.save();
+                        }
+                    });
+            });
 
             // if a tag does not exist, create it.
             // if a tag exists but does not have the message in it, push the message in.
-            
-            // async.each(req.body.tags, function(tag){
-            //     Tag.find({'name' : tag}).limit(1).exec(function(err,doc){
-            //         if(err){console.log(err);}
+            async.each(req.body.tags, function(tag){
+                Tag.find({'name' : tag}).limit(1).exec(function(err,doc){
+                    if(err){console.log(err);}
                     
-            //         var tg = doc[0];
+                    var tg = doc[0];
 
-            //         if(!tg){
-            //             // create a new tag and push a message to it, save and exit
-            //             var t = new Tag ();
-            //             t.name = tag;
-            //             t._test = reply.msg._test;
-            //             t._messages.push(reply.msg._id);
+                    if(!tg){
+                        // create a new tag and push a message to it, save and exit
+                        var t = new Tag ();
+                        t.name = tag;
+                        t._test = reply.msg._test;
+                        t._messages.push(reply.msg._id);
 
-            //             t.save(function(err, n){
-            //                 if(err){console.log(err);}
-            //                 console.log('created new tag', n);
-            //                 return;
-            //             });
+                        t.save(function(err, n){
+                            if(err){console.log(err);}
+                            console.log('created new tag', n);
+                            return;
+                        });
                          
-            //         }
+                    }
 
-            //         if(tg){
-            //             // if the message does not already exist
-            //             if(tg._messages.indexOf(reply.msg._id) === -1){
-            //                 tg._messages.push(reply.msg._id);
-            //                 tg.save(function(err, saved){
-            //                     if(err){console.log(err);}
-            //                     return;
-            //                 });
-            //             }
-            //         }
-            //     });
-            // });
+                    if(tg){
+                        // if the message does not already exist
+                        if(tg._messages.indexOf(reply.msg._id) === -1){
+                            tg._messages.push(reply.msg._id);
+                            tg.save(function(err, saved){
+                                if(err){console.log(err);}
+                                return;
+                            });
+                        }
+                    }
+                });
+            });
 
         }).then(function(){
                 // kill empty tags
-                // Tag.remove({'_messages' : {$size : 0}, '_test' : reply.msg._test}, function(err){
-                //     if(err){console.log(err);}
-                // });
+                Tag.remove({'_messages' : {$size : 0}, '_test' : reply.msg._test}, function(err){
+                    if(err){console.log(err);}
+                });
 
                 var test = mongoose.Types.ObjectId(reply.msg._test);
 
