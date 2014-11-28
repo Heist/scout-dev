@@ -49,9 +49,11 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
     };
 
     $scope.showTask = function(msg, obj){
-        if((obj._messages.indexOf(msg._id) >= 0) && (msg.fav_task === true)){
-            // console.log('task shown');
-            return true;
+        if(obj._messages){
+            if((obj._messages.indexOf(msg._id) >= 0) && (msg.fav_task === true)){
+                // console.log('task shown');
+                return true;
+            }
         }
     };
 

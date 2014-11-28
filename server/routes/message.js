@@ -188,9 +188,9 @@ app.route('/api/message/:_id')
 
         }).then(function(){
                 // kill empty tags
-                // Tag.remove({'_messages' : {$size : 0}, '_test' : reply.msg._test}, function(err){
-                //     if(err){console.log(err);}
-                // });
+                Tag.remove({'_messages' : {$size : 0}, '_test' : reply.msg._test}, function(err){
+                    if(err){console.log(err);}
+                });
 
                 var test = mongoose.Types.ObjectId(reply.msg._test);
 

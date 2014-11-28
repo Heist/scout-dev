@@ -37,7 +37,14 @@
                         </div>
 						<div>{{object.name}}</div>
 						
-						<div class="sidebar-visibility"><button ng-click="toggleVis(object)"><img src="/layout/assets/checkbox-filled.svg" ng-show="object.visible" /></button></div>
+						<div class="sidebar-visibility">
+							<a ng-click="toggleVis(object)" ng-show="object.visible">
+								<img src="/layout/assets/checkbox-filled.svg" />
+							</a>
+							<a ng-click="toggleVis(object)" ng-show="!object.visible">
+								<img src="/layout/assets/checkbox-empty.svg" />
+							</a>
+						</div>
 
 					</li>
 					
