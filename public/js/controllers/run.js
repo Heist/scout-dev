@@ -80,7 +80,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     });
     socket.on('error', function(reason)
     {
-        console.log('error');
+        console.log('error', reason);
     });
     socket.on('reconnect_failed', function(data)
     {

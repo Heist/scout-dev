@@ -16,39 +16,39 @@ module.exports = function(io, app, passport) {
     var Test = require('./models/data/test');
 
     // // our kickoff configuration for sockets 1.0 ....
-    io.configure(function(){
-        io.set('authorization', function (handshake, callback) {
-            try {
-            var data = handshake || request;
-            if (! data.headers.cookie) {
-                return next(new Error('Missing cookie headers'));
-            }
-            console.log('cookie header ( %s )', JSON.stringify(data.headers.cookie));
-            var cookies = cookie.parse(data.headers.cookie);
-            console.log('cookies parsed ( %s )', JSON.stringify(cookies));
-            if (! cookies[COOKIE_NAME]) {
-                return next(new Error('Missing cookie ' + COOKIE_NAME));
-            }
-            var sid = cookieParser.signedCookie(cookies[COOKIE_NAME], COOKIE_SECRET);
-            if (! sid) {
-                return next(new Error('Cookie signature is not valid'));
-            }
-            console.log('session ID ( %s )', sid);
-            data.sid = sid;
+    // io.configure(function(){
+    //     io.set('authorization', function (handshake, callback) {
+    //         try {
+    //         var data = handshake || request;
+    //         if (! data.headers.cookie) {
+    //             return next(new Error('Missing cookie headers'));
+    //         }
+    //         console.log('cookie header ( %s )', JSON.stringify(data.headers.cookie));
+    //         var cookies = cookie.parse(data.headers.cookie);
+    //         console.log('cookies parsed ( %s )', JSON.stringify(cookies));
+    //         if (! cookies[COOKIE_NAME]) {
+    //             return next(new Error('Missing cookie ' + COOKIE_NAME));
+    //         }
+    //         var sid = cookieParser.signedCookie(cookies[COOKIE_NAME], COOKIE_SECRET);
+    //         if (! sid) {
+    //             return next(new Error('Cookie signature is not valid'));
+    //         }
+    //         console.log('session ID ( %s )', sid);
+    //         data.sid = sid;
             
-            app.locals.store.get(sid, function(err, session) {
-                if (err) {return next(err);}
-                if (! session) {return next(new Error('session not found'));}
-                data.session = session;
-                next();
-            });
-        } catch (err) {
-            console.error(err.stack);
-            next(new Error('Internal server error'));
-        }
-          callback(null, true);
-        });
-    })
+    //         app.locals.store.get(sid, function(err, session) {
+    //             if (err) {return next(err);}
+    //             if (! session) {return next(new Error('session not found'));}
+    //             data.session = session;
+    //             next();
+    //         });
+    //     } catch (err) {
+    //         console.error(err.stack);
+    //         next(new Error('Internal server error'));
+    //     }
+    //       callback(null, true);
+    //     });
+    // })
 
 
     // io.use(function(socket, next) {
@@ -121,7 +121,7 @@ module.exports = function(io, app, passport) {
         io.set('authorization', passportSocketIo.authorize({
             cookieParser: cookieParser,
             key:         'connect.sid',       // the name of the cookie where express/connect stores its session_id
-            secret:      'session_secret',    // the session_secret to parse the cookie
+            secret:      app.locals.secret,    // the session_secret to parse the cookie
             store:       app.locals.store,        // we NEED to use a sessionstore. no memorystore please
             success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
             fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below

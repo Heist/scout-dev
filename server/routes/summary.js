@@ -69,7 +69,7 @@ module.exports = function (app, passport) {
 
         Test.findOneAndUpdate(query, update,function(err,test){
                 if(err) {return res.send (err);}
-                console.log('test updated', test)
+                console.log('test updated', test);
             });
 
         // if we have tags, update them in the db.
