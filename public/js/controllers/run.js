@@ -19,10 +19,10 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         .get('/api/run/'+$stateParams._id)
         .success(function(data){
             $scope.tests = data;
-            console.log('how is data built', $scope.test.kind);
+            console.log('how is data built', $scope.tests[0].kind);
 
             $scope.kind = data[0].kind;
-            
+
             // reset variables to clear cache from state changes.
             $scope.task = {};
             var message = {};
