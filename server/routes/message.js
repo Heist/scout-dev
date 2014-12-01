@@ -171,33 +171,35 @@ app.route('/api/message/:_id')
                             });
                         });
             },
-
             function(args, callback){
-                console.log('last function args', args, callback);
-                Tag.remove({'_messages' : {$size : 0}}, function(err, gone){console.log('gone', gone);});
-            }
+                // console.log('last function args', args);
 
-            // function(msg, callback){
-            //     // arg1 now equals 'three'
-            //     // console.log('after msg', msg);
-
-            //     Tag.find({'_messages' : {$in : [req.body._id]}}).exec(function(err, docs){
-            //         if(err){console.log(err);}
-            //         async.map(docs, function(tag, callback){
-            //             var index = tags.indexOf(tag.name);
-            //             if(index === -1){
-            //                 var msg_index = tag._messages.indexOf(id);
-            //                 tag._messages.splice(msg_index, 1);
-            //                 tag.save(function(err,doc){
-            //                     callback(null,doc);
-            //                 });
-            //             }
-            //         }, callback);
-            //     });
-            // },
+                // TODO: THIS
+                // this is tricky because it involves a buried map function.
+                Tag.find({'_messages' : {$in : [req.body._id]}}).exec(function(err, docs){
+                    if(err){console.log(err);}
+                    async.map(docs, function(tag, callback){
+                        var index = tags.indexOf(tag.name);
+                        if(index === -1){
+                            var msg_index = tag._messages.indexOf(id);
+                            tag._messages.splice(msg_index, 1);
+                            tag.save(function(err,doc){
+                                callback(null,doc);
+                            });
+                        }
+                    }, callback);
+                });
+            },
+            function(args, callback){
+                console.log('pre-removal', args);
+                Tag.remove({'_messages' : {$size : 0}}, function(err, gone){
+                    console.log('gone', gone); 
+                    callback(null, args);
+                });
+            }            
         ], function (err, result) {
            // result now equals 'done'  
-            console.log(result);
+            console.log('result', result);
         });
     });
 };
