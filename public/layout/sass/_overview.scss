@@ -16,12 +16,12 @@
 			}
 			
 			.test-info {
-				padding: $pad*1.5 $pad/2 $pad $pad/2;
+				padding: $pad*3 $pad*1.5;
 				text-align: center;
 				position: relative;
 				@include radius-top;
-				border: 1px solid $line;
-				
+				background: $fg-tan;
+
 				&:hover {
 					.removeTest {
 						display: block;
@@ -29,7 +29,6 @@
 				}
 				
 				.removeTest {
-					background: $white;
 					font-size: $type-size-base*0.8;
 					position: absolute;
 					text-align: center;
@@ -58,15 +57,16 @@
 			}
 			
 			.test-controls {
-				background: $fg-slate;
-				padding: $pad $pad/3 $pad/1.5 $pad/3;
+				background: $fg-green;
+				padding: $pad*1.2 $pad/3 $pad*1.2 $pad/3;
+				text-align: center;
 				@include radius-bottom;
 				@include dropshadow;
 				
 				.test-control {
 					float: left;
-					width: 33.3%;
-					padding: 0 $pad/2;
+					width:45%;
+
 					text-align: center;
 					font-size: $type-size-base*0.8;
 					line-height: $type-line-base*0.65;
