@@ -128,47 +128,46 @@ app.route('/api/message/:_id')
         function tagHandler(tags, test, id, done) {
             async.map(tags, function (name, callback) {
                 console.log('tag ' + name);
-                Tag.find({'name' : name}).limit(1).exec(function(err,doc){
-                    if(err){console.log(err);}
-                    
-                    var tg = doc[0];
 
-                    if(!tg){
+                Tag.find({'name' : name}).limit(1).exec(function (error, doc) {
+                    if (error){return callback(error);}
+
+                    var tg = doc[0];
+                    if (!tg) {
                         // create a new tag and push a message to it, save and exit
-                        var t = new Tag ();
+                        var t = new Tag();
                         t.name = name;
                         t._test = test;
                         t._messages.push(id);
-
-                        t.save(function(err, n){
-                            if(err){console.log(err);}
-                            callback(null, n);
-                        });
-                         
-                    }
-
-                    if(tg){
+                        t.save(callback);
+                    } else {
                         // if the message does not already exist
-                        if(tg._messages.indexOf(id) === -1){
+                        if (tg._messages.indexOf(id) === -1) {
                             tg._messages.push(id);
-                            tg.save(function(err, saved){
-                                if(err){console.log(err);}
-                                callback(null, saved);
-                            });
+                            tg.save(callback);
+                        } else {
+                            callback(null, null);
                         }
-                    }
-
-                    else { callback(null, 'Tag already present');}
+                    } 
                 });
-
-                // callback(null, result);
             }, done);
         }
 
-        var tagReply = tagHandler(req.body.tags, req.body._test, req.body._id, function (error, results) {
-            // results is your new array of tags!
-            console.log('did this work this time', results);
-        });
+        var promise = Tag.find({'_messages': { $in: [id] }}).exec(function(err, tags){console.log('tags', tags)});
 
+        promise.then(function(tags){
+            console.log('tags matching message _id', tags);
+
+            var tagReply = tagHandler(req.body.tags, req.body._test, req.body._id, function (error, results) {
+                    // results is your new array of tags!
+                    console.log('did this work this time', error, results);
+                });
+
+            return tagReply;
+
+        }).then(function(new_tag_array){
+            console.log(new_tag_array);
+            res.json(new_tag_array);
+        });
     });
 };
