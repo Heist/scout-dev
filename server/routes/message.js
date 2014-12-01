@@ -161,19 +161,19 @@ app.route('/api/message/:_id')
                     });
                 }, callback);
             }, 
-            function(arg1, callback){
+            function(tag_set, callback){
                 Message.find({'_id' : req.body._id})
                        .exec(function(err, msgs){
                             var msg = msgs[0];
                             msg.body = message;
                             msg.save(function(err, data){
-                                callback(null, data);
+                                callback(null, {data: data, tag_set: tag_set});
                             });
                         });
             },
-            function(arg1, callback){
+            function(msg, callback){
                 // arg1 now equals 'three'
-                console.log('after msg', arg1, callback);
+                console.log('after msg', msg);
                 callback(null, 'done');
             }
         ], function (err, result) {
