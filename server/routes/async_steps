@@ -1,0 +1,85 @@
+// STEP 1 
+var tagReply = function tagHandler(tags, test, id, done) {
+    async.map(tags, function (name, callback) {
+        // console.log('tag ' + name);
+
+        Tag.find({'name' : name}).limit(1).exec(function (error, doc) {
+            if (error){return callback(error);}
+
+            var tg = doc[0];
+            if (!tg) {
+                // create a new tag and push a message to it, save and exit
+                var t = new Tag();
+                t.name = name;
+                t._test = test;
+                t._messages.push(id);
+                t.save(function(err, tag){
+                    callback(null, tag);
+                });
+            } else {
+                // if an existing tag _messages does not contain msg._id
+                // console.log('the head', id, tg._messages.indexOf(id), tg.name);
+                if (tg._messages.indexOf(id) === -1) {
+                    // console.log('tag getting message', tg.name);
+                    tg._messages.push(id);
+                    tg.save(function(err, tag){
+                        callback(null, tag);
+                    });
+                } else {
+                    callback(null, tg);
+                }
+            } 
+        });
+    }, done);
+};
+
+
+
+
+// STEP 2 for each tag that has a message._id, if it's not in req.body.tags, splice it out of _messages
+Tag.find({'_messages' : {$in : [req.body._id]}}).exec(function(err, tags){
+    if(err){console.log(err);}
+
+    async.map(tags, function(tag, callback){
+        var index = req.body.tags.indexOf(tag.name);
+
+        console.log(tag.name, index);
+
+        if(index === -1){
+            var msg_index = tag._messages.indexOf(req.body._id);
+            tag._messages.splice(msg_index, 1);
+            tag.save(function(err,doc){
+                console.log(doc);
+            });
+        }
+    });
+    
+});
+
+
+// KIND OF WORKING PART 
+tagHandler(req.body.tags, req.body._test, req.body._id, function (error, results) {
+            // results is your new array of tags!
+            var reply = {};
+            // console.log('did this work this time', error, results.length);
+            
+            var promise = Message.findOneAndUpdate(
+                                {'_id' : req.body._id},
+                                {'body': message },
+                                {upsert : false},
+                                function(err, message){});
+            
+            promise.then(function(message){
+                reply.message = message;
+                
+                    
+
+            }).then(function(new_tags){
+                
+                reply.tags = new_tags;
+
+                console.log(reply);
+                res.json(reply);
+            });
+
+        });

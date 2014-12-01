@@ -6,6 +6,7 @@ module.exports = function(app, passport) {
 var mongoose = require('mongoose');  //THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 var _ = require('underscore');
 var async = require('async');
+var Promise = require('promise');
 
 //load data storage models
 var Message = require('../models/data/message');
@@ -120,82 +121,64 @@ app.route('/api/message/:_id')
         // reply with res.json({tags : tags, msg: msg});
 
         // globals to sort through
-        var reply = {},
-            id = req.body._id,
+        console.log('touched message put', req.body);
+        var message = req.body.body,
+            tags = req.body.tags,
             test = req.body._test,
-            message = req.body.body;
+            id = req.body._id;
 
-        function tagHandler(tags, test, id, done) {
-            async.map(tags, function (name, callback) {
-                // console.log('tag ' + name);
+        async.waterfall([
+            function(callback) {
+                async.map(req.body.tags, function (name, callback) {
+                    // console.log('tag ' + name);
+                    Tag.find({'name' : name}).limit(1).exec(function (error, doc) {
+                        if (error){return callback(error);}
 
-                Tag.find({'name' : name}).limit(1).exec(function (error, doc) {
-                    if (error){return callback(error);}
+                        var tg = doc[0];
 
-                    var tg = doc[0];
-                    if (!tg) {
-                        // create a new tag and push a message to it, save and exit
-                        var t = new Tag();
-                        t.name = name;
-                        t._test = test;
-                        t._messages.push(id);
-                        t.save(function(err, tag){
-                            callback(null, tag);
-                        });
-                    } else {
-                        // if an existing tag _messages does not contain msg._id
-                        console.log('the head', id, tg._messages.indexOf(id), tg.name);
-                        if (tg._messages.indexOf(id) === -1) {
-                            console.log('tag getting message', tg.name);
-                            tg._messages.push(id);
-                            tg.save(function(err, tag){
-                                console.log('what the fuck', tag);
+                        if (!tg) {
+                            // create a new tag and push a message to it, save and exit
+                            var t = new Tag();
+                            t.name = name;
+                            t._test = test;
+                            t._messages.push(id);
+                            t.save(function(err, tag){
                                 callback(null, tag);
                             });
                         } else {
-                            callback(null, tg.name);
-                        }
-                    } 
-                });
-            }, done);
-        }
-
-        // first, edit and save the message body with whatever the new one is.
-        var promise = Message.findOneAndUpdate(
-                        {'_id': req.body._id},
-                        {'body': req.body.body},
-                        {upsert : false},
-                        function(err, msg){
-                            if(err){console.log(err);}
+                            // if an existing tag _messages does not contain msg._id
+                            // console.log('the head', id, tg._messages.indexOf(id), tg.name);
+                            if (tg._messages.indexOf(id) === -1) {
+                                // console.log('tag getting message', tg.name);
+                                tg._messages.push(id);
+                                tg.save(function(err, tag){
+                                    callback(null, tag);
+                                });
+                            } else {
+                                callback(null, tg);
+                            }
+                        } 
+                    });
+                }, callback);
+            }, 
+            function(arg1, callback){
+                Message.find({'_id' : req.body._id})
+                       .exec(function(err, msgs){
+                            var msg = msgs[0];
+                            msg.body = message;
+                            msg.save(function(err, data){
+                                callback(null, data);
+                            });
                         });
-
-        promise.then(function(){
-            // then get all the tags for this message
-            return Tag.find({'_messages': { $in: [id] }}).exec();
-
-        }).then(function(tags){
-            // run tagHandler, which makes a tag if there isn't one, and pushes a message if there is a tag
-            // console.log('tags matching message _id', tags);            
-
-            return tagHandler(req.body.tags, req.body._test, req.body._id, function (error, results) {
-                    // results is your new array of tags!
-                    console.log('did this work this time', error, results);
-                    _.each(results, function(entry){console.log(entry);});
-                    // return results[3];
-                });
-
-        }).then(function(new_tag_array){
-            // array of new tags and tags that have messages in place
-            console.log('new_tag_array', new_tag_array);
-            reply.new_tags = new_tag_array;
-            var find_id = mongoose.Types.ObjectId(id);
-
-            return Tag.find({'_messages' : {$in : [find_id]}}).exec();
-
-        }).then(function(old_tags){
-            reply.old_tags = old_tags;
-            // console.log('final reply', reply);
-            res.json(new_tag_array);
+            },
+            function(arg1, callback){
+                // arg1 now equals 'three'
+                console.log('after msg', arg1, callback);
+                callback(null, 'done');
+            }
+        ], function (err, result) {
+           // result now equals 'done'  
+            console.log(result);
         });
     });
 };
