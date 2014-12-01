@@ -719,76 +719,76 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 /* line 14, ../sass/_editing.scss */
 #view-editing #sub-bar { position: fixed; top: 50px; left: 0; z-index: 9999; text-align: center; padding-bottom: 10px; background: rgba(242, 242, 240, 0.95); }
 /* line 23, ../sass/_editing.scss */
-#view-editing #sub-bar h1 { padding-top: 3.33333px; }
-/* line 30, ../sass/_editing.scss */
+#view-editing #sub-bar h1 { padding-top: 3.33333px; top: 29px; position: absolute; }
+/* line 32, ../sass/_editing.scss */
 #view-editing .explanation { width: 90%; font-size: 14.4px; line-height: 21.6px; }
-/* line 35, ../sass/_editing.scss */
+/* line 37, ../sass/_editing.scss */
 #view-editing .explanation small { color: #c88649; text-transform: uppercase; }
-/* line 40, ../sass/_editing.scss */
+/* line 42, ../sass/_editing.scss */
 #view-editing .explanation p { margin: 0; padding: 10px 0 0 0; }
-/* line 44, ../sass/_editing.scss */
+/* line 46, ../sass/_editing.scss */
 #view-editing .explanation p strong { font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 700; }
-/* line 49, ../sass/_editing.scss */
+/* line 51, ../sass/_editing.scss */
 #view-editing .explanation img { display: block; width: 80%; height: auto; padding: 0; margin: 0 auto; }
-/* line 57, ../sass/_editing.scss */
+/* line 59, ../sass/_editing.scss */
 #view-editing .explanation .explanation-main { color: #624429; background: #fff2cd; padding: 16px 20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
-/* line 64, ../sass/_editing.scss */
+/* line 66, ../sass/_editing.scss */
 #view-editing .explanation .explanation-tips { color: #624429; background: #fff8e7; margin-top: 1px; padding: 16px 20px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
-/* line 77, ../sass/_editing.scss */
+/* line 79, ../sass/_editing.scss */
 #view-editing .test-type { padding: 10px; text-align: center; position: relative; border: 1px solid white; }
-/* line 83, ../sass/_editing.scss */
+/* line 85, ../sass/_editing.scss */
 #view-editing .test-type .selected-arrow { display: none; }
-/* line 87, ../sass/_editing.scss */
+/* line 89, ../sass/_editing.scss */
 #view-editing .test-type.selected { -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; border: 1px solid #86aa25; color: #71901f; }
-/* line 92, ../sass/_editing.scss */
+/* line 94, ../sass/_editing.scss */
 #view-editing .test-type.selected .selected-arrow { position: absolute; display: block; width: 100%; text-align: center; height: 7px; bottom: -7px; left: 0; }
-/* line 101, ../sass/_editing.scss */
+/* line 103, ../sass/_editing.scss */
 #view-editing .test-type.selected .selected-arrow img { width: 14px; height: auto; }
-/* line 108, ../sass/_editing.scss */
+/* line 110, ../sass/_editing.scss */
 #view-editing .test-type strong { border-bottom: 1px dashed #e7e7da; }
-/* line 112, ../sass/_editing.scss */
+/* line 114, ../sass/_editing.scss */
 #view-editing .test-type img { width: 100px; height: auto; padding: 0 0 10px 0; }
-/* line 122, ../sass/_editing.scss */
-#view-editing .test-details { float: none; padding: 20px 0 40px 0; margin: 40px 0 0 16.5%; }
-/* line 127, ../sass/_editing.scss */
+/* line 124, ../sass/_editing.scss */
+#view-editing .test-details { float: none; padding: 20px 14% 40px 14%; margin: 20px 0; }
+/* line 129, ../sass/_editing.scss */
 #view-editing .test-details .input { width: 100%; }
-/* line 131, ../sass/_editing.scss */
+/* line 133, ../sass/_editing.scss */
 #view-editing .test-details li { padding: 0 0 20px 0; }
-/* line 135, ../sass/_editing.scss */
+/* line 137, ../sass/_editing.scss */
 #view-editing .test-details .test-details-devicetype { cursor: pointer; float: left; text-align: center; padding: 10px 10px 0 10px; font-size: 12.8px; }
-/* line 142, ../sass/_editing.scss */
+/* line 144, ../sass/_editing.scss */
 #view-editing .test-details .test-details-devicetype img { height: 100px; width: auto; opacity: 0.4; }
-/* line 148, ../sass/_editing.scss */
+/* line 150, ../sass/_editing.scss */
 #view-editing .test-details .test-details-devicetype.phone, #view-editing .test-details .test-details-devicetype.tablet { width: 25%; }
-/* line 151, ../sass/_editing.scss */
+/* line 153, ../sass/_editing.scss */
 #view-editing .test-details .test-details-devicetype.desktop { width: 50%; }
-/* line 155, ../sass/_editing.scss */
+/* line 157, ../sass/_editing.scss */
 #view-editing .test-details .test-details-devicetype.unavailable { cursor: not-allowed; }
-/* line 159, ../sass/_editing.scss */
+/* line 161, ../sass/_editing.scss */
 #view-editing .test-details .test-details-devicetype.selected { font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 600; color: #71901f; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; border: 1px solid #86aa25; }
-/* line 165, ../sass/_editing.scss */
+/* line 167, ../sass/_editing.scss */
 #view-editing .test-details .test-details-devicetype.selected img { opacity: 1.0; }
-/* line 177, ../sass/_editing.scss */
-#view-editing .test-tasks { float: none; padding: 0 0 40px 0; margin: 0 0 0 16.5%; /* steps list */ }
-/* line 184, ../sass/_editing.scss */
-#view-editing .test-tasks #steps { padding: 0; margin: 0; list-style: none; }
-/* line 189, ../sass/_editing.scss */
-#view-editing .test-tasks #steps li { position: relative; }
+/* line 179, ../sass/_editing.scss */
+#view-editing .test-tasks { float: none; padding: 20px 14% 40px 14%; margin: 20px 0; /* steps list */ }
+/* line 186, ../sass/_editing.scss */
+#view-editing .test-tasks #steps { padding: 0; margin: 0; width: 100%; list-style: none; }
 /* line 192, ../sass/_editing.scss */
+#view-editing .test-tasks #steps li { position: relative; }
+/* line 195, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-hamburger { position: absolute; font-size: 28px; cursor: move; line-height: 18.04511px; top: 10px; left: -25px; width: 20px; }
-/* line 202, ../sass/_editing.scss */
+/* line 205, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-ordering { position: absolute; top: 10px; left: -25px; width: 20px; opacity: 0.2; }
-/* line 209, ../sass/_editing.scss */
+/* line 212, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-ordering div { cursor: pointer; }
-/* line 213, ../sass/_editing.scss */
+/* line 216, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-ordering:hover { opacity: 1.0; }
-/* line 219, ../sass/_editing.scss */
+/* line 222, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-contents { float: left; width: 100%; }
-/* line 223, ../sass/_editing.scss */
+/* line 226, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-contents .input { width: 100%; margin: 0 0 2px 0; }
-/* line 229, ../sass/_editing.scss */
+/* line 232, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-controls { position: absolute; width: 20px; text-align: right; top: 10px; right: -25px; }
-/* line 247, ../sass/_editing.scss */
+/* line 250, ../sass/_editing.scss */
 #view-editing .test-done { float: none; padding: 0 0 40px 0; margin: 0 0 0 16.5%; }
 
 /* SESSION IN PROGRESS */
