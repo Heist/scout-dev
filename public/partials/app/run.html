@@ -24,15 +24,14 @@
 					<li>
 						<label>Participant's name</label>
 						
-						<input class="input" type="text" name="participantname" value="" placeholder="&lsquo;Jane&rsquo; or &lsquo;Tester 2&rsquo;, for example" ng-model="subject.name" />
+						<input class="input" type="text" name="participantname" value="" placeholder="&lsquo;Jane&rsquo; or &lsquo;Tester 2&rsquo;, for example" ng-model="subject.name" ui-keypress="{13:'addSubject(subject)'}" />
 						</input>
 					</li>
 					
 					<li ng-show="kind === 'prototype'">
-						<label>ID from the Field Guide App</label>
+						<label>Room ID from the Field Guide App &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://docs.google.com/forms/d/1MsYcOPq5X1foSuaHfuuhzOmkhijaNFBjB7XJMs3PSA0/viewform" target="_fdbk">Get the iOS Beta App</a></label>
 						
-						<input class="input" type="text" name="testroom" value="" placeholder="The code on your device, e.g. 71ff3a84" ng-model="subject.testroom"
-							ui-keypress="{13:'addSubject(subject)'}" >
+						<input class="input" type="text" name="testroom" value="" placeholder="The code on your device, e.g. 71ff3a84" ng-model="subject.testroom" ui-keypress="{13:'addSubject(subject)'}" >
 						</input>
 					</li>
 					

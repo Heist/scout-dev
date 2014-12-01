@@ -7,7 +7,6 @@
 	left: 0;
 	background: transparentize($fg-header-red, 0.05);
 	color: $fg-header-red-dark;
-	border-bottom: 2px solid darken($fg-header-red, 7%);
 	width: 100%;
 	height: $pad*2.5;
 	z-index: 999999;

@@ -95,10 +95,6 @@ CVReturn CVPixelBufferCreateWithIOSurface(
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"room"];
     if (_connectedChan == NO) {
-//        NSString *hash = [self md5: [[[UIDevice currentDevice] identifierForVendor] UUIDString]];
-//        hash = [hash substringWithRange:NSMakeRange(0, 8)];
-//        UIAlertView *room = [[UIAlertView alloc] initWithTitle:@"Your roomID is:" message:hash delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        //[room show];
         _connectedChan = YES;
     }
     [socketIO sendEvent:@"subscribe" withData:dict];
@@ -118,7 +114,7 @@ CVReturn CVPixelBufferCreateWithIOSurface(
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:&e];
     
     NSDictionary *testJSON = [[dict objectForKey: @"args" ] objectAtIndex: 0];
-    NSLog(@"didReceiveEvent >>> data: %@", testJSON);
+    //NSLog(@"didReceiveEvent >>> data: %@", testJSON);
     
     //Pass the dictionary over to the singleton to pass over to MasterViewController
     singleton.roomInfo = testJSON;

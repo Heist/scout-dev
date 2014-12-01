@@ -71,19 +71,19 @@
     
 }
 
-//-(void)refreshView:(UIRefreshControl *)refresh {
-//    
-//    //Start refreshing the data with new JSON
-//    [self getJSON];
-//    
-//    //NSLog(@"%@",_items);
-//    
-//    //Tell the control its done refreshing
-//    [refresh endRefreshing];
-//    
-//    //Update the data in the table view
-//    [self.tableView reloadData];
-//}
+-(void)refreshView:(UIRefreshControl *)refresh {
+    
+    //Start refreshing the data with new JSON
+    [self getJSON];
+    
+    //NSLog(@"%@",_items);
+    
+    //Tell the control its done refreshing
+    [refresh endRefreshing];
+    
+    //Update the data in the table view
+    [self.tableView reloadData];
+}
 
 -(void)getJSON
 {
@@ -122,6 +122,7 @@
     {
         NSLog(@"Error: %@", error);
     }
+    
 }
 
 - (NSString *) md5:(NSString *) input
