@@ -153,7 +153,7 @@ app.route('/api/message/:_id')
             }, done);
         }
 
-        var promise = Tag.find({'_messages': { $in: [id] }}).exec(function(err, tags){console.log('tags', tags)});
+        var promise = Tag.find({'_messages': { $in: [id] }}).exec();
 
         promise.then(function(tags){
             console.log('tags matching message _id', tags);
