@@ -242,7 +242,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
         var url = '/api/run/'+$stateParams._id;
         var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
-        socket.emit('testComplete', {'data' : { 'body': '', 'title': 'Done'}});
+        socket.emit('testComplete', {data:{body:'test_complete'}});
         // mixpanel.track('Test completed', {});
         // console.log('touched end', data_out);
 
