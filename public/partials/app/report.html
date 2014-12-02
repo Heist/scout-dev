@@ -93,7 +93,7 @@
 					ng-click="activate(object, $index)" 
 					ng-class="{ 'active': object._id == selected._id}"
 					ng-show="object.visible" >
-						{{object.name}}
+						<span ng-show="object.doctype === 'tag'">#</span>{{object.name}}
 						<div class="task-score green" ng-show="task.pass_fail == true" >&nbsp;</div>
 						<div class="task-score red" ng-show="task.pass_fail == false">&nbsp;</div>
 					</li>
@@ -109,21 +109,20 @@
 			<div class="task-score green inverted" ng-show="selected.pass_fail == true">Passed</div>
 			<div class="task-score red inverted" ng-show="selected.pass_fail == false">Needs work</div>
 				
-			<h2>{{selected.name}}</h2>
+			<h2><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h2>
 
 			
 			<div class="clear"></div>
 			
-			<div class="float-right"><button class="button small" ng-show="user.trello" ng-click="sendCardToTrello()">Send to Trello</button></div>
+			<!--<div class="float-right"><button class="button small" ng-show="user.trello" ng-click="sendCardToTrello()">Send to Trello</button></div>-->
 			
 			
-			<p><strong>Talking points:</strong> {{selected.desc}}</p>
+			<!--<p><strong>Talking points:</strong> {{selected.desc}}</p>-->
 			
-			<p><strong>Results:</strong> {{selected.summary}}</p>
+			<p>{{selected.summary}}</p>
 					
 			<div class="message-group report-messages">
 			
-				<h4><span>Selected Quotes</span></h4>
 			
 				<div ng-repeat="message in messages" class="message" ng-show="showTask(message, selected)">
 					

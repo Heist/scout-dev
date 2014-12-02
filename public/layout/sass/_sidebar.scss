@@ -66,6 +66,7 @@
 				display: block;
 				
 				img {
+					margin: 5px 0 0 0;
 					width: 16px;
 					height: auto;
 				}
@@ -97,7 +98,15 @@
 	}
 }
 
+/* style up the sidebar for summarizing */
 
+#view-summarizing {
+	#sidebar {
+		.step-ordering {
+			display: none;
+		}
+	}
+}
 
 
 
