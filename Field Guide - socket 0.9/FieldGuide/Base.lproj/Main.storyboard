@@ -39,7 +39,7 @@
                                 <rect key="frame" x="0.0" y="22" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNl-8K-TfG">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNl-8K-TfG">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="24"/>
                                 <color key="backgroundColor" red="0.96966010329999996" green="0.47304677960000002" blue="0.33630043269999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -56,7 +56,9 @@
                         <constraints>
                             <constraint firstItem="cNl-8K-TfG" firstAttribute="width" secondItem="svH-Pt-448" secondAttribute="width" id="0ec-ty-eHr"/>
                             <constraint firstItem="cNl-8K-TfG" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" id="0n0-bK-vZN"/>
-                            <constraint firstItem="cNl-8K-TfG" firstAttribute="top" secondItem="D1R-rt-yat" secondAttribute="top" constant="-22" id="1Fy-uk-qvD"/>
+                            <constraint firstItem="cNl-8K-TfG" firstAttribute="top" secondItem="D1R-rt-yat" secondAttribute="top" constant="-22" id="1Fy-uk-qvD">
+                                <variation key="widthClass=compact" constant="0.0"/>
+                            </constraint>
                             <constraint firstAttribute="height" secondItem="D1R-rt-yat" secondAttribute="height" id="5PV-th-MHN"/>
                             <constraint firstItem="cNl-8K-TfG" firstAttribute="leading" secondItem="D1R-rt-yat" secondAttribute="leading" id="Jur-Gs-grb"/>
                             <constraint firstAttribute="width" secondItem="D1R-rt-yat" secondAttribute="width" id="sMC-Oo-tCS"/>
@@ -87,6 +89,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="webView" destination="D1R-rt-yat" id="UgD-qQ-AVI"/>
+                        <segue destination="tnT-5a-NIj" kind="presentation" identifier="endTest" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="d9B-c2-VHd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
@@ -167,6 +170,9 @@
                                         <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
                                             <rect key="frame" x="143" y="250" width="86.5" height="46.5"/>
                                         </variation>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="40" y="47" width="180" height="47"/>
+                                        </variation>
                                         <variation key="heightClass=regular-widthClass=regular">
                                             <mask key="constraints">
                                                 <include reference="f5Y-e9-eJj"/>
@@ -193,6 +199,9 @@
                                             <mask key="constraints">
                                                 <include reference="SvW-MF-KWA"/>
                                             </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="11" y="102" width="240" height="40"/>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=regular">
                                             <mask key="constraints">

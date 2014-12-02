@@ -15,6 +15,7 @@ var Schema = mongoose.Schema;
 // define the schema for our user model
 var userSchema = new Schema({
     _account: {type: Schema.Types.ObjectId},
+    login: {type:Number, default:1}, 
     name: {type:String, trim:true},
     local            : {
         email        : String,
@@ -53,6 +54,7 @@ userSchema.methods.validPassword = function(password) {
 userSchema.pre('save', function(next){
     var account = mongoose.Types.ObjectId();
     if ( !this._account ) {
+        // if this user is a new user with no account.... 
         this._account = account;
     }
     // console.log('account inside new user model', this._account);

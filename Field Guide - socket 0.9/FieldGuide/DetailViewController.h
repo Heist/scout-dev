@@ -17,4 +17,5 @@
 @property (strong, nonatomic) IBOutlet UIButton *endCallButton;
 
 - (IBAction)endCall:(id)sender;
+- (void)endTest;
 @end
