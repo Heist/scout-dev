@@ -34,11 +34,13 @@
 					ng-repeat="object in leftNavList" 
 					ng-class="{ 'active': $index == selectedIndex }" 
 					ng-click="activate(object, $index)">
-						 <div class="step-ordering">
-                        	<button ng-click="moveTask($index, -1)" >&#9650;</button>
-                        	<button ng-click="moveTask($index, 1)" >&#9660;</button>
+						
+						<div class="step-ordering">
+	                        <button ng-click="moveTask($index, -1)" >&#9650;</button>
+	                        <button ng-click="moveTask($index, 1)" >&#9660;</button>
                         </div>
-						<div>{{object.name}}</div>
+                        
+						<span ng-show="object.doctype === 'tag'">#</span>{{object.name}}
 						
 						<div class="sidebar-visibility">
 							<a ng-click="toggleVis(object)" ng-show="object.visible">
@@ -48,6 +50,8 @@
 								<img src="/layout/assets/checkbox-empty.svg" />
 							</a>
 						</div>
+						
+						<div class="clear"></div>
 
 					</li>
 					

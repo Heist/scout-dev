@@ -28,8 +28,9 @@
 			
 				<div class="test-info">
 					<h3>{{test.name}}</h3>
+					<small>{{test.kind}}</small>
 					
-					<div class="removeTest">
+					<div class="editTest">
 						<a ng-click="editTest(test)">Edit</a> &nbsp;
 						<a class="dangerous" ng-click="removeTest(test)">Delete</a> &nbsp; 
 						<a ng-click="dupeTest(test)">Duplicate</a> 
@@ -38,15 +39,13 @@
 			
 				<div class="test-controls">
 						
-					<div class="test-control">
-						<a ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run Test</a>
-					</div>
 					
-					<div class="test-control">
-						<a ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0">Report</a>
-						
-						<a ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0" >Report</a>
-					</div>
+					<button class="button" ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run Test</button>
+		
+					<button class="button" ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0">Report</button>
+					
+					<button class="button" ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0" >Report</button>
+		
 					
 					<div class="clear"></div>
 							
