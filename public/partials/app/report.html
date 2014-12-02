@@ -110,17 +110,16 @@
 		
 		<div class="clear"></div>
 		
-		<div class="float-right"><button class="button small" ng-show="user.trello" ng-click="sendCardToTrello()">Send to Trello</button></div>
+		<!--<div class="float-right"><button class="button small" ng-show="user.trello" ng-click="sendCardToTrello()">Send to Trello</button></div>-->
 		
 		
-		<p><strong>Talking points:</strong> {{selected.desc}}</p>
+		<!--<p><strong>Talking points:</strong> {{selected.desc}}</p>-->
 		
-		<p><strong>Results:</strong> {{selected.summary}}</p>
+		<p>{{selected.summary}}</p>
 				
 		<div class="message-group report-messages">
 		
-			<h4><span>Selected Quotes</span></h4>
-		
+					
 			<div ng-repeat="message in messages" class="message" ng-show="showTask(message, selected)">
 				
 				<div class="message-body">
