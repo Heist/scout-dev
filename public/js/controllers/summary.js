@@ -197,8 +197,8 @@ angular.module('field_guide_controls')
             .success(function(msg, err){
                 console.log('msg_success', msg, err);
 
-                $scope.leftNavList = msg;
-                    
+                $scope.leftNavList = msg.nav_list;
+                $scope.messages = _.groupBy(msg.messages, function(z){return z._subject.name;}); 
             });
     };
 

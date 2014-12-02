@@ -245,6 +245,14 @@ app.route('/api/message/:_id')
                                 if(err){console.log(err);}
                                 callback(null, docs);
                             });
+                    },
+                    messages: function(callback){
+                        Message.find({ '_test':{$in: [req.body._test]}})
+                               .populate({path:'_subject', select: 'name' })
+                               .exec(function(err, docs){
+                                    if(err){console.log(err);}
+                                    callback(null, docs);
+                                });
                     }
                 },
                 function(err, results) {
@@ -259,7 +267,7 @@ app.route('/api/message/:_id')
                     _.each(results.tags, function(tag){
                         return_array.push(tag);
                     });
-                    callback(null, return_array);
+                    callback(null, {nav_list: return_array, messages: results.messages});
                 });
 
             }            
