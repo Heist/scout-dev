@@ -57,7 +57,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         socket.emit('channel', { room: chan, test: $stateParams._id });
     };
 
-    var socket = io.connect('http://104.236.16.159:8080/?test='+$stateParams._id, {
+    var socket = io.connect('http://104.131.98.19:8080/?test='+$stateParams._id, {
             'force new connection': true});
 
     socket.on('connect_failed', function(data)
