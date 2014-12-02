@@ -217,10 +217,56 @@ app.route('/api/message/:_id')
                     console.log('gone', gone); 
                     callback(null, args);
                 });
+            },
+            function(args, callback){
+                console.log('pre-removal', args);
+
+                async.parallel({
+                    tags: function(callback){
+                        Tag.find({'_test' : req.body._test })
+                            .populate('_messages')
+                            .exec(function(err, docs){
+                                if (err) {console.log(err);}
+                                callback(null, docs);
+                            });
+                    },
+                    tasks: function(callback){
+                        Task.find({'_test': req.body._test})
+                            .sort({ index: 'asc'})
+                            .exec(function(err, docs){
+                                if (err) {console.log(err);}
+                                callback(null, docs);
+                            });
+                    },
+                    test: function(callback){
+                        Test.find({'_id' : req.body._test})
+                            .limit(1)
+                            .exec(function(err, docs){
+                                if(err){console.log(err);}
+                                callback(null, docs);
+                            });
+                    }
+                },
+                function(err, results) {
+                    // results is now equals to: {one: 1, two: 2}
+                    var return_array = [];
+                    _.each(results.test, function(test){
+                        return_array.push(test);
+                    });
+                    _.each(results.tasks, function(task){
+                        return_array.push(task);
+                    });
+                    _.each(results.tags, function(tag){
+                        return_array.push(tag);
+                    });
+                    callback(null, return_array);
+                });
+
             }            
         ], function (err, result) {
-           // result now equals 'done'  
+           // ship the result back to the front end for handling
             console.log('result', result);
+            res.json(result);
         });
     });
 };
