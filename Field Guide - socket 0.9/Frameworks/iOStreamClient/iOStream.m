@@ -129,18 +129,18 @@ CVReturn CVPixelBufferCreateWithIOSurface(
         
         //NSLog(@"JOINED", nil);
         
-    }else if ([newData rangeOfString:@"endTest"].location != NSNotFound){
-        
-        singleton.isConnected = NO;
-        
-        [singleton.sharedDetailViewController endTest];
-        
-        NSLog(@"ENDED", nil);
-        
+//    }else if ([newData rangeOfString:@"endTest"].location != NSNotFound){
+//        
+//        singleton.isConnected = NO;
+//        
+//        [singleton.sharedDetailViewController endTest];
+//        
+//        NSLog(@"ENDED", nil);
+//        
         
     }else {
         
-        singleton.isConnected = NO;
+//        singleton.isConnected = NO;
         
     }
     

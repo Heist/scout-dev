@@ -86,8 +86,10 @@
 
 - (void) endCall:(id)sender{
     
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
+    [MySingleton sharedMySingleton].isConnected = NO;
     
+    [self performSegueWithIdentifier:@"endTest" sender:self];
 }
 
 - (void) endTest {
@@ -96,9 +98,9 @@
     
 }
 
-//-(BOOL)prefersStatusBarHidden{
-//    return YES;
-//}
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
 
 - (void) viewWillDisappear:(BOOL)animated {
     
