@@ -7,6 +7,7 @@
 //	I love Jenny
 
 #import "DetailViewController.h"
+#import "MySingleton.h"
 
 @interface DetailViewController ()
 
@@ -21,6 +22,19 @@
 }
 
 #pragma mark - Managing the detail item
+
+-(id)initWithCoder: (NSCoder *)aDecoder
+{
+    if ((self = [super initWithCoder: aDecoder]) == nil)
+    {
+        return nil;
+    }
+    
+    [MySingleton sharedMySingleton].sharedDetailViewController = self;
+    
+    return self;
+    
+}
 
 - (void)setDetailItem:(id)newDetailItem
 {
@@ -76,9 +90,15 @@
     
 }
 
--(BOOL)prefersStatusBarHidden{
-    return YES;
+- (void) endTest {
+    
+    [self performSegueWithIdentifier:@"endTest" sender:self];
+    
 }
+
+//-(BOOL)prefersStatusBarHidden{
+//    return YES;
+//}
 
 - (void) viewWillDisappear:(BOOL)animated {
     
