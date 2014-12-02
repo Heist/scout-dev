@@ -127,11 +127,11 @@ module.exports = function(io, app, passport) {
             socket.join(data.room);
         });
 
-        socket.on('testComplete', function(data){
-            console.log('testComplete');
-            io.sockets.in(data.room).emit('endTest', {data{body:data.body}});
-        });
 
+        socket.on('testComplete', function(data){
+            console.log('testComplete', data.data.room);
+            io.sockets.in(data.data.room).emit('endTest', data.data.body);
+        });
 
     });
 

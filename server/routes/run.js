@@ -38,7 +38,7 @@ var Subject = require('../models/data/subject');
                     res.json(docs);
                 });
 
-            // request('/api/run/:_id').pipe(request.put('http://104.236.16.159:8080/watch/'))
+            // request('/api/run/:_id').pipe(request.put('http://104.131.98.19:8080/watch/'))
         })
         .post(function(req,res){
             // console.log('touched run post', req.body);

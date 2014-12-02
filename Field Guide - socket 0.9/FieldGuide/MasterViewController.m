@@ -39,8 +39,8 @@
 //    NSString *myRoom = [MySingleton sharedMySingleton].roomNumber;
 //    NSLog(@"JSON: %@", myRoom);
     
-//    NSString *newURL = [NSString stringWithFormat:@"http://104.236.16.159:8080/api/watch/%@/%@", hash, myRoom];
-//    NSString *newURL = [NSString stringWithFormat:@"http://104.236.16.159:8080/api/watch/%@", myRoom];
+//    NSString *newURL = [NSString stringWithFormat:@"http://104.131.98.19:8080/api/watch/%@/%@", hash, myRoom];
+//    NSString *newURL = [NSString stringWithFormat:@"http://104.131.98.19:8080/api/watch/%@", myRoom];
 //    jsonURL = newURL;
 //    
 //    NSLog(@"JSON: %@", jsonURL);
