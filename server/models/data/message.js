@@ -14,8 +14,8 @@ var MessageSchema = new Schema ({
 
     body : { type: String, trim: true },
     created_by : { type: Schema.Types.ObjectId },
-    fav_task : { type: Boolean, default: false },
-    fav_tag : { type: Boolean, default: false },
+    fav_task : { type: Boolean, default: true },
+    fav_tag : { type: Boolean, default: true },
     
     created: Date
 });
