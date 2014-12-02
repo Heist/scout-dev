@@ -16,11 +16,16 @@
 			}
 			
 			.test-info {
-				padding: $pad*3 $pad*1.5;
+				padding: $pad*3 $pad*1.5 $pad*2 $pad*1.5;
 				text-align: center;
 				position: relative;
 				@include radius-top;
 				background: $fg-tan;
+				
+				small {
+					text-transform: uppercase;
+					opacity: 0.6;
+				}
 
 				&:hover {
 					.removeTest {
@@ -28,7 +33,7 @@
 					}
 				}
 				
-				.removeTest {
+				.editTest {
 					font-size: $type-size-base*0.8;
 					position: absolute;
 					text-align: center;
@@ -58,31 +63,16 @@
 			
 			.test-controls {
 				background: $fg-green;
-				padding: $pad*1.2 $pad/3 $pad*1.2 $pad/3;
-				text-align: center;
+				padding: 0;
 				@include radius-bottom;
 				@include dropshadow;
 				
-				.test-control {
+				.button {
+					font-size: $type-size-base*0.9;
+					padding: $pad/1.5 0;
 					float: left;
-					width:50%;
-
-					text-align: center;
-					font-size: $type-size-base;
-					line-height: $type-line-base*0.65;
-					
-					a {
-						color: $white;
-					}
-					
-					img {
-						opacity: 0.5;
-						display: inline-block;
-						padding: 0 0 $pad/4 0;
-						margin: 0;
-						width: 20px;
-						height: auto;
-					}
+					width: 50%;
+					margin: 0;
 				}
 			}
 			
