@@ -31,24 +31,21 @@
 					<small>{{test.kind}}</small>
 					
 					<div class="editTest">
-						<a ng-click="editTest(test)">Edit</a> &nbsp;
+						<a ng-click="editTest(test)">Edit Test</a> &nbsp;
 						<a class="dangerous" ng-click="removeTest(test)">Delete</a> &nbsp; 
 						<a ng-click="dupeTest(test)">Duplicate</a> 
 					</div>
 				</div>
 			
 				<div class="test-controls">
-						
 					
 					<button class="button" ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run Test</button>
 		
 					<button class="button" ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0">Report</button>
 					
-					<button class="button" ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0" >Report</button>
-		
+					<button class="button" ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0">Report</button>
 					
-					<div class="clear"></div>
-							
+					<div class="clear"></div>	
 				</div>	
 	
 			</div>

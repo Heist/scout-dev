@@ -57,7 +57,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         socket.emit('channel', { room: chan, test: $stateParams._id });
     };
 
-    var socket = io.connect('http://104.131.98.19:8080/?test='+$stateParams._id, {
+    var socket = io.connect('http://104.236.16.159:8080/?test='+$stateParams._id, {
             'force new connection': true});
 
     socket.on('connect_failed', function(data)
@@ -134,6 +134,8 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
         $scope.selected = test._tasks[taskIndex];
 
+        mixpanel.track('Task changed', {});
+
         // select
         // pushes the identity of a test or task
         // to the update array
@@ -182,6 +184,9 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
                 $scope.subject = subject;
                 $scope.live = true;
                 $scope.select(0,0);
+
+                mixpanel.track('Add Participant Name', {
+                });
 
                 console.log('subject', $scope.subject);
                 // socket.emit('send:subject_added', {subject: subject});
@@ -244,6 +249,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         var url = '/api/run/'+$stateParams._id;
         var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
         socket.emit('testComplete', {data: {body:'test_complete', room : $scope.subject.testroom, test: $stateParams._id}});
+
         // mixpanel.track('Test completed', {});
         // console.log('touched end', data_out);
 

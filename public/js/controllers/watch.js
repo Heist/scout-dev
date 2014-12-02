@@ -13,10 +13,10 @@ $scope.roomList = [];
 // SOCKET ROUTES ================================================
 
     // 1.0 -----------
-    // var client = io('http://104.131.98.19:8080/');
+    // var client = io('http://104.236.16.159:8080/');
 
     // 0.9 -----------
-    var socket = io.connect('//104.131.98.19:8080/?test='+$stateParams._id, {
+    var socket = io.connect('//104.236.16.159:8080/?test='+$stateParams._id, {
             'force new connection': true});
     
     socket.on('message',function(data) {
