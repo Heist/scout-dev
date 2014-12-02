@@ -68,17 +68,10 @@
 				@include dropshadow;
 				
 				.button {
-<<<<<<< HEAD
-					float: left;
-					font-size: $type-size-base*0.9;
-					width: 50%;
-					padding: $pad*0.8 0;
-=======
 					font-size: $type-size-base*0.9;
 					padding: $pad/1.5 0;
 					float: left;
 					width: 50%;
->>>>>>> 685560906e8b67351c495cf1f38493627c23f3ea
 					margin: 0;
 				}
 			}
