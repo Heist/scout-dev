@@ -12,28 +12,29 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
                 console.log('the report object', data);
 
                 // $scope.report = data;
-                $scope.tasks = data.tasks;
-                $scope.test = data.test;
-                $scope.tags = data.tags;
+                // $scope.tasks = data.tasks;
+                // $scope.test = data.test;
+                // $scope.tags = data.tags;
+                // $scope.messages = data.messages;
+
+                // _.each(data.test, function(test){
+                //     $scope.leftNavList.push(test);
+                // });
+                // _.each(data.tasks, function(task){
+                //     $scope.leftNavList.push(task);
+                // });
+                // _.each(data.tags, function(tag){
+                //     $scope.leftNavList.push(tag);
+                // });
+                
+                $scope.leftNavList = data.nav_list;
                 $scope.messages = data.messages;
+                // $scope.messages = _.groupBy(data.messages, function(z){return z._subject.name;});
 
-                $scope.leftNavList = [];
-
-                _.each(data.test, function(test){
-                    $scope.leftNavList.push(test);
-                });
-                _.each(data.tasks, function(task){
-                    $scope.leftNavList.push(task);
-                });
-                _.each(data.tags, function(tag){
-                    $scope.leftNavList.push(tag);
-                });
-
-                console.log($scope.leftNavList);
-
+                $scope.activate($scope.leftNavList[0]);
                 // console.log('tasks', data.tasks, 'test', $scope.test, 'tags', $scope.tags  );
                 console.log($scope.reportLink);
-                $scope.select($scope.leftNavList[0]);
+                
 
             }); 
 
@@ -43,14 +44,25 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
         $location.path('/summary/'+ $stateParams.test_id);
     };
 
-    $scope.select = function(obj){
-        console.log('selected object', obj);
-        $scope.selected = obj;
+    $scope.activate = function(obj, selectedIndex) {
+        // passes the task to the global variable
+        console.log('activated', obj.name);
+
+        $scope.selectedIndex = selectedIndex;
+     
+        if(obj){
+            $scope.selected = obj;
+        }
     };
 
     $scope.showTask = function(msg, obj){
         if(obj._messages){
-            if((obj._messages.indexOf(msg._id) >= 0) && (msg.fav_task === true)){
+            var obj_msg_list = _.pluck(obj._messages, '_id');
+
+            console.log('object messages', obj_msg_list);
+            console.log('message id', msg._id);
+            
+            if((obj_msg_list.indexOf(msg._id) >= 0)){
                 // console.log('task shown');
                 return true;
             }

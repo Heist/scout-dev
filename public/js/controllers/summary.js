@@ -97,7 +97,6 @@ angular.module('field_guide_controls')
         console.log('activated', obj.name);
 
         $scope.selectedIndex = selectedIndex;
-        $state.go("summary.task");
      
         if(obj){
             $scope.selected = obj;

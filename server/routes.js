@@ -4,6 +4,8 @@ module.exports = function(app, passport) {
 
 // Module dependencies
     var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
+    var async = require('async');
+    var _ = require('underscore');
 
     // various api hooks for reports
     var Trello  = require('node-trello');
@@ -187,8 +189,6 @@ module.exports = function(app, passport) {
 
                         test.save();
                     });
-
-                    
 
                     var test2 = new Test();
 
@@ -382,46 +382,99 @@ module.exports = function(app, passport) {
 
         var test_id = mongoose.Types.ObjectId(req.params._id);
         var reply = {};
-        var promise =
-            Test.find({'_id' : test_id}).populate('_subjects').exec(function(err, test){
-                if(err){res.send(err);}
 
-            });
+        async.parallel({
+                    tags: function(callback){
+                        Tag.find({'_test' : req.params._id })
+                            .populate('_messages')
+                            .exec(function(err, docs){
+                                if (err) {console.log(err);}
+                                callback(null, docs);
+                            });
+                    },
+                    tasks: function(callback){
+                        Task.find({'_test': req.params._id})
+                            .sort({ index: 'asc'})
+                            .populate('_messages')
+                            .exec(function(err, docs){
+                                if (err) {console.log(err);}
+                                callback(null, docs);
+                            });
+                    },
+                    test: function(callback){
+                        Test.find({'_id' : req.params._id})
+                            .limit(1)
+                            .exec(function(err, docs){
+                                if(err){console.log(err);}
+                                callback(null, docs);
+                            });
+                    },
+                    messages: function(callback){
+                        Message.find({ '_test':{$in: [req.params._id]}})
+                               .populate({path:'_subject', select: 'name' })
+                               .exec(function(err, docs){
+                                    if(err){console.log(err);}
+                                    callback(null, docs);
+                                });
+                    }
+                },
+                function(err, results) {
+                    // results is now equals to: {one: 1, two: 2}
+                    var return_array = [];
+                    _.each(results.test, function(test){
+                        return_array.push(test);
+                    });
+                    _.each(results.tasks, function(task){
+                        return_array.push(task);
+                    });
+                    _.each(results.tags, function(tag){
+                        return_array.push(tag);
+                    });
+                    // callback(null, );
+                    res.json({nav_list: return_array, messages: results.messages});
+                });
 
-        promise.then(function(test){
-            reply.test = test;
 
-            return Task.find({'_test': test_id})
-                        .select('_id summary name pass_fail desc _messages index _test visible')
-                        .exec();
+        // var promise =
+        //     Test.find({'_id' : test_id}).populate('_subjects').exec(function(err, test){
+        //         if(err){res.send(err);}
 
-        }).then(function(tasks){
-            reply.tasks = tasks;
-            // console.log('tasks', tasks);
-            console.log('report number', req.params._id);
-            console.log('test_id number', test_id);
+        //     });
 
-            return Tag.find({'_test' : test_id})
-                      .exec();
+        // promise.then(function(test){
+        //     reply.test = test;
+
+        //     return Task.find({'_test': test_id})
+        //                 .select('_id summary name pass_fail desc _messages index _test visible')
+        //                 .exec();
+
+        // }).then(function(tasks){
+        //     reply.tasks = tasks;
+        //     // console.log('tasks', tasks);
+        //     console.log('report number', req.params._id);
+        //     console.log('test_id number', test_id);
+
+        //     return Tag.find({'_test' : test_id})
+        //               .exec();
         
-        }).then(function(tags){
-            reply.tags = tags;
-            console.log('we got tags', tags);
+        // }).then(function(tags){
+        //     reply.tags = tags;
+        //     console.log('we got tags', tags);
 
-            return    Message.find({'_test': test_id, $or: [{ fav_task : true }, { fav_tag : true }]})
-                        .populate({path: '_subject', 'select': 'name -_id'})
-                        .select('_subject body created_by _id _test _task fav_tag fav_task')
-                        .exec();
+        //     return    Message.find({'_test': test_id, $or: [{ fav_task : true }, { fav_tag : true }]})
+        //                 .populate({path: '_subject', 'select': 'name -_id'})
+        //                 .select('_subject body created_by _id _test _task fav_tag fav_task')
+        //                 .exec();
             
-        }).then(function(messages){
+        // }).then(function(messages){
             
-            reply.messages = messages;
+        //     reply.messages = messages;
 
-            res.json(reply);
+        //     res.json(reply);
         
-        }).then(null, function(err){
-            if(err) {return res.send (err);}
-        });
+        // }).then(null, function(err){
+        //     if(err) {return res.send (err);}
+        // });
     });
 
 // MIDDLEWARE TO BLOCK NON-AUTHORIZED USERS ===============
