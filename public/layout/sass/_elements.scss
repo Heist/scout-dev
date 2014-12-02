@@ -225,6 +225,20 @@
 }
 
 
+/* elevator buttons for sorting */
+
+.elevator {
+	display: block;
+	opacity: 0.5;
+	padding: 0;
+	font-size: $type-size-base*0.8;
+	cursor: pointer;
+	line-height: 1.1;
+	
+	&:hover {
+		opacity: 1.0;
+	}
+}
 
 
 

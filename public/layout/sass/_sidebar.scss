@@ -14,6 +14,7 @@
 			margin: 0;
 			@include radius;
 			border: 2px solid $white;
+			@include type-bold;
 			
 			h3 {
 				margin: 0 0 2px 0; 
@@ -64,11 +65,12 @@
 			.sidebar-visibility {
 				float: right;
 				display: block;
+				padding: 2px 0 0 0;
 				
 				img {
+					width: auto;
+					height: 16px;
 					margin: 5px 0 0 0;
-					width: 16px;
-					height: auto;
 				}
 			}
 			
@@ -100,6 +102,8 @@
 
 /* style up the sidebar for summarizing */
 
+/* some stuff for summarizing */
+
 #view-summarizing {
 	#sidebar {
 		.step-ordering {
@@ -107,7 +111,6 @@
 		}
 	}
 }
-
 
 
 

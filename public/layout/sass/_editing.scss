@@ -6,10 +6,11 @@
 	margin: 0;
 	padding: $pad*7 0 0 0;
 	
-	
+		
 	.editing-container {
 		padding: $pad*3 0;
 	}
+	
 	
 	#sub-bar {
 		position: fixed;
@@ -20,11 +21,19 @@
 		padding-bottom: $pad/2;
 		background: transparentize($fg-tan, 0.05);
 		
-		h1 {
-			padding-top: $pad/6;
-			top:29px;
-			position:absolute;
+		.container {
+			position: relative;
+			
+			h1 {
+				position: absolute;
+				top: 0;
+				left: 0;
+				margin: 0;
+				padding: 0;
+			}
 		}
+		
+		
 	}
 	
 	/* sidebar tips */
@@ -123,7 +132,7 @@
 
 	.test-details {
 		float: none;
-		padding: $pad 14% $pad*2 14%;
+		padding: 0 $pad*3 $pad*2 $pad*3;
 		margin: $pad 0;
 		
 		.input {
@@ -178,7 +187,7 @@
 	
 	.test-tasks {
 		float: none;
-		padding: $pad 14% $pad*2 14%;
+		padding: 0 $pad*3 $pad*2 $pad*3;
 		margin: $pad 0;
 		
 		
@@ -192,11 +201,8 @@
 			li {
 				position: relative;
 				
-				.step-hamburger {
+				.step-ordering {
 					position: absolute;
-					font-size: $type-size-base*1.75;
-					cursor: move;
-					line-height: $type-line-base/1.33;
 					top: 10px;
 					left: -25px;
 					width: 20px;
@@ -250,7 +256,7 @@
 	.test-done {
 		float: none;
 		padding: 0 0 $pad*2 0;
-		margin: 0 0 0 16.5%;
+		margin: 0;
 	}
 	
 }

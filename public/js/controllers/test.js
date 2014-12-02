@@ -269,13 +269,19 @@ angular.module('field_guide_controls')
             test.desc = test.desc;
         }
 
+        if($scope.test.name){
+            mixpanel.track('Test name changed', {
+                'user': $rootScope.user
+            });
+        }
+
         console.log('touched update test', test);
 
         var url = '/api/test/'+$stateParams.test_id;
         var data_out = test;
 
-        if (!test.title){
-            test.title = 'New test Name Goes Here';
+        if (!test.name){
+            test.name = 'New test Name Goes Here';
         }
 
         var task_count=0;
