@@ -129,6 +129,11 @@ app.route('/api/message/:_id')
 
         async.waterfall([
             function(callback) {
+                // Find all the tags that are in the new list
+                // If there's a tag in the new list not in the DB, make it, push msg
+                // If the tag's there and doesn't have the msg, push it, save.
+
+                // 
                 async.map(req.body.tags, function (name, callback) {
                     // console.log('tag ' + name);
                     Tag.find({'name' : name}).limit(1).exec(function (error, doc) {
@@ -162,6 +167,7 @@ app.route('/api/message/:_id')
                 }, callback);
             }, 
             function(tag_set, callback){
+                // Save the new message body
                 Message.find({'_id' : req.body._id})
                        .exec(function(err, msgs){
                             var msg = msgs[0];
