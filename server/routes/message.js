@@ -133,7 +133,6 @@ app.route('/api/message/:_id')
                 // If there's a tag in the new list not in the DB, make it, push msg
                 // If the tag's there and doesn't have the msg, push it, save.
 
-                // 
                 async.map(req.body.tags, function (name, callback) {
                     // console.log('tag ' + name);
                     Tag.find({'name' : name}).limit(1).exec(function (error, doc) {
@@ -182,19 +181,22 @@ app.route('/api/message/:_id')
 
                 // TODO: THIS
                 // this is tricky because it involves a buried map function.
-                Tag.find({'_messages' : {$in : [req.body._id]}}).exec(function(err, docs){
-                    if(err){console.log(err);}
-                    async.map(docs, function(tag, callback){
-                        var index = tags.indexOf(tag.name);
-                        if(index === -1){
-                            var msg_index = tag._messages.indexOf(id);
-                            tag._messages.splice(msg_index, 1);
-                            tag.save(function(err,doc){
-                                callback(null,doc);
-                            });
-                        }
-                    }, callback);
-                });
+                // async.map(req.body.tags, function (name, callback) { // }, callback);
+                    Tag.find({'_messages' : {$in : [req.body._id]}, 'name' : {$nin : req.body.tags}})
+                       .exec(function(err, docs){
+                            if(err){console.log(err);}
+
+                            console.log('found tags', docs );
+                            // var index = tags.indexOf(tag.name);
+                            // if(index === -1){
+                            //     var msg_index = tag._messages.indexOf(id);
+                            //     tag._messages.splice(msg_index, 1);
+                            //     tag.save(function(err,doc){
+                            //         callback(null,doc);
+                            //     });
+                            // }
+                        });
+                
             },
             function(args, callback){
                 console.log('pre-removal', args);
