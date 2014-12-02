@@ -30,15 +30,14 @@
 				<ul>
 					<!-- OVERVIEW -->
 
-					<li 
-					ng-repeat="object in leftNavList" 
-					ng-class="{ 'active': $index == selectedIndex }" 
-					ng-click="activate(object, $index)">
-						 <div class="step-ordering">
-                        	<button ng-click="moveTask($index, -1)" >&#9650;</button>
-                        	<button ng-click="moveTask($index, 1)" >&#9660;</button>
+					<li ng-repeat="object in leftNavList" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(object, $index)">
+						
+						<div class="step-ordering">
+	                       	<span ng-click="moveTask($index, -1)" >&#9650;</span>
+	                        <span ng-click="moveTask($index, 1)" >&#9660;</span>
                         </div>
-						<div>{{object.name}}</div>
+                        
+						<span ng-show="object.doctype === 'tag'">#</span>{{object.name}}
 						
 						<div class="sidebar-visibility">
 							<a ng-click="toggleVis(object)" ng-show="object.visible">
