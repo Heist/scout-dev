@@ -129,10 +129,19 @@ CVReturn CVPixelBufferCreateWithIOSurface(
         
         //NSLog(@"JOINED", nil);
         
-    }else{
+    }else if ([newData rangeOfString:@"endTest"].location != NSNotFound){
+        
         singleton.isConnected = NO;
         
-        [singleton.sharedLoginViewController checkRoomConnection];
+        [singleton.sharedDetailViewController endTest];
+        
+        NSLog(@"ENDED", nil);
+        
+        
+    }else {
+        
+        singleton.isConnected = NO;
+        
     }
     
     //[sharedLoginViewController checkRoomConnection];
@@ -236,7 +245,7 @@ CVReturn CVPixelBufferCreateWithIOSurface(
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.3);
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
     NSString *encodedString = [imageData base64EncodedStringWithOptions:0];
     
     SocketIOCallback cb = ^(id argsData) {
