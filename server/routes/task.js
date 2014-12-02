@@ -94,7 +94,8 @@ app.route('/api/task/:_id')
     })
     // update a single task
     .put(function(req,res){
-        // console.log('touched task', req.body.pass_fail, req.body._id, req.params._id);
+        console.log('touched task', req.body.pass_fail, req.body._id);
+        
         Task.findById(req.params._id)
             .exec(function(err, task){
                 if (err) {res.send(err);}

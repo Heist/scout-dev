@@ -102,6 +102,7 @@ angular.module('field_guide_controls')
                     'user' : $rootScope.user
                 });
 
+
             }else{
                 console.log('whoops, needs a checkin');
             }
@@ -168,16 +169,15 @@ angular.module('field_guide_controls')
     $scope.runTest = function(test){
         console.log('touched run', test._id);
         $location.path('/run/'+test._id);
-        mixpanel.track('Run test', {
-            'user': $rootScope.user
-        });
+        // mixpanel.track('Run test', {
+        //     'user': $rootScope.user
+        // });
     };
 
     $scope.summarizeTest = function(test_id){
         console.log('touched summary', test_id);
         $location.path('/summary/'+ test_id);
-        mixpanel.track('Summary clicked', {
-        });
+        // mixpanel.track('Summary clicked', {});
     };
 
     $scope.loadReport = function(test_id){

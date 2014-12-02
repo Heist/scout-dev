@@ -5,13 +5,13 @@
 	<div ui-view >
 		<div ng-model='selected' ng-show="selected.name">
 				<h4>&ldquo;{{selected.name}}&rdquo; summary</h4>
-				<p>Add a summary for this task to capture any notable outcomes, directions, or action items.</p>
+				<p>Add a summary to capture any notable outcomes, directions, or action items.</p>
 				
-				<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="selected.summary" ng-blur="saveTaskSummary(selected)"></textarea>				
+				<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>				
 				
 			
 				<div class="task-rating" ng-show="selected.pass_fail == false">
-					<div class="float-left">Was this task completed successfully?</div>
+					<div class="float-left">Was this completed successfully?</div>
 					<div class="float-right">
 						<button class="button small hollow" ng-click="passFail(selected)">Passed</button>
 						<button class="button small destructive" ng-click="passFail(selected)">Needs work</button>
@@ -20,7 +20,7 @@
 				</div>
 				
 				<div class="task-rating" ng-show="selected.pass_fail == true">
-					<div class="float-left">Was this task completed successfully?</div>
+					<div class="float-left">Was this completed successfully?</div>
 					<div class="float-right">
 						<button class="button small">Passed</button>
 						<button class="button small destructive hollow" ng-click="passFail(selected)">Needs work</button>
@@ -60,12 +60,12 @@
 			</div>
 
 			<div class="message-fave">
-				<a ng-click="saveFavTask(message)" ng-if="message.fav_task">
-					<img src="/layout/assets/checkbox-filled.svg" />
+				<a ng-click="saveFav(message)">
+					Click meeeee!
 				</a>
-				<a ng-click="saveFavTask(message)" ng-if="!message.fav_task">
+				<!-- <a ng-click="saveFav(message)" ng-if="!message.fav_task">
 					<img src="/layout/assets/checkbox-empty.svg" />
-				</a>
+				</a> -->
 			</div>
 			<div class="clear"></div>
 		</div>

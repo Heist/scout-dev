@@ -3,7 +3,9 @@
 
 // RUN CONTROLLER ===========================================================
 
-angular.module('field_guide_controls').controller('run', ['$scope','$http', '$location','$stateParams','$state', function($scope, $http,$location,$stateParams,$state){
+angular.module('field_guide_controls').controller('run', 
+['$scope','$http', '$location','$stateParams','$state','socket', '$rootScope', 
+function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootScope){
     
     // set up controller-wide variables
     $scope.update = {};
@@ -17,23 +19,123 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
         .get('/api/run/'+$stateParams._id)
         .success(function(data){
             $scope.tests = data;
-            console.log('how is data built', data);
+            console.log('how is data built', $scope.tests[0].kind);
+
+            $scope.kind = data[0].kind;
 
             // reset variables to clear cache from state changes.
             $scope.task = {};
             var message = {};
+            // Subject has been created, now open a room with that subject_id
 
         });
+    
+// SOCKET ROUTES - 1.0 ==============================================
+// var socket = io('http://127.0.0.1:8080/?test='+$stateParams._id);
 
+// socket.on('disconnect', function(data)
+// {
+//     console.log('disconnect');
+// });
+
+// socket.disconnect();
+
+// SOCKET ROUTES - 0.9 ============================================== 
+    
+    
+// EMIT SCREENCAPS TO THE SOCKET ====================================
+    var canvas = document.getElementById('feed'),
+        image = document.getElementById('ia'),
+        context = canvas.getContext('2d');
+
+    $scope.connect = {};
+    $scope.connect.text = '71b';
+
+    $scope.subscription = function(chan){
+        console.log('touched a channel', chan);
+        socket.emit('subscribe', { room: chan, test: $stateParams._id });
+        socket.emit('channel', { room: chan, test: $stateParams._id });
+    };
+
+    var socket = io.connect('http://104.236.16.159:8080/?test='+$stateParams._id, {
+            'force new connection': true});
+
+    socket.on('connect_failed', function(data)
+    {
+        console.log('connect_failed');
+    });
+    socket.on('connecting', function(data)
+    {
+        console.log('connecting');
+    });
+    socket.on('disconnect', function(data)
+    {
+        console.log('disconnect');
+
+        image.src = "/layout/assets/avatar-binocs.jpg";
+        canvas.width = 358;
+        canvas.height = 358 * image.height / image.width;
+
+        context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+
+        socket.socket.disconnect();
+    });
+    socket.on('error', function(reason)
+    {
+        console.log('error', reason);
+    });
+    socket.on('reconnect_failed', function(data)
+    {
+        console.log('reconnect_failed');
+    });
+    socket.on('reconnect', function(data)
+    {
+        console.log('reconnect');
+        socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
+    });
+    socket.on('reconnecting', function(data)
+    {
+        console.log('reconnecting');
+    });
+
+    socket.on('announce', function(data){
+        console.log('announce', data);
+    });
+
+    socket.on('joined_channel', function(data){
+        console.log('joined_channel', data);
+    });
+
+    socket.on('note', function(data){
+        console.log('note', data);
+        $scope.timeline.push(data.note.msg);
+        $scope.$apply();
+    });
+
+    socket.on('subject', function(data){
+        socket.emit('join_subject_test', data);
+    });
+
+    socket.on('message',function(data) {
+        console.log('message');
+        image.src = "data:image/jpg;base64,"+data;
+        canvas.width = 358;
+        canvas.height = 358 * image.height / image.width;
+
+        context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+        // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+    });
+
+// ANGULAR ROUTES ===================================================
     $scope.select = function(testIndex, taskIndex) {
-        // console.log('test', parentIndex)
-        console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);
+        // console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);
 
         var test = $scope.tests[testIndex];
 
         $scope.selected = test._tasks[taskIndex];
 
         mixpanel.track('Task changed', {});
+
         // select
         // pushes the identity of a test or task
         // to the update array
@@ -67,23 +169,29 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
     };
 
 
-    $scope.addSubject = function(textfield){
-        console.log('touched addSubject', textfield);
+    $scope.addSubject = function(subject){
+        console.log('touched addSubject', subject);
+
+        $scope.subject = subject;
+        console.log($scope.subject);
 
         var url = 'api/subject/';
-        var data_out = {name : textfield};
+        var data_out = {name : subject.name, testroom: subject.testroom, test: $stateParams._id};
 
         $http
             .post(url, data_out)
             .success(function(subject){
-                console.log(subject);
                 $scope.subject = subject;
-                $scope.subject.toggle = true;
+                $scope.live = true;
                 $scope.select(0,0);
-                console.log('selected', $scope.selected);
-                
+
                 mixpanel.track('Add Participant Name', {
                 });
+
+                console.log('subject', $scope.subject);
+                // socket.emit('send:subject_added', {subject: subject});
+                socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
+    
             })
             .error(function(data){
                 // console.log('Error: ' + data);
@@ -104,9 +212,8 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
         note._subject = $scope.subject._id;
 
         $scope.timeline.push(note);
-        console.log('message pushing to', $scope.selected._id);
+        // console.log('message pushing to', $scope.selected._id);
 
-        // console.log('note being pushed', note)
         // TODO: this will catch things on both sides of the hash. 
         // if message has # with no space, post that to message.tags
 
@@ -117,36 +224,31 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
         if (tagIt){
             for (var i=0; i < tagIt.length; ++i) {
                 var msg = tagIt[i].replace(hashPull,'');
-                console.log('tag being pushed', msg);
+                // console.log('tag being pushed', msg)
                 note.tags.push(msg);
             }
         }
         
-        console.log('note tags', note.tags);
+        // console.log('note tags', note.tags);
 
         var url = '/api/message/';
         var data_out = note;
 
-        $http.post(url, data_out)
+        $http
+            .post(url, data_out)
             .success(function(data){
-                console.log('Message pushed: ', data);
-                mixpanel.track('Note recorded', {
-                });
-            })
-            .error(function(data){
-                // console.log('Error: ' + data);
-            })
+                socket.emit('send:note', { note: data });
+            });
 
         $scope.message='';
-    }
+    };
 
     $scope.postTest = function(){
 
         var url = '/api/run/'+$stateParams._id;
         var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
-
-        mixpanel.track('Test completed', {
-        });
+        socket.emit('testComplete', {data:{body:'test_complete'}});
+        // mixpanel.track('Test completed', {});
         // console.log('touched end', data_out);
 
         // collects all the tests and steps and outputs them as a collected object
@@ -162,7 +264,7 @@ angular.module('field_guide_controls').controller('run', ['$scope','$http', '$lo
             })
             .error(function(data){
                 // console.log('Error: ' + data);
-            })
+            });
 
     }
 }]);

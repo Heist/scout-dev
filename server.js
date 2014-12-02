@@ -4,12 +4,11 @@
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+
 
 var mongoose = require('mongoose');
 var passport = require('passport');
 var cors = require('cors');
-
 
 // express modules
 var logger       = require('morgan');
@@ -17,8 +16,17 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
+// SESSION STORAGE ==================================================
+var MongoStore = require('connect-mongostore')(session);
 
+// PROCESS PORTS =====================================================
 var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
+
+// GLOBAL VARIABLES =================================================
+app.locals.store = new MongoStore({'db': 'sessions'});
+app.locals.real_url = '104.236.16.159:'+port;
+app.locals.secret = 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT';
+app.locals.cookie_name = 'connect.sid';
 
 // for later use with Redis if it becomes important
 // process.title = 'field_guide_app';
@@ -27,10 +35,6 @@ var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
 var database = require('./server/db/db');
 var db = database.db;
 var auth_db = database.auth_db;
-
-// Global application variables =====================================
-
-app.locals.real_url = '127.0.0.1:8080';
 
 // configuration ====================================================
 app.use(cors()); // permit cross-site requests, ie: passport.
@@ -48,35 +52,49 @@ app.use(bodyParser());
 // passport configuration ===========================================
 require('./config/passport')(app, passport);
 
-// session secret 
+// session start ====================================================
 app.use(session({
-	secret: 'yourcharacteristhechildofanuntamedrockstarkiMFBQLon8x257casWBT', 
+	secret: app.locals.secret, 
 	cookie: {
 		path: '/',
 		expires: false, // Alive Until Browser Exits
 		// secure: true, // TODO: implement https
 		httpOnly: true
-	}
+	},
+	store: app.locals.store
 }));
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-// server /api/ routes ==============================================
-var router = require('./server/routes')(app, passport);
 
-// DEFAULT ROUTE goes here to prevent ENOENT error ==================
+// server /api/ routes ==============================================
+var router = require('./server/routes')(app, passport, io);
+
+// DEFAULT ROUTE ====================================================
+// Prevents the ENOENT rendering error
 app.get('*', function(req, res) {
 			res.sendfile(__dirname + '/public/index.html');
 		});
 
-// Socket.io configuration ==========================================
-// var socket = require('./config/socket_config')(io);
 
-// turn on the application ==========================================
+// SOCKET.IO ========================================================
+// lives after normal routes, is dynamic routes accessed separately
+// has its own auth functions
+
+var io = require('socket.io').listen(http, { log: false });
+
+// socket 1.0 document is currently in reserve
+// require('./server/socket_routes_1')(io, app, passport);
+
+// socket 0.9 in use to speak to Field Guide App
+require('./server/socket_routes_09')(io, app, passport);
+
+
+// TURN ON THE APPLICATION ==========================================
 http.listen(port, function(){
 	console.log('listening on ', port);
 });
 
-// expose app
+// EXPOSE APP AS OBJECT =============================================
 exports = module.exports = app;

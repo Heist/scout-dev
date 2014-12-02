@@ -1,7 +1,7 @@
 // app.js
 'use strict';
 
-var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize','field_guide_controls','field_guide_filters','ui.tree']);
+var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize','field_guide_controls','field_guide_filters']);
 
 // function list for working with arrays
 
@@ -25,8 +25,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
     // TODO: this should probably be an Interceptor, but it works on load for now.
     function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
-        // console.log('checkLoggedin $localStorage.user');
-        console.log('checking logged in identity');
+        // console.log('checking logged in identity');
         // Make an AJAX call to check if the user is logged in
         var deferred = $q.defer(); 
 
@@ -67,29 +66,24 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 
 
     $stateProvider
-        // PUBLIC ROUTES
-         // REMOTE SCREEN =================================
-        .state('remote', {
-            url: '/remote',
-            controller:'remote',
-            templateUrl: 'partials/remote/remote.html'
-        })    
+    // PUBLIC ROUTES ================================================
+        
+        // WATCH A TEST ===================================
+        // .state('watch', {
+        //     // url: '/watch/',
+        //     url: '/watch/:_id',
+        //     controller:'watch',
+        //     templateUrl: 'partials/app/watch.html'
+        // })
+        
+    // PRIVATE ROUTES ===============================================
 
-
-        // PRIVATE ROUTES =================================
-
-        // REPORT PAGE FOR SINGLE test ====================
+        // REPORT PAGE FOR SINGLE TEST ====================
         .state('report', {
             url: '/report/:test_id',
             controller:'report',
             templateUrl: 'partials/app/report.html',
             resolve: { loggedin: checkLoggedin }
-        })
-        .state('report.test', {
-            templateUrl: 'partials/app/report_test.html'
-        })
-        .state('report.task', {
-            templateUrl: 'partials/app/report_task.html'
         })
 
         // ACCOUNT MANAGEMENT =============================
@@ -108,6 +102,13 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         })
 
         // OVERVIEW AND test CREATION =====================
+        .state('default', {
+            url:'/',
+            controller: 'overview',
+            templateUrl: 'partials/app/overview.html',
+            resolve: { loggedin: checkLoggedin }
+        })
+
         .state('overview', {
             url: '/overview',
             controller: 'overview',
@@ -149,38 +150,41 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
 // a factory to provide sockets to the app
 // http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/
 // this should be a straight-up feed from that site
+
 field_guide_app.factory('socket', function ($rootScope, $location) {
     
-    // var socket = io.connect($location.protocol()+'//'+$location.host());
+
+    // for live... $location.protocol()+'://'+$location.host()+':8080/'
+    // var socket = io.connect('http://127.0.0.1:8080/');
     
-    // return {
-    //     on: function (eventName, callback) {
-    //         socket.on(eventName, function () {
-    //             var args = arguments;
-    //             $rootScope.$apply(function () {
-    //                 callback.apply(socket, args);
-    //             });
-    //         });
-    //     },
-    //     emit: function (eventName, data, callback) {
-    //         socket.emit(eventName, data, function () {
-    //             var args = arguments;
-    //             $rootScope.$apply(function () {
-    //                 if (callback) {
-    //                     callback.apply(socket, args);
-    //                 }
-    //             });
-    //         });
-    //     },
-    //     removeAllListeners: function (eventName, callback) {
-    //         socket.removeAllListeners(eventName, function() {
-    //             var args = arguments;
-    //             $rootScope.$apply(function () {
-    //                 callback.apply(socket, args);
-    //             });
-    //         }); 
-    //     }
-    // };
+    return {
+        on: function (eventName, callback) {
+            socket.on(eventName, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    callback.apply(socket, args);
+                });
+            });
+        },
+        emit: function (eventName, data, callback) {
+            socket.emit(eventName, data, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    if (callback) {
+                        callback.apply(socket, args);
+                    }
+                });
+            });
+        },
+        removeAllListeners: function (eventName, callback) {
+            socket.removeAllListeners(eventName, function() {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    callback.apply(socket, args);
+                });
+            }); 
+        }
+    };
 });
 
 

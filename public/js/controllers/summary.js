@@ -10,111 +10,161 @@ angular.module('field_guide_controls')
 
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
-            // // console.log('returned test information', data);
+            console.log('returned test information', data);
 
             $scope.tags = data.tags;
-            $scope.test = data.test;
+            $scope.test = data.test[0];
             $scope.tasks = data.tasks;
+
+            $scope.leftNavList = [];
+
+            _.each(data.test, function(test){
+                $scope.leftNavList.push(test);
+            });
+            _.each(data.tasks, function(task){
+                $scope.leftNavList.push(task);
+            });
+            _.each(data.tags, function(tag){
+                $scope.leftNavList.push(tag);
+            });
+
+            console.log($scope.leftNavList);
 
             // group messages by users
             $scope.messages = _.groupBy(data.messages, function(z){return z._subject.name;});
             
             // console.log('messages', $scope.messages, data.messages);
             
-            $scope.activate($scope.test);
+            $scope.activate($scope.leftNavList[0]);
 
         });
 
-    // TASK FUNCTIONS =====================================
+    // MOVE STEPS =========================================
+    $scope.moveTask = function(old_index, new_index){
+        console.log('touched moveTask', old_index, new_index);
+        new_index = old_index + new_index;
+
+        while (old_index < 0) {
+            old_index += this.length;
+        }
+        while (new_index < 0) {
+            new_index += this.length;
+        }
+        if (new_index >= this.length) {
+            var k = new_index - this.length;
+            while ((k--) + 1) {
+                this.push(undefined);
+            }
+        }
+        
+        $scope.leftNavList.splice(new_index, 0, $scope.leftNavList.splice(old_index, 1)[0]);
+
+        // set the stored index of the task properly
+        var nav = _.pluck($scope.leftNavList, 'name');
+        console.log(nav); // for testing purposes
+    };
+
+
+    // SAVE FUNCTIONS =====================================
+    $scope.saveObject = function(obj){
+        console.log('saving', obj);
+
+        var url, data;
+
+        if(obj.doctype === 'test'){
+            console.log('put test');
+            url = 'summary/test/'+ obj._id;
+            data = obj;
+        }
+        if(obj.doctype === 'task'){
+            url = 'summary/task/'+ obj._id;
+            data = obj;
+        }
+        if(obj.doctype === 'tag'){
+            url = 'summary/tag/'+ obj._id;
+            data = obj;
+            obj.summarized = true;
+        }
+        $http
+            .put('/api/'+url, data)
+            .success(function(doc){
+                console.log('summary_success', doc);
+            });
+    };
 
     $scope.activate = function(obj, selectedIndex) {
         // passes the task to the global variable
-        $scope.selectedIndex = selectedIndex;
+        console.log('activated', obj.name);
 
-        if(selectedIndex > -1){
-            $state.go("summary.task");
-        } else {
-            $state.go("summary.test");
-        }
+        $scope.selectedIndex = selectedIndex;
+        $state.go("summary.task");
      
         if(obj){
             $scope.selected = obj;
-            // // console.log('task or test', obj._id);
         }
     };
 
-    $scope.passFail = function(task){
-        console.log('touched pass-fail', task);
+    $scope.passFail = function(obj){
+        console.log('touched pass-fail', obj);
 
-        if(task.pass_fail){
-            task.pass_fail = false;
-        } else if (!task.fail){
-            task.pass_fail = true;
+        if(obj.pass_fail){
+            obj.pass_fail = false;
+        } else if (!obj.fail){
+            obj.pass_fail = true;
         }
 
-        $scope.saveTaskSummary(task);
+        $scope.saveObject(obj);
         
     };
 
     $scope.show = function (msg_id) {
         // if a message's _id matches any value in the _messages list of .selected, return.
-        // console.log($scope.selected);
-        if($scope.selected._messages.indexOf(msg_id) >= 0){
+        if($scope.selected._messages && $scope.selected._messages.indexOf(msg_id) >= 0){
             return true;
         }
     };
 
-    $scope.showTest = function (msg_id) {
-        // if a message's _id matches any value in the _messages list of .selected, return.
-        if($scope.selectedTag){
-            // console.log($scope.selectedTag);
-            if($scope.selectedTag._messages.indexOf(msg_id) >= 0){
-                return true;
-            }
-        }
+    $scope.toggleVis = function(obj){
+        console.log('toggle me', obj);
+
+        if (obj.visible){ obj.visible = false; $scope.saveObject(obj); return;}
+        if (!obj.visible){ obj.visible = true; $scope.saveObject(obj); return;}
+
+        
     };
 
-    // SAVE MESSAGE functions  ============================
+    $scope.saveFav = function(message){
+        console.log('touched message fav', message);
+        console.log('what kind of object is this?', $scope.selected.doctype);
+        
+        if($scope.selected.doctype === 'task'){
+            if(message.fav_task){ message.fav_task = false; }
+            else if (!message.fav_task){ message.fav_task = true; }
+        }
+
+        if($scope.selected.doctype === 'tag'){
+            if(message.fav_tag){ message.fav_tag = false; } 
+            else if (!message.fav_tag){ message.fav_tag = true;}
+        }
+
+        $http
+            .put('/api/summary/message/'+message._id, message)
+            .success(function(data){
+                console.log('msg_success', data);
+            });
+    };
+
+    // MESSAGE FUNCTIONS ==================================
 
     $scope.msgFilter = function(message){
-        // FILTER that filters the message array
-        // so messages display when their _task is the same as the current selected task
-        // and they only display to their current subject
+        // Display messages that belong to the current selected item.
 
-        if ((message._id === $scope.task._id)) {
+        if ((message._id === $scope.selected._id)) {
             return true;
         }
 
         // // console.log('false', $scope.subject);
         return false;
-    };
-
-    $scope.saveFavTask = function(message){
-        if(message.fav_task){
-            message.fav_task = false;
-        } else if (!message.fav_task){
-            message.fav_task = true;
-        }
-
-        $http
-            .put('/api/message/'+message._id, message)
-            .success(function(err, msg){
-                console.log('msg_success');
-            });
-    };
-
-    $scope.saveFavTag = function(message){
-        if(message.fav_tag){
-            message.fav_tag = false;
-        } else if (!message.fav_tag){
-            message.fav_tag = true;
-        }
-
-        $http
-            .put('/api/message/'+message._id, message)
-            .success(function(err, msg){
-                console.log('msg_success');
-            });
     };
 
     $scope.editMessage = function(message, index){
@@ -124,63 +174,35 @@ angular.module('field_guide_controls')
     $scope.saveEdit = function(message){
         $scope.messageEditToggle = false;
 
+        console.log(message);
+
+        var tags = [];
+        var hashCatch = new RegExp(/\S*#\S+/gi);
+        var hashPull = new RegExp(/#/gi);
+        var tagIt = message.body.match(hashCatch);
+        
+        if (tagIt){
+            _.each(tagIt, function(tag){
+                var msg = tag.replace(hashPull,'');
+                tags.push(msg);
+            });
+        }
+
+        
+        message.tags = tags;
+        console.log('tags', message.tags);
+
         $http
             .put('/api/message/'+message._id, message)
-            .success(function(err, msg){
-                console.log('msg_success');
+            .success(function(msg, err){
+                console.log('msg_success', msg, err);
+
+                $scope.leftNavList = msg.nav_list;
+                $scope.messages = _.groupBy(msg.messages, function(z){return z._subject.name;}); 
             });
     };
 
-    // TAG FUNCTIONS ======================================
-    
-    // TODO: on click "save"
-    // pass the summary to the tag.summary
-    // on click 'clear'
-    // remove summary from tag
-
-
-    $scope.selectTag = function (index){
-        $scope.selectedTag = $scope.tags[index];
-        $scope.selectedTag.index = index;
-    };
-
-    $scope.clearTagSummary = function(){
-        $scope.selectedTag.summarized = false;
-    };
-
-    $scope.saveTagSummary = function(){
-        var tag = $scope.tags[$scope.selectedTag.index];
-        tag.summary = $scope.selectedTag.summary;
-        tag.summarized = true;
-        $scope.selectedTag.summarized = true;
-
-        $http
-            .put('/api/tag/'+ tag._id, tag)
-            .success(function(err, tag){
-                console.log('tag_success');
-            });
-
-    };
-
-    // TASK FUNCTIONS =====================================
-    $scope.saveTaskSummary = function(task){
-        $http
-            .put('/api/task/'+ task._id, task)
-            .success(function(err, task){
-                console.log('task_success', task);
-            });
-    };
-
-    //  TEST FUNCTIONS ====================================
-
-    $scope.saveTestSummary = function(test){
-        $http
-            .put('/api/test/'+ test._id, test)
-            .success(function(err, test){
-                console.log('test_success');
-            });
-    };
-
+// CLOSE SUMMARY ==========================================
     $scope.completeSummary = function(){
         // post all the summary changes to the test
         // post summary changes to the tags
@@ -193,9 +215,8 @@ angular.module('field_guide_controls')
         var msg_arr = [];
     
         $scope.messages = _.map($scope.messages, function(val, key){ return val; });
-    
-        mixpanel.track('Summary complete', {
-        });
+        $scope.test.report = true;
+        // mixpanel.track('Summary complete', {});
 
         console.log('messages', $scope.messages);
 
@@ -208,10 +229,10 @@ angular.module('field_guide_controls')
             .success(function(data){
                 // console.log(data);
 
-                $location.path('/overview');
+                $location.path('/report/'+ $stateParams._id);
             })
             .error(function(data){
-                // // console.log('er;ror', data);
+                console.log('error', data);
             });        
 
     };

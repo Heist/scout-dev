@@ -66,11 +66,11 @@ module.exports = function(app){
 
     app.route('/api/invite/')
         .post(function(req,res){
-            console.log('user posting invite', req.body, req.user._account);
+            // console.log('user posting invite', req.body, req.user._account);
 
             var promise = User.findOne({'local.email' : req.body.address }).exec(function(err, user){
                 if(err) {return res.send(err);}
-                console.log('docs',user);
+                // console.log('docs',user);
 
                 if(user){
                     user._account = req.user._account;
@@ -81,7 +81,7 @@ module.exports = function(app){
             });
 
             promise.then(function(user){
-                console.log('next promise', user);
+                // console.log('next promise', user);
                 if(user !== null){ 
                     res.json({
                         email: user.local.email, 
@@ -102,7 +102,7 @@ module.exports = function(app){
                 }
             })
             .then(function(i){
-                console.log(i);
+                // console.log(i);
                 if(i){
                     res.send('You have already sent that invitation.');
                 } else {
@@ -122,7 +122,7 @@ module.exports = function(app){
                 }
             })
             .then(function(invite){
-                console.log('invite new no id', invite);
+                // console.log('invite new no id', invite);
                 res.json(invite);
 
                 var envelope_options = {
@@ -145,7 +145,7 @@ module.exports = function(app){
                     if (err) {
                         return console.log(err);
                     }else{
-                        console.log('Message sent: ' + result.response);
+                        // console.log('Message sent: ' + result.response);
                     }
                 });
 
@@ -155,13 +155,13 @@ module.exports = function(app){
     app.route('/api/invite/:_id')
         .post(function(req,res){
             // this is to resend an invitation already sent
-            console.log(req.user.name);
-            console.log(req.body);
-            console.log(req.params._id);            
+            // console.log(req.user.name);
+            // console.log(req.body);
+            // console.log(req.params._id);            
 
             Invitation.findById(req.params._id).exec(function(err,invite){
                 
-                console.log('resent invitation', invite);
+                // console.log('resent invitation', invite);
                 res.json(invite);
 
                 var envelope_options = {
@@ -191,7 +191,7 @@ module.exports = function(app){
             });
         })
         .delete(function(req,res){
-            console.log(req.params._id);
+            // console.log(req.params._id);
             Invitation.remove({'_id': req.params._id}, function(err, invite){
                 if(err) {return res.send (err);}
 

@@ -4,16 +4,24 @@
 
 #view-report {
 	margin: 0;
-	padding: $pad*2.5 0 0 0;
+	//padding: $pad*2.5 0 0 0;
+	padding: $pad*7 0 0 0;
 	
 	#report-container {
 		padding: $pad*2 0;
 	}
 	
 	#sub-bar {
+		position: fixed;
+		top: $pad*2.5;
+		left: 0;
+		background: transparentize($fg-tan, 0.05);
+		z-index: 9999;
+	
 		.sub-bar-controls {
 			.input {
 				width: 160px;
+				padding: $pad/4 $pad/2;
 				padding-right: 0;
 			}
 		}

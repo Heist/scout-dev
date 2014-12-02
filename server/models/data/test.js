@@ -1,4 +1,4 @@
-// flow.js
+// test.js
 'use strict';
 
 var mongoose = require('mongoose');
@@ -12,6 +12,7 @@ var TestSchema = new Schema({
         _session : { type: Schema.Types.ObjectId, ref: 'Session' },
         _tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
         _subjects: [{ type: Schema.Types.ObjectId, ref: 'Subject' }],
+        doctype : { type: String, trim: true, default: 'test' },
 
         created_by_account : {type: Schema.Types.ObjectId},
         created_by_user : {type: Schema.Types.ObjectId},
@@ -20,12 +21,16 @@ var TestSchema = new Schema({
         name    : { type: String, trim: true, default: 'my new flow name' },
         platform: { type: String, trim: true, default: 'mobile' },
         kind    : { type: String, trim: true, default: '' },
+
+        index: { type: Number, default: 0 },
+        visible: { type:Boolean, default: true },
+        report : { type:Boolean, default: false },
         
         created: Date,
         updated: Date,
         runcount : Number,
-        summary: String,
-        index: Number
+        summary: String
+        
     });
 
 TestSchema.pre('save', function(next){

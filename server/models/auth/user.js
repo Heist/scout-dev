@@ -55,7 +55,7 @@ userSchema.pre('save', function(next){
     if ( !this._account ) {
         this._account = account;
     }
-    console.log('account inside new user model', this._account);
+    // console.log('account inside new user model', this._account);
     next();
 });
 

@@ -1,18 +1,17 @@
 <!-- summary.html -->
 
 <div id="view-summarizing" ng-model='test'>
-
 	
 	<ng-include src="'partials/app/header.html'"></ng-include>
-	
 	
 	<!-- sub bar -->
 	<div id="sub-bar">
 		<div class="container">
-			<h1><span>Summarizing</span> {{test.name}}</h1>
+			<h1>{{test.name}} <span>Findings</span></h1>
 			
-			<div class="sub-bar-controls">
-				<button class="button small button-summarizing" ng-click="completeSummary(flow)">&check; Done Summarizing</button>
+			<div class="sub-bar-controls">	
+				<span class="button small fake button-summarizing">&nbsp;Editing&nbsp;</span>
+				<button class="button small button-summarizing" ng-click="completeSummary(flow)">&nbsp;View&nbsp;</button>
 			</div>
 			
 			<div class="clear"></div>
@@ -29,21 +28,26 @@
 			<div id="sidebar">	
 			
 				<ul>
-					<li ng-model='test' ui-sref=".test" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(test, $index)">
-						<small>test</small>
-						<h3>{{test.name}}</h3>
+					<!-- OVERVIEW -->
+
+					<li ng-repeat="object in leftNavList" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(object, $index)">
+						 <div class="step-ordering">
+                        	<button ng-click="moveTask($index, -1)" >&#9650;</button>
+                        	<button ng-click="moveTask($index, 1)" >&#9660;</button>
+                        </div>
+						<div>{{object.name}}</div>
+						
+						<div class="sidebar-visibility">
+							<a ng-click="toggleVis(object)" ng-show="object.visible">
+								<img src="/layout/assets/checkbox-filled.svg" />
+							</a>
+							<a ng-click="toggleVis(object)" ng-show="!object.visible">
+								<img src="/layout/assets/checkbox-empty.svg" />
+							</a>
+						</div>
+
 					</li>
 					
-					<!-- put in a placeholder title to delineate tasks -->
-					<li class="empty"><small>Tasks</small></li>
-						
-					<li class="question" ng-repeat="task in tasks | orderBy : 'index'" ng-class="{ 'active': $index == selectedIndex }" ng-click="activate(task, $index)">
-						
-						<h3>{{task.name}}</h3>
-
-						<!--<p>{{task.desc}}</p>-->
-						
-					</li>
 				</ul>
 			
 			</div>
@@ -54,12 +58,96 @@
 		
 		<!-- the summarizing area -->
 		<div class="module two-thirds">
-		<div ui-view >
-			<!-- this pane is set in summary_test and summary_task -->
+			<!-- summary_step -->
+
+<div id="summary-task">
+
+	
+		<div ng-model='selected' ng-show="selected.name">
+				<h4>&ldquo;{{selected.name}}&rdquo; summary</h4>
+				<p>Add a summary to capture any notable outcomes, directions, or action items.</p>
+				
+				<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>				
+				
+			
+				<div class="task-rating" ng-show="selected.pass_fail == false">
+					<div class="float-left">Was this completed successfully?</div>
+					<div class="float-right">
+						<button class="button small hollow" ng-click="passFail(selected)">Passed</button>
+						<button class="button small destructive" ng-click="passFail(selected)">Needs work</button>
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+				<div class="task-rating" ng-show="selected.pass_fail == true">
+					<div class="float-left">Was this completed successfully?</div>
+					<div class="float-right">
+						<button class="button small">Passed</button>
+						<button class="button small destructive hollow" ng-click="passFail(selected)">Needs work</button>
+					</div>
+					<div class="clear"></div>
+				</div>
+			
+				
 		</div>
+
+</div>
+
+
+<div ng-model="selected" class="summary-task-notes">
+
+	<!--<h4>Notes for &ldquo;{{selected.name}}&rdquo;</h4>-->
+
+
+	<div ng-repeat="user in messages" class="message-group" ng-show="selected._messages">
+		
+		<!-- participant name -->
+		<div class="message message-user">
+			<div class="message-details"><div class="message-details-avatar"><img src="/layout/assets/avatar.svg"></div></div>
+			<div class="message-body">{{user[0]._subject.name}}</div>
+			<div class="message-fave">Include in report?</div>
+			<div class="clear"></div>
+		</div>
+		
+		<!-- participant messages -->
+		<div ng-repeat="message in user" class="message" ng-show="show(message._id)">
+			<div class="message-details"><div class="message-edit"><img src="/layout/assets/pencil.svg" ng-click="editMessage(message, $index)" /></div></div>
+
+			<div class="message-body">
+				<p ng-bind-html="message.body | hashtag" ng-hide="messageEditToggle == message._id"></p>
+				<textarea class="input small" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)"></textarea>
+				<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
+			</div>
+
+			<div class="message-fave" ng-show="selected.doctype === 'task'">
+				<a ng-click="saveFav(message)" ng-if="message.fav_task">
+					<img src="/layout/assets/checkbox-filled.svg" />
+				</a>
+				<a ng-click="saveFav(message)" ng-if="!message.fav_task" >
+					<img src="/layout/assets/checkbox-empty.svg" />
+				</a>
+			</div>
+			
+			<div class="message-fave" ng-show="selected.doctype === 'tag'">
+				<a ng-click="saveFav(message)" ng-if="message.fav_tag">
+					<img src="/layout/assets/checkbox-filled.svg" />
+				</a>
+				<a ng-click="saveFav(message)" ng-if="!message.fav_tag" >
+					<img src="/layout/assets/checkbox-empty.svg" />
+				</a>
+			</div>
+
+			<div class="clear"></div>
+		</div>
+
+
+	</div>
+	
+</div>
 		</div>
 		
 		<div class="clear"></div>
+	
 	
 	</div>
 
@@ -68,6 +156,12 @@
 
 
 
-
+<!-- 
+				<a ng-click="saveFav(message)" ng-if="selected.doctype === 'tag' && message.fav_tag">
+					<img src="/layout/assets/checkbox-filled.svg" />
+				</a>
+				<a ng-click="saveFavTask(message)" ng-if="selected.doctype === 'tag' && !message.fav_tag" >
+					<img src="/layout/assets/checkbox-empty.svg" />
+				</a> -->
 
 

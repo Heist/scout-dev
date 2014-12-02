@@ -10,7 +10,7 @@
 			<h1>My Tests</h1>
 			
 			<div class="sub-bar-controls">
-				<button class="button small" ng-click="newTest()">+ New test</button>
+				<button class="button" ng-click="newTest()">New test</button>
 			</div>
 			
 			<div class="clear"></div>
@@ -28,29 +28,24 @@
 			
 				<div class="test-info">
 					<h3>{{test.name}}</h3>
-			
-					<small>&nbsp;<a ng-click="loadReport(test._id)" ng-show="test.summary" >View Report</a>&nbsp;</small>
 					
 					<div class="removeTest">
+						<a ng-click="editTest(test)">Edit</a> &nbsp;
 						<a class="dangerous" ng-click="removeTest(test)">Delete</a> &nbsp; 
-						<a ng-click="dupeTest(test)">Duplicate</a>
+						<a ng-click="dupeTest(test)">Duplicate</a> 
 					</div>
 				</div>
 			
 				<div class="test-controls">
-				
-					<div class="test-control">
-						<a ng-click="editTest(test)"><img src="/layout/assets/test-action-edit.svg" /><br>Edit<br>Tasks</a>
-					</div>
 						
 					<div class="test-control">
-						<a ng-click="runTest(test)" ng-show="test._tasks.length > 0"><img src="/layout/assets/test-action-test.svg" /><br>Run<br>Test</a>
+						<a ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run Test</a>
 					</div>
 					
 					<div class="test-control">
-						<a ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0"><img src="/layout/assets/test-action-report.svg" /><br>Create<br>Report</a>
+						<a ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0">Report</a>
 						
-						<a ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0" ><img src="/layout/assets/test-action-report.svg" /><br>Edit<br>Report</a>
+						<a ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0" >Report</a>
 					</div>
 					
 					<div class="clear"></div>

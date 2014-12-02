@@ -7,24 +7,24 @@ angular.module('field_guide_controls')
     function($scope, $http, $location, $stateParams, $rootScope, socket){
 
     // LOGIN FUNCTIONS ====================================
-    // console.log('loaded login controller, user is', $rootScope.user);
+    
     $scope.user = $rootScope.user;
 
-    console.log('$scope.login $rootScope.user', $rootScope.user);
+    // console.log('$scope.login $rootScope.user', $rootScope.user);
 
     if($stateParams.acct){
         $scope.acct = $stateParams.acct.replace( /\//gi,"");
-        console.log($scope.acct);
+        // console.log($scope.acct);
         $scope.reg_toggle = true;
-        mixpanel.track('registration page touch', {
-            'account': $stateParams.acct
-        });
+        // mixpanel.track('registration page touch', {
+        //     'account': $stateParams.acct
+        // });
     }
     
     $scope.tracker = function(){
-        mixpanel.track('myAccount', {
-            'account': $stateParams.acct
-        });
+        // mixpanel.track('myAccount', {
+        //     'account': $stateParams.acct
+        // });
     }
     $scope.login = function(user){
         var url = '/auth/login';
@@ -33,12 +33,12 @@ angular.module('field_guide_controls')
         $http
             .post(url, dataOut)
             .success(function(data){
-                console.log('login controller success', data.error);
+                // console.log('login controller success', data.error);
                 $scope.flashmessage = data.error;
                 $location.path(data.redirect);
             })
             .error(function(error){
-                console.log('login no bueno.', error);
+                // console.log('login no bueno.', error);
             });
     };
 
@@ -46,31 +46,26 @@ angular.module('field_guide_controls')
         $scope.reg_toggle = true;
         console.log('touched register', $scope.reg_toggle);
 
-        
-        mixpanel.track('registration page touch', {
-            'account': 'n/a'
-        });
-
     };
 
     $scope.showLogin = function(){
-        console.log('touched login', $scope.reg_toggle);
+        // console.log('touched login', $scope.reg_toggle);
         $scope.reg_toggle = false;
     };
 
     $scope.register = function(user){
-        console.log('register this user', user);
+        // console.log('register this user', user);
         var url, 
             dataOut,
             acct;
         
         if($stateParams.acct){
             acct = $stateParams.acct.replace( /\//gi,"");
-            console.log('touched account', acct);
+            // console.log('touched account', acct);
             url = '/auth/signup/';
             dataOut = {email: user.email, name:user.name, password: user.password, _account: acct};
         } else if (!$stateParams.acct) {
-            console.log('this signup does not include an account (stateparams.acct)');
+            // console.log('this signup does not include an account (stateparams.acct)');
             url = '/auth/signup/';
             dataOut = {email: user.email, name:user.name, password: user.password};
         }
@@ -79,14 +74,14 @@ angular.module('field_guide_controls')
             .post(url, dataOut)
             .success(function(data){
                 $scope.flashmessage = data.error;
-                console.log('register controller success passed back this', data);
+                // console.log('register controller success passed back this', data);
                 
                 $rootScope.user = data._id;
                 $location.path(data.redirect);
 
-                mixpanel.track('registered new user', {
-                    'name': data.email
-                });
+                // mixpanel.track('registered new user', {
+                //     'name': data.email
+                // });
 
             })
             .error(function(error){
