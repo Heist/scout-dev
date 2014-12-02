@@ -129,8 +129,8 @@ module.exports = function(io, app, passport) {
 
 
         socket.on('testComplete', function(data){
-            console.log('testComplete');
-            io.sockets.in(data.room).emit('endTest', {data :{body:data.body}});
+            console.log('testComplete', data);
+            io.sockets.in(data.room).emit('endTest', data);
         });
 
     });
