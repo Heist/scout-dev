@@ -182,20 +182,33 @@ app.route('/api/message/:_id')
                 // TODO: THIS
                 // this is tricky because it involves a buried map function.
                 // async.map(req.body.tags, function (name, callback) { // }, callback);
-                    Tag.find({'_messages' : {$in : [req.body._id]}, 'name' : {$nin : req.body.tags}})
-                       .exec(function(err, docs){
-                            if(err){console.log(err);}
+                async.waterfall([
+                    function(callback) {
+                        Tag.find({'_messages' : {$in : [req.body._id]}, 'name' : {$nin : req.body.tags}})
+                           .exec(function(err, docs){
+                                if(err){console.log(err);}
 
-                            console.log('found tags', docs );
-                            // var index = tags.indexOf(tag.name);
-                            // if(index === -1){
-                            //     var msg_index = tag._messages.indexOf(id);
-                            //     tag._messages.splice(msg_index, 1);
-                            //     tag.save(function(err,doc){
-                            //         callback(null,doc);
-                            //     });
-                            // }
-                        });
+                                console.log('found tags', docs );
+                                callback(null, docs);
+                            });
+                    },
+                    function(args, callback) {
+                        console.log('nested waterfall', args);
+                        async.map(args, function(tag, callback){
+                            var msg_index = tag._messages.indexOf(req.body._id);
+                            tag._messages.splice(msg_index, 1);
+                            tag.save(function(err,doc){
+                                console.log('saved tag', doc);
+                                callback(null, tag);
+                            });
+                        }, callback);
+                    },
+
+                ], function (err, result) {
+                       // result now equals 'done'  
+                    console.log('nested waterfall result', result);
+                    callback(null, args);
+                });
                 
             },
             function(args, callback){
