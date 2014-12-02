@@ -89,7 +89,7 @@
 				<ul>
 					<li ng-repeat="object in leftNavList | orderBy : 'object.index'" ng-click="select(object)" class="question" ng-class="{ 'active': object._id == selected._id}"
 					ng-show="object.visible" >
-						{{object.name}}
+						<span ng-show="object.doctype === 'tag'">#</span>{{object.name}}
 						<div class="task-score green" ng-show="task.pass_fail == true" >&nbsp;</div>
 						<div class="task-score red" ng-show="task.pass_fail == false">&nbsp;</div>
 					</li>
@@ -105,7 +105,7 @@
 		<div class="task-score green inverted" ng-show="selected.pass_fail == true">Passed</div>
 		<div class="task-score red inverted" ng-show="selected.pass_fail == false">Needs work</div>
 			
-		<h2>{{selected.name}}</h2>
+		<h2><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h2>
 
 		
 		<div class="clear"></div>

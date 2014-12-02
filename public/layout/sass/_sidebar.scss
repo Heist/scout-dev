@@ -64,6 +64,7 @@
 			.sidebar-visibility {
 				float: right;
 				display: block;
+				padding: 2px 0 0 0;
 				
 				img {
 					width: 16px;
@@ -96,6 +97,32 @@
 		}
 	}
 }
+
+
+/* some stuff for summarizing */
+
+#view-summarizing {
+	#sidebar {
+		.step-ordering {
+			display: none;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
