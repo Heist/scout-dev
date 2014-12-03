@@ -71,10 +71,10 @@ app.route('/api/test/:_id')
 
                 // console.log('single test', test)
                 res.json(test);
-        });        
+            });        
     })
-    // Duplicate a test with new steps and things but which appears to be identical
     .post(function(req,res){
+        // Duplicate a test with new steps and things but which appears to be identical
         // console.log('touched dupe test',req.params._id, req.body);
 
         async.waterfall([
@@ -83,57 +83,61 @@ app.route('/api/test/:_id')
                     .populate({path:'_tasks'})
                     .exec(function(err, doc){
                         if(err){console.log(err);}
-
-                        var update = {
-                            created_by_account : doc.created_by_account,
-                            created_by_user : doc.created_by_user,
-                            desc    : doc.desc,
-                            link    : doc.link,
-                            name    : doc.name,
-                            platform: doc.platform,
-                            kind    : doc.kind
-                        };
-
-                        Test.create(update, function(err, test){
-                            if (err){console.log(err);}
-                            console.log('main_doc_id', doc._id);
-                            callback(null, {new_test: test, tasks: doc._tasks});
-                        });
+                        callback(null, doc);
                     });
             },
-            function(args, callback) {
-                console.log('step two', args);
-                if(args.tasks){
-                    async.map(args.tasks, function(task, callback){
+            function(test, callback) {
+                // console.log('step two', test);
+                if(test._tasks){
+                    async.map(test._tasks, function(task, callback){
                         // console.log('async task',task);
                         var make =  {
                             desc : task.desc,
                             index : task.index,
                             name : task.name,
-                            _test : args.new_test._id
+                            _test : test._id
                         };
 
-                        Task.create(make, function(err, task){
+                        Task.create(make, function(err, doc){
                             if (err){ console.log(err); }
-
-                            args.new_test._tasks.push(task._id);
-                            args.new_test.save(function(err, doc){
-                                callback(null,doc);
-                            });
-                            
+                            callback(null,doc._id);
                         });
+
                     }, function(err, results){
                         console.log('callback', results);
-                        callback(null, results);
+                        callback(null, {tasks: results, old: test});
                     });
                 } else {
-                    callback(null, args);
+                    callback(null, {old: test});
                 }
-
             },
+            function(args, callback){
+                var old = args.old;
+                var tasks = args.tasks;
+
+                var update = {
+                        created_by_account : old.created_by_account,
+                        created_by_user : old.created_by_user,
+                        desc    : old.desc,
+                        link    : old.link,
+                        name    : old.name,
+                        platform: old.platform,
+                        kind    : old.kind,
+                        _tasks  : tasks
+                    };
+
+                Test.create(update, function(err, test){
+                    if (err){console.log(err);}
+                    
+                    test.populate('_tasks', function(err, reply){
+                        callback(null, reply);
+                    });
+                });
+            }
+           
         ], function (err, result) {
-            console.log('end of waterfall',result[0]);
-            res.json(result[0]);
+            // console.log('end of waterfall',result);
+            res.json(result);
         });
     })
     // update one test with new information
