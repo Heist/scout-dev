@@ -8,8 +8,8 @@ angular.module('field_guide_controls')
     $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
 }])
 .controller('test', 
-            ['$scope','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
-    function( $scope,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
+            ['$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
+    function(  $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
     
     console.log('loaded test controller');
     
