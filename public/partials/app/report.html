@@ -117,7 +117,7 @@
 			<!--<div class="float-right"><button class="button small" ng-show="user.trello" ng-click="sendCardToTrello()">Send to Trello</button></div>-->
 			
 			
-			<!--<p><strong>Talking points:</strong> {{selected.desc}}</p>-->
+			<p><strong>Talking points:</strong> <p ng-bind-html="selected.desc | linebreaker"></p></p>
 			
 			<p>{{selected.summary}}</p>
 					
