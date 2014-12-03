@@ -76,62 +76,64 @@ app.route('/api/test/:_id')
     // Duplicate a test with new steps and things but which appears to be identical
     .post(function(req,res){
         // console.log('touched dupe test',req.params._id, req.body);
-        var obj = {};
-        var reply = {};
 
-        var promise = Test.findById(req.params._id).populate({path:'_tasks'}).exec();
+        async.waterfall([
+            function(callback) {
+                Test.findById(req.params._id)
+                    .populate({path:'_tasks'})
+                    .exec(function(err, doc){
+                        if(err){console.log(err);}
 
-        promise.then(function(org_test){
-            // console.log('test duped', org_test._id);
-            obj = org_test;
+                        var update = {
+                            created_by_account : doc.created_by_account,
+                            created_by_user : doc.created_by_user,
+                            desc    : doc.desc,
+                            link    : doc.link,
+                            name    : doc.name,
+                            platform: doc.platform,
+                            kind    : doc.kind
+                        };
 
-            var update = {
-                created_by_account : org_test.created_by_account,
-                created_by_user : org_test.created_by_user,
-                desc    : org_test.desc,
-                link    : org_test.link,
-                name    : org_test.name,
-                platform: org_test.platform,
-                kind    : org_test.kind
-            };
-
-            return Test.create(update, function(err, test){
-                if (err){console.log(err);}
-                // console.log(test._id);
-            });
-        })
-        .then(function(new_test){
-            // console.log('test duped step 2', new_test._id, obj._id);
-            reply.new_test = new_test._id;
-
-            if (obj._tasks){
-                // console.log('obj._tasks.length', obj._tasks.length);
-                async.each(obj._tasks, function(task){
-                    // console.log('async task',task);
-                    var make =  {
-                        desc : task.desc,
-                        index : task.index,
-                        name : task.name,
-                        _test : new_test._id
-                    };
-
-                    Task.create(make, function(err, task){
-                        if (err){ console.log(err); }
-                        
-                        var update = { $push : { _tasks : task._id } }; 
-                        // console.log('new_test._id', new_test._id);
-                        Test.findOneAndUpdate({'_id' : new_test._id}, update, function(err, test){
-                            // console.log(test._id);
+                        Test.create(update, function(err, test){
+                            if (err){console.log(err);}
+                            console.log('main_doc_id', doc._id);
+                            callback(null, {new_test: test, tasks: doc._tasks});
                         });
                     });
-                });
-            }
-        })
-        .then(function(){
-            // console.log('test duped - last step');
-            Test.findById(reply.new_test).exec(function(err, test){
-                res.json(test);
-            });
+            },
+            function(args, callback) {
+                console.log('step two', args);
+                if(args.tasks){
+                    async.map(args.tasks, function(task, callback){
+                        // console.log('async task',task);
+                        var make =  {
+                            desc : task.desc,
+                            index : task.index,
+                            name : task.name,
+                            _test : args.new_test._id
+                        };
+
+                        Task.create(make, function(err, task){
+                            if (err){ console.log(err); }
+
+                            args.new_test._tasks.push(task._id);
+                            args.new_test.save(function(err, doc){
+                                callback(null,doc);
+                            });
+                            
+                        });
+                    }, function(err, results){
+                        console.log('callback', results);
+                        callback(null, results);
+                    });
+                } else {
+                    callback(null, args);
+                }
+
+            },
+        ], function (err, result) {
+            console.log('end of waterfall',result[0]);
+            res.json(result[0]);
         });
     })
     // update one test with new information
