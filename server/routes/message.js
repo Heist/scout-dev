@@ -224,7 +224,6 @@ app.route('/api/message/:_id')
                 async.parallel({
                     tags: function(callback){
                         Tag.find({'_test' : req.body._test })
-                            .populate('_messages')
                             .exec(function(err, docs){
                                 if (err) {console.log(err);}
                                 callback(null, docs);

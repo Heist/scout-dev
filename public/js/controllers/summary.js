@@ -195,9 +195,10 @@ angular.module('field_guide_controls')
             .put('/api/message/'+message._id, message)
             .success(function(msg, err){
                 console.log('msg_success', msg, err);
-
+                var new_list =_.groupBy(msg.messages, function(z){return z._subject.name;});
+                console.log(new_list);
                 $scope.leftNavList = msg.nav_list;
-                $scope.messages = _.groupBy(msg.messages, function(z){return z._subject.name;}); 
+                $scope.messages = new_list;
             });
     };
 
