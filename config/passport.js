@@ -8,6 +8,8 @@ module.exports = function(app, passport) {
     var LocalStrategy   = require('passport-local').Strategy;
     var TrelloStrategy = require('passport-trello').Strategy;
     var bcrypt = require('bcrypt-nodejs');
+    var async = require('async');
+    var mongoose = require('mongoose');
 
     // load up the user model
     var User = require('../server/models/auth/user');
@@ -68,126 +70,83 @@ module.exports = function(app, passport) {
     }));
 
 // =========================================================================
-// LOCAL SIGNUP =============================================================
+// LOCAL SIGNUP ============================================================
 // =========================================================================
+    function generateHash(password) { return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null); }
+
     passport.use('local-signup', new LocalStrategy({
-        // by default, local strategy uses username and password, we will override with email
-        usernameField : 'email',
-        passwordField : 'password',
-        passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-    },
-    function(req, email, password, done){
-        if (email) {email = email.toLowerCase();} // Use lower-case e-mails to avoid case-sensitive e-mail matching
+            // by default, local strategy uses username and password, we will override with email
+            usernameField : 'email',
+            passwordField : 'password',
+            passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+        },
         
-        console.log('new user signup account touched', req.body._account);
-
-        function generateHash(password) {
-            return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-        }
-
-        // asynchronous
-        process.nextTick(function() {
-            console.log('passport user', req.user);
+        function(req, email, password, done){
+            if (email) {email = email.toLowerCase();} // Use lower-case e-mails to avoid case-sensitive e-mail matching
             
-            if (!req.user) {
-                // if the user is not already logged in:
-
-                User.findOne({ 'local.email' :  email }, function(err, first_user) {
-                    // if there are any errors, return the error
-                    if (err){return done(err);}
-
-                    console.log('found a user?', first_user);
-                    // check to see if theres already a user with that email
-                    if (user) {
-                        return done(null, { error: 'That email is already taken.' });
-                    }
-
-                    else {
-                        console.log('made it to signups', req.body);
-
-                        var reply = {};
-                        var promise = User.create({
-                                'name' : req.body.name,
-                                'local.email' : email ,
-                                'local.password' : generateHash(password)
-                            });
-
-                        promise.then(function(usr){
-                            reply.usr = usr; // pass along user to reply at the end.
-                            // if there's an account - ie, this is by invitation
-                            // find the invitation and set it to accepted
-                            // then update the user _account to exist
-                            console.log('inside promise user passport', usr);
-
-                            // find some invitations
-                            return Invitation.findOne({'user_email' : usr.local.email}).exec(function(err, invite){
-                                if (err){throw err;}
-                                console.log('inside passport invite', invite, usr);
-                                if (!invite){
-                                    // there are no invitations for that user
-                                    console.log('no invite');
-                                    // return done(null); This breaks the whole promise chain.
-                                } else {
-                                    // attach the appropriate account to the user and return
-                                    invite.pending = false;
-                                    invite.save(function(err, inv){
-                                        if (err){throw err;}
-                                    });
-                                }
-                            });
-                        }).then(function(invite_data){
-                            console.log('passport new user data return last promise invite data', invite_data);
-                            console.log('reply.usr', reply.usr);
-                            // TODO: fix this - it should update the user account with the invite data if there is any
-                            // otherwise it should spit out a user account. 
-                            User.findOne({'_id':reply.usr._id})
-                                .exec(function(err, doc){
-                                    if(invite_data){
-                                        doc._account = invite_data._account;
-                                    }
-                                    doc.save(function(err, saved){
-                                        if (err){throw err;}
-                                        console.log('user within invitation find save', saved);
-                                        // send the new user object back, having fixed up their invitational status.
-                                        return done(null, saved);
-                                    });
-                                });
-                        });
-                    }
-
-                });
-            // if the user is logged in but has no local account...
-            } else if ( !req.user.local.email ) {
-                console.log(req.user);
-                // ...presumably they're trying to connect a local account
-                var user            = req.user;
-                user.local.email    = email;
-                user.local.password = user.generateHash(password);
-                user.save(function(err, data) {
-                    if (err) {throw err;}
-                    console.log('there is a user, and we have saved them', data);
-                    Invitation.findOne({'user_email' : data.local.email}).exec(function(err, docs){
-                        if (!docs){
-                            return done(null, data);
-                        } else {
-                            data._account = docs._account;
-                            data.save(function(err, saved){
-                                return done(null, saved);
-                            });
-                        }
-                    });
-
-                    
-                });
-            } else {
-                // user is logged in and already has a local account. Ignore signup. (You should log out before trying to create a new account, user!)
-                console.log("apparently we're not logged out.");
+            console.log('new user signup account touched', req.body._account);
+            
+                // user is logged in and has e-mail
+            if (req.user && req.user.local.email){
+                console.log('Please log out before signing up again.');
                 return done(null, req.user);
             }
 
-        });
-    }
-));
+            // user is logged in and has no e-mail.
+            if (req.user && !req.user.local.email){
+                var user = req.user;
+                user.local.email = email;
+                user.local.password = user.generateHash(password);
+                user.save(function(err, data) {
+                    if (err) {throw err;}
+                    console.log('User updated', data);
+                    return done(null, req.user);
+                });
+            }
+
+            // if no user is logged in
+            if (!req.user) { 
+                var promise = User.findOne({ 'local.email' :  email })
+                                  .exec(function(err, user) {
+                                        if(user){ return done(null, 'That email is already taken.'); } 
+                                    });
+
+                promise.then(function(){
+                    return Invitation.findOne({'_id': req.body.invite})
+                          .exec(function(err, invite){
+                            if (err){throw err;}
+                            if(!invite){
+                                // this is a fresh signup
+                                console.log('no invite');
+                            } else {
+                                // there was a pending invite with that invite _id, and it's not pending now.
+                                invite.pending = false;
+                                invite.save(function(err, inv){
+                                    if (err){throw err;}
+
+                                });
+                            }
+                        });
+                }).then(function(invite){
+                    // make a new user
+                    var account;
+                    if (invite){ account = invite._account; }
+                    else { account = mongoose.Types.ObjectId(); }
+
+                    var new_user = { 'name' : req.body.name,
+                                   '_account' : account,
+                                   'local.email' : email ,
+                                   'local.password' : generateHash(password)
+                            };
+
+                    return User.create(new_user, function(err, user){ if (err){throw err;} });
+
+                }).then(function(user){
+                    return done(null, user);
+                });
+            } 
+        })
+    );
 
 // =========================================================================
 // TRELLO AUTHORIZATION ====================================================

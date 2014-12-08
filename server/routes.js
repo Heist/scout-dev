@@ -181,7 +181,7 @@ module.exports = function(app, passport) {
                                 Task.create(tasks, function(err, t0, t1, t2, t3, t4, t5, t6){
                                     test._tasks.push(t0._id, t1._id, t2._id, t3._id, t4._id, t5._id, t6._id);
                                     test.save(function(err, new_test){
-                                        console.log('new_test', new_test);
+                                        // console.log('new_test', new_test);
                                         callback(null, new_test);
                                     });
                                 });
@@ -245,7 +245,7 @@ module.exports = function(app, passport) {
                     function(err, results){
                         // the results array will equal ['one','two'] even though
                         // the second function had a shorter timeout.
-                        console.log(results);
+                        // console.log(results);
                         User.findById(req.user._id).exec(function(err, found){ found.login=2; found.save(); });
                         res.json({ 'user': req.user._id, 'name':req.user.name, redirect: '/overview', msg:'register user worked' });
                     });
