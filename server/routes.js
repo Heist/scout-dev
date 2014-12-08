@@ -234,7 +234,7 @@ module.exports = function(app, passport) {
                                 Task.create(tasks, function(err, t0, t1, t2, t3, t4, t5, t6, t7){
                                     test._tasks.push(t0._id, t1._id, t2._id, t3._id, t4._id, t5._id, t6._id, t7._id);
                                     test.save(function(err, new_test){
-                                        console.log('new_test', new_test);
+                                        // console.log('new_test', new_test);
                                         callback(null, new_test);
                                     });
                                 });
