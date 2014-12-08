@@ -91,6 +91,7 @@ module.exports = function(app, passport) {
             
             if (!req.user) {
                 // if the user is not already logged in:
+
                 User.findOne({ 'local.email' :  email }, function(err, first_user) {
                     // if there are any errors, return the error
                     if (err){return done(err);}
@@ -103,6 +104,7 @@ module.exports = function(app, passport) {
 
                     else {
                         console.log('made it to signups', req.body);
+
                         var reply = {};
                         var promise = User.create({
                                 'name' : req.body.name,
@@ -163,7 +165,7 @@ module.exports = function(app, passport) {
                 user.local.password = user.generateHash(password);
                 user.save(function(err, data) {
                     if (err) {throw err;}
-                    console.log('there is a user, and we have saved them', data)
+                    console.log('there is a user, and we have saved them', data);
                     Invitation.findOne({'user_email' : data.local.email}).exec(function(err, docs){
                         if (!docs){
                             return done(null, data);
@@ -179,7 +181,7 @@ module.exports = function(app, passport) {
                 });
             } else {
                 // user is logged in and already has a local account. Ignore signup. (You should log out before trying to create a new account, user!)
-                console.log("apparently we're not logged out.")
+                console.log("apparently we're not logged out.");
                 return done(null, req.user);
             }
 

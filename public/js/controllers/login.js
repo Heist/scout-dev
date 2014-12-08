@@ -57,13 +57,13 @@ angular.module('field_guide_controls')
         // console.log('register this user', user);
         var url, 
             dataOut,
-            acct;
+            invite;
         
         if($stateParams.acct){
-            acct = $stateParams.acct.replace( /\//gi,"");
+            invite = $stateParams.acct.replace( /\//gi,"");
             // console.log('touched account', acct);
             url = '/auth/signup/';
-            dataOut = {email: user.email, name:user.name, password: user.password, _account: acct};
+            dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
         } else if (!$stateParams.acct) {
             // console.log('this signup does not include an account (stateparams.acct)');
             url = '/auth/signup/';

@@ -87,9 +87,10 @@ module.exports = function(app){
                         email: user.local.email, 
                         name: user.name, 
                         _id: user._id, 
-                        _account: user._account, 
+                        _account: user._account,
                         msg:'user found'
                     });
+                    
                     // throw new Error('abort promise chain');
                     throw new Error('User found');
 
@@ -136,7 +137,7 @@ module.exports = function(app){
 
                 var message_variables = {
                     created_by: req.user.name,
-                    invite_link: 'http://'+app.locals.real_url+'/login/'+invite._account
+                    invite_link: 'http://'+app.locals.real_url+'/login/'+invite._id
                 };
 
                 var mailer = new Emailer(envelope_options, message_variables);
@@ -153,6 +154,9 @@ module.exports = function(app){
         });
 
     app.route('/api/invite/:_id')
+        .put(function(req,res){
+            console.log('invite put');
+        })
         .post(function(req,res){
             // this is to resend an invitation already sent
             // console.log(req.user.name);
@@ -160,8 +164,6 @@ module.exports = function(app){
             // console.log(req.params._id);            
 
             Invitation.findById(req.params._id).exec(function(err,invite){
-                
-                // console.log('resent invitation', invite);
                 res.json(invite);
 
                 var envelope_options = {
@@ -175,7 +177,7 @@ module.exports = function(app){
 
                 var message_variables = {
                     created_by: "Field Guide",
-                    invite_link: app.locals.real_url+'/login/'+req.body._account
+                    invite_link: app.locals.real_url+'/login/'+invite._id
                 };
 
                 var mailer = new Emailer(envelope_options, message_variables);
