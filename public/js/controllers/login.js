@@ -14,11 +14,13 @@ angular.module('field_guide_controls')
 
     if($stateParams.acct){
         $scope.acct = $stateParams.acct.replace( /\//gi,"");
-        // console.log($scope.acct);
         $scope.reg_toggle = true;
         // mixpanel.track('registration page touch', {
         //     'account': $stateParams.acct
         // });
+        
+        // TODO: get the invitation represented by that id and pre-populate the e-mail field.
+
     }
     
     $scope.tracker = function(){
