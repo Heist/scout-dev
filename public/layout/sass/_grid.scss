@@ -24,6 +24,10 @@
     float: left;
     padding-left: $pad/2;
     padding-right: $pad/2;
+
+    &.right{
+        float: right;
+    }
 }
 
  

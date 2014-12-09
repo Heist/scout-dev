@@ -2,19 +2,22 @@
 
 
 #sidebar {
+	position:fixed;
+	width: 25%;
 		
 	ul {
 		padding: 0;
 		margin: 0;
 		list-style: none;
-		width: 90%;
+		color: #939598;
+
 		
 		li {
-			padding: $pad/2 $pad/1.5;
+			padding: $pad/2;
 			margin: 0;
 			@include radius;
 			border: 2px solid $white;
-			@include type-bold;
+			@include type-regular;
 			
 			h3 {
 				margin: 0 0 2px 0; 
@@ -23,7 +26,7 @@
 			}
 			
 			p {
-				margin: 0; 
+				margin-top: 0; 
 				padding: 0;
 				font-size: $type-size-base*0.8;
 				line-height: $type-line-base*0.8;
@@ -37,14 +40,16 @@
 			}
 			
 			&:hover {
-				border: 2px solid transparentize($fg-slate, 0.8);
+				//border: 2px solid transparentize($fg-slate, 0.8);
+				color: lighten($fg-black, 8%);
 				cursor: pointer;
 			}
 									
 			&.active {
-				background: $fg-slate;
+				// background: $fg-slate;
 				position: relative;
-				color: $white;
+				color: $fg-slate;
+				@include type-bold;
 				
 				&:hover {
 					cursor: auto;
@@ -69,7 +74,7 @@
 				
 				img {
 					width: auto;
-					height: 16px;
+					height: 10px;
 					margin: 5px 0 0 0;
 				}
 			}

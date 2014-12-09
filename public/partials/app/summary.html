@@ -3,16 +3,16 @@
 <div id="view-summarizing" ng-model='test'>
 	
 	<ng-include src="'partials/app/header.html'"></ng-include>
+
+	<div class="edit-controls">	
+		<a class="enabled left">Edit</a>
+		<a class="disabled" ng-click="completeSummary(flow)">Preview</a>
+	</div>
 	
 	<!-- sub bar -->
 	<div id="sub-bar">
-		<div class="container">
+		<div class="summarizing-sub-bar">
 			<h1>{{test.name}} <span>Findings</span></h1>
-			
-			<div class="sub-bar-controls">	
-				<span class="button small fake button-summarizing">&nbsp;Editing&nbsp;</span>
-				<button class="button small button-summarizing" ng-click="completeSummary(flow)">&nbsp;View&nbsp;</button>
-			</div>
 			
 			<div class="clear"></div>
 		</div>
@@ -20,10 +20,9 @@
 	
 	
 	
-	<div class="container" id="summarizing-container">
+	<div id="summarizing-container">
 	
 	
-		<div class="module third">
 	
 			<div id="sidebar">	
 			
@@ -44,10 +43,10 @@
 						
 						<div class="sidebar-visibility">
 							<a ng-click="toggleVis(object)" ng-show="object.visible">
-								<img src="/layout/assets/checkbox-filled.svg" />
+								<img src="/layout/assets/show.svg" />
 							</a>
 							<a ng-click="toggleVis(object)" ng-show="!object.visible">
-								<img src="/layout/assets/checkbox-empty.svg" />
+								<img src="/layout/assets/hidden.svg" />
 							</a>
 						</div>
 						
@@ -58,21 +57,17 @@
 				</ul>
 			
 			</div>
-			
-			
-		</div>
 		
 		
 		<!-- the summarizing area -->
-		<div class="module two-thirds">
+		<div class="module two-thirds right">
 			<!-- summary_step -->
 
-<div id="summary-task">
+		<div id="summary-task">
 
 	
 		<div ng-model='selected' ng-show="selected.name">
-				<h4>&ldquo;{{selected.name}}&rdquo; summary</h4>
-				<p>Add a summary to capture any notable outcomes, directions, or action items.</p>
+				<h4>Summarize &ldquo;{{selected.name}}&rdquo; </h4>
 				
 				<textarea class="input" id="field-textarea" placeholder="Your summary"  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>				
 				
@@ -118,29 +113,29 @@
 		
 		<!-- participant messages -->
 		<div ng-repeat="message in user" class="message" ng-show="show(message._id)">
-			<div class="message-details"><div class="message-edit"><img src="/layout/assets/pencil.svg" ng-click="editMessage(message, $index)" /></div></div>
+			<div class="message-details"><div class="message-edit"><img src="/layout/assets/pencil.svg"/></div></div>
 
-			<div class="message-body">
+			<div class="message-body" ng-click="editMessage(message, $index)">
 				<p ng-bind-html="message.body | hashtag" ng-hide="messageEditToggle == message._id"></p>
-				<textarea class="input small" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)"></textarea>
+				<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
 				<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 			</div>
 
 			<div class="message-fave" ng-show="selected.doctype === 'task'">
 				<a ng-click="saveFav(message)" ng-if="message.fav_task">
-					<img src="/layout/assets/checkbox-filled.svg" />
+					<img src="/layout/assets/show.svg" />
 				</a>
 				<a ng-click="saveFav(message)" ng-if="!message.fav_task" >
-					<img src="/layout/assets/checkbox-empty.svg" />
+					<img src="/layout/assets/hidden.svg" />
 				</a>
 			</div>
 			
 			<div class="message-fave" ng-show="selected.doctype === 'tag'">
 				<a ng-click="saveFav(message)" ng-if="message.fav_tag">
-					<img src="/layout/assets/checkbox-filled.svg" />
+					<img src="/layout/assets/show.svg" />
 				</a>
 				<a ng-click="saveFav(message)" ng-if="!message.fav_tag" >
-					<img src="/layout/assets/checkbox-empty.svg" />
+					<img src="/layout/assets/hidden.svg" />
 				</a>
 			</div>
 

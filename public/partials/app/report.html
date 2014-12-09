@@ -59,21 +59,20 @@
 		
 		<div class="clear"></div>
 </div>
-	
+
+	<div class="edit-controls">	
+		<a class="disabled" 	ng-click='summarize()'>Edit</a>
+		<a class="enabled right" >Preview</a>
+	</div> 
+
 	<!-- sub bar -->
 	<div id="sub-bar">
-		<div class="container">
+		<div class="summarizing-sub-bar">
 			<h1>{{leftNavList[0].name}} <span>Findings</span></h1>
 			
 			<div class="sub-bar-controls">
 				
 				<small>Share this report:</small> <input class="input small" ng-model="reportLink"/>
-				
-				<span ng-show="user">
-					&nbsp;&nbsp;
-					<button class="button small  button-summarizing" ng-click='summarize()'>&nbsp;Edit&nbsp;</button>
-					<span class="button small fake button-summarizing">&nbsp;Viewing&nbsp;</span>
-				</button>
 			</div>
 			
 			<div class="clear"></div>
@@ -81,29 +80,25 @@
 	</div>
 	
 	
-	<div class="container" id="report-container">
+	<div id="report-container">
 		
-		<div class="module third">
-			
-			<div id="sidebar">
-				<ul>
-					<li 
-					class="question"
-					ng-repeat="object in leftNavList | orderBy : 'object.index'" 
-					ng-click="activate(object, $index)" 
-					ng-class="{ 'active': object._id == selected._id}"
-					ng-show="object.visible" >
-						<span ng-show="object.doctype === 'tag'">#</span>{{object.name}}
-						<div class="task-score green" ng-show="task.pass_fail == true" >&nbsp;</div>
-						<div class="task-score red" ng-show="task.pass_fail == false">&nbsp;</div>
-					</li>
+		<div id="sidebar">
+			<ul>
+				<li 
+				class="question"
+				ng-repeat="object in leftNavList | orderBy : 'object.index'" 
+				ng-click="activate(object, $index)" 
+				ng-class="{ 'active': object._id == selected._id}"
+				ng-show="object.visible" >
+					<span ng-show="object.doctype === 'tag'">#</span>{{object.name}}
+					<div class="task-score green" ng-show="task.pass_fail == true" >&nbsp;</div>
+					<div class="task-score red" ng-show="task.pass_fail == false">&nbsp;</div>
+				</li>
 
-				</ul>
-			</div>
-			
-		</div>	
+			</ul>
+		</div>
 					
-		<div class="module two-thirds" ng-model="selected">
+		<div class="module two-thirds right" ng-model="selected">
 		<!-- report_steps -->
 	
 			<div class="task-score green inverted" ng-show="selected.pass_fail == true">Passed</div>
@@ -117,7 +112,7 @@
 			<!--<div class="float-right"><button class="button small" ng-show="user.trello" ng-click="sendCardToTrello()">Send to Trello</button></div>-->
 			
 			
-			<p><strong>Talking points:</strong> <p ng-bind-html="selected.desc | linebreaker"></p></p>
+			<p><strong>Talking points</strong> <p ng-bind-html="selected.desc | linebreaker"></p></p>
 			
 			<p>{{selected.summary}}</p>
 					
