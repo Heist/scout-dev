@@ -2,8 +2,9 @@
 
 
 #sidebar {
-	position:fixed;
-	width: 25%;
+	//position:fixed;
+	// width: 25%;
+	// overflow:auto;
 		
 	ul {
 		padding: 0;
@@ -13,7 +14,7 @@
 
 		
 		li {
-			padding: $pad/2;
+			padding: $pad/1.5 $pad*4 $pad/1.5 0;
 			margin: 0;
 			@include radius;
 			border: 2px solid $white;

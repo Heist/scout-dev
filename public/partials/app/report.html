@@ -82,30 +82,32 @@
 	
 	<div id="report-container">
 		
-		<div id="sidebar">
-			<ul>
-				<li 
-				class="question"
-				ng-repeat="object in leftNavList | orderBy : 'object.index'" 
-				ng-click="activate(object, $index)" 
-				ng-class="{ 'active': object._id == selected._id}"
-				ng-show="object.visible" >
-					<span ng-show="object.doctype === 'tag'">#</span>{{object.name}}
-					<div class="task-score green" ng-show="task.pass_fail == true" >&nbsp;</div>
-					<div class="task-score red" ng-show="task.pass_fail == false">&nbsp;</div>
-				</li>
+		<div class="module third">
 
-			</ul>
+			<div id="sidebar">
+				<ul>
+					<li 
+					class="question"
+					ng-repeat="object in leftNavList | orderBy : 'object.index'" 
+					ng-click="activate(object, $index)" 
+					ng-class="{ 'active': object._id == selected._id}"
+					ng-show="object.visible" >
+						<span ng-show="object.doctype === 'tag'">#</span>{{object.name}}
+						<div class="task-score green" ng-show="task.pass_fail == true" >&nbsp;</div>
+						<div class="task-score red" ng-show="task.pass_fail == false">&nbsp;</div>
+					</li>
+
+				</ul>
+			</div>
 		</div>
 					
 		<div class="module two-thirds right" ng-model="selected">
 		<!-- report_steps -->
-	
-			<div class="task-score green inverted" ng-show="selected.pass_fail == true">Passed</div>
-			<div class="task-score red inverted" ng-show="selected.pass_fail == false">Needs work</div>
-				
-			<h2><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h2>
 
+			<div class="task-score green" ng-show="selected.pass_fail == true">Passed</div>
+			<div class="task-score red" ng-show="selected.pass_fail == false">Needs work</div>
+
+			<h2><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h2>
 			
 			<div class="clear"></div>
 			

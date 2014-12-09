@@ -149,9 +149,16 @@
 /* task rating output */
 
 .task-score {
-	@include radius(20px);
+	@include radius(4px);
 	margin: 5px 0 0 0;
-	
+	font-size: $type-size-base*0.6;
+	@include type-bold;
+	text-transform: uppercase;
+	letter-spacing: 0;
+	color: $white;
+	margin: 0;
+	padding: 0 $pad/4;
+		
 	&.green {
 		background: $fg-green;
 		
@@ -231,7 +238,7 @@
 .edit-controls{
 	position: fixed;
 	bottom:40px;
-	left:40%;
+	left:44%;
 	background-color: #f2f2f2;
 	border-radius: 4px;
 
@@ -241,6 +248,7 @@
 		min-width: 100px;
 		text-align: center;
 		padding: $pad/1.7;
+		text-decoration: none;
 
 	}
 
@@ -248,8 +256,15 @@
 		color: #fff;
 		background-color: $fg-green;
 
+		&:hover{
+
+			background-color: darken($fg-green, 3%);
+
+		}
+
 		&.left {
 			border-radius: 4px 0px 0px 4px;
+
 		}
 
 		&.right {
@@ -260,6 +275,11 @@
 
 	.disabled {
 		color: darken(#f2f2f2, 30%);
+
+		&:hover{
+			border-radius: 0px 4px 4px 0px;
+			background-color: darken(#f2f2f2, 3%);
+		}
 	}
 
 }

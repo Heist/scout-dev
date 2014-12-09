@@ -15,7 +15,7 @@ form {
 	padding: $pad/2 $pad/1.5;
 	@include radius;
 	@include type-regular;
-	font-size: $type-size-base;
+	font-size: $type-size-base*0.8;
 	outline: none;
 	border: none;
 }
