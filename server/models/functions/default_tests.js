@@ -8,7 +8,7 @@ module.exports = function(account, id){
     var Task    = require('../data/task');
     var Test    = require('../data/test');
     var async   = require('async');
-    
+
     var new_test_1 = {
         created_by_account: account,
         created_by_user : id,
@@ -140,5 +140,7 @@ module.exports = function(account, id){
         }
     ],
     // optional callback
-    function(err, results){});
+    function(err, results){
+        return Test.find({'created_by_user' : id}).populate('_tasks').exec();
+    });
 }
