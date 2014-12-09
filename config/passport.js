@@ -14,6 +14,7 @@ module.exports = function(app, passport) {
     // load up the user model
     var User = require('../server/models/auth/user');
     var Invitation = require('../server/models/auth/invitation');
+    var newUserTests = require('../server/models/functions/default_tests.js');
 
     // load the auth variables
     var configAuth = require('./auth')(app);
@@ -123,7 +124,6 @@ module.exports = function(app, passport) {
                                 invite.pending = false;
                                 invite.save(function(err, inv){
                                     if (err){throw err;}
-
                                 });
                             }
                         });
@@ -139,7 +139,14 @@ module.exports = function(app, passport) {
                                    'local.password' : generateHash(password)
                             };
 
-                    return User.create(new_user, function(err, user){ if (err){throw err;} });
+                    return User.create(new_user, 
+                            function(err, user){ 
+                                if (err){throw err;} 
+
+                                if(invite === null){
+                                    newUserTests(user._account, user._id);
+                                }
+                            });
 
                 }).then(function(user){
                     return done(null, user);
