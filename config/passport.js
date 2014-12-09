@@ -180,11 +180,7 @@ module.exports = function(app, passport) {
             } else {
         
                 console.log('yep, looks like someone is logged in', req.user.id);
-        
-        // this is how you authorize someone, but you could do
-        // service.id: profile.id and authenticate them
-        // then add a new account otherwise.
-        
+                
                 User.findById(req.user.id)
                 .exec(function(err, user) {
                     if (err) { return done(err); }
