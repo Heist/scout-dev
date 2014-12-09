@@ -117,8 +117,12 @@
 
 			<div class="message-body" ng-click="editMessage(message, $index)">
 				<p ng-bind-html="message.body | hashtag" ng-hide="messageEditToggle == message._id"></p>
+<<<<<<< HEAD
 				<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
 				<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
+=======
+				<textarea class="input small" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)"></textarea>
+>>>>>>> 28acc1026844bc527e08dedca5552313a3d16fd2
 			</div>
 
 			<div class="message-fave" ng-show="selected.doctype === 'task'">

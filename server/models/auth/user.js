@@ -15,8 +15,11 @@ var Schema = mongoose.Schema;
 // define the schema for our user model
 var userSchema = new Schema({
     _account: {type: Schema.Types.ObjectId},
+    _invite : {type: Schema.Types.ObjectId},
+    
     login: {type:Number, default:1}, 
     name: {type:String, trim:true},
+
     local            : {
         email        : String,
         password     : String,

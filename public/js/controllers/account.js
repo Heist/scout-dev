@@ -52,6 +52,7 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 	// $scope.team_mail = function(){
 
 	// }
+
 	$scope.team_mail = {};
 
 	$scope.inviteTeamMember = function(email){
@@ -65,32 +66,39 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
         
 		$http
 			.post(url, dataOut)
-			.success(function(data){
-				console.log('invitation sent', data);
+			.success(function(invite){
+				console.log('invitation sent', invite);
 
-				if(data.user_email){
+				if(invite.user_email){
 					// user_email exists only on the Invite model.
 					// if an invitation then exists, do the following.
 
-					$scope.live_user.invites.push(data);
+					$scope.live_user.invites.push(invite);
 					// console.log('$scope.live_user.invites', $scope.live_user.invites);
 					email.address = "";
-					$scope.message = "We&rsquo;ve sent an e-mail invitation to your team member. Just in case, you can also invite them using this personalized link: <a href='"+new_url+"/login/"+data._account+"' target='_blank'>"+new_url+"/login/"+data._account+"</a>";
+					$scope.message = "We&rsquo;ve sent an e-mail invitation to your team member."+
+                                     " Just in case, you can also invite them using this personalized link:"+
+                                     " <a href='"+new_url+"/login/"+invite._id+"' target='_blank'>"+new_url+
+                                     "/login/"+invite._id+"</a>";
 				}
-				else if(data.msg === 'user found'){
+				else if(invite.msg === 'user found'){
 					// an existing user was found
-					// their existing account identity was wiped out and they have been added to the new team
+					// their existing account identity was wiped out and 
+					// they have been added to the new team
 					
-					$scope.live_user.team.push({ local : {email : data.email}, 'name': data.name});
+					$scope.live_user.team.push({ local : {email : invite.email}, 'name': invite.name});
 					email.address = "";
-					$scope.message = "This team member is already a Field Guide user. Invite them to your team using this personalized link: <a href='"+new_url+"/login/"+data._account+"' target='_blank'>"+new_url+"/login/"+data._account+"</a>";
+					$scope.message = "This team member is already a Field Guide user."+
+                                     "Invite them to your team using this personalized link:"+
+                                     " <a href='"+new_url+"/login/"+invite._id+"' target='_blank'>"+
+                                     new_url+"/login/"+invite._id+"</a>";
 				} 
 				else {
-					$scope.message = data;
+					$scope.message = invite;
 				}
 			});
 	};
-
+    
 	$scope.resendInvite = function(invite){
 		// this will resend a pending invitation for a non-existent user
 		// it requires that the previous invitation supply an invitation._id
@@ -103,7 +111,10 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 			.post(url, dataOut)
 			.success(function(data){
 				// console.log('reinvitation sent', data);
-				$scope.message = "Reinvitation sent to "+ data.user_email +"<br /> Here is a personalized invitation link you can share with them: <a href='"+new_url+"/login/"+data._account+"'>"+new_url+"/login/"+data._account+"</a>";
+				$scope.message = "Reinvitation sent to "+ data.user_email +
+                                 "<br /> Here is a personalized invitation link you can share with them: "+
+                                 "<a href='"+new_url+"/login/"+invite._id+"'>"+new_url+"/login/"+invite._id+
+                                 "</a>";
 			});
 
 	};

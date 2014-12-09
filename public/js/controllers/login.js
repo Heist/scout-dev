@@ -8,24 +8,33 @@ angular.module('field_guide_controls')
 
     // LOGIN FUNCTIONS ====================================
     
-    $scope.user = $rootScope.user;
-
+    if($rootScope.user){
+        $scope.user = $rootScope.user;
+    }
     // console.log('$scope.login $rootScope.user', $rootScope.user);
 
     if($stateParams.acct){
         $scope.acct = $stateParams.acct.replace( /\//gi,"");
-        // console.log($scope.acct);
         $scope.reg_toggle = true;
         // mixpanel.track('registration page touch', {
         //     'account': $stateParams.acct
         // });
+        
+        // TODO: get the invitation represented by that id and pre-populate the e-mail field.
+        $http
+            .get('/auth/invite'+$stateParams.acct)
+            .success(function(data){
+                console.log(data);
+                $scope.user = data;
+                $scope.user.email = data.user_email;
+            });
     }
     
     $scope.tracker = function(){
         // mixpanel.track('myAccount', {
         //     'account': $stateParams.acct
         // });
-    }
+    };
     $scope.login = function(user){
         var url = '/auth/login';
         var dataOut =  {email: user.email, password: user.password};
@@ -57,13 +66,13 @@ angular.module('field_guide_controls')
         // console.log('register this user', user);
         var url, 
             dataOut,
-            acct;
+            invite;
         
         if($stateParams.acct){
-            acct = $stateParams.acct.replace( /\//gi,"");
+            invite = $stateParams.acct.replace( /\//gi,"");
             // console.log('touched account', acct);
             url = '/auth/signup/';
-            dataOut = {email: user.email, name:user.name, password: user.password, _account: acct};
+            dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
         } else if (!$stateParams.acct) {
             // console.log('this signup does not include an account (stateparams.acct)');
             url = '/auth/signup/';

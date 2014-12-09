@@ -228,7 +228,8 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
                 note.tags.push(msg);
             }
         }
-        
+
+
         // console.log('note tags', note.tags);
 
         var url = '/api/message/';
@@ -238,9 +239,8 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
             .post(url, data_out)
             .success(function(data){
                 socket.emit('send:note', { note: data });
+                $scope.message='';
             });
-
-        $scope.message='';
     };
 
     $scope.postTest = function(){
