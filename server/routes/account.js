@@ -68,37 +68,37 @@ module.exports = function(app){
         .post(function(req,res){
             // console.log('user posting invite', req.body, req.user._account);
 
-            var promise = User.findOne({'local.email' : req.body.address }).exec(function(err, user){
-                if(err) {return res.send(err);}
-                // console.log('docs',user);
+            // post an invitation - 
+            // first, find out if we have a user with that address already
+            // if so, add that user to the current account
+            // send them a welcome e-mail and return
+            // else create a new invitation for that user_email
+            // and send an invitation mail.
 
-                if(user){
-                    user._account = req.user._account;
-                    user.save(function(err,data){
-                        return res.json({'user' : user});
-                    });
-                }
-            });
+            var promise = User.findOne({'local.email' : req.body.address }).exec();
 
             promise.then(function(user){
                 // console.log('next promise', user);
+
+                // if there is a user with that name already ....
                 if(user !== null){ 
-                    res.json({
-                        email: user.local.email, 
-                        name: user.name, 
-                        _id: user._id, 
-                        _account: user._account,
-                        msg:'user found'
+                    user._account = req.user._account;
+                    user.save(function(err,data){
+                        console.log('existing user updated', data.user_email);
+
+                        res.json({
+                            email: data.local.email, 
+                            name: data.name, 
+                            _id: data._id, 
+                            _account: data._account,
+                            msg:'user found'
+                        });
                     });
-                    
-                    // throw new Error('abort promise chain');
                     throw new Error('User found');
+                }
 
-                    // if there's a user, say "there's already a user"
-                    // maybe reset that user's password?
-                    // send something to imply a user by that name already exists?
-
-                } else{
+                else {
+                // No user? Find an invitation for that req.body.address
                     return Invitation.findOne({'user_email' : req.body.address}).exec();
                 }
             })
@@ -143,9 +143,8 @@ module.exports = function(app){
                 var mailer = new Emailer(envelope_options, message_variables);
 
                 mailer.send(function(err, result) {
-                    if (err) {
-                        return console.log(err);
-                    }else{
+                    if (err) { return console.log(err); }
+                    else {
                         // console.log('Message sent: ' + result.response);
                     }
                 });
@@ -154,6 +153,15 @@ module.exports = function(app){
         });
 
     app.route('/api/invite/:_id')
+        .get(function(req,res){
+            Invitation.findById(req.params._id)
+                      .select('user_email')
+                      .exec(function(err,invite){
+                            if(err) { return console.log(err); }
+                            
+                            res.json(invite);
+                        });
+        })
         .put(function(req,res){
             console.log('invite put');
         })

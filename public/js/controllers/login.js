@@ -20,7 +20,11 @@ angular.module('field_guide_controls')
         // });
         
         // TODO: get the invitation represented by that id and pre-populate the e-mail field.
-
+        $http
+            .get('/api/invite/'+$stateParams.acct)
+            .success(function(data){
+                
+            });
     }
     
     $scope.tracker = function(){
