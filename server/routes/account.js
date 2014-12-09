@@ -66,7 +66,7 @@ module.exports = function(app){
 
     app.route('/api/invite/')
         .post(function(req,res){
-            
+
             var promise = User.findOne({'local.email' : req.body.address }).exec();
 
             promise.then(function(user){
@@ -143,23 +143,11 @@ module.exports = function(app){
         });
 
     app.route('/api/invite/:_id')
-        .get(function(req,res){
-            Invitation.findById(req.params._id)
-                      .select('user_email')
-                      .exec(function(err,invite){
-                            if(err) { return console.log(err); }
-                            
-                            res.json(invite);
-                        });
-        })
         .put(function(req,res){
             console.log('invite put');
         })
         .post(function(req,res){
             // this is to resend an invitation already sent
-            // console.log(req.user.name);
-            // console.log(req.body);
-            // console.log(req.params._id);            
 
             Invitation.findById(req.params._id).exec(function(err,invite){
                 res.json(invite);
@@ -191,7 +179,6 @@ module.exports = function(app){
             });
         })
         .delete(function(req,res){
-            // console.log(req.params._id);
             Invitation.remove({'_id': req.params._id}, function(err, invite){
                 if(err) {return res.send (err);}
 

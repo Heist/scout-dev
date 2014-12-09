@@ -8,8 +8,9 @@ angular.module('field_guide_controls')
 
     // LOGIN FUNCTIONS ====================================
     
-    $scope.user = $rootScope.user;
-
+    if($rootScope.user){
+        $scope.user = $rootScope.user;
+    }
     // console.log('$scope.login $rootScope.user', $rootScope.user);
 
     if($stateParams.acct){
@@ -21,9 +22,11 @@ angular.module('field_guide_controls')
         
         // TODO: get the invitation represented by that id and pre-populate the e-mail field.
         $http
-            .get('/api/invite/'+$stateParams.acct)
+            .get('/auth/invite'+$stateParams.acct)
             .success(function(data){
-                
+                console.log(data);
+                $scope.user = data;
+                $scope.user.email = data.user_email;
             });
     }
     
@@ -31,7 +34,7 @@ angular.module('field_guide_controls')
         // mixpanel.track('myAccount', {
         //     'account': $stateParams.acct
         // });
-    }
+    };
     $scope.login = function(user){
         var url = '/auth/login';
         var dataOut =  {email: user.email, password: user.password};

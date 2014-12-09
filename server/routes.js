@@ -264,7 +264,17 @@ module.exports = function(app, passport) {
 
 
 // PUBLIC ROUTES ==========================================
-
+app.route('/auth/invite/:_id')
+        .get(function(req,res){
+            // get an existing invitation to populate the registration page
+            Invitation.findById(req.params._id)
+                      .select('user_email')
+                      .exec(function(err,invite){
+                            if(err) { return console.log(err); }
+                            
+                            res.json(invite);
+                        });
+        })
 
 
 // Debug Routes -------------------
