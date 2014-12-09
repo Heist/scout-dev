@@ -177,12 +177,10 @@ form { padding: 0; margin: 0; }
 
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
 /* line 12, ../sass/_forms.scss */
-.input, .button { display: inline-block; margin: 0; padding: 10px 13.33333px; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; font-size: 12.8px; outline: none; border: none; }
+.input, .button { display: inline-block; margin: 0; padding: 10px 13.33333px; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; font-size: 14.4px; outline: none; border: none; }
 
 /* line 26, ../sass/_forms.scss */
 .input { background: white; border: 1px solid #e7e7da; }
-/* line 30, ../sass/_forms.scss */
-.input:focus { -webkit-box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.15); -moz-box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.15); box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.15); }
 /* line 34, ../sass/_forms.scss */
 .input.small { font-size: 12.8px; line-height: 1.5; }
 /* line 39, ../sass/_forms.scss */
@@ -828,36 +826,36 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 /* line 24, ../sass/_testing.scss */
 #view-testing .middle-pane { padding: 0; margin: 0; position: relative; overtest: hidden; border-right: 1px solid #e7e7da; }
 /* line 31, ../sass/_testing.scss */
-#view-testing .middle-pane #session-input { position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px; height: 150px; overtest: hidden; background: white; z-index: 9999; }
-/* line 42, ../sass/_testing.scss */
-#view-testing .middle-pane #session-input textarea { width: 100%; height: 100%; margin: 0; }
+#view-testing .middle-pane #session-input { position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px; height: 80px; overtest: hidden; background: white; z-index: 9999; border-top: 1px solid #e7e7da; }
+/* line 43, ../sass/_testing.scss */
+#view-testing .middle-pane #session-input textarea { width: 100%; height: 100%; margin: 0; border: none; }
 
 /* WHO ARE WE TESTING */
-/* line 57, ../sass/_testing.scss */
+/* line 63, ../sass/_testing.scss */
 #view-testing-userentry { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; background: rgba(66, 71, 76, 0.8); z-index: 999999999; color: white; margin: 0; padding: 0; text-align: center; }
-/* line 71, ../sass/_testing.scss */
+/* line 77, ../sass/_testing.scss */
 #view-testing-userentry .input, #view-testing-userentry .button { width: 100%; }
-/* line 75, ../sass/_testing.scss */
+/* line 81, ../sass/_testing.scss */
 #view-testing-userentry img { height: 40px; width: auto; }
-/* line 80, ../sass/_testing.scss */
+/* line 86, ../sass/_testing.scss */
 #view-testing-userentry #user-entry { width: 28%; display: block; padding: 15% 0 0 0; margin: 0 auto; }
 
 /* observer login */
-/* line 93, ../sass/_testing.scss */
+/* line 99, ../sass/_testing.scss */
 #view-observer-login { background: #2e2723; background-size: cover; color: white; }
-/* line 98, ../sass/_testing.scss */
-#view-observer-login input, #view-observer-login button { width: 100%; }
-/* line 102, ../sass/_testing.scss */
-#view-observer-login #logo { margin: 0 0 20px 0; }
 /* line 104, ../sass/_testing.scss */
-#view-observer-login #logo img { width: auto; height: 30px; }
+#view-observer-login input, #view-observer-login button { width: 100%; }
+/* line 108, ../sass/_testing.scss */
+#view-observer-login #logo { margin: 0 0 20px 0; }
 /* line 110, ../sass/_testing.scss */
+#view-observer-login #logo img { width: auto; height: 30px; }
+/* line 116, ../sass/_testing.scss */
 #view-observer-login form { padding-top: 20px; }
-/* line 114, ../sass/_testing.scss */
+/* line 120, ../sass/_testing.scss */
 #view-observer-login #form-observer-login { margin: 40px 0 0 0; padding: 20px 20px 0 20px; background: rgba(46, 39, 35, 0.7); -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; }
-/* line 121, ../sass/_testing.scss */
-#view-observer-login p { font-size: 12.8px; margin: 0; padding: 0; }
 /* line 127, ../sass/_testing.scss */
+#view-observer-login p { font-size: 12.8px; margin: 0; padding: 0; }
+/* line 133, ../sass/_testing.scss */
 #view-observer-login h2 { padding: 0; margin: 0; }
 
 /* THE SUMMARY */
