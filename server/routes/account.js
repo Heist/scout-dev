@@ -66,20 +66,10 @@ module.exports = function(app){
 
     app.route('/api/invite/')
         .post(function(req,res){
-            // console.log('user posting invite', req.body, req.user._account);
-
-            // post an invitation - 
-            // first, find out if we have a user with that address already
-            // if so, add that user to the current account
-            // send them a welcome e-mail and return
-            // else create a new invitation for that user_email
-            // and send an invitation mail.
-
+            
             var promise = User.findOne({'local.email' : req.body.address }).exec();
 
             promise.then(function(user){
-                // console.log('next promise', user);
-
                 // if there is a user with that name already ....
                 if(user !== null){ 
                     user._account = req.user._account;
