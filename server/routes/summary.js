@@ -60,20 +60,19 @@ module.exports = function (app, passport) {
     .put(function(req, res){
         console.log('touched summary put', req.body);
 
-        var query = {'_id':req.body.test._id};
-        var update = {
-            summary: req.body.test.summary,
-            report_index : req.body.test.report_index,
-            report: true
-        };
-
-
         async.parallel([
             function(callback){
-                Test.findOneAndUpdate(query, update,function(err,test){
-                    if(err) {return res.send (err);}
-                    callback(null,'test updated');
-                });
+                Test.findOneAndUpdate(
+                    {'_id':req.body.test._id}, 
+                    {
+                        summary: req.body.test.summary,
+                        report_index : req.body.test.report_index,
+                        report: true
+                    },
+                    function(err,test){
+                        if(err) {return res.send (err);}
+                        callback(null,'test updated');
+                    });
             },
             function(callback){
                 if(req.body.tags){
@@ -160,6 +159,24 @@ module.exports = function (app, passport) {
                         if(err){return console.log(err);}
                         res.json(msg);
                     });
+    });
+    app.route('/api/summary/task/').put(function(req,res){
+        // batch update only tasks
+        async.map(req.body.tasks, 
+                function(task, callback){
+                    Task.findByIdAndUpdate(
+                        task._id,
+                        {'pass_fail': task.pass_fail,
+                        'report_index' : task.report_index,
+                        'summary': task.summary },
+                        function(err, data){
+                            if(err) {return res.send (err);}
+                            callback(null, data);
+                        });
+                }, 
+                function(err, results){
+                    res.json(results);
+                });
     });
 
     app.route('/api/summary/task/:_id').put(function(req,res){
