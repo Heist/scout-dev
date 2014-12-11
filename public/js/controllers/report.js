@@ -11,21 +11,21 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
             .success(function(data){
                 console.log('the report object', data);
                 
+                $scope.leftNavList = [];
+                
                 var sort = _.sortBy(data.navlist, function(obj){
                                 return(obj.report_index);
                             });
 
-                $scope.leftNavList = [];
-                
-                _.each(sort, function(obj){console.log(obj.name); $scope.leftNavList.push(obj);});
+                _.each(sort, function(obj){
+                    console.log(obj.name); 
+                    $scope.leftNavList.push(obj);
+                });
 
                 $scope.messages = data.messages;
 
                 $scope.activate($scope.leftNavList[0]);
                 
-                // console.log($scope.reportLink);
-                
-
             }); 
 
         // mixpanel.track('Report Loaded', {});

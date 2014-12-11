@@ -28,6 +28,7 @@ module.exports = function (app, passport) {
         // then push them to the nav list using map
         // order them by their report-index and return them
         console.log('getting things');
+        
         async.parallel({
             navlist : function(callback){
                 async.parallel([

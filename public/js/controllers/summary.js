@@ -11,14 +11,19 @@ angular.module('field_guide_controls')
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
             console.log('returned test information', data);
+            $scope.leftNavList = [];
+            
+            var sort = _.sortBy(data.navlist, function(obj){
+                                return(obj.report_index);
+                            });
 
-            $scope.leftNavList = data.navlist;
-            console.log($scope.leftNavList);
-
+            _.each(sort, function(obj){
+                console.log(obj.name); 
+                $scope.leftNavList.push(obj);
+            });
+            
             // group messages by users
             $scope.messages = _.groupBy(data.messages, function(z){return z._subject.name;});
-            
-            // console.log('messages', $scope.messages, data.messages);
             
             $scope.activate($scope.leftNavList[0]);
 
