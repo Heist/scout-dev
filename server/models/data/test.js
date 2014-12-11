@@ -23,6 +23,7 @@ var TestSchema = new Schema({
         kind    : { type: String, trim: true, default: '' },
 
         index: { type: Number, default: 0 },
+        report_index : { type: Number, default: 0 },
         visible: { type:Boolean, default: true },
         report : { type:Boolean, default: false },
         

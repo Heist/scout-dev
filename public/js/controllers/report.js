@@ -13,7 +13,6 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
 
                 $scope.leftNavList = data.nav_list;
                 $scope.messages = data.messages;
-                
 
                 $scope.activate($scope.leftNavList[0]);
                 

@@ -68,13 +68,13 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     $stateProvider
     // PUBLIC ROUTES ================================================
         
-        // WATCH A TEST ===================================
-        // .state('watch', {
-        //     // url: '/watch/',
-        //     url: '/watch/:_id',
-        //     controller:'watch',
-        //     templateUrl: 'partials/app/watch.html'
-        // })
+        // CANVAS SOCKETS TESTING ===================================
+        .state('canvas', {
+            // url: '/canvas/',
+            url: '/canvas/:_id',
+            controller:'canvas',
+            templateUrl: 'partials/app/testCanvas.html'
+        })
         
     // PRIVATE ROUTES ===============================================
 
