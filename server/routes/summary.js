@@ -22,58 +22,67 @@ module.exports = function (app, passport) {
     .get(function(req, res){
 
         // how to populate grandchildren sub-subdocuments is in here.
-        var reply = {};
-        // the promise gets your main document, with its populated subs
-        var promise = 
-            Test.findById(req.params._id).exec(function(err, test){
-                if(err){res.send(err);}
-            });
 
-        var obj_count = 1;
-        promise.then(function(test){
-            reply.navlist.push(test);
-
-            // a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
-            return Task.find({'_test':req.params._id}).sort({ index: 'asc'})
-                        .exec(function(err, task){
-                            if (err) {console.log(err);}
-                        });
-        })
-        .then(function(objs){
-            _.each(objs, function(obj){ 
-                if (obj.report_index === null){
-                    obj.report_index = obj_count;
-                    obj_count++;
-                }
-                reply.navlist.push(obj); 
-            });
-
-            return Tag.find({'_test' : req.params._id, '_messages' : {$not :{$size : 0}}}).exec();
-        })
-        .then(function(objs){
-            _.each(objs, function(obj){ 
-                if (obj.report_index === null){
-                    obj.report_index = obj_count;
-                    obj_count++;
-                }
-                reply.navlist.push(obj); 
-            });
-            
-            return Message.find({ '_test':{$in: [req.params._id]}})
+        // todo:
+        // get all the objects in a parallel step
+        // then push them to the nav list using map
+        // order them by their report-index and return them
+        console.log('getting things');
+        async.parallel({
+            navlist : function(callback){
+                async.parallel([
+                    function(callback){
+                        Test.find({'_id' : req.params._id})
+                            .exec(function(err, data){
+                                if (err) {console.log(err);}
+                                console.log('test', data[0]._id);
+                                callback(null, data);
+                            });
+                    },
+                    function(callback){
+                        Task.find({'_test':req.params._id})
+                            .sort({ index: 'asc'})
+                            .exec(function(err, data){
+                                if (err) {console.log(err);}
+                                console.log('task', data[0]._id);
+                                callback(null, data);
+                            });
+                    },
+                    function(callback){
+                        Tag.find({'_test' : req.params._id, '_messages' : {$not :{$size : 0}}})
+                            .exec(function(err, data){
+                                if (err) {console.log(err);}
+                                console.log('tag', data[0]._id);
+                                callback(null, data);
+                            });
+                    }
+                ], 
+                function(err, results){
+                    console.log('summary get waterfall');
+                    var flat = _.flatten(results);
+                    console.log('flat length', flat.length);
+                    var sort = _.sortBy(flat, function(obj){ return obj.record_index; });
+                    callback(null, sort);
+                });
+            },
+            messages: function(callback){
+                Message.find({ '_test':{$in: [req.params._id]}})
                         .populate({path:'_subject', select: 'name' })
-                        .exec();
-        })
-        .then(function(messages){
-            reply.messages = messages;
-            // console.log(messages);
-            res.json(reply);
-        })
-        .then(null, function(err){
-            if(err) {return res.send (err);}
+                        .exec(function(err, data){
+                            if (err) {console.log(err);}
+                            callback(null, data);
+                        });
+            }
+        },
+        function(err, results){
+            
+            console.log('async parallel returns', results.length);
+            res.json(results);
+
         });
     })
     .put(function(req, res){
-        console.log('touched summary put', req.body);
+        console.log('touched summary put');
          //async.map
          // each object in req body
          // if it has a summary, find the object by doctype and update components
@@ -97,13 +106,14 @@ module.exports = function (app, passport) {
                                 model.report        = true;
 
                                 model.save(function(err, data){
+                                    console.log('update', data.name, data.report_index);
                                     callback(null, data);
                                 });
                             });
 
                     },
                     function(err, results){
-                        console.log('map', results);
+                        // console.log('map', results);
                         callback(null, results);
                     });
             },

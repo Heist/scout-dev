@@ -88,7 +88,7 @@
 				<ul>
 					<li 
 					class="question"
-					ng-repeat="object in leftNavList | orderBy : 'object.report_index'" 
+					ng-repeat="object in leftNavList" 
 					ng-click="activate(object, $index)" 
 					ng-class="{ 'active': object._id == selected._id}"
 					ng-show="object.visible" >

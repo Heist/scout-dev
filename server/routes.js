@@ -274,7 +274,7 @@ app.route('/auth/invite/:_id')
                         return_array.push(tag);
                     });
                     // callback(null, );
-                    res.json({nav_list: return_array, messages: results.messages});
+                    res.json({navlist: return_array, messages: results.messages});
                 });
 
     });
