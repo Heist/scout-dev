@@ -59,90 +59,64 @@ module.exports = function (app, passport) {
     })
     .put(function(req, res){
         console.log('touched summary put', req.body);
+         //async.map
+         // each object in req body
+         // if it has a summary, find the object by doctype and update components
 
         async.parallel([
             function(callback){
-                Test.findOneAndUpdate(
-                    {'_id':req.body.test._id}, 
-                    {
-                        summary: req.body.test.summary,
-                        report_index : req.body.test.report_index,
-                        report: true
+                async.map(req.body.navlist, 
+                    function(obj, callback){
+                        var Model;
+                        if(obj.doctype === 'tag'){Model = Tag;}
+                        if(obj.doctype === 'task'){Model = Task;}
+                        if(obj.doctype === 'test'){Model = Test;}
+
+                        Model.findById(obj._id)
+                             .exec(function(err, model){
+
+                                model.pass_fail     = obj.pass_fail;
+                                model.report_index  = obj.report_index;
+                                model.summary       = obj.summary;
+                                model.summarized    = obj.summarized;
+                                model.report        = true;
+
+                                model.save(function(err, data){
+                                    callback(null, data);
+                                });
+                            });
+
                     },
-                    function(err,test){
-                        if(err) {return res.send (err);}
-                        callback(null,'test updated');
+                    function(err, results){
+                        console.log('map', results);
+                        callback(null, results);
                     });
             },
             function(callback){
-                if(req.body.tags){
-                    async.map(req.body.tags, 
-                        function(tag, report){
-                            Tag.findOneAndUpdate(
-                                {'_id' : tag._id}, 
-                                {'summary': tag.summary,
-                                'report_index' : tag.report_index,
-                                'summarized' : tag.summarized},
-                                function(err, data){
-                                    if(err) {return res.send (err);}
-                                    report(null, data);
-                                });
-                        }, 
-                        function(err, results){
-                            callback(results);
-                        });
-                } else {
-                    callback(null, 'no tags');
-                }
-            },
-            function(callback){
-                if(req.body.tasks){
-                    async.map(req.body.tasks, 
-                        function(task, report){
-                            Task.findByIdAndUpdate(
-                                task._id,
-                                {'pass_fail': task.pass_fail,
-                                'report_index' : task.report_index,
-                                'summary': task.summary },
-                                function(err, data){
-                                    if(err) {return res.send (err);}
-                                    report(null, data);
-                                });
-                        }, 
-                        function(err, results){
-                            callback(results);
-                        });
-                        
-                } else {
-                    callback(null, 'no tasks');
-                }
-            },
-            function(callback){
-                if(req.body.messages){
-                    async.map(req.body.messages, 
-                        function(msg, report){
-                        // console.log(msg);
-                            Message.findByIdAndUpdate(
-                                msg._id, 
-                                { 'fav_task' : msg.fav_task,
+                async.map(req.body.messages, 
+                    function(msg, callback){
+                        Message.findByIdAndUpdate(
+                            msg._id, 
+                            { 
+                                'fav_task' : msg.fav_task,
                                 'fav_tag'  : msg.fav_tag,
                                 'body'  : msg.body,
-                                }, 
-                                function(err, data){
-                                    if(err){res.send(err);}
-                                    report(null, data);
-                                });
-                        }, 
-                        function(err, results){
-                            callback(results);
-                        });
-                } else {
-                    callback(null, 'no messages');
-                }
+                            }, 
+                            function(err, data){
+                                if(err){res.send(err);}
+                                callback(null, data);
+                            });
+                    }, 
+                    function(err, results){
+                        callback(null, results);
+                    });
             }
         ],
         function(err, results){
-            res.send("test updated - server");
+            // the results array will equal ['one','two'] even though
+            // the second function had a shorter timeout.
+            console.log('done summary update');
+            res.json(results);
         });
 
     });
@@ -160,6 +134,7 @@ module.exports = function (app, passport) {
                         res.json(msg);
                     });
     });
+
     app.route('/api/summary/task/').put(function(req,res){
         // batch update only tasks
         async.map(req.body.tasks, 

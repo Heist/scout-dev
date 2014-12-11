@@ -61,24 +61,22 @@ angular.module('field_guide_controls')
 
         var obj_count=0;
         
+        // set the stored index of the task properly
         _.each($scope.leftNavList, function(obj){
             obj.report_index = obj_count;
             obj_count++;
-            // console.log(obj.name, obj.report_index);
         });
 
         var dataOut = $scope.leftNavList;
 
-        // set the stored index of the task properly
         var nav = _.pluck($scope.leftNavList, 'name');
+        console.log('nav', $scope.leftNavList);
 
-        console.log('nav', $scope.leftNavList); // for testing purposes
-        
-        // $http
-        //     .put('/api/summary/', dataOut)
-        //     .success(function(data){
-
-        //     });      
+        $http
+            .put('/api/summary/', dataOut)
+            .success(function(data, msg){
+                console.log('success', data, msg);
+            });
 
     };
 
@@ -115,23 +113,16 @@ angular.module('field_guide_controls')
         console.log('activated', obj.name);
 
         $scope.selectedIndex = selectedIndex;
-     
-        if(obj){
-            $scope.selected = obj;
-        }
+        if(obj){ $scope.selected = obj; }
     };
 
     $scope.passFail = function(obj){
         console.log('touched pass-fail', obj);
 
-        if(obj.pass_fail){
-            obj.pass_fail = false;
-        } else if (!obj.fail){
-            obj.pass_fail = true;
-        }
+        if(obj.pass_fail){ obj.pass_fail = false; }
+        else if (!obj.fail){ obj.pass_fail = true; }
 
         $scope.saveObject(obj);
-        
     };
 
     $scope.show = function (msg_id) {
@@ -147,7 +138,6 @@ angular.module('field_guide_controls')
         if (obj.visible){ obj.visible = false; $scope.saveObject(obj); return;}
         if (!obj.visible){ obj.visible = true; $scope.saveObject(obj); return;}
 
-        
     };
 
     $scope.saveFav = function(message){
@@ -175,13 +165,8 @@ angular.module('field_guide_controls')
 
     $scope.msgFilter = function(message){
         // Display messages that belong to the current selected item.
-
-        if ((message._id === $scope.selected._id)) {
-            return true;
-        }
-
-        // // console.log('false', $scope.subject);
-        return false;
+        if (message._id === $scope.selected._id) { return true; }
+        else { return false; }
     };
 
     $scope.editMessage = function(message, index){
@@ -224,30 +209,20 @@ angular.module('field_guide_controls')
 // CLOSE SUMMARY ==========================================
     $scope.completeSummary = function(){
         // post all the summary changes to the test
-        // post summary changes to the tags
         // post fav'd statuses to relevant messages
 
-        // TODO: for each task push each of their messages to $scope.messages
-        // no good in the new format, messages need to be their own array
-        // displayed for both task and tag.
-
-        var msg_arr = [];
-    
         $scope.messages = _.map($scope.messages, function(val, key){ return val; });
-        $scope.test.report = true;
+
         // mixpanel.track('Summary complete', {});
 
         console.log('messages', $scope.messages);
 
         var url = '/api/summary/'+ $stateParams._id;
-        var data_out = {test: $scope.test, tags:$scope.tags, tasks:$scope.tasks, messages:$scope.messages[0]} ;
-        
-        // console.log(data_out);
+        var data_out = {navlist: $scope.leftNavList, messages:$scope.messages[0]} ;
         
         $http.put(url, data_out)
             .success(function(data){
                 // console.log(data);
-
                 $location.path('/report/'+ $stateParams._id);
             })
             .error(function(data){
