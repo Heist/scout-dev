@@ -34,7 +34,8 @@
 					ng-class="{ 'active': $index == selectedIndex }" 
 					ng-click="activate(object, $index)">
 						
-						<div class="step-ordering">
+						<!-- <div class="step-ordering"> -->
+						<div>
 	                        <button ng-click="moveTask($index, -1)" >&#9650;</button>
 	                        <button ng-click="moveTask($index, 1)" >&#9660;</button>
                         </div>

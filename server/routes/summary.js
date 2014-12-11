@@ -23,9 +23,6 @@ module.exports = function (app, passport) {
 
         // how to populate grandchildren sub-subdocuments is in here.
         var reply = {};
-
-        
-
         // the promise gets your main document, with its populated subs
         var promise = 
             Test.find({'_id' : req.params._id}).exec(function(err, test){
@@ -66,60 +63,89 @@ module.exports = function (app, passport) {
         var query = {'_id':req.body.test._id};
         var update = {
             summary: req.body.test.summary,
+            report_index : req.body.test.report_index,
             report: true
         };
 
-        Test.findOneAndUpdate(query, update,function(err,test){
-                if(err) {return res.send (err);}
-                console.log('test updated', test);
-            });
 
-        // if we have tags, update them in the db.
-        // NO FUNCTIONS IN A LOOP.
-        if(req.body.tags){
-            async.each(req.body.tags, function(tag, callback){
-                Tag.findOneAndUpdate(
-                    {'_id' : tag._id}, 
-                    {'summary': tag.summary,
-                    'summarized' : tag.summarized},
-                    function(err, data){
-                        if(err) {return res.send (err);}
-                    });
-            });
-        }
-        
-        if(req.body.tasks){
-            async.each(req.body.tasks, function(task, callback){
-                Task.findByIdAndUpdate(
-                    task._id,
-                    {'pass_fail': task.pass_fail,
-                    'summary': task.summary },
-                    function(err, data){
-                        if(err) {return res.send (err);}
-                    });
-            });
-        }
-        
-        // this is actually users, not messages.
-        // messages needs to be returned separately on the front end.
-        // perhaps try underscore_pop or something.
+        async.parallel([
+            function(callback){
+                Test.findOneAndUpdate(query, update,function(err,test){
+                    if(err) {return res.send (err);}
+                    callback(null,'test updated');
+                });
+            },
+            function(callback){
+                if(req.body.tags){
+                    async.map(req.body.tags, 
+                        function(tag, report){
+                            Tag.findOneAndUpdate(
+                                {'_id' : tag._id}, 
+                                {'summary': tag.summary,
+                                'report_index' : tag.report_index,
+                                'summarized' : tag.summarized},
+                                function(err, data){
+                                    if(err) {return res.send (err);}
+                                    report(null, data);
+                                });
+                        }, 
+                        function(err, results){
+                            callback(results);
+                        });
+                } else {
+                    callback(null, 'no tags');
+                }
+            },
+            function(callback){
+                if(req.body.tasks){
+                    async.map(req.body.tasks, 
+                        function(task, report){
+                            Task.findByIdAndUpdate(
+                                task._id,
+                                {'pass_fail': task.pass_fail,
+                                'report_index' : task.report_index,
+                                'summary': task.summary },
+                                function(err, data){
+                                    if(err) {return res.send (err);}
+                                    report(null, data);
+                                });
+                        }, 
+                        function(err, results){
+                            callback(results);
+                        });
+                        
+                } else {
+                    callback(null, 'no tasks');
+                }
+            },
+            function(callback){
+                if(req.body.messages){
+                    async.map(req.body.messages, 
+                        function(msg, report){
+                        // console.log(msg);
+                            Message.findByIdAndUpdate(
+                                msg._id, 
+                                { 'fav_task' : msg.fav_task,
+                                'fav_tag'  : msg.fav_tag,
+                                'body'  : msg.body,
+                                }, 
+                                function(err, data){
+                                    if(err){res.send(err);}
+                                    report(null, data);
+                                });
+                        }, 
+                        function(err, results){
+                            callback(results);
+                        });
+                } else {
+                    callback(null, 'no messages');
+                }
+            }
+        ],
+        function(err, results){
+            res.send("test updated - server");
+        });
 
-        if(req.body.messages){
-            async.each(req.body.messages, function(msg, callback){
-                // console.log(msg);
-                Message.findByIdAndUpdate(
-                    msg._id, 
-                    { 'fav_task' : msg.fav_task,
-                    'fav_tag'  : msg.fav_tag,
-                    'body'  : msg.body,
-                    }, 
-                    function(err, mess){
-                        if(err){res.send(err);}
-                    });
-            });
-        }
-        
-        res.send("test updated - server");
     });
 
     app.route('/api/summary/message/:_id').put(function(req,res){

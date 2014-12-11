@@ -59,9 +59,19 @@ angular.module('field_guide_controls')
         
         $scope.leftNavList.splice(new_index, 0, $scope.leftNavList.splice(old_index, 1)[0]);
 
+        var obj_count=0;
+        _.each($scope.leftNavList, function(obj){
+            obj.report_index = obj_count;
+            obj_count++;
+            console.log(obj.name, obj.report_index);
+        });
+
         // set the stored index of the task properly
         var nav = _.pluck($scope.leftNavList, 'name');
         console.log(nav); // for testing purposes
+        $http
+            .put()
+
     };
 
 
