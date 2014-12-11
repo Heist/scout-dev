@@ -25,24 +25,39 @@ module.exports = function (app, passport) {
         var reply = {};
         // the promise gets your main document, with its populated subs
         var promise = 
-            Test.find({'_id' : req.params._id}).exec(function(err, test){
+            Test.findById(req.params._id).exec(function(err, test){
                 if(err){res.send(err);}
             });
 
+        var obj_count = 1;
         promise.then(function(test){
-            reply.test = test;
+            reply.navlist.push(test);
+
             // a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
             return Task.find({'_test':req.params._id}).sort({ index: 'asc'})
                         .exec(function(err, task){
                             if (err) {console.log(err);}
                         });
         })
-        .then(function(tasks){
-            reply.tasks = tasks;
+        .then(function(objs){
+            _.each(objs, function(obj){ 
+                if (obj.report_index === null){
+                    obj.report_index = obj_count;
+                    obj_count++;
+                }
+                reply.navlist.push(obj); 
+            });
+
             return Tag.find({'_test' : req.params._id, '_messages' : {$not :{$size : 0}}}).exec();
         })
-        .then(function(tags){
-            reply.tags = tags;
+        .then(function(objs){
+            _.each(objs, function(obj){ 
+                if (obj.report_index === null){
+                    obj.report_index = obj_count;
+                    obj_count++;
+                }
+                reply.navlist.push(obj); 
+            });
             
             return Message.find({ '_test':{$in: [req.params._id]}})
                         .populate({path:'_subject', select: 'name' })

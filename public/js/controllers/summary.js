@@ -12,22 +12,7 @@ angular.module('field_guide_controls')
         .success(function(data){
             console.log('returned test information', data);
 
-            $scope.tags = data.tags;
-            $scope.test = data.test[0];
-            $scope.tasks = data.tasks;
-
-            $scope.leftNavList = [];
-
-            _.each(data.test, function(test){
-                $scope.leftNavList.push(test);
-            });
-            _.each(data.tasks, function(task){
-                $scope.leftNavList.push(task);
-            });
-            _.each(data.tags, function(tag){
-                $scope.leftNavList.push(tag);
-            });
-
+            $scope.leftNavList = data.navlist;
             console.log($scope.leftNavList);
 
             // group messages by users
@@ -202,7 +187,7 @@ angular.module('field_guide_controls')
             });
     };
 
-// CLOSE SUMMARY ==========================================
+// SAVE SUMMARY ==========================================
     $scope.saveSummary = function(){
         // post all the summary changes to the test
         // post fav'd statuses to relevant messages
@@ -226,5 +211,9 @@ angular.module('field_guide_controls')
             });        
 
     };
-   
+
+// PREVIEW REPORT
+    $scope.reportPreview = function(){
+        $location.path('/report/'+ $stateParams._id);
+    };
 }]);
