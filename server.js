@@ -5,7 +5,6 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 
-
 var mongoose = require('mongoose');
 var passport = require('passport');
 var cors = require('cors');
@@ -52,6 +51,9 @@ app.use(bodyParser());
 // passport configuration ===========================================
 require('./config/passport')(app, passport);
 
+// knox configuration ===============================================
+var knox = require('./config/knox');
+
 // session start ====================================================
 app.use(session({
 	secret: app.locals.secret, 
@@ -69,7 +71,7 @@ app.use(passport.session()); // persistent login sessions
 
 
 // server /api/ routes ==============================================
-var router = require('./server/routes')(app, passport, io);
+var router = require('./server/routes')(app, passport);
 
 // DEFAULT ROUTE ====================================================
 // Prevents the ENOENT rendering error
@@ -88,7 +90,7 @@ var io = require('socket.io').listen(http, { log: false });
 // require('./server/socket_routes_1')(io, app, passport);
 
 // socket 0.9 in use to speak to Field Guide App
-require('./server/socket_routes_09')(io, app, passport);
+require('./server/socket_routes_09')(io, knox, app, passport);
 
 
 // TURN ON THE APPLICATION ==========================================
