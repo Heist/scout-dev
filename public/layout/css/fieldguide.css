@@ -179,74 +179,77 @@ form { padding: 0; margin: 0; }
 /* line 12, ../sass/_forms.scss */
 .input, .button { display: inline-block; margin: 0; padding: 10px 13.33333px; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; font-size: 14.4px; outline: none; border: none; }
 
-/* line 26, ../sass/_forms.scss */
+/* line 23, ../sass/_forms.scss */
+.button { padding: 13.33333px 20px; }
+
+/* line 31, ../sass/_forms.scss */
 .input { background: white; border: 1px solid #e7e7da; }
-/* line 34, ../sass/_forms.scss */
-.input.small { font-size: 12.8px; line-height: 1.5; }
 /* line 39, ../sass/_forms.scss */
+.input.small { font-size: 12.8px; line-height: 1.5; }
+/* line 44, ../sass/_forms.scss */
 .input.tight { padding: 6.66667px 10px; }
-/* line 43, ../sass/_forms.scss */
+/* line 48, ../sass/_forms.scss */
 .input.hollow { background: none; border: 1px solid rgba(231, 231, 218, 0.5); }
-/* line 47, ../sass/_forms.scss */
+/* line 52, ../sass/_forms.scss */
 .input.hollow:focus { background: white; border: 1px solid #e7e7da; }
 
-/* line 55, ../sass/_forms.scss */
+/* line 60, ../sass/_forms.scss */
 textarea.input { line-height: 24px; }
 
-/* line 59, ../sass/_forms.scss */
+/* line 64, ../sass/_forms.scss */
 .placeholder { color: rgba(100, 106, 114, 0.6); }
 
 /* button colour mixin */
-/* line 66, ../sass/_forms.scss */
+/* line 71, ../sass/_forms.scss */
 .button { background: #85ac0f; color: white; text-decoration: none; cursor: pointer; }
 /* line 60, ../sass/_helpers.scss */
-.button:hover { background: #7a9e0e; color: white; text-decoration: none; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
-/* line 70, ../sass/_forms.scss */
+.button:hover { background: #7a9e0e; color: white; text-decoration: none; }
+/* line 75, ../sass/_forms.scss */
 .button.small { font-size: 12.8px; padding: 2.5px 10px; }
-/* line 76, ../sass/_forms.scss */
-.button.disabled { cursor: not-allowed; opacity: 0.4; }
 /* line 81, ../sass/_forms.scss */
+.button.disabled { cursor: not-allowed; opacity: 0.4; }
+/* line 86, ../sass/_forms.scss */
 .button.dark { background: #323539; color: white; text-decoration: none; }
 /* line 60, ../sass/_helpers.scss */
-.button.dark:hover { background: #2b2d31; color: white; text-decoration: none; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
-/* line 85, ../sass/_forms.scss */
+.button.dark:hover { background: #2b2d31; color: white; text-decoration: none; }
+/* line 90, ../sass/_forms.scss */
 .button.destructive { background: #f37960; color: white; text-decoration: none; }
 /* line 60, ../sass/_helpers.scss */
-.button.destructive:hover { background: #f26d52; color: white; text-decoration: none; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
-/* line 89, ../sass/_forms.scss */
+.button.destructive:hover { background: #f26d52; color: white; text-decoration: none; }
+/* line 94, ../sass/_forms.scss */
 .button.secondary { background: #646a72; color: white; text-decoration: none; }
 /* line 60, ../sass/_helpers.scss */
-.button.secondary:hover { background: #5d626a; color: white; text-decoration: none; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
-/* line 93, ../sass/_forms.scss */
+.button.secondary:hover { background: #5d626a; color: white; text-decoration: none; }
+/* line 98, ../sass/_forms.scss */
 .button.header { background: white; color: #f37960; text-decoration: none; }
 /* line 60, ../sass/_helpers.scss */
-.button.header:hover { background: #f7f7f7; color: #f37960; text-decoration: none; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
-/* line 97, ../sass/_forms.scss */
+.button.header:hover { background: #f7f7f7; color: #f37960; text-decoration: none; }
+/* line 102, ../sass/_forms.scss */
 .button.hollow { background: white; color: #646a72; text-decoration: none; border: 1px solid #989da4; }
 /* line 60, ../sass/_helpers.scss */
-.button.hollow:hover { background: #f7f7f7; color: #646a72; text-decoration: none; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
-/* line 102, ../sass/_forms.scss */
+.button.hollow:hover { background: #f7f7f7; color: #646a72; text-decoration: none; }
+/* line 107, ../sass/_forms.scss */
 .button.fake { color: #bebe9d; background: none; border: 1px solid #d2d2bc; cursor: default !important; }
-/* line 108, ../sass/_forms.scss */
+/* line 113, ../sass/_forms.scss */
 .button.fake:hover { background: none; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0); -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0); }
 
 /* Do some stuff to deal with the reprehensible state of 'select' elements */
-/* line 118, ../sass/_forms.scss */
+/* line 123, ../sass/_forms.scss */
 .input-select { border: 1px solid #e7e7da; width: 100%; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; overflow: hidden; background: white url("/layout/assets/select-arrow.svg") no-repeat calc(100% - 10px) 50%; background-size: auto 18%; }
-/* line 126, ../sass/_forms.scss */
+/* line 131, ../sass/_forms.scss */
 .input-select select { padding: 10px 13.33333px; width: 100%; border: none; box-shadow: none; background: transparent; background-image: none; -webkit-appearance: none; -moz-appearance: none; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 400; font-size: 16px; outline: none; border: none; }
-/* line 140, ../sass/_forms.scss */
+/* line 145, ../sass/_forms.scss */
 .input-select select:focus { outline: none; }
 
-/* line 152, ../sass/_forms.scss */
+/* line 157, ../sass/_forms.scss */
 label { padding: 0; margin: 0; font-size: 11.2px; opacity: 0.8; text-transform: uppercase; }
 
 /* replace radio butts and checkboxes */
-/* line 164, ../sass/_forms.scss */
+/* line 169, ../sass/_forms.scss */
 .icheckbox_flat, .iradio_flat { margin: 5px 5px 0 0; vertical-align: text-bottom; }
 
 /* fixes for stupid Firefox */
-/* line 177, ../sass/_forms.scss */
+/* line 182, ../sass/_forms.scss */
 button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner { border: 0; padding: 0; margin: 0; }
 
 /* line 10, ../sass/_grid.scss */
@@ -640,32 +643,34 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 /* line 8, ../sass/_overview.scss */
 #view-overview #overview-tests { padding: 40px 0; }
 /* line 11, ../sass/_overview.scss */
-#view-overview #overview-tests .overview-test { margin-bottom: 20px; }
-/* line 14, ../sass/_overview.scss */
+#view-overview #overview-tests .overview-test { margin-bottom: 20px; min-width: 225px; }
+/* line 15, ../sass/_overview.scss */
 #view-overview #overview-tests .overview-test .overview-test-container { width: 100%; }
-/* line 18, ../sass/_overview.scss */
+/* line 19, ../sass/_overview.scss */
 #view-overview #overview-tests .overview-test .test-info { padding: 50px 30px 20px 30px; text-align: center; position: relative; -webkit-border-top-left-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; border-top-left-radius: 4px; border-top-right-radius: 4px; background: #f2f2f0; height: 140px; }
-/* line 26, ../sass/_overview.scss */
+/* line 27, ../sass/_overview.scss */
 #view-overview #overview-tests .overview-test .test-info small { text-transform: uppercase; opacity: 0.6; }
-/* line 32, ../sass/_overview.scss */
+/* line 33, ../sass/_overview.scss */
 #view-overview #overview-tests .overview-test .test-info:hover .editTest { display: block; }
-/* line 37, ../sass/_overview.scss */
-#view-overview #overview-tests .overview-test .test-info .editTest { font-size: 12.8px; position: absolute; text-align: right; height: 10px; width: 100%; top: 5px; left: 0px; text-decoration: none; display: none; padding: 5px 13.33333px; }
-/* line 50, ../sass/_overview.scss */
+/* line 38, ../sass/_overview.scss */
+#view-overview #overview-tests .overview-test .test-info .editTest { font-size: 12.8px; position: absolute; text-align: right; width: 100%; top: 5px; left: 0px; text-decoration: none; display: none; padding: 5px 13.33333px; }
+/* line 49, ../sass/_overview.scss */
+#view-overview #overview-tests .overview-test .test-info .editTest img { height: 16px; width: auto; }
+/* line 55, ../sass/_overview.scss */
 #view-overview #overview-tests .overview-test .test-info .editTest .dangerous:hover { color: #f37960; }
-/* line 56, ../sass/_overview.scss */
+/* line 61, ../sass/_overview.scss */
 #view-overview #overview-tests .overview-test .test-info a { text-decoration: underline; }
-/* line 60, ../sass/_overview.scss */
+/* line 65, ../sass/_overview.scss */
 #view-overview #overview-tests .overview-test .test-info h3 { color: #323539; margin: 0; font-family: "proxima-nova",sans-serif; font-style: normal; font-weight: 300; font-size: 19.2px; }
-/* line 68, ../sass/_overview.scss */
+/* line 73, ../sass/_overview.scss */
 #view-overview #overview-tests .overview-test .test-controls { background: #85ac0f; padding: 0; height: 64px; border-radius: 0 0 2px 2px; }
-/* line 74, ../sass/_overview.scss */
+/* line 79, ../sass/_overview.scss */
 #view-overview #overview-tests .overview-test .test-controls a { font-size: 14.4px; padding: 22px 0; float: left; width: 50%; margin: 0; height: 64px; text-align: center; text-decoration: none; color: white; }
-/* line 85, ../sass/_overview.scss */
+/* line 90, ../sass/_overview.scss */
 #view-overview #overview-tests .overview-test .test-controls a:hover { background-color: #7a9e0e; }
-/* line 89, ../sass/_overview.scss */
+/* line 94, ../sass/_overview.scss */
 #view-overview #overview-tests .overview-test .test-controls a:hover.left { border-radius: 0 0 0 2px; }
-/* line 95, ../sass/_overview.scss */
+/* line 100, ../sass/_overview.scss */
 #view-overview #overview-tests .overview-test .test-controls a:hover.right { border-radius: 0 0 2px 0; }
 
 /* sub-bar styles */
@@ -899,7 +904,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 /* line 23, ../sass/_report.scss */
 #view-report .message { color: #323539; }
 /* line 30, ../sass/_report.scss */
-#view-report .two-thirds .task-score { float: left; }
+#view-report .two-thirds .task-score { float: right; }
 /* line 34, ../sass/_report.scss */
 #view-report .two-thirds h2 { padding-bottom: 20px; }
 
