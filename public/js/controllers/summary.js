@@ -72,11 +72,7 @@ angular.module('field_guide_controls')
         var nav = _.pluck($scope.leftNavList, 'name');
         console.log('nav', $scope.leftNavList);
 
-        $http
-            .put('/api/summary/', dataOut)
-            .success(function(data, msg){
-                console.log('success', data, msg);
-            });
+        $scope.saveSummary();
 
     };
 
@@ -207,7 +203,7 @@ angular.module('field_guide_controls')
     };
 
 // CLOSE SUMMARY ==========================================
-    $scope.completeSummary = function(){
+    $scope.saveSummary = function(){
         // post all the summary changes to the test
         // post fav'd statuses to relevant messages
 
@@ -221,9 +217,9 @@ angular.module('field_guide_controls')
         var data_out = {navlist: $scope.leftNavList, messages:$scope.messages[0]} ;
         
         $http.put(url, data_out)
-            .success(function(data){
-                // console.log(data);
-                $location.path('/report/'+ $stateParams._id);
+            .success(function(data, msg){
+                console.log('saved summary', data, msg);
+                // $location.path('/report/'+ $stateParams._id);
             })
             .error(function(data){
                 console.log('error', data);
