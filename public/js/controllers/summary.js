@@ -234,15 +234,16 @@ angular.module('field_guide_controls')
         var url = '/api/message/';
         var data_out = note;
 
-        console.log(data_out);
         $http
             .post(url, data_out)
             .success(function(data){
-                console.log(data);
+                console.log($scope.selected._messages);
                 $scope.newnote='';
 
                 console.log($scope.messages[data.subject.name]);
                 $scope.messages[data.subject.name].push(data.msg);
+                $scope.selected._messages.push(data.msg._id);
+
             });
     };
 
