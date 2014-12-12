@@ -101,7 +101,12 @@
 
 	<!--<h4>Notes for &ldquo;{{selected.name}}&rdquo;</h4>-->
 
-
+	<!-- input notes -->
+		<div id="session-input">
+			<textarea class="input" ng-model='message' name="field-input" placeholder="Your notes" ui-keypress="{13:'postMessage(message)'}" />
+			</textarea>
+		</div>
+		
 	<div ng-repeat="user in messages" class="message-group" ng-show="selected._messages">
 		
 		<!-- participant name -->

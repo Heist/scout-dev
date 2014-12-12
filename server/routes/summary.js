@@ -20,15 +20,9 @@ module.exports = function (app, passport) {
 
     app.route('/api/summary/:_id')
     .get(function(req, res){
-
-        // how to populate grandchildren sub-subdocuments is in here.
-
-        // todo:
-        // get all the objects in a parallel step
-        // then push them to the nav list using map
+        // get all the objects used in summary
+        // push them to the nav list using map
         // order them by their report-index and return them
-        console.log('getting things');
-        
         async.parallel({
             navlist : function(callback){
                 async.parallel([
@@ -36,7 +30,7 @@ module.exports = function (app, passport) {
                         Test.find({'_id' : req.params._id})
                             .exec(function(err, data){
                                 if (err) {console.log(err);}
-                                console.log('test', data[0]._id);
+                                
                                 callback(null, data);
                             });
                     },
@@ -45,7 +39,7 @@ module.exports = function (app, passport) {
                             .sort({ index: 'asc'})
                             .exec(function(err, data){
                                 if (err) {console.log(err);}
-                                console.log('task', data[0]._id);
+                                
                                 callback(null, data);
                             });
                     },
@@ -53,17 +47,14 @@ module.exports = function (app, passport) {
                         Tag.find({'_test' : req.params._id, '_messages' : {$not :{$size : 0}}})
                             .exec(function(err, data){
                                 if (err) {console.log(err);}
-                                console.log('tag', data[0]._id);
+                                
                                 callback(null, data);
                             });
                     }
                 ], 
                 function(err, results){
-                    console.log('summary get waterfall');
                     var flat = _.flatten(results);
-                    console.log('flat length', flat.length);
-                    var sort = _.sortBy(flat, function(obj){ return obj.record_index; });
-                    callback(null, sort);
+                    callback(null, flat);
                 });
             },
             messages: function(callback){
@@ -76,8 +67,6 @@ module.exports = function (app, passport) {
             }
         },
         function(err, results){
-            
-            console.log('async parallel returns', results.length);
             res.json(results);
 
         });

@@ -12,7 +12,7 @@ angular.module('field_guide_controls')
         .success(function(data){
             console.log('returned test information', data);
             $scope.leftNavList = [];
-            
+
             var sort = _.sortBy(data.navlist, function(obj){
                                 return(obj.report_index);
                             });
@@ -189,6 +189,45 @@ angular.module('field_guide_controls')
                 
                 $scope.leftNavList = msg.nav_list;
                 $scope.messages = new_list;
+            });
+    };
+
+    $scope.postMessage = function(message){
+        // Make a note object, which becomes a message on the back end.
+        var note = {};
+
+        note.body = message;
+        note.tags = [];
+        note.created = new Date();
+         
+        note._task = $scope.selected._id;
+        note._test = $scope.selected._test;
+        note._subject = $scope.subject._id;
+
+        $scope.messages.push(note);
+
+        // TODO: this will catch things on both sides of the hash. 
+        // if message has # with no space, post that to message.tags
+
+        var hashCatch = new RegExp(/\S*#\S+/gi);
+        var hashPull = new RegExp(/#/gi);
+        var tagIt = message.match(hashCatch);          
+        
+        if (tagIt){
+            for (var i=0; i < tagIt.length; ++i) {
+                var msg = tagIt[i].replace(hashPull,'');
+                note.tags.push(msg);
+            }
+        }
+
+        var url = '/api/message/';
+        var data_out = note;
+
+        $http
+            .post(url, data_out)
+            .success(function(data){
+                socket.emit('send:note', { note: data });
+                $scope.message='';
             });
     };
 
