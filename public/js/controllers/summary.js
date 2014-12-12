@@ -199,9 +199,14 @@ angular.module('field_guide_controls')
             });
     };
 
-    $scope.postMessage = function(message){
+    $scope.toggleNote = function(user){
+        if (!$scope.inputNote) {$scope.inputNote = true;}
+
+    };
+
+    $scope.postMessage = function(message, subject){
         // Make a note object, which becomes a message on the back end.
-        console.log($scope.messages);
+        console.log(message, subject._id);
         var note = {};
 
         note.body = message;
@@ -210,11 +215,8 @@ angular.module('field_guide_controls')
          
         note._task = $scope.selected._id;
         note._test = $scope.selected._test;
-        note._subject = $rootScope.user._id;
-        note.name = $rootScope.user.name;
+        note._subject = subject._id;
 
-        $scope.messages[note.name] = note;
-        $scope.$apply();
         // TODO: this will catch things on both sides of the hash. 
         // if message has # with no space, post that to message.tags
 
@@ -231,14 +233,15 @@ angular.module('field_guide_controls')
 
         var url = '/api/message/';
         var data_out = note;
-
-        $http
-            .post(url, data_out)
-            .success(function(data){
-                console.log(data);
-                // socket.emit('send:note', { note: data });
-                // $scope.message='';
-            });
+        
+        console.log(data_out);
+        // $http
+        //     .post(url, data_out)
+        //     .success(function(data){
+        //         console.log(data);
+        //         // socket.emit('send:note', { note: data });
+        //         // $scope.newnote='';
+        //     });
     };
 
 // SAVE SUMMARY ==========================================

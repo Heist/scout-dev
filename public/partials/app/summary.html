@@ -101,12 +101,6 @@
 
 	<!--<h4>Notes for &ldquo;{{selected.name}}&rdquo;</h4>-->
 
-	<!-- input notes -->
-		<div id="session-input" ng-show="selected.doctype !== 'test' ">
-			<textarea class="input" ng-model='message' name="field-input" placeholder="Your notes" ui-keypress="{13:'postMessage(message)'}" />
-			</textarea>
-		</div>
-
 	<div ng-repeat="user in messages" class="message-group" ng-show="selected._messages">
 		
 		<!-- participant name -->
@@ -114,9 +108,16 @@
 			<div class="message-details"><div class="message-details-avatar"><img src="/layout/assets/avatar.svg"></div></div>
 			<div class="message-body">{{user[0]._subject.name}}</div>
 			<div class="message-fave">Include in report?</div>
+			<div ><button ng-click="toggleNote()">Add note?</button></div>
 			<div class="clear"></div>
 		</div>
 		
+		<!-- input notes -->
+		<div id="session-input" ng-show="inputNote">
+			<textarea class="input" ng-model='newnote' name="field-input" placeholder="Your notes" ui-keypress="{13:'postMessage(newnote, user[0]._subject)'}" />
+			</textarea>
+		</div>
+
 		<!-- participant messages -->
 		<div ng-repeat="message in user" class="message" ng-show="show(message._id)">
 			<div class="message-details"><div class="message-edit"><img src="/layout/assets/pencil.svg"/></div></div>
