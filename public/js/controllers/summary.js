@@ -233,15 +233,17 @@ angular.module('field_guide_controls')
 
         var url = '/api/message/';
         var data_out = note;
-        
+
         console.log(data_out);
-        // $http
-        //     .post(url, data_out)
-        //     .success(function(data){
-        //         console.log(data);
-        //         // socket.emit('send:note', { note: data });
-        //         // $scope.newnote='';
-        //     });
+        $http
+            .post(url, data_out)
+            .success(function(data){
+                console.log(data);
+                $scope.newnote='';
+
+                console.log($scope.messages[data.subject.name]);
+                $scope.messages[data.subject.name].push(data.msg);
+            });
     };
 
 // SAVE SUMMARY ==========================================
