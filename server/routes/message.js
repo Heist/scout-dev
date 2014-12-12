@@ -64,7 +64,7 @@ app.route('/api/message/')
             // console.log('made a task update', task);
             var u = { $push: {_messages : m._id} };
 
-            return Subject.findByIdAndUpdate(req.body._subject, u, function(err,doc){ if (err) {res.send(err);} });
+            return Subject.findOneAndUpdate({'_id':req.body._subject}, u, {upsert:true},function(err,doc){ if (err) {res.send(err);} });
                 
         }).then(function(subject){
             // console.log('made a subject update', subject);

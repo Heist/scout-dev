@@ -4,7 +4,8 @@
 // SUMMARY CONTROLLER ===========================================================
 
 angular.module('field_guide_controls')
-    .controller('summary', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
+    .controller('summary', ['$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', 
+                    function($scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize){
 	$scope.test = {};
     $scope.timeline = [];
 
@@ -23,7 +24,14 @@ angular.module('field_guide_controls')
             });
             
             // group messages by users
-            $scope.messages = _.groupBy(data.messages, function(z){return z._subject.name;});
+            $scope.messages = _.groupBy(data.messages, 
+                function(z){
+                    if(z._subject.name){
+                        return z._subject.name;
+                    } else {
+                        return 'report comment';
+                    }
+                });
             
             $scope.activate($scope.leftNavList[0]);
 
@@ -175,7 +183,6 @@ angular.module('field_guide_controls')
                 tags.push(msg);
             });
         }
-
         
         message.tags = tags;
         console.log('tags', message.tags);
@@ -194,6 +201,7 @@ angular.module('field_guide_controls')
 
     $scope.postMessage = function(message){
         // Make a note object, which becomes a message on the back end.
+        console.log($scope.messages);
         var note = {};
 
         note.body = message;
@@ -202,10 +210,11 @@ angular.module('field_guide_controls')
          
         note._task = $scope.selected._id;
         note._test = $scope.selected._test;
-        note._subject = $scope.subject._id;
+        note._subject = $rootScope.user._id;
+        note.name = $rootScope.user.name;
 
-        $scope.messages.push(note);
-
+        $scope.messages[note.name] = note;
+        $scope.$apply();
         // TODO: this will catch things on both sides of the hash. 
         // if message has # with no space, post that to message.tags
 
@@ -226,8 +235,9 @@ angular.module('field_guide_controls')
         $http
             .post(url, data_out)
             .success(function(data){
-                socket.emit('send:note', { note: data });
-                $scope.message='';
+                console.log(data);
+                // socket.emit('send:note', { note: data });
+                // $scope.message='';
             });
     };
 
