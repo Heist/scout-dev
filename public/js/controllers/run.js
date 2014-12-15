@@ -127,6 +127,26 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     });
 
 // ANGULAR ROUTES ===================================================
+    $scope.addTask = function(task){
+        console.log('touched addTask', task);
+        if($scope.adding_task){$scope.adding_task=false;}
+
+        var dataOut = { 
+            name : task.name,
+            desc : task.desc,
+            _test : $stateParams._id,
+            index : $scope.tests[0]._tasks.length
+        };
+
+        $http
+            .post('/api/task/', dataOut)
+            .success(function(data){
+                console.log(data);
+                $scope.tests[0]._tasks.push(data);
+            });
+
+    };
+
     $scope.select = function(testIndex, taskIndex) {
         // console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);
 
@@ -134,7 +154,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
         $scope.selected = test._tasks[taskIndex];
 
-        mixpanel.track('Task changed', {});
+        // mixpanel.track('Task changed', {});
 
         // select
         // pushes the identity of a test or task
