@@ -127,14 +127,6 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     });
 
 // ANGULAR ROUTES ===================================================
-    $scope.adding_task = false;
-    
-    $scope.addTask = function(){
-        if(!$scope.adding_task){$scope.adding_task = true;}
-        
-    };
-
-
     $scope.select = function(testIndex, taskIndex) {
         // console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);
 
@@ -142,7 +134,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
         $scope.selected = test._tasks[taskIndex];
 
-        // mixpanel.track('Task changed', {});
+        mixpanel.track('Task changed', {});
 
         // select
         // pushes the identity of a test or task
@@ -176,6 +168,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         }
     };
 
+
     $scope.addSubject = function(subject){
         console.log('touched addSubject', subject);
 
@@ -192,7 +185,8 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
                 $scope.live = true;
                 $scope.select(0,0);
 
-                mixpanel.track('Add Participant Name', {});
+                mixpanel.track('Add Participant Name', {
+                });
 
                 console.log('subject', $scope.subject);
                 // socket.emit('send:subject_added', {subject: subject});
@@ -218,6 +212,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         note._subject = $scope.subject._id;
 
         $scope.timeline.push(note);
+        // console.log('message pushing to', $scope.selected._id);
 
         // TODO: this will catch things on both sides of the hash. 
         // if message has # with no space, post that to message.tags
@@ -233,6 +228,9 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
                 note.tags.push(msg);
             }
         }
+
+
+        // console.log('note tags', note.tags);
 
         var url = '/api/message/';
         var data_out = note;
