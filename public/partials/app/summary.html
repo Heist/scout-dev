@@ -114,8 +114,9 @@
 		
 		<!-- input notes -->
 		<div id="session-input" ng-show="inputNote">
-			<textarea class="input" ng-model='newnote' name="field-input" placeholder="Your notes" ui-keypress="{13:'postMessage(newnote, user[0]._subject)'}" />
+			<textarea class="input" ng-model='newnote' name="field-input" placeholder="Your notes">
 			</textarea>
+			<button ng-click="postMessage(newnote, user[0]._subject)"/>Add Note</button>
 		</div>
 
 		<!-- participant messages -->

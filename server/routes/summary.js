@@ -144,13 +144,12 @@ module.exports = function (app, passport) {
         var body, _subject, created_by, _test, _task, _session;
 
         if (req.body.body) { body = req.body.body;}        
-        if (req.body._subject) {_subject = mongoose.Types.ObjectId(req.body._subject);}
-        if (req.body._test) {_test = mongoose.Types.ObjectId(req.body._test);}
-        if (req.user._id) {created_by = mongoose.Types.ObjectId(req.user._id);}
+        if (req.body._subject) {_subject = mongoose.Types.ObjectId(req.body._subject); console.log('task', _subject);}
+        if (req.body._test) {_test = mongoose.Types.ObjectId(req.body._test); console.log('test', _test);}
+        if (req.user._id) {created_by = mongoose.Types.ObjectId(req.user._id); console.log('task', created_by);}
 
-        if (req.body._task) {_task = mongoose.Types.ObjectId(req.body._task);}
-        if (req.body._test) {_test = mongoose.Types.ObjectId(req.body._test);}
-        if (req.body._session) {_session = mongoose.Types.ObjectId(req.body._session);}
+        if (req.body._task) {_task = mongoose.Types.ObjectId(req.body._task); console.log('task', _task);}
+        if (req.body._session) {_session = mongoose.Types.ObjectId(req.body._session); console.log('session', _session);}
 
         var new_note = {
             _subject : _subject,
@@ -171,60 +170,63 @@ module.exports = function (app, passport) {
             function(msg, callback){
                 async.parallel({
                     task: function(msg, callback){
-                        
                         if (_task){
                             Task.findByIdAndUpdate( 
                                 _task, 
                                 { $push: {_messages : msg._id} }, 
                                 function(err,task){ 
                                     if (err) {res.send(err);}
-                                    callback(null, task);
+                                    console.log('task', task);
+                                    // callback(null, task);
                                 });
                         } else {
                             callback(null, null);
                         }
-
                     },
                     subject: function(msg, callback){
                         Subject.findOneAndUpdate(
-                            {'_id':req.body._subject}, 
+                            {'_id': _subject}, 
                             { $push: {_messages : msg._id} },
                             function(err, subject){ 
-                                if (err) {res.send(err);} 
-                                callback(null, subject);
+                                if (err) {res.send(err);}
+                                console.log('subject', subject);
+                                // callback(null, subject);
                             });
                     },
                     tags: function(msg, callback){
                         if(req.body.tags){
-                            async.map(req.body.tags, function(tag){
-                                Tag.findOneAndUpdate( 
-                                    { name: tag, _test: _test },
-                                    { $push: { _messages: msg._id },
-                                      _test: _test,
-                                      name: tag },
-                                    { upsert:true }, 
-                                    function(err, data){ 
-                                        callback(null, data);
-                                    });
-    
-                            }, function(err, results){
-                                callback(null, results);
-                            });
+                            async.map(
+                                req.body.tags, 
+                                function(tag, callback){
+                                    Tag.findOneAndUpdate( 
+                                        { name: tag, _test: _test },
+                                        { $push: { _messages: msg._id },
+                                          _test: _test,
+                                          name: tag },
+                                        { upsert: true }, 
+                                        function(err, data){ 
+                                            console.log('tag', data);
+
+                                            // callback(null, data);
+                                        });
+                                }, 
+                                function(err, results){
+                                    console.log('tag results', results);
+                                });
                         } else {
                             callback(null, null);
                         }
                     }
                 }, function(err, results){
+                    console.log('parallel results', results);
                     callback(null, results);
                 });
             }
         ], 
         function(err, results){
-            res.json(results);
+            console.log('waterfall results', results);
+            // res.json(results);
         });
-
-    // previously: reply.msg, reply.task, reply.subject, reply.tags
-
     });
 
     app.route('/api/summary/message/:_id').put(function(req,res){

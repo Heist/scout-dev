@@ -206,7 +206,6 @@ angular.module('field_guide_controls')
 
     $scope.postMessage = function(message, subject){
         // Make a note object, which becomes a message on the back end.
-        console.log(message, subject._id);
         var note = {};
 
         note.body = message;
@@ -225,7 +224,7 @@ angular.module('field_guide_controls')
 
         var hashCatch = new RegExp(/\S*#\S+/gi);
         var hashPull = new RegExp(/#/gi);
-        var tagIt = message.match(hashCatch);          
+        var tagIt = note.body.match(hashCatch);
         
         if (tagIt){
             for (var i=0; i < tagIt.length; ++i) {
@@ -234,6 +233,8 @@ angular.module('field_guide_controls')
             }
         }
 
+        console.log(note, subject._id);
+        
         var url = '/api/summary/message/';
         var data_out = note;
 
