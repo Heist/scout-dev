@@ -247,6 +247,10 @@ angular.module('field_guide_controls')
                 $scope.messages[data.msg._subject.name].push(data.msg);
                 $scope.selected._messages.push(data.msg._id);
 
+                _.each(data.tags, function(tag){
+                    tag.report_index = $scope.leftNavList.length;
+                    $scope.leftNavList.push(tag);
+                });
             });
     };
 
