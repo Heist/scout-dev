@@ -29,7 +29,6 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
             }); 
 
         // mixpanel.track('Report Loaded', {});
-
     $scope.summarize = function(){
         $location.path('/summary/'+ $stateParams.test_id);
     };

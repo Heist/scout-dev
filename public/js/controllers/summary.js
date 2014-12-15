@@ -201,12 +201,11 @@ angular.module('field_guide_controls')
 
     $scope.toggleNote = function(user){
         if (!$scope.inputNote) {$scope.inputNote = true;}
-
+        // if ($scope.inputNote) {$scope.inputNote = false;}
     };
 
     $scope.postMessage = function(message, subject){
         // Make a note object, which becomes a message on the back end.
-        console.log(message, subject._id);
         var note = {};
 
         note.body = message;
@@ -217,12 +216,15 @@ angular.module('field_guide_controls')
         note._test = $scope.selected._test;
         note._subject = subject._id;
 
+        message = '';
+        $scope.newnote = '';
+        
         // TODO: this will catch things on both sides of the hash. 
         // if message has # with no space, post that to message.tags
 
         var hashCatch = new RegExp(/\S*#\S+/gi);
         var hashPull = new RegExp(/#/gi);
-        var tagIt = message.match(hashCatch);          
+        var tagIt = note.body.match(hashCatch);
         
         if (tagIt){
             for (var i=0; i < tagIt.length; ++i) {
@@ -231,16 +233,16 @@ angular.module('field_guide_controls')
             }
         }
 
-        var url = '/api/message/';
+        console.log(note, subject._id);
+        
+        var url = '/api/summary/message/';
         var data_out = note;
 
         $http
             .post(url, data_out)
             .success(function(data){
-                console.log($scope.selected._messages);
-                $scope.newnote='';
+                $scope.toggleNote();
 
-                console.log($scope.messages[data.subject.name]);
                 $scope.messages[data.subject.name].push(data.msg);
                 $scope.selected._messages.push(data.msg._id);
 
