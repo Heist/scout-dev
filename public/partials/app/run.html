@@ -50,18 +50,30 @@
 	
 	<!-- / participant definition modal -->
 	
-	
-	
-	
-	
-	
-	
-	<!-- create a test -->
-	
-	<div class="left-pane" ng-model="tests">
-		
-		<div id="tasklist">
+	<!-- Add a task -->
+	<div class="modal" ng-model="new_task" ng-show="adding_task == true">
+	    <div class="module third">&nbsp;</div>
+	    
+	    <div class="module third modal-interior">
+	        
+	        <div class="step-contents">
+	            <form>
+	                <input class="input tight" ng-trim="false" ng-model="new_task.name" ng-focus="editTitle(new_task)" ng-blur="blurTitle(new_task)"><br/>
+	                <textarea ng-model="new_task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(new_task)" placeholder="Put talking points or task-specific questions here.">
+	                </textarea>
+	            </form>
+	        </div>
 
+	    </div>
+	    <div class="clear"></div>
+	</div>
+	<!-- / Add a task -->
+
+	<!-- create a test -->
+	<div class="left-pane" ng-model="tests">
+		<div id="tasklist">
+			<div class='clear'></div>
+			<button ng-click="adding_task = true">Add Task</button>
 			<ul ng-repeat="test in tests" ng-class="{ 'active': test._id === selected._test }">
 				<li class="title"><small>test</small><h3>{{test.name}}</h3></li>
 			
