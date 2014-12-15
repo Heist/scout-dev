@@ -6,11 +6,14 @@
 	background: $fg-tan;
 	margin: 0;
 	padding: $pad*1.5 0;
+	height:100px;
 	
 	h1 {
 		float: left;
 		padding: 4px 0 0 0;
 		margin: 0;
+		text-align: left;
+		font-size: 28px;
 		
 		span {
 			opacity: 0.5;

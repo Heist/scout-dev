@@ -30,6 +30,7 @@ app.route('/api/task/')
     })
     .put(function(req,res){
         console.log('batch task update', req.body);
+
         var arr = _.toArray(req.body);
         console.log(arr.length);
         async.each(req.body, function(key, err){

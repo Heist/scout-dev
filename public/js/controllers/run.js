@@ -134,6 +134,8 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
         $scope.selected = test._tasks[taskIndex];
 
+        mixpanel.track('Task changed', {});
+
         // select
         // pushes the identity of a test or task
         // to the update array
@@ -183,6 +185,9 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
                 $scope.live = true;
                 $scope.select(0,0);
 
+                mixpanel.track('Add Participant Name', {
+                });
+
                 console.log('subject', $scope.subject);
                 // socket.emit('send:subject_added', {subject: subject});
                 socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
@@ -223,7 +228,8 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
                 note.tags.push(msg);
             }
         }
-        
+
+
         // console.log('note tags', note.tags);
 
         var url = '/api/message/';
@@ -233,9 +239,8 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
             .post(url, data_out)
             .success(function(data){
                 socket.emit('send:note', { note: data });
+                $scope.message='';
             });
-
-        $scope.message='';
     };
 
     $scope.postTest = function(){
@@ -244,6 +249,7 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
         var url = '/api/run/'+$stateParams._id;
         var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
         socket.emit('testComplete', {data: {body:'test_complete', room : $scope.subject.testroom, test: $stateParams._id}});
+
         // mixpanel.track('Test completed', {});
         // console.log('touched end', data_out);
 

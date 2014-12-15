@@ -20,6 +20,7 @@ var TagSchema = new Schema({
     summary: { type : String, trim : true },
 
     index: Number,
+    report_index: Number,
     visible: { type:Boolean, default: true },
     summarized : { type:Boolean, default:false }
 });

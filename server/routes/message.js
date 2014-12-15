@@ -27,6 +27,8 @@ app.route('/api/message/')
             });
     })
     .post(function(req,res){
+        // TODO: make this into Async becasue this is pretty complex.
+
         console.log('touched new message ', req.body);
 
         var m = {}; // surface message id for use in promises.
@@ -61,10 +63,13 @@ app.route('/api/message/')
             }
         }).then(function(task){
             reply.task = task;
-            // console.log('made a task update', task);
+            
+            // If a subject doesn't exist, we upsert them
+            // this is to handle note creation on reports,
+            // where the Subject is actually a User
             var u = { $push: {_messages : m._id} };
 
-            return Subject.findByIdAndUpdate(req.body._subject, u, function(err,doc){ if (err) {res.send(err);} });
+            return Subject.findOneAndUpdate({'_id':req.body._subject}, u, {upsert:false},function(err,doc){ if (err) {res.send(err);} });
                 
         }).then(function(subject){
             // console.log('made a subject update', subject);
@@ -74,7 +79,7 @@ app.route('/api/message/')
             if(req.body.tags){ // reminder: the tags are not attached to the message. The message is attached to tags.
                 // console.log('tags call', call, m._id, req.body.tags);
             
-            async.each(req.body.tags, function(tag){
+                async.each(req.body.tags, function(tag){
                     var q = {name: tag, _test: call._test};
                     var u = { $push: { _messages: m._id
                                     },
@@ -85,7 +90,7 @@ app.route('/api/message/')
 
                     Tag.findOneAndUpdate( q, u, o, function(err, data){ 
                         // console.log(data); 
-                        });
+                    });
                 });
             }
 
@@ -224,7 +229,6 @@ app.route('/api/message/:_id')
                 async.parallel({
                     tags: function(callback){
                         Tag.find({'_test' : req.body._test })
-                            .populate('_messages')
                             .exec(function(err, docs){
                                 if (err) {console.log(err);}
                                 callback(null, docs);

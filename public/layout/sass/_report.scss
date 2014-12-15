@@ -4,40 +4,30 @@
 
 #view-report {
 	margin: 0;
-	//padding: $pad*2.5 0 0 0;
-	padding: $pad*7 0 0 0;
+	padding: $pad*3 0 $pad*4 0;
 	
 	#report-container {
-		padding: $pad*2 0;
+		padding: $pad*2 $pad*4.3;
 	}
-	
-	#sub-bar {
-		position: fixed;
-		top: $pad*2.5;
-		left: 0;
-		background: transparentize($fg-tan, 0.05);
-		z-index: 9999;
-	
-		.sub-bar-controls {
+
+	.sub-bar-controls {
 			.input {
-				width: 160px;
+				width: 360px;
+				height: 40px;
 				padding: $pad/4 $pad/2;
 				padding-right: 0;
-			}
+			
 		}
+	}
+
+	.message {
+		color: $fg-black;
 	}
 	
 	/* report content */
 	.two-thirds {
 	
 		.task-score {
-			font-size: $type-size-base*0.8;
-			@include type-bold;
-			text-transform: uppercase;
-			letter-spacing: 0;
-			color: $white;
-			margin: 0;
-			padding: $pad/4 $pad/2;
 			float: right;
 		}
 		

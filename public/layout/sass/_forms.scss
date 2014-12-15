@@ -15,10 +15,15 @@ form {
 	padding: $pad/2 $pad/1.5;
 	@include radius;
 	@include type-regular;
-	font-size: $type-size-base;
+	font-size: $type-size-base*0.9;
 	outline: none;
 	border: none;
 }
+
+.button {
+	padding: $pad/1.5 $pad;
+}
+
 
 
 
@@ -28,7 +33,7 @@ form {
 	border: 1px solid $line; 
 
 	&:focus {
-		@include insetshadow;
+		//@include insetshadow;
 	}
 	
 	&.small {

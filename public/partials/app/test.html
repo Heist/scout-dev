@@ -17,21 +17,18 @@
             
             
             <ul class="stepped-nav">
-                <li class="step-left"
-                ng-class="{'step-completed': test.desc, 'step-active': anchor === 1 , 'step-inactive': anchor !== 1}">
+                <li class="step-left" ng-class="{'step-completed': test.desc, 'step-active': anchor === 1 , 'step-inactive': anchor !== 1}">
                 	<a href="#" ng-click="showAnchor(1)">Test type</a><div class="step-state"></div>
                 </li>
                 
-                <li class="step-middle"
-                ng-class="{'step-completed': test._tasks.length > 0, 'step-active': anchor === 3 ,'step-inactive': anchor !== 3}">
+                <li class="step-middle" ng-class="{'step-completed': test._tasks.length > 0, 'step-active': anchor === 3 ,'step-inactive': anchor !== 3}">
                 	<a href="#" ng-click="showAnchor(3)">Tasks</a><div class="step-state"></div>
                 </li>
 
                 <!-- <li class="step-middle step-inactive"><a href="#" ng-click="showAnchor(3)">Create some themes</a><div class="step-state"></div></li> -->
 
-                <li class="step-right"
-                ng-class="{'step-completed' : anchor === 5,'step-active': anchor === 5 ,'step-inactive': anchor !== 5 }">
-                	<a>Done</a><div class="step-state"></div>
+                <li class="step-right" ng-class="{'step-completed' : anchor === 5,'step-active': anchor === 5 ,'step-inactive': anchor !== 5 }">
+                	<a>Done!</a><div class="step-state"></div>
                 </li>
                 <div class="clear"></div>
             </ul>
@@ -44,9 +41,8 @@
 
     <div class="container editing-container" >
         
-        <div class="module full">
+  
         <!-- step1 - test type -->
-
         <!-- choose a test type -->
 
             <div ng-show="anchor === 1">
@@ -81,7 +77,8 @@
             
             <!-- this is technically step 2, this will only appear when you select a test-type -->
             
-            <div class="module full test-details" ng-show="anchor===1 && test.kind">
+            <!-- spacer --><div class="module sixth" ng-show="anchor===1 && test.kind">&nbsp;</div>
+            <div class="module two-thirds test-details" ng-show="anchor===1 && test.kind">
                 <ul class="nobullets" >
                  <form name="prototypeForm">   
                     <li>
@@ -95,16 +92,15 @@
                         <label for="field-prototypeurl">Your prototype URL</label>
 
                         <input class="input" id="field-prototypeurl" ng-model="test.link" value="" placeholder="http://invis.io/ABC123" type="url" name="url"/>
-                        <span ng-show="!prototypeForm.$valid" style="color:red;">This appears to be an invalid URL.</span>
-                        <span>Using InVision? Make sure you turn off <strong>Force "Add to Home Screen"</strong> in your share settings</span>
+                        <span ng-show="!prototypeForm.$valid" style="color:red;">This appears to be an invalid URL.<br></span>
+                        <small>Using InVision? Make sure you turn off <strong>Force "Add to Home Screen"</strong> in your share settings</small>
                         
-                    </li>
-                    
+                    </li>        
                  
                     
                     <li>
                         <label for="field-prototypeurl">Your test objectives</label>
-                        <textarea class="input" id="field-objective" type="text" value="" ng-bind-html="test.desc | linebreaker" placeholder="What is the purpose of this test? What do you want to learn?" />
+                        <textarea class="input" id="field-objective" type="text" value="" ng-model="test.desc" placeholder="What is the purpose of this test? What do you want to learn?" />
                     </li>
                     
                     <li>
@@ -113,12 +109,12 @@
                 </form>
                 </ul>
             </div>
-            
             <div class="clear"></div>
         <!-- / step 1 -->
 
         <!-- step 3 - add tasks -->
-            <div class="module full test-tasks" ng-show="anchor === 3">
+        	<!-- spacer --><div class="module sixth" ng-show="anchor === 3">&nbsp;</div>
+            <div class="module two-thirds test-tasks" ng-show="anchor === 3">
                 <h3>Tasks in this Test</h3>
 
                 <ul id="steps" ng-model="tasks">
@@ -156,23 +152,24 @@
                 </div>
                 
             </div>
+            <div class="clear"></div>
         <!-- / step 3 -->
 
-        <!-- step 4 - define tasks -->
+        <!-- step 4 - define themes -->
         <!-- we're not doing this yet -->
         <!-- / step 4 -->
 
+
+
         <!-- step 5 - you're done! -->
+            <!-- spacer --><div class="module sixth" ng-show="anchor === 5">&nbsp;</div>
             <div class="module two-thirds test-done" ng-show="anchor === 5">
             
                 <h1>You're done!</h1>
                 <p>Great job building that test. Go back to the <a href="/overview">My Tests</a> screen and start testing!</p>
                 
             </div>              
-            
-        </div>
-        
-        <div class="clear"></div>
+        	<div class="clear"></div>
         <!-- / step 5 -->
 
 

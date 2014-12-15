@@ -31,24 +31,21 @@
 					<small>{{test.kind}}</small>
 					
 					<div class="editTest">
-						<a ng-click="editTest(test)">Edit</a> &nbsp;
-						<a class="dangerous" ng-click="removeTest(test)">Delete</a> &nbsp; 
-						<a ng-click="dupeTest(test)">Duplicate</a> 
+						<a ng-click="editTest(test)"><img src="/layout/assets/edit.svg" /></a> &nbsp;
+						<a ng-click="dupeTest(test)"><img src="/layout/assets/duplicate.svg" /></a> &nbsp;
+						<a class="dangerous" ng-click="removeTest(test)"><img src="/layout/assets/delete.svg" /></a>  
 					</div>
 				</div>
 			
 				<div class="test-controls">
-						
 					
-					<button class="button" ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run Test</button>
+					<a class="left" ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run Test</a>
 		
-					<button class="button" ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0">Report</button>
+					<a class="right" ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0">Report</a>
 					
-					<button class="button" ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0" >Report</button>
-		
+					<a class="right" ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0">Report</a>
 					
-					<div class="clear"></div>
-							
+					<div class="clear"></div>	
 				</div>	
 	
 			</div>

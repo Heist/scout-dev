@@ -66,38 +66,29 @@ module.exports = function(app){
 
     app.route('/api/invite/')
         .post(function(req,res){
-            // console.log('user posting invite', req.body, req.user._account);
 
-            var promise = User.findOne({'local.email' : req.body.address }).exec(function(err, user){
-                if(err) {return res.send(err);}
-                // console.log('docs',user);
-
-                if(user){
-                    user._account = req.user._account;
-                    user.save(function(err,data){
-                        return res.json({'user' : user});
-                    });
-                }
-            });
+            var promise = User.findOne({'local.email' : req.body.address }).exec();
 
             promise.then(function(user){
-                // console.log('next promise', user);
+                // if there is a user with that name already ....
                 if(user !== null){ 
-                    res.json({
-                        email: user.local.email, 
-                        name: user.name, 
-                        _id: user._id, 
-                        _account: user._account, 
-                        msg:'user found'
+                    user._account = req.user._account;
+                    user.save(function(err,data){
+                        console.log('existing user updated', data.user_email);
+
+                        res.json({
+                            email: data.local.email, 
+                            name: data.name, 
+                            _id: data._id, 
+                            _account: data._account,
+                            msg:'user found'
+                        });
                     });
-                    // throw new Error('abort promise chain');
                     throw new Error('User found');
+                }
 
-                    // if there's a user, say "there's already a user"
-                    // maybe reset that user's password?
-                    // send something to imply a user by that name already exists?
-
-                } else{
+                else {
+                // No user? Find an invitation for that req.body.address
                     return Invitation.findOne({'user_email' : req.body.address}).exec();
                 }
             })
@@ -136,15 +127,14 @@ module.exports = function(app){
 
                 var message_variables = {
                     created_by: req.user.name,
-                    invite_link: 'http://'+app.locals.real_url+'/login/'+invite._account
+                    invite_link: 'http://'+app.locals.real_url+'/login/'+invite._id
                 };
 
                 var mailer = new Emailer(envelope_options, message_variables);
 
                 mailer.send(function(err, result) {
-                    if (err) {
-                        return console.log(err);
-                    }else{
+                    if (err) { return console.log(err); }
+                    else {
                         // console.log('Message sent: ' + result.response);
                     }
                 });
@@ -153,15 +143,13 @@ module.exports = function(app){
         });
 
     app.route('/api/invite/:_id')
+        .put(function(req,res){
+            console.log('invite put');
+        })
         .post(function(req,res){
             // this is to resend an invitation already sent
-            // console.log(req.user.name);
-            // console.log(req.body);
-            // console.log(req.params._id);            
 
             Invitation.findById(req.params._id).exec(function(err,invite){
-                
-                // console.log('resent invitation', invite);
                 res.json(invite);
 
                 var envelope_options = {
@@ -175,7 +163,7 @@ module.exports = function(app){
 
                 var message_variables = {
                     created_by: "Field Guide",
-                    invite_link: app.locals.real_url+'/login/'+req.body._account
+                    invite_link: app.locals.real_url+'/login/'+invite._id
                 };
 
                 var mailer = new Emailer(envelope_options, message_variables);
@@ -191,7 +179,6 @@ module.exports = function(app){
             });
         })
         .delete(function(req,res){
-            // console.log(req.params._id);
             Invitation.remove({'_id': req.params._id}, function(err, invite){
                 if(err) {return res.send (err);}
 

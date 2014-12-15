@@ -4,36 +4,34 @@
 // SUMMARY CONTROLLER ===========================================================
 
 angular.module('field_guide_controls')
-    .controller('summary', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
+    .controller('summary', ['$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', 
+                    function($scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize){
 	$scope.test = {};
     $scope.timeline = [];
 
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
             console.log('returned test information', data);
-
-            $scope.tags = data.tags;
-            $scope.test = data.test[0];
-            $scope.tasks = data.tasks;
-
             $scope.leftNavList = [];
 
-            _.each(data.test, function(test){
-                $scope.leftNavList.push(test);
-            });
-            _.each(data.tasks, function(task){
-                $scope.leftNavList.push(task);
-            });
-            _.each(data.tags, function(tag){
-                $scope.leftNavList.push(tag);
-            });
+            var sort = _.sortBy(data.navlist, function(obj){
+                                return(obj.report_index);
+                            });
 
-            console.log($scope.leftNavList);
-
-            // group messages by users
-            $scope.messages = _.groupBy(data.messages, function(z){return z._subject.name;});
+            _.each(sort, function(obj){
+                console.log(obj.name); 
+                $scope.leftNavList.push(obj);
+            });
             
-            // console.log('messages', $scope.messages, data.messages);
+            // group messages by users
+            $scope.messages = _.groupBy(data.messages, 
+                function(z){
+                    if(z._subject.name){
+                        return z._subject.name;
+                    } else {
+                        return 'report comment';
+                    }
+                });
             
             $scope.activate($scope.leftNavList[0]);
 
@@ -59,9 +57,21 @@ angular.module('field_guide_controls')
         
         $scope.leftNavList.splice(new_index, 0, $scope.leftNavList.splice(old_index, 1)[0]);
 
+        var obj_count=0;
+        
         // set the stored index of the task properly
+        _.each($scope.leftNavList, function(obj){
+            obj.report_index = obj_count;
+            obj_count++;
+        });
+
+        var dataOut = $scope.leftNavList;
+
         var nav = _.pluck($scope.leftNavList, 'name');
-        console.log(nav); // for testing purposes
+        console.log('nav', $scope.leftNavList);
+
+        $scope.saveSummary();
+
     };
 
 
@@ -97,23 +107,16 @@ angular.module('field_guide_controls')
         console.log('activated', obj.name);
 
         $scope.selectedIndex = selectedIndex;
-     
-        if(obj){
-            $scope.selected = obj;
-        }
+        if(obj){ $scope.selected = obj; }
     };
 
     $scope.passFail = function(obj){
         console.log('touched pass-fail', obj);
 
-        if(obj.pass_fail){
-            obj.pass_fail = false;
-        } else if (!obj.fail){
-            obj.pass_fail = true;
-        }
+        if(obj.pass_fail){ obj.pass_fail = false; }
+        else if (!obj.fail){ obj.pass_fail = true; }
 
         $scope.saveObject(obj);
-        
     };
 
     $scope.show = function (msg_id) {
@@ -129,7 +132,6 @@ angular.module('field_guide_controls')
         if (obj.visible){ obj.visible = false; $scope.saveObject(obj); return;}
         if (!obj.visible){ obj.visible = true; $scope.saveObject(obj); return;}
 
-        
     };
 
     $scope.saveFav = function(message){
@@ -157,13 +159,8 @@ angular.module('field_guide_controls')
 
     $scope.msgFilter = function(message){
         // Display messages that belong to the current selected item.
-
-        if ((message._id === $scope.selected._id)) {
-            return true;
-        }
-
-        // // console.log('false', $scope.subject);
-        return false;
+        if (message._id === $scope.selected._id) { return true; }
+        else { return false; }
     };
 
     $scope.editMessage = function(message, index){
@@ -186,7 +183,6 @@ angular.module('field_guide_controls')
                 tags.push(msg);
             });
         }
-
         
         message.tags = tags;
         console.log('tags', message.tags);
@@ -195,45 +191,89 @@ angular.module('field_guide_controls')
             .put('/api/message/'+message._id, message)
             .success(function(msg, err){
                 console.log('msg_success', msg, err);
-
+                var new_list =_.groupBy(msg.messages, function(z){return z._subject.name;});
+                console.log(new_list);
+                
                 $scope.leftNavList = msg.nav_list;
-                $scope.messages = _.groupBy(msg.messages, function(z){return z._subject.name;}); 
+                $scope.messages = new_list;
             });
     };
 
-// CLOSE SUMMARY ==========================================
-    $scope.completeSummary = function(){
+    $scope.toggleNote = function(user){
+        if (!$scope.inputNote) {$scope.inputNote = true;}
+
+    };
+
+    $scope.postMessage = function(message, subject){
+        // Make a note object, which becomes a message on the back end.
+        console.log(message, subject._id);
+        var note = {};
+
+        note.body = message;
+        note.tags = [];
+        note.created = new Date();
+         
+        note._task = $scope.selected._id;
+        note._test = $scope.selected._test;
+        note._subject = subject._id;
+
+        // TODO: this will catch things on both sides of the hash. 
+        // if message has # with no space, post that to message.tags
+
+        var hashCatch = new RegExp(/\S*#\S+/gi);
+        var hashPull = new RegExp(/#/gi);
+        var tagIt = message.match(hashCatch);          
+        
+        if (tagIt){
+            for (var i=0; i < tagIt.length; ++i) {
+                var msg = tagIt[i].replace(hashPull,'');
+                note.tags.push(msg);
+            }
+        }
+
+        var url = '/api/message/';
+        var data_out = note;
+
+        $http
+            .post(url, data_out)
+            .success(function(data){
+                console.log($scope.selected._messages);
+                $scope.newnote='';
+
+                console.log($scope.messages[data.subject.name]);
+                $scope.messages[data.subject.name].push(data.msg);
+                $scope.selected._messages.push(data.msg._id);
+
+            });
+    };
+
+// SAVE SUMMARY ==========================================
+    $scope.saveSummary = function(){
         // post all the summary changes to the test
-        // post summary changes to the tags
         // post fav'd statuses to relevant messages
 
-        // TODO: for each task push each of their messages to $scope.messages
-        // no good in the new format, messages need to be their own array
-        // displayed for both task and tag.
-
-        var msg_arr = [];
-    
         $scope.messages = _.map($scope.messages, function(val, key){ return val; });
-        $scope.test.report = true;
+
         // mixpanel.track('Summary complete', {});
 
         console.log('messages', $scope.messages);
 
         var url = '/api/summary/'+ $stateParams._id;
-        var data_out = {test: $scope.test, tags:$scope.tags, tasks:$scope.tasks, messages:$scope.messages[0]} ;
-        
-        // console.log(data_out);
+        var data_out = {navlist: $scope.leftNavList, messages:$scope.messages[0]} ;
         
         $http.put(url, data_out)
-            .success(function(data){
-                // console.log(data);
-
-                $location.path('/report/'+ $stateParams._id);
+            .success(function(data, msg){
+                console.log('saved summary', data, msg);
+                // $location.path('/report/'+ $stateParams._id);
             })
             .error(function(data){
                 console.log('error', data);
             });        
 
     };
-   
+
+// PREVIEW REPORT
+    $scope.reportPreview = function(){
+        $location.path('/report/'+ $stateParams._id);
+    };
 }]);

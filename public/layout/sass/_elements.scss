@@ -31,19 +31,20 @@
 
 
 .message {
-	padding: $pad/3;
+	padding: $pad/2 $pad/3;
 	@include radius;
-	
-	&:hover {
-		background: $fg-tan;
+	color: $fg-grey;
+		
+		&:hover {
+			color: $fg-black;
 		
 		.message-details .message-edit {
 			display: block;
 		}
 		
-		.message-body .tag {
-			background: darken($fg-tan, 6%);
-		}
+		// .message-body .tag {
+		// 	background: darken($fg-tan, 6%);
+		// }
 	}
 	
 	.message-details {
@@ -55,7 +56,7 @@
 		.message-details-avatar {
 			img {
 				width: 16px;
-				height: auto;
+				height: 16px;
 			}
 		}
 		
@@ -73,9 +74,8 @@
 	
 	.message-body {
 		float: left;
-		width: 90%;
-		color: $fg-black;
-						
+		width: 90%;	
+
 		p {
 			margin-bottom: 0;
 			
@@ -88,26 +88,13 @@
 		small {
 			margin: 0;
 			padding: 0;
-			opacity: 0.5;
+			color: $fg-grey;
 		}
 		
 		textarea {
 			width: 100%;
 		}
 		
-	}
-	
-	.message-fave {
-		float: right;
-		
-		a {
-			text-decoration: none;
-		}
-		
-		img {
-			width: 16px;
-			height: auto;
-		}
 	}
 	
 	/* when it's the user header */
@@ -162,9 +149,16 @@
 /* task rating output */
 
 .task-score {
-	@include radius(20px);
+	@include radius(4px);
 	margin: 5px 0 0 0;
-	
+	font-size: $type-size-base*0.6;
+	@include type-bold;
+	text-transform: uppercase;
+	letter-spacing: 0;
+	color: $white;
+	margin: 0;
+	padding: 0 $pad/4;
+		
 	&.green {
 		background: $fg-green;
 		
@@ -225,8 +219,70 @@
 }
 
 
+/* elevator buttons for sorting */
 
+.elevator {
+	display: block;
+	opacity: 0.5;
+	padding: 0;
+	font-size: $type-size-base*0.8;
+	cursor: pointer;
+	line-height: 1.1;
+	
+	&:hover {
+		opacity: 1.0;
+	}
+}
 
+/* Edit mode button on the bottom of Reports*/
+.edit-controls{
+	position: fixed;
+	bottom:40px;
+	left:44%;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+
+	a{
+		display: block;
+		float: left;
+		min-width: 100px;
+		text-align: center;
+		padding: $pad/1.7;
+		text-decoration: none;
+
+	}
+
+	.enabled{
+		color: #fff;
+		background-color: $fg-green;
+
+		&:hover{
+
+			background-color: darken($fg-green, 3%);
+
+		}
+
+		&.left {
+			border-radius: 4px 0px 0px 4px;
+
+		}
+
+		&.right {
+			border-radius: 0px 4px 4px 0px;
+		}
+
+	}
+
+	.disabled {
+		color: darken(#f2f2f2, 30%);
+
+		&:hover{
+			border-radius: 0px 4px 4px 0px;
+			background-color: darken(#f2f2f2, 3%);
+		}
+	}
+
+}
 
 
 

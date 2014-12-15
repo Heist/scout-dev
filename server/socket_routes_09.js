@@ -1,7 +1,7 @@
 // socket_routes_1.js
 'use strict';
 
-module.exports = function(io, app, passport) {
+module.exports = function(io, knox, app, passport) {
     // MODULES ============================================
     var cookie = require('cookie'),
         cookieParser = require('cookie-parser'),
@@ -17,8 +17,6 @@ module.exports = function(io, app, passport) {
 
     // MODELS =============================================
     var Test = require('./models/data/test');
-
-
 
     // AUTHENTICATION VIA PASSPORT ========================
     io.configure(function () {
@@ -80,10 +78,7 @@ module.exports = function(io, app, passport) {
     io.sockets.on('connection', function (socket) {
         console.log('hello user', user._account);
         console.log('someone connected from somewhere');
-        // console.log('do we have a test room?', default_room);
-
-        // socket.emit('connected', {socket: socket});
-
+        
         var k = '';
 
         socket.on('message', function(msg, err){
@@ -92,7 +87,7 @@ module.exports = function(io, app, passport) {
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
             if (k[1] !== undefined) {
                 var chan = k[1].substring(1, k[1].length);
-                socket.broadcast.to(chan).emit('message', msg);
+                socket.broadcast.to(chan).emit('message', msg);                
             }
         });
 
@@ -129,8 +124,8 @@ module.exports = function(io, app, passport) {
 
 
         socket.on('testComplete', function(data){
-            console.log('testComplete', data);
-            io.sockets.in(data.room).emit('endTest', data);
+            console.log('testComplete', data.data.room);
+            io.sockets.in(data.data.room).emit('endTest', data.data.body);
         });
 
     });

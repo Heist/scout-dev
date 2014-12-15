@@ -21,7 +21,7 @@
 		
 		.message {
 			padding: $pad/2.5 0 0 $pad/1.25;
-			font-size: $type-size-base*0.9;
+			//font-size: $type-size-base*0.9;
 			line-height: $type-line-base*0.8;
 			margin: 0 0 $pad/2 0;
 						
@@ -48,10 +48,6 @@
 								
 				p {
 					margin-bottom: 0;
-					
-					.tag {
-						padding: 0 $pad/6;
-					}
 				}
 				
 				small {

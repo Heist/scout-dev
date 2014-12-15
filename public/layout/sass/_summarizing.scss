@@ -1,61 +1,68 @@
 
 
 /* THE SUMMARY */
+.summarizing-sub-bar {
+	padding: 0 $pad*4.3;
+}
+
 
 #view-summarizing {
 	margin: 0;
-	padding: $pad*2.5 0 0 0;
-	
+	padding: $pad*3 0 $pad*4 0;
+
 	#summarizing-container {
-		padding: $pad*2 0;
+		padding: $pad*2 $pad*4.3;
 	}
 	
-	#timeline {
-		margin-top: 50px;
+	.message-group {
+		margin-top: 25px;
 		overtest: auto;
 		
 		.message {
+			cursor: text;
+
 			.message-body {
 				width: 75%;
+
 			}
-			
+
 			.message-fave {
 				float: right;
-				margin: 0 0 0 $pad/2;
+				margin: 3px 0 0 0;
+
+				a {
+					text-decoration: none;
+					display: block;
+					width: 16px;
+					height: 16px;
+				}
 				
+				img {
+					width: 16px;
+					height: 16px;
+				}
 			}
 		}
 	}
 	
 	#summary-test {
 		.input {
+			margin-top:$pad;
 			width: 100%;
-			height: 100px;
+			height: 150px;
 		}
 	}
 	
 	#summary-tags {
 		padding: 0;
 		margin: $pad*2 0 0 0;
-		
-		.tags li {
-			cursor: pointer;
-		}
-		
-		.summary-tag {
-			padding: $pad 0 $pad 0;
-			margin: 0;
-			
-			.input {
-				width: 100%;
-			}
-		}
 	}
 	
 	#summary-task {
 		.input {
+			margin-top:$pad;
 			width: 100%;
-			height: 100px;
+			height: 150px;
 		}
 	}
 	
@@ -68,7 +75,6 @@
 	}
 	
 }
-
 
 
 

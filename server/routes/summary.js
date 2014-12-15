@@ -20,104 +20,120 @@ module.exports = function (app, passport) {
 
     app.route('/api/summary/:_id')
     .get(function(req, res){
-
-        // how to populate grandchildren sub-subdocuments is in here.
-        var reply = {};
-
-        // the promise gets your main document, with its populated subs
-        var promise = 
-            Test.find({'_id' : req.params._id}).exec(function(err, test){
-                if(err){res.send(err);}
-            });
-
-        promise.then(function(test){
-            reply.test = test;
-            // a promise-then pair: Then must RETURN something to the promise. Backwards chaining.
-            return Task.find({'_test':req.params._id}).sort({ index: 'asc'})
-                        .exec(function(err, task){
-                            if (err) {console.log(err);}
-                        });
-        })
-        .then(function(tasks){
-            reply.tasks = tasks;
-            return Tag.find({'_test' : req.params._id, '_messages' : {$not :{$size : 0}}}).exec();
-        })
-        .then(function(tags){
-            reply.tags = tags;
-            
-            return Message.find({ '_test':{$in: [req.params._id]}})
+        // get all the objects used in summary
+        // push them to the nav list using map
+        // order them by their report-index and return them
+        async.parallel({
+            navlist : function(callback){
+                async.parallel([
+                    function(callback){
+                        Test.find({'_id' : req.params._id})
+                            .exec(function(err, data){
+                                if (err) {console.log(err);}
+                                
+                                callback(null, data);
+                            });
+                    },
+                    function(callback){
+                        Task.find({'_test':req.params._id})
+                            .sort({ index: 'asc'})
+                            .exec(function(err, data){
+                                if (err) {console.log(err);}
+                                
+                                callback(null, data);
+                            });
+                    },
+                    function(callback){
+                        Tag.find({'_test' : req.params._id, '_messages' : {$not :{$size : 0}}})
+                            .exec(function(err, data){
+                                if (err) {console.log(err);}
+                                
+                                callback(null, data);
+                            });
+                    }
+                ], 
+                function(err, results){
+                    var flat = _.flatten(results);
+                    callback(null, flat);
+                });
+            },
+            messages: function(callback){
+                Message.find({ '_test':{$in: [req.params._id]}})
                         .populate({path:'_subject', select: 'name' })
-                        .exec();
-        })
-        .then(function(messages){
-            reply.messages = messages;
-            // console.log(messages);
-            res.json(reply);
-        })
-        .then(null, function(err){
-            if(err) {return res.send (err);}
+                        .exec(function(err, data){
+                            if (err) {console.log(err);}
+                            callback(null, data);
+                        });
+            }
+        },
+        function(err, results){
+            res.json(results);
+
         });
     })
     .put(function(req, res){
-        console.log('touched summary put', req.body);
+        console.log('touched summary put');
+         //async.map
+         // each object in req body
+         // if it has a summary, find the object by doctype and update components
 
-        var query = {'_id':req.body.test._id};
-        var update = {
-            summary: req.body.test.summary,
-            report: true
-        };
+        async.parallel([
+            function(callback){
+                async.map(req.body.navlist, 
+                    function(obj, callback){
+                        var Model;
+                        if(obj.doctype === 'tag'){Model = Tag;}
+                        if(obj.doctype === 'task'){Model = Task;}
+                        if(obj.doctype === 'test'){Model = Test;}
 
-        Test.findOneAndUpdate(query, update,function(err,test){
-                if(err) {return res.send (err);}
-                console.log('test updated', test);
-            });
+                        Model.findById(obj._id)
+                             .exec(function(err, model){
 
-        // if we have tags, update them in the db.
-        // NO FUNCTIONS IN A LOOP.
-        if(req.body.tags){
-            async.each(req.body.tags, function(tag, callback){
-                Tag.findOneAndUpdate(
-                    {'_id' : tag._id}, 
-                    {'summary': tag.summary,
-                    'summarized' : tag.summarized},
-                    function(err, data){
-                        if(err) {return res.send (err);}
+                                model.pass_fail     = obj.pass_fail;
+                                model.report_index  = obj.report_index;
+                                model.summary       = obj.summary;
+                                model.summarized    = obj.summarized;
+                                model.report        = true;
+
+                                model.save(function(err, data){
+                                    console.log('update', data.name, data.report_index);
+                                    callback(null, data);
+                                });
+                            });
+
+                    },
+                    function(err, results){
+                        // console.log('map', results);
+                        callback(null, results);
                     });
-            });
-        }
-        
-        if(req.body.tasks){
-            async.each(req.body.tasks, function(task, callback){
-                Task.findByIdAndUpdate(
-                    task._id,
-                    {'pass_fail': task.pass_fail,
-                    'summary': task.summary },
-                    function(err, data){
-                        if(err) {return res.send (err);}
-                    });
-            });
-        }
-        
-        // this is actually users, not messages.
-        // messages needs to be returned separately on the front end.
-        // perhaps try underscore_pop or something.
-
-        if(req.body.messages){
-            async.each(req.body.messages, function(msg, callback){
-                // console.log(msg);
-                Message.findByIdAndUpdate(
-                    msg._id, 
-                    { 'fav_task' : msg.fav_task,
-                    'fav_tag'  : msg.fav_tag,
-                    'body'  : msg.body,
+            },
+            function(callback){
+                async.map(req.body.messages, 
+                    function(msg, callback){
+                        Message.findByIdAndUpdate(
+                            msg._id, 
+                            { 
+                                'fav_task' : msg.fav_task,
+                                'fav_tag'  : msg.fav_tag,
+                                'body'  : msg.body,
+                            }, 
+                            function(err, data){
+                                if(err){res.send(err);}
+                                callback(null, data);
+                            });
                     }, 
-                    function(err, mess){
-                        if(err){res.send(err);}
+                    function(err, results){
+                        callback(null, results);
                     });
-            });
-        }
-        
-        res.send("test updated - server");
+            }
+        ],
+        function(err, results){
+            // the results array will equal ['one','two'] even though
+            // the second function had a shorter timeout.
+            console.log('done summary update');
+            res.json(results);
+        });
+
     });
 
     app.route('/api/summary/message/:_id').put(function(req,res){
@@ -132,6 +148,25 @@ module.exports = function (app, passport) {
                         if(err){return console.log(err);}
                         res.json(msg);
                     });
+    });
+
+    app.route('/api/summary/task/').put(function(req,res){
+        // batch update only tasks
+        async.map(req.body.tasks, 
+                function(task, callback){
+                    Task.findByIdAndUpdate(
+                        task._id,
+                        {'pass_fail': task.pass_fail,
+                        'report_index' : task.report_index,
+                        'summary': task.summary },
+                        function(err, data){
+                            if(err) {return res.send (err);}
+                            callback(null, data);
+                        });
+                }, 
+                function(err, results){
+                    res.json(results);
+                });
     });
 
     app.route('/api/summary/task/:_id').put(function(req,res){

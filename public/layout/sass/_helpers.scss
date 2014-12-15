@@ -27,7 +27,7 @@ mixins
 	box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.15);
 }
 
-@mixin radius($radius: 4px) {
+@mixin radius($radius: 2px) {
 	-moz-border-radius: $radius;
 	-webkit-border-radius: $radius;
 	border-radius: $radius;
@@ -61,7 +61,7 @@ mixins
 		background: darken($bg, 3%);
 		color: $text;
 		text-decoration: none;
-		@include dropshadow(0 1px 3px, rgba(0,0,0,0.3));
+		//@include dropshadow(0 1px 3px, rgba(0,0,0,0.3));
 	}
 }
 

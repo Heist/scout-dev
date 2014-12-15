@@ -23,6 +23,7 @@ var TaskSchema = new Schema ({
     visible: { type:Boolean, default: true },
 
     index: Number,
+    report_index: Number,
     created: Date,
     updated: Date,
 });
