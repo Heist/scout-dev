@@ -242,8 +242,9 @@ angular.module('field_guide_controls')
             .post(url, data_out)
             .success(function(data){
                 $scope.toggleNote();
+                console.log(data);
 
-                $scope.messages[data.subject.name].push(data.msg);
+                $scope.messages[data.msg._subject.name].push(data.msg);
                 $scope.selected._messages.push(data.msg._id);
 
             });
