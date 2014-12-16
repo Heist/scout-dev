@@ -113,21 +113,54 @@ module.exports = function(account, id){
                         _subject: arg.subject._id
                     }
                 ];
+            // concatenate 2X arr for new arr.
+            var arr2 = arr.concat(arr);
 
-            Message.create(
-                arr, 
-                function(err, d0, d1, d2){
+            Message.create( arr2,
+                function(err, d0, d1, d2, d3, d4, d5){
                     if (err) {console.log(err);} 
-                    var pusher = [d0, d1, d2];
-                    callback(null, {msg_arr: pusher, subject: arg.subject, test: arg.test, tasks: arg.tasks});
+                    var pusher1 = [d0, d1, d2];
+                    var pusher2 = [d3, d4, d5];
+                    callback(null, {msg_arr1: pusher1, msg_arr2: pusher2, subject: arg.subject, test: arg.test, tasks: arg.tasks});
                 });
         },
         function(arg, callback){
-            var arr = _.pluck(arg.msg_arr, '_id');
-            arg.subject._messages = arr;
-            arg.subject.save(function(err, subject){
-                if (err) {console.log(err);}
-                callback(subject);
+            console.log('parallel tasks', arg.tasks);
+            var arr1 = _.pluck(arg.msg_arr1, '_id');
+            var arr2 = _.pluck(arg.msg_arr2, '_id');
+            var arr3 = arr1.concat(arr2);
+            
+            // now in here, push the appropriate messages to the subject
+            // then the messages to the tasks
+            async.parallel([
+                function(callback){
+                    arg.subject._messages = arr3;
+                    arg.subject.save(function(err, subject){
+                        if (err) {console.log(err);}
+                        callback(null, subject);
+                    });
+                },
+                function(callback){
+                    async.map(arg.tasks, 
+                        function(task, callback){
+                            Task.findOne({'_id': task})
+                                .exec(function(err, task){
+                                    task._messages=arr1;
+                                    task.save(function(err, data){
+                                        if (err) {console.log(err);}
+                                        callback(null, data);
+                                    });
+                                });
+                        }, 
+                        function(err, results){
+                            callback(null, results);
+                        });
+                }
+            ], 
+            function(err, results){
+                // results are subject, task, task.
+                console.log('parallel', results);
+                callback(null, results);
             });
         }
     ],
