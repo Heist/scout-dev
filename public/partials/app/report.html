@@ -52,7 +52,6 @@
 				<p ng-bind-html='selected.summary'></p>
 			</div>
 		
-		
 			<hr />
 			
 			
@@ -60,7 +59,8 @@
 			<div class="message-group">
 				
 				<!-- message -->
-				<div ng-repeat="message in messages" class="message" ng-show="showTask(message, selected)">
+				<div ng-repeat="message in messages" class="message" ng-show="showTask(message, selected)" 
+				ng-class="{selected: commentMessage._id === message._id}">
 					
 					<div class="message-body">
 						<p ng-bind-html="message.body | hashtag"></p>
