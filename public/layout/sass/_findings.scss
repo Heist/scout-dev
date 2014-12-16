@@ -1,0 +1,69 @@
+/* new report & summarizing hawtness up in this piece */
+
+#view-findings {
+	
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	
+	&.show-comments {
+		
+	}
+
+	
+	#findings-nav {
+		padding: $pad 0 0 0;
+		margin: 0;
+		width: 20%;
+		float: left;
+		height: 100%;
+		position: fixed;
+		left: 15%;
+		top: 0;
+		
+		@include scrollbar;
+		
+		#findings-viewmode-controls {
+			padding: $pad;
+			width: 95%;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+		}
+		
+		#sidebar {
+			width: 95%;
+			height: 80%;
+			overflow: auto;
+			
+			li {
+				width: 95%;
+			}
+		}
+	}
+	
+	.sheet-holder {
+		position: absolute;
+		top: 0;
+		left: 35%;
+		width: 50%;
+	}
+	
+	
+	.findings-header {
+		padding: $pad*2 $pad*2 $pad $pad*2;
+		
+		h3 {
+			padding: 0;
+			margin: 0;
+		}
+	}
+	
+	.findings-description {
+		padding: 0 $pad*2 $pad $pad*2;
+	}
+	
+	
+}
+
+

@@ -151,25 +151,28 @@
 		<div id="timeline-user-input"> </div>
 		
 		<div id="timeline-user">
-			<div id="timeline-user-only" ng-hide="live">
+			
+			<div id="timeline-user-only" ng-hide="subject.testroom">
 				<div class="clear"></div>
-				<div class="timeline-user-avatar" ng-hide="subject.testroom && live">
+				
+				<div class="timeline-user-avatar">
 					<img src="/layout/assets/avatar-large.png">
 				</div>
 				
 				<small>Testing with</small>
-				<h2 ng-show="live">{{subject.name}}</h2>
+				<h2>{{subject.name}}</h2>
 				
-				<!--<button class="button">New participant</button>-->
-				
+				<!--<button class="button">New participant</button>-->	
 			</div>
-			<div id="timeline-user-only" style="top:10%;" ng-show="live">
+			
+			<div id="timeline-user-only" style="top:10%;" ng-show="subject.testroom">
 				<canvas id="feed"></canvas>
 				<img id='ia' style='display:none;'/>
 				<div style='clear'></div>
 				<small>Testing with</small>
 				<h2>{{subject.name}}</h2>
 			</div>
+			
 		</div>
 		
 			

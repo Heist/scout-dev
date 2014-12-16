@@ -2,9 +2,6 @@
 
 
 #sidebar {
-	//position:fixed;
-	// width: 25%;
-	// overflow:auto;
 		
 	ul {
 		padding: 0;
@@ -14,59 +11,46 @@
 
 		
 		li {
-			padding: $pad/1.5 $pad*4 $pad/1.5 0;
+			padding: $pad/2;
 			margin: 0;
 			@include radius;
-			border: 2px solid $white;
-			@include type-regular;
+			position: relative;
 			
-			h3 {
-				margin: 0 0 2px 0; 
-				padding: 0;
-				@include type-regular;
+			.task-boop {
+				position: absolute;
+				top: 18px;
+				right: $pad;
+				width: $pad/3 !important;
+				height: $pad/3 !important;
+				overflow: hidden;
+				display: inline-block;
+				@include radius($pad*2);
+				
+				&.red {
+					background: $fg-header-red;
+				}
+				
+				&.green {
+					background: $fg-green;
+				}
 			}
 			
-			p {
-				margin-top: 0; 
-				padding: 0;
-				font-size: $type-size-base*0.8;
-				line-height: $type-line-base*0.8;
-			}
-			
-			small {
-				text-transform: uppercase;
-				margin: 0;
-				padding: 0;
-				opacity: 0.5;
-			}
-			
+					
 			&:hover {
-				//border: 2px solid transparentize($fg-slate, 0.8);
-				color: lighten($fg-black, 8%);
+				background: $background-overlay;
 				cursor: pointer;
 			}
 									
 			&.active {
-				// background: $fg-slate;
 				position: relative;
 				color: $fg-slate;
 				@include type-bold;
 				
 				&:hover {
 					cursor: auto;
-					border: 2px solid $white;
 				}		
 			}
-			
-			&.empty {
-				border: none;
-				padding: $pad $pad $pad/4 $pad;
-				
-				&:hover {
-					cursor: auto;
-					border: none;
-				}
-			}
+
 			
 			.sidebar-visibility {
 				float: right;
@@ -85,39 +69,6 @@
 	}
 		
 }
-
-
-/* style up task scores when we're look at reports */
-
-#view-report {
-	#sidebar {
-		h3 {
-			display: inline-block;
-			margin: 0;
-			width: 90%;
-		}
-		
-		.task-score {
-			width: 12px;
-			height: 12px;
-			float: right;
-			display: block;
-		}
-	}
-}
-
-/* style up the sidebar for summarizing */
-
-/* some stuff for summarizing */
-
-#view-summarizing {
-	#sidebar {
-		.step-ordering {
-			display: none;
-		}
-	}
-}
-
 
 
 
