@@ -1,5 +1,8 @@
-<div id="view-findings" ng-class="{ 'show-comments' : showCommentToggle == true }" ng-model="report">
-
+<div id="view-findings" 
+	ng-class="{ 'show-comments' : showCommentToggle == true }" 
+	ng-model="report"
+	ng-keyup="doKeyUp($event)"
+>
 	
 	<div id="nav-logo">
 		<a href="/overview"><img src="../layout/assets/fg-binocs-header.gif" /></a>
@@ -60,7 +63,9 @@
 				
 				<!-- message -->
 				<div ng-repeat="message in messages" class="message" ng-show="showTask(message, selected)" 
-				ng-class="{selected: commentMessage._id === message._id}">
+				ng-class="{selected: commentMessage._id === message._id}"
+				ng-click="showComments(message)"
+				>
 					
 					<div class="message-body">
 						<p ng-bind-html="message.body | hashtag"></p>
@@ -70,7 +75,7 @@
 					<div class="clear"></div>
 					
 					<!-- if comments, display count -->
-					<div class="message-comment-count" ng-click="showComments(message);">12</div>
+					<div class="message-comment-count">12</div>
 					
 					<div class="message-comments" ng-show="commentMessage._id === message._id">
 						<!-- if comments, display coments -->
