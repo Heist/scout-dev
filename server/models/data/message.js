@@ -11,11 +11,13 @@ var db = connect.db;
 var MessageSchema = new Schema ({
     _subject : { type: Schema.Types.ObjectId, ref: 'Subject' },
     _test : { type: Schema.Types.ObjectId, ref: 'Test' },
+    _comments : [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
 
     body : { type: String, trim: true },
     created_by : { type: Schema.Types.ObjectId },
     fav_task : { type: Boolean, default: true },
     fav_tag : { type: Boolean, default: true },
+    
     
     created: Date
 });

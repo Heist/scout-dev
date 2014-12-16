@@ -28,7 +28,21 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
                 
             }); 
 
-        // mixpanel.track('Report Loaded', {});
+    $scope.doKeyUp = function(evt){
+        console.log(evt);
+        if(event.keyCode === 27){
+            $scope.showCommentToggle = false;
+            $scope.commentMessage = '';   
+        } else {
+            return;
+        }
+    };
+
+// MIXPANEL ===================================== 
+
+    // mixpanel.track('Report Loaded', {});
+// ==============================================
+
     $scope.summarize = function(){
         $location.path('/summary/'+ $stateParams.test_id);
     };
@@ -59,8 +73,8 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
     };
 
     $scope.showComments = function(message){
-        if( $scope.showCommentToggle === true ){ $scope.showCommentToggle = false; }
-        else {  $scope.showCommentToggle = true; }
+        if( !$scope.showCommentToggle){  $scope.showCommentToggle = true; }
+
         $scope.commentMessage = message;
         console.log(message);
     };
