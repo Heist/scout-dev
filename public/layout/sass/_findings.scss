@@ -1,5 +1,6 @@
 /* new report & summarizing hawtness up in this piece */
 
+
 #view-findings {
 	
 	padding: 0;
@@ -8,6 +9,17 @@
 	
 	&.show-comments {
 		
+		.sheet-holder {
+			left: 25%;
+		}
+		
+		#findings-nav {
+			left: 5%;
+		}
+	
+		.message-comments {
+			display: block;
+		}
 	}
 
 	
@@ -15,7 +27,6 @@
 		padding: $pad 0 0 0;
 		margin: 0;
 		width: 20%;
-		float: left;
 		height: 100%;
 		position: fixed;
 		left: 15%;
