@@ -1,128 +1,6 @@
 /* styles for bits */
 
 
-/* how we style notes within summaries and reports */
-
-
-.message-group {
-	margin: 0;
-	padding: $pad/2 0 0 0;
-	
-	&.report-messages {
-		//border-top: 1px solid $line;
-		padding: $pad 0 0 0;
-		
-		.message {
-			padding: $pad/2 0;
-			
-			.message-body p {
-				margin-bottom: -4px;
-			}
-			
-			&:hover {
-				background: none;
-			}
-		}
-		
-	}
-				
-}
-
-
-
-.message {
-	padding: $pad/2 $pad/3;
-	@include radius;
-	color: $fg-grey;
-		
-		&:hover {
-			color: $fg-black;
-		
-		.message-details .message-edit {
-			display: block;
-		}
-		
-		// .message-body .tag {
-		// 	background: darken($fg-tan, 6%);
-		// }
-	}
-	
-	.message-details {
-		float: left;
-		margin: 2px 0 0 0;
-		width: $pad*1.25;
-		height: 16px;
-		
-		.message-details-avatar {
-			img {
-				width: 16px;
-				height: 16px;
-			}
-		}
-		
-		.message-edit {
-			display: none;
-			
-			img {
-				width: 12px;
-				height: auto;
-				opacity: 0.5;
-			}
-		}
-		
-	}
-	
-	.message-body {
-		float: left;
-		width: 90%;	
-
-		p {
-			margin-bottom: 0;
-			
-			.tag {
-				padding: 0 $pad/6;
-			}
-		}
-		
-		
-		small {
-			margin: 0;
-			padding: 0;
-			color: $fg-grey;
-		}
-		
-		textarea {
-			width: 100%;
-		}
-		
-	}
-	
-	/* when it's the user header */
-	&.message-user {
-		.message-body {
-			width: 50%;
-			font-size: $type-size-base*0.8;
-			text-transform: uppercase;
-			opacity: 0.6;
-		}
-		
-		.message-fave {
-			font-size: $type-size-base*0.8;
-			opacity: 0.6;
-		}
-		
-		.message-details {
-			opacity: 0.4;
-		}
-		
-		&:hover {
-			background: none;
-		}	
-	}
-		
-}
-
-
 
 /* task rating input */
 
@@ -234,56 +112,62 @@
 	}
 }
 
-/* Edit mode button on the bottom of Reports*/
-.edit-controls{
-	position: fixed;
-	bottom:40px;
-	left:44%;
-	background-color: #f2f2f2;
-	border-radius: 4px;
 
-	a{
-		display: block;
-		float: left;
-		min-width: 100px;
-		text-align: center;
-		padding: $pad/1.7;
-		text-decoration: none;
 
-	}
-
-	.enabled{
-		color: #fff;
-		background-color: $fg-green;
-
-		&:hover{
-
-			background-color: darken($fg-green, 3%);
-
-		}
-
-		&.left {
-			border-radius: 4px 0px 0px 4px;
-
-		}
-
-		&.right {
-			border-radius: 0px 4px 4px 0px;
-		}
-
-	}
-
-	.disabled {
-		color: darken(#f2f2f2, 30%);
-
-		&:hover{
-			border-radius: 0px 4px 4px 0px;
-			background-color: darken(#f2f2f2, 3%);
-		}
-	}
-
+/* sheet stylins' */
+.sheet-holder {
+	padding: $pad 0;
+	min-height: 100%;
 }
 
+.sheet {
+	padding: 0;
+	margin: 0;
+	min-height: 100%;
+	background: $white;
+	@include dropshadowULTRA;
+}
+
+
+/* horizontal rule */
+
+hr {
+	width: 70%;
+	padding: 0;
+	margin: 0 auto;
+	display: block;
+	border: none;
+	border-top: 1px solid $line;
+}
+
+
+/* minimal nav */
+
+#nav-logo {
+	position: fixed;
+	left: $pad;
+	top: $pad;
+	background: $fg-header-red;
+	color: $fg-header-red-dark;
+	@include radius($pad*4);
+	padding: 0;
+	margin: 0;
+	z-index: 999999;
+	overflow: hidden;
+	
+	a {
+		display: block;
+		width: $pad*2.5;
+		height: $pad*2.5;
+		text-align: center;
+		line-height: $pad*2.7;
+	}
+	
+	img {
+		height: 13px;
+		width: auto;
+	}
+}
 
 
 

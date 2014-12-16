@@ -13,7 +13,7 @@ $white: #fff;
 /* FG colours */
 
 $fg-cream: #fbfbf9;
-
+$fg-bg: #f6f6f6;
 
 $fg-brown: #2e2723;
 $fg-brown-light: #483e38;
@@ -26,6 +26,7 @@ $fg-blue: #0abcd7;
 
 $fg-green: #85ac0f;
 $fg-green-light: #86aa25;
+$fg-green-grassy: #9bbb3a;
 $fg-green-dark: #627136;
 
 $fg-butter: lighten(#fee49b, 10%);
@@ -48,12 +49,13 @@ $fg-tan-dark: darken($fg-tan, 6%);
 interpreted colours
 */
 
-$text: #646a72;
+$text: #7c7d80;
 $text-light: transparentize($text, 0.7);
 
 
-$background: $fg-cream;
-$background-dark: darken($background, 5%);
+$background: $fg-bg;
+$background-overlay: darken($background, 4%);
+$background-dark: darken($background, 12%);
 
 $modal-bg: transparentize($fg-slate, 0.2);
 

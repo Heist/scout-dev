@@ -1,0 +1,191 @@
+/* message list */
+
+
+
+/* how we style notes within summaries and reports */
+
+
+.message-group {
+	margin: 0;
+	padding: $pad*1.5 0 $pad 0;
+	
+	&.report-messages {
+		//border-top: 1px solid $line;
+		padding: $pad 0 0 0;
+		
+		.message {
+			padding: $pad/2 0;
+			
+			.message-body p {
+				margin-bottom: -4px;
+			}
+			
+			&:hover {
+				background: none;
+			}
+		}
+		
+	}
+				
+}
+
+
+
+.message {
+	padding: $pad/1.5 $pad*2;
+	border-left: 4px solid $white;
+	border-right: 4px solid $white;
+	position: relative;
+	@include animated;
+			
+	&:hover {
+		color: $fg-slate;
+		background: #f3f7e7;
+		border-left: 4px solid $fg-green-grassy;
+		border-right: 4px solid $fg-green-grassy;
+		@include animated;
+					
+		.message-details .message-edit {
+			display: block;
+		}
+		
+		.message-comment-count {
+			background: url('../assets/comment-active.svg') no-repeat right top;
+			background-size: contain;
+			color: $white;
+			
+			&.empty {
+				background: url('../assets/comment-active.svg') no-repeat right top;
+				background-size: contain;
+				color: $white;
+			}
+		}
+	}
+	
+	.message-comment-count {
+		position: absolute;
+		left: 102%;
+		top: 0;
+		padding: $pad/3 $pad/2 $pad/3 $pad;
+		font-size: 11px;
+		line-height: 11px;
+		@include type-bold;
+		color: darken($background-dark, 10%);
+		background: url('../assets/comment-inactive.svg') no-repeat right top;
+		background-size: contain;
+		cursor: pointer;
+		
+		&.empty {
+			background: url('../assets/comment-empty.svg') no-repeat right top;
+			background-size: contain;
+			color: darken($background-dark, 10%);
+			@include type-extrabold;
+		}
+	}
+	
+	
+	.message-comments {
+		position: absolute;
+		left: 110%;
+		top: 0;
+		width: 200px;
+		padding: $pad/5 0 0 0;
+		
+		.message-comment {
+			font-size: $type-size-base*0.85;
+			line-height: $type-line-base*0.8;
+					
+		}
+		
+		small {
+			opacity: 0.6;
+			font-size: $type-size-base*0.7;
+			@include type-light;
+		}
+		
+		.message-comment-submit {
+			.input {
+				font-size: $type-size-base*0.85;
+				@include dropshadow;
+				width: 100%;
+				height: $pad*3;
+			}
+		}
+	}
+	
+	
+	.message-details {
+		float: left;
+		margin: 2px 0 0 0;
+		width: $pad*1.25;
+		height: 16px;
+		
+		.message-details-avatar {
+			img {
+				width: 16px;
+				height: 16px;
+			}
+		}
+		
+		.message-edit {
+			display: none;
+			
+			img {
+				width: 12px;
+				height: auto;
+				opacity: 0.5;
+			}
+		}
+		
+	}
+	
+	.message-body {
+		float: left;
+		width: 90%;	
+
+		p {
+			margin-bottom: 0 !important;
+		}
+		
+		
+		small {
+			display: block;
+			margin: -5px 0 0 0;
+			padding: 0;
+			opacity: 0.6;
+		}
+		
+		textarea {
+			width: 100%;
+		}
+		
+	}
+	
+	/* when it's the user header */
+	&.message-user {
+		.message-body {
+			width: 50%;
+			font-size: $type-size-base*0.8;
+			text-transform: uppercase;
+			opacity: 0.6;
+		}
+		
+		.message-fave {
+			font-size: $type-size-base*0.8;
+			opacity: 0.6;
+		}
+		
+		.message-details {
+			opacity: 0.4;
+		}
+		
+		&:hover {
+			background: none;
+		}	
+	}
+		
+}
+
+
+
+

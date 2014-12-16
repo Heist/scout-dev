@@ -15,7 +15,7 @@ mixins
 	box-shadow: $shadow $intensity;
 }
 
-@mixin dropshadowULTRA($shadow: 0 3px 20px, $intensity: rgba(0,0,0,0.3)) {
+@mixin dropshadowULTRA($shadow: 0 3px 10px, $intensity: rgba(0,0,0,0.1)) {
 	-moz-box-shadow: $shadow $intensity;
 	-webkit-box-shadow: $shadow $intensity;
 	box-shadow: $shadow $intensity;
@@ -49,6 +49,37 @@ mixins
 	-moz-border-radius-bottomleft: $radius;
 	border-bottom-right-radius: $radius;
 	border-bottom-left-radius: $radius;
+}
+
+
+@mixin animated($time: 0.2s) {
+	-webkit-transition-duration: $time;
+	-webkit-transition-timing: ease-out; 
+	-o-transition-duration: $time;
+	-o-transition-timing: ease-out;
+	-moz-transition-duration: $time;
+	-moz-transition-timing: ease-out;
+	-ms-transition-duration: $time;
+	-ms-transition-timing: ease-out;
+	transition-duration: $time;
+	transition-timing: ease-out; 
+}
+
+
+@mixin scrollbar {
+	::-webkit-scrollbar {
+	    width: $pad/3;
+	}
+	 
+	::-webkit-scrollbar-track {
+	   	background: $background-overlay;
+	    border-radius: $pad/2;
+	}
+	 
+	::-webkit-scrollbar-thumb {
+	    background: $background-dark;
+	    border-radius: $pad/2;
+	}
 }
 
 

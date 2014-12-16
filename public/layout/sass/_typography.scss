@@ -56,7 +56,7 @@ h3 {
 	font-size: $type-size-base*1.25;
 	@include type-bold;
 	margin: 0 0 $pad/2 0;
-	letter-spacing: -1px;
+	//letter-spacing: -1px;
 }
 
 h4 {
@@ -76,6 +76,10 @@ p {
 
 strong {
 	@include type-bold;
+}
+
+.dark {
+	color: $fg-slate;
 }
 
 a {
@@ -197,11 +201,7 @@ ul.lined {
 
 /* if we want to use tags inline */
 .tag {
-	display: inline-block;
-	// @include radius;
-	// background: $fg-tan;
 	color: $fg-blue;
-	padding: $pad/3 $pad/2;
 }
 
 
