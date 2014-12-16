@@ -1,4 +1,4 @@
-<div id="view-findings" ng-model="report">
+<div id="view-findings" ng-class="{ 'show-comments' : showCommentToggle == true }" ng-model="report">
 
 	
 	<div id="nav-logo">
@@ -72,31 +72,25 @@
 					<div class="clear"></div>
 					
 					<!-- if comments, display count -->
-					<div class="message-comment-count">12</div>
-					<!-- if no comments -->
-					<!--<div class="message-comment-count empty">+</div>-->
+					<div class="message-comment-count" ng-click="showComments(message);">12</div>
 					
-					
-					<!-- if comments, display coments -->
-					<div class="message-comments">
-						
-						<div class="message-comment">
+					<div class="message-comments" ng-show="commentMessage._id === message._id">
+						<!-- if comments, display coments -->
+						<div class="message-comment" >
 							<small><strong>David Stubbs</strong> Jan 24 2015</small>
 							<p>This is a great point, we should definitely do this</p>
 						</div>
+
+						<!-- if no comments -->
+						<!--<div class="message-comment-count empty">+</div>-->
 						
-						<div class="message-comment">
-							<small><strong>Veal Cutlet</strong> Jan 25 2015</small>
-							<p>Yeah, this fellow's opinions are on point right hurr</p>
-						</div>
-						
+						<!-- message-comment new -->
 						<div class="message-comment-submit">
-							<form>
-								<small>Add a comment:</small>
-								<textarea class="input small"></textarea
-							</form>
+								<form>
+									<small>Add a comment:</small>
+									<textarea class="input small"></textarea>
+								</form>
 						</div>
-						
 					</div>
 					<!-- / display comments -->
 					

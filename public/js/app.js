@@ -186,6 +186,29 @@ field_guide_app.factory('socket', function ($rootScope, $location) {
         }
     };
 });
+// KEYPRESS CONTROLLER ====================================
+// TODO Make this work to smell combos on ctrl.
+
+// $scope.keyboard = {
+//   var buffer: [], 
+//   detectCombination : function() {
+//     var codes = {};
+//     this.buffer.forEach(function(code) {
+//       codes['key_' + code] = 1;
+//     })
+
+//     if ((codes.key_91 || codes.key_93) && codes.key_8) {
+//       // I'm looking for 'command + delete'
+//     }
+//   },
+//   keydown: function($event) {
+//     this.buffer.push($event.keyCode);
+//     this.detectCombination()
+//   },
+//   keyup: function($event, week) {
+//     this.buffer = [];
+//   }
+// }
 
 
 // DIRECTIVES =============================================
@@ -277,4 +300,4 @@ field_guide_app
 angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);
 
 // CONTROLLERS ================================================================
-angular.module('field_guide_controls', ['ui','ui.router']); 
+angular.module('field_guide_controls', ['ui','ui.router']);
