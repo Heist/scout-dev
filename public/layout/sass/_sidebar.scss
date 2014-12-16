@@ -2,25 +2,33 @@
 
 
 #sidebar {
+
+	&.summarizing {
+		.step-ordering {
+			position: absolute;
+			left: $pad/2;
+			top: $pad/2;
+		}
+		
+		li {
+			padding-left: $pad*1.5;
+		}
+	}
 		
 	ul {
 		padding: 0;
 		margin: 0;
 		list-style: none;
-		color: #939598;
-
+		color: lighten($text, 10%);
 		
+				
 		li {
 			padding: $pad/2;
 			margin: 0;
 			@include radius;
 			position: relative;
 			
-			.step-ordering {
-				position: absolute;
-				left: $pad/2;
-				top: $pad/2;
-			}
+			
 			
 			.task-boop {
 				position: absolute;
