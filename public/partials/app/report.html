@@ -73,16 +73,16 @@
 					
 					<!-- if comments, display count -->
 					<div class="message-comment-count" ng-click="showComments(message);">12</div>
-					<!-- if no comments -->
-					<!--<div class="message-comment-count empty">+</div>-->
 					
-					
-					<!-- if comments, display coments -->
-					<div class="message-comments">
-						<div class="message-comment" ng-repeat="comment in message.comments">
+					<div class="message-comments" ng-show="commentMessage._id === message._id">
+						<!-- if comments, display coments -->
+						<div class="message-comment" >
 							<small><strong>David Stubbs</strong> Jan 24 2015</small>
 							<p>This is a great point, we should definitely do this</p>
 						</div>
+
+						<!-- if no comments -->
+						<!--<div class="message-comment-count empty">+</div>-->
 						
 						<!-- message-comment new -->
 						<div class="message-comment-submit">
