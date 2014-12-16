@@ -59,8 +59,8 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
     };
 
     $scope.showComments = function(message){
-        if( $scope.showCommentToggle === true ){ $scope.showCommentToggle = false; }
-        else {  $scope.showCommentToggle = true; }
+        if( !$scope.showCommentToggle){  $scope.showCommentToggle = true; }
+
         $scope.commentMessage = message;
         console.log(message);
     };
