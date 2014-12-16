@@ -2,26 +2,6 @@
 
 
 
-/* task rating input */
-
-.task-rating {
-	width: 100%;
-	background: $fg-tan;
-	padding: $pad/2;
-	margin: 0;
-	font-size: $type-size-base*0.8;
-	@include radius;
-	
-	.float-left {
-		padding-top: $pad/6;
-	}
-	
-	.button {
-		&.hollow {
-			opacity: 0.3;
-		}
-	}
-}
 
 
 /* task rating output */
@@ -126,6 +106,7 @@
 	min-height: 100%;
 	background: $white;
 	@include dropshadowULTRA;
+	@include radius;
 }
 
 

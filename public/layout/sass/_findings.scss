@@ -11,10 +11,12 @@
 		
 		.sheet-holder {
 			left: 25%;
+			@include animated;
 		}
 		
 		#findings-nav {
 			left: 5%;
+			@include animated;
 		}
 	
 		.message-comments {
@@ -31,7 +33,7 @@
 		position: fixed;
 		left: 15%;
 		top: 0;
-		
+		@include animated;		
 		@include scrollbar;
 		
 		#findings-viewmode-controls {
@@ -58,6 +60,7 @@
 		top: 0;
 		left: 35%;
 		width: 50%;
+		@include animated;
 	}
 	
 	
@@ -72,6 +75,17 @@
 	
 	.findings-description {
 		padding: 0 $pad*2 $pad $pad*2;
+	}
+	
+	.findings-summary {
+		width: 100%;
+		height: 100px;
+		padding: $pad $pad*2;
+		@include radius(0px);
+		border: none;
+		border-top: 1px solid $line;
+		border-bottom: 1px solid $line;
+		margin: 0;
 	}
 	
 	

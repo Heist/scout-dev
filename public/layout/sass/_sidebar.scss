@@ -16,6 +16,12 @@
 			@include radius;
 			position: relative;
 			
+			.step-ordering {
+				position: absolute;
+				left: $pad/2;
+				top: $pad/2;
+			}
+			
 			.task-boop {
 				position: absolute;
 				top: 18px;
