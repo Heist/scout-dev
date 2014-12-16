@@ -7,7 +7,7 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/report/'+$stateParams.test_id;
     
-    $http.get('/api/report/'+$stateParams.test_id)
+    $http.get('/api/auth/report/'+$stateParams.test_id)
             .success(function(data){
                 console.log('the report object', data);
                 
@@ -72,11 +72,28 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
         }
     };
 
+// COMMENTING =============================================
+
     $scope.showComments = function(message){
         if( !$scope.showCommentToggle){  $scope.showCommentToggle = true; }
 
         $scope.commentMessage = message;
         console.log(message);
+    };
+
+    $scope.addComment = function(comment){
+        var dataOut = {
+            comment: {body : comment.body},
+            message: $scope.commentMessage._id
+        };
+
+        $http
+            .post('/api/comment/', dataOut)
+            .success(function(data){
+                console.log(data);
+                comment.body = '';
+            });
+
     };
 
 }]);

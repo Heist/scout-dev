@@ -6,7 +6,6 @@ module.exports = function(app, passport) {
 var mongoose = require('mongoose');  //THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 var _ = require('underscore');
 var async = require('async');
-var Promise = require('promise');
 
 //load data storage models
 var Message = require('../models/data/message');

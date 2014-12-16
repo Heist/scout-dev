@@ -353,4 +353,7 @@ app.route('/auth/invite/:_id')
 // Do A Summary
     require('./routes/summary')(app);
 
+// Reporting and Comments 
+    require('./routes/reportPrivate')(app);
+
 };

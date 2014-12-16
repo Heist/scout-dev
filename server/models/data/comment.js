@@ -7,11 +7,10 @@ var Schema = mongoose.Schema;
 var connect = require('../../db/db');
 var db = connect.db;
 
-
 var CommentSchema = new Schema ({
     body : { type: String, trim: true },
     created_by : { type: Schema.Types.ObjectId },
-    created_name : { type: String, trim: true },
+    name : { type: String, trim: true },
     created: Date
 });
 
