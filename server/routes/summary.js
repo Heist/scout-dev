@@ -136,19 +136,18 @@ module.exports = function (app, passport) {
 
     });
     
-    app.route('/api/summary/message/').post(function(req,res){
-          // TODO: make this into Async becasue this is pretty complex.
-
+    app.route('/api/summary/message/')
+       .post(function(req,res){
         console.log('touched new message ', req.body);
 
         var body, _subject, created_by, _test, _task, _session;
 
         if (req.body.body) { body = req.body.body;}        
-        if (req.body._subject) {_subject = mongoose.Types.ObjectId(req.body._subject); console.log('task', _subject);}
-        if (req.body._test) {_test = mongoose.Types.ObjectId(req.body._test); console.log('test', _test);}
-        if (req.user._id) {created_by = mongoose.Types.ObjectId(req.user._id); console.log('task', created_by);}
+        if (req.body._subject) {_subject = mongoose.Types.ObjectId(req.body._subject); }
+        if (req.body._test) {_test = mongoose.Types.ObjectId(req.body._test); }
+        if (req.user._id) {created_by = mongoose.Types.ObjectId(req.user._id); }
 
-        if (req.body._task) {_task = mongoose.Types.ObjectId(req.body._task); console.log('task', _task);}
+        if (req.body._task) {_task = mongoose.Types.ObjectId(req.body._task); }
         if (req.body._session) {_session = mongoose.Types.ObjectId(req.body._session); console.log('session', _session);}
 
         var new_note = {
@@ -163,69 +162,70 @@ module.exports = function (app, passport) {
                 Message.create(
                     new_note, 
                     function(err, msg){
-                        if (err) {res.send(err);} 
+                        if (err) {console.log(err);} 
                         callback(null, msg);
                     });
             },
             function(msg, callback){
+                Message.findById(msg._id)
+                       .populate('_subject')
+                       .exec(function(err, note){
+                            if (err) {console.log(err);}
+                            callback(null, note); 
+                        });
+            },
+            function(msg, callback){
                 async.parallel({
-                    task: function(msg, callback){
+                    task: function(callback){
                         if (_task){
-                            Task.findByIdAndUpdate( 
-                                _task, 
-                                { $push: {_messages : msg._id} }, 
-                                function(err,task){ 
-                                    if (err) {res.send(err);}
-                                    console.log('task', task);
-                                    // callback(null, task);
+                            Task.findOne({'_id':_task})
+                                .exec(function(err, task){
+                                    task._messages.push(msg._id);
+                                    task.save(function(err, data){
+                                        callback(null, data);
+                                    });
                                 });
-                        } else {
-                            callback(null, null);
                         }
                     },
-                    subject: function(msg, callback){
-                        Subject.findOneAndUpdate(
-                            {'_id': _subject}, 
-                            { $push: {_messages : msg._id} },
-                            function(err, subject){ 
-                                if (err) {res.send(err);}
-                                console.log('subject', subject);
-                                // callback(null, subject);
-                            });
+                    subject: function(callback){
+                        Subject.findById(_subject)
+                               .exec(function(err, subject){
+                                    subject._messages.push(msg._id);
+                                    subject.save(function(err, subject){
+                                        callback(null, subject);
+                                    });
+                                });
                     },
-                    tags: function(msg, callback){
+                    tags: function(done){
                         if(req.body.tags){
                             async.map(
                                 req.body.tags, 
                                 function(tag, callback){
-                                    Tag.findOneAndUpdate( 
-                                        { name: tag, _test: _test },
-                                        { $push: { _messages: msg._id },
-                                          _test: _test,
-                                          name: tag },
-                                        { upsert: true }, 
-                                        function(err, data){ 
-                                            console.log('tag', data);
 
-                                            // callback(null, data);
+                                    Tag.findOneAndUpdate( 
+                                        {name: tag, _test: msg._test}, 
+                                        { $push: { _messages: msg._id },
+                                                name: tag,
+                                                _test: msg._test
+                                        }, 
+                                        {upsert:true}, 
+                                        function(err, data){ 
+                                            callback(null, data);
                                         });
                                 }, 
                                 function(err, results){
-                                    console.log('tag results', results);
+                                    done(null, results);
                                 });
-                        } else {
-                            callback(null, null);
-                        }
+                        } 
                     }
                 }, function(err, results){
-                    console.log('parallel results', results);
-                    callback(null, results);
+                    callback(null, {msg: msg, waterfall: results});
                 });
             }
         ], 
         function(err, results){
-            console.log('waterfall results', results);
-            // res.json(results);
+            console.log('waterfall results', results.msg, results.waterfall.tags);
+            res.json({msg: results.msg, tags: results.waterfall.tags});
         });
     });
 
