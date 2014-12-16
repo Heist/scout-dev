@@ -91,37 +91,36 @@ module.exports = function(account, id){
                 }
             }, 
             function(err, results){
-                console.log('parallel results', results);
-                callback(null, results);
+                callback(null, {tasks: results.tasks, test: results.test, subject: arg.subject});
             });
         },
         function(arg, callback){
             console.log('waterfall', arg);
-            // var arr = [
-            //         {
-            //             body:'note #yellow #blue #green',
-            //             _test: arg.test._id,
-            //             _subject: arg.subject._id
-            //         },
-            //         {
-            //             body:'note #yellow #blue',
-            //             _test: arg.test._id,
-            //             _subject: arg.subject._id
-            //         },
-            //         {
-            //             body:'note #yellow',
-            //             _test: arg.test._id,
-            //             _subject: arg.subject._id
-            //         }
-            //     ];
+            var arr = [
+                    {
+                        body:'note #yellow #blue #green',
+                        _test: arg.test._id,
+                        _subject: arg.subject._id
+                    },
+                    {
+                        body:'note #yellow #blue',
+                        _test: arg.test._id,
+                        _subject: arg.subject._id
+                    },
+                    {
+                        body:'note #yellow',
+                        _test: arg.test._id,
+                        _subject: arg.subject._id
+                    }
+                ];
 
-            // Message.create(
-            //     arr, 
-            //     function(err, d0, d1, d2){
-            //         if (err) {console.log(err);} 
-            //         var pusher = [d0, d1, d2];
-            //         callback(null, {msg_arr: pusher, subject: arg.subject, test: arg.test});
-            //     });
+            Message.create(
+                arr, 
+                function(err, d0, d1, d2){
+                    if (err) {console.log(err);} 
+                    var pusher = [d0, d1, d2];
+                    callback(null, {msg_arr: pusher, subject: arg.subject, test: arg.test, tasks: arg.tasks});
+                });
         },
         function(arg, callback){
             var arr = _.pluck(arg.msg_arr, '_id');
