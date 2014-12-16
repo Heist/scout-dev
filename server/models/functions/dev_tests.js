@@ -59,14 +59,39 @@ module.exports = function(account, id){
                 },
                 function(err, data){
                     if (err) {console.log(err);}
-                    Test.findOne(arg._id)
+                    callback(null, {test: arg, subject: data});
+                });
+        },
+        function(arg, callback){
+            async.parallel([
+                function(arg, callback){
+                    Test.findOne(arg.test._id)
                         .exec(function(err, test){
-                            test._subjects.push(data._id);
+                            test._subjects.push(arg.subject._id);
                             test.save(function(err, saved){
-                                callback(null, {test: arg, subject: data});
+                                callback(null, saved);
                             });
                         });
-                });
+                },
+                function(arg, callback){
+                    Task.find('_test', arg.test._id)
+                        .exec(function(err, tasks){
+                            async.map(tasks,
+                                function(task){
+                                    task._subjects.push(arg.subject._id);
+                                    task.save(function(err, saved){
+                                        callback(null, saved);
+                                    });
+                                }, 
+                                function(err, results){
+                                    callback(null, results);
+                                });
+                        });
+                }
+            ], 
+            function(err, results){
+                callback(null, results);
+            });
         },
         function(arg, callback){
             var arr = [
