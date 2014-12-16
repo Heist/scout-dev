@@ -88,6 +88,16 @@ angular.module('field_guide_controls')
     };
 
     // TEST ROUTES ========================================
+    $scope.devTest = function(){
+        console.log('get me some tests');
+        
+        $http.post('/api/test/dev_tests/')
+            .success(function(data){
+                console.log(data);
+                $scope.tests.push(data);
+            });
+    };
+
     $scope.newTest = function(){
             console.log('touched addatest');
             
@@ -98,9 +108,9 @@ angular.module('field_guide_controls')
                 console.log($rootScope.user);
                 test.created_by = $rootScope.user;
                
-                mixpanel.track('Add new test', {
-                    'user' : $rootScope.user
-                });
+                // mixpanel.track('Add new test', {
+                //     'user' : $rootScope.user
+                // });
 
 
             }else{

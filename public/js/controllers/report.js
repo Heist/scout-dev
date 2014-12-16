@@ -78,7 +78,7 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
         if( !$scope.showCommentToggle){  $scope.showCommentToggle = true; }
 
         $scope.commentMessage = message;
-        console.log(message);
+        console.log('comments on message', message);
     };
 
     $scope.addComment = function(comment){
