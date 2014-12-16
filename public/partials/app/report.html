@@ -75,18 +75,23 @@
 					<div class="clear"></div>
 					
 					<!-- if comments, display count -->
-					<div class="message-comment-count">12</div>
+					<div class="message-comment-count" ng-show="message._comments.length > 0">
+						{{ message._comments.length}}
+					</div>
+
+					<!-- if no comments -->
+					<div class="message-comment-count empty" 
+						ng-show="message._comments.length === 0 || !message._comments" >
+						+
+					</div>
 					
 					<div class="message-comments" ng-show="commentMessage._id === message._id">
 						<!-- if comments, display coments -->
-						<div class="message-comment" >
-							<small><strong>David Stubbs</strong> Jan 24 2015</small>
-							<p>This is a great point, we should definitely do this</p>
+						<div class="message-comment">
+							<small><strong>{{comment.name}}</strong> {{comment.created | date:'MMM d yyyy'}}</small>
+							<p>{{comment.body}}</p>
 						</div>
 
-						<!-- if no comments -->
-						<!--<div class="message-comment-count empty">+</div>-->
-						
 						<!-- message-comment new -->
 						<div class="message-comment-submit">
 								<form ng-model="comment">
