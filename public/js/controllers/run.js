@@ -44,87 +44,87 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
     
     
 // RECIEVE SCREENCAPS FROM THE SOCKET ===============================
-    // var canvas = document.getElementById('feed'),
-    //     image = document.getElementById('ia'),
-    //     context = canvas.getContext('2d');
+    var canvas = document.getElementById('feed'),
+        image = document.getElementById('ia'),
+        context = canvas.getContext('2d');
 
-    // $scope.connect = {};
-    // $scope.connect.text = '71b';
+    $scope.connect = {};
+    $scope.connect.text = '71b';
 
-    // $scope.subscription = function(chan){
-    //     console.log('touched a channel', chan);
-    //     socket.emit('subscribe', { room: chan, test: $stateParams._id });
-    //     socket.emit('channel', { room: chan, test: $stateParams._id });
-    // };
+    $scope.subscription = function(chan){
+        console.log('touched a channel', chan);
+        socket.emit('subscribe', { room: chan, test: $stateParams._id });
+        socket.emit('channel', { room: chan, test: $stateParams._id });
+    };
 
-    // var socket = io.connect('http://104.236.16.159:8080/?test='+$stateParams._id, {
-    //         'force new connection': true});
+    var socket = io.connect('http://104.236.16.159:8080/?test='+$stateParams._id, {
+            'force new connection': true});
 
-    // socket.on('connect_failed', function(data)
-    // {
-    //     console.log('connect_failed');
-    // });
-    // socket.on('connecting', function(data)
-    // {
-    //     console.log('connecting');
-    // });
-    // socket.on('disconnect', function(data)
-    // {
-    //     console.log('disconnect');
+    socket.on('connect_failed', function(data)
+    {
+        console.log('connect_failed');
+    });
+    socket.on('connecting', function(data)
+    {
+        console.log('connecting');
+    });
+    socket.on('disconnect', function(data)
+    {
+        console.log('disconnect');
 
-    //     image.src = "/layout/assets/avatar-binocs.jpg";
-    //     canvas.width = 358;
-    //     canvas.height = 358 * image.height / image.width;
+        image.src = "/layout/assets/avatar-binocs.jpg";
+        canvas.width = 358;
+        canvas.height = 358 * image.height / image.width;
 
-    //     context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+        context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
 
-    //     socket.socket.disconnect();
-    // });
-    // socket.on('error', function(reason)
-    // {
-    //     console.log('error', reason);
-    // });
-    // socket.on('reconnect_failed', function(data)
-    // {
-    //     console.log('reconnect_failed');
-    // });
-    // socket.on('reconnect', function(data)
-    // {
-    //     console.log('reconnect');
-    //     socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
-    // });
-    // socket.on('reconnecting', function(data)
-    // {
-    //     console.log('reconnecting');
-    // });
+        socket.socket.disconnect();
+    });
+    socket.on('error', function(reason)
+    {
+        console.log('error', reason);
+    });
+    socket.on('reconnect_failed', function(data)
+    {
+        console.log('reconnect_failed');
+    });
+    socket.on('reconnect', function(data)
+    {
+        console.log('reconnect');
+        socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
+    });
+    socket.on('reconnecting', function(data)
+    {
+        console.log('reconnecting');
+    });
 
-    // socket.on('announce', function(data){
-    //     console.log('announce', data);
-    // });
+    socket.on('announce', function(data){
+        console.log('announce', data);
+    });
 
-    // socket.on('joined_channel', function(data){
-    //     console.log('joined_channel', data);
-    // });
+    socket.on('joined_channel', function(data){
+        console.log('joined_channel', data);
+    });
 
-    // socket.on('note', function(data){
-    //     console.log('note', data);
-    //     $scope.timeline.push(data.note.msg);
-    //     $scope.$apply();
-    // });
+    socket.on('note', function(data){
+        console.log('note', data);
+        $scope.timeline.push(data.note.msg);
+        $scope.$apply();
+    });
 
-    // socket.on('subject', function(data){
-    //     socket.emit('join_subject_test', data);
-    // });
+    socket.on('subject', function(data){
+        socket.emit('join_subject_test', data);
+    });
 
-    // socket.on('message',function(data) {
-    //     console.log('message');
-    //     image.src = "data:image/jpg;base64,"+data;
-    //     canvas.width = 358;
-    //     canvas.height = 358 * image.height / image.width;
+    socket.on('message',function(data) {
+        console.log('message');
+        image.src = "data:image/jpg;base64,"+data;
+        canvas.width = 358;
+        canvas.height = 358 * image.height / image.width;
 
-    //     context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
-    //     // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
-    // });
+        context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+        // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+    });
 
 // ANGULAR HELPER SERVICE - TODO: MOVE UP APP =======================
     

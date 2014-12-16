@@ -58,4 +58,10 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
         }
     };
 
+    $scope.showComments = function(){
+        if($scope.showCommentToggle){ $scope.showCommentToggle = false; }
+        if(!$scope.showCommentToggle){  $scope.showCommentToggle = true; }
+        
+    };
+
 }]);
