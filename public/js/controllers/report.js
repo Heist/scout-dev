@@ -87,11 +87,19 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
             message: $scope.commentMessage._id
         };
 
+
+        console.log($scope.messages);
         $http
             .post('/api/comment/', dataOut)
             .success(function(data){
                 console.log(data);
                 comment.body = '';
+                
+                var arr = _.pluck($scope.messages, '_id');
+                var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
+                
+                $scope.messages[msg_idx]._comments.push(comment);
+                
             });
 
     };

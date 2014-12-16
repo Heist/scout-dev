@@ -87,7 +87,7 @@
 					
 					<div class="message-comments" ng-show="commentMessage._id === message._id">
 						<!-- if comments, display coments -->
-						<div class="message-comment">
+						<div class="message-comment" ng-repeat="comment in message._comments">
 							<small><strong>{{comment.name}}</strong> {{comment.created | date:'MMM d yyyy'}}</small>
 							<p>{{comment.body}}</p>
 						</div>
