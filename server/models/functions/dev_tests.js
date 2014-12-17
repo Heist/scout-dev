@@ -42,7 +42,7 @@ module.exports = function(account, id){
                 ];
 
                 Task.create(tasks, function(err, t0, t1){
-                    test._tasks.push(t0, t1);
+                    test._tasks.push(t0._id, t1._id);
                     test.save(function(err, new_test){
                         // console.log('new_test', new_test);
                         callback(null, new_test);
@@ -78,7 +78,7 @@ module.exports = function(account, id){
                                 .exec(function(err, item){
                                     item._subjects.push(arg.subject._id);
                                     item.save(function(err, saved){
-                                        yeah(null, saved._id);
+                                        yeah(null, saved);
                                     });
                                 });
                         }, 
@@ -179,6 +179,7 @@ module.exports = function(account, id){
                         {'_messages': arg.green },
                         { upsert: true },
                         function(err, data){
+                            console.log('green', data);
                             callback(null, data);
                         });
                 }
@@ -190,6 +191,7 @@ module.exports = function(account, id){
     ], 
     function(err, results){
         // in here we return A TEST.
+        console.log(results);
         return results; 
     });
 };
