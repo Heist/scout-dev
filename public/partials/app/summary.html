@@ -66,17 +66,20 @@
 			<div class="findings-header">	
 				<h3 class="dark float-left"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h3>
 				
-				<div class="task-rating float-right" ng-show="selected.pass_fail == false">
+				
+				<!-- task rating widget -->
+				<div class="task-rating" ng-show="selected.pass_fail == false">
 					<small>Rating</small>
-					<button class="button small hollow" ng-click="passFail(selected)">Passed</button>
-					<button class="button small destructive">Needs work</button>
+					<div class="task-rating-doot task-rating-plus hollow" ng-click="passFail(selected)">&nbsp;</div>
+					<div class="task-rating-doot task-rating-minus">&nbsp;</div>
 				</div>
 				
-				<div class="task-rating float-right" ng-show="selected.pass_fail == true">
+				<div class="task-rating" ng-show="selected.pass_fail == true">
 					<small>Rating</small>
-					<button class="button small">Passed</button>
-					<button class="button small destructive hollow" ng-click="passFail(selected)">Needs work</button>
+					<div class="task-rating-doot task-rating-plus">&nbsp;</div>
+					<div class="task-rating-doot task-rating-minus hollow" ng-click="passFail(selected)">&nbsp;</div>
 				</div>
+				<!-- task rating -->
 				
 				
 				<div class="clear"></div>	
@@ -98,7 +101,6 @@
 				<!-- participant name -->
 				{{user[0]._subject.name}}
 				
-				Include in report?
 				
 				<button ng-click="toggleNote()">Add note?</button>
 			
