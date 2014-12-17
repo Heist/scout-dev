@@ -29,7 +29,7 @@ module.exports = function(app) {
         async.parallel({
             tags: function(callback){
                 Tag.find({'_test' : req.params._id })
-                    .populate('_messages')
+                    // .populate('_messages')
                     .exec(function(err, docs){
                         if (err) {console.log(err);}
                         callback(null, docs);
@@ -38,7 +38,7 @@ module.exports = function(app) {
             tasks: function(callback){
                 Task.find({'_test': req.params._id})
                     .sort({ index: 'asc'})
-                    .populate('_messages')
+                    // .populate('_messages')
                     .exec(function(err, docs){
                         if (err) {console.log(err);}
                         callback(null, docs);
@@ -58,6 +58,7 @@ module.exports = function(app) {
                        .populate({path:'_comments', select: 'name body'})
                        .exec(function(err, docs){
                             if(err){console.log(err);}
+                            console.log(docs);
                             callback(null, docs);
                         });
             }
@@ -102,7 +103,9 @@ module.exports = function(app) {
                     .exec(function(err, msg){
                         msg._comments.push(arg._id);
                         msg.save(function(err, data){
-                            callback(null, {msg: data, comment: arg});
+                            Message.findOne({'_id': data._id}).populate('_comments').exec(function(err, reply){
+                                callback(null, {msg: reply, comment: arg});
+                            });
                         });
                     });
             }

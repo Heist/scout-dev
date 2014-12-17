@@ -95,17 +95,17 @@ module.exports = function(account, id){
             // console.log('messages need a test', arg.test._id);
             var arr = [
                     {
-                        body:'note #yellow #blue #green',
+                        body:'One #yellow #blue #green',
                         _test: arg.test._id,
                         _subject: arg.subject._id
                     },
                     {
-                        body:'note #yellow #blue',
+                        body:'Two #yellow #blue',
                         _test: arg.test._id,
                         _subject: arg.subject._id
                     },
                     {
-                        body:'note #yellow',
+                        body:'Three #yellow',
                         _test: arg.test._id,
                         _subject: arg.subject._id
                     }

@@ -58,15 +58,10 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
         }
     };
 
-    $scope.showTask = function(msg, obj){
+    $scope.showObjectMessages = function(msg, obj){
         if(obj._messages){
-            var obj_msg_list = _.pluck(obj._messages, '_id');
-
-            // console.log('object messages', obj_msg_list);
-            // console.log('message id', msg._id);
-
-            if((obj_msg_list.indexOf(msg._id) >= 0)){
-                // console.log('task shown');
+            // console.log(obj._messages);
+            if((obj._messages.indexOf(msg._id) >= 0)){                
                 return true;
             }
         }
@@ -87,19 +82,18 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
             message: $scope.commentMessage._id
         };
 
-
         console.log($scope.messages);
+
         $http
             .post('/api/comment/', dataOut)
             .success(function(data){
-                console.log(data);
+                console.log('new comment', data);
                 comment.body = '';
                 
                 var arr = _.pluck($scope.messages, '_id');
                 var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
                 
-                $scope.messages[msg_idx]._comments.push(comment);
-                
+                $scope.messages[msg_idx] = data.msg;
             });
 
     };

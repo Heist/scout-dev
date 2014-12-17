@@ -42,11 +42,7 @@
 	<div class="sheet-holder">						
 		<div class="sheet" ng-model="selected">
 			
-			<div class="findings-header">
-	
-				<!--<div class="task-score green" ng-show="selected.pass_fail == true">Passed</div>
-				<div class="task-score red" ng-show="selected.pass_fail == false">Needs work</div>-->
-		
+			<div class="findings-header">		
 				<h3 class="dark"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h3>
 			</div>
 			
@@ -57,14 +53,14 @@
 		
 			<hr />
 			
-			
 			<!-- messages -->					
 			<div class="message-group">
 				
 				<!-- message -->
-				<div ng-repeat="message in messages" class="message" ng-show="showTask(message, selected)" 
-				ng-class="{selected: commentMessage._id === message._id}"
-				ng-click="showComments(message)"
+				<div ng-repeat="message in messages" class="message" 
+					ng-show="showObjectMessages(message, selected)" 
+					ng-class="{selected: commentMessage._id === message._id}"
+					ng-click="showComments(message)"
 				>
 					
 					<div class="message-body">
