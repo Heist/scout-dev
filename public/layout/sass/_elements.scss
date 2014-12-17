@@ -37,6 +37,46 @@
 		}
 	}
 }
+
+.task-rating {
+	float: right;
+	padding: 0;
+	margin: 0;
+	
+	small {
+		text-transform: uppercase;
+		display: block;
+		float: left;
+	}
+	
+	.task-rating-doot {
+		cursor: pointer;
+		width: $pad;
+		height: $pad;
+		padding: 0;
+		margin: 0 0 0 $pad/4;
+		@include radius($pad);
+		overflow: hidden;
+		display: block;
+		float: left;
+		
+		&.task-rating-plus {
+			background: $fg-green;
+			border: 2px solid $fg-green;
+			
+		}
+		
+		&.task-rating-minus {
+			background: $fg-header-red;
+			border: 2px solid $fg-header-red;
+		}
+		
+		&.hollow {
+			background: $white;
+		}
+		
+	}
+}
 	
 
 	
