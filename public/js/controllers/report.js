@@ -54,6 +54,8 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
         // console.log('activated', obj.name);
 
         $scope.selectedIndex = selectedIndex;
+        $scope.showCommentToggle = false;
+        $scope.commentMessage = '';
      
         if(obj){
             $scope.selected = obj;

@@ -87,10 +87,10 @@ angular.module('field_guide_controls')
             .success(function(data){
                 console.log('new comment', data);
                 comment.body = '';
+                
                 var name = data.msg._subject.name;
-                // console.log('did we get a name back', $scope.messages[name]);
+                
                 var arr = _.pluck($scope.messages[name], '_id');
-                // console.log(arr);
 
                 var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
                 console.log('msg_indx', msg_idx);
