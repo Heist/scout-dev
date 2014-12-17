@@ -96,7 +96,7 @@ module.exports = function(app) {
                     .exec(function(err, msg){
                         msg._comments.push(arg._id);
                         msg.save(function(err, data){
-                            Message.findOne({'_id': data._id}).populate('_comments').exec(function(err, reply){
+                            Message.findOne({'_id': data._id}).populate('_comments _subject').exec(function(err, reply){
                                 callback(null, {msg: reply, comment: arg});
                             });
                         });

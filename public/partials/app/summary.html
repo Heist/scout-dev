@@ -185,7 +185,10 @@
 						<div class="message-comment-submit">
 								<form ng-model="comment">
 									<small>Add a comment:</small>
-									<textarea class="input small" ng-model="comment.body" ng-blur="addComment(comment)"></textarea>
+									<textarea class="input small" 
+										ng-model="comment.body" 
+										ng-blur="addComment(comment)">
+									</textarea>
 								</form>
 						</div>
 					</div>
