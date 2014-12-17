@@ -1,5 +1,6 @@
 <div id="view-findings" 
 	ng-model='test'
+	ng-class="{ 'show-comments' : showCommentToggle == true }" 
 	>
 	
 
@@ -123,7 +124,11 @@
 				
 				
 				<!-- message -->
-				<div ng-repeat="message in user" class="message" ng-show="show(message._id)">
+				<div ng-repeat="message in user" class="message" 
+				
+				ng-class="{selected: commentMessage._id === message._id}"
+				ng-show="show(message._id)" 
+				ng-click="showComments(message)">
 					
 				
 					
@@ -160,17 +165,32 @@
 					<div class="clear"></div>
 					
 					<!-- if comments, display count -->
-					<div class="message-comment-count" 
-						ng-show="message._comments.length > 0" 
-						>
+					<div class="message-comment-count" ng-show="message._comments.length > 0">
 						{{ message._comments.length}}
 					</div>
+
 					<!-- if no comments -->
 					<div class="message-comment-count empty" 
-						ng-show="message._comments.length === 0 || !message._comments" 
-						>
+						ng-show="message._comments.length === 0 || !message._comments" >
 						+
 					</div>
+					
+					<div class="message-comments" ng-show="commentMessage._id === message._id">
+						<!-- if comments, display coments -->
+						<div class="message-comment" ng-repeat="comment in message._comments">
+							<small><strong>{{comment.name}}</strong> {{comment.created | date:'MMM d yyyy'}}</small>
+							<p>{{comment.body}}</p>
+						</div>
+
+						<!-- message-comment new -->
+						<div class="message-comment-submit">
+								<form ng-model="comment">
+									<small>Add a comment:</small>
+									<textarea class="input small" ng-model="comment.body" ng-blur="addComment(comment)"></textarea>
+								</form>
+						</div>
+					</div>
+					<!-- / display comments -->
 					
 		
 					
