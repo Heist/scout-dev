@@ -46,6 +46,28 @@ angular.module('field_guide_controls')
         console.log('comments on message', message);
     };
 
+    $scope.addComment = function(comment){
+        var dataOut = {
+            comment: {body : comment.body},
+            message: $scope.commentMessage._id
+        };
+
+        console.log($scope.messages);
+
+        $http
+            .post('/api/comment/', dataOut)
+            .success(function(data){
+                console.log('new comment', data);
+                comment.body = '';
+                
+                var arr = _.pluck($scope.messages, '_id');
+                var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
+                
+                $scope.messages[msg_idx] = data.msg;
+            });
+
+    };
+
     // MOVE STEPS =========================================
 
     $scope.moveTask = function(old_index, new_index){
