@@ -60,6 +60,7 @@ module.exports = function (app, passport) {
             messages: function(callback){
                 Message.find({ '_test':{$in: [req.params._id]}})
                         .populate({path:'_subject', select: 'name' })
+                        .populate({path:'_comments', select: 'name body created' })
                         .exec(function(err, data){
                             if (err) {console.log(err);}
                             callback(null, data);

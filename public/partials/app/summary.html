@@ -1,4 +1,6 @@
-<div id="view-findings" ng-model='test'>
+<div id="view-findings" 
+	ng-model='test'
+	>
 	
 
 	<div id="nav-logo">
@@ -158,9 +160,17 @@
 					<div class="clear"></div>
 					
 					<!-- if comments, display count -->
-					<div class="message-comment-count">12</div>
+					<div class="message-comment-count" 
+						ng-show="message._comments.length > 0" 
+						>
+						{{ message._comments.length}}
+					</div>
 					<!-- if no comments -->
-					<!--<div class="message-comment-count empty">+</div>-->
+					<div class="message-comment-count empty" 
+						ng-show="message._comments.length === 0 || !message._comments" 
+						>
+						+
+					</div>
 					
 		
 					

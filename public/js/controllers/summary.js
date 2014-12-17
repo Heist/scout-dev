@@ -38,7 +38,16 @@ angular.module('field_guide_controls')
 
         });
 
+    // COMMENTING =========================================
+    $scope.showComments = function(message){
+        if( !$scope.showCommentToggle){  $scope.showCommentToggle = true; }
+
+        $scope.commentMessage = message;
+        console.log('comments on message', message);
+    };
+
     // MOVE STEPS =========================================
+
     $scope.moveTask = function(old_index, new_index){
         console.log('touched moveTask', old_index, new_index);
         new_index = old_index + new_index;
