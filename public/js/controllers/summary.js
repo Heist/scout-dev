@@ -94,7 +94,7 @@ angular.module('field_guide_controls')
 
                 var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
                 console.log('msg_indx', msg_idx);
-                $scope.messages[name][msg_idx] = data.msg;
+                // $scope.messages[name][msg_idx] = data.msg;
             });
 
     };

@@ -68,7 +68,7 @@ module.exports = function(app) {
             _.each(results.tags, function(tag){
                 return_array.push(tag);
             });
-            // callback(null, );
+
             res.json({navlist: return_array, messages: results.messages});
         });
 
