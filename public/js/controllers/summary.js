@@ -46,8 +46,10 @@ angular.module('field_guide_controls')
 
     $scope.activate = function(obj, selectedIndex) {
         // passes the task to the global variable
-        // console.log('activated', obj.name);
+
         $scope.selectedIndex = selectedIndex;
+        $scope.showCommentToggle = false;
+        $scope.commentMessage = '';
      
         if(obj){
             $scope.selected = obj;

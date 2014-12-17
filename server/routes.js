@@ -169,6 +169,7 @@ app.route('/auth/invite/:_id')
     app.route('/debug/message')
     .get(function(req,res){
         Message.find()
+            .populate('_comments')
             .exec(function(err, docs) {
                 if(err){res.send(err);}
 
