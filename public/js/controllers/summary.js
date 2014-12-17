@@ -82,6 +82,10 @@ angular.module('field_guide_controls')
                 var arr = _.pluck($scope.messages[name], '_id');
                 var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
 
+                console.log('arr', arr);
+                console.log('msg_idx', msg_idx);
+                console.log('name', name);
+                
                 $scope.messages[name][msg_idx]._comments.push(data.comment);
             });
 

@@ -51,7 +51,6 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
 
     $scope.activate = function(obj, selectedIndex) {
         // passes the task to the global variable
-        // console.log('activated', obj.name);
         console.log('selected', obj.name, obj._messages);
 
         $scope.selectedIndex = selectedIndex;
@@ -65,7 +64,6 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
 
     $scope.showObjectMessages = function(msg, obj){
         if(obj._messages){
-            // console.log(obj._messages);
             if((obj._messages.indexOf(msg._id) >= 0)){                
                 return true;
             }
@@ -76,9 +74,7 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
 
     $scope.showComments = function(message){
         if( !$scope.showCommentToggle){  $scope.showCommentToggle = true; }
-
         $scope.commentMessage = message;
-        console.log('comments on message', message);
     };
 
     $scope.addComment = function(comment){
@@ -87,12 +83,9 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
             message: $scope.commentMessage._id
         };
 
-        console.log($scope.messages);
-
         $http
             .post('/api/comment/', dataOut)
             .success(function(data){
-                console.log('new comment', data);
                 comment.body = '';
                 
                 var arr = _.pluck($scope.messages, '_id');
