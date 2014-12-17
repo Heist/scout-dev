@@ -158,7 +158,8 @@ module.exports = function(account, id){
                 function(callback){
                     Tag.findOneAndUpdate(
                         {'name': 'yellow'},
-                        {'_messages': arg.yellow },
+                        {'_messages': arg.yellow,
+                         '_test': arg.test._id },
                         { upsert: true },
                         function(err, data){
                             callback(null, data);
@@ -167,7 +168,8 @@ module.exports = function(account, id){
                 function(callback){
                     Tag.findOneAndUpdate(
                         {'name': 'blue'},
-                        {'_messages': arg.blue },
+                        {'_messages': arg.blue,
+                         '_test': arg.test._id },
                         { upsert: true },
                         function(err, data){
                             callback(null, data);
@@ -176,7 +178,8 @@ module.exports = function(account, id){
                 function(callback){
                     Tag.findOneAndUpdate(
                         {'name': 'green'},
-                        {'_messages': arg.green },
+                        {'_messages': arg.green,
+                         '_test': arg.test._id },
                         { upsert: true },
                         function(err, data){
                             console.log('green', data);
