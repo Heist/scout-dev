@@ -117,50 +117,85 @@ module.exports = function(account, id){
             Message.create( arr2,
                 function(err, d0, d1, d2, d3, d4, d5){
                     if (err) {console.log(err);} 
-                    var pusher1 = [d0, d1, d2];
-                    var pusher2 = [d3, d4, d5];
 
-                    callback(null, {msg_arr1: pusher1, msg_arr2: pusher2, subject: arg.subject, test: arg.test, tasks: arg.tasks});
+                    var output = {
+                        task1 : [d0._id, d1._id, d2._id],
+                        task2 : [d3._id, d4._id, d5._id],
+                        yellow: [d0._id, d1._id, d2._id, d3._id, d4._id, d5._id],
+                        blue: [d0._id,d1._id,d3._id,d4._id],
+                        green: [d0._id,d3._id],
+                        subject: arg.subject,
+                        test: arg.test,
+                        tasks: arg.tasks
+                    };
+                   
+                    callback(null, output);
                 });
         },
         function(arg, callback){
-            var arr1 = _.pluck(arg.msg_arr1, '_id');
-            var arr2 = _.pluck(arg.msg_arr2, '_id');
-            var arr3 = arr1.concat(arr2);
-            
-            // now in here, push the appropriate messages to the subject
-            // then the messages to the tasks
             async.parallel([
                 function(callback){
-                    arg.subject._messages = arr3;
+                    arg.subject._messages = arg.yellow;
                     arg.subject.save(function(err, subject){
                         if (err) { console.log(err); }
                         callback(null, subject);
                     });
                 },
-                function(callback){
-                    async.map(arg.tasks, 
-                        function(task, callback){
-                            Task.findOne({ '_id': task })
-                                .exec(function(err, task){
-                                    task._messages=arr1;
-                                    task.save(function(err, data){
-                                        if (err) { console.log(err); }
-                                        callback(null, data);
-                                    });
+                function(callback){                    
+                    Task.findOne({ '_id': arg.tasks[0] })
+                            .exec(function(err, task){
+                                task._messages= arg.task1;
+                                task.save(function(err, data){
+                                    if (err) { console.log(err); }
+                                    callback(null, data);
                                 });
-                        }, 
-                        function(err, results){
-                            callback(null, results);
+                            });
+                },
+                function(callback){                    
+                    Task.findOne({ '_id': arg.tasks[1] })
+                            .exec(function(err, task){
+                                task._messages = arg.task2;
+                                task.save(function(err, data){
+                                    if (err) { console.log(err); }
+                                    callback(null, data);
+                                });
+                            });
+                },
+                function(callback){
+                    Tag.findOneAndUpdate(
+                        {'name': 'yellow'},
+                        {'_messages': arg.yellow },
+                        { upsert: true },
+                        function(err, data){
+                            callback(null, data);
+                        });
+                },
+                function(callback){
+                    Tag.findOneAndUpdate(
+                        {'name': 'blue'},
+                        {'_messages': arg.blue },
+                        { upsert: true },
+                        function(err, data){
+                            callback(null, data);
+                        });
+                },
+                function(callback){
+                    Tag.findOneAndUpdate(
+                        {'name': 'green'},
+                        {'_messages': arg.green },
+                        { upsert: true },
+                        function(err, data){
+                            callback(null, data);
                         });
                 }
             ], 
-            function(err, results){
-                // results are subject, task, task
+            function(err, results){ 
                 callback(null, { test : arg.test });
             });
         }
-    ], function(err, results){
-        return results;
+    ], 
+    function(err, results){
+        // in here we return A TEST.
+        return results; 
     });
 };
