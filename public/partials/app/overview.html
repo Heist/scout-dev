@@ -1,14 +1,12 @@
 <div id="view-overview">
-	
+
 	<ng-include src="'partials/app/header.html'"></ng-include>
-	
-	
-	
+
 	<!-- sub bar -->
 	<div id="sub-bar">
 		<div class="container">
 			<h1>My Tests</h1>
-			
+
 			<div class="sub-bar-controls">
 				<button class="button" ng-click="newTest()">New test</button>
 				<button class="button" ng-click="devTest()">Dev test</button>
@@ -16,13 +14,11 @@
 			<div class="clear"></div>
 		</div>
 	</div>
-		
-		
-		
+
 	<!-- show tests in db -->
 	<div class="container" id="overview-tests">	
-		
-		<!-- test -->	
+
+		<!-- test -->
 		<div class="overview-test module quarter" ng-repeat="test in tests | orderBy:'created'">
 			<div class="overview-test-container">
 			

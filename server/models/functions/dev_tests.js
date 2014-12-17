@@ -3,8 +3,6 @@
 
 module.exports = function(account, id){
     // on first login via signup, create a test for this user.
-    console.log('new signup');
-
     var Test    = require('../data/test');
     var Task    = require('../data/task');
     var Tag     = require('../data/tag');
@@ -20,8 +18,8 @@ module.exports = function(account, id){
         created_by_account: account,
         created_by_user : id,
         name : "DeveloperTest",
-        desc : "Pew\n"+
-               "Rub face on everything.\n",
+        desc : "- Pew\n"+
+               "- Rub face on everything.\n",
         kind : "interview"
     };
 
@@ -33,12 +31,12 @@ module.exports = function(account, id){
                     {
                         _test : test._id,
                         name  :"Task 1",
-                        desc  :"Chase ball of string and scratch the furniture and always hungry. \n Nap all day.",
+                        desc  :"Chase ball of string and scratch the furniture and always hungry. \n- Nap all day.",
                         index : 0
                     }, {
                         _test : test._id,
                         name  : "Task 2",
-                        desc  : "Sunbathe climb the curtains run hiss purr, \n puking I don't like that food claw scratched eat. ",
+                        desc  : "Sunbathe climb the curtains run hiss purr. \n- Puking I don't like that food claw scratched eat.",
                         index : 1
                     }
                 ];
@@ -69,12 +67,11 @@ module.exports = function(account, id){
                         .exec(function(err, test){
                             test._subjects.push(arg.subject._id);
                             test.save(function(err, saved){
-                                done(null, saved._id);
+                                done(null, saved);
                             });
                         });
                 },
                 tasks: function(done){
-                    console.log('parallel', arg.test._tasks);
                     async.map(arg.test._tasks,
                         function(task, yeah){
                             Task.findOne(task)
@@ -95,7 +92,7 @@ module.exports = function(account, id){
             });
         },
         function(arg, callback){
-            console.log('waterfall', arg);
+            // console.log('messages need a test', arg.test._id);
             var arr = [
                     {
                         body:'note #yellow #blue #green',
@@ -116,16 +113,17 @@ module.exports = function(account, id){
             // concatenate 2X arr for new arr.
             var arr2 = arr.concat(arr);
 
+
             Message.create( arr2,
                 function(err, d0, d1, d2, d3, d4, d5){
                     if (err) {console.log(err);} 
                     var pusher1 = [d0, d1, d2];
                     var pusher2 = [d3, d4, d5];
+
                     callback(null, {msg_arr1: pusher1, msg_arr2: pusher2, subject: arg.subject, test: arg.test, tasks: arg.tasks});
                 });
         },
         function(arg, callback){
-            console.log('parallel tasks', arg.tasks);
             var arr1 = _.pluck(arg.msg_arr1, '_id');
             var arr2 = _.pluck(arg.msg_arr2, '_id');
             var arr3 = arr1.concat(arr2);
@@ -136,18 +134,18 @@ module.exports = function(account, id){
                 function(callback){
                     arg.subject._messages = arr3;
                     arg.subject.save(function(err, subject){
-                        if (err) {console.log(err);}
+                        if (err) { console.log(err); }
                         callback(null, subject);
                     });
                 },
                 function(callback){
                     async.map(arg.tasks, 
                         function(task, callback){
-                            Task.findOne({'_id': task})
+                            Task.findOne({ '_id': task })
                                 .exec(function(err, task){
                                     task._messages=arr1;
                                     task.save(function(err, data){
-                                        if (err) {console.log(err);}
+                                        if (err) { console.log(err); }
                                         callback(null, data);
                                     });
                                 });
@@ -158,14 +156,11 @@ module.exports = function(account, id){
                 }
             ], 
             function(err, results){
-                // results are subject, task, task.
-                console.log('parallel', results);
-                callback(null, results);
+                // results are subject, task, task
+                callback(null, { test : arg.test });
             });
         }
-    ],
-    function(err, results){
-        console.log(results);
+    ], function(err, results){
         return results;
     });
 };

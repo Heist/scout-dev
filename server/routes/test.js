@@ -16,7 +16,7 @@ var Tag     = require('../models/data/tag');
 var Session = require('../models/data/session');
 var Subject = require('../models/data/subject');
 
-var DevTests = require('../models/functions/dev_tests.js');
+var DevTest = require('../models/functions/dev_tests.js');
 
 // TEST ROUTES ===================================================
 
@@ -27,7 +27,6 @@ app.route('/api/test/')
         Test.find({created_by_account:req.user._account})
             .exec(function(err, docs) {
                 if(err){res.send(err);}
-
                 res.json(docs);
             });
     })
@@ -60,12 +59,22 @@ app.route('/api/test/')
 
             });
         });
+
 app.route('/api/test/dev_tests/')
     .post(function(req, res){
-        var reply = new DevTests(req.user._account, req.user._id);
-        console.log(reply);
-        res.json(reply);
+        
+        async.waterfall([
+            function(callback){
+                var reply = new DevTest(req.user._account, req.user._id);
+            },
+            function(arg, callback){
+                console.log('arg', arg);
+                // Test.find({created_by_account:results.test._account}).exec();
+            }
+        ], 
+        function(err, results){
 
+        });
     });
 
 app.route('/api/test/:_id')
@@ -79,7 +88,7 @@ app.route('/api/test/:_id')
 
                 // console.log('single test', test)
                 res.json(test);
-            });       
+            });
     })
     .post(function(req,res){
         // Duplicate a test with new steps and things but which appears to be identical
