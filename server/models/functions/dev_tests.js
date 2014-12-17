@@ -142,24 +142,22 @@ module.exports = function(account, id){
                     });
                 },
                 function(callback){                    
-                    Task.findOne({ '_id': arg.tasks[0] })
-                            .exec(function(err, task){
-                                task._messages= arg.task1;
-                                task.save(function(err, data){
-                                    if (err) { console.log(err); }
-                                    callback(null, data);
-                                });
-                            });
+                    Task.findOneAndUpdate(
+                        { '_id': arg.tasks[0] },
+                        {'_messages': arg.task1 },
+                        { upsert: true },
+                        function(err, data){
+                            callback(null, data);
+                        });
                 },
                 function(callback){                    
-                    Task.findOne({ '_id': arg.tasks[1] })
-                            .exec(function(err, task){
-                                task._messages = arg.task2;
-                                task.save(function(err, data){
-                                    if (err) { console.log(err); }
-                                    callback(null, data);
-                                });
-                            });
+                    Task.findOneAndUpdate(
+                        { '_id': arg.tasks[1] },
+                        {'_messages': arg.task2 },
+                        { upsert: true },
+                        function(err, data){
+                            callback(null, data);
+                        });
                 },
                 function(callback){
                     Tag.findOneAndUpdate(
