@@ -11,18 +11,13 @@ angular.module('field_guide_controls')
 
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
-            console.log('returned test information', data);
-
             $scope.leftNavList = [];
             
             var sort = _.sortBy(data.navlist, function(obj){
                                 return(obj.report_index);
                             });
 
-            _.each(sort, function(obj){
-                console.log(obj.name); 
-                $scope.leftNavList.push(obj);
-            });
+            _.each(sort, function(obj){ $scope.leftNavList.push(obj); });
             
             // group messages by users
             $scope.messages = _.groupBy(data.messages, 
@@ -46,6 +41,7 @@ angular.module('field_guide_controls')
 
     $scope.activate = function(obj, selectedIndex) {
         // passes the task to the global variable
+        console.log('selected', obj.name, obj._messages);
 
         $scope.selectedIndex = selectedIndex;
         $scope.showCommentToggle = false;
@@ -58,7 +54,6 @@ angular.module('field_guide_controls')
 
     $scope.showObjectMessages = function(msg, obj){
         if(obj._messages){
-            // console.log(obj._messages);
             if((obj._messages.indexOf(msg._id) >= 0)){                
                 return true;
             }
@@ -70,7 +65,6 @@ angular.module('field_guide_controls')
         if( !$scope.showCommentToggle){  $scope.showCommentToggle = true; }
 
         $scope.commentMessage = message;
-        console.log('comments on message', message);
     };
 
     $scope.addComment = function(comment){
@@ -79,21 +73,15 @@ angular.module('field_guide_controls')
             message: $scope.commentMessage._id
         };
         
-        console.log('add comment', $scope.commentMessage._id, comment);
-        console.log($scope.commentMessage);
-
         $http
             .post('/api/comment/', dataOut)
             .success(function(data){
-                console.log('new comment', data);
                 comment.body = '';
 
                 var name = data.msg._subject.name;
-                
                 var arr = _.pluck($scope.messages[name], '_id');
-
                 var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
-                console.log('msg_indx', $scope.messages[name][msg_idx]);
+
                 $scope.messages[name][msg_idx]._comments.push(data.comment);
             });
 
@@ -102,7 +90,7 @@ angular.module('field_guide_controls')
     // MOVE STEPS =========================================
 
     $scope.moveTask = function(old_index, new_index){
-        console.log('touched moveTask', old_index, new_index);
+
         new_index = old_index + new_index;
 
         while (old_index < 0) {
@@ -131,7 +119,7 @@ angular.module('field_guide_controls')
         var dataOut = $scope.leftNavList;
 
         var nav = _.pluck($scope.leftNavList, 'name');
-        console.log('nav', $scope.leftNavList);
+        
 
         $scope.saveSummary();
 
@@ -140,12 +128,12 @@ angular.module('field_guide_controls')
 
     // SAVE FUNCTIONS =====================================
     $scope.saveObject = function(obj){
-        console.log('saving', obj);
+        
 
         var url, data;
 
         if(obj.doctype === 'test'){
-            console.log('put test');
+            
             url = 'summary/test/'+ obj._id;
             data = obj;
         }
@@ -161,12 +149,11 @@ angular.module('field_guide_controls')
         $http
             .put('/api/'+url, data)
             .success(function(doc){
-                console.log('summary_success', doc);
+               
             });
     };
 
     $scope.passFail = function(obj){
-        console.log('touched pass-fail', obj);
 
         if(obj.pass_fail){ obj.pass_fail = false; }
         else if (!obj.fail){ obj.pass_fail = true; }
@@ -175,7 +162,6 @@ angular.module('field_guide_controls')
     };
 
     $scope.toggleVis = function(obj){
-        console.log('toggle me', obj);
 
         if (obj.visible){ obj.visible = false; $scope.saveObject(obj); return;}
         if (!obj.visible){ obj.visible = true; $scope.saveObject(obj); return;}
@@ -183,8 +169,6 @@ angular.module('field_guide_controls')
     };
 
     $scope.saveFav = function(message){
-        console.log('touched message fav', message);
-        console.log('what kind of object is this?', $scope.selected.doctype);
         
         if($scope.selected.doctype === 'task'){
             if(message.fav_task){ message.fav_task = false; }
@@ -199,7 +183,6 @@ angular.module('field_guide_controls')
         $http
             .put('/api/summary/message/'+message._id, message)
             .success(function(data){
-                console.log('msg_success', data);
             });
     };
 
@@ -218,8 +201,6 @@ angular.module('field_guide_controls')
     $scope.saveEdit = function(message){
         $scope.messageEditToggle = false;
 
-        console.log(message);
-
         var tags = [];
         var hashCatch = new RegExp(/\S*#\S+/gi);
         var hashPull = new RegExp(/#/gi);
@@ -233,14 +214,12 @@ angular.module('field_guide_controls')
         }
         
         message.tags = tags;
-        console.log('tags', message.tags);
 
         $http
             .put('/api/message/'+message._id, message)
             .success(function(msg, err){
-                console.log('msg_success', msg, err);
+
                 var new_list =_.groupBy(msg.messages, function(z){return z._subject.name;});
-                console.log(new_list);
                 
                 $scope.leftNavList = msg.nav_list;
                 $scope.messages = new_list;
@@ -280,8 +259,6 @@ angular.module('field_guide_controls')
                 note.tags.push(msg);
             }
         }
-
-        console.log(note, subject._id);
         
         var url = '/api/summary/message/';
         var data_out = note;
@@ -290,7 +267,6 @@ angular.module('field_guide_controls')
             .post(url, data_out)
             .success(function(data){
                 $scope.toggleNote();
-                console.log(data);
 
                 $scope.messages[data.msg._subject.name].push(data.msg);
                 $scope.selected._messages.push(data.msg._id);
@@ -311,18 +287,11 @@ angular.module('field_guide_controls')
 
         // mixpanel.track('Summary complete', {});
 
-        console.log('messages', $scope.messages);
-
         var url = '/api/summary/'+ $stateParams._id;
         var data_out = {navlist: $scope.leftNavList, messages:$scope.messages[0]} ;
         
         $http.put(url, data_out)
             .success(function(data, msg){
-                console.log('saved summary', data, msg);
-                // $location.path('/report/'+ $stateParams._id);
-            })
-            .error(function(data){
-                console.log('error', data);
             });        
 
     };
