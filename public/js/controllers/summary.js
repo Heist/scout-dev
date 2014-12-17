@@ -74,12 +74,12 @@ angular.module('field_guide_controls')
     };
 
     $scope.addComment = function(comment){
-        console.log('add comment', $scope.commentMessage._id, comment);
         var dataOut = {
             comment: {body : comment.body},
             message: $scope.commentMessage._id
         };
-
+        
+        console.log('add comment', $scope.commentMessage._id, comment);
         console.log($scope.commentMessage);
 
         $http
@@ -87,14 +87,14 @@ angular.module('field_guide_controls')
             .success(function(data){
                 console.log('new comment', data);
                 comment.body = '';
-                
+
                 var name = data.msg._subject.name;
                 
                 var arr = _.pluck($scope.messages[name], '_id');
 
                 var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
-                console.log('msg_indx', msg_idx);
-                // $scope.messages[name][msg_idx] = data.msg;
+                console.log('msg_indx', $scope.messages[name][msg_idx]);
+                $scope.messages[name][msg_idx]._comments.push(data.comment);
             });
 
     };
