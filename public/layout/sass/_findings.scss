@@ -73,7 +73,7 @@
 	}
 	
 	.findings-description {
-		padding: 0 $pad*2 $pad $pad*2;
+		padding: 0 $pad*2 $pad/2 $pad*2;
 	}
 	
 	.findings-summary {
@@ -84,7 +84,7 @@
 		border: none;
 		border-top: 1px solid $line;
 		border-bottom: 1px solid $line;
-		margin: 0;
+		margin: 0 0 $pad 0;
 	}
 	
 	

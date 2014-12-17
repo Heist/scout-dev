@@ -149,7 +149,7 @@
 }
 
 .sheet {
-	padding: 0;
+	padding: 0 0 $pad 0;
 	margin: 0;
 	min-height: 100%;
 	background: $white;
@@ -162,7 +162,7 @@
 
 hr {
 	width: 70%;
-	padding: 0;
+	padding: 0 0 $pad 0;
 	margin: 0 auto;
 	display: block;
 	border: none;

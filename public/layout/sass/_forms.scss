@@ -25,6 +25,47 @@ form {
 }
 
 
+.expand-button {
+	position: relative;
+
+	.expand-button-body {
+		background: $white;
+		color: #999999;
+		margin: 0;
+		padding: 0;
+		@include radius($pad*2);
+		height: $pad*1.2;
+		width: $pad*1.2;
+		cursor: pointer;
+		text-align: center;
+		font-size: $type-size-base*1.6;
+		@include animated;
+	}
+	
+	&:hover {
+		.expand-button-helper {
+			display: block;
+		}
+		
+		.expand-button-body {
+			background: $fg-slate;
+			color: $white;
+			@include animated;
+		}
+	}
+
+	.expand-button-helper {
+		width: 120px;
+		text-align: right;
+		display: none;
+		position: absolute;
+		top: 1px;
+		font-size: $type-size-base*0.8;
+		right: 30px;
+		color: $text;
+		
+	}
+}
 
 
 

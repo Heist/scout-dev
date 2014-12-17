@@ -7,28 +7,29 @@
 
 .message-group {
 	margin: 0;
-	padding: $pad*1.5 0 $pad 0;
-	
-	&.report-messages {
-		padding: $pad 0 0 0;
-		
-		.message {
-			padding: $pad/2 0;
-			
-			.message-body p {
-				margin-bottom: -4px;
-			}
-			
-			&:hover {
-				background: none;
-			}
-		}
-		
-	}
-				
+	padding: 0;				
 }
 
 
+/* message user header */
+
+.message-user {
+	padding: $pad $pad*2 0 $pad;
+	color: $fg-slate;
+	font-size: $type-size-base*0.8;
+	@include type-bold;
+	
+	img {
+		width: 13px;
+		height: auto;
+		opacity: 0.2;
+		padding: 0;
+		margin: 0 $pad/5 0 0;
+		vertical-align: text-bottom;
+	}
+}
+
+/* individual messages */
 
 .message {
 	padding: $pad/1.5 $pad*2;
@@ -79,6 +80,16 @@
 			background-size: contain;
 			color: darken($background-dark, 10%);
 			@include type-extrabold;
+		}
+	}
+	
+	
+	.message-fave {
+		float: right;
+		
+		img {
+			width: auto;
+			height: 10px;
 		}
 	}
 	
@@ -150,7 +161,7 @@
 		
 		small {
 			display: block;
-			margin: -5px 0 0 0;
+			margin: 0;
 			padding: 0;
 			opacity: 0.6;
 		}
@@ -160,29 +171,7 @@
 		}
 		
 	}
-	
-	/* when it's the user header */
-	&.message-user {
-		.message-body {
-			width: 50%;
-			font-size: $type-size-base*0.8;
-			text-transform: uppercase;
-			opacity: 0.6;
-		}
-		
-		.message-fave {
-			font-size: $type-size-base*0.8;
-			opacity: 0.6;
-		}
-		
-		.message-details {
-			opacity: 0.4;
-		}
-		
-		&:hover {
-			background: none;
-		}	
-	}
+
 		
 }
 

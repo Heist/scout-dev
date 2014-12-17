@@ -87,7 +87,7 @@
 			</div>
 			
 			
-			<textarea class="input findings-summary" id="field-textarea" placeholder="Summarize learnings and takeaways from this task or tag."  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>
+			<textarea class="input findings-summary" id="field-textarea" placeholder="Summarize your learnings and takeaways from this task or tag."  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>
 			
 			
 			
@@ -99,11 +99,17 @@
 			
 				
 				<!-- participant name -->
-				{{user[0]._subject.name}}
+				<div class="message-user">
+					<img src="/layout/assets/avatar.svg" /> {{user[0]._subject.name}}
+					
+					<div class="expand-button float-right">
+						<div class="expand-button-body" ng-click="toggleNote()">+</div>
+						<div class="expand-button-helper">Add new note?</div>
+					</div>
+					
+					<div class="clear"></div>
+				</div>
 				
-				
-				<button ng-click="toggleNote()">Add note?</button>
-			
 				
 				<!-- input notes -->
 				<div id="session-input" ng-show="inputNote">
