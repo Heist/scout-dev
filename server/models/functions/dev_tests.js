@@ -159,7 +159,7 @@ module.exports = function(account, id){
                     Tag.findOneAndUpdate(
                         {'name': 'yellow'},
                         {'_messages': arg.yellow,
-                         '_test': arg.test._id },
+                        '_test': arg.test._id },
                         { upsert: true },
                         function(err, data){
                             callback(null, data);
@@ -194,7 +194,6 @@ module.exports = function(account, id){
     ], 
     function(err, results){
         // in here we return A TEST.
-        console.log(results);
-        return results; 
+        return results;
     });
 };
