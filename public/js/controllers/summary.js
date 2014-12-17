@@ -38,7 +38,32 @@ angular.module('field_guide_controls')
 
         });
 
-    // COMMENTING =========================================
+// NAVIGATION =============================================
+
+    $scope.reportPreview = function(){
+        $location.path('/report/'+ $stateParams._id);
+    };
+
+    $scope.activate = function(obj, selectedIndex) {
+        // passes the task to the global variable
+        // console.log('activated', obj.name);
+        $scope.selectedIndex = selectedIndex;
+     
+        if(obj){
+            $scope.selected = obj;
+        }
+    };
+
+    $scope.showObjectMessages = function(msg, obj){
+        if(obj._messages){
+            // console.log(obj._messages);
+            if((obj._messages.indexOf(msg._id) >= 0)){                
+                return true;
+            }
+        }
+    };
+
+// COMMENTING =========================================
     $scope.showComments = function(message){
         if( !$scope.showCommentToggle){  $scope.showCommentToggle = true; }
 
@@ -134,14 +159,6 @@ angular.module('field_guide_controls')
             });
     };
 
-    $scope.activate = function(obj, selectedIndex) {
-        // passes the task to the global variable
-        console.log('activated', obj.name);
-
-        $scope.selectedIndex = selectedIndex;
-        if(obj){ $scope.selected = obj; }
-    };
-
     $scope.passFail = function(obj){
         console.log('touched pass-fail', obj);
 
@@ -149,13 +166,6 @@ angular.module('field_guide_controls')
         else if (!obj.fail){ obj.pass_fail = true; }
 
         $scope.saveObject(obj);
-    };
-
-    $scope.show = function (msg_id) {
-        // if a message's _id matches any value in the _messages list of .selected, return.
-        if($scope.selected._messages && $scope.selected._messages.indexOf(msg_id) >= 0){
-            return true;
-        }
     };
 
     $scope.toggleVis = function(obj){
@@ -309,10 +319,5 @@ angular.module('field_guide_controls')
                 console.log('error', data);
             });        
 
-    };
-
-// PREVIEW REPORT
-    $scope.reportPreview = function(){
-        $location.path('/report/'+ $stateParams._id);
     };
 }]);

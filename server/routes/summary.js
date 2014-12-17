@@ -23,54 +23,59 @@ module.exports = function (app, passport) {
         // get all the objects used in summary
         // push them to the nav list using map
         // order them by their report-index and return them
+        console.log('touched report get', req.params._id);
+
         async.parallel({
-            navlist : function(callback){
-                async.parallel([
-                    function(callback){
-                        Test.find({'_id' : req.params._id})
-                            .exec(function(err, data){
-                                if (err) {console.log(err);}
-                                
-                                callback(null, data);
-                            });
-                    },
-                    function(callback){
-                        Task.find({'_test':req.params._id})
-                            .sort({ index: 'asc'})
-                            .exec(function(err, data){
-                                if (err) {console.log(err);}
-                                
-                                callback(null, data);
-                            });
-                    },
-                    function(callback){
-                        Tag.find({'_test' : req.params._id, '_messages' : {$not :{$size : 0}}})
-                            .exec(function(err, data){
-                                if (err) {console.log(err);}
-                                
-                                callback(null, data);
-                            });
-                    }
-                ], 
-                function(err, results){
-                    var flat = _.flatten(results);
-                    callback(null, flat);
-                });
+            tags: function(callback){
+                Tag.find({'_test' : req.params._id })
+                    .exec(function(err, docs){
+                        if (err) {console.log(err);}
+                        callback(null, docs);
+                    });
+            },
+            tasks: function(callback){
+                Task.find({'_test': req.params._id})
+                    .sort({ index: 'asc'})
+                    .exec(function(err, docs){
+                        if (err) {console.log(err);}
+                        callback(null, docs);
+                    });
+            },
+            test: function(callback){
+                Test.find({'_id' : req.params._id})
+                    .limit(1)
+                    .exec(function(err, docs){
+                        if(err){console.log(err);}
+                        callback(null, docs);
+                    });
             },
             messages: function(callback){
                 Message.find({ '_test':{$in: [req.params._id]}})
-                        .populate({path:'_subject', select: 'name' })
-                        .populate({path:'_comments', select: 'name body created' })
-                        .exec(function(err, data){
-                            if (err) {console.log(err);}
-                            callback(null, data);
+                       .populate({path:'_subject', select: 'name' })
+                       .populate({path:'_comments', select: 'name body'})
+                       .exec(function(err, docs){
+                            if(err){console.log(err);}
+                            console.log(docs);
+                            callback(null, docs);
                         });
             }
         },
-        function(err, results){
-            res.json(results);
-
+        function(err, results) {
+            // results is now equals to: {one: 1, two: 2}
+            var return_array = [];
+            _.each(results.test, function(test){
+                return_array.push(test);
+            });
+            _.each(results.tasks, function(task){
+                return_array.push(task);
+            });
+            _.each(results.tags, function(tag){
+                return_array.push(tag);
+            });
+            // callback(null, );
+            res.json({navlist: return_array, messages: results.messages});
         });
+
     })
     .put(function(req, res){
         console.log('touched summary put');

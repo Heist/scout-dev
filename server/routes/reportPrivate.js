@@ -21,15 +21,9 @@ module.exports = function(app) {
     .get(function(req, res){
         console.log('touched report get', req.params._id);
 
-        // var t = new Trello ();
-
-        var test_id = mongoose.Types.ObjectId(req.params._id);
-        var reply = {};
-
         async.parallel({
             tags: function(callback){
                 Tag.find({'_test' : req.params._id })
-                    // .populate('_messages')
                     .exec(function(err, docs){
                         if (err) {console.log(err);}
                         callback(null, docs);
@@ -38,7 +32,6 @@ module.exports = function(app) {
             tasks: function(callback){
                 Task.find({'_test': req.params._id})
                     .sort({ index: 'asc'})
-                    // .populate('_messages')
                     .exec(function(err, docs){
                         if (err) {console.log(err);}
                         callback(null, docs);
