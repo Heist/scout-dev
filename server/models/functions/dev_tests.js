@@ -42,7 +42,7 @@ module.exports = function(account, id){
                 ];
 
                 Task.create(tasks, function(err, t0, t1){
-                    test._tasks.push(t0._id, t1._id);
+                    test._tasks.push(t0, t1);
                     test.save(function(err, new_test){
                         // console.log('new_test', new_test);
                         callback(null, new_test);
@@ -142,22 +142,18 @@ module.exports = function(account, id){
                     });
                 },
                 function(callback){                    
-                    Task.findOneAndUpdate(
-                        { '_id': arg.tasks[0] },
-                        {'_messages': arg.task1 },
-                        { upsert: true },
-                        function(err, data){
-                            callback(null, data);
-                        });
+                    arg.tasks[0]._messages = arg.task2;
+                    arg.tasks[0].save(function(err,data){
+                        if (err) { console.log(err); }
+                        callback(null, data);
+                    });
                 },
                 function(callback){                    
-                    Task.findOneAndUpdate(
-                        { '_id': arg.tasks[1] },
-                        {'_messages': arg.task2 },
-                        { upsert: true },
-                        function(err, data){
-                            callback(null, data);
-                        });
+                    arg.tasks[1]._messages = arg.task2;
+                    arg.tasks[1].save(function(err,data){
+                        if (err) { console.log(err); }
+                        callback(null, data);
+                    });
                 },
                 function(callback){
                     Tag.findOneAndUpdate(
