@@ -106,7 +106,5 @@ module.exports = function(app) {
                         res.json({msg : msg, comment: reply.comment});
                     });
         });
-
-
     });
 };
