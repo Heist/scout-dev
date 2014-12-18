@@ -1,5 +1,5 @@
-'use strict';
 // overview.js
+'use strict';
 
 // OVERVIEW CONTROLLER ===========================================================
 angular.module('field_guide_controls')
@@ -93,8 +93,7 @@ angular.module('field_guide_controls')
         
         $http.post('/api/test/dev_tests/')
             .success(function(data){
-                console.log(data);
-                
+                $scope.tests.push(data);
             });
     };
 
