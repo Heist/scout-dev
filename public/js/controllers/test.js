@@ -270,9 +270,7 @@ angular.module('field_guide_controls')
         }
 
         if($scope.test.name){
-            mixpanel.track('Test name changed', {
-                'user': $rootScope.user
-            });
+            // mixpanel.track('Test name changed', { 'user': $rootScope.user });
         }
 
         console.log('touched update test', test);

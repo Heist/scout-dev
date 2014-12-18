@@ -76,37 +76,37 @@ module.exports = function(app) {
 
     app.route('/api/comment/:_id')
        .post(function(req, res){
-        console.log('touched add a new comment', req.body);
+        console.log('touched add a new comment', req.body, req.params._id);
         // Add a comment to a message declared on the request.
-        
-        async.waterfall([
-            function(callback){
-                Comment.create(
-                    {
-                        name: req.user.name,
-                        body: req.body.comment.body,
-                        created_by: req.user._id
-                    },
-                    function(err, cmt){
-                        if (err) {console.log(err);} 
-                        callback(null, cmt);
-                    });
+
+        var reply = {};
+        var promise = Comment.create( {
+                name: req.user.name,
+                body: req.body.comment.body,
+                created_by: req.user._id
             },
-            function(arg, callback){
-                Message.findOne(req.params._id)
-                    .exec(function(err, msg){
-                        msg._comments.push(arg._id);
-                        msg.save(function(err, data){
-                            Message.findOne({'_id': data._id}).populate('_comments _subject').exec(function(err, reply){
-                                callback(null, {msg: reply, comment: arg});
-                            });
-                        });
+            function(err, cmt){
+                if (err) {console.log(err);}
+            });
+
+        promise.then(function(comment){
+            reply.comment = comment;
+            return Message.findOneAndUpdate(
+                {'_id' : req.params._id},
+                {$push : {_comments: comment._id}},
+                function(err, msg){
+                    if (err) {console.log(err);}
+                });
+        }).then(function(){
+            Message.findOne({'_id': req.params._id})
+                   .populate('_comments _subject')
+                   .exec(function(err, msg){
+                        if (err) {console.log(err);}
+                        console.log(reply);
+                        res.json({msg : msg, comment: reply.comment});
                     });
-            }
-        ],
-        function(err, results){
-            console.log(results);
-            res.json(results);
         });
+
+
     });
 };
