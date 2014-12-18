@@ -41,7 +41,6 @@ angular.module('field_guide_controls')
 
     $scope.activate = function(obj, selectedIndex) {
         // passes the task to the global variable
-        console.log('selected', obj.name, obj._messages);
 
         $scope.selected = '';
         $scope.commentMessage = '';
@@ -71,8 +70,7 @@ angular.module('field_guide_controls')
     };
 
     $scope.addComment = function(comment){
-        console.log('this is the mssage scope right now', $scope.commentMessage);
-
+        
         var dataOut = {
             comment: {body : comment.body}
         };
@@ -86,10 +84,6 @@ angular.module('field_guide_controls')
                 var arr = _.pluck($scope.messages[name], '_id');
                 var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
 
-                console.log('arr', arr);
-                console.log('msg_idx', msg_idx);
-                console.log('name', name);
-                
                 $scope.messages[name][msg_idx]._comments.push(data.comment);
             });
 
@@ -170,7 +164,6 @@ angular.module('field_guide_controls')
     };
 
     $scope.toggleVis = function(obj){
-
         if (obj.visible){ obj.visible = false; $scope.saveObject(obj); return;}
         if (!obj.visible){ obj.visible = true; $scope.saveObject(obj); return;}
 
@@ -235,8 +228,8 @@ angular.module('field_guide_controls')
     };
 
     $scope.toggleNote = function(user){
-        if (!$scope.inputNote) {$scope.inputNote = true;}
-        // if ($scope.inputNote) {$scope.inputNote = false;}
+        console.log('user for new note', user);
+        $scope.inputNote = user;
     };
 
     $scope.postMessage = function(message, subject){
@@ -253,7 +246,8 @@ angular.module('field_guide_controls')
 
         message = '';
         $scope.newnote = '';
-        
+        $scope.toggleNote(subject._id);
+
         // TODO: this will catch things on both sides of the hash. 
         // if message has # with no space, post that to message.tags
 
