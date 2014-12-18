@@ -43,10 +43,13 @@ angular.module('field_guide_controls')
         // passes the task to the global variable
         console.log('selected', obj.name, obj._messages);
 
-        $scope.selectedIndex = selectedIndex;
-        $scope.showCommentToggle = false;
+        $scope.selected = '';
         $scope.commentMessage = '';
-     
+        $scope.selectedIndex = '';
+        $scope.showCommentToggle = false;
+        
+        $scope.selectedIndex = selectedIndex;
+        
         if(obj){
             $scope.selected = obj;
         }
@@ -204,7 +207,7 @@ angular.module('field_guide_controls')
     };
 
     $scope.saveEdit = function(message){
-        $scope.messageEditToggle = false;
+        $scope.messageEditToggle = '';
 
         var tags = [];
         var hashCatch = new RegExp(/\S*#\S+/gi);
