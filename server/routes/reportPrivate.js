@@ -74,10 +74,11 @@ module.exports = function(app) {
 
     });
 
-    app.route('/api/comment/')
+    app.route('/api/comment/:_id')
        .post(function(req, res){
-        console.log('touched add a new comment');
+        console.log('touched add a new comment', req.body);
         // Add a comment to a message declared on the request.
+        
         async.waterfall([
             function(callback){
                 Comment.create(
@@ -92,7 +93,7 @@ module.exports = function(app) {
                     });
             },
             function(arg, callback){
-                Message.findOne(req.body.message)
+                Message.findOne(req.params._id)
                     .exec(function(err, msg){
                         msg._comments.push(arg._id);
                         msg.save(function(err, data){

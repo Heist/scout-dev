@@ -8,7 +8,7 @@ angular.module('field_guide_controls')
                     function($scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize){
 	$scope.test = {};
     $scope.timeline = [];
-
+    $scope.commentMessage = '';
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
             $scope.leftNavList = [];
@@ -68,13 +68,14 @@ angular.module('field_guide_controls')
     };
 
     $scope.addComment = function(comment){
+        console.log('this is the mssage scope right now', $scope.commentMessage);
+
         var dataOut = {
-            comment: {body : comment.body},
-            message: $scope.commentMessage._id
+            comment: {body : comment.body}
         };
         
         $http
-            .post('/api/comment/', dataOut)
+            .post('/api/comment/'+$scope.commentMessage._id, dataOut)
             .success(function(data){
                 comment.body = '';
 
