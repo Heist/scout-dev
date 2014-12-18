@@ -113,7 +113,7 @@ app.route('/api/test/dev_tests/')
                     function(arg, callback){
                         async.parallel({
                             test: function(done){
-                                Test.findOne(arg.test._id)
+                                Test.findOne({'_id' : arg.test._id})
                                     .exec(function(err, test){
                                         test._subjects.push(arg.subject._id);
                                         test.save(function(err, saved){
@@ -124,7 +124,7 @@ app.route('/api/test/dev_tests/')
                             tasks: function(done){
                                 async.map(arg.test._tasks,
                                     function(task, yeah){
-                                        Task.findOne(task)
+                                        Task.findOne({'_id' : task})
                                             .exec(function(err, item){
                                                 item._subjects.push(arg.subject._id);
                                                 item.save(function(err, saved){
@@ -341,22 +341,16 @@ app.route('/api/test/:_id')
     // update one test with new information
     .put(function(req,res){
         // console.log('touched test put', req.body);
+        
         var t = req.body;
-        // Get the tasks so we can update their collected indices.
         var tasks = [];
 
         if(t._tasks.length > 0){
-            tasks = _.pluck(t._tasks, '_id');
-
-            // console.log('unplucked _tasks', t._tasks);
-            // console.log('plucked tasks', tasks);
-            
+            tasks = _.pluck(t._tasks, '_id');            
             async.each(t._tasks, function(task){
-                // console.log('tasks from updated test', task);
-                var find = mongoose.Types.ObjectId(task._id);
 
                 Task.findOneAndUpdate(
-                    {'_id': find},
+                    {'_id': task._id},
                     {index : task.index },
                     function(err, doc){
                         if(err){console.log(err);}

@@ -106,7 +106,10 @@ module.exports = function(io, knox, app, passport) {
         socket.on('channel', function(data) { 
             console.log('joining channel', data.room, data.test, data);
 
-            var promise = Test.findOne({'_id': data.test}).select("name link").exec();
+            var promise = Test.findOne({'_id': data.test})
+                              .select("name link")
+                              .exec();
+                              
             promise.then(function(test){
                 // joins the test to the socket from remote device
                 console.log('Test found', test);

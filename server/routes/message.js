@@ -79,16 +79,14 @@ app.route('/api/message/')
                 // console.log('tags call', call, m._id, req.body.tags);
             
                 async.each(req.body.tags, function(tag){
-                    var q = {name: tag, _test: call._test};
-                    var u = { $push: { _messages: m._id
-                                    },
-                                name: tag,
-                                _test: call._test
-                            };
-                    var o = {upsert:true};
-
-                    Tag.findOneAndUpdate( q, u, o, function(err, data){ 
-                        // console.log(data); 
+                    Tag.findOneAndUpdate(
+                        {name: tag, _test: call._test}, 
+                        { $push: { _messages: m._id },
+                               name: tag,
+                               _test: call._test
+                            }, 
+                        {upsert:true},
+                        function(err, data){ 
                     });
                 });
             }
