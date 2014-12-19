@@ -23,14 +23,14 @@ module.exports = function(app) {
 
         async.parallel({
             tags: function(callback){
-                Tag.find({'_test' : req.params._id })
+                Tag.find({'_test' : req.params._id, 'visible' : true })
                     .exec(function(err, docs){
                         if (err) {console.log(err);}
                         callback(null, docs);
                     });
             },
             tasks: function(callback){
-                Task.find({'_test': req.params._id})
+                Task.find({'_test': req.params._id, 'visible' : true })
                     .sort({ index: 'asc'})
                     .exec(function(err, docs){
                         if (err) {console.log(err);}
@@ -38,7 +38,7 @@ module.exports = function(app) {
                     });
             },
             test: function(callback){
-                Test.find({'_id' : req.params._id})
+                Test.find({'_id' : req.params._id, 'visible' : true })
                     .limit(1)
                     .exec(function(err, docs){
                         if(err){console.log(err);}

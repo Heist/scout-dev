@@ -178,7 +178,6 @@ angular.module('field_guide_controls')
     $scope.toggleVis = function(obj){
         if (obj.visible){ obj.visible = false; $scope.saveObject(obj); return;}
         if (!obj.visible){ obj.visible = true; $scope.saveObject(obj); return;}
-
     };
 
     $scope.saveFav = function(message){
