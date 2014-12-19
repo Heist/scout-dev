@@ -3,115 +3,123 @@
 
 #view-overview {
 	margin: 0;
-	padding: $pad*3 0 0 0;
+	padding: 0;
+	position: relative;
 	
-	#overview-tests {
-		padding: $pad*2 0;
+	.container {
+		padding: $pad 0 0 0;
+	}
 	
-		.overview-test {
-			margin-bottom: $pad;
-			min-width: 225px;
-			
-			.overview-test-container {
-				width: 100%;
+	.overview-controls {
+		float: right;
+	}
+	
+	#overview-header {
+		padding: $pad*0.6 $pad/2 $pad*1.5 $pad/2;
+		margin: 0;
+		
+		.expand-button {
+			.expand-button-body {
+				color: $white;
+				background: $fg-black;
 			}
-			
-			.test-info {
-				padding: $pad*2.5 $pad*1.5 $pad*1 $pad*1.5;
-				text-align: center;
-				position: relative;
-				@include radius-top;
-				background: $fg-tan;
-				height: 140px;
-				
-				small {
-					text-transform: uppercase;
-					opacity: 0.6;
-				}
+		}
+		
+	}
+}
 
+
+/* overview test block */
+
+.overview-test {
+	margin-bottom: $pad;
+	
+	.test-info {
+		padding: $pad*2.5 $pad*0.5 $pad*2 $pad*0.5;
+		text-align: center;
+		position: relative;
+		@include radius-top;
+		background: $background-overlay;
+		max-height: 130px;
+		overflow: hidden;
+		
+		small {
+			text-transform: uppercase;
+			opacity: 0.6;
+		}
+
+		&:hover {
+			.editTest {
+				display: block;
+			}
+		}
+		
+		.editTest {
+			font-size: $type-size-base*0.8;
+			position: absolute;
+			text-align: right;
+			width: 100%;
+			top: 5px;
+			left: 0px;
+			text-decoration: none;
+			display: none;
+			padding: $pad/4 $pad/1.5;
+
+			img{
+				height: 16px;
+				width:auto;
+			}
+
+			.dangerous {
 				&:hover {
-					.editTest {
-						display: block;
-					}
-				}
-				
-				.editTest {
-					font-size: $type-size-base*0.8;
-					position: absolute;
-					text-align: right;
-					width: 100%;
-					top: 5px;
-					left: 0px;
-					text-decoration: none;
-					display: none;
-					padding: $pad/4 $pad/1.5;
-
-					img{
-						height: 16px;
-						width:auto;
-					}
-
-					.dangerous {
-						&:hover {
-							color: $fg-header-red;
-						}
-					}
-				}
-				
-				a {
-					text-decoration: underline;
-				}	
-				
-				h3 {
-					color: $fg-black;
-					margin: 0;
-					@include type-light;
-					font-size: $type-size-base*1.2;
-				}	
-			}
-			
-			.test-controls {
-				background: $fg-green;
-				padding: 0;
-				height: 64px;
-				border-radius: 0 0 2px 2px;
-				
-				a{
-					font-size: $type-size-base*0.9;
-					padding: $pad*1.1 0;
-					float: left;
-					width: 50%;
-					margin: 0;
-					height: 64px;
-					text-align: center;
-					text-decoration: none;
-					color: $white;
-
-					&:hover{
-
-						background-color: darken($fg-green, 3%);
-
-						&.left{
-
-							border-radius: 0 0 0 2px;
-
-						}
-
-						&.right{
-
-							border-radius: 0 0 2px 0;
-
-						}
-
-					}
+					color: $fg-header-red;
 				}
 			}
-			
+		}
+		
+		a {
+			text-decoration: underline;
+		}	
+		
+		h3 {
+			color: $fg-slate;
+			margin: 0;
+		}	
+	}
+	
+	.test-controls {
+		background: $fg-green;
+		padding: 0;
+		margin: 0;
+		border-radius: 0 0 2px 2px;
+		
+		a {
+			font-size: $type-size-base*0.9;
+			padding: $pad*0.8 0;
+			float: left;
+			width: 50%;
+			margin: 0;
+			text-align: center;
+			text-decoration: none;
+			color: $white;
 
+			&:hover {
+				background-color: darken($fg-green, 3%);
+
+				&.left {
+					border-radius: 0 0 0 2px;
+				}
+
+				&.right {
+					border-radius: 0 0 2px 0;
+				}
+
+			}
 			
 		}
-	
 	}
+	
+
 	
 }
 

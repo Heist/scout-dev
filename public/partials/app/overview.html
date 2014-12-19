@@ -1,22 +1,42 @@
 <div id="view-overview">
-
-	<ng-include src="'partials/app/header.html'"></ng-include>
-
-	<!-- sub bar -->
-	<div id="sub-bar">
-		<div class="container">
-			<h1>My Tests</h1>
-
-			<div class="sub-bar-controls">
-				<button class="button" ng-click="newTest()">New test</button>
-				<button class="button" ng-click="devTest()">Dev test</button>
-			</div>
-			<div class="clear"></div>
-		</div>
+	
+	<div id="nav-logo">
+		<a href="/overview"><img src="/layout/assets/fg-binocs-header.gif" /></a>
+	</div>
+	
+	<div id="nav-account">
+		<a href="/account" ng-click="tracker()">&nbsp;</a>
 	</div>
 
+	<div id="nav-logout">
+		<a ng-click="logout()">Log Out</a>
+	</div>
+	
+	
+	
+
+
+	
+
 	<!-- show tests in db -->
-	<div class="container" id="overview-tests">	
+	<div class="container">	
+		
+		<div id="overview-header">		
+			<h3 class="h3-light float-left">My projects</h3>		
+				<!--<button class="button" ng-click="devTest()">Dev test</button>-->
+				
+			<div class="overview-controls">
+				<div class="expand-button">
+					<div class="expand-button-body" ng-click="newTest()">+</div>
+					<div class="expand-button-helper">Add new project</div>
+				</div>
+							
+			</div>
+			
+			<div class="clear"></div>
+		</div>
+		
+		
 
 		<!-- test -->
 		<div class="overview-test module quarter" ng-repeat="test in tests | orderBy:'created'">
