@@ -23,7 +23,7 @@ module.exports = function(app) {
 
         async.parallel({
             tags: function(callback){
-                Tag.find({'_test' : req.params._id, 'visible' : true })
+                Tag.find({'_test' : req.params._id})
                     .exec(function(err, docs){
                         if (err) {console.log(err);}
                         callback(null, docs);
