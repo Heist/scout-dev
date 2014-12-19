@@ -39,9 +39,10 @@
 		text-align: center;
 		position: relative;
 		@include radius-top;
-		background: $background-overlay;
+		background: $white;
 		max-height: 130px;
 		overflow: hidden;
+		@include dropshadowULTRA;
 		
 		small {
 			text-transform: uppercase;
@@ -92,6 +93,7 @@
 		padding: 0;
 		margin: 0;
 		border-radius: 0 0 2px 2px;
+		@include dropshadowULTRA;
 		
 		a {
 			font-size: $type-size-base*0.9;
