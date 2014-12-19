@@ -85,6 +85,7 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
         if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
             console.log('match');
             $scope.showCommentToggle = 'hide';
+            $scope.commentMessage = '';
             return;
         }
         if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
