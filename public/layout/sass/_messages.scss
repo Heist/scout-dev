@@ -29,6 +29,20 @@
 	}
 }
 
+
+/* add a new note when summarizing */
+
+.message-input {
+	width: 100%;
+	padding: $pad $pad*2;
+	margin: 0;
+	
+	.input {
+		width: 100%;
+	}
+}
+
+
 /* individual messages */
 
 .message {

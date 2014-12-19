@@ -60,7 +60,6 @@
 				<div ng-repeat="message in messages" class="message" 
 					ng-show="showObjectMessages(message, selected)"
 					ng-class="{selected: commentMessage._id === message._id}"
-					ng-click="showComments(message)"
 				>
 					
 					<div class="message-body">
@@ -71,13 +70,12 @@
 					<div class="clear"></div>
 					
 					<!-- if comments, display count -->
-					<div class="message-comment-count" ng-show="message._comments.length > 0">
+					<div class="message-comment-count" ng-click="showComments(message)" ng-show="message._comments.length > 0">
 						{{ message._comments.length}}
 					</div>
 
 					<!-- if no comments -->
-					<div class="message-comment-count empty" 
-						ng-show="message._comments.length === 0 || !message._comments" >
+					<div class="message-comment-count empty" ng-click="showComments(message)" ng-show="message._comments.length === 0 || !message._comments" >
 						+
 					</div>
 					
