@@ -9,6 +9,7 @@ angular.module('field_guide_controls')
 	$scope.test = {};
     $scope.timeline = [];
     $scope.commentMessage = '';
+
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
             $scope.leftNavList = [];
@@ -45,7 +46,8 @@ angular.module('field_guide_controls')
         $scope.selected = '';
         $scope.commentMessage = '';
         $scope.selectedIndex = '';
-        $scope.showCommentToggle = false;
+        $scope.showCommentToggle = 'hide';
+        $scope.messageEditToggle = '';
         
         $scope.selectedIndex = selectedIndex;
         
@@ -64,29 +66,41 @@ angular.module('field_guide_controls')
 
 // COMMENTING =========================================
     $scope.showComments = function(message){
-        if( !$scope.showCommentToggle){  $scope.showCommentToggle = true; }
+        // if the comment toggle is the same as the current comment toggle
+        // hide commenting
+        // else show the new message's comments
+
+        if($scope.commentMessage._id === message._id){
+            $scope.showCommentToggle = 'hide';
+        }
+
+        if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
+            $scope.showCommentToggle = 'show'; 
+        }
 
         $scope.commentMessage = message;
     };
 
     $scope.addComment = function(comment){
-        
-        var dataOut = {
-            comment: {body : comment.body}
-        };
-        
-        $http
-            .post('/api/comment/'+$scope.commentMessage._id, dataOut)
-            .success(function(data){
-                comment.body = '';
+        if(comment){
+            var dataOut = {
+                comment: {body : comment.body}
+            };
+            
+            $http
+                .post('/api/comment/'+$scope.commentMessage._id, dataOut)
+                .success(function(data){
+                    comment.body = '';
 
-                var name = data.msg._subject.name;
-                var arr = _.pluck($scope.messages[name], '_id');
-                var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
+                    var name = data.msg._subject.name;
+                    var arr = _.pluck($scope.messages[name], '_id');
+                    var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
 
-                $scope.messages[name][msg_idx]._comments.push(data.comment);
-            });
-
+                    $scope.messages[name][msg_idx]._comments.push(data.comment);
+                });
+        } else {
+            $scope.showCommentToggle = 'hide';   
+        }
     };
 
     // MOVE STEPS =========================================
@@ -128,10 +142,8 @@ angular.module('field_guide_controls')
     };
 
 
-    // SAVE FUNCTIONS =====================================
+    // OBJECT FUNCTIONS =====================================
     $scope.saveObject = function(obj){
-        
-
         var url, data;
 
         if(obj.doctype === 'test'){
@@ -156,7 +168,6 @@ angular.module('field_guide_controls')
     };
 
     $scope.passFail = function(obj){
-
         if(obj.pass_fail){ obj.pass_fail = false; }
         else if (!obj.fail){ obj.pass_fail = true; }
 
@@ -196,6 +207,7 @@ angular.module('field_guide_controls')
     };
 
     $scope.editMessage = function(message, index){
+        // clear this on blur to block weird toggle bug
         $scope.messageEditToggle = message._id;
     };
 

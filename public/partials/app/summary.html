@@ -1,6 +1,6 @@
 <div id="view-findings" 
 	ng-model='test'
-	ng-class="{ 'show-comments' : showCommentToggle == true }" 
+	ng-class="{ 'show-comments' : showCommentToggle !== 'hide' }" 
 	>
 	
 
@@ -126,7 +126,7 @@
 					<!--<div class="message-edit"><img src="/layout/assets/pencil.svg"/></div>-->
 					
 					<div class="message-body" ng-click="editMessage(message, $index)">
-						<p ng-bind-html="message.body | hashtag" ng-hide="messageEditToggle == message._id"></p>
+						<p ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></p>
 						<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
 						<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 					</div>
