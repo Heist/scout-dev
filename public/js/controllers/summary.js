@@ -46,6 +46,7 @@ angular.module('field_guide_controls')
         $scope.commentMessage = '';
         $scope.selectedIndex = '';
         $scope.showCommentToggle = false;
+        $scope.messageEditToggle = '';
         
         $scope.selectedIndex = selectedIndex;
         
@@ -128,10 +129,8 @@ angular.module('field_guide_controls')
     };
 
 
-    // SAVE FUNCTIONS =====================================
+    // OBJECT FUNCTIONS =====================================
     $scope.saveObject = function(obj){
-        
-
         var url, data;
 
         if(obj.doctype === 'test'){
@@ -156,7 +155,6 @@ angular.module('field_guide_controls')
     };
 
     $scope.passFail = function(obj){
-
         if(obj.pass_fail){ obj.pass_fail = false; }
         else if (!obj.fail){ obj.pass_fail = true; }
 
@@ -196,6 +194,7 @@ angular.module('field_guide_controls')
     };
 
     $scope.editMessage = function(message, index){
+        // clear this on blur to block weird toggle bug
         $scope.messageEditToggle = message._id;
     };
 
