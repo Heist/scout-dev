@@ -48,7 +48,7 @@ module.exports = function(app) {
             messages: function(callback){
                 Message.find({ '_test':{$in: [req.params._id]}})
                        .populate({path:'_subject', select: 'name' })
-                       .populate({path:'_comments', select: 'name body'})
+                       .populate({path:'_comments', select: 'name body created'})
                        .exec(function(err, docs){
                             if(err){console.log(err);}
                             console.log(docs);
