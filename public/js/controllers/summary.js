@@ -46,6 +46,7 @@ angular.module('field_guide_controls')
         $scope.selected = '';
         $scope.commentMessage = '';
         $scope.selectedIndex = '';
+        $scope.inputNote = '';
         $scope.showCommentToggle = 'hide';
         $scope.messageEditToggle = '';
         
@@ -208,6 +209,7 @@ angular.module('field_guide_controls')
 
     $scope.editMessage = function(message, index){
         // clear this on blur to block weird toggle bug
+        $scope.inputNote = '';
         $scope.messageEditToggle = message._id;
     };
 
@@ -241,6 +243,7 @@ angular.module('field_guide_controls')
 
     $scope.toggleNote = function(user){
         console.log('user for new note', user);
+        $scope.messageEditToggle = '';
         $scope.inputNote = user;
     };
 
