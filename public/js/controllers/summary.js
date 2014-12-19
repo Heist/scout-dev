@@ -9,6 +9,7 @@ angular.module('field_guide_controls')
 	$scope.test = {};
     $scope.timeline = [];
     $scope.commentMessage = '';
+
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
             $scope.leftNavList = [];
@@ -45,7 +46,7 @@ angular.module('field_guide_controls')
         $scope.selected = '';
         $scope.commentMessage = '';
         $scope.selectedIndex = '';
-        $scope.showCommentToggle = false;
+        $scope.showCommentToggle = 'hide';
         $scope.messageEditToggle = '';
         
         $scope.selectedIndex = selectedIndex;
@@ -65,7 +66,18 @@ angular.module('field_guide_controls')
 
 // COMMENTING =========================================
     $scope.showComments = function(message){
-        if( !$scope.showCommentToggle){  $scope.showCommentToggle = true; }
+        console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle );
+        // if the comment toggle is the same as the current comment toggle
+        // hide commenting
+        // else show the new message's comments
+
+        if($scope.commentMessage._id === message._id){
+            $scope.showCommentToggle = 'hide';
+            console.log('tagged it', $scope.showCommentToggle);
+        }
+        if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
+            $scope.showCommentToggle = 'show'; 
+        }
 
         $scope.commentMessage = message;
     };
