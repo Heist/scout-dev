@@ -109,10 +109,10 @@
 				
 				
 				<!-- input notes -->
-				<div id="session-input" ng-show="inputNote === user[0]._subject._id">
-					<textarea class="input" ng-model='newnote' name="field-input" placeholder="Your notes">
+				<div class="message-input" ng-show="inputNote === user[0]._subject._id">
+					<textarea class="input" ng-model='newnote' name="field-input" placeholder="Your new notes for this participant">
 					</textarea>
-					<button ng-click="postMessage(newnote, user[0]._subject)"/>Add Note</button>
+					<button class="button small" ng-click="postMessage(newnote, user[0]._subject)">Add Note</button>
 				</div>
 			
 				
@@ -120,10 +120,8 @@
 				<!-- message -->
 				<div ng-repeat="message in user" class="message" 
 				ng-show="showObjectMessages(message, selected)"
-				ng-class="{selected: commentMessage._id === message._id}"
-				ng-click="showComments(message)">
-					
-				
+				ng-class="{selected: commentMessage._id === message._id}">
+									
 					
 					<!--<div class="message-edit"><img src="/layout/assets/pencil.svg"/></div>-->
 					
@@ -158,13 +156,13 @@
 					<div class="clear"></div>
 					
 					<!-- if comments, display count -->
-					<div class="message-comment-count" ng-show="message._comments.length > 0">
+					<div class="message-comment-count" ng-show="message._comments.length > 0" ng-click="showComments(message)">
 						{{ message._comments.length}}
 					</div>
 
 					<!-- if no comments -->
 					<div class="message-comment-count empty" 
-						ng-show="message._comments.length === 0 || !message._comments" >
+						ng-show="message._comments.length === 0 || !message._comments" ng-click="showComments(message)">
 						+
 					</div>
 					
