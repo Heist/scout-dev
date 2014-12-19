@@ -28,15 +28,15 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
                 
             }); 
 
-    $scope.doKeyUp = function(evt){
-        console.log(evt);
-        if(event.keyCode === 27){
-            $scope.showCommentToggle = false;
-            $scope.commentMessage = '';   
-        } else {
-            return;
-        }
-    };
+    // $scope.doKeyUp = function(evt){
+    //     console.log(evt);
+    //     if(event.keyCode === 27){
+    //         $scope.showCommentToggle = false;
+    //         $scope.commentMessage = '';   
+    //     } else {
+    //         return;
+    //     }
+    // };
 
 // MIXPANEL ===================================== 
 
@@ -104,6 +104,7 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
     };
 
     $scope.addComment = function(comment){
+        console.log('add comment', $scope.messages);
         if(comment){
             var dataOut = {
                 comment: {body : comment.body}
@@ -114,11 +115,11 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
                 .success(function(data){
                     comment.body = '';
 
-                    var name = data.msg._subject.name;
-                    var arr = _.pluck($scope.messages[name], '_id');
+                    var arr = _.pluck($scope.messages, '_id');
                     var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
 
-                    $scope.messages[name][msg_idx]._comments.push(data.comment);
+                    console.log(msg_idx);
+                    $scope.messages[msg_idx]._comments.push(data.comment);
                 });
         } else {
             $scope.showCommentToggle = 'hide';   

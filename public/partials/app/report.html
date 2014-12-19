@@ -47,8 +47,10 @@
 			</div>
 			
 			<div class="findings-description">	
-				<p ng-bind-html="selected.desc | linebreaker"></p>
-				<p ng-bind-html='selected.summary'></p>
+				<!-- <p ng-bind-html="selected.desc | linebreaker"></p> -->
+				<!-- <p ng-bind-html='selected.summary'></p> -->
+				<p >{{selected.desc}}</p>
+				<p >{{selected.summary}}</p>
 			</div>
 		
 			<hr />
@@ -60,6 +62,7 @@
 				<div ng-repeat="message in messages" class="message" 
 					ng-show="showObjectMessages(message, selected)"
 					ng-class="{selected: commentMessage._id === message._id}"
+					ng-click="showComments(message)"
 				>
 					
 					<div class="message-body">
@@ -76,7 +79,7 @@
 
 					<!-- if no comments -->
 					<div class="message-comment-count empty" 
-						ng-show="message._comments.length === 0 || !message._comments" ng-click="showComments(message)">
+						ng-show="message._comments.length === 0 || !message._comments" >
 						+
 					</div>
 					
