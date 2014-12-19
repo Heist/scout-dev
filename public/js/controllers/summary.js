@@ -72,6 +72,7 @@ angular.module('field_guide_controls')
 
         if($scope.commentMessage._id === message._id){
             $scope.showCommentToggle = 'hide';
+            $scope.commentMessage = '';
         }
 
         if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){

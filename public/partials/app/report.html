@@ -1,5 +1,5 @@
 <div id="view-findings" 
-	ng-class="{ 'show-comments' : showCommentToggle == true }" 
+	ng-class="{ 'show-comments' : showCommentToggle !== 'hide' }" 
 	ng-model="report"
 	ng-keyup="doKeyUp($event)"
 >
@@ -70,12 +70,13 @@
 					<div class="clear"></div>
 					
 					<!-- if comments, display count -->
-					<div class="message-comment-count" ng-click="showComments(message)" ng-show="message._comments.length > 0">
+					<div class="message-comment-count" ng-show="message._comments.length > 0" ng-click="showComments(message)">
 						{{ message._comments.length}}
 					</div>
 
 					<!-- if no comments -->
-					<div class="message-comment-count empty" ng-click="showComments(message)" ng-show="message._comments.length === 0 || !message._comments" >
+					<div class="message-comment-count empty" 
+						ng-show="message._comments.length === 0 || !message._comments" ng-click="showComments(message)">
 						+
 					</div>
 					
@@ -90,7 +91,10 @@
 						<div class="message-comment-submit">
 								<form ng-model="comment">
 									<small>Add a comment:</small>
-									<textarea class="input small" ng-model="comment.body" ng-blur="addComment(comment)"></textarea>
+									<textarea class="input small" 
+										ng-model="comment.body" 
+										ng-blur="addComment(comment)">
+									</textarea>
 								</form>
 						</div>
 					</div>

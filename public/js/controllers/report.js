@@ -51,12 +51,15 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
 
     $scope.activate = function(obj, selectedIndex) {
         // passes the task to the global variable
-        console.log('selected', obj.name, obj._messages);
 
-        $scope.selectedIndex = selectedIndex;
-        $scope.showCommentToggle = false;
+        $scope.selected = '';
         $scope.commentMessage = '';
-     
+        $scope.selectedIndex = '';
+        $scope.showCommentToggle = 'hide';
+        // $scope.messageEditToggle = '';
+        
+        $scope.selectedIndex = selectedIndex;
+        
         if(obj){
             $scope.selected = obj;
         }
@@ -70,30 +73,57 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
         }
     };
 
-// COMMENTING =============================================
-
+// COMMENTING =========================================
     $scope.showComments = function(message){
-        if( !$scope.showCommentToggle){  $scope.showCommentToggle = true; }
+        // if the comment toggle is the same as the current comment toggle
+        // hide commenting
+        // else show the new message's comments
+
+        console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
+
+        // if(){}
+        if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
+            console.log('match');
+            $scope.showCommentToggle = 'hide';
+            return;
+        }
+        if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
+            console.log('match');
+            $scope.showCommentToggle = 'show';
+            return;
+        }
+        if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
+            console.log('fail');
+            $scope.showCommentToggle = 'show'; 
+            $scope.commentMessage = message;
+            return;
+        }
+        
         $scope.commentMessage = message;
+
     };
 
     $scope.addComment = function(comment){
-        var dataOut = {
-            comment: {body : comment.body},
-            message: $scope.commentMessage._id
-        };
+        if(comment){
+            var dataOut = {
+                comment: {body : comment.body}
+            };
+            
+            $http
+                .post('/api/comment/'+$scope.commentMessage._id, dataOut)
+                .success(function(data){
+                    comment.body = '';
 
-        $http
-            .post('/api/comment/', dataOut)
-            .success(function(data){
-                comment.body = '';
-                
-                var arr = _.pluck($scope.messages, '_id');
-                var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
-                
-                $scope.messages[msg_idx] = data.msg;
-            });
+                    var name = data.msg._subject.name;
+                    var arr = _.pluck($scope.messages[name], '_id');
+                    var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
 
+                    $scope.messages[name][msg_idx]._comments.push(data.comment);
+                });
+        } else {
+            $scope.showCommentToggle = 'hide';   
+        }
     };
+
 
 }]);
