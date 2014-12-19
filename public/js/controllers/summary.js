@@ -66,15 +66,14 @@ angular.module('field_guide_controls')
 
 // COMMENTING =========================================
     $scope.showComments = function(message){
-        console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle );
         // if the comment toggle is the same as the current comment toggle
         // hide commenting
         // else show the new message's comments
 
         if($scope.commentMessage._id === message._id){
             $scope.showCommentToggle = 'hide';
-            console.log('tagged it', $scope.showCommentToggle);
         }
+
         if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
             $scope.showCommentToggle = 'show'; 
         }
@@ -83,23 +82,25 @@ angular.module('field_guide_controls')
     };
 
     $scope.addComment = function(comment){
-        
-        var dataOut = {
-            comment: {body : comment.body}
-        };
-        
-        $http
-            .post('/api/comment/'+$scope.commentMessage._id, dataOut)
-            .success(function(data){
-                comment.body = '';
+        if(comment){
+            var dataOut = {
+                comment: {body : comment.body}
+            };
+            
+            $http
+                .post('/api/comment/'+$scope.commentMessage._id, dataOut)
+                .success(function(data){
+                    comment.body = '';
 
-                var name = data.msg._subject.name;
-                var arr = _.pluck($scope.messages[name], '_id');
-                var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
+                    var name = data.msg._subject.name;
+                    var arr = _.pluck($scope.messages[name], '_id');
+                    var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
 
-                $scope.messages[name][msg_idx]._comments.push(data.comment);
-            });
-
+                    $scope.messages[name][msg_idx]._comments.push(data.comment);
+                });
+        } else {
+            $scope.showCommentToggle = 'hide';   
+        }
     };
 
     // MOVE STEPS =========================================
