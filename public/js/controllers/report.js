@@ -106,7 +106,7 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
 
     $scope.addComment = function(comment){
         console.log('add comment', $scope.messages);
-        if(comment){
+        if(comment && comment.body.length > 0){
             var dataOut = {
                 comment: {body : comment.body}
             };

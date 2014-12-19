@@ -84,7 +84,7 @@ angular.module('field_guide_controls')
     };
 
     $scope.addComment = function(comment){
-        if(comment){
+        if(comment && comment.body.length > 0){
             var dataOut = {
                 comment: {body : comment.body}
             };
@@ -249,6 +249,8 @@ angular.module('field_guide_controls')
 
     $scope.postMessage = function(message, subject){
         // Make a note object, which becomes a message on the back end.
+
+        // TODO make the note never be blank.
         var note = {};
 
         note.body = message;
