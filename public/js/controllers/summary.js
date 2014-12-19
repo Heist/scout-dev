@@ -250,7 +250,7 @@ angular.module('field_guide_controls')
     $scope.postMessage = function(message, subject){
         // Make a note object, which becomes a message on the back end.
 
-        // TODO make the note never be blank.
+        //TODO make the note never be blank.
         var note = {};
 
         note.body = message;
