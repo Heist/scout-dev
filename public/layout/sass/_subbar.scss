@@ -43,10 +43,11 @@
 	list-style: none;
 	padding: 0;
 	margin: 0 auto;
+	text-align: center;
 	
 	li {
 		display: inline-block;
-		padding: 0 0 $pad 0;
+		padding: 0 0 $pad/2 0;
 		margin: 0 $pad;
 		
 		a {
