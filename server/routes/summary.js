@@ -257,7 +257,8 @@ module.exports = function (app, passport) {
                         task._id,
                         {'pass_fail': task.pass_fail,
                         'report_index' : task.report_index,
-                        'summary': task.summary },
+                        'summary': task.summary,
+                        'embed':task.embed },
                         function(err, data){
                             if(err) {return res.send (err);}
                             callback(null, data);
@@ -278,6 +279,7 @@ module.exports = function (app, passport) {
                 if(req.body.summary){doc.summary = req.body.summary;}
                 if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
                 if(req.body.visible !== null){ doc.visible = req.body.visible;}
+                if(req.body.embed !== null){ doc.embed = req.body.embed;}
 
                 doc.save(function(err,data){
                     if(err){res.send(err);}
@@ -300,6 +302,7 @@ module.exports = function (app, passport) {
                 if(req.body.summary){doc.summary = req.body.summary;}
                 if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
                 if(req.body.visible !== null){ doc.visible = req.body.visible;}
+                if(req.body.embed !== null){ doc.embed = req.body.embed;}
 
                 doc.save(function(err,data){
                     if(err){res.send(err);}
@@ -322,6 +325,7 @@ module.exports = function (app, passport) {
                 if(req.body.summary){doc.summary = req.body.summary;}
                 if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
                 if(req.body.visible !== null){ doc.visible = req.body.visible;}
+                if(req.body.embed !== null){ doc.embed = req.body.embed;}
                 
                 doc.save(function(err,data){
                     if(err){res.send(err);}

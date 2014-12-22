@@ -10,7 +10,7 @@ angular.module('field_guide_controls')
     $scope.timeline = [];
     $scope.commentMessage = '';
 
-    $scope.embedCode = 'Bw_7UrqzNUg';
+    // $scope.embedCode = 'Bw_7UrqzNUg';
 
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
@@ -151,7 +151,6 @@ angular.module('field_guide_controls')
         var url, data;
 
         if(obj.doctype === 'test'){
-            
             url = 'summary/test/'+ obj._id;
             data = obj;
         }
@@ -183,23 +182,6 @@ angular.module('field_guide_controls')
         if (!obj.visible){ obj.visible = true; $scope.saveObject(obj); return;}
     };
 
-    $scope.saveFav = function(message){
-        
-        if($scope.selected.doctype === 'task'){
-            if(message.fav_task){ message.fav_task = false; }
-            else if (!message.fav_task){ message.fav_task = true; }
-        }
-
-        if($scope.selected.doctype === 'tag'){
-            if(message.fav_tag){ message.fav_tag = false; } 
-            else if (!message.fav_tag){ message.fav_tag = true;}
-        }
-
-        $http
-            .put('/api/summary/message/'+message._id, message)
-            .success(function(data){
-            });
-    };
 
     // MESSAGE FUNCTIONS ==================================
 
@@ -247,6 +229,24 @@ angular.module('field_guide_controls')
         console.log('user for new note', user);
         $scope.messageEditToggle = '';
         $scope.inputNote = user;
+    };
+
+    $scope.saveFav = function(message){
+        
+        if($scope.selected.doctype === 'task'){
+            if(message.fav_task){ message.fav_task = false; }
+            else if (!message.fav_task){ message.fav_task = true; }
+        }
+
+        if($scope.selected.doctype === 'tag'){
+            if(message.fav_tag){ message.fav_tag = false; } 
+            else if (!message.fav_tag){ message.fav_tag = true;}
+        }
+
+        $http
+            .put('/api/summary/message/'+message._id, message)
+            .success(function(data){
+            });
     };
 
     $scope.postMessage = function(message, subject){
