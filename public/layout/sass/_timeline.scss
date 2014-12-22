@@ -2,12 +2,14 @@
 
 
 #timeline {
-	overtest: auto;
-	padding: 50px 0 170px 0;
+	padding: 0 0 150px 0;
+	width: 100%;
 	height: 100%;
+	background: red;
 	overflow: auto;
 	margin: 0;
 	background: url('../assets/timeline-line.gif') repeat-y 24px top;
+	//@include scrollbar;
 		
 	ul {
 		list-style: none;
@@ -92,7 +94,8 @@
    only relevant when doing testing on device */
 
 #timeline-user {
-	
+	position: relative;
+	height: 100%;
 	
 	#timeline-user-only {
 		position: absolute;
