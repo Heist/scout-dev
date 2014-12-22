@@ -1,82 +1,82 @@
 <div id="view-testing">
 	
 	
-	<ng-include src="'partials/app/header_run.html'"></ng-include>
 	
+<!-- participant definition modal -->
 
-	
-	
-	<!-- participant definition modal -->
 
+<div class="modal" ng-model="live" ng-hide="live">
+
+	<div class="module third">&nbsp;</div>
 	
-	<div class="modal" ng-model="live" ng-hide="live">
-	
-			<div class="module third">&nbsp;</div>
+	<div class="module third modal-interior">
+		
+		<div class="modal-interior-title">
+			<img src="/layout/assets/avatar-large.png">
+			<h3>Who are you testing with?</h3>
+		</div>
+		
+		<ul class="nobullets lined" ng-model="subject">
+			<li>
+				<label>Participant's name</label>
+				
+				<input class="input" type="text" name="participantname" value="" placeholder="&lsquo;Jane&rsquo; or &lsquo;Tester 2&rsquo;, for example" ng-model="subject.name" ui-keypress="{13:'addSubject(subject)'}" />
+				</input>
+			</li>
 			
-			<div class="module third modal-interior">
+			<li ng-show="kind === 'prototype'">
+				<label>Room ID from the Field Guide App &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://docs.google.com/forms/d/1MsYcOPq5X1foSuaHfuuhzOmkhijaNFBjB7XJMs3PSA0/viewform" target="_fdbk">Get the iOS Beta App</a></label>
 				
-				<div class="modal-interior-title">
-					<img src="/layout/assets/avatar-large.png">
-					<h3>Who are you testing with?</h3>
-				</div>
-				
-				<ul class="nobullets lined" ng-model="subject" >
-					<li>
-						<label>Participant's name</label>
-						
-						<input class="input" type="text" name="participantname" value="" placeholder="&lsquo;Jane&rsquo; or &lsquo;Tester 2&rsquo;, for example" ng-model="subject.name" ui-keypress="{13:'addSubject(subject)'}" />
-						</input>
-					</li>
-					
-					<li ng-show="kind === 'prototype'">
-						<label>Room ID from the Field Guide App &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://docs.google.com/forms/d/1MsYcOPq5X1foSuaHfuuhzOmkhijaNFBjB7XJMs3PSA0/viewform" target="_fdbk">Get the iOS Beta App</a></label>
-						
-						<input class="input" type="text" name="testroom" value="" placeholder="The code on your device, e.g. 71ff3a84" ng-model="subject.testroom" ui-keypress="{13:'addSubject(subject)'}" >
-						</input>
-					</li>
-					
-					
-					<li class="text-center">
-						<button class="button" type="submit" ng-click="addSubject(subject)">Start testing!</button>
-					</li>
-				
-				</ul>
-				
-			</div>
+				<input class="input" type="text" name="testroom" value="" placeholder="The code on your device, e.g. 71ff3a84" ng-model="subject.testroom" ui-keypress="{13:'addSubject(subject)'}" >
+				</input>
+			</li>
 			
-			<div class="clear"></div>
+			
+			<li class="text-center">
+				<button class="button" type="submit" ng-click="addSubject(subject)">Start testing!</button>
+			</li>
+		
+		</ul>
+		
 	</div>
 	
-	
-	<!-- / participant definition modal -->
-	
-	<!-- New task modal -->
-	<div class="modal" ng-model="new_task" ng-show="adding_task == true">
-	    <div class="module third">&nbsp;</div>
-	    
-	    <div class="module third modal-interior">
-	        
-	        <div class="step-contents">
-	            <form>
-	                <input class="input tight" ng-trim="false" ng-model="new_task.name"><br/>
-	                <textarea ng-model="new_task.desc" class="input small tight" id="field-textarea" ng-blur="addTask(new_task)" placeholder="Put talking points or task-specific questions here.">
-	                </textarea>
-	            </form>
-	        </div>
+	<div class="clear"></div>
+</div>
+<!-- / participant definition modal -->
 
-	    </div>
-	    <div class="clear"></div>
-	</div>
-	<!-- / New task modal -->
+
+
+<!-- New task modal -->
+<div class="modal" ng-model="new_task" ng-show="adding_task == true">
+    <div class="module third">&nbsp;</div>
+    
+    <div class="module third modal-interior">
+        
+        <div class="step-contents">
+            <form>
+                <input class="input tight" ng-trim="false" ng-model="new_task.name"><br/>
+                <textarea ng-model="new_task.desc" class="input small tight" id="field-textarea" ng-blur="addTask(new_task)" placeholder="Put talking points or task-specific questions here.">
+                </textarea>
+            </form>
+        </div>
+
+    </div>
+    
+    <div class="clear"></div>
+</div>
+<!-- / New task modal -->
 	
 	
 	
-	<!-- create a test -->
-	
+	<!-- discussion guide -->
 	<div class="left-pane" ng-model="tests">
 		
 		<div id="tasklist">
-			<button ng-click="adding_task = true">Add Task</button>
+			<button class="small button" ng-click="adding_task = true">Add Task</button>
+			
+			<button class="button small dark" ng-click="postTest()">End Test</button>
+			
+			
 			<ul ng-repeat="test in tests" ng-class="{ 'active': test._id === selected._test }">
 				<li class="title"><small>test</small><h3>{{test.name}}</h3></li>
 			
@@ -93,9 +93,10 @@
 		</div>
 			
 	</div>
+	<!-- / discussion guide -->
 	
 	
-	
+	<!-- note input and display -->
 	<div class="middle-pane" >
 		
 		<!-- input notes -->
@@ -143,9 +144,11 @@
 		</div>
 		
 	</div>
+	<!-- / note input and display -->
 	
 	
 	
+	<!-- username or device -->
 	<div class="right-pane" ng-model='subject'>
 		
 		<div id="timeline-user-input"> </div>
@@ -177,7 +180,7 @@
 		
 			
 	</div>
-	
+	<!-- /username or device -->
 	
 	
 	
