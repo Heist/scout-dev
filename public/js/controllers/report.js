@@ -2,7 +2,7 @@
 // report.js
 
 // REPORT CONTROLLER ===========================================================
-angular.module('field_guide_controls').controller('report', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
+angular.module('field_guide_controls').controller('report', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', function($scope, $sce, $http, $location,$stateParams,$state, $sanitize){
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/report/'+$stateParams.test_id;
@@ -74,7 +74,9 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
                 var utest = /usabilitytestresults/i;
                 var ut = utest.test(obj.embed);
                 if(ut){
-                    $scope.selected.userTesting = true;
+                    $scope.selected.userTesting = $sce.trustAsHtml(obj.embed);
+                    $scope.selected.HTMLdemo = '<a href="#linky">I am a link</a>';
+                    console.log(obj.embed);
                 }
 
             }
