@@ -65,10 +65,16 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
 
             // here's where we do the rendering shit for the embeds. Slow. Boo.
             if(obj.embed){
-                var patt = /youtube.com/i;
-                var renderYoutube = patt.test(obj.embed);
-                if(renderYoutube){
+                var ytube = /youtube.com/i;
+                var yt = ytube.test(obj.embed);
+                if(yt){
                     $scope.selected.youTubeCode = obj.embed;
+                }
+
+                var utest = /usabilitytestresults/i;
+                var ut = utest.test(obj.embed);
+                if(ut){
+                    $scope.selected.userTesting = true;
                 }
 
             }
