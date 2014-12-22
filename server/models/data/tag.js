@@ -18,6 +18,7 @@ var TagSchema = new Schema({
     // body: { type : String, trim : true },
     name: { type : String, trim : true },
     summary: { type : String, trim : true },
+    embed   : { type: String, default: '' },
 
     index: Number,
     report_index: Number,

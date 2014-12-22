@@ -53,9 +53,13 @@
 				<p >{{selected.summary}}</p>
 			</div>
 		
-			<youtube-video video-id="embedCode" player-width="'100%'" player-height="'300px'"></youtube-video>
+			<youtube-video video-url="selected.youTubeCode" player-width="'100%'" player-height="'300px'" ng-if="selected.youTubeCode.length > 0"></youtube-video>
 			<hr />
 			
+			<div ng-if="selected.userTesting = true" >
+				
+			</div>
+
 			<!-- messages -->					
 			<div class="message-group">
 				

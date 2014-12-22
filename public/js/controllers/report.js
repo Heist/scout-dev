@@ -6,8 +6,6 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/report/'+$stateParams.test_id;
-    
-    $scope.embedCode = 'Bw_7UrqzNUg';
 
     $http.get('/api/auth/report/'+$stateParams.test_id)
             .success(function(data){
@@ -64,6 +62,22 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
         
         if(obj){
             $scope.selected = obj;
+
+            // here's where we do the rendering shit for the embeds. Slow. Boo.
+            if(obj.embed){
+                var ytube = /youtube.com/i;
+                var yt = ytube.test(obj.embed);
+                if(yt){
+                    $scope.selected.youTubeCode = obj.embed;
+                }
+
+                var utest = /usabilitytestresults/i;
+                var ut = utest.test(obj.embed);
+                if(ut){
+                    $scope.selected.userTesting = true;
+                }
+
+            }
         }
     };
 

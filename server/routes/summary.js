@@ -99,6 +99,7 @@ module.exports = function (app, passport) {
                                 model.report_index  = obj.report_index;
                                 model.summary       = obj.summary;
                                 model.summarized    = obj.summarized;
+                                model.embed         = obj.embed;
                                 model.report        = true;
 
                                 model.save(function(err, data){
@@ -257,7 +258,8 @@ module.exports = function (app, passport) {
                         task._id,
                         {'pass_fail': task.pass_fail,
                         'report_index' : task.report_index,
-                        'summary': task.summary },
+                        'summary': task.summary,
+                        'embed':task.embed },
                         function(err, data){
                             if(err) {return res.send (err);}
                             callback(null, data);
@@ -271,18 +273,21 @@ module.exports = function (app, passport) {
     app.route('/api/summary/task/:_id').put(function(req,res){
         console.log('touched summary task', req.body.pass_fail, req.body._id);
 
-        Task.findById(req.params._id)
+        Task.findOne({'_id': req.body._id})
             .exec(function(err, doc){
                 if (err) {res.send(err);}
+
+                console.log('touched task', req.body._id);
 
                 if(req.body.summary){doc.summary = req.body.summary;}
                 if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
                 if(req.body.visible !== null){ doc.visible = req.body.visible;}
+                if(req.body.embed !== null){ doc.embed = req.body.embed;}
 
                 doc.save(function(err,data){
                     if(err){res.send(err);}
 
-                    // console.log('updated task', task);
+                    console.log('updated task', data._id);
                     res.json(data);
                 });
         });
@@ -291,20 +296,23 @@ module.exports = function (app, passport) {
 
     app.route('/api/summary/test/:_id').put(function(req,res){
 
-        console.log('touched summary task', req.body.pass_fail, req.body._id);
+        console.log('touched summary test', req.body.pass_fail, req.body._id);
 
-        Test.findById(req.params._id)
+        Test.findOne({'_id' : req.body._id})
             .exec(function(err, doc){
                 if (err) {res.send(err);}
+
+                console.log('test found', doc._id);
 
                 if(req.body.summary){doc.summary = req.body.summary;}
                 if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
                 if(req.body.visible !== null){ doc.visible = req.body.visible;}
+                if(req.body.embed !== null){ doc.embed = req.body.embed;}
 
                 doc.save(function(err,data){
                     if(err){res.send(err);}
 
-                    // console.log('updated task', task);
+                    console.log('updated test', data._id);
                     res.json(data);
                 });
         });
@@ -322,7 +330,8 @@ module.exports = function (app, passport) {
                 if(req.body.summary){doc.summary = req.body.summary;}
                 if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
                 if(req.body.visible !== null){ doc.visible = req.body.visible;}
-                
+                if(req.body.embed !== null){ doc.embed = req.body.embed;}
+
                 doc.save(function(err,data){
                     if(err){res.send(err);}
 

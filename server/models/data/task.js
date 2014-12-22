@@ -21,6 +21,7 @@ var TaskSchema = new Schema ({
     summary: { type : String, trim : true },
     pass_fail: { type: Boolean, default: true },
     visible: { type:Boolean, default: true },
+    embed   : { type: String, default: '' },
 
     index: Number,
     report_index: Number,

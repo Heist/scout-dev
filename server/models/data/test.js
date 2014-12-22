@@ -21,6 +21,7 @@ var TestSchema = new Schema({
         name    : { type: String, trim: true, default: 'my new flow name' },
         platform: { type: String, trim: true, default: 'mobile' },
         kind    : { type: String, trim: true, default: '' },
+        embed   : { type: String, default: '' },
 
         index: { type: Number, default: 0 },
         report_index : { type: Number, default: 0 },
