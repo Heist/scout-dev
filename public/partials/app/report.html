@@ -56,10 +56,12 @@
 			<youtube-video video-url="selected.youTubeCode" player-width="'100%'" player-height="'300px'" ng-if="selected.youTubeCode.length > 0"></youtube-video>
 			<hr />
 			
-			<div ng-if="selected.userTesting = true" >
+			<div ng-if="selected.userTesting" ng-bind-html="selected.userTesting">
 				
 			</div>
+			<div ng-if="selected.userTesting" ng-bind-html="selected.HTMLdemo">
 
+			</div>
 			<!-- messages -->					
 			<div class="message-group">
 				

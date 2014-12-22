@@ -2,7 +2,7 @@
 // report.js
 
 // REPORT CONTROLLER ===========================================================
-angular.module('field_guide_controls').controller('report', ['$scope','$http', '$location', '$stateParams','$state','$sanitize', function($scope, $http, $location,$stateParams,$state, $sanitize){
+angular.module('field_guide_controls').controller('report', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', function($scope, $sce, $http, $location,$stateParams,$state, $sanitize){
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/report/'+$stateParams.test_id;
@@ -74,7 +74,20 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
                 var utest = /usabilitytestresults/i;
                 var ut = utest.test(obj.embed);
                 if(ut){
-                    $scope.selected.userTesting = true;
+                    var w1 = /width='\d+'/i;
+                    var h1 = /height='\d+'/i;
+                    var w2 = /"width":"\d+"/i;
+                    var h2 = /"height":"\d+"/i;
+                    
+                    var res = obj.embed.replace(w1, "width='574'");
+                    res = res.replace(w2, '"width":"574"');
+                    res = res.replace(h1, "height='380'");
+                    res = res.replace(h2, '"height":"380"');
+                    
+                    console.log(res);
+
+                    $scope.selected.userTesting = $sce.trustAsHtml(res);
+                    $scope.selected.HTMLdemo = '<a href="#linky">I am a link</a>';
                 }
 
             }
