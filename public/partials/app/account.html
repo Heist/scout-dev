@@ -1,12 +1,27 @@
 <div id="view-account">
 	
-	<ng-include src="'partials/app/header.html'"></ng-include>
+
+	<div id="nav-logo">
+		<a href="/overview"><img src="/layout/assets/fg-binocs-header.gif" /></a>
+	</div>
 	
+	<div id="nav-account">
+		<a href="/account" ng-click="tracker()">&nbsp;</a>
+	</div>
 	
-	<!-- sub bar -->
-	<div id="sub-bar" class="tabbed">
-		<div class="container">
+	<div id="nav-logout">
+		<a ng-click="logout()">Log Out</a>
+	</div>
+
+
+
+
+<!-- CONNECTED APPS -->
+	
+	<div class="container">
+	
 		
+		<div id="header-min">
 			<ul class="tabbed-nav">
 				<!--<li><a href="#">Account Information</a></li>-->
 				<li class="active"><a href="#">Team</a></li>
@@ -15,100 +30,91 @@
 				<li><a href="/account">Connected Apps</a></li>-->
 				
 			</ul>
-			
-			<div class="clear"></div>
 		</div>
+		
+	
+		<div class="module quarter">&nbsp;</div>
+		
+		<div class="module half">
+			<h2>Team</h2>
+			<p>Invite your team to collaborate on projects and reports.</p>
+			
+			<!-- list of team members -->
+			<ul class="team-members">
+			
+			
+				<li model="live_user">
+					<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
+					<div class="team-member-info">
+						<p ng-show="live_user.name">{{live_user.name}}<br /></p>
+						<small>That's you!</small>
+						<small>{{live_user.local.email}}</small>
+					</div>
+					<!-- <div class="team-member-remove"  ng-click="removeTeamMember(member)" ><a href="#">&times;</a></div>--> <!-- don't allow me to remove myself -->
+					<div class="clear"></div>
+				</li>
+
+				<!-- individual member - confirmed -->
+				<li ng-repeat="member in live_user.team" ng-hide="member.local.email == live_user.email">
+					<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
+					<div class="team-member-info">
+						<p ng-show="member.name">{{member.name}}<br /></p>
+						<small ng-show="member.local.email == live_user.email">That's you!</small>
+						<small>{{member.local.email}}</small>
+					</div>
+					<div class="team-member-remove"  ng-click="removeTeamMember(member)" ng-show=""><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
+					<div class="clear"></div>
+				</li>
+				<!-- / individual member -->
+				
+				
+				<!-- individual member - invited -->
+				<li ng-repeat="invite in live_user.invites">
+					<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
+					<div class="team-member-info">
+						<label ng-model="user_message" ng-show="user_message" ng-bind-html="user_message"></label>
+						<small>{{invite.user_email}}  
+							<span class="tag">Pending 
+								&mdash;  <a href="#" ng-click="resendInvite(invite)">Resend invite?</a>
+							</span>
+						</small>
+					</div>
+					<div class="team-member-remove" ng-click="deleteInvite(invite)"><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
+					<div class="clear"></div>
+				</li>
+				<!-- / individual member -->
+				
+				
+				
+				<!-- add a new member -->
+				<li>
+					<form model="team_mail" name="email_input">
+						<label for="newteammember">Invite a new team member</label>
+						<div class="messaging messaging-neutral" ng-model="message" ng-show="message" ng-bind-html="message"></div>
+
+						<input class="input" id="newteammember" name="newteammember" placeholder="Your team member&rsquo;s e-mail address" ng-model="team_mail.address"/>
+
+						<!-- <button class="button disabled" ng-show="!email_input.$valid">Invite</button>
+						<button class="button"
+								ng-show='email_input.$valid'
+								ng-click="inviteTeamMember(team_mail)">
+								Invite
+						</button> -->
+						<button class="button" ng-click="inviteTeamMember(team_mail)">Invite</button>
+					</form>
+				</li>
+				<!-- / add a new member -->
+				
+			</ul>
+		</div>
+		
+		<div class="clear"></div>
 	</div>
 	
-	
-	
-	<!-- CONNECTED APPS -->
-		
-		<div class="container account-container">
-			<div class="module quarter">&nbsp;</div>
-			
-			<div class="module half">
-				<h2>Team</h2>
-				<p>Invite your team to collaborate on tests and reports.</p>
-				
-				<!-- list of team members -->
-				<ul class="team-members">
-				
-				
-					<li model="live_user">
-						<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
-						<div class="team-member-info">
-							<p ng-show="live_user.name">{{live_user.name}}<br /></p>
-							<small>That's you!</small>
-							<small>{{live_user.local.email}}</small>
-						</div>
-						<!-- <div class="team-member-remove"  ng-click="removeTeamMember(member)" ><a href="#">&times;</a></div>--> <!-- don't allow me to remove myself -->
-						<div class="clear"></div>
-					</li>
+	<!-- / CONNECTED APPS -->
 
-					<!-- individual member - confirmed -->
-					<li ng-repeat="member in live_user.team" ng-hide="member.local.email == live_user.email">
-						<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
-						<div class="team-member-info">
-							<p ng-show="member.name">{{member.name}}<br /></p>
-							<small ng-show="member.local.email == live_user.email">That's you!</small>
-							<small>{{member.local.email}}</small>
-						</div>
-						<div class="team-member-remove"  ng-click="removeTeamMember(member)" ng-show=""><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
-						<div class="clear"></div>
-					</li>
-					<!-- / individual member -->
-					
-					
-					<!-- individual member - invited -->
-					<li ng-repeat="invite in live_user.invites">
-						<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
-						<div class="team-member-info">
-							<label ng-model="user_message" ng-show="user_message" ng-bind-html="user_message"></label>
-							<small>{{invite.user_email}}  
-								<span class="tag">Pending 
-									&mdash;  <a href="#" ng-click="resendInvite(invite)">Resend invite?</a>
-								</span>
-							</small>
-						</div>
-						<div class="team-member-remove" ng-click="deleteInvite(invite)"><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
-						<div class="clear"></div>
-					</li>
-					<!-- / individual member -->
-					
-					
-					
-					<!-- add a new member -->
-					<li>
-						<form model="team_mail" name="email_input">
-							<label for="newteammember">Invite a new team member</label>
-							<div class="messaging messaging-neutral" ng-model="message" ng-show="message" ng-bind-html="message"></div>
 
-							<input class="input" id="newteammember" name="newteammember" placeholder="Your team member&rsquo;s e-mail address" ng-model="team_mail.address"/>
 
-<!-- 							<button class="button disabled" ng-show="!email_input.$valid">Invite</button>
-							<button class="button"
-									ng-show='email_input.$valid'
-									ng-click="inviteTeamMember(team_mail)">
-									Invite
-							</button> -->
-							<button class="button"
-									ng-click="inviteTeamMember(team_mail)">
-									Invite
-							</button>
-						</form>
-					</li>
-					
-				</ul>
-			</div>
-			
-			<div class="clear"></div>
-		</div>
-		
-		<!-- / CONNECTED APPS -->
-	
-	
-	
 	
 	<!-- CONNECTED APPS -->
 	<!-- 
