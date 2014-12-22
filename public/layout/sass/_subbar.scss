@@ -1,6 +1,6 @@
 /* sub-bar styles */
 
-
+/*
 #sub-bar {
 	width: 100%;
 	background: $fg-tan;
@@ -34,6 +34,7 @@
 	}
 }
 
+*/
 
 
 /* tab-style navigation for sub-bar */
@@ -79,7 +80,7 @@
 	display: inline-block;
 	list-style: none;
 	padding: 0;
-	margin: -$pad/3 auto 0 auto;
+	margin: 0 auto;
 	
 	li {
 		text-align: center;
@@ -87,12 +88,12 @@
 		padding: 0;
 		margin: 0;
 		font-size: $type-size-base*0.8;
-		width: 100px;
+		width: 33.33%;
 		
 		a {
 			display: block;
-			min-height: 35px;
-			padding: 0;
+			//min-height: 35px;
+			padding: 0 0 $pad/3 0;
 			margin: 0;
 			color: $text;
 			text-decoration: none;
