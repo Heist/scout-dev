@@ -197,9 +197,10 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
         $scope.subject = subject;
         console.log($scope.subject);
+        var room = subject.testroom.toLowerCase();
 
         var url = 'api/subject/';
-        var data_out = {name : subject.name, testroom: subject.testroom, test: $stateParams._id};
+        var data_out = {name : subject.name, testroom: room, test: $stateParams._id};
 
         $http
             .post(url, data_out)
