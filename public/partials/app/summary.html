@@ -91,13 +91,8 @@
 
 			Embed Type:
 			<form name="myForm">
-				<input type="radio" ng-model="vidValue" value="youTube">Youtube<br/>
-				<input type="radio" ng-model="vidValue" value="UserTesting">User Testing<br/>
-				<input type="radio" ng-model="vidValue" value="Other">Other<br />
-				<span ng-if="vidValue === 'youTube'" class="animate-if">
-				  Please paste your video link below. </span>
-				 <span ng-if="vidValue === 'UserTesting'" class="animate-if">
-				  Please paste the embed code for UserTesting below. </span>
+				Got a video to share? Please include your embed code below. 
+				For Youtube, this is your video URL.
 
 				<textarea style="width:100%" ng-model='selected.embed' name="field-input" placeholder="Your notes"></textarea>
 
