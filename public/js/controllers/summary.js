@@ -10,6 +10,8 @@ angular.module('field_guide_controls')
     $scope.timeline = [];
     $scope.commentMessage = '';
 
+    $scope.embedCode = 'Bw_7UrqzNUg';
+
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
             $scope.leftNavList = [];
