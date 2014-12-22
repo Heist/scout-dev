@@ -149,6 +149,7 @@ angular.module('field_guide_controls')
     // OBJECT FUNCTIONS =====================================
     $scope.saveObject = function(obj){
         var url, data;
+        console.log('touched saveObj', obj.doctype);
 
         if(obj.doctype === 'test'){
             url = 'summary/test/'+ obj._id;
@@ -166,7 +167,7 @@ angular.module('field_guide_controls')
         $http
             .put('/api/'+url, data)
             .success(function(doc){
-               
+                console.log(doc);
             });
     };
 

@@ -273,9 +273,11 @@ module.exports = function (app, passport) {
     app.route('/api/summary/task/:_id').put(function(req,res){
         console.log('touched summary task', req.body.pass_fail, req.body._id);
 
-        Task.findById(req.params._id)
+        Task.findOne({'_id': req.body._id})
             .exec(function(err, doc){
                 if (err) {res.send(err);}
+
+                console.log('touched task', req.body._id);
 
                 if(req.body.summary){doc.summary = req.body.summary;}
                 if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
@@ -285,7 +287,7 @@ module.exports = function (app, passport) {
                 doc.save(function(err,data){
                     if(err){res.send(err);}
 
-                    // console.log('updated task', task);
+                    console.log('updated task', data._id);
                     res.json(data);
                 });
         });
@@ -294,11 +296,13 @@ module.exports = function (app, passport) {
 
     app.route('/api/summary/test/:_id').put(function(req,res){
 
-        console.log('touched summary task', req.body.pass_fail, req.body._id);
+        console.log('touched summary test', req.body.pass_fail, req.body._id);
 
-        Test.findById(req.params._id)
+        Test.findOne({'_id' : req.body._id})
             .exec(function(err, doc){
                 if (err) {res.send(err);}
+
+                console.log('test found', doc._id);
 
                 if(req.body.summary){doc.summary = req.body.summary;}
                 if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
@@ -308,7 +312,7 @@ module.exports = function (app, passport) {
                 doc.save(function(err,data){
                     if(err){res.send(err);}
 
-                    // console.log('updated task', task);
+                    console.log('updated test', data._id);
                     res.json(data);
                 });
         });
