@@ -1,5 +1,22 @@
+/* floating header for new design style */
+
+#header-min {
+	padding: $pad*0.6 $pad/2 $pad*1.5 $pad/2;
+	margin: 0;
+	
+	.expand-button {
+		.expand-button-body {
+			color: $white;
+			background: $fg-black;
+		}
+	}
+	
+}
+
+
 /* header-specific styles */
 
+/*
 
 #header {
 	position: fixed;
@@ -90,7 +107,7 @@
 	}
 	
 	
-	/* non-auth normal header */
+	// non-auth normal header
 	&.header-nonauth {
 		background: $white;
 		border-bottom: 1px solid $line;
@@ -101,8 +118,8 @@
 
 
 
-/* active test header */
-/* header-specific styles */
+// active test header
+// header-specific styles
 
 
 #header-run {
@@ -192,7 +209,8 @@
 }
 
 
-/* the dropdown */
+
+// the dropdown
 
 #header-account-drawer {
 	width: 120px;
@@ -228,7 +246,7 @@
 
 
 
-/* adjust button visibility based on where we are in the app */
+// adjust button visibility based on where we are in the app
 
 #view-testing {
 	#header-run {
@@ -248,7 +266,7 @@
 	}
 }
 
-
+*/
 
 
 

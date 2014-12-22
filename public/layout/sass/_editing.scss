@@ -4,92 +4,36 @@
 
 #view-editing {
 	margin: 0;
-	padding: $pad*7 0 0 0;
+	padding: 0;
 	
-		
-	.editing-container {
-		padding: $pad*3 0;
+	.container {
+		padding: $pad 0 0 0;
 	}
 	
-	
-	#sub-bar {
-		position: fixed;
-		top: $pad*3;
-		left: 0;
-		z-index: 9999;
-		text-align: center;
-		padding-bottom: $pad/2;
-		background: transparentize($fg-tan, 0.05);
+	#header-min {
+		padding-left: 0;
+		padding-right: 0;
 		
-		.container {
-			position: relative;
-			
-			h1 {
-				position: absolute;
-				top: 5px;
-				left: 0;
-				margin: 0;
-				padding: 0;
-			}
+		h3 {
+			width: 33.3%;
 		}
-		
-		
+	}	
+	
+	.stepped-nav {
+		float: left;
+		width: 33.3% !important;
 	}
 	
-	/* sidebar tips */
-	
-	.explanation {
-		width: 90%;
-		font-size: $type-size-base*0.9;
-		line-height: $type-line-base*0.9;
-		
-		small {
-			color: $fg-butter-brown;
-			text-transform: uppercase;
-		}
-		
-		p {
-			margin: 0;
-			padding: $pad/2 0 0 0;
-			
-			strong {
-				@include type-extrabold;
-			}
-		}
-		
-		img {
-			display: block;
-			width: 80%;
-			height: auto;
-			padding: 0;
-			margin: 0 auto;
-		}
-		
-		.explanation-main {
-			color: $fg-butter-text;
-			background: $fg-butter;
-			padding: $pad/1.25 $pad;
-			@include radius;
-		}
-		
-		.explanation-tips {
-			color: $fg-butter-text;
-			background: lighten($fg-butter, 5%);
-			margin-top: 1px;
-			padding: $pad/1.25 $pad;
-			@include radius;
-		}
-	
-	}
-	
+
 	/* step 1 */
 	
 
 	.test-type {
-		padding: $pad/2;
+		padding: $pad;
+		margin: $pad 0;
 		text-align: center;
 		position: relative;
-		border: 1px solid $white;
+		border: 1px solid $background;
 		
 		.selected-arrow {
 			display: none;
@@ -255,7 +199,10 @@
 	
 	.test-done {
 		float: none;
-		padding: 0 0 $pad*2 0;
+		padding: $pad*2 $pad $pad $pad;
+		text-align: center;
+		border: 1px solid $line;
+		@include radius;
 		margin: 0;
 	}
 	
