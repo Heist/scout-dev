@@ -74,9 +74,20 @@ angular.module('field_guide_controls').controller('report', ['$scope', '$sce', '
                 var utest = /usabilitytestresults/i;
                 var ut = utest.test(obj.embed);
                 if(ut){
-                    $scope.selected.userTesting = $sce.trustAsHtml(obj.embed);
+                    var w1 = /width='\d+'/i;
+                    var h1 = /height='\d+'/i;
+                    var w2 = /"width":"\d+"/i;
+                    var h2 = /"height":"\d+"/i;
+                    
+                    var res = obj.embed.replace(w1, "width='574'");
+                    res = res.replace(w2, '"width":"574"');
+                    res = res.replace(h1, "height='380'");
+                    res = res.replace(h2, '"height":"380"');
+                    
+                    console.log(res);
+
+                    $scope.selected.userTesting = $sce.trustAsHtml(res);
                     $scope.selected.HTMLdemo = '<a href="#linky">I am a link</a>';
-                    console.log(obj.embed);
                 }
 
             }
