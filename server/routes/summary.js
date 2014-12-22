@@ -99,6 +99,7 @@ module.exports = function (app, passport) {
                                 model.report_index  = obj.report_index;
                                 model.summary       = obj.summary;
                                 model.summarized    = obj.summarized;
+                                model.embed         = obj.embed;
                                 model.report        = true;
 
                                 model.save(function(err, data){
@@ -326,7 +327,7 @@ module.exports = function (app, passport) {
                 if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
                 if(req.body.visible !== null){ doc.visible = req.body.visible;}
                 if(req.body.embed !== null){ doc.embed = req.body.embed;}
-                
+
                 doc.save(function(err,data){
                     if(err){res.send(err);}
 

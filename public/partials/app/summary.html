@@ -89,9 +89,21 @@
 			
 			<!-- SORT OUT YOUTUBE LINKS -->
 
-			
-			<textarea class="input" ng-model='selected.embed' name="field-input" placeholder="Your notes">
-			</textarea> <button ng-click="saveObject(selected)">Add Video</button>
+			Embed Type:
+			<form name="myForm">
+				<input type="radio" ng-model="vidValue" value="youTube">Youtube<br/>
+				<input type="radio" ng-model="vidValue" value="UserTesting">User Testing<br/>
+				<input type="radio" ng-model="vidValue" value="Other">Other<br />
+				<span ng-if="vidValue === 'youTube'" class="animate-if">
+				  Please paste your video link below. </span>
+				 <span ng-if="vidValue === 'UserTesting'" class="animate-if">
+				  Please paste the embed code for UserTesting below. </span>
+
+				<textarea style="width:100%" ng-model='selected.embed' name="field-input" placeholder="Your notes"></textarea>
+
+				<button ng-click="saveObject(selected)">Add Video</button>
+			 </form>
+
 			<!-- messages -->					
 			<div class="message-group" ng-repeat="user in messages" ng-show="selected._messages">
 			
