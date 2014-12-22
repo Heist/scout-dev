@@ -121,6 +121,49 @@
 		}
 	}
 	
+	// empty test-container 
+	&.overview-test-empty {
+		cursor: pointer;
+		opacity: 0.7;
+		@include animated;
+		
+		&:hover {
+			opacity: 1.0;
+			@include animated;
+		}
+			
+		.overview-test-container {
+			border: 2px dashed $line;
+			@include radius(6px);
+			height: 185px;
+						
+			.test-info {
+				background: none;
+				@include dropshadowULTRA(0 0 0, rgba(0,0,0,0));
+				
+				h3 {
+					color: $text;
+					font-size: $type-size-base;
+				}
+				
+				.overview-test-add {
+					color: $text;
+					border: 1px solid $text;
+					@include type-light;
+					font-size: $type-size-base*2;
+					line-height: $pad*2;
+					display: inline-block;
+					padding: 0;
+					height: $pad*2;
+					width: $pad*2;
+					margin: 0 0 $pad/2 0;
+					@include radius($pad*3);
+				}
+			}	
+			
+		}
+	}
+	
 
 	
 }
