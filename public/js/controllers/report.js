@@ -7,6 +7,8 @@ angular.module('field_guide_controls').controller('report', ['$scope','$http', '
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/report/'+$stateParams.test_id;
     
+    $scope.embedCode = 'Bw_7UrqzNUg';
+
     $http.get('/api/auth/report/'+$stateParams.test_id)
             .success(function(data){
                 console.log('the report object', data);
