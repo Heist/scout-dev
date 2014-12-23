@@ -73,13 +73,9 @@
 	<div id="testing-guide" ng-model="tests">
 		
 		<div id="tasklist">
-			<button class="small button" ng-click="adding_task = true">Add Task</button>
-			
-			<button class="button small dark" ng-click="postTest()">End Test</button>
-			
-			
+						
 			<ul ng-repeat="test in tests" ng-class="{ 'active': test._id === selected._test }">
-				<li class="title"><small>test</small><h3>{{test.name}}</h3></li>
+				<li class="title"><small>Project</small><h3>{{test.name}}</h3></li>
 			
 				<li ng-repeat="task in test._tasks" 
 					ng-class="{ 'active': task._id === selected._id }"
@@ -90,6 +86,13 @@
 					<p ng-bind-html="task.desc | linebreaker"></p>
 				</li>
 			</ul>
+			
+			
+			<button class="small button" ng-click="adding_task = true">Add Task</button>
+			
+			<button class="button small dark" ng-click="postTest()">End Test</button>
+			
+			
 		
 		</div>
 			
@@ -119,7 +122,7 @@
 						<!-- empty state -->
 						<li class="message" id="firstrun">
 							<div class="message-details">
-								<div class="message-details-avatar">F</div>
+								<div class="message-details-avatar avatar-header">&bull;</div>
 							</div>
 							<div class="message-body">
 								<strong>Your test is running!</strong> Remember, it&rsquo;s all about capturing notes &mdash;
@@ -133,8 +136,8 @@
 						<li class="message" ng-repeat="message in timeline track by $index">
 							
 							<div class="message-details"><!-- show the user's avatar -->
-								<div class="message-details-avatar" ng-if="message.title">T</div>
-								<div class="message-details-avatar" ng-if="!message.title">M <!-- tester/observer initials --></div>
+								<div class="message-details-avatar avatar-header" ng-if="message.title">&bull;</div>
+								<div class="message-details-avatar avatar-message" ng-if="!message.title">&bull;</div>
 							</div>
 		
 							<div class="message-body">

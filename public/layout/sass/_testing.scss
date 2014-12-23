@@ -13,6 +13,7 @@
 		width: 30%;
 		height: 100%;
 		position: absolute;
+		padding: $pad 0 0 0;
 		left: 0;
 		top: 0;
 		overflow: auto;
@@ -23,7 +24,7 @@
 	.sheet-holder {
 		width: 70%;
 		height: 100%;
-		padding: $pad;
+		padding: $pad $pad $pad 0;
 		margin: 0;
 		position: absolute;
 		top: 0;
