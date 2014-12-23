@@ -52,13 +52,24 @@
     
     <div class="module third modal-interior">
         
-        <div class="step-contents">
-            <form>
-                <input class="input tight" ng-trim="false" ng-model="new_task.name"><br/>
-                <textarea ng-model="new_task.desc" class="input small tight" id="field-textarea" ng-blur="addTask(new_task)" placeholder="Put talking points or task-specific questions here.">
-                </textarea>
-            </form>
+        <div class="modal-interior-title">
+        	<h3>Add a new task</h3>
         </div>
+        
+        <form>
+			<ul class="nobullets lined">
+				<li>
+					<input class="input" placeholder="Your new task name" ng-trim="false" ng-model="new_task.name">
+				</li>
+				<li>
+					<textarea ng-model="new_task.desc" class="input small" id="field-textarea" placeholder="Put talking points or task-specific questions here.">
+					</textarea>
+				</li>
+				<li class="text-center">
+					<button class="button" type="submit"  ng-Click="addTask(new_task)">Create task</button>
+				</li>
+			</ul>
+		</form>
 
     </div>
     
@@ -73,6 +84,13 @@
 		<div class="expand-button">
 			<div class="expand-button-body" ng-click="postTest()">&times;</div>
 			<div class="expand-button-helper">End this test</div>
+		</div>
+	</div>
+	
+	<div id="button-newtask">
+		<div class="expand-button">
+			<div class="expand-button-body" ng-click="adding_task = true">+</div>
+			<div class="expand-button-helper">Add a new task</div>
 		</div>
 	</div>
 	
@@ -97,7 +115,6 @@
 			</ul>
 			
 			
-			<button class="small button" ng-click="adding_task = true">Add Task</button>
 			
 			
 			
