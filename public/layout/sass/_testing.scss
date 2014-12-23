@@ -92,6 +92,22 @@
 		margin: 0;
 	}
 
+
+	/* buttons what do stuff */
+	
+	#button-endtest {
+		position: absolute;
+		right: $pad*1.5;
+		top: $pad*1.5;
+		z-index: 999999;
+		
+		.expand-button {
+			.expand-button-body {
+				color: $white;
+				background: $fg-black;
+			}
+		}
+	}
 	
 }
 
