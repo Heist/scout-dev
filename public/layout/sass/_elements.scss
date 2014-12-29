@@ -174,8 +174,8 @@ hr {
 
 #nav-logo {
 	position: fixed;
-	left: $pad;
-	top: $pad;
+	left: $pad*1.5;
+	top: $pad*1.5;
 	background: $fg-header-red;
 	color: $fg-header-red-dark;
 	@include radius($pad*4);
@@ -183,6 +183,7 @@ hr {
 	margin: 0;
 	z-index: 999999;
 	overflow: hidden;
+	@include dropshadow;
 	
 	a {
 		display: block;
@@ -201,8 +202,8 @@ hr {
 
 #nav-account {
 	position: fixed;
-	left: $pad;
-	top: 85px;
+	left: $pad*2.5;
+	bottom: 34px;
 	background: $background-overlay url('/layout/assets/avatar-sq-grey.svg') no-repeat center center;
 	color: $fg-black;
 	@include radius($pad*4);
@@ -213,8 +214,8 @@ hr {
 	
 	a {
 		display: block;
-		width: $pad*2.5;
-		height: $pad*2.5;
+		width: $pad*1.5;
+		height: $pad*1.5;
 		text-align: center;
 		line-height: $pad*2.7;
 	}
@@ -223,8 +224,8 @@ hr {
 
 #nav-logout {
 	position: fixed;
-	left: $pad;
-	top: 142px;
+	left: $pad*1.5;
+	bottom: 10px;
 	opacity: 0.6;
 	width: $pad*2.5;
 	text-align: center;

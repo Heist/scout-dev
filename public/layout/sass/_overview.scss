@@ -8,6 +8,14 @@
 	
 	.container {
 		padding: $pad 0 0 0;
+
+		#header-min{
+			padding: $pad 0 $pad*2;
+
+			h3{
+				margin:$pad/2 0;
+			}
+		}
 	}
 	
 	.overview-controls {
@@ -23,12 +31,12 @@
 	margin-bottom: $pad;
 	
 	.test-info {
-		padding: $pad*2.5 $pad*0.5 $pad*2 $pad*0.5;
+		padding: $pad*3.2 $pad*0.5 $pad*2 $pad*0.5;
 		text-align: center;
 		position: relative;
 		@include radius-top;
 		background: $white;
-		max-height: 130px;
+		min-height: 160px;
 		overflow: hidden;
 		@include dropshadowULTRA;
 		
@@ -123,7 +131,7 @@
 		.overview-test-container {
 			border: 2px dashed $line;
 			@include radius(6px);
-			height: 185px;
+			height: 216px;
 						
 			.test-info {
 				background: none;
