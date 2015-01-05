@@ -18,7 +18,7 @@
         
         
         	<ul class="stepped-nav">
-                <li class="step-left" ng-class="{'step-completed': test.desc, 'step-active': anchor === 1 , 'step-inactive': anchor !== 1}">
+                <li class="step-left" ng-class="{'step-completed': test.name, 'step-active': anchor === 1 , 'step-inactive': anchor !== 1}">
                 	<a href="#">Select Type</a><div class="step-state"></div>
                 </li>
                 
@@ -73,6 +73,7 @@
         	
         	<div class="clear"></div>
         </div>
+        <!-- / step 1 -->
         
         
         
@@ -80,109 +81,126 @@
         
         <!-- spacer -->
         <div class="module sixth" ng-show="anchor===1 && test.kind">&nbsp;</div>
-        <div class="module two-thirds test-details" ng-show="anchor===1 && test.kind">
-            <ul class="nobullets" >
-             <form name="prototypeForm">   
-                <li>
-                    <label for="field-testname">Your test name</label>
-                    
-                    <input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="e.g. Onboarding flow" ng-blur="updateTest()" />
-                </li>
-                
-                <li ng-show="test.kind === 'prototype'">
-
-                    <label for="field-prototypeurl">Your prototype URL</label>
-
-                    <input class="input" id="field-prototypeurl" ng-model="test.link" value="" placeholder="http://invis.io/ABC123" type="url" name="url"/>
-                    <span ng-show="!prototypeForm.$valid" style="color:red;">This appears to be an invalid URL.<br></span>
-                    <small>Using InVision? Make sure you turn off <strong>Force "Add to Home Screen"</strong> in your share settings</small>
-                    
-                </li>        
-             
-                
-                <li>
-                    <label for="field-prototypeurl">Your test objectives</label>
-                    <textarea class="input" id="field-objective" type="text" value="" ng-model="test.desc" placeholder="What is the purpose of this test? What do you want to learn?" />
-                </li>
-                
-                <li>
-                    <button class="button" type="submit" ng-click="saveAndMove(3)" >Next step</button>
-                </li>
-            </form>
-            </ul>
-        </div>
-        <div class="clear"></div>
-    <!-- / step 1 -->
-
-
-
+		<div class="module two-thirds test-details" ng-show="anchor===1 && test.kind">
+			<ul class="nobullets" >
+				<form name="prototypeForm">   
+				
+					<li>
+						<label for="field-testname">Your test name</label>
+						<input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="e.g. Onboarding flow" ng-blur="updateTest()" />
+					</li>
+					
+					<li ng-show="test.kind === 'prototype'">
+						
+						<label for="field-prototypeurl">Your prototype URL</label>
+						
+						<input class="input" id="field-prototypeurl" ng-model="test.link" value="" placeholder="http://invis.io/ABC123" type="url" name="url"/>
+						<span ng-show="!prototypeForm.$valid" style="color:red;">This appears to be an invalid URL.<br></span>
+						<small>Using InVision? Make sure you turn off <strong>Force "Add to Home Screen"</strong> in your share settings</small>
+					</li>        
+					
+					
+					<li>
+						<label for="field-prototypeurl">Your test objectives</label>
+						<textarea class="input" id="field-objective" type="text" value="" ng-model="test.desc" placeholder="What is the purpose of this test? What do you want to learn?" />
+					</li>
+					
+					<li>
+						<button class="button" type="submit" ng-click="saveAndMove(3)" >Next step</button>
+					</li>
+				
+				</form>
+			</ul>
+		</div>
+		
+		<div class="clear"></div>
+    	<!-- / step 2 -->
 
 
 
-    <!-- step 3 - add tasks -->
-    	<!-- spacer -->
-        <div class="full test-tasks" ng-show="anchor === 3">
-                <div class="module fifth tutorial">
-                    <strong>Hello</strong>
-                    <p>Tasks allow you to define certain important steps in your website or app and Talking points are basically notes and ideas you want to ask the person you are testing.</p>
-                </div>
-                    <div class="module three-fifths">
-                        <div class="sheet-holder">                      
-                            <div class="sheet">
-                                <ul id="steps" ng-model="tasks">
-                                    <li ng-repeat="task in tasks | orderBy: 'task.index'" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
-                                        
-                                        <div class="step-ordering">
-                                        	<div ng-click="moveTask($index, -1)" class="elevator elevator-up">&#9650;</div>
-                                        	<div ng-click="moveTask($index, 1)" class="elevator elevator-down">&#9660;</div>
-                                        </div>
-                                    
-                                        <div class="step-controls">
-                                            <div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
-                                        </div>
-                                    
-                                        <div class="step-contents">
-                                            <form>
-                                                <input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
-                                                <textarea ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
-                                                </textarea>
-                                
-                                            </form>
-                                            
-                                        </div>
-                        
-                                        <div class="clear"></div>       
-                                    </li>
-                                    
-                                    
-                                </ul>
+	
+	
+	
+	<!-- step 3 - add tasks -->
+	<!-- spacer -->
+	<div class="full test-tasks" ng-show="anchor === 3">
+		
+		<div class="module fifth tutorial">
+			<p><strong>Tasks</strong> are important steps or views in your website or app - things you want to collect notes about.</p>
+			<p><strong>Talking points</strong> are the questions and ideas you want to discuss during testing.</p>
+		</div>
+		
+		<div class="module three-fifths">
+		
+			<div class="sheet-holder">                      
+				<div class="sheet">
+					
+					<!-- show me the steps -->
+					<ul id="steps" ng-model="tasks">
+					
+						<li ng-hide="test._tasks.length > 0" class="steps-empty-message">You need to add some tasks to your project.</li>
+						
+					
+						<li ng-repeat="task in tasks | orderBy: 'task.index'" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
+							
+							<div class="step-ordering">
+								<div ng-click="moveTask($index, -1)" class="elevator elevator-up">&#9650;</div>
+								<div ng-click="moveTask($index, 1)" class="elevator elevator-down">&#9660;</div>
+							</div>
+							
+							<div class="step-controls">
+								<div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
+							</div>
+							
+							<div class="step-contents">
+								<form>
+									<input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
+									<textarea ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
+									</textarea>
+								</form>
+							</div>
+							
+							<div class="clear"></div>       
+						</li>
+						
+						
+					</ul>
+					<!-- done showing me the steps -->
+					
+					
+					<!-- add a new task -->
+					<div class="add-task">
+						<form>
+							<input class="input" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)" placeholder="Task name"><br/>
+							
+							<textarea ng-model="task.desc" class="input small" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
+							</textarea>						
+						</form>
+						
+						<button class="button small float-right" ng-click="newTask()">Add a task</a></button>
+						
+						<div class="clear"></div>
+					</div>
+					<!-- / add a new task -->
+				
+				</div>
+			
+			</div>
+		</div>
+		
+		<div class="module fifth next-button">
+			<a class="button" href="/overview">Done</a>
+			<!-- <button class="button" ng-click="saveAndMove(5)">Done</button> -->
+		</div>
+		
+		</div>
+	</div>
+	
+	<div class="clear"></div>
+	<!-- / step 3 -->
 
-                                <div class="add-task">
-                                    <form>
-                                        <input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
-                                        <textarea ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
-                                        </textarea>
-                        
-                                    </form>
-                                    
-                                    <button class="button small float-right" ng-click="newTask()">Add a task</a></button>
-                                    <div class="clear"></div>
-                                </div>
-                
 
-                    </div>
 
-                    </div>
-                </div>
-                <div class="module fifth next-button">
-                   <a class="button" href="/overview">Done</a>
-<!--               <button class="button" ng-click="saveAndMove(5)">Done</button> -->
-                </div>
-            </div>
-        </div>
-
-        <div class="clear"></div>
-        <!-- / step 3 -->
 
         <!-- step 4 - define themes -->
         <!-- we're not doing this yet -->

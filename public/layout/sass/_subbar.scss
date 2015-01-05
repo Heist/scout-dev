@@ -128,18 +128,18 @@
 					background: url('/layout/assets/stepped/left-active.png') no-repeat center center;
 					background-size: cover;
 				}
+			}	
+			&.step-inactive {
+				.step-state {
+					background: url('/layout/assets/stepped/left-off.png') no-repeat center center;
+					background-size: cover;
+				}	
 			}
 			&.step-completed {
 				.step-state {
 					background: url('/layout/assets/stepped/left-completed.png') no-repeat center center;
 					background-size: cover;
 				}
-			}
-			&.step-inactive {
-				.step-state {
-					background: url('/layout/assets/stepped/left-off.png') no-repeat center center;
-					background-size: cover;
-				}	
 			}
 		}
 		
@@ -152,17 +152,17 @@
 					background-size: cover;
 				}
 			}
-			&.step-completed {
-				.step-state {
-					background: url('/layout/assets/stepped/middle-completed.png') no-repeat center center;
-					background-size: cover;
-				}
-			}
 			&.step-inactive {
 				.step-state {
 					background: url('/layout/assets/stepped/middle-off.png') no-repeat center center;
 					background-size: cover;
 				}	
+			}
+			&.step-completed {
+				.step-state {
+					background: url('/layout/assets/stepped/middle-completed.png') no-repeat center center;
+					background-size: cover;
+				}
 			}
 		}	
 		
@@ -175,17 +175,17 @@
 					background-size: cover;
 				}
 			}
-			&.step-completed {
-				.step-state {
-					background: url('/layout/assets/stepped/right-completed.png') no-repeat center center;
-					background-size: cover;
-				}
-			}
 			&.step-inactive {
 				.step-state {
 					background: url('/layout/assets/stepped/right-off.png') no-repeat center center;
 					background-size: cover;
 				}	
+			}
+			&.step-completed {
+				.step-state {
+					background: url('/layout/assets/stepped/right-completed.png') no-repeat center center;
+					background-size: cover;
+				}
 			}
 		}	
 		

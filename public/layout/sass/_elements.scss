@@ -200,42 +200,40 @@ hr {
 }
 
 
-#nav-account {
+#nav-mgmt {
 	position: fixed;
-	left: $pad*2.5;
-	bottom: 34px;
-	background: $background-overlay url('/layout/assets/avatar-sq-grey.svg') no-repeat center center;
-	color: $fg-black;
-	@include radius($pad*4);
-	padding: 0;
-	margin: 0;
+	left: $pad*1.5;
+	bottom: $pad;
 	z-index: 999999;
-	overflow: hidden;
-	
-	a {
-		display: block;
-		width: $pad*1.5;
-		height: $pad*1.5;
-		text-align: center;
-		line-height: $pad*2.7;
-	}
-	
-}
-
-#nav-logout {
-	position: fixed;
-	left: $pad*2;
-	bottom: 10px;
-	opacity: 0.6;
-	width: $pad*2.5;
 	text-align: center;
 	
 	a {
 		color: $text;
 		font-size: $type-size-base*0.7;
-	}	
+	}
+	
 }
 
+
+#nav-account {
+	width: $pad*2.5;
+	height: $pad*2.5;
+	background: $background-overlay url('/layout/assets/avatar-sq-grey.svg') no-repeat center center;
+	color: $fg-black;
+	@include radius($pad*4);
+	padding: 0;
+	margin: 0 0 $pad/4 0;
+	overflow: hidden;
+	
+	a {
+		display: block;
+		width: $pad*2.5;
+		height: $pad*2.5;
+		text-align: center;
+		line-height: $pad*2.7;
+	}
+	
+}
 
 
 
