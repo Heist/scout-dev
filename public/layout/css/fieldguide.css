@@ -778,9 +778,9 @@ hr { width: 70%; padding: 0 0 20px 0; margin: 0 auto; display: block; border: no
 /* line 195, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li { position: relative; }
 /* line 198, ../sass/_editing.scss */
-#view-editing .test-tasks #steps li .step-ordering { position: absolute; top: 10px; left: -25px; width: 20px; }
+#view-editing .test-tasks #steps li .step-ordering { position: absolute; top: 10px; left: -15px; width: 20px; }
 /* line 205, ../sass/_editing.scss */
-#view-editing .test-tasks #steps li .step-ordering { position: absolute; top: 10px; left: -25px; width: 20px; opacity: 0.2; }
+#view-editing .test-tasks #steps li .step-ordering { position: absolute; top: 10px; left: -15px; width: 20px; opacity: 0.2; }
 /* line 212, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-ordering div { cursor: pointer; }
 /* line 216, ../sass/_editing.scss */
