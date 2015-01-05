@@ -130,17 +130,67 @@
 	/* step 3 */
 	
 	.test-tasks {
-		float: none;
-		padding: 0 $pad*3 $pad*2 $pad*3;
-		margin: $pad 0;
-		
+		// padding: 0 $pad*3 $pad*2 $pad*3;
+		padding-top: $pad*2;
+
+		.sheet{
+			padding: 0;
+		}
+
+		.fifth{
+			padding: $pad 0 0 0;
+		}
+
+		.tutorial{
+			padding-right: $pad;
+
+			p{
+				font-size:12px;
+				padding-top: $pad/2;
+			}
+		}
+
+		.add-task{
+				padding: $pad*1.5;
+				background-color: #fafafa;
+				border-top: 1px $line solid;
+				width: 100%;
+				position: relative;
+				display: block;
+
+									.input {
+						width: 100%;
+						margin: 0 0 2px 0;
+					}
+			}
+
+		.next-button{
+			padding-left: $pad;
+
+			.button{
+				min-width: 100px;
+				text-align: center;
+			}
+		}
 		
 		/* steps list */
 		#steps {
-			padding: 0;
+			padding: $pad*1.5;
 			margin: 0;
 			width:100%;
 			list-style: none;
+
+			input, textarea{
+				border:none;
+			}
+
+			input{
+				font-size: 17px;
+			}
+
+			textarea{
+				color: $fg-grey;
+			}
 			
 			li {
 				position: relative;
@@ -148,14 +198,14 @@
 				.step-ordering {
 					position: absolute;
 					top: 10px;
-					left: -25px;
+					left: -15px;
 					width: 20px;
 				}
 				
 				.step-ordering {
 					position: absolute;
 					top: 10px;
-					left: -25px;
+					left: -15px;
 					width: 20px;
 					opacity: 0.2;
 					
@@ -184,11 +234,17 @@
 					width: 20px;
 					text-align: right;
 					top: 10px;
-					right: -25px;
+					right: 0px;
+					opacity: 0;
+
+					&:hover {
+						opacity: 1.0;
+					}
 				}
 				
 				
 			}
+
 		}
 		
 		

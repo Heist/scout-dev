@@ -12,7 +12,7 @@ form {
 .input, .button {
 	display: inline-block;
 	margin: 0;
-	padding: $pad/2 $pad/1.5;
+	padding: $pad/1.5 $pad/1.5;
 	@include radius;
 	@include type-regular;
 	font-size: $type-size-base*0.9;
@@ -30,14 +30,25 @@ form {
 		background: $white;
 		color: #999999;
 		margin: 0;
-		padding: 0;
+		padding: 6px;
 		@include radius($pad*2);
-		height: $pad*1.2;
-		width: $pad*1.2;
+		height: $pad*2;
+		width: $pad*2;
 		cursor: pointer;
 		text-align: center;
-		font-size: $type-size-base*1.6;
+		font-size: $type-size-base*1.8;
 		@include animated;
+		@include dropshadow;
+
+		&.small{
+		 	height: $pad*1.2;
+			width: $pad*1.2;
+			padding: 0px;
+			top:-10px;
+			font-size: $type-size-base*1;
+			border: 1px solid $line;
+			@include dropshadowULTRA(0 0 0, rgba(0,0,0,0));
+		}
 	}
 	
 	&:hover {
@@ -57,10 +68,16 @@ form {
 		text-align: right;
 		display: none;
 		position: absolute;
-		top: 1px;
-		font-size: $type-size-base*0.8;
-		right: 30px;
+		top: 11px;
+		font-size: $type-size-base*1;
+		right: 48px;
 		color: $text;
+
+		&.small{
+			top: 0px;
+		 	font-size: $type-size-base*0.8;
+			right: 25px;
+		}
 		
 	}
 }

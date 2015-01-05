@@ -3,6 +3,10 @@
 
 #sidebar {
 
+	.test-id{
+		padding: $pad $pad/2 $pad*2 $pad/2;
+	}
+
 	&.summarizing {
 		.step-ordering {
 			position: absolute;

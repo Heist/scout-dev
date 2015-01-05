@@ -7,25 +7,47 @@
 	padding: 0;
 	height: 100%;
 	width: 100%;
+	position: relative;
 	
-	.left-pane {
-		padding: 0;	
+	#testing-guide {
+		width: 30%;
+		height: 100%;
+		position: absolute;
+		padding: $pad 0 0 0;
+		left: 0;
+		top: 0;
+		overflow: auto;
+		//@include scrollbar;
 	}
 	
 	
-	/* the device */
-	.right-pane {
-		float: right;
-		position: relative;						
+	.sheet-holder {
+		width: 70%;
+		height: 100%;
+		padding: $pad $pad $pad 0;
+		margin: 0;
+		position: absolute;
+		top: 0;
+		right: 0;
+		
+		.sheet {
+			width: 100%;
+			height: 100%;
+			padding: 0;
+			margin: 0;
+		}
 	}
 	
+
 	/* the chat */
 	
-	.middle-pane {
-		padding: 0;
+	#testing-input {
+		float: left;
+		width: 55%;
+		height: 100%;
+		padding: 0 5px 0 0;
 		margin: 0;
 		position: relative;
-		overtest: hidden;
 		border-right: 1px solid $line;
 		
 		#session-input {
@@ -33,9 +55,8 @@
 			bottom: 0;
 			left: 0;
 			width: 100%;
-			padding: $pad/2;
-			height: 80px;
-			overtest: hidden;
+			padding: $pad/4;
+			height: 120px;
 			background: $white;
 			z-index: 9999;
 			border-top: 1px solid $line;
@@ -44,7 +65,7 @@
 				width: 100%;
 				height: 100%;
 				margin: 0;
-				border:none;
+				border: none;
 
 				&:focus{
 
@@ -52,10 +73,68 @@
 			}
 		}
 		
+		/* suppress message-hover during running tests */
+		
+		.message:hover {
+			background: $white !important;
+			border-left: 4px solid $white !important;
+			border-right: 4px solid $white !important;
+		}
+		
+	}
+	
+	
+	#testing-client {
+		width: 45%;
+		height: 100%;
+		float: right;
+		padding: 0;
+		margin: 0;
 	}
 
+
+	/* buttons what do stuff */
+	
+	#button-endtest {
+		position: absolute;
+		right: $pad*1.5;
+		top: $pad*1.5;
+		z-index: 999999;
+		
+		.expand-button {
+			.expand-button-body {
+				color: $white;
+				background: $fg-black;
+			}
+		}
+	}
+	
+	
+	#button-newtask {
+		position: absolute;
+		right: 70.5%;
+		bottom: $pad/2;
+		z-index: 999999;
+		margin: 0;
+		padding: $pad/2;
+		background: transparentize($background, 0.2);
+		@include radius(50px);
+		
+		.expand-button {
+			.expand-button-body {
+				color: $white;
+				background: $fg-green;
+			}
+			
+			.expand-button-helper {
+				background: $background;
+				color: $fg-slate;	
+			}
+		}
+	}
 	
 }
+
 
 
 /* WHO ARE WE TESTING */
@@ -90,6 +169,8 @@
 		margin: 0 auto;
 	}
 }
+
+
 
 
 

@@ -15,6 +15,11 @@
 		
 		<div id="sidebar" class="summarizing">
 			
+			<div class="test-id">
+				<h3>My Test Name</h3>
+				<span>Editing</span>
+			</div>
+			
 			<ul>
 				<!-- OVERVIEW -->
 
@@ -108,8 +113,8 @@
 				<div class="message-user">
 					<img src="/layout/assets/avatar.svg" /> {{user[0]._subject.name}}
 					<div class="expand-button float-right" ng-show="selected.doctype === 'task'">
-						<div class="expand-button-body" ng-click="toggleNote(user[0]._subject._id)">+</div>
-						<div class="expand-button-helper">Add new note?</div>
+						<div class="expand-button-body small" ng-click="toggleNote(user[0]._subject._id)">+</div>
+						<div class="expand-button-helper small">Add new note?</div>
 					</div>
 					
 					<div class="clear"></div>

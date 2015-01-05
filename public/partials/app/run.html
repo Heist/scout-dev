@@ -52,13 +52,24 @@
     
     <div class="module third modal-interior">
         
-        <div class="step-contents">
-            <form>
-                <input class="input tight" ng-trim="false" ng-model="new_task.name"><br/>
-                <textarea ng-model="new_task.desc" class="input small tight" id="field-textarea" ng-blur="addTask(new_task)" placeholder="Put talking points or task-specific questions here.">
-                </textarea>
-            </form>
+        <div class="modal-interior-title">
+        	<h3>Add a new task</h3>
         </div>
+        
+        <form>
+			<ul class="nobullets lined">
+				<li>
+					<input class="input" placeholder="Your new task name" ng-trim="false" ng-model="new_task.name">
+				</li>
+				<li>
+					<textarea ng-model="new_task.desc" class="input small" id="field-textarea" placeholder="Put talking points or task-specific questions here.">
+					</textarea>
+				</li>
+				<li class="text-center">
+					<button class="button" type="submit"  ng-Click="addTask(new_task)">Create task</button>
+				</li>
+			</ul>
+		</form>
 
     </div>
     
@@ -68,17 +79,30 @@
 	
 	
 	
+	
+	<div id="button-endtest">
+		<div class="expand-button">
+			<div class="expand-button-body" ng-click="postTest()">&times;</div>
+			<div class="expand-button-helper">End this test</div>
+		</div>
+	</div>
+	
+	<div id="button-newtask">
+		<div class="expand-button">
+			<div class="expand-button-body" ng-click="adding_task = true">+</div>
+			<div class="expand-button-helper">Add a new task</div>
+		</div>
+	</div>
+	
+	
+	
 	<!-- discussion guide -->
-	<div class="left-pane" ng-model="tests">
+	<div id="testing-guide" ng-model="tests">
 		
 		<div id="tasklist">
-			<button class="small button" ng-click="adding_task = true">Add Task</button>
-			
-			<button class="button small dark" ng-click="postTest()">End Test</button>
-			
-			
+						
 			<ul ng-repeat="test in tests" ng-class="{ 'active': test._id === selected._test }">
-				<li class="title"><small>test</small><h3>{{test.name}}</h3></li>
+				<li class="title"><small>Project</small><h3>{{test.name}}</h3></li>
 			
 				<li ng-repeat="task in test._tasks" 
 					ng-class="{ 'active': task._id === selected._id }"
@@ -89,6 +113,12 @@
 					<p ng-bind-html="task.desc | linebreaker"></p>
 				</li>
 			</ul>
+			
+			
+			
+			
+			
+			
 		
 		</div>
 			
@@ -96,94 +126,101 @@
 	<!-- / discussion guide -->
 	
 	
-	<!-- note input and display -->
-	<div class="middle-pane" >
-		
-		<!-- input notes -->
-		<div id="session-input">
-			<textarea class="input" ng-model='message' name="field-input" placeholder="Your notes" ui-keypress="{13:'postMessage(message)'}" />
-			</textarea>
-		</div>
-		
-		<!-- timeline -->
-		<div id="timeline" scroll-glue="glued">
-			<ul>
-				
-				<!-- empty state -->
-				<li class="message" id="firstrun">
-					<div class="message-details">
-						<div class="message-details-avatar">&bull;</div>
-					</div>
-					<div class="message-body">
-						<strong>Your test is running!</strong> Remember, it&rsquo;s all about capturing notes &mdash;
-						you&rsquo;ll have an opportunity to <strong>edit and sort</strong> when creating your Report. 
-						Use <span class="tag">#hashtags</span> to capture themes in your notes.
-					</div>
-					<div class="clear"></div>
-				</li>				
-				<!-- /empty state -->
-						
-				<li class="message" ng-repeat="message in timeline track by $index">
-					
-					<div class="message-details"><!-- show the user's avatar -->
-						<div class="message-details-avatar" ng-if="message.title">&bull;</div>
-						<div class="message-details-avatar" ng-if="!message.title">&bull; <!-- tester/observer initials --></div>
-					</div>
-
-					<div class="message-body">
-						<small ng-if="message.title">{{message.title}}</small>
-						<p ng-bind-html="message.body | hashtag"></p>
-						<small>{{message.created | date : 'hh:mm a'}}{{task._id}}</small>
-					</div>
-
-					<div class="clear"></div>
-				</li>
-				
-			
-			</ul>
-		</div>
-		
-	</div>
-	<!-- / note input and display -->
 	
 	
 	
-	<!-- username or device -->
-	<div class="right-pane" ng-model='subject'>
+	<div class="sheet-holder">
+		<div class="sheet">
 		
-		<div id="timeline-user-input"> </div>
-		
-		<div id="timeline-user">
-			
-			<div id="timeline-user-only" ng-hide="subject.testroom">
-				<div class="clear"></div>
+			<!-- note input and display -->
+			<div id="testing-input">
 				
-				<div class="timeline-user-avatar">
-					<img src="/layout/assets/avatar-large.png">
+				<!-- input notes -->
+				<div id="session-input">
+					<textarea class="input" ng-model='message' name="field-input" placeholder="Your notes" ui-keypress="{13:'postMessage(message)'}" />
+					</textarea>
 				</div>
 				
-				<small>Testing with</small>
-				<h2>{{subject.name}}</h2>
-				
-				<!--<button class="button">New participant</button>-->	
-			</div>
-			
-			<div id="timeline-user-only" style="top:10%;" ng-show="subject.testroom">
-				<canvas id="feed"></canvas>
-				<img id='ia' style='display:none;'/>
-				<div style='clear'></div>
-				<small>Testing with</small>
-				<h2>{{subject.name}}</h2>
-			</div>
-			
-		</div>
+				<!-- timeline -->
+				<div id="timeline" scroll-glue="glued">
+					<ul>
+						
+						<!-- empty state -->
+						<li class="message" id="firstrun">
+							<div class="message-details">
+								<div class="message-details-avatar avatar-header">&bull;</div>
+							</div>
+							<div class="message-body">
+								<strong>Your test is running!</strong> Remember, it&rsquo;s all about capturing notes &mdash;
+								you&rsquo;ll have an opportunity to <strong>edit and sort</strong> when creating your Report. 
+								Use <span class="tag">#hashtags</span> to capture themes in your notes.
+							</div>
+							<div class="clear"></div>
+						</li>				
+						<!-- /empty state -->
+								
+						<li class="message" ng-repeat="message in timeline track by $index">
+							
+							<div class="message-details"><!-- show the user's avatar -->
+								<div class="message-details-avatar avatar-header" ng-if="message.title">&bull;</div>
+								<div class="message-details-avatar avatar-message" ng-if="!message.title">&bull;</div>
+							</div>
 		
+							<div class="message-body">
+								<small ng-if="message.title">{{message.title}}</small>
+								<p ng-bind-html="message.body | hashtag"></p>
+								<small>{{message.created | date : 'hh:mm a'}}{{task._id}}</small>
+							</div>
+		
+							<div class="clear"></div>
+						</li>
+						
+					
+					</ul>
+				</div>
+				
+			</div>
+			<!-- / note input and display -->
 			
+			<!-- username or device -->
+			<div id="testing-client" ng-model='subject'>
+				
+				<div id="timeline-user-input"> </div>
+				
+				<div id="timeline-user">
+					
+					<div id="timeline-user-only" ng-hide="subject.testroom">
+						<div class="clear"></div>
+						
+						<div class="timeline-user-avatar">
+							<img src="/layout/assets/avatar-large.png">
+						</div>
+						
+						<small>Testing with</small>
+						<h2>{{subject.name}}</h2>
+						
+							
+					</div>
+					
+					<div id="timeline-user-only" style="top:10%;" ng-show="subject.testroom">
+						<canvas id="feed"></canvas>
+						<img id='ia' style='display:none;'/>
+						<div style='clear'></div>
+						<small>Testing with</small>
+						<h2>{{subject.name}}</h2>
+					</div>
+					
+				</div>
+				
+					
+			</div>
+			<!-- /username or device -->
+			
+			<div class="clear"></div>
+			
+		
+		</div>
 	</div>
-	<!-- /username or device -->
-	
-	
-	
 	
 	
 </div>
