@@ -145,16 +145,14 @@ angular.module('field_guide_controls')
 
     // TASK FUNCTIONS =====================================
 
-	$scope.newTask = function() {
+	$scope.newTask = function(task) {
         console.log('touched add a task');
 
-        var task = {};
-
-        task.name = "edit me";
         task._test = $stateParams.test_id;
         task._session = $scope.test._session;
         task.index = $scope.tasks.length;
         
+        console.log(task);
         // mixpanel.track('Task added', { 'user': $rootScope.user });
 
         var url = '/api/task/';

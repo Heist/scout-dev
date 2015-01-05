@@ -170,14 +170,14 @@
 					
 					<!-- add a new task -->
 					<div class="add-task">
-						<form>
-							<input class="input" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)" placeholder="Task name"><br/>
+						<form ng-model='newtask'>
+							<input class="input" ng-trim="false" ng-model="newtask.name" ng-focus="editTitle(newtask)" ng-blur="blurTitle(newtask)" placeholder="Task name"><br/>
 							
-							<textarea ng-model="task.desc" class="input small" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
+							<textarea ng-model="newtask.desc" class="input small" id="field-textarea" ng-blur="updateTask(newtask)" placeholder="Put talking points or task-specific questions here.">
 							</textarea>						
 						</form>
 						
-						<button class="button small float-right" ng-click="newTask()">Add a task</a></button>
+						<button class="button small float-right" ng-click="newTask(newtask)">Add a task</a></button>
 						
 						<div class="clear"></div>
 					</div>
