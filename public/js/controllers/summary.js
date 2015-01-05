@@ -10,7 +10,12 @@ angular.module('field_guide_controls')
     $scope.timeline = [];
     $scope.commentMessage = '';
 
-    // $scope.embedCode = 'Bw_7UrqzNUg';
+    $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
+    $scope.showReportLink = false;
+    $scope.toggleReportLink =  function(){
+        if(!$scope.showReportLink){ $scope.showReportLink=true; }
+        else{ $scope.showReportLink = false; }
+    };
 
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
