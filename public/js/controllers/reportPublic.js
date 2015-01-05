@@ -7,6 +7,12 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
 
+    $scope.showReportLink = false;
+    $scope.toggleReportLink =  function(){
+        if(!$scope.showReportLink){ $scope.showReportLink=true; }
+        else{ $scope.showReportLink = false; }
+    };
+
     $http.get('/api/public/report/'+$stateParams.test_id)
             .success(function(data){
                 console.log('the report object', data);

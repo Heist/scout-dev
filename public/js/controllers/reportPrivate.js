@@ -6,9 +6,9 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
+    
     $scope.showReportLink = false;
     $scope.toggleReportLink =  function(){
-        console.log()
         if(!$scope.showReportLink){ $scope.showReportLink=true; }
         else{ $scope.showReportLink = false; }
     };
