@@ -146,6 +146,7 @@
 
 			p{
 				font-size:12px;
+				padding-top: $pad/2;
 			}
 		}
 
@@ -166,8 +167,9 @@
 		.next-button{
 			padding-left: $pad;
 
-			button{
+			.button{
 				min-width: 100px;
+				text-align: center;
 			}
 		}
 		

@@ -758,42 +758,42 @@ hr { width: 70%; padding: 0 0 20px 0; margin: 0 auto; display: block; border: no
 /* line 144, ../sass/_editing.scss */
 #view-editing .test-tasks .tutorial { padding-right: 20px; }
 /* line 147, ../sass/_editing.scss */
-#view-editing .test-tasks .tutorial p { font-size: 12px; }
-/* line 152, ../sass/_editing.scss */
+#view-editing .test-tasks .tutorial p { font-size: 12px; padding-top: 10px; }
+/* line 153, ../sass/_editing.scss */
 #view-editing .test-tasks .add-task { padding: 30px; background-color: #fafafa; border-top: 1px #dddddd solid; width: 100%; position: relative; display: block; }
-/* line 160, ../sass/_editing.scss */
+/* line 161, ../sass/_editing.scss */
 #view-editing .test-tasks .add-task .input { width: 100%; margin: 0 0 2px 0; }
-/* line 166, ../sass/_editing.scss */
+/* line 167, ../sass/_editing.scss */
 #view-editing .test-tasks .next-button { padding-left: 20px; }
-/* line 169, ../sass/_editing.scss */
-#view-editing .test-tasks .next-button button { min-width: 100px; }
-/* line 175, ../sass/_editing.scss */
+/* line 170, ../sass/_editing.scss */
+#view-editing .test-tasks .next-button .button { min-width: 100px; text-align: center; }
+/* line 177, ../sass/_editing.scss */
 #view-editing .test-tasks #steps { padding: 30px; margin: 0; width: 100%; list-style: none; }
-/* line 181, ../sass/_editing.scss */
+/* line 183, ../sass/_editing.scss */
 #view-editing .test-tasks #steps input, #view-editing .test-tasks #steps textarea { border: none; }
-/* line 185, ../sass/_editing.scss */
+/* line 187, ../sass/_editing.scss */
 #view-editing .test-tasks #steps input { font-size: 17px; }
-/* line 189, ../sass/_editing.scss */
+/* line 191, ../sass/_editing.scss */
 #view-editing .test-tasks #steps textarea { color: #939598; }
-/* line 193, ../sass/_editing.scss */
+/* line 195, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li { position: relative; }
-/* line 196, ../sass/_editing.scss */
+/* line 198, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-ordering { position: absolute; top: 10px; left: -25px; width: 20px; }
-/* line 203, ../sass/_editing.scss */
+/* line 205, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-ordering { position: absolute; top: 10px; left: -25px; width: 20px; opacity: 0.2; }
-/* line 210, ../sass/_editing.scss */
+/* line 212, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-ordering div { cursor: pointer; }
-/* line 214, ../sass/_editing.scss */
+/* line 216, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-ordering:hover { opacity: 1.0; }
-/* line 220, ../sass/_editing.scss */
+/* line 222, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-contents { float: left; width: 100%; }
-/* line 224, ../sass/_editing.scss */
+/* line 226, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-contents .input { width: 100%; margin: 0 0 2px 0; }
-/* line 230, ../sass/_editing.scss */
+/* line 232, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-controls { position: absolute; width: 20px; text-align: right; top: 10px; right: 0px; opacity: 0; }
-/* line 238, ../sass/_editing.scss */
+/* line 240, ../sass/_editing.scss */
 #view-editing .test-tasks #steps li .step-controls:hover { opacity: 1.0; }
-/* line 254, ../sass/_editing.scss */
+/* line 256, ../sass/_editing.scss */
 #view-editing .test-done { float: none; padding: 40px 20px 20px 20px; text-align: center; border: 1px solid #dddddd; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; margin: 0; }
 
 /* SESSION IN PROGRESS */
