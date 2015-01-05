@@ -42,7 +42,7 @@ app.route('/api/task/')
                 if(key.name){task.name = key.name;}
                 if(key.summary){task.summary = key.summary;}
                 if(key.pass_fail !== null){ task.pass_fail = key.pass_fail;}
-                if(key.desc){task.desc = key.desc;}
+                if(key.desc !== null ){task.desc = key.desc;}
                 if(key._test){task._test = key._test;}
                 if(key.index){task.index = key.index; console.log(task.index);}
                 if(key._session){task._session = key._session;}
@@ -60,6 +60,7 @@ app.route('/api/task/')
         var task = new Task();
 
         task.name = req.body.name;
+        task.desc = req.body.desc;
         task._test = req.body._test;
         task._session =  req.body._session;
         task.index = req.body.index;

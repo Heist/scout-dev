@@ -141,6 +141,8 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
             index : $scope.tests[0]._tasks.length
         };
 
+        console.log('dataOut', dataOut);
+        
         $http
             .post('/api/task/', dataOut)
             .success(function(data){
