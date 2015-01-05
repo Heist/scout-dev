@@ -24,7 +24,7 @@
 				ng-repeat="object in leftNavList" 
 				ng-click="activate(object, $index)" 
 				ng-class="{ 'active': object._id == selected._id }"
-				ng-show="object.visible" >
+				ng-if="object.visible" >
 					<span ng-show="object.doctype === 'tag'">#</span>{{object.name}}
 					<div class="task-boop green" ng-show="object.pass_fail == true" ></div>
 					<div class="task-boop red" ng-show="object.pass_fail == false"></div>

@@ -45,13 +45,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
                     $rootScope.userNote = 'You need to log in.'; 
                     $timeout(function(){deferred.reject();}, 0);
 
-                    var loc = $location.url();
-                    var patt = new RegExp(/\/report/i);
-                    var isReport = patt.test(loc);
-
-                    if( !isReport){
-                        $location.url('/login');
-                    }
+                    $location.url('/login');
                 }
             })
             .error(function(err){
@@ -76,12 +70,19 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             templateUrl: 'partials/app/testCanvas.html'
         })
         
+        // PUBLIC REPORTS ===========================================
+        .state('report_public', {
+            url: '/p/report/:test_id',
+            controller:'report',
+            templateUrl: 'partials/app/report_public.html'
+        })        
+
     // PRIVATE ROUTES ===============================================
 
         // REPORT PAGE FOR SINGLE TEST ====================
         .state('report', {
             url: '/report/:test_id',
-            controller:'report',
+            controller:'reportPrivate',
             templateUrl: 'partials/app/report.html',
             resolve: { loggedin: checkLoggedin }
         })

@@ -1,0 +1,139 @@
+<div id="view-findings" 
+    ng-class="{ 'show-comments' : showCommentToggle !== 'hide' }" 
+    ng-model="report"
+    ng-keyup="doKeyUp($event)"
+>
+    
+    <div id="nav-logo">
+        <a href="/overview"><img src="/layout/assets/fg-binocs-header.gif" /></a>
+    </div>
+    
+    
+    <!-- findings nav -->
+    <div id="findings-nav">
+        
+        <div id="sidebar">
+
+            <div class="test-id">
+                <h3>My Test Name</h3>
+                <span>Report</span>
+            </div>
+
+            <ul>
+                <li 
+                ng-repeat="object in leftNavList" 
+                ng-click="activate(object, $index)" 
+                ng-class="{ 'active': object._id == selected._id }"
+                ng-if="object.visible" >
+                    <span ng-show="object.doctype === 'tag'">#</span>{{object.name}}
+                    <div class="task-boop green" ng-show="object.pass_fail == true" ></div>
+                    <div class="task-boop red" ng-show="object.pass_fail == false"></div>
+                </li>
+        
+            </ul>
+        </div>
+        
+        <!-- findings controls -->
+        
+        <div id="findings-viewmode-controls">   
+            <a class="button small" ng-click='summarize()'>Edit</a>
+            <a class="button small disabled">Preview</a>
+            <button class="button small secondary">Share</button> <!--<input class="input small" ng-model="reportLink"/>-->
+        </div>      
+        
+    </div>
+    
+                
+    <!-- main content -->
+    <div class="sheet-holder">                      
+        <div class="sheet" ng-model="selected">
+            
+            <div class="findings-header">       
+                <h3 class="dark"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h3>
+            </div>
+            
+            <div class="findings-description">  
+                <!-- <p ng-bind-html="selected.desc | linebreaker"></p> -->
+                <!-- <p ng-bind-html='selected.summary'></p> -->
+                <p >{{selected.desc}}</p>
+                <p >{{selected.summary}}</p>
+            </div>
+        
+            <youtube-video video-url="selected.youTubeCode" player-width="'100%'" player-height="'300px'" ng-if="selected.youTubeCode.length > 0"></youtube-video>
+            <hr />
+            
+            <div ng-if="selected.userTesting" ng-bind-html="selected.userTesting">
+                
+            </div>
+            <div ng-if="selected.userTesting" ng-bind-html="selected.HTMLdemo">
+
+            </div>
+            <!-- messages -->                   
+            <div class="message-group">
+                
+                <!-- message -->
+                <div ng-repeat="message in messages" class="message" 
+                    ng-show="showObjectMessages(message, selected)"
+                    ng-class="{selected: commentMessage._id === message._id}"
+                >
+                    
+                    <div class="message-body">
+                        <p ng-bind-html="message.body | hashtag"></p>
+                        <small>Testing with {{message._subject.name}}</small>
+                    </div>
+            
+                    <div class="clear"></div>
+                    
+                    <!-- if comments, display count -->
+                    <div class="message-comment-count" 
+                        ng-click="showComments(message)"
+                        ng-show="message._comments.length > 0">
+                        {{ message._comments.length}}
+                    </div>
+
+                    <!-- if no comments -->
+                    <div class="message-comment-count empty"
+                        ng-click="showComments(message)"
+                        ng-show="message._comments.length === 0 || !message._comments" >
+                        +
+                    </div>
+                    
+                    <div class="message-comments" ng-show="commentMessage._id === message._id">
+                        <!-- if comments, display coments -->
+                        <div class="message-comment" ng-repeat="comment in message._comments">
+                            <small><strong>{{comment.name}}</strong> {{comment.created | date:'MMM d yyyy'}}</small>
+                            <p>{{comment.body}}</p>
+                        </div>
+
+                        <!-- message-comment new -->
+                        <div class="message-comment-submit">
+                                <form ng-model="comment">
+                                    <small>Add a comment:</small>
+                                    <textarea class="input small" 
+                                        ng-model="comment.body" 
+                                        ng-blur="addComment(comment)">
+                                    </textarea>
+                                </form>
+                        </div>
+                    </div>
+                    <!-- / display comments -->
+                    
+                    
+                </div>
+                <!-- / message -->
+        
+            </div>
+            <!-- /messages -->
+            
+            
+        </div>
+    </div>
+    <!-- / main content -->
+
+
+</div>
+
+
+
+
+

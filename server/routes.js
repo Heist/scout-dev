@@ -218,7 +218,7 @@ app.route('/auth/invite/:_id')
 // for some reason I can't require this and still have it be public
 //  ¯\_(ツ)_/¯
 
-    app.route('/api/report/:_id')
+    app.route('/api/public/report/:_id')
     .get(function(req, res){
         console.log('touched report get', req.params._id);
 
