@@ -120,45 +120,66 @@
 
 
     <!-- step 3 - add tasks -->
-    	<!-- spacer --><div class="module sixth" ng-show="anchor === 3">&nbsp;</div>
-        <div class="module two-thirds test-tasks" ng-show="anchor === 3">
-            <h3>Tasks in this Test</h3>
-
-            <ul id="steps" ng-model="tasks">
-                <li ng-repeat="task in tasks | orderBy: 'task.index'" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
-                    
-                    <div class="step-ordering">
-                    	<div ng-click="moveTask($index, -1)" class="elevator elevator-up">&#9650;</div>
-                    	<div ng-click="moveTask($index, 1)" class="elevator elevator-down">&#9660;</div>
-                    </div>
-                
-                    <div class="step-controls">
-                        <div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
-                    </div>
-                
-                    <div class="step-contents">
-                        <form>
-                            <input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
-                            <textarea ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
-                            </textarea>
-            
-                        </form>
+    	<!-- spacer -->
+        <div class="full test-tasks" ng-show="anchor === 3">
+                <div class="module fifth tutorial">
+                    <strong>Hello</strong>
+                    <p>Tasks allow you to define certain important steps in your website or app and Talking points are basically notes and ideas you want to ask the person you are testing.</p>
+                </div>
+                    <div class="module three-fifths">
+                        <div class="sheet-holder">                      
+                            <div class="sheet">
+                                <ul id="steps" ng-model="tasks">
+                                    <li ng-repeat="task in tasks | orderBy: 'task.index'" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
+                                        
+                                        <div class="step-ordering">
+                                        	<div ng-click="moveTask($index, -1)" class="elevator elevator-up">&#9650;</div>
+                                        	<div ng-click="moveTask($index, 1)" class="elevator elevator-down">&#9660;</div>
+                                        </div>
+                                    
+                                        <div class="step-controls">
+                                            <div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
+                                        </div>
+                                    
+                                        <div class="step-contents">
+                                            <form>
+                                                <input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
+                                                <textarea ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
+                                                </textarea>
+                                
+                                            </form>
+                                            
+                                        </div>
                         
+                                        <div class="clear"></div>       
+                                    </li>
+                                    
+                                    
+                                </ul>
+
+                                <div class="add-task">
+                                    <form>
+                                        <input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
+                                        <textarea ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
+                                        </textarea>
+                        
+                                    </form>
+                                    
+                                    <button class="button small float-right" ng-click="newTask()">Add a task</a></button>
+                                    <div class="clear"></div>
+                                </div>
+                
+
                     </div>
-    
-                    <div class="clear"></div>       
-                </li>
-                
-                
-            </ul>
-            
-            <button class="button small hollow" ng-click="newTask()">+ Add a task</a></button>
-            
-            <div class="line-top">
-            	<button class="button" ng-click="saveAndMove(5)">Next step</button>
+
+                    </div>
+                </div>
+                <div class="module fifth next-button">
+                   <button class="button" ng-click="saveAndMove(5)">Done</button>
+                </div>
             </div>
-            
         </div>
+
         <div class="clear"></div>
         <!-- / step 3 -->
 
