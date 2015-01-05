@@ -264,6 +264,7 @@ app.route('/auth/invite/:_id')
                 },
                 function(err, results) {
                     // results is now equals to: {one: 1, two: 2}
+                    console.log('get results', results);
                     var return_array = [];
                     _.each(results.test, function(test){
                         return_array.push(test);
@@ -275,6 +276,7 @@ app.route('/auth/invite/:_id')
                         return_array.push(tag);
                     });
                     // callback(null, );
+
                     res.json({navlist: return_array, messages: results.messages});
                 });
 
