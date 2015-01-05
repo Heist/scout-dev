@@ -17,7 +17,7 @@ module.exports = function(app) {
     var Subject = require('../models/data/subject');
     var User = require('../models/auth/user');
 
-    app.route('/api/auth/report/:_id')
+    app.route('/api/private/report/:_id')
     .get(function(req, res){
         console.log('touched report get', req.params._id);
 

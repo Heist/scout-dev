@@ -73,7 +73,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         // PUBLIC REPORTS ===========================================
         .state('report_public', {
             url: '/p/report/:test_id',
-            controller:'report',
+            controller:'reportPublic',
             templateUrl: 'partials/app/report_public.html'
         })        
 
@@ -83,7 +83,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('report', {
             url: '/report/:test_id',
             controller:'reportPrivate',
-            templateUrl: 'partials/app/report.html',
+            templateUrl: 'partials/app/report_private.html',
             resolve: { loggedin: checkLoggedin }
         })
 
