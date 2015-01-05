@@ -1,17 +1,18 @@
 <div id="view-overview">
 	
-	<div id="nav-logo">
-		<a href="/overview"><img src="/layout/assets/fg-binocs-header.gif" /></a>
-	</div>
-	
-	<div id="nav-account">
-		<a href="/account" ng-click="tracker()">&nbsp;</a>
-	</div>
+	<div ng-controller="login">
+		<div id="nav-logo">
+			<a href="/overview"><img src="/layout/assets/fg-binocs-header.gif" /></a>
+		</div>
+		
+		<div id="nav-account">
+			<a href="/account" ng-click="tracker()">&nbsp;</a>
+		</div>
 
-	<div id="nav-logout">
-		<a ng-click="logout()">Log Out</a>
-	</div>
-	
+		<div id="nav-logout">
+			<a ng-click="logout()">Log Out</a>
+		</div>
+	</div>	
 
 	<!-- show tests in db -->
 	<div class="container">	

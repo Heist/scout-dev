@@ -66,8 +66,7 @@ app.route('/api/task/')
         task.index = req.body.index;
         
         task.save(function(err, task){
-            if (err)
-                res.send(err);
+            if (err) { res.send(err); }
             
             Test.findById( task._test, function(err,test){
                 // console.log(task._id);
@@ -76,11 +75,11 @@ app.route('/api/task/')
 
                 test.save(function(err,data){
                     if(err){res.send(err);}
-                })
+                });
             
                 res.json(task);
             });
-        })
+        });
     });
 
 app.route('/api/task/:_id')
@@ -92,7 +91,7 @@ app.route('/api/task/:_id')
 
                 // console.log(task)
                 res.json(task);
-            })
+            });
     })
     // update a single task
     .put(function(req,res){
@@ -117,7 +116,7 @@ app.route('/api/task/:_id')
                     // console.log('updated task', task);
                     res.json(task);
                 });
-        });
+            });
     })
 
     // delete a task
@@ -131,45 +130,43 @@ app.route('/api/task/:_id')
         // related to that task
 
         Task.findById(req.params._id, function(err, task){
-                if (err) res.send(err);
+            if (err) { res.send(err); }
+            // console.log('single task found', task);
 
-                // console.log('single task found', task);
+            Test.findOne({'_id': task._test})
+                .exec(function(err, test){
+                    if (err) { res.send(err); }
 
-                Test.findOne({'_id': task._test})
-                    .exec(function(err, test){
-                        if (err) res.send(err);
+                    // console.log('found test ', test._id);
+                    // console.log(test._tasks);
 
-                        // console.log('found test ', test._id);
-                        // console.log(test._tasks);
+                    // TODO: when this sort of thing fails to work,
+                    // it populates the array in question with a ton of ghosts.
+                    test._tasks.remove(req.params._id);
 
-                        // TODO: when this sort of thing fails to work,
-                        // it populates the array in question with a ton of ghosts.
-                        test._tasks.remove(req.params._id)
+                    test.save(function(err,data){
+                        if(err){res.send(err);}
 
-                        test.save(function(err,data){
-                            if(err){res.send(err);}
-
-                            // console.log(data);
-                            res.json(req.params._id);
-                        })
-                    })
-                })
-            .remove(function(err){
-                if(err){res.send(err);}
-            });
+                        // console.log(data);
+                        res.json(req.params._id);
+                    });
+                });
+        })    
+        .remove(function(err){
+            if(err){res.send(err);}
+        });
 
         // find messages that belong to the task and delete them
         Message.find({_task:req.params._id})
             .remove(function(err){
-                if (err) res.send(err);
+                if (err){ res.send(err); }
             });
 
         // find tags that belong to the task and delete them
         Tag.find({_task:req.params._id})
             .remove(function(err){
-                if (err) res.send(err);
+                if (err){ res.send(err); }
             });
 
     });
-
-}
+};
