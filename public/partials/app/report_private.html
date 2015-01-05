@@ -36,9 +36,10 @@
 		<!-- findings controls -->
 		
 		<div id="findings-viewmode-controls">	
+			<input class="input small" ng-model="reportLink" ng-if="showReportLink"/>
 			<a class="button small" ng-click='summarize()'>Edit</a>
 			<a class="button small disabled">Preview</a>
-			<button class="button small secondary">Share</button> <!--<input class="input small" ng-model="reportLink"/>-->
+			<button class="button small secondary" ng-click="toggleReportLink()">Share</button> 
 		</div> 		
 		
 	</div>

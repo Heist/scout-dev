@@ -2,12 +2,18 @@
 // report.js
 
 // REPORT CONTROLLER ===========================================================
-angular.module('field_guide_controls').controller('report', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', function($scope, $sce, $http, $location,$stateParams,$state, $sanitize){
+angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', function($scope, $sce, $http, $location,$stateParams,$state, $sanitize){
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
-    $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/report/'+$stateParams.test_id;
+    $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
 
-    $http.get('/api/auth/report/'+$stateParams.test_id)
+    $scope.showReportLink = false;
+    $scope.toggleReportLink =  function(){
+        if(!$scope.showReportLink){ $scope.showReportLink=true; }
+        else{ $scope.showReportLink = false; }
+    };
+
+    $http.get('/api/public/report/'+$stateParams.test_id)
             .success(function(data){
                 console.log('the report object', data);
                 

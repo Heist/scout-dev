@@ -63,19 +63,26 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
     // PUBLIC ROUTES ================================================
         
         // CANVAS SOCKETS TESTING ===================================
-        .state('canvas', {
-            // url: '/canvas/',
-            url: '/canvas/:_id',
-            controller:'canvas',
-            templateUrl: 'partials/app/testCanvas.html'
-        })
+        // .state('canvas', {
+        //     // url: '/canvas/',
+        //     url: '/canvas/:_id',
+        //     controller:'canvas',
+        //     templateUrl: 'partials/app/testCanvas.html'
+        // })
         
+        // LOGIN AND REGISTRATION PAGES ===================
+        .state('/login', {
+            url: '/login{acct:(?:/[^/]+)?}',
+            controller:'login',
+            templateUrl: 'partials/auth/login.html',
+        })
+
         // PUBLIC REPORTS ===========================================
         .state('report_public', {
             url: '/p/report/:test_id',
-            controller:'report',
+            controller:'reportPublic',
             templateUrl: 'partials/app/report_public.html'
-        })        
+        })
 
     // PRIVATE ROUTES ===============================================
 
@@ -83,7 +90,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('report', {
             url: '/report/:test_id',
             controller:'reportPrivate',
-            templateUrl: 'partials/app/report.html',
+            templateUrl: 'partials/app/report_private.html',
             resolve: { loggedin: checkLoggedin }
         })
 
@@ -93,13 +100,6 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
             controller: 'account',
             templateUrl : 'partials/app/account.html',
             resolve: { loggedin: checkLoggedin }
-        })
-
-        // LOGIN AND REGISTRATION PAGES ===================
-        .state('/login', {
-            url: '/login{acct:(?:/[^/]+)?}',
-            controller:'login',
-            templateUrl: 'partials/auth/login.html',
         })
 
         // OVERVIEW AND test CREATION =====================
