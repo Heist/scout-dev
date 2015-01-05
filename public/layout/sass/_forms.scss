@@ -12,7 +12,7 @@ form {
 .input, .button {
 	display: inline-block;
 	margin: 0;
-	padding: $pad/2 $pad/1.5;
+	padding: $pad/1.5 $pad/1.5;
 	@include radius;
 	@include type-regular;
 	font-size: $type-size-base*0.9;
@@ -30,7 +30,7 @@ form {
 		background: $white;
 		color: #999999;
 		margin: 0;
-		padding: 9px;
+		padding: 6px;
 		@include radius($pad*2);
 		height: $pad*2;
 		width: $pad*2;
