@@ -3,8 +3,14 @@
 
 #sidebar {
 
-	.test-id{
-		padding: $pad $pad/2 $pad*2 $pad/2;
+	.test-id {
+		padding: $pad $pad/2 $pad $pad/2;
+		
+		h3 {
+			@include type-light;
+			margin: 0;
+			padding: 0;
+		}
 	}
 
 	&.summarizing {

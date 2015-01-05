@@ -41,14 +41,13 @@ form {
 		@include animated;
 		@include dropshadow;
 
-		&.small{
+		&.small {
 		 	height: $pad*1.2;
 			width: $pad*1.2;
 			padding: 0px;
-			top:-10px;
-			font-size: $type-size-base*1;
+			font-size: $type-size-base;
+			line-height: $type-size-base*1.7;
 			border: 1px solid $line;
-			@include dropshadowULTRA(0 0 0, rgba(0,0,0,0));
 		}
 	}
 	
@@ -74,10 +73,10 @@ form {
 		right: 48px;
 		color: $text;
 
-		&.small{
-			top: 0px;
+		&.small {
+			top: 2px;
 		 	font-size: $type-size-base*0.8;
-			right: 25px;
+			right: 30px;
 		}
 		
 	}

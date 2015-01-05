@@ -15,8 +15,8 @@
 		<div id="sidebar">
 
 			<div class="test-id">
-				<h3>My Test Name</h3>
-				<span>Report</span>
+				<h3>{{testname}}</h3>
+				<small>Report</small>
 			</div>
 
 			<ul>
@@ -56,19 +56,21 @@
 			<div class="findings-description">	
 				<!-- <p ng-bind-html="selected.desc | linebreaker"></p> -->
 				<!-- <p ng-bind-html='selected.summary'></p> -->
-				<p >{{selected.desc}}</p>
-				<p >{{selected.summary}}</p>
+				<p ng-show="selected.desc">{{selected.desc}}</p>
+				<p ng-show="selected.summary">{{selected.summary}}</p>
 			</div>
 		
+		
+		
+		
 			<youtube-video video-url="selected.youTubeCode" player-width="'100%'" player-height="'300px'" ng-if="selected.youTubeCode.length > 0"></youtube-video>
-			<hr />
+								
+			<div ng-if="selected.userTesting" ng-bind-html="selected.userTesting"> </div>
+			<div ng-if="selected.userTesting" ng-bind-html="selected.HTMLdemo"> </div>
 			
-			<div ng-if="selected.userTesting" ng-bind-html="selected.userTesting">
-				
-			</div>
-			<div ng-if="selected.userTesting" ng-bind-html="selected.HTMLdemo">
-
-			</div>
+			
+						
+			
 			<!-- messages -->					
 			<div class="message-group">
 				
