@@ -20,6 +20,7 @@ angular.module('field_guide_controls')
     $http.get('/api/summary/'+$stateParams._id)
         .success(function(data){
             $scope.leftNavList = [];
+            $scope.testname = data.test;
             
             var sort = _.sortBy(data.navlist, function(obj){
                                 return(obj.report_index);

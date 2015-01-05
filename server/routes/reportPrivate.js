@@ -68,8 +68,8 @@ module.exports = function(app) {
             _.each(results.tags, function(tag){
                 return_array.push(tag);
             });
-
-            res.json({navlist: return_array, messages: results.messages});
+            console.log(results.test[0].name);
+            res.json({test: results.test[0].name, navlist: return_array, messages: results.messages});
         });
 
     });

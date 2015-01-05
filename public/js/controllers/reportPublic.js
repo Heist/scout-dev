@@ -18,7 +18,8 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 console.log('the report object', data);
                 
                 $scope.leftNavList = [];
-                
+                $scope.testname = data.test;
+
                 var sort = _.sortBy(data.navlist, function(obj){
                                 return(obj.report_index);
                             });

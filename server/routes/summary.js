@@ -74,7 +74,8 @@ module.exports = function (app, passport) {
                 return_array.push(tag);
             });
             // callback(null, );
-            res.json({navlist: return_array, messages: results.messages});
+            console.log(results.test[0].name);
+            res.json({test: results.test[0].name, navlist: return_array, messages: results.messages});
         });
 
     })
