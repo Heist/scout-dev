@@ -165,6 +165,7 @@ angular.module('field_guide_controls')
 
                 $scope.tasks.push(data);
                 $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
+                $scope.newtask = '';
             })
             .error(function(data){
                 console.log(JSON.stringify(data));

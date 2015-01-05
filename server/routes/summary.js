@@ -28,6 +28,7 @@ module.exports = function (app, passport) {
         async.parallel({
             tags: function(callback){
                 Tag.find({'_test' : req.params._id })
+                    .sort({name: 1})
                     .exec(function(err, docs){
                         if (err) {console.log(err);}
                         callback(null, docs);

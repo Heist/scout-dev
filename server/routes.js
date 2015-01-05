@@ -231,6 +231,7 @@ app.route('/auth/invite/:_id')
                     tags: function(callback){
                         Tag.find({'_test' : req.params._id })
                             .populate('_messages')
+                            .sort({name: 1})
                             .exec(function(err, docs){
                                 if (err) {console.log(err);}
                                 callback(null, docs);
