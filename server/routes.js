@@ -232,14 +232,12 @@ app.route('/auth/invite/:_id')
     // require('./routes/account_export')(app);
     app.route('/auth/export/account/')
         .get(function(req,res){
-            var AccountExporter = require('./models/functions/account_export');
-            AccountExporter(req.user._account, function(err, things) {
-                if(err){console.log(err);}
-                console.log(things, err);
-                console.log('account_export');
-                res.json(things);
-            });
+            var accountExporter = require('./models/functions/account_export');
             
+            accountExporter(req.user._account, function(err, account) {
+                if(err){console.log(err);}
+                res.json(account);
+            });
         });
 
 

@@ -89,12 +89,7 @@ module.exports = function(account, callback){
                                                 // No messages? Just pass back the object.
                                                 callback(null, obj);
                                             }
-                                        },
-                                        function(err, results){
-                                            if(err){console.log(err);}
-                                            // this should be an array of items with populated comments.
-                                            callback(null, results);
-                                        });
+                                        }, callback);
                                     });
                                 }, 
                                 tags: function(callback){
@@ -132,34 +127,13 @@ module.exports = function(account, callback){
                                                         // No messages? Just pass back the object.
                                                         callback(null, obj);
                                                     }
-                                                },
-                                                function(err, results){
-                                                    if(err){console.log(err);}
-                                                    // this should be an array of items with populated comments.
-                                                    callback(null, results);
-                                                });
+                                                }, callback);
                                             });        
                                 }
-                            },
-                            function(err, results){
-                                if(err){console.log(err);}
-                                callback(null, results);
-                            });
-                        },
-                        function(err, results){
-                            if(err){console.log(err);}
-                            callback(null, results);
-                        });
+                            }, callback);
+                        }, callback);
                 },
-            ], function(err, results){
-                if(err){console.log(err);}
-                callback(null, results);
-            });
+            ], callback);
         }
-    },
-    function(err, results){
-        if(err){console.log(err);}
-        // Okay now beam this to the mothership as a compression packet.
-        callback(null, results);
-    });  
+    }, callback);  
 };
