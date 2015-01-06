@@ -38,6 +38,7 @@ Task.find({'_test' : arg._id})
         if(err){console.log(err);}
         // this should be an array of items with populated comments.
         console.log('mapping results', results);
+        
     });
 
 });
