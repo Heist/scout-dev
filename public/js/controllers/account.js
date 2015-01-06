@@ -130,6 +130,15 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 			});
 	};
 
+	$scope.accountExport = function(){
+
+		$http
+			.get('/auth/export/account/')
+			.success(function(data){
+				console.log('success', data);
+			});
+	};
+
 	$scope.connectTrello = function(){
 		$scope.connector.message = "Connecting your Trello account...";
 		$scope.connector.toggle = 3;

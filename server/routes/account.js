@@ -63,7 +63,7 @@ module.exports = function(app){
         //     });
         // });
 
-
+    // INVITATION ROUTES ==================================
     app.route('/api/invite/')
         .post(function(req,res){
 

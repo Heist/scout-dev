@@ -15,7 +15,7 @@ module.exports = function(app, passport) {
     var Task    = require('./models/data/task');
     var Test    = require('./models/data/test');
     var Tag     = require('./models/data/tag');
-    var Subject    = require('./models/data/subject');
+    var Subject = require('./models/data/subject');
     var User    = require('./models/auth/user');
     var Invitation = require('./models/auth/invitation');
 
@@ -213,6 +213,44 @@ app.route('/auth/invite/:_id')
                     res.json(docs);
                 });
         });
+
+// ACCOUNT EXPORT ROUTE ===================================
+// Again, this simply breaks as a Require rather than a direct route. 
+//  ¯\_(ツ)_/¯
+
+    // require('./routes/account_export')(app);
+    app.route('/auth/export/account/')
+        .get(function(req,res){
+            console.log('account get user', req.user._account);
+
+            // get all users who have the same account number as this user
+            // get all tests with that account number
+            // populate that test with tasks and messages
+            // populate that test with tags and messages
+
+            async.parallel({
+                users: function(callback){
+                    User.find({'_account': req.user._account })
+                        .exec(function(err, data){
+                            if(err){res.send(err);}
+                            callback(null, data);
+                        });
+                },
+                tests: function(callback){
+                    async.waterfall([
+                        function(callback){},
+                        function(args, callback){},
+                    ], function(err, results){
+
+                    });
+                }
+            },
+            function(err, results){
+                console.log('account request', results);
+            });
+
+        });
+
 
 // PUBLIC REPORT ROUTE ==============================================
 // for some reason I can't require this and still have it be public
