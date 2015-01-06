@@ -263,15 +263,95 @@ app.route('/auth/invite/:_id')
                                                 .select('_messages created desc name pass_fail index report_index updated visible ')
                                                 .exec(function(err, data){
                                                     if(err){console.log(err);}
-                                                    callback(null, data);
+                                                    // data is an array
+                                                    async.map(data,
+                                                    function(obj, callback){
+                                                        if(obj._messages){
+                                                            async.map(obj._messages,
+                                                            function(msg, callback){
+                                                                Message.findOne({'_id':msg._id})
+                                                                    .populate('_comments')
+                                                                    .exec(function(err, data){
+                                                                        if(err){console.log(err);}
+                                                                        console.log('message comments', data._comments);
+                                                                        if(data._comments){
+                                                                            // get the index of the message that has comments
+                                                                            // splice it out
+                                                                            // replace with the actual commented message
+                                                                            // array of messages obj._messages
+                                                                            var msg_id_arr = _.pluck(obj._messages, '_id');
+                                                                            var msg_idx = msg_id_arr.indexOf(msg._id);
+                                                                            obj._messages.splice(msg_idx, 0, data);
+                                                                            console.log('obj._messages', obj._messages[msg_idx]);
+                                                                            
+                                                                            callback(null, obj);
+
+                                                                        } else {
+                                                                            callback(null, obj);
+                                                                        }
+                                                                    });
+                                                            },
+                                                            function(err, results){
+                                                                if(err){console.log(err);}
+                                                                // this should callback a test with the messages replaced with the populated messages.
+                                                                callback(null, results);
+                                                            });
+                                                        } else {
+                                                            callback(null, data);
+                                                        }
+                                                    },
+                                                    function(err, results){
+                                                        if(err){console.log(err);}
+                                                        callback(null, results);
+                                                    });
                                                 });
-                                        }, 
+                                        },
                                         tags: function(callback){
                                             Tag.find({'_test' : arg._id})
                                                 .populate('_test _messages')
-                                                .exec(function(err, data){
+                                                 .exec(function(err, data){
                                                     if(err){console.log(err);}
-                                                    callback(null, data);
+                                                    // data is an array
+                                                    async.map(data,
+                                                    function(obj, callback){
+                                                        if(obj._messages){
+                                                            async.map(obj._messages,
+                                                            function(msg, callback){
+                                                                Message.findOne({'_id':msg._id})
+                                                                    .populate('_comments')
+                                                                    .exec(function(err, data){
+                                                                        if(err){console.log(err);}
+                                                                        console.log('message comments', data._comments);
+                                                                        if(data._comments){
+                                                                            // get the index of the message that has comments
+                                                                            // splice it out
+                                                                            // replace with the actual commented message
+                                                                            // array of messages obj._messages
+                                                                            var msg_id_arr = _.pluck(obj._messages, '_id');
+                                                                            var msg_idx = msg_id_arr.indexOf(msg._id);
+                                                                            obj._messages.splice(msg_idx, 0, data);
+                                                                            console.log('obj._messages', obj._messages[msg_idx]);
+                                                                            
+                                                                            callback(null, obj);
+
+                                                                        } else {
+                                                                            callback(null, obj);
+                                                                        }
+                                                                    });
+                                                            },
+                                                            function(err, results){
+                                                                if(err){console.log(err);}
+                                                                // this should callback a test with the messages replaced with the populated messages.
+                                                                callback(null, results);
+                                                            });
+                                                        } else {
+                                                            callback(null, data);
+                                                        }
+                                                    },
+                                                    function(err, results){
+                                                        if(err){console.log(err);}
+                                                        callback(null, results);
+                                                    });
                                                 });
                                         }
                                     },
