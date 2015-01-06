@@ -233,7 +233,6 @@ app.route('/auth/invite/:_id')
     app.route('/auth/export/account/')
         .get(function(req,res){
             var accountExporter = require('./models/functions/account_export');
-            
             accountExporter(req.user._account, function(err, account) {
                 if(err){console.log(err);}
                 res.json(account);
