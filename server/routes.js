@@ -238,8 +238,40 @@ app.route('/auth/invite/:_id')
                 },
                 tests: function(callback){
                     async.waterfall([
-                        function(callback){},
-                        function(args, callback){},
+                        function(callback){
+                            Test.find({'created_by_account' : req.user._account})
+                                .exec(function(err, data){
+                                    if(err){res.send(err);}
+                                    callback(null,data);
+                                });
+                        },
+                        function(args, callback){
+                            async.map(args, 
+                                function(arg, callback){
+                                    async.parallel({
+                                        tasks: function(callback){
+                                            Task.find({'_test' : arg._id})
+                                                .populate('_messages _test')
+                                                .exec(function(err, data){
+                                                    if(err){console.log(err);}
+                                                });
+                                        }, 
+                                        tags: function(callback){
+                                            Tag.find({'_test' : arg._id})
+                                                .populate('_messages _test')
+                                                .exec(function(err, data){
+                                                    if(err){console.log(err);}
+                                                });
+                                        }
+                                    },
+                                    function(err, results){
+
+                                    });
+                                },
+                                function(err, results){
+                                    callback(null, results);
+                                });
+                        },
                     ], function(err, results){
 
                     });
