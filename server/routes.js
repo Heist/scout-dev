@@ -11,6 +11,7 @@ module.exports = function(app, passport) {
     var Trello  = require('node-trello');
 
     // load data storage models
+    var Comment = require('./models/data/comment');
     var Message = require('./models/data/message');
     var Task    = require('./models/data/task');
     var Test    = require('./models/data/test');
@@ -231,6 +232,7 @@ app.route('/auth/invite/:_id')
             async.parallel({
                 users: function(callback){
                     User.find({'_account': req.user._account })
+                        .select('name local.email')
                         .exec(function(err, data){
                             if(err){res.send(err);}
                             callback(null, data);
@@ -240,8 +242,11 @@ app.route('/auth/invite/:_id')
                     async.waterfall([
                         function(callback){
                             Test.find({'created_by_account' : req.user._account})
+                                .populate('created_by_user')
+                                .select('name platform desc updated created created_by_user')
                                 .exec(function(err, data){
                                     if(err){res.send(err);}
+                                    console.log(data.length);
                                     callback(null,data);
                                 });
                         },
@@ -249,36 +254,85 @@ app.route('/auth/invite/:_id')
                             async.map(args, 
                                 function(arg, callback){
                                     async.parallel({
+                                        test: function(callback){
+                                            callback(null, arg);   
+                                        },
                                         tasks: function(callback){
                                             Task.find({'_test' : arg._id})
-                                                .populate('_messages _test')
+                                                .populate('_test _messages')
+                                                .select('_messages created desc name pass_fail index report_index updated visible ')
                                                 .exec(function(err, data){
                                                     if(err){console.log(err);}
+                                                    callback(null, data);
                                                 });
                                         }, 
                                         tags: function(callback){
                                             Tag.find({'_test' : arg._id})
-                                                .populate('_messages _test')
+                                                .populate('_test _messages _messages._comments')
                                                 .exec(function(err, data){
                                                     if(err){console.log(err);}
+                                                    callback(null, data);
                                                 });
                                         }
                                     },
                                     function(err, results){
+                                        if(err){console.log(err);}
 
+                                        async.parallel([
+                                            function(callback){
+                                                async.map(results.tasks._messages, 
+                                                function(msg, callback){
+                                                    Message.find({'_id':msg._id})
+                                                        .populate('_comments')
+                                                        .exec(function(err, data){
+                                                            if(err){console.log(err);}
+                                                            callback(null, data);
+                                                        });
+                                                }, 
+                                                function(err, results){
+                                                    if(err){console.log(err);}
+                                                    callback(null, results);
+                                                });
+                                            },
+                                            function(callback){
+                                                async.map(results.tasks._messages, 
+                                                function(msg, callback){
+                                                    Message.find({'_id':msg._id})
+                                                        .populate('_comments')
+                                                        .exec(function(err, data){
+                                                            if(err){console.log(err);}
+                                                            callback(null, data);
+                                                        });
+                                                }, 
+                                                function(err, results){
+                                                    if(err){console.log(err);}
+                                                    callback(null, results);
+                                                });
+                                            }
+                                        ],
+                                        function(err, results){
+
+                                        });
+
+
+                                        callback(null, results);
                                     });
                                 },
                                 function(err, results){
+                                    if(err){console.log(err);}
                                     callback(null, results);
                                 });
                         },
                     ], function(err, results){
-
+                        if(err){console.log(err);}
+                        callback(null, results);
                     });
                 }
             },
             function(err, results){
+                if(err){console.log(err);}
                 console.log('account request', results);
+                res.json(results);
             });
 
         });
