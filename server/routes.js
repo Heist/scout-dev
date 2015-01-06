@@ -232,151 +232,14 @@ app.route('/auth/invite/:_id')
     // require('./routes/account_export')(app);
     app.route('/auth/export/account/')
         .get(function(req,res){
-            console.log('account get user', req.user._account);
-
-            // get all users who have the same account number as this user
-            // get all tests with that account number
-            // populate that test with tasks and messages
-            // populate that test with tags and messages
-
-            async.parallel({
-                users: function(callback){
-                    User.find({'_account': req.user._account })
-                        .select('name local.email')
-                        .exec(function(err, data){
-                            if(err){res.send(err);}
-                            callback(null, data);
-                        });
-                },
-                tests: function(callback){
-                    async.waterfall([
-                        function(callback){
-                            Test.find({'created_by_account' : req.user._account})
-                                .populate('created_by_user')
-                                .select('name platform desc updated created created_by_user')
-                                .exec(function(err, data){
-                                    if(err){res.send(err);}
-                                    console.log(data.length);
-                                    callback(null,data);
-                                });
-                        },
-                        function(args, callback){
-                            async.map(args, 
-                                function(arg, callback){
-                                    async.parallel({
-                                        test: function(callback){
-                                            callback(null, arg);   
-                                        },
-                                        tasks: function(callback){
-                                            Task.find({'_test' : arg._id})
-                                            .populate('_test _messages')
-                                            .select('_messages created desc name pass_fail index report_index updated visible ')
-                                            .exec(function(err, data){
-                                                if(err){console.log(err);}
-                                                // for each task
-                                                // find all messages
-                                                // for each message
-                                                // find all comments,
-                                                // replace the message in the task with a commented message in the task.
-
-                                                async.map(data,
-                                                function(obj, callback){
-                                                    if(obj._messages){
-                                                        async.map(obj._messages, 
-                                                            function(msg, callback){
-                                                                // if a message exists, find it, populate it, and return it.
-                                                                Message.findOne({'_id':msg._id})
-                                                                    .populate('_comments')
-                                                                    .exec(function(err, data){
-                                                                        if(err){console.log(err);}
-                                                                        callback(null, data);
-                                                                    });
-                                                            },
-                                                            function(err, results){
-                                                                if(err){console.log(err);}
-                                                                // these results are your populated, commented messages.
-                                                                obj._messages = '';
-                                                                obj._messages = results;
-                                                                callback(null, obj._messages);
-                                                            });
-                                                    } else {
-                                                        // No messages? Just pass back the object.
-                                                        callback(null, obj);
-                                                    }
-                                                },
-                                                function(err, results){
-                                                    if(err){console.log(err);}
-                                                    // this should be an array of items with populated comments.
-                                                    callback(null, results);
-                                                });
-                                            });
-                                        }, 
-                                        tags: function(callback){
-                                            Tag.find({'_test' : arg._id})
-                                                .populate('_test _messages')
-                                                .exec(function(err, data){
-                                                        if(err){console.log(err);}
-                                                        // for each task
-                                                        // find all messages
-                                                        // for each message
-                                                        // find all comments,
-                                                        // replace the message in the task with a commented message in the task.
-
-                                                        async.map(data,
-                                                        function(obj, callback){
-                                                            if(obj._messages){
-                                                                async.map(obj._messages, 
-                                                                    function(msg, callback){
-                                                                        // if a message exists, find it, populate it, and return it.
-                                                                        Message.findOne({'_id':msg._id})
-                                                                            .populate('_comments')
-                                                                            .exec(function(err, data){
-                                                                                if(err){console.log(err);}
-                                                                                callback(null, data);
-                                                                            });
-                                                                    },
-                                                                    function(err, results){
-                                                                        if(err){console.log(err);}
-                                                                        // these results are your populated, commented messages.
-                                                                        obj._messages = '';
-                                                                        obj._messages = results;
-                                                                        callback(null, obj._messages);
-                                                                    });
-                                                            } else {
-                                                                // No messages? Just pass back the object.
-                                                                callback(null, obj);
-                                                            }
-                                                        },
-                                                        function(err, results){
-                                                            if(err){console.log(err);}
-                                                            // this should be an array of items with populated comments.
-                                                            callback(null, results);
-                                                        });
-                                                    });        
-                                        }
-                                    },
-                                    function(err, results){
-                                        if(err){console.log(err);}
-                                        callback(null, results);
-                                    });
-                                },
-                                function(err, results){
-                                    if(err){console.log(err);}
-                                    callback(null, results);
-                                });
-                        },
-                    ], function(err, results){
-                        if(err){console.log(err);}
-                        callback(null, results);
-                    });
-                }
-            },
-            function(err, results){
+            var AccountExporter = require('./models/functions/account_export');
+            AccountExporter(req.user._account, function(err, things) {
                 if(err){console.log(err);}
-                console.log('account request', results);
-                res.json(results);
+                console.log(things, err);
+                console.log('account_export');
+                res.json(things);
             });
-
+            
         });
 
 
@@ -394,58 +257,58 @@ app.route('/auth/invite/:_id')
         var reply = {};
 
         async.parallel({
-                    tags: function(callback){
-                        Tag.find({'_test' : req.params._id })
-                            .populate('_messages')
-                            .sort({name: 1})
-                            .exec(function(err, docs){
-                                if (err) {console.log(err);}
-                                callback(null, docs);
-                            });
-                    },
-                    tasks: function(callback){
-                        Task.find({'_test': req.params._id})
-                            .sort({ index: 'asc'})
-                            .populate('_messages')
-                            .exec(function(err, docs){
-                                if (err) {console.log(err);}
-                                callback(null, docs);
-                            });
-                    },
-                    test: function(callback){
-                        Test.find({'_id' : req.params._id})
-                            .limit(1)
-                            .exec(function(err, docs){
-                                if(err){console.log(err);}
-                                callback(null, docs);
-                            });
-                    },
-                    messages: function(callback){
-                        Message.find({ '_test':{$in: [req.params._id]}})
-                               .populate({path:'_subject', select: 'name' })
-                               .exec(function(err, docs){
-                                    if(err){console.log(err);}
-                                    callback(null, docs);
-                                });
-                    }
-                },
-                function(err, results) {
-                    // results is now equals to: {one: 1, two: 2}
-                    console.log('get results', results);
-                    var return_array = [];
-                    _.each(results.test, function(test){
-                        return_array.push(test);
+            tags: function(callback){
+                Tag.find({'_test' : req.params._id })
+                    .populate('_messages')
+                    .sort({name: 1})
+                    .exec(function(err, docs){
+                        if (err) {console.log(err);}
+                        callback(null, docs);
                     });
-                    _.each(results.tasks, function(task){
-                        return_array.push(task);
+            },
+            tasks: function(callback){
+                Task.find({'_test': req.params._id})
+                    .sort({ index: 'asc'})
+                    .populate('_messages')
+                    .exec(function(err, docs){
+                        if (err) {console.log(err);}
+                        callback(null, docs);
                     });
-                    _.each(results.tags, function(tag){
-                        return_array.push(tag);
+            },
+            test: function(callback){
+                Test.find({'_id' : req.params._id})
+                    .limit(1)
+                    .exec(function(err, docs){
+                        if(err){console.log(err);}
+                        callback(null, docs);
                     });
-                    // callback(null, );
-                    console.log(results.test[0].name);
-                    res.json({test: results.test[0].name, navlist: return_array, messages: results.messages});
-                });
+            },
+            messages: function(callback){
+                Message.find({ '_test':{$in: [req.params._id]}})
+                       .populate({path:'_subject', select: 'name' })
+                       .exec(function(err, docs){
+                            if(err){console.log(err);}
+                            callback(null, docs);
+                        });
+            }
+        },
+        function(err, results) {
+            // results is now equals to: {one: 1, two: 2}
+            console.log('get results', results);
+            var return_array = [];
+            _.each(results.test, function(test){
+                return_array.push(test);
+            });
+            _.each(results.tasks, function(task){
+                return_array.push(task);
+            });
+            _.each(results.tags, function(tag){
+                return_array.push(tag);
+            });
+            // callback(null, );
+            console.log(results.test[0].name);
+            res.json({test: results.test[0].name, navlist: return_array, messages: results.messages});
+        });
 
     });
 
