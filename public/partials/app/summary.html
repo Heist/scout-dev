@@ -16,8 +16,8 @@
 		<div id="sidebar" class="summarizing">
 			
 			<div class="test-id">
-				<h3>My Test Name</h3>
-				<span>Editing</span>
+				<h3>{{testname}}</h3>
+				<small>Editing</small>
 			</div>
 			
 			<ul>
@@ -95,15 +95,18 @@
 			
 			<!-- SORT OUT YOUTUBE LINKS -->
 
-			Embed Type:
-			<form name="myForm">
-				Got a video to share? Please include your embed code below. 
-				For Youtube, this is your video URL.
+			
+			<form id="video-embed">
+				<p>Got a relevant video to include? Paste your embed code below. </p>
+				<small>For Youtube, this is your video URL, like https://www.youtube.com/watch?v=ABCD1234</small><br>
 
-				<textarea style="width:100%" ng-model='selected.embed' name="field-input" placeholder="Your notes"></textarea>
+				<textarea ng-model='selected.embed' class="input" name="field-input" placeholder="Your embed code." ng-blur="saveObject(selected)"></textarea>
 
-				<button ng-click="saveObject(selected)">Add Video</button>
+				<!--<button ng-click="saveObject(selected)">Add Video</button>-->
 			 </form>
+			 
+			 
+			 
 
 			<!-- messages -->					
 			<div class="message-group" ng-repeat="user in messages" ng-show="selected._messages">
