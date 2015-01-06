@@ -268,7 +268,7 @@ app.route('/auth/invite/:_id')
                                         }, 
                                         tags: function(callback){
                                             Tag.find({'_test' : arg._id})
-                                                .populate('_test _messages _messages._comments')
+                                                .populate('_test _messages')
                                                 .exec(function(err, data){
                                                     if(err){console.log(err);}
                                                     callback(null, data);
@@ -277,44 +277,6 @@ app.route('/auth/invite/:_id')
                                     },
                                     function(err, results){
                                         if(err){console.log(err);}
-
-                                        async.parallel([
-                                            function(callback){
-                                                async.map(results.tasks._messages, 
-                                                function(msg, callback){
-                                                    Message.find({'_id':msg._id})
-                                                        .populate('_comments')
-                                                        .exec(function(err, data){
-                                                            if(err){console.log(err);}
-                                                            callback(null, data);
-                                                        });
-                                                }, 
-                                                function(err, results){
-                                                    if(err){console.log(err);}
-                                                    callback(null, results);
-                                                });
-                                            },
-                                            function(callback){
-                                                async.map(results.tasks._messages, 
-                                                function(msg, callback){
-                                                    Message.find({'_id':msg._id})
-                                                        .populate('_comments')
-                                                        .exec(function(err, data){
-                                                            if(err){console.log(err);}
-                                                            callback(null, data);
-                                                        });
-                                                }, 
-                                                function(err, results){
-                                                    if(err){console.log(err);}
-                                                    callback(null, results);
-                                                });
-                                            }
-                                        ],
-                                        function(err, results){
-
-                                        });
-
-
                                         callback(null, results);
                                     });
                                 },
