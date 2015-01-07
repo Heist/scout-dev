@@ -35,28 +35,24 @@
 		@include animated;		
 		@include scrollbar;
 		
-		#findings-share-link {
-			width: 160px;
-			position: absolute;
-			bottom: 46px;
-			right: 33px;
-			text-align: center;
-			color: $line;
-			line-height: 1;
-			
-			.input {
-				width: 100%;
-				margin: 0;
-			}
-		}
-		
-		
+				
 		#findings-viewmode-controls {
 			padding: $pad;
 			width: 95%;
 			position: absolute;
 			left: 0;
 			bottom: 0;
+		}
+		
+		#findings-share-link {
+			width: 80%;
+			padding: 0;
+			margin: 0 0 $pad/2 0;
+	
+			.input {
+				width: 100%;
+				margin: 0;
+			}
 		}
 		
 		#sidebar {
@@ -69,6 +65,8 @@
 			}
 		}
 	}
+	
+	
 	
 	.sheet-holder {
 		position: absolute;
