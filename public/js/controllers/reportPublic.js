@@ -45,9 +45,9 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
     //     }
     // };
 
-// MIXPANEL ===================================== 
+mixpanel ===================================== 
 
-    // mixpanel.track('Report Loaded', {});
+    mixpanel.track('Report Loaded', {});
 // ==============================================
 
 // NAVIGATION =============================================
@@ -94,7 +94,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                     console.log(res);
 
                     $scope.selected.userTesting = $sce.trustAsHtml(res);
-                    $scope.selected.HTMLdemo = '<a href="#linky">I am a link</a>';
+                    // $scope.selected.HTMLdemo = '<a href="#linky">I am a link</a>';
                 }
 
             }

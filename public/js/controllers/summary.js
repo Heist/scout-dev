@@ -313,7 +313,7 @@ angular.module('field_guide_controls')
 
         $scope.messages = _.map($scope.messages, function(val, key){ return val; });
 
-        // mixpanel.track('Summary complete', {});
+        mixpanel.track('Summary complete', {});
 
         var url = '/api/summary/'+ $stateParams._id;
         var data_out = {navlist: $scope.leftNavList, messages:$scope.messages[0]} ;
