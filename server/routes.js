@@ -293,8 +293,11 @@ app.route('/auth/invite/:_id')
             // results is now equals to: {one: 1, two: 2}
             console.log('get results', results);
             var return_array = [];
+
             _.each(results.test, function(test){
-                return_array.push(test);
+                if(test.visible === 'true'){
+                    return_array.push(test);
+                }
             });
             _.each(results.tasks, function(task){
                 return_array.push(task);
