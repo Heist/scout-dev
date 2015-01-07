@@ -144,7 +144,9 @@ module.exports = function(app, passport) {
                                 if (err){throw err;} 
 
                                 if(invite === null){
-                                    newUserTests(user._account, user._id);
+                                    return newUserTests(user._account, user._id, function(err, callback){
+                                        console.log(callback);
+                                    });
                                 }
                             });
 

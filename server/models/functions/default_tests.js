@@ -1,7 +1,7 @@
 // default_tests.js - generates first-time signup tests
 'use strict';
 
-module.exports = function(account, id){
+module.exports = function(account, id, callback){
     // on first login via signup, create a test for this user.
     console.log('new signup');
 
@@ -141,6 +141,8 @@ module.exports = function(account, id){
     ],
     // optional callback
     function(err, results){
-        return Test.find({'created_by_user' : id}).populate('_tasks').exec();
+        console.log(results);
+        Test.find({'created_by_user' : id}).populate('_tasks').exec();
+        callback(null, results);
     });
 }
