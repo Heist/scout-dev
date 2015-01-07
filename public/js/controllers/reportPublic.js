@@ -45,9 +45,10 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
     //     }
     // };
 
-mixpanel ===================================== 
+// == mixpanel ==================================
 
     mixpanel.track('Report Loaded', {});
+    
 // ==============================================
 
 // NAVIGATION =============================================

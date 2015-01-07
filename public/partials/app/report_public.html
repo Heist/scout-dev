@@ -52,10 +52,8 @@
             </div>
             
             <div class="findings-description">  
-                <!-- <p ng-bind-html="selected.desc | linebreaker"></p> -->
-                <!-- <p ng-bind-html='selected.summary'></p> -->
-                <p ng-show="selected.desc">{{selected.desc}}</p>
-                <p ng-show="selected.summary">{{selected.summary}}</p>
+                <p ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></p>
+                <p ng-if="selected.summary" ng-bind-html='selected.summary'></p>
             </div>
         
         
