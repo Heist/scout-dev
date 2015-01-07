@@ -113,3 +113,16 @@
 	}
 }
 
+
+/* let's watch our embedded video */
+
+#video-containers {
+	object, embed, iframe {
+		width: 100%;
+		height: 350px;
+		background: black;
+	}
+}
+
+
+
