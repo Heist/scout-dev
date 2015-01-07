@@ -59,12 +59,12 @@
             </div>
         
         
-        
-            <youtube-video video-url="selected.youTubeCode" player-width="'100%'" player-height="'300px'" ng-if="selected.youTubeCode.length > 0"></youtube-video>
-                                               
-            <div ng-if="selected.userTesting" ng-bind-html="selected.userTesting"> </div>
-            <div ng-if="selected.userTesting" ng-bind-html="selected.HTMLdemo"> </div>
-            
+        	<div id="video-containers">
+	            <youtube-video video-url="selected.youTubeCode" player-width="'100%'" player-height="'350px'" ng-if="selected.youTubeCode.length > 0"></youtube-video>
+	                                               
+	            <div ng-if="selected.userTesting" ng-bind-html="selected.userTesting"> </div>
+	            <div ng-if="selected.HTMLdemo" ng-bind-html="selected.HTMLdemo"> </div>
+            </div>
             
             
             
