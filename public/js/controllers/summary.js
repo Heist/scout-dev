@@ -79,16 +79,29 @@ angular.module('field_guide_controls')
         // hide commenting
         // else show the new message's comments
 
-        if($scope.commentMessage._id === message._id){
+        console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
+
+        // if(){}
+        if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
+            console.log('match');
             $scope.showCommentToggle = 'hide';
             $scope.commentMessage = '';
+            return;
         }
-
+        if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
+            console.log('match');
+            $scope.showCommentToggle = 'show';
+            return;
+        }
         if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
+            console.log('fail');
             $scope.showCommentToggle = 'show'; 
+            $scope.commentMessage = message;
+            return;
         }
-
+        
         $scope.commentMessage = message;
+
     };
 
     $scope.addComment = function(comment){
