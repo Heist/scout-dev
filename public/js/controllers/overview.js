@@ -107,9 +107,7 @@ angular.module('field_guide_controls')
                 console.log($rootScope.user);
                 test.created_by = $rootScope.user;
                
-                // mixpanel.track('Add new test', {
-                //     'user' : $rootScope.user
-                // });
+                mixpanel.track('Add new test', { 'user' : $rootScope.user });
 
 
             }else{
@@ -178,15 +176,13 @@ angular.module('field_guide_controls')
     $scope.runTest = function(test){
         console.log('touched run', test._id);
         $location.path('/run/'+test._id);
-        // mixpanel.track('Run test', {
-        //     'user': $rootScope.user
-        // });
+        mixpanel.track('Run test', { 'user': $rootScope.user });
     };
 
     $scope.summarizeTest = function(test_id){
         console.log('touched summary', test_id);
         $location.path('/summary/'+ test_id);
-        // mixpanel.track('Summary clicked', {});
+        mixpanel.track('Summary clicked', {});
     };
 
     $scope.loadReport = function(test_id){
