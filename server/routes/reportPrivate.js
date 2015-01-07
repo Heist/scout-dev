@@ -38,7 +38,7 @@ module.exports = function(app) {
                     });
             },
             test: function(callback){
-                Test.find({'_id' : req.params._id, 'visible' : true })
+                Test.find({'_id' : req.params._id})
                     .limit(1)
                     .exec(function(err, docs){
                         if(err){console.log(err);}
@@ -59,8 +59,11 @@ module.exports = function(app) {
         function(err, results) {
             // results is now equals to: {one: 1, two: 2}
             var return_array = [];
+
             _.each(results.test, function(test){
-                return_array.push(test);
+                if(test.visible === 'true'){
+                    return_array.push(test);
+                }
             });
             _.each(results.tasks, function(task){
                 return_array.push(task);
@@ -68,7 +71,8 @@ module.exports = function(app) {
             _.each(results.tags, function(tag){
                 return_array.push(tag);
             });
-            console.log(results.test[0].name);
+
+            console.log('test from results', results.test[0].name);
             res.json({test: results.test[0].name, navlist: return_array, messages: results.messages});
         });
 
