@@ -19,22 +19,27 @@
 	<div class="container">
 		
 		<div id="header-min">
-			<ul class="tabbed-nav">
+			<ul class="tabbed-nav" ng-init="tab = 1">
 				<!--<li><a href="#">Account Information</a></li>-->
-				<li class="active"><a href="#">Team</a></li>
+				<li ng-class="{active:tab===1}"><a href ng-click="tab = 1">Team</a></li>
 				<!--<li><a href="#">Billing</a></li>
 				<li><a href="#">Notifications</a></li>
 				<li><a href="/account">Connected Apps</a></li>-->
+				<li ng-class="{active:tab===2}"><a href ng-click="tab = 2">Export</a></li>
 				
 			</ul>
 		</div>
 	
+		
 		<div class="module quarter">&nbsp;</div>
 		
-		<div class="module half">
+		
+		
+		<!-- team view -->
+		<div class="module half" ng-show="tab === 1">
 			<h2>Team</h2>
 			<p>Invite your team to collaborate on projects and reports.</p>
-			<p><button ng-click="accountExport()">Export Your Account Information</button></p>
+			
 			<!-- list of team members -->
 			<ul class="team-members">
 			
@@ -104,12 +109,24 @@
 			</ul>
 		</div>
 		
+	
+	<!-- / team view -->
+	
+	
+	<!-- export view -->
+	
+		<div class="module half" ng-show="tab === 2">
+			<h2>Export</h2>
+			<p>If you ever need to get your data out of Field Guide, it&rsquo;s easy. Just click below to receive your
+			tests and results in a structured JSON format.</p>
+			<p><button ng-click="accountExport()" class="button">Export Your Account Information</button></p>
+		</div>
+		
+			
+	<!-- / export view -->
 		<div class="clear"></div>
 	</div>
 	
-	<!-- / CONNECTED APPS -->
-
-
 
 	
 	<!-- CONNECTED APPS -->
