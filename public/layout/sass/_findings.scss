@@ -35,6 +35,18 @@
 		@include animated;		
 		@include scrollbar;
 		
+		#findings-share-link {
+			width: 160px;
+			position: absolute;
+			bottom: 55px;
+			right: 20px;
+			
+			.input {
+				width: 100%;
+			}
+		}
+		
+		
 		#findings-viewmode-controls {
 			padding: $pad;
 			width: 95%;
