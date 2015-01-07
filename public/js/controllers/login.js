@@ -16,9 +16,7 @@ angular.module('field_guide_controls')
     if($stateParams.acct){
         $scope.acct = $stateParams.acct.replace( /\//gi,"");
         $scope.reg_toggle = true;
-        // mixpanel.track('registration page touch', {
-        //     'account': $stateParams.acct
-        // });
+        mixpanel.track('registration page touch', { 'account': $stateParams.acct });
         
         // TODO: get the invitation represented by that id and pre-populate the e-mail field.
         $http
@@ -31,9 +29,7 @@ angular.module('field_guide_controls')
     }
     
     $scope.tracker = function(){
-        // mixpanel.track('myAccount', {
-        //     'account': $stateParams.acct
-        // });
+        mixpanel.track('myAccount', { 'account': $stateParams.acct });
     };
     $scope.login = function(user){
         var url = '/auth/login';
@@ -88,9 +84,7 @@ angular.module('field_guide_controls')
                 $rootScope.user = data._id;
                 $location.path(data.redirect);
 
-                // mixpanel.track('registered new user', {
-                //     'name': data.email
-                // });
+                mixpanel.track('registered new user', { 'name': data.email });
 
             })
             .error(function(error){

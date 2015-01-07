@@ -79,7 +79,7 @@ angular.module('field_guide_controls')
     $scope.selectPrototype = function(kind){
         console.log('touched prototype', kind);
         $scope.test.kind = kind;
-        // mixpanel.track('Type of Test', {'test type' : kind });
+        mixpanel.track('Type of Test', {'test type' : kind });
     };
 
     $scope.selectPlatform = function(kind){
@@ -124,7 +124,7 @@ angular.module('field_guide_controls')
         $scope.anchor = x;
         $scope.explanation = _.findWhere(explanations, {anchor:x});
         if(x === 5){
-            // mixpanel.track('Test setup completion page', { 'user': $rootScope.user });
+            mixpanel.track('Test setup completion page', { 'user': $rootScope.user });
         }
     };
 
@@ -153,7 +153,7 @@ angular.module('field_guide_controls')
         task.index = $scope.tasks.length;
         
         console.log(task);
-        // mixpanel.track('Task added', { 'user': $rootScope.user });
+        mixpanel.track('Task added', { 'user': $rootScope.user });
 
         var url = '/api/task/';
         var data_out = task;
@@ -269,7 +269,7 @@ angular.module('field_guide_controls')
         }
 
         if($scope.test.name){
-            // mixpanel.track('Test name changed', { 'user': $rootScope.user });
+            mixpanel.track('Test name changed', { 'user': $rootScope.user });
         }
 
         console.log('touched update test', test);
