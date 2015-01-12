@@ -31,10 +31,6 @@ app.locals.cookie_name = 'connect.sid';
 // process.title = 'field_guide_app';
 // var throttle = process.env.FIELD_GUIDE_THROTTLE || 100;
 
-var database = require('./server/db/db');
-var db = database.db;
-var auth_db = database.auth_db;
-
 // configuration ====================================================
 app.use(cors()); // permit cross-site requests, ie: passport.
 
@@ -53,6 +49,12 @@ require('./config/passport')(app, passport);
 
 // knox configuration ===============================================
 var knox = require('./config/knox');
+
+
+// Database summoning ===============================================
+var database = rootRequire('./config/db');
+var db = database.db;
+var auth_db = database.auth_db;
 
 // session start ====================================================
 app.use(session({
@@ -84,13 +86,13 @@ app.get('*', function(req, res) {
 // lives after normal routes, is dynamic routes accessed separately
 // has its own auth functions
 
-var io = require('socket.io').listen(http, { log: false });
+// var io = require('socket.io').listen(http, { log: false });
 
 // socket 1.0 document is currently in reserve
 // require('./server/socket_routes_1')(io, app, passport);
 
 // socket 0.9 in use to speak to Field Guide App
-require('./server/socket_routes_09')(io, knox, app, passport);
+// require('./server/socket_routes_09')(io, knox, app, passport);
 
 
 // TURN ON THE APPLICATION ==========================================

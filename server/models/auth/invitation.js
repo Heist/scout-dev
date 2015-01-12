@@ -7,7 +7,7 @@
 // Pending is set to false and we offer a password reset link
 
 var mongoose = require('mongoose');
-var connect = require('../../db/db');
+var connect = rootRequire('./config/db');
 connect = connect.auth;
 
 var Schema = mongoose.Schema;
