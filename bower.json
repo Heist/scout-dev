@@ -1,0 +1,28 @@
+{
+  "name": "field_guide_app",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Heist/scout-dev",
+  "authors": [
+    "pretentiousgit <alex.leitch@gmail.com>"
+  ],
+  "license": "none",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-router": "~0.2.10",
+    "canvas2image": "*",
+    "angular": "~1.2",
+    "socket.io": "0.9.x",
+    "jquery": "~2.1.3",
+    "underscore": "~1.7.0",
+    "angular-sanitize": "~1.2",
+    "angular-mocks": "~1.2",
+    "angular-youtube-embed": "~1.0.2"
+  }
+}
