@@ -20,7 +20,7 @@
 			<li>
 				<label>Participant's name</label>
 				
-				<input class="input" type="text" name="participantname" value="" placeholder="&lsquo;Jane&rsquo; or &lsquo;Tester 2&rsquo;, for example" ng-model="subject.name" ui-keypress="{13:'addSubject(subject)'}" />
+				<input class="input" type="text" name="participantname" value="" placeholder="e.g. &lsquo;Jane&rsquo; or &lsquo;Tester 2&rsquo; " ng-model="subject.name" ui-keypress="{13:'addSubject(subject)'}" />
 				</input>
 			</li>
 			
@@ -137,7 +137,7 @@
 				
 				<!-- input notes -->
 				<div id="session-input">
-					<textarea class="input" ng-model='message' name="field-input" placeholder="Your notes" ui-keypress="{13:'postMessage(message)'}" />
+					<textarea class="input" ng-model='message' name="field-input" placeholder="Type notes" ui-keypress="{13:'postMessage(message)'}" />
 					</textarea>
 				</div>
 				

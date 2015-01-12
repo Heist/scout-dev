@@ -45,12 +45,17 @@
 		}
 		
 		#findings-share-link {
-			width: 80%;
+			width: 100%;
 			padding: 0;
 			margin: 0 0 $pad/2 0;
+			
+			small {
+				line-height: $type-size-base;
+				display: block;
+			}
 	
 			.input {
-				width: 100%;
+				width: 80%;
 				margin: 0;
 			}
 		}
