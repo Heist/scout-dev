@@ -138,13 +138,29 @@
 		}
 		
 		.message-comment-submit {
+			padding: 0 0 $pad 0;
+			
 			.input {
 				font-size: $type-size-base*0.85;
 				@include dropshadow;
 				width: 100%;
 				height: $pad*3;
 			}
+			
+			small {
+				display: block;
+				padding: 0;
+				margin: 0;
+				line-height: $type-size-base*0.8;
+				@include type-bold;
+				
+				a {
+					text-decoration: underline;
+				}	
+			}
+			
 		}
+		
 	}
 	
 	

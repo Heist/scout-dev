@@ -114,13 +114,10 @@
 
 						<!-- message-comment new -->
 						<div class="message-comment-submit">
-								<form ng-model="comment">
-									<small>Add a comment:</small>
-									<textarea class="input small" 
-										ng-model="comment.body" 
-										ng-blur="addComment(comment)">
-									</textarea>
-								</form>
+							<form ng-model="comment">
+								<textarea class="input small" ng-model="comment.body"> </textarea>
+								<small><a ng-click="addComment(comment)">Add comment</a></small>
+							</form>
 						</div>
 					</div>
 					<!-- / display comments -->
