@@ -31,7 +31,7 @@ app.locals.cookie_name = 'connect.sid';
 // process.title = 'field_guide_app';
 // var throttle = process.env.FIELD_GUIDE_THROTTLE || 100;
 
-var database = require('./server/db/db');
+var database = require('./config/db');
 var db = database.db;
 var auth_db = database.auth_db;
 

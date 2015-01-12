@@ -6,7 +6,7 @@
 // var connection = require('../../db/auth_db');
 
 var mongoose = require('mongoose');
-var connect = require('../../db/db');
+var connect = rootRequire('./config/db');
 connect = connect.auth;
 
 var bcrypt = require('bcrypt-nodejs');

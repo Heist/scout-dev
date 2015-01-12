@@ -67,21 +67,21 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         //     // url: '/canvas/',
         //     url: '/canvas/:_id',
         //     controller:'canvas',
-        //     templateUrl: 'partials/app/testCanvas.html'
+        //     templateUrl: 'views/app/testCanvas.html'
         // })
         
         // LOGIN AND REGISTRATION PAGES ===================
         .state('/login', {
             url: '/login{acct:(?:/[^/]+)?}',
             controller:'login',
-            templateUrl: 'partials/auth/login.html',
+            templateUrl: 'views/auth/login.html',
         })
 
         // PUBLIC REPORTS ===========================================
         .state('report_public', {
             url: '/p/report/:test_id',
             controller:'reportPublic',
-            templateUrl: 'partials/app/report_public.html'
+            templateUrl: 'views/app/report_public.html'
         })
 
     // PRIVATE ROUTES ===============================================
@@ -90,7 +90,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('report', {
             url: '/report/:test_id',
             controller:'reportPrivate',
-            templateUrl: 'partials/app/report_private.html',
+            templateUrl: 'views/app/report_private.html',
             resolve: { loggedin: checkLoggedin }
         })
 
@@ -98,7 +98,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('account', {
             url: '/account',
             controller: 'account',
-            templateUrl : 'partials/app/account.html',
+            templateUrl : 'views/app/account.html',
             resolve: { loggedin: checkLoggedin }
         })
 
@@ -106,20 +106,20 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('default', {
             url:'/',
             controller: 'overview',
-            templateUrl: 'partials/app/overview.html',
+            templateUrl: 'views/app/overview.html',
             resolve: { loggedin: checkLoggedin }
         })
 
         .state('overview', {
             url: '/overview',
             controller: 'overview',
-            templateUrl: 'partials/app/overview.html',
+            templateUrl: 'views/app/overview.html',
             resolve: { loggedin: checkLoggedin }
         })
         .state('test', {
             url: '/edit/test/:test_id',
             controller:'test',
-            templateUrl: 'partials/app/test.html',
+            templateUrl: 'views/app/test.html',
             resolve: { loggedin: checkLoggedin }
         })
 
@@ -127,7 +127,7 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('run', {
             url: '/run/:_id',
             controller:'run',
-            templateUrl: 'partials/app/run.html',
+            templateUrl: 'views/app/run.html',
             resolve: { loggedin: checkLoggedin }
         })
 
@@ -135,14 +135,14 @@ field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,
         .state('summary', {
             url: '/summary/:_id',
             controller:'summary',
-            templateUrl: 'partials/app/summary.html',
+            templateUrl: 'views/app/summary.html',
             resolve: { loggedin: checkLoggedin }
         })
         .state('summary.test', {
-            templateUrl: 'partials/app/summary_test.html'
+            templateUrl: 'views/app/summary_test.html'
         })
         .state('summary.task', {
-            templateUrl: 'partials/app/summary_task.html'
+            templateUrl: 'views/app/summary_task.html'
         });
 
 });

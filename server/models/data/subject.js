@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var connect = require('../../db/db');
+var connect = rootRequire('./config/db');
 var db = connect.db;
 
 var SubjectSchema = new Schema ({
