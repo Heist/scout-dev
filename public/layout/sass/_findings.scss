@@ -102,6 +102,7 @@
 	
 	.findings-summary {
 		width: 100%;
+		max-width: 100%;
 		height: 100px;
 		padding: $pad $pad*2;
 		@include radius(0px);

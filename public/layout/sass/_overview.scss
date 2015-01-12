@@ -30,16 +30,20 @@
 .overview-test {
 	margin-bottom: $pad;
 	
-	.test-info {
-		padding: $pad*3.2 $pad*0.5 $pad*2 $pad*0.5;
-		text-align: center;
-		position: relative;
-		@include radius-top;
+	.overview-test-container {
 		background: $white;
-		min-height: 160px;
+		height: 200px;
 		overflow: hidden;
+		@include radius;
 		@include dropshadowULTRA;
+		position: relative;
+	}
+	
 		
+	.test-info {
+		padding: $pad*3 $pad*0.5 0 $pad*0.5;
+		text-align: center;
+			
 		small {
 			text-transform: uppercase;
 			opacity: 0.6;
@@ -84,12 +88,29 @@
 		}	
 	}
 	
+	
+	.test-controls-empty {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		text-align: center;
+		padding: 0 0 $pad*0.8 0;
+		
+		a {
+			text-decoration: underline;
+		}
+	}
+	
 	.test-controls {
 		background: $fg-green;
 		padding: 0;
 		margin: 0;
+		width: 100%;
 		border-radius: 0 0 2px 2px;
-		@include dropshadowULTRA;
+		position: absolute;
+		bottom: 0;
+		left: 0;
 		
 		a {
 			font-size: $type-size-base*0.9;
@@ -100,9 +121,10 @@
 			text-align: center;
 			text-decoration: none;
 			color: $white;
-
+			
 			&:hover {
 				background-color: darken($fg-green, 3%);
+				@include insetshadow();
 
 				&.left {
 					border-radius: 0 0 0 2px;
@@ -130,13 +152,10 @@
 			
 		.overview-test-container {
 			border: 2px dashed $line;
+			background: none;
 			@include radius(6px);
-			height: 216px;
 						
 			.test-info {
-				background: none;
-				@include dropshadowULTRA(0 0 0, rgba(0,0,0,0));
-				
 				h3 {
 					color: $text;
 					font-size: $type-size-base;
