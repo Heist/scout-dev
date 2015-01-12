@@ -102,7 +102,7 @@
 					
 					<li>
 						<label for="field-prototypeurl">Your test objectives</label>
-						<textarea class="input" id="field-objective" type="text" value="" ng-model="test.desc" placeholder="What is the purpose of this test? What do you want to learn?" />
+						<textarea msd-elastic class="input" id="field-objective" type="text" value="" ng-model="test.desc" placeholder="What is the purpose of this test? What do you want to learn?" />
 					</li>
 					
 					<li>
@@ -155,7 +155,7 @@
 							<div class="step-contents">
 								<form>
 									<input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
-									<textarea ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
+									<textarea msd-elastic ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
 									</textarea>
 								</form>
 							</div>
@@ -173,7 +173,7 @@
 						<form ng-model='newtask'>
 							<input class="input" ng-trim="false" ng-model="newtask.name" ng-focus="editTitle(newtask)" ng-blur="blurTitle(newtask)" placeholder="Task name"><br/>
 							
-							<textarea ng-model="newtask.desc" class="input small" id="field-textarea" ng-blur="updateTask(newtask)" placeholder="Put talking points or task-specific questions here.">
+							<textarea msd-elastic ng-model="newtask.desc" class="input small" id="field-textarea" ng-blur="updateTask(newtask)" placeholder="Put talking points or task-specific questions here.">
 							</textarea>						
 						</form>
 						
