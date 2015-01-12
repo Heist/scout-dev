@@ -86,7 +86,9 @@ angular.module('field_guide_controls').controller('account', ['$scope','$http', 
 					
 					$scope.live_user.team.push({ local : {email : invite.email}, 'name': invite.name});
 					email.address = "";
-					$scope.message = "This team member is already a Field Guide user."+
+					$scope.message = "<strong>This team member is already a Field Guide user. "+
+									 "If they join your team they will be removed from their current team "+
+									 "and lose access to those projects.</strong><br><br>"+
                                      "Invite them to your team using this personalized link:"+
                                      " <a href='"+new_url+"/login/"+invite._id+"' target='_blank'>"+
                                      new_url+"/login/"+invite._id+"</a>";

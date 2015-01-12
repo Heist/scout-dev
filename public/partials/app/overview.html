@@ -2,7 +2,7 @@
 	
 	<div ng-controller="login">
 		<div id="nav-logo">
-			<a href="/overview"><img src="/layout/assets/fg-binocs-header.gif" /></a>
+			<a href="/overview"><img src="/layout/assets/fg-binocs-header.png" /></a>
 		</div>
 		
 		<div id="nav-mgmt">
@@ -51,9 +51,15 @@
 						<a class="dangerous" ng-click="removeTest(test)"><img src="/layout/assets/delete.svg" /></a>  
 					</div>
 				</div>
+				
+				
+				<div class="test-controls-empty" ng-show="test._tasks.length === 0">
+					<small><a ng-click="editTest(test)">You need to add some tasks.</a></small>
+				</div>
+				
 			
 				<div class="test-controls">
-					
+				
 					<a class="left" ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run Test</a>
 		
 					<a class="right" ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0">Report</a>

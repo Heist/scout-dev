@@ -21,10 +21,10 @@ mixins
 	box-shadow: $shadow $intensity;
 }
 
-@mixin insetshadow {
-	-webkit-box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.15);
-	-moz-box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.15);
-	box-shadow: inset 0px 0px 7px 0px rgba(0,0,0,0.15);
+@mixin insetshadow($shadow: 0px 0px 10px 0px, $intensity: rgba(0,0,0,0.1)) {
+	-webkit-box-shadow: inset $shadow $intensity;
+	-moz-box-shadow: inset $shadow $intensity;
+	box-shadow: inset $shadow $intensity;
 }
 
 @mixin radius($radius: 3px) {

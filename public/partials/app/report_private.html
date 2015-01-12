@@ -5,7 +5,7 @@
 >
 	
 	<div id="nav-logo">
-		<a href="/overview"><img src="/layout/assets/fg-binocs-header.gif" /></a>
+		<a href="/overview"><img src="/layout/assets/fg-binocs-header.png" /></a>
 	</div>
 	
 	
@@ -37,6 +37,7 @@
 		
 		<div id="findings-viewmode-controls">
 			<div id="findings-share-link" ng-if="showReportLink">
+				<small>Use this link to share this report:</small>
 				<input class="input small tight" ng-model="reportLink"/>
 			</div>	
 			
@@ -113,13 +114,10 @@
 
 						<!-- message-comment new -->
 						<div class="message-comment-submit">
-								<form ng-model="comment">
-									<small>Add a comment:</small>
-									<textarea class="input small" 
-										ng-model="comment.body" 
-										ng-blur="addComment(comment)">
-									</textarea>
-								</form>
+							<form ng-model="comment">
+								<textarea class="input small" ng-model="comment.body"> </textarea>
+								<small><a ng-click="addComment(comment)">Add comment</a></small>
+							</form>
 						</div>
 					</div>
 					<!-- / display comments -->
