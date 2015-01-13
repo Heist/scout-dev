@@ -44,9 +44,12 @@
     "node": "0.10.x"
   },
   "devDependencies": {
+    "del": "^1.1.1",
     "gulp": "^3.8.10",
+    "gulp-changed": "^1.1.0",
     "gulp-concat": "^2.4.3",
     "gulp-filter": "^2.0.0",
+    "gulp-jshint": "^1.9.0",
     "gulp-load-plugins": "^0.8.0",
     "gulp-minify-css": "^0.3.11",
     "gulp-rename": "^1.2.0",
