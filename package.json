@@ -54,6 +54,7 @@
     "gulp-usemin": "^0.3.9",
     "karma-chrome-launcher": "^0.1.4",
     "karma-phantomjs-launcher": "^0.1.4",
-    "main-bower-files": "^2.4.1"
+    "main-bower-files": "^2.4.1",
+    "vinyl-transform": "^1.0.0"
   }
 }
