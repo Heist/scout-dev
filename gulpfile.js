@@ -8,6 +8,7 @@ var filter = require('gulp-filter');
 var del = require('del');
 var jshint = require('gulp-jshint');
 var changed = require('gulp-changed');
+var imagemin = require('gulp-imagemin');
 
 var mainBowerFiles = require('main-bower-files');
 var transform = require('vinyl-transform');
@@ -45,6 +46,11 @@ gulp.task('fonts', function() {
 
 gulp.task('images', function() {
     return gulp.src('public/layout/assets/*')
+      .pipe(imagemin({
+            optimizationLevel: 5,
+            progressive: true,
+            interlaced: true
+        }))
       .pipe(gulp.dest('dist/public/layout/assets'));
 });
 
@@ -58,5 +64,5 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('css', 'fonts', 'html', 'scripts');
+    gulp.start('css', 'fonts', 'html', 'images', 'scripts');
 });
