@@ -73,25 +73,4 @@ build/Release
 # Deployed apps should consider commenting this line out:
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
 node_modules
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_account.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_colours.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_editing.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_fonts.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_forms.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_grid.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_header.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_helpers.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_login.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_modal.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_overview.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_report.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_sidebar.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_subbar.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_summarizing.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_tasklist.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_testing.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_timeline.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_typography.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_variables.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/_views.scssc
-public/.sass-cache/1360fec40669b0259e79c47d325ff63fe309e3ea/fieldguide.scssc
+public/.sass-cache/*
