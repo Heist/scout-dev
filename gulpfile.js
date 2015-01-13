@@ -22,9 +22,12 @@ var bower = mainBowerFiles({
 if(!bower.length) {
     throw new Error('No main files from Bower dependencies found!');
 }
+var scr_arr = ['public/js/app.js'];
 
 gulp.task('scripts', function () {
-    return gulp.src( bower.concat('public/js/*') )
+    return gulp.src( [
+        'public/js/app.js'
+    ])
     .pipe(filter('*.js'))
     .pipe(uglify({mangle:false}))
     .pipe(concat('app.js'))
