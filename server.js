@@ -41,7 +41,7 @@ global.rootRequire = function(name) {
 // express 4.0 basic configuration ==================================
 // app.use(logger('\033[90m:date :method :url :response-time\\ms\033[0m \033[31m:referrer \033[0m'));
 app.use(cookieParser());
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/dist'));
 app.use(bodyParser());
 
 // passport configuration ===========================================
@@ -77,9 +77,11 @@ var router = require('./server/routes')(app, passport);
 
 // DEFAULT ROUTE ====================================================
 // Prevents the ENOENT rendering error
+
 app.get('*', function(req, res) {
-			res.sendfile(__dirname + '/public/index.html');
+			res.sendfile(__dirname + '/dist/public/index.html');
 		});
+
 
 
 // SOCKET.IO ========================================================
