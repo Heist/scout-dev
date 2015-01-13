@@ -3,8 +3,10 @@
 
 var mongoose = require('mongoose');
 
-var db = mongoose.createConnection('mongodb://127.0.0.1:27017/field_guide_app');
+// reminder: this is local because it's local to _the server_
+// server's always gon' be local to the code
 
+var db = mongoose.createConnection('mongodb://127.0.0.1:27017/field_guide_app');
 var auth_db = db.useDb('field_guide_users');
 
 module.exports = {auth: auth_db, db: db};
