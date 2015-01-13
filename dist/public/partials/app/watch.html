@@ -1,0 +1,11 @@
+<div id="view-testing"> 
+    
+<!-- <ng-include src="'partials/app/header_run.html'"></ng-include> -->
+<form ng-model="connect">
+    <input type="text" ng-model='connect.text'></input>
+    <button ng-click='subscription(connect.text)'>Join Channel</button>
+</form>
+    <canvas id='channel'></canvas>
+    
+    <img id="ia" style="display:none;"/>
+</div>

@@ -58,7 +58,7 @@ gulp.task('images', function() {
 });
 
 gulp.task('html', function() {
-    return gulp.src(['public/partials/*'])
+    return gulp.src(['public/partials/**/*.html'])
       .pipe(gulp.dest('dist/public/partials'));
 });
 

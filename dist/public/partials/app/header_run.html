@@ -1,0 +1,35 @@
+<!-- header -->
+
+<div id="header-run" ng-controller="login">
+	
+	<div class="left-pane">
+		<div id="header-logo">
+			<a href="/overview"><img src="/layout/assets/fg-binocs-header.png" /></a> 
+		</div>
+	</div>
+	
+	
+	<div class="large-pane">
+	
+	
+		<div id="header-buttons">
+	
+			<!-- report feedback -->
+			<small><a href="https://docs.google.com/forms/d/1VaUcJ_D4vSn6abJzoeKcVXGtwIqi-Oa3mGCuNo8u7SA/viewform" target="_fdbk">Feedback &amp; Bugs</a></small> &nbsp;&nbsp;
+		
+			<!-- running a test -->
+			<button class="button small dark button-testing" ng-click="postTest()">End Test</button>
+			
+			<!-- summarizing -->
+			<button class="button small header button-summarizing" ng-click="summary_tags(flow)">Add summaries for tags &raquo;</button>
+			<button class="button small header button-summarizing" ng-click="completeSummary(flow)">&check; Done Summarizing</button>
+			
+		</div>
+	
+	</div>
+
+	<div class="clear"></div>
+
+</div>
+
+<!-- /header -->

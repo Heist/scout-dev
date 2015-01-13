@@ -1,0 +1,56 @@
+<!-- header -->
+
+<div id="header" ng-controller="login" ng-show="user">
+	
+	<div id="header-logo">
+		<a href="/overview"><img src="../layout/assets/fg-binocs-header.png" /></a>
+	</div>
+	
+	
+	<div id="header-nav">
+		<ul>
+			<li><a href="/overview">My Tests</a></li>
+		</ul>
+	</div>
+	
+	
+ 	<div id="header-account">
+		
+		<div id="header-account-username">
+			<a href="https://docs.google.com/forms/d/1MsYcOPq5X1foSuaHfuuhzOmkhijaNFBjB7XJMs3PSA0/viewform" target="_fdbk">Get the iOS Beta App</a> &nbsp;&nbsp;
+			<a href="https://docs.google.com/forms/d/1VaUcJ_D4vSn6abJzoeKcVXGtwIqi-Oa3mGCuNo8u7SA/viewform" target="_fdbk">Feedback &amp; Bugs</a> &nbsp;&nbsp; Hi, {{user.name}}
+		</div>
+		
+		<div id="header-account-avatar" ng-model="collapsed" ng-click="collapsed=!collapsed">
+			<img src="/layout/assets/avatar-header.png">
+		</div>
+		<div id="header-account-dropdown">&#9662;</div>
+	</div>			
+	
+	<div id="header-account-drawer" ng-show="collapsed">
+		<ul>
+			<li><a href="/account" ng-click="tracker()">My Account</a></li>
+			<li><a ng-click="logout()">Log Out</a></li>
+		</ul>
+	</div>
+	
+
+	<div class="clear"></div>
+
+</div>
+
+<!-- /header -->
+
+<!-- non-auth header -->
+
+<div id="header" class="header-nonauth" ng-show="!user">
+	
+	<div id="header-logo">
+		<a href="/"><img src="../layout/assets/fg-binocs-full.png" /></a>
+	</div>
+	
+	<div class="clear"></div>
+
+</div>
+
+<!-- /header -->

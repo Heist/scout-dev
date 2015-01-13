@@ -1,0 +1,116 @@
+<div id="view-overview">
+	
+	<div ng-controller="login">
+		<div id="nav-logo">
+			<a href="/overview"><img src="/layout/assets/fg-binocs-header.png" /></a>			
+		</div>
+		
+		<div id="nav-acct-status">
+			<span>14 days</span> left in your trial
+		</div>
+		
+		<div id="nav-mgmt">
+			<div id="nav-account">
+				<a href="/account" ng-click="tracker()">&nbsp;</a>
+			</div>
+			
+			<a ng-click="logout()">Log Out</a>
+		</div>
+
+	</div>	
+	
+
+	<!-- show tests in db -->
+	<div class="container">	
+		
+		<div id="header-min">		
+			<h3 class="h3-light float-left">My projects</h3>		
+				<!--<button class="button" ng-click="devTest()">Dev test</button>-->
+				
+			<div class="overview-controls">
+				<div class="expand-button">
+					<div class="expand-button-body" ng-click="newTest()">+</div>
+				
+					<div class="expand-button-helper">Add new project</div>
+				</div>
+							
+			</div>
+			
+			<div class="clear"></div>
+		</div>
+		
+		
+
+		<!-- test -->
+		<div class="overview-test module quarter" ng-repeat="test in tests | orderBy:'created'">
+			<div class="overview-test-container">
+			
+				<div class="test-info">
+					<h3>{{test.name}}</h3>
+					<small>{{test.kind}}</small>
+					
+					<div class="editTest-tooltips">
+						<span ng-show="editTestedit">Edit</span>
+						<span ng-show="editTestdupe">Duplicate</span>
+						<span ng-show="editTestdelete">Delete</span>
+					</div>
+					
+					<div class="editTest">
+						
+						<a ng-mouseover="editTestedit=true" ng-mouseleave="editTestedit=false" ng-click="editTest(test)"><img src="/layout/assets/edit.svg" /></a> &nbsp;
+						<a ng-mouseover="editTestdupe=true" ng-mouseleave="editTestdupe=false" ng-click="dupeTest(test)"><img src="/layout/assets/duplicate.svg" /></a> &nbsp;
+						<a ng-mouseover="editTestdelete=true" ng-mouseleave="editTestdelete=false" class="dangerous" ng-click="removeTest(test)"><img src="/layout/assets/delete.svg" /></a>  
+					</div>
+				</div>
+				
+				
+				<div class="test-controls-empty" ng-show="test._tasks.length === 0">
+					<small><a ng-click="editTest(test)">You need to add some tasks.</a></small>
+				</div>
+				
+			
+				<div class="test-controls">
+				
+					<a class="left" ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run Test</a>
+		
+					<a class="right" ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0">Report</a>
+					
+					<a class="right" ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0">Report</a>
+					
+					<div class="clear"></div>	
+				</div>	
+	
+			</div>
+		</div>	
+		<!-- / test -->
+		
+		
+		<!-- empty test prompt -->
+		<div class="overview-test module quarter overview-test-empty" ng-click="newTest()">
+				<div class="overview-test-container">
+				
+					<div class="test-info">
+						<div class="overview-test-add">+</div>
+						<h3>Create a new project</h3>
+					</div>
+				
+				</div>
+			</div>
+		<!-- /empty test prompt -->
+		
+		
+		<div class="clear"></div>		
+			
+	</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
