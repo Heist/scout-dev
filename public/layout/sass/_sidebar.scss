@@ -33,16 +33,15 @@
 		
 				
 		li {
-			padding: $pad/2;
+			padding: $pad/2 $pad*1.5 $pad/2 $pad/2;
 			margin: 0;
 			@include radius;
 			position: relative;
-			
-			
+			line-height: 1.2;			
 			
 			.task-boop {
 				position: absolute;
-				top: 18px;
+				top: 16px;
 				right: $pad;
 				width: $pad/3 !important;
 				height: $pad/3 !important;
@@ -77,10 +76,11 @@
 
 			
 			.sidebar-visibility {
-				float: right;
+				position: absolute;
+				top: 9px;
+				right: $pad;
 				display: block;
-				padding: 2px 0 0 0;
-				
+								
 				img {
 					width: auto;
 					height: 10px;
