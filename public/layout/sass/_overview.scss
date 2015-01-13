@@ -55,6 +55,21 @@
 			}
 		}
 		
+		
+		.editTest-tooltips {
+			position: absolute;
+			left: 10px;
+			top: 5px;
+			
+			span {
+				font-size: $type-size-base*0.8;
+				display: inline-block;
+				padding: 0 5px 0 0;
+				margin: 0;
+			}
+		}
+		
+		
 		.editTest {
 			font-size: $type-size-base*0.8;
 			position: absolute;
@@ -65,8 +80,9 @@
 			text-decoration: none;
 			display: none;
 			padding: $pad/4 $pad/1.5;
-
-			img{
+			
+			
+			img {
 				height: 16px;
 				width:auto;
 			}
