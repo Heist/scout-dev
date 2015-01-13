@@ -199,6 +199,20 @@ hr {
 	}
 }
 
+#nav-acct-status {
+	width: $pad*2.5;
+	text-align: center;
+	position: fixed;
+	left: $pad*1.5;
+	top: $pad*5;
+	font-size: $type-size-base*0.8;
+	line-height: 1.2;
+	
+	span {
+		@include type-bold;
+		color: $fg-header-red-dark;
+	}
+}
 
 #nav-mgmt {
 	position: fixed;
@@ -222,7 +236,7 @@ hr {
 	color: $fg-black;
 	@include radius($pad*4);
 	padding: 0;
-	margin: 0 0 $pad/4 0;
+	margin: 0 0 $pad/2 0;
 	overflow: hidden;
 	
 	a {
