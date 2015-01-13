@@ -8,7 +8,7 @@
   "authors": ["Nelson Pecora <nelson@keats.me>"],
   "license": "MIT",
   "homepage": "https://github.com/yoshokatana/angular-youtube-embed",
-  "main": "./dist/angular-youtube-embed.min.js",
+  "main": "./dist/angular-youtube-embed.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/yoshokatana/angular-youtube-embed.git"
