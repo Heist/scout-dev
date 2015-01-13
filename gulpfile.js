@@ -56,9 +56,7 @@ gulp.task('scripts', function () {
 //       .pipe(gulp.dest(dist.images));
 // });
 
-
-
 // gulp.task('build', ['css', 'browserify', 'fonts', 'images', 'scripts']);
-gulp.task('build', ['scripts']);
+gulp.task('default', ['scripts']);
  
-gulp.task('default', ['watch']);
+// gulp.task('default', ['watch']);
