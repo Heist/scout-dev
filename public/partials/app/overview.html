@@ -45,10 +45,17 @@
 					<h3>{{test.name}}</h3>
 					<small>{{test.kind}}</small>
 					
+					<div class="editTest-tooltips">
+						<span ng-show="editTestedit">Edit</span>
+						<span ng-show="editTestdupe">Duplicate</span>
+						<span ng-show="editTestdelete">Delete</span>
+					</div>
+					
 					<div class="editTest">
-						<a ng-click="editTest(test)"><img src="/layout/assets/edit.svg" /></a> &nbsp;
-						<a ng-click="dupeTest(test)"><img src="/layout/assets/duplicate.svg" /></a> &nbsp;
-						<a class="dangerous" ng-click="removeTest(test)"><img src="/layout/assets/delete.svg" /></a>  
+						
+						<a ng-mouseover="editTestedit=true" ng-mouseleave="editTestedit=false" ng-click="editTest(test)"><img src="/layout/assets/edit.svg" /></a> &nbsp;
+						<a ng-mouseover="editTestdupe=true" ng-mouseleave="editTestdupe=false" ng-click="dupeTest(test)"><img src="/layout/assets/duplicate.svg" /></a> &nbsp;
+						<a ng-mouseover="editTestdelete=true" ng-mouseleave="editTestdelete=false" class="dangerous" ng-click="removeTest(test)"><img src="/layout/assets/delete.svg" /></a>  
 					</div>
 				</div>
 				
