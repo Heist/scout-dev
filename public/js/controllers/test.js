@@ -199,9 +199,6 @@ angular.module('field_guide_controls')
 		// edit the title box for a task
 		task.title_edit = true;
 		$scope.edited = task;
-
-		// Clone the original item to restore it on demand.
-		$scope.original = angular.extend({}, task);
 	};
 
 	$scope.blurTitle = function (task){

@@ -6,11 +6,7 @@
 		<a href="/overview"><img src="/layout/assets/fg-binocs-header.png" /></a>
 	</div>
 	
-
-
     <div class="container" >
-               
-               
                
         <div id="header-min">
         
@@ -171,9 +167,9 @@
 					<!-- add a new task -->
 					<div class="add-task">
 						<form ng-model='newtask'>
-							<input class="input" ng-trim="false" ng-model="newtask.name" ng-focus="editTitle(newtask)" ng-blur="blurTitle(newtask)" placeholder="Task name"><br/>
+							<input class="input" ng-trim="false" ng-model="newtask.name"placeholder="Task name"><br/>
 							
-							<textarea msd-elastic ng-model="newtask.desc" class="input small" id="field-textarea" ng-blur="updateTask(newtask)" placeholder="Put talking points or task-specific questions here.">
+							<textarea msd-elastic ng-model="newtask.desc" class="input small" id="field-textarea" ng-blur="newTask(newtask)" placeholder="Put talking points or task-specific questions here.">
 							</textarea>						
 						</form>
 						
