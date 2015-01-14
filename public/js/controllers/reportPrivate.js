@@ -25,25 +25,18 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
                             });
 
                 _.each(sort, function(obj){
-                    console.log(obj.name); 
-                    $scope.leftNavList.push(obj);
+                    if(obj.visible){
+                        console.log(obj.name); 
+                        $scope.leftNavList.push(obj);
+                    }
                 });
 
                 $scope.messages = data.messages;
 
+                console.log($scope.leftNavList[0]);
                 $scope.activate($scope.leftNavList[0]);
                 
             }); 
-
-    // $scope.doKeyUp = function(evt){
-    //     console.log(evt);
-    //     if(event.keyCode === 27){
-    //         $scope.showCommentToggle = false;
-    //         $scope.commentMessage = '';   
-    //     } else {
-    //         return;
-    //     }
-    // };
 
 // == mixpanel ==================================
 
@@ -64,7 +57,6 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         $scope.commentMessage = '';
         $scope.selectedIndex = '';
         $scope.showCommentToggle = 'hide';
-        // $scope.messageEditToggle = '';
         
         $scope.selectedIndex = selectedIndex;
         

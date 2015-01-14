@@ -52,7 +52,7 @@ var knox = require('./config/knox');
 
 
 // Database summoning ===============================================
-var database = rootRequire('./config/db');
+var database = require('./config/db');
 var db = database.db;
 var auth_db = database.auth_db;
 
@@ -100,6 +100,7 @@ app.get('*', function(req, res) {
 // TURN ON THE APPLICATION ==========================================
 http.listen(port, function(){
 	console.log('listening on ', port);
+
 });
 
 // EXPOSE APP AS OBJECT =============================================

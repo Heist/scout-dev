@@ -38,6 +38,7 @@ angular.module('field_guide_controls')
                     }
                 });
             
+            console.log($scope.leftNavList[0]);
             $scope.activate($scope.leftNavList[0]);
 
         });

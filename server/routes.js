@@ -295,9 +295,7 @@ app.route('/auth/invite/:_id')
             var return_array = [];
 
             _.each(results.test, function(test){
-                if(test.visible === 'true'){
-                    return_array.push(test);
-                }
+                return_array.push(test);
             });
             _.each(results.tasks, function(task){
                 return_array.push(task);
