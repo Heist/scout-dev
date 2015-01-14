@@ -131,19 +131,21 @@ angular.module('field_guide_controls')
 
     $scope.removeTest = function(test){ 
         // delete a test from the database
-        var url = '/api/test/'+test._id,
+        // if (confirm("sure to delete") === true) {
+            var url = '/api/test/'+test._id,
             index = $scope.tests.indexOf(test);
         
-        $scope.tests.splice(index, 1);
+            $scope.tests.splice(index, 1);
 
-        $http
-            .delete(url)
-            .success(function(data){
-                console.log(data);
-            })
-            .error(function(data){
-                console.log('Error: ' + data);
-            });
+            $http
+                .delete(url)
+                .success(function(data){
+                    console.log(data);
+                })
+                .error(function(data){
+                    console.log('Error: ' + data);
+                });
+        // }        
     };
 
     $scope.dupeTest = function(test){
