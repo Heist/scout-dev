@@ -256,7 +256,6 @@ app.route('/auth/invite/:_id')
         async.parallel({
             tags: function(callback){
                 Tag.find({'_test' : req.params._id })
-                    .populate('_messages')
                     .sort({name: 1})
                     .exec(function(err, docs){
                         if (err) {console.log(err);}
@@ -266,7 +265,6 @@ app.route('/auth/invite/:_id')
             tasks: function(callback){
                 Task.find({'_test': req.params._id})
                     .sort({ index: 'asc'})
-                    .populate('_messages')
                     .exec(function(err, docs){
                         if (err) {console.log(err);}
                         callback(null, docs);

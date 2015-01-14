@@ -50,7 +50,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         $location.path('/summary/'+ $stateParams.test_id);
     };
 
-        $scope.activate = function(obj, selectedIndex) {
+    $scope.activate = function(obj, selectedIndex) {
         // passes the task to the global variable
 
         $scope.selected = '';
@@ -62,7 +62,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         
         if(obj){
             $scope.selected = obj;
-
+            console.log('selected', $scope.selected._id);
             // here's where we do the rendering shit for the embeds. Slow. Boo.
             if(obj.embed){
                 var ytube = /youtube.com/i;
@@ -95,7 +95,10 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
     };
 
     $scope.showObjectMessages = function(msg, obj){
+        console.log('showObjMsg', msg._id);
+        console.log('_messages', obj._messages);
         if(obj._messages){
+            
             if((obj._messages.indexOf(msg._id) >= 0)){                
                 return true;
             }
