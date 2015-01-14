@@ -18,7 +18,7 @@ var TestSchema = new Schema({
         created_by_user : {type: Schema.Types.ObjectId},
         desc    : { type: String, trim: true, default: '' },
         link    : { type: String, trim: true, default: '' },
-        name    : { type: String, trim: true, default: 'my new flow name' },
+        name    : { type: String, trim: true },
         platform: { type: String, trim: true, default: 'mobile' },
         kind    : { type: String, trim: true, default: '' },
         embed   : { type: String, default: '' },

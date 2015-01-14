@@ -32,8 +32,8 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 });
 
                 $scope.messages = data.messages;
+                console.log('messages', $scope.messages);
 
-                console.log($scope.leftNavList[0]);
                 $scope.activate($scope.leftNavList[0]);
                 
             }); 
@@ -50,14 +50,13 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         $location.path('/summary/'+ $stateParams.test_id);
     };
 
-    $scope.activate = function(obj, selectedIndex) {
+        $scope.activate = function(obj, selectedIndex) {
         // passes the task to the global variable
 
         $scope.selected = '';
         $scope.commentMessage = '';
         $scope.selectedIndex = '';
         $scope.showCommentToggle = 'hide';
-        // $scope.messageEditToggle = '';
         
         $scope.selectedIndex = selectedIndex;
         

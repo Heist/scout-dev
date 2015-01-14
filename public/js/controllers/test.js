@@ -276,10 +276,6 @@ angular.module('field_guide_controls')
         var url = '/api/test/'+$stateParams.test_id;
         var data_out = test;
 
-        if (!test.name){
-            test.name = 'New test Name Goes Here';
-        }
-
         var task_count=0;
         _.each($scope.tasks, function(task){
             task.index = task_count;

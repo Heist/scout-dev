@@ -89,18 +89,18 @@
                     <!-- if comments, display count -->
                     <div class="message-comment-count" 
                         ng-click="showComments(message)"
-                        ng-show="message._comments.length > 0">
+                        ng-if="message._comments.length > 0">
                         {{ message._comments.length}}
                     </div>
 
                     <!-- if no comments -->
                     <div class="message-comment-count empty"
                         ng-click="showComments(message)"
-                        ng-show="message._comments.length === 0 || !message._comments" >
+                        ng-if="message._comments.length === 0 || !message._comments" >
                         +
                     </div>
                     
-                    <div class="message-comments" ng-show="commentMessage._id === message._id">
+                    <div class="message-comments" ng-if="commentMessage._id === message._id">
                         <!-- if comments, display coments -->
                         <div class="message-comment" ng-repeat="comment in message._comments">
                             <small><strong>{{comment.name}}</strong> {{comment.created | date:'MMM d yyyy'}}</small>

@@ -102,7 +102,6 @@ angular.module('field_guide_controls')
             
             var test = {};
 
-            test.name = 'New test name';
             if($rootScope.user){
                 console.log($rootScope.user);
                 test.created_by = $rootScope.user;
