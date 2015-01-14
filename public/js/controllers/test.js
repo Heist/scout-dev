@@ -71,9 +71,11 @@ angular.module('field_guide_controls')
         $scope.tasks.splice(new_index, 0, $scope.tasks.splice(old_index, 1)[0]);
 
         // set the stored index of the task properly
+        // console.log('did things stay moved', $scope.tasks); // for testing purposes
         
-
-        return $scope.tasks; // for testing purposes
+        // I think if we don't do this, it won't store if another thing's not pressed.
+        $scope.updateTest();
+        
     };
 
     $scope.selectPrototype = function(kind){
