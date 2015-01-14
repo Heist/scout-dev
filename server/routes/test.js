@@ -293,6 +293,7 @@ app.route('/api/test/:_id')
                             desc : task.desc,
                             index : task.index,
                             name : task.name,
+                            visible : 'true',
                             _test : test._id
                         };
 
@@ -321,6 +322,7 @@ app.route('/api/test/:_id')
                         name    : old.name,
                         platform: old.platform,
                         kind    : old.kind,
+                        visible : 'true',
                         _tasks  : tasks
                     };
 
