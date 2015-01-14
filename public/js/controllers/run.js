@@ -228,47 +228,49 @@ function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootSc
 
     $scope.postMessage = function(message){
         // here we create a note object
-        var note = {};
+        if(message.length <= 0){
+            return;
+        } else {
+            var note = {};
 
-        note.body = message;
-        note.tags = [];
-        note.created = new Date();
-         
-        note._task = $scope.selected._id;
-        note._test = $scope.selected._test;
-        // note._session = $stateParams._id;
-        note._subject = $scope.subject._id;
+            note.body = message;
+            note.tags = [];
+            note.created = new Date();
+             
+            note._task = $scope.selected._id;
+            note._test = $scope.selected._test;
+            // note._session = $stateParams._id;
+            note._subject = $scope.subject._id;
 
-        $scope.timeline.push(note);
-        // console.log('message pushing to', $scope.selected._id);
+            $scope.timeline.push(note);
+            // console.log('message pushing to', $scope.selected._id);
 
-        // TODO: this will catch things on both sides of the hash. 
-        // if message has # with no space, post that to message.tags
+            // TODO: this will catch things on both sides of the hash. 
+            // if message has # with no space, post that to message.tags
 
-        var hashCatch = new RegExp(/\S*#\S+/gi);
-        var hashPull = new RegExp(/#/gi);
-        var tagIt = message.match(hashCatch);          
-        
-        if (tagIt){
-            for (var i=0; i < tagIt.length; ++i) {
-                var msg = tagIt[i].replace(hashPull,'');
-                // console.log('tag being pushed', msg)
-                note.tags.push(msg);
+            var hashCatch = new RegExp(/\S*#\S+/gi);
+            var hashPull = new RegExp(/#/gi);
+            var tagIt = message.match(hashCatch);          
+            
+            if (tagIt){
+                for (var i=0; i < tagIt.length; ++i) {
+                    var msg = tagIt[i].replace(hashPull,'');
+                    // console.log('tag being pushed', msg)
+                    note.tags.push(msg);
+                }
             }
+
+
+            var url = '/api/message/';
+            var data_out = note;
+
+            $http
+                .post(url, data_out)
+                .success(function(data){
+                    // socket.emit('send:note', { note: data });
+                    $scope.message='';
+                });
         }
-
-
-        // console.log('note tags', note.tags);
-
-        var url = '/api/message/';
-        var data_out = note;
-
-        $http
-            .post(url, data_out)
-            .success(function(data){
-                // socket.emit('send:note', { note: data });
-                $scope.message='';
-            });
     };
 
     $scope.postTest = function(){
