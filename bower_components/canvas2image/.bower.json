@@ -22,6 +22,5 @@
   },
   "_source": "git://github.com/tomorrownull/bower-canvas2image.git",
   "_target": "*",
-  "_originalSource": "canvas2image",
-  "_direct": true
+  "_originalSource": "canvas2image"
 }

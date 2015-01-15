@@ -2,7 +2,7 @@
 (function() {
     'use strict';
 
-    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize', 'youtube-embed', 'field_guide_controls','field_guide_filters']);
+    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize','field_guide_controls','field_guide_filters']);
 
     // function list for working with arrays
 
@@ -216,6 +216,6 @@
     angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);
 
     // CONTROLLERS, DIRECTIVES ============================================================
-    angular.module('field_guide_controls', ['ngSanitize', 'ui','ui.router','youtube-embed']);
+    angular.module('field_guide_controls', ['ngSanitize', 'ui','ui.router']);
 
 })();

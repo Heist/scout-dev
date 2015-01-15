@@ -5,7 +5,6 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var filter = require('gulp-filter');
-var del = require('del');
 var jshint = require('gulp-jshint');
 var changed = require('gulp-changed');
 var imagemin = require('gulp-imagemin');
@@ -13,6 +12,7 @@ var addsrc = require('gulp-add-src');
 var stripDebug = require('gulp-strip-debug');
 var newer = require('gulp-newer');
 
+var del = require('del');
 var mainBowerFiles = require('main-bower-files');
 var transform = require('vinyl-transform');
 
@@ -34,10 +34,10 @@ gulp.task('scripts', function () {
     .pipe(filter('*.js'))
     .pipe(uglify())
     .pipe(addsrc.append('public/js/app.js'))
-            .pipe(addsrc.append('public/js/controllers/*.js'))
-            .pipe(addsrc.append('public/js/directives/*.js'))
-            .pipe(addsrc.append('public/js/filters/*.js'))
-            .pipe(addsrc.append('public/js/vendor/*.js'))
+    .pipe(addsrc.append('public/js/controllers/*.js'))
+    .pipe(addsrc.append('public/js/directives/*.js'))
+    .pipe(addsrc.append('public/js/filters/*.js'))
+    .pipe(addsrc.append('public/js/vendor/*.js'))
     .pipe(concat('build.js'))
     .pipe(gulp.dest('public/js'))
     .pipe(stripDebug())
@@ -46,6 +46,7 @@ gulp.task('scripts', function () {
 
 gulp.task('css', function () {
     return gulp.src([
+        'bower_components/**/*.css',
         'public/layout/css/*.css'
     ])
     .pipe(concat('style.css'))
