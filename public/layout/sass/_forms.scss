@@ -36,8 +36,8 @@ form {
 		width: $pad*2;
 		cursor: pointer;
 		text-align: center;
-		font-size: $type-size-base*1.8;
-		line-height: $type-size-base*1.9;
+		font-size: $type-size-base*1.9;
+		line-height: 1;
 		@include animated;
 		@include dropshadow;
 

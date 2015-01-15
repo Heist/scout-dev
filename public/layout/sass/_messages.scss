@@ -91,7 +91,7 @@
 		top: 0;
 		padding: $pad/3 $pad/2 $pad/3 $pad;
 		font-size: 11px;
-		line-height: 11px;
+		line-height: 0.9;
 		@include type-bold;
 		color: darken($background-dark, 10%);
 		background: url('../assets/comment-inactive.svg') no-repeat right top;
