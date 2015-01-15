@@ -279,7 +279,10 @@ app.route('/auth/invite/:_id')
                     });
             },
             messages: function(callback){
-                Message.find({ '_test':{$in: [req.params._id]}})
+                Message.find({ 
+                        '_test':{$in: [req.params._id]},
+                        $or : [{fav_task:true}, {fav_tag: true }]
+                    })
                        .populate({path:'_subject', select: 'name' })
                        .exec(function(err, docs){
                             if(err){console.log(err);}
