@@ -31,10 +31,12 @@ gulp.task('scripts', function () {
         .concat('public/js/controllers/*.js')
         .concat('public/js/directives/*.js')
         .concat('public/js/filters/*.js')
+        .concat('public/js/vendor/*.js')
     )
     .pipe(filter('*.js'))
-    .pipe(concat('app.js'))
-    .pipe(gulp.dest('dist/public/js'));
+    .pipe(concat('build.js'))
+    .pipe(gulp.dest('dist/public/js'))
+    .pipe(gulp.dest('public/js'));
 });
 
 gulp.task('css', function () {
