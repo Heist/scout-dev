@@ -96,8 +96,13 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
     $scope.showObjectMessages = function(msg, obj){
         if(obj._messages){
-            if((obj._messages.indexOf(msg._id) >= 0)){                
-                return true;
+            if((obj._messages.indexOf(msg._id) >= 0)){     
+                if(obj.doctype === 'task' && msg.fav_task){
+                    return true;
+                }
+                if(obj.doctype === 'tag' && msg.fav_tag){
+                    return true;
+                }
             }
         }
     };
