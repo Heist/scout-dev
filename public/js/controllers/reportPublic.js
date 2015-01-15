@@ -95,12 +95,14 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
     };
 
     $scope.showObjectMessages = function(msg, obj){
-        console.log('showObjMsg', msg._id);
-        console.log('_messages', obj._messages);
         if(obj._messages){
-            
-            if((obj._messages.indexOf(msg._id) >= 0)){                
-                return true;
+            if((obj._messages.indexOf(msg._id) >= 0)){     
+                if(obj.doctype === 'task' && msg.fav_task){
+                    return true;
+                }
+                if(obj.doctype === 'tag' && msg.fav_tag){
+                    return true;
+                }
             }
         }
     };
