@@ -284,17 +284,36 @@ app.route('/api/test/:_id')
                         callback(null, doc);
                     });
             },
-            function(test, callback) {
+            function(args, callback){
+                var old = args;
+                var update = {
+                        created_by_account : old.created_by_account,
+                        created_by_user : old.created_by_user,
+                        desc    : old.desc,
+                        link    : old.link,
+                        name    : old.name,
+                        platform: old.platform,
+                        kind    : old.kind,
+                        visible : 'true'
+                    };
+
+                Test.create(update, function(err, test){
+                    if (err){console.log(err);}
+
+                    callback(null, {'old' : old, 'test' : test});
+                });
+            },
+            function(args, callback) {
                 // console.log('step two', test);
-                if(test._tasks){
-                    async.map(test._tasks, function(task, callback){
+                if(args.old._tasks){
+                    async.map(args.old._tasks, function(task, callback){
                         // console.log('async task',task);
                         var make =  {
                             desc : task.desc,
                             index : task.index,
                             name : task.name,
                             visible : 'true',
-                            _test : test._id
+                            _test : args.test._id
                         };
 
                         Task.create(make, function(err, doc){
@@ -304,37 +323,23 @@ app.route('/api/test/:_id')
 
                     }, function(err, results){
                         console.log('callback', results);
-                        callback(null, {tasks: results, old: test});
+                        callback(null, {tasks: results, test: args.test});
                     });
                 } else {
-                    callback(null, {old: test});
+                    callback(null, {test: args.test});
                 }
             },
             function(args, callback){
-                var old = args.old;
-                var tasks = args.tasks;
+                if(args.tasks){
+                    args.test._tasks = args.tasks;
 
-                var update = {
-                        created_by_account : old.created_by_account,
-                        created_by_user : old.created_by_user,
-                        desc    : old.desc,
-                        link    : old.link,
-                        name    : old.name,
-                        platform: old.platform,
-                        kind    : old.kind,
-                        visible : 'true',
-                        _tasks  : tasks
-                    };
-
-                Test.create(update, function(err, test){
-                    if (err){console.log(err);}
-                    
-                    test.populate('_tasks', function(err, reply){
-                        callback(null, reply);
+                    args.test.save(function(err,test){
+                        if (err){ console.log(err); }
+                        callback(null, test);
                     });
-                });
+                }
             }
-           
+           // down here insert the new tasks into the new test.
         ], function (err, result) {
             // console.log('end of waterfall',result);
             res.json(result);
