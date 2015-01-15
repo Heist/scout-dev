@@ -25,7 +25,10 @@
                 ng-click="activate(object, $index)" 
                 ng-class="{ 'active': object._id == selected._id }"
                 ng-if="object.visible" >
-                    <span ng-show="object.doctype === 'tag'">#</span>{{object.name}}
+                    <span ng-show="object.doctype === 'tag'">#</span>
+                    <span ng-show="object.doctype === 'test'"><strong>Summary</strong></span>
+                    <span ng-hide="object.doctype === 'test'">{{object.name}}</span>	
+                    
                     <div class="task-boop green" ng-show="object.pass_fail == true" ></div>
                     <div class="task-boop red" ng-show="object.pass_fail == false"></div>
                 </li>
@@ -56,6 +59,7 @@
             </div>
             
             <div class="findings-description">  
+            	<small ng-if="selected.desc">Test Objectives</small>
                 <p ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></p>
                 <p ng-if="selected.summary" ng-bind-html='selected.summary'></p>
             </div>
