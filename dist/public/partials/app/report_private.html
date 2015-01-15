@@ -80,7 +80,7 @@
 				
 				<!-- message -->
 				<div ng-repeat="message in messages" class="message" 
-					ng-show="showObjectMessages(message, selected)"
+					ng-if="showObjectMessages(message, selected)"
 					ng-class="{selected: commentMessage._id === message._id}"
 				>
 					

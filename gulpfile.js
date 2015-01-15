@@ -22,14 +22,17 @@ var bower = mainBowerFiles({
 if(!bower.length) {
     throw new Error('No main files from Bower dependencies found!');
 }
-var scr_arr = ['public/js/app.js'];
+var libs = 'public/js/libs/*.js';
 
 gulp.task('scripts', function () {
-    return gulp.src( [
-        'public/js/app.js'
-    ])
+    return gulp.src( 
+        bower
+        .concat('public/js/app.js')
+        .concat('public/js/controllers/*.js')
+        .concat('public/js/directives/*.js')
+        .concat('public/js/filters/*.js')
+    )
     .pipe(filter('*.js'))
-    .pipe(uglify({mangle:false}))
     .pipe(concat('app.js'))
     .pipe(gulp.dest('dist/public/js'));
 });
