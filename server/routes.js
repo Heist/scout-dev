@@ -167,15 +167,15 @@ app.route('/auth/invite/:_id')
     //         });
     // });    
 
-    app.route('/debug/task')
-    .get(function(req,res){
-        Task.find()
-            .exec(function(err, docs) {
-                if(err){res.send(err);}
+    // app.route('/debug/task')
+    // .get(function(req,res){
+    //     Task.find()
+    //         .exec(function(err, docs) {
+    //             if(err){res.send(err);}
 
-                res.json(docs);
-            });
-    });
+    //             res.json(docs);
+    //         });
+    // });
 
     // app.route('/debug/message')
     // .get(function(req,res){
