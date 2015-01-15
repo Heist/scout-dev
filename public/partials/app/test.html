@@ -43,8 +43,8 @@
   		<div class="full test-setup" ng-show="anchor === 1">
   		
   			<div class="module fifth tutorial">
-  				<p><strong>Tasks</strong> are important steps or views in your website or app - things you want to collect notes about.</p>
-  				<p><strong>Talking points</strong> are the questions and ideas you want to discuss during testing.</p>
+  				<p>Choose a <strong>project type</strong> based on what you&rsquo;re going to be testing.</p>
+  				<p ng-show="test.kind">Now set up your <strong>project details</strong>, like name, test objectives, and prototype link (if you have one).</p>
   			</div>
   			
   			<div class="module three-fifths">
@@ -138,7 +138,7 @@
 						<!-- show me the steps -->
 						<ul id="steps" ng-model="tasks">
 						
-							<li ng-hide="test._tasks.length > 0" class="steps-empty-message">You need to add some tasks to your project.</li>
+							<li ng-hide="test._tasks.length > 0" class="steps-empty-message">You need to add some tasks to your project before you can test!</li>
 							
 						
 							<li ng-repeat="task in tasks | orderBy: 'task.index'" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
