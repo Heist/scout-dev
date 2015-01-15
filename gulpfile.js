@@ -9,6 +9,7 @@ var del = require('del');
 var jshint = require('gulp-jshint');
 var changed = require('gulp-changed');
 var imagemin = require('gulp-imagemin');
+var addsrc = require('gulp-add-src');
 
 var mainBowerFiles = require('main-bower-files');
 var transform = require('vinyl-transform');
@@ -27,13 +28,14 @@ var libs = 'public/js/libs/*.js';
 gulp.task('scripts', function () {
     return gulp.src( 
         bower
-        .concat('public/js/app.js')
-        .concat('public/js/controllers/*.js')
-        .concat('public/js/directives/*.js')
-        .concat('public/js/filters/*.js')
-        .concat('public/js/vendor/*.js')
     )
     .pipe(filter('*.js'))
+    .pipe(uglify())
+    .pipe(addsrc.append('public/js/app.js'))
+            .pipe(addsrc.append('public/js/controllers/*.js'))
+            .pipe(addsrc.append('public/js/directives/*.js'))
+            .pipe(addsrc.append('public/js/filters/*.js'))
+            .pipe(addsrc.append('public/js/vendor/*.js'))
     .pipe(concat('build.js'))
     .pipe(gulp.dest('dist/public/js'))
     .pipe(gulp.dest('public/js'));
