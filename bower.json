@@ -23,17 +23,22 @@
     "angular-mocks": "~1.2",
     "underscore": "~1.7.0",
     "canvas2image": "*",
-    "socket.io-client": "~1.2.1"
+    "socket.io-client": "~1.2.1",
+    "angular-youtube-embed": "~1.0.2"
   },
   "overrides": {
-        "jquery": {
-            "main": "dist/jquery.js"
-        },
-        "angular-ui": {
-            "main":"build/angular-ui.js"
-        },
-        "socket.io-client": {
-            "main": "socket.io.js"
-        }
+    "jquery": {
+      "main": "dist/jquery.js"
+    },
+    "angular-ui": {
+      "main": "build/angular-ui.js"
+    },
+    "socket.io-client": {
+      "main": "socket.io.js"
+    },
+    "angular-youtube-embed": {
+      "main": "dist/angular-youtube-embed.js"
     }
+
+  }
 }
