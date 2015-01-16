@@ -34,7 +34,9 @@
                         <div class="elevator" ng-click="moveTask($index, 1)" >&#9660;</div>
                     </div>
                     
-					<span ng-show="object.doctype === 'tag'">#</span>{{object.name}}
+					<span ng-show="object.doctype === 'tag'">#</span>
+					<span ng-show="object.doctype === 'test'"><strong>Summary</strong></span>
+					<span ng-hide="object.doctype === 'test'">{{object.name}}</span>					
 					
 					<div class="sidebar-visibility">
 						<a ng-click="toggleVis(object)" ng-show="object.visible">

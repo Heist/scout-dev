@@ -87,6 +87,11 @@ strong {
 	color: $fg-slate;
 }
 
+.all-caps {
+	text-transform: uppercase;
+	opacity: 0.6;
+}
+
 a {
 	color: $link;
 	@include type-bold;
