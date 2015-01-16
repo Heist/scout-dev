@@ -4,7 +4,7 @@ module.exports = function(app){
 
     //Module dependencies
     var mongoose = require('mongoose');  // SOMETIMES WE NEED OBJECTIDS
-    var _ = require('underscore');
+    var _ = require('lodash');
     var async = require('async');
 
     //load data storage models

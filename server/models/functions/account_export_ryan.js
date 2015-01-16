@@ -2,7 +2,7 @@
 'use strict';
 
 var mongoose = require('mongoose');  // SOMETIMES WE NEED OBJECTIDS
-var _ = require('underscore');
+var _ = require('lodash');
 var async = require('async');
 var Promise = require('bluebird');
 

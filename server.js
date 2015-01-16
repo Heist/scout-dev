@@ -50,7 +50,6 @@ require('./config/passport')(app, passport);
 // knox configuration ===============================================
 var knox = require('./config/knox');
 
-
 // Database summoning ===============================================
 var database = require('./config/db');
 var db = database.db;
