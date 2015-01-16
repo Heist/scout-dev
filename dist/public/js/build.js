@@ -18,7 +18,7 @@ e&&(this.supportsBinary=!1),r.call(this,t)}var r=t("../transport"),o=t("engine.i
 (function() {
     'use strict';
 
-    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize','field_guide_controls','field_guide_filters']);
+    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize', 'youtube-embed','field_guide_controls','field_guide_filters']);
 
     // function list for working with arrays
 
@@ -232,7 +232,7 @@ e&&(this.supportsBinary=!1),r.call(this,t)}var r=t("../transport"),o=t("engine.i
     angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);
 
     // CONTROLLERS, DIRECTIVES ============================================================
-    angular.module('field_guide_controls', ['ngSanitize', 'ui','ui.router']);
+    angular.module('field_guide_controls', ['ngSanitize', 'ui','ui.router', 'youtube-embed']);
 
 })();
 // account.js
