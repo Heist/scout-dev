@@ -58,7 +58,7 @@ app.route('/api/message/')
             },
             function(args, callback){
                 
-                Task.findByIdAndUpdate( req.body._task, 
+                Task.findByIdAndUpdate( args._task, 
                     { $push: {_messages : args._id} },
                     function(err,doc){ 
                         if (err) {res.send(err);}
@@ -69,7 +69,7 @@ app.route('/api/message/')
             function(args, callback){
                 
                 Subject.findOneAndUpdate(
-                    {'_id':req.body._subject},
+                    {'_id': args.msg._subject},
                     { $push: {_messages : args.msg._id} }, 
                     {upsert:false},
                     function(err,doc){ 
@@ -82,16 +82,16 @@ app.route('/api/message/')
                         
                     async.map(req.body.tags, function(tag, callback){
                         Tag.findOneAndUpdate(
-                            {name: tag, _test: call._test}, 
-                            { $push: { _messages: m._id },
+                            {name: tag, _test: args.msg._test},
+                            { $push: { _messages: args.msg._id },
                                    name: tag,
-                                   _test: call._test
+                                   _test: args.msg._test
                                 }, 
-                            {upsert:true},
+                            { upsert:true },
                             function(err, data){ 
                         }, function(err, results){
                             if(err){throw err;}
-                            callback(null, results);
+                            callback(null, {msg:args.msg, task: args.task, subject: doc, tags: results});
                         });
                     });
                 }   

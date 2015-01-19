@@ -63,6 +63,10 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         
         $scope.selectedIndex = selectedIndex;
         
+        if(obj.doctype === 'test'){
+            console.log('when was this last run', obj.last_run);
+        }
+
         if(obj){
             $scope.selected = obj;
 

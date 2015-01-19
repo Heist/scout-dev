@@ -836,6 +836,10 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         
         $scope.selectedIndex = selectedIndex;
         
+        if(obj.doctype === 'test'){
+            console.log('when was this last run', obj.last_run);
+        }
+
         if(obj){
             $scope.selected = obj;
 
@@ -1470,6 +1474,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         $scope.activate = function(obj, selectedIndex) {
             // passes the task to the global variable
 
+            console.log('touched activate');
             $scope.selected = '';
             $scope.commentMessage = '';
             $scope.selectedIndex = '';
@@ -1479,8 +1484,13 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             
             $scope.selectedIndex = selectedIndex;
             
+            if(obj.doctype === 'test'){
+                console.log('when was this last run', obj.last_run);
+            }
+
             if(obj){
                 $scope.selected = obj;
+                console.log('selected', obj);
             }
         };
 

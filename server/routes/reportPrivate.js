@@ -62,6 +62,7 @@ module.exports = function(app) {
 
             _.each(results.test, function(test){
                 return_array.push(test);
+                console.log('last_run', test.last_run);
             });
             _.each(results.tasks, function(task){
                 return_array.push(task);
