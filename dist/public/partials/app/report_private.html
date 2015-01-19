@@ -68,7 +68,7 @@
 					{{selected._subjects.length}} participants &nbsp; <span ng-show="selected.kind === 'prototype'">Prototype: <a href="{{selected.link}}" target="_">{{selected.link}}</a></span>
 				</div>
 				<div class="float-right">
-					Last run: 10 days ago
+					Last run: {{selected.last_run | date:'yyyy-MM-dd'}}
 				</div>
 				<div class="clear"></div>
 			</div>
