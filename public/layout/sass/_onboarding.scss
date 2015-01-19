@@ -1,0 +1,34 @@
+/* gimme some sweet, sweet onboarding */
+
+#onboarding-content {
+	width: 100%;
+	color: $white;
+	background: $modal-bg;
+	z-index: 999999999;
+	padding: $pad*1.5;
+	margin: 0;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	
+	.container {
+		padding-top: 0;
+	}
+	
+	h3, p {
+		line-height: $type-line-base;
+	}
+	
+	p {
+		font-size: $type-size-base*1.1;
+	}
+	
+	.button {
+		padding: $pad/3 $pad;
+		@include dropshadow;
+	}
+}
+
+
+/* onboarding - overview */
+
