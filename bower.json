@@ -23,8 +23,8 @@
     "angular-mocks": "~1.2",
     "canvas2image": "*",
     "socket.io-client": "~1.2.1",
-    "angular-youtube-mb": "~0.1.6",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "angular-youtube-mb": "~0.1.6"
   },
   "overrides": {
     "jquery": {
@@ -35,9 +35,6 @@
     },
     "socket.io-client": {
       "main": "socket.io.js"
-    },
-    "angular-youtube-embed": {
-      "main": "dist/angular-youtube-embed.js"
     }
   }
 }

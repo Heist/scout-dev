@@ -7,13 +7,14 @@ angular.module('youtube-embed', ['ng'])
     var youtubeRegexp = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
     var timeRegexp = /t=(\d+)[ms]?(\d+)?s?/;
 
+    console.log('youtubeRegexp', youtubeRegexp);
     function contains(str, substr) {
         return (str.indexOf(substr) > -1);
     }
 
     Service.getIdFromURL = function getIdFromURL(url) {
         var id = url.replace(youtubeRegexp, '$1');
-        
+        console.log('youtube id', id);
         if (contains(id, ';')) {
             var pieces = id.split(';');
 
@@ -36,7 +37,7 @@ angular.module('youtube-embed', ['ng'])
             // and we want '93LvTKF_jW0'
             id = id.split('#')[0];
         }
-        console.log('youTubeId 2', id);
+        console.log('id 2', id);
         return id;
     };
 
@@ -129,7 +130,7 @@ angular.module('youtube-embed', ['ng'])
         link: function (scope, element, attrs) {
             // allows us to $watch `ready`
             scope.utils = youtubeEmbedUtils;
-            console.log('youtube id', scope, element, attrs);
+
             // player-id attr > id attr > directive-generated ID
             var playerId = attrs.playerId || element[0].id || 'unique-youtube-embed-id-' + uniqId++;
             element[0].id = playerId;
@@ -174,7 +175,7 @@ angular.module('youtube-embed', ['ng'])
                         onStateChange: onPlayerStateChange
                     }
                 });
-                console.log('createPlayer', player);
+
                 player.id = playerId;
                 return player;
             }

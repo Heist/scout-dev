@@ -44,6 +44,9 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
 // ==============================================
 
+
+
+
 // NAVIGATION =============================================
 
     $scope.summarize = function(){
@@ -65,11 +68,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
             // here's where we do the rendering shit for the embeds. Slow. Boo.
             if(obj.embed){
-                var ytube = /youtube.com/i;
-                var yt = ytube.test(obj.embed);
-                if(yt){
-                    $scope.selected.youTubeCode = obj.embed;
-                }
+                
 
                 var utest = /usabilitytestresults/i;
                 var ut = utest.test(obj.embed);
@@ -88,6 +87,8 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
                     $scope.selected.userTesting = $sce.trustAsHtml(res);
                     // $scope.selected.HTMLdemo = '<a href="#linky">I am a link</a>';
+                } else {
+                    $scope.selected.youTubeCode = obj.embed;
                 }
 
             }

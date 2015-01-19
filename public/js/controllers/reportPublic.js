@@ -44,6 +44,16 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
     
 // ==============================================
 
+
+
+
+
+
+
+
+
+
+
 // NAVIGATION =============================================
 
     $scope.summarize = function(){
