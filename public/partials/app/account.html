@@ -1,4 +1,51 @@
 <div id="view-account">
+
+
+	
+	<!-- New account member modal -->
+	<div class="modal">
+	    <div class="module third">&nbsp;</div>
+	    
+	    <div class="module third modal-interior">
+	        
+	        <div class="modal-interior-title">
+	        	<h3 class="float-left">Invite a new team member</h3>
+	        	<h3 class="float-right" ng-click="adding_task = false"><strong>&times;</strong></h3>
+	        	<div class="clear"></div>
+	        </div>
+	        
+	        
+	        <form model="team_mail" name="email_input">
+	        	<ul class="nobullets lined">
+					<li class="plan-picker">
+						<h3 class="float-left">+ Researcher</h3>
+						<button class="float-right button blue">+ $16/month</button>
+						<div class="clear"></div><br>
+						
+						<p>Inviting a new team member at your current plan level will cost an additional <strong>$16 per month</strong>. This cost
+						will be pro-rated based on your billing date.</p>
+					</li>
+					<li>
+						<div class="messaging messaging-neutral" ng-model="message" ng-show="message" ng-bind-html="message"></div>
+		
+						<input class="input" id="newteammember" name="newteammember" placeholder="Your team member&rsquo;s e-mail address" ng-model="team_mail.address"/>
+					</li>
+					<li>				
+						<button class="button" ng-click="inviteTeamMember(team_mail)">Invite</button>
+					</li>
+				</ul>
+			</form>
+	        
+	
+	    </div>
+	    
+	    <div class="clear"></div>
+	</div>
+	<!-- / New account member modal -->
+	
+
+
+
 	
 
 	<div id="nav-logo">
@@ -90,9 +137,15 @@
 				<!-- / individual member -->
 				
 				
+				<!-- add a new member (via modal) -->
+				<li>
+					<button class="button">Invite a new team member</button>
+				</li>
+				<!-- / add a new member (via modal) -->
+				
 				
 				<!-- add a new member -->
-				<li>
+				<!--<li>
 					<form model="team_mail" name="email_input">
 						<label for="newteammember">Invite a new team member</label>
 						<div class="messaging messaging-neutral" ng-model="message" ng-show="message" ng-bind-html="message"></div>
@@ -105,9 +158,10 @@
 								ng-click="inviteTeamMember(team_mail)">
 								Invite
 						</button> -->
+						<!--
 						<button class="button" ng-click="inviteTeamMember(team_mail)">Invite</button>
 					</form>
-				</li>
+				</li>-->
 				<!-- / add a new member -->
 				
 			</ul>

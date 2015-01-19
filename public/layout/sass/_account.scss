@@ -9,6 +9,17 @@
 	}
 	
 	
+	.plan-picker {
+		h3 {
+			padding: $pad/1.5 0 0 0;
+		}
+		
+		.button {
+			@include type-bold;
+		}
+	}
+	
+	
 	/* connected app styles */
 	
 	.pm-app {
