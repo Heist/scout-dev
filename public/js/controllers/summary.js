@@ -170,7 +170,11 @@
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
             var url, data;
-            console.log('touched saveObj', obj.doctype);
+            console.log('obj embed', obj.embed);
+            
+            // console.log('touched saveObj', obj);
+            
+            $scope.getIdFromURL(obj.embed);
 
             if(obj.doctype === 'test'){
                 url = 'summary/test/'+ obj._id;
