@@ -136,15 +136,15 @@ app.route('/auth/invite/:_id')
 
 
 // Debug Routes -------------------
-    // app.route('/debug/test')
-    // .get(function(req,res){
-    //     Test.find()
-    //         .exec(function(err, docs) {
-    //             if(err){res.send(err);}
+    app.route('/debug/test')
+    .get(function(req,res){
+        Test.find()
+            .exec(function(err, docs) {
+                if(err){res.send(err);}
 
-    //             res.json(docs);
-    //         });
-    // });
+                res.json(docs);
+            });
+    });
 
     // app.route('/debug/comment')
     // .get(function(req,res){

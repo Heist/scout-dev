@@ -16,6 +16,7 @@ var TestSchema = new Schema({
 
         created_by_account : {type: Schema.Types.ObjectId},
         created_by_user : {type: Schema.Types.ObjectId},
+        last_run : Date,
         desc    : { type: String, trim: true, default: '' },
         link    : { type: String, trim: true, default: '' },
         name    : { type: String, trim: true },

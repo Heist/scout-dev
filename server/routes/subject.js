@@ -43,16 +43,19 @@ var Subject = require('../models/data/subject');
                         callback(null, data);
                     });
                 },function(args, callback){
-                    Test.find({'_id': args.test})
-                        .limit(1)
-                        .exec(function(err, data){
+                    Test.findById(args.test)
+                        .exec(function(err, doc){
                             if(err){throw err;}
-                            data._subjects.push(args._id);
-                            data.save(function(err, data){
+
+                            var now = new Date();
+                            doc.last_run = now;
+
+                            doc.save(function(err, saved){
                                 if(err){throw err;}
-                                callback(null, {subject: args, test: data});
+                                callback(null, {subject: args, test: saved});
                             });
                         });
+                    // callback(null, {subject: args});
                 }], function(err,results){
                         if(err){throw err;} 
                         res.json(results.subject);
