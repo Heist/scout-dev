@@ -7,6 +7,7 @@ module.exports = function(app, passport) {
 var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 var _ = require('lodash');
 var request = require('request');
+var async = require('async');
 
 // load data storage models
 var Message = require('../models/data/message');
@@ -29,18 +30,33 @@ var Subject = require('../models/data/subject');
         .post(function(req,res){
                 // console.log('touched add subject', req.body);
 
-                var subject = new Subject();
+                async.waterfall([function(callback){
+                    var subject = new Subject();
 
-                subject.name = req.body.name;
-                subject.testroom = req.body.testroom;
-                subject.test = req.body.test;
-                
-                subject.save(function(err, data){
-                    if(err){res.send(err);}
+                    subject.name = req.body.name;
+                    subject.testroom = req.body.testroom;
+                    subject.test = req.body.test;
                     
-                    // console.log(data);
-                    res.json(data);
-                });
+                    subject.save(function(err, data){
+                        if(err){res.send(err);}
+                        
+                        callback(null, data);
+                    });
+                },function(args, callback){
+                    Test.find({'_id': args.test})
+                        .limit(1)
+                        .exec(function(err, data){
+                            if(err){throw err;}
+                            data._subjects.push(args._id);
+                            data.save(function(err, data){
+                                if(err){throw err;}
+                                callback(null, {subject: args, test: data});
+                            });
+                        });
+                }], function(err,results){
+                        if(err){throw err;} 
+                        res.json(results.subject);
+                    });
             });
 
     app.route('/api/subject/:_id')
