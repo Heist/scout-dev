@@ -85,10 +85,19 @@
 	.findings-header {
 		padding: $pad*2;
 		
-		h3 {
+		h3, h1 {
 			padding: 0;
 			margin: 0;
 		}
+	}
+	
+	.findings-information {
+		border-bottom: 1px solid $line;
+		padding: 0 $pad*2 $pad/2 $pad*2;
+		margin: -$pad*1.5 0 $pad*2 0;	
+		font-size: $type-size-base*0.8;
+		@include type-bold;
+		opacity: 0.6;
 	}
 	
 	.findings-description {
