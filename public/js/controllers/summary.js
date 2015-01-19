@@ -251,7 +251,7 @@
                 .success(function(msg, err){
 
                     var new_list =_.groupBy(msg.messages, function(z){return z._subject.name;});
-                    
+
                     $scope.leftNavList = msg.nav_list;
                     $scope.messages = new_list;
                 });
@@ -324,9 +324,15 @@
                     $scope.messages[data.msg._subject.name].push(data.msg);
                     $scope.selected._messages.push(data.msg._id);
 
+                    var indexCheck = _.pluck($scope.leftNavList, 'name');
+                    console.log('indexCheck', indexCheck);
+
                     _.each(data.tags, function(tag){
-                        tag.report_index = $scope.leftNavList.length;
-                        $scope.leftNavList.push(tag);
+                        var idx = indexCheck.indexOf(tag.name);
+                        if(idx === -1){
+                            tag.report_index = $scope.leftNavList.length;
+                            $scope.leftNavList.push(tag);
+                        }
                     });
                 });
         };
