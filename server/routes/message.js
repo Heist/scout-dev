@@ -30,70 +30,76 @@ app.route('/api/message/')
 
         console.log('touched new message ', req.body);
 
-        var m = {}; // surface message id for use in promises.
-        var msg = {};
-        var call = {};
-        var reply = {};
+        // if (req.body.body) {msg.body = req.body.body;}        
+        // if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
+        // if (req.body._test) {msg._test = mongoose.Types.ObjectId(req.body._test);}
+        // if (req.user._id) {msg.created_by = mongoose.Types.ObjectId(req.user._id);}
 
-        if (req.body.body) {msg.body = req.body.body;}        
-        if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
-        if (req.body._test) {msg._test = mongoose.Types.ObjectId(req.body._test);}
-        if (req.user._id) {msg.created_by = mongoose.Types.ObjectId(req.user._id);}
+        // if (req.body._task) {call._task = mongoose.Types.ObjectId(req.body._task);}
+        // if (req.body._test) {call._test = mongoose.Types.ObjectId(req.body._test);}
+        // if (req.body._session) {call._session = mongoose.Types.ObjectId(req.body._session);}
 
-        if (req.body._task) {call._task = mongoose.Types.ObjectId(req.body._task);}
-        if (req.body._test) {call._test = mongoose.Types.ObjectId(req.body._test);}
-        if (req.body._session) {call._session = mongoose.Types.ObjectId(req.body._session);}
+        async.waterfall([
+            function(callback){
+                var msg = {};
+                var call = {};
 
-        var promise = Message.create(msg, function(err, msg){if (err) {res.send(err);} console.log(msg); });
+                if (req.body.body) {msg.body = req.body.body;}        
+                if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
+                if (req.body._test) {msg._test = mongoose.Types.ObjectId(req.body._test);}
+                if (req.user._id) {msg.created_by = mongoose.Types.ObjectId(req.user._id);}
 
-        promise.then(function(msg){
-            // console.log('made a message', msg, 'call_task', call._task);
-            reply.msg = msg;
-            // fun fact: get this wrong and mongoose silently creates a new object._id that exists nowhere else.
-            m._id = mongoose.Types.ObjectId(msg._id);
-            
-            if (call._task){
+                if (req.body._task) {call._task = mongoose.Types.ObjectId(req.body._task);}
+                if (req.body._test) {call._test = mongoose.Types.ObjectId(req.body._test);}
+                if (req.body._session) {call._session = mongoose.Types.ObjectId(req.body._session);}
+
+                Message.create(msg, function(err, msg){if (err) {res.send(err);} callback(null, msg);});
+
+            },
+            function(args, callback){
                 
-                // console.log(call._task);
-                
-                var update = { $push: {_messages : m._id} };
-
-                return Task.findByIdAndUpdate( call._task, update, function(err,doc){ if (err) {res.send(err);} });
-            }
-        }).then(function(task){
-            reply.task = task;
-            
-            // If a subject doesn't exist, we upsert them
-            // this is to handle note creation on reports,
-            // where the Subject is actually a User
-            var u = { $push: {_messages : m._id} };
-
-            return Subject.findOneAndUpdate({'_id':req.body._subject}, u, {upsert:false},function(err,doc){ if (err) {res.send(err);} });
-                
-        }).then(function(subject){
-            // console.log('made a subject update', subject);
-            
-            reply.subject = subject;
-
-            if(req.body.tags){ // reminder: the tags are not attached to the message. The message is attached to tags.
-                // console.log('tags call', call, m._id, req.body.tags);
-            
-                async.each(req.body.tags, function(tag){
-                    Tag.findOneAndUpdate(
-                        {name: tag, _test: call._test}, 
-                        { $push: { _messages: m._id },
-                               name: tag,
-                               _test: call._test
-                            }, 
-                        {upsert:true},
-                        function(err, data){ 
+                Task.findByIdAndUpdate( req.body._task, 
+                    { $push: {_messages : args._id} },
+                    function(err,doc){ 
+                        if (err) {res.send(err);}
+                        callback(null, {msg: args, task: doc});
                     });
-                });
-            }
 
-            res.json(reply);
-        }).then(null, function(err){
-            if(err) {return res.send (err);}
+            },
+            function(args, callback){
+                
+                Subject.findOneAndUpdate(
+                    {'_id':req.body._subject},
+                    { $push: {_messages : args.msg._id} }, 
+                    {upsert:false},
+                    function(err,doc){ 
+                        if (err) {res.send(err);} 
+                        callback(null, {msg: args.msg, task: args.task, subject: doc});
+                    });
+            },
+            function(args, callback){
+                if(req.body.tags){ // reminder: the tags are not attached to the message. The message is attached to tags.
+                        
+                    async.map(req.body.tags, function(tag, callback){
+                        Tag.findOneAndUpdate(
+                            {name: tag, _test: call._test}, 
+                            { $push: { _messages: m._id },
+                                   name: tag,
+                                   _test: call._test
+                                }, 
+                            {upsert:true},
+                            function(err, data){ 
+                        }, function(err, results){
+                            if(err){throw err;}
+                            callback(null, results);
+                        });
+                    });
+                }   
+            }
+        ],
+        function(err, results){
+            if(err){throw err;}
+            res.json(results);
         });
     });
         
