@@ -1740,10 +1740,15 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $http
                 .post(url, data_out)
                 .success(function(data){
-                    $scope.toggleNote();
 
+                    void 0;
+
+                    $scope.toggleNote();
                     $scope.messages[data.msg._subject.name].push(data.msg);
                     $scope.selected._messages.push(data.msg._id);
+
+                    void 0;
+                    void 0;
 
                     var indexCheck = _.pluck($scope.leftNavList, 'name');
                     void 0;
@@ -1753,6 +1758,9 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                         if(idx === -1){
                             tag.report_index = $scope.leftNavList.length;
                             $scope.leftNavList.push(tag);
+                            $scope.leftNavList[tag.report_index]._messages.push(data.msg._id);
+                        } else {
+                            $scope.leftNavList[idx]._messages.push(data.msg._id);
                         }
                     });
                 });
