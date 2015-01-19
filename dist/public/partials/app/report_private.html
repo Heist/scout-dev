@@ -26,7 +26,7 @@
 				ng-class="{ 'active': object._id == selected._id }"
 				ng-if="object.visible" >
 					<span ng-show="object.doctype === 'tag'">#</span>
-					<span ng-show="object.doctype === 'test'"><strong>Summary</strong></span>
+					<span ng-show="object.doctype === 'test'"><strong>Overview</strong></span>
 					<span ng-hide="object.doctype === 'test'">{{object.name}}</span>	
 					
 					<div class="task-boop green" ng-show="object.pass_fail == true" ></div>
@@ -59,18 +59,34 @@
 		<div class="sheet" ng-model="selected">
 			
 			<div class="findings-header">		
-				<h3 class="dark"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h3>
+				<h1 ng-show="selected.doctype === 'test'">Overview</h1>
+				<h3 ng-hide="selected.doctype === 'test'" class="dark"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h3>
+			</div>
+			
+			<div class="findings-information" ng-show="selected.doctype === 'test'">
+				<div class="float-left">
+					{{selected._subjects.length}} participants &nbsp; <span ng-show="selected.kind === 'prototype'">Prototype: <a href="{{selected.link}}" target="_">{{selected.link}}</a></span>
+				</div>
+				<div class="float-right">
+					Last run: 10 days ago
+				</div>
+				<div class="clear"></div>
 			</div>
 			
 			<div class="findings-description">	
-				<p ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></p>
 				<p ng-if="selected.summary" ng-bind-html='selected.summary'></p>
+			
+				<small ng-if="selected.desc" ng-show="selected.doctype === 'test'" class="all-caps">Test objectives</small>
+				<small ng-if="selected.desc" ng-hide="selected.doctype === 'test'" class="all-caps">Talking points</small>
+				<p ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></p>
 			</div>
 		
 		
 		
 			<div id="video-containers">
-				<youtube-video video-url="selected.embed" player-width="'100%'" player-height="'350px'"></youtube-video>
+				<youtube-video video-url="selected.youTubeCode" player-width="'100%'" player-height="'350px'"
+				ng-if="selected.youTubeCode.length > 0"
+				></youtube-video>
 				
 									
 				<div ng-if="selected.userTesting" ng-bind-html="selected.userTesting"> </div>
@@ -81,6 +97,8 @@
 			
 			<!-- messages -->					
 			<div class="message-group">
+			
+				
 				
 				<!-- message -->
 				<div ng-repeat="message in messages" class="message" 

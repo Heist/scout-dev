@@ -84,7 +84,9 @@
 		
 		
 			<div id="video-containers">
-				<youtube-video video-url="selected.embed" player-width="'100%'" player-height="'350px'"></youtube-video>
+				<youtube-video video-url="selected.youTubeCode" player-width="'100%'" player-height="'350px'"
+				ng-if="selected.youTubeCode.length > 0"
+				></youtube-video>
 				
 									
 				<div ng-if="selected.userTesting" ng-bind-html="selected.userTesting"> </div>
@@ -96,8 +98,6 @@
 			<!-- messages -->					
 			<div class="message-group">
 			
-				
-				
 				<!-- message -->
 				<div ng-repeat="message in messages" class="message" 
 					ng-if="showObjectMessages(message, selected)"
