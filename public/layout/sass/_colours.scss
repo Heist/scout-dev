@@ -57,7 +57,7 @@ $background: $fg-bg;
 $background-overlay: darken($background, 4%);
 $background-dark: darken($background, 12%);
 
-$modal-bg: transparentize($fg-slate, 0.2);
+$modal-bg: transparentize($fg-slate, 0.1);
 
 $link: $fg-green;
 $link-hover: darken($link, 7%);
