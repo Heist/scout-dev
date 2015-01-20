@@ -156,7 +156,7 @@
     field_guide_app.factory('socket', function ($rootScope, $location) {
 
         // for live... $location.protocol()+'://'+$location.host()+':8080/'
-        // var socket = io.connect('http://127.0.0.1:8080/');
+        var socket = io.connect();
         
         return {
             on: function (eventName, callback) {
