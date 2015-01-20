@@ -27,6 +27,26 @@
 		padding: $pad/3 $pad;
 		@include dropshadow;
 	}
+	
+	a.secondary {
+		color: $white;
+		text-decoration: underline;
+		opacity: 0.6;
+	}
+	
+	.onboarding-avatar {
+		float: left;
+		display: block;
+		padding: 0;
+		margin: 0 $pad 0 0;
+		
+		img {
+			width: 40px;
+			height: 40px;
+			@include radius(55px);
+		}
+	}
+	
 }
 
 
@@ -37,6 +57,18 @@
 }
 
 .onboarding-overview-step2 {
-
+	height: 100%;
+	display: none;
 }
+
+.onboarding-run-step1 {
+	display: none;
+}
+
+.onboarding-run-step2 {
+	display: none;
+}
+
+
+
 
