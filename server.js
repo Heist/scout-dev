@@ -27,17 +27,8 @@ var port = Number(process.env.FIELD_GUIDE_PORT || 80);
 var secrets = require(path.join(__dirname,'secrets'));
 
 app.locals.store = new MongoStore({'db': 'sessions'});
-app.locals.real_url = process.env.FIELD_GUIDE_BASEURL || '104.236.16.159:'+port; 
-// TODO - SORT OUT THE ABOVE FOR STAGING AND PRODUCTION SERVERS
-// app.locals.real_url = 'app.fieldguide.com'; // THIS IS FOR EMAILS
-
 app.locals = _.merge(app.locals, secrets);
 console.log('app.locals', app.locals);
-// app.locals.cookie_name = 'connect.sid';
-
-// for later use with Redis if it becomes important
-// process.title = 'field_guide_app';
-// var throttle = process.env.FIELD_GUIDE_THROTTLE || 100;
 
 // configuration ====================================================
 app.use(cors()); // permit cross-site requests, ie: passport.
