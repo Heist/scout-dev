@@ -9,6 +9,18 @@
 	width: 100%;
 	position: relative;
 	
+	/* are we onboarding? */
+	
+	&.is-onboarding {
+		height: 85% !important;
+	}
+	
+	&.has-input-outline {
+		#session-input {
+			outline: 2px solid $fg-blue !important;	
+		}
+	}
+	
 	#testing-guide {
 		width: 30%;
 		height: 100%;
