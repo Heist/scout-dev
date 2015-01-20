@@ -173,7 +173,7 @@ e&&(this.supportsBinary=!1),r.call(this,t)}var r=t("../transport"),o=t("engine.i
     field_guide_app.factory('socket', function ($rootScope, $location) {
 
         // for live... $location.protocol()+'://'+$location.host()+':8080/'
-        // var socket = io.connect('http://127.0.0.1:8080/');
+        var socket = io.connect();
         
         return {
             on: function (eventName, callback) {
@@ -1149,7 +1149,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             });
         
     // SOCKET ROUTES - 1.0 ==============================================
-    // var socket = io('http://127.0.0.1:8080/?test='+$stateParams._id);
+    var socket = io('/?test='+$stateParams._id);
 
     // socket.on('disconnect', function(data)
     // {
