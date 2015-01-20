@@ -29,7 +29,6 @@ var secrets = require(path.join(__dirname,'secrets'));
 
 app.locals.store = new MongoStore({'db': 'sessions'});
 app.locals = _.merge(app.locals, secrets);
-console.log('app.locals', app.locals);
 
 // configuration ====================================================
 app.use(cors()); // permit cross-site requests, ie: passport.
