@@ -1,7 +1,7 @@
 // socket_routes_1.js
 'use strict';
 
-module.exports = function(io, knox, app, passport) {
+module.exports = function(io, app, passport) {
     // MODULES ============================================
     var cookie = require('cookie'),
         cookieParser = require('cookie-parser'),
@@ -17,6 +17,8 @@ module.exports = function(io, knox, app, passport) {
 
     // MODELS =============================================
     var Test = require('./models/data/test');
+    
+    // var secrets = require(path.join(__dirname,'secrets'));
 
     // AUTHENTICATION VIA PASSPORT ========================
     io.configure(function () {
@@ -29,6 +31,7 @@ module.exports = function(io, knox, app, passport) {
             fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
         }));
     });
+
 
     function onAuthorizeSuccess(data, accept){
         // Passport has heard of them ===========

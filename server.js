@@ -21,8 +21,8 @@ var session      = require('express-session');
 var MongoStore = require('connect-mongostore')(session);
 
 // PROCESS PORTS =====================================================
+// var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
 var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
-// var port = Number(process.env.FIELD_GUIDE_PORT || 80);
 
 // GLOBAL VARIABLES =================================================
 var secrets = require(path.join(__dirname,'secrets'));
@@ -47,7 +47,7 @@ app.use(bodyParser());
 require('./config/passport')(app, passport);
 
 // knox configuration ===============================================
-var knox = require('./config/knox');
+// var knox = require('./config/knox');
 
 // Database summoning ===============================================
 var database = require('./config/db');
@@ -86,13 +86,13 @@ app.get('*', function(req, res) {
 // lives after normal routes, is dynamic routes accessed separately
 // has its own auth functions
 
-var io = require('socket.io').listen(http, { log: false });
+// var io = require('socket.io').listen(http, { log: false });
 
 // socket 1.0 document is currently in reserve
 // require('./server/socket_routes_1')(io, app, passport);
 
 // socket 0.9 in use to speak to Field Guide App
-require('./server/socket_routes_09')(io, knox, app, passport);
+// require('./server/socket_routes_09')(io, app, passport);
 
 
 // TURN ON THE APPLICATION ==========================================
