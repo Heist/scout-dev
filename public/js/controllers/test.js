@@ -51,7 +51,7 @@
         // ACTIONS ============================================
         // an effort to manipulate order.... 
         $scope.moveTask = function(old_index, new_index){
-            console.log(old_index, new_index)
+            console.log(old_index, new_index);
             new_index = old_index + new_index;
 
             while (old_index < 0) {

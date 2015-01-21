@@ -7,7 +7,7 @@ module.exports = function(io, app, passport) {
         cookieParser = require('cookie-parser'),
         crypto = require('crypto'),
         passportSocketIo = require('passport.socketio'),
-        _ = require('underscore');
+        _ = require('lodash');
 
     // LOCAL GLOBALS ======================================
     var user = {},
@@ -31,7 +31,6 @@ module.exports = function(io, app, passport) {
             fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
         }));
     });
-
 
     function onAuthorizeSuccess(data, accept){
         // Passport has heard of them ===========

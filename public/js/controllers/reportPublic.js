@@ -1,5 +1,6 @@
-'use strict';
 // report.js
+(function() {
+'use strict';
 
 // REPORT CONTROLLER ===========================================================
 angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', function($scope, $sce, $http, $location,$stateParams,$state, $sanitize){
@@ -170,6 +171,6 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $scope.showCommentToggle = 'hide';   
         }
     };
-
-
 }]);
+
+})();

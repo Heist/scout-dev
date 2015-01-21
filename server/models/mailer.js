@@ -4,7 +4,7 @@
 var nodemailer = require('nodemailer'),
     ejs = require('ejs'),
     fs = require('fs'),
-    _ = require('underscore');
+    _ = require('lodash');
     
 
 

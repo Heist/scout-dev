@@ -8,7 +8,6 @@ angular.module('field_guide_controls')
 .directive('msdElastic', [
 '$timeout', '$window', 'msdElasticConfig',
 function($timeout, $window, config) {
-  'use strict';
 
   return {
     require: 'ngModel',

@@ -38,9 +38,11 @@ gulp.task('scripts', function () {
     .pipe(addsrc.append('public/js/directives/*.js'))
     .pipe(addsrc.append('public/js/filters/*.js'))
     .pipe(addsrc.append('public/js/vendor/*.js'))
-    .pipe(concat('build.js'))
+    // .pipe(jshint()).on('error', errorHandler)
+    // .pipe(jshint.reporter('default'))
+    .pipe(concat('build.js')).on('error', errorHandler)
     .pipe(gulp.dest('public/js'))
-    .pipe(stripDebug())
+    .pipe(stripDebug()).on('error', errorHandler)
     .pipe(gulp.dest('dist/public/js'));
 });
 
@@ -49,7 +51,7 @@ gulp.task('css', function () {
         'bower_components/**/*.css',
         'public/layout/css/*.css'
     ])
-    .pipe(concat('style.css'))
+    .pipe(concat('style.css')).on('error', errorHandler)
     .pipe(gulp.dest('dist/public/layout/css'));
 });
 
@@ -61,12 +63,12 @@ gulp.task('fonts', function() {
 var imgDest = 'dist/public/layout/assets';
 gulp.task('images', function() {
     return gulp.src('public/layout/assets/*')
-      .pipe(newer(imgDest))
+      .pipe(newer(imgDest)).on('error', errorHandler)
       .pipe(imagemin({
             optimizationLevel: 5,
             progressive: true,
             interlaced: true
-        }))
+        })).on('error', errorHandler)
       .pipe(gulp.dest(imgDest));
 });
 
@@ -80,5 +82,11 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('css', 'fonts', 'html', 'images', 'scripts');
+    gulp.start('css', 'fonts', 'html', 'images', 'scripts').on('error', errorHandler);
 });
+
+// Handle the error
+function errorHandler (error) {
+  console.log(error.toString());
+  this.emit('end');
+}
