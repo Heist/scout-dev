@@ -1,7 +1,28 @@
-<div id="view-findings" 
-	ng-model='test'
-	ng-class="{ 'show-comments' : showCommentToggle !== 'hide' }" 
-	>
+<div id="view-findings" ng-model='test'	ng-class="{ 'show-comments' : showCommentToggle !== 'hide' }">
+	
+<!-- if we're onboarding, add this class to the root div:
+ class="is-onboarding"
+-->
+	
+	
+	<!-- /* onboarding */ -->
+	
+	<div id="onboarding-content" class="onboarding-report-step1">
+		<div class="container">
+			<div class="module third">
+				<h3>This is your report,<br>in editing mode.</h3>
+			</div>
+			<div class="module third">
+				<p>All the notes you wrote about while testing are organized and #themed appropriately here.</p>
+			</div>
+			<div class="module third text-right">
+				<a class="button">Next</a>
+			</div>
+		</div>
+	</div>
+	
+	
+	
 	
 
 	<div id="nav-logo">

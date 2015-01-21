@@ -6,6 +6,15 @@
 	padding: 0;
 	margin: 0;
 	
+	/* are we onboarding? */
+	
+	&.is-onboarding {
+		#findings-viewmode-controls {
+			bottom: 15% !important;
+		}
+	}
+	
+	
 	&.show-comments {
 		
 		.sheet-holder {

@@ -48,19 +48,20 @@
 	.onboarding-bubble {
 		font-size: $type-size-base*0.8;
 		float: left;
+		margin: 0 0 1px 0;
 		
 		.onboarding-bubble-msg {
 			font-size: $type-size-base*0.9;
 			background: $white;
 			color: $fg-slate;
-			padding: $pad/2 $pad;
+			padding: $pad/2.5 $pad;
 			@include type-bold;
 			@include radius(40px);
 			position: relative;
 			
 			.bubble-msg-spike {
 				position: absolute;
-				left: -7px;
+				left: -8px;
 				top: 17px;
 				
 				img {
@@ -77,8 +78,10 @@
 
 /* onboarding - steps */
 
+/* overview */
+
 .onboarding-overview-step1 {
-	//display: none;
+	display: none;
 }
 
 .onboarding-overview-step2 {
@@ -86,7 +89,7 @@
 	display: none;
 }
 
-/* */
+/* run test */
 
 .onboarding-run-step1 {
 	display: none;
@@ -104,10 +107,71 @@
 	}
 	
 	.onboarding-avatar {
-		margin-top: $pad !important;
+		margin-top: 21px !important;
 	}
 
 }
+
+.onboarding-run-step4 {
+	display: none;
+	
+	.two-thirds {
+		margin-top: -$pad/2;
+	}
+	
+	.onboarding-avatar {
+		margin-top: 21px !important;
+	}
+	
+	.tag {
+		color: lighten($fg-blue, 20%);
+	}
+
+}
+
+/* report */
+
+.onboarding-report-step1 {
+	display: none;
+}
+
+.onboarding-report-step2 {
+	display: none;
+}
+
+
+#onboarding-overview-box {
+	display: none;
+	font-size: $type-size-base*0.9;
+	line-height: $type-line-base*0.9;
+	color: $white;
+	position: absolute;
+	right: $pad;
+	top: $pad*8;
+	width: 200px;
+	margin: 0;
+	padding: $pad;
+	background: $modal-bg;
+	@include radius;
+	z-index: 99999;
+	
+	.button {
+		text-align: center;
+		display: block;
+		width: 100%;
+		margin-top: $pad/4;
+	}
+	
+	.hollow {
+		border-color: $white;
+		background: none;
+		color: $white;
+	}
+}
+
+
+
+
 
 
 
