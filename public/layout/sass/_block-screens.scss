@@ -1,6 +1,18 @@
 /* block screens */
 
 
+.block-screen {
+	position: relative;
+	
+	.block-screen-content {
+		position: absolute;
+		width: 100%;
+		left: 0;
+		top: 25%;
+	}
+}
+
+
 #view-404 {
 	margin: 0;
 	padding: 0;
