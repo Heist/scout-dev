@@ -3,9 +3,13 @@
 // modules ==========================================================
 var express = require('express');
 var app = express();
-var http = require('http').Server(app);
+var http = require('http');
 var path = require('path');
 var _ = require('lodash');
+
+var server = http.createServer(app).listen(8080);
+var io = require('socket.io').listen(server, {log : false});
+
 
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -22,7 +26,7 @@ var MongoStore = require('connect-mongostore')(session);
 
 // PROCESS PORTS =====================================================
 // var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
-var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
+// var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
 
 // GLOBAL VARIABLES =================================================
 var secrets = require(path.join(__dirname,'secrets'));
@@ -86,20 +90,23 @@ app.get('*', function(req, res) {
 // lives after normal routes, is dynamic routes accessed separately
 // has its own auth functions
 
-var io = require('socket.io').listen(http, { log: false });
-
 // socket 1.0 document is currently in reserve
 // require('./server/socket_routes_1')(io, app, passport);
 
 // socket 0.9 in use to speak to Field Guide App
-require('./server/socket_routes_09')(io, app, passport);
+// require('./server/socket_routes_09')(io, app, passport);
+
+io.sockets.on('connection', function (socket) {
+        console.log('hello user');
+        console.log('someone connected from somewhere');
+    });
 
 
 // TURN ON THE APPLICATION ==========================================
-http.listen(port, function(){
-	console.log('listening on ', port);
+// http.listen(port, function(){
+// 	console.log('listening on ', port);
 
-});
+// });
 
 // EXPOSE APP AS OBJECT =============================================
 exports = module.exports = app;

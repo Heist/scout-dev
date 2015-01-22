@@ -5,8 +5,8 @@
         
     angular.module('field_guide_controls')
     .controller('watch', 
-               ['$scope','$http','$location','$stateParams','$state','$sanitize','socket', 
-        function($scope,  $http,  $location,  $stateParams,  $state,  $sanitize,  socket){
+               ['$scope','$http','$location','$stateParams','$state','$sanitize',
+        function($scope,  $http,  $location,  $stateParams,  $state,  $sanitize){
 
 
         $scope.roomList = [];

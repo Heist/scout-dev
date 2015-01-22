@@ -40,7 +40,8 @@
     "passport.socketio": "^3.4.1",
     "promise": "^6.0.1",
     "request": "^2.48.0",
-    "socket.io": "~0.9"
+    "socket.io": "^0.9.17",
+    "socket.io-client": "^0.9.17"
   },
   "devDependencies": {
     "del": "^1.1.1",

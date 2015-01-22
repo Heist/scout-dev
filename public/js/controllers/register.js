@@ -4,7 +4,7 @@
 
     // REGISTRATION CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-           .controller('register', ['$scope','$http', '$location', '$stateParams','$rootScope', 'socket', function($scope, $http, $location, $stateParams, $rootScope, socket){
+           .controller('register', ['$scope','$http', '$location', '$stateParams','$rootScope', function($scope, $http, $location, $stateParams, $rootScope){
         
         $scope.user = $rootScope.user;
         

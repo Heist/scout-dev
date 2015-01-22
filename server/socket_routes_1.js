@@ -2,6 +2,17 @@
 'use strict';
 
 module.exports = function(io, app, passport) {
+
+    // SOCKET ROUTES - 1.0 Client ==============================================
+    // var socket = io('/?test='+$stateParams._id);
+
+    // socket.on('disconnect', function(data)
+    // {
+    //     console.log('disconnect');
+    // });
+
+    // socket.disconnect();
+
     var cookie = require('cookie'),
         cookieParser = require('cookie-parser'),
         crypto = require('crypto'),

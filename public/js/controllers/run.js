@@ -4,8 +4,8 @@
     // RUN CONTROLLER ===========================================================
 
     angular.module('field_guide_controls').controller('run', 
-    ['$scope','$http', '$location','$stateParams','$state','socket', '$rootScope', 
-    function($scope,  $http ,  $location , $stateParams , $state , socket ,  $rootScope){
+    ['$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', 
+    function($scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
         
         // set up controller-wide variables
         $scope.update = {};
@@ -29,19 +29,9 @@
                 // Subject has been created, now open a room with that subject_id
 
             });
-        
-    // SOCKET ROUTES - 1.0 ==============================================
-    // var socket = io('/?test='+$stateParams._id);
-
-    // socket.on('disconnect', function(data)
-    // {
-    //     console.log('disconnect');
-    // });
-
-    // socket.disconnect();
 
     // SOCKET ROUTES - 0.9 ============================================== 
-        
+    // for 1.0 check socket_routes_1.js in /server/
         
     // RECIEVE SCREENCAPS FROM THE SOCKET ===============================
         var canvas = document.getElementById('feed'),
@@ -53,11 +43,11 @@
 
         $scope.subscription = function(chan){
             console.log('touched a channel', chan);
-            socket.emit('subscribe', { room: chan, test: $stateParams._id });
-            socket.emit('channel', { room: chan, test: $stateParams._id });
+            // socket.emit('subscribe', { room: chan, test: $stateParams._id });
+            // socket.emit('channel', { room: chan, test: $stateParams._id });
         };
 
-        var socket = io('/?test='+$stateParams._id, { 'force new connection': true });
+        // var socket = io('//127.0.0.1:8080/');
         
         // Old
         // var socket = io.connect('http://104.236.16.159:8080/?test='+$stateParams._id, {
@@ -105,7 +95,7 @@
             console.log('announce', data);
         });
 
-        socket.on('joined_channel', function(data){
+        socket.on('joined_channel', function(data){ 
             console.log('joined_channel', data);
         });
 
@@ -129,8 +119,6 @@
             // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
         });
 
-    // ANGULAR HELPER SERVICE - TODO: MOVE UP APP =======================
-        
 
     // ANGULAR ROUTES ===================================================
         $scope.addTask = function(task){

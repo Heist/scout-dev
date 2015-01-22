@@ -57,6 +57,7 @@
         }
 
         $urlRouterProvider.otherwise("/login");
+        $urlRouterProvider.otherwise("/404");
         // $urlRouterProvider.otherwise("/overview");
 
 
@@ -71,6 +72,12 @@
             //     templateUrl: 'partials/app/testCanvas.html'
             // })
             
+            // 404 ============================================
+            .state('/404', {
+                url: '/404',                
+                templateUrl: 'partials/404.html',
+            })
+
             // LOGIN AND REGISTRATION PAGES ===================
             .state('/login', {
                 url: '/login{acct:(?:/[^/]+)?}',
@@ -148,11 +155,6 @@
 
     });
 
-    // SERVICES (factories, etc) ==================================================
-    // a factory to provide sockets to the app
-    // http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/
-    // this should be a straight-up feed from that site
-
     field_guide_app.factory('socket', function ($rootScope, $location) {
 
         // for live... $location.protocol()+'://'+$location.host()+':8080/'
@@ -187,30 +189,6 @@
             }
         };
     });
-
-    // KEYPRESS CONTROLLER ====================================
-    // TODO Make this work to smell combos on ctrl.
-
-    // $scope.keyboard = {
-    //   var buffer: [], 
-    //   detectCombination : function() {
-    //     var codes = {};
-    //     this.buffer.forEach(function(code) {
-    //       codes['key_' + code] = 1;
-    //     })
-
-    //     if ((codes.key_91 || codes.key_93) && codes.key_8) {
-    //       // I'm looking for 'command + delete'
-    //     }
-    //   },
-    //   keydown: function($event) {
-    //     this.buffer.push($event.keyCode);
-    //     this.detectCombination()
-    //   },
-    //   keyup: function($event, week) {
-    //     this.buffer = [];
-    //   }
-    // }
 
     // youtube-embed.js
     field_guide_app.directive('youtube', function($window) {
