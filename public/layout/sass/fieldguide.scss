@@ -4,8 +4,7 @@ Master Sass
 ========================
 */
 
-/* components */
-
+/* skeleton */
 @import "variables";
 @import "colours";
 @import "fonts";
@@ -14,18 +13,20 @@ Master Sass
 @import "forms";
 @import "grid";
 
+
 /* components */ 
+@import "elements";
 @import "header";
 @import "timeline";
 @import "tasklist";
 @import "sidebar";
 @import "modal";
+@import "pricing";
+@import "subbar";
 
 /* specific views */
-@import "elements";
 @import "login";
 @import "overview";
-@import "subbar";
 @import "editing";
 @import "testing";
 @import "account";
@@ -33,6 +34,7 @@ Master Sass
 @import "findings";
 @import "onboarding";
 @import "block-screens";
+
 
 /* code that is NOT specific to a component or module */
 

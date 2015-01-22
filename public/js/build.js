@@ -71,7 +71,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             
         }
 
-        $urlRouterProvider.otherwise("/login");
+        // $urlRouterProvider.otherwise("/login");
         $urlRouterProvider.otherwise("/404");
         // $urlRouterProvider.otherwise("/overview");
 
@@ -166,7 +166,17 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             })
             .state('summary.task', {
                 templateUrl: 'partials/app/summary_task.html'
-            });
+            })
+            
+            // "block screens" ============================================
+			.state('/404', {
+				url: '/404',                
+				templateUrl: 'partials/app/404.html',
+			})
+			.state('/upgrade', {
+				url: '/upgrade',                
+				templateUrl: 'partials/app/upgrade.html',
+			});
 
     });
 

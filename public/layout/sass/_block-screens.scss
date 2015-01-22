@@ -2,7 +2,11 @@
 
 
 .block-screen {
+	margin: 0;
+	padding: 0;
 	position: relative;
+	width: 90%;
+	height: 100%;
 	
 	.block-screen-content {
 		position: absolute;
@@ -10,16 +14,64 @@
 		left: 0;
 		top: 25%;
 	}
-}
-
-
-#view-404 {
-	margin: 0;
-	padding: 0;
-	position: relative;
 	
-	.container {
-		padding: $pad 0 0 0;
+	h3 {
+		margin-bottom: $pad/4;
+		line-height: 1.3;
+		
+		strong {
+			color: $fg-slate;
+		}
+		
 	}
 	
+	h1 {
+		font-size: $type-size-base*3;
+	}
+	
+	.block-screen-img {
+		text-align: right;
+		padding-right: $pad*2;
+		
+		img {
+			width: 60%;
+			max-width: 250px;
+			height: auto;
+		}
+	}
+	
+	li {
+		float: left;
+		width: 50%;
+		font-size: $type-size-base*0.8;
+		padding: 0 $pad 0 0;
+		color: $fg-black;
+	}
 }
+
+/* view-specific styles */
+
+#view-404 {
+	.block-screen-img {
+		img {
+			width: 80%;
+			max-width: none;
+			height: auto;
+		}
+	}
+}
+
+#view-upgrade {
+	//display: none;
+}
+
+#view-paid {
+	display: none;
+}
+
+
+
+
+
+
+

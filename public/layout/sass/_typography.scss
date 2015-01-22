@@ -103,9 +103,6 @@ a {
 		color: $link-hover;
 	}
 	
-	&.caution {
-		color: $fg-header-red;
-	}
 	
 	&.alt {
 		color: $link-alt;
@@ -122,6 +119,10 @@ a {
 }
 p.big {
 	line-height: $type-line-base*1.25;
+}
+
+.caution {
+	color: $fg-header-red;
 }
 
 .small, small {
