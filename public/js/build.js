@@ -87,10 +87,15 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             //     templateUrl: 'partials/app/testCanvas.html'
             // })
             
-            // 404 ============================================
+                        
+            // "block screens" ============================================
             .state('/404', {
                 url: '/404',                
-                templateUrl: 'partials/404.html',
+                templateUrl: 'partials/app/404.html',
+            })
+            .state('/upgrade', {
+                url: '/upgrade',                
+                templateUrl: 'partials/app/upgrade.html',
             })
 
             // LOGIN AND REGISTRATION PAGES ===================
@@ -166,18 +171,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             })
             .state('summary.task', {
                 templateUrl: 'partials/app/summary_task.html'
-            })
-            
-            // "block screens" ============================================
-			.state('/404', {
-				url: '/404',                
-				templateUrl: 'partials/app/404.html',
-			})
-			.state('/upgrade', {
-				url: '/upgrade',                
-				templateUrl: 'partials/app/upgrade.html',
-			});
-
+            });
     });
 
     field_guide_app.factory('socket', function ($rootScope, $location) {

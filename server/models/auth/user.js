@@ -17,6 +17,7 @@ var userSchema = new Schema({
     _account: {type: Schema.Types.ObjectId},
     _invite : {type: Schema.Types.ObjectId},
     
+    overview: {type: Boolean , default : true}, 
     name: {type:String, trim:true},
 
     local            : {

@@ -50,7 +50,8 @@ module.exports = function(app, passport) {
     app.get('/loggedin', function(req, res) {
             res.send(req.isAuthenticated() ? {
                     _id : req.user._id, 
-                    name: req.user.name, 
+                    name: req.user.name,
+                    overview: req.user.overview,
                     email: req.user.local.email, 
                     account:req.user._account, 
                     trello : req.user.trello.id 
