@@ -109,7 +109,7 @@ module.exports = function(app, passport) {
             req.logIn(user, function(err) {
                 if (err) { return res.json(err); }
                 // console.log('auth/signup authenticated user', req.user);
-                res.json({ 'user': req.user._id, 'overview' : true, 'name':req.user.name, redirect: '/overview', msg:'register user worked' });
+                res.json({ 'user': req.user._id, 'onboarding' : true, 'name':req.user.name, redirect: '/overview', msg:'register user worked' });
             });
         })(req, res);
     });
