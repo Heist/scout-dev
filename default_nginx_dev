@@ -27,7 +27,7 @@ map $http_upgrade $connection_upgrade {
 }
 
 upstream websocket {
-    server 104.131.121.49:8080;
+    server 104.236.37.88:8080;
 }
 
 server {
