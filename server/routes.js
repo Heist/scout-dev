@@ -82,7 +82,7 @@ module.exports = function(app, passport) {
                     return res.json(err);
                 }
 
-                return res.json({ user: mongoose.Types.ObjectId(req.user._id), redirect: '/overview', msg:'login worked' });
+                return res.json({ 'user': mongoose.Types.ObjectId(req.user._id),  'name':req.user.name, redirect: '/overview', msg:'login worked' });
             });
         })(req, res);
     });
@@ -109,13 +109,14 @@ module.exports = function(app, passport) {
             req.logIn(user, function(err) {
                 if (err) { return res.json(err); }
                 // console.log('auth/signup authenticated user', req.user);
-                res.json({ 'user': req.user._id, 'name':req.user.name, redirect: '/overview', msg:'register user worked' });
+                res.json({ 'user': req.user._id, 'overview' : true, 'name':req.user.name, redirect: '/overview', msg:'register user worked' });
             });
         })(req, res);
     });
 
     app.post('/auth/logout', function(req, res) {
         // console.log('logout request', req);
+
         req.logout();
         res.json({ redirect: '/login' });
     });
