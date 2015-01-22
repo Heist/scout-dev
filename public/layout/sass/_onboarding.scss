@@ -160,6 +160,11 @@
 		display: block;
 		width: 100%;
 		margin-top: $pad/4;
+		
+		&.slack {
+			background-color: transparentize($white,0.9);
+			color: $white;
+		}
 	}
 	
 	.hollow {

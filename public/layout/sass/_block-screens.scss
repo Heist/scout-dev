@@ -3,12 +3,31 @@
 
 .block-screen {
 	position: relative;
+	height: 100%;
 	
 	.block-screen-content {
 		position: absolute;
 		width: 100%;
 		left: 0;
 		top: 25%;
+	}
+	
+	h3 {
+		margin-bottom: $pad/4;
+	}
+	
+	h1 {
+		font-size: $type-size-base*3;
+	}
+	
+	.block-screen-img {
+		text-align: right;
+		padding-right: $pad*2;
+		
+		img {
+			width: 70%;
+			height: auto;
+		}
 	}
 }
 

@@ -176,20 +176,18 @@ textarea.input {
 	}
 	
 	&.slack {
-		position: relative;
-		background: transparentize($white,0.9);
+		color: $fg-slate;
+		background: $white;
+		background-image: url('/layout/assets/slack-sticker.png');
+		background-position-x: $pad/2;
+		background-position-y: center;
+		background-repeat: no-repeat;
+		background-size: 26px;
+		padding-left: $pad*2.25;
 		opacity: 0.8;
+		@include dropshadow;
 		
-		img {
-			display: block;
-			position: absolute;
-			left: 10px;
-			top: 25%;
-			height: 26px;
-			width: auto;
-		}
-		
-		&:hover{
+		&:hover {
 			opacity: 1.0;
 		}	
 	}

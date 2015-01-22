@@ -56,7 +56,7 @@
             
         }
 
-        $urlRouterProvider.otherwise("/login");
+        $urlRouterProvider.otherwise("/404");
         // $urlRouterProvider.otherwise("/overview");
 
 
@@ -144,7 +144,13 @@
             })
             .state('summary.task', {
                 templateUrl: 'partials/app/summary_task.html'
-            });
+            })
+            
+            // 404 ============================================
+			.state('/404', {
+				url: '/404',                
+				templateUrl: 'partials/app/404.html',
+			});
 
     });
 
