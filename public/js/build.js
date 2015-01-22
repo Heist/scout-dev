@@ -163,10 +163,14 @@ e&&(this.supportsBinary=!1),r.call(this,t)}var r=t("../transport"),o=t("engine.i
                 templateUrl: 'partials/app/summary_task.html'
             })
             
-            // 404 ============================================
+            // "block screens" ============================================
 			.state('/404', {
 				url: '/404',                
 				templateUrl: 'partials/app/404.html',
+			})
+			.state('/upgrade', {
+				url: '/upgrade',                
+				templateUrl: 'partials/app/upgrade.html',
 			});
 
     });
