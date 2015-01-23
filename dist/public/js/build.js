@@ -168,11 +168,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 templateUrl: 'partials/app/summary_task.html'
             })
             
-            // "block screens" ============================================
-			.state('/404', {
-				url: '/404',                
-				templateUrl: 'partials/app/404.html',
-			})
+            // upgrade/paid screen ============================================
 			.state('/upgrade', {
 				url: '/upgrade',                
 				templateUrl: 'partials/app/upgrade.html',

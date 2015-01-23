@@ -1,7 +1,58 @@
 /* styles for bits */
 
 
+/* help bubble */
 
+#help-bubble {
+	position: fixed;
+	right: $pad*1.5;
+	bottom: $pad*1.5;
+	z-index: 99998;
+	
+	.help-bubble-open {
+		background: $line;
+		color: $fg-slate;
+		@include type-bold;
+		display: block;
+		width: $pad*2.5;
+		height: $pad*2.5;
+		text-align: center;
+		line-height: $pad*2.6;
+		@include radius($pad*3);
+		opacity: 0.6;
+		
+		&:hover {
+			text-decoration: none;
+			opacity: 1.0;
+		}
+	}
+}
+
+#help-bubble-content {
+	position: fixed;
+	right: $pad;
+	bottom: $pad;
+	z-index: 99999;
+	background: $white;
+	@include dropshadowULTRA;
+	@include radius;
+	width: 320px;
+	margin: 0;
+	padding: $pad;
+	
+	p {
+		font-size: $type-size-base*0.9;
+		line-height: 1.4;
+		margin-bottom: $pad/2;
+	}
+	
+	.button {
+		margin-top: $pad/4;
+		background-color: transparent;
+		border: 1px solid $line;
+		color: $fg-black;
+	}
+}
 
 
 /* task rating output */
