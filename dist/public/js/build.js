@@ -559,6 +559,13 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 void 0;
             });
 
+        // if we got a user... 
+        void 0;
+        void 0;
+        
+            // $scope.user = $rootScope.user;
+            // console.log($scope.user.onboarding);
+        
 
         // SESSION ROUTES =====================================
 

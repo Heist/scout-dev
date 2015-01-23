@@ -51,7 +51,7 @@ module.exports = function(app, passport) {
             res.send(req.isAuthenticated() ? {
                     _id : req.user._id, 
                     name: req.user.name,
-                    overview: req.user.overview,
+                    onboarding: req.user.onboarding,
                     email: req.user.local.email, 
                     account:req.user._account, 
                     trello : req.user.trello.id 
@@ -110,7 +110,7 @@ module.exports = function(app, passport) {
             req.logIn(user, function(err) {
                 if (err) { return res.json(err); }
                 // console.log('auth/signup authenticated user', req.user);
-                res.json({ 'user': req.user._id, 'onboarding' : true, 'name':req.user.name, redirect: '/overview', msg:'register user worked' });
+                res.json({ 'user': req.user._id, 'onboarding': req.user.onboarding, 'name':req.user.name, redirect: '/overview', msg:'register user worked' });
             });
         })(req, res);
     });

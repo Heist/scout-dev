@@ -159,6 +159,21 @@
             });
     });
 
+    field_guide_app.factory('user', function() {
+        var items = [];
+        var itemsService = {};
+
+        itemsService.add = function(item) {
+            items.push(item);
+        };
+        itemsService.list = function() {
+            return items;
+        };
+
+        return itemsService;
+    });
+
+
     field_guide_app.factory('socket', function ($rootScope, $location) {
 
         // for live... $location.protocol()+'://'+$location.host()+':8080/'
