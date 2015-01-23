@@ -156,12 +156,6 @@
             .state('summary.task', {
                 templateUrl: 'partials/app/summary_task.html'
             })
-            
-            // upgrade/paid screen ============================================
-			.state('/upgrade', {
-				url: '/upgrade',                
-				templateUrl: 'partials/app/upgrade.html',
-			});
     });
 
     field_guide_app.factory('socket', function ($rootScope, $location) {
