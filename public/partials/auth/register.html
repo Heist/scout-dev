@@ -1,0 +1,86 @@
+<div id="view-register">
+
+	<div class="container">
+	
+		<div class="module quarter">&nbsp;</div>
+		
+		
+		<div class="module half">
+			<h2 class="text-center">Welcome to better testing &amp; better customer insights.</h2>
+			
+			<p class="text-center">Enjoy your <strong>30-day unrestricted trial</strong>! You&rsquo;ll have access to all current features and
+			beta features we&rsquo;re working on.</p>	
+		</div>
+		
+		<div class="clear"></div>
+		
+	
+		<div class="module third">&nbsp;</div>
+		
+		
+		
+		<div class="module third" id="view-register-content">
+					
+			
+			<!-- signup form form -->
+			<div id="form-signup">
+			
+				<form ng-model="user">
+					<ul class="nobullets withlabels">
+						<li ng-show="flashmessage" class="messaging messaging-problem">{{flashmessage}}</li>
+						
+						<li>
+							<input class="input" type="text" name="realname" value="" placeholder="Your name (e.g. &rsquo;Sandra Jones&lsquo;)" ng-model="user.name"/>
+						</li>
+						
+						<li>
+							<input class="input" type="text" name="username" value="" placeholder="Your e-mail address" ng-model="user.email"/>
+						</li>
+						
+						<li>
+							<input class="input" type="text" name="username" value="" placeholder="Your role (optional)" ng-model="user.job"/>
+						</li>
+						
+						<li>
+							<input class="input" type="password" id="field-password" name="" value="" placeholder="Your password"  ng-model="user.password"/>
+						</li>
+						
+						<li>
+							<input class="input" type="password" id="confirm-password" name="" value="" placeholder="Confirm your password"/>
+						</li>
+						
+						<li class="register-cta">
+							<p><strong>One Last Thing...</strong></p>
+							<p>Because good customer research helps us build a better product, we&rsquo;d like to contact you to get your thoughts and insights on
+							how you&rsquo;re using Field Guide.</p>
+						</li>
+						
+						<li class="text-center">
+							<button class="button dark" type="submit" ng-click="register(user)">Create account</button> 
+						</li>
+						
+					</ul>
+				</form>
+				
+				
+				
+				<div class="register-trees-left"><img src="/layout/assets/signup-trees-left.png" /></div>
+				<div class="register-trees-right"><img src="/layout/assets/signup-trees-right.png" /></div>
+			
+			</div>
+			<!-- / signup form -->
+				
+			
+		</div>
+		
+		
+		<div class="clear"></div>
+		
+		
+		<p class="text-center">
+			<small>Already signed up? <a href="/login">Login</a>.</small>
+		</p>
+		
+	
+	</div>
+</div>
