@@ -135,6 +135,10 @@ app.route('/auth/invite/:_id')
         })
 
 
+
+// Socket.io app connection ===============================
+
+
 // Debug Routes -------------------
     app.route('/debug/test')
     .get(function(req,res){
