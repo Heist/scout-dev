@@ -99,7 +99,10 @@
 			
 				<div class="test-info">
 					<h3>{{test.name}}</h3>
-					<small>{{test.kind}}</small>
+					<small>{{test.kind}} &mdash;
+						<span ng-show="test._subjects.length > 0">Tested {{test._subjects.length}} times</span>
+						<span ng-show="test._subjects.length === 0">Never tested</span>
+					</small>
 					
 					<div class="editTest-tooltips">
 						<span ng-show="editTestedit">Edit</span>
