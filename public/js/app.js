@@ -106,6 +106,12 @@
                 controller:'login',
                 templateUrl: 'partials/auth/login.html',
             })
+            
+           
+            .state('/register', {
+                url: '/register',
+                templateUrl: 'partials/auth/register.html',
+            })
 
             // PUBLIC REPORTS ===========================================
             .state('report_public', {

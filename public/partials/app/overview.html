@@ -60,24 +60,12 @@
 
 
 	
-	<div ng-controller="login">
-		<div id="nav-logo">
-			<a href="/overview"><img src="/layout/assets/fg-binocs-header.png" /></a>			
-		</div>
-		
-		<div id="nav-acct-status">
-			<span>14 days</span> left in your trial
-		</div>
-		
-		<div id="nav-mgmt">
-			<div id="nav-account">
-				<a href="/account" ng-click="tracker()">&nbsp;</a>
-			</div>
-			
-			<a ng-click="logout()">Log Out</a>
-		</div>
-
-	</div>	
+	<ng-include src="'partials/app/_header-full.html'"></ng-include>
+	
+	
+	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
+	
+	
 	
 
 	<!-- show tests in db -->
@@ -111,7 +99,10 @@
 			
 				<div class="test-info">
 					<h3>{{test.name}}</h3>
-					<small>{{test.kind}}</small>
+					<small>{{test.kind}} &mdash;
+						<span ng-show="test._subjects.length > 0">Tested {{test._subjects.length}} times</span>
+						<span ng-show="test._subjects.length === 0">Never tested</span>
+					</small>
 					
 					<div class="editTest-tooltips">
 						<span ng-show="editTestedit">Edit</span>

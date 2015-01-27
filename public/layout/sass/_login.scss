@@ -1,5 +1,7 @@
 /* login & registration forms etc. */
 
+/* login */
+
 #view-login {
 	background: $fg-header-red;
 	color: $white;
@@ -27,3 +29,77 @@
 		border: 1px solid transparentize($white,0.75);
 	}
 }
+
+
+/* register */
+
+#view-register {
+	padding: $pad*5 0 0 0;
+	
+	form {
+		.input, .button {
+			width: 100%;
+		}
+	}
+	
+	a {
+		color: $fg-black;
+	}
+	
+	.register-cta {
+		font-size: $type-size-base*0.85;
+		line-height: 1.4;
+		padding: $pad;
+		border: 1px solid $line;
+		margin: $pad/2 0;
+		@include radius;
+		
+		p {
+			margin: 0;
+			
+			strong {
+				color: #129b15;
+			}
+		}
+	}
+	
+	#view-register-content {
+		position: relative;
+		margin-bottom: $pad*2;
+		
+		.button, ul {
+			margin-bottom: 0;
+		}
+		
+		.register-trees-left, .register-trees-right {
+			position: absolute;
+			bottom: -6px;
+			
+			img {
+				height: 65px;
+				width: auto;
+			}
+		}
+	
+		.register-trees-left {
+			right: 105%;
+		}
+		
+		.register-trees-right {
+			left: 105%;
+		}
+			
+	}
+	
+	
+}
+
+
+
+
+
+
+
+
+
+

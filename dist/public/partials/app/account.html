@@ -3,7 +3,7 @@
 
 	
 	<!-- New account member modal -->
-	<div class="modal">
+	<div class="modal" style="display: none;">
 	    <div class="module third">&nbsp;</div>
 	    
 	    <div class="module third modal-interior">
@@ -47,22 +47,14 @@
 
 
 	
-
-	<div id="nav-logo">
-		<a href="/overview"><img src="/layout/assets/fg-binocs-header.png" /></a>
-	</div>
+	<ng-include src="'partials/app/_header-full.html'"></ng-include>
 	
-	<div id="nav-acct-status">
-		<span>14 days</span> left in your trial
-	</div>
 	
-	<div id="nav-mgmt">
-		<div id="nav-account">
-			<a href="/account" ng-click="tracker()">&nbsp;</a>
-		</div>
-		
-		<a ng-click="logout()">Log Out</a>
-	</div>
+	
+	
+	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
+	
+	
 
 
 <!-- CONNECTED APPS -->
@@ -73,10 +65,11 @@
 			<ul class="tabbed-nav" ng-init="tab = 1">
 				<!--<li><a href="#">Account Information</a></li>-->
 				<li ng-class="{active:tab===1}"><a href ng-click="tab = 1">Team</a></li>
+				<li ng-class="{active:tab===2}"><a href ng-click="tab = 2">Plans &amp; Billing</a></li>
 				<!--<li><a href="#">Billing</a></li>
 				<li><a href="#">Notifications</a></li>
 				<li><a href="/account">Connected Apps</a></li>-->
-				<li ng-class="{active:tab===2}"><a href ng-click="tab = 2">Export</a></li>
+				<li ng-class="{active:tab===3}"><a href ng-click="tab = 3">Export</a></li>
 				
 			</ul>
 		</div>
@@ -171,9 +164,87 @@
 	<!-- / team view -->
 	
 	
+	
+	
+	
+	<!-- plans view -->
+		<div class="module half" ng-show="tab === 2">
+		
+			<div class="upgrade-notice text-center">
+				<h3 class="caution">You're currently on day 14 of your 30 day trial.</h3>
+				<small><strong>You can upgrade at any time.</strong></small>
+			</div>
+			
+			<!-- actually list the plans -->
+			<!-- plan one -->
+			<div class="module half plan-type">
+				
+				
+				<div class="plan-name text-center">
+					Basic
+				</div>
+				
+				<div class="plan-price-point text-center">
+					<sup>$</sup><big>15</big>/month
+				</div>
+				
+				<ul class="nobullets lined">
+					<li>Unlimited projects</li>
+					<li>Ethnographic and Prototype tests</li>
+					<li>Mobile and tablet screencasting</li>
+					<li><strong>Basic</strong> team collaboration</li>
+					<li>Share reports with anyone</li>	
+					<div class="clear"></div>		
+				</ul>
+				
+				<button class="button">Upgrade Now</button>
+				
+			</div>
+			<!-- / plan one -->
+			
+			<!-- plan two -->
+			<div class="module half plan-type disabled">
+				
+				
+				<div class="plan-name text-center">
+					Badass
+				</div>
+				
+				<div class="plan-price-point text-center">
+					<sup>$</sup><big>Lots</big>/month
+				</div>
+				
+				<ul class="nobullets lined">
+					<li>Unlimited projects</li>
+					<li>Ethnographic and Prototype tests</li>
+					<li>Mobile and tablet screencasting</li>
+					<li><strong>Basic</strong> team collaboration</li>
+					<li>Share reports with anyone</li>	
+					<div class="clear"></div>		
+				</ul>
+				
+				<button class="button hollow">Coming Soon</button>
+				
+			</div>
+			<!-- / plan two -->
+			
+			<div class="clear"></div>
+			<!-- / plans -->
+			
+	
+			
+			
+		</div>
+	<!-- / plans view -->
+	
+	
+	
+	
+	
+	
 	<!-- export view -->
 	
-		<div class="module half" ng-show="tab === 2">
+		<div class="module half" ng-show="tab === 3">
 			<h2>Export</h2>
 			<p>If you ever need to get your data out of Field Guide, it&rsquo;s easy. Just click below to receive your
 			tests and results in a structured JSON format.</p>
