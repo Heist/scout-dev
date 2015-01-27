@@ -11,7 +11,7 @@
 #define DEFAULT_AUTOSAVE_DURATION 600
 #define TIME_SCALE 600
 
-NSString * const host = @"104.131.98.19";
+NSString * const host = @"projects.fieldguideapp.com";
 
 static NSInteger counter;
 
