@@ -47,8 +47,8 @@ app.route('/api/message/')
 
             },
             function(args, callback){
-                
-                Task.findByIdAndUpdate( args._task, 
+                console.log('waterfall 1', args);
+                Task.findByIdAndUpdate( req.body._task, 
                     { $push: {_messages : args._id} },
                     function(err,doc){ 
                         if (err) {res.send(err);}
@@ -58,7 +58,7 @@ app.route('/api/message/')
 
             },
             function(args, callback){
-                
+                console.log('waterfall 2', args);
                 Subject.findOneAndUpdate(
                     {'_id': args.msg._subject},
                     { $push: {_messages : args.msg._id} }, 
@@ -71,6 +71,7 @@ app.route('/api/message/')
             },
             function(args, callback){
                 // reminder: the tags are not attached to the message. The message is attached to tags.
+                console.log('waterfall 3', args);
                 if(req.body.tags){ 
                     async.map(req.body.tags, 
                         function(tag, callback){
