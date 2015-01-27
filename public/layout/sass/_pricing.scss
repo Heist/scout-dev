@@ -26,6 +26,20 @@
 		font-size: $type-size-base*3;
 		@include type-light;
 	}
+	
+	span {
+		@include type-extralight;
+		opacity: 0.8;
+	}
+	
+	small {
+		font-size: $type-size-base*0.8;
+		display: block;
+		padding: 30px 15px 10px 15px;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+		color: #3B4447;
+		line-height: 1.4;
+	}
 }
 
 .plan-name {
