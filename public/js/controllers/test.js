@@ -29,25 +29,6 @@
 
         // DIRECTIVES AND FUNCTIONS ===========================
 
-        // $scope.dragControlListeners = {
-        //     accept: function (sourceItemHandleScope, destSortableScope) {return boolean} //override to determine drag is allowed or not. default is true.
-        //     itemMoved: function (event) {//Do what you want},
-        //     orderChanged: function(event) {//Do what you want},
-        //     containment: '#board'//optional param.
-        // };
-
-        $scope.treeOptions = {
-            dropped: function(e) {
-                console.log (e.source.nodesScope);
-                console.log($scope.tasks);
-                _.each($scope.tasks, function(task){
-                    task.index = $scope.tasks.indexOf(task);
-                });
-                $scope.batchTask();
-            }
-        };
-
-
         // ACTIONS ============================================
         // an effort to manipulate order.... 
         $scope.moveTask = function(old_index, new_index){

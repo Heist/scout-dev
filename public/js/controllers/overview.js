@@ -6,6 +6,7 @@
     angular.module('field_guide_controls')
         .controller('overview', ['$scope','$http', '$location', '$stateParams','$rootScope', function($scope, $http, $location, $stateParams, $rootScope){
         
+        console.log('user?', $rootScope.user);
         // get all sessions and their tests on first load
         $http
             .get('/api/test/', {timeout : 5000})
@@ -104,7 +105,7 @@
                 var test = {};
 
                 if($rootScope.user){
-                    console.log($rootScope.user);
+                    console.log('rootScope user set', $rootScope.user);
                     test.created_by = $rootScope.user;
                    
                     mixpanel.track('Add new test', { 'user' : $rootScope.user });

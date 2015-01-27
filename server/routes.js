@@ -134,11 +134,6 @@ app.route('/auth/invite/:_id')
                         });
         })
 
-
-
-// Socket.io app connection ===============================
-
-
 // Debug Routes -------------------
     app.route('/debug/test')
     .get(function(req,res){
@@ -150,84 +145,84 @@ app.route('/auth/invite/:_id')
             });
     });
 
-    // app.route('/debug/comment')
-    // .get(function(req,res){
-    //     Comment.find()
-    //         .exec(function(err, docs) {
-    //             if(err){res.send(err);}
+    app.route('/debug/comment')
+    .get(function(req,res){
+        Comment.find()
+            .exec(function(err, docs) {
+                if(err){res.send(err);}
 
-    //             res.json(docs);
-    //         });
-    // });
+                res.json(docs);
+            });
+    });
 
-    // app.route('/debug/test/:_id')
-    // .get(function(req,res){
-    //     Test.find({'_id': req.params._id})
-    //         .populate('_tasks')
-    //         .exec(function(err, docs) {
-    //             if(err){res.send(err);}
+    app.route('/debug/test/:_id')
+    .get(function(req,res){
+        Test.find({'_id': req.params._id})
+            .populate('_tasks')
+            .exec(function(err, docs) {
+                if(err){res.send(err);}
 
-    //             res.json(docs);
-    //         });
-    // });    
+                res.json(docs);
+            });
+    });    
 
-    // app.route('/debug/task')
-    // .get(function(req,res){
-    //     Task.find()
-    //         .exec(function(err, docs) {
-    //             if(err){res.send(err);}
+    app.route('/debug/task')
+    .get(function(req,res){
+        Task.find()
+            .exec(function(err, docs) {
+                if(err){res.send(err);}
 
-    //             res.json(docs);
-    //         });
-    // });
+                res.json(docs);
+            });
+    });
 
-    // app.route('/debug/message')
-    // .get(function(req,res){
-    //     Message.find()
-    //         .populate('_comments')
-    //         .exec(function(err, docs) {
-    //             if(err){res.send(err);}
+    app.route('/debug/message')
+    .get(function(req,res){
+        Message.find()
+            .populate('_comments')
+            .exec(function(err, docs) {
+                if(err){res.send(err);}
 
-    //             res.json(docs);
-    //         });
-    // });
+                res.json(docs);
+            });
+    });
 
-    // app.route('/debug/tag')
-    //     .get(function(req,res){
-    //         Tag.find(function(err, docs) {
-    //                 if(err){res.send(err);}
+    app.route('/debug/tag')
+        .get(function(req,res){
+            Tag.find(function(err, docs) {
+                    if(err){res.send(err);}
 
-    //                 res.json(docs);
-    //             });
-    //     });
+                    res.json(docs);
+                });
+        });
 
-    // app.route('/debug/user')
-    //     .get(function(req,res){
-    //         User.find(function(err, users) {
-    //                 if(err){res.send(err);}
+    app.route('/debug/user')
+        .get(function(req,res){
+            User.find(function(err, users) {
+                    if(err){res.send(err);}
 
-    //                 res.json(users);
-    //             });
-    //     });
+                    res.json(users);
+                });
+        });
 
-    // app.route('/debug/invite')
-    //     .get(function(req,res){
-    //         Invitation.find(function(err, invites) {
-    //                 if(err){res.send(err);}
+    app.route('/debug/invite')
+        .get(function(req,res){
+            Invitation.find(function(err, invites) {
+                    if(err){res.send(err);}
 
-    //                 res.json(invites);
-    //             });
-    //     });
+                    res.json(invites);
+                });
+        });
 
-    // app.route('/debug/subject')
-    //     .get(function(req,res){
-    //         Subject.find()
-    //             .exec(function(err, docs) {
-    //                 if(err){res.send(err);}
+    app.route('/debug/subject')
+        .get(function(req,res){
+            Subject.find()
+                .exec(function(err, docs) {
+                    if(err){res.send(err);}
 
-    //                 res.json(docs);
-    //             });
-    //     });
+                    res.json(docs);
+                });
+        });
 
 // ACCOUNT EXPORT ROUTE ===================================
 // Again, this simply breaks as a Require rather than a direct route. 

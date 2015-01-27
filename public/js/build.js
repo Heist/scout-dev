@@ -32,6 +32,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         return Math.round((new Date().valueOf() * Math.random()));
     }
 
+
     // FRONT-END ROUTE CONFIGURATION ==============================================
     field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
 
@@ -40,36 +41,53 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         $httpProvider.defaults.timeout = 3000;
 
         // TODO: this should probably be an Interceptor, but it works on load for now.
-        function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
-            // console.log('checking logged in identity');
-            // Make an AJAX call to check if the user is logged in
-            var deferred = $q.defer(); 
+        // function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
+        //     // console.log('checking logged in identity');
+        //     // Make an AJAX call to check if the user is logged in
+        //     var deferred = $q.defer();
+        //     $http
+        //         .get('/loggedin')
+        //         .success(function(user){
+        //             // Authenticated
+        //             if (user !== '0') {
+        //                 $rootScope.user = user;
+        //                 $timeout(deferred.resolve, 0);
+        //             }
 
-            $http
-                .get('/loggedin')
-                .success(function(user){
-                    // Authenticated
-                    if (user !== '0') {
-                        console.log('this user successfully logged in', user);
-                        $rootScope.user = user;
-                        $timeout(deferred.resolve, 0);
-                    }
-
-                    // Not Authenticated 
-                    else { 
-                        console.log('welp, that flunked', user);
-                        $rootScope.userNote = 'You need to log in.'; 
-                        $timeout(function(){deferred.reject();}, 0);
-
-                        $location.url('/login');
-                    }
-                })
-                .error(function(err){
-                    console.log(err);
-                });
-            // }
+        //             // Not Authenticated 
+        //             else { 
+        //                 console.log('welp, that flunked.');
+        //                 $timeout(function(){deferred.reject();}, 0);
+        //                 $location.url('/login');
+        //             }
+        //         })
+        //         .error(function(err){
+        //             console.log(err);
+        //         });
+        // }
+        
+        function checkLoggedin($q, $timeout, $http, $location, $rootScope) {
+            var deferred = $q.defer();
             
+            $http.get('/loggedin')
+                 .success(function(user) {
+                    // Authenticated
+                        if (user !== '0') {
+                            $rootScope.user = user;
+                            deferred.resolve();
+                        } else {
+                            console.log('welp, that flunked.');
+                            deferred.reject();
+                            return $location.url('/login');
+                        }
+                    })
+                 .error(function(err) {
+                    console.log(err);
+                    return $location.url('/login');
+                });
+            return deferred.promise;
         }
+    
 
         // $urlRouterProvider.otherwise("/login");
         $urlRouterProvider.otherwise("/404");
@@ -249,6 +267,15 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             },  
         };
     })
+
+    
+    // supply the currently logged-in user to all functions
+    field_guide_app.factory('UserService', function() {
+        return {
+            name : 'anonymous'
+        };
+    });
+
 
     // FILTERS ============================================================================
     angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);
@@ -545,6 +572,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
     angular.module('field_guide_controls')
         .controller('overview', ['$scope','$http', '$location', '$stateParams','$rootScope', function($scope, $http, $location, $stateParams, $rootScope){
         
+        console.log('user?', $rootScope.user);
         // get all sessions and their tests on first load
         $http
             .get('/api/test/', {timeout : 5000})
