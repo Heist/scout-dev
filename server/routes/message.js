@@ -30,28 +30,18 @@ app.route('/api/message/')
 
         console.log('touched new message ', req.body);
 
-        // if (req.body.body) {msg.body = req.body.body;}        
-        // if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
-        // if (req.body._test) {msg._test = mongoose.Types.ObjectId(req.body._test);}
-        // if (req.user._id) {msg.created_by = mongoose.Types.ObjectId(req.user._id);}
-
-        // if (req.body._task) {call._task = mongoose.Types.ObjectId(req.body._task);}
-        // if (req.body._test) {call._test = mongoose.Types.ObjectId(req.body._test);}
-        // if (req.body._session) {call._session = mongoose.Types.ObjectId(req.body._session);}
-
         async.waterfall([
             function(callback){
+                console.log('waterfall');
                 var msg = {};
                 var call = {};
 
-                if (req.body.body) {msg.body = req.body.body;}        
-                if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
-                if (req.body._test) {msg._test = mongoose.Types.ObjectId(req.body._test);}
                 if (req.user._id) {msg.created_by = mongoose.Types.ObjectId(req.user._id);}
 
-                if (req.body._task) {call._task = mongoose.Types.ObjectId(req.body._task);}
-                if (req.body._test) {call._test = mongoose.Types.ObjectId(req.body._test);}
-                if (req.body._session) {call._session = mongoose.Types.ObjectId(req.body._session);}
+                if (req.body.body) {msg.body = req.body.body;}
+                if (req.body._test) {msg._test = mongoose.Types.ObjectId(req.body._test);}
+                if (req.body._task) {msg._task = mongoose.Types.ObjectId(req.body._task);}
+                if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
 
                 Message.create(msg, function(err, msg){if (err) {res.send(err);} callback(null, msg);});
 
@@ -62,6 +52,7 @@ app.route('/api/message/')
                     { $push: {_messages : args._id} },
                     function(err,doc){ 
                         if (err) {res.send(err);}
+                        console.log('task trace', doc._id);
                         callback(null, {msg: args, task: doc});
                     });
 
@@ -74,31 +65,37 @@ app.route('/api/message/')
                     {upsert:false},
                     function(err,doc){ 
                         if (err) {res.send(err);} 
+                        console.log('subject trace', doc._id);
                         callback(null, {msg: args.msg, task: args.task, subject: doc});
                     });
             },
             function(args, callback){
-                if(req.body.tags){ // reminder: the tags are not attached to the message. The message is attached to tags.
-                        
-                    async.map(req.body.tags, function(tag, callback){
-                        Tag.findOneAndUpdate(
-                            {name: tag, _test: args.msg._test},
-                            { $push: { _messages: args.msg._id },
+                // reminder: the tags are not attached to the message. The message is attached to tags.
+                if(req.body.tags){ 
+                    async.map(req.body.tags, 
+                        function(tag, callback){
+                            Tag.findOneAndUpdate(
+                                {name: tag, _test: args.msg._test},
+                                { $push: { _messages: args.msg._id },
                                    name: tag,
-                                   _test: args.msg._test
-                                }, 
-                            { upsert:true },
-                            function(err, data){ 
-                        }, function(err, results){
+                                   _test: args.msg._test }, 
+                                { upsert:true },
+                                function(err, data){
+                                    if(err){console.log(err);}
+                                    callback(null, data);
+                                });
+                        },
+                        function(err, results){
                             if(err){throw err;}
-                            callback(null, {msg:args.msg, task: args.task, subject: doc, tags: results});
-                        });
-                    });
-                }   
+                            console.log('tag trace waterfal results', results);
+                            callback(null, {msg:args.msg, task: args.task, subject: args.subject, tags: results});
+                        }); 
+                }
             }
         ],
         function(err, results){
             if(err){throw err;}
+            console.log('message tag stack trace', results);
             res.json(results);
         });
     });

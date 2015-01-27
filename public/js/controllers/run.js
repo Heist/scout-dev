@@ -220,6 +220,7 @@
         $scope.postMessage = function(message){
             // here we create a note object
             if(message.length <= 0){
+                console.log('nothing');
                 return;
             } else {
                 var note = {};
@@ -258,6 +259,7 @@
                 $http
                     .post(url, data_out)
                     .success(function(data){
+                        console.log('note back', data);
                         // socket.emit('send:note', { note: data });
                         $scope.message='';
                     });
