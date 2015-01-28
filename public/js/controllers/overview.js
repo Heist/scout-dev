@@ -6,7 +6,6 @@
     angular.module('field_guide_controls')
         .controller('overview', ['$scope','$http', '$location', '$stateParams','$rootScope', function($scope, $http, $location, $stateParams, $rootScope){
         
-        console.log('user?', $rootScope.user);
         // get all sessions and their tests on first load
         $http
             .get('/api/test/', {timeout : 5000})

@@ -298,7 +298,9 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 	'use strict';
 
 	// ACCOUNT CONTROLLER ===========================================================
-	angular.module('field_guide_controls').controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', '$rootScope', function($scope, $http, $stateParams,$state, $location, $window, $rootScope){
+	angular.module('field_guide_controls')
+		.controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', '$rootScope', 
+					function($scope, $http, $stateParams,$state, $location, $window, $rootScope){
 		var user_id = $rootScope.user._id;
 
 		$scope.live_user = $rootScope.user;
@@ -581,7 +583,6 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
     angular.module('field_guide_controls')
         .controller('overview', ['$scope','$http', '$location', '$stateParams','$rootScope', function($scope, $http, $location, $stateParams, $rootScope){
         
-        void 0;
         // get all sessions and their tests on first load
         $http
             .get('/api/test/', {timeout : 5000})
@@ -791,7 +792,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 // report.js
 
 // REPORT CONTROLLER ===========================================================
-angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', function($scope, $sce, $http, $location,$stateParams,$state, $sanitize){
+angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', '$rootScope', function($scope, $sce, $http, $location,$stateParams,$state, $sanitize, $rootScope){
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
@@ -1436,9 +1437,9 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
     // SUMMARY CONTROLLER ===========================================================
 
     angular.module('field_guide_controls')
-        .controller('summary', ['$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', 
+        .controller('summary', ['$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize',
                         function($scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize){
-    	$scope.test = {};
+        $scope.test = {};
         $scope.timeline = [];
         $scope.commentMessage = '';
 

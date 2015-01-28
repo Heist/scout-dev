@@ -5,9 +5,9 @@
     // SUMMARY CONTROLLER ===========================================================
 
     angular.module('field_guide_controls')
-        .controller('summary', ['$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', 
+        .controller('summary', ['$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize',
                         function($scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize){
-    	$scope.test = {};
+        $scope.test = {};
         $scope.timeline = [];
         $scope.commentMessage = '';
 

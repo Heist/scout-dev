@@ -7,10 +7,6 @@ var http = require('http');
 var path = require('path');
 var _ = require('lodash');
 
-// Turn the app on and hook sockets 0.9 to it.
-var server = http.createServer(app).listen(8080, function(){ console.log('listening on 8080');});
-var io = require('socket.io').listen(server, {log : false});
-
 var mongoose = require('mongoose');
 var passport = require('passport');
 var cors = require('cors');
@@ -20,6 +16,8 @@ var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
+
+var server = http.createServer(app);
 
 // SESSION STORAGE ==================================================
 var MongoStore = require('connect-mongostore')(session);
@@ -84,12 +82,20 @@ app.get('*', function(req, res) {
 			res.sendfile(__dirname + '/public/index.html');
 		});
 
+
+// Turn the app on and hook sockets 0.9 to it. This goes down here to help with TTL errors.
+server.listen(8080, function(){ console.log('listening on 8080');});
+var io = require('socket.io').listen(server, {log : false});
+
 // SOCKET.IO ========================================================
 // lives after normal routes, is dynamic routes accessed separately
 // has its own auth functions
 
 // socket 0.9 in use to speak to Field Guide App
 require('./server/socket_routes_09')(io, app, passport);
+
+
+
 
 // EXPOSE APP AS OBJECT =============================================
 exports = module.exports = app;

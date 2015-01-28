@@ -2,7 +2,7 @@
 // report.js
 
 // REPORT CONTROLLER ===========================================================
-angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', function($scope, $sce, $http, $location,$stateParams,$state, $sanitize){
+angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', '$rootScope', function($scope, $sce, $http, $location,$stateParams,$state, $sanitize, $rootScope){
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
