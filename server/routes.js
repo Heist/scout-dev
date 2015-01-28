@@ -126,6 +126,7 @@ module.exports = function(app, passport) {
         res.json({ redirect: '/login' });
     });
 
+// PASSWORD RESET ROUTES ==================================
     // forgotten passwords
     app.post('/auth/forgot', function(req, res) {
         console.log('touched forgotten password route');
@@ -182,6 +183,15 @@ module.exports = function(app, passport) {
         });
     });
 
+    // password reset route
+    app.get('/reset/:token', function(req, res) {
+      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+        if (!user) {
+            res.send('Password reset token is invalid or has expired.')
+        }
+        res.json({reset: req.user});
+      });
+    });
 
 // PUBLIC ROUTES ==========================================
 app.route('/auth/invite/:_id')
