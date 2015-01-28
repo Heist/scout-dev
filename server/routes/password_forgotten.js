@@ -1,7 +1,7 @@
 // password_forgotten.js
 'use strict';
 
-module.exports = function(app, passport, io) {
+module.exports = function(app, passport) {
 
     // Module dependencies
     var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
@@ -13,7 +13,9 @@ module.exports = function(app, passport, io) {
     // Models
     var User = require('../models/auth/user');
 
-    app.post('/forgot', function(req, res, next) {
+    app.post('/auth/forgot', function(req, res, next) {
+        console.log('touched forgotten password route');
+        
         async.waterfall([
             function(done) {
                 crypto.randomBytes(20, function(err, buf) {
@@ -37,12 +39,14 @@ module.exports = function(app, passport, io) {
                 });
             },
             function(token, user, done) {
-                var smtpTransport = nodemailer.createTransport('SMTP', {
-                    service: 'SendGrid',
+                var smtpTransport = nodemailer.createTransport({
+                    service: 'Mandrill',
                     auth: {
-                        user: '!!! YOUR SENDGRID USERNAME !!!',
-                        pass: '!!! YOUR SENDGRID PASSWORD !!!'
-                    }
+                        user: 'mandrill@fieldguideapp.com',
+                        pass: 'jvVhe4uJxHB7MFfHabelbg'
+                    },
+                    host: "smtp.mandrillapp.com",
+                    port: 587
                 });
                 var mailOptions = {
                     to: user.email,

@@ -59,6 +59,20 @@
             $scope.reg_toggle = false;
         };
 
+        $scope.resetPass = function(user){
+            var url = '/auth/forgot';
+
+            var dataOut = {email: user.email};
+            console.log('touched reset', dataOut, user);
+
+            $http
+                .post(url, dataOut)
+                .success(function(data){
+                    console.log('success', data);
+                })
+                .error();
+        };
+
         $scope.register = function(user){
             // console.log('register this user', user);
             var url, 

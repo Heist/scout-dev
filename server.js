@@ -50,7 +50,6 @@ var auth_db = database.auth_db;
 
 // session start ====================================================
 app.locals.store = new MongoStore({'db': 'sessions'});
-
 app.use(session({
 	secret: app.locals.secret, 
 	cookie: {
@@ -82,7 +81,6 @@ app.get('*', function(req, res) {
 var io = require('socket.io').listen(server, {log : false});
 // socket 0.9 in use to speak to Field Guide App
 require('./server/socket_routes_09')(io, app, passport);
-
 
 // Turn it on. 
 server.listen(8080, function(){ console.log('listening on 8080');});

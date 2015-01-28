@@ -63,7 +63,8 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 })
                 .error(function(err){
                     void 0;
-                    return $location.url('/login');
+                    $location.url('/login');
+                    deferred.resolve();
                 });
 
             return deferred.promise;   
@@ -124,12 +125,16 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 controller:'login',
                 templateUrl: 'partials/auth/login.html',
             })
-            
            
             .state('/register', {
                 url: '/register',
                 templateUrl: 'partials/auth/register.html',
             })
+
+            // .state('/forgot', {
+            //     url: '/forgot',
+            //     templateUrl: 'partials/auth/forgot.html',
+            // })
 
             // PUBLIC REPORTS ===========================================
             .state('report_public', {
@@ -464,6 +469,20 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 		};
 	}]);
 })();
+// forgot.js
+(function() {
+    'use strict';
+
+    // PASSWORD RESET CONTROLLER ===========================================================
+    angular.module('field_guide_controls')
+       .controller('forgot', ['$scope','$http', '$location', '$stateParams','$rootScope', function($scope, $http, $location, $stateParams, $rootScope){
+        
+        void 0;    
+        
+        
+
+    }]);
+})();
 // login.js
 (function() {
     'use strict';
@@ -523,6 +542,20 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         $scope.showLogin = function(){
             // console.log('touched login', $scope.reg_toggle);
             $scope.reg_toggle = false;
+        };
+
+        $scope.resetPass = function(user){
+            var url = '/auth/forgot';
+
+            var dataOut = {email: user.email};
+            void 0;
+
+            $http
+                .post(url, dataOut)
+                .success(function(data){
+                    void 0;
+                })
+                .error();
         };
 
         $scope.register = function(user){
