@@ -41,52 +41,55 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         $httpProvider.defaults.timeout = 3000;
 
         // TODO: this should probably be an Interceptor, but it works on load for now.
-        // function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
-        //     // console.log('checking logged in identity');
-        //     // Make an AJAX call to check if the user is logged in
-        //     var deferred = $q.defer();
-        //     $http
-        //         .get('/loggedin')
-        //         .success(function(user){
-        //             // Authenticated
-        //             if (user !== '0') {
-        //                 $rootScope.user = user;
-        //                 $timeout(deferred.resolve, 0);
-        //             }
-
-        //             // Not Authenticated 
-        //             else { 
-        //                 console.log('welp, that flunked.');
-        //                 $timeout(function(){deferred.reject();}, 0);
-        //                 $location.url('/login');
-        //             }
-        //         })
-        //         .error(function(err){
-        //             console.log(err);
-        //         });
-        // }
-        
-        function checkLoggedin($q, $timeout, $http, $location, $rootScope) {
+        function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
+            console.log('checking logged in identity');
+            // Make an AJAX call to check if the user is logged in
             var deferred = $q.defer();
-            
-            $http.get('/loggedin')
-                 .success(function(user) {
+            $http
+                .get('/loggedin')
+                .success(function(user){
                     // Authenticated
-                        if (user !== '0') {
-                            $rootScope.user = user;
-                            deferred.resolve();
-                        } else {
-                            console.log('welp, that flunked.');
-                            deferred.reject();
-                            return $location.url('/login');
-                        }
-                    })
-                 .error(function(err) {
+                    console.log('user', user);
+                    if (user !== '0') {
+                        $rootScope.user = user;
+                        deferred.resolve();
+                    }
+                    // Not Authenticated 
+                    else { 
+                        console.log('welp, that flunked.');
+                        $location.url('/login');
+                        deferred.resolve();
+                    }
+                })
+                .error(function(err){
                     console.log(err);
                     return $location.url('/login');
                 });
-            return deferred.promise;
+
+            return deferred.promise;   
         }
+        
+        // function checkLoggedin($q, $timeout, $http, $location, $rootScope) {
+        //     var deferred = $q.defer();
+            
+        //     $http.get('/loggedin')
+        //          .success(function(user) {
+        //             // Authenticated
+        //                 if (user !== '0') {
+        //                     $rootScope.user = user;
+        //                     deferred.resolve();
+        //                 } else {
+        //                     console.log('welp, that flunked.');
+        //                     $location.url('/login');
+        //                     deferred.reject();
+        //                 }
+        //             })
+        //          .error(function(err) {
+        //             console.log(err);
+        //             return $location.url('/login');
+        //         });
+        //     return deferred.promise;
+        // }
     
 
         // $urlRouterProvider.otherwise("/login");
