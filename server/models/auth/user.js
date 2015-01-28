@@ -19,6 +19,7 @@ var userSchema = new Schema({
     
     login: {type:Number, default:1}, 
     name: {type:String, trim:true},
+    onboarding : {type: Boolean, default: true},
 
     local            : {
         email        : String,
