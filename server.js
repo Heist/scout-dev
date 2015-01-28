@@ -6,31 +6,29 @@ var app = express();
 var http = require('http');
 var path = require('path');
 var _ = require('lodash');
+
+// Turn the app on and hook sockets 0.9 to it.
 var server = http.createServer(app);
+
 var mongoose = require('mongoose');
 var passport = require('passport');
 var cors = require('cors');
 
-// express modules
+// EXPRESS MODULES ==================================================
 var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
 // SESSION STORAGE ==================================================
-var MongoStore = require('connect-mongostore')(session);
-
-// PROCESS PORTS =====================================================
-// var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
-// var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 // GLOBAL VARIABLES =================================================
 var secrets = require(path.join(__dirname,'secrets'));
-
-app.locals.store = new MongoStore({'db': 'sessions'});
 app.locals = _.merge(app.locals, secrets);
 
-// configuration ====================================================
+// CONFIGURATION ====================================================
 app.use(cors()); // permit cross-site requests, ie: passport.
 
 global.rootRequire = function(name) {
@@ -38,7 +36,6 @@ global.rootRequire = function(name) {
 };
 
 // express 4.0 basic configuration ==================================
-// app.use(logger('\033[90m:date :method :url :response-time\\ms\033[0m \033[31m:referrer \033[0m'));
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser());
@@ -46,15 +43,14 @@ app.use(bodyParser());
 // passport configuration ===========================================
 require('./config/passport')(app, passport);
 
-// knox configuration ===============================================
-// var knox = require('./config/knox');
-
 // Database summoning ===============================================
 var database = require('./config/db');
 var db = database.db;
 var auth_db = database.auth_db;
 
 // session start ====================================================
+app.locals.store = new MongoStore({'db': 'sessions'});
+
 app.use(session({
 	secret: app.locals.secret, 
 	cookie: {
@@ -69,6 +65,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
+
 // server /api/ routes ==============================================
 var router = require('./server/routes')(app, passport);
 
@@ -82,15 +79,13 @@ app.get('*', function(req, res) {
 // SOCKET.IO ========================================================
 // lives after normal routes, is dynamic routes accessed separately
 // has its own auth functions
-server.listen(8080, function(){ console.log('listening on 8080');});
 var io = require('socket.io').listen(server, {log : false});
 // socket 0.9 in use to speak to Field Guide App
 require('./server/socket_routes_09')(io, app, passport);
 
 
-// Turn the app on and hook sockets 0.9 to it. This goes down here to help with TTL errors.
-
-
+// Turn it on. 
+server.listen(8080, function(){ console.log('listening on 8080');});
 
 // EXPOSE APP AS OBJECT =============================================
 exports = module.exports = app;

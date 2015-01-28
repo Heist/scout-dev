@@ -48,7 +48,7 @@ module.exports = function(app, passport) {
 
     // is someone logged in?
     app.get('/loggedin', function(req, res) {
-            console.log('check me for things', req.user);
+            // console.log('check me for things', req.user);
             var usr = {
                     _id : req.user._id, 
                     name: req.user.name, 

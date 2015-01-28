@@ -48,7 +48,8 @@
                 })
                 .error(function(err){
                     console.log(err);
-                    return $location.url('/login');
+                    $location.url('/login');
+                    deferred.resolve();
                 });
 
             return deferred.promise;   
