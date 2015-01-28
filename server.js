@@ -69,7 +69,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-
 // server /api/ routes ==============================================
 var router = require('./server/routes')(app, passport);
 
@@ -83,13 +82,14 @@ app.get('*', function(req, res) {
 // SOCKET.IO ========================================================
 // lives after normal routes, is dynamic routes accessed separately
 // has its own auth functions
+server.listen(8080, function(){ console.log('listening on 8080');});
 var io = require('socket.io').listen(server, {log : false});
 // socket 0.9 in use to speak to Field Guide App
 require('./server/socket_routes_09')(io, app, passport);
 
 
 // Turn the app on and hook sockets 0.9 to it. This goes down here to help with TTL errors.
-server.listen(8080, function(){ console.log('listening on 8080');});
+
 
 
 // EXPOSE APP AS OBJECT =============================================
