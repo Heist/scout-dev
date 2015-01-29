@@ -133,7 +133,7 @@ module.exports = function(app, passport) {
 // PASSWORD RESET ROUTES ==================================
     // forgotten passwords
     app.post('/auth/forgot', function(req, res, next) {
-        console.log('touched forgotten password route');
+        // console.log('touched forgotten password route');
         
         async.waterfall([
             function(done) {
@@ -171,9 +171,9 @@ module.exports = function(app, passport) {
 
                     var mailOptions = {
                         to: user.local.email,
-                        from: 'passwordreset@demo.com',
-                        subject: 'Node.js Password Reset',
-                        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                        from: 'password_reset@fieldguideapp.com',
+                        subject: 'Field Guide Password Reset',
+                        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your Field Guide account.\n\n' +
                         'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
                         'http://' + req.headers.host + '/reset/' + token + '\n\n' +
                         'If you did not request this, please ignore this email and your password will remain unchanged.\n'
