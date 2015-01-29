@@ -120,6 +120,13 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             })
 
             // LOGIN AND REGISTRATION PAGES ===================
+             .state('default', {
+                url:'/login',
+                controller: 'login',
+                templateUrl: 'partials/auth/login.html',
+                resolve: { loggedin: checkLoggedin }
+            })
+
             .state('/login', {
                 url: '/login{acct:(?:/[^/]+)?}',
                 controller:'login',
@@ -162,15 +169,8 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             })
 
             // OVERVIEW AND test CREATION =====================
-            .state('default', {
-                url:'/',
-                controller: 'overview',
-                templateUrl: 'partials/app/overview.html',
-                resolve: { loggedin: checkLoggedin }
-            })
-
             .state('overview', {
-                url: '/overview',
+                url: '/',
                 controller: 'overview',
                 templateUrl: 'partials/app/overview.html',
                 resolve: { loggedin: checkLoggedin }

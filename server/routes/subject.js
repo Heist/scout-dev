@@ -29,7 +29,7 @@ var Subject = require('../models/data/subject');
             })
         .post(function(req,res){
                 // console.log('touched add subject', req.body);
-
+                // TODO: UUID needs to stay the same
                 async.waterfall([function(callback){
                     var subject = new Subject();
 
@@ -42,18 +42,21 @@ var Subject = require('../models/data/subject');
                         
                         callback(null, data);
                     });
-                },function(args, callback){
-                    Test.findById(args.test)
+                },function(subject, callback){
+                    Test.findById(subject.test)
                         .exec(function(err, doc){
                             if(err){throw err;}
-
-                            var now = new Date();
-                            doc.last_run = now;
-
-                            doc.save(function(err, saved){
-                                if(err){throw err;}
-                                callback(null, {subject: args, test: saved});
-                            });
+                            if(doc){
+                                var now = new Date();
+                                doc.last_run = now;
+    
+                                doc.save(function(err, saved){
+                                    if(err){throw err;}
+                                    callback(null, {subject: args, test: saved});
+                                });
+                            } else {
+                                callback(null, args);
+                            }
                         });
                     // callback(null, {subject: args});
                 }], function(err,results){
