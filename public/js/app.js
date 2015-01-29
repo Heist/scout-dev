@@ -85,21 +85,13 @@
 
         $stateProvider
         // PUBLIC ROUTES ================================================
-            
-            // CANVAS SOCKETS TESTING ===================================
-            // .state('canvas', {
-            //     // url: '/canvas/',
-            //     url: '/canvas/:_id',
-            //     controller:'canvas',
-            //     templateUrl: 'partials/app/testCanvas.html'
-            // })
-            
+
             // "block screens" ============================================
-            .state('/404', {
+            .state('404', {
                 url: '/404',                
                 templateUrl: 'partials/app/404.html',
             })
-            .state('/upgrade', {
+            .state('upgrade', {
                 url: '/upgrade',                
                 templateUrl: 'partials/app/upgrade.html',
             })
@@ -112,21 +104,22 @@
                 resolve: { loggedin: checkLoggedin }
             })
 
-            .state('/login', {
+            .state('login', {
                 url: '/login{acct:(?:/[^/]+)?}',
                 controller:'login',
-                templateUrl: 'partials/auth/login.html',
+                templateUrl: 'partials/auth/login.html'
             })
            
-            .state('/register', {
+            .state('register', {
                 url: '/register',
-                templateUrl: 'partials/auth/register.html',
+                templateUrl: 'partials/auth/register.html'
             })
 
-            // .state('/forgot', {
-            //     url: '/forgot',
-            //     templateUrl: 'partials/auth/forgot.html',
-            // })
+            .state('forgot', {
+                url: '/forgot{token:(?:/[^/]+)?}',
+                controller : 'forgot',
+                templateUrl: 'partials/auth/forgot.html'
+            })
 
             // PUBLIC REPORTS ===========================================
             .state('report_public', {
@@ -187,7 +180,7 @@
             })
             .state('summary.task', {
                 templateUrl: 'partials/app/summary_task.html'
-            })
+            });
     });
 
     field_guide_app.factory('socket', function ($rootScope, $location) {

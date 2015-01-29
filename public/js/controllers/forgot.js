@@ -8,7 +8,5 @@
         
         console.log('password reset controller');    
         
-        
-
     }]);
 })();
