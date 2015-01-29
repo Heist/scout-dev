@@ -132,9 +132,9 @@ module.exports = function(app, passport) {
 
 // PASSWORD RESET ROUTES ==================================
     // forgotten passwords
-    app.post('/auth/forgot', function(req, res) {
+    app.post('/auth/forgot', function(req, res, next) {
         console.log('touched forgotten password route');
-        res.send('touched');
+        
         async.waterfall([
             function(done) {
                 crypto.randomBytes(20, function(err, buf) {
@@ -143,11 +143,10 @@ module.exports = function(app, passport) {
                 });
             },
             function(token, done) {
-                User.findOne({ email: req.body.email }, function(err, user) {
+                User.findOne({ 'local.email': req.body.email }, function(err, user) {
                     if (!user) {
-                        done(err, token, null);
-                    }
-                    else {
+                        done(err, token, '0');
+                    } else {
                         user.resetPasswordToken = token;
                         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
     
@@ -158,34 +157,39 @@ module.exports = function(app, passport) {
                 });
             },
             function(token, user, done) {
-                if(!user){ done(err, token, null); }
+                console.log('waterfall', user, token);
+                if(user !== '0'){
+                    var smtpTransport = nodemailer.createTransport({
+                        service: 'Mandrill',
+                        auth: {
+                            user: 'mandrill@fieldguideapp.com',
+                            pass: 'jvVhe4uJxHB7MFfHabelbg'
+                        },
+                        host: "smtp.mandrillapp.com",
+                        port: 587
+                    });
 
-                var smtpTransport = nodemailer.createTransport({
-                    service: 'Mandrill',
-                    auth: {
-                        user: 'mandrill@fieldguideapp.com',
-                        pass: 'jvVhe4uJxHB7MFfHabelbg'
-                    },
-                    host: "smtp.mandrillapp.com",
-                    port: 587
-                });
-                var mailOptions = {
-                    to: user.email,
-                    from: 'passwordreset@demo.com',
-                    subject: 'Node.js Password Reset',
-                    text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                    'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-                    'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-                };
-                smtpTransport.sendMail(mailOptions, function(err) {
-                    if(err){console.log(err);}
-                    done(err, 'An e-mail has been sent to ' + user.email + ' with further instructions.');
-                });
-            }
+                    var mailOptions = {
+                        to: user.local.email,
+                        from: 'passwordreset@demo.com',
+                        subject: 'Node.js Password Reset',
+                        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                        'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+                        'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                    };
+
+                    smtpTransport.sendMail(mailOptions, function(err) {
+                        done(err, 'An e-mail has been sent to ' + user.local.email + ' with further instructions.');
+                    });
+                } else {
+                    done(null, null);
+                }
+            } 
         ], function(err, results) {
-            if (err){ console.log(err); }
-            res.json(results);
+            if (err){ return next(err); }
+            console.log('waterfall results email', results);
+            res.send(results);
         });
     });
 
@@ -274,14 +278,14 @@ app.route('/auth/invite/:_id')
     //             });
     //     });
 
-    // app.route('/debug/user')
-    //     .get(function(req,res){
-    //         User.find(function(err, users) {
-    //                 if(err){res.send(err);}
+    app.route('/debug/user')
+        .get(function(req,res){
+            User.find(function(err, users) {
+                    if(err){res.send(err);}
 
-    //                 res.json(users);
-    //             });
-    //     });
+                    res.json(users);
+                });
+        });
 
     // app.route('/debug/invite')
     //     .get(function(req,res){
