@@ -49,17 +49,23 @@ module.exports = function(app, passport) {
 // LOGIN ROUTES ===========================================
 
     // is someone logged in?
+
     app.get('/loggedin', function(req, res) {
             // console.log('check me for things', req.user);
-        res.send(req.isAuthenticated() ? {
-                _id : req.user._id, 
-                name: req.user.name, 
-                onboarding : req.user.onboarding,
-                email: req.user.local.email, 
-                account:req.user._account, 
-                trello : req.user.trello.id 
-            } : '0');
-    });
+            if(req.user){
+                if (req.isAuthenticated()) { 
+                    res.json({ 
+                        _id : req.user._id, 
+                        name: req.user.name, 
+                        onboarding : req.user.onboarding,
+                        email: req.user.local.email, 
+                        account:req.user._account, 
+                        trello : req.user.trello.id 
+                    });
+                }
+            }
+            else { res.send('0'); }
+        });
 
     // who's logged in?
     app.get('/auth/login', isLoggedInAjax, function(req, res) {
