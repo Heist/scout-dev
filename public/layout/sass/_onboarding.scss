@@ -1,8 +1,8 @@
 /* gimme some sweet, sweet onboarding */
 
-#onboarding-content {
+.onboarding-content {
 	width: 100%;
-	height: 15% !important;
+	height: 15%;
 	color: $white;
 	background: $modal-bg;
 	z-index: 999999999;
@@ -81,27 +81,49 @@
 /* overview */
 
 .onboarding-overview-step1 {
-	display: none;
+	
 }
 
 .onboarding-overview-step2 {
-	height: 100%;
-	display: none;
+	height: 100% !important;
+	top: 0;
+	padding-top: $pad*5;
+	
+	hr {
+		border-top: 1px solid rgba(255,255,255,0.2);
+	}
+	
+	.appstore-link {
+		img {
+			height: 40px;
+			width: auto;
+		}
+	}
+	
+	.app-demo {
+		text-align: center;
+		
+		img {
+			height: auto;
+			width: 60%;
+		}
+	}
+	
+	
 }
 
 /* run test */
 
 .onboarding-run-step1 {
-	display: none;
+	
 }
 
 .onboarding-run-step2 {
-	display: none;
+	
 }
 
 .onboarding-run-step3 {
-	display: none;
-	
+
 	.two-thirds {
 		margin-top: -$pad/2;
 	}
@@ -113,8 +135,7 @@
 }
 
 .onboarding-run-step4 {
-	display: none;
-	
+
 	.two-thirds {
 		margin-top: -$pad/2;
 	}
@@ -132,16 +153,16 @@
 /* report */
 
 .onboarding-report-step1 {
-	display: none;
+	
 }
 
 .onboarding-report-step2 {
-	display: none;
+	
 }
 
 
 #onboarding-overview-box {
-	display: none;
+
 	font-size: $type-size-base*0.9;
 	line-height: $type-line-base*0.9;
 	color: $white;
