@@ -275,6 +275,21 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         };
     })
 
+    field_guide_app.directive('pwCheck', [function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, elem, attrs, ctrl) {
+                var firstPassword = '#' + attrs.pwCheck;
+                elem.add(firstPassword).on('keyup', function () {
+                    scope.$apply(function () {
+                        var v = elem.val()===$(firstPassword).val();
+                        ctrl.$setValidity('pwmatch', v);
+                    });
+                });
+            }
+        };
+    }]);
+
     
     // supply the currently logged-in user to all functions
     field_guide_app.factory('UserService', function() {
@@ -469,8 +484,15 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
     // PASSWORD RESET CONTROLLER ===========================================================
     angular.module('field_guide_controls')
        .controller('forgot', ['$scope','$http', '$location', '$stateParams','$rootScope', function($scope, $http, $location, $stateParams, $rootScope){
-        
         console.log('password reset controller');    
+
+        var url = '/reset/'+$stateParams.token;
+        $http
+            .get(url)
+            .success(function(data){
+                console.log(data);
+            });
+        
         
     }]);
 })();
