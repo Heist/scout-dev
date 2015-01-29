@@ -51,17 +51,15 @@ module.exports = function(app, passport) {
     // is someone logged in?
     app.get('/loggedin', function(req, res) {
             // console.log('check me for things', req.user);
-            var usr = {
-                    _id : req.user._id, 
-                    name: req.user.name, 
-                    onboarding : req.user.onboarding,
-                    email: req.user.local.email, 
-                    account:req.user._account, 
-                    trello : req.user.trello.id 
-                };
-
-            res.send(req.isAuthenticated() ? usr : '0');
-        });
+        res.send(req.isAuthenticated() ? {
+                _id : req.user._id, 
+                name: req.user.name, 
+                onboarding : req.user.onboarding,
+                email: req.user.local.email, 
+                account:req.user._account, 
+                trello : req.user.trello.id 
+            } : '0');
+    });
 
     // who's logged in?
     app.get('/auth/login', isLoggedInAjax, function(req, res) {
@@ -141,18 +139,21 @@ module.exports = function(app, passport) {
             function(token, done) {
                 User.findOne({ email: req.body.email }, function(err, user) {
                     if (!user) {
-                        return res.send('No account with that email address exists.');
+                        done(err, token, null);
                     }
-
-                    user.resetPasswordToken = token;
-                    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-
-                    user.save(function(err) {
-                        done(err, token, user);
-                    });
+                    else {
+                        user.resetPasswordToken = token;
+                        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    
+                        user.save(function(err) {
+                            done(err, token, user);
+                        });
+                    }
                 });
             },
             function(token, user, done) {
+                if(!user){ done(err, token, null); }
+
                 var smtpTransport = nodemailer.createTransport({
                     service: 'Mandrill',
                     auth: {
@@ -172,25 +173,24 @@ module.exports = function(app, passport) {
                     'If you did not request this, please ignore this email and your password will remain unchanged.\n'
                 };
                 smtpTransport.sendMail(mailOptions, function(err) {
-                      res.send('An e-mail has been sent to ' + user.email + ' with further instructions.');
-        
-                    done(err, 'done');
+                    if(err){console.log(err);}
+                    done(err, 'An e-mail has been sent to ' + user.email + ' with further instructions.');
                 });
             }
-        ], function(err) {
-            if (err){ return next(err); }
-            res.redirect('/forgot');
+        ], function(err, results) {
+            if (err){ console.log(err); }
+            res.json(results);
         });
     });
 
     // password reset route
     app.get('/reset/:token', function(req, res) {
-      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-        if (!user) {
-            res.send('Password reset token is invalid or has expired.')
-        }
-        res.json({reset: req.user});
-      });
+        User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+            if (!user) {
+                res.send('Password reset token is invalid or has expired.');
+            }
+            res.json({reset: req.user});
+        });
     });
 
 // PUBLIC ROUTES ==========================================
