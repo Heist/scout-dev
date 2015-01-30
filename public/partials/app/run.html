@@ -1,9 +1,9 @@
-<div id="view-testing" ng-class="{ 'is-onboarding': user.onboarding != 0, 'has-input-outline': user.onboarding === 3 || user.onboarding === 4 }">
+<div id="view-testing" ng-class="{ 'is-onboard': user.onboard != 0, 'has-input-outline': user.onboard === 3 || user.onboard === 4 }">
 	
 
 
-<!-- onboarding during test running -->
-<div class="onboarding-content onboarding-run-step1" ng-show="user.onboarding === 1">
+<!-- onboard during test running -->
+<div class="onboard-content onboard-run-step1" ng-show="user.onboard === 1">
 	<div class="container">
 		<div class="module third">
 			<h3>Looks like we're ready.<br>Let's run a test with Rob.</h3>
@@ -20,7 +20,7 @@
 </div>	
 
 
-<div class="onboarding-content onboarding-run-step2" ng-show="user.onboarding === 2">
+<div class="onboard-content onboard-run-step2" ng-show="user.onboard === 2">
 	<div class="container">
 		<div class="module third">
 			<h3>You&rsquo;re in the driver's seat.</h3>
@@ -29,13 +29,13 @@
 			On the left are the <strong>tasks</strong> you created when you set up this <strong>project.</strong>
 		</div>
 		<div class="module third text-right">
-			<a class="button" ng-click="user.onboarding = 3">Next</a>
+			<a class="button" ng-click="user.onboard = 3">Next</a>
 		</div>
 	</div>
 </div>	
 
 
-<div class="onboarding-content onboarding-run-step3" ng-show="user.onboarding === 3">
+<div class="onboard-content onboard-run-step3" ng-show="user.onboard === 3">
 	<div class="container">
 		<div class="module two-thirds">
 			<div class="onboard-avatar"><img src="http://rdjpg.com/60/60"></div>
@@ -50,13 +50,13 @@
 			
 		</div>
 		<div class="module third text-right">
-			<a class="button" ng-click="user.onboarding = 4">Next</a>
+			<a class="button" ng-click="user.onboard = 4">Next</a>
 		</div>
 	</div>
 </div>	
 
 
-<div class="onboarding-content onboarding-run-step4" ng-show="user.onboarding === 4">
+<div class="onboard-content onboard-run-step4" ng-show="user.onboard === 4">
 	<div class="container">
 		<div class="module two-thirds">
 			<div class="onboard-avatar"><img src="http://rdjpg.com/60/60"></div>
@@ -72,12 +72,12 @@
 			
 		</div>
 		<div class="module third text-right">
-			<a class="button" ng-click="user.onboarding = 5">Next</a>
+			<a class="button" ng-click="user.onboard = 5">Next</a>
 		</div>
 	</div>
 </div>	
 
-<div class="onboarding-content onboarding-run-step5" ng-show="user.onboarding === 5">
+<div class="onboard-content onboard-run-step5" ng-show="user.onboard === 5">
 	<div class="container">
 		<div class="module third">
 			<h3>Nice job note-taking!</h3>
@@ -127,7 +127,7 @@
 			
 			
 			<li class="text-center">
-				<button class="button" type="submit" ng-click="addSubject(subject); user.onboarding = 2">Start testing!</button>
+				<button class="button" type="submit" ng-click="addSubject(subject); user.onboard = 2">Start testing!</button>
 			</li>
 		
 		</ul>
