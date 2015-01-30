@@ -1,17 +1,13 @@
 <div id="view-findings" 
-	ng-class="{ 'show-comments' : showCommentToggle !== 'hide' }" 
+	ng-class="{ 'show-comments' : showCommentToggle !== 'hide', 'is-onboarding' : user.onboarding != 0 }" 
 	ng-model="report"
 	ng-keyup="doKeyUp($event)">
 	
-<!-- if we're onboarding, add this case to the main div:
- class="is-onboarding"
--->
-	
-	
+
 	
 	<!-- /* onboarding */ -->
 	
-	<div id="onboarding-content" class="onboarding-report-step2">
+	<div class="onboarding-content onboarding-report-step2">
 		<div class="container">
 			<div class="module third">
 				<h3>Here&rsquo;s what others will see.<br>Your hard work looks great!</h3>
@@ -20,7 +16,8 @@
 				<p>You can share your report with anyone. They&rsquo;ll see all the notes you included and any summaries you wrote.</p>
 			</div>
 			<div class="module sixth text-right">
-				<a class="button">Next</a>
+				<a class="button" href="/">Next</a>
+				<!-- we should activate #onboarding-overview-box when we get back to overview -->
 			</div>
 		</div>
 	</div>
