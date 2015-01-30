@@ -14,19 +14,18 @@
         $http
             .get(url)
             .success(function(data){
-                console.log(data);
             });
 
         $scope.resetPass = function(pass){
-            console.log(pass);
-
             var dataOut = {password: pass};
 
             $http
                 .post(url, dataOut)
                 .success(function(data){
                     // do a login here, perhaps
+                    
                     console.log('reset', data);
+
                 });
         };
         

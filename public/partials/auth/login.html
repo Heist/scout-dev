@@ -47,10 +47,14 @@
 			<!-- signup form form -->
 			<div id="form-signup" ng-show="reg_toggle == true">
 			
-				<form ng-model="user">
+				<form ng-model="user" name="regForm">
 					<ul class="nobullets withlabels">
 						<li ng-show="flashmessage" class="messaging messaging-problem">{{flashmessage}}</li>
 						
+						<li ng-show="regForm.confirm.$error.match && !regForm.confirm.$pristine" 
+                            class="messaging messaging-problem">Sorry, those passwords don't match.
+                        </li>
+
 						<li>
 							<input class="input" type="text" name="realname" value="" placeholder="Your name (e.g. &rsquo;Sandra Jones&lsquo;)" ng-model="user.name"/>
 						</li>
@@ -60,11 +64,11 @@
 						</li>
 						
 						<li>
-							<input class="input" type="password" id="field-password" name="" value="" placeholder="Your password"  ng-model="user.password"/>
-						</li>
+							<input class="input" type="password" name="password" id="field-password" value="" placeholder="Your password" ng-model="user.password" required/>
+                        </li>
 						
 						<li>
-							<input class="input" type="password" id="confirm-password" name="" value="" placeholder="Your password"/>
+							<input class="input" type="password" name="confirm" id="confirm-password" value="" placeholder="Please confirm your new password" ng-model="passwordConfirm" ng-match="user.password" required/>
 						</li>
 						
 						<li class="text-center">

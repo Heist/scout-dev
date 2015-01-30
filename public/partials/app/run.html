@@ -1,11 +1,9 @@
-<div id="view-testing">
+<div id="view-testing" ng-class="{ 'is-onboarding': user.onboarding != 0, 'has-input-outline': user.onboarding === 3 || user.onboarding === 4 }">
 	
-<!-- if we're onboard, let's add these to the root div :
- class="is-onboard has-input-outline"
--->
-	
-<!-- onboard during test running -->
-<div id="onboard-content" class="onboard-run-step1">
+
+
+<!-- onboarding during test running -->
+<div class="onboarding-content onboarding-run-step1" ng-show="user.onboarding === 1">
 	<div class="container">
 		<div class="module third">
 			<h3>Looks like we're ready.<br>Let's run a test with Rob.</h3>
@@ -22,7 +20,7 @@
 </div>	
 
 
-<div id="onboard-content" class="onboard-run-step2">
+<div class="onboarding-content onboarding-run-step2" ng-show="user.onboarding === 2">
 	<div class="container">
 		<div class="module third">
 			<h3>You&rsquo;re in the driver's seat.</h3>
@@ -31,13 +29,13 @@
 			On the left are the <strong>tasks</strong> you created when you set up this <strong>project.</strong>
 		</div>
 		<div class="module third text-right">
-			<a class="button">Next</a>
+			<a class="button" ng-click="user.onboarding = 3">Next</a>
 		</div>
 	</div>
 </div>	
 
 
-<div id="onboard-content" class="onboard-run-step3">
+<div class="onboarding-content onboarding-run-step3" ng-show="user.onboarding === 3">
 	<div class="container">
 		<div class="module two-thirds">
 			<div class="onboard-avatar"><img src="http://rdjpg.com/60/60"></div>
@@ -52,13 +50,13 @@
 			
 		</div>
 		<div class="module third text-right">
-			<a class="button">Next</a>
+			<a class="button" ng-click="user.onboarding = 4">Next</a>
 		</div>
 	</div>
 </div>	
 
 
-<div id="onboard-content" class="onboard-run-step4">
+<div class="onboarding-content onboarding-run-step4" ng-show="user.onboarding === 4">
 	<div class="container">
 		<div class="module two-thirds">
 			<div class="onboard-avatar"><img src="http://rdjpg.com/60/60"></div>
@@ -74,13 +72,27 @@
 			
 		</div>
 		<div class="module third text-right">
-			<a class="button">Next</a>
+			<a class="button" ng-click="user.onboarding = 5">Next</a>
+		</div>
+	</div>
+</div>	
+
+<div class="onboarding-content onboarding-run-step5" ng-show="user.onboarding === 5">
+	<div class="container">
+		<div class="module third">
+			<h3>Nice job note-taking!</h3>
+		</div>
+		<div class="module third">
+						
+			Try a few more notes and #themes if you&rsquo;d like. When you&rsquo;re ready, let's look at the <a href="/summary/54be70501398876b7317fa32">report.</a>
+		</div>
+		<div class="module third text-right">
+			<a href="/summary/54be70501398876b7317fa32" class="button">Next</a>
 		</div>
 	</div>
 </div>	
 	
-	
-	
+
 	
 	
 <!-- participant definition modal -->
@@ -101,20 +113,21 @@
 			<li>
 				<label>Participant's name</label>
 				
-				<input class="input" type="text" name="participantname" value="" placeholder="e.g. &lsquo;Jane&rsquo; or &lsquo;Tester 2&rsquo; " ng-model="subject.name" ui-keypress="{13:'addSubject(subject)'}" />
+				<input class="input" type="text" name="participantname" value="" placeholder="e.g. &lsquo;Jane&rsquo; or &lsquo;Tester 2&rsquo; " ng-model="subject.name" />
+				<!-- taking out- ui-keypress="{13:'addSubject(subject)'}" - until we can determine how it'll play nice with a two-field form -->
 				</input>
 			</li>
 			
 			<li ng-show="kind === 'prototype'">
 				<label>Room ID from the Field Guide App &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://docs.google.com/forms/d/1MsYcOPq5X1foSuaHfuuhzOmkhijaNFBjB7XJMs3PSA0/viewform" target="_fdbk">Get the iOS Beta App</a></label>
 				
-				<input class="input" type="text" name="testroom" value="" placeholder="The code on your device, e.g. 71ff3a84" ng-model="subject.testroom" ui-keypress="{13:'addSubject(subject)'}" >
+				<input class="input" type="text" name="testroom" value="" placeholder="The code on your device, e.g. 71ff3a84" ng-model="subject.testroom">
 				</input>
 			</li>
 			
 			
 			<li class="text-center">
-				<button class="button" type="submit" ng-click="addSubject(subject)">Start testing!</button>
+				<button class="button" type="submit" ng-click="addSubject(subject); user.onboarding = 2">Start testing!</button>
 			</li>
 		
 		</ul>

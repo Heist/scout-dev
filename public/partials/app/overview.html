@@ -11,7 +11,10 @@
 				<p>Let&rsquo;s jump right into the thick of it and show you how to run a test.</p>
 			</div>
 			<div class="module third text-right">
-				<a href="#" class="secondary"><small ng-click="user.onboard = 100">I&rsquo;m okay on my own</small></a> &nbsp;&nbsp; <a class="button" ng-click="user.onboard = 2">Start</a>
+
+				<!-- this first link completely exits out of onboarding -->
+				<a href="#" class="secondary"><small ng-click="user.onboarding = 100">I&rsquo;m okay on my own</small></a> &nbsp;&nbsp; 
+				<a class="button" ng-click="user.onboarding = 2">Start</a>
 			</div>
 		</div>
 	</div>
@@ -53,9 +56,9 @@
 		</div>
 	</div>
 	
-	
-	
-	<div id="onboard-overview-box" ng-show="user.onboard === 20">
+
+	<!-- this div shows up at the end of onboarding, when we come back around from the report -->
+	<div id="onboarding-overview-box" ng-show="user.onboarding === 20">
 		<h3>Great job!</h3>
 		<p>Now go ahead and make your own project. If you have any questions, we&rsquo;re ready	to help you out on our Slack channel.</p>
 		<a class="button slack" href="https://fieldguide.typeform.com/to/qrRHYS" target="_">Get on Slack</a>
