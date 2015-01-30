@@ -17,12 +17,12 @@
                 <form ng-model="user" name="pwChecker">
                    
                     <ul class="nobullets withlabels">
-                        <li ng-show="pwChecker.confirm.$error && !pwChecker.confirm.$pristine" class="messaging messaging-problem">{{pwChecker.confirm.$error}} {{pwChecker.confirm.$error.compare-to}} Sorry, those passwords don't match.</li>
+                        <li ng-show="pwChecker.confirm.$error.match" class="messaging messaging-problem">{{pwChecker.confirm.$error}} {{pwChecker.confirm.$error.match}} Sorry, those passwords don't match.</li>
                         <li>
                             <input class="input" type="password" name="password" value="" placeholder="Your new password" ng-model="password" required/>
                         </li>
                         <li>
-                            <input class="input" type="password" name="confirm" value="" placeholder="Please confirm your new password" ng-model="passwordConfirm" compare-to="password" required/>
+                            <input class="input" type="password" name="confirm" value="" placeholder="Please confirm your new password" ng-model="passwordConfirm" ng-match="password" required/>
                         </li>
                         <li class="text-center">
                             <button class="button dark" type="submit" ng-click="">Reset password</button> 
@@ -39,15 +39,6 @@
             
             </div>
             <!-- / login form -->
-            
-                        
-             <div class="msg-block" ng-show="pwChecker.$error">
-    <span class="msg-error" ng-show="pwChecker.pw2.$error.pwmatch">
-        Passwords don't match.
-    </span>
-</div>
-            
-        </div>
         
                 
     

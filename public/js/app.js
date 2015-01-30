@@ -55,29 +55,6 @@
             return deferred.promise;   
         }
         
-        // function checkLoggedin($q, $timeout, $http, $location, $rootScope) {
-        //     var deferred = $q.defer();
-            
-        //     $http.get('/loggedin')
-        //          .success(function(user) {
-        //             // Authenticated
-        //                 if (user !== '0') {
-        //                     $rootScope.user = user;
-        //                     deferred.resolve();
-        //                 } else {
-        //                     console.log('welp, that flunked.');
-        //                     $location.url('/login');
-        //                     deferred.reject();
-        //                 }
-        //             })
-        //          .error(function(err) {
-        //             console.log(err);
-        //             return $location.url('/login');
-        //         });
-        //     return deferred.promise;
-        // }
-    
-
         // $urlRouterProvider.otherwise("/login");
         $urlRouterProvider.otherwise("/404");
         // $urlRouterProvider.otherwise("/overview");
@@ -260,25 +237,59 @@
         };
     });
 
-    field_guide_app.directive('compareTo', [function () {
-        return {
-            require: "ngModel",
-            scope: {
-                otherModelValue: "=compareTo"
-            },
-            link: function(scope, element, attributes, ngModel) {
+    // field_guide_app.directive('compareTo', [function () {
+    //     return {
+    //         require: "ngModel",
+    //         scope: {
+    //             otherModelValue: "=compareTo"
+    //         },
+    //         link: function(scope, element, attributes, ngModel) {
                  
-                ngModel.$validators.compareTo = function(modelValue) {
-                    return modelValue === scope.otherModelValue;
-                };
+    //             ngModel.$validators.compareTo = function(modelValue) {
+    //                 return modelValue === scope.otherModelValue;
+    //             };
      
-                scope.$watch("otherModelValue", function() {
-                    ngModel.$validate();
-                });
-            }
-        };
-    }]);
+    //             scope.$watch("otherModelValue", function() {
+    //                 ngModel.$validate();
+    //             });
+    //         }
+    //     };
+    // }]);
     
+    field_guide_app.directive('ngMatch', ['$parse', function ($parse) {
+        var directive = {
+            link: link,
+            restrict: 'A',
+            require: '?ngModel'
+        };
+
+        return directive;
+         
+        function link(scope, elem, attrs, ctrl) {
+        // if ngModel is not defined, we don't need to do anything
+            if (!ctrl){ return;}
+            if (!attrs.ngMatch){ return; }
+             
+            var firstPassword = $parse(attrs.ngMatch);
+             
+            var validator = function (value) {
+                var temp = firstPassword(scope),
+                v = value === temp;
+                ctrl.$setValidity('match', v);
+                return value;
+            };
+             
+            ctrl.$parsers.unshift(validator);
+            ctrl.$formatters.push(validator);
+            attrs.$observe('ngMatch', function () {
+                validator(ctrl.$viewValue);
+            });
+         
+        }
+    }]);
+
+
+
     // supply the currently logged-in user to all functions
     field_guide_app.factory('UserService', function() {
         return {
