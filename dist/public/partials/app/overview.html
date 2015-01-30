@@ -1,7 +1,8 @@
 <div id="view-overview">
-
-
-	<div id="onboarding-content" class="onboarding-overview-step1">
+	
+	
+	
+	<div class="onboarding-content onboarding-overview-step1" ng-show="user.onboarding === 1">
 		<div class="container">
 			<div class="module third">
 				<h3>Hello there.<br>Welcome to Field Guide.</h3>
@@ -10,14 +11,16 @@
 				<p>Let&rsquo;s jump right into the thick of it and show you how to run a test.</p>
 			</div>
 			<div class="module third text-right">
-				<a href="#" class="secondary"><small>I&rsquo;m okay on my own</small></a> &nbsp;&nbsp; <a class="button">Start</a>
+				<a href="#" class="secondary"><small ng-click="user.onboarding = 100">I&rsquo;m okay on my own</small></a> &nbsp;&nbsp; <a class="button" ng-click="user.onboarding = 2">Start</a>
 			</div>
 		</div>
 	</div>
 	
 	
-	<div id="onboarding-content" class="onboarding-overview-step2">
+	
+	<div class="onboarding-content onboarding-overview-step2" ng-show="user.onboarding === 2">
 		<div class="container">
+			
 			<div class="module third">
 				<h3 class="h3-light">The iOS app lets you:</h3>
 				
@@ -28,14 +31,18 @@
 					<li>Test in-person or remotely with the participant’s own iOS device</li>
 				</ul>
 				
-				[download on App Store]
-				
-				<small>Android and desktop coming soon!</small>
+				<a href="#" target="_" class="appstore-link"><img src="/layout/assets/appstore.svg"></a>
+	
 			</div>
-			<div class="module two-thirds">
-				[big app image]
+			
+			<div class="module two-thirds app-demo">
+				<img src="/layout/assets/app-demo.png" />
 			</div>
+			
 			<div class="clear"></div>
+			
+			<br><br><hr/><br>
+			
 			<div class="module two-thirds">
 				<h3>This might be a good time to download the Field Guide companion app for iOS, if you&rsquo;d like.</h3>
 			</div>
@@ -48,7 +55,7 @@
 	
 	
 	
-	<div id="onboarding-overview-box">
+	<div id="onboarding-overview-box" ng-show="user.onboarding === 20">
 		<h3>Great job!</h3>
 		<p>Now go ahead and make your own project. If you have any questions, we&rsquo;re ready	to help you out on our Slack channel.</p>
 		<a class="button slack" href="https://fieldguide.typeform.com/to/qrRHYS" target="_">Get on Slack</a>

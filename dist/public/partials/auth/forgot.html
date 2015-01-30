@@ -17,7 +17,7 @@
                 <form ng-model="user" name="pwChecker">
                    
                     <ul class="nobullets withlabels">
-                        <li ng-show=ng-show="pwChecker.pw2.$error.pwmatch" class="messaging messaging-problem">{{flashmessage}}</li>
+                        <li ng-show="pwChecker.confirm.$error && !pwChecker.confirm.$pristine" class="messaging messaging-problem">{{pwChecker.confirm.$error}} {{pwChecker.confirm.$error.compare-to}} Sorry, those passwords don't match.</li>
                         <li>
                             <input class="input" type="password" name="password" value="" placeholder="Your new password" ng-model="password" required/>
                         </li>
