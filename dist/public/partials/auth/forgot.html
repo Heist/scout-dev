@@ -17,19 +17,30 @@
                 <form ng-model="user" name="pwChecker">
                    
                     <ul class="nobullets withlabels">
-                        <li>
-                        <input class="input" type="password" name="password" value="" placeholder="Your new password" ng-model="password" required/>
-                        </li>
-                        <li>
+                        <li ng-show="!successMsg">
+                        <input  class="input" type="password" name="password" value="" placeholder="Your new password" ng-model="password" required/>
+                        </li >
+                        <li ng-show="!successMsg">
                             <input class="input" type="password" name="confirm" value="" placeholder="Please confirm your new password" ng-model="passwordConfirm" ng-match="password" required/>
                         </li>
                         <li ng-show="pwChecker.confirm.$error.match && !pwChecker.confirm.$pristine" 
                             class="messaging messaging-problem">Sorry, those passwords don't match.
                         </li>
-                        <li class="text-center">
+                        <li ng-show="!successMsg" class="text-center">
                             <button class="button dark" type="submit" ng-click="newPass(password)">Reset password</button> 
                             <!--<small><a ng-click="register(user)">Register?</a></small>-->
                         </li>
+                        
+                        <li ng-if="successMsg">
+                            {{successMsg}}
+                        </li>
+
+                        <li ng-if="successMsg" class="text-center">
+                            <button class="button dark" type="submit" ng-click="goToLogin()">Log in</button> 
+                            <!--<small><a ng-click="register(user)">Register?</a></small>-->
+                        </li>
+
+                        
                         
                     </ul>
                 </form>

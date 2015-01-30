@@ -24,10 +24,15 @@
                 .post(url, dataOut)
                 .success(function(data){
                     // do a login here, perhaps
-                    
                     console.log('reset', data);
-
+                    if(data.length > 0){
+                        $scope.successMsg = data;
+                    }
                 });
+        };
+
+        $scope.goToLogin = function(){
+            $location.path('/login');
         };
         
     }]);

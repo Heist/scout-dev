@@ -502,10 +502,15 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 .post(url, dataOut)
                 .success(function(data){
                     // do a login here, perhaps
-                    
                     void 0;
-
+                    if(data.length > 0){
+                        $scope.successMsg = data;
+                    }
                 });
+        };
+
+        $scope.goToLogin = function(){
+            $location.path('/login');
         };
         
     }]);

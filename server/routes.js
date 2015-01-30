@@ -243,7 +243,7 @@ module.exports = function(app, passport) {
                         'This is a confirmation that the password for your account ' + user.local.email + ' has just been changed.\n'
                     };
                     smtpTransport.sendMail(mailOptions, function(err) {
-                        done(err, '1');
+                        done(err, 'The password for your account '+ user.local.email +' has been changed.');
                     });
                 } else {
                     done (null, null);
@@ -252,7 +252,7 @@ module.exports = function(app, passport) {
         ], function(err, results) {
             if(err){console.log(err);}
             console.log(results);
-            res.json(results);
+            res.send(results);
         });
     });
 
