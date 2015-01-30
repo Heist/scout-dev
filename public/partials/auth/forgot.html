@@ -2,49 +2,54 @@
 
     <div class="container">
     
-  		<div class="module third">&nbsp;</div>
-  		
-  		
-  		<div class="module third">
-  			
-  			<p id="logo" class="text-center">
-  				<img src="/layout/assets/fg-binocs-header.png" />
-  			</p>
-  			
-  			<!-- login form -->
-  			<div id="form-login">
-  			
-  				<form ng-model="user">
-  					<ul class="nobullets withlabels">
-  						<li ng-show="flashmessage" class="messaging messaging-problem">{{flashmessage}}</li>
-  						<li>
-  							<input class="input" type="password" name="password" value="" placeholder="Your new password" ng-model="password"/>
-  						</li>
-  		                <li>
-                            <input class="input" pw-check="password" name="confirm" value="" placeholder="Please confirm your new password" ng-model="passwordConfirm"/>
+        <div class="module third">&nbsp;</div>
+        
+        
+        <div class="module third">
+            
+            <p id="logo" class="text-center">
+                <img src="/layout/assets/fg-binocs-header.png" />
+            </p>
+            
+            <!-- login form -->
+            <div id="form-login">
+            
+                <form ng-model="user" name="pwChecker">
+                   
+                    <ul class="nobullets withlabels">
+                        <li ng-show="pwChecker.confirm.$error && !pwChecker.confirm.$pristine" class="messaging messaging-problem">{{pwChecker.confirm.$error}} Sorry, those passwords don't match.</li>
+                        <li>
+                            <input class="input" type="password" name="password" value="" placeholder="Your new password" ng-model="password" required/>
                         </li>
-  						<li class="text-center">
-  							<button class="button dark" type="submit" ng-click="">Reset password</button> 
-  							<!--<small><a ng-click="register(user)">Register?</a></small>-->
-  						</li>
-  						
-  					</ul>
-  				</form>
-  				
-  				<p class="text-center">
-  					<small>Don&rsquo;t have an account yet? <a ng-click="showReg()">Register right now</a>.</small>
-  					
-  				</p>
-  			
-  			</div>
-  			<!-- / login form -->
-  			
-  			  			
-  			
-  			
-  		</div>
-  		
-  		        
+                        <li>
+                            <input class="input" type="password" name="confirm" value="" placeholder="Please confirm your new password" ng-model="passwordConfirm" compare-to="password" required/>
+                        </li>
+                        <li class="text-center">
+                            <button class="button dark" type="submit" ng-click="">Reset password</button> 
+                            <!--<small><a ng-click="register(user)">Register?</a></small>-->
+                        </li>
+                        
+                    </ul>
+                </form>
+                
+                <p class="text-center">
+                    <small>Don&rsquo;t have an account yet? <a ng-click="showReg()">Register right now</a>.</small>
+                    
+                </p>
+            
+            </div>
+            <!-- / login form -->
+            
+                        
+             <div class="msg-block" ng-show="pwChecker.$error">
+    <span class="msg-error" ng-show="pwChecker.pw2.$error.pwmatch">
+        Passwords don't match.
+    </span>
+</div>
+            
+        </div>
+        
+                
     
     </div>
 </div>

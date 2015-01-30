@@ -52,10 +52,10 @@ var Subject = require('../models/data/subject');
     
                                 doc.save(function(err, saved){
                                     if(err){throw err;}
-                                    callback(null, {subject: args, test: saved});
+                                    callback(null, {subject: subject, test: saved});
                                 });
                             } else {
-                                callback(null, args);
+                                callback(null, subject);
                             }
                         });
                     // callback(null, {subject: args});

@@ -258,23 +258,26 @@
                 };
             },  
         };
-    })
+    });
 
-    field_guide_app.directive('pwCheck', [function () {
+    field_guide_app.directive('compareTo', [function () {
         return {
-            require: 'ngModel',
-            link: function (scope, elem, attrs, ctrl) {
-                var firstPassword = '#' + attrs.pwCheck;
-                elem.add(firstPassword).on('keyup', function () {
-                    scope.$apply(function () {
-                        var v = elem.val()===$(firstPassword).val();
-                        ctrl.$setValidity('pwmatch', v);
-                    });
+            require: "ngModel",
+            scope: {
+                otherModelValue: "=compareTo"
+            },
+            link: function(scope, element, attributes, ngModel) {
+                 
+                ngModel.$validators.compareTo = function(modelValue) {
+                    return modelValue === scope.otherModelValue;
+                };
+     
+                scope.$watch("otherModelValue", function() {
+                    ngModel.$validate();
                 });
             }
         };
     }]);
-
     
     // supply the currently logged-in user to all functions
     field_guide_app.factory('UserService', function() {
