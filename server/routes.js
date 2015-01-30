@@ -6,6 +6,7 @@ module.exports = function(app, passport) {
     var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
     var async = require('async');
     var crypto = require('crypto');
+    var bcrypt = require('bcrypt-nodejs');
     var _ = require('lodash');
     var nodemailer = require('nodemailer');
 
@@ -214,7 +215,10 @@ module.exports = function(app, passport) {
                         done(null, null);
                     }
 
-                    user.password = req.body.password;
+                    // TODO: Abstract this shit onto the user model
+                    function generateHash(password) { return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null); }
+                    
+                    user.local.password = user.generateHash(req.body.password);
                     user.resetPasswordToken = undefined;
                     user.resetPasswordExpires = undefined;
 
