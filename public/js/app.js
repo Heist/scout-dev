@@ -34,8 +34,8 @@
                 .get('/loggedin')
                 .success(function(user){
                     // Authenticated
-                    console.log('user', user);
                     if (user !== '0') {
+                        console.log('user', user);
                         $rootScope.user = user;
                         deferred.resolve();
                     }
@@ -55,8 +55,8 @@
             return deferred.promise;   
         }
         
-        // $urlRouterProvider.otherwise("/login");
-        $urlRouterProvider.otherwise("/404");
+        $urlRouterProvider.otherwise("/login");
+        // $urlRouterProvider.otherwise("/404");
         // $urlRouterProvider.otherwise("/overview");
 
 

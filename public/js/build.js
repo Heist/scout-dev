@@ -49,8 +49,8 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 .get('/loggedin')
                 .success(function(user){
                     // Authenticated
-                    console.log('user', user);
                     if (user !== '0') {
+                        console.log('user', user);
                         $rootScope.user = user;
                         deferred.resolve();
                     }
@@ -70,8 +70,8 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             return deferred.promise;   
         }
         
-        // $urlRouterProvider.otherwise("/login");
-        $urlRouterProvider.otherwise("/404");
+        $urlRouterProvider.otherwise("/login");
+        // $urlRouterProvider.otherwise("/404");
         // $urlRouterProvider.otherwise("/overview");
 
 
@@ -553,12 +553,13 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             var url = '/auth/login';
             var dataOut =  {email: user.email, password: user.password};
 
+
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    // console.log('login controller success', data.error);
+                    console.log('login controller success', data);
                     $scope.flashmessage = data.error;
-                    $location.path(data.redirect);
+                    $location.path('/');
                 })
                 .error(function(error){
                     // console.log('login no bueno.', error);

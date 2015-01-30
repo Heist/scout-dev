@@ -36,12 +36,13 @@
             var url = '/auth/login';
             var dataOut =  {email: user.email, password: user.password};
 
+
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    // console.log('login controller success', data.error);
+                    console.log('login controller success', data);
                     $scope.flashmessage = data.error;
-                    $location.path(data.redirect);
+                    $location.path('/');
                 })
                 .error(function(error){
                     // console.log('login no bueno.', error);
