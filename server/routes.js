@@ -57,7 +57,7 @@ module.exports = function(app, passport) {
                     res.json({ 
                         _id : req.user._id, 
                         name: req.user.name, 
-                        onboarding : req.user.onboarding,
+                        onboard : req.user.onboard,
                         email: req.user.local.email, 
                         account:req.user._account, 
                         trello : req.user.trello.id 
@@ -195,14 +195,69 @@ module.exports = function(app, passport) {
 
     // password reset route
     app.get('/reset/:token', function(req, res) {
+        console.log('check reset');
         User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
             if (!user) {
+                console.log('Password reset token is invalid or has expired.');
                 res.send('Password reset token is invalid or has expired.');
             }
             console.log('user found');
             res.json({reset: req.user});
         });
     });
+
+
+    app.post('/reset/:token', function(req, res) {
+        console.log('password reset queued');
+        async.waterfall([
+            function(done) {
+                User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+                    if (!user) {
+                        done(null, null);
+                    }
+
+                    user.password = req.body.password;
+                    user.resetPasswordToken = undefined;
+                    user.resetPasswordExpires = undefined;
+
+                    user.save(function(err) {
+                        done(err, user);
+                    });
+                });
+            },
+            function(user, done) {
+                if(user !== null){
+                    var smtpTransport = nodemailer.createTransport({
+                            service: 'Mandrill',
+                            auth: {
+                                user: 'mandrill@fieldguideapp.com',
+                                pass: 'jvVhe4uJxHB7MFfHabelbg'
+                            },
+                            host: "smtp.mandrillapp.com",
+                            port: 587
+                        });
+    
+                    var mailOptions = {
+                        to: user.local.email,
+                        from: 'password_reset@fieldguideapp.com',
+                        subject: 'Your Field Guide password has been changed',
+                        text: 'Hello,\n\n' +
+                        'This is a confirmation that the password for your account ' + user.local.email + ' has just been changed.\n'
+                    };
+                    smtpTransport.sendMail(mailOptions, function(err) {
+                        done(err, 'Message sent to '+user.local.email+'.');
+                    });
+                } else {
+                    done (null, null);
+                }
+            }
+        ], function(err, results) {
+            if(err){console.log(err);}
+            console.log(results);
+            res.json(results);
+        });
+    });
+
 
 // PUBLIC ROUTES ==========================================
 app.route('/auth/invite/:_id')

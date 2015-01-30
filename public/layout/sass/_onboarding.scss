@@ -1,6 +1,6 @@
-/* gimme some sweet, sweet onboarding */
+/* gimme some sweet, sweet onboard */
 
-.onboarding-content {
+.onboard-content {
 	width: 100%;
 	height: 15%;
 	color: $white;
@@ -32,7 +32,7 @@
 		opacity: 0.6;
 	}
 	
-	.onboarding-avatar {
+	.onboard-avatar {
 		float: left;
 		display: block;
 		padding: 0;
@@ -45,12 +45,12 @@
 		}
 	}
 	
-	.onboarding-bubble {
+	.onboard-bubble {
 		font-size: $type-size-base*0.8;
 		float: left;
 		margin: 0 0 1px 0;
 		
-		.onboarding-bubble-msg {
+		.onboard-bubble-msg {
 			font-size: $type-size-base*0.9;
 			background: $white;
 			color: $fg-slate;
@@ -76,15 +76,15 @@
 }
 
 
-/* onboarding - steps */
+/* onboard - steps */
 
 /* overview */
 
-.onboarding-overview-step1 {
+.onboard-overview-step1 {
 	
 }
 
-.onboarding-overview-step2 {
+.onboard-overview-step2 {
 	height: 100% !important;
 	top: 0;
 	padding-top: $pad*5;
@@ -114,33 +114,33 @@
 
 /* run test */
 
-.onboarding-run-step1 {
+.onboard-run-step1 {
 	
 }
 
-.onboarding-run-step2 {
+.onboard-run-step2 {
 	
 }
 
-.onboarding-run-step3 {
+.onboard-run-step3 {
 
 	.two-thirds {
 		margin-top: -$pad/2;
 	}
 	
-	.onboarding-avatar {
+	.onboard-avatar {
 		margin-top: 21px !important;
 	}
 
 }
 
-.onboarding-run-step4 {
+.onboard-run-step4 {
 
 	.two-thirds {
 		margin-top: -$pad/2;
 	}
 	
-	.onboarding-avatar {
+	.onboard-avatar {
 		margin-top: 21px !important;
 	}
 	
@@ -152,16 +152,16 @@
 
 /* report */
 
-.onboarding-report-step1 {
+.onboard-report-step1 {
 	
 }
 
-.onboarding-report-step2 {
+.onboard-report-step2 {
 	
 }
 
 
-#onboarding-overview-box {
+#onboard-overview-box {
 
 	font-size: $type-size-base*0.9;
 	line-height: $type-line-base*0.9;

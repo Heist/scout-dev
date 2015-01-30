@@ -19,7 +19,7 @@ var userSchema = new Schema({
     
     login: {type:Number, default:1}, 
     name: {type:String, trim:true},
-    onboarding : {type: Number, default: 1},
+    onboard : {type: Number, default: 1},
     
     resetPasswordToken: String,
     resetPasswordExpires: Date,

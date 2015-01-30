@@ -237,25 +237,6 @@
         };
     });
 
-    // field_guide_app.directive('compareTo', [function () {
-    //     return {
-    //         require: "ngModel",
-    //         scope: {
-    //             otherModelValue: "=compareTo"
-    //         },
-    //         link: function(scope, element, attributes, ngModel) {
-                 
-    //             ngModel.$validators.compareTo = function(modelValue) {
-    //                 return modelValue === scope.otherModelValue;
-    //             };
-     
-    //             scope.$watch("otherModelValue", function() {
-    //                 ngModel.$validate();
-    //             });
-    //         }
-    //     };
-    // }]);
-    
     field_guide_app.directive('ngMatch', ['$parse', function ($parse) {
         var directive = {
             link: link,
@@ -287,8 +268,6 @@
          
         }
     }]);
-
-
 
     // supply the currently logged-in user to all functions
     field_guide_app.factory('UserService', function() {

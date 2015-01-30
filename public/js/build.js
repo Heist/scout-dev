@@ -252,25 +252,6 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         };
     });
 
-    // field_guide_app.directive('compareTo', [function () {
-    //     return {
-    //         require: "ngModel",
-    //         scope: {
-    //             otherModelValue: "=compareTo"
-    //         },
-    //         link: function(scope, element, attributes, ngModel) {
-                 
-    //             ngModel.$validators.compareTo = function(modelValue) {
-    //                 return modelValue === scope.otherModelValue;
-    //             };
-     
-    //             scope.$watch("otherModelValue", function() {
-    //                 ngModel.$validate();
-    //             });
-    //         }
-    //     };
-    // }]);
-    
     field_guide_app.directive('ngMatch', ['$parse', function ($parse) {
         var directive = {
             link: link,
@@ -302,8 +283,6 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
          
         }
     }]);
-
-
 
     // supply the currently logged-in user to all functions
     field_guide_app.factory('UserService', function() {
@@ -501,53 +480,27 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                     function($scope, $http, $location, $stateParams, $rootScope){
         console.log('password reset controller');    
 
-        // $scope.compareTo = function(){
-            
-        // }
+        var url = '/reset'+$stateParams.token;
 
-        //     return {
-        //         require: "ngModel",
-        //         scope: {
-        //             otherModelValue: "=compareTo"
-        //         },
-        //         link: function(scope, element, attributes, ngModel) {
-                     
-        //             ngModel.$validators.compareTo = function(modelValue) {
-        //                 return modelValue === scope.otherModelValue;
-        //             };
-         
-        //             scope.$watch("otherModelValue", function() {
-        //                 ngModel.$validate();
-        //             });
-        //         }
-        //     };
-        // }
-
-
-        var url = '/reset/'+$stateParams.token;
+        console.log(url);
         $http
             .get(url)
             .success(function(data){
                 console.log(data);
             });
 
-        // model.message = "";
+        $scope.resetPass = function(pass){
+            console.log(pass);
 
-        // model.user = {
-        //   username: "",
-        //   password: "",
-        //   confirmPassword: ""
-        // };
+            var dataOut = {password: pass};
 
-        // model.submit = function(isValid) {
-        //   console.log("h");
-        //   if (isValid) {
-        //     model.message = "Submitted " + model.user.username;
-        //   } else {
-        //     model.message = "There are still invalid fields below";
-        //   }
-        // };
-
+            $http
+                .post(url, dataOut)
+                .success(function(data){
+                    // do a login here, perhaps
+                    console.log('reset', data);
+                });
+        };
         
     }]);
 })();
