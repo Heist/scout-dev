@@ -92,6 +92,12 @@
                 templateUrl: 'partials/auth/register.html'
             })
 
+            .state('reset', {
+                url: '/reset',
+                controller : 'reset',
+                templateUrl: 'partials/auth/reset.html'
+            })
+
             .state('forgot', {
                 url: '/forgot{token:(?:/[^/]+)?}',
                 controller : 'forgot',

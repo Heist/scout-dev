@@ -107,6 +107,12 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 templateUrl: 'partials/auth/register.html'
             })
 
+            .state('reset', {
+                url: '/reset',
+                controller : 'reset',
+                templateUrl: 'partials/auth/reset.html'
+            })
+
             .state('forgot', {
                 url: '/forgot{token:(?:/[^/]+)?}',
                 controller : 'forgot',
@@ -489,16 +495,16 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 console.log(data);
             });
 
-        $scope.resetPass = function(pass){
-            console.log(pass);
-
+        $scope.newPass = function(pass){
             var dataOut = {password: pass};
 
             $http
                 .post(url, dataOut)
                 .success(function(data){
                     // do a login here, perhaps
+                    
                     console.log('reset', data);
+
                 });
         };
         
@@ -560,23 +566,13 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
         };
 
+        $scope.goToReset = function(){
+            $location.path('/reset');
+        };
+
         $scope.showLogin = function(){
             // console.log('touched login', $scope.reg_toggle);
             $scope.reg_toggle = false;
-        };
-
-        $scope.resetPass = function(user){
-            var url = '/auth/forgot';
-
-            var dataOut = {email: user.email};
-            console.log('touched reset', dataOut, user);
-
-            $http
-                .post(url, dataOut)
-                .success(function(data){
-                    console.log('success', data);
-                })
-                .error();
         };
 
         $scope.register = function(user){
@@ -1187,6 +1183,32 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
     };
 }]);
 
+})();
+// forgot.js
+(function() {
+    'use strict';
+
+    // PASSWORD RESET CONTROLLER ===========================================================
+    angular.module('field_guide_controls')
+       .controller('reset', ['$scope','$http', '$location', '$stateParams','$rootScope', 
+                    function($scope, $http, $location, $stateParams, $rootScope){
+        
+        console.log('password reset controller');    
+
+        $scope.sendToken = function(email){
+            var url = '/auth/forgot';
+            var dataOut = {email: email};
+
+            $http
+                .post(url, dataOut)
+                .success(function(data){
+                    console.log('success', data);
+                    $scope.successMsg = data;
+                })
+                .error();
+        };
+        
+    }]);
 })();
 // run.js
 (function() {

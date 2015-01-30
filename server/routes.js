@@ -198,11 +198,9 @@ module.exports = function(app, passport) {
         console.log('check reset');
         User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
             if (!user) {
-                console.log('Password reset token is invalid or has expired.');
-                res.send('Password reset token is invalid or has expired.');
+                res.send('0');
             }
-            console.log('user found');
-            res.send('Password reset token found.');
+            res.send('1');
         });
     });
 
@@ -245,7 +243,7 @@ module.exports = function(app, passport) {
                         'This is a confirmation that the password for your account ' + user.local.email + ' has just been changed.\n'
                     };
                     smtpTransport.sendMail(mailOptions, function(err) {
-                        done(err, 'Message sent to '+user.local.email+'.');
+                        done(err, '1');
                     });
                 } else {
                     done (null, null);
@@ -264,12 +262,12 @@ app.route('/auth/invite/:_id')
         .get(function(req,res){
             // get an existing invitation to populate the registration page
             Invitation.findById(req.params._id)
-                      .select('user_email')
-                      .exec(function(err,invite){
-                            if(err) { return console.log(err); }
-                            
-                            res.json(invite);
-                        });
+                .select('user_email')
+                .exec(function(err,invite){
+                    if(err) { return console.log(err); }
+                    
+                    res.json(invite);
+                });
         })
 
 // Debug Routes -------------------

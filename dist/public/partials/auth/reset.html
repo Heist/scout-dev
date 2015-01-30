@@ -14,20 +14,26 @@
             <!-- login form -->
             <div id="form-login">
             
-                <form ng-model="user" name="pwChecker">
+                <form ng-model="user" name="resetForm">
                    
                     <ul class="nobullets withlabels">
                         <li>
-                        <input class="input" type="password" name="password" value="" placeholder="Your new password" ng-model="password" required/>
+                        <li ng-if="successMsg">
+                            {{successMsg}}
                         </li>
-                        <li>
-                            <input class="input" type="password" name="confirm" value="" placeholder="Please confirm your new password" ng-model="passwordConfirm" ng-match="password" required/>
+                        <li ng-if="resetForm.email.$error.required && !resetForm.email.$pristine" 
+                            class="messaging messaging-problem">We do need your e-mail to reset your password.
                         </li>
-                        <li ng-show="pwChecker.confirm.$error.match && !pwChecker.confirm.$pristine" 
-                            class="messaging messaging-problem">Sorry, those passwords don't match.
+
+                        <li ng-if="resetForm.email.$error.required && !resetForm.email.$pristine" 
+                            class="messaging messaging-problem">Sorry, your e-mail isn't in our system.
                         </li>
-                        <li class="text-center">
-                            <button class="button dark" type="submit" ng-click="newPass(password)">Reset password</button> 
+
+                        <input class="input" type="text" name="email" value="" placeholder="Your e-mail address" ng-model="email" required ng-hide="successMsg"/>
+                        </li>
+                        
+                        <li class="text-center" ng-hide="successMsg">
+                            <button class="button dark" type="submit" ng-click="sendToken(email)">Reset password</button> 
                             <!--<small><a ng-click="register(user)">Register?</a></small>-->
                         </li>
                         

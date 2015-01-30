@@ -14,9 +14,10 @@
         $http
             .get(url)
             .success(function(data){
+                console.log(data);
             });
 
-        $scope.resetPass = function(pass){
+        $scope.newPass = function(pass){
             var dataOut = {password: pass};
 
             $http
