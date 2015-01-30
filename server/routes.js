@@ -202,7 +202,7 @@ module.exports = function(app, passport) {
                 res.send('Password reset token is invalid or has expired.');
             }
             console.log('user found');
-            res.json({reset: req.user});
+            res.send('Password reset token found.');
         });
     });
 
