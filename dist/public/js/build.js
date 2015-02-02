@@ -151,6 +151,12 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 templateUrl: 'partials/app/overview.html',
                 resolve: { loggedin: checkLoggedin }
             })
+            .state('overview', {
+                url: '/overview',
+                controller: 'overview',
+                templateUrl: 'partials/app/overview.html',
+                resolve: { loggedin: checkLoggedin }
+            })
             .state('test', {
                 url: '/edit/test/:test_id',
                 controller:'test',
