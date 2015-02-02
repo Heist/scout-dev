@@ -328,12 +328,12 @@
 
                 scope.$watch(iAttrs.ngCheckStrength, function () {
                     console.log('watching');
-                    if (!scope.password) {
+                    if (!scope.user.password) {
                         console.log('no pass');
                         iElement.css({ "display": "none"  });
                     } else {
-                        console.log(scope.password.length);
-                        var c = strength.getColor(strength.measureStrength(scope.password));
+                        console.log(scope.user.password.length);
+                        var c = strength.getColor(strength.measureStrength(scope.user.password));
                         iElement.css({ "display": "inline" });
                         iElement.children('li')
                             .css({ "background": "#DDD" })

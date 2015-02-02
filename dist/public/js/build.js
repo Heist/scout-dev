@@ -343,12 +343,12 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
                 scope.$watch(iAttrs.ngCheckStrength, function () {
                     void 0;
-                    if (!scope.password) {
+                    if (!scope.user.password) {
                         void 0;
                         iElement.css({ "display": "none"  });
                     } else {
                         void 0;
-                        var c = strength.getColor(strength.measureStrength(scope.password));
+                        var c = strength.getColor(strength.measureStrength(scope.user.password));
                         iElement.css({ "display": "inline" });
                         iElement.children('li')
                             .css({ "background": "#DDD" })
@@ -667,11 +667,11 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 invite = $stateParams.acct.replace( /\//gi,"");
                 // console.log('touched account', acct);
                 url = '/auth/signup/';
-                dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
+                dataOut = {email: user.email, name:user.name, password: $scope.password, invite: invite};
             } else if (!$stateParams.acct) {
                 // console.log('this signup does not include an account (stateparams.acct)');
                 url = '/auth/signup/';
-                dataOut = {email: user.email, name:user.name, password: user.password};
+                dataOut = {email: user.email, name:user.name, password: $scope.password};
             }
             
             $http
