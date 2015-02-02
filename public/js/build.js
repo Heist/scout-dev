@@ -32,7 +32,6 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         return Math.round((new Date().valueOf() * Math.random()));
     }
 
-
     // FRONT-END ROUTE CONFIGURATION ==============================================
     field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
 
@@ -1288,6 +1287,10 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                     $scope.successMsg = data;
                 })
                 .error();
+        };
+        
+        $scope.goToLogin = function(){
+            $location.path('/login');
         };
         
     }]);

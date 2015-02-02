@@ -17,7 +17,6 @@
         return Math.round((new Date().valueOf() * Math.random()));
     }
 
-
     // FRONT-END ROUTE CONFIGURATION ==============================================
     field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
 
