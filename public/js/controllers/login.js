@@ -36,7 +36,6 @@
             var url = '/auth/login';
             var dataOut =  {email: user.email, password: user.password};
 
-
             $http
                 .post(url, dataOut)
                 .success(function(data){

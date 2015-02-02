@@ -73,6 +73,7 @@ app.route('/api/message/')
                 // reminder: the tags are not attached to the message. The message is attached to tags.
                 console.log('waterfall 3', args);
                 if(req.body.tags){ 
+                    
                     async.map(req.body.tags, 
                         function(tag, callback){
                             Tag.findOneAndUpdate(

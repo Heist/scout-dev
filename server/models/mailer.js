@@ -6,8 +6,6 @@ var nodemailer = require('nodemailer'),
     fs = require('fs'),
     _ = require('lodash');
     
-
-
 var Emailer = (function() {
     function mail(envelope_options, message_variables) {
         this.envelope_options = envelope_options;
