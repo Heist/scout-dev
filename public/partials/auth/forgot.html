@@ -18,10 +18,11 @@
                    
                     <ul class="nobullets withlabels">
                         <li ng-show="!successMsg">
-                        <input  class="input" type="password" name="password" value="" placeholder="Your new password" ng-model="password" required/>
+                        <input  class="input" type="password" name="password" value="" placeholder="Your new password" ng-model="user.password" required/>
+                        <ul class="pwStrong" ng-check-strength="user.password"></ul>
                         </li >
                         <li ng-show="!successMsg">
-                            <input class="input" type="password" name="confirm" value="" placeholder="Please confirm your new password" ng-model="passwordConfirm" ng-match="password" required/>
+                            <input class="input" type="password" name="confirm" value="" placeholder="Please confirm your new password" ng-model="passwordConfirm" ng-match="user.password" required/>
                         </li>
                         <li ng-show="pwChecker.confirm.$error.match && !pwChecker.confirm.$pristine" 
                             class="messaging messaging-problem">Sorry, those passwords don't match.
