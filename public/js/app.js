@@ -74,13 +74,7 @@
             })
 
             // LOGIN AND REGISTRATION PAGES ===================
-            //  .state('default', {
-            //     url:'/login',
-            //     controller: 'login',
-            //     templateUrl: 'partials/auth/login.html',
-            //     resolve: { loggedin: checkLoggedin }
-            // })
-
+            
             .state('login', {
                 url: '/login{acct:(?:/[^/]+)?}',
                 controller:'login',

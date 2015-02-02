@@ -89,13 +89,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             })
 
             // LOGIN AND REGISTRATION PAGES ===================
-            //  .state('default', {
-            //     url:'/login',
-            //     controller: 'login',
-            //     templateUrl: 'partials/auth/login.html',
-            //     resolve: { loggedin: checkLoggedin }
-            // })
-
+            
             .state('login', {
                 url: '/login{acct:(?:/[^/]+)?}',
                 controller:'login',
@@ -1993,25 +1987,18 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
         // ACTIONS ============================================
         // an effort to manipulate order.... 
-        $scope.moveTask = function(old_index, new_index){
-            console.log(old_index, new_index);
-            new_index = old_index + new_index;
+        $scope.moveTask = function(old_index, up_down){
+            console.log(old_index, up_down);
+            var new_index = old_index + up_down;
 
-            while (old_index < 0) {
-                old_index += this.length;
-            }
-            while (new_index < 0) {
-                new_index += this.length;
-            }
-            if (new_index >= this.length) {
-                var k = new_index - this.length;
-                while ((k--) + 1) {
-                    this.push(undefined);
-                }
-            }
+            console.log(new_index);
             
             $scope.tasks.splice(new_index, 0, $scope.tasks.splice(old_index, 1)[0]);
 
+            var task_order = _.pluck($scope.tasks, 'name');
+            var task_idx = _.pluck($scope.tasks, 'task_index');
+            
+            console.log(task_order, task_idx);
             // set the stored index of the task properly
             // console.log('did things stay moved', $scope.tasks); // for testing purposes
             

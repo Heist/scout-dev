@@ -145,7 +145,7 @@
 							<li ng-hide="test._tasks.length > 0" class="steps-empty-message">You need to add some tasks to your project before you can test!</li>
 							
 						
-							<li ng-repeat="task in tasks | orderBy: 'task.index'" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
+							<li ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
 								
 								<div class="step-ordering">
 									<div ng-click="moveTask($index, -1)" class="elevator elevator-up">&#9650;</div>
