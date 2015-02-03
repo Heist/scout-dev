@@ -1,5 +1,5 @@
 // routes.js
-module.exports = function(app, passport) {
+module.exports = function(app, passport, debug) {
 // CONFIGURATION =====================================================
 
 // Module dependencies
@@ -493,38 +493,38 @@ app.route('/auth/invite/:_id')
     });
 
 // ACCOUNT ROUTES =========================================
-    require('./routes/account')(app);
+    require('./routes/account')(app, debug);
 
 // OBJECT ROUTES ==========================================
 
 // Session Routes
-    require('./routes/session')(app);
+    require('./routes/session')(app, debug);
 
 // Test Routes
-    require('./routes/test')(app);
+    require('./routes/test')(app, debug);
 
 // Task Routes 
-    require('./routes/task')(app);
+    require('./routes/task')(app, debug);
 
 // Task Routes 
-    require('./routes/message')(app);
+    require('./routes/message')(app, debug);
 
 // Tag Routes
-    require('./routes/tag')(app);
+    require('./routes/tag')(app, debug);
 
 // Subject Routes
-    require('./routes/subject')(app);
+    require('./routes/subject')(app, debug);
 
 
 // LIVE ROUTES ============================================
 
 // Run A Test
-    require('./routes/run')(app);
+    require('./routes/run')(app, debug);
 
 // Do A Summary
-    require('./routes/summary')(app);
+    require('./routes/summary')(app, debug);
 
 // Reporting and Comments 
-    require('./routes/reportPrivate')(app);
+    require('./routes/reportPrivate')(app, debug);
 
 };

@@ -6,6 +6,7 @@ var app = express();
 var http = require('http');
 var path = require('path');
 var _ = require('lodash');
+var debug = require('debug')('http');
 
 // Turn the app on and hook sockets 0.9 to it.
 var server = http.createServer(app);
@@ -66,7 +67,7 @@ app.use(passport.session()); // persistent login sessions
 
 
 // server /api/ routes ==============================================
-var router = require('./server/routes')(app, passport);
+var router = require('./server/routes')(app, passport, debug);
 
 // DEFAULT ROUTE ====================================================
 // Prevents the ENOENT rendering error
@@ -80,7 +81,7 @@ app.get('*', function(req, res) {
 // has its own auth functions
 var io = require('socket.io').listen(server, {log : false});
 // socket 0.9 in use to speak to Field Guide App
-require('./server/socket_routes_09')(io, app, passport);
+require('./server/socket_routes_09')(io, app, passport, debug);
 
 // Turn it on. 
 server.listen(8080, function(){ console.log('listening on 8080');});

@@ -1,7 +1,7 @@
 // summary.js
 'use strict';
 
-module.exports = function (app, passport) {
+module.exports = function (app, passport, debug) {
 
     // Module dependencies
     var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.

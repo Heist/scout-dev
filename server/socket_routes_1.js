@@ -1,7 +1,7 @@
 // socket_routes_1.js
 'use strict';
 
-module.exports = function(io, app, passport) {
+module.exports = function(io, app, passport, debug) {
 
     // SOCKET ROUTES - 1.0 Client ==============================================
     // var socket = io('/?test='+$stateParams._id);

@@ -1,6 +1,6 @@
 // account_export.js
 'use strict';
-module.exports = function(app){
+module.exports = function(app, debug){
 
     //Module dependencies
     var mongoose = require('mongoose');  // SOMETIMES WE NEED OBJECTIDS
