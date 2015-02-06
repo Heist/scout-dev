@@ -88,6 +88,22 @@
                 });
         };
 
+        // ONBOARDING ROUTES ==================================
+        // user.onboard = 100 ---> hide onboarding
+
+        $scope.hideOnboard = function(user){
+            console.log(user);
+            // turn off the main user's onboarding and save
+            var url = '/user/'+user._id;
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        }
+
+
         // TEST ROUTES ========================================
         $scope.devTest = function(){
             console.log('get me some tests');
