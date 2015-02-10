@@ -59,7 +59,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
                 .put(url, dataOut)
                 .success(function(data){
                     console.log(data);
-                    $location.$path('/');
+                    $location.path('/');
                 });
         };
         

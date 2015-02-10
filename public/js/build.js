@@ -736,14 +736,16 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 console.log('tests', data);
                 // initially selected 
                 // $scope.selected = data[0];
-                if($rootScope.user.onboard === 2 || $rootScope.user.onboard === 3 || $rootScope.user.onboard === 4){
+                if($rootScope.user.onboard === 2){
+
+                }
+                if($rootScope.user.onboard === 3 || $rootScope.user.onboard === 4 || $rootScope.user.onboard === 5 ){
                     $location.path('/run/'+$scope.tests[0]._id);
                 }
-                if($rootScope.user.onboard === 5 && $scope.tests.length > 0){
-                    console.log('onboard 5');
+                if($rootScope.user.onboard === 6 && $scope.tests.length > 0){
                     $location.path('/summary/'+$scope.tests[0]._id);
                 }
-                if($rootScope.user.onboard === 6 && $scope.tests.length > 0){
+                if($rootScope.user.onboard === 7 && $scope.tests.length > 0){
                     $location.path('/report/'+$scope.tests[0]._id);
                 }
 
@@ -1046,7 +1048,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
                 .put(url, dataOut)
                 .success(function(data){
                     console.log(data);
-                    $location.$path('/');
+                    $location.path('/');
                 });
         };
         
