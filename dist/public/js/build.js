@@ -671,7 +671,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         };
 
         $scope.register = function(user){
-            // console.log('register this user', user);
+            void 0;
             var url, 
                 dataOut,
                 invite;
@@ -680,11 +680,11 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 invite = $stateParams.acct.replace( /\//gi,"");
                 // console.log('touched account', acct);
                 url = '/auth/signup/';
-                dataOut = {email: user.email, name:user.name, password: $scope.password, invite: invite};
+                dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
             } else if (!$stateParams.acct) {
                 // console.log('this signup does not include an account (stateparams.acct)');
                 url = '/auth/signup/';
-                dataOut = {email: user.email, name:user.name, password: $scope.password};
+                dataOut = {email: user.email, name:user.name, password:  user.password};
             }
             
             $http

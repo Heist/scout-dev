@@ -66,7 +66,7 @@
 						
 						<li>
 							<span ng-show="regForm.confirm.$error.match && !regForm.confirm.$pristine" >&times;</span>
-							<input class="input" type="password" name="confirm" id="confirm-password" value="" placeholder="Please confirm your new password" ng-model="passwordConfirm" ng-match="password" required/>
+							<input class="input" type="password" name="confirm" id="confirm-password" value="" placeholder="Please confirm your new password" ng-model="user.passwordConfirm" ng-match="user.password" required/>
 						</li>
 						
 						<li class="text-center">
