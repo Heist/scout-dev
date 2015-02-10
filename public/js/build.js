@@ -736,6 +736,17 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 console.log('tests', data);
                 // initially selected 
                 // $scope.selected = data[0];
+                if($rootScope.user.onboard === 2 || $rootScope.user.onboard === 3 || $rootScope.user.onboard === 4){
+                    $location.path('/run/'+$scope.tests[0]._id);
+                }
+                if($rootScope.user.onboard === 5 && $scope.tests.length > 0){
+                    console.log('onboard 5');
+                    $location.path('/summary/'+$scope.tests[0]._id);
+                }
+                if($rootScope.user.onboard === 6 && $scope.tests.length > 0){
+                    $location.path('/report/'+$scope.tests[0]._id);
+                }
+
             })
             .error(function(data) {
                 console.log('Error: ' + data);
@@ -743,6 +754,14 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
         // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
+
+        // TODO: check the onboard number
+        // if the onboard number requires a route change, change the route.
+        // check for the name of the appropriate test, as it may no longer exist in the DB
+        // or possibly should have permit locks on it.
+        // Tests do not have actual permit locks on them now, do they.
+        // else just continue as normal.
+        console.log('onboard', $rootScope.user.onboard);
 
         $scope.changeOnboard = function(num){
             $rootScope.user.onboard = num;
@@ -1027,6 +1046,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
                 .put(url, dataOut)
                 .success(function(data){
                     console.log(data);
+                    $location.$path('/');
                 });
         };
         
@@ -1713,7 +1733,6 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 
                 console.log($scope.leftNavList[0]);
                 $scope.activate($scope.leftNavList[0]);
-
             });
 
     // NAVIGATION =============================================
@@ -1766,6 +1785,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 .put(url, dataOut)
                 .success(function(data){
                     console.log(data);
+                    $location.path('/report/'+$stateParams._id);
                 });
         };
 

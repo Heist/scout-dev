@@ -336,14 +336,14 @@ app.route('/auth/invite/:_id')
     //             });
     //     });
 
-    app.route('/debug/user')
-        .get(function(req,res){
-            User.find(function(err, users) {
-                    if(err){console.log(err);}
+    // app.route('/debug/user')
+    //     .get(function(req,res){
+    //         User.find(function(err, users) {
+    //                 if(err){console.log(err);}
 
-                    res.json(users);
-                });
-        });
+    //                 res.json(users);
+    //             });
+    //     });
 
     // app.route('/debug/invite')
     //     .get(function(req,res){

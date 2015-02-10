@@ -41,7 +41,6 @@
                 
                 console.log($scope.leftNavList[0]);
                 $scope.activate($scope.leftNavList[0]);
-
             });
 
     // NAVIGATION =============================================
@@ -94,6 +93,7 @@
                 .put(url, dataOut)
                 .success(function(data){
                     console.log(data);
+                    $location.path('/report/'+$stateParams._id);
                 });
         };
 

@@ -42,6 +42,9 @@ module.exports = function(app, debug) {
                     .limit(1)
                     .exec(function(err, docs){
                         if(err){console.log(err);}
+                        if(!docs){
+                            callback(null, 'no test');
+                        }
                         callback(null, docs);
                     });
             },
