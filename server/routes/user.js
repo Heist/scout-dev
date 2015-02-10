@@ -3,23 +3,30 @@
 'user strict';
 
 module.exports = function(app, passport) {
-var User = global.rootRequire('./models/auth/user');
-
+var User = global.rootRequire('./server/models/auth/user');
 
 app.route('/api/user/:_id')
     .get(function(req,res){
 
     })
     .put(function(req,res){
-        console.log('update user onboarding', req.body);
-        User.findOne('_id':req.body.user._id)
+        User.findOne({'_id' : req.user._id})
             .exec(function(err, user){
-                user.onboard = req.body.onboard;
-                user.save(function(err, data){
-                    if(err){console.log(err);}
-                    res.send('saved');
-                });
+                if(err){console.log(err);}
+                if(user){
+                    console.log('req.body.onboard', user.onboard, req.body);
+                    user.onboard = req.body.onboard;
+                    user.save(function(err, data){
+                        if(err){console.log(err);}
+                        console.log('user onboard', user.onboard);
+                        res.send('saved');
+                    });
+                }
+                else {
+                    console.log('user not found');
+                    res.send('user not found');
+                }
             });
-    })
+    });
 
 };

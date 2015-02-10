@@ -52,8 +52,8 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         $scope.changeOnboard = function(num){
             $rootScope.user.onboard = num;
 
-            var url = '/user/'+$rootScope.user._id;
-            var dataOut = {user : $rootScope.user.onboard};
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
 
             $http
                 .put(url, dataOut)

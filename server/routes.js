@@ -495,6 +495,9 @@ app.route('/auth/invite/:_id')
 // ACCOUNT ROUTES =========================================
     require('./routes/account')(app, debug);
 
+// ONBOARDING ROUTES ======================================
+    require('./routes/user')(app, passport);
+
 // OBJECT ROUTES ==========================================
 
 // Session Routes

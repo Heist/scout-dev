@@ -25,8 +25,8 @@
         $scope.changeOnboard = function(num){
             $rootScope.user.onboard = num;
 
-            var url = '/user/'+$rootScope.user._id;
-            var dataOut = {user : $rootScope.user.onboard};
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = { onboard : $rootScope.user.onboard };
 
             $http
                 .put(url, dataOut)
@@ -106,20 +106,20 @@
         // ONBOARDING ROUTES ==================================
         // user.onboard = 100 ---> hide onboarding
 
-        // $scope.changeOnboard = function(num){
-        //     console.log($rootScope.user);
-        //     // turn off the main user's onboarding and save
-        //     $rootScope.user.onboard = num;
+        $scope.changeOnboard = function(num){
+            console.log($rootScope.user);
+            // turn off the main user's onboarding and save
+            $rootScope.user.onboard = num;
 
-        //     var url = '/user/'+$rootScope.user._id;
-        //     var dataOut = {user : $rootScope.user.onboard};
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
 
-        //     $http
-        //         .put(url, dataOut)
-        //         .success(function(data){
-        //             console.log(data);
-        //         });
-        // };
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
 
         // TEST ROUTES ========================================
         $scope.devTest = function(){

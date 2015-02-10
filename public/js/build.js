@@ -741,6 +741,21 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 console.log('Error: ' + data);
             });
 
+        // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = { onboard : $rootScope.user.onboard };
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
 
         // SESSION ROUTES =====================================
 
@@ -813,20 +828,20 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         // ONBOARDING ROUTES ==================================
         // user.onboard = 100 ---> hide onboarding
 
-        // $scope.changeOnboard = function(num){
-        //     console.log($rootScope.user);
-        //     // turn off the main user's onboarding and save
-        //     $rootScope.user.onboard = num;
+        $scope.changeOnboard = function(num){
+            console.log($rootScope.user);
+            // turn off the main user's onboarding and save
+            $rootScope.user.onboard = num;
 
-        //     var url = '/user/'+$rootScope.user._id;
-        //     var dataOut = {user : $rootScope.user.onboard};
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
 
-        //     $http
-        //         .put(url, dataOut)
-        //         .success(function(data){
-        //             console.log(data);
-        //         });
-        // };
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
 
         // TEST ROUTES ========================================
         $scope.devTest = function(){
@@ -999,7 +1014,22 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
 
 
+// ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
 
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
+        
 // NAVIGATION =============================================
 
     $scope.summarize = function(){
@@ -1359,6 +1389,23 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
             });
 
+    // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
+
+
     // SOCKET ROUTES - 0.9 ============================================== 
     // for 1.0 check socket_routes_1.js in /server/
         
@@ -1706,6 +1753,23 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             }
         };
 
+    // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
+
+
     // COMMENTING =========================================
         $scope.showComments = function(message){
             // if the comment toggle is the same as the current comment toggle
@@ -2020,6 +2084,23 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
         // DIRECTIVES AND FUNCTIONS ===========================
 
+
+        // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
+        
         // ACTIONS ============================================
         // an effort to manipulate order.... 
         $scope.moveTask = function(old_index, up_down){
