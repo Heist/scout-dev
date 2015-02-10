@@ -1,7 +1,7 @@
 // subject.js
 'use strict';
 
-module.exports = function(app, passport) {
+module.exports = function(app, passport, debug) {
 
 // Module dependencies
 var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
@@ -22,14 +22,14 @@ var Subject = require('../models/data/subject');
         .get(function(req,res){
                 Subject.find({})
                     .exec(function(err,subjects){
-                        if(err){res.send(err);}
+                        if(err){console.log(err);}
                         
                         res.json(subjects);
                     });
             })
         .post(function(req,res){
                 // console.log('touched add subject', req.body);
-
+                // TODO: UUID needs to stay the same
                 async.waterfall([function(callback){
                     var subject = new Subject();
 
@@ -38,22 +38,25 @@ var Subject = require('../models/data/subject');
                     subject.test = req.body.test;
                     
                     subject.save(function(err, data){
-                        if(err){res.send(err);}
+                        if(err){console.log(err);}
                         
                         callback(null, data);
                     });
-                },function(args, callback){
-                    Test.findById(args.test)
+                },function(subject, callback){
+                    Test.findById(subject.test)
                         .exec(function(err, doc){
                             if(err){throw err;}
-
-                            var now = new Date();
-                            doc.last_run = now;
-
-                            doc.save(function(err, saved){
-                                if(err){throw err;}
-                                callback(null, {subject: args, test: saved});
-                            });
+                            if(doc){
+                                var now = new Date();
+                                doc.last_run = now;
+    
+                                doc.save(function(err, saved){
+                                    if(err){throw err;}
+                                    callback(null, {subject: subject, test: saved});
+                                });
+                            } else {
+                                callback(null, subject);
+                            }
                         });
                     // callback(null, {subject: args});
                 }], function(err,results){
@@ -66,7 +69,7 @@ var Subject = require('../models/data/subject');
         .get(function(req, res){
             Subject.findById(req.params._id)
                 .exec(function(err, subject){
-                    if(err){res.send(err);}
+                    if(err){console.log(err);}
                     res.json(subject);
                 });
         });

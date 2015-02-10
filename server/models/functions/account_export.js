@@ -2,7 +2,7 @@
 'use strict';
 
 // A function to export your entire account, called in the Public Routes file.
-module.exports = function(account, callback){ 
+module.exports = function(account, callback, debug){ 
     //Module dependencies
     var mongoose = require('mongoose');  // SOMETIMES WE NEED OBJECTIDS
     var _ = require('lodash');

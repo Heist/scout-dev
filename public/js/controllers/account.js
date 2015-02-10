@@ -3,7 +3,9 @@
 	'use strict';
 
 	// ACCOUNT CONTROLLER ===========================================================
-	angular.module('field_guide_controls').controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', '$rootScope', function($scope, $http, $stateParams,$state, $location, $window, $rootScope){
+	angular.module('field_guide_controls')
+		.controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', '$rootScope', 
+					function($scope, $http, $stateParams,$state, $location, $window, $rootScope){
 		var user_id = $rootScope.user._id;
 
 		$scope.live_user = $rootScope.user;

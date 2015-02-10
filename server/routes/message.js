@@ -1,7 +1,7 @@
 //message.js
 'use strict';
 
-module.exports = function(app, passport) {
+module.exports = function(app, passport, debug) {
 //Module dependencies
 var mongoose = require('mongoose');  //THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
 var _ = require('lodash');
@@ -21,7 +21,7 @@ app.route('/api/message/')
     .get(function(req,res){
         Message.find({})
             .exec(function(err, messages) {
-                if(err){res.send(err);}
+                if(err){console.log(err);}
                 res.json(messages);
             });
     })
@@ -30,75 +30,74 @@ app.route('/api/message/')
 
         console.log('touched new message ', req.body);
 
-        // if (req.body.body) {msg.body = req.body.body;}        
-        // if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
-        // if (req.body._test) {msg._test = mongoose.Types.ObjectId(req.body._test);}
-        // if (req.user._id) {msg.created_by = mongoose.Types.ObjectId(req.user._id);}
-
-        // if (req.body._task) {call._task = mongoose.Types.ObjectId(req.body._task);}
-        // if (req.body._test) {call._test = mongoose.Types.ObjectId(req.body._test);}
-        // if (req.body._session) {call._session = mongoose.Types.ObjectId(req.body._session);}
-
         async.waterfall([
             function(callback){
+                console.log('waterfall');
                 var msg = {};
                 var call = {};
 
-                if (req.body.body) {msg.body = req.body.body;}        
-                if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
-                if (req.body._test) {msg._test = mongoose.Types.ObjectId(req.body._test);}
                 if (req.user._id) {msg.created_by = mongoose.Types.ObjectId(req.user._id);}
 
-                if (req.body._task) {call._task = mongoose.Types.ObjectId(req.body._task);}
-                if (req.body._test) {call._test = mongoose.Types.ObjectId(req.body._test);}
-                if (req.body._session) {call._session = mongoose.Types.ObjectId(req.body._session);}
+                if (req.body.body) {msg.body = req.body.body;}
+                if (req.body._test) {msg._test = mongoose.Types.ObjectId(req.body._test);}
+                if (req.body._task) {msg._task = mongoose.Types.ObjectId(req.body._task);}
+                if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
 
-                Message.create(msg, function(err, msg){if (err) {res.send(err);} callback(null, msg);});
+                Message.create(msg, function(err, msg){if (err) {console.log(err);} callback(null, msg);});
 
             },
             function(args, callback){
-                
-                Task.findByIdAndUpdate( args._task, 
+                console.log('waterfall 1', args);
+                Task.findByIdAndUpdate( req.body._task, 
                     { $push: {_messages : args._id} },
                     function(err,doc){ 
-                        if (err) {res.send(err);}
+                        if (err) {console.log(err);}
+                        console.log('task trace', doc._id);
                         callback(null, {msg: args, task: doc});
                     });
 
             },
             function(args, callback){
-                
+                console.log('waterfall 2', args);
                 Subject.findOneAndUpdate(
                     {'_id': args.msg._subject},
                     { $push: {_messages : args.msg._id} }, 
                     {upsert:false},
                     function(err,doc){ 
-                        if (err) {res.send(err);} 
+                        if (err) {console.log(err);} 
+                        console.log('subject trace', doc._id);
                         callback(null, {msg: args.msg, task: args.task, subject: doc});
                     });
             },
             function(args, callback){
-                if(req.body.tags){ // reminder: the tags are not attached to the message. The message is attached to tags.
-                        
-                    async.map(req.body.tags, function(tag, callback){
-                        Tag.findOneAndUpdate(
-                            {name: tag, _test: args.msg._test},
-                            { $push: { _messages: args.msg._id },
+                // reminder: the tags are not attached to the message. The message is attached to tags.
+                console.log('waterfall 3', args);
+                if(req.body.tags){ 
+                    
+                    async.map(req.body.tags, 
+                        function(tag, callback){
+                            Tag.findOneAndUpdate(
+                                {name: tag, _test: args.msg._test},
+                                { $push: { _messages: args.msg._id },
                                    name: tag,
-                                   _test: args.msg._test
-                                }, 
-                            { upsert:true },
-                            function(err, data){ 
-                        }, function(err, results){
+                                   _test: args.msg._test }, 
+                                { upsert:true },
+                                function(err, data){
+                                    if(err){console.log(err);}
+                                    callback(null, data);
+                                });
+                        },
+                        function(err, results){
                             if(err){throw err;}
-                            callback(null, {msg:args.msg, task: args.task, subject: doc, tags: results});
-                        });
-                    });
-                }   
+                            console.log('tag trace waterfal results', results);
+                            callback(null, {msg:args.msg, task: args.task, subject: args.subject, tags: results});
+                        }); 
+                }
             }
         ],
         function(err, results){
             if(err){throw err;}
+            console.log('message tag stack trace', results);
             res.json(results);
         });
     });
@@ -111,7 +110,7 @@ app.route('/api/message/:_id')
         // console.log(req)
         Message.findById(req.params._id)
             .exec(function(err,msg){
-                if(err){res.send(err);}
+                if(err){console.log(err);}
                 
                 // console.log(msg)
                 res.json(msg);

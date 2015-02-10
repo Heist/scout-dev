@@ -1,8 +1,8 @@
 <div id="view-overview">
-
-
-
-	<div id="onboarding-content" class="onboarding-overview-step1">
+	
+	
+	
+	<div class="onboard-content onboard-overview-step1" ng-show="user.onboard === 1">
 		<div class="container">
 			<div class="module third">
 				<h3>Hello there.<br>Welcome to Field Guide.</h3>
@@ -11,14 +11,19 @@
 				<p>Let&rsquo;s jump right into the thick of it and show you how to run a test.</p>
 			</div>
 			<div class="module third text-right">
-				<a href="#" class="secondary"><small>I&rsquo;m okay on my own</small></a> &nbsp;&nbsp; <a class="button">Start</a>
+
+				<!-- this first link completely exits out of onboard -->
+				<a href="#" class="secondary"><small ng-click="changeOnboard(100)">I&rsquo;m okay on my own</small></a> &nbsp;&nbsp; 
+				<a class="button" ng-click="changeOnboard(2)">Start</a>
 			</div>
 		</div>
 	</div>
 	
 	
-	<div id="onboarding-content" class="onboarding-overview-step2">
+	
+	<div class="onboard-content onboard-overview-step2" ng-show="user.onboard === 2">
 		<div class="container">
+			
 			<div class="module third">
 				<h3 class="h3-light">The iOS app lets you:</h3>
 				
@@ -29,30 +34,34 @@
 					<li>Test in-person or remotely with the participant’s own iOS device</li>
 				</ul>
 				
-				[download on App Store]
-				
-				<small>Android and desktop coming soon!</small>
+				<a href="#" target="_" class="appstore-link"><img src="/layout/assets/appstore.svg"></a>
+	
 			</div>
-			<div class="module two-thirds">
-				[big app image]
+			
+			<div class="module two-thirds app-demo">
+				<img src="/layout/assets/app-demo.png" />
 			</div>
+			
 			<div class="clear"></div>
+			
+			<br><br><hr/><br>
+			
 			<div class="module two-thirds">
 				<h3>This might be a good time to download the Field Guide companion app for iOS, if you&rsquo;d like.</h3>
 			</div>
 		
 			<div class="module third text-right">
-				<a href="/run/54be70501398876b7317fa32" class="secondary"><small>I&rsquo;ll do this later</small></a> &nbsp;&nbsp; <a class="button" href="/run/54be70501398876b7317fa32">Got it, next</a>
+				<a ng-click="changeOnboard(100)" class="secondary"><small>I&rsquo;ll do this later</small></a> &nbsp;&nbsp; <a class="button" ng-click="changeOnboard(3)">Got it, next</a>
 			</div>
 		</div>
 	</div>
 	
-	
-	
-	<div id="onboarding-overview-box">
+
+	<!-- this div shows up at the end of onboard, when we come back around from the report -->
+	<div id="onboard-overview-box" ng-show="user.onboard === 20">
 		<h3>Great job!</h3>
 		<p>Now go ahead and make your own project. If you have any questions, we&rsquo;re ready	to help you out on our Slack channel.</p>
-		<a class="button slack" href="#">Get on Slack</a>
+		<a class="button slack" href="https://fieldguide.typeform.com/to/qrRHYS" target="_">Get on Slack</a>
 		<a class="button" href="#">Okay, let&rsquo;s go!</a>
 	</div>
 	
@@ -60,24 +69,12 @@
 
 
 	
-	<div ng-controller="login">
-		<div id="nav-logo">
-			<a href="/overview"><img src="/layout/assets/fg-binocs-header.png" /></a>			
-		</div>
-		
-		<div id="nav-acct-status">
-			<span>14 days</span> left in your trial
-		</div>
-		
-		<div id="nav-mgmt">
-			<div id="nav-account">
-				<a href="/account" ng-click="tracker()">&nbsp;</a>
-			</div>
-			
-			<a ng-click="logout()">Log Out</a>
-		</div>
-
-	</div>	
+	<ng-include src="'partials/app/_header-full.html'"></ng-include>
+	
+	
+	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
+	
+	
 	
 
 	<!-- show tests in db -->
@@ -111,7 +108,10 @@
 			
 				<div class="test-info">
 					<h3>{{test.name}}</h3>
-					<small>{{test.kind}}</small>
+					<small>{{test.kind}} &mdash;
+						<span ng-show="test._subjects.length > 0">Tested {{test._subjects.length}} times</span>
+						<span ng-show="test._subjects.length === 0">Never tested</span>
+					</small>
 					
 					<div class="editTest-tooltips">
 						<span ng-show="editTestedit">Edit</span>

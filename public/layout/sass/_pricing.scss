@@ -1,6 +1,21 @@
 /* charging money / skrilla thrilla */
 
-.price-point {
+
+.plan-type {
+	padding: 0 $pad;
+	margin: 0 0 $pad*1.5 0;
+	
+	.button {
+		display: block;
+		margin: 0 auto;
+	}
+	
+	&.disabled {
+		opacity: 0.4;
+	}
+}
+
+.plan-price-point {
 	display: block;
 	margin: 0 0 $pad*1.5 0;
 	padding: $pad 0 0 0;
@@ -10,5 +25,40 @@
 	big {
 		font-size: $type-size-base*3;
 		@include type-light;
+	}
+	
+	span {
+		@include type-extralight;
+		opacity: 0.8;
+	}
+	
+	small {
+		font-size: $type-size-base*0.8;
+		display: block;
+		padding: 30px 15px 10px 15px;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+		color: #3B4447;
+		line-height: 1.4;
+	}
+}
+
+.plan-name {
+	color: $fg-blue-dark;
+	text-transform: uppercase;
+	font-size: $type-size-base*0.8;
+	letter-spacing: 4px;
+	@include type-bold;
+}
+
+
+
+.upgrade-notice {
+	padding: $pad $pad $pad*0.75 $pad;
+	margin: 0 0 $pad*3 0;
+	border: 1px solid $line;
+	@include radius;
+	
+	h3 {
+		margin: 0;
 	}
 }

@@ -4,7 +4,7 @@
 // expose this function to our app using module.exports
 module.exports = function(app, passport) {
 
-        // load all the things we need
+    // load all the things we need
     var LocalStrategy   = require('passport-local').Strategy;
     var TrelloStrategy = require('passport-trello').Strategy;
     var bcrypt = require('bcrypt-nodejs');

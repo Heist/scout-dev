@@ -2,9 +2,13 @@
 <div id="view-editing" ng-model="test">
 
 
-	<div id="nav-logo">
-		<a href="/overview"><img src="/layout/assets/fg-binocs-header.png" /></a>
-	</div>
+	<ng-include src="'partials/app/_header-small.html'"></ng-include>	
+	
+	
+	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
+	
+	
+	
 	
     <div class="container" >
          
@@ -77,7 +81,7 @@
   							
   								<li>
   									<label for="field-testname">Your test name</label>
-  									<input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="e.g. Onboarding flow" ng-blur="updateTest()" />
+  									<input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="e.g. onboard flow" ng-blur="updateTest()" />
   								</li>
   								
   								<li ng-show="test.kind === 'prototype'">
@@ -141,7 +145,7 @@
 							<li ng-hide="test._tasks.length > 0" class="steps-empty-message">You need to add some tasks to your project before you can test!</li>
 							
 						
-							<li ng-repeat="task in tasks | orderBy: 'task.index'" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
+							<li ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
 								
 								<div class="step-ordering">
 									<div ng-click="moveTask($index, -1)" class="elevator elevator-up">&#9650;</div>
@@ -173,7 +177,7 @@
 							<form ng-model='newtask'>
 								<input class="input" ng-trim="false" ng-model="newtask.name"placeholder="Task name"><br/>
 								
-								<textarea msd-elastic ng-model="newtask.desc" class="input small" id="field-textarea" ng-blur="newTask(newtask)" placeholder="Put talking points or task-specific questions here.">
+								<textarea msd-elastic ng-model="newtask.desc" class="input small" id="field-textarea" placeholder="Put talking points or task-specific questions here.">
 								</textarea>						
 							</form>
 							

@@ -1,7 +1,7 @@
 // summary.js
 'use strict';
 
-module.exports = function (app, passport) {
+module.exports = function (app, passport, debug) {
 
     // Module dependencies
     var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
@@ -127,7 +127,7 @@ module.exports = function (app, passport) {
                                 'body'  : msg.body,
                             }, 
                             function(err, data){
-                                if(err){res.send(err);}
+                                if(err){console.log(err);}
                                 callback(null, data);
                             });
                     }, 
@@ -277,7 +277,7 @@ module.exports = function (app, passport) {
 
         Task.findOne({'_id': req.body._id})
             .exec(function(err, doc){
-                if (err) {res.send(err);}
+                if (err) {console.log(err);}
 
                 console.log('touched task', req.body._id);
 
@@ -287,7 +287,7 @@ module.exports = function (app, passport) {
                 if(req.body.embed !== null){ doc.embed = req.body.embed;}
 
                 doc.save(function(err,data){
-                    if(err){res.send(err);}
+                    if(err){console.log(err);}
 
                     console.log('updated task', data._id);
                     res.json(data);
@@ -302,7 +302,7 @@ module.exports = function (app, passport) {
 
         Test.findOne({'_id' : req.body._id})
             .exec(function(err, doc){
-                if (err) {res.send(err);}
+                if (err) {console.log(err);}
 
                 console.log('test found', doc._id);
 
@@ -312,7 +312,7 @@ module.exports = function (app, passport) {
                 if(req.body.embed !== null){ doc.embed = req.body.embed;}
 
                 doc.save(function(err,data){
-                    if(err){res.send(err);}
+                    if(err){console.log(err);}
 
                     console.log('updated test', data._id);
                     res.json(data);
@@ -327,7 +327,7 @@ module.exports = function (app, passport) {
 
         Tag.findById(req.params._id)
             .exec(function(err, doc){
-                if (err) {res.send(err);}
+                if (err) {console.log(err);}
 
                 if(req.body.summary){doc.summary = req.body.summary;}
                 if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
@@ -335,7 +335,7 @@ module.exports = function (app, passport) {
                 if(req.body.embed !== null){ doc.embed = req.body.embed;}
 
                 doc.save(function(err,data){
-                    if(err){res.send(err);}
+                    if(err){console.log(err);}
 
                     // console.log('updated task', task);
                     res.json(data);

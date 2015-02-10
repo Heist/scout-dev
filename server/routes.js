@@ -1,11 +1,14 @@
 // routes.js
-module.exports = function(app, passport) {
+module.exports = function(app, passport, debug) {
 // CONFIGURATION =====================================================
 
 // Module dependencies
     var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
     var async = require('async');
+    var crypto = require('crypto');
+    var bcrypt = require('bcrypt-nodejs');
     var _ = require('lodash');
+    var nodemailer = require('nodemailer');
 
     // various api hooks for reports
     var Trello  = require('node-trello');
@@ -47,15 +50,23 @@ module.exports = function(app, passport) {
 // LOGIN ROUTES ===========================================
 
     // is someone logged in?
+
     app.get('/loggedin', function(req, res) {
-            res.send(req.isAuthenticated() ? {
-                    _id : req.user._id, 
-                    name: req.user.name,
-                    onboarding: req.user.onboarding,
-                    email: req.user.local.email, 
-                    account:req.user._account, 
-                    trello : req.user.trello.id 
-                } : '0');
+
+            // console.log('check me for things', req.user);
+            if(req.user){
+                if (req.isAuthenticated()) { 
+                    res.json({ 
+                        _id : req.user._id, 
+                        name: req.user.name, 
+                        onboard : req.user.onboard,
+                        email: req.user.local.email, 
+                        account:req.user._account, 
+                        trello : req.user.trello.id 
+                    });
+                }
+            }
+            else { res.send('0'); }
         });
 
     // who's logged in?
@@ -90,6 +101,7 @@ module.exports = function(app, passport) {
 
     // process the signup form
     app.post('/auth/signup', function(req, res, next) {
+        console.log(req.body);
         if (!req.body.email || !req.body.password) {
             return res.json({ error: 'Email and Password required' });
         }
@@ -122,37 +134,165 @@ module.exports = function(app, passport) {
         res.json({ redirect: '/login' });
     });
 
+// PASSWORD RESET ROUTES ==================================
+    // forgotten passwords
+    app.post('/auth/forgot', function(req, res, next) {
+        // console.log('touched forgotten password route');
+        
+        async.waterfall([
+            function(done) {
+                crypto.randomBytes(20, function(err, buf) {
+                    var token = buf.toString('hex');
+                    done(err, token);
+                });
+            },
+            function(token, done) {
+                User.findOne({ 'local.email': req.body.email }, function(err, user) {
+                    if (!user) {
+                        done(err, token, '0');
+                    } else {
+                        user.resetPasswordToken = token;
+                        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    
+                        user.save(function(err) {
+                            done(err, token, user);
+                        });
+                    }
+                });
+            },
+            function(token, user, done) {
+                console.log('waterfall', user, token);
+                if(user !== '0'){
+                    var smtpTransport = nodemailer.createTransport({
+                        service: 'Mandrill',
+                        auth: {
+                            user: 'mandrill@fieldguideapp.com',
+                            pass: 'jvVhe4uJxHB7MFfHabelbg'
+                        },
+                        host: "smtp.mandrillapp.com",
+                        port: 587
+                    });
+
+                    var mailOptions = {
+                        to: user.local.email,
+                        from: 'password_reset@fieldguideapp.com',
+                        subject: 'Field Guide Password Reset',
+                        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your Field Guide account.\n\n' +
+                        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                        'http://' + req.headers.host + '/forgot/' + token + '\n\n' +
+                        'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                    };
+
+                    smtpTransport.sendMail(mailOptions, function(err) {
+                        done(err, 'An e-mail has been sent to ' + user.local.email + ' with further instructions.');
+                    });
+                } else {
+                    done(null, null);
+                }
+            } 
+        ], function(err, results) {
+            if (err){ return next(err); }
+            console.log('waterfall results email', results);
+            res.send(results);
+        });
+    });
+
+    // password reset route
+    app.get('/reset/:token', function(req, res) {
+        console.log('check reset');
+        User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+            if (!user) {
+                res.send('0');
+            }
+            res.send('1');
+        });
+    });
+
+
+    app.post('/reset/:token', function(req, res) {
+        console.log('password reset queued');
+        async.waterfall([
+            function(done) {
+                User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+                    if (!user) {
+                        done(null, null);
+                    }
+
+                    // TODO: Abstract this shit onto the user model
+                    function generateHash(password) { return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null); }
+                    
+                    user.local.password = user.generateHash(req.body.password);
+                    user.resetPasswordToken = undefined;
+                    user.resetPasswordExpires = undefined;
+
+                    user.save(function(err) {
+                        done(err, user);
+                    });
+                });
+            },
+            function(user, done) {
+                if(user !== null){
+                    var smtpTransport = nodemailer.createTransport({
+                            service: 'Mandrill',
+                            auth: {
+                                user: 'mandrill@fieldguideapp.com',
+                                pass: 'jvVhe4uJxHB7MFfHabelbg'
+                            },
+                            host: "smtp.mandrillapp.com",
+                            port: 587
+                        });
+    
+                    var mailOptions = {
+                        to: user.local.email,
+                        from: 'password_reset@fieldguideapp.com',
+                        subject: 'Your Field Guide password has been changed',
+                        text: 'Hello,\n\n' +
+                        'This is a confirmation that the password for your account ' + user.local.email + ' has just been changed.\n'
+                    };
+                    smtpTransport.sendMail(mailOptions, function(err) {
+                        done(err, 'The password for your account '+ user.local.email +' has been changed.');
+                    });
+                } else {
+                    done (null, null);
+                }
+            }
+        ], function(err, results) {
+            if(err){console.log(err);}
+            console.log(results);
+            res.send(results);
+        });
+    });
+
 
 // PUBLIC ROUTES ==========================================
 app.route('/auth/invite/:_id')
         .get(function(req,res){
             // get an existing invitation to populate the registration page
             Invitation.findById(req.params._id)
-                      .select('user_email')
-                      .exec(function(err,invite){
-                            if(err) { return console.log(err); }
-                            
-                            res.json(invite);
-                        });
+                .select('user_email')
+                .exec(function(err,invite){
+                    if(err) { return console.log(err); }
+                    
+                    res.json(invite);
+                });
         })
 
-
 // Debug Routes -------------------
-    app.route('/debug/test')
-    .get(function(req,res){
-        Test.find()
-            .exec(function(err, docs) {
-                if(err){res.send(err);}
+    // app.route('/debug/test')
+    // .get(function(req,res){
+    //     Test.find()
+    //         .exec(function(err, docs) {
+    //             if(err){console.log(err);}
 
-                res.json(docs);
-            });
-    });
+    //             res.json(docs);
+    //         });
+    // });
 
     // app.route('/debug/comment')
     // .get(function(req,res){
     //     Comment.find()
     //         .exec(function(err, docs) {
-    //             if(err){res.send(err);}
+    //             if(err){console.log(err);}
 
     //             res.json(docs);
     //         });
@@ -163,7 +303,7 @@ app.route('/auth/invite/:_id')
     //     Test.find({'_id': req.params._id})
     //         .populate('_tasks')
     //         .exec(function(err, docs) {
-    //             if(err){res.send(err);}
+    //             if(err){console.log(err);}
 
     //             res.json(docs);
     //         });
@@ -173,7 +313,7 @@ app.route('/auth/invite/:_id')
     // .get(function(req,res){
     //     Task.find()
     //         .exec(function(err, docs) {
-    //             if(err){res.send(err);}
+    //             if(err){console.log(err);}
 
     //             res.json(docs);
     //         });
@@ -184,7 +324,7 @@ app.route('/auth/invite/:_id')
     //     Message.find()
     //         .populate('_comments')
     //         .exec(function(err, docs) {
-    //             if(err){res.send(err);}
+    //             if(err){console.log(err);}
 
     //             res.json(docs);
     //         });
@@ -193,7 +333,7 @@ app.route('/auth/invite/:_id')
     // app.route('/debug/tag')
     //     .get(function(req,res){
     //         Tag.find(function(err, docs) {
-    //                 if(err){res.send(err);}
+    //                 if(err){console.log(err);}
 
     //                 res.json(docs);
     //             });
@@ -202,7 +342,7 @@ app.route('/auth/invite/:_id')
     // app.route('/debug/user')
     //     .get(function(req,res){
     //         User.find(function(err, users) {
-    //                 if(err){res.send(err);}
+    //                 if(err){console.log(err);}
 
     //                 res.json(users);
     //             });
@@ -211,7 +351,7 @@ app.route('/auth/invite/:_id')
     // app.route('/debug/invite')
     //     .get(function(req,res){
     //         Invitation.find(function(err, invites) {
-    //                 if(err){res.send(err);}
+    //                 if(err){console.log(err);}
 
     //                 res.json(invites);
     //             });
@@ -221,7 +361,7 @@ app.route('/auth/invite/:_id')
     //     .get(function(req,res){
     //         Subject.find()
     //             .exec(function(err, docs) {
-    //                 if(err){res.send(err);}
+    //                 if(err){console.log(err);}
 
     //                 res.json(docs);
     //             });
@@ -356,38 +496,41 @@ app.route('/auth/invite/:_id')
     });
 
 // ACCOUNT ROUTES =========================================
-    require('./routes/account')(app);
+    require('./routes/account')(app, debug);
+
+// ONBOARDING ROUTES ======================================
+    require('./routes/user')(app, passport);
 
 // OBJECT ROUTES ==========================================
 
 // Session Routes
-    require('./routes/session')(app);
+    require('./routes/session')(app, debug);
 
 // Test Routes
-    require('./routes/test')(app);
+    require('./routes/test')(app, debug);
 
 // Task Routes 
-    require('./routes/task')(app);
+    require('./routes/task')(app, debug);
 
 // Task Routes 
-    require('./routes/message')(app);
+    require('./routes/message')(app, debug);
 
 // Tag Routes
-    require('./routes/tag')(app);
+    require('./routes/tag')(app, debug);
 
 // Subject Routes
-    require('./routes/subject')(app);
+    require('./routes/subject')(app, debug);
 
 
 // LIVE ROUTES ============================================
 
 // Run A Test
-    require('./routes/run')(app);
+    require('./routes/run')(app, debug);
 
 // Do A Summary
-    require('./routes/summary')(app);
+    require('./routes/summary')(app, debug);
 
 // Reporting and Comments 
-    require('./routes/reportPrivate')(app);
+    require('./routes/reportPrivate')(app, debug);
 
 };

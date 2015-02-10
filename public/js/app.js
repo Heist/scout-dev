@@ -26,68 +26,75 @@
 
         // TODO: this should probably be an Interceptor, but it works on load for now.
         function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
-            // console.log('checking logged in identity');
+            console.log('checking logged in identity');
             // Make an AJAX call to check if the user is logged in
-            var deferred = $q.defer(); 
-
+            var deferred = $q.defer();
             $http
                 .get('/loggedin')
                 .success(function(user){
                     // Authenticated
                     if (user !== '0') {
-                        console.log('this user successfully logged in', user);
+                        console.log('user', user);
                         $rootScope.user = user;
-                        $timeout(deferred.resolve, 0);
+                        deferred.resolve();
                     }
-
                     // Not Authenticated 
                     else { 
-                        console.log('welp, that flunked', user);
-                        $rootScope.userNote = 'You need to log in.'; 
-                        $timeout(function(){deferred.reject();}, 0);
-
+                        console.log('welp, that flunked.');
                         $location.url('/login');
+                        deferred.resolve();
                     }
                 })
                 .error(function(err){
                     console.log(err);
+                    $location.url('/login');
+                    deferred.resolve();
                 });
-            // }
-            
-        }
 
-        // $urlRouterProvider.otherwise("/login");
-        $urlRouterProvider.otherwise("/404");
+            return deferred.promise;   
+        }
+        
+        $urlRouterProvider.otherwise("/login");
+        // $urlRouterProvider.otherwise("/404");
         // $urlRouterProvider.otherwise("/overview");
 
 
         $stateProvider
         // PUBLIC ROUTES ================================================
-            
-            // CANVAS SOCKETS TESTING ===================================
-            // .state('canvas', {
-            //     // url: '/canvas/',
-            //     url: '/canvas/:_id',
-            //     controller:'canvas',
-            //     templateUrl: 'partials/app/testCanvas.html'
-            // })
-            
-                        
+
             // "block screens" ============================================
-            .state('/404', {
+            .state('404', {
                 url: '/404',                
                 templateUrl: 'partials/app/404.html',
             })
-            .state('/upgrade', {
+            .state('upgrade', {
                 url: '/upgrade',                
                 templateUrl: 'partials/app/upgrade.html',
             })
 
             // LOGIN AND REGISTRATION PAGES ===================
-            .state('/login', {
+            
+            .state('login', {
                 url: '/login{acct:(?:/[^/]+)?}',
                 controller:'login',
-                templateUrl: 'partials/auth/login.html',
+                templateUrl: 'partials/auth/login.html'
+            })
+           
+            .state('register', {
+                url: '/register',
+                templateUrl: 'partials/auth/register.html'
+            })
+
+            .state('reset', {
+                url: '/reset',
+                controller : 'reset',
+                templateUrl: 'partials/auth/reset.html'
+            })
+
+            .state('forgot', {
+                url: '/forgot{token:(?:/[^/]+)?}',
+                controller : 'forgot',
+                templateUrl: 'partials/auth/forgot.html'
             })
 
             // PUBLIC REPORTS ===========================================
@@ -117,12 +124,11 @@
 
             // OVERVIEW AND test CREATION =====================
             .state('default', {
-                url:'/',
+                url: '/',
                 controller: 'overview',
                 templateUrl: 'partials/app/overview.html',
                 resolve: { loggedin: checkLoggedin }
             })
-
             .state('overview', {
                 url: '/overview',
                 controller: 'overview',
@@ -157,20 +163,6 @@
             .state('summary.task', {
                 templateUrl: 'partials/app/summary_task.html'
             });
-    });
-
-    field_guide_app.factory('user', function() {
-        var items = [];
-        var itemsService = {};
-
-        itemsService.add = function(item) {
-            items.push(item);
-        };
-        itemsService.list = function() {
-            return items;
-        };
-
-        return itemsService;
     });
 
 
@@ -249,7 +241,138 @@
                 };
             },  
         };
-    })
+    });
+
+    field_guide_app.directive('ngMatch', ['$parse', function ($parse) {
+        var directive = {
+            link: link,
+            restrict: 'A',
+            require: '?ngModel'
+        };
+
+        return directive;
+         
+        function link(scope, elem, attrs, ctrl) {
+        // if ngModel is not defined, we don't need to do anything
+            if (!ctrl){ return;}
+            if (!attrs.ngMatch){ return; }
+             
+            var firstPassword = $parse(attrs.ngMatch);
+             
+            var validator = function (value) {
+                var temp = firstPassword(scope),
+                v = value === temp;
+                ctrl.$setValidity('match', v);
+                return value;
+            };
+             
+            ctrl.$parsers.unshift(validator);
+            ctrl.$formatters.push(validator);
+            attrs.$observe('ngMatch', function () {
+                validator(ctrl.$viewValue);
+            });
+         
+        }
+    }]);
+
+    field_guide_app.directive('ngCheckStrength', function () {
+
+        return {
+            replace: false,
+            restrict: 'EACM',
+            link: function (scope, iElement, iAttrs) {
+
+                var strength = {
+                    colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
+                    measureStrength: function (p) {
+                        if(p){
+                            var _force = 0;                    
+                            var _regex = new RegExp('[$-/:-?{-~!"^_`\[\]]','g');
+                                                  
+                            var _lowerLetters = /[a-z]+/.test(p);                    
+                            var _upperLetters = /[A-Z]+/.test(p);
+                            var _numbers = /[0-9]+/.test(p);
+                            var _symbols = _regex.test(p);
+                                                  
+                            var _flags = [_lowerLetters, _upperLetters, _numbers, _symbols];                    
+                            var _passedMatches = $.grep(_flags, function (el) { return el === true; }).length;                                          
+                            
+                            _force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
+                            _force += _passedMatches * 10;
+                                
+                            // penality (short password)
+                            _force = (p.length <= 6) ? Math.min(_force, 10) : _force;                                      
+                            
+                            // penality (poor variety of characters)
+                            _force = (_passedMatches === 1) ? Math.min(_force, 10) : _force;
+                            _force = (_passedMatches === 2) ? Math.min(_force, 20) : _force;
+                            _force = (_passedMatches === 3) ? Math.min(_force, 40) : _force;
+                            
+                            return _force;
+                        }
+
+                    },
+                    getColor: function (s) {
+                        if(s){
+                            var idx = 0;
+                            if (s <= 10) { idx = 0; }
+                            else if (s <= 20) { idx = 1; }
+                            else if (s <= 30) { idx = 2; }
+                            else if (s <= 40) { idx = 3; }
+                            else { idx = 4; }
+    
+                            return { idx: idx + 1, col: this.colors[idx] };
+                        }
+                    }
+                };
+
+                scope.$watch(iAttrs.ngCheckStrength, function () {
+                    console.log('watching');
+                    if (!scope.user) {
+                        console.log('no user');
+                        iElement.css({ "display": "none"  });
+                    } else {
+                        console.log(scope.user.password.length);
+                        var c = strength.getColor(strength.measureStrength(scope.user.password));
+                        iElement.css({ "display": "inline" });
+                        iElement.children('li')
+                            .css({ "background": "#DDD" })
+                            .slice(0, c.idx)
+                            .css({ "background": c.col });
+                    }
+                });
+
+            },
+            template:   '<li class="pwStrength"></li>'+
+                        '<li class="pwStrength"></li>'+
+                        '<li class="pwStrength"></li>'+
+                        '<li class="pwStrength"></li>'+
+                        '<li class="pwStrength"></li>'
+        };
+
+    });
+
+    // supply the currently logged-in user to all functions
+    field_guide_app.service('changeOnboard', ['$rootScope', '$http', function($rootScope, $http) {
+        return function(num) {
+            $rootScope.user.onboard = num;
+
+            var url = '/user/'+$rootScope.user._id;
+            var dataOut = {user : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
+    }]);
+
+    // field_guide_app.run(function ($rootScope, $location, $http, $timeout, changeOnboard) {
+    //     $rootScope.changeOnboard = changeOnboard;
+    // });
+
+
 
     // FILTERS ============================================================================
     angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);

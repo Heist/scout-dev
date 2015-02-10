@@ -2,11 +2,8 @@
 
 	<div class="container">
 	
-		<div class="module third">
-			
-			&nbsp;
-			
-		</div>
+		<div class="module third">&nbsp;</div>
+		
 		
 		<div class="module third">
 			
@@ -38,6 +35,8 @@
 				
 				<p class="text-center">
 					<small>Don&rsquo;t have an account yet? <a ng-click="showReg()">Register right now</a>.</small>
+					<br />
+					<small>Forgot your password? <a ng-click="goToReset()">Click here to reset</a>.</small>
 				</p>
 			
 			</div>
@@ -48,24 +47,26 @@
 			<!-- signup form form -->
 			<div id="form-signup" ng-show="reg_toggle == true">
 			
-				<form ng-model="user">
+				<form ng-model="user" name="regForm">
 					<ul class="nobullets withlabels">
 						<li ng-show="flashmessage" class="messaging messaging-problem">{{flashmessage}}</li>
-						
+
 						<li>
 							<input class="input" type="text" name="realname" value="" placeholder="Your name (e.g. &rsquo;Sandra Jones&lsquo;)" ng-model="user.name"/>
 						</li>
 						
 						<li>
-							<input class="input" type="text" name="username" value="" placeholder="Your e-mail address" ng-model="user.email"/>
+							<span ng-show="regForm.username.$error.email && !regForm.username.$pristine">&times;</span> <input class="input" type="email" name="username" value="" placeholder="Your e-mail address" ng-model="user.email" required> 
 						</li>
 						
 						<li>
-							<input class="input" type="password" id="field-password" name="" value="" placeholder="Your password"  ng-model="user.password"/>
-						</li>
+							<input class="input" type="password" name="password" id="field-password" value="" placeholder="Your password" ng-model="user.password" required/>
+							<ul class="pwStrong" ng-check-strength="user.password"></ul>
+                        </li>
 						
 						<li>
-							<input class="input" type="password" id="confirm-password" name="" value="" placeholder="Your password"/>
+							<span ng-show="regForm.confirm.$error.match && !regForm.confirm.$pristine" >&times;</span>
+							<input class="input" type="password" name="confirm" id="confirm-password" value="" placeholder="Please confirm your new password" ng-model="user.passwordConfirm" ng-match="user.password" required/>
 						</li>
 						
 						<li class="text-center">

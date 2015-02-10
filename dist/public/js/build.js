@@ -41,10 +41,9 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
         // TODO: this should probably be an Interceptor, but it works on load for now.
         function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
-            // console.log('checking logged in identity');
+            void 0;
             // Make an AJAX call to check if the user is logged in
-            var deferred = $q.defer(); 
-
+            var deferred = $q.defer();
             $http
                 .get('/loggedin')
                 .success(function(user){
@@ -52,32 +51,32 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                     if (user !== '0') {
                         void 0;
                         $rootScope.user = user;
-                        $timeout(deferred.resolve, 0);
+                        deferred.resolve();
                     }
-
                     // Not Authenticated 
                     else { 
                         void 0;
-                        $rootScope.userNote = 'You need to log in.'; 
-                        $timeout(function(){deferred.reject();}, 0);
-
                         $location.url('/login');
+                        deferred.resolve();
                     }
                 })
                 .error(function(err){
                     void 0;
+                    $location.url('/login');
+                    deferred.resolve();
                 });
-            // }
-            
-        }
 
-        // $urlRouterProvider.otherwise("/login");
-        $urlRouterProvider.otherwise("/404");
+            return deferred.promise;   
+        }
+        
+        $urlRouterProvider.otherwise("/login");
+        // $urlRouterProvider.otherwise("/404");
         // $urlRouterProvider.otherwise("/overview");
 
 
         $stateProvider
         // PUBLIC ROUTES ================================================
+<<<<<<< HEAD
             
             // CANVAS SOCKETS TESTING ===================================
             // .state('canvas', {
@@ -94,15 +93,42 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 templateUrl: 'partials/app/404.html',
             })
             .state('/upgrade', {
+=======
+
+            // "block screens" ============================================
+            .state('404', {
+                url: '/404',                
+                templateUrl: 'partials/app/404.html',
+            })
+            .state('upgrade', {
+>>>>>>> dev
                 url: '/upgrade',                
                 templateUrl: 'partials/app/upgrade.html',
             })
 
             // LOGIN AND REGISTRATION PAGES ===================
-            .state('/login', {
+            
+            .state('login', {
                 url: '/login{acct:(?:/[^/]+)?}',
                 controller:'login',
-                templateUrl: 'partials/auth/login.html',
+                templateUrl: 'partials/auth/login.html'
+            })
+           
+            .state('register', {
+                url: '/register',
+                templateUrl: 'partials/auth/register.html'
+            })
+
+            .state('reset', {
+                url: '/reset',
+                controller : 'reset',
+                templateUrl: 'partials/auth/reset.html'
+            })
+
+            .state('forgot', {
+                url: '/forgot{token:(?:/[^/]+)?}',
+                controller : 'forgot',
+                templateUrl: 'partials/auth/forgot.html'
             })
 
             // PUBLIC REPORTS ===========================================
@@ -132,12 +158,11 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
             // OVERVIEW AND test CREATION =====================
             .state('default', {
-                url:'/',
+                url: '/',
                 controller: 'overview',
                 templateUrl: 'partials/app/overview.html',
                 resolve: { loggedin: checkLoggedin }
             })
-
             .state('overview', {
                 url: '/overview',
                 controller: 'overview',
@@ -249,7 +274,138 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 };
             },  
         };
-    })
+    });
+
+    field_guide_app.directive('ngMatch', ['$parse', function ($parse) {
+        var directive = {
+            link: link,
+            restrict: 'A',
+            require: '?ngModel'
+        };
+
+        return directive;
+         
+        function link(scope, elem, attrs, ctrl) {
+        // if ngModel is not defined, we don't need to do anything
+            if (!ctrl){ return;}
+            if (!attrs.ngMatch){ return; }
+             
+            var firstPassword = $parse(attrs.ngMatch);
+             
+            var validator = function (value) {
+                var temp = firstPassword(scope),
+                v = value === temp;
+                ctrl.$setValidity('match', v);
+                return value;
+            };
+             
+            ctrl.$parsers.unshift(validator);
+            ctrl.$formatters.push(validator);
+            attrs.$observe('ngMatch', function () {
+                validator(ctrl.$viewValue);
+            });
+         
+        }
+    }]);
+
+    field_guide_app.directive('ngCheckStrength', function () {
+
+        return {
+            replace: false,
+            restrict: 'EACM',
+            link: function (scope, iElement, iAttrs) {
+
+                var strength = {
+                    colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
+                    measureStrength: function (p) {
+                        if(p){
+                            var _force = 0;                    
+                            var _regex = new RegExp('[$-/:-?{-~!"^_`\[\]]','g');
+                                                  
+                            var _lowerLetters = /[a-z]+/.test(p);                    
+                            var _upperLetters = /[A-Z]+/.test(p);
+                            var _numbers = /[0-9]+/.test(p);
+                            var _symbols = _regex.test(p);
+                                                  
+                            var _flags = [_lowerLetters, _upperLetters, _numbers, _symbols];                    
+                            var _passedMatches = $.grep(_flags, function (el) { return el === true; }).length;                                          
+                            
+                            _force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
+                            _force += _passedMatches * 10;
+                                
+                            // penality (short password)
+                            _force = (p.length <= 6) ? Math.min(_force, 10) : _force;                                      
+                            
+                            // penality (poor variety of characters)
+                            _force = (_passedMatches === 1) ? Math.min(_force, 10) : _force;
+                            _force = (_passedMatches === 2) ? Math.min(_force, 20) : _force;
+                            _force = (_passedMatches === 3) ? Math.min(_force, 40) : _force;
+                            
+                            return _force;
+                        }
+
+                    },
+                    getColor: function (s) {
+                        if(s){
+                            var idx = 0;
+                            if (s <= 10) { idx = 0; }
+                            else if (s <= 20) { idx = 1; }
+                            else if (s <= 30) { idx = 2; }
+                            else if (s <= 40) { idx = 3; }
+                            else { idx = 4; }
+    
+                            return { idx: idx + 1, col: this.colors[idx] };
+                        }
+                    }
+                };
+
+                scope.$watch(iAttrs.ngCheckStrength, function () {
+                    void 0;
+                    if (!scope.user) {
+                        void 0;
+                        iElement.css({ "display": "none"  });
+                    } else {
+                        void 0;
+                        var c = strength.getColor(strength.measureStrength(scope.user.password));
+                        iElement.css({ "display": "inline" });
+                        iElement.children('li')
+                            .css({ "background": "#DDD" })
+                            .slice(0, c.idx)
+                            .css({ "background": c.col });
+                    }
+                });
+
+            },
+            template:   '<li class="pwStrength"></li>'+
+                        '<li class="pwStrength"></li>'+
+                        '<li class="pwStrength"></li>'+
+                        '<li class="pwStrength"></li>'+
+                        '<li class="pwStrength"></li>'
+        };
+
+    });
+
+    // supply the currently logged-in user to all functions
+    field_guide_app.service('changeOnboard', ['$rootScope', '$http', function($rootScope, $http) {
+        return function(num) {
+            $rootScope.user.onboard = num;
+
+            var url = '/user/'+$rootScope.user._id;
+            var dataOut = {user : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    void 0;
+                });
+        };
+    }]);
+
+    // field_guide_app.run(function ($rootScope, $location, $http, $timeout, changeOnboard) {
+    //     $rootScope.changeOnboard = changeOnboard;
+    // });
+
+
 
     // FILTERS ============================================================================
     angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);
@@ -263,7 +419,9 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 	'use strict';
 
 	// ACCOUNT CONTROLLER ===========================================================
-	angular.module('field_guide_controls').controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', '$rootScope', function($scope, $http, $stateParams,$state, $location, $window, $rootScope){
+	angular.module('field_guide_controls')
+		.controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', '$rootScope', 
+					function($scope, $http, $stateParams,$state, $location, $window, $rootScope){
 		var user_id = $rootScope.user._id;
 
 		$scope.live_user = $rootScope.user;
@@ -427,6 +585,45 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 		};
 	}]);
 })();
+// forgot.js
+(function() {
+    'use strict';
+
+    // PASSWORD RESET CONTROLLER ===========================================================
+    angular.module('field_guide_controls')
+       .controller('forgot', ['$scope','$http', '$location', '$stateParams','$rootScope', 
+                    function($scope, $http, $location, $stateParams, $rootScope){
+        void 0;    
+
+        var url = '/reset'+$stateParams.token;
+
+        void 0;
+        $http
+            .get(url)
+            .success(function(data){
+                void 0;
+            });
+
+        $scope.newPass = function(pass){
+            var dataOut = {password: pass};
+
+            $http
+                .post(url, dataOut)
+                .success(function(data){
+                    // do a login here, perhaps
+                    void 0;
+                    if(data.length > 0){
+                        $scope.successMsg = data;
+                    }
+                });
+        };
+
+        $scope.goToLogin = function(){
+            $location.path('/login');
+        };
+        
+    }]);
+})();
 // login.js
 (function() {
     'use strict';
@@ -468,9 +665,9 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    // console.log('login controller success', data.error);
+                    void 0;
                     $scope.flashmessage = data.error;
-                    $location.path(data.redirect);
+                    $location.path('/');
                 })
                 .error(function(error){
                     // console.log('login no bueno.', error);
@@ -483,13 +680,17 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
         };
 
+        $scope.goToReset = function(){
+            $location.path('/reset');
+        };
+
         $scope.showLogin = function(){
             // console.log('touched login', $scope.reg_toggle);
             $scope.reg_toggle = false;
         };
 
         $scope.register = function(user){
-            // console.log('register this user', user);
+            void 0;
             var url, 
                 dataOut,
                 invite;
@@ -502,7 +703,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             } else if (!$stateParams.acct) {
                 // console.log('this signup does not include an account (stateparams.acct)');
                 url = '/auth/signup/';
-                dataOut = {email: user.email, name:user.name, password: user.password};
+                dataOut = {email: user.email, name:user.name, password:  user.password};
             }
             
             $http
@@ -554,11 +755,25 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 void 0;
                 // initially selected 
                 // $scope.selected = data[0];
+                if($rootScope.user.onboard === 2){
+
+                }
+                if($rootScope.user.onboard === 3 || $rootScope.user.onboard === 4 || $rootScope.user.onboard === 5 ){
+                    $location.path('/run/'+$scope.tests[0]._id);
+                }
+                if($rootScope.user.onboard === 6 && $scope.tests.length > 0){
+                    $location.path('/summary/'+$scope.tests[0]._id);
+                }
+                if($rootScope.user.onboard === 7 && $scope.tests.length > 0){
+                    $location.path('/report/'+$scope.tests[0]._id);
+                }
+
             })
             .error(function(data) {
                 void 0;
             });
 
+<<<<<<< HEAD
         // if we got a user... 
         void 0;
         void 0;
@@ -566,6 +781,31 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             // $scope.user = $rootScope.user;
             // console.log($scope.user.onboarding);
         
+=======
+        // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+
+        // TODO: check the onboard number
+        // if the onboard number requires a route change, change the route.
+        // check for the name of the appropriate test, as it may no longer exist in the DB
+        // or possibly should have permit locks on it.
+        // Tests do not have actual permit locks on them now, do they.
+        // else just continue as normal.
+        void 0;
+
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = { onboard : $rootScope.user.onboard };
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    void 0;
+                });
+        };
+>>>>>>> dev
 
         // SESSION ROUTES =====================================
 
@@ -631,6 +871,24 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                     $scope.selected = $scope.sessions[$scope.sessions.length-1];
                 })
                 .error(function(data){
+                    void 0;
+                });
+        };
+
+        // ONBOARDING ROUTES ==================================
+        // user.onboard = 100 ---> hide onboarding
+
+        $scope.changeOnboard = function(num){
+            void 0;
+            // turn off the main user's onboarding and save
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
                     void 0;
                 });
         };
@@ -762,7 +1020,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 // report.js
 
 // REPORT CONTROLLER ===========================================================
-angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', function($scope, $sce, $http, $location,$stateParams,$state, $sanitize){
+angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', '$rootScope', function($scope, $sce, $http, $location,$stateParams,$state, $sanitize, $rootScope){
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
@@ -806,7 +1064,23 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
 
 
+// ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
 
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    void 0;
+                    $location.path('/');
+                });
+        };
+        
 // NAVIGATION =============================================
 
     $scope.summarize = function(){
@@ -1104,6 +1378,36 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 }]);
 
 })();
+// forgot.js
+(function() {
+    'use strict';
+
+    // PASSWORD RESET CONTROLLER ===========================================================
+    angular.module('field_guide_controls')
+       .controller('reset', ['$scope','$http', '$location', '$stateParams','$rootScope', 
+                    function($scope, $http, $location, $stateParams, $rootScope){
+        
+        void 0;    
+
+        $scope.sendToken = function(email){
+            var url = '/auth/forgot';
+            var dataOut = {email: email};
+
+            $http
+                .post(url, dataOut)
+                .success(function(data){
+                    void 0;
+                    $scope.successMsg = data;
+                })
+                .error();
+        };
+        
+        $scope.goToLogin = function(){
+            $location.path('/login');
+        };
+        
+    }]);
+})();
 // run.js
 (function() {
     'use strict';
@@ -1135,6 +1439,23 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 // Subject has been created, now open a room with that subject_id
 
             });
+
+    // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    void 0;
+                });
+        };
+
 
     // SOCKET ROUTES - 0.9 ============================================== 
     // for 1.0 check socket_routes_1.js in /server/
@@ -1326,6 +1647,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         $scope.postMessage = function(message){
             // here we create a note object
             if(message.length <= 0){
+                void 0;
                 return;
             } else {
                 var note = {};
@@ -1364,6 +1686,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 $http
                     .post(url, data_out)
                     .success(function(data){
+                        void 0;
                         // socket.emit('send:note', { note: data });
                         $scope.message='';
                     });
@@ -1405,9 +1728,9 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
     // SUMMARY CONTROLLER ===========================================================
 
     angular.module('field_guide_controls')
-        .controller('summary', ['$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', 
+        .controller('summary', ['$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize',
                         function($scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize){
-    	$scope.test = {};
+        $scope.test = {};
         $scope.timeline = [];
         $scope.commentMessage = '';
 
@@ -1441,7 +1764,6 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 
                 void 0;
                 $scope.activate($scope.leftNavList[0]);
-
             });
 
     // NAVIGATION =============================================
@@ -1480,6 +1802,24 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 }
             }
         };
+
+    // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    void 0;
+                    $location.path('/report/'+$stateParams._id);
+                });
+        };
+
 
     // COMMENTING =========================================
         $scope.showComments = function(message){
@@ -1795,46 +2135,37 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
         // DIRECTIVES AND FUNCTIONS ===========================
 
-        // $scope.dragControlListeners = {
-        //     accept: function (sourceItemHandleScope, destSortableScope) {return boolean} //override to determine drag is allowed or not. default is true.
-        //     itemMoved: function (event) {//Do what you want},
-        //     orderChanged: function(event) {//Do what you want},
-        //     containment: '#board'//optional param.
-        // };
 
-        $scope.treeOptions = {
-            dropped: function(e) {
-                void 0;
-                void 0;
-                _.each($scope.tasks, function(task){
-                    task.index = $scope.tasks.indexOf(task);
+        // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    void 0;
                 });
-                $scope.batchTask();
-            }
         };
-
-
+        
         // ACTIONS ============================================
         // an effort to manipulate order.... 
-        $scope.moveTask = function(old_index, new_index){
+        $scope.moveTask = function(old_index, up_down){
             void 0;
-            new_index = old_index + new_index;
+            var new_index = old_index + up_down;
 
-            while (old_index < 0) {
-                old_index += this.length;
-            }
-            while (new_index < 0) {
-                new_index += this.length;
-            }
-            if (new_index >= this.length) {
-                var k = new_index - this.length;
-                while ((k--) + 1) {
-                    this.push(undefined);
-                }
-            }
+            void 0;
             
             $scope.tasks.splice(new_index, 0, $scope.tasks.splice(old_index, 1)[0]);
 
+            var task_order = _.pluck($scope.tasks, 'name');
+            var task_idx = _.pluck($scope.tasks, 'task_index');
+            
+            void 0;
             // set the stored index of the task properly
             // console.log('did things stay moved', $scope.tasks); // for testing purposes
             
@@ -1855,16 +2186,6 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         };
 
         $scope.showAnchor = function(x) {
-            // var newHash = 'anchor' + x;
-            // if ($location.hash() !== newHash) {
-            //   // set the $location.hash to `newHash` and
-            //   // $anchorScroll will automatically scroll to it
-            //   $location.hash('anchor' + x);
-            // } else {
-            //   // call $anchorScroll() explicitly,
-            //   // since $location.hash hasn't changed
-            //   $anchorScroll();
-
 
             var explanations = [
                 {   anchor : 1,

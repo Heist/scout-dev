@@ -156,7 +156,7 @@ textarea.input {
 	}
 	
 	&.hollow {
-		@include button-colour($white, $text);
+		@include button-colour($background, $text);
 		border: 1px solid lighten($text, 20%);
 	}
 	
@@ -184,12 +184,8 @@ textarea.input {
 		background-repeat: no-repeat;
 		background-size: 26px;
 		padding-left: $pad*2.25;
-		opacity: 0.8;
 		@include dropshadow;
 		
-		&:hover {
-			opacity: 1.0;
-		}	
 	}
 
 }

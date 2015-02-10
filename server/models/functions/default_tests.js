@@ -1,7 +1,7 @@
 // default_tests.js - generates first-time signup tests
 'use strict';
 
-module.exports = function(account, id, callback){
+module.exports = function(account, id, callback, debug){
     // on first login via signup, create a test for this user.
     console.log('new signup');
 

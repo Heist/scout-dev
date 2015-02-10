@@ -2,9 +2,6 @@
 // controls user accounts
 'use strict';
 
-// var mongoose = require('mongoose');
-// var connection = require('../../db/auth_db');
-
 var mongoose = require('mongoose');
 var connect = rootRequire('./config/db');
 connect = connect.auth;
@@ -19,6 +16,10 @@ var userSchema = new Schema({
     
     onboarding: {type: Boolean , default : true}, 
     name: {type:String, trim:true},
+    onboard : {type: Number, default: 1},
+    
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
 
     local            : {
         email        : String,
@@ -60,7 +61,6 @@ userSchema.pre('save', function(next){
         // if this user is a new user with no account.... 
         this._account = account;
     }
-    // console.log('account inside new user model', this._account);
     next();
 });
 

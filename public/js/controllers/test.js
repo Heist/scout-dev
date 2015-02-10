@@ -29,46 +29,37 @@
 
         // DIRECTIVES AND FUNCTIONS ===========================
 
-        // $scope.dragControlListeners = {
-        //     accept: function (sourceItemHandleScope, destSortableScope) {return boolean} //override to determine drag is allowed or not. default is true.
-        //     itemMoved: function (event) {//Do what you want},
-        //     orderChanged: function(event) {//Do what you want},
-        //     containment: '#board'//optional param.
-        // };
 
-        $scope.treeOptions = {
-            dropped: function(e) {
-                console.log (e.source.nodesScope);
-                console.log($scope.tasks);
-                _.each($scope.tasks, function(task){
-                    task.index = $scope.tasks.indexOf(task);
+        // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
                 });
-                $scope.batchTask();
-            }
         };
-
-
+        
         // ACTIONS ============================================
         // an effort to manipulate order.... 
-        $scope.moveTask = function(old_index, new_index){
-            console.log(old_index, new_index);
-            new_index = old_index + new_index;
+        $scope.moveTask = function(old_index, up_down){
+            console.log(old_index, up_down);
+            var new_index = old_index + up_down;
 
-            while (old_index < 0) {
-                old_index += this.length;
-            }
-            while (new_index < 0) {
-                new_index += this.length;
-            }
-            if (new_index >= this.length) {
-                var k = new_index - this.length;
-                while ((k--) + 1) {
-                    this.push(undefined);
-                }
-            }
+            console.log(new_index);
             
             $scope.tasks.splice(new_index, 0, $scope.tasks.splice(old_index, 1)[0]);
 
+            var task_order = _.pluck($scope.tasks, 'name');
+            var task_idx = _.pluck($scope.tasks, 'task_index');
+            
+            console.log(task_order, task_idx);
             // set the stored index of the task properly
             // console.log('did things stay moved', $scope.tasks); // for testing purposes
             
@@ -89,16 +80,6 @@
         };
 
         $scope.showAnchor = function(x) {
-            // var newHash = 'anchor' + x;
-            // if ($location.hash() !== newHash) {
-            //   // set the $location.hash to `newHash` and
-            //   // $anchorScroll will automatically scroll to it
-            //   $location.hash('anchor' + x);
-            // } else {
-            //   // call $anchorScroll() explicitly,
-            //   // since $location.hash hasn't changed
-            //   $anchorScroll();
-
 
             var explanations = [
                 {   anchor : 1,

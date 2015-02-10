@@ -17,7 +17,7 @@ describe("basic server lifecycle", function() {
 	});
 
 	it("'s alive!", function(done) {
-		request('http://localhost:5000/api/test', function(error, response, body) {
+		request('http://127.0.0.1:8080/api/test', function(error, response, body) {
 			expect(error).toBeFalsey();
 			done();
 		});

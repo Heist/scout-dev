@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tnT-5a-NIj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C94b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tnT-5a-NIj">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -35,7 +35,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D1R-rt-yat">
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D1R-rt-yat">
                                 <rect key="frame" x="0.0" y="22" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
@@ -56,7 +56,9 @@
                         <constraints>
                             <constraint firstItem="cNl-8K-TfG" firstAttribute="width" secondItem="svH-Pt-448" secondAttribute="width" id="0ec-ty-eHr"/>
                             <constraint firstItem="cNl-8K-TfG" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" id="0n0-bK-vZN"/>
-                            <constraint firstItem="cNl-8K-TfG" firstAttribute="top" secondItem="D1R-rt-yat" secondAttribute="top" constant="-22" id="1Fy-uk-qvD"/>
+                            <constraint firstItem="cNl-8K-TfG" firstAttribute="top" secondItem="D1R-rt-yat" secondAttribute="top" constant="-22" id="1Fy-uk-qvD">
+                                <variation key="widthClass=compact" constant="0.0"/>
+                            </constraint>
                             <constraint firstAttribute="height" secondItem="D1R-rt-yat" secondAttribute="height" id="5PV-th-MHN"/>
                             <constraint firstItem="cNl-8K-TfG" firstAttribute="leading" secondItem="D1R-rt-yat" secondAttribute="leading" id="Jur-Gs-grb"/>
                             <constraint firstAttribute="width" secondItem="D1R-rt-yat" secondAttribute="width" id="sMC-Oo-tCS"/>

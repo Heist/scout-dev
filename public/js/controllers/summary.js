@@ -5,9 +5,9 @@
     // SUMMARY CONTROLLER ===========================================================
 
     angular.module('field_guide_controls')
-        .controller('summary', ['$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', 
+        .controller('summary', ['$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize',
                         function($scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize){
-    	$scope.test = {};
+        $scope.test = {};
         $scope.timeline = [];
         $scope.commentMessage = '';
 
@@ -41,7 +41,6 @@
                 
                 console.log($scope.leftNavList[0]);
                 $scope.activate($scope.leftNavList[0]);
-
             });
 
     // NAVIGATION =============================================
@@ -80,6 +79,24 @@
                 }
             }
         };
+
+    // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                    $location.path('/report/'+$stateParams._id);
+                });
+        };
+
 
     // COMMENTING =========================================
         $scope.showComments = function(message){

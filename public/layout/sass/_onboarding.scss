@@ -1,8 +1,8 @@
-/* gimme some sweet, sweet onboarding */
+/* gimme some sweet, sweet onboard */
 
-#onboarding-content {
+.onboard-content {
 	width: 100%;
-	height: 15% !important;
+	height: 15%;
 	color: $white;
 	background: $modal-bg;
 	z-index: 999999999;
@@ -32,7 +32,7 @@
 		opacity: 0.6;
 	}
 	
-	.onboarding-avatar {
+	.onboard-avatar {
 		float: left;
 		display: block;
 		padding: 0;
@@ -45,12 +45,12 @@
 		}
 	}
 	
-	.onboarding-bubble {
+	.onboard-bubble {
 		font-size: $type-size-base*0.8;
 		float: left;
 		margin: 0 0 1px 0;
 		
-		.onboarding-bubble-msg {
+		.onboard-bubble-msg {
 			font-size: $type-size-base*0.9;
 			background: $white;
 			color: $fg-slate;
@@ -76,50 +76,71 @@
 }
 
 
-/* onboarding - steps */
+/* onboard - steps */
 
 /* overview */
 
-.onboarding-overview-step1 {
-	display: none;
+.onboard-overview-step1 {
+	
 }
 
-.onboarding-overview-step2 {
-	height: 100%;
-	display: none;
+.onboard-overview-step2 {
+	height: 100% !important;
+	top: 0;
+	padding-top: $pad*5;
+	
+	hr {
+		border-top: 1px solid rgba(255,255,255,0.2);
+	}
+	
+	.appstore-link {
+		img {
+			height: 40px;
+			width: auto;
+		}
+	}
+	
+	.app-demo {
+		text-align: center;
+		
+		img {
+			height: auto;
+			width: 60%;
+		}
+	}
+	
+	
 }
 
 /* run test */
 
-.onboarding-run-step1 {
-	display: none;
-}
-
-.onboarding-run-step2 {
-	display: none;
-}
-
-.onboarding-run-step3 {
-	display: none;
+.onboard-run-step1 {
 	
+}
+
+.onboard-run-step2 {
+	
+}
+
+.onboard-run-step3 {
+
 	.two-thirds {
 		margin-top: -$pad/2;
 	}
 	
-	.onboarding-avatar {
+	.onboard-avatar {
 		margin-top: 21px !important;
 	}
 
 }
 
-.onboarding-run-step4 {
-	display: none;
-	
+.onboard-run-step4 {
+
 	.two-thirds {
 		margin-top: -$pad/2;
 	}
 	
-	.onboarding-avatar {
+	.onboard-avatar {
 		margin-top: 21px !important;
 	}
 	
@@ -131,17 +152,17 @@
 
 /* report */
 
-.onboarding-report-step1 {
-	display: none;
+.onboard-report-step1 {
+	
 }
 
-.onboarding-report-step2 {
-	display: none;
+.onboard-report-step2 {
+	
 }
 
 
-#onboarding-overview-box {
-	display: none;
+#onboard-overview-box {
+
 	font-size: $type-size-base*0.9;
 	line-height: $type-line-base*0.9;
 	color: $white;

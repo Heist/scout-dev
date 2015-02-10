@@ -39,9 +39,9 @@
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    // console.log('login controller success', data.error);
+                    console.log('login controller success', data);
                     $scope.flashmessage = data.error;
-                    $location.path(data.redirect);
+                    $location.path('/');
                 })
                 .error(function(error){
                     // console.log('login no bueno.', error);
@@ -54,13 +54,17 @@
 
         };
 
+        $scope.goToReset = function(){
+            $location.path('/reset');
+        };
+
         $scope.showLogin = function(){
             // console.log('touched login', $scope.reg_toggle);
             $scope.reg_toggle = false;
         };
 
         $scope.register = function(user){
-            // console.log('register this user', user);
+            console.log('register this user', user);
             var url, 
                 dataOut,
                 invite;
@@ -73,7 +77,7 @@
             } else if (!$stateParams.acct) {
                 // console.log('this signup does not include an account (stateparams.acct)');
                 url = '/auth/signup/';
-                dataOut = {email: user.email, name:user.name, password: user.password};
+                dataOut = {email: user.email, name:user.name, password:  user.password};
             }
             
             $http

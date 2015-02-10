@@ -1,7 +1,7 @@
 // test.js
 'use strict';
 
-module.exports = function(app, passport) {
+module.exports = function(app, passport, debug) {
 
 // Module dependencies
 var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
@@ -26,7 +26,7 @@ app.route('/api/test/')
         // console.log(' get all tests ', req.isAuthenticated(), req.user._id)
         Test.find({created_by_account:req.user._account})
             .exec(function(err, docs) {
-                if(err){res.send(err);}
+                if(err){console.log(err);}
                 res.json(docs);
             });
     })
@@ -35,28 +35,14 @@ app.route('/api/test/')
         // console.log('post a new test', req.body)
             var test = new Test();
 
-            // console.log('fish through this to get data', req.body);
-            test.name = req.body.name;
+            console.log('fish through this to get data', req.body);
 
             test.created_by_user = req.body.created_by._id;
             test.created_by_account = req.body.created_by.account;
-
-            // console.log('user account - test add route', req.user._account);
-
-            // later, we will be building playlists
-            // sessions should store tests but tests 
-            // don't need to know they belong to any playlist specially.
-            // sessions should store their own ordering data, etc.
-
-            if(test._session){
-                test._session = req.body._session;
-            }
             
             test.save(function(err, test){
-                if(err){res.send(err);}
-                
+                if(err){console.log(err);}
                 res.json(test);
-
             });
         });
 
@@ -265,7 +251,7 @@ app.route('/api/test/:_id')
         Test.findById(req.params._id)
             .populate('_tasks')
             .exec(function(err,test){
-                if(err){res.send(err);}
+                if(err){console.log(err);}
 
                 // console.log('single test', test)
                 res.json(test);
@@ -274,7 +260,7 @@ app.route('/api/test/:_id')
     .post(function(req,res){
         // Duplicate a test with new steps and things but which appears to be identical
         // console.log('touched dupe test',req.params._id, req.body);
-
+        console.log('touched individual test post');
         async.waterfall([
             function(callback) {
                 Test.findById(req.params._id)
@@ -291,7 +277,7 @@ app.route('/api/test/:_id')
                         created_by_user : old.created_by_user,
                         desc    : old.desc,
                         link    : old.link,
-                        name    : old.name,
+                        name    : old.name || "New Test",
                         platform: old.platform,
                         kind    : old.kind,
                         visible : 'true'
@@ -401,22 +387,22 @@ app.route('/api/test/:_id')
 
         Test.find({_id:req.params._id})
             .remove(function(err){
-                if (err) {res.send(err);}
+                if (err) {console.log(err);}
             });
 
         Task.find({_test:req.params._id})
             .remove(function(err){
-                if (err) {res.send(err);}
+                if (err) {console.log(err);}
             });
 
         Message.find({_test:req.params._id})
             .remove(function(err){
-                if (err) {res.send(err);}
+                if (err) {console.log(err);}
             });
 
         Tag.find({_test:req.params._id})
             .remove(function(err){
-                if (err) {res.send(err);}
+                if (err) {console.log(err);}
             });
 
         res.json('test removed', req.params._id);

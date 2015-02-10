@@ -1,7 +1,7 @@
 // reportPrivateRoutes.js
 'use strict';
 
-module.exports = function(app) {
+module.exports = function(app, debug) {
     //Module dependencies
     var mongoose = require('mongoose');  //THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
     var _ = require('lodash');
@@ -42,6 +42,9 @@ module.exports = function(app) {
                     .limit(1)
                     .exec(function(err, docs){
                         if(err){console.log(err);}
+                        if(!docs){
+                            callback(null, 'no test');
+                        }
                         callback(null, docs);
                     });
             },

@@ -170,6 +170,7 @@
 			border: 2px dashed $line;
 			background: none;
 			@include radius(6px);
+			@include dropshadow(0 0 20px, rgba(0,0,0,0.05));
 						
 			.test-info {
 				h3 {

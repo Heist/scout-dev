@@ -14,19 +14,46 @@
                 console.log('tests', data);
                 // initially selected 
                 // $scope.selected = data[0];
+                if($rootScope.user.onboard === 2){
+
+                }
+                if($rootScope.user.onboard === 3 || $rootScope.user.onboard === 4 || $rootScope.user.onboard === 5 ){
+                    $location.path('/run/'+$scope.tests[0]._id);
+                }
+                if($rootScope.user.onboard === 6 && $scope.tests.length > 0){
+                    $location.path('/summary/'+$scope.tests[0]._id);
+                }
+                if($rootScope.user.onboard === 7 && $scope.tests.length > 0){
+                    $location.path('/report/'+$scope.tests[0]._id);
+                }
+
             })
             .error(function(data) {
                 console.log('Error: ' + data);
             });
+        // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
 
-        // if we got a user... 
-        console.log($rootScope);
-        console.log($rootScope.user);
-        
-            // $scope.user = $rootScope.user;
-            // console.log($scope.user.onboarding);
-        
+        // TODO: check the onboard number
+        // if the onboard number requires a route change, change the route.
+        // check for the name of the appropriate test, as it may no longer exist in the DB
+        // or possibly should have permit locks on it.
+        // Tests do not have actual permit locks on them now, do they.
+        // else just continue as normal.
+        console.log('onboard', $rootScope.user.onboard);
 
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = { onboard : $rootScope.user.onboard };
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
         // SESSION ROUTES =====================================
 
         $scope.select = function (session){
@@ -95,6 +122,24 @@
                 });
         };
 
+        // ONBOARDING ROUTES ==================================
+        // user.onboard = 100 ---> hide onboarding
+
+        $scope.changeOnboard = function(num){
+            console.log($rootScope.user);
+            // turn off the main user's onboarding and save
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
+
         // TEST ROUTES ========================================
         $scope.devTest = function(){
             console.log('get me some tests');
@@ -111,7 +156,7 @@
                 var test = {};
 
                 if($rootScope.user){
-                    console.log($rootScope.user);
+                    console.log('rootScope user set', $rootScope.user);
                     test.created_by = $rootScope.user;
                    
                     mixpanel.track('Add new test', { 'user' : $rootScope.user });
