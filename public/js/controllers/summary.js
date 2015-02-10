@@ -81,6 +81,23 @@
             }
         };
 
+    // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/user/'+$rootScope.user._id;
+            var dataOut = {user : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
+
+
     // COMMENTING =========================================
         $scope.showComments = function(message){
             // if the comment toggle is the same as the current comment toggle

@@ -22,7 +22,7 @@
         // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
 
-        $scope.changeOnboard(num){
+        $scope.changeOnboard = function(num){
             $rootScope.user.onboard = num;
 
             var url = '/user/'+$rootScope.user._id;

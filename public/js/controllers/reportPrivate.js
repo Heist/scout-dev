@@ -46,7 +46,22 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
 
 
+// ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
 
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/user/'+$rootScope.user._id;
+            var dataOut = {user : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
+        
 // NAVIGATION =============================================
 
     $scope.summarize = function(){
