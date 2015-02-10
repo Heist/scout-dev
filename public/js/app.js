@@ -327,8 +327,8 @@
 
                 scope.$watch(iAttrs.ngCheckStrength, function () {
                     console.log('watching');
-                    if (!scope.user.password) {
-                        console.log('no pass');
+                    if (!scope.user) {
+                        console.log('no user');
                         iElement.css({ "display": "none"  });
                     } else {
                         console.log(scope.user.password.length);

@@ -342,7 +342,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
                 scope.$watch(iAttrs.ngCheckStrength, function () {
                     void 0;
-                    if (!scope.user.password) {
+                    if (!scope.user) {
                         void 0;
                         iElement.css({ "display": "none"  });
                     } else {
