@@ -26,7 +26,7 @@ app.route('/api/test/')
         // console.log(' get all tests ', req.isAuthenticated(), req.user._id)
         Test.find({created_by_account:req.user._account})
             .exec(function(err, docs) {
-                if(err){res.send(err);}
+                if(err){console.log(err);}
                 res.json(docs);
             });
     })
@@ -41,7 +41,7 @@ app.route('/api/test/')
             test.created_by_account = req.body.created_by.account;
             
             test.save(function(err, test){
-                if(err){res.send(err);}
+                if(err){console.log(err);}
                 res.json(test);
             });
         });
@@ -251,7 +251,7 @@ app.route('/api/test/:_id')
         Test.findById(req.params._id)
             .populate('_tasks')
             .exec(function(err,test){
-                if(err){res.send(err);}
+                if(err){console.log(err);}
 
                 // console.log('single test', test)
                 res.json(test);
@@ -387,22 +387,22 @@ app.route('/api/test/:_id')
 
         Test.find({_id:req.params._id})
             .remove(function(err){
-                if (err) {res.send(err);}
+                if (err) {console.log(err);}
             });
 
         Task.find({_test:req.params._id})
             .remove(function(err){
-                if (err) {res.send(err);}
+                if (err) {console.log(err);}
             });
 
         Message.find({_test:req.params._id})
             .remove(function(err){
-                if (err) {res.send(err);}
+                if (err) {console.log(err);}
             });
 
         Tag.find({_test:req.params._id})
             .remove(function(err){
-                if (err) {res.send(err);}
+                if (err) {console.log(err);}
             });
 
         res.json('test removed', req.params._id);

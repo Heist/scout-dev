@@ -352,11 +352,25 @@
     });
 
     // supply the currently logged-in user to all functions
-    field_guide_app.factory('UserService', function() {
-        return {
-            name : 'anonymous'
+    field_guide_app.service('changeOnboard', ['$rootScope', '$http', function($rootScope, $http) {
+        return function(num) {
+            $rootScope.user.onboard = num;
+
+            var url = '/user/'+$rootScope.user._id;
+            var dataOut = {user : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
         };
-    });
+    }]);
+
+    // field_guide_app.run(function ($rootScope, $location, $http, $timeout, changeOnboard) {
+    //     $rootScope.changeOnboard = changeOnboard;
+    // });
+
 
 
     // FILTERS ============================================================================

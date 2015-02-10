@@ -21,7 +21,7 @@ app.route('/api/message/')
     .get(function(req,res){
         Message.find({})
             .exec(function(err, messages) {
-                if(err){res.send(err);}
+                if(err){console.log(err);}
                 res.json(messages);
             });
     })
@@ -43,7 +43,7 @@ app.route('/api/message/')
                 if (req.body._task) {msg._task = mongoose.Types.ObjectId(req.body._task);}
                 if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
 
-                Message.create(msg, function(err, msg){if (err) {res.send(err);} callback(null, msg);});
+                Message.create(msg, function(err, msg){if (err) {console.log(err);} callback(null, msg);});
 
             },
             function(args, callback){
@@ -51,7 +51,7 @@ app.route('/api/message/')
                 Task.findByIdAndUpdate( req.body._task, 
                     { $push: {_messages : args._id} },
                     function(err,doc){ 
-                        if (err) {res.send(err);}
+                        if (err) {console.log(err);}
                         console.log('task trace', doc._id);
                         callback(null, {msg: args, task: doc});
                     });
@@ -64,7 +64,7 @@ app.route('/api/message/')
                     { $push: {_messages : args.msg._id} }, 
                     {upsert:false},
                     function(err,doc){ 
-                        if (err) {res.send(err);} 
+                        if (err) {console.log(err);} 
                         console.log('subject trace', doc._id);
                         callback(null, {msg: args.msg, task: args.task, subject: doc});
                     });
@@ -110,7 +110,7 @@ app.route('/api/message/:_id')
         // console.log(req)
         Message.findById(req.params._id)
             .exec(function(err,msg){
-                if(err){res.send(err);}
+                if(err){console.log(err);}
                 
                 // console.log(msg)
                 res.json(msg);

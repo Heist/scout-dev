@@ -279,7 +279,7 @@ app.route('/auth/invite/:_id')
     // .get(function(req,res){
     //     Test.find()
     //         .exec(function(err, docs) {
-    //             if(err){res.send(err);}
+    //             if(err){console.log(err);}
 
     //             res.json(docs);
     //         });
@@ -289,7 +289,7 @@ app.route('/auth/invite/:_id')
     // .get(function(req,res){
     //     Comment.find()
     //         .exec(function(err, docs) {
-    //             if(err){res.send(err);}
+    //             if(err){console.log(err);}
 
     //             res.json(docs);
     //         });
@@ -300,7 +300,7 @@ app.route('/auth/invite/:_id')
     //     Test.find({'_id': req.params._id})
     //         .populate('_tasks')
     //         .exec(function(err, docs) {
-    //             if(err){res.send(err);}
+    //             if(err){console.log(err);}
 
     //             res.json(docs);
     //         });
@@ -310,7 +310,7 @@ app.route('/auth/invite/:_id')
     // .get(function(req,res){
     //     Task.find()
     //         .exec(function(err, docs) {
-    //             if(err){res.send(err);}
+    //             if(err){console.log(err);}
 
     //             res.json(docs);
     //         });
@@ -321,7 +321,7 @@ app.route('/auth/invite/:_id')
     //     Message.find()
     //         .populate('_comments')
     //         .exec(function(err, docs) {
-    //             if(err){res.send(err);}
+    //             if(err){console.log(err);}
 
     //             res.json(docs);
     //         });
@@ -330,7 +330,7 @@ app.route('/auth/invite/:_id')
     // app.route('/debug/tag')
     //     .get(function(req,res){
     //         Tag.find(function(err, docs) {
-    //                 if(err){res.send(err);}
+    //                 if(err){console.log(err);}
 
     //                 res.json(docs);
     //             });
@@ -339,7 +339,7 @@ app.route('/auth/invite/:_id')
     app.route('/debug/user')
         .get(function(req,res){
             User.find(function(err, users) {
-                    if(err){res.send(err);}
+                    if(err){console.log(err);}
 
                     res.json(users);
                 });
@@ -348,7 +348,7 @@ app.route('/auth/invite/:_id')
     // app.route('/debug/invite')
     //     .get(function(req,res){
     //         Invitation.find(function(err, invites) {
-    //                 if(err){res.send(err);}
+    //                 if(err){console.log(err);}
 
     //                 res.json(invites);
     //             });
@@ -358,7 +358,7 @@ app.route('/auth/invite/:_id')
     //     .get(function(req,res){
     //         Subject.find()
     //             .exec(function(err, docs) {
-    //                 if(err){res.send(err);}
+    //                 if(err){console.log(err);}
 
     //                 res.json(docs);
     //             });

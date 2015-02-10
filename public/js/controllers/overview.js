@@ -19,6 +19,21 @@
                 console.log('Error: ' + data);
             });
 
+        // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+
+        $scope.changeOnboard(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/user/'+$rootScope.user._id;
+            var dataOut = {user : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
 
         // SESSION ROUTES =====================================
 
@@ -91,18 +106,20 @@
         // ONBOARDING ROUTES ==================================
         // user.onboard = 100 ---> hide onboarding
 
-        $scope.hideOnboard = function(user){
-            console.log(user);
-            // turn off the main user's onboarding and save
-            var url = '/user/'+user._id;
+        // $scope.changeOnboard = function(num){
+        //     console.log($rootScope.user);
+        //     // turn off the main user's onboarding and save
+        //     $rootScope.user.onboard = num;
 
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    console.log(data);
-                });
-        }
+        //     var url = '/user/'+$rootScope.user._id;
+        //     var dataOut = {user : $rootScope.user.onboard};
 
+        //     $http
+        //         .put(url, dataOut)
+        //         .success(function(data){
+        //             console.log(data);
+        //         });
+        // };
 
         // TEST ROUTES ========================================
         $scope.devTest = function(){

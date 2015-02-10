@@ -367,11 +367,25 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
     });
 
     // supply the currently logged-in user to all functions
-    field_guide_app.factory('UserService', function() {
-        return {
-            name : 'anonymous'
+    field_guide_app.service('changeOnboard', ['$rootScope', '$http', function($rootScope, $http) {
+        return function(num) {
+            $rootScope.user.onboard = num;
+
+            var url = '/user/'+$rootScope.user._id;
+            var dataOut = {user : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    void 0;
+                });
         };
-    });
+    }]);
+
+    // field_guide_app.run(function ($rootScope, $location, $http, $timeout, changeOnboard) {
+    //     $rootScope.changeOnboard = changeOnboard;
+    // });
+
 
 
     // FILTERS ============================================================================
@@ -795,6 +809,24 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                     void 0;
                 });
         };
+
+        // ONBOARDING ROUTES ==================================
+        // user.onboard = 100 ---> hide onboarding
+
+        // $scope.changeOnboard = function(num){
+        //     console.log($rootScope.user);
+        //     // turn off the main user's onboarding and save
+        //     $rootScope.user.onboard = num;
+
+        //     var url = '/user/'+$rootScope.user._id;
+        //     var dataOut = {user : $rootScope.user.onboard};
+
+        //     $http
+        //         .put(url, dataOut)
+        //         .success(function(data){
+        //             console.log(data);
+        //         });
+        // };
 
         // TEST ROUTES ========================================
         $scope.devTest = function(){

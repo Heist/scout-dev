@@ -19,7 +19,7 @@ var _ = require('lodash');
     app.route('/api/tag/')
         .get(function(req,res){
             Tag.find(function(err, tags) {
-                    if(err){res.send(err);}
+                    if(err){console.log(err);}
 
                     res.json(tags);
                 });
@@ -29,7 +29,7 @@ var _ = require('lodash');
         .get(function(req,res){
             Tag.findById(req.params._id)
                 .exec(function(err, tags) {
-                    if(err){res.send(err);}
+                    if(err){console.log(err);}
 
                     res.json(tags);
                 });

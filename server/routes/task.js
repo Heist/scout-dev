@@ -23,7 +23,7 @@ app.route('/api/task/')
     .get(function(req,res){
         Task.find({})
             .exec(function(err, tasks) {
-                if(err){res.send(err);}
+                if(err){console.log(err);}
 
                 res.json(tasks);
             });
@@ -37,7 +37,7 @@ app.route('/api/task/')
             
             Task.findById(key._id)
             .exec(function(err, task){
-                if (err) {res.send(err);}
+                if (err) {console.log(err);}
 
                 if(key.name){task.name = key.name;}
                 if(key.summary){task.summary = key.summary;}
@@ -49,7 +49,7 @@ app.route('/api/task/')
                 if(key._subject){task._subjects.push(key._subject);}
 
                 task.save(function(err,data){
-                    if(err){res.send(err);}
+                    if(err){console.log(err);}
                     // console.log('updated task', task);
                     res.json(data);
                 });
@@ -66,7 +66,7 @@ app.route('/api/task/')
         task.index = req.body.index;
         
         task.save(function(err, task){
-            if (err) { res.send(err); }
+            if (err) { console.log(err); }
             
             Test.findById( task._test, function(err,test){
                 // console.log(task._id);
@@ -74,7 +74,7 @@ app.route('/api/task/')
                 test._tasks.push(task._id);
 
                 test.save(function(err,data){
-                    if(err){res.send(err);}
+                    if(err){console.log(err);}
                 });
             
                 res.json(task);
@@ -87,7 +87,7 @@ app.route('/api/task/:_id')
     .get(function(req,res){
         Task.findById(req.params._id)
             .exec(function(err,task){
-                if(err){res.send(err);}
+                if(err){console.log(err);}
 
                 // console.log(task)
                 res.json(task);
@@ -99,7 +99,7 @@ app.route('/api/task/:_id')
         
         Task.findById(req.params._id)
             .exec(function(err, task){
-                if (err) {res.send(err);}
+                if (err) {console.log(err);}
 
                 if(req.body.name){task.name = req.body.name;}
                 if(req.body.summary){task.summary = req.body.summary;}
@@ -111,7 +111,7 @@ app.route('/api/task/:_id')
                 if(req.body._subject){task._subjects.push(req.body._subject);}
 
                 task.save(function(err,task){
-                    if(err){res.send(err);}
+                    if(err){console.log(err);}
 
                     // console.log('updated task', task);
                     res.json(task);
@@ -130,12 +130,12 @@ app.route('/api/task/:_id')
         // related to that task
 
         Task.findById(req.params._id, function(err, task){
-            if (err) { res.send(err); }
+            if (err) { console.log(err); }
             // console.log('single task found', task);
 
             Test.findOne({'_id': task._test})
                 .exec(function(err, test){
-                    if (err) { res.send(err); }
+                    if (err) { console.log(err); }
 
                     // console.log('found test ', test._id);
                     // console.log(test._tasks);
@@ -145,7 +145,7 @@ app.route('/api/task/:_id')
                     test._tasks.remove(req.params._id);
 
                     test.save(function(err,data){
-                        if(err){res.send(err);}
+                        if(err){console.log(err);}
 
                         // console.log(data);
                         res.json(req.params._id);
@@ -153,19 +153,19 @@ app.route('/api/task/:_id')
                 });
         })    
         .remove(function(err){
-            if(err){res.send(err);}
+            if(err){console.log(err);}
         });
 
         // find messages that belong to the task and delete them
         Message.find({_task:req.params._id})
             .remove(function(err){
-                if (err){ res.send(err); }
+                if (err){ console.log(err); }
             });
 
         // find tags that belong to the task and delete them
         Tag.find({_task:req.params._id})
             .remove(function(err){
-                if (err){ res.send(err); }
+                if (err){ console.log(err); }
             });
 
     });
