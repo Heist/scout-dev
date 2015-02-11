@@ -1896,11 +1896,9 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
             var url, data;
-            // console.log('obj embed', obj.embed);
+            console.log('touched saveObj', obj);
             
-            // // console.log('touched saveObj', obj);
-            
-            $scope.getIdFromURL(obj.embed);
+            // $scope.getIdFromURL(obj.embed);
 
             if(obj.doctype === 'test'){
                 url = 'summary/test/'+ obj._id;
@@ -1918,7 +1916,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $http
                 .put('/api/'+url, data)
                 .success(function(doc){
-                    // console.log(doc);
+                    console.log(doc);
                 });
         };
 
@@ -1930,6 +1928,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         };
 
         $scope.toggleVis = function(obj){
+            console.log('viz toggled');
             if (obj.visible){ obj.visible = false; $scope.saveObject(obj); return;}
             if (!obj.visible){ obj.visible = true; $scope.saveObject(obj); return;}
         };
