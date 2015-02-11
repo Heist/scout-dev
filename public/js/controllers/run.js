@@ -19,7 +19,7 @@
             .get('/api/run/'+$stateParams._id)
             .success(function(data){
                 $scope.tests = data;
-                console.log('how is data built', $scope.tests[0].kind);
+                // console.log('how is data built', $scope.tests[0].kind);
 
                 $scope.kind = data[0].kind;
 
@@ -42,7 +42,7 @@
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log(data);
+                    console.log($rootScope.user);
                     if($rootScope.user.onboard === 6 ){
                         $location.path('/summary/'+$scope.tests[0]._id);
                     }
@@ -62,7 +62,7 @@
         $scope.connect.text = '71b';
 
         $scope.subscription = function(chan){
-            console.log('touched a channel', chan);
+            // console.log('touched a channel', chan);
             // socket.emit('subscribe', { room: chan, test: $stateParams._id });
             // socket.emit('channel', { room: chan, test: $stateParams._id });
         };
@@ -75,15 +75,15 @@
 
         socket.on('connect_failed', function(data)
         {
-            console.log('connect_failed');
+            // console.log('connect_failed');
         });
         socket.on('connecting', function(data)
         {
-            console.log('connecting');
+            // console.log('connecting');
         });
         socket.on('disconnect', function(data)
         {
-            console.log('disconnect');
+            // console.log('disconnect');
 
             image.src = "/layout/assets/avatar-binocs.jpg";
             canvas.width = 358;
@@ -95,32 +95,32 @@
         });
         socket.on('error', function(reason)
         {
-            console.log('error', reason);
+            // console.log('error', reason);
         });
         socket.on('reconnect_failed', function(data)
         {
-            console.log('reconnect_failed');
+            // console.log('reconnect_failed');
         });
         socket.on('reconnect', function(data)
         {
-            console.log('reconnect');
+            // console.log('reconnect');
             socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
         });
         socket.on('reconnecting', function(data)
         {
-            console.log('reconnecting');
+            // console.log('reconnecting');
         });
 
         socket.on('announce', function(data){
-            console.log('announce', data);
+            // console.log('announce', data);
         });
 
         socket.on('joined_channel', function(data){ 
-            console.log('joined_channel', data);
+            // console.log('joined_channel', data);
         });
 
         socket.on('note', function(data){
-            console.log('note', data);
+            // console.log('note', data);
             $scope.timeline.push(data.note.msg);
             $scope.$apply();
         });
@@ -130,7 +130,7 @@
         });
 
         socket.on('message',function(data) {
-            console.log('message');
+            // console.log('message');
             image.src = "data:image/jpg;base64,"+data;
             canvas.width = 358;
             canvas.height = 358 * image.height / image.width;
@@ -142,7 +142,7 @@
 
     // ANGULAR ROUTES ===================================================
         $scope.addTask = function(task){
-            console.log('touched addTask', task);
+            // console.log('touched addTask', task);
             if($scope.adding_task){$scope.adding_task=false;}
 
             var dataOut = { 
@@ -152,19 +152,19 @@
                 index : $scope.tests[0]._tasks.length
             };
 
-            console.log('dataOut', dataOut);
+            // console.log('dataOut', dataOut);
             
             $http
                 .post('/api/task/', dataOut)
                 .success(function(data){
-                    console.log(data);
+                    // console.log(data);
                     $scope.tests[0]._tasks.push(data);
                 });
 
         };
 
         $scope.select = function(testIndex, taskIndex) {
-            // console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);
+            // // console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);
 
             var test = $scope.tests[testIndex];
 
@@ -206,10 +206,10 @@
 
 
         $scope.addSubject = function(subject){
-            console.log('touched addSubject', subject);
+            // console.log('touched addSubject', subject);
 
             $scope.subject = subject;
-            console.log($scope.subject);
+            // console.log($scope.subject);
 
             // if(subject.testroom){
             //     var room = subject.testroom.toLowerCase();
@@ -227,20 +227,20 @@
 
                     mixpanel.track('Add Participant Name', {});
 
-                    console.log('subject', $scope.subject);
+                    // console.log('subject', $scope.subject);
                     // socket.emit('send:subject_added', {subject: subject});
                     socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
         
                 })
                 .error(function(data){
-                    // console.log('Error: ' + data);
+                    // // console.log('Error: ' + data);
             });
         };
 
         $scope.postMessage = function(message){
             // here we create a note object
             if(message.length <= 0){
-                console.log('nothing');
+                // console.log('nothing');
                 return;
             } else {
                 var note = {};
@@ -255,7 +255,7 @@
                 note._subject = $scope.subject._id;
 
                 $scope.timeline.push(note);
-                // console.log('message pushing to', $scope.selected._id);
+                // // console.log('message pushing to', $scope.selected._id);
 
                 // TODO: this will catch things on both sides of the hash. 
                 // if message has # with no space, post that to message.tags
@@ -267,7 +267,7 @@
                 if (tagIt){
                     for (var i=0; i < tagIt.length; ++i) {
                         var msg = tagIt[i].replace(hashPull,'');
-                        // console.log('tag being pushed', msg)
+                        // // console.log('tag being pushed', msg)
                         note.tags.push(msg);
                     }
                 }
@@ -279,7 +279,7 @@
                 $http
                     .post(url, data_out)
                     .success(function(data){
-                        console.log('note back', data);
+                        // console.log('note back', data);
                         // socket.emit('send:note', { note: data });
                         $scope.message='';
                     });
@@ -287,14 +287,14 @@
         };
 
         $scope.postTest = function(){
-            console.log($scope.subject.testroom);
+            // console.log($scope.subject.testroom);
 
             var url = '/api/run/'+$stateParams._id;
             var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
             // socket.emit('testComplete', {data: {body:'test_complete', room : $scope.subject.testroom, test: $stateParams._id}});
 
             mixpanel.track('Test completed', {});
-            // console.log('touched end', data_out);
+            // // console.log('touched end', data_out);
 
             // collects all the tests and steps and outputs them as a collected object
             // to the session api link
@@ -304,11 +304,11 @@
             $http
                 .post(url, data_out)
                 .success(function(data){
-                    // console.log('Updated tests', data);
+                    // // console.log('Updated tests', data);
                     $location.path('/overview');
                 })
                 .error(function(data){
-                    // console.log('Error: ' + data);
+                    // // console.log('Error: ' + data);
                 });
 
         }

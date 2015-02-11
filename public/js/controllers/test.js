@@ -10,7 +10,7 @@
                 ['$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
         function(  $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         
-        console.log('loaded test controller');
+        // console.log('loaded test controller');
         
         $http
             .get('/api/test/'+$stateParams.test_id, {timeout : 5000, cache:false})
@@ -18,13 +18,13 @@
                 $scope.test = data;
                 $scope.tasks = data._tasks;
 
-                console.log('test', $scope.test);
-                console.log('tasks', $scope.tasks);
+                // console.log('test', $scope.test);
+                // console.log('tasks', $scope.tasks);
                 $scope.showAnchor(1);
 
             })
             .error(function(data) {
-                console.log('Error: ' + data);
+                // console.log('Error: ' + data);
             });
 
         // DIRECTIVES AND FUNCTIONS ===========================
@@ -42,26 +42,26 @@
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log(data);
+                    // console.log(data);
                 });
         };
         
         // ACTIONS ============================================
         // an effort to manipulate order.... 
         $scope.moveTask = function(old_index, up_down){
-            console.log(old_index, up_down);
+            // console.log(old_index, up_down);
             var new_index = old_index + up_down;
 
-            console.log(new_index);
+            // console.log(new_index);
             
             $scope.tasks.splice(new_index, 0, $scope.tasks.splice(old_index, 1)[0]);
 
             var task_order = _.pluck($scope.tasks, 'name');
             var task_idx = _.pluck($scope.tasks, 'task_index');
             
-            console.log(task_order, task_idx);
+            // console.log(task_order, task_idx);
             // set the stored index of the task properly
-            // console.log('did things stay moved', $scope.tasks); // for testing purposes
+            // // console.log('did things stay moved', $scope.tasks); // for testing purposes
             
             // I think if we don't do this, it won't store if another thing's not pressed.
             $scope.updateTest();
@@ -69,14 +69,14 @@
         };
 
         $scope.selectPrototype = function(kind){
-            console.log('touched prototype', kind);
+            // console.log('touched prototype', kind);
             $scope.test.kind = kind;
             mixpanel.track('Type of Test', {'test type' : kind });
         };
 
         $scope.selectPlatform = function(kind){
             $scope.test.platform = kind;
-            console.log('touched platform', $scope.test.platform);
+            // console.log('touched platform', $scope.test.platform);
         };
 
         $scope.showAnchor = function(x) {
@@ -128,13 +128,13 @@
         // TASK FUNCTIONS =====================================
 
     	$scope.newTask = function(task) {
-            console.log('touched add a task');
+            // console.log('touched add a task');
 
             task._test = $stateParams.test_id;
             task._session = $scope.test._session;
             task.index = $scope.tasks.length;
             
-            console.log(task);
+            // console.log(task);
             mixpanel.track('Task added', { 'user': $rootScope.user });
 
             var url = '/api/task/';
@@ -143,14 +143,14 @@
             $http
                 .post(url,data_out)
                 .success(function(data){
-                    console.log('new task added '+ JSON.stringify(data));
+                    // console.log('new task added '+ JSON.stringify(data));
 
                     $scope.tasks.push(data);
                     $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
                     $scope.newtask = '';
                 })
                 .error(function(data){
-                    console.log(JSON.stringify(data));
+                    // console.log(JSON.stringify(data));
                 });
         };
         
@@ -164,16 +164,16 @@
             
             $scope.tasks.splice(index, 1);
 
-            console.log('delete task', url);
-            console.log('index', index);
+            // console.log('delete task', url);
+            // console.log('index', index);
 
             $http.delete(url)
                 .success(function(data){
-                    console.log(data);
+                    // console.log(data);
                     $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
                 })
                 .error(function(data){
-                    console.log('Error: ' + data);
+                    // console.log('Error: ' + data);
                 });
         };
 
@@ -206,7 +206,7 @@
         };
 
         $scope.batchTask = function(){
-            console.log('touched batchTash', $scope.tasks);
+            // console.log('touched batchTash', $scope.tasks);
 
             var dataOut = $scope.tasks;
             var url = '/api/task/';
@@ -214,16 +214,16 @@
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log('tasks pushed', data);
+                    // console.log('tasks pushed', data);
                 })
                 .error(function(data){
-                    console.log('error', data);
+                    // console.log('error', data);
                 });
 
         };
 
         $scope.updateTask = function(task){
-            console.log('touched update task', task._id, task.desc);
+            // console.log('touched update task', task._id, task.desc);
 
             var url = '/api/task/'+task._id;
             var data_out = task;
@@ -231,11 +231,11 @@
             return $http
                 .put(url, data_out)
                 .success(function(data){
-                    console.log('task has pushed', data);
-                    console.log('current test tasklist', data._tasks);
+                    // console.log('task has pushed', data);
+                    // console.log('current test tasklist', data._tasks);
                  })
                 .error(function(data){
-                    console.log('error', data);
+                    // console.log('error', data);
                 });
             
         };
@@ -251,7 +251,7 @@
                 mixpanel.track('Test name changed', { 'user': $rootScope.user });
             }
 
-            console.log('touched update test', test);
+            // console.log('touched update test', test);
 
             var url = '/api/test/'+$stateParams.test_id;
             var data_out = test;
@@ -260,19 +260,19 @@
             _.each($scope.tasks, function(task){
                 task.index = task_count;
                 task_count++;
-                console.log(task.name, task.index);
+                // console.log(task.name, task.index);
             });
 
-            console.log($scope.tasks);
+            // console.log($scope.tasks);
 
             // reminder: this pushes an update to an already-created test
     		return $http
                 .put(url, data_out, {timeout:5000})
                 .success(function(data){
-                    console.log('test has pushed', data);
+                    // console.log('test has pushed', data);
                 })
                 .error(function(data){
-                    console.log('error', data);
+                    // console.log('error', data);
                 });
     	};
 

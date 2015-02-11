@@ -145,7 +145,7 @@ module.exports = function(app, passport) {
 
                                 if(invite === null){
                                     return newUserTests(user._account, user._id, function(err, callback){
-                                        console.log(callback);
+                                        console.log('newUserTests generated tests for', user._id);
                                     });
                                 }
                             });

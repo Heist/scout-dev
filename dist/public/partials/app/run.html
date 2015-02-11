@@ -1,4 +1,4 @@
-<div id="view-testing" ng-class="{ 'is-onboard': user.onboard != 0, 'has-input-outline': user.onboard === 3 || user.onboard === 4 }">
+<div id="view-testing" ng-class="{ 'is-onboard': user.onboard != 100, 'has-input-outline': user.onboard === 3 || user.onboard === 4 }">
 	
 
 
@@ -7,6 +7,7 @@
 	<div class="container">
 		<div class="module third">
 			<h3>Looks like we're ready.<br>Let's run a test with Rob.</h3>
+			<a href="#" class="secondary" ng-click="changeOnboard(100)"><small >I&rsquo;m okay on my own</small></a> &nbsp;&nbsp; 
 		</div>
 		<div class="module third">
 			<div class="onboard-avatar"><img src="http://rdjpg.com/60/60"></div>
@@ -27,6 +28,7 @@
 		</div>
 		<div class="module third">
 			On the left are the <strong>tasks</strong> you created when you set up this <strong>project.</strong>
+			<a href="#" class="secondary" ng-click="changeOnboard(100)"><small >I&rsquo;m okay on my own</small></a> &nbsp;&nbsp; 
 		</div>
 		<div class="module third text-right">
 			<a class="button" ng-click="changeOnboard(3)">Next</a>

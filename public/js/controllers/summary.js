@@ -39,7 +39,7 @@
                         }
                     });
                 
-                console.log($scope.leftNavList[0]);
+                // console.log($scope.leftNavList[0]);
                 $scope.activate($scope.leftNavList[0]);
             });
 
@@ -52,7 +52,7 @@
         $scope.activate = function(obj, selectedIndex) {
             // passes the task to the global variable
 
-            console.log('touched activate');
+            // console.log('touched activate');
             $scope.selected = '';
             $scope.commentMessage = '';
             $scope.selectedIndex = '';
@@ -63,12 +63,12 @@
             $scope.selectedIndex = selectedIndex;
             
             if(obj.doctype === 'test'){
-                console.log('when was this last run', obj.last_run);
+                // console.log('when was this last run', obj.last_run);
             }
 
             if(obj){
                 $scope.selected = obj;
-                console.log('selected', obj);
+                // console.log('selected', obj);
             }
         };
 
@@ -92,7 +92,7 @@
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log(data);
+                    console.log($rootScope.user);
                     $location.path('/report/'+$stateParams._id);
                 });
         };
@@ -104,22 +104,22 @@
             // hide commenting
             // else show the new message's comments
 
-            console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
+            // console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
 
             // if(){}
             if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
-                console.log('match');
+                // console.log('match');
                 $scope.showCommentToggle = 'hide';
                 $scope.commentMessage = '';
                 return;
             }
             if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
-                console.log('match');
+                // console.log('match');
                 $scope.showCommentToggle = 'show';
                 return;
             }
             if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
-                console.log('fail');
+                // console.log('fail');
                 $scope.showCommentToggle = 'show'; 
                 $scope.commentMessage = message;
                 return;
@@ -193,9 +193,9 @@
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
             var url, data;
-            console.log('obj embed', obj.embed);
+            // console.log('obj embed', obj.embed);
             
-            // console.log('touched saveObj', obj);
+            // // console.log('touched saveObj', obj);
             
             $scope.getIdFromURL(obj.embed);
 
@@ -215,7 +215,7 @@
             $http
                 .put('/api/'+url, data)
                 .success(function(doc){
-                    console.log(doc);
+                    // console.log(doc);
                 });
         };
 
@@ -275,7 +275,7 @@
         };
 
         $scope.toggleNote = function(user){
-            console.log('user for new note', user);
+            // console.log('user for new note', user);
             $scope.messageEditToggle = '';
             $scope.inputNote = user;
         };
@@ -337,17 +337,17 @@
                 .post(url, data_out)
                 .success(function(data){
 
-                    console.log('new message data', data);
+                    // console.log('new message data', data);
 
                     $scope.toggleNote();
                     $scope.messages[data.msg._subject.name].push(data.msg);
                     $scope.selected._messages.push(data.msg._id);
 
-                    console.log('msg list', $scope.messages[data.msg._subject.name]);
-                    console.log('selected list', $scope.selected._messages);
+                    // console.log('msg list', $scope.messages[data.msg._subject.name]);
+                    // console.log('selected list', $scope.selected._messages);
 
                     var indexCheck = _.pluck($scope.leftNavList, 'name');
-                    console.log('indexCheck', indexCheck);
+                    // console.log('indexCheck', indexCheck);
 
                     _.each(data.tags, function(tag){
                         var idx = indexCheck.indexOf(tag.name);

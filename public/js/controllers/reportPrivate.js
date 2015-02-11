@@ -15,7 +15,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
     $http.get('/api/private/report/'+$stateParams.test_id)
             .success(function(data){
-                console.log('the report object', data);
+                // console.log('the report object', data);
                 
                 $scope.leftNavList = [];
                 $scope.testname = data.test;
@@ -26,14 +26,14 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
                 _.each(sort, function(obj){
                     if(obj.visible){
-                        console.log(obj.name); 
+                        // console.log(obj.name); 
                         $scope.leftNavList.push(obj);
                     }
                 });
 
                 $scope.messages = data.messages;
 
-                console.log($scope.leftNavList[0]);
+                // console.log($scope.leftNavList[0]);
                 $scope.activate($scope.leftNavList[0]);
                 
             }); 
@@ -58,7 +58,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log(data);
+                    console.log($rootScope.user);
                     $location.path('/');
                 });
         };
@@ -80,7 +80,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         $scope.selectedIndex = selectedIndex;
         
         if(obj.doctype === 'test'){
-            console.log('when was this last run', obj.last_run);
+            // console.log('when was this last run', obj.last_run);
         }
 
         if(obj){
@@ -103,7 +103,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
                     res = res.replace(h1, "height='380'");
                     res = res.replace(h2, '"height":"380"');
                     
-                    console.log(res);
+                    // console.log(res);
 
                     $scope.selected.userTesting = $sce.trustAsHtml(res);
                     // $scope.selected.HTMLdemo = '<a href="#linky">I am a link</a>';
@@ -134,22 +134,22 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         // hide commenting
         // else show the new message's comments
 
-        console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
+        // console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
 
         // if(){}
         if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
-            console.log('match');
+            // console.log('match');
             $scope.showCommentToggle = 'hide';
             $scope.commentMessage = '';
             return;
         }
         if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
-            console.log('match');
+            // console.log('match');
             $scope.showCommentToggle = 'show';
             return;
         }
         if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
-            console.log('fail');
+            // console.log('fail');
             $scope.showCommentToggle = 'show'; 
             $scope.commentMessage = message;
             return;
@@ -160,7 +160,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
     };
 
     $scope.addComment = function(comment){
-        console.log('add comment', $scope.messages);
+        // console.log('add comment', $scope.messages);
         if(comment && comment.body.length > 0){
             var dataOut = {
                 comment: {body : comment.body}
@@ -174,7 +174,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
                     var arr = _.pluck($scope.messages, '_id');
                     var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
 
-                    console.log(msg_idx);
+                    // console.log(msg_idx);
                     $scope.messages[msg_idx]._comments.push(data.comment);
                 });
         } else {

@@ -16,7 +16,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
     $http.get('/api/public/report/'+$stateParams.test_id)
             .success(function(data){
-                console.log('the report object', data);
+                // console.log('the report object', data);
                 
                 $scope.leftNavList = [];
                 $scope.testname = data.test;
@@ -27,13 +27,13 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
                 _.each(sort, function(obj){
                     if(obj.visible){
-                        console.log(obj.name); 
+                        // console.log(obj.name); 
                         $scope.leftNavList.push(obj);
                     }
                 });
 
                 $scope.messages = data.messages;
-                console.log('messages', $scope.messages);
+                // console.log('messages', $scope.messages);
 
                 $scope.activate($scope.leftNavList[0]);
                 
@@ -73,7 +73,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         
         if(obj){
             $scope.selected = obj;
-            console.log('selected', $scope.selected._id);
+            // console.log('selected', $scope.selected._id);
             // here's where we do the rendering shit for the embeds. Slow. Boo.
             if(obj.embed){
                 var ytube = /youtube.com/i;
@@ -95,7 +95,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                     res = res.replace(h1, "height='380'");
                     res = res.replace(h2, '"height":"380"');
                     
-                    console.log(res);
+                    // console.log(res);
 
                     $scope.selected.userTesting = $sce.trustAsHtml(res);
                     // $scope.selected.HTMLdemo = '<a href="#linky">I am a link</a>';
@@ -124,22 +124,22 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         // hide commenting
         // else show the new message's comments
 
-        console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
+        // console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
 
         // if(){}
         if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
-            console.log('match');
+            // console.log('match');
             $scope.showCommentToggle = 'hide';
             $scope.commentMessage = '';
             return;
         }
         if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
-            console.log('match');
+            // console.log('match');
             $scope.showCommentToggle = 'show';
             return;
         }
         if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
-            console.log('fail');
+            // console.log('fail');
             $scope.showCommentToggle = 'show'; 
             $scope.commentMessage = message;
             return;
@@ -150,7 +150,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
     };
 
     $scope.addComment = function(comment){
-        console.log('add comment', $scope.messages);
+        // console.log('add comment', $scope.messages);
         if(comment && comment.body.length > 0){
             var dataOut = {
                 comment: {body : comment.body}
@@ -164,7 +164,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                     var arr = _.pluck($scope.messages, '_id');
                     var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
 
-                    console.log(msg_idx);
+                    // console.log(msg_idx);
                     $scope.messages[msg_idx]._comments.push(data.comment);
                 });
         } else {

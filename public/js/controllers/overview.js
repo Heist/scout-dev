@@ -11,7 +11,7 @@
             .get('/api/test/', {timeout : 5000})
             .success(function(data) {
                 $scope.tests = data;
-                console.log('tests', data);
+                // console.log('tests', data);
                 // initially selected 
                 // $scope.selected = data[0];
                 if($rootScope.user.onboard === 2){
@@ -29,7 +29,7 @@
 
             })
             .error(function(data) {
-                console.log('Error: ' + data);
+                // console.log('Error: ' + data);
             });
         // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
@@ -40,7 +40,7 @@
         // or possibly should have permit locks on it.
         // Tests do not have actual permit locks on them now, do they.
         // else just continue as normal.
-        console.log('onboard', $rootScope.user.onboard);
+        // console.log('onboard', $rootScope.user.onboard);
 
         $scope.changeOnboard = function(num){
             $rootScope.user.onboard = num;
@@ -51,7 +51,7 @@
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log(data);
+                    console.log($rootScope.user);
                     if($rootScope.user.onboard === 3){
                         $location.path('/run/'+$scope.tests[0]._id);
                     }
@@ -60,7 +60,7 @@
         // SESSION ROUTES =====================================
 
         $scope.select = function (session){
-            console.log('touched session', session);
+            // console.log('touched session', session);
             $scope.selected = session;
         };
 
@@ -85,10 +85,10 @@
 
             $http.put(url, data_out)
                     .success(function(data){
-                        console.log('sent new title : ', data);
+                        // console.log('sent new title : ', data);
                     })
                     .error(function(data){
-                        console.log('Error: ' + data);
+                        // console.log('Error: ' + data);
                     });
         };
 
@@ -97,7 +97,7 @@
             $http.post('/api/session/')
                 .success(function(data){
 
-                    console.log('added a new session '+ JSON.stringify(data));
+                    // console.log('added a new session '+ JSON.stringify(data));
                     
                     $scope.sessions.push(data);
 
@@ -105,7 +105,7 @@
                     $scope.selected = $scope.sessions[$scope.sessions.length-1];
                 })
                 .error(function(data){
-                    console.log('error', data);
+                    // console.log('error', data);
                 });   
         };
        
@@ -115,19 +115,19 @@
 
             $http.delete(url)
                 .success(function(data){
-                    console.log(data);
+                    // console.log(data);
 
                     $scope.sessions.splice(index, 1);
                     $scope.selected = $scope.sessions[$scope.sessions.length-1];
                 })
                 .error(function(data){
-                    console.log('error', data);
+                    // console.log('error', data);
                 });
         };
 
         // TEST ROUTES ========================================
         $scope.devTest = function(){
-            console.log('get me some tests');
+            // console.log('get me some tests');
             
             $http.post('/api/test/dev_tests/')
                 .success(function(data){
@@ -136,19 +136,19 @@
         };
 
         $scope.newTest = function(){
-                console.log('touched addatest');
+                // console.log('touched addatest');
                 
                 var test = {};
 
                 if($rootScope.user){
-                    console.log('rootScope user set', $rootScope.user);
+                    // console.log('rootScope user set', $rootScope.user);
                     test.created_by = $rootScope.user;
                    
                     mixpanel.track('Add new test', { 'user' : $rootScope.user });
 
 
                 }else{
-                    console.log('whoops, needs a checkin');
+                    // console.log('whoops, needs a checkin');
                 }
 
                 var url = '/api/test/';
@@ -157,12 +157,12 @@
                 $http
                     .post(url, data_out)
                     .success(function(data){
-                        console.log('new test added '+ JSON.stringify(data));
+                        // console.log('new test added '+ JSON.stringify(data));
                         $location.path('/edit/test/'+ data._id);
                         $scope.tests.push(data);
                     })
                     .error(function(data){
-                        console.log('error', data);
+                        // console.log('error', data);
                     });
             };
 
@@ -177,16 +177,16 @@
                 $http
                     .delete(url)
                     .success(function(data){
-                        console.log(data);
+                        // console.log(data);
                     })
                     .error(function(data){
-                        console.log('Error: ' + data);
+                        // console.log('Error: ' + data);
                     });
             // }        
         };
 
         $scope.dupeTest = function(test){
-            console.log('touched dupe test', test._id);
+            // console.log('touched dupe test', test._id);
 
             var url = '/api/test/'+test._id;
             var data_out = test;
@@ -194,38 +194,38 @@
             $http
                 .post(url, data_out)
                 .success(function(data){
-                    console.log('new test added '+ JSON.stringify(data));
+                    // console.log('new test added '+ JSON.stringify(data));
                     $scope.tests.push(data);
                 })
                 .error(function(data){
-                    console.log('error', data);
+                    // console.log('error', data);
                 });
         };
 
         $scope.editTest = function(test){
-            console.log('touched test', test);
+            // console.log('touched test', test);
             $location.path('/edit/test/'+ test._id);
         };
 
         $scope.watchTest = function(test){
-            console.log('touched watch', test);
+            // console.log('touched watch', test);
             $location.path('/watch/'+test._id);
         };
          
         $scope.runTest = function(test){
-            console.log('touched run', test._id);
+            // console.log('touched run', test._id);
             $location.path('/run/'+test._id);
             mixpanel.track('Run test', { 'user': $rootScope.user });
         };
 
         $scope.summarizeTest = function(test_id){
-            console.log('touched summary', test_id);
+            // console.log('touched summary', test_id);
             $location.path('/summary/'+ test_id);
             mixpanel.track('Summary clicked', {});
         };
 
         $scope.loadReport = function(test_id){
-            console.log('touched a report', test_id);
+            // console.log('touched a report', test_id);
             $location.path('/report/'+ test_id);
         };
 

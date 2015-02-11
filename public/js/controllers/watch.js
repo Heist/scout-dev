@@ -32,15 +32,15 @@
 
         socket.on('connect_failed', function(data)
         {
-            console.log('connect_failed');
+            // console.log('connect_failed');
         });
         socket.on('connecting', function(data)
         {
-            console.log('connecting');
+            // console.log('connecting');
         });
         socket.on('disconnect', function(data)
         {
-            console.log('disconnect');
+            // console.log('disconnect');
             image.src = "/layout/assets/avatar-binocs.jpg";
             canvas.width = 358;
             canvas.height = 358 * image.height / image.width;
@@ -50,27 +50,27 @@
         });
         socket.on('error', function(reason)
         {
-            console.log('error');
+            // console.log('error');
         });
         socket.on('reconnect_failed', function(data)
         {
-            console.log('reconnect_failed');
+            // console.log('reconnect_failed');
         });
         socket.on('reconnect', function(data)
         {
-            console.log('reconnect');
+            // console.log('reconnect');
         });
         socket.on('reconnecting', function(data)
         {
-            console.log('reconnecting');
+            // console.log('reconnecting');
         });
 
         socket.on('announce', function(data){
-            console.log('announce', data);
+            // console.log('announce', data);
         });
 
         socket.on('note', function(data){
-            console.log('note', data);
+            // console.log('note', data);
             $scope.timeline.push(data.note.msg);
             $scope.$apply();
         });
@@ -90,7 +90,7 @@
         $scope.connect.text = '71b';
 
         $scope.subscription = function(chan){
-            console.log('touched a channel', chan);
+            // console.log('touched a channel', chan);
             socket.emit('subscribe', { room: chan });
             socket.emit('channel', { room: chan });
         };
@@ -99,7 +99,7 @@
         $scope.testName = $stateParams._id; 
 
         $scope.joinRoom = function(room){
-            console.log('I want to join this room', $scope.selectedRoom);
+            // console.log('I want to join this room', $scope.selectedRoom);
             // socket.emit('join_room', $scope.selectedRoom.room);
             $scope.live = true;
         };
@@ -119,7 +119,7 @@
             note._subject = $scope.subject._id;
 
             $scope.timeline.push(note);
-            // console.log('message pushing to', $scope.selected._id);
+            // // console.log('message pushing to', $scope.selected._id);
 
             // TODO: this will catch things on both sides of the hash. 
             // if message has # with no space, post that to message.tags
@@ -131,12 +131,12 @@
             if (tagIt){
                 for (var i=0; i < tagIt.length; ++i) {
                     var msg = tagIt[i].replace(hashPull,'');
-                    // console.log('tag being pushed', msg)
+                    // // console.log('tag being pushed', msg)
                     note.tags.push(msg);
                 }
             }
             
-            // console.log('note tags', note.tags);
+            // // console.log('note tags', note.tags);
 
             var url = '/api/message/';
             var data_out = note;
@@ -147,7 +147,7 @@
                     // socket.emit('send:note', { note: data });
                 })
                 .error(function(data){
-                    // console.log('Error: ' + data);
+                    // // console.log('Error: ' + data);
                 });
 
             $scope.message='';

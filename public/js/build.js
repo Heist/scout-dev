@@ -41,7 +41,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
         // TODO: this should probably be an Interceptor, but it works on load for now.
         function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
-            console.log('checking logged in identity');
+            // console.log('checking logged in identity');
             // Make an AJAX call to check if the user is logged in
             var deferred = $q.defer();
             $http
@@ -49,19 +49,19 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 .success(function(user){
                     // Authenticated
                     if (user !== '0') {
-                        console.log('user', user);
+                        // console.log('user', user);
                         $rootScope.user = user;
                         deferred.resolve();
                     }
                     // Not Authenticated 
                     else { 
-                        console.log('welp, that flunked.');
+                        // console.log('welp, that flunked.');
                         $location.url('/login');
                         deferred.resolve();
                     }
                 })
                 .error(function(err){
-                    console.log(err);
+                    // console.log(err);
                     $location.url('/login');
                     deferred.resolve();
                 });
@@ -342,12 +342,12 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 };
 
                 scope.$watch(iAttrs.ngCheckStrength, function () {
-                    console.log('watching');
+                    // console.log('watching');
                     if (!scope.user) {
-                        console.log('no user');
+                        // console.log('no user');
                         iElement.css({ "display": "none"  });
                     } else {
-                        console.log(scope.user.password.length);
+                        // console.log(scope.user.password.length);
                         var c = strength.getColor(strength.measureStrength(scope.user.password));
                         iElement.css({ "display": "inline" });
                         iElement.children('li')
@@ -368,20 +368,20 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
     });
 
     // supply the currently logged-in user to all functions
-    field_guide_app.service('changeOnboard', ['$rootScope', '$http', function($rootScope, $http) {
-        return function(num) {
-            $rootScope.user.onboard = num;
+    // field_guide_app.service('changeOnboard', ['$rootScope', '$http', function($rootScope, $http) {
+    //     return function(num) {
+    //         $rootScope.user.onboard = num;
 
-            var url = '/user/'+$rootScope.user._id;
-            var dataOut = {user : $rootScope.user.onboard};
+    //         var url = '/user/'+$rootScope.user._id;
+    //         var dataOut = {user : $rootScope.user.onboard};
 
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    console.log(data);
-                });
-        };
-    }]);
+    //         $http
+    //             .put(url, dataOut)
+    //             .success(function(data){
+    //                 // console.log(data);
+    //             });
+    //     };
+    // }]);
 
     // field_guide_app.run(function ($rootScope, $location, $http, $timeout, changeOnboard) {
     //     $rootScope.changeOnboard = changeOnboard;
@@ -410,14 +410,14 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 		$scope.account = $rootScope.user.account;
 		$scope.connector = {};
 		
-		console.log('account user', $rootScope.user);
+		// console.log('account user', $rootScope.user);
 		// https://trello.com/1/members/my/boards?key=substitutewithyourapplicationkey&token=substitutethispartwiththeauthorizationtokenthatyougotfromtheuser
 		// https://trello.com/docs/api/card/index.html#post-1-cards
 		
 		$http
 			.get('/api/account/'+ user_id)
 			.success(function(data){
-				// console.log(data);
+				// // console.log(data);
 				$scope.live_user = data;
 			});
 
@@ -434,7 +434,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log(data);
+                    console.log($rootScope.user);
                     $location.path('/overview');
                 });
         };
@@ -454,19 +454,19 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 		$window.inviteCallback = function(){
 			$scope.connector.message = "Your Trello account is connected.";
 			$scope.connector.toggle = 1;
-			// // console.log('called back');
+			// // // console.log('called back');
 			$scope.$apply();
 		};
 
 
 		// $scope.removeTeamMember = function(person){
-		// 	// // console.log('remove this person', person._id );
+		// 	// // // console.log('remove this person', person._id );
 		// 	var index = $scope.live_user.team.indexOf(person);
 
 		// 	$http
 		// 		.delete('/api/account/'+person._id)
 		// 		.success(function(err, data){
-		// 			// // console.log('deleted', data);
+		// 			// // // console.log('deleted', data);
 		// 			$scope.live_user.team.splice(index, 1);
 		// 		});
 		// };
@@ -488,14 +488,14 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 			$http
 				.post(url, dataOut)
 				.success(function(invite){
-					console.log('invitation sent', invite);
+					// console.log('invitation sent', invite);
 
 					if(invite.user_email){
 						// user_email exists only on the Invite model.
 						// if an invitation then exists, do the following.
 
 						$scope.live_user.invites.push(invite);
-						// console.log('$scope.live_user.invites', $scope.live_user.invites);
+						// // console.log('$scope.live_user.invites', $scope.live_user.invites);
 						email.address = "";
 						$scope.message = "We&rsquo;ve sent an e-mail invitation to your team member."+
 	                                     " Just in case, you can also invite them using this personalized link:"+
@@ -525,7 +525,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 		$scope.resendInvite = function(invite){
 			// this will resend a pending invitation for a non-existent user
 			// it requires that the previous invitation supply an invitation._id
-			// console.log('sent', invite);
+			// // console.log('sent', invite);
 			var url = '/api/invite/'+invite._id,
 				dataOut = invite,
 				new_url = $location.protocol()+'://'+$location.host()+':8080';
@@ -533,7 +533,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 			$http
 				.post(url, dataOut)
 				.success(function(data){
-					// console.log('reinvitation sent', data);
+					// // console.log('reinvitation sent', data);
 					$scope.message = "Reinvitation sent to "+ data.user_email +
 	                                 "<br /> Here is a personalized invitation link you can share with them: "+
 	                                 "<a href='"+new_url+"/login/"+invite._id+"'>"+new_url+"/login/"+invite._id+
@@ -548,7 +548,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 			$http
 				.delete('/api/invite/'+invite._id)
 				.success(function(err, data){
-					// console.log('invitation removed', data);
+					// // console.log('invitation removed', data);
 					$scope.live_user.invites.splice(index, 1);
 				});
 		};
@@ -558,7 +558,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 			$http
 				.get('/auth/export/account/')
 				.success(function(data){
-					console.log('success', data);
+					// console.log('success', data);
 				});
 		};
 
@@ -568,18 +568,18 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 			// $window.open('views/anotherWindow.html', '_blank','menubar=yes,toolbar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,personalbar=yes');
 			$window.open('/connect/trello', 'Connect Field Guide to Trello', 'width=450, height=600');
 			$scope.$watch('inviteCallback', function(){
-				// // console.log('hello callback!');
+				// // // console.log('hello callback!');
 				// $scope.connector = false;
 				// $scope.live_user.trello = true;
 			});
 		};
 
 		$scope.disconnectTrello = function() {
-			// // console.log('touched disconnect');
+			// // // console.log('touched disconnect');
 
 			$http.delete('/connect/trello')
 				.success(function(err, data){
-					// // console.log('Trello disconnected');
+					// // // console.log('Trello disconnected');
 					$scope.live_user.trello=false;
 
 					$scope.connector.message = "Connect your Trello account.";
@@ -597,15 +597,15 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
     angular.module('field_guide_controls')
        .controller('forgot', ['$scope','$http', '$location', '$stateParams','$rootScope', 
                     function($scope, $http, $location, $stateParams, $rootScope){
-        console.log('password reset controller');    
+        // console.log('password reset controller');    
 
         var url = '/reset'+$stateParams.token;
 
-        console.log(url);
+        // console.log(url);
         $http
             .get(url)
             .success(function(data){
-                console.log(data);
+                // console.log(data);
             });
 
         $scope.newPass = function(pass){
@@ -615,7 +615,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 .post(url, dataOut)
                 .success(function(data){
                     // do a login here, perhaps
-                    console.log('reset', data);
+                    // console.log('reset', data);
                     if(data.length > 0){
                         $scope.successMsg = data;
                     }
@@ -642,7 +642,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         if($rootScope.user){
             $scope.user = $rootScope.user;
         }
-        // console.log('$scope.login $rootScope.user', $rootScope.user);
+        // // console.log('$scope.login $rootScope.user', $rootScope.user);
 
         if($stateParams.acct){
             $scope.acct = $stateParams.acct.replace( /\//gi,"");
@@ -653,7 +653,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             $http
                 .get('/auth/invite'+$stateParams.acct)
                 .success(function(data){
-                    console.log(data);
+                    // console.log(data);
                     $scope.user = data;
                     $scope.user.email = data.user_email;
                 });
@@ -669,18 +669,18 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    console.log('login controller success', data);
+                    // console.log('login controller success', data);
                     $scope.flashmessage = data.error;
                     $location.path('/');
                 })
                 .error(function(error){
-                    // console.log('login no bueno.', error);
+                    // // console.log('login no bueno.', error);
                 });
         };
 
         $scope.showReg = function(){
             $scope.reg_toggle = true;
-            console.log('touched register', $scope.reg_toggle);
+            // console.log('touched register', $scope.reg_toggle);
 
         };
 
@@ -689,23 +689,23 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         };
 
         $scope.showLogin = function(){
-            // console.log('touched login', $scope.reg_toggle);
+            // // console.log('touched login', $scope.reg_toggle);
             $scope.reg_toggle = false;
         };
 
         $scope.register = function(user){
-            console.log('register this user', user);
+            // console.log('register this user', user);
             var url, 
                 dataOut,
                 invite;
             
             if($stateParams.acct){
                 invite = $stateParams.acct.replace( /\//gi,"");
-                // console.log('touched account', acct);
+                // // console.log('touched account', acct);
                 url = '/auth/signup/';
                 dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
             } else if (!$stateParams.acct) {
-                // console.log('this signup does not include an account (stateparams.acct)');
+                // // console.log('this signup does not include an account (stateparams.acct)');
                 url = '/auth/signup/';
                 dataOut = {email: user.email, name:user.name, password:  user.password};
             }
@@ -714,7 +714,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 .post(url, dataOut)
                 .success(function(data){
                     $scope.flashmessage = data.error;
-                    // console.log('register controller success passed back this', data);
+                    // // console.log('register controller success passed back this', data);
                     
                     $rootScope.user = data._id;
                     $location.path(data.redirect);
@@ -723,7 +723,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
                 })
                 .error(function(error){
-                    // console.log('signup no bueno.', error);
+                    // // console.log('signup no bueno.', error);
             });
         };
 
@@ -733,12 +733,12 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             $http
                 .post(url)
                 .success(function(data){
-                    // console.log('Success! Logged out.', data);
+                    // // console.log('Success! Logged out.', data);
                     $location.path(data.redirect);
                     $rootScope.user = '';
                 })
                 .error(function(error){
-                    // console.log('logout no bueno.', error);
+                    // // console.log('logout no bueno.', error);
             });
         };
     }]);
@@ -756,7 +756,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             .get('/api/test/', {timeout : 5000})
             .success(function(data) {
                 $scope.tests = data;
-                console.log('tests', data);
+                // console.log('tests', data);
                 // initially selected 
                 // $scope.selected = data[0];
                 if($rootScope.user.onboard === 2){
@@ -774,7 +774,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
             })
             .error(function(data) {
-                console.log('Error: ' + data);
+                // console.log('Error: ' + data);
             });
         // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
@@ -785,7 +785,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         // or possibly should have permit locks on it.
         // Tests do not have actual permit locks on them now, do they.
         // else just continue as normal.
-        console.log('onboard', $rootScope.user.onboard);
+        // console.log('onboard', $rootScope.user.onboard);
 
         $scope.changeOnboard = function(num){
             $rootScope.user.onboard = num;
@@ -796,7 +796,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log(data);
+                    console.log($rootScope.user);
                     if($rootScope.user.onboard === 3){
                         $location.path('/run/'+$scope.tests[0]._id);
                     }
@@ -805,7 +805,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         // SESSION ROUTES =====================================
 
         $scope.select = function (session){
-            console.log('touched session', session);
+            // console.log('touched session', session);
             $scope.selected = session;
         };
 
@@ -830,10 +830,10 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
             $http.put(url, data_out)
                     .success(function(data){
-                        console.log('sent new title : ', data);
+                        // console.log('sent new title : ', data);
                     })
                     .error(function(data){
-                        console.log('Error: ' + data);
+                        // console.log('Error: ' + data);
                     });
         };
 
@@ -842,7 +842,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             $http.post('/api/session/')
                 .success(function(data){
 
-                    console.log('added a new session '+ JSON.stringify(data));
+                    // console.log('added a new session '+ JSON.stringify(data));
                     
                     $scope.sessions.push(data);
 
@@ -850,7 +850,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                     $scope.selected = $scope.sessions[$scope.sessions.length-1];
                 })
                 .error(function(data){
-                    console.log('error', data);
+                    // console.log('error', data);
                 });   
         };
        
@@ -860,19 +860,19 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
             $http.delete(url)
                 .success(function(data){
-                    console.log(data);
+                    // console.log(data);
 
                     $scope.sessions.splice(index, 1);
                     $scope.selected = $scope.sessions[$scope.sessions.length-1];
                 })
                 .error(function(data){
-                    console.log('error', data);
+                    // console.log('error', data);
                 });
         };
 
         // TEST ROUTES ========================================
         $scope.devTest = function(){
-            console.log('get me some tests');
+            // console.log('get me some tests');
             
             $http.post('/api/test/dev_tests/')
                 .success(function(data){
@@ -881,19 +881,19 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         };
 
         $scope.newTest = function(){
-                console.log('touched addatest');
+                // console.log('touched addatest');
                 
                 var test = {};
 
                 if($rootScope.user){
-                    console.log('rootScope user set', $rootScope.user);
+                    // console.log('rootScope user set', $rootScope.user);
                     test.created_by = $rootScope.user;
                    
                     mixpanel.track('Add new test', { 'user' : $rootScope.user });
 
 
                 }else{
-                    console.log('whoops, needs a checkin');
+                    // console.log('whoops, needs a checkin');
                 }
 
                 var url = '/api/test/';
@@ -902,12 +902,12 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 $http
                     .post(url, data_out)
                     .success(function(data){
-                        console.log('new test added '+ JSON.stringify(data));
+                        // console.log('new test added '+ JSON.stringify(data));
                         $location.path('/edit/test/'+ data._id);
                         $scope.tests.push(data);
                     })
                     .error(function(data){
-                        console.log('error', data);
+                        // console.log('error', data);
                     });
             };
 
@@ -922,16 +922,16 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 $http
                     .delete(url)
                     .success(function(data){
-                        console.log(data);
+                        // console.log(data);
                     })
                     .error(function(data){
-                        console.log('Error: ' + data);
+                        // console.log('Error: ' + data);
                     });
             // }        
         };
 
         $scope.dupeTest = function(test){
-            console.log('touched dupe test', test._id);
+            // console.log('touched dupe test', test._id);
 
             var url = '/api/test/'+test._id;
             var data_out = test;
@@ -939,38 +939,38 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             $http
                 .post(url, data_out)
                 .success(function(data){
-                    console.log('new test added '+ JSON.stringify(data));
+                    // console.log('new test added '+ JSON.stringify(data));
                     $scope.tests.push(data);
                 })
                 .error(function(data){
-                    console.log('error', data);
+                    // console.log('error', data);
                 });
         };
 
         $scope.editTest = function(test){
-            console.log('touched test', test);
+            // console.log('touched test', test);
             $location.path('/edit/test/'+ test._id);
         };
 
         $scope.watchTest = function(test){
-            console.log('touched watch', test);
+            // console.log('touched watch', test);
             $location.path('/watch/'+test._id);
         };
          
         $scope.runTest = function(test){
-            console.log('touched run', test._id);
+            // console.log('touched run', test._id);
             $location.path('/run/'+test._id);
             mixpanel.track('Run test', { 'user': $rootScope.user });
         };
 
         $scope.summarizeTest = function(test_id){
-            console.log('touched summary', test_id);
+            // console.log('touched summary', test_id);
             $location.path('/summary/'+ test_id);
             mixpanel.track('Summary clicked', {});
         };
 
         $scope.loadReport = function(test_id){
-            console.log('touched a report', test_id);
+            // console.log('touched a report', test_id);
             $location.path('/report/'+ test_id);
         };
 
@@ -988,7 +988,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         
         if($stateParams.acct){
             $scope.acct = $stateParams.acct.replace( /\//gi,"");
-            console.log($scope.acct);
+            // console.log($scope.acct);
         }
 
     }]);
@@ -1010,7 +1010,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
     $http.get('/api/private/report/'+$stateParams.test_id)
             .success(function(data){
-                console.log('the report object', data);
+                // console.log('the report object', data);
                 
                 $scope.leftNavList = [];
                 $scope.testname = data.test;
@@ -1021,14 +1021,14 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
                 _.each(sort, function(obj){
                     if(obj.visible){
-                        console.log(obj.name); 
+                        // console.log(obj.name); 
                         $scope.leftNavList.push(obj);
                     }
                 });
 
                 $scope.messages = data.messages;
 
-                console.log($scope.leftNavList[0]);
+                // console.log($scope.leftNavList[0]);
                 $scope.activate($scope.leftNavList[0]);
                 
             }); 
@@ -1053,7 +1053,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log(data);
+                    console.log($rootScope.user);
                     $location.path('/');
                 });
         };
@@ -1075,7 +1075,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         $scope.selectedIndex = selectedIndex;
         
         if(obj.doctype === 'test'){
-            console.log('when was this last run', obj.last_run);
+            // console.log('when was this last run', obj.last_run);
         }
 
         if(obj){
@@ -1098,7 +1098,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
                     res = res.replace(h1, "height='380'");
                     res = res.replace(h2, '"height":"380"');
                     
-                    console.log(res);
+                    // console.log(res);
 
                     $scope.selected.userTesting = $sce.trustAsHtml(res);
                     // $scope.selected.HTMLdemo = '<a href="#linky">I am a link</a>';
@@ -1129,22 +1129,22 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         // hide commenting
         // else show the new message's comments
 
-        console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
+        // console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
 
         // if(){}
         if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
-            console.log('match');
+            // console.log('match');
             $scope.showCommentToggle = 'hide';
             $scope.commentMessage = '';
             return;
         }
         if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
-            console.log('match');
+            // console.log('match');
             $scope.showCommentToggle = 'show';
             return;
         }
         if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
-            console.log('fail');
+            // console.log('fail');
             $scope.showCommentToggle = 'show'; 
             $scope.commentMessage = message;
             return;
@@ -1155,7 +1155,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
     };
 
     $scope.addComment = function(comment){
-        console.log('add comment', $scope.messages);
+        // console.log('add comment', $scope.messages);
         if(comment && comment.body.length > 0){
             var dataOut = {
                 comment: {body : comment.body}
@@ -1169,7 +1169,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
                     var arr = _.pluck($scope.messages, '_id');
                     var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
 
-                    console.log(msg_idx);
+                    // console.log(msg_idx);
                     $scope.messages[msg_idx]._comments.push(data.comment);
                 });
         } else {
@@ -1197,7 +1197,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
     $http.get('/api/public/report/'+$stateParams.test_id)
             .success(function(data){
-                console.log('the report object', data);
+                // console.log('the report object', data);
                 
                 $scope.leftNavList = [];
                 $scope.testname = data.test;
@@ -1208,13 +1208,13 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
                 _.each(sort, function(obj){
                     if(obj.visible){
-                        console.log(obj.name); 
+                        // console.log(obj.name); 
                         $scope.leftNavList.push(obj);
                     }
                 });
 
                 $scope.messages = data.messages;
-                console.log('messages', $scope.messages);
+                // console.log('messages', $scope.messages);
 
                 $scope.activate($scope.leftNavList[0]);
                 
@@ -1254,7 +1254,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         
         if(obj){
             $scope.selected = obj;
-            console.log('selected', $scope.selected._id);
+            // console.log('selected', $scope.selected._id);
             // here's where we do the rendering shit for the embeds. Slow. Boo.
             if(obj.embed){
                 var ytube = /youtube.com/i;
@@ -1276,7 +1276,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                     res = res.replace(h1, "height='380'");
                     res = res.replace(h2, '"height":"380"');
                     
-                    console.log(res);
+                    // console.log(res);
 
                     $scope.selected.userTesting = $sce.trustAsHtml(res);
                     // $scope.selected.HTMLdemo = '<a href="#linky">I am a link</a>';
@@ -1305,22 +1305,22 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         // hide commenting
         // else show the new message's comments
 
-        console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
+        // console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
 
         // if(){}
         if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
-            console.log('match');
+            // console.log('match');
             $scope.showCommentToggle = 'hide';
             $scope.commentMessage = '';
             return;
         }
         if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
-            console.log('match');
+            // console.log('match');
             $scope.showCommentToggle = 'show';
             return;
         }
         if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
-            console.log('fail');
+            // console.log('fail');
             $scope.showCommentToggle = 'show'; 
             $scope.commentMessage = message;
             return;
@@ -1331,7 +1331,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
     };
 
     $scope.addComment = function(comment){
-        console.log('add comment', $scope.messages);
+        // console.log('add comment', $scope.messages);
         if(comment && comment.body.length > 0){
             var dataOut = {
                 comment: {body : comment.body}
@@ -1345,7 +1345,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                     var arr = _.pluck($scope.messages, '_id');
                     var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
 
-                    console.log(msg_idx);
+                    // console.log(msg_idx);
                     $scope.messages[msg_idx]._comments.push(data.comment);
                 });
         } else {
@@ -1364,7 +1364,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
        .controller('reset', ['$scope','$http', '$location', '$stateParams','$rootScope', 
                     function($scope, $http, $location, $stateParams, $rootScope){
         
-        console.log('password reset controller');    
+        // console.log('password reset controller');    
 
         $scope.sendToken = function(email){
             var url = '/auth/forgot';
@@ -1373,7 +1373,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    console.log('success', data);
+                    // console.log('success', data);
                     $scope.successMsg = data;
                 })
                 .error();
@@ -1406,7 +1406,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             .get('/api/run/'+$stateParams._id)
             .success(function(data){
                 $scope.tests = data;
-                console.log('how is data built', $scope.tests[0].kind);
+                // console.log('how is data built', $scope.tests[0].kind);
 
                 $scope.kind = data[0].kind;
 
@@ -1429,7 +1429,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log(data);
+                    console.log($rootScope.user);
                     if($rootScope.user.onboard === 6 ){
                         $location.path('/summary/'+$scope.tests[0]._id);
                     }
@@ -1449,7 +1449,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         $scope.connect.text = '71b';
 
         $scope.subscription = function(chan){
-            console.log('touched a channel', chan);
+            // console.log('touched a channel', chan);
             // socket.emit('subscribe', { room: chan, test: $stateParams._id });
             // socket.emit('channel', { room: chan, test: $stateParams._id });
         };
@@ -1462,15 +1462,15 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
         socket.on('connect_failed', function(data)
         {
-            console.log('connect_failed');
+            // console.log('connect_failed');
         });
         socket.on('connecting', function(data)
         {
-            console.log('connecting');
+            // console.log('connecting');
         });
         socket.on('disconnect', function(data)
         {
-            console.log('disconnect');
+            // console.log('disconnect');
 
             image.src = "/layout/assets/avatar-binocs.jpg";
             canvas.width = 358;
@@ -1482,32 +1482,32 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         });
         socket.on('error', function(reason)
         {
-            console.log('error', reason);
+            // console.log('error', reason);
         });
         socket.on('reconnect_failed', function(data)
         {
-            console.log('reconnect_failed');
+            // console.log('reconnect_failed');
         });
         socket.on('reconnect', function(data)
         {
-            console.log('reconnect');
+            // console.log('reconnect');
             socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
         });
         socket.on('reconnecting', function(data)
         {
-            console.log('reconnecting');
+            // console.log('reconnecting');
         });
 
         socket.on('announce', function(data){
-            console.log('announce', data);
+            // console.log('announce', data);
         });
 
         socket.on('joined_channel', function(data){ 
-            console.log('joined_channel', data);
+            // console.log('joined_channel', data);
         });
 
         socket.on('note', function(data){
-            console.log('note', data);
+            // console.log('note', data);
             $scope.timeline.push(data.note.msg);
             $scope.$apply();
         });
@@ -1517,7 +1517,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         });
 
         socket.on('message',function(data) {
-            console.log('message');
+            // console.log('message');
             image.src = "data:image/jpg;base64,"+data;
             canvas.width = 358;
             canvas.height = 358 * image.height / image.width;
@@ -1529,7 +1529,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
     // ANGULAR ROUTES ===================================================
         $scope.addTask = function(task){
-            console.log('touched addTask', task);
+            // console.log('touched addTask', task);
             if($scope.adding_task){$scope.adding_task=false;}
 
             var dataOut = { 
@@ -1539,19 +1539,19 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 index : $scope.tests[0]._tasks.length
             };
 
-            console.log('dataOut', dataOut);
+            // console.log('dataOut', dataOut);
             
             $http
                 .post('/api/task/', dataOut)
                 .success(function(data){
-                    console.log(data);
+                    // console.log(data);
                     $scope.tests[0]._tasks.push(data);
                 });
 
         };
 
         $scope.select = function(testIndex, taskIndex) {
-            // console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);
+            // // console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);
 
             var test = $scope.tests[testIndex];
 
@@ -1593,10 +1593,10 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
 
         $scope.addSubject = function(subject){
-            console.log('touched addSubject', subject);
+            // console.log('touched addSubject', subject);
 
             $scope.subject = subject;
-            console.log($scope.subject);
+            // console.log($scope.subject);
 
             // if(subject.testroom){
             //     var room = subject.testroom.toLowerCase();
@@ -1614,20 +1614,20 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
                     mixpanel.track('Add Participant Name', {});
 
-                    console.log('subject', $scope.subject);
+                    // console.log('subject', $scope.subject);
                     // socket.emit('send:subject_added', {subject: subject});
                     socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
         
                 })
                 .error(function(data){
-                    // console.log('Error: ' + data);
+                    // // console.log('Error: ' + data);
             });
         };
 
         $scope.postMessage = function(message){
             // here we create a note object
             if(message.length <= 0){
-                console.log('nothing');
+                // console.log('nothing');
                 return;
             } else {
                 var note = {};
@@ -1642,7 +1642,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 note._subject = $scope.subject._id;
 
                 $scope.timeline.push(note);
-                // console.log('message pushing to', $scope.selected._id);
+                // // console.log('message pushing to', $scope.selected._id);
 
                 // TODO: this will catch things on both sides of the hash. 
                 // if message has # with no space, post that to message.tags
@@ -1654,7 +1654,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 if (tagIt){
                     for (var i=0; i < tagIt.length; ++i) {
                         var msg = tagIt[i].replace(hashPull,'');
-                        // console.log('tag being pushed', msg)
+                        // // console.log('tag being pushed', msg)
                         note.tags.push(msg);
                     }
                 }
@@ -1666,7 +1666,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 $http
                     .post(url, data_out)
                     .success(function(data){
-                        console.log('note back', data);
+                        // console.log('note back', data);
                         // socket.emit('send:note', { note: data });
                         $scope.message='';
                     });
@@ -1674,14 +1674,14 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         };
 
         $scope.postTest = function(){
-            console.log($scope.subject.testroom);
+            // console.log($scope.subject.testroom);
 
             var url = '/api/run/'+$stateParams._id;
             var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
             // socket.emit('testComplete', {data: {body:'test_complete', room : $scope.subject.testroom, test: $stateParams._id}});
 
             mixpanel.track('Test completed', {});
-            // console.log('touched end', data_out);
+            // // console.log('touched end', data_out);
 
             // collects all the tests and steps and outputs them as a collected object
             // to the session api link
@@ -1691,11 +1691,11 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $http
                 .post(url, data_out)
                 .success(function(data){
-                    // console.log('Updated tests', data);
+                    // // console.log('Updated tests', data);
                     $location.path('/overview');
                 })
                 .error(function(data){
-                    // console.log('Error: ' + data);
+                    // // console.log('Error: ' + data);
                 });
 
         }
@@ -1742,7 +1742,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                         }
                     });
                 
-                console.log($scope.leftNavList[0]);
+                // console.log($scope.leftNavList[0]);
                 $scope.activate($scope.leftNavList[0]);
             });
 
@@ -1755,7 +1755,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         $scope.activate = function(obj, selectedIndex) {
             // passes the task to the global variable
 
-            console.log('touched activate');
+            // console.log('touched activate');
             $scope.selected = '';
             $scope.commentMessage = '';
             $scope.selectedIndex = '';
@@ -1766,12 +1766,12 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $scope.selectedIndex = selectedIndex;
             
             if(obj.doctype === 'test'){
-                console.log('when was this last run', obj.last_run);
+                // console.log('when was this last run', obj.last_run);
             }
 
             if(obj){
                 $scope.selected = obj;
-                console.log('selected', obj);
+                // console.log('selected', obj);
             }
         };
 
@@ -1795,7 +1795,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log(data);
+                    console.log($rootScope.user);
                     $location.path('/report/'+$stateParams._id);
                 });
         };
@@ -1807,22 +1807,22 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             // hide commenting
             // else show the new message's comments
 
-            console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
+            // console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
 
             // if(){}
             if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
-                console.log('match');
+                // console.log('match');
                 $scope.showCommentToggle = 'hide';
                 $scope.commentMessage = '';
                 return;
             }
             if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
-                console.log('match');
+                // console.log('match');
                 $scope.showCommentToggle = 'show';
                 return;
             }
             if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
-                console.log('fail');
+                // console.log('fail');
                 $scope.showCommentToggle = 'show'; 
                 $scope.commentMessage = message;
                 return;
@@ -1896,9 +1896,9 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
             var url, data;
-            console.log('obj embed', obj.embed);
+            // console.log('obj embed', obj.embed);
             
-            // console.log('touched saveObj', obj);
+            // // console.log('touched saveObj', obj);
             
             $scope.getIdFromURL(obj.embed);
 
@@ -1918,7 +1918,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $http
                 .put('/api/'+url, data)
                 .success(function(doc){
-                    console.log(doc);
+                    // console.log(doc);
                 });
         };
 
@@ -1978,7 +1978,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         };
 
         $scope.toggleNote = function(user){
-            console.log('user for new note', user);
+            // console.log('user for new note', user);
             $scope.messageEditToggle = '';
             $scope.inputNote = user;
         };
@@ -2040,17 +2040,17 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 .post(url, data_out)
                 .success(function(data){
 
-                    console.log('new message data', data);
+                    // console.log('new message data', data);
 
                     $scope.toggleNote();
                     $scope.messages[data.msg._subject.name].push(data.msg);
                     $scope.selected._messages.push(data.msg._id);
 
-                    console.log('msg list', $scope.messages[data.msg._subject.name]);
-                    console.log('selected list', $scope.selected._messages);
+                    // console.log('msg list', $scope.messages[data.msg._subject.name]);
+                    // console.log('selected list', $scope.selected._messages);
 
                     var indexCheck = _.pluck($scope.leftNavList, 'name');
-                    console.log('indexCheck', indexCheck);
+                    // console.log('indexCheck', indexCheck);
 
                     _.each(data.tags, function(tag){
                         var idx = indexCheck.indexOf(tag.name);
@@ -2096,7 +2096,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 ['$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
         function(  $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         
-        console.log('loaded test controller');
+        // console.log('loaded test controller');
         
         $http
             .get('/api/test/'+$stateParams.test_id, {timeout : 5000, cache:false})
@@ -2104,13 +2104,13 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 $scope.test = data;
                 $scope.tasks = data._tasks;
 
-                console.log('test', $scope.test);
-                console.log('tasks', $scope.tasks);
+                // console.log('test', $scope.test);
+                // console.log('tasks', $scope.tasks);
                 $scope.showAnchor(1);
 
             })
             .error(function(data) {
-                console.log('Error: ' + data);
+                // console.log('Error: ' + data);
             });
 
         // DIRECTIVES AND FUNCTIONS ===========================
@@ -2128,26 +2128,26 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log(data);
+                    // console.log(data);
                 });
         };
         
         // ACTIONS ============================================
         // an effort to manipulate order.... 
         $scope.moveTask = function(old_index, up_down){
-            console.log(old_index, up_down);
+            // console.log(old_index, up_down);
             var new_index = old_index + up_down;
 
-            console.log(new_index);
+            // console.log(new_index);
             
             $scope.tasks.splice(new_index, 0, $scope.tasks.splice(old_index, 1)[0]);
 
             var task_order = _.pluck($scope.tasks, 'name');
             var task_idx = _.pluck($scope.tasks, 'task_index');
             
-            console.log(task_order, task_idx);
+            // console.log(task_order, task_idx);
             // set the stored index of the task properly
-            // console.log('did things stay moved', $scope.tasks); // for testing purposes
+            // // console.log('did things stay moved', $scope.tasks); // for testing purposes
             
             // I think if we don't do this, it won't store if another thing's not pressed.
             $scope.updateTest();
@@ -2155,14 +2155,14 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         };
 
         $scope.selectPrototype = function(kind){
-            console.log('touched prototype', kind);
+            // console.log('touched prototype', kind);
             $scope.test.kind = kind;
             mixpanel.track('Type of Test', {'test type' : kind });
         };
 
         $scope.selectPlatform = function(kind){
             $scope.test.platform = kind;
-            console.log('touched platform', $scope.test.platform);
+            // console.log('touched platform', $scope.test.platform);
         };
 
         $scope.showAnchor = function(x) {
@@ -2214,13 +2214,13 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         // TASK FUNCTIONS =====================================
 
     	$scope.newTask = function(task) {
-            console.log('touched add a task');
+            // console.log('touched add a task');
 
             task._test = $stateParams.test_id;
             task._session = $scope.test._session;
             task.index = $scope.tasks.length;
             
-            console.log(task);
+            // console.log(task);
             mixpanel.track('Task added', { 'user': $rootScope.user });
 
             var url = '/api/task/';
@@ -2229,14 +2229,14 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $http
                 .post(url,data_out)
                 .success(function(data){
-                    console.log('new task added '+ JSON.stringify(data));
+                    // console.log('new task added '+ JSON.stringify(data));
 
                     $scope.tasks.push(data);
                     $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
                     $scope.newtask = '';
                 })
                 .error(function(data){
-                    console.log(JSON.stringify(data));
+                    // console.log(JSON.stringify(data));
                 });
         };
         
@@ -2250,16 +2250,16 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             
             $scope.tasks.splice(index, 1);
 
-            console.log('delete task', url);
-            console.log('index', index);
+            // console.log('delete task', url);
+            // console.log('index', index);
 
             $http.delete(url)
                 .success(function(data){
-                    console.log(data);
+                    // console.log(data);
                     $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
                 })
                 .error(function(data){
-                    console.log('Error: ' + data);
+                    // console.log('Error: ' + data);
                 });
         };
 
@@ -2292,7 +2292,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         };
 
         $scope.batchTask = function(){
-            console.log('touched batchTash', $scope.tasks);
+            // console.log('touched batchTash', $scope.tasks);
 
             var dataOut = $scope.tasks;
             var url = '/api/task/';
@@ -2300,16 +2300,16 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log('tasks pushed', data);
+                    // console.log('tasks pushed', data);
                 })
                 .error(function(data){
-                    console.log('error', data);
+                    // console.log('error', data);
                 });
 
         };
 
         $scope.updateTask = function(task){
-            console.log('touched update task', task._id, task.desc);
+            // console.log('touched update task', task._id, task.desc);
 
             var url = '/api/task/'+task._id;
             var data_out = task;
@@ -2317,11 +2317,11 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             return $http
                 .put(url, data_out)
                 .success(function(data){
-                    console.log('task has pushed', data);
-                    console.log('current test tasklist', data._tasks);
+                    // console.log('task has pushed', data);
+                    // console.log('current test tasklist', data._tasks);
                  })
                 .error(function(data){
-                    console.log('error', data);
+                    // console.log('error', data);
                 });
             
         };
@@ -2337,7 +2337,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 mixpanel.track('Test name changed', { 'user': $rootScope.user });
             }
 
-            console.log('touched update test', test);
+            // console.log('touched update test', test);
 
             var url = '/api/test/'+$stateParams.test_id;
             var data_out = test;
@@ -2346,19 +2346,19 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             _.each($scope.tasks, function(task){
                 task.index = task_count;
                 task_count++;
-                console.log(task.name, task.index);
+                // console.log(task.name, task.index);
             });
 
-            console.log($scope.tasks);
+            // console.log($scope.tasks);
 
             // reminder: this pushes an update to an already-created test
     		return $http
                 .put(url, data_out, {timeout:5000})
                 .success(function(data){
-                    console.log('test has pushed', data);
+                    // console.log('test has pushed', data);
                 })
                 .error(function(data){
-                    console.log('error', data);
+                    // console.log('error', data);
                 });
     	};
 
@@ -2406,15 +2406,15 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
         socket.on('connect_failed', function(data)
         {
-            console.log('connect_failed');
+            // console.log('connect_failed');
         });
         socket.on('connecting', function(data)
         {
-            console.log('connecting');
+            // console.log('connecting');
         });
         socket.on('disconnect', function(data)
         {
-            console.log('disconnect');
+            // console.log('disconnect');
             image.src = "/layout/assets/avatar-binocs.jpg";
             canvas.width = 358;
             canvas.height = 358 * image.height / image.width;
@@ -2424,27 +2424,27 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         });
         socket.on('error', function(reason)
         {
-            console.log('error');
+            // console.log('error');
         });
         socket.on('reconnect_failed', function(data)
         {
-            console.log('reconnect_failed');
+            // console.log('reconnect_failed');
         });
         socket.on('reconnect', function(data)
         {
-            console.log('reconnect');
+            // console.log('reconnect');
         });
         socket.on('reconnecting', function(data)
         {
-            console.log('reconnecting');
+            // console.log('reconnecting');
         });
 
         socket.on('announce', function(data){
-            console.log('announce', data);
+            // console.log('announce', data);
         });
 
         socket.on('note', function(data){
-            console.log('note', data);
+            // console.log('note', data);
             $scope.timeline.push(data.note.msg);
             $scope.$apply();
         });
@@ -2464,7 +2464,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         $scope.connect.text = '71b';
 
         $scope.subscription = function(chan){
-            console.log('touched a channel', chan);
+            // console.log('touched a channel', chan);
             socket.emit('subscribe', { room: chan });
             socket.emit('channel', { room: chan });
         };
@@ -2473,7 +2473,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         $scope.testName = $stateParams._id; 
 
         $scope.joinRoom = function(room){
-            console.log('I want to join this room', $scope.selectedRoom);
+            // console.log('I want to join this room', $scope.selectedRoom);
             // socket.emit('join_room', $scope.selectedRoom.room);
             $scope.live = true;
         };
@@ -2493,7 +2493,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             note._subject = $scope.subject._id;
 
             $scope.timeline.push(note);
-            // console.log('message pushing to', $scope.selected._id);
+            // // console.log('message pushing to', $scope.selected._id);
 
             // TODO: this will catch things on both sides of the hash. 
             // if message has # with no space, post that to message.tags
@@ -2505,12 +2505,12 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             if (tagIt){
                 for (var i=0; i < tagIt.length; ++i) {
                     var msg = tagIt[i].replace(hashPull,'');
-                    // console.log('tag being pushed', msg)
+                    // // console.log('tag being pushed', msg)
                     note.tags.push(msg);
                 }
             }
             
-            // console.log('note tags', note.tags);
+            // // console.log('note tags', note.tags);
 
             var url = '/api/message/';
             var data_out = note;
@@ -2521,7 +2521,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                     // socket.emit('send:note', { note: data });
                 })
                 .error(function(data){
-                    // console.log('Error: ' + data);
+                    // // console.log('Error: ' + data);
                 });
 
             $scope.message='';

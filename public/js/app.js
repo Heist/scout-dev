@@ -26,7 +26,7 @@
 
         // TODO: this should probably be an Interceptor, but it works on load for now.
         function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
-            console.log('checking logged in identity');
+            // console.log('checking logged in identity');
             // Make an AJAX call to check if the user is logged in
             var deferred = $q.defer();
             $http
@@ -34,19 +34,19 @@
                 .success(function(user){
                     // Authenticated
                     if (user !== '0') {
-                        console.log('user', user);
+                        // console.log('user', user);
                         $rootScope.user = user;
                         deferred.resolve();
                     }
                     // Not Authenticated 
                     else { 
-                        console.log('welp, that flunked.');
+                        // console.log('welp, that flunked.');
                         $location.url('/login');
                         deferred.resolve();
                     }
                 })
                 .error(function(err){
-                    console.log(err);
+                    // console.log(err);
                     $location.url('/login');
                     deferred.resolve();
                 });
@@ -327,12 +327,12 @@
                 };
 
                 scope.$watch(iAttrs.ngCheckStrength, function () {
-                    console.log('watching');
+                    // console.log('watching');
                     if (!scope.user) {
-                        console.log('no user');
+                        // console.log('no user');
                         iElement.css({ "display": "none"  });
                     } else {
-                        console.log(scope.user.password.length);
+                        // console.log(scope.user.password.length);
                         var c = strength.getColor(strength.measureStrength(scope.user.password));
                         iElement.css({ "display": "inline" });
                         iElement.children('li')
@@ -353,20 +353,20 @@
     });
 
     // supply the currently logged-in user to all functions
-    field_guide_app.service('changeOnboard', ['$rootScope', '$http', function($rootScope, $http) {
-        return function(num) {
-            $rootScope.user.onboard = num;
+    // field_guide_app.service('changeOnboard', ['$rootScope', '$http', function($rootScope, $http) {
+    //     return function(num) {
+    //         $rootScope.user.onboard = num;
 
-            var url = '/user/'+$rootScope.user._id;
-            var dataOut = {user : $rootScope.user.onboard};
+    //         var url = '/user/'+$rootScope.user._id;
+    //         var dataOut = {user : $rootScope.user.onboard};
 
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    console.log(data);
-                });
-        };
-    }]);
+    //         $http
+    //             .put(url, dataOut)
+    //             .success(function(data){
+    //                 // console.log(data);
+    //             });
+    //     };
+    // }]);
 
     // field_guide_app.run(function ($rootScope, $location, $http, $timeout, changeOnboard) {
     //     $rootScope.changeOnboard = changeOnboard;

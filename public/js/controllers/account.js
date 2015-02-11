@@ -12,14 +12,14 @@
 		$scope.account = $rootScope.user.account;
 		$scope.connector = {};
 		
-		console.log('account user', $rootScope.user);
+		// console.log('account user', $rootScope.user);
 		// https://trello.com/1/members/my/boards?key=substitutewithyourapplicationkey&token=substitutethispartwiththeauthorizationtokenthatyougotfromtheuser
 		// https://trello.com/docs/api/card/index.html#post-1-cards
 		
 		$http
 			.get('/api/account/'+ user_id)
 			.success(function(data){
-				// console.log(data);
+				// // console.log(data);
 				$scope.live_user = data;
 			});
 
@@ -36,7 +36,7 @@
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log(data);
+                    console.log($rootScope.user);
                     $location.path('/overview');
                 });
         };
@@ -56,19 +56,19 @@
 		$window.inviteCallback = function(){
 			$scope.connector.message = "Your Trello account is connected.";
 			$scope.connector.toggle = 1;
-			// // console.log('called back');
+			// // // console.log('called back');
 			$scope.$apply();
 		};
 
 
 		// $scope.removeTeamMember = function(person){
-		// 	// // console.log('remove this person', person._id );
+		// 	// // // console.log('remove this person', person._id );
 		// 	var index = $scope.live_user.team.indexOf(person);
 
 		// 	$http
 		// 		.delete('/api/account/'+person._id)
 		// 		.success(function(err, data){
-		// 			// // console.log('deleted', data);
+		// 			// // // console.log('deleted', data);
 		// 			$scope.live_user.team.splice(index, 1);
 		// 		});
 		// };
@@ -90,14 +90,14 @@
 			$http
 				.post(url, dataOut)
 				.success(function(invite){
-					console.log('invitation sent', invite);
+					// console.log('invitation sent', invite);
 
 					if(invite.user_email){
 						// user_email exists only on the Invite model.
 						// if an invitation then exists, do the following.
 
 						$scope.live_user.invites.push(invite);
-						// console.log('$scope.live_user.invites', $scope.live_user.invites);
+						// // console.log('$scope.live_user.invites', $scope.live_user.invites);
 						email.address = "";
 						$scope.message = "We&rsquo;ve sent an e-mail invitation to your team member."+
 	                                     " Just in case, you can also invite them using this personalized link:"+
@@ -127,7 +127,7 @@
 		$scope.resendInvite = function(invite){
 			// this will resend a pending invitation for a non-existent user
 			// it requires that the previous invitation supply an invitation._id
-			// console.log('sent', invite);
+			// // console.log('sent', invite);
 			var url = '/api/invite/'+invite._id,
 				dataOut = invite,
 				new_url = $location.protocol()+'://'+$location.host()+':8080';
@@ -135,7 +135,7 @@
 			$http
 				.post(url, dataOut)
 				.success(function(data){
-					// console.log('reinvitation sent', data);
+					// // console.log('reinvitation sent', data);
 					$scope.message = "Reinvitation sent to "+ data.user_email +
 	                                 "<br /> Here is a personalized invitation link you can share with them: "+
 	                                 "<a href='"+new_url+"/login/"+invite._id+"'>"+new_url+"/login/"+invite._id+
@@ -150,7 +150,7 @@
 			$http
 				.delete('/api/invite/'+invite._id)
 				.success(function(err, data){
-					// console.log('invitation removed', data);
+					// // console.log('invitation removed', data);
 					$scope.live_user.invites.splice(index, 1);
 				});
 		};
@@ -160,7 +160,7 @@
 			$http
 				.get('/auth/export/account/')
 				.success(function(data){
-					console.log('success', data);
+					// console.log('success', data);
 				});
 		};
 
@@ -170,18 +170,18 @@
 			// $window.open('views/anotherWindow.html', '_blank','menubar=yes,toolbar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,personalbar=yes');
 			$window.open('/connect/trello', 'Connect Field Guide to Trello', 'width=450, height=600');
 			$scope.$watch('inviteCallback', function(){
-				// // console.log('hello callback!');
+				// // // console.log('hello callback!');
 				// $scope.connector = false;
 				// $scope.live_user.trello = true;
 			});
 		};
 
 		$scope.disconnectTrello = function() {
-			// // console.log('touched disconnect');
+			// // // console.log('touched disconnect');
 
 			$http.delete('/connect/trello')
 				.success(function(err, data){
-					// // console.log('Trello disconnected');
+					// // // console.log('Trello disconnected');
 					$scope.live_user.trello=false;
 
 					$scope.connector.message = "Connect your Trello account.";

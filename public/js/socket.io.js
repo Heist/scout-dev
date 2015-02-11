@@ -1278,10 +1278,10 @@ function debug(name) {
       + ' +' + debug.humanize(ms);
 
     // This hackery is required for IE8
-    // where `console.log` doesn't have 'apply'
+    // where `// console.log` doesn't have 'apply'
     window.console
-      && console.log
-      && Function.prototype.apply.call(console.log, console, arguments);
+      && // console.log
+      && Function.prototype.apply.call(// console.log, console, arguments);
   }
 }
 
@@ -3510,18 +3510,18 @@ function formatArgs() {
 }
 
 /**
- * Invokes `console.log()` when available.
- * No-op when `console.log` is not a "function".
+ * Invokes `// console.log()` when available.
+ * No-op when `// console.log` is not a "function".
  *
  * @api public
  */
 
 function log() {
   // This hackery is required for IE8,
-  // where the `console.log` function doesn't have 'apply'
+  // where the `// console.log` function doesn't have 'apply'
   return 'object' == typeof console
-    && 'function' == typeof console.log
-    && Function.prototype.apply.call(console.log, console, arguments);
+    && 'function' == typeof // console.log
+    && Function.prototype.apply.call(// console.log, console, arguments);
 }
 
 /**
@@ -3678,7 +3678,7 @@ function debug(namespace) {
     if ('function' === typeof exports.formatArgs) {
       args = exports.formatArgs.apply(self, args);
     }
-    var logFn = enabled.log || exports.log || console.log.bind(console);
+    var logFn = enabled.log || exports.log || // console.log.bind(console);
     logFn.apply(self, args);
   }
   enabled.enabled = true;
@@ -4738,7 +4738,7 @@ module.exports = (function() {
 	function utf8encode(string) {
 		var codePoints = ucs2decode(string);
 
-		// console.log(JSON.stringify(codePoints.map(function(x) {
+		// // console.log(JSON.stringify(codePoints.map(function(x) {
 		// 	return 'U+' + x.toString(16).toUpperCase();
 		// })));
 
