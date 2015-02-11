@@ -3,7 +3,9 @@
 
 
 <!-- onboard during test running -->
-<div class="onboard-content onboard-run-step1" ng-if="user.onboard != 100" ng-show="user.onboard === 1">
+<div ng-if="user.onboard != 100" >
+
+<div class="onboard-content onboard-run-step1" ng-show="user.onboard === 1">
 	<div class="container">
 		<div class="module third">
 			<h3>Looks like we're ready.<br>Let's run a test with Rob.</h3>
@@ -21,10 +23,10 @@
 </div>	
 
 
-<div class="onboard-content onboard-run-step2" ng-if="user.onboard != 100" ng-show="user.onboard === 2">
+<div class="onboard-content onboard-run-step2" ng-show="user.onboard === 2">
 	<div class="container">
 		<div class="module third">
-			<h3>You&rsquo;re in the driver's seat.</h3>
+			<h3>You&rsquo;re in the driver's seat. {{user.onboard}}</h3>
 		</div>
 		<div class="module third">
 			On the left are the <strong>tasks</strong> you created when you set up this <strong>project.</strong>
@@ -37,7 +39,7 @@
 </div>	
 
 
-<div class="onboard-content onboard-run-step3" ng-if="user.onboard != 100" ng-show="user.onboard === 3">
+<div class="onboard-content onboard-run-step3" ng-show="user.onboard === 3">
 	<div class="container">
 		<div class="module two-thirds">
 			<div class="onboard-avatar"><img src="http://rdjpg.com/60/60"></div>
@@ -58,7 +60,7 @@
 </div>	
 
 
-<div class="onboard-content onboard-run-step4" ng-if="user.onboard != 100" ng-show="user.onboard === 4">
+<div class="onboard-content onboard-run-step4" ng-show="user.onboard === 4">
 	<div class="container">
 		<div class="module two-thirds">
 			<div class="onboard-avatar"><img src="http://rdjpg.com/60/60"></div>
@@ -79,7 +81,7 @@
 	</div>
 </div>	
 
-<div class="onboard-content onboard-run-step5" ng-if="user.onboard != 100" ng-show="user.onboard === 5">
+<div class="onboard-content onboard-run-step5" ng-show="user.onboard === 5">
 	<div class="container">
 		<div class="module third">
 			<h3>Nice job note-taking!</h3>
@@ -94,7 +96,7 @@
 	</div>
 </div>	
 	
-
+</div>
 	
 	
 <!-- participant definition modal -->
@@ -129,7 +131,7 @@
 			
 			
 			<li class="text-center">
-				<button class="button" type="submit" ng-click="addSubject(subject); user.onboard = 2">Start testing!</button>
+				<button class="button" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Start testing!</button>
 			</li>
 		
 		</ul>

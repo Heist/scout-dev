@@ -1227,15 +1227,6 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 // ==============================================
 
 
-
-
-
-
-
-
-
-
-
 // NAVIGATION =============================================
 
     $scope.summarize = function(){
@@ -1402,6 +1393,8 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         $scope.timeline = []; // holds all messages currently in test
         $scope.glued = true;
 
+        console.log('user', $rootScope.user);
+
         $http
             .get('/api/run/'+$stateParams._id)
             .success(function(data){
@@ -1421,19 +1414,23 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         // TODO: Abstract into service for dependency injection
 
         $scope.changeOnboard = function(num){
-            $rootScope.user.onboard = num;
-
-            var url = '/api/user/'+$rootScope.user._id;
-            var dataOut = {onboard : $rootScope.user.onboard};
-
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    console.log($rootScope.user);
-                    if($rootScope.user.onboard === 6 ){
-                        $location.path('/summary/'+$scope.tests[0]._id);
-                    }
-                });
+            if($rootScope.user.onboard !== 100){
+                $rootScope.user.onboard = num;
+    
+                var url = '/api/user/'+$rootScope.user._id;
+                var dataOut = {onboard : $rootScope.user.onboard};
+    
+                $http
+                    .put(url, dataOut)
+                    .success(function(data){
+                        console.log($rootScope.user);
+                        if($rootScope.user.onboard === 6 ){
+                            $location.path('/summary/'+$scope.tests[0]._id);
+                        }
+                    });
+            } else {
+                return; 
+            }
         };
 
 
@@ -1593,7 +1590,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
 
         $scope.addSubject = function(subject){
-            // console.log('touched addSubject', subject);
+            console.log('rootScope user', $rootScope.user);
 
             $scope.subject = subject;
             // console.log($scope.subject);
@@ -1887,7 +1884,6 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
             var nav = _.pluck($scope.leftNavList, 'name');
             
-
             $scope.saveSummary();
 
         };
@@ -1897,8 +1893,6 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         $scope.saveObject = function(obj){
             var url, data;
             console.log('touched saveObj', obj);
-            
-            // $scope.getIdFromURL(obj.embed);
 
             if(obj.doctype === 'test'){
                 url = 'summary/test/'+ obj._id;
