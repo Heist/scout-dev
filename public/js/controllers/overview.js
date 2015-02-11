@@ -52,6 +52,9 @@
                 .put(url, dataOut)
                 .success(function(data){
                     console.log(data);
+                    if($rootScope.user.onboard === 3){
+                        $location.path('/run/'+$scope.tests[0]._id);
+                    }
                 });
         };
         // SESSION ROUTES =====================================
@@ -119,24 +122,6 @@
                 })
                 .error(function(data){
                     console.log('error', data);
-                });
-        };
-
-        // ONBOARDING ROUTES ==================================
-        // user.onboard = 100 ---> hide onboarding
-
-        $scope.changeOnboard = function(num){
-            console.log($rootScope.user);
-            // turn off the main user's onboarding and save
-            $rootScope.user.onboard = num;
-
-            var url = '/api/user/'+$rootScope.user._id;
-            var dataOut = {onboard : $rootScope.user.onboard};
-
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    console.log(data);
                 });
         };
 

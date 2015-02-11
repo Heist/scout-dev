@@ -43,6 +43,9 @@
                 .put(url, dataOut)
                 .success(function(data){
                     console.log(data);
+                    if($rootScope.user.onboard === 6 ){
+                        $location.path('/summary/'+$scope.tests[0]._id);
+                    }
                 });
         };
 

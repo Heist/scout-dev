@@ -10,19 +10,39 @@
 
 		$scope.live_user = $rootScope.user;
 		$scope.account = $rootScope.user.account;
+		$scope.connector = {};
 		
+		console.log('account user', $rootScope.user);
 		// https://trello.com/1/members/my/boards?key=substitutewithyourapplicationkey&token=substitutethispartwiththeauthorizationtokenthatyougotfromtheuser
 		// https://trello.com/docs/api/card/index.html#post-1-cards
 		
 		$http
 			.get('/api/account/'+ user_id)
 			.success(function(data){
-				// // console.log(data);
+				// console.log(data);
 				$scope.live_user = data;
 			});
 
-		$scope.connector = {};
 		
+	// ONBOARDING =========================================
+    // TODO: Abstract into service for dependency injection
+
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                    $location.path('/overview');
+                });
+        };
+
+
+	// HOOK UP TRELLO =====================================
 		if($scope.live_user.trello){
 			$scope.connector.message = "Your Trello account is connected.";
 			$scope.connector.toggle = 1;
@@ -58,6 +78,8 @@
 
 		$scope.team_mail = {};
 
+
+// TEAM MEMBER INVITATIONS ================================
 		$scope.inviteTeamMember = function(email){
 			var url = '/api/invite/',
 				dataOut = email,

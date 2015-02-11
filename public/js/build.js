@@ -76,24 +76,6 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
         $stateProvider
         // PUBLIC ROUTES ================================================
-<<<<<<< HEAD
-            
-            // CANVAS SOCKETS TESTING ===================================
-            // .state('canvas', {
-            //     // url: '/canvas/',
-            //     url: '/canvas/:_id',
-            //     controller:'canvas',
-            //     templateUrl: 'partials/app/testCanvas.html'
-            // })
-            
-                        
-            // "block screens" ============================================
-            .state('/404', {
-                url: '/404',                
-                templateUrl: 'partials/app/404.html',
-            })
-            .state('/upgrade', {
-=======
 
             // "block screens" ============================================
             .state('404', {
@@ -101,7 +83,6 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 templateUrl: 'partials/app/404.html',
             })
             .state('upgrade', {
->>>>>>> dev
                 url: '/upgrade',                
                 templateUrl: 'partials/app/upgrade.html',
             })
@@ -198,6 +179,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 templateUrl: 'partials/app/summary_task.html'
             });
     });
+
 
     field_guide_app.factory('socket', function ($rootScope, $location) {
 
@@ -426,19 +408,39 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
 		$scope.live_user = $rootScope.user;
 		$scope.account = $rootScope.user.account;
+		$scope.connector = {};
 		
+		console.log('account user', $rootScope.user);
 		// https://trello.com/1/members/my/boards?key=substitutewithyourapplicationkey&token=substitutethispartwiththeauthorizationtokenthatyougotfromtheuser
 		// https://trello.com/docs/api/card/index.html#post-1-cards
 		
 		$http
 			.get('/api/account/'+ user_id)
 			.success(function(data){
-				// // console.log(data);
+				// console.log(data);
 				$scope.live_user = data;
 			});
 
-		$scope.connector = {};
 		
+	// ONBOARDING =========================================
+    // TODO: Abstract into service for dependency injection
+
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $rootScope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    console.log(data);
+                    $location.path('/overview');
+                });
+        };
+
+
+	// HOOK UP TRELLO =====================================
 		if($scope.live_user.trello){
 			$scope.connector.message = "Your Trello account is connected.";
 			$scope.connector.toggle = 1;
@@ -474,6 +476,8 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 
 		$scope.team_mail = {};
 
+
+// TEAM MEMBER INVITATIONS ================================
 		$scope.inviteTeamMember = function(email){
 			var url = '/api/invite/',
 				dataOut = email,
@@ -772,16 +776,6 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             .error(function(data) {
                 console.log('Error: ' + data);
             });
-
-<<<<<<< HEAD
-        // if we got a user... 
-        console.log($rootScope);
-        console.log($rootScope.user);
-        
-            // $scope.user = $rootScope.user;
-            // console.log($scope.user.onboarding);
-        
-=======
         // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
 
@@ -803,10 +797,11 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 .put(url, dataOut)
                 .success(function(data){
                     console.log(data);
+                    if($rootScope.user.onboard === 3){
+                        $location.path('/run/'+$scope.tests[0]._id);
+                    }
                 });
         };
->>>>>>> dev
-
         // SESSION ROUTES =====================================
 
         $scope.select = function (session){
@@ -872,24 +867,6 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 })
                 .error(function(data){
                     console.log('error', data);
-                });
-        };
-
-        // ONBOARDING ROUTES ==================================
-        // user.onboard = 100 ---> hide onboarding
-
-        $scope.changeOnboard = function(num){
-            console.log($rootScope.user);
-            // turn off the main user's onboarding and save
-            $rootScope.user.onboard = num;
-
-            var url = '/api/user/'+$rootScope.user._id;
-            var dataOut = {onboard : $rootScope.user.onboard};
-
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    console.log(data);
                 });
         };
 
@@ -1453,6 +1430,9 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 .put(url, dataOut)
                 .success(function(data){
                     console.log(data);
+                    if($rootScope.user.onboard === 6 ){
+                        $location.path('/summary/'+$scope.tests[0]._id);
+                    }
                 });
         };
 
