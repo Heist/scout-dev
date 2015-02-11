@@ -184,7 +184,6 @@
 
             var nav = _.pluck($scope.leftNavList, 'name');
             
-
             $scope.saveSummary();
 
         };
