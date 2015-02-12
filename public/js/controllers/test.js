@@ -18,8 +18,7 @@
                 $scope.showAnchor(1);
             });
 
-        // DIRECTIVES AND FUNCTIONS ===========================
-
+    // DIRECTIVES AND FUNCTIONS ===============================
 
         // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
@@ -31,43 +30,28 @@
             var dataOut = {onboard : $rootScope.user.onboard};
 
             $http
-                .put(url, dataOut)
-                .success(function(data){
-                    // console.log(data);
-                });
+                .put(url, dataOut);
         };
         
-        // ACTIONS ============================================
-        // an effort to manipulate order.... 
-        $scope.moveTask = function(old_index, up_down){
-            // console.log(old_index, up_down);
-            var new_index = old_index + up_down;
-
-            // console.log(new_index);
-            
-            $scope.tasks.splice(new_index, 0, $scope.tasks.splice(old_index, 1)[0]);
-
-            var task_order = _.pluck($scope.tasks, 'name');
-            var task_idx = _.pluck($scope.tasks, 'task_index');
-            
-            // console.log(task_order, task_idx);
-            // set the stored index of the task properly
-            // // console.log('did things stay moved', $scope.tasks); // for testing purposes
-            
-            // I think if we don't do this, it won't store if another thing's not pressed.
-            $scope.updateTest();
-            
+        // SELECTION ======================================
+        $scope.select = function(task) {
+            $scope.selectedTask = task;
+            // TODO: Set isActive in here. 
+        };
+        
+        $scope.isActive = function(task) {
+            return $scope.selectedTask === task;
         };
 
+    // ACTIONS ============================================
         $scope.selectPrototype = function(kind){
-            // console.log('touched prototype', kind);
             $scope.test.kind = kind;
+
             mixpanel.track('Type of Test', {'test type' : kind });
         };
 
         $scope.selectPlatform = function(kind){
             $scope.test.platform = kind;
-            // console.log('touched platform', $scope.test.platform);
         };
 
         $scope.showAnchor = function(x) {
@@ -102,51 +86,34 @@
         };
 
         $scope.saveAndMove = function(anchor){
+            // Saves the test and changes the step to the next page
             $scope.updateTest();
             $scope.showAnchor(anchor);
         };
 
-        // TIPS ===============================================
-        $scope.tip = function(test){
+    // TASK FUNCTIONS =====================================
+        $scope.newTask = function(task) {
+            // Add a new task
+            mixpanel.track('Task added', { 'user': $rootScope.user });
             
-            // $scope.tip.body = 'Testing your prototype on an <strong>iPhone</strong> or <strong>iPad</strong>? Download the Field Guide
-            //             app from the <a href="#" class="alt">App Store</a>.'
-
-            // do something HTML-rendering-and-sanitizing related in here.
-            // perhaps implement a Markdown directive?
-        };
-
-        // TASK FUNCTIONS =====================================
-
-    	$scope.newTask = function(task) {
-            // console.log('touched add a task');
-
             task._test = $stateParams.test_id;
             task._session = $scope.test._session;
             task.index = $scope.tasks.length;
             
-            // console.log(task);
-            mixpanel.track('Task added', { 'user': $rootScope.user });
-
             var url = '/api/task/';
             var data_out = task;
             
             $http
                 .post(url,data_out)
                 .success(function(data){
-                    // console.log('new task added '+ JSON.stringify(data));
-
                     $scope.tasks.push(data);
                     $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
                     $scope.newtask = '';
-                })
-                .error(function(data){
-                    // console.log(JSON.stringify(data));
                 });
         };
         
         $scope.removeTask = function(task){
-        
+            // Delete a task
             task.edit=false;
             task.title_edit=false;
 
@@ -155,118 +122,80 @@
             
             $scope.tasks.splice(index, 1);
 
-            // console.log('delete task', url);
-            // console.log('index', index);
-
             $http.delete(url)
                 .success(function(data){
-                    // console.log(data);
                     $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
-                })
-                .error(function(data){
-                    // console.log('Error: ' + data);
                 });
         };
 
-    	$scope.editTitle = function (task){
-    		// edit the title box for a task
-    		task.title_edit = true;
-    		$scope.edited = task;
-    	};
+        $scope.moveTask = function(old_index, up_down){
+            // set the stored index of the task
+            // Tasks therefore appear in order
+            // TODO: Abstract into a directive
 
-    	$scope.blurTitle = function (task){
-    		// on losing the focus, save the name of the task
-    		task.title_edit = false;
-    		$scope.editedtask = null;
+            var new_index = old_index + up_down;
+            $scope.tasks.splice(new_index, 0, $scope.tasks.splice(old_index, 1)[0]);
 
-    		task.name = task.name.trim();
-
-    		if (!task.name) {
-    			$scope.removeTask(task);
-    		}
-
-            $scope.updateTask(task);
-    	};
-
-        $scope.select = function(task) {
-            $scope.selectedTask = task;         
-        };
-        
-        $scope.isActive = function(task) {
-            return $scope.selectedTask === task;
+            $scope.updateTest();
         };
 
-        $scope.batchTask = function(){
-            // console.log('touched batchTash', $scope.tasks);
+    // Edit Task Things =========================
+        $scope.editTitle = function (task){
+            task.title_edit = true;
+            $scope.edited = task;
+        };
 
-            var dataOut = $scope.tasks;
-            var url = '/api/task/';
+        $scope.blurTitle = function (task){
+            // on losing the focus, save the name of the task
+            task.title_edit = false;
+            $scope.editedtask = null;
 
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    // console.log('tasks pushed', data);
-                })
-                .error(function(data){
-                    // console.log('error', data);
-                });
+            task.name = task.name.trim();
 
+            // deleted the name of the task? Remove it entirely.
+            if (!task.name) {
+                $scope.removeTask(task);
+            }
+
+            $scope.updateTask(task);            
         };
 
         $scope.updateTask = function(task){
-            // console.log('touched update task', task._id, task.desc);
-
             var url = '/api/task/'+task._id;
             var data_out = task;
 
-            return $http
-                .put(url, data_out)
-                .success(function(data){
-                    // console.log('task has pushed', data);
-                    // console.log('current test tasklist', data._tasks);
-                 })
-                .error(function(data){
-                    // console.log('error', data);
-                });
-            
+            $http
+                .put(url, data_out);
         };
 
+    // TEST UPDATE ==============================
         $scope.updateTest = function(){
+            // reminder: this pushes an update to an already-created test
             var test = $scope.test;
             
-            if($scope.test.desc){
-                test.desc = test.desc;
-            }
-
             if($scope.test.name){
                 mixpanel.track('Test name changed', { 'user': $rootScope.user });
             }
 
-            // console.log('touched update test', test);
+            if($scope.test.desc){
+                test.desc = $scope.test.desc;
+            }
 
             var url = '/api/test/'+$stateParams.test_id;
             var data_out = test;
 
+            // index the tasks appropriately and make sure they're put away
             var task_count=0;
             _.each($scope.tasks, function(task){
                 task.index = task_count;
                 task_count++;
-                // console.log(task.name, task.index);
             });
+            
+            $http
+                .put(url, data_out, {timeout:5000});
+        };
 
-            // console.log($scope.tasks);
-
-            // reminder: this pushes an update to an already-created test
-    		return $http
-                .put(url, data_out, {timeout:5000})
-                .success(function(data){
-                    // console.log('test has pushed', data);
-                })
-                .error(function(data){
-                    // console.log('error', data);
-                });
-    	};
-
+    // RETURN TO MAIN SCREEN ====================
         $scope.goHome = function(){
             // fun facts! This might cause a race condition.
             // TODO: see if THEN will work here.
@@ -275,5 +204,6 @@
                     $location.path('/overview');
                 });
         };
+
     }]);
 })();
