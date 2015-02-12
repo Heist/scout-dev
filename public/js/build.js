@@ -1475,7 +1475,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
             context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
 
-            socket.socket.disconnect();
+            // socket.socket.disconnect();
         });
         socket.on('error', function(reason)
         {
@@ -1678,7 +1678,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             // socket.emit('testComplete', {data: {body:'test_complete', room : $scope.subject.testroom, test: $stateParams._id}});
 
             mixpanel.track('Test completed', {});
-            // // console.log('touched end', data_out);
+            console.log('touched end', data_out);
 
             // collects all the tests and steps and outputs them as a collected object
             // to the session api link
@@ -1688,11 +1688,10 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $http
                 .post(url, data_out)
                 .success(function(data){
-                    // // console.log('Updated tests', data);
+                    console.log('Updated tests', data);
                     $location.path('/overview');
                 })
                 .error(function(data){
-                    // // console.log('Error: ' + data);
                 });
 
         }
