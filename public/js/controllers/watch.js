@@ -1,7 +1,8 @@
 // watch.js
 (function() {
     'use strict';
-    // REPORT CONTROLLER ===========================================================
+    
+    // WATCH CONTROLLER FOR GROUP INTERVIEWS ==================================
         
     angular.module('field_guide_controls')
     .controller('watch', 
