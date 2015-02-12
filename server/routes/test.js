@@ -92,7 +92,9 @@ app.route('/api/test/dev_tests/')
                                 name: 'Jane she is a cat'
                             },
                             function(err, data){
-                                if (err) {console.log(err);}
+                                if (err) {
+	console.log(err);
+}
                                 callback(null, {test: arg, subject: data});
                             });
                     },
@@ -152,7 +154,9 @@ app.route('/api/test/dev_tests/')
 
                         Message.create( arr2,
                             function(err, d0, d1, d2, d3, d4, d5){
-                                if (err) {console.log(err);} 
+                                if (err) {
+	console.log(err);
+} 
 
                                 var output = {
                                     task1 : [d0._id, d1._id, d2._id],
@@ -387,22 +391,30 @@ app.route('/api/test/:_id')
 
         Test.find({_id:req.params._id})
             .remove(function(err){
-                if (err) {console.log(err);}
+                if (err) {
+	console.log(err);
+}
             });
 
         Task.find({_test:req.params._id})
             .remove(function(err){
-                if (err) {console.log(err);}
+                if (err) {
+	console.log(err);
+}
             });
 
         Message.find({_test:req.params._id})
             .remove(function(err){
-                if (err) {console.log(err);}
+                if (err) {
+	console.log(err);
+}
             });
 
         Tag.find({_test:req.params._id})
             .remove(function(err){
-                if (err) {console.log(err);}
+                if (err) {
+	console.log(err);
+}
             });
 
         res.json('test removed', req.params._id);

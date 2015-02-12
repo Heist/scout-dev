@@ -1488,7 +1488,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         socket.on('reconnect', function(data)
         {
             // console.log('reconnect');
-            socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
+            // socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
         });
         socket.on('reconnecting', function(data)
         {

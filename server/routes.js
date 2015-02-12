@@ -400,7 +400,9 @@ app.route('/auth/invite/:_id')
                 Tag.find({'_test' : req.params._id })
                     .sort({name: 1})
                     .exec(function(err, docs){
-                        if (err) {console.log(err);}
+                        if (err) {
+	console.log(err);
+}
                         callback(null, docs);
                     });
             },
@@ -408,7 +410,9 @@ app.route('/auth/invite/:_id')
                 Task.find({'_test': req.params._id})
                     .sort({ index: 'asc'})
                     .exec(function(err, docs){
-                        if (err) {console.log(err);}
+                        if (err) {
+	console.log(err);
+}
                         callback(null, docs);
                     });
             },

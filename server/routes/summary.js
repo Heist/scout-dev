@@ -30,7 +30,9 @@ module.exports = function (app, passport, debug) {
                 Tag.find({'_test' : req.params._id })
                     .sort({name: 1})
                     .exec(function(err, docs){
-                        if (err) {console.log(err);}
+                        if (err) {
+	console.log(err);
+}
                         callback(null, docs);
                     });
             },
@@ -38,7 +40,9 @@ module.exports = function (app, passport, debug) {
                 Task.find({'_test': req.params._id})
                     .sort({ index: 'asc'})
                     .exec(function(err, docs){
-                        if (err) {console.log(err);}
+                        if (err) {
+	console.log(err);
+}
                         callback(null, docs);
                     });
             },
@@ -171,7 +175,9 @@ module.exports = function (app, passport, debug) {
                 Message.create(
                     new_note, 
                     function(err, msg){
-                        if (err) {console.log(err);} 
+                        if (err) {
+	console.log(err);
+} 
                         callback(null, msg);
                     });
             },
@@ -179,7 +185,9 @@ module.exports = function (app, passport, debug) {
                 Message.findById(msg._id)
                        .populate('_subject')
                        .exec(function(err, note){
-                            if (err) {console.log(err);}
+                            if (err) {
+	console.log(err);
+}
                             callback(null, note); 
                         });
             },
@@ -277,7 +285,9 @@ module.exports = function (app, passport, debug) {
 
         Task.findOne({'_id': req.body._id})
             .exec(function(err, doc){
-                if (err) {console.log(err);}
+                if (err) {
+	console.log(err);
+}
 
                 console.log('touched task', req.body._id);
 
@@ -302,7 +312,9 @@ module.exports = function (app, passport, debug) {
 
         Test.findOne({'_id' : req.body._id})
             .exec(function(err, doc){
-                if (err) {console.log(err);}
+                if (err) {
+	console.log(err);
+}
 
                 console.log('test found', doc._id);
 
@@ -327,7 +339,9 @@ module.exports = function (app, passport, debug) {
 
         Tag.findById(req.params._id)
             .exec(function(err, doc){
-                if (err) {console.log(err);}
+                if (err) {
+	console.log(err);
+}
 
                 if(req.body.summary){doc.summary = req.body.summary;}
                 if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}

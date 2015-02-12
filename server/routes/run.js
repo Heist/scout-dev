@@ -41,7 +41,7 @@ var Subject = require('../models/data/subject');
             // request('/api/run/:_id').pipe(request.put('http://104.236.16.159:8080/watch/'))
         })
         .post(function(req,res){
-            // console.log('touched run post', req.body);
+            console.log('touched run post', req.body);
 
             // on post:
             // add subject to tests that have been updated with that subject

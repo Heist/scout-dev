@@ -37,7 +37,9 @@ app.route('/api/task/')
             
             Task.findById(key._id)
             .exec(function(err, task){
-                if (err) {console.log(err);}
+                if (err) {
+	console.log(err);
+}
 
                 if(key.name){task.name = key.name;}
                 if(key.summary){task.summary = key.summary;}
@@ -99,7 +101,9 @@ app.route('/api/task/:_id')
         
         Task.findById(req.params._id)
             .exec(function(err, task){
-                if (err) {console.log(err);}
+                if (err) {
+	console.log(err);
+}
 
                 if(req.body.name){task.name = req.body.name;}
                 if(req.body.summary){task.summary = req.body.summary;}

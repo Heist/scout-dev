@@ -25,7 +25,9 @@ module.exports = function(app, debug) {
             tags: function(callback){
                 Tag.find({'_test' : req.params._id})
                     .exec(function(err, docs){
-                        if (err) {console.log(err);}
+                        if (err) {
+	console.log(err);
+}
                         callback(null, docs);
                     });
             },
@@ -33,7 +35,9 @@ module.exports = function(app, debug) {
                 Task.find({'_test': req.params._id, 'visible' : true })
                     .sort({ index: 'asc'})
                     .exec(function(err, docs){
-                        if (err) {console.log(err);}
+                        if (err) {
+	console.log(err);
+}
                         callback(null, docs);
                     });
             },
@@ -92,7 +96,9 @@ module.exports = function(app, debug) {
                 created_by: req.user._id
             },
             function(err, cmt){
-                if (err) {console.log(err);}
+                if (err) {
+	console.log(err);
+}
             });
 
         promise.then(function(comment){
@@ -101,13 +107,17 @@ module.exports = function(app, debug) {
                 {'_id' : req.params._id},
                 {$push : {_comments: comment._id}},
                 function(err, msg){
-                    if (err) {console.log(err);}
+                    if (err) {
+	console.log(err);
+}
                 });
         }).then(function(){
             Message.findOne({'_id': req.params._id})
                    .populate('_comments _subject')
                    .exec(function(err, msg){
-                        if (err) {console.log(err);}
+                        if (err) {
+	console.log(err);
+}
                         console.log(reply);
                         res.json({msg : msg, comment: reply.comment});
                     });

@@ -43,7 +43,9 @@ app.route('/api/message/')
                 if (req.body._task) {msg._task = mongoose.Types.ObjectId(req.body._task);}
                 if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
 
-                Message.create(msg, function(err, msg){if (err) {console.log(err);} callback(null, msg);});
+                Message.create(msg, function(err, msg){if (err) {
+	console.log(err);
+} callback(null, msg);});
 
             },
             function(args, callback){
@@ -51,7 +53,9 @@ app.route('/api/message/')
                 Task.findByIdAndUpdate( req.body._task, 
                     { $push: {_messages : args._id} },
                     function(err,doc){ 
-                        if (err) {console.log(err);}
+                        if (err) {
+	console.log(err);
+}
                         console.log('task trace', doc._id);
                         callback(null, {msg: args, task: doc});
                     });
@@ -64,7 +68,9 @@ app.route('/api/message/')
                     { $push: {_messages : args.msg._id} }, 
                     {upsert:false},
                     function(err,doc){ 
-                        if (err) {console.log(err);} 
+                        if (err) {
+	console.log(err);
+} 
                         console.log('subject trace', doc._id);
                         callback(null, {msg: args.msg, task: args.task, subject: doc});
                     });
@@ -89,7 +95,7 @@ app.route('/api/message/')
                         },
                         function(err, results){
                             if(err){throw err;}
-                            console.log('tag trace waterfal results', results);
+                            // console.log('tag trace waterfal results', results);
                             callback(null, {msg:args.msg, task: args.task, subject: args.subject, tags: results});
                         }); 
                 }
@@ -97,7 +103,7 @@ app.route('/api/message/')
         ],
         function(err, results){
             if(err){throw err;}
-            console.log('message tag stack trace', results);
+            // console.log('message tag stack trace', results);
             res.json(results);
         });
     });
@@ -128,7 +134,7 @@ app.route('/api/message/:_id')
         // reply with res.json({tags : tags, msg: msg});
 
         // globals to sort through
-        console.log('touched message put', req.body);
+        // console.log('touched message put', req.body);
         var message = req.body.body,
             tags = req.body.tags,
             test = req.body._test,
@@ -232,7 +238,9 @@ app.route('/api/message/:_id')
                     tags: function(callback){
                         Tag.find({'_test' : req.body._test })
                             .exec(function(err, docs){
-                                if (err) {console.log(err);}
+                                if (err) {
+	console.log(err);
+}
                                 callback(null, docs);
                             });
                     },
@@ -240,7 +248,9 @@ app.route('/api/message/:_id')
                         Task.find({'_test': req.body._test})
                             .sort({ index: 'asc'})
                             .exec(function(err, docs){
-                                if (err) {console.log(err);}
+                                if (err) {
+	console.log(err);
+}
                                 callback(null, docs);
                             });
                     },
