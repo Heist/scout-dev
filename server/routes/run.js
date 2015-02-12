@@ -13,10 +13,7 @@ var Message = require('../models/data/message');
 var Task    = require('../models/data/task');
 var Test    = require('../models/data/test');
 var Tag     = require('../models/data/tag');
-var Session = require('../models/data/session');
 var Subject = require('../models/data/subject');
-
-
 
 // RUN ROUTES =============================================
     app.route('/api/run/')
@@ -67,7 +64,7 @@ var Subject = require('../models/data/subject');
                 test:function(callback){
                     // UGH NO. NO. TODO: CLEAN THIS UP IT'S A BAD BLEND OF SYNC AND ASYNC
                     
-                    // for each test in session
+                    // for each test
                     // add a subject to that test if it has run.
 
                     async.map(req.body.tests,

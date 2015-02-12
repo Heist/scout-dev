@@ -13,7 +13,6 @@ var Message = require('../models/data/message');
 var Task    = require('../models/data/task');
 var Test    = require('../models/data/test');
 var Tag     = require('../models/data/tag');
-var Session = require('../models/data/session');
 var Subject = require('../models/data/subject');
 
 // TASK ROUTES ===================================================
@@ -47,7 +46,6 @@ app.route('/api/task/')
                 if(key.desc !== null ){task.desc = key.desc;}
                 if(key._test){task._test = key._test;}
                 if(key.index){task.index = key.index; console.log(task.index);}
-                if(key._session){task._session = key._session;}
                 if(key._subject){task._subjects.push(key._subject);}
 
                 task.save(function(err,data){
@@ -64,7 +62,6 @@ app.route('/api/task/')
         task.name = req.body.name;
         task.desc = req.body.desc;
         task._test = req.body._test;
-        task._session =  req.body._session;
         task.index = req.body.index;
         
         task.save(function(err, task){
@@ -111,7 +108,6 @@ app.route('/api/task/:_id')
                 if(req.body.desc){task.desc = req.body.desc;}
                 if(req.body._test){task._test = req.body._test;}
                 if(req.body.index){task.index = req.body.index;}
-                if(req.body._session){task._session = req.body._session;}
                 if(req.body._subject){task._subjects.push(req.body._subject);}
 
                 task.save(function(err,task){

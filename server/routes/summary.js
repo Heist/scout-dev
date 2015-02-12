@@ -13,7 +13,6 @@ module.exports = function (app, passport, debug) {
     var Task    = require('../models/data/task');
     var Test    = require('../models/data/test');
     var Tag     = require('../models/data/tag');
-    var Session = require('../models/data/session');
     var Subject = require('../models/data/subject');
 
 // SUMMARY ROUTES ============================================
@@ -153,7 +152,7 @@ module.exports = function (app, passport, debug) {
        .post(function(req,res){
         console.log('touched new message ', req.body);
 
-        var body, _subject, created_by, _test, _task, _session;
+        var body, _subject, created_by, _test, _task;
 
         if (req.body.body) { body = req.body.body;}        
         if (req.body._subject) {_subject = mongoose.Types.ObjectId(req.body._subject); }
@@ -161,7 +160,6 @@ module.exports = function (app, passport, debug) {
         if (req.user._id) {created_by = mongoose.Types.ObjectId(req.user._id); }
 
         if (req.body._task) {_task = mongoose.Types.ObjectId(req.body._task); }
-        if (req.body._session) {_session = mongoose.Types.ObjectId(req.body._session); console.log('session', _session);}
 
         var new_note = {
             _subject : _subject,

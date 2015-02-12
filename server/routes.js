@@ -508,7 +508,7 @@ app.route('/auth/invite/:_id')
 // OBJECT ROUTES ==========================================
 
 // Session Routes
-    require('./routes/session')(app, debug);
+    // require('./routes/session')(app, debug);
 
 // Test Routes
     require('./routes/test')(app, debug);

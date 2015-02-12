@@ -13,7 +13,7 @@ var TaskSchema = new Schema ({
     _tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
     _subjects: [{ type: Schema.Types.ObjectId, ref: 'Subject' }],
     _test : { type: Schema.Types.ObjectId, ref: 'Test' },
-    _session : { type: Schema.Types.ObjectId, ref: 'Session' },
+    
     doctype : { type: String, trim: true, default: 'task' },
 
     name: { type : String, trim : true },

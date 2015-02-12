@@ -12,7 +12,6 @@ var Message = require('../models/data/message');
 var Task    = require('../models/data/task');
 var Test    = require('../models/data/test');
 var Tag     = require('../models/data/tag');
-var Session = require('../models/data/session');
 var Subject = require('../models/data/subject');
 
 //MESSAGE ROUTES  ================================================

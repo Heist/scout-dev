@@ -257,7 +257,6 @@
                  
                 note._task = $scope.selected._id;
                 note._test = $scope.selected._test;
-                // note._session = $stateParams._id;
                 note._subject = $scope.subject._id;
 
                 $scope.timeline.push(note);
@@ -296,7 +295,7 @@
             // console.log($scope.subject.testroom);
 
             var url = '/api/run/'+$stateParams._id;
-            var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
+            var data_out = {tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
             // socket.emit('testComplete', {data: {body:'test_complete', room : $scope.subject.testroom, test: $stateParams._id}});
 
             mixpanel.track('Test completed', {});

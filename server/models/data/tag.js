@@ -10,9 +10,8 @@ var db = connect.db;
 var TagSchema = new Schema({
     _tasks     : [{ type: Schema.Types.ObjectId, ref: 'Task'}],
     _messages: [{ type: Schema.Types.ObjectId, ref: 'Message'}],
-    
+
     _test      : {  type: Schema.Types.ObjectId, ref: 'Test'},
-    _session : {  type: Schema.Types.ObjectId, ref: 'Session' },
     doctype : { type: String, trim: true, default: 'tag' },
 
     // body: { type : String, trim : true },

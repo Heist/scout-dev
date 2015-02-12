@@ -9,7 +9,6 @@ var db = connect.db;
 
 
 var TestSchema = new Schema({
-        _session : { type: Schema.Types.ObjectId, ref: 'Session' },
         _tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
         _subjects: [{ type: Schema.Types.ObjectId, ref: 'Subject' }],
         doctype : { type: String, trim: true, default: 'test' },
