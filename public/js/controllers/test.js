@@ -10,21 +10,12 @@
                 ['$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
         function(  $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         
-        // console.log('loaded test controller');
-        
         $http
             .get('/api/test/'+$stateParams.test_id, {timeout : 5000, cache:false})
             .success(function(data) {
                 $scope.test = data;
                 $scope.tasks = data._tasks;
-
-                // console.log('test', $scope.test);
-                // console.log('tasks', $scope.tasks);
                 $scope.showAnchor(1);
-
-            })
-            .error(function(data) {
-                // console.log('Error: ' + data);
             });
 
         // DIRECTIVES AND FUNCTIONS ===========================

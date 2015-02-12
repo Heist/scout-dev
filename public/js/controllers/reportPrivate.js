@@ -6,8 +6,8 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
-    
     $scope.showReportLink = false;
+
     $scope.toggleReportLink =  function(){
         if(!$scope.showReportLink){ $scope.showReportLink=true; }
         else{ $scope.showReportLink = false; }
@@ -15,8 +15,6 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
     $http.get('/api/private/report/'+$stateParams.test_id)
             .success(function(data){
-                // console.log('the report object', data);
-                
                 $scope.leftNavList = [];
                 $scope.testname = data.test;
                 
@@ -26,14 +24,11 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
                 _.each(sort, function(obj){
                     if(obj.visible){
-                        // console.log(obj.name); 
                         $scope.leftNavList.push(obj);
                     }
                 });
 
                 $scope.messages = data.messages;
-
-                // console.log($scope.leftNavList[0]);
                 $scope.activate($scope.leftNavList[0]);
                 
             }); 
@@ -79,17 +74,11 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         
         $scope.selectedIndex = selectedIndex;
         
-        if(obj.doctype === 'test'){
-            // console.log('when was this last run', obj.last_run);
-        }
-
         if(obj){
             $scope.selected = obj;
 
             // here's where we do the rendering shit for the embeds. Slow. Boo.
             if(obj.embed){
-                
-
                 var utest = /usabilitytestresults/i;
                 var ut = utest.test(obj.embed);
                 if(ut){
@@ -134,9 +123,6 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         // hide commenting
         // else show the new message's comments
 
-        // console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
-
-        // if(){}
         if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
             // console.log('match');
             $scope.showCommentToggle = 'hide';
@@ -160,7 +146,6 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
     };
 
     $scope.addComment = function(comment){
-        // console.log('add comment', $scope.messages);
         if(comment && comment.body.length > 0){
             var dataOut = {
                 comment: {body : comment.body}
@@ -174,13 +159,10 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
                     var arr = _.pluck($scope.messages, '_id');
                     var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
 
-                    // console.log(msg_idx);
                     $scope.messages[msg_idx]._comments.push(data.comment);
                 });
         } else {
             $scope.showCommentToggle = 'hide';   
         }
     };
-
-
 }]);

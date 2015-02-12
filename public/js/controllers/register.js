@@ -10,7 +10,6 @@
         
         if($stateParams.acct){
             $scope.acct = $stateParams.acct.replace( /\//gi,"");
-            // console.log($scope.acct);
         }
 
     }]);

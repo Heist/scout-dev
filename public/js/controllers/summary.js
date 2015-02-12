@@ -38,8 +38,7 @@
                             return 'report comment';
                         }
                     });
-                
-                // console.log($scope.leftNavList[0]);
+
                 $scope.activate($scope.leftNavList[0]);
             });
 
@@ -50,25 +49,19 @@
         };
 
         $scope.activate = function(obj, selectedIndex) {
-            // passes the task to the global variable
+            // passes an object from left nav to the global selection variable
 
-            // console.log('touched activate');
+            // reset all previous reliant variables, there are a lot!
             $scope.selected = '';
             $scope.commentMessage = '';
             $scope.selectedIndex = '';
             $scope.inputNote = '';
             $scope.showCommentToggle = 'hide';
             $scope.messageEditToggle = '';
-            
             $scope.selectedIndex = selectedIndex;
-            
-            if(obj.doctype === 'test'){
-                // console.log('when was this last run', obj.last_run);
-            }
 
             if(obj){
                 $scope.selected = obj;
-                // console.log('selected', obj);
             }
         };
 
@@ -104,22 +97,18 @@
             // hide commenting
             // else show the new message's comments
 
-            // console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
-
-            // if(){}
             if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
-                // console.log('match');
                 $scope.showCommentToggle = 'hide';
                 $scope.commentMessage = '';
                 return;
             }
+
             if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
-                // console.log('match');
                 $scope.showCommentToggle = 'show';
                 return;
             }
+
             if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
-                // console.log('fail');
                 $scope.showCommentToggle = 'show'; 
                 $scope.commentMessage = message;
                 return;
@@ -154,6 +143,8 @@
         // MOVE STEPS =========================================
 
         $scope.moveTask = function(old_index, new_index){
+            // TODO: This almost certainly has a reordering bug in it.
+            // Abstract to a directive: the NavList directive
 
             new_index = old_index + new_index;
 
@@ -185,7 +176,6 @@
             var nav = _.pluck($scope.leftNavList, 'name');
             
             $scope.saveSummary();
-
         };
 
 
@@ -271,7 +261,7 @@
         };
 
         $scope.toggleNote = function(user){
-            // console.log('user for new note', user);
+            // Opens up a new message from a user who previously participated in a test.
             $scope.messageEditToggle = '';
             $scope.inputNote = user;
         };
@@ -289,9 +279,7 @@
             }
 
             $http
-                .put('/api/summary/message/'+message._id, message)
-                .success(function(data){
-                });
+                .put('/api/summary/message/'+message._id, message);
         };
 
         $scope.postMessage = function(message, subject){
@@ -332,19 +320,12 @@
             $http
                 .post(url, data_out)
                 .success(function(data){
-
-                    // console.log('new message data', data);
-
                     $scope.toggleNote();
+
                     $scope.messages[data.msg._subject.name].push(data.msg);
                     $scope.selected._messages.push(data.msg._id);
 
-                    // console.log('msg list', $scope.messages[data.msg._subject.name]);
-                    // console.log('selected list', $scope.selected._messages);
-
                     var indexCheck = _.pluck($scope.leftNavList, 'name');
-                    // console.log('indexCheck', indexCheck);
-
                     _.each(data.tags, function(tag){
                         var idx = indexCheck.indexOf(tag.name);
                         if(idx === -1){
@@ -370,9 +351,8 @@
             var url = '/api/summary/'+ $stateParams._id;
             var data_out = {navlist: $scope.leftNavList, messages:$scope.messages[0]} ;
             
-            $http.put(url, data_out)
-                .success(function(data, msg){
-                });     
+            $http
+                .put(url, data_out);     
 
         };
     }]);
