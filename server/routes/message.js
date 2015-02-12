@@ -21,18 +21,20 @@ app.route('/api/message/')
     .get(function(req,res){
         Message.find({})
             .exec(function(err, messages) {
-                if(err){console.log(err);}
+                if(err){
+                    console.log(err);
+                }
                 res.json(messages);
             });
     })
     .post(function(req,res){
         // TODO: make this into Async becasue this is pretty complex.
 
-        console.log('touched new message ', req.body);
+        // console.log('touched new message ', req.body);
 
         async.waterfall([
             function(callback){
-                console.log('waterfall');
+                // console.log('waterfall');
                 var msg = {};
                 var call = {};
 
@@ -43,41 +45,44 @@ app.route('/api/message/')
                 if (req.body._task) {msg._task = mongoose.Types.ObjectId(req.body._task);}
                 if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
 
-                Message.create(msg, function(err, msg){if (err) {
-	console.log(err);
-} callback(null, msg);});
+                Message.create(msg, function(err, msg){
+                    if (err) {
+                        console.log(err);
+                    } 
+                    callback(null, msg);
+                });
 
             },
             function(args, callback){
-                console.log('waterfall 1', args);
+                // console.log('waterfall 1', args);
                 Task.findByIdAndUpdate( req.body._task, 
                     { $push: {_messages : args._id} },
                     function(err,doc){ 
                         if (err) {
-	console.log(err);
-}
-                        console.log('task trace', doc._id);
+                            console.log(err);
+                        }
+                        // console.log('task trace', doc._id);
                         callback(null, {msg: args, task: doc});
                     });
 
             },
             function(args, callback){
-                console.log('waterfall 2', args);
+                // console.log('waterfall 2', args);
                 Subject.findOneAndUpdate(
                     {'_id': args.msg._subject},
                     { $push: {_messages : args.msg._id} }, 
                     {upsert:false},
                     function(err,doc){ 
                         if (err) {
-	console.log(err);
-} 
-                        console.log('subject trace', doc._id);
+                            console.log(err);
+                        } 
+                        // console.log('subject trace', doc._id);
                         callback(null, {msg: args.msg, task: args.task, subject: doc});
                     });
             },
             function(args, callback){
                 // reminder: the tags are not attached to the message. The message is attached to tags.
-                console.log('waterfall 3', args);
+                
                 if(req.body.tags){ 
                     
                     async.map(req.body.tags, 
@@ -89,21 +94,22 @@ app.route('/api/message/')
                                    _test: args.msg._test }, 
                                 { upsert:true },
                                 function(err, data){
-                                    if(err){console.log(err);}
+                                    if(err){
+                                        console.log(err);
+                                    }
                                     callback(null, data);
                                 });
                         },
                         function(err, results){
-                            if(err){throw err;}
-                            // console.log('tag trace waterfal results', results);
+                            if(err){console.log(err);}
+
                             callback(null, {msg:args.msg, task: args.task, subject: args.subject, tags: results});
                         }); 
                 }
             }
         ],
         function(err, results){
-            if(err){throw err;}
-            // console.log('message tag stack trace', results);
+            if(err){console.log(err);}
             res.json(results);
         });
     });
@@ -113,12 +119,13 @@ app.route('/api/message/')
 app.route('/api/message/:_id')
     .get(function(req,res){
         //get one specific test
-        // console.log(req)
+        // // console.log(req)
         Message.findById(req.params._id)
             .exec(function(err,msg){
-                if(err){console.log(err);}
+                if(err){
+                    console.log(err);
+                }
                 
-                // console.log(msg)
                 res.json(msg);
             });
     })
@@ -134,7 +141,7 @@ app.route('/api/message/:_id')
         // reply with res.json({tags : tags, msg: msg});
 
         // globals to sort through
-        // console.log('touched message put', req.body);
+        
         var message = req.body.body,
             tags = req.body.tags,
             test = req.body._test,
@@ -147,7 +154,6 @@ app.route('/api/message/:_id')
                 // If the tag's there and doesn't have the msg, push it, save.
 
                 async.map(req.body.tags, function (name, callback) {
-                    // console.log('tag ' + name);
                     Tag.find({'name' : name}).limit(1).exec(function (error, doc) {
                         if (error){return callback(error);}
 
@@ -164,9 +170,9 @@ app.route('/api/message/:_id')
                             });
                         } else {
                             // if an existing tag _messages does not contain msg._id
-                            // console.log('the head', id, tg._messages.indexOf(id), tg.name);
+                            // // console.log('the head', id, tg._messages.indexOf(id), tg.name);
                             if (tg._messages.indexOf(id) === -1) {
-                                // console.log('tag getting message', tg.name);
+                                // // console.log('tag getting message', tg.name);
                                 tg._messages.push(id);
                                 tg.save(function(err, tag){
                                     callback(null, tag);
@@ -190,57 +196,55 @@ app.route('/api/message/:_id')
                         });
             },
             function(args, callback){
-                // console.log('last function args', args);
-
-                // TODO: THIS
-                // this is tricky because it involves a buried map function.
-                // async.map(req.body.tags, function (name, callback) { // }, callback);
+                 // Find tags that have an association with that message, 
+                 // then send them to have new messages added to their joins
+                
                 async.waterfall([
                     function(callback) {
                         Tag.find({'_messages' : {$in : [req.body._id]}, 'name' : {$nin : req.body.tags}})
                            .exec(function(err, docs){
-                                if(err){console.log(err);}
-
-                                console.log('found tags', docs );
+                                if(err){
+                                    console.log(err);
+                                }
                                 callback(null, docs);
                             });
                     },
                     function(args, callback) {
-                        console.log('nested waterfall', args);
                         async.map(args, function(tag, callback){
                             var msg_index = tag._messages.indexOf(req.body._id);
                             tag._messages.splice(msg_index, 1);
                             tag.save(function(err,doc){
-                                console.log('saved tag', doc);
                                 callback(null, tag);
                             });
                         }, callback);
                     },
 
                 ], function (err, result) {
-                       // result now equals 'done'  
-                    console.log('nested waterfall result', result);
+                    if(err){
+                        console.log(err);
+                    }
                     callback(null, args);
                 });
                 
             },
             function(args, callback){
-                console.log('pre-removal', args);
+                // If there are tags that still hold messages that have been deleted
+                // Remove the reference to those messages from the tag
                 Tag.remove({'_messages' : {$size : 0}}, function(err, gone){
-                    console.log('gone', gone); 
                     callback(null, args);
                 });
             },
             function(args, callback){
-                console.log('pre-removal', args);
+                // Get all of the objects associated with a given tag
+                // Return those objects to the front end.
 
                 async.parallel({
                     tags: function(callback){
                         Tag.find({'_test' : req.body._test })
                             .exec(function(err, docs){
                                 if (err) {
-	console.log(err);
-}
+                                    console.log(err);
+                                }
                                 callback(null, docs);
                             });
                     },
@@ -249,8 +253,9 @@ app.route('/api/message/:_id')
                             .sort({ index: 'asc'})
                             .exec(function(err, docs){
                                 if (err) {
-	console.log(err);
-}
+                                    console.log(err);
+                                }
+
                                 callback(null, docs);
                             });
                     },
@@ -258,7 +263,10 @@ app.route('/api/message/:_id')
                         Test.find({'_id' : req.body._test})
                             .limit(1)
                             .exec(function(err, docs){
-                                if(err){console.log(err);}
+                                if (err) {
+                                    console.log(err);
+                                }
+
                                 callback(null, docs);
                             });
                     },
@@ -266,13 +274,17 @@ app.route('/api/message/:_id')
                         Message.find({ '_test':{$in: [req.body._test]}})
                                .populate({path:'_subject', select: 'name' })
                                .exec(function(err, docs){
-                                    if(err){console.log(err);}
+                                    if (err) {
+                                        console.log(err);
+                                    }
+
                                     callback(null, docs);
                                 });
                     }
                 },
                 function(err, results) {
-                    // results is now equals to: {one: 1, two: 2}
+                    // Sort everthing from above into a nice navigation list and spit it back.
+
                     var return_array = [];
                     _.each(results.test, function(test){
                         return_array.push(test);
@@ -289,7 +301,10 @@ app.route('/api/message/:_id')
             }            
         ], function (err, result) {
            // ship the result back to the front end for handling
-            console.log('result', result);
+            if (err) {
+                console.log(err);
+            }
+
             res.json(result);
         });
     });

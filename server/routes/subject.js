@@ -45,13 +45,13 @@ var Subject = require('../models/data/subject');
                 },function(subject, callback){
                     Test.findById(subject.test)
                         .exec(function(err, doc){
-                            if(err){throw err;}
+                            if(err){console.log(err);}
                             if(doc){
                                 var now = new Date();
                                 doc.last_run = now;
     
                                 doc.save(function(err, saved){
-                                    if(err){throw err;}
+                                    if(err){console.log(err);}
                                     callback(null, {subject: subject, test: saved});
                                 });
                             } else {
@@ -60,7 +60,7 @@ var Subject = require('../models/data/subject');
                         });
                     // callback(null, {subject: args});
                 }], function(err,results){
-                        if(err){throw err;} 
+                        if(err){console.log(err);} 
                         res.json(results.subject);
                     });
             });

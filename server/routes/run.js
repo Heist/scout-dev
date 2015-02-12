@@ -48,55 +48,87 @@ var Subject = require('../models/data/subject');
             // add subject to tasks that have been updated with that subject
             // add tests to subject that has been part of that test
 
-            Subject.findById(req.body.subject)
-                .exec(function(err, doc){
-                    // console.log('subject tests', subject._tests);
-                    
-                    doc._tests = req.body.tests;
+            async.parallel({
+                subject:function(callback){
+                    Subject.findById(req.body.subject)
+                        .exec(function(err, doc){
+                            
+                            if(!doc){
+                                callback(null, null);
+                            }
 
-                    doc.save(function(err,data){
-                        if(err){console.log(err);}
-                    });
-                });
-        
-            // for each test in session
-            // add a subject to that test if it has run.
-
-            if(req.body.tests){
-                async.each(req.body.tests, function(test){
-                    // console.log('test', test);
-                    test = mongoose.Types.ObjectId(test);
-
-                    Test.findById(test, function(err, doc){
-                        
-                        if(doc._subjects.indexOf(req.body.subject) === -1){
-                            doc._subjects.push(req.body.subject);
-                        }
-    
-                        doc.save(function(err, data){
-                            if(err){console.log(err);}
+                            doc._tests = req.body.tests;
+                            doc.save(function(err,data){
+                                if(err){console.log(err);}
+                                callback(null, data);
+                            });
                         });
-                    });
-                });
-            }
+                },
+                test:function(callback){
+                    // UGH NO. NO. TODO: CLEAN THIS UP IT'S A BAD BLEND OF SYNC AND ASYNC
+                    
+                    // for each test in session
+                    // add a subject to that test if it has run.
 
-            // for each task in a run test
-            // if a subject has hit that task,
-            // push the subject to its subject array
+                    async.map(req.body.tests,
+                        // MAP OBJ TO TEST _ID, YOU ARE WORKING ON THIS
+                        function(test, callback){
+                            Test.findById(test, function(err, doc){
+                                if(!doc){
+                                    callback(null, null);
+                                }
 
-            async.each(req.body.tasks, function(task){
-                Task.findById(task, function(err, doc){
+                                if(doc._subjects.indexOf(req.body.subject) === -1){
+                                    doc._subjects.push(req.body.subject);
+                                }
 
-                    if(doc._subjects.indexOf(req.body.subject) === -1){
-                        doc._subjects.push(req.body.subject);
-                    }
+                                doc.save(function(err, data){
+                                    if(err){console.log(err);}
+                                    callback(null, data);
+                                });
 
-                    doc.save(function(err, data){
-                        if(err){console.log(err);}
-                    });
-                });
+                            });
+                        },
+                        function(err, results){
+                            callback(null, results);
+                        });
+                },
+                tasks:function(callback){
+                    // for each task in a run test
+                    // if a subject has hit that task,
+                    // push the subject to its subject array
+        
+                    async.map(req.body.tasks, 
+                        function(task, callback){
+                            Task.findById(task, function(err, doc){
+                                if(!doc){
+                                    callback(null, null);
+                                }
+
+                                if(doc._subjects.indexOf(req.body.subject) === -1){
+                                    doc._subjects.push(req.body.subject);
+                                }
+
+                                doc.save(function(err, data){
+                                    if(err){console.log(err);}
+                                    callback(null, data);
+                                });
+                            });
+                        },
+                        function(err, results){
+                            if(err){
+                                console.log(err);
+                            }
+                            callback(null, results);
+                        });
+                }
+            }, 
+            function(err, results){
+                if(err){
+                    console.log(err);
+                }
+                console.log('tests updated', req.body.tests);
+                res.json('tests updated', req.body.tests);
             });
-            
-            res.json('tests updated', req.body.tests);
         });
 };
