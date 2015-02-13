@@ -13,7 +13,7 @@ module.exports = function(app, debug){
     var Invitation = require('../models/auth/invitation');
     var Emailer  = require('../models/mailer');
 
-    //if there's a user, get a user
+    // if there's a user, get a user
     // if there's an account, get the users attached to that account
 
     app.route('/api/account/:_user')

@@ -7,6 +7,9 @@ var Schema = mongoose.Schema;
 var connect = rootRequire('./config/db');
 var db = connect.db;
 
+// TODO: Tasks are actually just discussion guidelines
+// They store no messages and are not used to associate data?
+
 var TaskSchema = new Schema ({
     
     _messages:[{ type: Schema.Types.ObjectId, ref: 'Message' }],

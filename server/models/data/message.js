@@ -7,6 +7,13 @@ var Schema = mongoose.Schema;
 var connect = rootRequire('./config/db');
 var db = connect.db;
 
+// Messages are the basic unit of information in Field Guide.
+// They are currently associated to Tasks and Tags (themes)
+// But are soon to be associated to only Themes. 
+
+// Messages are made by Users in association with Subjects.
+// They are not a sub-document of Subjects because they are sometimes 
+// independent of that Subject.
 
 var MessageSchema = new Schema ({
     _subject : { type: Schema.Types.ObjectId, ref: 'Subject' },

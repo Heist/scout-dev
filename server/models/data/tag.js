@@ -7,6 +7,9 @@ var Schema = mongoose.Schema;
 var connect = rootRequire('./config/db');
 var db = connect.db;
 
+
+// TODO: Tags are eventually themes, which store all our messages.
+
 var TagSchema = new Schema({
     _tasks     : [{ type: Schema.Types.ObjectId, ref: 'Task'}],
     _messages: [{ type: Schema.Types.ObjectId, ref: 'Message'}],

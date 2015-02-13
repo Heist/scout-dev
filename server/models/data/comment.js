@@ -7,6 +7,9 @@ var Schema = mongoose.Schema;
 var connect = rootRequire('./config/db');
 var db = connect.db;
 
+// Comments are Message sub-documents.
+// They are summoned and related to specific messages in the Reports.
+
 var CommentSchema = new Schema ({
     body : { type: String, trim: true },
     created_by : { type: Schema.Types.ObjectId },

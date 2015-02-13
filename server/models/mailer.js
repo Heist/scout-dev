@@ -6,6 +6,9 @@ var nodemailer = require('nodemailer'),
     fs = require('fs'),
     _ = require('lodash');
     
+    // TODO: This is unclear, because it relies on prototype modification
+    // Perhaps alter to bring in line with style elsewhere.
+
 var Emailer = (function() {
     function mail(envelope_options, message_variables) {
         this.envelope_options = envelope_options;

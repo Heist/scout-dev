@@ -7,6 +7,10 @@ var Schema = mongoose.Schema;
 var connect = rootRequire('./config/db');
 var db = connect.db;
 
+// TODO: Tests are the basic organizing unit for 
+// subjects, who generate messages on each discussion guide unit
+// This document replaces a table-join and allows structure around
+// how we call messages and subjects into relations with each other.
 
 var TestSchema = new Schema({
         _tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
