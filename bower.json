@@ -23,7 +23,8 @@
     "angular-mocks": "~1.2",
     "canvas2image": "*",
     "lodash": "~2.4.1",
-    "angular-youtube-mb": "~0.1.6"
+    "angular-youtube-mb": "~0.1.6",
+    "angular-payments": "*"
   },
   "overrides": {
     "jquery": {
