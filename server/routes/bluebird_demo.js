@@ -30,8 +30,8 @@ var getInvite = function(address){
     return Invitation.findOne({'user_email' : address});
 };
 
-.then(function () { throw... }) -> this promise will be rejected
-4:10 PM <myndzi> Promise.reject('foo') will create a rejected promise, but that's not something you would use in a chain
+// .then(function () { throw... }) -> this promise will be rejected
+// 4:10 PM <myndzi> Promise.reject('foo') will create a rejected promise, but that's not something you would use in a chain
 
 
 module.exports = function (account) {  

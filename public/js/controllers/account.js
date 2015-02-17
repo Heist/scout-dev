@@ -41,6 +41,26 @@
                 });
         };
 
+    // STRIPE CHECKOUT ====================================
+
+		$scope.stripeCheckout = function(){
+			var handler = StripeCheckout.configure({
+			key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+			// image: '/square-image.png',
+			token: function(token) {
+			// Use the token to create the charge with a server-side script.
+			// You can access the token ID with `token.id`
+			}
+			});
+
+			handler.open({
+				name: 'Demo Site',
+				description: '2 widgets ($20.00)',
+				amount: 2000
+			});
+		};
+    
+
 
 	// HOOK UP TRELLO =====================================
 		if($scope.live_user.trello){
