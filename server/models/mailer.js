@@ -57,7 +57,7 @@ var Emailer = (function() {
                 service: 'Mandrill',
                 auth: {
                     user: 'mandrill@fieldguideapp.com',
-                    pass: 'jvVhe4uJxHB7MFfHabelbg'
+                    pass: app.locals.mandrillSecret
                 },
                 host: "smtp.mandrillapp.com",
                 port: 587

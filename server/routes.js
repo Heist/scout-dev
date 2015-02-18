@@ -167,7 +167,7 @@ module.exports = function(app, passport, debug) {
                         service: 'Mandrill',
                         auth: {
                             user: 'mandrill@fieldguideapp.com',
-                            pass: 'jvVhe4uJxHB7MFfHabelbg'
+                            pass: app.locals.mandrillSecret
                         },
                         host: "smtp.mandrillapp.com",
                         port: 587
@@ -236,7 +236,7 @@ module.exports = function(app, passport, debug) {
                             service: 'Mandrill',
                             auth: {
                                 user: 'mandrill@fieldguideapp.com',
-                                pass: 'jvVhe4uJxHB7MFfHabelbg'
+                                pass: app.locals.mandrillSecretx
                             },
                             host: "smtp.mandrillapp.com",
                             port: 587
