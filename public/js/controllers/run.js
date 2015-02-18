@@ -45,7 +45,7 @@
                     .success(function(data){
                         console.log($rootScope.user);
                         if($rootScope.user.onboard === 6 ){
-                            $location.path('/summary/'+$scope.tests[0]._id);
+                            $location.path('/summary/'+$scope.tests[1]._id);
                         }
                     });
             } else {

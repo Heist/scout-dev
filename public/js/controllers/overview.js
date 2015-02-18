@@ -17,15 +17,15 @@
                 }
                 
                 if($rootScope.user.onboard === 3 || $rootScope.user.onboard === 4 || $rootScope.user.onboard === 5 ){
-                    $location.path('/run/'+$scope.tests[0]._id);
+                    $location.path('/run/'+$scope.tests[1]._id);
                 }
 
                 if($rootScope.user.onboard === 6 && $scope.tests.length > 0){
-                    $location.path('/summary/'+$scope.tests[0]._id);
+                    $location.path('/summary/'+$scope.tests[1]._id);
                 }
 
                 if($rootScope.user.onboard === 7 && $scope.tests.length > 0){
-                    $location.path('/report/'+$scope.tests[0]._id);
+                    $location.path('/report/'+$scope.tests[1]._id);
                 }
             });
 
@@ -51,7 +51,7 @@
                 .success(function(data){
                     console.log($rootScope.user);
                     if($rootScope.user.onboard === 3){
-                        $location.path('/run/'+$scope.tests[0]._id);
+                        $location.path('/run/'+$scope.tests[1]._id);
                     }
                 });
         };
