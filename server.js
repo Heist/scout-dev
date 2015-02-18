@@ -25,6 +25,10 @@ var session      = require('express-session');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
+// PROCESS PORTS =====================================================
+var port = Number(process.env.FIELD_GUIDE_PORT || process.env.PORT || 8080);
+// var port = Number(process.env.FIELD_GUIDE_PORT || 80);
+
 // GLOBAL VARIABLES =================================================
 var secrets = require(path.join(__dirname,'secrets'));
 app.locals = _.merge(app.locals, secrets);
@@ -84,7 +88,7 @@ var io = require('socket.io').listen(server, {log : false});
 require('./server/socket_routes_09')(io, app, passport, debug);
 
 // Turn it on. 
-server.listen(8080, function(){ console.log('listening on 8080');});
+server.listen(port, function(){ console.log('listening on', port);});
 
 // EXPOSE APP AS OBJECT =============================================
 exports = module.exports = app;
