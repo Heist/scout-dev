@@ -21,7 +21,7 @@ var session      = require('express-session');
 var MongoStore = require('connect-mongostore')(session);
 
 // PROCESS PORTS =====================================================
-var port = Number(process.env.FIELD_GUIDE_PORT || 8080);
+var port = Number(process.env.FIELD_GUIDE_PORT || process.env.PORT || 8080);
 // var port = Number(process.env.FIELD_GUIDE_PORT || 80);
 
 // GLOBAL VARIABLES =================================================
