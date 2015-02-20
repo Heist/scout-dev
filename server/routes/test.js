@@ -4,242 +4,49 @@
 module.exports = function(app, passport, debug) {
 
 // Module dependencies
-var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
-var _ = require('lodash');
-var async = require('async');
+    var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
+    var _ = require('lodash');
+    var async = require('async');
 
-// load data storage models
-var Message = require('../models/data/message');
-var Task    = require('../models/data/task');
-var Test    = require('../models/data/test');
-var Tag     = require('../models/data/tag');
-var Subject = require('../models/data/subject');
+    // load data storage models
+    var Message = require('../models/data/message');
+    var Task    = require('../models/data/task');
+    var Test    = require('../models/data/test');
+    var Tag     = require('../models/data/tag');
+    var Subject = require('../models/data/subject');
 
-// var DevTest = require('../models/functions/dev-tests.js');
+    var devTest = require('../models/functions/dev-tests.js');
 
 // TEST ROUTES ===================================================
 
 app.route('/api/test/')
     .get(function(req,res){
-        // get all of the tests
-            Test.find({created_by_account:req.user._account})
-            .exec(function(err, docs) {
-                if(err){console.log(err);}
-                res.json(docs);
-            });
-    })
-    
-    .post(function(req,res){
-        // add a new test
-            var test = new Test();
-
-            test.created_by_account = req.body.created_by.account;
-            test.created_by_user = req.body.created_by._id;
-
-            test.save(function(err, test){
-                if(err){console.log(err);}
-                res.json(test);
-            });
-
+    // get all of the tests
+        Test.find({created_by_account:req.user._account})
+        .exec(function(err, docs) {
+            if(err){console.log(err);}
+            res.json(docs);
         });
+    })
+    .post(function(req,res){
+    // add a new test
+        var test = new Test();
+
+        test.created_by_account = req.body.created_by.account;
+        test.created_by_user = req.body.created_by._id;
+
+        test.save(function(err, test){
+            if(err){console.log(err);}
+            res.json(test);
+        });
+    });
 
 app.route('/api/test/dev_tests/')
     .post(function(req, res){
         // In here, require and then call the dev-tests exported elsewhere.
-         async.waterfall([
-            function(callback){
-                var test = {
-                    created_by_account: req.user._account,
-                    created_by_user : req.user._id,
-                    name : "DeveloperTest",
-                    desc : "- Pew\n"+
-                           "- Rub face on everything.\n",
-                    kind : "interview"
-                };
-                async.waterfall([
-                    function(callback){
-                        Test.create(test , function(err, test){
-                            var tasks = [
-                                {
-                                    _test : test._id,
-                                    name  :"Task 1",
-                                    desc  :"Chase ball of string and scratch the furniture and always hungry. \n- Nap all day.",
-                                    index : 0
-                                }, {
-                                    _test : test._id,
-                                    name  : "Task 2",
-                                    desc  : "Sunbathe climb the curtains run hiss purr. \n- Puking I don't like that food claw scratched eat.",
-                                    index : 1
-                                }
-                            ];
-
-                            Task.create(tasks, function(err, t0, t1){
-                                test._tasks.push(t0._id, t1._id);
-                                test.save(function(err, new_test){
-                                    // console.log('new_test', new_test);
-                                    callback(null, new_test);
-                                });
-                            });
-                        });
-                    }, 
-                    function(arg, callback){
-                        Subject.create(
-                            {
-                                name: 'Jane she is a cat'
-                            },
-                            function(err, data){
-                                if (err) { console.log(err); }
-                                
-                                callback(null, {test: arg, subject: data});
-                            });
-                    },
-                    function(arg, callback){
-                        async.parallel({
-                            test: function(done){
-                                Test.findOne({'_id' : arg.test._id})
-                                    .exec(function(err, test){
-                                        test._subjects.push(arg.subject._id);
-                                        test.save(function(err, saved){
-                                            done(null, saved);
-                                        });
-                                    });
-                            },
-                            tasks: function(done){
-                                async.map(arg.test._tasks,
-                                    function(task, yeah){
-                                        Task.findOne({'_id' : task})
-                                            .exec(function(err, item){
-                                                item._subjects.push(arg.subject._id);
-                                                item.save(function(err, saved){
-                                                    yeah(null, saved);
-                                                });
-                                            });
-                                    }, 
-                                function(err, results){
-                                    done(null, results);
-                                });
-                            }
-                        }, 
-                        function(err, results){
-                            callback(null, {tasks: results.tasks, test: results.test, subject: arg.subject});
-                        });
-                    },
-                    function(arg, callback){
-                        var arr = [
-                                {
-                                    body:'One #yellow #blue #green',
-                                    _test: arg.test._id,
-                                    _subject: arg.subject._id
-                                },
-                                {
-                                    body:'Two #yellow #blue',
-                                    _test: arg.test._id,
-                                    _subject: arg.subject._id
-                                },
-                                {
-                                    body:'Three #yellow',
-                                    _test: arg.test._id,
-                                    _subject: arg.subject._id
-                                }
-                            ];
-
-                        // concatenate 2X arr for an array to transcribe to messages
-                        // this will create a rack of messages to put into tests.
-                        var arr2 = arr.concat(arr);
-
-                        Message.create( arr2,
-                            function(err, d0, d1, d2, d3, d4, d5){
-                                if (err) { console.log(err);} 
-
-                                var output = {
-                                    task1 : [d0._id, d1._id, d2._id],
-                                    task2 : [d3._id, d4._id, d5._id],
-                                    yellow: [d0._id, d1._id, d2._id, d3._id, d4._id, d5._id],
-                                    blue: [d0._id,d1._id,d3._id,d4._id],
-                                    green: [d0._id,d3._id],
-                                    subject: arg.subject,
-                                    test: arg.test,
-                                    tasks: arg.tasks
-                                };
-                               
-                                callback(null, output);
-                            });
-                    },
-                    function(arg, callback){
-                        async.parallel([
-                            function(callback){
-                                arg.subject._messages = arg.yellow;
-                                arg.subject.save(function(err, subject){
-                                    if (err) { console.log(err); }
-                                    callback(null, subject);
-                                });
-                            },
-                            function(callback){                    
-                                arg.tasks[0]._messages = arg.task2;
-                                arg.tasks[0].save(function(err,data){
-                                    if (err) { console.log(err); }
-                                    callback(null, data);
-                                });
-                            },
-                            function(callback){                    
-                                arg.tasks[1]._messages = arg.task2;
-                                arg.tasks[1].save(function(err,data){
-                                    if (err) { console.log(err); }
-                                    callback(null, data);
-                                });
-                            },
-                            function(callback){
-                                Tag.findOneAndUpdate(
-                                    {'name': 'yellow'},
-                                    {'_messages': arg.yellow,
-                                    '_test': arg.test._id },
-                                    { upsert: true },
-                                    function(err, data){
-                                        callback(null, data);
-                                    });
-                            },
-                            function(callback){
-                                Tag.findOneAndUpdate(
-                                    {'name': 'blue'},
-                                    {'_messages': arg.blue,
-                                     '_test': arg.test._id },
-                                    { upsert: true },
-                                    function(err, data){
-                                        callback(null, data);
-                                    });
-                            },
-                            function(callback){
-                                Tag.findOneAndUpdate(
-                                    {'name': 'green'},
-                                    {'_messages': arg.green,
-                                     '_test': arg.test._id },
-                                    { upsert: true },
-                                    function(err, data){
-                                        callback(null, data);
-                                    });
-                            }
-                        ], 
-                        function(err, results){ 
-                            callback(null, { test : arg.test });
-                        });
-                    }
-                ], 
-                function(err, results){
-                    // in here we return A TEST.
-                    callback(null, results);
-                });                
-            },
-            function(arg, callback){
-                
-                callback(null, arg);
-                // Test.find({created_by_account:results.test._account}).exec();
-            }
-        ], 
-        function(err, results){
-            console.log('route results', results);
-            callback(results.test);
-        });
-
+        var mocks = devTest( req.user._account, req.user._id );
+        console.log(mocks);
+        res.json(mocks);
     });
 
 app.route('/api/test/:_id')
