@@ -84,28 +84,23 @@ app.route('/api/test/:_id')
                         if(err){console.log(err);}
                     });
             });
-
         }
         
-        var id = mongoose.Types.ObjectId(t._id);
-
-        var update = {
+        Test.findOneAndUpdate(
+            { _id : req.params._id },
+            {
                 desc    : t.desc,
                 link    : t.link,
                 name    : t.name,
                 platform: t.platform,
                 kind    : t.kind,
                 _tasks  : tasks
-            };
-
-        var options = {
-            upsert : true
-        };
-
-        Test.findOneAndUpdate({_id:req.params._id}, update, function (err, doc) {
-            if (err){console.log(err);}
-            res.json(doc);
-        });
+            },
+            { upsert : true },
+            function (err, doc) {
+                if (err){console.log(err);}
+                res.json(doc);
+            });
       
     })
     .delete(function(req,res){
