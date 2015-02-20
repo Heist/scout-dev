@@ -32,12 +32,10 @@ app.route('/api/test/')
     })
     .post(function(req,res){
     // add a new test
-        var test = new Test();
-
-        test.created_by_account = req.body.created_by.account;
-        test.created_by_user = req.body.created_by._id;
-
-        test.save(function(err, test){
+        Test.create({
+            created_by_account : req.body.created_by.account,
+            created_by_user : req.body.created_by._id
+        }, function(err, test){
             if(err){console.log(err);}
             res.json(test);
         });
@@ -70,13 +68,10 @@ app.route('/api/test/:_id')
     
     .put(function(req,res){
     // update one test with new information
-        var t = req.body;
         var tasks = [];
-
-        if(t._tasks.length > 0){
-            tasks = _.pluck(t._tasks, '_id');            
-            async.each(t._tasks, function(task){
-
+        if(req.body._tasks.length > 0){
+            tasks = _.pluck(req.body._tasks, '_id');            
+            async.each(req.body._tasks, function(task){
                 Task.findOneAndUpdate(
                     {'_id': task._id},
                     {index : task.index },
@@ -85,15 +80,15 @@ app.route('/api/test/:_id')
                     });
             });
         }
-        
+
         Test.findOneAndUpdate(
             { _id : req.params._id },
             {
-                desc    : t.desc,
-                link    : t.link,
-                name    : t.name,
-                platform: t.platform,
-                kind    : t.kind,
+                desc    : req.body.desc,
+                link    : req.body.link,
+                name    : req.body.name,
+                platform: req.body.platform,
+                kind    : req.body.kind,
                 _tasks  : tasks
             },
             { upsert : true },
