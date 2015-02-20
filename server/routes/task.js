@@ -28,28 +28,31 @@ app.route('/api/task/')
     })
     .put(function(req,res){
         console.log('batch task update', req.body);
-
         var arr = _.toArray(req.body);
-        console.log(arr.length);
-        async.each(req.body, function(key, err){
+        
+        async.map(arr, 
+            function(key, err){
             
-            Task.findById(key._id)
-            .exec(function(err, task){
-                if (err) { console.log(err); }
-
-                if(key.name){task.name = key.name;}
-                if(key.summary){task.summary = key.summary;}
-                if(key.pass_fail !== null){ task.pass_fail = key.pass_fail;}
-                if(key.desc !== null ){task.desc = key.desc;}
-                if(key._test){task._test = key._test;}
-                if(key.index){task.index = key.index; console.log(task.index);}
-                if(key._subject){task._subjects.push(key._subject);}
-
-                task.save(function(err,data){
+            Task.findOneAndUpdate(
+                { '_id' : key._id },
+                { 
+                    name : key.name,
+                    summary : key.summary,
+                    pass_fail : key.pass_fail,
+                    desc : key.desc,
+                    _test : key._test,
+                    index : key.index,
+                    $push: { '_subjects' : key._subject }
+                },
+                { upsert : false },
+                function(err, task){
                     if(err){console.log(err);}
-                    res.json(data);
+                    res.json(task);
                 });
             });
+        }, 
+        function(err, results){
+
         });
     })
     .post(function(req,res){
