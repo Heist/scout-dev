@@ -107,27 +107,39 @@ app.route('/api/test/:_id')
         // all tags
         // that belonged to that test.
 
-        Test.find({_id:req.params._id})
-            .remove(function(err){
-                if (err) { console.log(err); }
-            });
-
-        Task.find({_test:req.params._id})
-            .remove(function(err){
-                if (err) { console.log(err); }
-            });
-
-        Message.find({_test:req.params._id})
-            .remove(function(err){
-                if (err) { console.log(err); }
-            });
-
-        Tag.find({_test:req.params._id})
-            .remove(function(err){
-                if (err) { console.log(err); }
-            });
-
-        res.json('test removed', req.params._id);
-
+        async.parallel([
+            function(callback){
+                Test.remove({ _id : req.params._id}, 
+                    function(err){
+                        if(err){ console.log(err); }
+                        callback(null, 'test');
+                    });
+            },
+            function(callback){
+                Task.remove({ _test : req.params._id },
+                    function(err){
+                        if(err){ console.log(err); }
+                        callback(null, 'task');
+                    });
+            },
+            function(callback){
+                Message.remove({ _test : req.params._id }, 
+                    function(err){
+                        if(err){ console.log(err); }
+                        callback(null, 'messages');
+                    });
+            },
+            function(callback){
+                Tag.remove({ _test : req.params._id },
+                     function(err){
+                            if(err){ console.log(err); }
+                            callback(null, 'tags');
+                        });
+            }
+        ], 
+        function(err, results){
+            if(err){ console.log(err); }
+            res.json('test removed', req.params._id);
+        });
     });
 };
