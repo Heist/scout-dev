@@ -2,17 +2,23 @@
 'use strict';
 
 module.exports = function(app, passport, debug) {
-//Module dependencies
-var mongoose = require('mongoose');  //THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
-var _ = require('lodash');
-var async = require('async');
 
-//load data storage models
-var Message = require('../models/data/message');
-var Task    = require('../models/data/task');
-var Test    = require('../models/data/test');
-var Tag     = require('../models/data/tag');
-var Subject = require('../models/data/subject');
+// Module dependencies
+    var mongoose = require('mongoose');  // can't set an ObjectID without this.
+    var _ = require('lodash');
+    var async = require('async');
+    var Promise = require('bluebird');
+
+// load data storage models
+    var Message = global.rootRequire('./server/models/data/message');
+    var Task    = global.rootRequire('./server/models/data/task');
+    var Test    = global.rootRequire('./server/models/data/test');
+    var Tag     = global.rootRequire('./server/models/data/tag');
+    var Subject = global.rootRequire('./server/models/data/subject');
+
+// load functions 
+    var newMessage = global.rootRequire('./server/models/functions/new-message.js');
+
 
 //MESSAGE ROUTES  ================================================
 
@@ -20,100 +26,19 @@ app.route('/api/message/')
     .get(function(req,res){
         Message.find({})
             .exec(function(err, messages) {
-                if(err){
-                    console.log(err);
-                }
+                if(err){ console.log(err); }
                 res.json(messages);
             });
     })
     .post(function(req,res){
-        // TODO: make this into Async becasue this is pretty complex.
-
-        // console.log('touched new message ', req.body);
-
-        async.waterfall([
-            function(callback){
-                // console.log('waterfall');
-                var msg = {};
-                var call = {};
-
-                if (req.user._id) {msg.created_by_user = mongoose.Types.ObjectId(req.user._id);}
-
-                if (req.body.body) {msg.body = req.body.body;}
-                if (req.body._test) {msg._test = mongoose.Types.ObjectId(req.body._test);}
-                if (req.body._task) {msg._task = mongoose.Types.ObjectId(req.body._task);}
-                if (req.body._subject) {msg._subject = mongoose.Types.ObjectId(req.body._subject);}
-
-                Message.create(msg, function(err, msg){
-                    if (err) {
-                        console.log(err);
-                    } 
-                    callback(null, msg);
-                });
-
-            },
-            function(args, callback){
-                // console.log('waterfall 1', args);
-                Task.findByIdAndUpdate( req.body._task, 
-                    { $push: {_messages : args._id} },
-                    function(err,doc){ 
-                        if (err) {
-                            console.log(err);
-                        }
-                        // console.log('task trace', doc._id);
-                        callback(null, {msg: args, task: doc});
-                    });
-
-            },
-            function(args, callback){
-                // console.log('waterfall 2', args);
-                Subject.findOneAndUpdate(
-                    {'_id': args.msg._subject},
-                    { $push: {_messages : args.msg._id} }, 
-                    {upsert:false},
-                    function(err,doc){ 
-                        if (err) {
-                            console.log(err);
-                        } 
-                        // console.log('subject trace', doc._id);
-                        callback(null, {msg: args.msg, task: args.task, subject: doc});
-                    });
-            },
-            function(args, callback){
-                // reminder: the tags are not attached to the message. The message is attached to tags.
-                
-                if(req.body.tags){ 
-                    
-                    async.map(req.body.tags, 
-                        function(tag, callback){
-                            Tag.findOneAndUpdate(
-                                {name: tag, _test: args.msg._test},
-                                { $push: { _messages: args.msg._id },
-                                   name: tag,
-                                   _test: args.msg._test }, 
-                                { upsert:true },
-                                function(err, data){
-                                    if(err){
-                                        console.log(err);
-                                    }
-                                    callback(null, data);
-                                });
-                        },
-                        function(err, results){
-                            if(err){console.log(err);}
-
-                            callback(null, {msg:args.msg, task: args.task, subject: args.subject, tags: results});
-                        }); 
-                }
-            }
-        ],
-        function(err, results){
-            if(err){console.log(err);}
-            res.json(results);
-        });
-    });
+     // create a new message from the summary.
+        console.log('touched new message ', req.body);
         
-
+        newMessage(req.body, req.user._id, function(err, message){
+                if(err){console.log(err);}
+                res.json(message);
+            });
+    });
 
 app.route('/api/message/:_id')
     .get(function(req,res){

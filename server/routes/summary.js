@@ -16,7 +16,6 @@ module.exports = function (app, passport, debug) {
     var Subject = require('../models/data/subject');
 
 // load functions
-    
     var newMessage = require('../models/functions/new-message.js');
 
 // SUMMARY ROUTES ============================================

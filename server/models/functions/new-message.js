@@ -78,6 +78,7 @@ module.exports = function(request, user, next){
                 },
                 tags: function(callback){
                     // If there are tags, map the messages into them.
+                    // reminder: the tags are not attached to the message. The message is attached to tags.
                     if(tags){
                         async.map(tags, 
                             function(tag, callback){
