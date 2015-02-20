@@ -36,9 +36,7 @@ app.route('/api/task/')
             
             Task.findById(key._id)
             .exec(function(err, task){
-                if (err) {
-	console.log(err);
-}
+                if (err) { console.log(err); }
 
                 if(key.name){task.name = key.name;}
                 if(key.summary){task.summary = key.summary;}

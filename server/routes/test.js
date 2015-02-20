@@ -69,42 +69,51 @@ app.route('/api/test/:_id')
     .put(function(req,res){
     // update one test with new information
         var tasks = [];
-        if(req.body._tasks.length > 0){
-            tasks = _.pluck(req.body._tasks, '_id');            
-            async.each(req.body._tasks, function(task){
-                Task.findOneAndUpdate(
-                    {'_id': task._id},
-                    {index : task.index },
-                    function(err, doc){
-                        if(err){console.log(err);}
-                    });
-            });
-        }
 
-        Test.findOneAndUpdate(
-            { _id : req.params._id },
-            {
-                desc    : req.body.desc,
-                link    : req.body.link,
-                name    : req.body.name,
-                platform: req.body.platform,
-                kind    : req.body.kind,
-                _tasks  : tasks
+        async.waterfall([
+            function(callback){
+                if(req.body._tasks.length > 0){
+                    tasks = _.pluck(req.body._tasks, '_id');
+
+                    async.each(req.body._tasks, function(task){
+                        Task.findOneAndUpdate(
+                            {'_id': task._id},
+                            {index : task.index },
+                            function(err, doc){
+                                if(err){console.log(err);}
+                            });
+                    });
+
+                    callback(null, tasks);
+                } else {
+                    callback(null, null);
+                }
             },
-            { upsert : true },
-            function (err, doc) {
-                if (err){console.log(err);}
-                res.json(doc);
-            });
-      
+            function(tasks, callback){
+                Test.findOneAndUpdate(
+                { _id : req.params._id },
+                {
+                    desc    : req.body.desc,
+                    link    : req.body.link,
+                    name    : req.body.name,
+                    platform: req.body.platform,
+                    kind    : req.body.kind,
+                    _tasks  : tasks
+                },
+                { upsert : true },
+                function (err, doc) {
+                    if (err){console.log(err);}
+                    callback(null, doc);
+                });
+            }
+        ], 
+        function(err, results){
+            res.json(results);
+        });
     })
     .delete(function(req,res){
         // deletes a single test by id
-        // from session list of tests
-        // and then removes 
-        // all tasks
-        // all messages
-        // all tags
+        // and all tasks, messages, tags
         // that belonged to that test.
 
         async.parallel([
