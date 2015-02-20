@@ -20,10 +20,9 @@ var Subject = require('../models/data/subject');
 app.route('/api/task/')
     // get all tasks
     .get(function(req,res){
-        Task.find({})
-            .exec(function(err, tasks) {
-                if(err){console.log(err);}
-
+        Task.find({}, 
+            function(err, tasks) {
+                if(err){ console.log(err); }
                 res.json(tasks);
             });
     })
@@ -48,57 +47,49 @@ app.route('/api/task/')
 
                 task.save(function(err,data){
                     if(err){console.log(err);}
-                    // console.log('updated task', task);
                     res.json(data);
                 });
             });
         });
     })
     .post(function(req,res){
-        var task = new Task();
+        // Create a new task and push it to a test.
+        // TODO: This relies on a dual pointer. We should remove that shit.
 
-        task.name = req.body.name;
-        task.desc = req.body.desc;
-        task._test = req.body._test;
-        task.index = req.body.index;
-        
-        task.save(function(err, task){
-            if (err) { console.log(err); }
-            
-            Test.findById( task._test, function(err,test){
-                // console.log(task._id);
+        Task.create({
+            name : req.body.name,
+            desc : req.body.desc,
+            _test : req.body._test,
+            index : req.body.index
+        }, function(err, task){
+            if(err){ console.log(err); }
 
-                test._tasks.push(task._id);
-
-                test.save(function(err,data){
-                    if(err){console.log(err);}
+            Test.findOneAndUpdate(
+                { '_id' : task._test},
+                { $push: { '_tasks' : task._id} },
+                { upsert : false },
+                function(err, test){
+                    if (err) { console.log(err); }
+                    res.json(task);
                 });
-            
-                res.json(task);
-            });
         });
     });
 
 app.route('/api/task/:_id')
-    // get single task
     .get(function(req,res){
+        // get single task
         Task.findById(req.params._id)
             .exec(function(err,task){
                 if(err){console.log(err);}
-
-                // console.log(task)
                 res.json(task);
             });
     })
-    // update a single task
     .put(function(req,res){
-        console.log('touched task', req.body.pass_fail, req.body._id);
+        // update a single task
         
         Task.findById(req.params._id)
             .exec(function(err, task){
-                if (err) {
-	console.log(err);
-}
+                if (err) { console.log(err); }
 
                 if(req.body.name){task.name = req.body.name;}
                 if(req.body.summary){task.summary = req.body.summary;}
@@ -116,11 +107,8 @@ app.route('/api/task/:_id')
                 });
             });
     })
-
-    // delete a task
     .delete(function(req,res){
-        // console.log('delete this task', req.params._id)
-
+    // delete a task
         // find a task
         // remove it from its test
         // then remove all messages
@@ -129,15 +117,10 @@ app.route('/api/task/:_id')
 
         Task.findById(req.params._id, function(err, task){
             if (err) { console.log(err); }
-            // console.log('single task found', task);
-
+            
             Test.findOne({'_id': task._test})
                 .exec(function(err, test){
                     if (err) { console.log(err); }
-
-                    // console.log('found test ', test._id);
-                    // console.log(test._tasks);
-
                     // TODO: when this sort of thing fails to work,
                     // it populates the array in question with a ton of ghosts.
                     test._tasks.remove(req.params._id);
