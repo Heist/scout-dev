@@ -24,16 +24,19 @@ module.exports = function(app, passport, debug) {
 
 app.route('/api/message/')
     .get(function(req,res){
-        Message.find({})
-            .exec(function(err, messages) {
-                if(err){ console.log(err); }
-                res.json(messages);
-            });
+        // return all messages in the system. This is too many messages.
+        // TODO: get all messages by current user?
+        // Get all messages for current user account?
+        // Messages don't store their account, because they're a User's creation. Bad?
+        
+        // Message.find({})
+        //     .exec(function(err, messages) {
+        //         if(err){ console.log(err); }
+        //         res.json(messages);
+        //     });
     })
     .post(function(req,res){
-     // create a new message from the summary.
-        console.log('touched new message ', req.body);
-        
+     // create a new message
         newMessage(req.body, req.user._id, function(err, message){
                 if(err){console.log(err);}
                 res.json(message);
@@ -42,14 +45,10 @@ app.route('/api/message/')
 
 app.route('/api/message/:_id')
     .get(function(req,res){
-        //get one specific test
-        // // console.log(req)
+        //get one specific message
         Message.findById(req.params._id)
             .exec(function(err,msg){
-                if(err){
-                    console.log(err);
-                }
-                
+                if(err){ console.log(err); }
                 res.json(msg);
             });
     })

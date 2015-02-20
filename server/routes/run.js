@@ -21,15 +21,12 @@ module.exports = function(app, passport, io, debug) {
 // RUN ROUTES =============================================
     app.route('/api/run/')
         .get(function(req,res){
-                // console.log('touched run get')
-                res.json('touched run get');
             });
 
-    // How to populate subdocuments is in here.
     app.route('/api/run/:_id')
         .get(function(req,res){
-            // console.log('touched run route',req.params._id )
-            // console.log('touched run route', req.body)
+            // Find a test by _id and populate its tasks, then return.
+            // Todo: Account-lock this.
             
             Test.find({"_id":req.params._id, "_tasks": {$not: {$size: 0}}})
                 .populate('_tasks')
@@ -38,7 +35,6 @@ module.exports = function(app, passport, io, debug) {
                     res.json(docs);
                 });
 
-            // request('/api/run/:_id').pipe(request.put('http://104.236.16.159:8080/watch/'))
         })
         .post(function(req,res){
             console.log('touched run post', req.body);

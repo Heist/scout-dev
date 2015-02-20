@@ -88,9 +88,9 @@ module.exports = function (app, passport, debug) {
     })
     .put(function(req, res){
         console.log('touched summary put');
-         //async.map
-         // each object in req body
-         // if it has a summary, find the object by doctype and update components
+        // async.map each object in req body
+        // if it has a summary, find the object by doctype and update components
+
 
         async.parallel([
             function(callback){
@@ -155,7 +155,6 @@ module.exports = function (app, passport, debug) {
     app.route('/api/summary/message/')
        .post(function(req,res){
         // create a new message from the summary.
-            console.log('touched new message ', req.body);
             newMessage(req.body, req.user._id, function(err, message){
                     if(err){console.log(err);}
                     res.json(message);
@@ -164,16 +163,16 @@ module.exports = function (app, passport, debug) {
 
     app.route('/api/summary/message/:_id').put(function(req,res){
         // for adding favs to messages - include messages in reports.
-
-        var update = {
-            fav_task : req.body.fav_task, 
-            fav_tag : req.body.fav_tag,
-        };
-
-        Message.findOneAndUpdate({'_id' : req.params._id}, update, function(err, msg){
-                        if(err){return console.log(err);}
-                        res.json(msg);
-                    });
+        Message.findOneAndUpdate(
+            {'_id' : req.params._id}, 
+            { 
+                fav_task : req.body.fav_task, 
+                fav_tag : req.body.fav_tag,
+            }, 
+            function(err, msg){
+                if(err){return console.log(err);}
+                res.json(msg);
+            });
     });
 
     app.route('/api/summary/task/').put(function(req,res){
@@ -227,12 +226,9 @@ module.exports = function (app, passport, debug) {
 
         Test.findOne({'_id' : req.body._id})
             .exec(function(err, doc){
-                if (err) {
-                    console.log(err);
-                }
+                if (err) { console.log(err); }
 
                 // console.log('test found', doc._id);
-
                 if(req.body.summary){doc.summary = req.body.summary;}
                 if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
                 if(req.body.visible !== null){ doc.visible = req.body.visible;}
@@ -240,8 +236,6 @@ module.exports = function (app, passport, debug) {
 
                 doc.save(function(err,data){
                     if(err){console.log(err);}
-
-                    console.log('updated test', data._id);
                     res.json(data);
                 });
             });
@@ -249,9 +243,6 @@ module.exports = function (app, passport, debug) {
     });
 
     app.route('/api/summary/tag/:_id').put(function(req,res){
-
-        console.log('touched summary task', req.body.pass_fail, req.body._id);
-
         Tag.findById(req.params._id)
             .exec(function(err, doc){
                 if (err) {
