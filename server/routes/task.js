@@ -27,32 +27,30 @@ app.route('/api/task/')
             });
     })
     .put(function(req,res){
-        console.log('batch task update', req.body);
+        // update an array of tasks
         var arr = _.toArray(req.body);
-        
         async.map(arr, 
-            function(key, err){
-            
-            Task.findOneAndUpdate(
-                { '_id' : key._id },
-                { 
-                    name : key.name,
-                    summary : key.summary,
-                    pass_fail : key.pass_fail,
-                    desc : key.desc,
-                    _test : key._test,
-                    index : key.index,
-                    $push: { '_subjects' : key._subject }
-                },
-                { upsert : false },
-                function(err, task){
-                    if(err){console.log(err);}
-                    res.json(task);
-                });
-            });
-        }, 
+            function(key, callback){
+                Task.findOneAndUpdate(
+                    { '_id' : key._id },
+                    { 
+                        name : key.name,
+                        summary : key.summary,
+                        pass_fail : key.pass_fail,
+                        desc : key.desc,
+                        _test : key._test,
+                        index : key.index,
+                        $push: { '_subjects' : key._subject }
+                    },
+                    { upsert : false },
+                    function(err, task){
+                        if(err){console.log(err);}
+                        callback( null, task);
+                    });
+            }, 
         function(err, results){
-
+            if(err){console.log(err);}
+            res.json(results);
         });
     })
     .post(function(req,res){
