@@ -19,6 +19,7 @@ module.exports = function(account, user, next){
 
 
 // The promisified chain to make this a WHOLE bunch cleaner...
+// https://gist.githubusercontent.com/artcommacode/45c85e867d1bd1f3c1bb/raw/gistfile1.js
 // var tasks = [{
 //   name: "Task 1",
 //   desc: "Chase ball of string and scratch the furniture and always hungry. \n- Nap all day."
@@ -43,18 +44,6 @@ module.exports = function(account, user, next){
 // }).catch(function (error) {
 //   console.log(error)
 // })
-
-    // async.waterfall([
-    //     function(callback){
-    //         callback(null, 'butts');
-    //     },
-    //     function(args, callback){
-    //         callback(null, args);
-    //     }
-    // ], 
-    // function(err, results){
-    //     next(null, results);
-    // });
 
 
 // Alright, run the waterfall - whcih could also be a promise chain.
