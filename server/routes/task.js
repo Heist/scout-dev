@@ -15,6 +15,9 @@ var Test    = require('../models/data/test');
 var Tag     = require('../models/data/tag');
 var Subject = require('../models/data/subject');
 
+// load functions 
+var deleteTask = require('../models/functions/delete-task.js');
+
 // TASK ROUTES ===================================================
 
 app.route('/api/task/')
@@ -78,7 +81,7 @@ app.route('/api/task/')
 
 app.route('/api/task/:_id')
     .get(function(req,res){
-        // get single task
+    // get single task
         Task.findById(req.params._id)
             .exec(function(err,task){
                 if(err){console.log(err);}
@@ -86,7 +89,7 @@ app.route('/api/task/:_id')
             });
     })
     .put(function(req,res){
-        // update a single task
+    // update a single task
         var key = req.body; 
 
         Task.findOneAndUpdate(
@@ -108,48 +111,9 @@ app.route('/api/task/:_id')
     })
     .delete(function(req,res){
     // delete a task
-        // find a task
-        // remove it from its test
-        // then remove all messages
-        // and tags 
-        // related to that task
-        async.parallel([
-            function(callback){
-                Task.findById(req.params._id, function(err, task){
-                    if(err){ console.log(err); }
-                    Test.findOne({'_id': task._test})
-                        .exec(function(err, test){
-                            if(err){ console.log(err); }
-                            
-                            test._tasks.remove(req.params._id);
-                            test.save(function(err,data){
-                                if(err){console.log(err);}
-                            });
-                        });
-                })
-                .remove(function(err){
-                    if(err){console.log(err);}
-                    callback(null, 'task');
-                });
-            },
-            function(callback){
-                Message.remove({ '_task' : req.params._id }, 
-                    function(err, msg){
-                        if(err){console.log(err);}
-                        callback(null, 'msg');
-                    });
-            },
-            function(callback){
-                Tag.remove({_task:req.params._id},
-                    function(err, msg){
-                        if(err){console.log(err);}
-                        callback(null, 'tag');
-                    });
-            },
-        ], 
-        function(err, results){
+        deleteTask(req.params._id, function(err, task){
             if(err){console.log(err);}
-            res.json(req.params._id);
+            res.json(task);
         });
     });
 };
