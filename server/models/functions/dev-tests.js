@@ -5,7 +5,7 @@
 module.exports = function(account, user, next){
 
 // Module dependencies
-    var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
+    var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
     var async = require('async');
     var Promise = require('bluebird');

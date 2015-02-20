@@ -19,7 +19,6 @@ var _ = require('lodash');
         .get(function(req,res){
             Tag.find(function(err, tags) {
                     if(err){console.log(err);}
-
                     res.json(tags);
                 });
         });
@@ -29,7 +28,6 @@ var _ = require('lodash');
             Tag.findById(req.params._id)
                 .exec(function(err, tags) {
                     if(err){console.log(err);}
-
                     res.json(tags);
                 });
         })

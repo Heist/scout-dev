@@ -4,16 +4,16 @@
 module.exports = function(task, next){
 
 // Module dependencies
-    var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
+    var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
     var async = require('async');
 
 // load data storage models
-    var Message = require('../models/data/message');
-    var Task    = require('../models/data/task');
-    var Test    = require('../models/data/test');
-    var Tag     = require('../models/data/tag');
-    var Subject = require('../models/data/subject');
+    var Message = global.rootRequire('./server/models/data/message');
+    var Task    = global.rootRequire('./server/models/data/task');
+    var Test    = global.rootRequire('./server/models/data/test');
+    var Tag     = global.rootRequire('./server/models/data/tag');
+    var Subject = global.rootRequire('./server/models/data/subject');
 
 // delete a task
     // find a task

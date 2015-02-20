@@ -3,17 +3,21 @@
 
 module.exports = function (app, passport, debug) {
 
-    // Module dependencies
+// Module dependencies
     var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
     var _ = require('lodash');
     var async = require('async');
 
-    // load data storage models
+// load data storage models
     var Message = require('../models/data/message');
     var Task    = require('../models/data/task');
     var Test    = require('../models/data/test');
     var Tag     = require('../models/data/tag');
     var Subject = require('../models/data/subject');
+
+// load functions
+    
+    var newMessage = require('../models/functions/new-message.js');
 
 // SUMMARY ROUTES ============================================
 
@@ -22,6 +26,7 @@ module.exports = function (app, passport, debug) {
         // get all the objects used in summary
         // push them to the nav list using map
         // order them by their report-index and return them
+        
         console.log('touched report get', req.params._id);
 
         async.parallel({
@@ -150,99 +155,13 @@ module.exports = function (app, passport, debug) {
     
     app.route('/api/summary/message/')
        .post(function(req,res){
-        console.log('touched new message ', req.body);
-
-        var body, _subject, created_by_user, _test, _task;
-
-        if (req.body.body) { body = req.body.body;}        
-        if (req.body._subject) {_subject = mongoose.Types.ObjectId(req.body._subject); }
-        if (req.body._test) {_test = mongoose.Types.ObjectId(req.body._test); }
-        if (req.user._id) {created_by_user = mongoose.Types.ObjectId(req.user._id); }
-
-        if (req.body._task) {_task = mongoose.Types.ObjectId(req.body._task); }
-
-        var new_note = {
-            _subject : _subject,
-            _test : _test,
-            body : body,
-            created_by : created_by_user
-        };
-
-        async.waterfall([
-            function(callback){
-                Message.create(
-                    new_note, 
-                    function(err, msg){
-                        if (err) {
-                            console.log(err);
-                        } 
-                        callback(null, msg);
-                    });
-            },
-            function(msg, callback){
-                Message.findById(msg._id)
-                       .populate('_subject')
-                       .exec(function(err, note){
-                            if (err) {
-                                console.log(err);
-                            }
-                            callback(null, note); 
-                        });
-            },
-            function(msg, callback){
-                async.parallel({
-                    task: function(callback){
-                        if (_task){
-                            Task.findOne({'_id':_task})
-                                .exec(function(err, task){
-                                    task._messages.push(msg._id);
-                                    task.save(function(err, data){
-                                        callback(null, data);
-                                    });
-                                });
-                        }
-                    },
-                    subject: function(callback){
-                        Subject.findById(_subject)
-                               .exec(function(err, subject){
-                                    subject._messages.push(msg._id);
-                                    subject.save(function(err, subject){
-                                        callback(null, subject);
-                                    });
-                                });
-                    },
-                    tags: function(done){
-                        if(req.body.tags){
-                            async.map(
-                                req.body.tags, 
-                                function(tag, callback){
-
-                                    Tag.findOneAndUpdate( 
-                                        {name: tag, _test: msg._test}, 
-                                        { $push: { _messages: msg._id },
-                                                name: tag,
-                                                _test: msg._test
-                                        }, 
-                                        {upsert:true}, 
-                                        function(err, data){ 
-                                            callback(null, data);
-                                        });
-                                }, 
-                                function(err, results){
-                                    done(null, results);
-                                });
-                        } 
-                    }
-                }, function(err, results){
-                    callback(null, {msg: msg, waterfall: results});
+        // create a new message from the summary.
+            console.log('touched new message ', req.body);
+            newMessage(req.body, req.user._id, function(err, message){
+                    if(err){console.log(err);}
+                    res.json(message);
                 });
-            }
-        ], 
-        function(err, results){
-            console.log('waterfall results', results.msg, results.waterfall.tags);
-            res.json({msg: results.msg, tags: results.waterfall.tags});
         });
-    });
 
     app.route('/api/summary/message/:_id').put(function(req,res){
         // for adding favs to messages - include messages in reports.

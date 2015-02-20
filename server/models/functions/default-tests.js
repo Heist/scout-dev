@@ -2,12 +2,18 @@
 'use strict';
 
 module.exports = function(account, id, callback, debug){
-    // on first login via signup, create a test for this user.
+// on first login via signup, create a test for this user.
 
-    var Task    = require('../data/task');
-    var Test    = require('../data/test');
-    var async   = require('async');
+// Module dependencies
+    var mongoose = require('mongoose');  // can't set an ObjectID without this.
+    var _ = require('lodash');
+    var async = require('async');
 
+// load data storage models
+    var Task    = global.rootRequire('./server/models/data/task');
+    var Test    = global.rootRequire('./server/models/data/test');
+
+// Abstract and create tests 
     var new_test_1 = {
         created_by_account: account,
         created_by_user : id,
