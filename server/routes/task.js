@@ -87,25 +87,23 @@ app.route('/api/task/:_id')
     })
     .put(function(req,res){
         // update a single task
-        
-        Task.findById(req.params._id)
-            .exec(function(err, task){
-                if (err) { console.log(err); }
+        var key = req.body; 
 
-                if(req.body.name){task.name = req.body.name;}
-                if(req.body.summary){task.summary = req.body.summary;}
-                if(req.body.pass_fail !== null){ task.pass_fail = req.body.pass_fail;}
-                if(req.body.desc){task.desc = req.body.desc;}
-                if(req.body._test){task._test = req.body._test;}
-                if(req.body.index){task.index = req.body.index;}
-                if(req.body._subject){task._subjects.push(req.body._subject);}
-
-                task.save(function(err,task){
-                    if(err){console.log(err);}
-
-                    // console.log('updated task', task);
-                    res.json(task);
-                });
+        Task.findOneAndUpdate(
+            { '_id' : req.params._id },
+            { 
+                name : key.name,
+                summary : key.summary,
+                pass_fail : key.pass_fail,
+                desc : key.desc,
+                _test : key._test,
+                index : key.index,
+                $push: { '_subjects' : key._subject }
+            },
+            { upsert : false },
+            function(err, task){
+                if(err){console.log(err);}
+                res.json(task);
             });
     })
     .delete(function(req,res){
@@ -115,40 +113,43 @@ app.route('/api/task/:_id')
         // then remove all messages
         // and tags 
         // related to that task
-
-        Task.findById(req.params._id, function(err, task){
-            if (err) { console.log(err); }
-            
-            Test.findOne({'_id': task._test})
-                .exec(function(err, test){
-                    if (err) { console.log(err); }
-                    // TODO: when this sort of thing fails to work,
-                    // it populates the array in question with a ton of ghosts.
-                    test._tasks.remove(req.params._id);
-
-                    test.save(function(err,data){
-                        if(err){console.log(err);}
-
-                        // console.log(data);
-                        res.json(req.params._id);
-                    });
+        async.parallel([
+            function(callback){
+                Task.findById(req.params._id, function(err, task){
+                    if(err){ console.log(err); }
+                    Test.findOne({'_id': task._test})
+                        .exec(function(err, test){
+                            if(err){ console.log(err); }
+                            
+                            test._tasks.remove(req.params._id);
+                            test.save(function(err,data){
+                                if(err){console.log(err);}
+                            });
+                        });
+                })
+                .remove(function(err){
+                    if(err){console.log(err);}
+                    callback(null, 'task');
                 });
-        })    
-        .remove(function(err){
+            },
+            function(callback){
+                Message.remove({ '_task' : req.params._id }, 
+                    function(err, msg){
+                        if(err){console.log(err);}
+                        callback(null, 'msg');
+                    });
+            },
+            function(callback){
+                Tag.remove({_task:req.params._id},
+                    function(err, msg){
+                        if(err){console.log(err);}
+                        callback(null, 'tag');
+                    });
+            },
+        ], 
+        function(err, results){
             if(err){console.log(err);}
+            res.json(req.params._id);
         });
-
-        // find messages that belong to the task and delete them
-        Message.find({_task:req.params._id})
-            .remove(function(err){
-                if (err){ console.log(err); }
-            });
-
-        // find tags that belong to the task and delete them
-        Tag.find({_task:req.params._id})
-            .remove(function(err){
-                if (err){ console.log(err); }
-            });
-
     });
 };
