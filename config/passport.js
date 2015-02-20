@@ -14,7 +14,7 @@ module.exports = function(app, passport) {
     // load up the user model
     var User = require('../server/models/auth/user');
     var Invitation = require('../server/models/auth/invitation');
-    var newUserTests = require('../server/models/functions/default_tests.js');
+    var newUserTests = require('../server/models/functions/default-tests.js');
 
     // load the auth variables
     var configAuth = require('./auth')(app);

@@ -53,6 +53,7 @@ module.exports = function(app, debug){
             });
             
         });
+
         // .delete(function(req,res){
         //     console.log('touched delete user');
         //     User.remove({'_id' : req.params._user}, function(err, doc){

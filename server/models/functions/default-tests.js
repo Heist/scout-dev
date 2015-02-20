@@ -1,4 +1,4 @@
-// default_tests.js - generates first-time signup tests
+// default-tests.js - generates first-time signup tests
 'use strict';
 
 module.exports = function(account, id, callback, debug){
