@@ -19,12 +19,14 @@ module.exports = function(test, next){
     var Subject = global.rootRequire('./server/models/data/subject');
 
 // Duplicate existing tests through a waterfall callback.
+    console.log(test);
     async.waterfall([
         function(callback) {
             Test.findById(test)
                 .populate({path:'_tasks'})
                 .exec(function(err, doc){
                     if(err){console.log(err);}
+
                     callback(null, doc);
                 });
         },

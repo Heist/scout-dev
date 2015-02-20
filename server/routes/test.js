@@ -15,7 +15,9 @@ module.exports = function(app, passport, debug) {
     var Tag     = require('../models/data/tag');
     var Subject = require('../models/data/subject');
 
+    // load functions
     var devTest = require('../models/functions/dev-tests.js');
+    var dupeTest = require('../models/functions/dupe-tests.js');
 
 // TEST ROUTES ===================================================
 
@@ -43,104 +45,31 @@ app.route('/api/test/')
 
 app.route('/api/test/dev_tests/')
     .post(function(req, res){
-        // In here, require and then call the dev-tests exported elsewhere.
+    // This builds a mock for testing reports
         devTest(req.user._account, req.user._id, function(err, test){
-            console.log(test);
             res.json(test);
         });
     });
 
 app.route('/api/test/:_id')
     .get(function(req,res){
-        // get one test
-
+    // get one test
         Test.findById(req.params._id)
             .populate('_tasks')
             .exec(function(err,test){
                 if(err){console.log(err);}
-
-                // console.log('single test', test)
                 res.json(test);
             });
     })
     .post(function(req,res){
-        // Duplicate a test with new steps and things but which appears to be identical
-        // console.log('touched dupe test',req.params._id, req.body);
-        console.log('touched individual test post');
-        async.waterfall([
-            function(callback) {
-                Test.findById(req.params._id)
-                    .populate({path:'_tasks'})
-                    .exec(function(err, doc){
-                        if(err){console.log(err);}
-                        callback(null, doc);
-                    });
-            },
-            function(args, callback){
-                var old = args;
-                var update = {
-                        created_by_account : old.created_by_account,
-                        created_by_user : old.created_by_user,
-                        desc    : old.desc,
-                        link    : old.link,
-                        name    : old.name || "New Test",
-                        platform: old.platform,
-                        kind    : old.kind,
-                        visible : 'true'
-                    };
-
-                Test.create(update, function(err, test){
-                    if (err){console.log(err);}
-
-                    callback(null, {'old' : old, 'test' : test});
-                });
-            },
-            function(args, callback) {
-                // console.log('step two', test);
-                if(args.old._tasks){
-                    async.map(args.old._tasks, function(task, callback){
-                        // console.log('async task',task);
-                        var make =  {
-                            desc : task.desc,
-                            index : task.index,
-                            name : task.name,
-                            visible : 'true',
-                            _test : args.test._id
-                        };
-
-                        Task.create(make, function(err, doc){
-                            if (err){ console.log(err); }
-                            callback(null,doc._id);
-                        });
-
-                    }, function(err, results){
-                        console.log('callback', results);
-                        callback(null, {tasks: results, test: args.test});
-                    });
-                } else {
-                    callback(null, {test: args.test});
-                }
-            },
-            function(args, callback){
-                if(args.tasks){
-                    args.test._tasks = args.tasks;
-
-                    args.test.save(function(err,test){
-                        if (err){ console.log(err); }
-                        callback(null, test);
-                    });
-                }
-            }
-           // down here insert the new tasks into the new test.
-        ], function (err, result) {
-            // console.log('end of waterfall',result);
-            res.json(result);
+    // Duplicate a test with new steps and things but which appears to be identical
+        dupeTest(req.params._id, function(err, test){
+            res.json(test);
         });
     })
-    // update one test with new information
+    
     .put(function(req,res){
-        // console.log('touched test put', req.body);
-        
+    // update one test with new information
         var t = req.body;
         var tasks = [];
 
@@ -175,7 +104,6 @@ app.route('/api/test/:_id')
 
         Test.findOneAndUpdate({_id:req.params._id}, update, function (err, doc) {
             if (err){console.log(err);}
-            // console.log('found', doc);
             res.json(doc);
         });
       
@@ -189,34 +117,24 @@ app.route('/api/test/:_id')
         // all tags
         // that belonged to that test.
 
-        // console.log('delete this test', req.params._id)
-
         Test.find({_id:req.params._id})
             .remove(function(err){
-                if (err) {
-	console.log(err);
-}
+                if (err) { console.log(err); }
             });
 
         Task.find({_test:req.params._id})
             .remove(function(err){
-                if (err) {
-	console.log(err);
-}
+                if (err) { console.log(err); }
             });
 
         Message.find({_test:req.params._id})
             .remove(function(err){
-                if (err) {
-	console.log(err);
-}
+                if (err) { console.log(err); }
             });
 
         Tag.find({_test:req.params._id})
             .remove(function(err){
-                if (err) {
-	console.log(err);
-}
+                if (err) { console.log(err); }
             });
 
         res.json('test removed', req.params._id);
