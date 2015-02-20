@@ -13,6 +13,7 @@ var Canvas2Image=function(){function t(t,e,n){var r=t.width,a=t.height;void 0==e
 (function(){function n(n,r,e){for(var t=(e||0)-1,o=n?n.length:0;++t<o;)if(n[t]===r)return t;return-1}function r(r,e){var t=typeof e;if(r=r.cache,"boolean"==t||null==e)return r[e]?0:-1;"number"!=t&&"string"!=t&&(t="object");var o="number"==t?e:m+e;return r=(r=r[t])&&r[o],"object"==t?r&&n(r,e)>-1?0:-1:r?0:-1}function e(n){var r=this.cache,e=typeof n;if("boolean"==e||null==n)r[n]=!0;else{"number"!=e&&"string"!=e&&(e="object");var t="number"==e?n:m+n,o=r[e]||(r[e]={});"object"==e?(o[t]||(o[t]=[])).push(n):o[t]=!0}}function t(n){return n.charCodeAt(0)}function o(n,r){for(var e=n.criteria,t=r.criteria,o=-1,u=e.length;++o<u;){var a=e[o],i=t[o];if(a!==i){if(a>i||"undefined"==typeof a)return 1;if(i>a||"undefined"==typeof i)return-1}}return n.index-r.index}function u(n){var r=-1,t=n.length,o=n[0],u=n[t/2|0],a=n[t-1];if(o&&"object"==typeof o&&u&&"object"==typeof u&&a&&"object"==typeof a)return!1;var i=l();i["false"]=i["null"]=i["true"]=i.undefined=!1;var c=l();for(c.array=n,c.cache=i,c.push=e;++r<t;)c.push(n[r]);return c}function a(n){return"\\"+Z[n]}function i(){return v.pop()||[]}function l(){return y.pop()||{array:null,cache:null,criteria:null,"false":!1,index:0,"null":!1,number:null,object:null,push:null,string:null,"true":!1,undefined:!1,value:null}}function c(n){return"function"!=typeof n.toString&&"string"==typeof(n+"")}function f(n){n.length=0,v.length<w&&v.push(n)}function s(n){var r=n.cache;r&&s(r),n.array=n.cache=n.criteria=n.object=n.number=n.string=n.value=null,y.length<w&&y.push(n)}function p(n,r,e){r||(r=0),"undefined"==typeof e&&(e=n?n.length:0);for(var t=-1,o=e-r||0,u=Array(0>o?0:o);++t<o;)u[t]=n[r+t];return u}function g(e){function v(n){return n&&"object"==typeof n&&!fo(n)&&zt.call(n,"__wrapped__")?n:new y(n)}function y(n,r){this.__chain__=!!r,this.__wrapped__=n}function w(n){function r(){if(t){var n=p(t);Kt.apply(n,arguments)}if(this instanceof r){var u=rr(e.prototype),a=e.apply(u,n||arguments);return $r(a)?a:u}return e.apply(o,n||arguments)}var e=n[0],t=n[2],o=n[4];return co(r,n),r}function Z(n,r,e,t,o){if(e){var u=e(n);if("undefined"!=typeof u)return u}var a=$r(n);if(!a)return n;var l=Dt.call(n);if(!G[l]||!io.nodeClass&&c(n))return n;var s=uo[l];switch(l){case H:case W:return new s(+n);case K:case V:return new s(n);case M:return u=s(n.source,O.exec(n)),u.lastIndex=n.lastIndex,u}var g=fo(n);if(r){var h=!t;t||(t=i()),o||(o=i());for(var v=t.length;v--;)if(t[v]==n)return o[v];u=g?s(n.length):{}}else u=g?p(n):xo({},n);return g&&(zt.call(n,"index")&&(u.index=n.index),zt.call(n,"input")&&(u.input=n.input)),r?(t.push(n),o.push(u),(g?wo:Co)(n,function(n,a){u[a]=Z(n,r,e,t,o)}),h&&(f(t),f(o)),u):u}function rr(n){return $r(n)?Qt(n):{}}function er(n,r,e){if("function"!=typeof n)return ot;if("undefined"==typeof r||!("prototype"in n))return n;var t=n.__bindData__;if("undefined"==typeof t&&(io.funcNames&&(t=!n.name),t=t||!io.funcDecomp,!t)){var o=Wt.call(n);io.funcNames||(t=!S.test(o)),t||(t=N.test(o),co(n,t))}if(t===!1||t!==!0&&1&t[1])return n;switch(e){case 1:return function(e){return n.call(r,e)};case 2:return function(e,t){return n.call(r,e,t)};case 3:return function(e,t,o){return n.call(r,e,t,o)};case 4:return function(e,t,o,u){return n.call(r,e,t,o,u)}}return We(n,r)}function tr(n){function r(){var n=l?a:this;if(o){var h=p(o);Kt.apply(h,arguments)}if((u||f)&&(h||(h=p(arguments)),u&&Kt.apply(h,u),f&&h.length<i))return t|=16,tr([e,s?t:-4&t,h,null,a,i]);if(h||(h=arguments),c&&(e=n[g]),this instanceof r){n=rr(e.prototype);var v=e.apply(n,h);return $r(v)?v:n}return e.apply(n,h)}var e=n[0],t=n[1],o=n[2],u=n[3],a=n[4],i=n[5],l=1&t,c=2&t,f=4&t,s=8&t,g=e;return co(r,n),r}function or(e,t){var o=-1,a=vr(),i=e?e.length:0,l=i>=_&&a===n,c=[];if(l){var f=u(t);f?(a=r,t=f):l=!1}for(;++o<i;){var p=e[o];a(t,p)<0&&c.push(p)}return l&&s(t),c}function ar(n,r,e,t){for(var o=(t||0)-1,u=n?n.length:0,a=[];++o<u;){var i=n[o];if(i&&"object"==typeof i&&"number"==typeof i.length&&(fo(i)||mr(i))){r||(i=ar(i,r,e));var l=-1,c=i.length,f=a.length;for(a.length+=c;++l<c;)a[f++]=i[l]}else e||a.push(i)}return a}function ir(n,r,e,t,o,u){if(e){var a=e(n,r);if("undefined"!=typeof a)return!!a}if(n===r)return 0!==n||1/n==1/r;var l=typeof n,s=typeof r;if(!(n!==n||n&&Y[l]||r&&Y[s]))return!1;if(null==n||null==r)return n===r;var p=Dt.call(n),g=Dt.call(r);if(p==F&&(p=U),g==F&&(g=U),p!=g)return!1;switch(p){case H:case W:return+n==+r;case K:return n!=+n?r!=+r:0==n?1/n==1/r:n==+r;case M:case V:return n==St(r)}var h=p==B;if(!h){var v=zt.call(n,"__wrapped__"),y=zt.call(r,"__wrapped__");if(v||y)return ir(v?n.__wrapped__:n,y?r.__wrapped__:r,e,t,o,u);if(p!=U||!io.nodeClass&&(c(n)||c(r)))return!1;var b=!io.argsObject&&mr(n)?Et:n.constructor,d=!io.argsObject&&mr(r)?Et:r.constructor;if(b!=d&&!(Dr(b)&&b instanceof b&&Dr(d)&&d instanceof d)&&"constructor"in n&&"constructor"in r)return!1}var m=!o;o||(o=i()),u||(u=i());for(var _=o.length;_--;)if(o[_]==n)return u[_]==r;var w=0;if(a=!0,o.push(n),u.push(r),h){if(_=n.length,w=r.length,a=w==_,a||t)for(;w--;){var x=_,j=r[w];if(t)for(;x--&&!(a=ir(n[x],j,e,t,o,u)););else if(!(a=ir(n[w],j,e,t,o,u)))break}}else ko(r,function(r,i,l){return zt.call(l,i)?(w++,a=zt.call(n,i)&&ir(n[i],r,e,t,o,u)):void 0}),a&&!t&&ko(n,function(n,r,e){return zt.call(e,r)?a=--w>-1:void 0});return o.pop(),u.pop(),m&&(f(o),f(u)),a}function lr(n,r,e,t,o){(fo(r)?te:Co)(r,function(r,u){var a,i,l=r,c=n[u];if(r&&((i=fo(r))||Po(r))){for(var f=t.length;f--;)if(a=t[f]==r){c=o[f];break}if(!a){var s;e&&(l=e(c,r),(s="undefined"!=typeof l)&&(c=l)),s||(c=i?fo(c)?c:[]:Po(c)?c:{}),t.push(r),o.push(c),s||lr(c,r,e,t,o)}}else e&&(l=e(c,r),"undefined"==typeof l&&(l=r)),"undefined"!=typeof l&&(c=l);n[u]=c})}function cr(n,r){return n+Ht(oo()*(r-n+1))}function fr(e,t,o){var a=-1,l=vr(),c=e?e.length:0,p=[],g=!t&&c>=_&&l===n,h=o||g?i():p;if(g){var v=u(h);l=r,h=v}for(;++a<c;){var y=e[a],b=o?o(y,a,e):y;(t?!a||h[h.length-1]!==b:l(h,b)<0)&&((o||g)&&h.push(b),p.push(y))}return g?(f(h.array),s(h)):o&&f(h),p}function sr(n){return function(r,e,t){var o={};if(e=v.createCallback(e,t,3),fo(r))for(var u=-1,a=r.length;++u<a;){var i=r[u];n(o,i,e(i,u,r),r)}else wo(r,function(r,t,u){n(o,r,e(r,t,u),u)});return o}}function pr(n,r,e,t,o,u){var a=1&r,i=2&r,l=4&r,c=16&r,f=32&r;if(!i&&!Dr(n))throw new At;c&&!e.length&&(r&=-17,c=e=!1),f&&!t.length&&(r&=-33,f=t=!1);var s=n&&n.__bindData__;if(s&&s!==!0)return s=p(s),s[2]&&(s[2]=p(s[2])),s[3]&&(s[3]=p(s[3])),!a||1&s[1]||(s[4]=o),!a&&1&s[1]&&(r|=8),!l||4&s[1]||(s[5]=u),c&&Kt.apply(s[2]||(s[2]=[]),e),f&&Gt.apply(s[3]||(s[3]=[]),t),s[1]|=r,pr.apply(null,s);var g=1==r||17===r?w:tr;return g([n,r,e,t,o,u])}function gr(){X.shadowedProps=D,X.array=X.bottom=X.loop=X.top="",X.init="iterable",X.useHas=!0;for(var n,r=0;n=arguments[r];r++)for(var e in n)X[e]=n[e];var t=X.args;X.firstArg=/^[^,]+/.exec(t)[0];var o=kt("baseCreateCallback, errorClass, errorProto, hasOwnProperty, indicatorObject, isArguments, isArray, isString, keys, objectProto, objectTypes, nonEnumProps, stringClass, stringProto, toString","return function("+t+") {\n"+lo(X)+"\n}");return o(er,q,Lt,zt,d,mr,fo,qr,X.keys,Nt,Y,ao,V,Rt,Dt)}function hr(n){return yo[n]}function vr(){var r=(r=v.indexOf)===ke?n:r;return r}function yr(n){return"function"==typeof n&&$t.test(n)}function br(n){var r,e;return!n||Dt.call(n)!=U||(r=n.constructor,Dr(r)&&!(r instanceof r))||!io.argsClass&&mr(n)||!io.nodeClass&&c(n)?!1:io.ownLast?(ko(n,function(n,r,t){return e=zt.call(t,r),!1}),e!==!1):(ko(n,function(n,r){e=r}),"undefined"==typeof e||zt.call(n,e))}function dr(n){return bo[n]}function mr(n){return n&&"object"==typeof n&&"number"==typeof n.length&&Dt.call(n)==F||!1}function _r(n,r,e,t){return"boolean"!=typeof r&&null!=r&&(t=e,e=r,r=!1),Z(n,r,"function"==typeof e&&er(e,t,1))}function wr(n,r,e){return Z(n,!0,"function"==typeof r&&er(r,e,1))}function xr(n,r){var e=rr(n);return r?xo(e,r):e}function jr(n,r,e){var t;return r=v.createCallback(r,e,3),Co(n,function(n,e,o){return r(n,e,o)?(t=e,!1):void 0}),t}function kr(n,r,e){var t;return r=v.createCallback(r,e,3),Pr(n,function(n,e,o){return r(n,e,o)?(t=e,!1):void 0}),t}function Cr(n,r,e){var t=[];ko(n,function(n,r){t.push(r,n)});var o=t.length;for(r=er(r,e,3);o--&&r(t[o--],t[o],n)!==!1;);return n}function Pr(n,r,e){var t=po(n),o=t.length;for(r=er(r,e,3);o--;){var u=t[o];if(r(n[u],u,n)===!1)break}return n}function Er(n){var r=[];return ko(n,function(n,e){Dr(n)&&r.push(e)}),r.sort()}function Or(n,r){return n?zt.call(n,r):!1}function Sr(n){for(var r=-1,e=po(n),t=e.length,o={};++r<t;){var u=e[r];o[n[u]]=u}return o}function Ar(n){return n===!0||n===!1||n&&"object"==typeof n&&Dt.call(n)==H||!1}function Ir(n){return n&&"object"==typeof n&&Dt.call(n)==W||!1}function Lr(n){return n&&1===n.nodeType||!1}function Nr(n){var r=!0;if(!n)return r;var e=Dt.call(n),t=n.length;return e==B||e==V||(io.argsClass?e==F:mr(n))||e==U&&"number"==typeof t&&Dr(n.splice)?!t:(Co(n,function(){return r=!1}),r)}function Rr(n,r,e,t){return ir(n,r,"function"==typeof e&&er(e,t,2))}function Tr(n){return Yt(n)&&!Zt(parseFloat(n))}function Dr(n){return"function"==typeof n}function $r(n){return!(!n||!Y[typeof n])}function Fr(n){return Hr(n)&&n!=+n}function Br(n){return null===n}function Hr(n){return"number"==typeof n||n&&"object"==typeof n&&Dt.call(n)==K||!1}function Wr(n){return n&&Y[typeof n]&&Dt.call(n)==M||!1}function qr(n){return"string"==typeof n||n&&"object"==typeof n&&Dt.call(n)==V||!1}function zr(n){return"undefined"==typeof n}function Kr(n,r,e){var t={};return r=v.createCallback(r,e,3),Co(n,function(n,e,o){t[e]=r(n,e,o)}),t}function Ur(n){var r=arguments,e=2;if(!$r(n))return n;if("number"!=typeof r[2]&&(e=r.length),e>3&&"function"==typeof r[e-2])var t=er(r[--e-1],r[e--],2);else e>2&&"function"==typeof r[e-1]&&(t=r[--e]);for(var o=p(arguments,1,e),u=-1,a=i(),l=i();++u<e;)lr(n,o[u],t,a,l);return f(a),f(l),n}function Mr(n,r,e){var t={};if("function"!=typeof r){var o=[];ko(n,function(n,r){o.push(r)}),o=or(o,ar(arguments,!0,!1,1));for(var u=-1,a=o.length;++u<a;){var i=o[u];t[i]=n[i]}}else r=v.createCallback(r,e,3),ko(n,function(n,e,o){r(n,e,o)||(t[e]=n)});return t}function Vr(n){for(var r=-1,e=po(n),t=e.length,o=_t(t);++r<t;){var u=e[r];o[r]=[u,n[u]]}return o}function Gr(n,r,e){var t={};if("function"!=typeof r)for(var o=-1,u=ar(arguments,!0,!1,1),a=$r(n)?u.length:0;++o<a;){var i=u[o];i in n&&(t[i]=n[i])}else r=v.createCallback(r,e,3),ko(n,function(n,e,o){r(n,e,o)&&(t[e]=n)});return t}function Jr(n,r,e,t){var o=fo(n);if(null==e)if(o)e=[];else{var u=n&&n.constructor,a=u&&u.prototype;e=rr(a)}return r&&(r=v.createCallback(r,t,4),(o?wo:Co)(n,function(n,t,o){return r(e,n,t,o)})),e}function Qr(n){for(var r=-1,e=po(n),t=e.length,o=_t(t);++r<t;)o[r]=n[e[r]];return o}function Xr(n){var r=arguments,e=-1,t=ar(r,!0,!1,1),o=r[2]&&r[2][r[1]]===n?1:t.length,u=_t(o);for(io.unindexedChars&&qr(n)&&(n=n.split(""));++e<o;)u[e]=n[t[e]];return u}function Yr(n,r,e){var t=-1,o=vr(),u=n?n.length:0,a=!1;return e=(0>e?ro(0,u+e):e)||0,fo(n)?a=o(n,r,e)>-1:"number"==typeof u?a=(qr(n)?n.indexOf(r,e):o(n,r,e))>-1:wo(n,function(n){return++t>=e?!(a=n===r):void 0}),a}function Zr(n,r,e){var t=!0;if(r=v.createCallback(r,e,3),fo(n))for(var o=-1,u=n.length;++o<u&&(t=!!r(n[o],o,n)););else wo(n,function(n,e,o){return t=!!r(n,e,o)});return t}function ne(n,r,e){var t=[];if(r=v.createCallback(r,e,3),fo(n))for(var o=-1,u=n.length;++o<u;){var a=n[o];r(a,o,n)&&t.push(a)}else wo(n,function(n,e,o){r(n,e,o)&&t.push(n)});return t}function re(n,r,e){if(r=v.createCallback(r,e,3),!fo(n)){var t;return wo(n,function(n,e,o){return r(n,e,o)?(t=n,!1):void 0}),t}for(var o=-1,u=n.length;++o<u;){var a=n[o];if(r(a,o,n))return a}}function ee(n,r,e){var t;return r=v.createCallback(r,e,3),oe(n,function(n,e,o){return r(n,e,o)?(t=n,!1):void 0}),t}function te(n,r,e){if(r&&"undefined"==typeof e&&fo(n))for(var t=-1,o=n.length;++t<o&&r(n[t],t,n)!==!1;);else wo(n,r,e);return n}function oe(n,r,e){var t=n,o=n?n.length:0;if(r=r&&"undefined"==typeof e?r:er(r,e,3),fo(n))for(;o--&&r(n[o],o,n)!==!1;);else{if("number"!=typeof o){var u=po(n);o=u.length}else io.unindexedChars&&qr(n)&&(t=n.split(""));wo(n,function(n,e,a){return e=u?u[--o]:--o,r(t[e],e,a)})}return n}function ue(n,r){var e=p(arguments,2),t=-1,o="function"==typeof r,u=n?n.length:0,a=_t("number"==typeof u?u:0);return te(n,function(n){a[++t]=(o?r:n[r]).apply(n,e)}),a}function ae(n,r,e){var t=-1,o=n?n.length:0,u=_t("number"==typeof o?o:0);if(r=v.createCallback(r,e,3),fo(n))for(;++t<o;)u[t]=r(n[t],t,n);else wo(n,function(n,e,o){u[++t]=r(n,e,o)});return u}function ie(n,r,e){var o=-1/0,u=o;if("function"!=typeof r&&e&&e[r]===n&&(r=null),null==r&&fo(n))for(var a=-1,i=n.length;++a<i;){var l=n[a];l>u&&(u=l)}else r=null==r&&qr(n)?t:v.createCallback(r,e,3),wo(n,function(n,e,t){var a=r(n,e,t);a>o&&(o=a,u=n)});return u}function le(n,r,e){var o=1/0,u=o;if("function"!=typeof r&&e&&e[r]===n&&(r=null),null==r&&fo(n))for(var a=-1,i=n.length;++a<i;){var l=n[a];u>l&&(u=l)}else r=null==r&&qr(n)?t:v.createCallback(r,e,3),wo(n,function(n,e,t){var a=r(n,e,t);o>a&&(o=a,u=n)});return u}function ce(n,r,e,t){var o=arguments.length<3;if(r=v.createCallback(r,t,4),fo(n)){var u=-1,a=n.length;for(o&&(e=n[++u]);++u<a;)e=r(e,n[u],u,n)}else wo(n,function(n,t,u){e=o?(o=!1,n):r(e,n,t,u)});return e}function fe(n,r,e,t){var o=arguments.length<3;return r=v.createCallback(r,t,4),oe(n,function(n,t,u){e=o?(o=!1,n):r(e,n,t,u)}),e}function se(n,r,e){return r=v.createCallback(r,e,3),ne(n,function(n,e,t){return!r(n,e,t)})}function pe(n,r,e){if(n&&"number"!=typeof n.length?n=Qr(n):io.unindexedChars&&qr(n)&&(n=n.split("")),null==r||e)return n?n[cr(0,n.length-1)]:h;var t=ge(n);return t.length=eo(ro(0,r),t.length),t}function ge(n){var r=-1,e=n?n.length:0,t=_t("number"==typeof e?e:0);return te(n,function(n){var e=cr(0,++r);t[r]=t[e],t[e]=n}),t}function he(n){var r=n?n.length:0;return"number"==typeof r?r:po(n).length}function ve(n,r,e){var t;if(r=v.createCallback(r,e,3),fo(n))for(var o=-1,u=n.length;++o<u&&!(t=r(n[o],o,n)););else wo(n,function(n,e,o){return!(t=r(n,e,o))});return!!t}function ye(n,r,e){var t=-1,u=fo(r),a=n?n.length:0,c=_t("number"==typeof a?a:0);for(u||(r=v.createCallback(r,e,3)),te(n,function(n,e,o){var a=c[++t]=l();u?a.criteria=ae(r,function(r){return n[r]}):(a.criteria=i())[0]=r(n,e,o),a.index=t,a.value=n}),a=c.length,c.sort(o);a--;){var p=c[a];c[a]=p.value,u||f(p.criteria),s(p)}return c}function be(n){return n&&"number"==typeof n.length?io.unindexedChars&&qr(n)?n.split(""):p(n):Qr(n)}function de(n){for(var r=-1,e=n?n.length:0,t=[];++r<e;){var o=n[r];o&&t.push(o)}return t}function me(n){return or(n,ar(arguments,!0,!0,1))}function _e(n,r,e){var t=-1,o=n?n.length:0;for(r=v.createCallback(r,e,3);++t<o;)if(r(n[t],t,n))return t;return-1}function we(n,r,e){var t=n?n.length:0;for(r=v.createCallback(r,e,3);t--;)if(r(n[t],t,n))return t;return-1}function xe(n,r,e){var t=0,o=n?n.length:0;if("number"!=typeof r&&null!=r){var u=-1;for(r=v.createCallback(r,e,3);++u<o&&r(n[u],u,n);)t++}else if(t=r,null==t||e)return n?n[0]:h;return p(n,0,eo(ro(0,t),o))}function je(n,r,e,t){return"boolean"!=typeof r&&null!=r&&(t=e,e="function"!=typeof r&&t&&t[r]===n?null:r,r=!1),null!=e&&(n=ae(n,e,t)),ar(n,r)}function ke(r,e,t){if("number"==typeof t){var o=r?r.length:0;t=0>t?ro(0,o+t):t||0}else if(t){var u=Ne(r,e);return r[u]===e?u:-1}return n(r,e,t)}function Ce(n,r,e){var t=0,o=n?n.length:0;if("number"!=typeof r&&null!=r){var u=o;for(r=v.createCallback(r,e,3);u--&&r(n[u],u,n);)t++}else t=null==r||e?1:r||t;return p(n,0,eo(ro(0,o-t),o))}function Pe(){for(var e=[],t=-1,o=arguments.length,a=i(),l=vr(),c=l===n,p=i();++t<o;){var g=arguments[t];(fo(g)||mr(g))&&(e.push(g),a.push(c&&g.length>=_&&u(t?e[t]:p)))}var h=e[0],v=-1,y=h?h.length:0,b=[];n:for(;++v<y;){var d=a[0];if(g=h[v],(d?r(d,g):l(p,g))<0){for(t=o,(d||p).push(g);--t;)if(d=a[t],(d?r(d,g):l(e[t],g))<0)continue n;b.push(g)}}for(;o--;)d=a[o],d&&s(d);return f(a),f(p),b}function Ee(n,r,e){var t=0,o=n?n.length:0;if("number"!=typeof r&&null!=r){var u=o;for(r=v.createCallback(r,e,3);u--&&r(n[u],u,n);)t++}else if(t=r,null==t||e)return n?n[o-1]:h;return p(n,ro(0,o-t))}function Oe(n,r,e){var t=n?n.length:0;for("number"==typeof e&&(t=(0>e?ro(0,t+e):eo(e,t-1))+1);t--;)if(n[t]===r)return t;return-1}function Se(n){for(var r=arguments,e=0,t=r.length,o=n?n.length:0;++e<t;)for(var u=-1,a=r[e];++u<o;)n[u]===a&&(Vt.call(n,u--,1),o--);return n}function Ae(n,r,e){n=+n||0,e="number"==typeof e?e:+e||1,null==r&&(r=n,n=0);for(var t=-1,o=ro(0,Ft((r-n)/(e||1))),u=_t(o);++t<o;)u[t]=n,n+=e;return u}function Ie(n,r,e){var t=-1,o=n?n.length:0,u=[];for(r=v.createCallback(r,e,3);++t<o;){var a=n[t];r(a,t,n)&&(u.push(a),Vt.call(n,t--,1),o--)}return u}function Le(n,r,e){if("number"!=typeof r&&null!=r){var t=0,o=-1,u=n?n.length:0;for(r=v.createCallback(r,e,3);++o<u&&r(n[o],o,n);)t++}else t=null==r||e?1:ro(0,r);return p(n,t)}function Ne(n,r,e,t){var o=0,u=n?n.length:o;for(e=e?v.createCallback(e,t,1):ot,r=e(r);u>o;){var a=o+u>>>1;e(n[a])<r?o=a+1:u=a}return o}function Re(){return fr(ar(arguments,!0,!0))}function Te(n,r,e,t){return"boolean"!=typeof r&&null!=r&&(t=e,e="function"!=typeof r&&t&&t[r]===n?null:r,r=!1),null!=e&&(e=v.createCallback(e,t,3)),fr(n,r,e)}function De(n){return or(n,p(arguments,1))}function $e(){for(var n=-1,r=arguments.length;++n<r;){var e=arguments[n];if(fo(e)||mr(e))var t=t?fr(or(t,e).concat(or(e,t))):e}return t||[]}function Fe(){for(var n=arguments.length>1?arguments:arguments[0],r=-1,e=n?ie(Ao(n,"length")):0,t=_t(0>e?0:e);++r<e;)t[r]=Ao(n,r);return t}function Be(n,r){var e=-1,t=n?n.length:0,o={};for(r||!t||fo(n[0])||(r=[]);++e<t;){var u=n[e];r?o[u]=r[e]:u&&(o[u[0]]=u[1])}return o}function He(n,r){if(!Dr(r))throw new At;return function(){return--n<1?r.apply(this,arguments):void 0}}function We(n,r){return arguments.length>2?pr(n,17,p(arguments,2),null,r):pr(n,1,null,null,r)}function qe(n){for(var r=arguments.length>1?ar(arguments,!0,!1,1):Er(n),e=-1,t=r.length;++e<t;){var o=r[e];n[o]=pr(n[o],1,null,null,n)}return n}function ze(n,r){return arguments.length>2?pr(r,19,p(arguments,2),null,n):pr(r,3,null,null,n)}function Ke(){for(var n=arguments,r=n.length;r--;)if(!Dr(n[r]))throw new At;return function(){for(var r=arguments,e=n.length;e--;)r=[n[e].apply(this,r)];return r[0]}}function Ue(n,r){return r="number"==typeof r?r:+r||n.length,pr(n,4,null,null,null,r)}function Me(n,r,e){var t,o,u,a,i,l,c,f=0,s=!1,p=!0;if(!Dr(n))throw new At;if(r=ro(0,r)||0,e===!0){var g=!0;p=!1}else $r(e)&&(g=e.leading,s="maxWait"in e&&(ro(r,e.maxWait)||0),p="trailing"in e?e.trailing:p);var v=function(){var e=r-(Lo()-a);if(0>=e){o&&Bt(o);var s=c;o=l=c=h,s&&(f=Lo(),u=n.apply(i,t),l||o||(t=i=null))}else l=Mt(v,e)},y=function(){l&&Bt(l),o=l=c=h,(p||s!==r)&&(f=Lo(),u=n.apply(i,t),l||o||(t=i=null))};return function(){if(t=arguments,a=Lo(),i=this,c=p&&(l||!g),s===!1)var e=g&&!l;else{o||g||(f=a);var h=s-(a-f),b=0>=h;b?(o&&(o=Bt(o)),f=a,u=n.apply(i,t)):o||(o=Mt(y,h))}return b&&l?l=Bt(l):l||r===s||(l=Mt(v,r)),e&&(b=!0,u=n.apply(i,t)),!b||l||o||(t=i=null),u}}function Ve(n){if(!Dr(n))throw new At;var r=p(arguments,1);return Mt(function(){n.apply(h,r)},1)}function Ge(n,r){if(!Dr(n))throw new At;var e=p(arguments,2);return Mt(function(){n.apply(h,e)},r)}function Je(n,r){if(!Dr(n))throw new At;var e=function(){var t=e.cache,o=r?r.apply(this,arguments):m+arguments[0];return zt.call(t,o)?t[o]:t[o]=n.apply(this,arguments)};return e.cache={},e}function Qe(n){var r,e;if(!Dr(n))throw new At;return function(){return r?e:(r=!0,e=n.apply(this,arguments),n=null,e)}}function Xe(n){return pr(n,16,p(arguments,1))}function Ye(n){return pr(n,32,null,p(arguments,1))}function Ze(n,r,e){var t=!0,o=!0;if(!Dr(n))throw new At;return e===!1?t=!1:$r(e)&&(t="leading"in e?e.leading:t,o="trailing"in e?e.trailing:o),J.leading=t,J.maxWait=r,J.trailing=o,Me(n,r,J)}function nt(n,r){return pr(r,16,[n])}function rt(n){return function(){return n}}function et(n,r,e){var t=typeof n;if(null==n||"function"==t)return er(n,r,e);if("object"!=t)return lt(n);var o=po(n),u=o[0],a=n[u];return 1!=o.length||a!==a||$r(a)?function(r){for(var e=o.length,t=!1;e--&&(t=ir(r[o[e]],n[o[e]],null,!0)););return t}:function(n){var r=n[u];return a===r&&(0!==a||1/a==1/r)}}function tt(n){return null==n?"":St(n).replace(_o,hr)}function ot(n){return n}function ut(n,r,e){var t=!0,o=r&&Er(r);r&&(e||o.length)||(null==e&&(e=r),u=y,r=n,n=v,o=Er(r)),e===!1?t=!1:$r(e)&&"chain"in e&&(t=e.chain);var u=n,a=Dr(u);te(o,function(e){var o=n[e]=r[e];a&&(u.prototype[e]=function(){var r=this.__chain__,e=this.__wrapped__,a=[e];Kt.apply(a,arguments);var i=o.apply(n,a);if(t||r){if(e===i&&$r(i))return this;i=new u(i),i.__chain__=r}return i})})}function at(){return e._=Tt,this}function it(){}function lt(n){return function(r){return r[n]}}function ct(n,r,e){var t=null==n,o=null==r;if(null==e&&("boolean"==typeof n&&o?(e=n,n=1):o||"boolean"!=typeof r||(e=r,o=!0)),t&&o&&(r=1),n=+n||0,o?(r=n,n=0):r=+r||0,e||n%1||r%1){var u=oo();return eo(n+u*(r-n+parseFloat("1e-"+((u+"").length-1))),r)}return cr(n,r)}function ft(n,r){if(n){var e=n[r];return Dr(e)?n[r]():e}}function st(n,r,e){var t=v.templateSettings;n=St(n||""),e=jo({},e,t);var o,u=jo({},e.imports,t.imports),i=po(u),l=Qr(u),c=0,f=e.interpolate||L,s="__p += '",p=Ot((e.escape||L).source+"|"+f.source+"|"+(f===A?E:L).source+"|"+(e.evaluate||L).source+"|$","g");n.replace(p,function(r,e,t,u,i,l){return t||(t=u),s+=n.slice(c,l).replace(R,a),e&&(s+="' +\n__e("+e+") +\n'"),i&&(o=!0,s+="';\n"+i+";\n__p += '"),t&&(s+="' +\n((__t = ("+t+")) == null ? '' : __t) +\n'"),c=l+r.length,r}),s+="';\n";var g=e.variable,y=g;y||(g="obj",s="with ("+g+") {\n"+s+"\n}\n"),s=(o?s.replace(j,""):s).replace(C,"$1").replace(P,"$1;"),s="function("+g+") {\n"+(y?"":g+" || ("+g+" = {});\n")+"var __t, __p = '', __e = _.escape"+(o?", __j = Array.prototype.join;\nfunction print() { __p += __j.call(arguments, '') }\n":";\n")+s+"return __p\n}";var b="\n/*\n//# sourceURL="+(e.sourceURL||"/lodash/template/source["+$++ +"]")+"\n*/";try{var d=kt(i,"return "+s+b).apply(h,l)}catch(m){throw m.source=s,m}return r?d(r):(d.source=s,d)}function pt(n,r,e){n=(n=+n)>-1?n:0;var t=-1,o=_t(n);for(r=er(r,e,1);++t<n;)o[t]=r(t);return o}function gt(n){return null==n?"":St(n).replace(mo,dr)}function ht(n){var r=++b;return St(null==n?"":n)+r}function vt(n){return n=new y(n),n.__chain__=!0,n}function yt(n,r){return r(n),n}function bt(){return this.__chain__=!0,this}function dt(){return St(this.__wrapped__)}function mt(){return this.__wrapped__}e=e?ur.defaults(nr.Object(),e,ur.pick(nr,T)):nr;var _t=e.Array,wt=e.Boolean,xt=e.Date,jt=e.Error,kt=e.Function,Ct=e.Math,Pt=e.Number,Et=e.Object,Ot=e.RegExp,St=e.String,At=e.TypeError,It=[],Lt=jt.prototype,Nt=Et.prototype,Rt=St.prototype,Tt=e._,Dt=Nt.toString,$t=Ot("^"+St(Dt).replace(/[.*+?^${}()|[\]\\]/g,"\\$&").replace(/toString| for [^\]]+/g,".*?")+"$"),Ft=Ct.ceil,Bt=e.clearTimeout,Ht=Ct.floor,Wt=kt.prototype.toString,qt=yr(qt=Et.getPrototypeOf)&&qt,zt=Nt.hasOwnProperty,Kt=It.push,Ut=Nt.propertyIsEnumerable,Mt=e.setTimeout,Vt=It.splice,Gt=It.unshift,Jt=function(){try{var n={},r=yr(r=Et.defineProperty)&&r,e=r(n,n,n)&&r}catch(t){}return e}(),Qt=yr(Qt=Et.create)&&Qt,Xt=yr(Xt=_t.isArray)&&Xt,Yt=e.isFinite,Zt=e.isNaN,no=yr(no=Et.keys)&&no,ro=Ct.max,eo=Ct.min,to=e.parseInt,oo=Ct.random,uo={};uo[B]=_t,uo[H]=wt,uo[W]=xt,uo[z]=kt,uo[U]=Et,uo[K]=Pt,uo[M]=Ot,uo[V]=St;var ao={};ao[B]=ao[W]=ao[K]={constructor:!0,toLocaleString:!0,toString:!0,valueOf:!0},ao[H]=ao[V]={constructor:!0,toString:!0,valueOf:!0},ao[q]=ao[z]=ao[M]={constructor:!0,toString:!0},ao[U]={constructor:!0},function(){for(var n=D.length;n--;){var r=D[n];for(var e in ao)zt.call(ao,e)&&!zt.call(ao[e],r)&&(ao[e][r]=!1)}}(),y.prototype=v.prototype;var io=v.support={};!function(){var n=function(){this.x=1},r={0:1,length:1},t=[];n.prototype={valueOf:1,y:1};for(var o in new n)t.push(o);for(o in arguments);io.argsClass=Dt.call(arguments)==F,io.argsObject=arguments.constructor==Et&&!(arguments instanceof _t),io.enumErrorProps=Ut.call(Lt,"message")||Ut.call(Lt,"name"),io.enumPrototypes=Ut.call(n,"prototype"),io.funcDecomp=!yr(e.WinRTError)&&N.test(g),io.funcNames="string"==typeof kt.name,io.nonEnumArgs=0!=o,io.nonEnumShadows=!/valueOf/.test(t),io.ownLast="x"!=t[0],io.spliceObjects=(It.splice.call(r,0,1),!r[0]),io.unindexedChars="x"[0]+Et("x")[0]!="xx";try{io.nodeClass=!(Dt.call(document)==U&&!({toString:0}+""))}catch(u){io.nodeClass=!0}}(1),v.templateSettings={escape:/<%-([\s\S]+?)%>/g,evaluate:/<%([\s\S]+?)%>/g,interpolate:A,variable:"",imports:{_:v}};var lo=function(n){var r="var index, iterable = "+n.firstArg+", result = "+n.init+";\nif (!iterable) return result;\n"+n.top+";";n.array?(r+="\nvar length = iterable.length; index = -1;\nif ("+n.array+") {  ",io.unindexedChars&&(r+="\n  if (isString(iterable)) {\n    iterable = iterable.split('')\n  }  "),r+="\n  while (++index < length) {\n    "+n.loop+";\n  }\n}\nelse {  "):io.nonEnumArgs&&(r+="\n  var length = iterable.length; index = -1;\n  if (length && isArguments(iterable)) {\n    while (++index < length) {\n      index += '';\n      "+n.loop+";\n    }\n  } else {  "),io.enumPrototypes&&(r+="\n  var skipProto = typeof iterable == 'function';\n  "),io.enumErrorProps&&(r+="\n  var skipErrorProps = iterable === errorProto || iterable instanceof Error;\n  ");var e=[];if(io.enumPrototypes&&e.push('!(skipProto && index == "prototype")'),io.enumErrorProps&&e.push('!(skipErrorProps && (index == "message" || index == "name"))'),n.useHas&&n.keys)r+="\n  var ownIndex = -1,\n      ownProps = objectTypes[typeof iterable] && keys(iterable),\n      length = ownProps ? ownProps.length : 0;\n\n  while (++ownIndex < length) {\n    index = ownProps[ownIndex];\n",e.length&&(r+="    if ("+e.join(" && ")+") {\n  "),r+=n.loop+";    ",e.length&&(r+="\n    }"),r+="\n  }  ";else if(r+="\n  for (index in iterable) {\n",n.useHas&&e.push("hasOwnProperty.call(iterable, index)"),e.length&&(r+="    if ("+e.join(" && ")+") {\n  "),r+=n.loop+";    ",e.length&&(r+="\n    }"),r+="\n  }    ",io.nonEnumShadows){for(r+="\n\n  if (iterable !== objectProto) {\n    var ctor = iterable.constructor,\n        isProto = iterable === (ctor && ctor.prototype),\n        className = iterable === stringProto ? stringClass : iterable === errorProto ? errorClass : toString.call(iterable),\n        nonEnum = nonEnumProps[className];\n      ",k=0;k<7;k++)r+="\n    index = '"+n.shadowedProps[k]+"';\n    if ((!(isProto && nonEnum[index]) && hasOwnProperty.call(iterable, index))",n.useHas||(r+=" || (!nonEnum[index] && iterable[index] !== objectProto[index])"),r+=") {\n      "+n.loop+";\n    }      ";r+="\n  }    "}return(n.array||io.nonEnumArgs)&&(r+="\n}"),r+=n.bottom+";\nreturn result"};Qt||(rr=function(){function n(){}return function(r){if($r(r)){n.prototype=r;var t=new n;n.prototype=null}return t||e.Object()}}());var co=Jt?function(n,r){Q.value=r,Jt(n,"__bindData__",Q)}:it;io.argsClass||(mr=function(n){return n&&"object"==typeof n&&"number"==typeof n.length&&zt.call(n,"callee")&&!Ut.call(n,"callee")||!1});var fo=Xt||function(n){return n&&"object"==typeof n&&"number"==typeof n.length&&Dt.call(n)==B||!1},so=gr({args:"object",init:"[]",top:"if (!(objectTypes[typeof object])) return result",loop:"result.push(index)"}),po=no?function(n){return $r(n)?io.enumPrototypes&&"function"==typeof n||io.nonEnumArgs&&n.length&&mr(n)?so(n):no(n):[]}:so,go={args:"collection, callback, thisArg",top:"callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3)",array:"typeof length == 'number'",keys:po,loop:"if (callback(iterable[index], index, collection) === false) return result"},ho={args:"object, source, guard",top:"var args = arguments,\n    argsIndex = 0,\n    argsLength = typeof guard == 'number' ? 2 : args.length;\nwhile (++argsIndex < argsLength) {\n  iterable = args[argsIndex];\n  if (iterable && objectTypes[typeof iterable]) {",keys:po,loop:"if (typeof result[index] == 'undefined') result[index] = iterable[index]",bottom:"  }\n}"},vo={top:"if (!objectTypes[typeof iterable]) return result;\n"+go.top,array:!1},yo={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"},bo=Sr(yo),mo=Ot("("+po(bo).join("|")+")","g"),_o=Ot("["+po(yo).join("")+"]","g"),wo=gr(go),xo=gr(ho,{top:ho.top.replace(";",";\nif (argsLength > 3 && typeof args[argsLength - 2] == 'function') {\n  var callback = baseCreateCallback(args[--argsLength - 1], args[argsLength--], 2);\n} else if (argsLength > 2 && typeof args[argsLength - 1] == 'function') {\n  callback = args[--argsLength];\n}"),loop:"result[index] = callback ? callback(result[index], iterable[index]) : iterable[index]"}),jo=gr(ho),ko=gr(go,vo,{useHas:!1}),Co=gr(go,vo);Dr(/x/)&&(Dr=function(n){return"function"==typeof n&&Dt.call(n)==z});var Po=qt?function(n){if(!n||Dt.call(n)!=U||!io.argsClass&&mr(n))return!1;var r=n.valueOf,e=yr(r)&&(e=qt(r))&&qt(e);return e?n==e||qt(n)==e:br(n)}:br,Eo=sr(function(n,r,e){zt.call(n,e)?n[e]++:n[e]=1}),Oo=sr(function(n,r,e){(zt.call(n,e)?n[e]:n[e]=[]).push(r)}),So=sr(function(n,r,e){n[e]=r}),Ao=ae,Io=ne,Lo=yr(Lo=xt.now)&&Lo||function(){return(new xt).getTime()},No=8==to(x+"08")?to:function(n,r){return to(qr(n)?n.replace(I,""):n,r||0)};return v.after=He,v.assign=xo,v.at=Xr,v.bind=We,v.bindAll=qe,v.bindKey=ze,v.chain=vt,v.compact=de,v.compose=Ke,v.constant=rt,v.countBy=Eo,v.create=xr,v.createCallback=et,v.curry=Ue,v.debounce=Me,v.defaults=jo,v.defer=Ve,v.delay=Ge,v.difference=me,v.filter=ne,v.flatten=je,v.forEach=te,v.forEachRight=oe,v.forIn=ko,v.forInRight=Cr,v.forOwn=Co,v.forOwnRight=Pr,v.functions=Er,v.groupBy=Oo,v.indexBy=So,v.initial=Ce,v.intersection=Pe,v.invert=Sr,v.invoke=ue,v.keys=po,v.map=ae,v.mapValues=Kr,v.max=ie,v.memoize=Je,v.merge=Ur,v.min=le,v.omit=Mr,v.once=Qe,v.pairs=Vr,v.partial=Xe,v.partialRight=Ye,v.pick=Gr,v.pluck=Ao,v.property=lt,v.pull=Se,v.range=Ae,v.reject=se,v.remove=Ie,v.rest=Le,v.shuffle=ge,v.sortBy=ye,v.tap=yt,v.throttle=Ze,v.times=pt,v.toArray=be,v.transform=Jr,v.union=Re,v.uniq=Te,v.values=Qr,v.where=Io,v.without=De,v.wrap=nt,v.xor=$e,v.zip=Fe,v.zipObject=Be,v.collect=ae,v.drop=Le,v.each=te,v.eachRight=oe,v.extend=xo,v.methods=Er,v.object=Be,v.select=ne,v.tail=Le,v.unique=Te,v.unzip=Fe,ut(v),v.clone=_r,v.cloneDeep=wr,v.contains=Yr,v.escape=tt,v.every=Zr,v.find=re,v.findIndex=_e,v.findKey=jr,v.findLast=ee,v.findLastIndex=we,v.findLastKey=kr,v.has=Or,v.identity=ot,v.indexOf=ke,v.isArguments=mr,v.isArray=fo,v.isBoolean=Ar,v.isDate=Ir,v.isElement=Lr,v.isEmpty=Nr,v.isEqual=Rr,v.isFinite=Tr,v.isFunction=Dr,v.isNaN=Fr,v.isNull=Br,v.isNumber=Hr,v.isObject=$r,v.isPlainObject=Po,v.isRegExp=Wr,v.isString=qr,v.isUndefined=zr,v.lastIndexOf=Oe,v.mixin=ut,v.noConflict=at,v.noop=it,v.now=Lo,v.parseInt=No,v.random=ct,v.reduce=ce,v.reduceRight=fe,v.result=ft,v.runInContext=g,v.size=he,v.some=ve,v.sortedIndex=Ne,v.template=st,v.unescape=gt,v.uniqueId=ht,v.all=Zr,v.any=ve,v.detect=re,v.findWhere=re,v.foldl=ce,v.foldr=fe,v.include=Yr,v.inject=ce,ut(function(){var n={};return Co(v,function(r,e){v.prototype[e]||(n[e]=r)}),n}(),!1),v.first=xe,v.last=Ee,v.sample=pe,v.take=xe,v.head=xe,Co(v,function(n,r){var e="sample"!==r;v.prototype[r]||(v.prototype[r]=function(r,t){var o=this.__chain__,u=n(this.__wrapped__,r,t);return o||null!=r&&(!t||e&&"function"==typeof r)?new y(u,o):u})}),v.VERSION="2.4.1",v.prototype.chain=bt,v.prototype.toString=dt,v.prototype.value=mt,v.prototype.valueOf=mt,wo(["join","pop","shift"],function(n){var r=It[n];v.prototype[n]=function(){var n=this.__chain__,e=r.apply(this.__wrapped__,arguments);return n?new y(e,n):e}}),wo(["push","reverse","sort","unshift"],function(n){var r=It[n];v.prototype[n]=function(){return r.apply(this.__wrapped__,arguments),this}}),wo(["concat","slice","splice"],function(n){var r=It[n];v.prototype[n]=function(){return new y(r.apply(this.__wrapped__,arguments),this.__chain__)}}),io.spliceObjects||wo(["pop","shift","splice"],function(n){var r=It[n],e="splice"==n;v.prototype[n]=function(){var n=this.__chain__,t=this.__wrapped__,o=r.apply(t,arguments);return 0===t.length&&delete t[0],n||e?new y(o,n):o}}),v}var h,v=[],y=[],b=0,d={},m=+new Date+"",_=75,w=40,x=" 	\f ﻿\n\r\u2028\u2029 ᠎             　",j=/\b__p \+= '';/g,C=/\b(__p \+=) '' \+/g,P=/(__e\(.*?\)|\b__t\)) \+\n'';/g,E=/\$\{([^\\}]*(?:\\.[^\\}]*)*)\}/g,O=/\w*$/,S=/^\s*function[ \n\r\t]+\w/,A=/<%=([\s\S]+?)%>/g,I=RegExp("^["+x+"]*0+(?=.$)"),L=/($^)/,N=/\bthis\b/,R=/['\n\r\t\u2028\u2029\\]/g,T=["Array","Boolean","Date","Error","Function","Math","Number","Object","RegExp","String","_","attachEvent","clearTimeout","isFinite","isNaN","parseInt","setTimeout"],D=["constructor","hasOwnProperty","isPrototypeOf","propertyIsEnumerable","toLocaleString","toString","valueOf"],$=0,F="[object Arguments]",B="[object Array]",H="[object Boolean]",W="[object Date]",q="[object Error]",z="[object Function]",K="[object Number]",U="[object Object]",M="[object RegExp]",V="[object String]",G={};
 G[z]=!1,G[F]=G[B]=G[H]=G[W]=G[K]=G[U]=G[M]=G[V]=!0;var J={leading:!1,maxWait:0,trailing:!1},Q={configurable:!1,enumerable:!1,value:null,writable:!1},X={args:"",array:null,bottom:"",firstArg:"",init:"",keys:null,loop:"",shadowedProps:null,support:null,top:"",useHas:!1},Y={"boolean":!1,"function":!0,object:!0,number:!1,string:!1,undefined:!1},Z={"\\":"\\","'":"'","\n":"n","\r":"r","	":"t","\u2028":"u2028","\u2029":"u2029"},nr=Y[typeof window]&&window||this,rr=Y[typeof exports]&&exports&&!exports.nodeType&&exports,er=Y[typeof module]&&module&&!module.nodeType&&module,tr=er&&er.exports===rr&&rr,or=Y[typeof global]&&global;!or||or.global!==or&&or.window!==or||(nr=or);var ur=g();"function"==typeof define&&"object"==typeof define.amd&&define.amd?(nr._=ur,define(function(){return ur})):rr&&er?tr?(er.exports=ur)._=ur:rr._=ur:nr._=ur}).call(this);
 angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$rootScope",function(e,t){function r(e,t){return e.indexOf(t)>-1}var a={},n=/https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/gi,i=/t=(\d+)[ms]?(\d+)?s?/;return a.getIdFromURL=function(e){var t=e.replace(n,"$1");if(r(t,";")){var a=t.split(";");if(r(a[1],"%")){var i=decodeURIComponent(t.split(";")[1]);t=("http://youtube.com"+i).replace(n,"$1")}else t=a[0]}else r(t,"#")&&(t=t.split("#")[0]);return void 0,t},a.getTimeFromURL=function(e){e=e||"";var t=e.match(i);if(!t)return 0;var a=t[0],n=t[1],o=t[2];return"undefined"!=typeof o?(o=parseInt(o,10),n=parseInt(n,10)):r(a,"m")?(n=parseInt(n,10),o=0):(o=parseInt(n,10),n=0),o+60*n},function(){var e=document.createElement("script");e.src="https://www.youtube.com/iframe_api";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}(),a.ready=!1,e.onYouTubeIframeAPIReady=function(){t.$apply(function(){a.ready=!0})},a}]).directive("youtubeVideo",["youtubeEmbedUtils",function(e){var t=1,r={"-1":"unstarted",0:"ended",1:"playing",2:"paused",3:"buffering",5:"queued"},a="youtube.player.";return{restrict:"EA",scope:{videoId:"=?",videoUrl:"=?",player:"=?",playerVars:"=?",playerHeight:"=?",playerWidth:"=?"},link:function(n,i,o){function u(){var e=Array.prototype.slice.call(arguments);n.$apply(function(){n.$emit.apply(n,e)})}function l(e){var t=r[e.data];"undefined"!=typeof t&&u(a+t,n.player,e),n.$apply(function(){n.player.currentState=t})}function d(e){u(a+"ready",n.player,e)}function y(){var e=angular.copy(n.playerVars);e.start=e.start||n.urlStartTime;var t=new YT.Player(c,{height:n.playerHeight,width:n.playerWidth,videoId:n.videoId,playerVars:e,events:{onReady:d,onStateChange:l}});return void 0,t.id=c,t}function p(){(n.videoId||n.playerVars.list)&&(n.player&&n.player.d&&"function"==typeof n.player.destroy&&n.player.destroy(),n.player=y())}n.utils=e,void 0;var c=o.playerId||i[0].id||"unique-youtube-embed-id-"+t++;i[0].id=c,n.playerHeight=n.playerHeight||390,n.playerWidth=n.playerWidth||640,n.playerVars=n.playerVars||{};var s=n.$watch(function(){return n.utils.ready&&("undefined"!=typeof n.videoUrl||"undefined"!=typeof n.videoId||"undefined"!=typeof n.playerVars.list)},function(e){e&&(s(),"undefined"!=typeof n.videoUrl?n.$watch("videoUrl",function(e){n.videoId=n.utils.getIdFromURL(e),n.urlStartTime=n.utils.getTimeFromURL(e),p()}):"undefined"!=typeof n.videoId?n.$watch("videoId",function(){n.urlStartTime=null,p()}):n.$watch("playerVars.list",function(){n.urlStartTime=null,p()}))});n.$watchCollection(["playerHeight","playerWidth"],function(){n.player&&n.player.setSize(n.playerWidth,n.playerHeight)}),n.$on("$destroy",function(){n.player&&n.player.destroy()})}}}]);
+angular.module("angularPayments",[]),angular.module("angularPayments").factory("Common",[function(){var e={};return e.parseExpiry=function(e){var t,r,n,a;return e=e||"",e=e.replace(/\s/g,""),a=e.split("/",2),t=a[0],n=a[1],2===(null!=n?n.length:void 0)&&/^\d+$/.test(n)&&(r=(new Date).getFullYear(),r=r.toString().slice(0,2),n=r+n),t=parseInt(t,10),n=parseInt(n,10),{month:t,year:n}},e}]),angular.module("angularPayments").factory("Cards",[function(){var e=/(\d{1,4})/g,t=/(?:^|\s)(\d{4})$/,r=[{type:"maestro",pattern:/^(5018|5020|5038|6304|6759|676[1-3])/,format:e,inputFormat:t,length:[12,13,14,15,16,17,18,19],cvcLength:[3],luhn:!0},{type:"dinersclub",pattern:/^(36|38|30[0-5])/,format:e,inputFormat:t,length:[14],cvcLength:[3],luhn:!0},{type:"laser",pattern:/^(6706|6771|6709)/,format:e,inputFormat:t,length:[16,17,18,19],cvcLength:[3],luhn:!0},{type:"jcb",pattern:/^35/,format:e,inputFormat:t,length:[16],cvcLength:[3],luhn:!0},{type:"unionpay",pattern:/^62/,format:e,inputFormat:t,length:[16,17,18,19],cvcLength:[3],luhn:!1},{type:"discover",pattern:/^(6011|65|64[4-9]|622)/,format:e,inputFormat:t,length:[16],cvcLength:[3],luhn:!0},{type:"mastercard",pattern:/^5[1-5]/,format:e,inputFormat:t,length:[16],cvcLength:[3],luhn:!0},{type:"amex",pattern:/^3[47]/,format:/(\d{1,4})(\d{1,6})?(\d{1,5})?/,inputFormat:/^(\d{4}|\d{4}\s\d{6})$/,length:[15],cvcLength:[3,4],luhn:!0},{type:"visa",pattern:/^4/,format:e,inputFormat:t,length:[13,14,15,16],cvcLength:[3],luhn:!0}],n=function(e){var t,n,a;for(e=(e+"").replace(/\D/g,""),n=0,a=r.length;a>n;n++)if(t=r[n],t.pattern.test(e))return t},a=function(e){var t,n,a;for(n=0,a=r.length;a>n;n++)if(t=r[n],t.type===e)return t};return{fromNumber:function(e){return n(e)},fromType:function(e){return a(e)},defaultFormat:function(){return e},defaultInputFormat:function(){return t}}}]),angular.module("angularPayments").factory("_Format",["Cards","Common","$filter",function(e,t,r){var n={},a=function(e){var t;return null!=e.prop("selectionStart")&&e.prop("selectionStart")!==e.prop("selectionEnd")?!0:("undefined"!=typeof document&&null!==document&&null!=(t=document.selection)&&"function"==typeof t.createRange?t.createRange().text:void 0)?!0:!1},o=function(t){var r,n,a,o,l,i,u;if(a=String.fromCharCode(t.which),r=angular.element(t.currentTarget),u=r.val(),n=e.fromNumber(u+a),o=(u.replace(/\D/g,"")+a).length,i=16,n&&(i=n.length[n.length.length-1]),!(o>=i)){if(!/^\d+$/.test(a)&&!t.meta&&t.keyCode>=46)return void t.preventDefault();if(null==r.prop("selectionStart")||r.prop("selectionStart")===u.length)return l=e.defaultInputFormat(),n&&(l=n.inputFormat),l.test(u)?(t.preventDefault(),r.val(u+" "+a)):l.test(u+a)?(t.preventDefault(),r.val(u+a+" ")):void 0}},l=function(t){var r,n,o,l;r=angular.element(t.currentTarget),o=String.fromCharCode(t.which),/^\d+$/.test(o)&&(a(r)||(l=(r.val()+o).replace(/\D/g,""),n=e.fromNumber(l),n?l.length<=n.length[n.length.length-1]||t.preventDefault():l.length<=16||t.preventDefault()))},i=function(e){var t,r;return t=angular.element(e.currentTarget),r=t.val(),e.meta||8!==e.which||null!=t.prop("selectionStart")&&t.prop("selectionStart")!==r.length?void 0:/\d\s$/.test(r)&&!e.meta&&e.keyCode>=46?(e.preventDefault(),t.val(r.replace(/\d\s$/,""))):/\s\d?$/.test(r)?(e.preventDefault(),t.val(r.replace(/\s\d?$/,""))):void 0},u=function(t){var r,n,a,o;return(r=e.fromNumber(t))?(a=r.length[r.length.length-1],t=t.replace(/\D/g,""),t=t.slice(0,+a+1||9e9),r.format.global?null!=(o=t.match(r.format))?o.join(" "):void 0:(n=r.format.exec(t),null!=n&&n.shift(),null!=n?n.join(" "):void 0)):t},p=function(e){return setTimeout(function(){var t,r;return t=angular.element(e.target),r=t.val(),r=u(r),t.val(r)})},s=function(e){return null!=e?e.replace(/\s/g,""):e};n.card=function(e,t){e.bind("keypress",l),e.bind("keypress",o),e.bind("keydown",i),e.bind("paste",p),t.$parsers.push(s),t.$formatters.push(u)},_formatCVC=function(e){return $target=angular.element(e.currentTarget),digit=String.fromCharCode(e.which),!/^\d+$/.test(digit)&&!e.meta&&e.keyCode>=46?void e.preventDefault():(val=$target.val()+digit,val.length<=4?void 0:void e.preventDefault())},n.cvc=function(e){e.bind("keypress",_formatCVC)},_restrictExpiry=function(e){var t,r,n;return t=angular.element(e.currentTarget),r=String.fromCharCode(e.which),!/^\d+$/.test(r)&&!e.meta&&e.keyCode>=46?void e.preventDefault():a(t)?void 0:(n=t.val()+r,n=n.replace(/\D/g,""),n.length>6?void e.preventDefault():void 0)},_formatExpiry=function(e){var t,r,n;return r=String.fromCharCode(e.which),!/^\d+$/.test(r)&&!e.meta&&e.keyCode>=46?void e.preventDefault():(t=angular.element(e.currentTarget),n=t.val()+r,/^\d$/.test(n)&&"0"!==n&&"1"!==n?(e.preventDefault(),t.val("0"+n+" / ")):/^\d\d$/.test(n)?(e.preventDefault(),t.val(""+n+" / ")):void 0)},_formatForwardExpiry=function(e){var t,r,n;return r=String.fromCharCode(e.which),!/^\d+$/.test(r)&&!e.meta&&e.keyCode>=46?void 0:(t=angular.element(e.currentTarget),n=t.val(),/^\d\d$/.test(n)?t.val(""+n+" / "):void 0)},_formatForwardSlash=function(e){var t,r,n;return r=String.fromCharCode(e.which),"/"===r?(t=angular.element(e.currentTarget),n=t.val(),/^\d$/.test(n)&&"0"!==n?t.val("0"+n+" / "):void 0):void 0},_formatBackExpiry=function(e){var t,r;if(!e.meta&&(t=angular.element(e.currentTarget),r=t.val(),8===e.which&&(null==t.prop("selectionStart")||t.prop("selectionStart")===r.length)))return/\d(\s|\/)+$/.test(r)?(e.preventDefault(),t.val(r.replace(/\d(\s|\/)*$/,""))):/\s\/\s?\d?$/.test(r)?(e.preventDefault(),t.val(r.replace(/\s\/\s?\d?$/,""))):void 0};var d=function(e){if(null!=e){var n=t.parseExpiry(e),a=new Date(n.year,n.month-1);return r("date")(a,"MM/yyyy")}return null},c=function(e){if(null!=e){var n=t.parseExpiry(e),a=new Date(n.year,n.month-1);return r("date")(a,"MM / yyyy")}return null};return n.expiry=function(e,t){e.bind("keypress",_restrictExpiry),e.bind("keypress",_formatExpiry),e.bind("keypress",_formatForwardSlash),e.bind("keypress",_formatForwardExpiry),e.bind("keydown",_formatBackExpiry),t.$parsers.push(d),t.$formatters.push(c)},function(e,t,r){if(!n[e])throw types=Object.keys(n),errstr='Unknown type for formatting: "'+e+'". ',errstr+='Should be one of: "'+types.join('", "')+'"',errstr;return n[e](t,r)}}]).directive("paymentsFormat",["$window","_Format",function(e,t){return{restrict:"A",require:"ngModel",link:function(e,r,n,a){t(n.paymentsFormat,r,a)}}}]),angular.module("angularPayments").factory("_Validate",["Cards","Common","$parse",function(e,t,r){var n=[].indexOf||function(e){for(var t=0,r=this.length;r>t;t++)if(t in this&&this[t]===e)return t;return-1},a=function(e){var t,r,n,a,o,l;for(n=!0,a=0,r=(e+"").split("").reverse(),o=0,l=r.length;l>o;o++)t=r[o],t=parseInt(t,10),(n=!n)&&(t*=2),t>9&&(t-=9),a+=t;return a%10===0},o={};return o.cvc=function(t,a,o,l){var i,u;if(null==t||0==t.length)return!0;if(!/^\d+$/.test(t))return!1;var p;if(l.paymentsTypeModel){var s=r(l.paymentsTypeModel);p=s(o)}return p?(i=t.length,n.call(null!=(u=e.fromType(p))?u.cvcLength:void 0,i)>=0):t.length>=3&&t.length<=4},o.card=function(t,o,l,i){var u,p,s;i.paymentsTypeModel&&(s=r(i.paymentsTypeModel));var d=function(){s&&s.assign(l,null),o.$card=null};return null==t||0==t.length?(d(),!0):(t=(t+"").replace(/\s+|-/g,""),/^\d+$/.test(t)&&(u=e.fromNumber(t))?(o.$card=angular.copy(u),s&&s.assign(l,u.type),ret=(p=t.length,n.call(u.length,p)>=0&&(u.luhn===!1||a(t))),ret):(d(),!1))},o.expiry=function(e){if(null==e||0==e.length)return!0;obj=t.parseExpiry(e),month=obj.month,year=obj.year;var r,n,a;return month&&year&&/^\d+$/.test(month)&&/^\d+$/.test(year)&&parseInt(month,10)<=12?(2===year.length&&(a=(new Date).getFullYear(),a=a.toString().slice(0,2),year=a+year),n=new Date(year,month),r=new Date,n.setMonth(n.getMonth()-1),n.setMonth(n.getMonth()+1,1),n>r):!1},function(e,t,r,n,a){if(!o[e])throw types=Object.keys(o),errstr='Unknown type for validation: "'+e+'". ',errstr+='Should be one of: "'+types.join('", "')+'"',errstr;return o[e](t,r,n,a)}}]).factory("_ValidateWatch",["_Validate",function(e){var t={};return t.cvc=function(t,r,n,a){a.paymentsTypeModel&&n.$watch(a.paymentsTypeModel,function(o,l){if(o!=l){var i=e(t,r.$modelValue,r,n,a);r.$setValidity(t,i)}})},function(e,r,n,a){return t[e]?t[e](e,r,n,a):void 0}}]).directive("paymentsValidate",["$window","_Validate","_ValidateWatch",function(e,t,r){return{restrict:"A",require:"ngModel",link:function(e,n,a,o){var l=a.paymentsValidate;r(l,o,e,a);var i=function(r){var n=t(l,r,o,e,a);return o.$setValidity(l,n),n?r:void 0};o.$formatters.push(i),o.$parsers.push(i)}}}]),angular.module("angularPayments").directive("stripeForm",["$window","$parse","Common",function(e,t,r){return _getDataToSend=function(e){var t=["number","expMonth","expYear","cvc","name","addressLine1","addressLine2","addressCity","addressState","addressZip","addressCountry"],r=function(e){return e.replace(/([A-Z])/g,function(e){return"_"+e.toLowerCase()})},n={};for(i in t)e.hasOwnProperty(t[i])&&(n[r(t[i])]=angular.copy(e[t[i]]));return n.number=(n.number||"").replace(/ /g,""),n},{restrict:"A",link:function(t,n,a){if(!e.Stripe)throw"stripeForm requires that you have stripe.js installed. Include https://js.stripe.com/v2/ into your html.";var o=angular.element(n);o.bind("submit",function(){expMonthUsed=t.expMonth?!0:!1,expYearUsed=t.expYear?!0:!1,expMonthUsed&&expYearUsed||(exp=r.parseExpiry(t.expiry),t.expMonth=exp.month,t.expYear=exp.year);var n=o.find("button");n.prop("disabled",!0),o.hasClass("ng-valid")?e.Stripe.createToken(_getDataToSend(t),function(){var e=arguments;t.$apply(function(){t[a.stripeForm].apply(t,e)}),n.prop("disabled",!1)}):(t.$apply(function(){t[a.stripeForm].apply(t,[400,{error:"Invalid form submitted."}])}),n.prop("disabled",!1)),t.expMonth=null,t.expYear=null})}}}]);
 // app.js
 (function() {
     'use strict';
@@ -439,6 +440,26 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 });
         };
 
+  //   // STRIPE CHECKOUT ====================================
+
+		// $scope.stripeCheckout = function(){
+		// 	var handler = StripeCheckout.configure({
+		// 	key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+		// 	// image: '/square-image.png',
+		// 	token: function(token) {
+		// 	// Use the token to create the charge with a server-side script.
+		// 	// You can access the token ID with `token.id`
+		// 	}
+		// 	});
+
+		// 	handler.open({
+		// 		name: 'Demo Site',
+		// 		description: '2 widgets ($20.00)',
+		// 		amount: 2000
+		// 	});
+		// };
+    
+
 
 	// HOOK UP TRELLO =====================================
 		if($scope.live_user.trello){
@@ -454,121 +475,15 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 		$window.inviteCallback = function(){
 			$scope.connector.message = "Your Trello account is connected.";
 			$scope.connector.toggle = 1;
-			// // // console.log('called back');
 			$scope.$apply();
-		};
-
-
-		// $scope.removeTeamMember = function(person){
-		// 	// // // console.log('remove this person', person._id );
-		// 	var index = $scope.live_user.team.indexOf(person);
-
-		// 	$http
-		// 		.delete('/api/account/'+person._id)
-		// 		.success(function(err, data){
-		// 			// // // console.log('deleted', data);
-		// 			$scope.live_user.team.splice(index, 1);
-		// 		});
-		// };
-		// $scope.team_mail = function(){
-
-		// }
-
-		$scope.team_mail = {};
-
-
-// TEAM MEMBER INVITATIONS ================================
-		$scope.inviteTeamMember = function(email){
-			var url = '/api/invite/',
-				dataOut = email,
-				new_url = $location.protocol()+'://'+$location.host()+':8080';
-
-			mixpanel.track('Team member invite', { 'email': email });
-	        
-			$http
-				.post(url, dataOut)
-				.success(function(invite){
-					// console.log('invitation sent', invite);
-
-					if(invite.user_email){
-						// user_email exists only on the Invite model.
-						// if an invitation then exists, do the following.
-
-						$scope.live_user.invites.push(invite);
-						// // console.log('$scope.live_user.invites', $scope.live_user.invites);
-						email.address = "";
-						$scope.message = "We&rsquo;ve sent an e-mail invitation to your team member."+
-	                                     " Just in case, you can also invite them using this personalized link:"+
-	                                     " <a href='"+new_url+"/login/"+invite._id+"' target='_blank'>"+new_url+
-	                                     "/login/"+invite._id+"</a>";
-					}
-					else if(invite.msg === 'user found'){
-						// an existing user was found
-						// their existing account identity was wiped out and 
-						// they have been added to the new team
-						
-						$scope.live_user.team.push({ local : {email : invite.email}, 'name': invite.name});
-						email.address = "";
-						$scope.message = "<strong>This team member is already a Field Guide user. "+
-										 "If they join your team they will be removed from their current team "+
-										 "and lose access to those projects.</strong><br><br>"+
-	                                     "Invite them to your team using this personalized link:"+
-	                                     " <a href='"+new_url+"/login/"+invite._id+"' target='_blank'>"+
-	                                     new_url+"/login/"+invite._id+"</a>";
-					} 
-					else {
-						$scope.message = invite;
-					}
-				});
-		};
-	    
-		$scope.resendInvite = function(invite){
-			// this will resend a pending invitation for a non-existent user
-			// it requires that the previous invitation supply an invitation._id
-			// // console.log('sent', invite);
-			var url = '/api/invite/'+invite._id,
-				dataOut = invite,
-				new_url = $location.protocol()+'://'+$location.host()+':8080';
-
-			$http
-				.post(url, dataOut)
-				.success(function(data){
-					// // console.log('reinvitation sent', data);
-					$scope.message = "Reinvitation sent to "+ data.user_email +
-	                                 "<br /> Here is a personalized invitation link you can share with them: "+
-	                                 "<a href='"+new_url+"/login/"+invite._id+"'>"+new_url+"/login/"+invite._id+
-	                                 "</a>";
-				});
-
-		};
-
-		$scope.deleteInvite = function(invite){
-			var index = $scope.live_user.invites.indexOf(invite);
-
-			$http
-				.delete('/api/invite/'+invite._id)
-				.success(function(err, data){
-					// // console.log('invitation removed', data);
-					$scope.live_user.invites.splice(index, 1);
-				});
-		};
-
-		$scope.accountExport = function(){
-
-			$http
-				.get('/auth/export/account/')
-				.success(function(data){
-					// console.log('success', data);
-				});
 		};
 
 		$scope.connectTrello = function(){
 			$scope.connector.message = "Connecting your Trello account...";
 			$scope.connector.toggle = 3;
-			// $window.open('views/anotherWindow.html', '_blank','menubar=yes,toolbar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,personalbar=yes');
+
 			$window.open('/connect/trello', 'Connect Field Guide to Trello', 'width=450, height=600');
 			$scope.$watch('inviteCallback', function(){
-				// // // console.log('hello callback!');
 				// $scope.connector = false;
 				// $scope.live_user.trello = true;
 			});
@@ -587,6 +502,103 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
 				});
 
 		};
+
+// TEAM MEMBER INVITATIONS ================================
+		// $scope.removeTeamMember = function(person){
+		// 	var index = $scope.live_user.team.indexOf(person);
+
+		// 	$http
+		// 		.delete('/api/account/'+person._id)
+		// 		.success(function(err, data){
+		// 			$scope.live_user.team.splice(index, 1);
+		// 		});
+		// };
+
+		// $scope.team_mail = function(){
+		// }
+
+		// $scope.team_mail = {};
+
+		$scope.inviteTeamMember = function(email){
+			var url = '/api/invite/',
+				dataOut = email,
+				new_url = $location.protocol()+'://'+$location.host()+':8080';
+
+			mixpanel.track('Team member invite', { 'email': email });
+
+			$http
+				.post(url, dataOut)
+				.success(function(invite){
+					if(invite.user_email){
+						// user_email exists only on the Invite model.
+						// if an invitation then exists, do the following.
+
+						$scope.live_user.invites.push(invite);
+
+						email.address = "";
+						
+						$scope.message = "We&rsquo;ve sent an e-mail invitation to your team member."+
+							" Just in case, you can also invite them using this personalized link:"+
+							" <a href='"+new_url+"/login/"+invite._id+"' target='_blank'>"+new_url+
+							"/login/"+invite._id+"</a>";
+					}
+					else if(invite.msg === 'user found'){
+						// an existing user was found
+						// their existing account identity was wiped out and 
+						// they have been added to the new team
+						
+						$scope.live_user.team.push({ local : {email : invite.email}, 'name': invite.name});
+						email.address = "";
+						$scope.message = "<strong>This team member is already a Field Guide user. "+
+										"If they join your team they will be removed from their current team "+
+										"and lose access to those projects.</strong><br><br>"+
+										"Invite them to your team using this personalized link:"+
+										" <a href='"+new_url+"/login/"+invite._id+"' target='_blank'>"+
+										new_url+"/login/"+invite._id+"</a>";
+					} 
+					else {
+						$scope.message = invite;
+					}
+				});
+		};
+
+		$scope.resendInvite = function(invite){
+			// this will resend a pending invitation for a non-existent user
+			// it requires that the previous invitation supply an invitation._id
+			
+			var url = '/api/invite/'+invite._id,
+				dataOut = invite,
+				new_url = $location.protocol()+'://'+$location.host()+':8080';
+
+			$http
+				.post(url, dataOut)
+				.success(function(data){
+					
+					$scope.message = "Reinvitation sent to "+ data.user_email +
+									"<br /> Here is a personalized invitation link you can share with them: "+
+									"<a href='"+new_url+"/login/"+invite._id+"'>"+new_url+"/login/"+invite._id+
+									"</a>";
+				});
+
+		};
+		$scope.deleteInvite = function(invite){
+			var index = $scope.live_user.invites.indexOf(invite);
+
+			$http
+				.delete('/api/invite/'+invite._id)
+				.success(function(err, data){
+					$scope.live_user.invites.splice(index, 1);
+				});
+		};
+
+		$scope.accountExport = function(){
+			// TODO: Output this data as a compressed JSON return.
+			$http
+				.get('/auth/export/account/')
+				.success(function(data){
+					// console.log('success', data);
+				});
+		};
 	}]);
 })();
 // forgot.js
@@ -596,36 +608,27 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
     // PASSWORD RESET CONTROLLER ===========================================================
     angular.module('field_guide_controls')
        .controller('forgot', ['$scope','$http', '$location', '$stateParams','$rootScope', 
-                    function($scope, $http, $location, $stateParams, $rootScope){
-        // console.log('password reset controller');    
+        function($scope, $http, $location, $stateParams, $rootScope){
+            var url = '/reset'+$stateParams.token;
 
-        var url = '/reset'+$stateParams.token;
+        // Controller Functions ===========================
+            $scope.newPass = function(pass){
+                var dataOut = {password: pass};
 
-        // console.log(url);
-        $http
-            .get(url)
-            .success(function(data){
-                // console.log(data);
-            });
+                $http
+                    .post(url, dataOut)
+                    .success(function(data){
+                        // do a login here, perhaps
+                        // console.log('reset', data);
+                        if(data.length > 0){
+                            $scope.successMsg = data;
+                        }
+                    });
+            };
 
-        $scope.newPass = function(pass){
-            var dataOut = {password: pass};
-
-            $http
-                .post(url, dataOut)
-                .success(function(data){
-                    // do a login here, perhaps
-                    // console.log('reset', data);
-                    if(data.length > 0){
-                        $scope.successMsg = data;
-                    }
-                });
-        };
-
-        $scope.goToLogin = function(){
-            $location.path('/login');
-        };
-        
+            $scope.goToLogin = function(){
+                $location.path('/login');
+            };
     }]);
 })();
 // login.js
@@ -638,16 +641,15 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         function($scope, $http, $location, $stateParams, $rootScope){
 
         // LOGIN FUNCTIONS ====================================
-        
         if($rootScope.user){
             $scope.user = $rootScope.user;
         }
-        // // console.log('$scope.login $rootScope.user', $rootScope.user);
 
         if($stateParams.acct){
             $scope.acct = $stateParams.acct.replace( /\//gi,"");
             $scope.reg_toggle = true;
             mixpanel.track('registration page touch', { 'account': $stateParams.acct });
+            
             
             // TODO: get the invitation represented by that id and pre-populate the e-mail field.
             $http
@@ -662,6 +664,7 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         $scope.tracker = function(){
             mixpanel.track('myAccount', { 'account': $stateParams.acct });
         };
+
         $scope.login = function(user){
             var url = '/auth/login';
             var dataOut =  {email: user.email, password: user.password};
@@ -669,43 +672,33 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    // console.log('login controller success', data);
                     $scope.flashmessage = data.error;
                     $location.path('/');
-                })
-                .error(function(error){
-                    // // console.log('login no bueno.', error);
                 });
+        };
+
+        $scope.showLogin = function(){
+            $scope.reg_toggle = false;
         };
 
         $scope.showReg = function(){
             $scope.reg_toggle = true;
-            // console.log('touched register', $scope.reg_toggle);
-
         };
 
         $scope.goToReset = function(){
             $location.path('/reset');
         };
 
-        $scope.showLogin = function(){
-            // // console.log('touched login', $scope.reg_toggle);
-            $scope.reg_toggle = false;
-        };
-
         $scope.register = function(user){
-            // console.log('register this user', user);
             var url, 
                 dataOut,
                 invite;
             
             if($stateParams.acct){
                 invite = $stateParams.acct.replace( /\//gi,"");
-                // // console.log('touched account', acct);
                 url = '/auth/signup/';
                 dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
             } else if (!$stateParams.acct) {
-                // // console.log('this signup does not include an account (stateparams.acct)');
                 url = '/auth/signup/';
                 dataOut = {email: user.email, name:user.name, password:  user.password};
             }
@@ -713,18 +706,14 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             $http
                 .post(url, dataOut)
                 .success(function(data){
+
                     $scope.flashmessage = data.error;
-                    // // console.log('register controller success passed back this', data);
-                    
                     $rootScope.user = data._id;
                     $location.path(data.redirect);
 
                     mixpanel.track('registered new user', { 'name': data.email });
 
-                })
-                .error(function(error){
-                    // // console.log('signup no bueno.', error);
-            });
+                });
         };
 
         $scope.logout = function(){
@@ -733,13 +722,9 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             $http
                 .post(url)
                 .success(function(data){
-                    // // console.log('Success! Logged out.', data);
                     $location.path(data.redirect);
                     $rootScope.user = '';
-                })
-                .error(function(error){
-                    // // console.log('logout no bueno.', error);
-            });
+                });
         };
     }]);
 })();
@@ -756,26 +741,24 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
             .get('/api/test/', {timeout : 5000})
             .success(function(data) {
                 $scope.tests = data;
-                // console.log('tests', data);
-                // initially selected 
-                // $scope.selected = data[0];
-                if($rootScope.user.onboard === 2){
-
+                
+                if($rootScope.user.onboard === 2){ 
+                    
                 }
+
                 if($rootScope.user.onboard === 3 || $rootScope.user.onboard === 4 || $rootScope.user.onboard === 5 ){
-                    $location.path('/run/'+$scope.tests[0]._id);
-                }
-                if($rootScope.user.onboard === 6 && $scope.tests.length > 0){
-                    $location.path('/summary/'+$scope.tests[0]._id);
-                }
-                if($rootScope.user.onboard === 7 && $scope.tests.length > 0){
-                    $location.path('/report/'+$scope.tests[0]._id);
+                    $location.path('/run/'+$scope.tests[1]._id);
                 }
 
-            })
-            .error(function(data) {
-                // console.log('Error: ' + data);
+                if($rootScope.user.onboard === 6 && $scope.tests.length > 0){
+                    $location.path('/summary/'+$scope.tests[1]._id);
+                }
+
+                if($rootScope.user.onboard === 7 && $scope.tests.length > 0){
+                    $location.path('/report/'+$scope.tests[1]._id);
+                }
             });
+
         // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
 
@@ -798,102 +781,28 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 .success(function(data){
                     void 0;
                     if($rootScope.user.onboard === 3){
-                        $location.path('/run/'+$scope.tests[0]._id);
+                        $location.path('/run/'+$scope.tests[1]._id);
                     }
-                });
-        };
-        // SESSION ROUTES =====================================
-
-        $scope.select = function (session){
-            // console.log('touched session', session);
-            $scope.selected = session;
-        };
-
-        // edit titles inline.
-        $scope.editTitle = function(textfield){
-            textfield.editing = 'true';
-        };
-
-        $scope.blurTitle = function(session){
-            
-            $scope.editedTitle = null;
-            session.editing ='false';
-            
-            
-            var url = '/api/session/'+session._id;
-            
-            if (!session.name) {
-                session.name = 'New Session';
-            }
-
-            var data_out = {name : session.name};
-
-            $http.put(url, data_out)
-                    .success(function(data){
-                        // console.log('sent new title : ', data);
-                    })
-                    .error(function(data){
-                        // console.log('Error: ' + data);
-                    });
-        };
-
-        $scope.addSession = function(session){
-            
-            $http.post('/api/session/')
-                .success(function(data){
-
-                    // console.log('added a new session '+ JSON.stringify(data));
-                    
-                    $scope.sessions.push(data);
-
-                    // TODO add an auto-select for the new session here
-                    $scope.selected = $scope.sessions[$scope.sessions.length-1];
-                })
-                .error(function(data){
-                    // console.log('error', data);
-                });   
-        };
-       
-        $scope.removeSession = function(session){
-            var url = '/api/session/'+session._id;
-            var index = $scope.sessions.indexOf(session);
-
-            $http.delete(url)
-                .success(function(data){
-                    // console.log(data);
-
-                    $scope.sessions.splice(index, 1);
-                    $scope.selected = $scope.sessions[$scope.sessions.length-1];
-                })
-                .error(function(data){
-                    // console.log('error', data);
                 });
         };
 
         // TEST ROUTES ========================================
         $scope.devTest = function(){
-            // console.log('get me some tests');
-            
             $http.post('/api/test/dev_tests/')
                 .success(function(data){
+                    void 0;
                     $scope.tests.push(data);
                 });
         };
 
         $scope.newTest = function(){
-                // console.log('touched addatest');
-                
                 var test = {};
-
+                
                 if($rootScope.user){
-                    // console.log('rootScope user set', $rootScope.user);
-                    test.created_by = $rootScope.user;
-                   
+                    test.created_by_user = $rootScope.user;
                     mixpanel.track('Add new test', { 'user' : $rootScope.user });
-
-
-                }else{
-                    // console.log('whoops, needs a checkin');
+                } else {
+                    void 0;
                 }
 
                 var url = '/api/test/';
@@ -902,75 +811,50 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
                 $http
                     .post(url, data_out)
                     .success(function(data){
-                        // console.log('new test added '+ JSON.stringify(data));
                         $location.path('/edit/test/'+ data._id);
                         $scope.tests.push(data);
-                    })
-                    .error(function(data){
-                        // console.log('error', data);
                     });
             };
 
         $scope.removeTest = function(test){ 
             // delete a test from the database
-            // if (confirm("sure to delete") === true) {
                 var url = '/api/test/'+test._id,
                 index = $scope.tests.indexOf(test);
             
                 $scope.tests.splice(index, 1);
-
-                $http
-                    .delete(url)
-                    .success(function(data){
-                        // console.log(data);
-                    })
-                    .error(function(data){
-                        // console.log('Error: ' + data);
-                    });
-            // }        
+                $http.delete(url);
         };
 
         $scope.dupeTest = function(test){
-            // console.log('touched dupe test', test._id);
-
             var url = '/api/test/'+test._id;
             var data_out = test;
             
             $http
                 .post(url, data_out)
                 .success(function(data){
-                    // console.log('new test added '+ JSON.stringify(data));
                     $scope.tests.push(data);
-                })
-                .error(function(data){
-                    // console.log('error', data);
                 });
         };
 
         $scope.editTest = function(test){
-            // console.log('touched test', test);
             $location.path('/edit/test/'+ test._id);
         };
 
         $scope.watchTest = function(test){
-            // console.log('touched watch', test);
             $location.path('/watch/'+test._id);
         };
          
         $scope.runTest = function(test){
-            // console.log('touched run', test._id);
             $location.path('/run/'+test._id);
             mixpanel.track('Run test', { 'user': $rootScope.user });
         };
 
         $scope.summarizeTest = function(test_id){
-            // console.log('touched summary', test_id);
             $location.path('/summary/'+ test_id);
             mixpanel.track('Summary clicked', {});
         };
 
         $scope.loadReport = function(test_id){
-            // console.log('touched a report', test_id);
             $location.path('/report/'+ test_id);
         };
 
@@ -988,7 +872,6 @@ angular.module("youtube-embed",["ng"]).service("youtubeEmbedUtils",["$window","$
         
         if($stateParams.acct){
             $scope.acct = $stateParams.acct.replace( /\//gi,"");
-            // console.log($scope.acct);
         }
 
     }]);
@@ -1001,8 +884,8 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
-    
     $scope.showReportLink = false;
+
     $scope.toggleReportLink =  function(){
         if(!$scope.showReportLink){ $scope.showReportLink=true; }
         else{ $scope.showReportLink = false; }
@@ -1010,8 +893,6 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
     $http.get('/api/private/report/'+$stateParams.test_id)
             .success(function(data){
-                // console.log('the report object', data);
-                
                 $scope.leftNavList = [];
                 $scope.testname = data.test;
                 
@@ -1021,14 +902,11 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
                 _.each(sort, function(obj){
                     if(obj.visible){
-                        // console.log(obj.name); 
                         $scope.leftNavList.push(obj);
                     }
                 });
 
                 $scope.messages = data.messages;
-
-                // console.log($scope.leftNavList[0]);
                 $scope.activate($scope.leftNavList[0]);
                 
             }); 
@@ -1074,17 +952,11 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         
         $scope.selectedIndex = selectedIndex;
         
-        if(obj.doctype === 'test'){
-            // console.log('when was this last run', obj.last_run);
-        }
-
         if(obj){
             $scope.selected = obj;
 
             // here's where we do the rendering shit for the embeds. Slow. Boo.
             if(obj.embed){
-                
-
                 var utest = /usabilitytestresults/i;
                 var ut = utest.test(obj.embed);
                 if(ut){
@@ -1129,9 +1001,6 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         // hide commenting
         // else show the new message's comments
 
-        // console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
-
-        // if(){}
         if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
             // console.log('match');
             $scope.showCommentToggle = 'hide';
@@ -1155,7 +1024,6 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
     };
 
     $scope.addComment = function(comment){
-        // console.log('add comment', $scope.messages);
         if(comment && comment.body.length > 0){
             var dataOut = {
                 comment: {body : comment.body}
@@ -1169,182 +1037,159 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
                     var arr = _.pluck($scope.messages, '_id');
                     var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
 
-                    // console.log(msg_idx);
                     $scope.messages[msg_idx]._comments.push(data.comment);
                 });
         } else {
             $scope.showCommentToggle = 'hide';   
         }
     };
-
-
 }]);
 // report.js
 (function() {
-'use strict';
+    'use strict';
 
-// REPORT CONTROLLER ===========================================================
-angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', function($scope, $sce, $http, $location,$stateParams,$state, $sanitize){
-// https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
+    // REPORT CONTROLLER ===========================================================
+    angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', 
+        function($scope, $sce, $http, $location,$stateParams,$state, $sanitize){
+    // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
-    $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
+        $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
 
-    $scope.showReportLink = false;
-    $scope.toggleReportLink =  function(){
-        if(!$scope.showReportLink){ $scope.showReportLink=true; }
-        else{ $scope.showReportLink = false; }
-    };
+        $scope.showReportLink = false;
+        $scope.toggleReportLink =  function(){
+            if(!$scope.showReportLink){ $scope.showReportLink=true; }
+            else{ $scope.showReportLink = false; }
+        };
 
-    $http.get('/api/public/report/'+$stateParams.test_id)
-            .success(function(data){
-                // console.log('the report object', data);
-                
-                $scope.leftNavList = [];
-                $scope.testname = data.test;
-
-                var sort = _.sortBy(data.navlist, function(obj){
-                                return(obj.report_index);
-                            });
-
-                _.each(sort, function(obj){
-                    if(obj.visible){
-                        // console.log(obj.name); 
-                        $scope.leftNavList.push(obj);
-                    }
-                });
-
-                $scope.messages = data.messages;
-                // console.log('messages', $scope.messages);
-
-                $scope.activate($scope.leftNavList[0]);
-                
-            }); 
-
-// == mixpanel ==================================
-
-    mixpanel.track('Report Loaded', {});
-    
-// ==============================================
-
-
-// NAVIGATION =============================================
-
-    $scope.summarize = function(){
-        $location.path('/summary/'+ $stateParams.test_id);
-    };
-
-    $scope.activate = function(obj, selectedIndex) {
-        // passes the task to the global variable
-
-        $scope.selected = '';
-        $scope.commentMessage = '';
-        $scope.selectedIndex = '';
-        $scope.showCommentToggle = 'hide';
-        
-        $scope.selectedIndex = selectedIndex;
-        
-        if(obj){
-            $scope.selected = obj;
-            // console.log('selected', $scope.selected._id);
-            // here's where we do the rendering shit for the embeds. Slow. Boo.
-            if(obj.embed){
-                var ytube = /youtube.com/i;
-                var yt = ytube.test(obj.embed);
-                if(yt){
-                    $scope.selected.youTubeCode = obj.embed;
-                }
-
-                var utest = /usabilitytestresults/i;
-                var ut = utest.test(obj.embed);
-                if(ut){
-                    var w1 = /width='\d+'/i;
-                    var h1 = /height='\d+'/i;
-                    var w2 = /"width":"\d+"/i;
-                    var h2 = /"height":"\d+"/i;
-                    
-                    var res = obj.embed.replace(w1, "width='574'");
-                    res = res.replace(w2, '"width":"574"');
-                    res = res.replace(h1, "height='380'");
-                    res = res.replace(h2, '"height":"380"');
-                    
-                    // console.log(res);
-
-                    $scope.selected.userTesting = $sce.trustAsHtml(res);
-                    // $scope.selected.HTMLdemo = '<a href="#linky">I am a link</a>';
-                }
-
-            }
-        }
-    };
-
-    $scope.showObjectMessages = function(msg, obj){
-        if(obj._messages){
-            if((obj._messages.indexOf(msg._id) >= 0)){     
-                if(obj.doctype === 'task' && msg.fav_task){
-                    return true;
-                }
-                if(obj.doctype === 'tag' && msg.fav_tag){
-                    return true;
-                }
-            }
-        }
-    };
-
-// COMMENTING =========================================
-    $scope.showComments = function(message){
-        // if the comment toggle is the same as the current comment toggle
-        // hide commenting
-        // else show the new message's comments
-
-        // console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
-
-        // if(){}
-        if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
-            // console.log('match');
-            $scope.showCommentToggle = 'hide';
-            $scope.commentMessage = '';
-            return;
-        }
-        if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
-            // console.log('match');
-            $scope.showCommentToggle = 'show';
-            return;
-        }
-        if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
-            // console.log('fail');
-            $scope.showCommentToggle = 'show'; 
-            $scope.commentMessage = message;
-            return;
-        }
-        
-        $scope.commentMessage = message;
-
-    };
-
-    $scope.addComment = function(comment){
-        // console.log('add comment', $scope.messages);
-        if(comment && comment.body.length > 0){
-            var dataOut = {
-                comment: {body : comment.body}
-            };
-            
-            $http
-                .post('/api/comment/'+$scope.commentMessage._id, dataOut)
+        $http.get('/api/public/report/'+$stateParams.test_id)
                 .success(function(data){
-                    comment.body = '';
+                    $scope.leftNavList = [];
+                    $scope.testname = data.test;
 
-                    var arr = _.pluck($scope.messages, '_id');
-                    var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
+                    var sort = _.sortBy(data.navlist, function(obj){
+                                    return(obj.report_index);
+                                });
 
-                    // console.log(msg_idx);
-                    $scope.messages[msg_idx]._comments.push(data.comment);
-                });
-        } else {
-            $scope.showCommentToggle = 'hide';   
-        }
-    };
-}]);
+                    _.each(sort, function(obj){
+                        if(obj.visible){
+                            $scope.leftNavList.push(obj);
+                        }
+                    });
 
+                    $scope.messages = data.messages;
+                    $scope.activate($scope.leftNavList[0]);
+                    
+                }); 
+
+    // == mixpanel ==================================
+
+        mixpanel.track('Report Loaded', {});
+        
+    // ==============================================
+
+
+    // NAVIGATION =============================================
+
+        $scope.summarize = function(){
+            $location.path('/summary/'+ $stateParams.test_id);
+        };
+
+        $scope.activate = function(obj, selectedIndex) {
+            // passes the task to the global variable
+
+            $scope.selected = '';
+            $scope.commentMessage = '';
+            $scope.selectedIndex = '';
+            $scope.showCommentToggle = 'hide';
+            
+            $scope.selectedIndex = selectedIndex;
+            
+            if(obj){
+                $scope.selected = obj;
+                // here's where we do the rendering shit for the embeds. Slow. Boo.
+                
+                if(obj.embed){
+                    var ytube = /youtube.com/i;
+                    var yt = ytube.test(obj.embed);
+                    if(yt){
+                        $scope.selected.youTubeCode = obj.embed;
+                    }
+
+                    var utest = /usabilitytestresults/i;
+                    var ut = utest.test(obj.embed);
+                    if(ut){
+                        var w1 = /width='\d+'/i;
+                        var h1 = /height='\d+'/i;
+                        var w2 = /"width":"\d+"/i;
+                        var h2 = /"height":"\d+"/i;
+                        
+                        var res = obj.embed.replace(w1, "width='574'");
+                        res = res.replace(w2, '"width":"574"');
+                        res = res.replace(h1, "height='380'");
+                        res = res.replace(h2, '"height":"380"');
+                        
+                        $scope.selected.userTesting = $sce.trustAsHtml(res);
+                    }
+
+                }
+            }
+        };
+
+        $scope.showObjectMessages = function(msg, obj){
+            if(obj._messages){
+                if((obj._messages.indexOf(msg._id) >= 0)){     
+                    if(obj.doctype === 'task' && msg.fav_task){
+                        return true;
+                    }
+                    if(obj.doctype === 'tag' && msg.fav_tag){
+                        return true;
+                    }
+                }
+            }
+        };
+
+    // COMMENTING =========================================
+        $scope.showComments = function(message){
+            // if the comment toggle is the same as the current comment toggle
+            // hide commenting
+            // else show the new message's comments
+            if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
+                $scope.showCommentToggle = 'hide';
+                $scope.commentMessage = '';
+                return;
+            } else if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
+                $scope.showCommentToggle = 'show';
+                return;
+            } else if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
+                $scope.showCommentToggle = 'show'; 
+                $scope.commentMessage = message;
+                return;
+            }
+            
+            $scope.commentMessage = message;
+
+        };
+
+        $scope.addComment = function(comment){
+            if(comment && comment.body.length > 0){
+                var dataOut = {
+                    comment: {body : comment.body}
+                };
+                
+                $http
+                    .post('/api/comment/'+$scope.commentMessage._id, dataOut)
+                    .success(function(data){
+                        comment.body = '';
+                        var arr = _.pluck($scope.messages, '_id');
+                        var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
+                        $scope.messages[msg_idx]._comments.push(data.comment);
+
+                    });
+            } else {
+                $scope.showCommentToggle = 'hide';   
+            }
+        };
+    }]);
 })();
 // forgot.js
 (function() {
@@ -1354,8 +1199,6 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
     angular.module('field_guide_controls')
        .controller('reset', ['$scope','$http', '$location', '$stateParams','$rootScope', 
                     function($scope, $http, $location, $stateParams, $rootScope){
-        
-        // console.log('password reset controller');    
 
         $scope.sendToken = function(email){
             var url = '/auth/forgot';
@@ -1364,10 +1207,8 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    // console.log('success', data);
                     $scope.successMsg = data;
-                })
-                .error();
+                });
         };
         
         $scope.goToLogin = function(){
@@ -1399,15 +1240,13 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             .get('/api/run/'+$stateParams._id)
             .success(function(data){
                 $scope.tests = data;
-                // console.log('how is data built', $scope.tests[0].kind);
-
                 $scope.kind = data[0].kind;
 
                 // reset variables to clear cache from state changes.
                 $scope.task = {};
                 var message = {};
-                // Subject has been created, now open a room with that subject_id
 
+                // Subject has been created, now open a room with that subject_id
             });
 
     // ONBOARDING =========================================
@@ -1425,7 +1264,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                     .success(function(data){
                         void 0;
                         if($rootScope.user.onboard === 6 ){
-                            $location.path('/summary/'+$scope.tests[0]._id);
+                            $location.path('/summary/'+$scope.tests[1]._id);
                         }
                     });
             } else {
@@ -1451,16 +1290,11 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             // socket.emit('channel', { room: chan, test: $stateParams._id });
         };
 
-        // var socket = io('//127.0.0.1:8080/');
-        
-        // Old
-        // var socket = io.connect('http://104.236.16.159:8080/?test='+$stateParams._id, {
-        //         'force new connection': true});
-
         socket.on('connect_failed', function(data)
         {
             // console.log('connect_failed');
         });
+
         socket.on('connecting', function(data)
         {
             // console.log('connecting');
@@ -1469,14 +1303,15 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         {
             // console.log('disconnect');
 
-            image.src = "/layout/assets/avatar-binocs.jpg";
-            canvas.width = 358;
-            canvas.height = 358 * image.height / image.width;
+            // image.src = "/layout/assets/avatar-binocs.jpg";
+            // canvas.width = 358;
+            // canvas.height = 358 * image.height / image.width;
 
-            context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+            // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
 
             // socket.socket.disconnect();
         });
+
         socket.on('error', function(reason)
         {
             // console.log('error', reason);
@@ -1526,8 +1361,9 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
     // ANGULAR ROUTES ===================================================
         $scope.addTask = function(task){
-            // console.log('touched addTask', task);
-            if($scope.adding_task){$scope.adding_task=false;}
+            if($scope.adding_task){
+                $scope.adding_task=false;
+            }
 
             var dataOut = { 
                 name : task.name,
@@ -1535,23 +1371,17 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 _test : $stateParams._id,
                 index : $scope.tests[0]._tasks.length
             };
-
-            // console.log('dataOut', dataOut);
             
             $http
                 .post('/api/task/', dataOut)
                 .success(function(data){
-                    // console.log(data);
                     $scope.tests[0]._tasks.push(data);
                 });
 
         };
 
         $scope.select = function(testIndex, taskIndex) {
-            // // console.log('task',  $scope.tests[testIndex]._tasks[taskIndex]);
-
             var test = $scope.tests[testIndex];
-
             $scope.selected = test._tasks[taskIndex];
 
             mixpanel.track('Task changed', {});
@@ -1590,14 +1420,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
 
 
         $scope.addSubject = function(subject){
-            void 0;
-
             $scope.subject = subject;
-            // console.log($scope.subject);
-
-            // if(subject.testroom){
-            //     var room = subject.testroom.toLowerCase();
-            // }
 
             var url = 'api/subject/';
             var data_out = {name : subject.name, testroom: subject.testroom, test: $stateParams._id};
@@ -1610,21 +1433,16 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                     $scope.select(0,0);
 
                     mixpanel.track('Add Participant Name', {});
-
-                    // console.log('subject', $scope.subject);
-                    // socket.emit('send:subject_added', {subject: subject});
                     socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
         
                 })
                 .error(function(data){
-                    // // console.log('Error: ' + data);
             });
         };
 
         $scope.postMessage = function(message){
             // here we create a note object
             if(message.length <= 0){
-                // console.log('nothing');
                 return;
             } else {
                 var note = {};
@@ -1635,11 +1453,9 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                  
                 note._task = $scope.selected._id;
                 note._test = $scope.selected._test;
-                // note._session = $stateParams._id;
                 note._subject = $scope.subject._id;
 
                 $scope.timeline.push(note);
-                // // console.log('message pushing to', $scope.selected._id);
 
                 // TODO: this will catch things on both sides of the hash. 
                 // if message has # with no space, post that to message.tags
@@ -1651,7 +1467,6 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 if (tagIt){
                     for (var i=0; i < tagIt.length; ++i) {
                         var msg = tagIt[i].replace(hashPull,'');
-                        // // console.log('tag being pushed', msg)
                         note.tags.push(msg);
                     }
                 }
@@ -1663,38 +1478,29 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 $http
                     .post(url, data_out)
                     .success(function(data){
-                        // console.log('note back', data);
-                        // socket.emit('send:note', { note: data });
                         $scope.message='';
                     });
             }
         };
 
         $scope.postTest = function(){
-            // console.log($scope.subject.testroom);
-
-            var url = '/api/run/'+$stateParams._id;
-            var data_out = {session: $scope.session, tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
-            // socket.emit('testComplete', {data: {body:'test_complete', room : $scope.subject.testroom, test: $stateParams._id}});
-
-            mixpanel.track('Test completed', {});
-            void 0;
-
             // collects all the tests and steps and outputs them as a collected object
             // to the session api link
             // where they are parsed 
             // and their individual subject lists are updated.
+            
+            var url = '/api/run/'+$stateParams._id;
+            var data_out = {tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
+            mixpanel.track('Test completed', {});
 
             $http
                 .post(url, data_out)
                 .success(function(data){
                     void 0;
                     $location.path('/overview');
-                })
-                .error(function(data){
                 });
 
-        }
+        };
     }]);
 })();
 // summary.js
@@ -1737,8 +1543,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                             return 'report comment';
                         }
                     });
-                
-                // console.log($scope.leftNavList[0]);
+
                 $scope.activate($scope.leftNavList[0]);
             });
 
@@ -1749,25 +1554,19 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         };
 
         $scope.activate = function(obj, selectedIndex) {
-            // passes the task to the global variable
+            // passes an object from left nav to the global selection variable
 
-            // console.log('touched activate');
+            // reset all previous reliant variables, there are a lot!
             $scope.selected = '';
             $scope.commentMessage = '';
             $scope.selectedIndex = '';
             $scope.inputNote = '';
             $scope.showCommentToggle = 'hide';
             $scope.messageEditToggle = '';
-            
             $scope.selectedIndex = selectedIndex;
-            
-            if(obj.doctype === 'test'){
-                // console.log('when was this last run', obj.last_run);
-            }
 
             if(obj){
                 $scope.selected = obj;
-                // console.log('selected', obj);
             }
         };
 
@@ -1803,22 +1602,18 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             // hide commenting
             // else show the new message's comments
 
-            // console.log(message._id, $scope.commentMessage._id, $scope.showCommentToggle);
-
-            // if(){}
             if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
-                // console.log('match');
                 $scope.showCommentToggle = 'hide';
                 $scope.commentMessage = '';
                 return;
             }
+
             if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
-                // console.log('match');
                 $scope.showCommentToggle = 'show';
                 return;
             }
+
             if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
-                // console.log('fail');
                 $scope.showCommentToggle = 'show'; 
                 $scope.commentMessage = message;
                 return;
@@ -1853,6 +1648,8 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         // MOVE STEPS =========================================
 
         $scope.moveTask = function(old_index, new_index){
+            // TODO: This almost certainly has a reordering bug in it.
+            // Abstract to a directive: the NavList directive
 
             new_index = old_index + new_index;
 
@@ -1884,7 +1681,6 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             var nav = _.pluck($scope.leftNavList, 'name');
             
             $scope.saveSummary();
-
         };
 
 
@@ -1970,7 +1766,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         };
 
         $scope.toggleNote = function(user){
-            // console.log('user for new note', user);
+            // Opens up a new message from a user who previously participated in a test.
             $scope.messageEditToggle = '';
             $scope.inputNote = user;
         };
@@ -1988,9 +1784,7 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             }
 
             $http
-                .put('/api/summary/message/'+message._id, message)
-                .success(function(data){
-                });
+                .put('/api/summary/message/'+message._id, message);
         };
 
         $scope.postMessage = function(message, subject){
@@ -2031,19 +1825,12 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             $http
                 .post(url, data_out)
                 .success(function(data){
-
-                    // console.log('new message data', data);
-
                     $scope.toggleNote();
+
                     $scope.messages[data.msg._subject.name].push(data.msg);
                     $scope.selected._messages.push(data.msg._id);
 
-                    // console.log('msg list', $scope.messages[data.msg._subject.name]);
-                    // console.log('selected list', $scope.selected._messages);
-
                     var indexCheck = _.pluck($scope.leftNavList, 'name');
-                    // console.log('indexCheck', indexCheck);
-
                     _.each(data.tags, function(tag){
                         var idx = indexCheck.indexOf(tag.name);
                         if(idx === -1){
@@ -2069,9 +1856,8 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             var url = '/api/summary/'+ $stateParams._id;
             var data_out = {navlist: $scope.leftNavList, messages:$scope.messages[0]} ;
             
-            $http.put(url, data_out)
-                .success(function(data, msg){
-                });     
+            $http
+                .put(url, data_out);     
 
         };
     }]);
@@ -2088,25 +1874,15 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                 ['$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
         function(  $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         
-        // console.log('loaded test controller');
-        
         $http
             .get('/api/test/'+$stateParams.test_id, {timeout : 5000, cache:false})
             .success(function(data) {
                 $scope.test = data;
                 $scope.tasks = data._tasks;
-
-                // console.log('test', $scope.test);
-                // console.log('tasks', $scope.tasks);
                 $scope.showAnchor(1);
-
-            })
-            .error(function(data) {
-                // console.log('Error: ' + data);
             });
 
-        // DIRECTIVES AND FUNCTIONS ===========================
-
+    // DIRECTIVES AND FUNCTIONS ===============================
 
         // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
@@ -2118,43 +1894,28 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             var dataOut = {onboard : $rootScope.user.onboard};
 
             $http
-                .put(url, dataOut)
-                .success(function(data){
-                    // console.log(data);
-                });
+                .put(url, dataOut);
         };
         
-        // ACTIONS ============================================
-        // an effort to manipulate order.... 
-        $scope.moveTask = function(old_index, up_down){
-            // console.log(old_index, up_down);
-            var new_index = old_index + up_down;
-
-            // console.log(new_index);
-            
-            $scope.tasks.splice(new_index, 0, $scope.tasks.splice(old_index, 1)[0]);
-
-            var task_order = _.pluck($scope.tasks, 'name');
-            var task_idx = _.pluck($scope.tasks, 'task_index');
-            
-            // console.log(task_order, task_idx);
-            // set the stored index of the task properly
-            // // console.log('did things stay moved', $scope.tasks); // for testing purposes
-            
-            // I think if we don't do this, it won't store if another thing's not pressed.
-            $scope.updateTest();
-            
+        // SELECTION ======================================
+        $scope.select = function(task) {
+            $scope.selectedTask = task;
+            // TODO: Set isActive in here. 
+        };
+        
+        $scope.isActive = function(task) {
+            return $scope.selectedTask === task;
         };
 
+    // ACTIONS ============================================
         $scope.selectPrototype = function(kind){
-            // console.log('touched prototype', kind);
             $scope.test.kind = kind;
+
             mixpanel.track('Type of Test', {'test type' : kind });
         };
 
         $scope.selectPlatform = function(kind){
             $scope.test.platform = kind;
-            // console.log('touched platform', $scope.test.platform);
         };
 
         $scope.showAnchor = function(x) {
@@ -2189,51 +1950,34 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
         };
 
         $scope.saveAndMove = function(anchor){
+            // Saves the test and changes the step to the next page
             $scope.updateTest();
             $scope.showAnchor(anchor);
         };
 
-        // TIPS ===============================================
-        $scope.tip = function(test){
+    // TASK FUNCTIONS =====================================
+        $scope.newTask = function(task) {
+            // Add a new task
+            mixpanel.track('Task added', { 'user': $rootScope.user });
             
-            // $scope.tip.body = 'Testing your prototype on an <strong>iPhone</strong> or <strong>iPad</strong>? Download the Field Guide
-            //             app from the <a href="#" class="alt">App Store</a>.'
-
-            // do something HTML-rendering-and-sanitizing related in here.
-            // perhaps implement a Markdown directive?
-        };
-
-        // TASK FUNCTIONS =====================================
-
-    	$scope.newTask = function(task) {
-            // console.log('touched add a task');
-
             task._test = $stateParams.test_id;
             task._session = $scope.test._session;
             task.index = $scope.tasks.length;
             
-            // console.log(task);
-            mixpanel.track('Task added', { 'user': $rootScope.user });
-
             var url = '/api/task/';
             var data_out = task;
             
             $http
                 .post(url,data_out)
                 .success(function(data){
-                    // console.log('new task added '+ JSON.stringify(data));
-
                     $scope.tasks.push(data);
                     $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
                     $scope.newtask = '';
-                })
-                .error(function(data){
-                    // console.log(JSON.stringify(data));
                 });
         };
         
         $scope.removeTask = function(task){
-        
+            // Delete a task
             task.edit=false;
             task.title_edit=false;
 
@@ -2242,118 +1986,80 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
             
             $scope.tasks.splice(index, 1);
 
-            // console.log('delete task', url);
-            // console.log('index', index);
-
             $http.delete(url)
                 .success(function(data){
-                    // console.log(data);
                     $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
-                })
-                .error(function(data){
-                    // console.log('Error: ' + data);
                 });
         };
 
-    	$scope.editTitle = function (task){
-    		// edit the title box for a task
-    		task.title_edit = true;
-    		$scope.edited = task;
-    	};
+        $scope.moveTask = function(old_index, up_down){
+            // set the stored index of the task
+            // Tasks therefore appear in order
+            // TODO: Abstract into a directive
 
-    	$scope.blurTitle = function (task){
-    		// on losing the focus, save the name of the task
-    		task.title_edit = false;
-    		$scope.editedtask = null;
+            var new_index = old_index + up_down;
+            $scope.tasks.splice(new_index, 0, $scope.tasks.splice(old_index, 1)[0]);
 
-    		task.name = task.name.trim();
-
-    		if (!task.name) {
-    			$scope.removeTask(task);
-    		}
-
-            $scope.updateTask(task);
-    	};
-
-        $scope.select = function(task) {
-            $scope.selectedTask = task;         
-        };
-        
-        $scope.isActive = function(task) {
-            return $scope.selectedTask === task;
+            $scope.updateTest();
         };
 
-        $scope.batchTask = function(){
-            // console.log('touched batchTash', $scope.tasks);
+    // Edit Task Things =========================
+        $scope.editTitle = function (task){
+            task.title_edit = true;
+            $scope.edited = task;
+        };
 
-            var dataOut = $scope.tasks;
-            var url = '/api/task/';
+        $scope.blurTitle = function (task){
+            // on losing the focus, save the name of the task
+            task.title_edit = false;
+            $scope.editedtask = null;
 
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    // console.log('tasks pushed', data);
-                })
-                .error(function(data){
-                    // console.log('error', data);
-                });
+            task.name = task.name.trim();
 
+            // deleted the name of the task? Remove it entirely.
+            if (!task.name) {
+                $scope.removeTask(task);
+            }
+
+            $scope.updateTask(task);            
         };
 
         $scope.updateTask = function(task){
-            // console.log('touched update task', task._id, task.desc);
-
             var url = '/api/task/'+task._id;
             var data_out = task;
 
-            return $http
-                .put(url, data_out)
-                .success(function(data){
-                    // console.log('task has pushed', data);
-                    // console.log('current test tasklist', data._tasks);
-                 })
-                .error(function(data){
-                    // console.log('error', data);
-                });
-            
+            $http
+                .put(url, data_out);
         };
 
+    // TEST UPDATE ==============================
         $scope.updateTest = function(){
+            // reminder: this pushes an update to an already-created test
             var test = $scope.test;
             
-            if($scope.test.desc){
-                test.desc = test.desc;
-            }
-
             if($scope.test.name){
                 mixpanel.track('Test name changed', { 'user': $rootScope.user });
             }
 
-            // console.log('touched update test', test);
+            if($scope.test.desc){
+                test.desc = $scope.test.desc;
+            }
 
             var url = '/api/test/'+$stateParams.test_id;
             var data_out = test;
 
+            // index the tasks appropriately and make sure they're put away
             var task_count=0;
             _.each($scope.tasks, function(task){
                 task.index = task_count;
                 task_count++;
-                // console.log(task.name, task.index);
             });
+            
+            $http
+                .put(url, data_out, {timeout:5000});
+        };
 
-            // console.log($scope.tasks);
-
-            // reminder: this pushes an update to an already-created test
-    		return $http
-                .put(url, data_out, {timeout:5000})
-                .success(function(data){
-                    // console.log('test has pushed', data);
-                })
-                .error(function(data){
-                    // console.log('error', data);
-                });
-    	};
-
+    // RETURN TO MAIN SCREEN ====================
         $scope.goHome = function(){
             // fun facts! This might cause a race condition.
             // TODO: see if THEN will work here.
@@ -2362,12 +2068,14 @@ angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$s
                     $location.path('/overview');
                 });
         };
+
     }]);
 })();
 // watch.js
 (function() {
     'use strict';
-    // REPORT CONTROLLER ===========================================================
+    
+    // WATCH CONTROLLER FOR GROUP INTERVIEWS ==================================
         
     angular.module('field_guide_controls')
     .controller('watch', 

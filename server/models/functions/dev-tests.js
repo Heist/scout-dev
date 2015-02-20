@@ -229,7 +229,7 @@ module.exports = function(account, user, next){
     ], 
     function(err, results){
         console.log('route results', results);
-        next(null, results);
+        next(null, results.test);
     });
 
 };
