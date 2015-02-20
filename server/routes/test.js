@@ -44,11 +44,10 @@ app.route('/api/test/')
 app.route('/api/test/dev_tests/')
     .post(function(req, res){
         // In here, require and then call the dev-tests exported elsewhere.
-        devTest(req.user._account, req.user._id, function(err, tests){
-            console.log(tests);
+        devTest(req.user._account, req.user._id, function(err, test){
+            console.log(test);
+            res.json(test);
         });
-        
-        
     });
 
 app.route('/api/test/:_id')
