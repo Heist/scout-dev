@@ -4,19 +4,21 @@
 module.exports = function (app, passport, debug) {
 
 // Module dependencies
-    var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
+    var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
     var async = require('async');
+    var Promise = require('bluebird');
 
 // load data storage models
-    var Message = require('../models/data/message');
-    var Task    = require('../models/data/task');
-    var Test    = require('../models/data/test');
-    var Tag     = require('../models/data/tag');
-    var Subject = require('../models/data/subject');
+    var Message = global.rootRequire('./server/models/data/message');
+    var Task    = global.rootRequire('./server/models/data/task');
+    var Test    = global.rootRequire('./server/models/data/test');
+    var Tag     = global.rootRequire('./server/models/data/tag');
+    var Subject = global.rootRequire('./server/models/data/subject');
 
 // load functions
-    var newMessage = require('../models/functions/new-message.js');
+    var newMessage = global.rootRequire('./server/models/functions/new-message.js');
+    var tagUpdate  = global.rootRequire('./server/models/functions/update-tag.js');
 
 // SUMMARY ROUTES ============================================
 
@@ -221,7 +223,6 @@ module.exports = function (app, passport, debug) {
     });
 
     app.route('/api/summary/test/:_id').put(function(req,res){
-
         console.log('touched summary test', req.body.pass_fail, req.body._id);
 
         Test.findOne({'_id' : req.body._id})
@@ -242,26 +243,12 @@ module.exports = function (app, passport, debug) {
 
     });
 
-    app.route('/api/summary/tag/:_id').put(function(req,res){
-        Tag.findById(req.params._id)
-            .exec(function(err, doc){
-                if (err) {
-                    console.log(err);
-                }
-
-                if(req.body.summary){doc.summary = req.body.summary;}
-                if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
-                if(req.body.visible !== null){ doc.visible = req.body.visible;}
-                if(req.body.embed !== null){ doc.embed = req.body.embed;}
-
-                doc.save(function(err,data){
-                    if(err){
-                        console.log(err);
-                    }
-                    res.json(data);
-                });
+    app.route('/api/summary/tag/:_id')
+        .put(function(req,res){
+            tagUpdate(req.params._id, req.body, function(err, tag){
+                if(err){console.log(err);}
+                res.json(tag);
             });
-
     });
 
 };
