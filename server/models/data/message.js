@@ -22,7 +22,7 @@ var MessageSchema = new Schema ({
     _comments : [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
 
     body : { type: String, trim: true },
-    created_by : { type: Schema.Types.ObjectId },
+    created_by_user : { type: Schema.Types.ObjectId },
     fav_task : { type: Boolean, default: true },
     fav_tag : { type: Boolean, default: true },
     

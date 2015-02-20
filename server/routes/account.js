@@ -26,7 +26,6 @@ module.exports = function(app, debug){
                 User.findById(getUser).exec();
 
             promise.then(function(user){
-                // console.log('touched user', user)
                             
                 reply.id = user._id;
                 reply.email = user.local.email;
@@ -36,7 +35,6 @@ module.exports = function(app, debug){
 
                 if (user.trello.id){ reply.trello = true; }
 
-                // console.log(reply);
                 return User.find({_account: user._account}).select('local.email name _account').exec();
 
             })
@@ -89,7 +87,7 @@ module.exports = function(app, debug){
                     }
 
                     Invitation
-                        .findOne({'user_email' : req.body.address})
+                        .findOne({'invite_email' : req.body.address})
                         .exec(function(err, i){
                             if(!i){ 
                                 // if there is no invitation, pass to next step.
@@ -113,18 +111,18 @@ module.exports = function(app, debug){
                     
                     Invitation.create({
                         _account : req.user._account,
-                        created_by : req.user._id,
-                        user_email : req.body.address
+                        created_by_user : req.user._id,
+                        invite_email : req.body.address
                     }, function(err, invite){
                         if(err){ console.log(err); }
 
                         var mailer = new Emailer(
-                            { to: { email: invite.user_email, },
+                            { to: { email: invite.invite_email, },
                               author: invite._account,
                               subject: "Invite from Field Guide",
                               template: "invite"
                             },
-                            { created_by: req.user.name,
+                            { invitation_by: req.user.name,
                               invite_link: 'http://projects.fieldguideapp.com/login/'+invite._id
                             });
 
@@ -132,7 +130,7 @@ module.exports = function(app, debug){
                             if (err) { 
                                 console.log(err); 
                             }
-                            callback(null, 'Invitation sent to '+ invite.user_email);
+                            callback(null, 'Invitation sent to '+ invite.invite_email);
                         });
                     });
                 }
@@ -155,7 +153,7 @@ module.exports = function(app, debug){
 
                 var envelope_options = {
                     to: {
-                        email: invite.user_email,
+                        email: invite.invite_email,
                     },
                     author: req.user.name,
                     subject: "Invite from Field Guide",
@@ -163,7 +161,7 @@ module.exports = function(app, debug){
                 };
 
                 var message_variables = {
-                    created_by: "Field Guide",
+                    invitation_by: "Field Guide",
                     invite_link: app.locals.real_url+'/login/'+invite._id
                 };
 

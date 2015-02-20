@@ -37,7 +37,7 @@ app.route('/api/message/')
                 var msg = {};
                 var call = {};
 
-                if (req.user._id) {msg.created_by = mongoose.Types.ObjectId(req.user._id);}
+                if (req.user._id) {msg.created_by_user = mongoose.Types.ObjectId(req.user._id);}
 
                 if (req.body.body) {msg.body = req.body.body;}
                 if (req.body._test) {msg._test = mongoose.Types.ObjectId(req.body._test);}

@@ -93,7 +93,7 @@ module.exports = function(app, debug) {
         var promise = Comment.create( {
                 name: req.user.name,
                 body: req.body.comment.body,
-                created_by: req.user._id
+                created_by_user: req.user._id
             },
             function(err, cmt){
                 if (err) {

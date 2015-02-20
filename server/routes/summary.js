@@ -152,12 +152,12 @@ module.exports = function (app, passport, debug) {
        .post(function(req,res){
         console.log('touched new message ', req.body);
 
-        var body, _subject, created_by, _test, _task;
+        var body, _subject, created_by_user, _test, _task;
 
         if (req.body.body) { body = req.body.body;}        
         if (req.body._subject) {_subject = mongoose.Types.ObjectId(req.body._subject); }
         if (req.body._test) {_test = mongoose.Types.ObjectId(req.body._test); }
-        if (req.user._id) {created_by = mongoose.Types.ObjectId(req.user._id); }
+        if (req.user._id) {created_by_user = mongoose.Types.ObjectId(req.user._id); }
 
         if (req.body._task) {_task = mongoose.Types.ObjectId(req.body._task); }
 
@@ -165,7 +165,7 @@ module.exports = function (app, passport, debug) {
             _subject : _subject,
             _test : _test,
             body : body,
-            created_by : created_by
+            created_by : created_by_user
         };
 
         async.waterfall([

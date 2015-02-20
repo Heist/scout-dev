@@ -12,7 +12,7 @@ var db = connect.db;
 
 var CommentSchema = new Schema ({
     body : { type: String, trim: true },
-    created_by : { type: Schema.Types.ObjectId },
+    created_by_user : { type: Schema.Types.ObjectId },
     name : { type: String, trim: true },
     created: Date
 });

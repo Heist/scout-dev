@@ -33,7 +33,7 @@
                     }
 
                     Invitation
-                        .findOne({'user_email' : req.body.address})
+                        .findOne({'invite_email' : req.body.address})
                         .exec(function(err, i){
                             if(!i){ 
                                 // if there is no invitation, pass to next step.
@@ -56,12 +56,12 @@
                     var invite = new Invitation();
                     invite._account = req.user._account;
                     invite.created_by = req.user._id;
-                    invite.user_email = req.body.address;
+                    invite.invite_email = req.body.address;
                     invite.save();
 
                     var envelope_options = {
                             to: {
-                                email: invite.user_email,
+                                email: invite.invite_email,
                             },
                             author: invite._account,
                             subject: "Invite from Field Guide",
@@ -79,7 +79,7 @@
                         if (err) { 
                             console.log(err); 
                         }
-                        callback(null, 'Invitation sent to '+ invite.user_email);
+                        callback(null, 'Invitation sent to '+ invite.invite_email);
                     });
                 }
             ], 

@@ -12,10 +12,10 @@
             .success(function(data) {
                 $scope.tests = data;
                 
-                if($rootScope.user.onboard === 2){
-
+                if($rootScope.user.onboard === 2){ 
+                    
                 }
-                
+
                 if($rootScope.user.onboard === 3 || $rootScope.user.onboard === 4 || $rootScope.user.onboard === 5 ){
                     $location.path('/run/'+$scope.tests[1]._id);
                 }
@@ -68,7 +68,7 @@
                 var test = {};
                 
                 if($rootScope.user){
-                    test.created_by = $rootScope.user;
+                    test.created_by_user = $rootScope.user;
                     mixpanel.track('Add new test', { 'user' : $rootScope.user });
                 } else {
                     console.log('whoops, needs a checkin');

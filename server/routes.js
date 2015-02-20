@@ -269,7 +269,7 @@ app.route('/auth/invite/:_id')
         .get(function(req,res){
             // get an existing invitation to populate the registration page
             Invitation.findById(req.params._id)
-                .select('user_email')
+                .select('invite_email')
                 .exec(function(err,invite){
                     if(err) { return console.log(err); }
                     

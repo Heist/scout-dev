@@ -27,7 +27,7 @@ var getUser = function (address) {
 };
 
 var getInvite = function(address){
-    return Invitation.findOne({'user_email' : address});
+    return Invitation.findOne({'invite_email' : address});
 };
 
 // .then(function () { throw... }) -> this promise will be rejected

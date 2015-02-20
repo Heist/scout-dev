@@ -18,9 +18,9 @@ var Schema = mongoose.Schema;
 var inviteSchema = new Schema({
 
     _account : { type: Schema.Types.ObjectId },
-    user_email: { type: String, trim: true },
+    invite_email: { type: String, trim: true },
     created : { type : Date },
-    created_by : { type: Schema.Types.ObjectId, ref: 'User' },
+    created_by_user : { type: Schema.Types.ObjectId, ref: 'User' },
     pending : {type: Boolean, default: true}
 
 });
