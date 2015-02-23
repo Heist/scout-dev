@@ -208,15 +208,19 @@
 
 
         // MESSAGE FUNCTIONS ==================================
+        $scope.saveEdit = function(message){
+            $scope.messageEditToggle = '';
+            $scope.saveMsg(message);
+        };
 
         $scope.saveMsg = function(message){
             $http
                 .put('/api/message/', message)
                 .success(function(msg, err){
 
-                    var new_list =_.groupBy(msg.messages, function(z){return z._subject.name;});
-                    $scope.leftNavList = msg.nav_list;
-                    $scope.messages = new_list;
+                    // var new_list =_.groupBy(msg.messages, function(z){return z._subject.name;});
+                    // $scope.leftNavList = msg.nav_list;
+                    // $scope.messages = new_list;
                 });
         };
 
@@ -238,11 +242,7 @@
             $scope.inputNote = user;
         };
 
-        $scope.saveEdit = function(message){
-            $scope.messageEditToggle = '';
-            $scope.saveMsg(message);
-        };
-
+   
         $scope.saveFav = function(message){
             if($scope.selected.doctype === 'task'){
                 if(message.fav_task){ message.fav_task = false; }
@@ -254,7 +254,7 @@
                 else if (!message.fav_tag){ message.fav_tag = true;}
             }
 
-            $scope.saveMsg(message);
+            $http.put('/api/message/fav', message);
         };
 
         $scope.postMessage = function(message, subject){

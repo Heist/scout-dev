@@ -17,40 +17,25 @@ module.exports = function (app, passport, debug) {
     var Subject = global.rootRequire('./server/models/data/subject');
 
 // load functions ===============================
-    var objectUpdates  = global.rootRequire('./server/models/functions/object-updates');
-    var buildNavList   = global.rootRequire('./server/models/functions/build-object-list');
+    var buildSummary = global.rootRequire('./server/models/functions/build-summary');
 
+    var objectUpdates  = global.rootRequire('./server/models/functions/object-updates');
+    
     var newMessage     = global.rootRequire('./server/models/functions/new-message');
     var messageFav = global.rootRequire('./server/models/functions/message-fav');
-    var buildMsgList   = global.rootRequire('./server/models/functions/messages-list');
     var editMsg  = global.rootRequire('./server/models/functions/edit-message.js');
 
-
     var newComment     = global.rootRequire('./server/models/functions/comment');    
+
 // SUMMARY ROUTES ============================================
 
     app.route('/api/summary/:_id')
     .get(function(req, res){
     // get the navigation console for the summary.
-        async.parallel({
-            navlist: function(callback){
-                buildNavList(req.params._id, function(err, list){
-                    if(err){console.log(err);}
-                    callback(null, list);
-                });
-            },
-            messages: function(callback){
-                buildMsgList(req.params._id, function(err, list){
-                    if(err){console.log(err);}
-                    callback(null, list);
-                });
-            }
-        },
-        function(err, results){
-            if(err){console.log(err);}
-            res.json(results);
+        buildSummary(req.params._id, function(err, summary){
+            if(err){ console.log(err); }
+            res.json(summary);
         });
-        
     });
 
     app.route('/api/summary/:_id/navListUpdates/')

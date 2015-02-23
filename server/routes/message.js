@@ -25,18 +25,6 @@ module.exports = function(app, passport, debug) {
 //MESSAGE ROUTES  ================================================
 
  // Message Routes from Summary ===========================
-    app.route('/api/summary/message/')
-       .put(function(req, res){
-        // post updates - faving - to a message or array of messages
-            var message_array = [req.body];
-            messageFav(message_array, function(err, messages){
-                if(err){console.log(err);}
-                res.json(messages);
-            });
-        });
-
-
-
     app.route('/api/message/')
     .get(function(req,res){
         // return all messages in the system. This is too many messages.
@@ -62,6 +50,16 @@ module.exports = function(app, passport, debug) {
         editMsg(req.body, function(err, msg){
             if(err){console.log(err);}
             res.json(msg);
+        });
+    });
+
+    app.route('/api/message/fav')
+   .put(function(req, res){
+    // post fav to a message or array of messages
+        var message_array = [req.body];
+        messageFav(message_array, function(err, messages){
+            if(err){console.log(err);}
+            res.json(messages);
         });
     });
 
