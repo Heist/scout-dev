@@ -12,8 +12,6 @@ module.exports = function(message_array, next){
 // load data storage models =====================
     var Message = global.rootRequire('./server/models/data/message');
 
-// load functions ===============================
-
 // Map an array of messages and return them ===============
 
     async.map(message_array,

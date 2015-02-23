@@ -17,6 +17,10 @@ module.exports = function(request, user, next){
     var Tag     = global.rootRequire('./server/models/data/tag');
     var Subject = global.rootRequire('./server/models/data/subject');
 
+// load functions ===============================
+    var tagPuller = global.rootRequire('./server/models/functions/tag-puller.js');
+
+
 // CREATE A NEW MESSAGE ===================================
     console.log('touched new message', body);
 

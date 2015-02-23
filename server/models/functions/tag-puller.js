@@ -16,6 +16,5 @@ module.exports = function(message, next){
     }
     
     message.tags = tags;
-
-    next(null, message);
+    return message;
 };
