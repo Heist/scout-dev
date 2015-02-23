@@ -3,13 +3,18 @@
 'use strict';
 
 module.exports = function(message_array, next){
+
 // Module dependencies ==========================
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
     var async = require('async');
 
-// load data storage models ==========================
+// load data storage models =====================
     var Message = global.rootRequire('./server/models/data/message');
+
+// load functions ===============================
+
+// Map an array of messages and return them ===============
 
     async.map(message_array,
         function(msg, callback){

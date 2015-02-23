@@ -95,7 +95,6 @@ module.exports = function (app, passport, debug) {
 app.route('/api/summary/:_id/navListUpdates/')
     .put(function(req, res){
         console.log('touched summary put');
-        
         // this function takes two arrays and updates the objects it finds within them.
         var object_array = req.body.navlist || req.body;
         var message_array = req.body.messages || [];
@@ -125,19 +124,18 @@ app.route('/api/summary/:_id/navListUpdates/')
     
     app.route('/api/summary/message/')
        .post(function(req,res){
-        // create a new message from the summary.
+        // create a new message from the summary
             newMessage(req.body, req.user._id, function(err, message){
                     if(err){console.log(err);}
                     res.json(message);
                 });
         })
        .put(function(req, res){
-            // post updates to a message
+        // post updates - faving - to a message or array of messages
             var message_array = [req.body];
             messageUpdates(message_array, function(err, messages){
                 if(err){console.log(err);}
                 res.json(messages);
             });
-       });
-
+        });
 };
