@@ -145,21 +145,7 @@
         $scope.moveTask = function(old_index, new_index){
             // TODO: This almost certainly has a reordering bug in it.
             // Abstract to a directive: the NavList directive
-
             new_index = old_index + new_index;
-
-            while (old_index < 0) {
-                old_index += this.length;
-            }
-            while (new_index < 0) {
-                new_index += this.length;
-            }
-            if (new_index >= this.length) {
-                var k = new_index - this.length;
-                while ((k--) + 1) {
-                    this.push(undefined);
-                }
-            }
             
             $scope.leftNavList.splice(new_index, 0, $scope.leftNavList.splice(old_index, 1)[0]);
 
@@ -170,10 +156,6 @@
                 obj.report_index = obj_count;
                 obj_count++;
             });
-
-            var dataOut = $scope.leftNavList;
-
-            var nav = _.pluck($scope.leftNavList, 'name');
             
             $scope.saveSummary();
         };
@@ -181,13 +163,9 @@
 
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
-            var url, data;
+            var data = [obj];
 
-            url = 'summary/'+ $stateParams._id +'/navListUpdates/';
-            data = [obj];
-
-            $http
-                .put('/api/'+url, data)
+            $http.put('/api/summary/object', data)
                 .success(function(doc){
                     console.log(doc);
                 });
@@ -208,28 +186,6 @@
 
 
         // MESSAGE FUNCTIONS ==================================
-        $scope.saveEdit = function(message){
-            $scope.messageEditToggle = '';
-            $scope.saveMsg(message);
-        };
-
-        $scope.saveMsg = function(message){
-            $http
-                .put('/api/message/', message)
-                .success(function(msg, err){
-
-                    // var new_list =_.groupBy(msg.messages, function(z){return z._subject.name;});
-                    // $scope.leftNavList = msg.nav_list;
-                    // $scope.messages = new_list;
-                });
-        };
-
-        $scope.msgFilter = function(message){
-            // Display messages that belong to the current selected item.
-            if (message._id === $scope.selected._id) { return true; }
-            else { return false; }
-        };
-
         $scope.editMessage = function(message, index){
             // clear this on blur to block weird toggle bug
             $scope.inputNote = '';
@@ -242,7 +198,15 @@
             $scope.inputNote = user;
         };
 
-   
+        $scope.saveEdit = function(message){
+            $scope.messageEditToggle = '';
+            $http
+                .put('/api/message/', message)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
+
         $scope.saveFav = function(message){
             if($scope.selected.doctype === 'task'){
                 if(message.fav_task){ message.fav_task = false; }
@@ -255,6 +219,12 @@
             }
 
             $http.put('/api/message/fav', message);
+        };
+
+        $scope.msgFilter = function(message){
+            // Display messages that belong to the current selected item.
+            if (message._id === $scope.selected._id) { return true; }
+            else { return false; }
         };
 
         $scope.postMessage = function(message, subject){
@@ -271,6 +241,7 @@
             note._subject = subject._id;
 
             message = '';
+
             $scope.newnote = '';
             $scope.toggleNote(subject._id);
 

@@ -62,6 +62,16 @@ module.exports = function (app, passport, debug) {
         });
     });
 
+    app.route('/api/summary/object')
+        .put(function(req,res){
+            // update an object but not any messages
+            objectUpdates(req.body,
+                function(err, update){
+                    if(err){console.log(err);}
+                    res.json(update);
+                });
+        });
+
     // Comment route =============================
     app.route('/api/comment/')
        .post(function(req, res){
