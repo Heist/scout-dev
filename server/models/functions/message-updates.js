@@ -19,12 +19,14 @@ module.exports = function(message_array, next){
 
     async.map(message_array,
         function(msg, callback){
+
+            var m = editMsg(msg);
             Message.findByIdAndUpdate(
-                msg._id, 
+                m._id, 
                 { 
                     'fav_task' : msg.fav_task,
                     'fav_tag'  : msg.fav_tag,
-                    'body'  : msg.body,
+                    'body'  : m.body,
                 }, 
                 function(err, data){
                     if(err){console.log(err);}

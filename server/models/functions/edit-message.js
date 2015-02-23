@@ -17,7 +17,6 @@ module.exports = function(msg, next){
 // load functions ===============================
     var tagPuller = global.rootRequire('./server/models/functions/tag-puller.js');
 
-
 // EDIT A MESSAGE =========================================
     var tags = tagPuller(msg.body);
 
@@ -114,7 +113,7 @@ module.exports = function(msg, next){
             });
         }      
     ], function (err, result) {
-       // ship the result back to the front end for handling
+        // result should be {data: data, tag_set: tag_set} from line 77.
         if(err){ console.log(err); }
         next(result);
     });
