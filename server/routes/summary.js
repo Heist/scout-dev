@@ -20,10 +20,7 @@ module.exports = function (app, passport, debug) {
     var buildSummary = global.rootRequire('./server/models/functions/build-summary');
 
     var objectUpdates  = global.rootRequire('./server/models/functions/object-updates');
-    
-    var newMessage     = global.rootRequire('./server/models/functions/new-message');
     var messageFav = global.rootRequire('./server/models/functions/message-fav');
-    var editMsg  = global.rootRequire('./server/models/functions/edit-message.js');
 
     var newComment     = global.rootRequire('./server/models/functions/comment');    
 
@@ -40,7 +37,9 @@ module.exports = function (app, passport, debug) {
 
     app.route('/api/summary/:_id/navListUpdates/')
     .put(function(req, res){
-    // this function takes two arrays and updates the objects it finds within them.
+        // this should be used for updating objects with
+        // visibility and summaries
+
         var object_array = req.body.navlist || req.body;
         var message_array = req.body.messages || [];
 
