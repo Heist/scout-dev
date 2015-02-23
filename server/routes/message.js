@@ -20,7 +20,7 @@ module.exports = function(app, passport, debug) {
     var newMessage     = global.rootRequire('./server/models/functions/new-message.js');
     var messageUpdates = global.rootRequire('./server/models/functions/message-updates');
     var buildMsgList   = global.rootRequire('./server/models/functions/messages-list');
-
+    var editMsg        = global.rootRequire('./server/models/functions/edit-message.js');
 
 //MESSAGE ROUTES  ================================================
 
@@ -58,7 +58,7 @@ module.exports = function(app, passport, debug) {
             });
     })
     .put(function(req, res){
-        
+
     });
 
     app.route('/api/message/:_id')

@@ -6,11 +6,14 @@ module.exports = function(message_array, next){
 
 // Module dependencies ==========================
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
-    var _ = require('lodash');
-    var async = require('async');
+    var _        = require('lodash');
+    var async    = require('async');
 
 // load data storage models =====================
-    var Message = global.rootRequire('./server/models/data/message');
+    var Message  = global.rootRequire('./server/models/data/message');
+
+// load functions  ==============================
+    var editMsg  = global.rootRequire('./server/models/functions/edit-message.js');
 
 // Map an array of messages and return them ===============
 
