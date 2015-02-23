@@ -3,20 +3,21 @@
 
 module.exports = function(app, passport, debug) {
 
-// Module dependencies
+// Module dependencies ==========================
     var mongoose = require('mongoose');  // Required to set ObjectID as ObjectID
     var _ = require('lodash');
     var async = require('async');
 
-// load data storage models
+// load data storage models =====================
     var Message = require('../models/data/message');
     var Task    = require('../models/data/task');
     var Test    = require('../models/data/test');
     var Tag     = require('../models/data/tag');
     var Subject = require('../models/data/subject');
 
-// load functions 
+// load functions ===============================
     var deleteTask = require('../models/functions/delete-task.js');
+
 
 // TASK ROUTES ===================================================
 
