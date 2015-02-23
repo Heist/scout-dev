@@ -389,7 +389,7 @@ app.route('/auth/invite/:_id')
     app.route('/api/public/report/:_id')
     .get(function(req, res){
         var buildSummary = global.rootRequire('./server/models/functions/build-summary');
-        
+
         buildSummary(req.params._id, function(err, summary){
             if(err){console.log(err);}
             res.json(summary);
@@ -402,7 +402,6 @@ app.route('/auth/invite/:_id')
     app.use('/api',  isLoggedInAjax, function (req, res, next) {
         // for calls that start with api....
         // console.log('touched the api tag');
-
         next();
     });
 

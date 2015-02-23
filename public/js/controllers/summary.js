@@ -311,9 +311,7 @@
             var url = '/api/summary/'+ $stateParams._id;
             var data_out = {navlist: $scope.leftNavList, messages:$scope.messages[0]} ;
             
-            $http
-                .put(url, data_out);     
-
+            $http.put(url, data_out);
         };
     }]);
 })();

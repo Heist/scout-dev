@@ -33,13 +33,10 @@ module.exports = function (app, passport, debug) {
             if(err){ console.log(err); }
             res.json(summary);
         });
-    });
-
-    app.route('/api/summary/:_id/navListUpdates/')
+    })
     .put(function(req, res){
         // this should be used for updating objects with
         // visibility and summaries
-
         var object_array = req.body.navlist || req.body;
         var message_array = req.body.messages || [];
 
@@ -63,7 +60,6 @@ module.exports = function (app, passport, debug) {
             if(err){console.log(err);}
             res.json(results);
         });
-        
     });
 
     // Comment route =============================
