@@ -18,7 +18,7 @@ module.exports = function(app, passport, debug) {
 
 // load functions  ==============================
     var newMessage     = global.rootRequire('./server/models/functions/new-message.js');
-    var messageUpdates = global.rootRequire('./server/models/functions/message-updates');
+    var messageFav = global.rootRequire('./server/models/functions/message-fav');
     var buildMsgList   = global.rootRequire('./server/models/functions/messages-list');
     var editMsg        = global.rootRequire('./server/models/functions/edit-message.js');
 
@@ -29,7 +29,7 @@ module.exports = function(app, passport, debug) {
        .put(function(req, res){
         // post updates - faving - to a message or array of messages
             var message_array = [req.body];
-            messageUpdates(message_array, function(err, messages){
+            messageFav(message_array, function(err, messages){
                 if(err){console.log(err);}
                 res.json(messages);
             });
@@ -51,14 +51,18 @@ module.exports = function(app, passport, debug) {
         //     });
     })
     .post(function(req,res){
-     // create a new message
+     // Create a new message
         newMessage(req.body, req.user._id, function(err, message){
                 if(err){console.log(err);}
                 res.json(message);
             });
     })
     .put(function(req, res){
-
+    // Edit the body of a message and change its tag associations
+        editMsg(req.body, function(err, msg){
+            if(err){console.log(err);}
+            res.json(msg);
+        });
     });
 
     app.route('/api/message/:_id')
@@ -69,9 +73,5 @@ module.exports = function(app, passport, debug) {
                 if(err){ console.log(err); }
                 res.json(msg);
             });
-    })
-    .put(function(req, res){
-        // edit the body of a message
-     
     });
 };

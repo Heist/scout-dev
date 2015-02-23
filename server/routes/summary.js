@@ -21,8 +21,10 @@ module.exports = function (app, passport, debug) {
     var buildNavList   = global.rootRequire('./server/models/functions/build-object-list');
 
     var newMessage     = global.rootRequire('./server/models/functions/new-message');
-    var messageUpdates = global.rootRequire('./server/models/functions/message-updates');
+    var messageFav = global.rootRequire('./server/models/functions/message-fav');
     var buildMsgList   = global.rootRequire('./server/models/functions/messages-list');
+    var editMsg  = global.rootRequire('./server/models/functions/edit-message.js');
+
 
     var newComment     = global.rootRequire('./server/models/functions/comment');    
 // SUMMARY ROUTES ============================================
@@ -66,7 +68,7 @@ module.exports = function (app, passport, debug) {
                 });
             },
             function(callback){
-                messageUpdates(message_array,
+                messageFav(message_array,
                     function(err, update){
                         if(err){console.log(err);}
                         callback(null, update);
