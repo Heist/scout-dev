@@ -150,8 +150,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         if(comment && comment.body.length > 0){
             var dataOut = {
                 body : comment.body,
-                msg  : $scope.commentMessage._id,
-                report : $stateParams.test_id
+                msg  : $scope.commentMessage._id
             };
     
             $http
