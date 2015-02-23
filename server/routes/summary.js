@@ -9,29 +9,46 @@ module.exports = function (app, passport, debug) {
     var async = require('async');
     var Promise = require('bluebird');
 
-// load data storage models ==========================
+// load data storage models =====================
     var Message = global.rootRequire('./server/models/data/message');
     var Task    = global.rootRequire('./server/models/data/task');
     var Test    = global.rootRequire('./server/models/data/test');
     var Tag     = global.rootRequire('./server/models/data/tag');
     var Subject = global.rootRequire('./server/models/data/subject');
 
-// load functions ==========================
-    var newMessage     = global.rootRequire('./server/models/functions/new-message');
-    var tagUpdate      = global.rootRequire('./server/models/functions/update-tag');
+// load functions ===============================
     var objectUpdates  = global.rootRequire('./server/models/functions/object-updates');
-    var messageUpdates = global.rootRequire('./server/models/functions/message-updates');
     var buildNavList   = global.rootRequire('./server/models/functions/build-object-list');
 
+    var newMessage     = global.rootRequire('./server/models/functions/new-message');
+    var messageUpdates = global.rootRequire('./server/models/functions/message-updates');
+    var buildMsgList   = global.rootRequire('./server/models/functions/messages-list');
+
+    
 // SUMMARY ROUTES ============================================
 
     app.route('/api/summary/:_id')
     .get(function(req, res){
     // get the navigation console for the summary.
-        buildNavList(req.params._id, function(err, list){
+        async.parallel({
+            navlist: function(callback){
+                buildNavList(req.params._id, function(err, list){
+                    if(err){console.log(err);}
+                    callback(null, list);
+                });
+            },
+            messages: function(callback){
+                buildMsgList(req.params._id, function(err, list){
+                    if(err){console.log(err);}
+                    callback(null, list);
+                });
+            }
+        },
+        function(err, results){
             if(err){console.log(err);}
-            res.json(list);
+            res.json(results);
         });
+        
     });
 
     app.route('/api/summary/:_id/navListUpdates/')
