@@ -9,15 +9,17 @@ module.exports = function(app, passport, debug) {
     var async = require('async');
 
 // load data storage models
-    var Message = require('../models/data/message');
-    var Task    = require('../models/data/task');
-    var Test    = require('../models/data/test');
-    var Tag     = require('../models/data/tag');
-    var Subject = require('../models/data/subject');
+    var Message = global.rootRequire('./server/models/data/message');
+    var Task    = global.rootRequire('./server/models/data/task');
+    var Test    = global.rootRequire('./server/models/data/test');
+    var Tag     = global.rootRequire('./server/models/data/tag');
+    var Subject = global.rootRequire('./server/models/data/subject');
 
 // load functions
-    var devTest = require('../models/functions/dev-tests.js');
-    var dupeTest = require('../models/functions/dupe-tests.js');
+    var devTest  = global.rootRequire('./server/models/functions/dev-tests.js');
+    var dupeTest = global.rootRequire('./server/models/functions/dupe-tests.js');
+    var editTest = global.rootRequire('./server/models/functions/edit-test.js');
+
 
 // TEST ROUTES ===================================================
 
@@ -65,50 +67,11 @@ app.route('/api/test/:_id')
             res.json(test);
         });
     })
-    
     .put(function(req,res){
     // update one test with new information
-        var tasks = [];
-
-        async.waterfall([
-            function(callback){
-                if(req.body._tasks.length > 0){
-                    tasks = _.pluck(req.body._tasks, '_id');
-
-                    async.each(req.body._tasks, function(task){
-                        Task.findOneAndUpdate(
-                            {'_id': task._id},
-                            {index : task.index },
-                            function(err, doc){
-                                if(err){console.log(err);}
-                            });
-                    });
-
-                    callback(null, tasks);
-                } else {
-                    callback(null, null);
-                }
-            },
-            function(tasks, callback){
-                Test.findOneAndUpdate(
-                { _id : req.params._id },
-                {
-                    desc    : req.body.desc,
-                    link    : req.body.link,
-                    name    : req.body.name,
-                    platform: req.body.platform,
-                    kind    : req.body.kind,
-                    _tasks  : tasks
-                },
-                { upsert : true },
-                function (err, doc) {
-                    if (err){console.log(err);}
-                    callback(null, doc);
-                });
-            }
-        ], 
-        function(err, results){
-            res.json(results);
+        editTest(req.body, function(err, test){
+            if(err){console.log(err);}
+            res.json(test);
         });
     })
     .delete(function(req,res){

@@ -17,11 +17,9 @@ module.exports = function (app, passport, debug) {
     var Subject = global.rootRequire('./server/models/data/subject');
 
 // load functions ===============================
-    var buildSummary = global.rootRequire('./server/models/functions/build-summary');
-
+    var buildSummary   = global.rootRequire('./server/models/functions/build-summary');
     var objectUpdates  = global.rootRequire('./server/models/functions/object-updates');
-    var messageFav = global.rootRequire('./server/models/functions/message-fav');
-
+    var messageFav     = global.rootRequire('./server/models/functions/message-fav');
     var newComment     = global.rootRequire('./server/models/functions/comment');    
 
 // SUMMARY ROUTES ============================================

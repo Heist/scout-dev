@@ -4,32 +4,32 @@
 
 module.exports = function(msg, next){
 
-// Module dependencies
+// Module dependencies ==========================
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _        = require('lodash');
     var async    = require('async');
     var Promise  = require('bluebird');
 
-// load data storage models
+// load data storage models =====================
     var Message = global.rootRequire('./server/models/data/message');
     var Tag     = global.rootRequire('./server/models/data/tag');
 
 // load functions ===============================
     var tagPuller = global.rootRequire('./server/models/functions/tag-puller.js');
-
-// EDIT A MESSAGE =========================================
     var tags = tagPuller(msg.body);
 
-        // edit a message. First edit tags related to message, then edit message body.
+// EDIT A MESSAGE =========================================
 
-        // find all tags in the db with this test name
-        // if a tag matching a given req.body.tag does not exist, create it
-        // if tag does exist, and message is not already present on it, push message
-        // if there are tags returned that are not in req.body.tags, remove message
-        // if there are tags returned that are empty of messages, delete them
-        // reply with res.json({tags : tags, msg: msg});
+    // edit a message. First edit tags related to message, then edit message body.
 
-        // globals to sort through
+    // find all tags in the db with this test name
+    // if a tag matching a given req.body.tag does not exist, create it
+    // if tag does exist, and message is not already present on it, push message
+    // if there are tags returned that are not in req.body.tags, remove message
+    // if there are tags returned that are empty of messages, delete them
+    // reply with res.json({tags : tags, msg: msg});
+
+    // globals to sort through
 
     async.waterfall([
         function(callback) {
