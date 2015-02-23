@@ -54,7 +54,6 @@ module.exports = function (app, passport, debug) {
     app.route('/api/summary/:_id/navListUpdates/')
     .put(function(req, res){
     // this function takes two arrays and updates the objects it finds within them.
-
         var object_array = req.body.navlist || req.body;
         var message_array = req.body.messages || [];
 
