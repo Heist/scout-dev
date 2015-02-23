@@ -5,19 +5,19 @@ module.exports = function(app, passport, debug) {
 
 // Module dependencies ==========================
     var mongoose = require('mongoose');  // Required to set ObjectID as ObjectID
-    var _ = require('lodash');
-    var async = require('async');
+    var _        = require('lodash');
+    var async    = require('async');
 
 // load data storage models =====================
-    var Message = require('../models/data/message');
-    var Task    = require('../models/data/task');
-    var Test    = require('../models/data/test');
-    var Tag     = require('../models/data/tag');
-    var Subject = require('../models/data/subject');
+    var Message = global.rootRequire('./server/models/data/message');
+    var Task    = global.rootRequire('./server/models/data/task');
+    var Test    = global.rootRequire('./server/models/data/test');
+    var Tag     = global.rootRequire('./server/models/data/tag');
+    var Subject = global.rootRequire('./server/models/data/subject');
 
 // load functions ===============================
-    var deleteTask = require('../models/functions/delete-task.js');
-
+    var deleteTask     = global.rootRequire('./server/models/functions/delete-task.js');
+    var objectUpdates  = global.rootRequire('./server/models/functions/object-updates');
 
 // TASK ROUTES ===================================================
 
@@ -33,28 +33,10 @@ app.route('/api/task/')
     .put(function(req,res){
         // update an array of tasks
         var arr = _.toArray(req.body);
-        async.map(arr, 
-            function(key, callback){
-                Task.findOneAndUpdate(
-                    { '_id' : key._id },
-                    { 
-                        name : key.name,
-                        summary : key.summary,
-                        pass_fail : key.pass_fail,
-                        desc : key.desc,
-                        _test : key._test,
-                        index : key.index,
-                        $push: { '_subjects' : key._subject }
-                    },
-                    { upsert : false },
-                    function(err, task){
-                        if(err){console.log(err);}
-                        callback( null, task);
-                    });
-            }, 
-        function(err, results){
+
+        objectUpdates(arr, function(err, update){
             if(err){console.log(err);}
-            res.json(results);
+            res.json(update);
         });
     })
     .post(function(req,res){
@@ -80,7 +62,7 @@ app.route('/api/task/')
         });
     });
 
-app.route('/api/task/:_id')
+    app.route('/api/task/:_id')
     .get(function(req,res){
     // get single task
         Task.findById(req.params._id)
@@ -91,24 +73,12 @@ app.route('/api/task/:_id')
     })
     .put(function(req,res){
     // update a single task
-        var key = req.body; 
-
-        Task.findOneAndUpdate(
-            { '_id' : req.params._id },
-            { 
-                name : key.name,
-                summary : key.summary,
-                pass_fail : key.pass_fail,
-                desc : key.desc,
-                _test : key._test,
-                index : key.index,
-                $push: { '_subjects' : key._subject }
-            },
-            { upsert : false },
-            function(err, task){
-                if(err){console.log(err);}
-                res.json(task);
-            });
+        var arr = [req.body];
+        
+        objectUpdates(arr, function(err, update){
+            if(err){console.log(err);}
+            res.json(update);
+        });
     })
     .delete(function(req,res){
     // delete a task
