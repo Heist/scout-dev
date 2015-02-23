@@ -12,11 +12,8 @@
         $scope.commentMessage = '';
 
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams.test_id;
+        
         $scope.showReportLink = false;
-        $scope.toggleReportLink =  function(){
-            if(!$scope.showReportLink){ $scope.showReportLink=true; }
-            else{ $scope.showReportLink = false; }
-        };
 
         $http.get('/api/summary/'+$stateParams._id)
             .success(function(data){
@@ -46,6 +43,11 @@
 
         $scope.reportPreview = function(){
             $location.path('/report/'+ $stateParams._id);
+        };
+
+        $scope.toggleReportLink =  function(){
+            if(!$scope.showReportLink){ $scope.showReportLink=true; }
+            else{ $scope.showReportLink = false; }
         };
 
         $scope.activate = function(obj, selectedIndex) {
