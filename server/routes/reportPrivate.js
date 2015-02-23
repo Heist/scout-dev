@@ -52,7 +52,7 @@ module.exports = function(app, debug) {
     app.route('/api/comment/')
        .post(function(req, res){
         // Add a comment to a message declared on the request.
-        newComment(req.body.comment.body, req.params._id, req.user, function(err, comment){
+        newComment(req.body, req.user, function(err, comment){
             if(err){console.log(err);}
             res.json(comment);
         });

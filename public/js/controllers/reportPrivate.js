@@ -146,10 +146,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
     };
 
     $scope.addComment = function(comment){
-        // this is overly clever.
-        // send out the body of the comment
-        // and the reportID
-
+        // if there's a comment, edit the comment
         if(comment && comment.body.length > 0){
             var dataOut = {
                 body : comment.body,
@@ -160,14 +157,14 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
             $http
                 .post('/api/comment/', dataOut)
                 .success(function(data){
+                    // Set the message to be the message with comment.
                     comment.body = '';
-
                     var arr = _.pluck($scope.messages, '_id');
                     var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
-
-                    $scope.messages[msg_idx]._comments.push(data.comment);
+                    $scope.messages[msg_idx] = data;
                 });
         } else {
+            // if there's no comment, hide the comments.
             $scope.showCommentToggle = 'hide';   
         }
     };
