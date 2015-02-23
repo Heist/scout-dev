@@ -223,7 +223,7 @@
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            
+
             $http
                 .put('/api/message/', message)
                 .success(function(msg, err){
@@ -254,7 +254,7 @@
             }
 
             $http
-                .put('/api/summary/message/'+message._id, message);
+                .put('/api/summary/message/', message);
         };
 
         $scope.postMessage = function(message, subject){
@@ -264,7 +264,6 @@
             var note = {};
 
             note.body = message;
-            note.tags = [];
             note.created = new Date();
              
             note._task = $scope.selected._id;
@@ -275,20 +274,6 @@
             $scope.newnote = '';
             $scope.toggleNote(subject._id);
 
-            // TODO: this will catch things on both sides of the hash. 
-            // if message has # with no space, post that to message.tags
-
-            var hashCatch = new RegExp(/\S*#\S+/gi);
-            var hashPull = new RegExp(/#/gi);
-            var tagIt = note.body.match(hashCatch);
-            
-            if (tagIt){
-                for (var i=0; i < tagIt.length; ++i) {
-                    var msg = tagIt[i].replace(hashPull,'');
-                    note.tags.push(msg);
-                }
-            }
-            
             var url = '/api/summary/message/';
             var data_out = note;
 
