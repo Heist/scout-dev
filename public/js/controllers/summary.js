@@ -274,7 +274,7 @@
             $scope.newnote = '';
             $scope.toggleNote(subject._id);
 
-            var url = '/api/summary/message/';
+            var url = '/api/message/';
             var data_out = note;
 
             $http

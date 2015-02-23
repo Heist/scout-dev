@@ -80,24 +80,6 @@ module.exports = function (app, passport, debug) {
         
     });
 
-    // Message Routes ===========================
-    app.route('/api/summary/message/')
-       .post(function(req,res){
-        // create a new message from the summary
-            newMessage(req.body, req.user._id, function(err, message){
-                    if(err){console.log(err);}
-                    res.json(message);
-                });
-        })
-       .put(function(req, res){
-        // post updates - faving - to a message or array of messages
-            var message_array = [req.body];
-            messageUpdates(message_array, function(err, messages){
-                if(err){console.log(err);}
-                res.json(messages);
-            });
-        });
-
     // Comment route =============================
     app.route('/api/comment/')
        .post(function(req, res){

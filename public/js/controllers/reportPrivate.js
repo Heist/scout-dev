@@ -40,7 +40,6 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 // ==============================================
 
 
-
 // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
 
