@@ -3,23 +3,23 @@
 
 module.exports = function (app, passport, debug) {
 
-// Module dependencies
+// Module dependencies ==========================
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
     var async = require('async');
     var Promise = require('bluebird');
 
-// load data storage models
+// load data storage models ==========================
     var Message = global.rootRequire('./server/models/data/message');
     var Task    = global.rootRequire('./server/models/data/task');
     var Test    = global.rootRequire('./server/models/data/test');
     var Tag     = global.rootRequire('./server/models/data/tag');
     var Subject = global.rootRequire('./server/models/data/subject');
 
-// load functions
+// load functions ==========================
     var newMessage = global.rootRequire('./server/models/functions/new-message.js');
     var tagUpdate  = global.rootRequire('./server/models/functions/update-tag.js');
-
+    var navListObjectUpdates = global.rootRequire('./server/models/functions/navlist-object-updates.js');
 // SUMMARY ROUTES ============================================
 
     app.route('/api/summary/:_id')
@@ -28,8 +28,8 @@ module.exports = function (app, passport, debug) {
         // push them to the nav list using map
         // order them by their report-index and return them
         
+        // TODO call this into a function called 'create navList'
         console.log('touched report get', req.params._id);
-
         async.parallel({
             tags: function(callback){
                 Tag.find({'_test' : req.params._id })
@@ -90,9 +90,19 @@ module.exports = function (app, passport, debug) {
     })
     .put(function(req, res){
         console.log('touched summary put');
+        // update all navigation objects
+        
         // async.map each object in req body
         // if it has a summary, find the object by doctype and update components
+        // this function takes two arrays and updates the objects it finds within them.
+        var object_array = req.body.navlist;
+        var message_array = req.body.messages;
 
+        navListObjectUpdates(object_array, message_array, 
+            function(err, nav_update){
+                if(err){console.log(err);}
+                
+            });
 
         async.parallel([
             function(callback){
