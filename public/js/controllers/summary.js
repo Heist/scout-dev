@@ -11,7 +11,7 @@
         $scope.timeline = [];
         $scope.commentMessage = '';
 
-        $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
+        $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams.test_id;
         $scope.showReportLink = false;
         $scope.toggleReportLink =  function(){
             if(!$scope.showReportLink){ $scope.showReportLink=true; }
@@ -146,7 +146,7 @@
             // TODO: This almost certainly has a reordering bug in it.
             // Abstract to a directive: the NavList directive
             new_index = old_index + new_index;
-            
+
             $scope.leftNavList.splice(new_index, 0, $scope.leftNavList.splice(old_index, 1)[0]);
 
             var obj_count=0;
