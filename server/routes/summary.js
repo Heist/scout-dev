@@ -4,17 +4,7 @@
 module.exports = function (app, passport, debug) {
 
 // Module dependencies ==========================
-    var mongoose = require('mongoose');  // can't set an ObjectID without this.
-    var _ = require('lodash');
     var async = require('async');
-    var Promise = require('bluebird');
-
-// load data storage models =====================
-    var Message = global.rootRequire('./server/models/data/message');
-    var Task    = global.rootRequire('./server/models/data/task');
-    var Test    = global.rootRequire('./server/models/data/test');
-    var Tag     = global.rootRequire('./server/models/data/tag');
-    var Subject = global.rootRequire('./server/models/data/subject');
 
 // load functions ===============================
     var buildSummary   = global.rootRequire('./server/models/functions/build-summary');

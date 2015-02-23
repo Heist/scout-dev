@@ -6,7 +6,6 @@ module.exports = function(app, passport, debug) {
 // load data storage models =====================
     var Tag     = require('../models/data/tag');
     
-
 // TAG ROUTES ================================================
     app.route('/api/tag/')
         .get(function(req,res){

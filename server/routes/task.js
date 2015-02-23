@@ -4,24 +4,19 @@
 module.exports = function(app, passport, debug) {
 
 // Module dependencies ==========================
-    var mongoose = require('mongoose');  // Required to set ObjectID as ObjectID
-    var _        = require('lodash');
     var async    = require('async');
 
 // load data storage models =====================
-    var Message = global.rootRequire('./server/models/data/message');
     var Task    = global.rootRequire('./server/models/data/task');
     var Test    = global.rootRequire('./server/models/data/test');
-    var Tag     = global.rootRequire('./server/models/data/tag');
-    var Subject = global.rootRequire('./server/models/data/subject');
-
+    
 // load functions ===============================
     var deleteTask     = global.rootRequire('./server/models/functions/delete-task.js');
     var objectUpdates  = global.rootRequire('./server/models/functions/object-updates');
 
 // TASK ROUTES ===================================================
 
-app.route('/api/task/')
+    app.route('/api/task/')
     // get all tasks
     .get(function(req,res){
         Task.find({}, 
@@ -74,7 +69,7 @@ app.route('/api/task/')
     .put(function(req,res){
     // update a single task
         var arr = [req.body];
-        
+
         objectUpdates(arr, function(err, update){
             if(err){console.log(err);}
             res.json(update);
