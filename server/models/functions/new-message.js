@@ -6,9 +6,9 @@ module.exports = function(request, user, next){
 
 // Module dependencies
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
-    var _ = require('lodash');
-    var async = require('async');
-    var Promise = require('bluebird');
+    var _        = require('lodash');
+    var async    = require('async');
+    var Promise  = require('bluebird');
 
 // load data storage models
     var Message = global.rootRequire('./server/models/data/message');

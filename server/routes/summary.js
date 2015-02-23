@@ -198,48 +198,47 @@ module.exports = function (app, passport, debug) {
     });
 
     app.route('/api/summary/task/:_id').put(function(req,res){
+        // TODO: abstract all three into a generic update method.
         console.log('touched summary task', req.body.pass_fail, req.body._id);
+        var summary   = req.body.summary,
+            pass_fail = req.body.pass_fail || false,
+            visible   = req.body.visible || false,
+            embed     = req.body.embed || '';
 
-        Task.findOne({'_id': req.body._id})
-            .exec(function(err, doc){
-                if (err) {
-                    console.log(err);
-                }
-
-                console.log('touched task', req.body._id);
-
-                if(req.body.summary){doc.summary = req.body.summary;}
-                if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
-                if(req.body.visible !== null){ doc.visible = req.body.visible;}
-                if(req.body.embed !== null){ doc.embed = req.body.embed;}
-
-                doc.save(function(err,data){
-                    if(err){console.log(err);}
-
-                    console.log('updated task', data._id);
-                    res.json(data);
-                });
+        Task.findOneAndUpdate(
+            {'_id' : req.body._id },
+            {
+                summary : summary,
+                pass_fail : pass_fail,
+                visible : visible,
+                embed : embed
+            },
+            function(err, task){
+                if(err){console.log(err);}
+                res.json(task);
             });
     });
 
     app.route('/api/summary/test/:_id').put(function(req,res){
         console.log('touched summary test', req.body.pass_fail, req.body._id);
+        var summary   = req.body.summary,
+            pass_fail = req.body.pass_fail || false,
+            visible   = req.body.visible || false,
+            embed     = req.body.embed || '';
 
-        Test.findOne({'_id' : req.body._id})
-            .exec(function(err, doc){
-                if (err) { console.log(err); }
-
-                // console.log('test found', doc._id);
-                if(req.body.summary){doc.summary = req.body.summary;}
-                if(req.body.pass_fail !== null){ doc.pass_fail = req.body.pass_fail;}
-                if(req.body.visible !== null){ doc.visible = req.body.visible;}
-                if(req.body.embed !== null){ doc.embed = req.body.embed;}
-
-                doc.save(function(err,data){
-                    if(err){console.log(err);}
-                    res.json(data);
-                });
+        Test.findOneAndUpdate(
+            {'_id' : req.body._id },
+            {
+                summary : summary,
+                pass_fail : pass_fail,
+                visible : visible,
+                embed : embed
+            },
+            function(err, test){
+                if(err){console.log(err);}
+                res.json(test);
             });
+            
 
     });
 
