@@ -26,7 +26,7 @@ module.exports = function(request, user, next){
 
 // set message variables from request object.
     var body = request.body,
-        tags = request.tags || null,
+        tags = tagPuller(body) || null,
         _subject = request._subject,
         _test = request._test,
         _task = request._task;
@@ -113,7 +113,6 @@ module.exports = function(request, user, next){
     function(err, results){
         // End of waterfall chain - new message and tags return here.
         if(err){console.log(err);}
-
         next(null, {msg: results.msg, tags: results.waterfall.tags});
     });
 };

@@ -15,6 +15,5 @@ module.exports = function(message, next){
         });
     }
     
-    message.tags = tags;
-    return message;
+    return tags;
 };
