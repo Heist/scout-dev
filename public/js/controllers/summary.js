@@ -209,6 +209,17 @@
 
         // MESSAGE FUNCTIONS ==================================
 
+        $scope.saveMsg = function(message){
+            $http
+                .put('/api/message/', message)
+                .success(function(msg, err){
+
+                    var new_list =_.groupBy(msg.messages, function(z){return z._subject.name;});
+                    $scope.leftNavList = msg.nav_list;
+                    $scope.messages = new_list;
+                });
+        };
+
         $scope.msgFilter = function(message){
             // Display messages that belong to the current selected item.
             if (message._id === $scope.selected._id) { return true; }
@@ -221,28 +232,18 @@
             $scope.messageEditToggle = message._id;
         };
 
-        $scope.saveEdit = function(message){
-            $scope.messageEditToggle = '';
-
-            $http
-                .put('/api/message/', message)
-                .success(function(msg, err){
-
-                    var new_list =_.groupBy(msg.messages, function(z){return z._subject.name;});
-
-                    $scope.leftNavList = msg.nav_list;
-                    $scope.messages = new_list;
-                });
-        };
-
         $scope.toggleNote = function(user){
             // Opens up a new message from a user who previously participated in a test.
             $scope.messageEditToggle = '';
             $scope.inputNote = user;
         };
 
+        $scope.saveEdit = function(message){
+            $scope.messageEditToggle = '';
+            $scope.saveMsg(message);
+        };
+
         $scope.saveFav = function(message){
-            
             if($scope.selected.doctype === 'task'){
                 if(message.fav_task){ message.fav_task = false; }
                 else if (!message.fav_task){ message.fav_task = true; }
@@ -253,8 +254,7 @@
                 else if (!message.fav_tag){ message.fav_tag = true;}
             }
 
-            $http
-                .put('/api/summary/message/', message);
+            $scope.saveMsg(message);
         };
 
         $scope.postMessage = function(message, subject){
