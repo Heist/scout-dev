@@ -13,7 +13,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         else{ $scope.showReportLink = false; }
     };
 
-    $http.get('/api/private/report/'+$stateParams.test_id)
+    $http.get('/api/summary/'+$stateParams.test_id)
             .success(function(data){
                 $scope.leftNavList = [];
                 $scope.testname = data.test;

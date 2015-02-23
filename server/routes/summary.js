@@ -24,7 +24,7 @@ module.exports = function (app, passport, debug) {
     var messageUpdates = global.rootRequire('./server/models/functions/message-updates');
     var buildMsgList   = global.rootRequire('./server/models/functions/messages-list');
 
-    
+    var newComment     = global.rootRequire('./server/models/functions/comment');    
 // SUMMARY ROUTES ============================================
 
     app.route('/api/summary/:_id')
@@ -79,7 +79,8 @@ module.exports = function (app, passport, debug) {
         });
         
     });
-    
+
+    // Message Routes ===========================
     app.route('/api/summary/message/')
        .post(function(req,res){
         // create a new message from the summary
@@ -96,4 +97,14 @@ module.exports = function (app, passport, debug) {
                 res.json(messages);
             });
         });
+
+    // Comment route =============================
+    app.route('/api/comment/')
+       .post(function(req, res){
+        // Add a comment to a message declared on the request.
+        newComment(req.body, req.user, function(err, comment){
+            if(err){console.log(err);}
+            res.json(comment);
+        });
+    });
 };
