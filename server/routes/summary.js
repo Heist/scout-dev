@@ -130,94 +130,14 @@ app.route('/api/summary/:_id/navListUpdates/')
                     if(err){console.log(err);}
                     res.json(message);
                 });
-        });
-
-    app.route('/api/summary/message/:_id')
-        .put(function(req,res){
-        // for adding favs to messages - include messages in reports.
-        Message.findOneAndUpdate(
-            {'_id' : req.params._id}, 
-            { 
-                fav_task : req.body.fav_task, 
-                fav_tag : req.body.fav_tag,
-            }, 
-            function(err, msg){
-                if(err){return console.log(err);}
-                res.json(msg);
-            });
-    });
-
-    app.route('/api/summary/task/').put(function(req,res){
-        // batch update only tasks
-        async.map(req.body.tasks, 
-                function(task, callback){
-                    Task.findByIdAndUpdate(
-                        task._id,
-                        {'pass_fail': task.pass_fail,
-                        'report_index' : task.report_index,
-                        'summary': task.summary,
-                        'embed':task.embed },
-                        function(err, data){
-                            if(err) {return res.send (err);}
-                            callback(null, data);
-                        });
-                }, 
-                function(err, results){
-                    res.json(results);
-                });
-    });
-
-    app.route('/api/summary/task/:_id').put(function(req,res){
-        // TODO: abstract all three into a generic update method.
-        console.log('touched summary task', req.body.pass_fail, req.body._id);
-        var summary   = req.body.summary,
-            pass_fail = req.body.pass_fail || false,
-            visible   = req.body.visible || false,
-            embed     = req.body.embed || '';
-
-        Task.findOneAndUpdate(
-            {'_id' : req.body._id },
-            {
-                summary : summary,
-                pass_fail : pass_fail,
-                visible : visible,
-                embed : embed
-            },
-            function(err, task){
+        })
+       .put(function(req, res){
+            // post updates to a message
+            var message_array = [req.body];
+            messageUpdates(message_array, function(err, messages){
                 if(err){console.log(err);}
-                res.json(task);
+                res.json(messages);
             });
-    });
-
-    app.route('/api/summary/test/:_id').put(function(req,res){
-        console.log('touched summary test', req.body.pass_fail, req.body._id);
-        var summary   = req.body.summary,
-            pass_fail = req.body.pass_fail || false,
-            visible   = req.body.visible || false,
-            embed     = req.body.embed || '';
-
-        Test.findOneAndUpdate(
-            {'_id' : req.body._id },
-            {
-                summary : summary,
-                pass_fail : pass_fail,
-                visible : visible,
-                embed : embed
-            },
-            function(err, test){
-                if(err){console.log(err);}
-                res.json(test);
-            });
-            
-
-    });
-
-    app.route('/api/summary/tag/:_id')
-        .put(function(req,res){
-            tagUpdate(req.params._id, req.body, function(err, tag){
-                if(err){console.log(err);}
-                res.json(tag);
-            });
-    });
+       });
 
 };

@@ -223,23 +223,9 @@
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-
-            var tags = [];
-            var hashCatch = new RegExp(/\S*#\S+/gi);
-            var hashPull = new RegExp(/#/gi);
-            var tagIt = message.body.match(hashCatch);
             
-            if (tagIt){
-                _.each(tagIt, function(tag){
-                    var msg = tag.replace(hashPull,'');
-                    tags.push(msg);
-                });
-            }
-            
-            message.tags = tags;
-
             $http
-                .put('/api/message/'+message._id, message)
+                .put('/api/message/', message)
                 .success(function(msg, err){
 
                     var new_list =_.groupBy(msg.messages, function(z){return z._subject.name;});
