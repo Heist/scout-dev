@@ -146,13 +146,19 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
     };
 
     $scope.addComment = function(comment){
+        // this is overly clever.
+        // send out the body of the comment
+        // and the reportID
+
         if(comment && comment.body.length > 0){
             var dataOut = {
-                comment: {body : comment.body}
+                body : comment.body,
+                msg  : $scope.commentMessage._id,
+                report : $stateParams.test_id
             };
-            
+    
             $http
-                .post('/api/comment/'+$scope.commentMessage._id, dataOut)
+                .post('/api/comment/', dataOut)
                 .success(function(data){
                     comment.body = '';
 

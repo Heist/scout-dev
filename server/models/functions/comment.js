@@ -7,7 +7,6 @@ module.exports = function(text, report_id, user, next){
     var Message = global.rootRequire('./server/models/data/message');
     var Comment = global.rootRequire('./server/models/data/comment');
 
-
 // COMMENT ON A MESSAGE ===================================
     var reply = {};
     var promise = Comment.create( {
