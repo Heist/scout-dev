@@ -388,73 +388,12 @@ app.route('/auth/invite/:_id')
 
     app.route('/api/public/report/:_id')
     .get(function(req, res){
-        console.log('touched report get', req.params._id);
-
-        // var t = new Trello ();
-
-        var test_id = mongoose.Types.ObjectId(req.params._id);
-        var reply = {};
-
-        async.parallel({
-            tags: function(callback){
-                Tag.find({'_test' : req.params._id })
-                    .sort({name: 1})
-                    .exec(function(err, docs){
-                        if (err) {
-	console.log(err);
-}
-                        callback(null, docs);
-                    });
-            },
-            tasks: function(callback){
-                Task.find({'_test': req.params._id})
-                    .sort({ index: 'asc'})
-                    .exec(function(err, docs){
-                        if (err) {
-	console.log(err);
-}
-                        callback(null, docs);
-                    });
-            },
-            test: function(callback){
-                Test.find({'_id' : req.params._id})
-                    .limit(1)
-                    .exec(function(err, docs){
-                        if(err){console.log(err);}
-                        callback(null, docs);
-                    });
-            },
-            messages: function(callback){
-                Message.find({ 
-                        '_test':{$in: [req.params._id]},
-                        $or : [{fav_task:true}, {fav_tag: true }]
-                    })
-                       .populate({path:'_subject', select: 'name' })
-                       .exec(function(err, docs){
-                            if(err){console.log(err);}
-                            callback(null, docs);
-                        });
-            }
-        },
-        function(err, results) {
-            // results is now equals to: {one: 1, two: 2}
-            console.log('get results', results);
-            var return_array = [];
-
-            _.each(results.test, function(test){
-                return_array.push(test);
-            });
-            _.each(results.tasks, function(task){
-                return_array.push(task);
-            });
-            _.each(results.tags, function(tag){
-                return_array.push(tag);
-            });
-            // callback(null, );
-            console.log(results.test[0].name);
-            res.json({test: results.test[0].name, navlist: return_array, messages: results.messages});
+        var buildSummary = global.rootRequire('./server/models/functions/build-summary');
+        
+        buildSummary(req.params._id, function(err, summary){
+            if(err){console.log(err);}
+            res.json(summary);
         });
-
     });
 
 // MIDDLEWARE TO BLOCK NON-AUTHORIZED USERS ===============
