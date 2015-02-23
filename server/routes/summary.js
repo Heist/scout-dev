@@ -19,7 +19,10 @@ module.exports = function (app, passport, debug) {
 // load functions ==========================
     var newMessage = global.rootRequire('./server/models/functions/new-message.js');
     var tagUpdate  = global.rootRequire('./server/models/functions/update-tag.js');
-    var navListObjectUpdates = global.rootRequire('./server/models/functions/navlist-object-updates.js');
+    var objectUpdates = global.rootRequire('./server/models/functions/object-updates.js');
+    var messageUpdates = global.rootRequire('./server/models/functions/message-updates.js');
+
+
 // SUMMARY ROUTES ============================================
 
     app.route('/api/summary/:_id')
@@ -87,81 +90,37 @@ module.exports = function (app, passport, debug) {
             res.json({test: results.test[0].name, navlist: return_array, messages: results.messages});
         });
 
-    })
+    });
+
+app.route('/api/summary/:_id/navListUpdates/')
     .put(function(req, res){
         console.log('touched summary put');
-        // update all navigation objects
         
-        // async.map each object in req body
-        // if it has a summary, find the object by doctype and update components
         // this function takes two arrays and updates the objects it finds within them.
-        var object_array = req.body.navlist;
-        var message_array = req.body.messages;
-
-        navListObjectUpdates(object_array, message_array, 
-            function(err, nav_update){
-                if(err){console.log(err);}
-                
-            });
+        var object_array = req.body.navlist || req.body;
+        var message_array = req.body.messages || [];
 
         async.parallel([
             function(callback){
-                async.map(req.body.navlist, 
-                    function(obj, callback){
-                        var Model;
-                        if(obj.doctype === 'tag'){Model = Tag;}
-                        if(obj.doctype === 'task'){Model = Task;}
-                        if(obj.doctype === 'test'){Model = Test;}
-
-                        Model.findById(obj._id)
-                             .exec(function(err, model){
-
-                                model.pass_fail     = obj.pass_fail;
-                                model.report_index  = obj.report_index;
-                                model.summary       = obj.summary;
-                                model.summarized    = obj.summarized;
-                                model.embed         = obj.embed;
-                                model.report        = true;
-
-                                model.save(function(err, data){
-                                    console.log('update', data.name, data.report_index);
-                                    callback(null, data);
-                                });
-                            });
-
-                    },
-                    function(err, results){
-                        // console.log('map', results);
-                        callback(null, results);
-                    });
+                objectUpdates(object_array,
+                function(err, update){
+                    if(err){console.log(err);}
+                    callback(null, update);
+                });
             },
             function(callback){
-                async.map(req.body.messages, 
-                    function(msg, callback){
-                        Message.findByIdAndUpdate(
-                            msg._id, 
-                            { 
-                                'fav_task' : msg.fav_task,
-                                'fav_tag'  : msg.fav_tag,
-                                'body'  : msg.body,
-                            }, 
-                            function(err, data){
-                                if(err){console.log(err);}
-                                callback(null, data);
-                            });
-                    }, 
-                    function(err, results){
-                        callback(null, results);
+                messageUpdates(message_array,
+                    function(err, update){
+                        if(err){console.log(err);}
+                        callback(null, update);
                     });
             }
         ],
-        function(err, results){
-            // the results array will equal ['one','two'] even though
-            // the second function had a shorter timeout.
-            console.log('done summary update');
+        function(err,results){
+            if(err){console.log(err);}
             res.json(results);
         });
-
+        
     });
     
     app.route('/api/summary/message/')
@@ -173,7 +132,8 @@ module.exports = function (app, passport, debug) {
                 });
         });
 
-    app.route('/api/summary/message/:_id').put(function(req,res){
+    app.route('/api/summary/message/:_id')
+        .put(function(req,res){
         // for adding favs to messages - include messages in reports.
         Message.findOneAndUpdate(
             {'_id' : req.params._id}, 

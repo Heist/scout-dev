@@ -182,21 +182,10 @@
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
             var url, data;
-            console.log('touched saveObj', obj);
 
-            if(obj.doctype === 'test'){
-                url = 'summary/test/'+ obj._id;
-                data = obj;
-            }
-            if(obj.doctype === 'task'){
-                url = 'summary/task/'+ obj._id;
-                data = obj;
-            }
-            if(obj.doctype === 'tag'){
-                url = 'summary/tag/'+ obj._id;
-                data = obj;
-                obj.summarized = true;
-            }
+            url = 'summary/'+ $stateParams._id +'/navListUpdates/';
+            data = [obj];
+
             $http
                 .put('/api/'+url, data)
                 .success(function(doc){
