@@ -10,9 +10,9 @@
         $scope.test = {};
         $scope.timeline = [];
         $scope.commentMessage = '';
+        $scope.showCommentToggle = 'hide';
 
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams.test_id;
-        
         $scope.showReportLink = false;
 
         $http.get('/api/summary/'+$stateParams._id)
@@ -22,22 +22,20 @@
                 $scope.testname = data.navlist.test;
                 
                 var sort = _.sortBy(data.navlist.list, function(obj){
-                                    return(obj.report_index);
+                                    return (obj.report_index);
                                 });
-
                 _.each(sort, function(obj){ $scope.leftNavList.push(obj); });
                 
                 // group messages by users
-                $scope.messages = _.groupBy(data.messages, 
+                $scope.messages = _.groupBy(data.messages,
                     function(z){
-                        if(z._subject.name){
-                            return z._subject.name;
-                        } else {
-                            return 'report comment';
-                        }
+                        return z._subject.name ? 
+                               z._subject.name : 
+                               'report comment';
                     });
 
                 $scope.activate($scope.leftNavList[0]);
+
             });
 
     // NAVIGATION =============================================
