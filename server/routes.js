@@ -472,7 +472,4 @@ app.route('/auth/invite/:_id')
 // Do A Summary
     require('./routes/summary')(app, debug);
 
-// Reporting and Comments 
-    require('./routes/reportPrivate')(app, debug);
-
 };

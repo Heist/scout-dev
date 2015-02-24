@@ -24,6 +24,11 @@
                 $scope.test = data;
                 $scope.kind = data.kind;
                 $scope.navlist = data._tasks;
+
+                $scope.timeline.push({ 
+                    title: 'Starting test', 
+                    body: data.name 
+                });
                 
                 // reset variables to clear cache from state changes.
                 $scope.task = {};
@@ -161,11 +166,10 @@
 
             mixpanel.track('Task changed', {});
 
-            var m   = ( index === 0 ) ? 
-                    { title: 'Starting test', body: $scope.test.name } :
-                    { title: 'Starting task', body: $scope.selected.name };
-
-            $scope.timeline.push(m);
+            $scope.timeline.push({ 
+                title: 'Starting task', 
+                body: $scope.selected.name 
+            });
 
             // get the id of the selected object, 
             // update it with the new subject when we finish the test.

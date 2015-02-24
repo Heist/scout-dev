@@ -293,78 +293,78 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
     field_guide_app.directive('ngCheckStrength', function () {
 
-        return {
-            replace: false,
-            restrict: 'EACM',
-            link: function (scope, iElement, iAttrs) {
+        // return {
+        //     replace: false,
+        //     restrict: 'EACM',
+        //     link: function (scope, iElement, iAttrs) {
 
-                var strength = {
-                    colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
-                    measureStrength: function (p) {
-                        if(p){
-                            var _force = 0;                    
-                            var _regex = new RegExp('[$-/:-?{-~!"^_`\[\]]','g');
+        //         var strength = {
+        //             colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
+        //             measureStrength: function (p) {
+        //                 if(p){
+        //                     var _force = 0;                    
+        //                     var _regex = new RegExp('[$-/:-?{-~!"^_`\[\]]','g');
                                                   
-                            var _lowerLetters = /[a-z]+/.test(p);                    
-                            var _upperLetters = /[A-Z]+/.test(p);
-                            var _numbers = /[0-9]+/.test(p);
-                            var _symbols = _regex.test(p);
+        //                     var _lowerLetters = /[a-z]+/.test(p);                    
+        //                     var _upperLetters = /[A-Z]+/.test(p);
+        //                     var _numbers = /[0-9]+/.test(p);
+        //                     var _symbols = _regex.test(p);
                                                   
-                            var _flags = [_lowerLetters, _upperLetters, _numbers, _symbols];                    
-                            var _passedMatches = $.grep(_flags, function (el) { return el === true; }).length;                                          
+        //                     var _flags = [_lowerLetters, _upperLetters, _numbers, _symbols];                    
+        //                     var _passedMatches = $.grep(_flags, function (el) { return el === true; }).length;                                          
                             
-                            _force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
-                            _force += _passedMatches * 10;
+        //                     _force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
+        //                     _force += _passedMatches * 10;
                                 
-                            // penality (short password)
-                            _force = (p.length <= 6) ? Math.min(_force, 10) : _force;                                      
+        //                     // penality (short password)
+        //                     _force = (p.length <= 6) ? Math.min(_force, 10) : _force;                                      
                             
-                            // penality (poor variety of characters)
-                            _force = (_passedMatches === 1) ? Math.min(_force, 10) : _force;
-                            _force = (_passedMatches === 2) ? Math.min(_force, 20) : _force;
-                            _force = (_passedMatches === 3) ? Math.min(_force, 40) : _force;
+        //                     // penality (poor variety of characters)
+        //                     _force = (_passedMatches === 1) ? Math.min(_force, 10) : _force;
+        //                     _force = (_passedMatches === 2) ? Math.min(_force, 20) : _force;
+        //                     _force = (_passedMatches === 3) ? Math.min(_force, 40) : _force;
                             
-                            return _force;
-                        }
+        //                     return _force;
+        //                 }
 
-                    },
-                    getColor: function (s) {
-                        if(s){
-                            var idx = 0;
-                            if (s <= 10) { idx = 0; }
-                            else if (s <= 20) { idx = 1; }
-                            else if (s <= 30) { idx = 2; }
-                            else if (s <= 40) { idx = 3; }
-                            else { idx = 4; }
+        //             },
+        //             getColor: function (s) {
+        //                 if(s){
+        //                     var idx = 0;
+        //                     if (s <= 10) { idx = 0; }
+        //                     else if (s <= 20) { idx = 1; }
+        //                     else if (s <= 30) { idx = 2; }
+        //                     else if (s <= 40) { idx = 3; }
+        //                     else { idx = 4; }
     
-                            return { idx: idx + 1, col: this.colors[idx] };
-                        }
-                    }
-                };
+        //                     return { idx: idx + 1, col: this.colors[idx] };
+        //                 }
+        //             }
+        //         };
 
-                scope.$watch(iAttrs.ngCheckStrength, function () {
-                    // console.log('watching');
-                    if (!scope.user) {
-                        // console.log('no user');
-                        iElement.css({ "display": "none"  });
-                    } else {
-                        // console.log(scope.user.password.length);
-                        var c = strength.getColor(strength.measureStrength(scope.user.password));
-                        iElement.css({ "display": "inline" });
-                        iElement.children('li')
-                            .css({ "background": "#DDD" })
-                            .slice(0, c.idx)
-                            .css({ "background": c.col });
-                    }
-                });
+        //         scope.$watch(iAttrs.ngCheckStrength, function () {
+        //             // console.log('watching');
+        //             if (!scope.user) {
+        //                 // console.log('no user');
+        //                 iElement.css({ "display": "none"  });
+        //             } else {
+        //                 // console.log(scope.user.password.length);
+        //                 var c = strength.getColor(strength.measureStrength(scope.user.password));
+        //                 iElement.css({ "display": "inline" });
+        //                 iElement.children('li')
+        //                     .css({ "background": "#DDD" })
+        //                     .slice(0, c.idx)
+        //                     .css({ "background": c.col });
+        //             }
+        //         });
 
-            },
-            template:   '<li class="pwStrength"></li>'+
-                        '<li class="pwStrength"></li>'+
-                        '<li class="pwStrength"></li>'+
-                        '<li class="pwStrength"></li>'+
-                        '<li class="pwStrength"></li>'
-        };
+        //     },
+        //     template:   '<li class="pwStrength"></li>'+
+        //                 '<li class="pwStrength"></li>'+
+        //                 '<li class="pwStrength"></li>'+
+        //                 '<li class="pwStrength"></li>'+
+        //                 '<li class="pwStrength"></li>'
+        // };
 
     });
 
@@ -790,7 +790,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         $scope.devTest = function(){
             $http.post('/api/test/dev_tests/')
                 .success(function(data){
-                    console.log(data);
                     $scope.tests.push(data);
                 });
         };
@@ -891,7 +890,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         else{ $scope.showReportLink = false; }
     };
 
-    $http.get('/api/private/report/'+$stateParams.test_id)
+    $http.get('/api/summary/'+$stateParams.test_id)
             .success(function(data){
                 $scope.leftNavList = [];
                 $scope.testname = data.test;
@@ -916,7 +915,6 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
     mixpanel.track('Report Loaded', {});
 
 // ==============================================
-
 
 
 // ONBOARDING =========================================
@@ -1024,22 +1022,24 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
     };
 
     $scope.addComment = function(comment){
+        // if there's a comment, edit the comment
         if(comment && comment.body.length > 0){
             var dataOut = {
-                comment: {body : comment.body}
+                body : comment.body,
+                msg  : $scope.commentMessage._id
             };
-            
+    
             $http
-                .post('/api/comment/'+$scope.commentMessage._id, dataOut)
+                .post('/api/comment/', dataOut)
                 .success(function(data){
+                    // Set the message to be the message with comment.
                     comment.body = '';
-
                     var arr = _.pluck($scope.messages, '_id');
                     var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
-
-                    $scope.messages[msg_idx]._comments.push(data.comment);
+                    $scope.messages[msg_idx] = data;
                 });
         } else {
+            // if there's no comment, hide the comments.
             $scope.showCommentToggle = 'hide';   
         }
     };
@@ -1227,10 +1227,8 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
     function($scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
         
         // set up controller-wide variables
-        $scope.update = {};
-        $scope.update.tests = [];
-        $scope.update.tasks = [];
-
+        $scope.update = [];
+        
         $scope.timeline = []; // holds all messages currently in test
         $scope.glued = true;
 
@@ -1239,14 +1237,21 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         $http
             .get('/api/run/'+$stateParams._id)
             .success(function(data){
-                $scope.tests = data;
-                $scope.kind = data[0].kind;
+                // this should return an ordered nav list
+                // with a test at position 0
 
+                $scope.test = data;
+                $scope.kind = data.kind;
+                $scope.navlist = data._tasks;
+
+                $scope.timeline.push({ 
+                    title: 'Starting test', 
+                    body: data.name 
+                });
+                
                 // reset variables to clear cache from state changes.
                 $scope.task = {};
                 var message = {};
-
-                // Subject has been created, now open a room with that subject_id
             });
 
     // ONBOARDING =========================================
@@ -1264,7 +1269,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
                     .success(function(data){
                         console.log($rootScope.user);
                         if($rootScope.user.onboard === 6 ){
-                            $location.path('/summary/'+$scope.tests[1]._id);
+                            $location.path('/summary/'+$scope.test._id);
                         }
                     });
             } else {
@@ -1361,122 +1366,80 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
     // ANGULAR ROUTES ===================================================
         $scope.addTask = function(task){
-            if($scope.adding_task){
-                $scope.adding_task=false;
-            }
 
-            var dataOut = { 
-                name : task.name,
-                desc : task.desc,
-                _test : $stateParams._id,
-                index : $scope.tests[0]._tasks.length
-            };
+            $scope.adding_task = $scope.adding_task ? false : $scope.adding_task;
+
+            task._test = $stateParams._id;
+            task._index = $scope.test._tasks.length;
             
             $http
-                .post('/api/task/', dataOut)
+                .post('/api/task/', task)
                 .success(function(data){
-                    $scope.tests[0]._tasks.push(data);
+                    $scope.test._tasks.push(data);
                 });
 
         };
 
-        $scope.select = function(testIndex, taskIndex) {
-            var test = $scope.tests[testIndex];
-            $scope.selected = test._tasks[taskIndex];
+        $scope.select = function(index) {
+            $scope.selected = $scope.navlist[index];
 
             mixpanel.track('Task changed', {});
 
-            // select
-            // pushes the identity of a test or task
-            // to the update array
-            // which is then output to server when things are updated
-            // this prevents the session from bulk-updating everything onscreen
-            // if it has not in fact been touched.
+            $scope.timeline.push({ 
+                title: 'Starting task', 
+                body: $scope.selected.name 
+            });
 
-            if(taskIndex === 0){
-            
-                var m   = {};
-                m.title = 'Starting test';
-                m.body  = test.name;
+            // get the id of the selected object, 
+            // update it with the new subject when we finish the test.
+            var arr = _.pluck($scope.update, '_id');
+            var id = $scope.selected._id;
 
-                $scope.timeline.push(m);
-
-                if($scope.update.tests.indexOf(test._id) === -1){
-                    $scope.update.tests.push(test._id);
-                    $scope.subject._tests.push(test._id);
-                }
-            }
-
-            var em   = {};
-            em.title = 'Starting task';
-            em.body  = test._tasks[taskIndex].name;
-
-            $scope.timeline.push(em);
-
-            if($scope.update.tasks.indexOf(test._tasks[taskIndex]._id) === -1){
-                $scope.update.tasks.push(test._tasks[taskIndex]._id);
+            if(arr.indexOf($scope.test._id) === -1){
+                $scope.update
+                    .push({ 
+                    '_id' : $scope.selected._id, 
+                    '_subject' : $scope.subject._id 
+                });
             }
         };
 
 
         $scope.addSubject = function(subject){
-            $scope.subject = subject;
-
-            var url = 'api/subject/';
-            var data_out = {name : subject.name, testroom: subject.testroom, test: $stateParams._id};
+            subject.name     = subject.name;
+            subject.testroom = subject.testroom || '';
+            subject.test     = $stateParams._id;
 
             $http
-                .post(url, data_out)
-                .success(function(subject){
-                    $scope.subject = subject;
+                .post('api/subject/', subject)
+                .success(function(data){
+                    $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);
 
+                    socket.emit('channel', {room : subject.testroom, test: subject.test});
                     mixpanel.track('Add Participant Name', {});
-                    socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
-        
-                })
-                .error(function(data){
-            });
+                });
         };
 
         $scope.postMessage = function(message){
             // here we create a note object
             if(message.length <= 0){
-                return;
+                return ;
             } else {
                 var note = {};
 
                 note.body = message;
-                note.tags = [];
+
                 note.created = new Date();
-                 
                 note._task = $scope.selected._id;
                 note._test = $scope.selected._test;
                 note._subject = $scope.subject._id;
 
                 $scope.timeline.push(note);
 
-                // TODO: this will catch things on both sides of the hash. 
-                // if message has # with no space, post that to message.tags
-
-                var hashCatch = new RegExp(/\S*#\S+/gi);
-                var hashPull = new RegExp(/#/gi);
-                var tagIt = message.match(hashCatch);          
-                
-                if (tagIt){
-                    for (var i=0; i < tagIt.length; ++i) {
-                        var msg = tagIt[i].replace(hashPull,'');
-                        note.tags.push(msg);
-                    }
-                }
-
-
-                var url = '/api/message/';
-                var data_out = note;
-
                 $http
-                    .post(url, data_out)
+                    .post('/api/message/', note)
                     .success(function(data){
                         $scope.message='';
                     });
@@ -1484,19 +1447,12 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         };
 
         $scope.postTest = function(){
-            // collects all the tests and steps and outputs them as a collected object
-            // to the session api link
-            // where they are parsed 
-            // and their individual subject lists are updated.
-            
-            var url = '/api/run/'+$stateParams._id;
-            var data_out = {tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
+            // Send tasks that have had a subject added to the DB.
             mixpanel.track('Test completed', {});
 
             $http
-                .post(url, data_out)
+                .post('/api/run/', $scope.update)
                 .success(function(data){
-                    console.log('Updated tests', data);
                     $location.path('/overview');
                 });
 
@@ -1516,12 +1472,9 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         $scope.timeline = [];
         $scope.commentMessage = '';
 
-        $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
+        $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams.test_id;
+        
         $scope.showReportLink = false;
-        $scope.toggleReportLink =  function(){
-            if(!$scope.showReportLink){ $scope.showReportLink=true; }
-            else{ $scope.showReportLink = false; }
-        };
 
         $http.get('/api/summary/'+$stateParams._id)
             .success(function(data){
@@ -1551,6 +1504,11 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
         $scope.reportPreview = function(){
             $location.path('/report/'+ $stateParams._id);
+        };
+
+        $scope.toggleReportLink =  function(){
+            if(!$scope.showReportLink){ $scope.showReportLink=true; }
+            else{ $scope.showReportLink = false; }
         };
 
         $scope.activate = function(obj, selectedIndex) {
@@ -1650,22 +1608,8 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         $scope.moveTask = function(old_index, new_index){
             // TODO: This almost certainly has a reordering bug in it.
             // Abstract to a directive: the NavList directive
-
             new_index = old_index + new_index;
 
-            while (old_index < 0) {
-                old_index += this.length;
-            }
-            while (new_index < 0) {
-                new_index += this.length;
-            }
-            if (new_index >= this.length) {
-                var k = new_index - this.length;
-                while ((k--) + 1) {
-                    this.push(undefined);
-                }
-            }
-            
             $scope.leftNavList.splice(new_index, 0, $scope.leftNavList.splice(old_index, 1)[0]);
 
             var obj_count=0;
@@ -1675,10 +1619,6 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
                 obj.report_index = obj_count;
                 obj_count++;
             });
-
-            var dataOut = $scope.leftNavList;
-
-            var nav = _.pluck($scope.leftNavList, 'name');
             
             $scope.saveSummary();
         };
@@ -1686,24 +1626,9 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
-            var url, data;
-            console.log('touched saveObj', obj);
+            var data = [obj];
 
-            if(obj.doctype === 'test'){
-                url = 'summary/test/'+ obj._id;
-                data = obj;
-            }
-            if(obj.doctype === 'task'){
-                url = 'summary/task/'+ obj._id;
-                data = obj;
-            }
-            if(obj.doctype === 'tag'){
-                url = 'summary/tag/'+ obj._id;
-                data = obj;
-                obj.summarized = true;
-            }
-            $http
-                .put('/api/'+url, data)
+            $http.put('/api/summary/object', data)
                 .success(function(doc){
                     console.log(doc);
                 });
@@ -1724,45 +1649,10 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
 
         // MESSAGE FUNCTIONS ==================================
-
-        $scope.msgFilter = function(message){
-            // Display messages that belong to the current selected item.
-            if (message._id === $scope.selected._id) { return true; }
-            else { return false; }
-        };
-
         $scope.editMessage = function(message, index){
             // clear this on blur to block weird toggle bug
             $scope.inputNote = '';
             $scope.messageEditToggle = message._id;
-        };
-
-        $scope.saveEdit = function(message){
-            $scope.messageEditToggle = '';
-
-            var tags = [];
-            var hashCatch = new RegExp(/\S*#\S+/gi);
-            var hashPull = new RegExp(/#/gi);
-            var tagIt = message.body.match(hashCatch);
-            
-            if (tagIt){
-                _.each(tagIt, function(tag){
-                    var msg = tag.replace(hashPull,'');
-                    tags.push(msg);
-                });
-            }
-            
-            message.tags = tags;
-
-            $http
-                .put('/api/message/'+message._id, message)
-                .success(function(msg, err){
-
-                    var new_list =_.groupBy(msg.messages, function(z){return z._subject.name;});
-
-                    $scope.leftNavList = msg.nav_list;
-                    $scope.messages = new_list;
-                });
         };
 
         $scope.toggleNote = function(user){
@@ -1771,8 +1661,16 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
             $scope.inputNote = user;
         };
 
+        $scope.saveEdit = function(message){
+            $scope.messageEditToggle = '';
+            $http
+                .put('/api/message/', message)
+                .success(function(data){
+                    console.log(data);
+                });
+        };
+
         $scope.saveFav = function(message){
-            
             if($scope.selected.doctype === 'task'){
                 if(message.fav_task){ message.fav_task = false; }
                 else if (!message.fav_task){ message.fav_task = true; }
@@ -1783,8 +1681,13 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
                 else if (!message.fav_tag){ message.fav_tag = true;}
             }
 
-            $http
-                .put('/api/summary/message/'+message._id, message);
+            $http.put('/api/message/fav', message);
+        };
+
+        $scope.msgFilter = function(message){
+            // Display messages that belong to the current selected item.
+            if (message._id === $scope.selected._id) { return true; }
+            else { return false; }
         };
 
         $scope.postMessage = function(message, subject){
@@ -1794,7 +1697,6 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
             var note = {};
 
             note.body = message;
-            note.tags = [];
             note.created = new Date();
              
             note._task = $scope.selected._id;
@@ -1802,24 +1704,11 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
             note._subject = subject._id;
 
             message = '';
+
             $scope.newnote = '';
             $scope.toggleNote(subject._id);
 
-            // TODO: this will catch things on both sides of the hash. 
-            // if message has # with no space, post that to message.tags
-
-            var hashCatch = new RegExp(/\S*#\S+/gi);
-            var hashPull = new RegExp(/#/gi);
-            var tagIt = note.body.match(hashCatch);
-            
-            if (tagIt){
-                for (var i=0; i < tagIt.length; ++i) {
-                    var msg = tagIt[i].replace(hashPull,'');
-                    note.tags.push(msg);
-                }
-            }
-            
-            var url = '/api/summary/message/';
+            var url = '/api/message/';
             var data_out = note;
 
             $http
@@ -1856,9 +1745,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
             var url = '/api/summary/'+ $stateParams._id;
             var data_out = {navlist: $scope.leftNavList, messages:$scope.messages[0]} ;
             
-            $http
-                .put(url, data_out);     
-
+            $http.put(url, data_out);
         };
     }]);
 })();
