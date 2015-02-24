@@ -13,6 +13,8 @@ module.exports = function(request, next){
 
 // CREATE A NEW SUBJECT ===================================
     async.waterfall([function(callback){
+
+        
         var subject = new Subject();
 
         subject.name = request.name;
@@ -26,13 +28,17 @@ module.exports = function(request, next){
         });
     },function(subject, callback){
         Test.findById(subject.test)
-            .exec(function(err, doc){
+            .exec(function(err, obj){
                 if(err){console.log(err);}
-                if(doc){
+                if(obj){
                     var now = new Date();
-                    doc.last_run = now;
+                    obj.last_run = now;
 
-                    doc.save(function(err, saved){
+                    if(obj._subjects.indexOf(subject) === -1){
+                        obj._subjects.push(subject);
+                    }
+                    
+                    obj.save(function(err, saved){
                         if(err){console.log(err);}
                         callback(null, {subject: subject, test: saved});
                     });

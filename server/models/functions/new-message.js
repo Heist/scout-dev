@@ -30,6 +30,7 @@ module.exports = function(request, user, next){
         _test = request._test,
         _task = request._task;
 
+    console.log('new message', request);
     async.waterfall([
         function(callback){
             // Create the message
