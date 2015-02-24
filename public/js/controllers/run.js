@@ -21,9 +21,10 @@
                 // this should return an ordered nav list
                 // with a test at position 0
 
-                $scope.navlist = data;
-                $scope.kind = data[0].kind;
-
+                $scope.test = data;
+                $scope.kind = data.kind;
+                $scope.navlist = data._tasks;
+                
                 // reset variables to clear cache from state changes.
                 $scope.task = {};
                 var message = {};
