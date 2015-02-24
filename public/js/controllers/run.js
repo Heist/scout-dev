@@ -24,8 +24,6 @@
                 // reset variables to clear cache from state changes.
                 $scope.task = {};
                 var message = {};
-
-                // Subject has been created, now open a room with that subject_id
             });
 
     // ONBOARDING =========================================
@@ -140,19 +138,14 @@
 
     // ANGULAR ROUTES ===================================================
         $scope.addTask = function(task){
-            if($scope.adding_task){
-                $scope.adding_task=false;
-            }
 
-            var dataOut = { 
-                name : task.name,
-                desc : task.desc,
-                _test : $stateParams._id,
-                index : $scope.test._tasks.length
-            };
+            $scope.adding_task = $scope.adding_task ? false : $scope.adding_task;
+
+            task._test = $stateParams._id;
+            task._index = $scope.test._tasks.length;
             
             $http
-                .post('/api/task/', dataOut)
+                .post('/api/task/', task)
                 .success(function(data){
                     $scope.test._tasks.push(data);
                 });
