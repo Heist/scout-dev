@@ -180,7 +180,8 @@
                 $scope.update
                     .push({ 
                     '_id' : $scope.selected._id, 
-                    '_subject' : $scope.subject._id 
+                    '_subject' : $scope.subject._id,
+                    'doctype' : 'task',
                 });
             }
         };

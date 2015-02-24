@@ -22,7 +22,6 @@ module.exports = function(request, user, next){
 
 
 // CREATE A NEW MESSAGE ===================================
-    console.log('touched new message', body);
 
 // set message variables from request object.
     var body = request.body,

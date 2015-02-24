@@ -3,10 +3,16 @@
 'use strict';
 
 module.exports = function(message, next){
+
+// Module dependencies ==========================
+    var _ = require('lodash');
+
+// Catch some hashtags ====================================
+
     var tags = [];
     var hashCatch = new RegExp(/\S*#\S+/gi);
     var hashPull = new RegExp(/#/gi);
-    var tagIt = message.body.match(hashCatch);
+    var tagIt = message.match(hashCatch);
     
     if (tagIt){
         _.each(tagIt, function(tag){
