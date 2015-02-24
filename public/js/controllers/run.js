@@ -164,14 +164,9 @@
 
             mixpanel.track('Task changed', {});
 
-            var m   = {};
-            if(taskIndex === 0){
-                m.title = 'Starting test';
-                m.body  = $scope.test.name;
-            } else {
-                m.title = 'Starting task';
-                m.body  = $scope.selected.name;
-            }
+            var m   = taskIndex === 0 ? 
+                    { title: 'Starting test', body: $scope.test.name } :
+                    { title: 'Starting task', body: $scope.selected.name };
 
             $scope.timeline.push(m);
 
@@ -231,11 +226,10 @@
 
         $scope.postTest = function(){
             // Send tasks that have had a subject added to the DB.
-            var data_out = $scope.update;
             mixpanel.track('Test completed', {});
 
             $http
-                .post('/api/run/', data_out)
+                .post('/api/run/', $scope.update)
                 .success(function(data){
                     $location.path('/overview');
                 });
