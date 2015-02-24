@@ -167,10 +167,10 @@
             var m   = {};
             if(taskIndex === 0){
                 m.title = 'Starting test';
-                m.body  = test.name;
+                m.body  = $scope.test.name;
             } else {
                 m.title = 'Starting task';
-                m.body  = test._tasks[taskIndex].name;
+                m.body  = $scope.selected.name;
             }
 
             $scope.timeline.push(m);
@@ -178,10 +178,10 @@
             // get the id of the selected object, 
             // update it with the new subject when we finish the test.
             var arr = _.pluck($scope.update, '_id');
-            if(arr.indexOf(test._id) === -1){
+            if(arr.indexOf($scope.test._id) === -1){
                 $scope.update
                     .push({ 
-                    '_id' : test._tasks[taskIndex]._id, 
+                    '_id' : $scope.selected._id, 
                     '_subject' : $scope.subject._id 
                 });
             }
@@ -212,40 +212,21 @@
         $scope.postMessage = function(message){
             // here we create a note object
             if(message.length <= 0){
-                return;
+                return ;
             } else {
                 var note = {};
 
                 note.body = message;
-                note.tags = [];
+
                 note.created = new Date();
-                 
                 note._task = $scope.selected._id;
                 note._test = $scope.selected._test;
                 note._subject = $scope.subject._id;
 
                 $scope.timeline.push(note);
 
-                // TODO: this will catch things on both sides of the hash. 
-                // if message has # with no space, post that to message.tags
-
-                var hashCatch = new RegExp(/\S*#\S+/gi);
-                var hashPull = new RegExp(/#/gi);
-                var tagIt = message.match(hashCatch);          
-                
-                if (tagIt){
-                    for (var i=0; i < tagIt.length; ++i) {
-                        var msg = tagIt[i].replace(hashPull,'');
-                        note.tags.push(msg);
-                    }
-                }
-
-
-                var url = '/api/message/';
-                var data_out = note;
-
                 $http
-                    .post(url, data_out)
+                    .post('/api/message/', note)
                     .success(function(data){
                         $scope.message='';
                     });
@@ -253,20 +234,12 @@
         };
 
         $scope.postTest = function(){
-            // collects all the tests and steps and outputs them as a collected object
-            // to the session api link
-            // where they are parsed 
-            // and their individual subject lists are updated.
-            
-            var url = '/api/run/';
-            var object_list = $scope.test.concat($scope.update.tasks);
-
-            var data_out = {object_list: object_list, subject: $scope.subject._id};
-
+            // Send tasks that have had a subject added to the DB.
+            var data_out = $scope.update;
             mixpanel.track('Test completed', {});
 
             $http
-                .post(url, data_out)
+                .post('/api/run/', data_out)
                 .success(function(data){
                     $location.path('/overview');
                 });
