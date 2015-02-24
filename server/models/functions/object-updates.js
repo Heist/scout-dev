@@ -1,6 +1,9 @@
-// navlist-object-updates.js
-// Updates any discrete object from a summary
+// object-updates.js
 'use strict';
+
+// Takes an array of objects, finds each object in array on server
+// posts an update and saves.
+// expects each object to have property _id at minimum.
 
 module.exports = function(object_array, message_array, next){
 

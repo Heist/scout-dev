@@ -3,21 +3,19 @@
 
 module.exports = function(app, passport, io, debug) {
 
-// Module dependencies
-    var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
-    var _ = require('lodash');
+// Module dependencies ====================================
     var async = require('async');
 
-// load data storage models
+// load data storage models ===============================
     var Message = global.rootRequire('./server/models/data/message');
     var Task    = global.rootRequire('./server/models/data/task');
     var Test    = global.rootRequire('./server/models/data/test');
     var Tag     = global.rootRequire('./server/models/data/tag');
     var Subject = global.rootRequire('./server/models/data/subject');
 
-// load functions 
+// load functions ========================================= 
     var newMessage = global.rootRequire('./server/models/functions/new-message.js');
-    var finishTest = global.rootRequire('./server/models/functions/complete-test.js');
+    var objectUpdates  = global.rootRequire('./server/models/functions/object-updates');
 
 // RUN ROUTES =============================================
     app.route('/api/run/')
@@ -25,9 +23,12 @@ module.exports = function(app, passport, io, debug) {
         })
         .post(function(req,res){
             console.log('touched run post', req.body);
-            finishTest(req.body.test._id, function(err, test){
+            // req.body should just be a list of objects on DB to be updated.
+            
+            
+            objectUpdates('' , function(err, next){
                 if(err){ console.log(err); }
-                res.json('completed', test);
+                res.json('completed', next);
             });
         });
 

@@ -8,9 +8,8 @@
     function($scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
         
         // set up controller-wide variables
-        $scope.update = {};
-        $scope.update.tasks = [];
-
+        $scope.update = [];
+        
         $scope.timeline = []; // holds all messages currently in test
         $scope.glued = true;
 
@@ -161,40 +160,30 @@
         };
 
         $scope.select = function(testIndex, taskIndex) {
-            var test = $scope.test;
-            $scope.selected = test._tasks[taskIndex];
+            $scope.selected = $scope.test._tasks[taskIndex];
 
             mixpanel.track('Task changed', {});
 
-            // select
-            // pushes the identity of a test or task
-            // to the update array
-            // which is then output to server when things are updated
-            // this prevents the session from bulk-updating everything onscreen
-            // if it has not in fact been touched.
-
+            var m   = {};
             if(taskIndex === 0){
-            
-                var m   = {};
                 m.title = 'Starting test';
                 m.body  = test.name;
-
-                $scope.timeline.push(m);
-
-                if($scope.update.tests.indexOf(test._id) === -1){
-                    $scope.update.tests.push(test._id);
-                    $scope.subject._tests.push(test._id);
-                }
+            } else {
+                m.title = 'Starting task';
+                m.body  = test._tasks[taskIndex].name;
             }
 
-            var em   = {};
-            em.title = 'Starting task';
-            em.body  = test._tasks[taskIndex].name;
+            $scope.timeline.push(m);
 
-            $scope.timeline.push(em);
-
-            if($scope.update.tasks.indexOf(test._tasks[taskIndex]._id) === -1){
-                $scope.update.tasks.push(test._tasks[taskIndex]._id);
+            // get the id of the selected object, 
+            // update it with the new subject when we finish the test.
+            var arr = _.pluck($scope.update, '_id');
+            if(arr.indexOf(test._id) === -1){
+                $scope.update
+                    .push({ 
+                    '_id' : test._tasks[taskIndex]._id, 
+                    '_subject' : $scope.subject._id 
+                });
             }
         };
 
@@ -270,13 +259,15 @@
             // and their individual subject lists are updated.
             
             var url = '/api/run/';
-            var data_out = {test: $scope.test, tasks: $scope.update.tasks, subject: $scope.subject._id};
+            var object_list = $scope.test.concat($scope.update.tasks);
+
+            var data_out = {object_list: object_list, subject: $scope.subject._id};
+
             mixpanel.track('Test completed', {});
 
             $http
                 .post(url, data_out)
                 .success(function(data){
-                    console.log('Updated tests', data);
                     $location.path('/overview');
                 });
 

@@ -16,6 +16,9 @@ module.exports = function(test_id, next){
     var Tag     = global.rootRequire('./server/models/data/tag');
     var Subject = global.rootRequire('./server/models/data/subject');
 
+// load functions ===============================
+    var objectUpdates  = global.rootRequire('./server/models/functions/object-updates');
+
 // FINISH THE TEST AND POST CHANGES =======================
     
     async.map(req.body.tasks, 
