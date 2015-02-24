@@ -9,7 +9,6 @@
         
         // set up controller-wide variables
         $scope.update = {};
-        $scope.update.tests = [];
         $scope.update.tasks = [];
 
         $scope.timeline = []; // holds all messages currently in test
@@ -20,7 +19,7 @@
         $http
             .get('/api/run/'+$stateParams._id)
             .success(function(data){
-                $scope.tests = data;
+                $scope.test = data;
                 $scope.kind = data[0].kind;
 
                 // reset variables to clear cache from state changes.
@@ -45,7 +44,7 @@
                     .success(function(data){
                         console.log($rootScope.user);
                         if($rootScope.user.onboard === 6 ){
-                            $location.path('/summary/'+$scope.tests[1]._id);
+                            $location.path('/summary/'+$scope.test._id);
                         }
                     });
             } else {
@@ -150,19 +149,19 @@
                 name : task.name,
                 desc : task.desc,
                 _test : $stateParams._id,
-                index : $scope.tests[0]._tasks.length
+                index : $scope.test._tasks.length
             };
             
             $http
                 .post('/api/task/', dataOut)
                 .success(function(data){
-                    $scope.tests[0]._tasks.push(data);
+                    $scope.test._tasks.push(data);
                 });
 
         };
 
         $scope.select = function(testIndex, taskIndex) {
-            var test = $scope.tests[testIndex];
+            var test = $scope.test;
             $scope.selected = test._tasks[taskIndex];
 
             mixpanel.track('Task changed', {});
@@ -270,8 +269,8 @@
             // where they are parsed 
             // and their individual subject lists are updated.
             
-            var url = '/api/run/'+$stateParams._id;
-            var data_out = {tests: $scope.update.tests, tasks: $scope.update.tasks, subject: $scope.subject._id};
+            var url = '/api/run/';
+            var data_out = {test: $scope.test, tasks: $scope.update.tasks, subject: $scope.subject._id};
             mixpanel.track('Test completed', {});
 
             $http
