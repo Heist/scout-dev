@@ -18,7 +18,10 @@
         $http
             .get('/api/run/'+$stateParams._id)
             .success(function(data){
-                $scope.test = data;
+                // this should return an ordered nav list
+                // with a test at position 0
+
+                $scope.navlist = data;
                 $scope.kind = data[0].kind;
 
                 // reset variables to clear cache from state changes.
@@ -152,12 +155,12 @@
 
         };
 
-        $scope.select = function(testIndex, taskIndex) {
-            $scope.selected = $scope.test._tasks[taskIndex];
+        $scope.select = function(index) {
+            $scope.selected = $scope.navlist[index];
 
             mixpanel.track('Task changed', {});
 
-            var m   = taskIndex === 0 ? 
+            var m   = ( index === 0 ) ? 
                     { title: 'Starting test', body: $scope.test.name } :
                     { title: 'Starting task', body: $scope.selected.name };
 
@@ -166,6 +169,8 @@
             // get the id of the selected object, 
             // update it with the new subject when we finish the test.
             var arr = _.pluck($scope.update, '_id');
+            var id = $scope.selected._id;
+
             if(arr.indexOf($scope.test._id) === -1){
                 $scope.update
                     .push({ 

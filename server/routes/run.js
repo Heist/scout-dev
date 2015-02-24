@@ -25,7 +25,6 @@ module.exports = function(app, passport, io, debug) {
             console.log('touched run post', req.body);
             // req.body should just be a list of objects on DB to be updated.
             
-            
             objectUpdates('' , function(err, next){
                 if(err){ console.log(err); }
                 res.json('completed', next);
