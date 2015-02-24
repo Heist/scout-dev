@@ -4,13 +4,10 @@
 
 module.exports = function(request, user, next){
 
-// Module dependencies
-    var mongoose = require('mongoose');  // can't set an ObjectID without this.
-    var _        = require('lodash');
+// Module dependencies ==========================
     var async    = require('async');
-    var Promise  = require('bluebird');
 
-// load data storage models
+// load data storage models =====================
     var Message = global.rootRequire('./server/models/data/message');
     var Task    = global.rootRequire('./server/models/data/task');
     var Test    = global.rootRequire('./server/models/data/test');
@@ -31,6 +28,7 @@ module.exports = function(request, user, next){
         _task = request._task;
 
     console.log('new message', request);
+
     async.waterfall([
         function(callback){
             // Create the message

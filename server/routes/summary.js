@@ -19,6 +19,7 @@ module.exports = function (app, passport, debug) {
     // get the navigation console for the summary.
         buildSummary(req.params._id, function(err, summary){
             if(err){ console.log(err); }
+            console.log('summary', summary);
             res.json(summary);
         });
     })

@@ -1479,26 +1479,27 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
         $http.get('/api/summary/'+$stateParams._id)
             .success(function(data){
+                void 0;
                 $scope.leftNavList = [];
-                $scope.testname = data.test;
+                $scope.testname = data.navlist.test;
                 
-                var sort = _.sortBy(data.navlist, function(obj){
+                var sort = _.sortBy(data.navlist.list, function(obj){
                                     return(obj.report_index);
                                 });
 
                 _.each(sort, function(obj){ $scope.leftNavList.push(obj); });
                 
-                // group messages by users
-                $scope.messages = _.groupBy(data.messages, 
-                    function(z){
-                        if(z._subject.name){
-                            return z._subject.name;
-                        } else {
-                            return 'report comment';
-                        }
-                    });
+                // // group messages by users
+                // $scope.messages = _.groupBy(data.messages, 
+                //     function(z){
+                //         if(z._subject.name){
+                //             return z._subject.name;
+                //         } else {
+                //             return 'report comment';
+                //         }
+                //     });
 
-                $scope.activate($scope.leftNavList[0]);
+                // $scope.activate($scope.leftNavList[0]);
             });
 
     // NAVIGATION =============================================
