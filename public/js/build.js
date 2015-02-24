@@ -1414,6 +1414,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
             $http
                 .post('api/subject/', subject)
                 .success(function(data){
+                    console.log(data._id);
                     $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);
@@ -1489,17 +1490,17 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
                 _.each(sort, function(obj){ $scope.leftNavList.push(obj); });
                 
-                // // group messages by users
-                // $scope.messages = _.groupBy(data.messages, 
-                //     function(z){
-                //         if(z._subject.name){
-                //             return z._subject.name;
-                //         } else {
-                //             return 'report comment';
-                //         }
-                //     });
+                // group messages by users
+                $scope.messages = _.groupBy(data.messages, 
+                    function(z){
+                        if(z._subject.name){
+                            return z._subject.name;
+                        } else {
+                            return 'report comment';
+                        }
+                    });
 
-                // $scope.activate($scope.leftNavList[0]);
+                $scope.activate($scope.leftNavList[0]);
             });
 
     // NAVIGATION =============================================

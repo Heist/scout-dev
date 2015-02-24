@@ -27,17 +27,17 @@
 
                 _.each(sort, function(obj){ $scope.leftNavList.push(obj); });
                 
-                // // group messages by users
-                // $scope.messages = _.groupBy(data.messages, 
-                //     function(z){
-                //         if(z._subject.name){
-                //             return z._subject.name;
-                //         } else {
-                //             return 'report comment';
-                //         }
-                //     });
+                // group messages by users
+                $scope.messages = _.groupBy(data.messages, 
+                    function(z){
+                        if(z._subject.name){
+                            return z._subject.name;
+                        } else {
+                            return 'report comment';
+                        }
+                    });
 
-                // $scope.activate($scope.leftNavList[0]);
+                $scope.activate($scope.leftNavList[0]);
             });
 
     // NAVIGATION =============================================

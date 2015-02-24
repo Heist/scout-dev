@@ -195,6 +195,8 @@
             $http
                 .post('api/subject/', subject)
                 .success(function(data){
+                    console.log(data);
+                    console.log(data._id);
                     $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);

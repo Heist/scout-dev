@@ -28,7 +28,7 @@ module.exports = function(request, next){
         Test.findOneAndUpdate(
             {'_id' : subject.test},
             {'last_run' : new Date(),
-              $push : { _subjects : subject } 
+              $push : { _subjects : subject._id } 
             },
             function(err, test){
                 if(err){console.log(err);}
@@ -37,6 +37,6 @@ module.exports = function(request, next){
             
     }], function(err,results){
             if(err){console.log(err);} 
-            next(null, results.subject);
+            next(null, results);
         });
 };
