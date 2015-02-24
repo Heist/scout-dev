@@ -28,14 +28,15 @@ module.exports = function(object_array, message_array, next){
 
             Model.findById(obj._id)
                  .exec(function(err, model){
+                    // todo: if there's a new subject, pass a subject in and update the subjects list.
 
-                    model.pass_fail     = obj.pass_fail || false;
-                    model.visible       = obj.visible   || false;
-                    model.summarized    = obj.summarized || false;
+                    model.pass_fail     = obj.pass_fail || model.pass_fail;
+                    model.visible       = obj.visible || model.visible;
+                    model.summarized    = obj.summarized || model.summarized;
 
-                    model.embed         = obj.embed || '';
-                    model.report_index  = obj.report_index;
-                    model.summary       = obj.summary;
+                    model.embed         = obj.embed || model.embed;
+                    model.report_index  = obj.report_index || model.report_index;
+                    model.summary       = obj.summary || model.summary;
                     model.report        = true;
 
                     model.save(function(err, data){

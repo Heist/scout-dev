@@ -144,7 +144,7 @@
 
             // RUN TEST =======================================
             .state('run', {
-                url: '/run/:_id',
+                url: '/run',
                 controller:'run',
                 templateUrl: 'partials/app/run.html',
                 resolve: { loggedin: checkLoggedin }

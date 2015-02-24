@@ -17,6 +17,7 @@ module.exports = function(app, passport, io, debug) {
 
 // load functions 
     var newMessage = global.rootRequire('./server/models/functions/new-message.js');
+    var finishTest = global.rootRequire('./server/models/functions/complete-test.js');
 
 // RUN ROUTES =============================================
     app.route('/api/run/')
@@ -24,8 +25,10 @@ module.exports = function(app, passport, io, debug) {
         })
         .post(function(req,res){
             console.log('touched run post', req.body);
-
-            
+            finishTest(req.body.test._id, function(err, test){
+                if(err){ console.log(err); }
+                res.json('completed', test);
+            });
         });
 
     app.route('/api/run/:_id')
