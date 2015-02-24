@@ -23,11 +23,10 @@ module.exports = function(object_array, next){
 
 // UPDATE OBJECTS FROM NAVIGATION LIST ====================
 // Did we get a properly formed object array?
-    console.log('update object array', object_array);
+    // console.log('update object array', object_array);
 
     async.map(object_array, 
         function(obj, callback){
-            console.log('object from array', obj);
 
             var Model;
             if(obj.doctype === 'tag') { Model = Tag;  }
@@ -67,7 +66,6 @@ module.exports = function(object_array, next){
         },
         function(err, results){
             if(err){console.log(err);}
-            console.log('results', results);
             next(null, results);
         });
 };
