@@ -22,22 +22,24 @@ module.exports = function(object_array, message_array, next){
     async.map(object_array, 
         function(obj, callback){
             var Model;
-            if(obj.doctype === 'tag'){Model = Tag;}
-            if(obj.doctype === 'task'){Model = Task;}
-            if(obj.doctype === 'test'){Model = Test;}
+            if(obj.doctype === 'tag') { Model = Tag;  }
+            if(obj.doctype === 'task'){ Model = Task; }
+            if(obj.doctype === 'test'){ Model = Test; }
 
             Model.findById(obj._id)
                  .exec(function(err, model){
                     // todo: if there's a new subject, pass a subject in and update the subjects list.
 
-                    model.pass_fail     = obj.pass_fail || model.pass_fail;
-                    model.visible       = obj.visible || model.visible;
-                    model.summarized    = obj.summarized || model.summarized;
+                    model.report        = true;
 
                     model.embed         = obj.embed || model.embed;
-                    model.report_index  = obj.report_index || model.report_index;
                     model.summary       = obj.summary || model.summary;
-                    model.report        = true;
+                    model.visible       = obj.visible || model.visible;
+                    model.pass_fail     = obj.pass_fail || model.pass_fail;
+                    model.summarized    = obj.summarized || model.summarized;
+                    model.report_index  = obj.report_index || model.report_index;
+
+                    model._subjects = obj._subject ? model._subjects.push(obj._subject) : model._subjects;                    
 
                     model.save(function(err, data){
                         console.log('update', data.name, data.report_index);
