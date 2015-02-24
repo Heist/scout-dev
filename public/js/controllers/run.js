@@ -189,24 +189,20 @@
 
 
         $scope.addSubject = function(subject){
-            $scope.subject = subject;
-
-            var url = 'api/subject/';
-            var data_out = {name : subject.name, testroom: subject.testroom, test: $stateParams._id};
+            subject.name     = subject.name;
+            subject.testroom = subject.testroom || '';
+            subject.test     = $stateParams._id;
 
             $http
-                .post(url, data_out)
-                .success(function(subject){
-                    $scope.subject = subject;
+                .post('api/subject/', subject)
+                .success(function(data){
+                    $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);
 
+                    socket.emit('channel', {room : subject.testroom, test: subject.test});
                     mixpanel.track('Add Participant Name', {});
-                    socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
-        
-                })
-                .error(function(data){
-            });
+                });
         };
 
         $scope.postMessage = function(message){
