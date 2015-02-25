@@ -4,8 +4,8 @@
 
     // SUMMARY CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-        .controller('summary', [ 'loadData', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
-                        function(loadData, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
+        .controller('summary', [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
+                        function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         
         $scope.test = {};
         $scope.timeline = [];
@@ -135,24 +135,13 @@
         // MOVE STEPS =========================================
 
         $scope.moveTask = function(old_index, new_index){
-            // TODO: This almost certainly has a reordering bug in it.
-            // Abstract to a directive: the NavList directive
-            new_index = old_index + new_index;
+                    reportFunctions.moveTask($scope.navlist, old_index, new_index)
+                        .then(function(list){
+                            $scope.navlist = list;
+                            $scope.saveSummary();
+                        });
+                };
 
-            $scope.leftNavList.splice(new_index, 0, $scope.leftNavList.splice(old_index, 1)[0]);
-
-            (function(){
-                var obj_count=0;
-            
-                // set the stored index of the task properly
-                _.each($scope.leftNavList, function(obj){
-                    obj.report_index = obj_count;
-                    obj_count++;
-                });
-            })();
-            
-            $scope.saveSummary();
-        };
 
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
