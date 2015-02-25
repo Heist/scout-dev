@@ -160,7 +160,7 @@
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
                         return $http.get('/api/summary/'+$stateParams._id)
                                     .success(function(data) {
-                                        return data.data;
+                                        return data;
                                     });
                     }]
                 }

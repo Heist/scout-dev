@@ -2,9 +2,8 @@
 
 <ul>    
     <!-- OVERVIEW -->
-
     <li 
-    ng-repeat="object in leftNavList" 
+    ng-repeat="object in navList" 
     ng-class="{ 'active': $index == selectedIndex }" 
     ng-click="activate(object, $index)">
         
@@ -26,9 +25,6 @@
                 <img src="/layout/assets/hidden.svg" />
             </a>
         </div>
-        
         <div class="clear"></div>
-
     </li>
-    
 </ul>

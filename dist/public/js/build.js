@@ -176,7 +176,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
                         return $http.get('/api/summary/'+$stateParams._id)
                                     .success(function(data) {
-                                        return data.data;
+                                        return data;
                                     });
                     }]
                 }
@@ -1486,19 +1486,24 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams.test_id;
         $scope.showReportLink = false;
 
-        // SET VIEW VARIABLES FROM LOAD DATA =======================
-        $scope.navlist = _.sortBy(loadData.navlist.list, function(obj){
+        // SET VIEW VARIABLES FROM LOAD DATA ==============
+        var data = loadData.data; // lol who even fucking knows why this can't return directly.
+        
+        void 0;
+
+        $scope.navlist = _.sortBy(data.navlist.list, function(obj){
                     return (obj.report_index);
                 });
 
-        $scope.messages = _.groupBy(loadData.navlist.messages, function(z){
+        
+        $scope.messages = _.groupBy(data.messages, function(z){
                     return z._subject.name ? z._subject.name : 'report comment';
                 });
 
-        $scope.testname = loadData.navlist.test;
+        // $scope.testname = data.navlist.test;
 
-        $scope.activate($scope.navlist[0], 0);
-
+        // $scope.activate($scope.navlist[0], 0);
+        void 0;
     // NAVIGATION =============================================
 
         $scope.reportPreview = function(){
@@ -2352,43 +2357,34 @@ function($timeout, $window, config) {
 
 // // This module builds out the left navigation used in report and summary controllers.
 // // It does not require login in order to load information, because it is required for public routes.
-
 //     angular.module('field_guide_controls', [])
-      //   .factory('reportHTTP', 
-      //     ['$http','$stateParams', function($http, $stateParams) {
-      //         return $http.get('/api/summary/'+$stateParams._id)
-      //                     .success(function(data) {
-      //                         return data.data;
-      //                     });
-      //     }]);
-      //   .directive('fg-left-nav', function() {
-      //     return {
-      //         scope: {},
-      //         templateUrl: 'partials/directive-templates/fg-left-nav.html',
-      //         replace: true,
-      //         controller: 'FGLeftNavCtrl',
-      //         controllerAs: 'ctrl'
-      //     };
-      // })
-      // .controller('FGLeftNavCtrl', function($scope) {
-
-
-      //   $scope.activate = function(obj, selectedIndex) {
-      //       // passes an object from left nav to the global selection variable
-
-      //       // reset all previous reliant variables, there are a lot!
-      //       $scope.selected = '';
-      //       $scope.commentMessage = '';
-      //       $scope.selectedIndex = '';
-      //       $scope.inputNote = '';
-      //       $scope.showCommentToggle = 'hide';
-      //       $scope.messageEditToggle = '';
-      //       $scope.selectedIndex = selectedIndex;
-
-      //       $scope.selected = obj || $scope.selected;
-            
-      //   };
-//     });
+//         .factory('reportHTTP', ['$http', function($http) {
+//             return {
+//                 getReport: function(_id) {
+//                     $http.get('/api/summary/' + _id)
+//                         .success(function(data) {
+//                             return data.data;
+//                         });
+//                 }
+//             };
+//         }])
+//         .directive('fgLeftNav', function() {
+//             return {
+//                 scope: {},
+//                 templateUrl: 'partials/directive-templates/fg-left-nav.html',
+//                 replace: true,
+//                 controller: 'FGLeftNavCtrl',
+//                 controllerAs: 'ctrl'
+//             };
+//         })
+//         .controller('FGLeftNavCtrl', ['$scope', '$stateParams', 'reportHTTP',
+//             function($scope, $stateParams, reportHTTP) {               
+//                 reportHTTP.getReport($stateParams._id)
+//                     .success(function(response) {
+//                         $scope.navList = response.data;
+//                     });
+//             }
+//         ]);
 // })();
 // scroll-glue.js
 (function() {
