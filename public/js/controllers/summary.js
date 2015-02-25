@@ -5,8 +5,8 @@
     // SUMMARY CONTROLLER ===========================================================
 
     angular.module('field_guide_controls')
-        .controller('summary', ['$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize',
-                        function($scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize){
+        .controller('summary', [ 'loadData','$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
+                        function(loadData, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         $scope.test = {};
         $scope.timeline = [];
         $scope.commentMessage = '';
@@ -15,28 +15,21 @@
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams.test_id;
         $scope.showReportLink = false;
 
-        $http.get('/api/summary/'+$stateParams._id)
-            .success(function(data){
-                console.log('loaded this data', data);
-                $scope.leftNavList = [];
-                $scope.testname = data.navlist.test;
-                
-                var sort = _.sortBy(data.navlist.list, function(obj){
-                                    return (obj.report_index);
-                                });
-                _.each(sort, function(obj){ $scope.leftNavList.push(obj); });
-                
-                // group messages by users
-                $scope.messages = _.groupBy(data.messages,
-                    function(z){
-                        return z._subject.name ? 
-                               z._subject.name : 
-                               'report comment';
-                    });
+// GET DATA, SET VIEW VARIABLES FROM THE DATA =======================
+        // This can't be globalized, because it's an async request/promise chain.
+        console.log(loadData);
 
-                $scope.activate($scope.leftNavList[0]);
+        $scope.navlist = _.sortBy(loadData.navlist.list, function(obj){
+                    return (obj.report_index);
+                });
 
-            });
+        $scope.messages = _.groupBy(loadData.navlist.messages, function(z){
+                    return z._subject.name ? z._subject.name : 'report comment';
+                });
+
+        $scope.testname = loadData.navlist.test;
+
+        $scope.activate($scope.navlist[0], 0);
 
     // NAVIGATION =============================================
 

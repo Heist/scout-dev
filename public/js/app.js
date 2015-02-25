@@ -155,7 +155,15 @@
                 url: '/summary/:_id',
                 controller:'summary',
                 templateUrl: 'partials/app/summary.html',
-                resolve: { loggedin: checkLoggedin }
+                resolve: { 
+                    loggedin: checkLoggedin,
+                    loadData: ['$http','$stateParams', function($http, $stateParams) {
+                        return $http.get('/api/summary/'+$stateParams._id)
+                                    .success(function(data) {
+                                        return data.data;
+                                    });
+                    }]
+                }
             })
             .state('summary.test', {
                 templateUrl: 'partials/app/summary_test.html'
@@ -164,7 +172,6 @@
                 templateUrl: 'partials/app/summary_task.html'
             });
     });
-
 
     field_guide_app.factory('socket', function ($rootScope, $location) {
 

@@ -171,7 +171,12 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 url: '/summary/:_id',
                 controller:'summary',
                 templateUrl: 'partials/app/summary.html',
-                resolve: { loggedin: checkLoggedin }
+                resolve: { 
+                    loggedin: checkLoggedin,
+                    load: function(reportHTTP){
+                        return reportHTTP;
+                    } 
+                }
             })
             .state('summary.test', {
                 templateUrl: 'partials/app/summary_test.html'
@@ -181,6 +186,21 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
             });
     });
 
+
+    field_guide_app.factory('reportHTTP', 
+            ['$http','$stateParams', function($http, $stateParams) {
+                return $http.get('/api/summary/'+$stateParams._id)
+                            .success(function(data) {
+                                return data.data;
+                            });
+            }]);
+
+    // ['$http','$stateParams', function($http, $stateParams) {
+    //     return $http.get('/api/summary/'+$stateParams._id)
+    //                 .success(function(data) {
+    //                     return data.data;
+    //                 });
+    // }]
 
     field_guide_app.factory('socket', function ($rootScope, $location) {
 
@@ -1414,6 +1434,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
             $http
                 .post('api/subject/', subject)
                 .success(function(data){
+                    console.log(data);
                     console.log(data._id);
                     $scope.subject = data;
                     $scope.live = true;
@@ -1468,40 +1489,33 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
     // SUMMARY CONTROLLER ===========================================================
 
     angular.module('field_guide_controls')
-        .controller('summary', ['$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize',
-                        function($scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize){
+        .controller('summary', [ 'load','$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
+                        function(load, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         $scope.test = {};
         $scope.timeline = [];
         $scope.commentMessage = '';
+        $scope.showCommentToggle = 'hide';
 
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams.test_id;
-        
         $scope.showReportLink = false;
 
-        $http.get('/api/summary/'+$stateParams._id)
-            .success(function(data){
-                console.log('loaded this data', data);
-                $scope.leftNavList = [];
-                $scope.testname = data.navlist.test;
-                
-                var sort = _.sortBy(data.navlist.list, function(obj){
-                                    return(obj.report_index);
-                                });
+// GET DATA, SET VIEW VARIABLES FROM THE DATA =======================
+        // This can't be globalized, because it's an async request/promise chain.
+        console.log(load);
+        // console.log(reportHTTP);
+        // $http.get('/api/summary/'+$stateParams._id)
+        //     .success(function (data) {
+        //         $scope.navlist = _.sortBy(data.navlist.list, function(obj){
+        //                     return (obj.report_index);
+        //                 });
 
-                _.each(sort, function(obj){ $scope.leftNavList.push(obj); });
-                
-                // group messages by users
-                $scope.messages = _.groupBy(data.messages, 
-                    function(z){
-                        if(z._subject.name){
-                            return z._subject.name;
-                        } else {
-                            return 'report comment';
-                        }
-                    });
+        //         $scope.messages = _.groupBy(data.navlist.messages, function(z){
+        //                     return z._subject.name ? z._subject.name : 'report comment';
+        //                 });
 
-                $scope.activate($scope.leftNavList[0]);
-            });
+        //         $scope.testname = data.navlist.test;
+        //         $scope.activate($scope.navlist[0], 0);
+        //     });
 
     // NAVIGATION =============================================
 
@@ -1526,9 +1540,8 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
             $scope.messageEditToggle = '';
             $scope.selectedIndex = selectedIndex;
 
-            if(obj){
-                $scope.selected = obj;
-            }
+            $scope.selected = obj || $scope.selected;
+            
         };
 
         $scope.showObjectMessages = function(msg, obj){
@@ -1581,7 +1594,6 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
             }
             
             $scope.commentMessage = message;
-
         };
 
         $scope.addComment = function(comment){
@@ -1615,17 +1627,18 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
             $scope.leftNavList.splice(new_index, 0, $scope.leftNavList.splice(old_index, 1)[0]);
 
-            var obj_count=0;
+            (function(){
+                var obj_count=0;
             
-            // set the stored index of the task properly
-            _.each($scope.leftNavList, function(obj){
-                obj.report_index = obj_count;
-                obj_count++;
-            });
+                // set the stored index of the task properly
+                _.each($scope.leftNavList, function(obj){
+                    obj.report_index = obj_count;
+                    obj_count++;
+                });
+            })();
             
             $scope.saveSummary();
         };
-
 
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
@@ -1639,15 +1652,16 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
         $scope.passFail = function(obj){
             if(obj.pass_fail){ obj.pass_fail = false; }
-            else if (!obj.fail){ obj.pass_fail = true; }
+            else { obj.pass_fail = true; }
 
             $scope.saveObject(obj);
         };
 
         $scope.toggleVis = function(obj){
-            console.log('viz toggled');
-            if (obj.visible){ obj.visible = false; $scope.saveObject(obj); return;}
-            if (!obj.visible){ obj.visible = true; $scope.saveObject(obj); return;}
+            if( obj.visible ){ obj.visible = false ; } 
+            else { obj.visible = true; }
+
+            $scope.saveObject(obj);
         };
 
 
@@ -1675,13 +1689,11 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
         $scope.saveFav = function(message){
             if($scope.selected.doctype === 'task'){
-                if(message.fav_task){ message.fav_task = false; }
-                else if (!message.fav_task){ message.fav_task = true; }
+                return (message.fav_task) ? message.fav_task = false : message.fav_task = true ;
             }
 
             if($scope.selected.doctype === 'tag'){
-                if(message.fav_tag){ message.fav_tag = false; } 
-                else if (!message.fav_tag){ message.fav_tag = true;}
+                return (message.fav_tag) ? message.fav_tag = false : message.fav_tag = true ;
             }
 
             $http.put('/api/message/fav', message);
@@ -1689,8 +1701,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
         $scope.msgFilter = function(message){
             // Display messages that belong to the current selected item.
-            if (message._id === $scope.selected._id) { return true; }
-            else { return false; }
+            return (message._id === $scope.selected._id) ? true : false;
         };
 
         $scope.postMessage = function(message, subject){
@@ -2353,6 +2364,57 @@ function($timeout, $window, config) {
 }
 ]);
 })();
+// // fg-left-nav.js
+// (function() {
+//     'use strict';
+
+// // This module builds out the left navigation used in report and summary controllers.
+// // It does not require login in order to load information, because it is required for public routes.
+
+//     angular.module('field_guide_controls', [])
+//       .directive('fg-left-nav', function() {
+//         return {
+//             scope: {},
+//             templateUrl: 'partials/directive-templates/fg-left-nav.html',
+//             replace: true,
+//             controller: 'FGLeftNavCtrl',
+//             controllerAs: 'ctrl'
+//         };
+//     })
+//     .controller('FGLeftNavCtrl', function($scope) {
+
+//         // this.contestant = {}; // this is connected to the above somehow
+//         // this.save = function() {
+//         //     $scope.contestants.push(this.contestant);
+//         //     this.contestant = {};
+//         // };
+
+
+//         $scope.activate = function(obj, selectedIndex) {
+//             // passes an object from left nav to the global selection variable
+
+//             // reset all previous reliant variables, there are a lot!
+//             $scope.selected = '';
+//             $scope.commentMessage = '';
+//             $scope.selectedIndex = '';
+//             $scope.inputNote = '';
+//             $scope.showCommentToggle = 'hide';
+//             $scope.messageEditToggle = '';
+//             $scope.selectedIndex = selectedIndex;
+
+//             $scope.selected = obj || $scope.selected;
+            
+//         };
+
+//         // this.contestants = [
+//         //   {firstName: 'Rachel', lastName: 'Washington'},
+//         //   {firstName: 'Joshua', lastName: 'Foster'},
+//         //   {firstName: 'Samuel', lastName: 'Walker'},
+//         //   {firstName: 'Phyllis', lastName: 'Reynolds'}
+//         // ];
+//     });
+
+// })();
 // scroll-glue.js
 (function() {
     'use strict';
