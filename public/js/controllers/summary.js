@@ -61,9 +61,8 @@
             $scope.messageEditToggle = '';
             $scope.selectedIndex = selectedIndex;
 
-            if(obj){
-                $scope.selected = obj;
-            }
+            $scope.selected = obj || $scope.selected;
+            
         };
 
         $scope.showObjectMessages = function(msg, obj){
@@ -116,7 +115,6 @@
             }
             
             $scope.commentMessage = message;
-
         };
 
         $scope.addComment = function(comment){
@@ -150,17 +148,18 @@
 
             $scope.leftNavList.splice(new_index, 0, $scope.leftNavList.splice(old_index, 1)[0]);
 
-            var obj_count=0;
+            (function(){
+                var obj_count=0;
             
-            // set the stored index of the task properly
-            _.each($scope.leftNavList, function(obj){
-                obj.report_index = obj_count;
-                obj_count++;
-            });
+                // set the stored index of the task properly
+                _.each($scope.leftNavList, function(obj){
+                    obj.report_index = obj_count;
+                    obj_count++;
+                });
+            })();
             
             $scope.saveSummary();
         };
-
 
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
@@ -174,15 +173,16 @@
 
         $scope.passFail = function(obj){
             if(obj.pass_fail){ obj.pass_fail = false; }
-            else if (!obj.fail){ obj.pass_fail = true; }
+            else { obj.pass_fail = true; }
 
             $scope.saveObject(obj);
         };
 
         $scope.toggleVis = function(obj){
-            console.log('viz toggled');
-            if (obj.visible){ obj.visible = false; $scope.saveObject(obj); return;}
-            if (!obj.visible){ obj.visible = true; $scope.saveObject(obj); return;}
+            if( obj.visible ){ obj.visible = false ; } 
+            else { obj.visible = true; }
+
+            $scope.saveObject(obj);
         };
 
 
@@ -210,13 +210,11 @@
 
         $scope.saveFav = function(message){
             if($scope.selected.doctype === 'task'){
-                if(message.fav_task){ message.fav_task = false; }
-                else if (!message.fav_task){ message.fav_task = true; }
+                return (message.fav_task) ? message.fav_task = false : message.fav_task = true ;
             }
 
             if($scope.selected.doctype === 'tag'){
-                if(message.fav_tag){ message.fav_tag = false; } 
-                else if (!message.fav_tag){ message.fav_tag = true;}
+                return (message.fav_tag) ? message.fav_tag = false : message.fav_tag = true ;
             }
 
             $http.put('/api/message/fav', message);
@@ -224,8 +222,7 @@
 
         $scope.msgFilter = function(message){
             // Display messages that belong to the current selected item.
-            if (message._id === $scope.selected._id) { return true; }
-            else { return false; }
+            return (message._id === $scope.selected._id) ? true : false;
         };
 
         $scope.postMessage = function(message, subject){
