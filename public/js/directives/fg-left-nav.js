@@ -4,7 +4,6 @@
 
 // This module builds out the left navigation used in report and summary controllers.
 // It does not require login in order to load information, because it is required for public routes.
-
     angular.module('field_guide_controls', [])
         .factory('reportHTTP', ['$http', function($http) {
             return {
@@ -16,7 +15,7 @@
                 }
             };
         }])
-        .directive('fg-left-nav', function() {
+        .directive('fgLeftNav', function() {
             return {
                 scope: {},
                 templateUrl: 'partials/directive-templates/fg-left-nav.html',
@@ -26,16 +25,11 @@
             };
         })
         .controller('FGLeftNavCtrl', ['$scope', '$stateParams', 'reportHTTP',
-            function($scope, $stateParams, reportHTTP) {
-                
-                $scope.getReport = function(id) {
-                    var promise = reportHTTP.getReport(id);
-                    promise.then(function(response) {
-                        $scope.navList = response.data;
-                    });
-                };
-
-            }
+            function($scope, $stateParams, reportHTTP) {               
+                    reportHTTP.getReport($stateParams._id)
+                        .success(function(response) {
+                            $scope.navList = response.data;
+                        });
+                }
         ]);
-        
 })();
