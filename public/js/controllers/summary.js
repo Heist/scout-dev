@@ -15,10 +15,25 @@
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams.test_id;
         $scope.showReportLink = false;
 
+        // synchronous shit is weird.
+        $scope.activate = function(obj, selectedIndex) {
+            // passes an object from left nav to the global selection variable
+            console.log('activate');
+            // reset all previous reliant variables, there are a lot!
+            $scope.selected = '';
+            // $scope.commentMessage = '';
+            // $scope.selectedIndex = '';
+            // $scope.inputNote = '';
+            // $scope.showCommentToggle = 'hide';
+            // $scope.messageEditToggle = '';
+
+            $scope.selectedIndex = selectedIndex;
+            $scope.selected = obj || $scope.selected;
+            
+        };
+
         // SET VIEW VARIABLES FROM LOAD DATA ==============
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
-        
-        console.log(data);
 
         $scope.navlist = _.sortBy(data.navlist.list, function(obj){
                     return (obj.report_index);
@@ -29,8 +44,10 @@
                 });
 
         $scope.testname = data.navlist.test;
+        
+        console.log($scope.navlist[0]);
 
-        // $scope.activate($scope.navlist[0], 0);
+        $scope.activate($scope.navlist[0], 0);
 
     // NAVIGATION =============================================
 
@@ -43,21 +60,6 @@
             else{ $scope.showReportLink = false; }
         };
 
-        $scope.activate = function(obj, selectedIndex) {
-            // passes an object from left nav to the global selection variable
-
-            // reset all previous reliant variables, there are a lot!
-            $scope.selected = '';
-            $scope.commentMessage = '';
-            $scope.selectedIndex = '';
-            $scope.inputNote = '';
-            $scope.showCommentToggle = 'hide';
-            $scope.messageEditToggle = '';
-            $scope.selectedIndex = selectedIndex;
-
-            $scope.selected = obj || $scope.selected;
-            
-        };
 
         $scope.showObjectMessages = function(msg, obj){
             if(obj._messages){
