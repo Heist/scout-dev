@@ -6,7 +6,7 @@
 
 // This module builds out the left navigation used in report and summary controllers.
 // It does not require login in order to load information, because it is required for public routes.
-    angular.module('field_guide_controls', [])
+    angular.module('field_guide_controls')
         .service('reportFunctions', ['$http', function($http) {
             return {
                 generateList : function(){},

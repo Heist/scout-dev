@@ -1475,8 +1475,8 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
     // SUMMARY CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-        .controller('summary', [ 'loadData', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
-                        function(loadData, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
+        .controller('summary', [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
+                        function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         
         $scope.test = {};
         $scope.timeline = [];
@@ -1604,26 +1604,14 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
         };
 
         // MOVE STEPS =========================================
-
         $scope.moveTask = function(old_index, new_index){
-            // TODO: This almost certainly has a reordering bug in it.
-            // Abstract to a directive: the NavList directive
-            new_index = old_index + new_index;
-
-            $scope.leftNavList.splice(new_index, 0, $scope.leftNavList.splice(old_index, 1)[0]);
-
-            (function(){
-                var obj_count=0;
-            
-                // set the stored index of the task properly
-                _.each($scope.leftNavList, function(obj){
-                    obj.report_index = obj_count;
-                    obj_count++;
+            reportFunctions.moveTask($scope.navlist, old_index, new_index)
+                .then(function(list){
+                    $scope.navlist = list;
+                    $scope.saveSummary();
                 });
-            })();
-            
-            $scope.saveSummary();
         };
+
 
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
@@ -2332,49 +2320,6 @@ function($timeout, $window, config) {
 }
 ]);
 })();
-// // fg-left-nav.js
-// (function() {
-//     'use strict';
-
-// // This module builds out the left navigation used in report and summary controllers.
-// // It does not require login in order to load information, because it is required for public routes.
-// //     angular.module('field_guide_controls', [])
-//         .service('reportFunctions', ['$http', function($http) {
-//             return {
-//                  activate : function(obj, selectedIndex) {
-//                     // passes an object from left nav to the global selection variable
-//                     console.log('activate');
-//                     // reset all previous reliant variables, there are a lot!
-//                     $scope.selected = '';
-//                     $scope.commentMessage = '';
-//                     $scope.selectedIndex = '';
-//                     $scope.inputNote = '';
-//                     $scope.showCommentToggle = 'hide';
-//                     $scope.messageEditToggle = '';
-
-//                     $scope.selectedIndex = selectedIndex;
-//                     $scope.selected = obj || $scope.selected;
-//                     }
-//                 };
-//         }])
-//         .directive('fgLeftNav', function() {
-//             return {
-//                 scope: {},
-//                 templateUrl: 'partials/directive-templates/fg-left-nav.html',
-//                 replace: true,
-//                 controller: 'FGLeftNavCtrl',
-//                 controllerAs: 'ctrl'
-//             };
-//         })
-//         .controller('FGLeftNavCtrl', ['$scope', '$stateParams', 'reportHTTP',
-//             function($scope, $stateParams, reportHTTP) {               
-//                 reportHTTP.getReport($stateParams._id)
-//                     .success(function(response) {
-//                         $scope.navList = response.data;
-//                     });
-//             }
-//         ]);
-// })();
 // fg-post-message.js
 // post a new note to the database.
 'use strict';
@@ -2398,6 +2343,35 @@ function($timeout, $window, config) {
                 };
             return postMessage;
 
+        }]);
+})();
+// fg-report-functions.js
+//  simple functions used in all three report views.
+
+(function() {
+    'use strict';
+
+// This module builds out the left navigation used in report and summary controllers.
+// It does not require login in order to load information, because it is required for public routes.
+    angular.module('field_guide_controls', [])
+        .service('reportFunctions', ['$http', function($http) {
+            return {
+                generateList : function(){},
+                moveTask : function(list, old_index, new_index){
+                    new_index = old_index + new_index;
+                    list.splice(new_index, 0, list.splice(old_index, 1)[0]);
+                    
+                    (function(){
+                        var obj_count=0;
+                        // set the stored index of the task properly
+                        _.each(list, function(obj){
+                            obj.report_index = obj_count;
+                            obj_count++;
+                        });
+                    })();
+                    return list;
+                }
+            };
         }]);
 })();
 // scroll-glue.js

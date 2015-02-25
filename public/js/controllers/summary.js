@@ -44,7 +44,7 @@
 
         $scope.testname = data.navlist.test;
 
-        $scope.activate($scope.navlist[0], 0);
+        $scope.activate(data.navlist[0], 0);
 
     // NAVIGATION =========================================
 
@@ -56,7 +56,6 @@
             if(!$scope.showReportLink){ $scope.showReportLink=true; }
             else{ $scope.showReportLink = false; }
         };
-
 
         $scope.showObjectMessages = function(msg, obj){
             if(obj._messages){
