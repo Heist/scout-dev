@@ -1,1 +1,34 @@
 <!-- FG Left Nav Controller Partial -->
+
+<ul>    
+    <!-- OVERVIEW -->
+
+    <li 
+    ng-repeat="object in leftNavList" 
+    ng-class="{ 'active': $index == selectedIndex }" 
+    ng-click="activate(object, $index)">
+        
+        <!-- <div class="step-ordering"> -->
+        <div class="step-ordering">
+            <div class="elevator" ng-click="moveTask($index, -1)" >&#9650;</div>
+            <div class="elevator" ng-click="moveTask($index, 1)" >&#9660;</div>
+        </div>
+        
+        <span ng-show="object.doctype === 'tag'">#</span>
+        <span ng-show="object.doctype === 'test'"><strong>Summary</strong></span>
+        <span ng-hide="object.doctype === 'test'">{{object.name}}</span>                    
+        
+        <div class="sidebar-visibility">
+            <a ng-click="toggleVis(object)" ng-show="object.visible">
+                <img src="/layout/assets/show.svg" />
+            </a>
+            <a ng-click="toggleVis(object)" ng-show="!object.visible">
+                <img src="/layout/assets/hidden.svg" />
+            </a>
+        </div>
+        
+        <div class="clear"></div>
+
+    </li>
+    
+</ul>
