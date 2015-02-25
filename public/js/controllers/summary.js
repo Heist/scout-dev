@@ -3,36 +3,35 @@
     'use strict';
 
     // SUMMARY CONTROLLER ===========================================================
-
     angular.module('field_guide_controls')
-        .controller('summary', [ 'loadData','$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
-                        function(loadData, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
+        .controller('summary', [ 'loadData', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
+                        function(loadData, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
+        
         $scope.test = {};
         $scope.timeline = [];
         $scope.commentMessage = '';
         $scope.showCommentToggle = 'hide';
-
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams.test_id;
         $scope.showReportLink = false;
 
         // synchronous shit is weird.
-        $scope.activate = function(obj, selectedIndex) {
-            // passes an object from left nav to the global selection variable
-            console.log('activate');
-            // reset all previous reliant variables, there are a lot!
-            $scope.selected = '';
-            // $scope.commentMessage = '';
-            // $scope.selectedIndex = '';
-            // $scope.inputNote = '';
-            // $scope.showCommentToggle = 'hide';
-            // $scope.messageEditToggle = '';
+        // $scope.activate = function(obj, selectedIndex) {
+        //     // passes an object from left nav to the global selection variable
+        //     console.log('activate');
+        //     // reset all previous reliant variables, there are a lot!
+        //     $scope.selected = '';
+        //     $scope.commentMessage = '';
+        //     $scope.selectedIndex = '';
+        //     $scope.inputNote = '';
+        //     $scope.showCommentToggle = 'hide';
+        //     $scope.messageEditToggle = '';
 
-            $scope.selectedIndex = selectedIndex;
-            $scope.selected = obj || $scope.selected;
+        //     $scope.selectedIndex = selectedIndex;
+        //     $scope.selected = obj || $scope.selected;
             
-        };
+        // };
 
-        // SET VIEW VARIABLES FROM LOAD DATA ==============
+    // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
 
         $scope.navlist = _.sortBy(data.navlist.list, function(obj){
@@ -44,12 +43,10 @@
                 });
 
         $scope.testname = data.navlist.test;
-        
-        console.log($scope.navlist[0]);
 
-        $scope.activate($scope.navlist[0], 0);
+        // reportFunctions.activate($scope.navlist[0], 0);
 
-    // NAVIGATION =============================================
+    // NAVIGATION =========================================
 
         $scope.reportPreview = function(){
             $location.path('/report/'+ $stateParams._id);
@@ -222,31 +219,13 @@
         };
 
         $scope.postMessage = function(message, subject){
-            // Make a note object, which becomes a message on the back end.
+            postMessage(message, $scope.selected._id, $scope.selected._test, subject._id )
+                .then(function(data){
+                    console.log(data);
 
-            //TODO make the note never be blank.
-            var note = {};
-
-            note.body = message;
-            note.created = new Date();
-             
-            note._task = $scope.selected._id;
-            note._test = $scope.selected._test;
-            note._subject = subject._id;
-
-            message = '';
-
-            $scope.newnote = '';
-            $scope.toggleNote(subject._id);
-
-            var url = '/api/message/';
-            var data_out = note;
-
-            $http
-                .post(url, data_out)
-                .success(function(data){
+                    $scope.newnote = '';
+                    $scope.toggleNote(subject._id);
                     $scope.toggleNote();
-
                     $scope.messages[data.msg._subject.name].push(data.msg);
                     $scope.selected._messages.push(data.msg._id);
 
@@ -263,6 +242,51 @@
                     });
                 });
         };
+// SHIT WE DO AFTER POSTING A MESSAGE SUCCESSFULLY
+
+ // $scope.postMessage = function(message, subject){
+ //            // Make a note object, which becomes a message on the back end.
+
+ //            //TODO make the note never be blank.
+ //            var note = {};
+
+ //            note.body = message;
+ //            note.created = new Date();
+             
+ //            note._task = $scope.selected._id;
+ //            note._test = $scope.selected._test;
+ //            note._subject = subject._id;
+
+ //            message = '';
+
+ //            $scope.newnote = '';
+ //            $scope.toggleNote(subject._id);
+
+ //            var url = '/api/message/';
+ //            var data_out = note;
+
+ //            $http
+ //                .post(url, data_out)
+ //                .success(function(data){
+ //                    $scope.toggleNote();
+
+ //                    $scope.messages[data.msg._subject.name].push(data.msg);
+ //                    $scope.selected._messages.push(data.msg._id);
+
+ //                    var indexCheck = _.pluck($scope.leftNavList, 'name');
+ //                    _.each(data.tags, function(tag){
+ //                        var idx = indexCheck.indexOf(tag.name);
+ //                        if(idx === -1){
+ //                            tag.report_index = $scope.leftNavList.length;
+ //                            $scope.leftNavList.push(tag);
+ //                            $scope.leftNavList[tag.report_index]._messages.push(data.msg._id);
+ //                        } else {
+ //                            $scope.leftNavList[idx]._messages.push(data.msg._id);
+ //                        }
+ //                    });
+ //                });
+ //        };
+
 
     // SAVE SUMMARY ==========================================
         $scope.saveSummary = function(){
