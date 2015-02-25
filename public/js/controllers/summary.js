@@ -15,10 +15,7 @@
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams.test_id;
         $scope.showReportLink = false;
 
-// GET DATA, SET VIEW VARIABLES FROM THE DATA =======================
-        // This can't be globalized, because it's an async request/promise chain.
-        console.log(loadData);
-
+        // SET VIEW VARIABLES FROM LOAD DATA ==============
         $scope.navlist = _.sortBy(loadData.navlist.list, function(obj){
                     return (obj.report_index);
                 });
