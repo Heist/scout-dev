@@ -2,8 +2,7 @@
 // post a new note to the database.
 'use strict';
 (function(){
-
-    angular.module('field_guide_controls', [])
+    angular.module('field_guide_controls')
         .factory('postMessage', ['$http', function($http) {
             var postMessage = function(message, task, test, subject_id){
                     var note = {};
