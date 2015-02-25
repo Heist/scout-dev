@@ -13,15 +13,16 @@
                 moveTask : function(list, old_index, new_index){
                     new_index = old_index + new_index;
                     list.splice(new_index, 0, list.splice(old_index, 1)[0]);
+                    
+                    (function(){
+                        var obj_count=0;
+                        // set the stored index of the task properly
+                        _.each(list, function(obj){
+                            obj.report_index = obj_count;
+                            obj_count++;
+                        });
+                    })();
                     return list;
-                    // (function(){
-                    //     var obj_count=0;
-                    //     // set the stored index of the task properly
-                    //     _.each(list, function(obj){
-                    //         obj.report_index = obj_count;
-                    //         obj_count++;
-                    //     });
-                    // })();
                 }
             };
         }]);

@@ -133,14 +133,13 @@
         };
 
         // MOVE STEPS =========================================
-
         $scope.moveTask = function(old_index, new_index){
-                    reportFunctions.moveTask($scope.navlist, old_index, new_index)
-                        .then(function(list){
-                            $scope.navlist = list;
-                            $scope.saveSummary();
-                        });
-                };
+            reportFunctions.moveTask($scope.navlist, old_index, new_index)
+                .then(function(list){
+                    $scope.navlist = list;
+                    $scope.saveSummary();
+                });
+        };
 
 
         // OBJECT FUNCTIONS =====================================
