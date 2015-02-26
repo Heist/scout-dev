@@ -12,9 +12,6 @@
         $httpProvider.defaults.timeout = 3000;
         
         $urlRouterProvider.otherwise("/login");
-        // $urlRouterProvider.otherwise("/404");
-        // $urlRouterProvider.otherwise("/overview");
-
 
         $stateProvider
         // PUBLIC ROUTES ================================================
@@ -77,7 +74,7 @@
                 controller:'summary',
                 templateUrl: 'partials/app/summary.html',
                 resolve: { 
-                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }],
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
@@ -101,7 +98,7 @@
                 controller:'summary',
                 templateUrl: 'partials/app/report_private.html',
                 resolve: { 
-                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }],
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
@@ -119,7 +116,7 @@
                 controller: 'account',
                 templateUrl : 'partials/app/account.html',
                 resolve: { 
-                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }]
                 }
@@ -131,7 +128,7 @@
                 controller: 'overview',
                 templateUrl: 'partials/app/overview.html',
                 resolve: { 
-                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }]
                 }
@@ -141,7 +138,7 @@
                 controller: 'overview',
                 templateUrl: 'partials/app/overview.html',
                 resolve: { 
-                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }]
                 }
@@ -151,7 +148,7 @@
                 controller:'test',
                 templateUrl: 'partials/app/test.html',
                 resolve: { 
-                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }]
                 }
@@ -163,7 +160,7 @@
                 controller:'run',
                 templateUrl: 'partials/app/run.html',
                 resolve: { 
-                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }]
                 }
