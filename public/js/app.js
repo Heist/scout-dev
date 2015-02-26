@@ -104,6 +104,7 @@
                 templateUrl: 'partials/app/report_public.html',
                 resolve: { 
                     loggedin: checkLoggedin,
+                    mixpanel: mixpanel.track('Report Loaded', {}),
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
                         return $http.get('/api/public/report/'+$stateParams._id)
                                     .success(function(data) {

@@ -3,8 +3,9 @@
 
 // REPORT CONTROLLER ===========================================================
 angular.module('field_guide_controls').controller('reportPrivate', 
-            ['loadData', 'postComment','$scope','$sce','$http','$location','$stateParams','$state','$sanitize','$rootScope', 
-    function(loadData, postComment,  $scope,  $sce,  $http,  $location,  $stateParams,  $state,  $sanitize,  $rootScope){
+            ['loadData', 'objectEmbed', 'postComment','$scope','$sce','$http','$location','$stateParams','$state','$sanitize','$rootScope', 
+    function(loadData, objectEmbed, postComment,  $scope,  $sce,  $http,  $location,  $stateParams,  $state,  $sanitize,  $rootScope){
+
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
@@ -13,56 +14,6 @@ angular.module('field_guide_controls').controller('reportPrivate',
     $scope.toggleReportLink =  function(){
         if(!$scope.showReportLink){ $scope.showReportLink=true; }
         else{ $scope.showReportLink = false; }
-    };
-
-    $http.get('/api/summary/'+$stateParams.test_id)
-            .success(function(data){
-                $scope.leftNavList = [];
-                $scope.testname = data.test;
-                
-                var sort = _.sortBy(data.navlist, function(obj){
-                                return(obj.report_index);
-                            });
-
-                _.each(sort, function(obj){
-                    if(obj.visible){
-                        $scope.leftNavList.push(obj);
-                    }
-                });
-
-                $scope.messages = data.messages;
-                $scope.activate($scope.leftNavList[0]);
-                
-            }); 
-
-// == mixpanel ==================================
-
-    mixpanel.track('Report Loaded', {});
-
-// ==============================================
-
-
-// ONBOARDING =========================================
-        // TODO: Abstract into service for dependency injection
-
-        $scope.changeOnboard = function(num){
-            $rootScope.user.onboard = num;
-
-            var url = '/api/user/'+$rootScope.user._id;
-            var dataOut = {onboard : $rootScope.user.onboard};
-
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    console.log($rootScope.user);
-                    $location.path('/');
-                });
-        };
-        
-// NAVIGATION =============================================
-
-    $scope.summarize = function(){
-        $location.path('/summary/'+ $stateParams.test_id);
     };
 
     $scope.activate = function(obj, selectedIndex) {
@@ -105,6 +56,43 @@ angular.module('field_guide_controls').controller('reportPrivate',
         }
     };
 
+// SET VIEW VARIABLES FROM LOAD DATA ==================
+    var data = loadData.data; // lol who even fucking knows why this can't return directly.
+
+    $scope.navlist = _.sortBy(data.navlist.list, function(obj){
+                return (obj.report_index);
+            });
+    
+    $scope.messages = _.groupBy(data.messages, function(z){
+                return z._subject.name ? z._subject.name : 'report comment';
+            });
+
+    $scope.testname = data.navlist.test;
+
+
+
+// ONBOARDING =========================================
+    // TODO: Abstract into service for dependency injection
+
+    $scope.changeOnboard = function(num){
+        $rootScope.user.onboard = num;
+
+        var url = '/api/user/'+$rootScope.user._id;
+        var dataOut = {onboard : $rootScope.user.onboard};
+
+        $http
+            .put(url, dataOut)
+            .success(function(data){
+                console.log($rootScope.user);
+                $location.path('/');
+            });
+    };
+
+// NAVIGATION =============================================
+    $scope.summarize = function(){
+        $location.path('/summary/'+ $stateParams.test_id);
+    };
+
     $scope.showObjectMessages = function(msg, obj){
         if(obj._messages){
             if((obj._messages.indexOf(msg._id) >= 0)){     
@@ -117,6 +105,7 @@ angular.module('field_guide_controls').controller('reportPrivate',
             }
         }
     };
+
 
 // COMMENTING =========================================
     $scope.showComments = function(message){
@@ -159,4 +148,6 @@ angular.module('field_guide_controls').controller('reportPrivate',
         else {
             $scope.showCommentToggle = 'hide';
         }
+    };
+
 }]);
