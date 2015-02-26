@@ -13,13 +13,10 @@ angular.module('field_guide_controls').controller('reportPrivate',
 
     $scope.toggleReportLink =  function(){
         $scope.showReportLink = ($scope.showReportLink) ?  false : true; 
-        // if(!$scope.showReportLink){ $scope.showReportLink=true; }
-        // else{ $scope.showReportLink = false; }
     };
 
     $scope.activate = function(obj, selectedIndex) {
     // passes an object from left nav to the global selection variable
-            console.log('activate');
 
         // reset all previous reliant variables, there are a lot!
             $scope.selected = '';
@@ -33,16 +30,16 @@ angular.module('field_guide_controls').controller('reportPrivate',
             $scope.selected = obj || $scope.selected;
             
             console.log(obj);
+
+        // Set up what kind of video we're expecting to need here.
             if(obj.embed){
-                videoRender(obj.embed)
-                    .then(function(data){
-                        if(data.youtube){
-                            $scope.selected.youTubeCode = data.youtube;
-                        } else {
-                            $scope.selected.userTesting = data.embed;
-                        }
-                    });
-            }  
+                var loadVideo = videoRender(obj.embed);
+                if(data.youtube){
+                    $scope.selected.youTubeCode = data.youtube;
+                } else {
+                    $scope.selected.userTesting = data.embed;
+                }
+            }
         };
 
 // SET VIEW VARIABLES FROM LOAD DATA ==================

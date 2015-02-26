@@ -727,16 +727,19 @@ angular.module('field_guide_controls').controller('reportPrivate',
             $scope.selected = obj || $scope.selected;
             
             void 0;
-            // if(obj.embed){
-            //     videoRender(obj.embed)
-            //         .then(function(data){
-            //             if(data.youtube){
-            //                 $scope.selected.youTubeCode = data.youtube;
-            //             } else {
-            //                 $scope.selected.userTesting = data.embed;
-            //             }
-            //         });
-            // }  
+            if(obj.embed){
+                var loadVideo = videoRender(obj.embed);
+                void 0;
+                //     .then(function(data){
+                //         if(data.youtube){
+                //             $scope.selected.youTubeCode = data.youtube;
+                //         } else {
+                //             $scope.selected.userTesting = data.embed;
+                //         }
+                //     });
+                // console.log($scope.selected.youTubeCode);
+                // console.log($scope.selected.userTesting);
+            }  
         };
 
 // SET VIEW VARIABLES FROM LOAD DATA ==================
