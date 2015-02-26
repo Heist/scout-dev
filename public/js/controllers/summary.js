@@ -32,10 +32,10 @@
         // Set up what kind of video we're expecting to need here.
             if(obj.embed){
                 var loadVideo = reportFunctions.videoRender(obj.embed);
-                if(data.youtube){
-                    $scope.selected.youTubeCode = data.youtube;
+                if(loadVideo.youtube){
+                    $scope.selected.youTubeCode = loadVideo.youtube;
                 } else {
-                    $scope.selected.userTesting = data.embed;
+                    $scope.selected.userTesting = loadVideo.embed;
                 }
             }  
         };

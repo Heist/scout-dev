@@ -50,7 +50,6 @@ module.exports = function(object_array, next){
                 
                     model.report_index  = obj.report_index || model.report_index;
                     
-                    
                     // if there's a subject
                     // and the subject doesn't exist in the model already
                     if(obj._subject && model._subjects.indexOf(obj._subject) === -1){
