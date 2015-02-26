@@ -2,7 +2,9 @@
 // report.js
 
 // REPORT CONTROLLER ===========================================================
-angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', '$rootScope', function($scope, $sce, $http, $location,$stateParams,$state, $sanitize, $rootScope){
+angular.module('field_guide_controls').controller('reportPrivate', 
+            ['postComment','$scope','$sce','$http','$location','$stateParams','$state','$sanitize','$rootScope', 
+    function( postComment,  $scope,  $sce,  $http,  $location,  $stateParams,  $state,  $sanitize,  $rootScope){
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
@@ -145,25 +147,16 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
     };
 
     $scope.addComment = function(comment){
-        // if there's a comment, edit the comment
         if(comment && comment.body.length > 0){
-            var dataOut = {
-                body : comment.body,
-                msg  : $scope.commentMessage._id
-            };
-    
-            $http
-                .post('/api/comment/', dataOut)
-                .success(function(data){
-                    // Set the message to be the message with comment.
+            postComment(comment, $scope.commentMessage._id)
+                .then(function(data){
                     comment.body = '';
                     var arr = _.pluck($scope.messages, '_id');
                     var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
                     $scope.messages[msg_idx] = data;
                 });
-        } else {
-            // if there's no comment, hide the comments.
-            $scope.showCommentToggle = 'hide';   
         }
-    };
+        else {
+            $scope.showCommentToggle = 'hide';
+        }
 }]);
