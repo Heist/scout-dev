@@ -33,16 +33,16 @@ angular.module('field_guide_controls').controller('reportPrivate',
             $scope.selected = obj || $scope.selected;
             
             console.log(obj);
-            // if(obj.embed){
-            //     videoRender(obj.embed)
-            //         .then(function(data){
-            //             if(data.youtube){
-            //                 $scope.selected.youTubeCode = data.youtube;
-            //             } else {
-            //                 $scope.selected.userTesting = data.embed;
-            //             }
-            //         });
-            // }  
+            if(obj.embed){
+                videoRender(obj.embed)
+                    .then(function(data){
+                        if(data.youtube){
+                            $scope.selected.youTubeCode = data.youtube;
+                        } else {
+                            $scope.selected.userTesting = data.embed;
+                        }
+                    });
+            }  
         };
 
 // SET VIEW VARIABLES FROM LOAD DATA ==================
