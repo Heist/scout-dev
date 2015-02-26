@@ -44,12 +44,13 @@
 
         $scope.testname = data.navlist.test;
 
-        $scope.activate(data.navlist[0], 0);
+        $scope.activate(data.navlist.list[0], 0);
 
     // NAVIGATION =========================================
 
         $scope.reportPreview = function(){
-            $location.path('/report/'+ $stateParams._id);
+            console.log($stateParams._id);
+            $location.path('/report/'+$stateParams._id);
         };
 
         $scope.toggleReportLink =  function(){

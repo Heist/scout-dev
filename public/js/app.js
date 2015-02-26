@@ -115,10 +115,31 @@
             })
 
         // PRIVATE ROUTES ===============================================
+            // SUMMARIZE VIEW =============================
+            .state('summary', {
+                url: '/summary/:_id',
+                controller:'summary',
+                templateUrl: 'partials/app/summary.html',
+                resolve: { 
+                    loggedin: checkLoggedin,
+                    loadData: ['$http','$stateParams', function($http, $stateParams) {
+                        return $http.get('/api/summary/'+$stateParams._id)
+                                    .success(function(data) {
+                                        return data;
+                                    });
+                    }]
+                }
+            })
+            .state('summary.test', {
+                templateUrl: 'partials/app/summary_test.html'
+            })
+            .state('summary.task', {
+                templateUrl: 'partials/app/summary_task.html'
+            })
 
-            // REPORT PAGE FOR SINGLE TEST ====================
+            // REPORT PREVIEW =============================
             .state('report', {
-                url: '/report/:test_id',
+                url: '/report/:_id',
                 controller:'reportPrivate',
                 templateUrl: 'partials/app/report_private.html',
                 resolve: { 
@@ -166,28 +187,6 @@
                 controller:'run',
                 templateUrl: 'partials/app/run.html',
                 resolve: { loggedin: checkLoggedin }
-            })
-
-            // SUMMARIZE VIEW =================================
-            .state('summary', {
-                url: '/summary/:_id',
-                controller:'summary',
-                templateUrl: 'partials/app/summary.html',
-                resolve: { 
-                    loggedin: checkLoggedin,
-                    loadData: ['$http','$stateParams', function($http, $stateParams) {
-                        return $http.get('/api/summary/'+$stateParams._id)
-                                    .success(function(data) {
-                                        return data;
-                                    });
-                    }]
-                }
-            })
-            .state('summary.test', {
-                templateUrl: 'partials/app/summary_test.html'
-            })
-            .state('summary.task', {
-                templateUrl: 'partials/app/summary_task.html'
             });
     });
 

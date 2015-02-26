@@ -3,60 +3,50 @@
 
 // REPORT CONTROLLER ===========================================================
 angular.module('field_guide_controls').controller('reportPrivate', 
-            ['loadData', 'objectEmbed', 'postComment','$scope','$sce','$http','$location','$stateParams','$state','$sanitize','$rootScope', 
-    function(loadData, objectEmbed, postComment,  $scope,  $sce,  $http,  $location,  $stateParams,  $state,  $sanitize,  $rootScope){
+            ['loadData', 'videoRender', 'postComment','$scope','$sce','$http','$location','$stateParams','$state','$sanitize','$rootScope', 
+    function(loadData, videoRender, postComment,  $scope,  $sce,  $http,  $location,  $stateParams,  $state,  $sanitize,  $rootScope){
 
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
-    $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
+    $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams._id;
     $scope.showReportLink = false;
 
     $scope.toggleReportLink =  function(){
-        if(!$scope.showReportLink){ $scope.showReportLink=true; }
-        else{ $scope.showReportLink = false; }
+        $scope.showReportLink = ($scope.showReportLink) ?  false : true; 
+        // if(!$scope.showReportLink){ $scope.showReportLink=true; }
+        // else{ $scope.showReportLink = false; }
     };
 
     $scope.activate = function(obj, selectedIndex) {
-        // passes the task to the global variable
+    // passes an object from left nav to the global selection variable
+            console.log('activate');
 
-        $scope.selected = '';
-        $scope.commentMessage = '';
-        $scope.selectedIndex = '';
-        $scope.showCommentToggle = 'hide';
-        
-        $scope.selectedIndex = selectedIndex;
-        
-        if(obj){
-            $scope.selected = obj;
+        // reset all previous reliant variables, there are a lot!
+            $scope.selected = '';
+            $scope.commentMessage = '';
+            $scope.selectedIndex = '';
+            $scope.inputNote = '';
+            $scope.showCommentToggle = 'hide';
+            $scope.messageEditToggle = '';
 
-            // here's where we do the rendering shit for the embeds. Slow. Boo.
-            if(obj.embed){
-                var utest = /usabilitytestresults/i;
-                var ut = utest.test(obj.embed);
-                if(ut){
-                    var w1 = /width='\d+'/i;
-                    var h1 = /height='\d+'/i;
-                    var w2 = /"width":"\d+"/i;
-                    var h2 = /"height":"\d+"/i;
-                    
-                    var res = obj.embed.replace(w1, "width='574'");
-                    res = res.replace(w2, '"width":"574"');
-                    res = res.replace(h1, "height='380'");
-                    res = res.replace(h2, '"height":"380"');
-                    
-                    // console.log(res);
-
-                    $scope.selected.userTesting = $sce.trustAsHtml(res);
-                    // $scope.selected.HTMLdemo = '<a href="#linky">I am a link</a>';
-                } else {
-                    $scope.selected.youTubeCode = obj.embed;
-                }
-
-            }
-        }
-    };
+            $scope.selectedIndex = selectedIndex;
+            $scope.selected = obj || $scope.selected;
+            
+            console.log(obj);
+            // if(obj.embed){
+            //     videoRender(obj.embed)
+            //         .then(function(data){
+            //             if(data.youtube){
+            //                 $scope.selected.youTubeCode = data.youtube;
+            //             } else {
+            //                 $scope.selected.userTesting = data.embed;
+            //             }
+            //         });
+            // }  
+        };
 
 // SET VIEW VARIABLES FROM LOAD DATA ==================
+    console.log(loadData.data);
     var data = loadData.data; // lol who even fucking knows why this can't return directly.
 
     $scope.navlist = _.sortBy(data.navlist.list, function(obj){
@@ -69,6 +59,7 @@ angular.module('field_guide_controls').controller('reportPrivate',
 
     $scope.testname = data.navlist.test;
 
+    $scope.activate(data.navlist.list[0], 0);
 
 
 // ONBOARDING =========================================
@@ -90,7 +81,8 @@ angular.module('field_guide_controls').controller('reportPrivate',
 
 // NAVIGATION =============================================
     $scope.summarize = function(){
-        $location.path('/summary/'+ $stateParams.test_id);
+        console.log($stateParams._id);
+        $location.path('/summary/'+ $stateParams._id);
     };
 
     $scope.showObjectMessages = function(msg, obj){

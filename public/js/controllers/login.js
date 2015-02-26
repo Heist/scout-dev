@@ -4,8 +4,9 @@
 
     // LOGIN CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-       .controller('login', ['ngCheckStrength', '$scope','$http', '$location', '$stateParams','$rootScope',
-        function(ngCheckStrength, $scope, $http, $location, $stateParams, $rootScope){
+       .controller('login', [ '$scope','$http', '$location', '$stateParams','$rootScope',
+        function( $scope, $http, $location, $stateParams, $rootScope){
+            // TODO: Reinsert ngCheckStrength
 
         // LOGIN FUNCTIONS ====================================
         if($rootScope.user){

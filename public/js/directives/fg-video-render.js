@@ -4,8 +4,8 @@
 
 (function(){
     angular.module('field_guide_controls')
-        .factory('objectEmbed', ['$http', '$sce', function($http, $sce) {
-            var objectEmbed = function(embed){
+        .factory('videoRender', ['$http', '$sce', function($http, $sce) {
+            var videoRender = function(embed){
 
                 var utest = /usabilitytestresults/i;
                 var ut = utest.test(embed);
@@ -21,11 +21,11 @@
                     res = res.replace(h1, "height='380'");
                     res = res.replace(h2, '"height":"380"');
 
-                    return {ut : $sce.trustAsHtml(res)};
+                    return {embed : $sce.trustAsHtml(res)};
                 } else {
                     return {youtube: embed};
                 }
             };
-            return objectEmbed;
+            return videoRender;
         }]);
 })();

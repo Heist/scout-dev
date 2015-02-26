@@ -46,7 +46,7 @@
 
 			<ul>
 				<li 
-				ng-repeat="object in leftNavList" 
+				ng-repeat="object in navlist" 
 				ng-click="activate(object, $index)" 
 				ng-class="{ 'active': object._id == selected._id }"
 				ng-if="object.visible" >
