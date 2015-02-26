@@ -26,46 +26,14 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         $locationProvider.html5Mode(true);
 
         $httpProvider.defaults.timeout = 3000;
-
-        // // TODO: this should probably be an Interceptor, but it works on load for now.
-        // function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
-        //     // console.log('checking logged in identity');
-        //     // Make an AJAX call to check if the user is logged in
-        //     var deferred = $q.defer();
-        //     $http
-        //         .get('/loggedin')
-        //         .success(function(user){
-        //             // Authenticated
-        //             if (user !== '0') {
-        //                 // console.log('user', user);
-        //                 $rootScope.user = user;
-        //                 deferred.resolve();
-        //             }
-        //             // Not Authenticated 
-        //             else { 
-        //                 // console.log('welp, that flunked.');
-        //                 $location.url('/login');
-        //                 deferred.resolve();
-        //             }
-        //         })
-        //         .error(function(err){
-        //             // console.log(err);
-        //             $location.url('/login');
-        //             deferred.resolve();
-        //         });
-
-        //     return deferred.promise;   
-        // }
         
         $urlRouterProvider.otherwise("/login");
-        // $urlRouterProvider.otherwise("/404");
-        // $urlRouterProvider.otherwise("/overview");
 
-
+    // APP ROUTING ====================================================================
         $stateProvider
-        // PUBLIC ROUTES ================================================
+        // PUBLIC ROUTES ======================================================
 
-            // "block screens" ============================================
+            // BLOCK SCREENS ============================================
             .state('404', {
                 url: '/404',                
                 templateUrl: 'partials/app/404.html',
@@ -75,7 +43,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 templateUrl: 'partials/app/upgrade.html',
             })
 
-            // LOGIN AND REGISTRATION PAGES ===================
+            // LOGIN AND REGISTRATION PAGES =============================
             
             .state('login', {
                 url: '/login{acct:(?:/[^/]+)?}',
@@ -123,7 +91,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 controller:'summary',
                 templateUrl: 'partials/app/summary.html',
                 resolve: { 
-                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }],
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
@@ -147,7 +115,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 controller:'summary',
                 templateUrl: 'partials/app/report_private.html',
                 resolve: { 
-                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }],
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
@@ -165,7 +133,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 controller: 'account',
                 templateUrl : 'partials/app/account.html',
                 resolve: { 
-                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }]
                 }
@@ -177,7 +145,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 controller: 'overview',
                 templateUrl: 'partials/app/overview.html',
                 resolve: { 
-                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }]
                 }
@@ -187,7 +155,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 controller: 'overview',
                 templateUrl: 'partials/app/overview.html',
                 resolve: { 
-                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }]
                 }
@@ -197,7 +165,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 controller:'test',
                 templateUrl: 'partials/app/test.html',
                 resolve: { 
-                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }]
                 }
@@ -209,7 +177,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 controller:'run',
                 templateUrl: 'partials/app/run.html',
                 resolve: { 
-                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }]
                 }
@@ -890,8 +858,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         $scope.timeline = []; // holds all messages currently in test
         $scope.glued = true;
 
-        console.log('user', $rootScope.user);
-
         $http
             .get('/api/run/'+$stateParams._id)
             .success(function(data){
@@ -1138,7 +1104,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
             $scope.selectedIndex = selectedIndex;
             $scope.selected = obj || $scope.selected;
             
-            
+
         // Set up what kind of video we're expecting to need here.
             if(obj.embed){
                 var loadVideo = reportFunctions.videoRender(obj.embed);
@@ -1152,7 +1118,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
-
+        console.log(data);
         $scope.navlist = _.sortBy(data.navlist.list, function(obj){
                     return (obj.report_index);
                 });
@@ -1167,9 +1133,12 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
     // NAVIGATION =========================================
 
-        $scope.reportPreview = function(){
-            console.log($stateParams._id);
+        $scope.reportView = function(){
             $location.path('/report/'+$stateParams._id);
+        };
+
+        $scope.summaryView = function(){
+            $location.path('/summary/'+$stateParams._id);
         };
 
         $scope.toggleReportLink =  function(){

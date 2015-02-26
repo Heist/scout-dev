@@ -28,7 +28,7 @@
             $scope.selectedIndex = selectedIndex;
             $scope.selected = obj || $scope.selected;
             
-            
+
         // Set up what kind of video we're expecting to need here.
             if(obj.embed){
                 var loadVideo = reportFunctions.videoRender(obj.embed);
@@ -42,7 +42,7 @@
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
-
+        console.log(data);
         $scope.navlist = _.sortBy(data.navlist.list, function(obj){
                     return (obj.report_index);
                 });
@@ -57,9 +57,12 @@
 
     // NAVIGATION =========================================
 
-        $scope.reportPreview = function(){
-            console.log($stateParams._id);
+        $scope.reportView = function(){
             $location.path('/report/'+$stateParams._id);
+        };
+
+        $scope.summaryView = function(){
+            $location.path('/summary/'+$stateParams._id);
         };
 
         $scope.toggleReportLink =  function(){

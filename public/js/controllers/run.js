@@ -13,8 +13,6 @@
         $scope.timeline = []; // holds all messages currently in test
         $scope.glued = true;
 
-        console.log('user', $rootScope.user);
-
         $http
             .get('/api/run/'+$stateParams._id)
             .success(function(data){

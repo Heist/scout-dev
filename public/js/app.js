@@ -13,7 +13,6 @@
         
         $urlRouterProvider.otherwise("/login");
 
-
     // APP ROUTING ====================================================================
         $stateProvider
         // PUBLIC ROUTES ======================================================
