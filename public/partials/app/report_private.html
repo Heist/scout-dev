@@ -123,14 +123,13 @@
 						
 			
 			<!-- messages -->					
-			<div class="message-group">
-			
+			<div class="message-group" ng-repeat="user in messages">
 				<!-- message -->
-				<div ng-repeat="message in messages" class="message" 
+				<!-- <div ng-repeat="message in user" class="message" 
 					ng-if="showObjectMessages(message, selected)"
-					ng-class="{selected: commentMessage._id === message._id}"
-				>
-					
+					ng-class="{selected: commentMessage._id === message._id}" >
+				 -->
+				 <div ng-repeat="message in user" class="message" >
 					<div class="message-body">
 						<p ng-bind-html="message.body | hashtag"></p>
 						<small>Testing with {{message._subject.name}}</small>
@@ -172,7 +171,7 @@
 					
 				</div>
 				<!-- / message -->
-		
+			</div>
 			</div>
 			<!-- /messages -->
 			

@@ -707,13 +707,10 @@ angular.module('field_guide_controls').controller('reportPrivate',
 
     $scope.toggleReportLink =  function(){
         $scope.showReportLink = ($scope.showReportLink) ?  false : true; 
-        // if(!$scope.showReportLink){ $scope.showReportLink=true; }
-        // else{ $scope.showReportLink = false; }
     };
 
     $scope.activate = function(obj, selectedIndex) {
     // passes an object from left nav to the global selection variable
-            void 0;
 
         // reset all previous reliant variables, there are a lot!
             $scope.selected = '';
@@ -725,21 +722,16 @@ angular.module('field_guide_controls').controller('reportPrivate',
 
             $scope.selectedIndex = selectedIndex;
             $scope.selected = obj || $scope.selected;
-            
-            void 0;
+
+        // Set up what kind of video we're expecting to need here.
             if(obj.embed){
                 var loadVideo = videoRender(obj.embed);
-                void 0;
-                //     .then(function(data){
-                //         if(data.youtube){
-                //             $scope.selected.youTubeCode = data.youtube;
-                //         } else {
-                //             $scope.selected.userTesting = data.embed;
-                //         }
-                //     });
-                // console.log($scope.selected.youTubeCode);
-                // console.log($scope.selected.userTesting);
-            }  
+                if(data.youtube){
+                    $scope.selected.youTubeCode = data.youtube;
+                } else {
+                    $scope.selected.userTesting = data.embed;
+                }
+            }
         };
 
 // SET VIEW VARIABLES FROM LOAD DATA ==================
@@ -750,10 +742,13 @@ angular.module('field_guide_controls').controller('reportPrivate',
                 return (obj.report_index);
             });
     
-    $scope.messages = _.groupBy(data.messages, function(z){
+    var msgGroup = _.groupBy(data.messages, function(z){
                 return z._subject.name ? z._subject.name : 'report comment';
             });
 
+    // $scope.messages = data.messages;
+    $scope.messages = msgGroup ;
+    void 0;
     $scope.testname = data.navlist.test;
 
     $scope.activate(data.navlist.list[0], 0);
@@ -782,18 +777,27 @@ angular.module('field_guide_controls').controller('reportPrivate',
         $location.path('/summary/'+ $stateParams._id);
     };
 
-    $scope.showObjectMessages = function(msg, obj){
-        if(obj._messages){
-            if((obj._messages.indexOf(msg._id) >= 0)){     
-                if(obj.doctype === 'task' && msg.fav_task){
-                    return true;
-                }
-                if(obj.doctype === 'tag' && msg.fav_tag){
+
+        $scope.showObjectMessages = function(msg, obj){
+            if(obj._messages){
+                if((obj._messages.indexOf(msg._id) >= 0)){                
                     return true;
                 }
             }
-        }
-    };
+        };
+
+    // $scope.showObjectMessages = function(msg, obj){
+    //     if(obj._messages){
+    //         if((obj._messages.indexOf(msg._id) >= 0)){     
+    //             if(obj.doctype === 'task' && msg.fav_task){
+    //                 return true;
+    //             }
+    //             if(obj.doctype === 'tag' && msg.fav_tag){
+    //                 return true;
+    //             }
+    //         }
+    //     }
+    // };
 
 
 // COMMENTING =========================================

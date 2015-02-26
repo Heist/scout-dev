@@ -28,8 +28,6 @@ angular.module('field_guide_controls').controller('reportPrivate',
 
             $scope.selectedIndex = selectedIndex;
             $scope.selected = obj || $scope.selected;
-            
-            console.log(obj);
 
         // Set up what kind of video we're expecting to need here.
             if(obj.embed){
@@ -50,10 +48,13 @@ angular.module('field_guide_controls').controller('reportPrivate',
                 return (obj.report_index);
             });
     
-    $scope.messages = _.groupBy(data.messages, function(z){
+    var msgGroup = _.groupBy(data.messages, function(z){
                 return z._subject.name ? z._subject.name : 'report comment';
             });
 
+    // $scope.messages = data.messages;
+    $scope.messages = msgGroup ;
+    console.log(msgGroup);
     $scope.testname = data.navlist.test;
 
     $scope.activate(data.navlist.list[0], 0);
@@ -82,18 +83,27 @@ angular.module('field_guide_controls').controller('reportPrivate',
         $location.path('/summary/'+ $stateParams._id);
     };
 
-    $scope.showObjectMessages = function(msg, obj){
-        if(obj._messages){
-            if((obj._messages.indexOf(msg._id) >= 0)){     
-                if(obj.doctype === 'task' && msg.fav_task){
-                    return true;
-                }
-                if(obj.doctype === 'tag' && msg.fav_tag){
+
+        $scope.showObjectMessages = function(msg, obj){
+            if(obj._messages){
+                if((obj._messages.indexOf(msg._id) >= 0)){                
                     return true;
                 }
             }
-        }
-    };
+        };
+
+    // $scope.showObjectMessages = function(msg, obj){
+    //     if(obj._messages){
+    //         if((obj._messages.indexOf(msg._id) >= 0)){     
+    //             if(obj.doctype === 'task' && msg.fav_task){
+    //                 return true;
+    //             }
+    //             if(obj.doctype === 'tag' && msg.fav_tag){
+    //                 return true;
+    //             }
+    //         }
+    //     }
+    // };
 
 
 // COMMENTING =========================================

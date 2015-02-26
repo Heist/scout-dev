@@ -82,7 +82,6 @@
 	<!-- main content -->
 	<div class="sheet-holder">						
 		<div class="sheet" ng-model="selected">
-			
 			<div class="findings-header">		
 				<h1 ng-show="selected.doctype === 'test'">Overview</h1>
 				<h3 ng-hide="selected.doctype === 'test'" class="dark"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h3>
@@ -109,7 +108,6 @@
 			</div>
 		
 		
-		
 			<div id="video-containers">
 				<youtube-video video-url="selected.youTubeCode" player-width="'100%'" player-height="'350px'"
 				ng-if="selected.youTubeCode.length > 0"
@@ -120,16 +118,16 @@
 				<!-- <div ng-if="selected.HTMLdemo" ng-bind-html="selected.HTMLdemo"> </div> -->
 			</div>
 			
-						
-			
 			<!-- messages -->					
-			<div class="message-group">
-			
+			<div class="message-group" ng-repeat="user in messages">
 				<!-- message -->
-				<div ng-repeat="message in messages" class="message" 
+
+				<div ng-repeat="message in user.messages" class="message">
+				<!-- 
+				<div ng-repeat="message in messages" class="message"
 					ng-if="showObjectMessages(message, selected)"
 					ng-class="{selected: commentMessage._id === message._id}"
-				>
+				> -->
 					
 					<div class="message-body">
 						<p ng-bind-html="message.body | hashtag"></p>
