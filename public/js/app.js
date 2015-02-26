@@ -140,7 +140,7 @@
             // REPORT PREVIEW =============================
             .state('report', {
                 url: '/report/:_id',
-                controller:'reportPrivate',
+                controller:'summary',
                 templateUrl: 'partials/app/report_private.html',
                 resolve: { 
                     loggedin: checkLoggedin,

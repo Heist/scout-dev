@@ -17,7 +17,6 @@
         // synchronous shit is weird. =====================
         $scope.activate = function(obj, selectedIndex) {
             // passes an object from left nav to the global selection variable
-            console.log('activate');
             // reset all previous reliant variables, there are a lot!
             $scope.selected = '';
             $scope.commentMessage = '';
@@ -29,6 +28,16 @@
             $scope.selectedIndex = selectedIndex;
             $scope.selected = obj || $scope.selected;
             
+            
+        // Set up what kind of video we're expecting to need here.
+            if(obj.embed){
+                var loadVideo = reportFunctions.videoRender(obj.embed);
+                if(data.youtube){
+                    $scope.selected.youTubeCode = data.youtube;
+                } else {
+                    $scope.selected.userTesting = data.embed;
+                }
+            }  
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
@@ -110,25 +119,19 @@
             $scope.commentMessage = message;
         };
 
+        
         $scope.addComment = function(comment){
             if(comment && comment.body.length > 0){
-                var dataOut = {
-                    comment: {body : comment.body}
-                };
-                
-                $http
-                    .post('/api/comment/'+$scope.commentMessage._id, dataOut)
-                    .success(function(data){
+                reportFunctions.postComment(comment, $scope.commentMessage._id)
+                    .then(function(data){
                         comment.body = '';
-
-                        var name = data.msg._subject.name;
-                        var arr = _.pluck($scope.messages[name], '_id');
+                        var arr = _.pluck($scope.messages, '_id');
                         var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
-
-                        $scope.messages[name][msg_idx]._comments.push(data.comment);
+                        $scope.messages[msg_idx] = data;
                     });
-            } else {
-                $scope.showCommentToggle = 'hide';   
+            }
+            else {
+                $scope.showCommentToggle = 'hide';
             }
         };
 
@@ -230,6 +233,7 @@
                     });
                 });
         };
+
 
 
     // SAVE SUMMARY ==========================================

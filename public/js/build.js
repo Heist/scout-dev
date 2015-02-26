@@ -156,7 +156,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
             // REPORT PREVIEW =============================
             .state('report', {
                 url: '/report/:_id',
-                controller:'reportPrivate',
+                controller:'summary',
                 templateUrl: 'partials/app/report_private.html',
                 resolve: { 
                     loggedin: checkLoggedin,
@@ -697,8 +697,8 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
 // REPORT CONTROLLER ===========================================================
 angular.module('field_guide_controls').controller('reportPrivate', 
-            ['loadData', 'videoRender', 'postComment','$scope','$sce','$http','$location','$stateParams','$state','$sanitize','$rootScope', 
-    function(loadData, videoRender, postComment,  $scope,  $sce,  $http,  $location,  $stateParams,  $state,  $sanitize,  $rootScope){
+            ['loadData', 'reportFunctions', '$scope','$sce','$http','$location','$stateParams','$state','$sanitize','$rootScope', 
+    function(loadData, reportFunctions, $scope,  $sce,  $http,  $location,  $stateParams,  $state,  $sanitize,  $rootScope){
 
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
@@ -725,7 +725,7 @@ angular.module('field_guide_controls').controller('reportPrivate',
 
         // Set up what kind of video we're expecting to need here.
             if(obj.embed){
-                var loadVideo = videoRender(obj.embed);
+                var loadVideo = reportFunctions.videoRender(obj.embed);
                 if(data.youtube){
                     $scope.selected.youTubeCode = data.youtube;
                 } else {
@@ -742,13 +742,10 @@ angular.module('field_guide_controls').controller('reportPrivate',
                 return (obj.report_index);
             });
     
-    var msgGroup = _.groupBy(data.messages, function(z){
+    $scope.messages = _.groupBy(data.messages, function(z){
                 return z._subject.name ? z._subject.name : 'report comment';
             });
-
-    // $scope.messages = data.messages;
-    $scope.messages = msgGroup ;
-    console.log(msgGroup);
+    
     $scope.testname = data.navlist.test;
 
     $scope.activate(data.navlist.list[0], 0);
@@ -766,38 +763,28 @@ angular.module('field_guide_controls').controller('reportPrivate',
         $http
             .put(url, dataOut)
             .success(function(data){
-                console.log($rootScope.user);
                 $location.path('/');
             });
     };
 
 // NAVIGATION =============================================
     $scope.summarize = function(){
-        console.log($stateParams._id);
         $location.path('/summary/'+ $stateParams._id);
     };
 
 
-        $scope.showObjectMessages = function(msg, obj){
-            if(obj._messages){
-                if((obj._messages.indexOf(msg._id) >= 0)){                
+    $scope.showObjectMessages = function(msg, obj){
+        if(obj._messages){
+            if((obj._messages.indexOf(msg._id) >= 0)){     
+                if(obj.doctype === 'task' && msg.fav_task){
+                    return true;
+                }
+                if(obj.doctype === 'tag' && msg.fav_tag){
                     return true;
                 }
             }
-        };
-
-    // $scope.showObjectMessages = function(msg, obj){
-    //     if(obj._messages){
-    //         if((obj._messages.indexOf(msg._id) >= 0)){     
-    //             if(obj.doctype === 'task' && msg.fav_task){
-    //                 return true;
-    //             }
-    //             if(obj.doctype === 'tag' && msg.fav_tag){
-    //                 return true;
-    //             }
-    //         }
-    //     }
-    // };
+        }
+    };
 
 
 // COMMENTING =========================================
@@ -830,7 +817,7 @@ angular.module('field_guide_controls').controller('reportPrivate',
 
     $scope.addComment = function(comment){
         if(comment && comment.body.length > 0){
-            postComment(comment, $scope.commentMessage._id)
+            reportFunctions.postComment(comment, $scope.commentMessage._id)
                 .then(function(data){
                     comment.body = '';
                     var arr = _.pluck($scope.messages, '_id');
@@ -842,7 +829,6 @@ angular.module('field_guide_controls').controller('reportPrivate',
             $scope.showCommentToggle = 'hide';
         }
     };
-
 }]);
 // report.js
 (function() {
@@ -1374,25 +1360,19 @@ angular.module('field_guide_controls').controller('reportPrivate',
             $scope.commentMessage = message;
         };
 
+        
         $scope.addComment = function(comment){
             if(comment && comment.body.length > 0){
-                var dataOut = {
-                    comment: {body : comment.body}
-                };
-                
-                $http
-                    .post('/api/comment/'+$scope.commentMessage._id, dataOut)
-                    .success(function(data){
+                reportFunctions.postComment(comment, $scope.commentMessage._id)
+                    .then(function(data){
                         comment.body = '';
-
-                        var name = data.msg._subject.name;
-                        var arr = _.pluck($scope.messages[name], '_id');
+                        var arr = _.pluck($scope.messages, '_id');
                         var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
-
-                        $scope.messages[name][msg_idx]._comments.push(data.comment);
+                        $scope.messages[msg_idx] = data;
                     });
-            } else {
-                $scope.showCommentToggle = 'hide';   
+            }
+            else {
+                $scope.showCommentToggle = 'hide';
             }
         };
 
@@ -1494,6 +1474,7 @@ angular.module('field_guide_controls').controller('reportPrivate',
                     });
                 });
         };
+
 
 
     // SAVE SUMMARY ==========================================
@@ -2257,9 +2238,28 @@ angular.module('field_guide_controls')
 // This module builds out the left navigation used in report and summary controllers.
 // It does not require login in order to load information, because it is required for public routes.
     angular.module('field_guide_controls')
-        .service('reportFunctions', ['$http', function($http) {
+        .service('reportFunctions', ['$http', '$sce', function($http, $sce) {
             return {
-                generateList : function(){},
+                videoRender : function(embed){
+                    var utest = /usabilitytestresults/i;
+                    var ut = utest.test(embed);
+
+                    if(ut){
+                        var w1 = /width='\d+'/i;
+                        var h1 = /height='\d+'/i;
+                        var w2 = /"width":"\d+"/i;
+                        var h2 = /"height":"\d+"/i;
+                        
+                        var res = embed.replace(w1, "width='574'");
+                        res = res.replace(w2, '"width":"574"');
+                        res = res.replace(h1, "height='380'");
+                        res = res.replace(h2, '"height":"380"');
+
+                        return {embed : $sce.trustAsHtml(res)};
+                    } else {
+                        return {youtube: embed};
+                    }
+                },
                 moveTask : function(list, old_index, new_index){
                     new_index = old_index + new_index;
                     list.splice(new_index, 0, list.splice(old_index, 1)[0]);
@@ -2275,37 +2275,6 @@ angular.module('field_guide_controls')
                     return list;
                 }
             };
-        }]);
-})();
-// fg-video-render.js
-// render a video embed for an object
-'use strict';
-
-(function(){
-    angular.module('field_guide_controls')
-        .factory('videoRender', ['$http', '$sce', function($http, $sce) {
-            var videoRender = function(embed){
-
-                var utest = /usabilitytestresults/i;
-                var ut = utest.test(embed);
-
-                if(ut){
-                    var w1 = /width='\d+'/i;
-                    var h1 = /height='\d+'/i;
-                    var w2 = /"width":"\d+"/i;
-                    var h2 = /"height":"\d+"/i;
-                    
-                    var res = embed.replace(w1, "width='574'");
-                    res = res.replace(w2, '"width":"574"');
-                    res = res.replace(h1, "height='380'");
-                    res = res.replace(h2, '"height":"380"');
-
-                    return {embed : $sce.trustAsHtml(res)};
-                } else {
-                    return {youtube: embed};
-                }
-            };
-            return videoRender;
         }]);
 })();
 // ngMatch.js
