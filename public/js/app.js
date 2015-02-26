@@ -13,10 +13,12 @@
         
         $urlRouterProvider.otherwise("/login");
 
-        $stateProvider
-        // PUBLIC ROUTES ================================================
 
-            // "block screens" ============================================
+    // APP ROUTING ====================================================================
+        $stateProvider
+        // PUBLIC ROUTES ======================================================
+
+            // BLOCK SCREENS ============================================
             .state('404', {
                 url: '/404',                
                 templateUrl: 'partials/app/404.html',
@@ -26,7 +28,7 @@
                 templateUrl: 'partials/app/upgrade.html',
             })
 
-            // LOGIN AND REGISTRATION PAGES ===================
+            // LOGIN AND REGISTRATION PAGES =============================
             
             .state('login', {
                 url: '/login{acct:(?:/[^/]+)?}',
