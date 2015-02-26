@@ -10,36 +10,6 @@
         $locationProvider.html5Mode(true);
 
         $httpProvider.defaults.timeout = 3000;
-
-        // TODO: this should probably be an Interceptor, but it works on load for now.
-        function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
-            // console.log('checking logged in identity');
-            // Make an AJAX call to check if the user is logged in
-            var deferred = $q.defer();
-            $http
-                .get('/loggedin')
-                .success(function(user){
-                    // Authenticated
-                    if (user !== '0') {
-                        // console.log('user', user);
-                        $rootScope.user = user;
-                        deferred.resolve();
-                    }
-                    // Not Authenticated 
-                    else { 
-                        // console.log('welp, that flunked.');
-                        $location.url('/login');
-                        deferred.resolve();
-                    }
-                })
-                .error(function(err){
-                    // console.log(err);
-                    $location.url('/login');
-                    deferred.resolve();
-                });
-
-            return deferred.promise;   
-        }
         
         $urlRouterProvider.otherwise("/login");
         // $urlRouterProvider.otherwise("/404");
@@ -90,7 +60,6 @@
                 controller:'reportPublic',
                 templateUrl: 'partials/app/report_public.html',
                 resolve: { 
-                    loggedin: checkLoggedin,
                     mixpanel: mixpanel.track('Report Loaded', {}),
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
                         return $http.get('/api/public/report/'+$stateParams._id)
@@ -108,7 +77,9 @@
                 controller:'summary',
                 templateUrl: 'partials/app/summary.html',
                 resolve: { 
-                    loggedin: checkLoggedin,
+                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                            return checkLoggedin();
+                        }],
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
                         return $http.get('/api/summary/'+$stateParams._id)
                                     .success(function(data) {
@@ -130,7 +101,9 @@
                 controller:'summary',
                 templateUrl: 'partials/app/report_private.html',
                 resolve: { 
-                    loggedin: checkLoggedin,
+                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                            return checkLoggedin();
+                        }],
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
                         return $http.get('/api/summary/'+$stateParams._id)
                                     .success(function(data) {
@@ -145,7 +118,11 @@
                 url: '/account',
                 controller: 'account',
                 templateUrl : 'partials/app/account.html',
-                resolve: { loggedin: checkLoggedin }
+                resolve: { 
+                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                            return checkLoggedin();
+                        }]
+                }
             })
 
             // OVERVIEW AND test CREATION =====================
@@ -153,19 +130,31 @@
                 url: '/',
                 controller: 'overview',
                 templateUrl: 'partials/app/overview.html',
-                resolve: { loggedin: checkLoggedin }
+                resolve: { 
+                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                            return checkLoggedin();
+                        }]
+                }
             })
             .state('overview', {
                 url: '/overview',
                 controller: 'overview',
                 templateUrl: 'partials/app/overview.html',
-                resolve: { loggedin: checkLoggedin }
+                resolve: { 
+                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                            return checkLoggedin();
+                        }]
+                }
             })
             .state('test', {
                 url: '/edit/test/:test_id',
                 controller:'test',
                 templateUrl: 'partials/app/test.html',
-                resolve: { loggedin: checkLoggedin }
+                resolve: { 
+                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                            return checkLoggedin();
+                        }]
+                }
             })
 
             // RUN TEST =======================================
@@ -173,7 +162,11 @@
                 url: '/run/:_id',
                 controller:'run',
                 templateUrl: 'partials/app/run.html',
-                resolve: { loggedin: checkLoggedin }
+                resolve: { 
+                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                            return checkLoggedin();
+                        }]
+                }
             });
     });
 

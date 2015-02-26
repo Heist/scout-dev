@@ -10,7 +10,8 @@
             var checkLoggedin = function(user){
 
                     var deferred = $q.defer();
-                    var promise = $http.get('/loggedin').success(function(user){
+                    var promise = $http.get('/loggedin')
+                        .success(function(user){
                         // Authenticated
                             if (user !== '0') {
                                 // console.log('user', user);

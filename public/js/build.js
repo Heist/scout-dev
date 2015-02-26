@@ -20,19 +20,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
     var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize', 'youtube-embed', 'field_guide_controls','field_guide_filters']);
 
-    // function list for working with arrays
-
-    // sorts an array of objects by key.
-    function keysrt(key,desc) {
-            return function(a,b){
-                return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
-            };
-        }
-
-    function keygen(){
-        return Math.round((new Date().valueOf() * Math.random()));
-    }
-
     // FRONT-END ROUTE CONFIGURATION ==============================================
     field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
 
@@ -40,35 +27,35 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
         $httpProvider.defaults.timeout = 3000;
 
-        // TODO: this should probably be an Interceptor, but it works on load for now.
-        function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
-            // console.log('checking logged in identity');
-            // Make an AJAX call to check if the user is logged in
-            var deferred = $q.defer();
-            $http
-                .get('/loggedin')
-                .success(function(user){
-                    // Authenticated
-                    if (user !== '0') {
-                        // console.log('user', user);
-                        $rootScope.user = user;
-                        deferred.resolve();
-                    }
-                    // Not Authenticated 
-                    else { 
-                        // console.log('welp, that flunked.');
-                        $location.url('/login');
-                        deferred.resolve();
-                    }
-                })
-                .error(function(err){
-                    // console.log(err);
-                    $location.url('/login');
-                    deferred.resolve();
-                });
+        // // TODO: this should probably be an Interceptor, but it works on load for now.
+        // function checkLoggedin($q, $timeout, $http, $location, $rootScope){ 
+        //     // console.log('checking logged in identity');
+        //     // Make an AJAX call to check if the user is logged in
+        //     var deferred = $q.defer();
+        //     $http
+        //         .get('/loggedin')
+        //         .success(function(user){
+        //             // Authenticated
+        //             if (user !== '0') {
+        //                 // console.log('user', user);
+        //                 $rootScope.user = user;
+        //                 deferred.resolve();
+        //             }
+        //             // Not Authenticated 
+        //             else { 
+        //                 // console.log('welp, that flunked.');
+        //                 $location.url('/login');
+        //                 deferred.resolve();
+        //             }
+        //         })
+        //         .error(function(err){
+        //             // console.log(err);
+        //             $location.url('/login');
+        //             deferred.resolve();
+        //         });
 
-            return deferred.promise;   
-        }
+        //     return deferred.promise;   
+        // }
         
         $urlRouterProvider.otherwise("/login");
         // $urlRouterProvider.otherwise("/404");
@@ -119,7 +106,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 controller:'reportPublic',
                 templateUrl: 'partials/app/report_public.html',
                 resolve: { 
-                    loggedin: checkLoggedin,
                     mixpanel: mixpanel.track('Report Loaded', {}),
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
                         return $http.get('/api/public/report/'+$stateParams._id)
@@ -137,7 +123,9 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 controller:'summary',
                 templateUrl: 'partials/app/summary.html',
                 resolve: { 
-                    loggedin: checkLoggedin,
+                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                            return checkLoggedin();
+                        }],
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
                         return $http.get('/api/summary/'+$stateParams._id)
                                     .success(function(data) {
@@ -159,7 +147,9 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 controller:'summary',
                 templateUrl: 'partials/app/report_private.html',
                 resolve: { 
-                    loggedin: checkLoggedin,
+                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                            return checkLoggedin();
+                        }],
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
                         return $http.get('/api/summary/'+$stateParams._id)
                                     .success(function(data) {
@@ -174,7 +164,11 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 url: '/account',
                 controller: 'account',
                 templateUrl : 'partials/app/account.html',
-                resolve: { loggedin: checkLoggedin }
+                resolve: { 
+                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                            return checkLoggedin();
+                        }]
+                }
             })
 
             // OVERVIEW AND test CREATION =====================
@@ -182,19 +176,31 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 url: '/',
                 controller: 'overview',
                 templateUrl: 'partials/app/overview.html',
-                resolve: { loggedin: checkLoggedin }
+                resolve: { 
+                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                            return checkLoggedin();
+                        }]
+                }
             })
             .state('overview', {
                 url: '/overview',
                 controller: 'overview',
                 templateUrl: 'partials/app/overview.html',
-                resolve: { loggedin: checkLoggedin }
+                resolve: { 
+                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                            return checkLoggedin();
+                        }]
+                }
             })
             .state('test', {
                 url: '/edit/test/:test_id',
                 controller:'test',
                 templateUrl: 'partials/app/test.html',
-                resolve: { loggedin: checkLoggedin }
+                resolve: { 
+                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                            return checkLoggedin();
+                        }]
+                }
             })
 
             // RUN TEST =======================================
@@ -202,7 +208,11 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 url: '/run/:_id',
                 controller:'run',
                 templateUrl: 'partials/app/run.html',
-                resolve: { loggedin: checkLoggedin }
+                resolve: { 
+                    loggedin: ['checkLoggedin', '$rootScope', function(checkLoggedin, $rootScope) {
+                            return checkLoggedin();
+                        }]
+                }
             });
     });
 
@@ -692,144 +702,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
     }]);
 })();
-'use strict';
-// report.js
-
-// REPORT CONTROLLER ===========================================================
-angular.module('field_guide_controls').controller('reportPrivate', 
-            ['loadData', 'reportFunctions', '$scope','$sce','$http','$location','$stateParams','$state','$sanitize','$rootScope', 
-    function(loadData, reportFunctions, $scope,  $sce,  $http,  $location,  $stateParams,  $state,  $sanitize,  $rootScope){
-
-// https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
-
-    $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams._id;
-    $scope.showReportLink = false;
-
-    $scope.toggleReportLink =  function(){
-        $scope.showReportLink = ($scope.showReportLink) ?  false : true; 
-    };
-
-    $scope.activate = function(obj, selectedIndex) {
-    // passes an object from left nav to the global selection variable
-
-        // reset all previous reliant variables, there are a lot!
-            $scope.selected = '';
-            $scope.commentMessage = '';
-            $scope.selectedIndex = '';
-            $scope.inputNote = '';
-            $scope.showCommentToggle = 'hide';
-            $scope.messageEditToggle = '';
-
-            $scope.selectedIndex = selectedIndex;
-            $scope.selected = obj || $scope.selected;
-
-        // Set up what kind of video we're expecting to need here.
-            if(obj.embed){
-                var loadVideo = reportFunctions.videoRender(obj.embed);
-                if(data.youtube){
-                    $scope.selected.youTubeCode = data.youtube;
-                } else {
-                    $scope.selected.userTesting = data.embed;
-                }
-            }
-        };
-
-// SET VIEW VARIABLES FROM LOAD DATA ==================
-    console.log(loadData.data);
-    var data = loadData.data; // lol who even fucking knows why this can't return directly.
-
-    $scope.navlist = _.sortBy(data.navlist.list, function(obj){
-                return (obj.report_index);
-            });
-    
-    $scope.messages = _.groupBy(data.messages, function(z){
-                return z._subject.name ? z._subject.name : 'report comment';
-            });
-    
-    $scope.testname = data.navlist.test;
-
-    $scope.activate(data.navlist.list[0], 0);
-
-
-// ONBOARDING =========================================
-    // TODO: Abstract into service for dependency injection
-
-    $scope.changeOnboard = function(num){
-        $rootScope.user.onboard = num;
-
-        var url = '/api/user/'+$rootScope.user._id;
-        var dataOut = {onboard : $rootScope.user.onboard};
-
-        $http
-            .put(url, dataOut)
-            .success(function(data){
-                $location.path('/');
-            });
-    };
-
-// NAVIGATION =============================================
-    $scope.summarize = function(){
-        $location.path('/summary/'+ $stateParams._id);
-    };
-
-
-    $scope.showObjectMessages = function(msg, obj){
-        if(obj._messages){
-            if((obj._messages.indexOf(msg._id) >= 0)){     
-                if(obj.doctype === 'task' && msg.fav_task){
-                    return true;
-                }
-                if(obj.doctype === 'tag' && msg.fav_tag){
-                    return true;
-                }
-            }
-        }
-    };
-
-
-// COMMENTING =========================================
-    $scope.showComments = function(message){
-        // if the comment toggle is the same as the current comment toggle
-        // hide commenting
-        // else show the new message's comments
-
-        if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
-            // console.log('match');
-            $scope.showCommentToggle = 'hide';
-            $scope.commentMessage = '';
-            return;
-        }
-        if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
-            // console.log('match');
-            $scope.showCommentToggle = 'show';
-            return;
-        }
-        if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
-            // console.log('fail');
-            $scope.showCommentToggle = 'show'; 
-            $scope.commentMessage = message;
-            return;
-        }
-        
-        $scope.commentMessage = message;
-
-    };
-
-    $scope.addComment = function(comment){
-        if(comment && comment.body.length > 0){
-            reportFunctions.postComment(comment, $scope.commentMessage._id)
-                .then(function(data){
-                    comment.body = '';
-                    var arr = _.pluck($scope.messages, '_id');
-                    var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
-                    $scope.messages[msg_idx] = data;
-                });
-        }
-        else {
-            $scope.showCommentToggle = 'hide';
-        }
-    };
-}]);
 // report.js
 (function() {
     'use strict';
@@ -1009,8 +881,8 @@ angular.module('field_guide_controls').controller('reportPrivate',
     // RUN CONTROLLER ===========================================================
 
     angular.module('field_guide_controls').controller('run', 
-    ['$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', 
-    function($scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
+    [ 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', 
+    function(postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
         
         // set up controller-wide variables
         $scope.update = [];
@@ -1212,28 +1084,16 @@ angular.module('field_guide_controls').controller('reportPrivate',
         };
 
         $scope.postMessage = function(message){
-            // here we create a note object
             if(message.length <= 0){
                 return ;
             } else {
-                var note = {};
-
-                note.body = message;
-
-                note.created = new Date();
-                note._task = $scope.selected._id;
-                note._test = $scope.selected._test;
-                note._subject = $scope.subject._id;
-
-                $scope.timeline.push(note);
-
-                $http
-                    .post('/api/message/', note)
-                    .success(function(data){
+                postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
+                    .then(function(data){
                         $scope.message='';
                     });
             }
         };
+
 
         $scope.postTest = function(){
             // Send tasks that have had a subject added to the DB.
@@ -1267,7 +1127,6 @@ angular.module('field_guide_controls').controller('reportPrivate',
         // synchronous shit is weird. =====================
         $scope.activate = function(obj, selectedIndex) {
             // passes an object from left nav to the global selection variable
-            console.log('activate');
             // reset all previous reliant variables, there are a lot!
             $scope.selected = '';
             $scope.commentMessage = '';
@@ -1279,6 +1138,16 @@ angular.module('field_guide_controls').controller('reportPrivate',
             $scope.selectedIndex = selectedIndex;
             $scope.selected = obj || $scope.selected;
             
+            
+        // Set up what kind of video we're expecting to need here.
+            if(obj.embed){
+                var loadVideo = reportFunctions.videoRender(obj.embed);
+                if(data.youtube){
+                    $scope.selected.youTubeCode = data.youtube;
+                } else {
+                    $scope.selected.userTesting = data.embed;
+                }
+            }  
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
@@ -2179,6 +2048,43 @@ function($timeout, $window, config) {
   };
 }
 ]);
+})();
+// fg-check-login.js
+// Make an AJAX call to check if the user is logged in.
+
+'use strict';
+(function(){
+    angular.module('field_guide_controls')
+        .factory('checkLoggedin', ['$q', '$timeout', '$http', '$location', '$rootScope', 
+            function($q, $timeout, $http, $location, $rootScope) {
+
+            var checkLoggedin = function(user){
+
+                    var deferred = $q.defer();
+                    var promise = $http.get('/loggedin')
+                        .success(function(user){
+                        // Authenticated
+                            if (user !== '0') {
+                                // console.log('user', user);
+                                $rootScope.user = user;
+                                deferred.resolve();
+                            }
+                            // Not Authenticated 
+                            else { 
+                                // console.log('welp, that flunked.');
+                                $location.url('/login');
+                                deferred.resolve();
+                            }
+                        }).error(function(err){
+                            $location.url('/login');
+                            deferred.resolve();
+                        });
+
+                    return deferred.promise;
+                };
+            
+            return checkLoggedin;
+        }]);
 })();
 // fg-comment.js
 // add comments to mesages 
