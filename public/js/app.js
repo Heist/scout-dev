@@ -101,7 +101,16 @@
             .state('report_public', {
                 url: '/p/report/:test_id',
                 controller:'reportPublic',
-                templateUrl: 'partials/app/report_public.html'
+                templateUrl: 'partials/app/report_public.html',
+                resolve: { 
+                    loggedin: checkLoggedin,
+                    loadData: ['$http','$stateParams', function($http, $stateParams) {
+                        return $http.get('/api/public/report/'+$stateParams._id)
+                                    .success(function(data) {
+                                        return data;
+                                    });
+                    }]
+                }
             })
 
         // PRIVATE ROUTES ===============================================
@@ -111,7 +120,15 @@
                 url: '/report/:test_id',
                 controller:'reportPrivate',
                 templateUrl: 'partials/app/report_private.html',
-                resolve: { loggedin: checkLoggedin }
+                resolve: { 
+                    loggedin: checkLoggedin,
+                    loadData: ['$http','$stateParams', function($http, $stateParams) {
+                        return $http.get('/api/summary/'+$stateParams._id)
+                                    .success(function(data) {
+                                        return data;
+                                    });
+                    }]
+                }
             })
 
             // ACCOUNT MANAGEMENT =============================

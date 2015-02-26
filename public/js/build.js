@@ -189,214 +189,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
             });
     });
 
-    field_guide_app.factory('socket', function ($rootScope, $location) {
-
-        // for live... $location.protocol()+'://'+$location.host()+':8080/'
-        var socket = io.connect();
-        
-        return {
-            on: function (eventName, callback) {
-                socket.on(eventName, function () {
-                    var args = arguments;
-                    $rootScope.$apply(function () {
-                        callback.apply(socket, args);
-                    });
-                });
-            },
-            emit: function (eventName, data, callback) {
-                socket.emit(eventName, data, function () {
-                    var args = arguments;
-                    $rootScope.$apply(function () {
-                        if (callback) {
-                            callback.apply(socket, args);
-                        }
-                    });
-                });
-            },
-            removeAllListeners: function (eventName, callback) {
-                socket.removeAllListeners(eventName, function() {
-                    var args = arguments;
-                    $rootScope.$apply(function () {
-                        callback.apply(socket, args);
-                    });
-                }); 
-            }
-        };
-    });
-
-    // youtube-embed.js
-    field_guide_app.directive('youtube', function($window) {
-        return {
-            restrict: "E",
-
-            scope: {
-                height:   "@",
-                width:    "@",
-                videoId:  "@"  
-            },
-
-            template: '<div></div>',
-
-            link: function(scope, element) {
-                var tag = document.createElement('script');
-                tag.src = "https://www.youtube.com/iframe_api";
-                var firstScriptTag = document.getElementsByTagName('script')[0];
-                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-                var player;
-
-                $window.onYouTubeIframeAPIReady = function() {
-                    player = new YT.Player(element.children()[0], {
-                        playerVars: {
-                            autoplay: 0,
-                            html5: 1,
-                            theme: "light",
-                            modesbranding: 0,
-                            color: "white",
-                            iv_load_policy: 3,
-                            showinfo: 1,
-                            controls: 1,
-                        },
-                        height: scope.height,
-                        width: scope.width,
-                        videoId: scope.videoid
-                    });
-                };
-            },  
-        };
-    });
-
-    field_guide_app.directive('ngMatch', ['$parse', function ($parse) {
-        var directive = {
-            link: link,
-            restrict: 'A',
-            require: '?ngModel'
-        };
-
-        return directive;
-         
-        function link(scope, elem, attrs, ctrl) {
-        // if ngModel is not defined, we don't need to do anything
-            if (!ctrl){ return;}
-            if (!attrs.ngMatch){ return; }
-             
-            var firstPassword = $parse(attrs.ngMatch);
-             
-            var validator = function (value) {
-                var temp = firstPassword(scope),
-                v = value === temp;
-                ctrl.$setValidity('match', v);
-                return value;
-            };
-             
-            ctrl.$parsers.unshift(validator);
-            ctrl.$formatters.push(validator);
-            attrs.$observe('ngMatch', function () {
-                validator(ctrl.$viewValue);
-            });
-         
-        }
-    }]);
-
-    field_guide_app.directive('ngCheckStrength', function () {
-
-        // return {
-        //     replace: false,
-        //     restrict: 'EACM',
-        //     link: function (scope, iElement, iAttrs) {
-
-        //         var strength = {
-        //             colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
-        //             measureStrength: function (p) {
-        //                 if(p){
-        //                     var _force = 0;                    
-        //                     var _regex = new RegExp('[$-/:-?{-~!"^_`\[\]]','g');
-                                                  
-        //                     var _lowerLetters = /[a-z]+/.test(p);                    
-        //                     var _upperLetters = /[A-Z]+/.test(p);
-        //                     var _numbers = /[0-9]+/.test(p);
-        //                     var _symbols = _regex.test(p);
-                                                  
-        //                     var _flags = [_lowerLetters, _upperLetters, _numbers, _symbols];                    
-        //                     var _passedMatches = $.grep(_flags, function (el) { return el === true; }).length;                                          
-                            
-        //                     _force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
-        //                     _force += _passedMatches * 10;
-                                
-        //                     // penality (short password)
-        //                     _force = (p.length <= 6) ? Math.min(_force, 10) : _force;                                      
-                            
-        //                     // penality (poor variety of characters)
-        //                     _force = (_passedMatches === 1) ? Math.min(_force, 10) : _force;
-        //                     _force = (_passedMatches === 2) ? Math.min(_force, 20) : _force;
-        //                     _force = (_passedMatches === 3) ? Math.min(_force, 40) : _force;
-                            
-        //                     return _force;
-        //                 }
-
-        //             },
-        //             getColor: function (s) {
-        //                 if(s){
-        //                     var idx = 0;
-        //                     if (s <= 10) { idx = 0; }
-        //                     else if (s <= 20) { idx = 1; }
-        //                     else if (s <= 30) { idx = 2; }
-        //                     else if (s <= 40) { idx = 3; }
-        //                     else { idx = 4; }
-    
-        //                     return { idx: idx + 1, col: this.colors[idx] };
-        //                 }
-        //             }
-        //         };
-
-        //         scope.$watch(iAttrs.ngCheckStrength, function () {
-        //             // console.log('watching');
-        //             if (!scope.user) {
-        //                 // console.log('no user');
-        //                 iElement.css({ "display": "none"  });
-        //             } else {
-        //                 // console.log(scope.user.password.length);
-        //                 var c = strength.getColor(strength.measureStrength(scope.user.password));
-        //                 iElement.css({ "display": "inline" });
-        //                 iElement.children('li')
-        //                     .css({ "background": "#DDD" })
-        //                     .slice(0, c.idx)
-        //                     .css({ "background": c.col });
-        //             }
-        //         });
-
-        //     },
-        //     template:   '<li class="pwStrength"></li>'+
-        //                 '<li class="pwStrength"></li>'+
-        //                 '<li class="pwStrength"></li>'+
-        //                 '<li class="pwStrength"></li>'+
-        //                 '<li class="pwStrength"></li>'
-        // };
-
-    });
-
-    // supply the currently logged-in user to all functions
-    // field_guide_app.service('changeOnboard', ['$rootScope', '$http', function($rootScope, $http) {
-    //     return function(num) {
-    //         $rootScope.user.onboard = num;
-
-    //         var url = '/user/'+$rootScope.user._id;
-    //         var dataOut = {user : $rootScope.user.onboard};
-
-    //         $http
-    //             .put(url, dataOut)
-    //             .success(function(data){
-    //                 // console.log(data);
-    //             });
-    //     };
-    // }]);
-
-    // field_guide_app.run(function ($rootScope, $location, $http, $timeout, changeOnboard) {
-    //     $rootScope.changeOnboard = changeOnboard;
-    // });
-
-
-
     // FILTERS ============================================================================
     angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);
 
@@ -644,8 +436,8 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
     // LOGIN CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-       .controller('login', ['$scope','$http', '$location', '$stateParams','$rootScope',
-        function($scope, $http, $location, $stateParams, $rootScope){
+       .controller('login', ['ngCheckStrength', '$scope','$http', '$location', '$stateParams','$rootScope',
+        function(ngCheckStrength, $scope, $http, $location, $stateParams, $rootScope){
 
         // LOGIN FUNCTIONS ====================================
         if($rootScope.user){
@@ -886,7 +678,9 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 // report.js
 
 // REPORT CONTROLLER ===========================================================
-angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', '$rootScope', function($scope, $sce, $http, $location,$stateParams,$state, $sanitize, $rootScope){
+angular.module('field_guide_controls').controller('reportPrivate', 
+            ['loadData', 'postComment','$scope','$sce','$http','$location','$stateParams','$state','$sanitize','$rootScope', 
+    function(loadData, postComment,  $scope,  $sce,  $http,  $location,  $stateParams,  $state,  $sanitize,  $rootScope){
 // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
 
     $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
@@ -1029,27 +823,18 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
     };
 
     $scope.addComment = function(comment){
-        // if there's a comment, edit the comment
         if(comment && comment.body.length > 0){
-            var dataOut = {
-                body : comment.body,
-                msg  : $scope.commentMessage._id
-            };
-    
-            $http
-                .post('/api/comment/', dataOut)
-                .success(function(data){
-                    // Set the message to be the message with comment.
+            postComment(comment, $scope.commentMessage._id)
+                .then(function(data){
                     comment.body = '';
                     var arr = _.pluck($scope.messages, '_id');
                     var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
                     $scope.messages[msg_idx] = data;
                 });
-        } else {
-            // if there's no comment, hide the comments.
-            $scope.showCommentToggle = 'hide';   
         }
-    };
+        else {
+            $scope.showCommentToggle = 'hide';
+        }
 }]);
 // report.js
 (function() {
@@ -1515,7 +1300,7 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
 
         $scope.testname = data.navlist.test;
 
-        $scope.activate($scope.navlist[0], 0);
+        $scope.activate(data.navlist[0], 0);
 
     // NAVIGATION =========================================
 
@@ -1527,7 +1312,6 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
             if(!$scope.showReportLink){ $scope.showReportLink=true; }
             else{ $scope.showReportLink = false; }
         };
-
 
         $scope.showObjectMessages = function(msg, obj){
             if(obj._messages){
@@ -2086,6 +1870,92 @@ angular.module('field_guide_controls').controller('reportPrivate', ['$scope', '$
     }]);
 })();
 
+// check-password-strength.js
+// check the strength of a password.
+'use strict';
+
+(function() {
+    angular.module('field_guide_controls')
+    .directive('ngCheckStrength', function () {
+
+        return {
+            replace: false,
+            restrict: 'EACM',
+            link: function (scope, iElement, iAttrs) {
+
+                var strength = {
+                    colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
+                    measureStrength: function (p) {
+                        if(p){
+                            var _force = 0;                    
+                            var _regex = new RegExp('[$-/:-?{-~!"^_`\[\]]','g');
+                                                  
+                            var _lowerLetters = /[a-z]+/.test(p);                    
+                            var _upperLetters = /[A-Z]+/.test(p);
+                            var _numbers = /[0-9]+/.test(p);
+                            var _symbols = _regex.test(p);
+                                                  
+                            var _flags = [_lowerLetters, _upperLetters, _numbers, _symbols];                    
+                            var _passedMatches = $.grep(_flags, function (el) { return el === true; }).length;                                          
+                            
+                            _force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
+                            _force += _passedMatches * 10;
+                                
+                            // penality (short password)
+                            _force = (p.length <= 6) ? Math.min(_force, 10) : _force;                                      
+                            
+                            // penality (poor variety of characters)
+                            _force = (_passedMatches === 1) ? Math.min(_force, 10) : _force;
+                            _force = (_passedMatches === 2) ? Math.min(_force, 20) : _force;
+                            _force = (_passedMatches === 3) ? Math.min(_force, 40) : _force;
+                            
+                            return _force;
+                        }
+
+                    },
+                    getColor: function (s) {
+                        if(s){
+                            var idx = 0;
+                            if (s <= 10) { idx = 0; }
+                            else if (s <= 20) { idx = 1; }
+                            else if (s <= 30) { idx = 2; }
+                            else if (s <= 40) { idx = 3; }
+                            else { idx = 4; }
+    
+                            return { idx: idx + 1, col: this.colors[idx] };
+                        }
+                    }
+                };
+
+                scope.$watch(iAttrs.ngCheckStrength, function () {
+                    // console.log('watching');
+                    if (!scope.user) {
+                        // console.log('no user');
+                        iElement.css({ "display": "none"  });
+                    } else {
+                        // console.log(scope.user.password.length);
+                        var c = strength.getColor(strength.measureStrength(scope.user.password));
+                        iElement.css({ "display": "inline" });
+                        iElement.children('li')
+                            .css({ "background": "#DDD" })
+                            .slice(0, c.idx)
+                            .css({ "background": c.col });
+                    }
+                });
+
+            },
+            template:   '<li class="pwStrength"></li>'+
+                        '<li class="pwStrength"></li>'+
+                        '<li class="pwStrength"></li>'+
+                        '<li class="pwStrength"></li>'+
+                        '<li class="pwStrength"></li>'
+        };
+
+    });
+})();
+
+    
+
 // confirm-click.js
 (function() {
     'use strict';
@@ -2320,6 +2190,30 @@ function($timeout, $window, config) {
 }
 ]);
 })();
+// fg-comment.js
+// add comments to mesages 
+'use strict';
+
+(function(){
+
+angular.module('field_guide_controls')
+    .factory('postComment', ['$http', function($http) {
+        var postComment = function(comment, msg_id){
+        // if there's a comment, edit the comment
+                var out = {
+                    body : comment.body,
+                    msg  : msg_id
+                };
+            
+                var promise = $http.post('/api/comment/', out).then(function (response) {
+                        return response.data;
+                    });
+
+                return promise;
+            };
+        return postComment;
+    }]);
+})();
 // fg-post-message.js
 // post a new note to the database.
 'use strict';
@@ -2353,7 +2247,7 @@ function($timeout, $window, config) {
 
 // This module builds out the left navigation used in report and summary controllers.
 // It does not require login in order to load information, because it is required for public routes.
-    angular.module('field_guide_controls', [])
+    angular.module('field_guide_controls')
         .service('reportFunctions', ['$http', function($http) {
             return {
                 generateList : function(){},
@@ -2373,6 +2267,45 @@ function($timeout, $window, config) {
                 }
             };
         }]);
+})();
+// ngMatch.js
+'use strict';
+
+(function(){
+
+    angular.module('field_guide_controls')
+    .directive('ngMatch', ['$parse', function ($parse) {
+        var directive = {
+            link: link,
+            restrict: 'A',
+            require: '?ngModel'
+        };
+
+        return directive;
+         
+        function link(scope, elem, attrs, ctrl) {
+        // if ngModel is not defined, we don't need to do anything
+            if (!ctrl){ return;}
+            if (!attrs.ngMatch){ return; }
+             
+            var firstPassword = $parse(attrs.ngMatch);
+             
+            var validator = function (value) {
+                var temp = firstPassword(scope),
+                v = value === temp;
+                ctrl.$setValidity('match', v);
+                return value;
+            };
+             
+            ctrl.$parsers.unshift(validator);
+            ctrl.$formatters.push(validator);
+            attrs.$observe('ngMatch', function () {
+                validator(ctrl.$viewValue);
+            });
+         
+        }
+    }]);
+
 })();
 // scroll-glue.js
 (function() {
@@ -2461,6 +2394,94 @@ function($timeout, $window, config) {
             }
         };
     }]);
+})();
+// socket-factory.js
+// a factory to generate a socket.io connection
+'use strict';
+
+(function(){
+
+    angular.module('field_guide_controls')
+    .factory('socket', function ($rootScope, $location) {
+        // for live... $location.protocol()+'://'+$location.host()+':8080/'
+        var socket = io.connect();
+        
+        return {
+            on: function (eventName, callback) {
+                socket.on(eventName, function () {
+                    var args = arguments;
+                    $rootScope.$apply(function () {
+                        callback.apply(socket, args);
+                    });
+                });
+            },
+            emit: function (eventName, data, callback) {
+                socket.emit(eventName, data, function () {
+                    var args = arguments;
+                    $rootScope.$apply(function () {
+                        if (callback) {
+                            callback.apply(socket, args);
+                        }
+                    });
+                });
+            },
+            removeAllListeners: function (eventName, callback) {
+                socket.removeAllListeners(eventName, function() {
+                    var args = arguments;
+                    $rootScope.$apply(function () {
+                        callback.apply(socket, args);
+                    });
+                }); 
+            }
+        };
+    });
+
+})();
+// youtube-embed.js
+'use strict';
+
+(function(){
+    angular.module('field_guide_controls')
+    .directive('youtube', function($window) {
+        return {
+            restrict: "E",
+
+            scope: {
+                height:   "@",
+                width:    "@",
+                videoId:  "@"  
+            },
+
+            template: '<div></div>',
+
+            link: function(scope, element) {
+                var tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                var player;
+
+                $window.onYouTubeIframeAPIReady = function() {
+                    player = new YT.Player(element.children()[0], {
+                        playerVars: {
+                            autoplay: 0,
+                            html5: 1,
+                            theme: "light",
+                            modesbranding: 0,
+                            color: "white",
+                            iv_load_policy: 3,
+                            showinfo: 1,
+                            controls: 1,
+                        },
+                        height: scope.height,
+                        width: scope.width,
+                        videoId: scope.videoid
+                    });
+                };
+            },  
+        };
+    });
 })();
 // filters.js
 (function() {
