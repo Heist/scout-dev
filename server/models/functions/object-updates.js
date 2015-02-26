@@ -47,10 +47,9 @@ module.exports = function(object_array, next){
 
                     model.embed         = obj.embed || model.embed || '';
                     model.summary       = obj.summary || model.summarized || '';
+                
+                    model.report_index  = obj.report_index || model.report_index;
                     
-                    if (model.hasOwnProperty('report_index')){
-                        model.report_index  = obj.report_index || model.report_index;
-                    }
                     
                     // if there's a subject
                     // and the subject doesn't exist in the model already
