@@ -4,19 +4,6 @@
 
     var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize', 'youtube-embed', 'field_guide_controls','field_guide_filters']);
 
-    // function list for working with arrays
-
-    // sorts an array of objects by key.
-    function keysrt(key,desc) {
-            return function(a,b){
-                return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
-            };
-        }
-
-    function keygen(){
-        return Math.round((new Date().valueOf() * Math.random()));
-    }
-
     // FRONT-END ROUTE CONFIGURATION ==============================================
     field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
 

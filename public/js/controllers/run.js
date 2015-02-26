@@ -4,8 +4,8 @@
     // RUN CONTROLLER ===========================================================
 
     angular.module('field_guide_controls').controller('run', 
-    ['$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', 
-    function($scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
+    [ 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', 
+    function(postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
         
         // set up controller-wide variables
         $scope.update = [];
@@ -207,28 +207,16 @@
         };
 
         $scope.postMessage = function(message){
-            // here we create a note object
             if(message.length <= 0){
                 return ;
             } else {
-                var note = {};
-
-                note.body = message;
-
-                note.created = new Date();
-                note._task = $scope.selected._id;
-                note._test = $scope.selected._test;
-                note._subject = $scope.subject._id;
-
-                $scope.timeline.push(note);
-
-                $http
-                    .post('/api/message/', note)
-                    .success(function(data){
+                postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
+                    .then(function(data){
                         $scope.message='';
                     });
             }
         };
+
 
         $scope.postTest = function(){
             // Send tasks that have had a subject added to the DB.
