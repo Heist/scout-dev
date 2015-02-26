@@ -18,25 +18,27 @@ module.exports = function(report_id, next){
 
 // CREATE THE LEFT NAVIGATION LIST ========================
     // get all relevant objects, sanitize them and return them in an array
-    // get all relevant messages
+
+
+    // TODO: When we make tasks, they live in the Test, and the Test stores their order, right?
+    // Right. They aren't returned to the Test this way. This is purely for Reports.
+    // Sooooooo, normal index is no use.
+    // TODO: FIX ON TEST CREATION PAGE.
     async.parallel({
         tags: function(callback){
             Tag.find({'_test' : report_id })
                 .sort({name: 1})
                 .exec(function(err, docs){
-                    if (err) {
-                        console.log(err);
-                    }
+                    if (err) { console.log(err); }
                     callback(null, docs);
                 });
         },
         tasks: function(callback){
             Task.find({'_test': report_id})
-                .sort({ index: 'asc'})
+                .sort({ report_index: 'asc'})
                 .exec(function(err, docs){
-                    if (err) {
-                        console.log(err);
-                    }
+                    if (err) { console.log(err); }
+                    
                     callback(null, docs);
                 });
         },

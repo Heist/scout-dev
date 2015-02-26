@@ -1214,18 +1214,23 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         };
 
         // MOVE STEPS =========================================
-        
+
         $scope.msgFilter = function(message){
             // Display messages that belong to the current selected item.
             return (message._id === $scope.selected._id) ? true : false;
         };
-        
-        $scope.moveTask = function(old_index, new_index){
-            reportFunctions.moveTask($scope.navlist, old_index, new_index)
-                .then(function(list){
-                    $scope.navlist = list;
-                    $scope.saveSummary();
+
+        $scope.moveTask = function(old_index, new_index){            
+            $scope.navlist = reportFunctions.moveTask($scope.navlist, old_index, new_index);
+            // Here the list is in the correct order, which it doesn't seem to keep. 
+            // ruh-roh.
+            // new function: save list? 
+            // Returns list order from DB as appropriate in array order.
+            $http.put('/api/summary/'+ $stateParams._id, $scope.navlist)
+                .success(function(data){
+                    void 0;
                 });
+           
         };
 
 
@@ -1330,8 +1335,10 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
             mixpanel.track('Summary complete', {});
 
             $http.put('/api/summary/'+ $stateParams._id, 
-                { navlist  : $scope.leftNavList, 
+                { navlist  : $scope.navlist, 
                   messages : $scope.messages[0]
+                }).success(function(data){
+
                 });
         };
     }]);

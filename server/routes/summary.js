@@ -26,6 +26,10 @@ module.exports = function (app, passport, debug) {
     .put(function(req, res){
         // this should be used for updating objects with
         // visibility and summaries
+        console.log('object update this steeze', req.body);
+
+        // this is an if statement probably.
+
         var object_array = req.body.navlist || req.body;
         var message_array = req.body.messages || [];
 
