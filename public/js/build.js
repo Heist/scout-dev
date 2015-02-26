@@ -1142,8 +1142,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         };
 
         $scope.toggleReportLink =  function(){
-            if(!$scope.showReportLink){ $scope.showReportLink=true; }
-            else{ $scope.showReportLink = false; }
+            $scope.showReportLink = $scope.showReportLink ? false : true;
         };
 
         $scope.showObjectMessages = function(msg, obj){
@@ -1215,6 +1214,12 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         };
 
         // MOVE STEPS =========================================
+        
+        $scope.msgFilter = function(message){
+            // Display messages that belong to the current selected item.
+            return (message._id === $scope.selected._id) ? true : false;
+        };
+        
         $scope.moveTask = function(old_index, new_index){
             reportFunctions.moveTask($scope.navlist, old_index, new_index)
                 .then(function(list){
@@ -1283,25 +1288,25 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
             $http.put('/api/message/fav', message);
         };
 
-        $scope.msgFilter = function(message){
-            // Display messages that belong to the current selected item.
-            return (message._id === $scope.selected._id) ? true : false;
-        };
-
         $scope.postMessage = function(message, subject){
             postMessage(message, $scope.selected._id, $scope.selected._test, subject._id )
                 .then(function(data){
                     console.log(data);
 
                     $scope.newnote = '';
+
                     $scope.toggleNote(subject._id);
                     $scope.toggleNote();
+                    
                     $scope.messages[data.msg._subject.name].push(data.msg);
                     $scope.selected._messages.push(data.msg._id);
 
                     var indexCheck = _.pluck($scope.leftNavList, 'name');
+
                     _.each(data.tags, function(tag){
+                        
                         var idx = indexCheck.indexOf(tag.name);
+
                         if(idx === -1){
                             tag.report_index = $scope.leftNavList.length;
                             $scope.leftNavList.push(tag);
@@ -1324,10 +1329,10 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
             mixpanel.track('Summary complete', {});
 
-            var url = '/api/summary/'+ $stateParams._id;
-            var data_out = {navlist: $scope.leftNavList, messages:$scope.messages[0]} ;
-            
-            $http.put(url, data_out);
+            $http.put('/api/summary/'+ $stateParams._id, 
+                { navlist  : $scope.leftNavList, 
+                  messages : $scope.messages[0]
+                });
         };
     }]);
 })();
