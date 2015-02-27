@@ -39,9 +39,9 @@ module.exports = function(object_array, next){
 
                     model.report     = true;
 
-                    model.visible    = (obj.visible === false) ? obj.visible : model.visible;
-                    model.pass_fail  = (obj.pass_fail === false) ? obj.pass_fail : model.pass_fail;
-                    model.summarized = (obj.summarized === false) ? obj.summarized : model.summarized;
+                    model.visible    = (obj.visible === false) ? obj.visible : true;
+                    model.pass_fail  = (obj.pass_fail === false) ? obj.pass_fail : true;
+                    model.summarized = (obj.summarized === false) ? obj.summarized : true;
 
                     model.embed      = obj.embed || model.embed || '';
                     model.summary    = obj.summary || model.summarized || '';
