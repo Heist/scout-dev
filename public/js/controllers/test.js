@@ -7,8 +7,8 @@
         $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
     }])
     .controller('test', 
-                ['$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
-        function(  $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
+                ['testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
+        function(testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         
         $http
             .get('/api/test/'+$stateParams.test_id, {timeout : 5000, cache:false})
@@ -25,12 +25,7 @@
 
         $scope.changeOnboard = function(num){
             $rootScope.user.onboard = num;
-
-            var url = '/api/user/'+$rootScope.user._id;
-            var dataOut = {onboard : $rootScope.user.onboard};
-
-            $http
-                .put(url, dataOut);
+            $http.put('/api/user/'+$rootScope.user._id, {onboard : $rootScope.user.onboard});
         };
         
         // SELECTION ======================================

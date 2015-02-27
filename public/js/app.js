@@ -74,6 +74,7 @@
                 controller:'summary',
                 templateUrl: 'partials/app/summary.html',
                 resolve: { 
+                    mixpanel : function(){ mixpanel.track('Summary clicked', {}); },
                     loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }],

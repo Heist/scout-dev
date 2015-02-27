@@ -90,6 +90,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 controller:'summary',
                 templateUrl: 'partials/app/summary.html',
                 resolve: { 
+                    mixpanel : function(){ mixpanel.track('Summary clicked', {}); },
                     loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }],
@@ -967,7 +968,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
             } else {
                 postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
-                        void 0;
                         $scope.timeline.push(data.msg);
                         $scope.message='';
                     });
@@ -1032,7 +1032,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
-        // console.log(data);
         
         $scope.navlist = _.sortBy(data.navlist.list, function(obj){
                     return obj.report_index;
@@ -1189,7 +1188,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         $scope.postMessage = function(message, subject){
             postMessage(message, $scope.selected._id, $scope.selected._test, subject._id )
                 .then(function(data){
-                    void 0;
 
                     $scope.newnote = '';
 
