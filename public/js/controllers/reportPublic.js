@@ -50,19 +50,19 @@
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
-        // var data = loadData.data; // lol who even fucking knows why this can't return directly.
-        // console.log(data);
-        // $scope.navlist = _.sortBy(data.navlist.list, function(obj){
-        //             return obj.report_index;
-        //         });
+        var data = loadData.data; // lol who even fucking knows why this can't return directly.
+        console.log(data);
+        $scope.navlist = _.sortBy(data.navlist.list, function(obj){
+                    return obj.report_index;
+                });
         
-        // $scope.messages = _.groupBy(data.messages, function(z){
-        //             return z._subject.name ? z._subject.name : 'report comment';
-        //         });
+        $scope.messages = _.groupBy(data.messages, function(z){
+                    return z._subject.name ? z._subject.name : 'report comment';
+                });
 
-        // $scope.testname = data.navlist.test;
+        $scope.testname = data.navlist.test;
 
-        // $scope.activate(data.navlist.list[0], 0);
+        $scope.activate(data.navlist.list[0], 0);
 
     // NAVIGATION =============================================
 
