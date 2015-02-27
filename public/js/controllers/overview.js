@@ -58,7 +58,7 @@
 
         // TEST ROUTES ========================================
         $scope.devTest = function(){
-            $http.post('/api/test/dev_tests/')
+            $http.post('/api/dev_tests/')
                 .success(function(data){
                     $scope.tests.push(data);
                 });
@@ -89,7 +89,6 @@
             // delete a test from the database
                 var url = '/api/test/'+test._id,
                 index = $scope.tests.indexOf(test);
-            
                 $scope.tests.splice(index, 1);
                 $http.delete(url);
         };

@@ -587,7 +587,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
         // TEST ROUTES ========================================
         $scope.devTest = function(){
-            $http.post('/api/test/dev_tests/')
+            $http.post('/api/dev_tests/')
                 .success(function(data){
                     $scope.tests.push(data);
                 });
@@ -618,7 +618,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
             // delete a test from the database
                 var url = '/api/test/'+test._id,
                 index = $scope.tests.indexOf(test);
-            
                 $scope.tests.splice(index, 1);
                 $http.delete(url);
         };
@@ -913,7 +912,8 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         $scope.addTask = function(task){
             $scope.adding_task = $scope.adding_task ? false : $scope.adding_task;
             
-            testBuildFunctions.addTask($stateParams._id, task).success(function(data){
+            testBuildFunctions.addTask($stateParams._id, task)
+                .success(function(data){
                     $scope.test._tasks.push(data);
                 });
         };
@@ -967,6 +967,8 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
             } else {
                 postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
+                        console.log(data);
+                        $scope.timeline.push(data.msg);
                         $scope.message='';
                     });
             }

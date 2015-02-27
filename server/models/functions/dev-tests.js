@@ -146,6 +146,10 @@ module.exports = function(account, user, next){
                         function(err, d0, d1, d2, d3, d4, d5){
                             if (err) { console.log(err);} 
 
+                            // TODO: Something in here is rotten because
+                            // Tags cross-delete between tests when deleting OR creating a NEW test
+                            // They also persist their visibility, which should not be.
+                            
                             var output = {
                                 task1 : [d0._id, d1._id, d2._id],
                                 task2 : [d3._id, d4._id, d5._id],

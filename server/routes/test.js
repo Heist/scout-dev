@@ -37,7 +37,7 @@ module.exports = function(app, passport, debug) {
         });
     });
 
-    app.route('/api/test/dev_tests/')
+    app.route('/api/dev_tests/')
     .post(function(req, res){
     // This builds a mock for testing reports
         devTest(req.user._account, req.user._id, function(err, test){
