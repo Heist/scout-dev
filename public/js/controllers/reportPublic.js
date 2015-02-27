@@ -80,46 +80,6 @@
             }
         };
 
-    // COMMENTING =========================================
-        $scope.showComments = function(message){
-            // if the comment toggle is the same as the current comment toggle
-            // hide commenting
-            // else show the new message's comments
-            if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
-                $scope.showCommentToggle = 'hide';
-                $scope.commentMessage = '';
-                return;
-            } else if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
-                $scope.showCommentToggle = 'show';
-                return;
-            } else if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
-                $scope.showCommentToggle = 'show'; 
-                $scope.commentMessage = message;
-                return;
-            }
-            
-            $scope.commentMessage = message;
-
-        };
-
-        // $scope.addComment = function(comment){
-        //     if(comment && comment.body.length > 0){
-        //         var dataOut = {
-        //             comment: {body : comment.body}
-        //         };
-                
-        //         $http
-        //             .post('/api/comment/'+$scope.commentMessage._id, dataOut)
-        //             .success(function(data){
-        //                 comment.body = '';
-        //                 var arr = _.pluck($scope.messages, '_id');
-        //                 var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
-        //                 $scope.messages[msg_idx]._comments.push(data.comment);
-
-        //             });
-        //     } else {
-        //         $scope.showCommentToggle = 'hide';   
-        //     }
-        // };
+    
     }]);
 })();

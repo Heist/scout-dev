@@ -88,7 +88,7 @@
             <!-- messages -->                   
             <div class="message-group" ng-repeat="user in messages">
                 <!-- message -->
-                <!-- <div ng-repeat="message in user" class="message" > -->
+                
                 <div ng-repeat="message in user" class="message" 
                     ng-show="showObjectMessages(message, selected)"
                     ng-class="{selected: commentMessage._id === message._id}"
