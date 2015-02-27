@@ -2,7 +2,6 @@
 (function() {
     'use strict';
 
-
     // REPORT CONTROLLER ===========================================================
     angular.module('field_guide_controls').controller('reportPublic', 
                 [ 'loadData', 'reportFunctions', '$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', 

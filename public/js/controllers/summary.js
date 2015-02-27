@@ -42,7 +42,7 @@
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
-        console.log(data);
+        
         $scope.navlist = _.sortBy(data.navlist.list, function(obj){
                     return obj.report_index;
                 });
@@ -144,41 +144,23 @@
             return (message._id === $scope.selected._id) ? true : false;
         };
 
-        $scope.moveTask = function(old_index, new_index){            
+        $scope.moveTask = function(old_index, new_index){   
             $scope.navlist = reportFunctions.moveTask($scope.navlist, old_index, new_index);
-            // Here the list is in the correct order, which it doesn't seem to keep. 
-            // ruh-roh.
-            // new function: save list? 
-            // Returns list order from DB as appropriate in array order.
-            $http.put('/api/summary/'+ $stateParams._id, $scope.navlist)
-                .success(function(data){
-                    console.log('success moving steps?', data);
-                });
-           
+            $http.put('/api/summary/'+ $stateParams._id, $scope.navlist);           
         };
-
 
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
-            var data = [obj];
-
-            $http.put('/api/summary/object', data)
-                .success(function(doc){
-                    console.log(doc);
-                });
+            $http.put('/api/summary/object', [obj]);
         };
 
         $scope.passFail = function(obj){
-            if(obj.pass_fail){ obj.pass_fail = false; }
-            else { obj.pass_fail = true; }
-
+            obj.pass_fail = obj.pass_fail ? false : true;
             $scope.saveObject(obj);
         };
 
         $scope.toggleVis = function(obj){
-            if( obj.visible ){ obj.visible = false ; } 
-            else { obj.visible = true; }
-
+            obj.visible = obj.visible ? false : true;
             $scope.saveObject(obj);
         };
 
@@ -198,11 +180,7 @@
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $http
-                .put('/api/message/', message)
-                .success(function(data){
-                    console.log(data);
-                });
+            $http.put('/api/message/', message);
         };
 
         $scope.saveFav = function(message){
@@ -261,8 +239,6 @@
             $http.put('/api/summary/'+ $stateParams._id, 
                 { navlist  : $scope.navlist, 
                   messages : $scope.messages[0]
-                }).success(function(data){
-
                 });
         };
     }]);

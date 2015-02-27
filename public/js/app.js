@@ -162,8 +162,13 @@
                 templateUrl: 'partials/app/run.html',
                 resolve: { 
                     loggedin: ['checkLoggedin', function(checkLoggedin) {
-                            return checkLoggedin();
-                        }]
+                        return checkLoggedin();
+                    }],
+                    loadData : ['$http','$stateParams', function($http, $stateParams) {
+                        return $http.get('/api/run/'+$stateParams._id).success(function(data){
+                                    return data;
+                                });
+                    }]
                 }
             });
     });

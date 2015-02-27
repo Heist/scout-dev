@@ -4,35 +4,29 @@
     // RUN CONTROLLER ===========================================================
 
     angular.module('field_guide_controls').controller('run', 
-    [ 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', 
-    function(postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
+    [ 'loadData', 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', 
+    function(loadData, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
+    // get the starting data from resolve
+        var data = loadData.data;
         
-        // set up controller-wide variables
+    // set up and reset variables to clear cache from state changes.
         $scope.update = [];
+        $scope.task = {};
+        var message = {};
         
-        $scope.timeline = []; // holds all messages currently in test
+    // holds all messages currently in test
+        $scope.timeline = [{ 
+                title: 'Starting test', 
+                body: data.name 
+            }]; 
+
+    // make sure the scroll works
         $scope.glued = true;
 
-        $http
-            .get('/api/run/'+$stateParams._id)
-            .success(function(data){
-                // this should return an ordered nav list
-                // with a test at position 0
-
-                $scope.test = data;
-                $scope.kind = data.kind;
-                $scope.navlist = data._tasks;
-
-                $scope.timeline.push({ 
-                    title: 'Starting test', 
-                    body: data.name 
-                });
+        $scope.test = data;
+        $scope.kind = data.kind;
+        $scope.navlist = data._tasks;
                 
-                // reset variables to clear cache from state changes.
-                $scope.task = {};
-                var message = {};
-            });
-
     // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
 
@@ -68,12 +62,6 @@
         $scope.connect = {};
         $scope.connect.text = '71b';
 
-        $scope.subscription = function(chan){
-            // console.log('touched a channel', chan);
-            // socket.emit('subscribe', { room: chan, test: $stateParams._id });
-            // socket.emit('channel', { room: chan, test: $stateParams._id });
-        };
-
         socket.on('connect_failed', function(data)
         {
             // console.log('connect_failed');
@@ -87,13 +75,6 @@
         {
             // console.log('disconnect');
 
-            // image.src = "/layout/assets/avatar-binocs.jpg";
-            // canvas.width = 358;
-            // canvas.height = 358 * image.height / image.width;
-
-            // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
-
-            // socket.socket.disconnect();
         });
 
         socket.on('error', function(reason)
@@ -193,8 +174,6 @@
             $http
                 .post('api/subject/', subject)
                 .success(function(data){
-                    console.log(data);
-                    console.log(data._id);
                     $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);
@@ -214,7 +193,6 @@
                     });
             }
         };
-
 
         $scope.postTest = function(){
             // Send tasks that have had a subject added to the DB.
