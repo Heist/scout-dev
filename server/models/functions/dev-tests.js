@@ -149,7 +149,7 @@ module.exports = function(account, user, next){
                             // TODO: Something in here is rotten because
                             // Tags cross-delete between tests when deleting OR creating a NEW test
                             // They also persist their visibility, which should not be.
-                            
+
                             var output = {
                                 task1 : [d0._id, d1._id, d2._id],
                                 task2 : [d3._id, d4._id, d5._id],
@@ -188,8 +188,10 @@ module.exports = function(account, user, next){
                             });
                         },
                         function(callback){
+                            // this needs to be by test and tag.
+                            // test issss...
                             Tag.findOneAndUpdate(
-                                {'name': 'yellow'},
+                                {'name': 'yellow', '_test' : arg.test._id },
                                 {'_messages': arg.yellow,
                                 '_test': arg.test._id },
                                 { upsert: true },
@@ -199,7 +201,7 @@ module.exports = function(account, user, next){
                         },
                         function(callback){
                             Tag.findOneAndUpdate(
-                                {'name': 'blue'},
+                                {'name': 'blue', '_test' : arg.test._id },
                                 {'_messages': arg.blue,
                                  '_test': arg.test._id },
                                 { upsert: true },
@@ -209,7 +211,7 @@ module.exports = function(account, user, next){
                         },
                         function(callback){
                             Tag.findOneAndUpdate(
-                                {'name': 'green'},
+                                {'name': 'green', '_test' : arg.test._id },
                                 {'_messages': arg.green,
                                  '_test': arg.test._id },
                                 { upsert: true },

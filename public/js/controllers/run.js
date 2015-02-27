@@ -183,7 +183,6 @@
             } else {
                 postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
-                        console.log(data);
                         $scope.timeline.push(data.msg);
                         $scope.message='';
                     });
