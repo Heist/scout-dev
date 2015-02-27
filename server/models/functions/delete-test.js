@@ -39,17 +39,11 @@ module.exports = function(test, next){
                 });
         },
         function(callback){
-            Tag.find({ _test : test })
-                .exec(function(err, tags){
-                    if(err){ console.log(err); }
-                    console.log(tags);
-                    callback(null, 'tags');
-                });
-            // Tag.remove({ _test : test },
-            //      function(err){
-            //             if(err){ console.log(err); }
-            //             callback(null, 'tags');
-            //         });
+            Tag.remove({ _test : test },
+                 function(err){
+                        if(err){ console.log(err); }
+                        callback(null, 'tags');
+                    });
         }
     ], 
     function(err, results){
