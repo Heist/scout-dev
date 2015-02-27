@@ -52,6 +52,7 @@
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
         console.log(data);
+        
         $scope.navlist = _.sortBy(data.navlist.list, function(obj){
                     return obj.report_index;
                 });
