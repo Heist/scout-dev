@@ -1071,6 +1071,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
+        // console.log(data);
         
         $scope.navlist = _.sortBy(data.navlist.list, function(obj){
                     return obj.report_index;
@@ -1180,8 +1181,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
-            void 0;
-            $http.put('/api/summary/object/', [obj]);
+            $http.post('/api/summary/object/', [obj]);
         };
 
         $scope.passFail = function(obj){
@@ -1261,7 +1261,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         $scope.saveSummary = function(){
             // post all the summary changes to the test
             // post fav'd statuses to relevant messages
-
             $scope.messages = _.map($scope.messages, function(val, key){ return val; });
 
             mixpanel.track('Summary complete', {});

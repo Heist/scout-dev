@@ -19,7 +19,7 @@ module.exports = function (app, passport, debug) {
     // get the navigation console for the summary.
         buildSummary(req.params._id, function(err, summary){
             if(err){ console.log(err); }
-            console.log('summary', summary);
+            // console.log('summary', summary);
             res.json(summary);
         });
     })
@@ -54,6 +54,8 @@ module.exports = function (app, passport, debug) {
     })
     .post(function(req,res){
         // update an object but not any messages
+        console.log('solo update', req.body);
+        
         objectUpdates(req.body,
             function(err, update){
                 if(err){console.log(err);}

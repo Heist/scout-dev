@@ -43,6 +43,7 @@
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
+        // console.log(data);
         
         $scope.navlist = _.sortBy(data.navlist.list, function(obj){
                     return obj.report_index;
@@ -152,7 +153,6 @@
 
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
-            console.log('save me', obj);
             $http.post('/api/summary/object/', [obj]);
         };
 
@@ -233,7 +233,6 @@
         $scope.saveSummary = function(){
             // post all the summary changes to the test
             // post fav'd statuses to relevant messages
-
             $scope.messages = _.map($scope.messages, function(val, key){ return val; });
 
             mixpanel.track('Summary complete', {});

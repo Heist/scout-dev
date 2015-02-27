@@ -37,15 +37,14 @@ module.exports = function(object_array, next){
                     if(err){ console.log(err); }
                     if(!model){ callback(null, null); }
 
-                    console.log('this is the update object', obj);
-                    model.report        = true;
+                    model.report     = true;
 
-                    model.visible       = obj.visible;
-                    model.pass_fail     = obj.pass_fail || model.pass_fail;
-                    model.summarized    = obj.summarized || model.summarized;
+                    model.visible    = (obj.visible === false) ? obj.visible : model.visible;
+                    model.pass_fail  = (obj.pass_fail === false) ? obj.pass_fail : model.pass_fail;
+                    model.summarized = (obj.summarized === false) ? obj.summarized : model.summarized;
 
-                    model.embed         = obj.embed || model.embed || '';
-                    model.summary       = obj.summary || model.summarized || '';
+                    model.embed      = obj.embed || model.embed || '';
+                    model.summary    = obj.summary || model.summarized || '';
                 
                     model.report_index  = obj.report_index || model.report_index;
                     
