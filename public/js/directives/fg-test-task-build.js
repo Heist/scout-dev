@@ -4,11 +4,14 @@
 
 (function(){
     angular.module('field_guide_controls')
-        .factory('testBuildFunctions', ['$q', '$timeout', '$http', '$location', '$rootScope', 
-            function($q, $timeout, $http, $location, $rootScope) {
+        .factory('testBuildFunctions', ['$http', '$rootScope', 
+            function($http, $rootScope) {
                 return {
-                    addTask : function(test, task){
+                    addTask : function(test, task, index){
+                        mixpanel.track('Task added', { 'user': $rootScope.user });
+                        
                         task._test = test;
+                        task.index = index;
 
                         var promise = $http.post('/api/task/', task).success(function(data){
                                 return data;

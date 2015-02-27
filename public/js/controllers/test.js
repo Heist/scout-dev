@@ -7,22 +7,19 @@
         $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
     }])
     .controller('test', 
-                ['testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
-        function(testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
+        ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
+        function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         
-        $http
-            .get('/api/test/'+$stateParams.test_id, {timeout : 5000, cache:false})
-            .success(function(data) {
-                $scope.test = data;
-                $scope.tasks = data._tasks;
-                $scope.showAnchor(1);
-            });
+        var data = loadData.data;
+
+        $scope.test = data;
+        $scope.tasks = data._tasks;
+        $scope.showAnchor(1);
 
     // DIRECTIVES AND FUNCTIONS ===============================
 
         // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
-
         $scope.changeOnboard = function(num){
             $rootScope.user.onboard = num;
             $http.put('/api/user/'+$rootScope.user._id, {onboard : $rootScope.user.onboard});
@@ -41,7 +38,6 @@
     // ACTIONS ============================================
         $scope.selectPrototype = function(kind){
             $scope.test.kind = kind;
-
             mixpanel.track('Type of Test', {'test type' : kind });
         };
 
@@ -89,17 +85,7 @@
     // TASK FUNCTIONS =====================================
         $scope.newTask = function(task) {
             // Add a new task
-            mixpanel.track('Task added', { 'user': $rootScope.user });
-            
-            task._test = $stateParams.test_id;
-            task._session = $scope.test._session;
-            task.index = $scope.tasks.length;
-            
-            var url = '/api/task/';
-            var data_out = task;
-            
-            $http
-                .post(url,data_out)
+            testBuildFunctions.addTask($stateParams._id, task, $scope.tasks.length)
                 .success(function(data){
                     $scope.tasks.push(data);
                     $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
@@ -176,7 +162,7 @@
                 test.desc = $scope.test.desc;
             }
 
-            var url = '/api/test/'+$stateParams.test_id;
+            var url = '/api/test/'+$stateParams._id;
             var data_out = test;
 
             // index the tasks appropriately and make sure they're put away

@@ -145,10 +145,16 @@
                 }
             })
             .state('test', {
-                url: '/edit/test/:test_id',
+                url: '/edit/test/:_id',
                 controller:'test',
                 templateUrl: 'partials/app/test.html',
                 resolve: { 
+                    loadData : ['$http', function($http){
+                            return $http.get('/api/test/'+$stateParams._id, {timeout : 5000, cache:false})
+                                .success(function(data) {
+                                    return data;
+                                });
+                        }],
                     loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }]
