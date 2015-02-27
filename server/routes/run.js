@@ -31,9 +31,8 @@ module.exports = function(app, passport, io, debug) {
 
     app.route('/api/run/:_id')
         .get(function(req,res){
-            // Find a test by _id and populate its tasks, then return.
-            // Todo: Account-lock this.
 
+            // Find a test by _id and _account and populate its tasks, then return.
             Test.findOne({
                     '_id' : req.params._id, 
                     '_tasks': {$not: {$size: 0}}, 
