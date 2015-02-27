@@ -128,7 +128,8 @@
         $scope.addTask = function(task){
             $scope.adding_task = $scope.adding_task ? false : $scope.adding_task;
             
-            testBuildFunctions.addTask(task).then(function(data){
+            testBuildFunctions.addTask($stateParams._id, task)
+                .success(function(data){
                     $scope.test._tasks.push(data);
                 });
         };

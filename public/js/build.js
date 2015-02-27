@@ -728,6 +728,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
         console.log(data);
+        
         $scope.navlist = _.sortBy(data.navlist.list, function(obj){
                     return obj.report_index;
                 });
@@ -754,48 +755,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 }
             }
         };
-
-    // COMMENTING =========================================
-        $scope.showComments = function(message){
-            // if the comment toggle is the same as the current comment toggle
-            // hide commenting
-            // else show the new message's comments
-            if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
-                $scope.showCommentToggle = 'hide';
-                $scope.commentMessage = '';
-                return;
-            } else if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
-                $scope.showCommentToggle = 'show';
-                return;
-            } else if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
-                $scope.showCommentToggle = 'show'; 
-                $scope.commentMessage = message;
-                return;
-            }
-            
-            $scope.commentMessage = message;
-
-        };
-
-        // $scope.addComment = function(comment){
-        //     if(comment && comment.body.length > 0){
-        //         var dataOut = {
-        //             comment: {body : comment.body}
-        //         };
-                
-        //         $http
-        //             .post('/api/comment/'+$scope.commentMessage._id, dataOut)
-        //             .success(function(data){
-        //                 comment.body = '';
-        //                 var arr = _.pluck($scope.messages, '_id');
-        //                 var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
-        //                 $scope.messages[msg_idx]._comments.push(data.comment);
-
-        //             });
-        //     } else {
-        //         $scope.showCommentToggle = 'hide';   
-        //     }
-        // };
     }]);
 })();
 // forgot.js
@@ -954,7 +913,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         $scope.addTask = function(task){
             $scope.adding_task = $scope.adding_task ? false : $scope.adding_task;
             
-            testBuildFunctions.addTask(task).then(function(data){
+            testBuildFunctions.addTask($stateParams._id, task).success(function(data){
                     $scope.test._tasks.push(data);
                 });
         };
