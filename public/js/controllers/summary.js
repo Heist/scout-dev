@@ -152,7 +152,8 @@
 
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
-            $http.put('/api/summary/object', [obj]);
+            console.log('save me', obj);
+            $http.post('/api/summary/object/', [obj]);
         };
 
         $scope.passFail = function(obj){

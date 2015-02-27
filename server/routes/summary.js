@@ -28,8 +28,6 @@ module.exports = function (app, passport, debug) {
         // visibility and summaries
         console.log('object update this steeze', req.body);
 
-        // this is an if statement probably.
-
         var object_array = req.body.navlist || req.body;
         var message_array = req.body.messages || [];
 
@@ -53,17 +51,15 @@ module.exports = function (app, passport, debug) {
             if(err){console.log(err);}
             res.json(results);
         });
+    })
+    .post(function(req,res){
+        // update an object but not any messages
+        objectUpdates(req.body,
+            function(err, update){
+                if(err){console.log(err);}
+                res.json(update);
+            });
     });
-
-    app.route('/api/summary/object')
-        .put(function(req,res){
-            // update an object but not any messages
-            objectUpdates(req.body,
-                function(err, update){
-                    if(err){console.log(err);}
-                    res.json(update);
-                });
-        });
 
     // Comment route =============================
     app.route('/api/comment/')

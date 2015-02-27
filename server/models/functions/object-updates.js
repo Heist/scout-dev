@@ -23,8 +23,6 @@ module.exports = function(object_array, next){
 
 // UPDATE OBJECTS FROM NAVIGATION LIST ====================
 // Did we get a properly formed object array?
-    // console.log('update object array', object_array);
-
     async.map(object_array, 
         function(obj, callback){
 
@@ -39,9 +37,10 @@ module.exports = function(object_array, next){
                     if(err){ console.log(err); }
                     if(!model){ callback(null, null); }
 
+                    console.log('this is the update object', obj);
                     model.report        = true;
 
-                    model.visible       = obj.visible || model.visible;
+                    model.visible       = obj.visible;
                     model.pass_fail     = obj.pass_fail || model.pass_fail;
                     model.summarized    = obj.summarized || model.summarized;
 

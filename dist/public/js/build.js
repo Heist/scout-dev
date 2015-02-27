@@ -1180,7 +1180,8 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
-            $http.put('/api/summary/object', [obj]);
+            void 0;
+            $http.put('/api/summary/object/', [obj]);
         };
 
         $scope.passFail = function(obj){
