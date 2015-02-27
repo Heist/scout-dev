@@ -4,8 +4,8 @@
     // RUN CONTROLLER ===========================================================
 
     angular.module('field_guide_controls').controller('run', 
-    [ 'loadData', 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', 
-    function(loadData, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
+    [ 'loadData', 'testBuildFunctions', 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', 
+    function(loadData, testBuildFunctions, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
     // get the starting data from resolve
         var data = loadData.data;
         
@@ -126,18 +126,11 @@
 
     // ANGULAR ROUTES ===================================================
         $scope.addTask = function(task){
-
             $scope.adding_task = $scope.adding_task ? false : $scope.adding_task;
-
-            task._test = $stateParams._id;
-            task._index = $scope.test._tasks.length;
             
-            $http
-                .post('/api/task/', task)
-                .success(function(data){
+            testBuildFunctions.addTask(task).then(function(data){
                     $scope.test._tasks.push(data);
                 });
-
         };
 
         $scope.select = function(index) {

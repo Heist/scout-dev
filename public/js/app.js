@@ -54,11 +54,10 @@
 
             // PUBLIC REPORTS ===========================================
             .state('report_public', {
-                url: '/p/report/:test_id',
+                url: '/p/report/:_id',
                 controller:'reportPublic',
                 templateUrl: 'partials/app/report_public.html',
                 resolve: { 
-                    mixpanel: mixpanel.track('Report Loaded', {}),
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
                         return $http.get('/api/public/report/'+$stateParams._id)
                                     .success(function(data) {

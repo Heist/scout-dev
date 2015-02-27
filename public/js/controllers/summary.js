@@ -4,14 +4,15 @@
 
     // SUMMARY CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-        .controller('summary', [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
-                        function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
+        .controller('summary', 
+            [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
+        function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         
         $scope.test = {};
         $scope.timeline = [];
         $scope.commentMessage = '';
         $scope.showCommentToggle = 'hide';
-        $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams.test_id;
+        $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams._id;
         $scope.showReportLink = false;
 
         // synchronous shit is weird. =====================

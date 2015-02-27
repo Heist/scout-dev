@@ -70,11 +70,10 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
             // PUBLIC REPORTS ===========================================
             .state('report_public', {
-                url: '/p/report/:test_id',
+                url: '/p/report/:_id',
                 controller:'reportPublic',
                 templateUrl: 'partials/app/report_public.html',
                 resolve: { 
-                    mixpanel: mixpanel.track('Report Loaded', {}),
                     loadData: ['$http','$stateParams', function($http, $stateParams) {
                         return $http.get('/api/public/report/'+$stateParams._id)
                                     .success(function(data) {
@@ -178,8 +177,13 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 templateUrl: 'partials/app/run.html',
                 resolve: { 
                     loggedin: ['checkLoggedin', function(checkLoggedin) {
-                            return checkLoggedin();
-                        }]
+                        return checkLoggedin();
+                    }],
+                    loadData : ['$http','$stateParams', function($http, $stateParams) {
+                        return $http.get('/api/run/'+$stateParams._id).success(function(data){
+                                    return data;
+                                });
+                    }]
                 }
             });
     });
@@ -675,37 +679,10 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
     'use strict';
 
     // REPORT CONTROLLER ===========================================================
-    angular.module('field_guide_controls').controller('reportPublic', ['$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', 
-        function($scope, $sce, $http, $location,$stateParams,$state, $sanitize){
+    angular.module('field_guide_controls').controller('reportPublic', 
+                [ 'loadData', 'reportFunctions', '$scope', '$sce', '$http', '$location', '$stateParams','$state','$sanitize', 
+        function( loadData, reportFunctions, $scope, $sce, $http, $location,$stateParams,$state, $sanitize){
     // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
-
-        $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
-
-        $scope.showReportLink = false;
-        $scope.toggleReportLink =  function(){
-            if(!$scope.showReportLink){ $scope.showReportLink=true; }
-            else{ $scope.showReportLink = false; }
-        };
-
-        $http.get('/api/public/report/'+$stateParams.test_id)
-                .success(function(data){
-                    $scope.leftNavList = [];
-                    $scope.testname = data.test;
-
-                    var sort = _.sortBy(data.navlist, function(obj){
-                                    return(obj.report_index);
-                                });
-
-                    _.each(sort, function(obj){
-                        if(obj.visible){
-                            $scope.leftNavList.push(obj);
-                        }
-                    });
-
-                    $scope.messages = data.messages;
-                    $scope.activate($scope.leftNavList[0]);
-                    
-                }); 
 
     // == mixpanel ==================================
 
@@ -713,53 +690,57 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         
     // ==============================================
 
+    // SHARE LINK =========================================
+        $scope.reportLink = $location.protocol()+'://'+$location.host()+':8080/p/report/'+$stateParams.test_id;
 
-    // NAVIGATION =============================================
+        $scope.showReportLink = false;
 
-        $scope.summarize = function(){
-            $location.path('/summary/'+ $stateParams.test_id);
+        $scope.toggleReportLink =  function(){
+            $scope.showReportLink = $scope.showReportLink ? false : true;
         };
 
+    // ON LEFT NAV CLICK, SELECT THINGS ===================
         $scope.activate = function(obj, selectedIndex) {
-            // passes the task to the global variable
-
+            // passes an object from left nav to the global selection variable
+            // reset all previous reliant variables, there are a lot!
             $scope.selected = '';
             $scope.commentMessage = '';
             $scope.selectedIndex = '';
+            $scope.inputNote = '';
             $scope.showCommentToggle = 'hide';
-            
+            $scope.messageEditToggle = '';
+
             $scope.selectedIndex = selectedIndex;
+            $scope.selected = obj || $scope.selected;
             
-            if(obj){
-                $scope.selected = obj;
-                // here's where we do the rendering shit for the embeds. Slow. Boo.
-                
-                if(obj.embed){
-                    var ytube = /youtube.com/i;
-                    var yt = ytube.test(obj.embed);
-                    if(yt){
-                        $scope.selected.youTubeCode = obj.embed;
-                    }
 
-                    var utest = /usabilitytestresults/i;
-                    var ut = utest.test(obj.embed);
-                    if(ut){
-                        var w1 = /width='\d+'/i;
-                        var h1 = /height='\d+'/i;
-                        var w2 = /"width":"\d+"/i;
-                        var h2 = /"height":"\d+"/i;
-                        
-                        var res = obj.embed.replace(w1, "width='574'");
-                        res = res.replace(w2, '"width":"574"');
-                        res = res.replace(h1, "height='380'");
-                        res = res.replace(h2, '"height":"380"');
-                        
-                        $scope.selected.userTesting = $sce.trustAsHtml(res);
-                    }
-
+        // Set up what kind of video we're expecting to need here.
+            if(obj.embed){
+                var loadVideo = reportFunctions.videoRender(obj.embed);
+                if(loadVideo.youtube){
+                    $scope.selected.youTubeCode = loadVideo.youtube;
+                } else {
+                    $scope.selected.userTesting = loadVideo.embed;
                 }
-            }
+            }  
         };
+
+    // SET VIEW VARIABLES FROM LOAD DATA ==================
+        // var data = loadData.data; // lol who even fucking knows why this can't return directly.
+        // console.log(data);
+        // $scope.navlist = _.sortBy(data.navlist.list, function(obj){
+        //             return obj.report_index;
+        //         });
+        
+        // $scope.messages = _.groupBy(data.messages, function(z){
+        //             return z._subject.name ? z._subject.name : 'report comment';
+        //         });
+
+        // $scope.testname = data.navlist.test;
+
+        // $scope.activate(data.navlist.list[0], 0);
+
+    // NAVIGATION =============================================
 
         $scope.showObjectMessages = function(msg, obj){
             if(obj._messages){
@@ -796,25 +777,25 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
         };
 
-        $scope.addComment = function(comment){
-            if(comment && comment.body.length > 0){
-                var dataOut = {
-                    comment: {body : comment.body}
-                };
+        // $scope.addComment = function(comment){
+        //     if(comment && comment.body.length > 0){
+        //         var dataOut = {
+        //             comment: {body : comment.body}
+        //         };
                 
-                $http
-                    .post('/api/comment/'+$scope.commentMessage._id, dataOut)
-                    .success(function(data){
-                        comment.body = '';
-                        var arr = _.pluck($scope.messages, '_id');
-                        var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
-                        $scope.messages[msg_idx]._comments.push(data.comment);
+        //         $http
+        //             .post('/api/comment/'+$scope.commentMessage._id, dataOut)
+        //             .success(function(data){
+        //                 comment.body = '';
+        //                 var arr = _.pluck($scope.messages, '_id');
+        //                 var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
+        //                 $scope.messages[msg_idx]._comments.push(data.comment);
 
-                    });
-            } else {
-                $scope.showCommentToggle = 'hide';   
-            }
-        };
+        //             });
+        //     } else {
+        //         $scope.showCommentToggle = 'hide';   
+        //     }
+        // };
     }]);
 })();
 // forgot.js
@@ -849,35 +830,29 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
     // RUN CONTROLLER ===========================================================
 
     angular.module('field_guide_controls').controller('run', 
-    [ 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', 
-    function(postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
+    [ 'loadData', 'testBuildFunctions', 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', 
+    function(loadData, testBuildFunctions, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
+    // get the starting data from resolve
+        var data = loadData.data;
         
-        // set up controller-wide variables
+    // set up and reset variables to clear cache from state changes.
         $scope.update = [];
+        $scope.task = {};
+        var message = {};
         
-        $scope.timeline = []; // holds all messages currently in test
+    // holds all messages currently in test
+        $scope.timeline = [{ 
+                title: 'Starting test', 
+                body: data.name 
+            }]; 
+
+    // make sure the scroll works
         $scope.glued = true;
 
-        $http
-            .get('/api/run/'+$stateParams._id)
-            .success(function(data){
-                // this should return an ordered nav list
-                // with a test at position 0
-
-                $scope.test = data;
-                $scope.kind = data.kind;
-                $scope.navlist = data._tasks;
-
-                $scope.timeline.push({ 
-                    title: 'Starting test', 
-                    body: data.name 
-                });
+        $scope.test = data;
+        $scope.kind = data.kind;
+        $scope.navlist = data._tasks;
                 
-                // reset variables to clear cache from state changes.
-                $scope.task = {};
-                var message = {};
-            });
-
     // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
 
@@ -913,12 +888,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         $scope.connect = {};
         $scope.connect.text = '71b';
 
-        $scope.subscription = function(chan){
-            // console.log('touched a channel', chan);
-            // socket.emit('subscribe', { room: chan, test: $stateParams._id });
-            // socket.emit('channel', { room: chan, test: $stateParams._id });
-        };
-
         socket.on('connect_failed', function(data)
         {
             // console.log('connect_failed');
@@ -932,13 +901,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         {
             // console.log('disconnect');
 
-            // image.src = "/layout/assets/avatar-binocs.jpg";
-            // canvas.width = 358;
-            // canvas.height = 358 * image.height / image.width;
-
-            // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
-
-            // socket.socket.disconnect();
         });
 
         socket.on('error', function(reason)
@@ -990,18 +952,11 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
     // ANGULAR ROUTES ===================================================
         $scope.addTask = function(task){
-
             $scope.adding_task = $scope.adding_task ? false : $scope.adding_task;
-
-            task._test = $stateParams._id;
-            task._index = $scope.test._tasks.length;
             
-            $http
-                .post('/api/task/', task)
-                .success(function(data){
+            testBuildFunctions.addTask(task).then(function(data){
                     $scope.test._tasks.push(data);
                 });
-
         };
 
         $scope.select = function(index) {
@@ -1038,8 +993,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
             $http
                 .post('api/subject/', subject)
                 .success(function(data){
-                    console.log(data);
-                    console.log(data._id);
                     $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);
@@ -1060,7 +1013,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
             }
         };
 
-
         $scope.postTest = function(){
             // Send tasks that have had a subject added to the DB.
             mixpanel.track('Test completed', {});
@@ -1080,14 +1032,15 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
     // SUMMARY CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-        .controller('summary', [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
-                        function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
+        .controller('summary', 
+            [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
+        function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         
         $scope.test = {};
         $scope.timeline = [];
         $scope.commentMessage = '';
         $scope.showCommentToggle = 'hide';
-        $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams.test_id;
+        $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams._id;
         $scope.showReportLink = false;
 
         // synchronous shit is weird. =====================
@@ -1108,19 +1061,19 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         // Set up what kind of video we're expecting to need here.
             if(obj.embed){
                 var loadVideo = reportFunctions.videoRender(obj.embed);
-                if(data.youtube){
-                    $scope.selected.youTubeCode = data.youtube;
+                if(loadVideo.youtube){
+                    $scope.selected.youTubeCode = loadVideo.youtube;
                 } else {
-                    $scope.selected.userTesting = data.embed;
+                    $scope.selected.userTesting = loadVideo.embed;
                 }
             }  
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
-        console.log(data);
+        
         $scope.navlist = _.sortBy(data.navlist.list, function(obj){
-                    return (obj.report_index);
+                    return obj.report_index;
                 });
         
         $scope.messages = _.groupBy(data.messages, function(z){
@@ -1220,41 +1173,23 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
             return (message._id === $scope.selected._id) ? true : false;
         };
 
-        $scope.moveTask = function(old_index, new_index){            
+        $scope.moveTask = function(old_index, new_index){   
             $scope.navlist = reportFunctions.moveTask($scope.navlist, old_index, new_index);
-            // Here the list is in the correct order, which it doesn't seem to keep. 
-            // ruh-roh.
-            // new function: save list? 
-            // Returns list order from DB as appropriate in array order.
-            $http.put('/api/summary/'+ $stateParams._id, $scope.navlist)
-                .success(function(data){
-                    console.log('success moving steps?', data);
-                });
-           
+            $http.put('/api/summary/'+ $stateParams._id, $scope.navlist);           
         };
-
 
         // OBJECT FUNCTIONS =====================================
         $scope.saveObject = function(obj){
-            var data = [obj];
-
-            $http.put('/api/summary/object', data)
-                .success(function(doc){
-                    console.log(doc);
-                });
+            $http.put('/api/summary/object', [obj]);
         };
 
         $scope.passFail = function(obj){
-            if(obj.pass_fail){ obj.pass_fail = false; }
-            else { obj.pass_fail = true; }
-
+            obj.pass_fail = obj.pass_fail ? false : true;
             $scope.saveObject(obj);
         };
 
         $scope.toggleVis = function(obj){
-            if( obj.visible ){ obj.visible = false ; } 
-            else { obj.visible = true; }
-
+            obj.visible = obj.visible ? false : true;
             $scope.saveObject(obj);
         };
 
@@ -1274,11 +1209,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $http
-                .put('/api/message/', message)
-                .success(function(data){
-                    console.log(data);
-                });
+            $http.put('/api/message/', message);
         };
 
         $scope.saveFav = function(message){
@@ -1337,8 +1268,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
             $http.put('/api/summary/'+ $stateParams._id, 
                 { navlist  : $scope.navlist, 
                   messages : $scope.messages[0]
-                }).success(function(data){
-
                 });
         };
     }]);
@@ -2113,7 +2042,6 @@ angular.module('field_guide_controls')
                     return promise;
                 };
             return postMessage;
-
         }]);
 })();
 // fg-report-functions.js
@@ -2163,6 +2091,26 @@ angular.module('field_guide_controls')
                 }
             };
         }]);
+})();
+// test-task-build.js
+// functions required to build out a test
+'use strict';
+
+(function(){
+    angular.module('field_guide_controls')
+        .factory('testBuildFunctions', ['$q', '$timeout', '$http', '$location', '$rootScope', 
+            function($q, $timeout, $http, $location, $rootScope) {
+                return {
+                    addTask : function(test, task){
+                        task._test = test;
+
+                        var promise = $http.post('/api/task/', task).success(function(data){
+                                return data;
+                            });
+                        return promise;
+                    }
+                };
+            }]);
 })();
 // ngMatch.js
 'use strict';

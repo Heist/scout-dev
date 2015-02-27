@@ -20,6 +20,5 @@
                     return promise;
                 };
             return postMessage;
-
         }]);
 })();
