@@ -11,7 +11,9 @@ var imagemin = require('gulp-imagemin');
 var addsrc = require('gulp-add-src');
 var stripDebug = require('gulp-strip-debug');
 var newer = require('gulp-newer');
+var notify = require('gulp-notify');
 var sass = require('gulp-sass');
+var watch = require('gulp-watch');
 
 var del = require('del');
 var mainBowerFiles = require('main-bower-files');
@@ -47,12 +49,13 @@ gulp.task('scripts', function () {
     .pipe(gulp.dest('dist/public/js'));
 });
 
-gulp.task('sass', function () {
-    return gulp.src('public/layout/sass/*.scss')
-    .pipe(sass())
-    .pipe(addsrc.append('bower_components/**/*.css'))
+// Compile CSS, Autoprefix
+gulp.task('sass', function() {
+  return gulp.src('public/layout/sass/*.scss')
+    .pipe(sass({ style: 'expanded' }))
     .pipe(gulp.dest('public/layout/css'))
-    .pipe(gulp.dest('dist/public/layout/css'));
+    .pipe(gulp.dest('dist/public/layout/css'))
+    .pipe(notify({ message: "Alfred: I've organized your files for you." }));
 });
 
 // gulp.task('css', function () {
@@ -86,11 +89,17 @@ gulp.task('html', function() {
       .pipe(gulp.dest('dist/public/partials'));
 });
 
+// Watch files for changes
+gulp.task('watch', function() {
+    gulp.watch('public/js/*.js', ['scripts']);
+    gulp.watch('public/layout/sass/*.scss', ['sass']);
+});
+
 gulp.task('clean', function(cb) {
     del(['dist/public/layout/css/', 'dist/public/js/', 'dist/public/partials/'], cb);
 });
 
-gulp.task('default', ['clean'], function() {
+gulp.task('default', ['clean', 'watch'], function() {
     gulp.start('sass', 'fonts', 'html', 'images', 'scripts').on('error', errorHandler);
 });
 
