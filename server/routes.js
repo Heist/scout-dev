@@ -10,10 +10,10 @@ module.exports = function(app, passport, debug) {
     var _ = require('lodash');
     var nodemailer = require('nodemailer');
 
-    // various api hooks for reports
+// various api hooks for reports
     var Trello  = require('node-trello');
 
-    // load data storage models
+// load data storage models
     var Comment = require('./models/data/comment');
     var Message = require('./models/data/message');
     var Task    = require('./models/data/task');
@@ -137,63 +137,10 @@ module.exports = function(app, passport, debug) {
 // PASSWORD RESET ROUTES ==================================
     // forgotten passwords
     app.post('/auth/forgot', function(req, res, next) {
-        // console.log('touched forgotten password route');
-        
-        async.waterfall([
-            function(done) {
-                crypto.randomBytes(20, function(err, buf) {
-                    var token = buf.toString('hex');
-                    done(err, token);
-                });
-            },
-            function(token, done) {
-                User.findOne({ 'local.email': req.body.email }, function(err, user) {
-                    if (!user) {
-                        done(err, token, '0');
-                    } else {
-                        user.resetPasswordToken = token;
-                        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-    
-                        user.save(function(err) {
-                            done(err, token, user);
-                        });
-                    }
-                });
-            },
-            function(token, user, done) {
-                console.log('waterfall', user, token);
-                if(user !== '0'){
-                    var smtpTransport = nodemailer.createTransport({
-                        service: 'Mandrill',
-                        auth: {
-                            user: 'mandrill@fieldguideapp.com',
-                            pass: app.locals.mandrillSecret
-                        },
-                        host: "smtp.mandrillapp.com",
-                        port: 587
-                    });
+        var forgotPassword = global.rootRequire('./server/models/functions/forgot-password-token');
 
-                    var mailOptions = {
-                        to: user.local.email,
-                        from: 'password_reset@fieldguideapp.com',
-                        subject: 'Field Guide Password Reset',
-                        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your Field Guide account.\n\n' +
-                        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                        'http://' + req.headers.host + '/forgot/' + token + '\n\n' +
-                        'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-                    };
-
-                    smtpTransport.sendMail(mailOptions, function(err) {
-                        done(err, 'An e-mail has been sent to ' + user.local.email + ' with further instructions.');
-                    });
-                } else {
-                    done(null, null);
-                }
-            } 
-        ], function(err, results) {
-            if (err){ return next(err); }
-            console.log('waterfall results email', results);
-            res.send(results);
+        forgotPassword( req.body.email, app, function(err, password){
+            res.send(passport);
         });
     });
 
@@ -201,9 +148,7 @@ module.exports = function(app, passport, debug) {
     app.get('/reset/:token', function(req, res) {
         console.log('check reset');
         User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-            if (!user) {
-                res.send('0');
-            }
+            if (!user) { res.send('0'); }
             res.send('1');
         });
     });
@@ -211,55 +156,11 @@ module.exports = function(app, passport, debug) {
 
     app.post('/reset/:token', function(req, res) {
         console.log('password reset queued');
-        async.waterfall([
-            function(done) {
-                User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-                    if (!user) {
-                        done(null, null);
-                    }
+        var resetPassword = global.rootRequire('./server/models/functions/reset-lost-password');
 
-                    // TODO: Abstract this shit onto the user model
-                    function generateHash(password) { return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null); }
-                    
-                    user.local.password = user.generateHash(req.body.password);
-                    user.resetPasswordToken = undefined;
-                    user.resetPasswordExpires = undefined;
-
-                    user.save(function(err) {
-                        done(err, user);
-                    });
-                });
-            },
-            function(user, done) {
-                if(user !== null){
-                    var smtpTransport = nodemailer.createTransport({
-                            service: 'Mandrill',
-                            auth: {
-                                user: 'mandrill@fieldguideapp.com',
-                                pass: app.locals.mandrillSecretx
-                            },
-                            host: "smtp.mandrillapp.com",
-                            port: 587
-                        });
-    
-                    var mailOptions = {
-                        to: user.local.email,
-                        from: 'password_reset@fieldguideapp.com',
-                        subject: 'Your Field Guide password has been changed',
-                        text: 'Hello,\n\n' +
-                        'This is a confirmation that the password for your account ' + user.local.email + ' has just been changed.\n'
-                    };
-                    smtpTransport.sendMail(mailOptions, function(err) {
-                        done(err, 'The password for your account '+ user.local.email +' has been changed.');
-                    });
-                } else {
-                    done (null, null);
-                }
-            }
-        ], function(err, results) {
+        resetPassword(req.params.token, req.body.password, app, function(err, pass){
             if(err){console.log(err);}
-            console.log(results);
-            res.send(results);
+            res.send(pass);
         });
     });
 
