@@ -49,10 +49,11 @@ gulp.task('scripts', function () {
     .pipe(gulp.dest('dist/public/js'));
 });
 
-// Compile CSS, Autoprefix
+// Compile CSS
 gulp.task('sass', function() {
   return gulp.src('public/layout/sass/*.scss')
     .pipe(sass({ style: 'expanded' }))
+    .pipe(addsrc.append('bower_components/**/*.css'))
     .pipe(gulp.dest('public/layout/css'))
     .pipe(gulp.dest('dist/public/layout/css'))
     .pipe(notify({ message: "Alfred: I've organized your files for you." }));
