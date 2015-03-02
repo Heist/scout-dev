@@ -153,7 +153,7 @@ module.exports = function(app, passport, debug) {
         });
     });
 
-
+    // password reset route
     app.post('/reset/:token', function(req, res) {
         console.log('password reset queued');
         var resetPassword = global.rootRequire('./server/models/functions/reset-lost-password');
@@ -166,7 +166,7 @@ module.exports = function(app, passport, debug) {
 
 
 // PUBLIC ROUTES ==========================================
-app.route('/auth/invite/:_id')
+    app.route('/auth/invite/:_id')
         .get(function(req,res){
             // get an existing invitation to populate the registration page
             Invitation.findById(req.params._id)
@@ -176,7 +176,7 @@ app.route('/auth/invite/:_id')
                     
                     res.json(invite);
                 });
-        })
+        });
 
 // Debug Routes -------------------
     // app.route('/debug/test')
