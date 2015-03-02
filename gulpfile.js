@@ -9,6 +9,7 @@ var jshint = require('gulp-jshint');
 var changed = require('gulp-changed');
 var imagemin = require('gulp-imagemin');
 var addsrc = require('gulp-add-src');
+var ngAnnotate = require('gulp-ng-annotate');
 var stripDebug = require('gulp-strip-debug');
 var newer = require('gulp-newer');
 var notify = require('gulp-notify');
@@ -35,7 +36,6 @@ gulp.task('scripts', function () {
         bower
     )
     .pipe(filter('*.js'))
-    .pipe(uglify())
     .pipe(addsrc.append('public/js/app.js'))
     .pipe(addsrc.append('public/js/controllers/*.js'))
     .pipe(addsrc.append('public/js/directives/*.js'))
@@ -44,6 +44,8 @@ gulp.task('scripts', function () {
     // .pipe(jshint()).on('error', errorHandler)
     // .pipe(jshint.reporter('default'))
     .pipe(concat('build.js')).on('error', errorHandler)
+    .pipe(ngAnnotate())
+    .pipe(uglify())
     .pipe(gulp.dest('public/js'))
     .pipe(stripDebug()).on('error', errorHandler)
     .pipe(gulp.dest('dist/public/js'));
