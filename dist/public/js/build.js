@@ -161,10 +161,16 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 }
             })
             .state('test', {
-                url: '/edit/test/:test_id',
+                url: '/edit/test/:_id',
                 controller:'test',
                 templateUrl: 'partials/app/test.html',
                 resolve: { 
+                    loadData : ['$http', function($http){
+                            return $http.get('/api/test/'+$stateParams._id, {timeout : 5000, cache:false})
+                                .success(function(data) {
+                                    return data;
+                                });
+                        }],
                     loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }]
@@ -1240,30 +1246,22 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
         $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
     }])
     .controller('test', 
-                ['$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
-        function(  $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
+        ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
+        function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         
-        $http
-            .get('/api/test/'+$stateParams.test_id, {timeout : 5000, cache:false})
-            .success(function(data) {
-                $scope.test = data;
-                $scope.tasks = data._tasks;
-                $scope.showAnchor(1);
-            });
+        var data = loadData.data;
+
+        $scope.test = data;
+        $scope.tasks = data._tasks;
+        $scope.showAnchor(1);
 
     // DIRECTIVES AND FUNCTIONS ===============================
 
         // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
-
         $scope.changeOnboard = function(num){
             $rootScope.user.onboard = num;
-
-            var url = '/api/user/'+$rootScope.user._id;
-            var dataOut = {onboard : $rootScope.user.onboard};
-
-            $http
-                .put(url, dataOut);
+            $http.put('/api/user/'+$rootScope.user._id, {onboard : $rootScope.user.onboard});
         };
         
         // SELECTION ======================================
@@ -1279,7 +1277,6 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
     // ACTIONS ============================================
         $scope.selectPrototype = function(kind){
             $scope.test.kind = kind;
-
             mixpanel.track('Type of Test', {'test type' : kind });
         };
 
@@ -1327,17 +1324,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
     // TASK FUNCTIONS =====================================
         $scope.newTask = function(task) {
             // Add a new task
-            mixpanel.track('Task added', { 'user': $rootScope.user });
-            
-            task._test = $stateParams.test_id;
-            task._session = $scope.test._session;
-            task.index = $scope.tasks.length;
-            
-            var url = '/api/task/';
-            var data_out = task;
-            
-            $http
-                .post(url,data_out)
+            testBuildFunctions.addTask($stateParams._id, task, $scope.tasks.length)
                 .success(function(data){
                     $scope.tasks.push(data);
                     $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
@@ -1414,7 +1401,7 @@ angular.module("angularPayments",[]),angular.module("angularPayments").factory("
                 test.desc = $scope.test.desc;
             }
 
-            var url = '/api/test/'+$stateParams.test_id;
+            var url = '/api/test/'+$stateParams._id;
             var data_out = test;
 
             // index the tasks appropriately and make sure they're put away
@@ -2057,11 +2044,14 @@ angular.module('field_guide_controls')
 
 (function(){
     angular.module('field_guide_controls')
-        .factory('testBuildFunctions', ['$q', '$timeout', '$http', '$location', '$rootScope', 
-            function($q, $timeout, $http, $location, $rootScope) {
+        .factory('testBuildFunctions', ['$http', '$rootScope', 
+            function($http, $rootScope) {
                 return {
-                    addTask : function(test, task){
+                    addTask : function(test, task, index){
+                        mixpanel.track('Task added', { 'user': $rootScope.user });
+                        
                         task._test = test;
+                        task.index = index;
 
                         var promise = $http.post('/api/task/', task).success(function(data){
                                 return data;

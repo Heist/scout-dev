@@ -11,6 +11,7 @@ var imagemin = require('gulp-imagemin');
 var addsrc = require('gulp-add-src');
 var stripDebug = require('gulp-strip-debug');
 var newer = require('gulp-newer');
+var sass = require('gulp-sass');
 
 var del = require('del');
 var mainBowerFiles = require('main-bower-files');
@@ -46,14 +47,22 @@ gulp.task('scripts', function () {
     .pipe(gulp.dest('dist/public/js'));
 });
 
-gulp.task('css', function () {
-    return gulp.src([
-        'bower_components/**/*.css',
-        'public/layout/css/*.css'
-    ])
-    .pipe(concat('style.css')).on('error', errorHandler)
+gulp.task('sass', function () {
+    return gulp.src('public/layout/sass/*.scss')
+    .pipe(sass())
+    .pipe(addsrc.append('bower_components/**/*.css'))
+    .pipe(gulp.dest('public/layout/css'))
     .pipe(gulp.dest('dist/public/layout/css'));
 });
+
+// gulp.task('css', function () {
+//     return gulp.src([
+//         'bower_components/**/*.css',
+//         'public/layout/css/*.css'
+//     ])
+//     .pipe(concat('style.css')).on('error', errorHandler)
+//     .pipe(gulp.dest('dist/public/layout/css'));
+// });
 
 gulp.task('fonts', function() {
     return gulp.src(['public/layout/fonts/*'])
@@ -82,7 +91,7 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('css', 'fonts', 'html', 'images', 'scripts').on('error', errorHandler);
+    gulp.start('sass', 'fonts', 'html', 'images', 'scripts').on('error', errorHandler);
 });
 
 // Handle the error
