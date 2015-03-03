@@ -1898,7 +1898,8 @@ hr {
           width: 100%; }
           #view-editing .test-tasks #steps li .step-contents .input {
             width: 100%;
-            margin: 0 0 2px 0; }
+            margin: 0 0 2px 0;
+            color: #939598; }
         #view-editing .test-tasks #steps li .step-controls {
           position: absolute;
           width: 20px;
