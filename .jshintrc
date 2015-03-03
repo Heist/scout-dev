@@ -18,10 +18,22 @@
     "mootools"      : false,
     "dojo"          : false,
  
-    "predef"        : [  // Custom globals.
-        //"exampleVar",
-        //"anotherCoolGlobal",
-        //"iLoveDouglas"
+    "predef":   [
+        "$",
+        "_",
+        "angular",
+        "jQuery",
+        "socket",
+        "$scope",
+        "console",
+        "require",
+        "Class",
+        "Modernizr",
+        "History",
+        "RED",
+        "red",
+        "FB",
+        "Scroller"
     ],
  
  
@@ -32,7 +44,7 @@
  
     // ECMAScript 5.
     "es5"           : true,   // Allow ECMAScript 5 syntax.
-    "strict"        : false,  // Require `use strict` pragma  in every file.
+    "strict"        : true,  // Require `use strict` pragma  in every file.
     "globalstrict"  : false,  // Allow global "use strict" (also enables 'strict').
  
  
@@ -58,7 +70,6 @@
     "supernew"      : false,  // Tolerate `new function () { ... };` and `new Object;`.
     "undef"         : true,   // Require all non-global variables be declared before they are used.
  
- 
     // Personal styling preferences.
     "newcap"        : true,   // Require capitalization of all constructor functions e.g. `new F()`.
     "noempty"       : true,   // Prohibit use of empty blocks.
@@ -68,6 +79,6 @@
     "plusplus"      : false,  // Prohibit use of `++` & `--`.
     "sub"           : false,  // Tolerate all forms of subscript notation besides dot notation e.g. `dict['key']` instead of `dict.key`.
     "trailing"      : true,   // Prohibit trailing whitespaces.
-    "white"         : false,  // Check against strict whitespace and indentation rules.
-    "indent"        : 2       // Specify indentation spacing
+    "white"         : true,  // Check against strict whitespace and indentation rules.
+    "indent"        : 4       // Specify indentation spacing
 }
