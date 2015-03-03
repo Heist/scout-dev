@@ -11,39 +11,8 @@
         function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         
         var data = loadData.data;
-
         $scope.test = data;
         $scope.tasks = data._tasks;
-        $scope.showAnchor(1);
-
-    // DIRECTIVES AND FUNCTIONS ===============================
-
-        // ONBOARDING =========================================
-        // TODO: Abstract into service for dependency injection
-        $scope.changeOnboard = function(num){
-            $rootScope.user.onboard = num;
-            $http.put('/api/user/'+$rootScope.user._id, {onboard : $rootScope.user.onboard});
-        };
-        
-        // SELECTION ======================================
-        $scope.select = function(task) {
-            $scope.selectedTask = task;
-            // TODO: Set isActive in here. 
-        };
-        
-        $scope.isActive = function(task) {
-            return $scope.selectedTask === task;
-        };
-
-    // ACTIONS ============================================
-        $scope.selectPrototype = function(kind){
-            $scope.test.kind = kind;
-            mixpanel.track('Type of Test', {'test type' : kind });
-        };
-
-        $scope.selectPlatform = function(kind){
-            $scope.test.platform = kind;
-        };
 
         $scope.showAnchor = function(x) {
 
@@ -74,6 +43,37 @@
             if(x === 5){
                 mixpanel.track('Test setup completion page', { 'user': $rootScope.user });
             }
+        };
+
+        $scope.showAnchor(1);
+
+    // DIRECTIVES AND FUNCTIONS ===============================
+
+        // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+            $http.put('/api/user/'+$rootScope.user._id, {onboard : $rootScope.user.onboard});
+        };
+        
+        // SELECTION ======================================
+        $scope.select = function(task) {
+            $scope.selectedTask = task;
+            // TODO: Set isActive in here. 
+        };
+        
+        $scope.isActive = function(task) {
+            return $scope.selectedTask === task;
+        };
+
+    // ACTIONS ============================================
+        $scope.selectPrototype = function(kind){
+            $scope.test.kind = kind;
+            mixpanel.track('Type of Test', {'test type' : kind });
+        };
+
+        $scope.selectPlatform = function(kind){
+            $scope.test.platform = kind;
         };
 
         $scope.saveAndMove = function(anchor){

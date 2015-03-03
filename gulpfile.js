@@ -98,6 +98,6 @@ gulp.task('default', ['clean'], function() {
 
 // Handle the error
 function errorHandler (error) {
-  console.log(error.toString());
-  this.emit('end');
+    console.log(error.toString());
+    this.emit('end');
 }

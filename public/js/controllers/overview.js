@@ -68,6 +68,7 @@
                 var test = {};
                 
                 if($rootScope.user){
+                    console.log($rootScope.user);
                     test.created_by_user = $rootScope.user;
                     mixpanel.track('Add new test', { 'user' : $rootScope.user });
                 } else {
@@ -80,6 +81,7 @@
                 $http
                     .post(url, data_out)
                     .success(function(data){
+                        console.log(data);
                         $location.path('/edit/test/'+ data._id);
                         $scope.tests.push(data);
                     });

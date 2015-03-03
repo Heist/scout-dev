@@ -1,11 +1,11 @@
 // Karma configuration
-// Generated on Sun Sep 21 2014 12:34:35 GMT-0400 (EDT)
+// Generated on Tue Mar 03 2015 15:32:59 GMT-0500 (EST)
 
 module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: 'public',
+    basePath: '',
 
 
     // frameworks to use
@@ -15,18 +15,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js',
-      'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-      './js/libs/angular.js',
-      './js/libs/underscore-min.js',
-      './js/libs/angular-ui.min.js',
-      './js/libs/angular-mocks.js',
-      'http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js',
-      'http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular-sanitize.min.js',
-      './js/*.js',
-      './js/controllers/*.js',
-      './js/filters/*.js',
-      '../test/client/**/*.js'
+      'public/js/**/*.js',
+      'test/**/*.js'
     ],
 
 
@@ -66,7 +56,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS', 'Chrome'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
