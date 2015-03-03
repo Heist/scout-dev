@@ -83,7 +83,7 @@ gulp.task('html', function() {
 
 // Watch files for changes
 gulp.task('watch', function() {
-    gulp.watch('public/js/*.js', ['scripts']);
+    gulp.watch('public/js/**/*.js', ['scripts']);
     gulp.watch('public/layout/sass/*.scss', ['sass']);
 });
 
