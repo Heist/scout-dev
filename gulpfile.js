@@ -46,7 +46,8 @@ gulp.task('scripts', function () {
     .pipe(uglify())
     .pipe(gulp.dest('public/js'))
     .pipe(stripDebug()).on('error', errorHandler)
-    .pipe(gulp.dest('dist/public/js'));
+    .pipe(gulp.dest('dist/public/js'))
+    .pipe(notify({ message: "Your files are now organized" }));
 });
 
 // Compile CSS
@@ -56,7 +57,7 @@ gulp.task('sass', function() {
     .pipe(addsrc.append('bower_components/**/*.css'))
     .pipe(gulp.dest('public/layout/css'))
     .pipe(gulp.dest('dist/public/layout/css'))
-    .pipe(notify({ message: "Alfred: I've organized your files for you." }));
+    .pipe(notify({ message: "Your files are now organized" }));
 });
 
 gulp.task('fonts', function() {
