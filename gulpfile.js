@@ -102,12 +102,12 @@ gulp.task('clean', function(cb) {
     del(['dist/public/layout/css/', 'dist/public/js/', 'dist/public/partials/'], cb);
 });
 
-gulp.task('default', ['clean', 'watch'], function() {
+gulp.task('default', ['clean'], function() {
     gulp.start('sass', 'fonts', 'html', 'images', 'scripts').on('error', errorHandler);
 });
 
 // Handle the error
 function errorHandler (error) {
-  console.log(error.toString());
-  this.emit('end');
+    console.log(error.toString());
+    this.emit('end');
 }

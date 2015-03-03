@@ -27,6 +27,7 @@ module.exports = function(app, passport, debug) {
         });
     })
     .post(function(req,res){
+        console.log('touched New Test', req.user);
     // add a new test
         Test.create({
             created_by_account : req.user._account,
