@@ -2330,7 +2330,7 @@ hr {
   margin: 0;
   /* are we onboard? */ }
   #view-findings.is-onboard #findings-viewmode-controls {
-    bottom: 15% !important; }
+    bottom: 0; }
   #view-findings.show-comments .sheet-holder {
     left: 25%;
     -webkit-transition-duration: 0.2s;
