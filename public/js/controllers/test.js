@@ -7,15 +7,9 @@
         $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
     }])
     .controller('test', 
-        ['testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
-        function(testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
-        var loadData = function(){
-                            return $http.get('/api/test/'+$stateParams._id, {timeout : 5000, cache:false})
-                                .success(function(data) {
-                                    return data;
-                                });
-                        };
-
+        ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
+        function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
+        
         var data = loadData.data;
 
         $scope.test = data;
