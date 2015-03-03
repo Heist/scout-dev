@@ -41,8 +41,6 @@ gulp.task('scripts', function () {
     .pipe(addsrc.append('public/js/directives/*.js'))
     .pipe(addsrc.append('public/js/filters/*.js'))
     .pipe(addsrc.append('public/js/vendor/*.js'))
-    // .pipe(jshint()).on('error', errorHandler)
-    // .pipe(jshint.reporter('default'))
     .pipe(concat('build.js')).on('error', errorHandler)
     .pipe(ngAnnotate())
     .pipe(uglify())
@@ -60,15 +58,6 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('dist/public/layout/css'))
     .pipe(notify({ message: "Alfred: I've organized your files for you." }));
 });
-
-// gulp.task('css', function () {
-//     return gulp.src([
-//         'bower_components/**/*.css',
-//         'public/layout/css/*.css'
-//     ])
-//     .pipe(concat('style.css')).on('error', errorHandler)
-//     .pipe(gulp.dest('dist/public/layout/css'));
-// });
 
 gulp.task('fonts', function() {
     return gulp.src(['public/layout/fonts/*'])
@@ -102,7 +91,7 @@ gulp.task('clean', function(cb) {
     del(['dist/public/layout/css/', 'dist/public/js/', 'dist/public/partials/'], cb);
 });
 
-gulp.task('default', ['clean', 'watch'], function() {
+gulp.task('default', ['clean'], function() {
     gulp.start('sass', 'fonts', 'html', 'images', 'scripts').on('error', errorHandler);
 });
 

@@ -3,7 +3,7 @@
 
 	<!-- /* onboard */ -->
 	
-	<div class="onboard-content onboard-report-step1" ng-if="user.onboard != 100">
+	<div class="onboard-content onboard-report-step1" ng-if="user.onboard !== 100">
 		<div class="container">
 			<div class="module third">
 				<h3>This is your report,<br>in editing mode.</h3>
@@ -15,7 +15,7 @@
 				
 			</div>
 			<div class="module third text-right">
-				<a class="button" ng-click="changeOnboard(7)">Next</a>
+				<a class="button" ng-click="changeOnboard(9)">Next</a>
 			</div>
 		</div>
 	</div>
