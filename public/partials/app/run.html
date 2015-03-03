@@ -5,7 +5,7 @@
 <!-- onboard during test running -->
 <div ng-if="user.onboard != 100" >
 
-<div class="onboard-content onboard-run-step1" ng-show="user.onboard === 1">
+<div class="onboard-content onboard-run-step1" ng-show="user.onboard === 3">
 	<div class="container">
 		<div class="module third">
 			<h3>Looks like we're ready.<br>Let's run a test with Rob.</h3>
@@ -16,14 +16,14 @@
 			
 			RDJ is the participant you&rsquo;re testing your product with. <strong>Enter his name.</strong>
 		</div>
-		<!--<div class="module third text-right">
-			<a class="button">Next</a>
-		</div>-->
+		<div class="module third text-right">
+			<a class="button" ng-click="changeOnboard(4)">Next</a>
+		</div>
 	</div>
 </div>	
 
 
-<div class="onboard-content onboard-run-step2" ng-show="user.onboard === 2">
+<div class="onboard-content onboard-run-step2" ng-show="user.onboard === 4">
 	<div class="container">
 		<div class="module third">
 			<h3>You&rsquo;re in the driver's seat. {{user.onboard}}</h3>
@@ -33,17 +33,17 @@
 			<a href="#" class="secondary" ng-click="changeOnboard(100)"><small >I&rsquo;m okay on my own</small></a> &nbsp;&nbsp; 
 		</div>
 		<div class="module third text-right">
-			<a class="button" ng-click="changeOnboard(3)">Next</a>
+			<a class="button" ng-click="changeOnboard(5)">Next</a>
 		</div>
 	</div>
 </div>	
 
 
-<div class="onboard-content onboard-run-step3" ng-show="user.onboard === 3">
+<div class="onboard-content onboard-run-step3" ng-show="user.onboard === 5">
 	<div class="container">
 		<div class="module two-thirds">
 			<div class="onboard-avatar"><img src="http://rdjpg.com/60/60"></div>
-			
+				<a href="#" class="secondary" ng-click="changeOnboard(100)"><small >I&rsquo;m okay on my own</small></a> &nbsp;&nbsp; 
 			<div class="onboard-bubble">
 				Take a note about which e-mail client RDJ uses.
 				<div class="onboard-bubble-msg">
@@ -54,7 +54,7 @@
 			
 		</div>
 		<div class="module third text-right">
-			<a class="button" ng-click="changeOnboard(4)">Next</a>
+			<a class="button" ng-click="changeOnboard(6)">Next</a>
 		</div>
 	</div>
 </div>	
