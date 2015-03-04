@@ -14,14 +14,11 @@ form {
 	margin: 0;
 	padding: $pad/1.5 $pad/1.5;
 	@include radius;
-	@include type-regular;
+	@include type-light;
 	font-size: $type-size-base*0.9;
 	outline: none;
 	border: none;
 }
-
-
-
 
 .expand-button {
 	position: relative;
