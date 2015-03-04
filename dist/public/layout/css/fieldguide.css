@@ -269,7 +269,7 @@ form {
   border-radius: 3px;
   font-family: "proxima-nova",sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 13.5px;
   outline: none;
   border: none; }
@@ -1772,7 +1772,6 @@ hr {
       font-size: 12px;
       line-height: 19.2px; }
   #view-editing .next-button {
-    padding-top: 20px;
     padding-left: 20px; }
     #view-editing .next-button .button {
       padding-left: 30px;
