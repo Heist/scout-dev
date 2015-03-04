@@ -60,7 +60,7 @@
   						    <img src="/layout/assets/testtype-ethno.png">
   						    <h3>Interview</h3>
   						    <p>You have a <strong>discussion</strong> or <strong>ethnographic</strong> test that doesn’t have any visuals.</p>
-  						    <button class="button small" ng-click='selectPrototype("interview")'>Select</button>
+  						    <button class="button small" ng-if='!test.kind || test.kind === "prototype"' ng-click='selectPrototype("interview")'>Select</button>
   						    <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
   						</div>
   						
@@ -68,7 +68,7 @@
   						    <img src="/layout/assets/testtype-proto.png">
   						    <h3>Prototype</h3>
   						    <p>You have a <strong>screen-based prototype</strong> in Invision, Marvel, or on the web.</p>
-  						    <button class="button small" ng-click='selectPrototype("prototype")'>Select</button>
+  						    <button class="button small" ng-if='!test.kind || test.kind === "interview"' ng-click='selectPrototype("prototype")'>Select</button>
   						    <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
   						</div>
   						
