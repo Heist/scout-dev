@@ -1,5 +1,5 @@
 'use strict';
-// /test/overview.js
+// /test/client/overview.js
 
 // TODO: read up on rootScope.
 

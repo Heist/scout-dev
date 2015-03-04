@@ -4,8 +4,8 @@
 'use strict';
 (function(){
     angular.module('field_guide_controls')
-        .factory('checkLoggedin', ['$q', '$timeout', '$http', '$location', '$rootScope', 
-            function($q, $timeout, $http, $location, $rootScope) {
+        .factory('checkLoggedin', ['$q', '$http', '$location', '$rootScope', 
+            function($q, $http, $location, $rootScope) {
 
             var checkLoggedin = function(user){
 

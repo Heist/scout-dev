@@ -41,14 +41,13 @@ gulp.task('scripts', function () {
     .pipe(addsrc.append('public/js/directives/*.js'))
     .pipe(addsrc.append('public/js/filters/*.js'))
     .pipe(addsrc.append('public/js/vendor/*.js'))
-    // .pipe(jshint()).on('error', errorHandler)
-    // .pipe(jshint.reporter('default'))
     .pipe(concat('build.js')).on('error', errorHandler)
     .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(gulp.dest('public/js'))
     .pipe(stripDebug()).on('error', errorHandler)
-    .pipe(gulp.dest('dist/public/js'));
+    .pipe(gulp.dest('dist/public/js'))
+    .pipe(notify({ message: "Your files are now organized" }));
 });
 
 // Compile CSS
@@ -58,17 +57,8 @@ gulp.task('sass', function() {
     .pipe(addsrc.append('bower_components/**/*.css'))
     .pipe(gulp.dest('public/layout/css'))
     .pipe(gulp.dest('dist/public/layout/css'))
-    .pipe(notify({ message: "Alfred: I've organized your files for you." }));
+    .pipe(notify({ message: "Your files are now organized" }));
 });
-
-// gulp.task('css', function () {
-//     return gulp.src([
-//         'bower_components/**/*.css',
-//         'public/layout/css/*.css'
-//     ])
-//     .pipe(concat('style.css')).on('error', errorHandler)
-//     .pipe(gulp.dest('dist/public/layout/css'));
-// });
 
 gulp.task('fonts', function() {
     return gulp.src(['public/layout/fonts/*'])
@@ -94,7 +84,7 @@ gulp.task('html', function() {
 
 // Watch files for changes
 gulp.task('watch', function() {
-    gulp.watch('public/js/*.js', ['scripts']);
+    gulp.watch('public/js/**/*.js', ['scripts']);
     gulp.watch('public/layout/sass/*.scss', ['sass']);
 });
 

@@ -42,7 +42,6 @@
 	
 	
 	.next-button {
-		padding-top: $pad;
 		padding-left: $pad;
 
 		.button {
@@ -177,6 +176,15 @@
 	.test-tasks {
 		padding: $pad 0 0 0;
 
+		h4 {
+			padding: 20px 0 10px 0;
+			margin: 0;
+		}
+
+		p {
+			padding: 0; 
+		}
+
 		.sheet {
 			padding: 0;
 		}
@@ -191,9 +199,11 @@
 			display: block;
 
 			.input {
-					width: 100%;
-					margin: 0 0 2px 0;
+				width: 100%;
+				margin: 0 0 2px 0;
 			}
+
+			@include input-placeholders;
 		}
 
 		
@@ -253,6 +263,7 @@
 					.input {
 						width: 100%;
 						margin: 0 0 2px 0;
+						color: $fg-grey;
 					}
 				}
 				

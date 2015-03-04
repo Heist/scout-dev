@@ -13,7 +13,6 @@
                 $scope.tests = data;
                 
                 if($rootScope.user.onboard === 2){ 
-                    
                 }
 
                 if($rootScope.user.onboard === 3 || $rootScope.user.onboard === 4 || $rootScope.user.onboard === 5 ){
