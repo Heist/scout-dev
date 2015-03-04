@@ -177,6 +177,15 @@
 	.test-tasks {
 		padding: $pad 0 0 0;
 
+		h4 {
+			padding: 20px 0 10px 0;
+			margin: 0;
+		}
+
+		p {
+			padding: 0; 
+		}
+
 		.sheet {
 			padding: 0;
 		}

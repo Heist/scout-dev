@@ -1854,6 +1854,11 @@ hr {
   #view-editing .test-tasks {
     padding: 20px 0 0 0;
     /* steps list */ }
+    #view-editing .test-tasks h4 {
+      padding: 20px 0 10px 0;
+      margin: 0; }
+    #view-editing .test-tasks p {
+      padding: 0; }
     #view-editing .test-tasks .sheet {
       padding: 0; }
     #view-editing .test-tasks .add-task {
