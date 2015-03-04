@@ -269,7 +269,7 @@ form {
   border-radius: 3px;
   font-family: "proxima-nova",sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 13.5px;
   outline: none;
   border: none; }
@@ -1532,6 +1532,7 @@ hr {
       background: url('/layout/assets/stepped/right-completed.png') no-repeat center center;
       background-size: cover; }
 
+/* Mixins */
 /* specific views */
 /* login & registration forms etc. */
 /* login */
@@ -1771,7 +1772,6 @@ hr {
       font-size: 12px;
       line-height: 19.2px; }
   #view-editing .next-button {
-    padding-top: 20px;
     padding-left: 20px; }
     #view-editing .next-button .button {
       padding-left: 30px;
@@ -1854,6 +1854,11 @@ hr {
   #view-editing .test-tasks {
     padding: 20px 0 0 0;
     /* steps list */ }
+    #view-editing .test-tasks h4 {
+      padding: 20px 0 10px 0;
+      margin: 0; }
+    #view-editing .test-tasks p {
+      padding: 0; }
     #view-editing .test-tasks .sheet {
       padding: 0; }
     #view-editing .test-tasks .add-task {
@@ -1866,6 +1871,24 @@ hr {
       #view-editing .test-tasks .add-task .input {
         width: 100%;
         margin: 0 0 2px 0; }
+      #view-editing .test-tasks .add-task ::-webkit-input-placeholder {
+        color: #cdcecf;
+        font-size: 12.5px;
+        font-style: italic; }
+      #view-editing .test-tasks .add-task :-moz-placeholder {
+        /* Firefox 18- */
+        color: #cdcecf;
+        font-size: 12.5px;
+        font-style: italic; }
+      #view-editing .test-tasks .add-task ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: #cdcecf;
+        font-size: 12.5px;
+        font-style: italic; }
+      #view-editing .test-tasks .add-task :-ms-input-placeholder {
+        color: #cdcecf;
+        font-size: 12.5px;
+        font-style: italic; }
     #view-editing .test-tasks #steps {
       padding: 20px 0 10px 0;
       margin: 0;
@@ -1898,7 +1921,8 @@ hr {
           width: 100%; }
           #view-editing .test-tasks #steps li .step-contents .input {
             width: 100%;
-            margin: 0 0 2px 0; }
+            margin: 0 0 2px 0;
+            color: #939598; }
         #view-editing .test-tasks #steps li .step-controls {
           position: absolute;
           width: 20px;
