@@ -1,4 +1,5 @@
 // server.js
+'use strict';
 
 // modules ==========================================================
 var express = require('express');
@@ -6,6 +7,7 @@ var app = express();
 var http = require('http');
 var path = require('path');
 var _ = require('lodash');
+var async = require('async');
 var debug = require('debug')('http');
 
 // Turn the app on and hook sockets 0.9 to it.
@@ -28,6 +30,38 @@ var MongoStore = require('connect-mongo')(session);
 // PROCESS PORTS =====================================================
 var port = Number(process.env.FIELD_GUIDE_PORT || process.env.PORT || 8080);
 // var port = Number(process.env.FIELD_GUIDE_PORT || 80);
+
+// Test for our ip address and set what environment we're in accordingly
+// if() NODE_ENV=production node app.js
+
+// var os = require('os');
+var ifaces = require('os').networkInterfaces();
+var ipAddress = function(arr){
+	var address;
+	Object.keys(arr).forEach(function (ifname) {
+	  var alias = 0;
+
+	  ifaces[ifname].forEach(function (iface) {
+	    if ('IPv4' !== iface.family || iface.internal !== false) {
+	      // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+	      return;
+	    }
+
+	    if (alias >= 1) {
+	      // this single interface has multiple ipv4 addresses
+	      // console.log(ifname + ':' + alias, iface.address);
+	      address = iface.address;
+	    } else {
+	      // this interface has only one ipv4 adress
+	      // console.log(ifname, iface.address);
+	      address = iface.address;
+	    }
+	  });
+	});
+	return address;
+};
+console.log(ipAddress(ifaces));
+
 
 // GLOBAL VARIABLES =================================================
 var secrets = require(path.join(__dirname,'secrets'));
