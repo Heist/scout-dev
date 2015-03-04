@@ -219,16 +219,12 @@ textarea.input {
 }
 
 
-
-
-
-
 label {
 	padding: 0;
 	margin: 0;
-	font-size: $type-size-base*0.7;
-	opacity: 0.8;
-	text-transform: uppercase;
+	font-size: $type-size-base*0.8;
+	opacity: 1;
+	color: $fg-black;
 }
 
 

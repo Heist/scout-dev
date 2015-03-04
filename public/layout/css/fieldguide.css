@@ -473,9 +473,9 @@ textarea.input {
 label {
   padding: 0;
   margin: 0;
-  font-size: 10.5px;
-  opacity: 0.8;
-  text-transform: uppercase; }
+  font-size: 12px;
+  opacity: 1;
+  color: #323539; }
 
 /* replace radio butts and checkboxes */
 .icheckbox_flat, .iradio_flat {
@@ -1785,14 +1785,28 @@ hr {
       width: 100%; }
       #view-editing .test-setup .nobullets .input {
         width: 100%; }
+    #view-editing .test-setup hr {
+      width: 100%;
+      padding: 0;
+      margin: 20px auto; }
+    #view-editing .test-setup section {
+      margin: 0 0 20px 0; }
+      #view-editing .test-setup section .input {
+        width: 100%; }
   #view-editing .test-type {
-    padding: 20px;
+    padding: 5px;
     margin: 0;
     text-align: center;
     position: relative;
     border: 1px solid #fff; }
     #view-editing .test-type .selected-arrow {
       display: none; }
+    #view-editing .test-type p {
+      font-size: 12px;
+      line-height: 17px;
+      height: 70px; }
+    #view-editing .test-type h3 {
+      font-size: 17.5px; }
     #view-editing .test-type.selected {
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;

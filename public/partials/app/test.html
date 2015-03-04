@@ -56,28 +56,31 @@
   				<div class="sheet-holder">                      
   					<div class="sheet">
   						
-  						<div class="module half test-type" ng-class="{selected: test.kind === 'interview'}">
-  						    <img src="/layout/assets/testtype-ethno.png">
+  						<div class="module third test-type">
   						    <h3>Interview</h3>
-  						    <p>You have a <strong>discussion</strong> or <strong>ethnographic</strong> test that doesn’t have any visuals.</p>
+  						    <p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
   						    <button class="button small" ng-if='!test.kind || test.kind === "prototype"' ng-click='selectPrototype("interview")'>Select</button>
   						    <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
   						</div>
   						
-  						<div class="module half test-type" ng-class="{selected: test.kind === 'prototype'}">
-  						    <img src="/layout/assets/testtype-proto.png">
-  						    <h3>Prototype</h3>
-  						    <p>You have a <strong>screen-based prototype</strong> in Invision, Marvel, or on the web.</p>
+  						<div class="module third test-type">
+  						    <h3>Prototype or Website</h3>
+  						    <p>You'll want to use this type of test if you have a prototype in invision or Marvel and want to test it with your own customers.</p>
   						    <button class="button small" ng-if='!test.kind || test.kind === "interview"' ng-click='selectPrototype("prototype")'>Select</button>
   						    <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
   						</div>
+
+						<div class="module third test-type">
+						    <h3>Video</h3>
+						    <p>This is best used for getting notes and video clips from a service like UserTesting.com</p>
+						    <button class="button small" ng-if='!test.kind || test.kind === "interview"' ng-click='selectPrototype("prototype")'>Select</button>
+						    <div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
+						</div>
   						
   						<div class="clear"></div>
-  						
-  						  						
-  						
+						
   						<ul class="nobullets" ng-show="anchor===1 && test.kind">
-  							<form name="prototypeForm">   
+  							<form name="prototypeForm">
   							
   								<li>
   									<label for="field-testname">Your test name</label>
@@ -106,8 +109,22 @@
   							</form>
   						</ul>
   						
-  						
-  						  					
+  						<hr>
+
+						<section>
+							<form action="">
+							<label>Test title</label>
+								<input class="input" placeholder="My amazing test" />
+						
+							<label>What is your prototype or website URL?</label>
+								<input class="input" placeholder="http://invision.com/JHGYT" />
+						
+							<label>What are your test objectives?</label>
+								<textarea msd-elastic ng-model="newtask.desc" class="input small" id="field-textarea" placeholder="Validates the colours on my header">
+								</textarea>	
+							</form>
+						</section>
+
   					</div>
   				</div>
   				

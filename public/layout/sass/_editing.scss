@@ -70,10 +70,25 @@
 				width: 100%;
 			}
 		}		
+
+		hr {
+			width: 100%;
+			padding: 0;
+			margin: 20px auto;
+		}
+		
+		section {
+			margin: 0 0 20px 0;
+
+
+			.input {
+				width: 100%;
+			}
+		}
 	}
 
 	.test-type {
-		padding: $pad;
+		padding: $pad/4;
 		margin: 0;
 		text-align: center;
 		position: relative;
@@ -83,6 +98,16 @@
 			display: none;
 		}
 		
+		p {
+			font-size: 12px;
+			line-height: 17px;
+			height: 70px;
+		}
+
+		h3 {
+			font-size: 17.5px;
+		}
+
 		&.selected {
 			@include radius;
 			border: 1px solid $fg-green-light;
