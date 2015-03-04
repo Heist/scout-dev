@@ -1532,6 +1532,7 @@ hr {
       background: url('/layout/assets/stepped/right-completed.png') no-repeat center center;
       background-size: cover; }
 
+/* Mixins */
 /* specific views */
 /* login & registration forms etc. */
 /* login */
@@ -1871,6 +1872,24 @@ hr {
       #view-editing .test-tasks .add-task .input {
         width: 100%;
         margin: 0 0 2px 0; }
+      #view-editing .test-tasks .add-task ::-webkit-input-placeholder {
+        color: #cdcecf;
+        font-size: 12.5px;
+        font-style: italic; }
+      #view-editing .test-tasks .add-task :-moz-placeholder {
+        /* Firefox 18- */
+        color: #cdcecf;
+        font-size: 12.5px;
+        font-style: italic; }
+      #view-editing .test-tasks .add-task ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: #cdcecf;
+        font-size: 12.5px;
+        font-style: italic; }
+      #view-editing .test-tasks .add-task :-ms-input-placeholder {
+        color: #cdcecf;
+        font-size: 12.5px;
+        font-style: italic; }
     #view-editing .test-tasks #steps {
       padding: 20px 0 10px 0;
       margin: 0;

@@ -200,9 +200,11 @@
 			display: block;
 
 			.input {
-					width: 100%;
-					margin: 0 0 2px 0;
+				width: 100%;
+				margin: 0 0 2px 0;
 			}
+
+			@include input-placeholders;
 		}
 
 		
