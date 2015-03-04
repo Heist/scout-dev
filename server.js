@@ -31,30 +31,6 @@ var MongoStore = require('connect-mongo')(session);
 var port = Number(process.env.FIELD_GUIDE_PORT || process.env.PORT || 8080);
 // var port = Number(process.env.FIELD_GUIDE_PORT || 80);
 
-// Test for our ip address and set what environment we're in accordingly
-// if() NODE_ENV= production node app.js
-
-var ifaces = require('os').networkInterfaces();
-var ipAddress = function(arr){
-	var address;
-	Object.keys(arr).forEach(function (ifname) {
-	  ifaces[ifname].forEach(function (iface) {
-	  	return ('IPv4' !== iface.family || iface.internal !== false) ?
-	  			address :
-	  			address = iface.address;
-	  });
-	});
-	return address;
-};
-
-var environment = function(ip){
-	var arr = ip.split(".");
-	return (arr[0].length === 2) ? 'test': 'production';
-};
-
-process.env.NODE_ENV = environment(ipAddress(ifaces));
-
-console.log(process.env.NODE_ENV);
 // GLOBAL VARIABLES =================================================
 var secrets = require(path.join(__dirname,'secrets'));
 app.locals = _.merge(app.locals, secrets);
