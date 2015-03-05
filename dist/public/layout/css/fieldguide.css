@@ -260,7 +260,21 @@ form {
   margin: 0; }
 
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
-.input, .button {
+.input {
+  display: inline-block;
+  margin: 0 0 20px 0;
+  padding: 13.33333px 13.33333px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  font-family: "proxima-nova",sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 13.05px;
+  outline: none;
+  border: none; }
+
+.button {
   display: inline-block;
   margin: 0;
   padding: 13.33333px 13.33333px;
@@ -475,7 +489,8 @@ label {
   margin: 0;
   font-size: 12px;
   opacity: 1;
-  color: #323539; }
+  color: #323539;
+  font-weight: 600; }
 
 /* replace radio butts and checkboxes */
 .icheckbox_flat, .iradio_flat {
@@ -1791,6 +1806,24 @@ hr {
       margin: 20px auto; }
     #view-editing .test-setup section {
       margin: 0 0 20px 0; }
+      #view-editing .test-setup section ::-webkit-input-placeholder {
+        color: #cdcecf;
+        font-size: 12.5px;
+        font-style: italic; }
+      #view-editing .test-setup section :-moz-placeholder {
+        /* Firefox 18- */
+        color: #cdcecf;
+        font-size: 12.5px;
+        font-style: italic; }
+      #view-editing .test-setup section ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: #cdcecf;
+        font-size: 12.5px;
+        font-style: italic; }
+      #view-editing .test-setup section :-ms-input-placeholder {
+        color: #cdcecf;
+        font-size: 12.5px;
+        font-style: italic; }
       #view-editing .test-setup section .input {
         width: 100%; }
   #view-editing .test-type {

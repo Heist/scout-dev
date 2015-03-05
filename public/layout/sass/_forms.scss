@@ -9,7 +9,18 @@ form {
 
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
 
-.input, .button {
+.input {
+	display: inline-block;
+	margin: 0 0 20px 0;
+	padding: $pad/1.5 $pad/1.5;
+	@include radius;
+	@include type-light;
+	font-size: $type-size-base*0.87;
+	outline: none;
+	border: none;
+}
+
+.button {
 	display: inline-block;
 	margin: 0;
 	padding: $pad/1.5 $pad/1.5;
@@ -225,6 +236,7 @@ label {
 	font-size: $type-size-base*0.8;
 	opacity: 1;
 	color: $fg-black;
+	font-weight: 600;
 }
 
 
