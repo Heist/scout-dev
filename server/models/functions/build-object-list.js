@@ -68,7 +68,7 @@ module.exports = function(report_id, next){
             test: results.test[0].name,
             list: return_array
         };
-
+        
         next(null, navlist);
     });
 
