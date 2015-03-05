@@ -8,34 +8,15 @@ var supertest = require('supertest');
 var api = supertest('http://127.0.0.1:8080');
 var mongoose = require('mongoose');
 var navlist = require('../server/models/functions/build-object-list');
+var dbURI    = 'mongodb://127.0.0.1:27017/test-db'
 
 global.rootRequire = function(name) {
 	    	name = name.substring(1, name.length);
 	    	var dir = __dirname.substring(0, __dirname.length - 4);
 		    return require(dir + name);
 		};
-// Test for our ip address and set what environment we're in accordingly
-// if() NODE_ENV= production node app.js
 
-var ifaces = require('os').networkInterfaces();
-var ipAddress = function(arr){
-	var address;
-	Object.keys(arr).forEach(function (ifname) {
-	  ifaces[ifname].forEach(function (iface) {
-	  	return ('IPv4' !== iface.family || iface.internal !== false) ?
-	  			address :
-	  			address = iface.address;
-	  });
-	});
-	return address;
-};
-var environment = function(ip){
-	var arr = ip.split(".");
-	return (arr[0].length === 2) ? 'test': 'production';
-};
-var NODE_ENV = environment(ipAddress(ifaces));
-
-if ( NODE_ENV !== 'test' ) {
+if ( process.env.NODE_ENV !== 'test' ) {
 	console.log("Woops, you want NODE_ENV=test before you try this again!");
 	process.exit(1);
 }
@@ -59,5 +40,9 @@ describe('NavList', function(){
 					done();
 				});
 	});
+
+describe('',function(){
+
+});
 
 });
