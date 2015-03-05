@@ -1795,6 +1795,8 @@ hr {
     padding: 20px 0 0 0; }
     #view-editing .test-setup .sheet {
       padding: 20px; }
+    #view-editing .test-setup h4:first-child {
+      padding: 20px 0 185px 0; }
     #view-editing .test-setup .nobullets {
       margin-top: 40px;
       width: 100%; }

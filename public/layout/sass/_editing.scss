@@ -61,6 +61,10 @@
 		.sheet {
 			padding: $pad;
 		}
+
+		h4:first-child {
+			padding: 20px 0 185px 0;
+		}
 		
 		.nobullets {
 			margin-top: $pad*2;
