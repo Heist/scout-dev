@@ -257,7 +257,7 @@ FORMS!
 */
 form {
   padding: 0;
-  margin: -10px 0; }
+  margin: 25px 0; }
 
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
 .input {
@@ -283,8 +283,8 @@ form {
   border-radius: 3px;
   font-family: "proxima-nova",sans-serif;
   font-style: normal;
-  font-weight: 300;
-  font-size: 12.6px;
+  font-weight: 400;
+  font-size: 13.05px;
   outline: none;
   border: none; }
 
@@ -1810,9 +1810,11 @@ hr {
     #view-editing .test-setup .sheet {
       padding: 20px; }
     #view-editing .test-setup h4:first-child {
-      padding: 20px 0 222px 0; }
+      padding: 20px 0 224px 0;
+      margin: 0; }
+    #view-editing .test-setup h4.no-pad {
+      padding: 0; }
     #view-editing .test-setup .nobullets {
-      margin-top: 40px;
       width: 100%; }
       #view-editing .test-setup .nobullets .input {
         width: 100%; }

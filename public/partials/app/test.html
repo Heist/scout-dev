@@ -44,27 +44,29 @@
 		
 			<div class="module fifth tutorial">
 				<h4>1. Select your test type</h4>
-
-				<h4>2. Set up your test details</h4>
-				<p>Tasks allow you to define certain important steps in your website or app and Talking points are basically notes and ideas you want to ask the person you are testing.</p>
+				
+				<div ng-if='test.kind'>
+					<h4 class="no-pad">2. Set up your test details</h4>
+					<p>Tasks allow you to define certain important steps in your website or app and Talking points are basically notes and ideas you want to ask the person you are testing.</p>
+				</div>
 			</div>
 			
 			<div class="module three-fifths">
 			
 				<div class="sheet-holder">
 					<div class="sheet">
-						<!-- '!test.kind || test.kind === "prototype"' -->
+
 						<div class="module third test-type">
 							<h3>Interview</h3>
 							<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
-							<button class="button-inactive med" ng-class="{'select-active': test.kind || test.kind === 'interview', 'select-inactive': test.kind ==='prototype'}" ng-click='selectPrototype("interview")'>Select</button>
+							<button class="button-inactive med" ng-class='{"select-active": test.kind || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>Select</button>
 							<div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
 						</div>
 						
 						<div class="module third test-type">
 							<h3>Prototype or Website</h3>
 							<p>You'll want to use this type of test if you have a prototype in invision or Marvel and want to test it with your own customers.</p>
-							<button class="button-inactive med" ng-class="{'select-active': test.kind || test.kind === 'prototype', 'select-inactive': test.kind ==='interview'}" ng-click='selectPrototype("prototype")'>Select</button>
+							<button class="button-inactive med" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>Select</button>
 							<div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
 						</div>
 
@@ -77,9 +79,10 @@
 						
 						<div class="clear"></div>
 						
-						<hr>
 
 						<ul class="nobullets" ng-show="anchor===1 && test.kind">
+							<hr>
+							
 							<form name="prototypeForm" class="prototype-form">
 
 									<li>

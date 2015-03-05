@@ -4,7 +4,7 @@ FORMS!
 
 form {
 	padding: 0;
-	margin: -10px 0;
+	margin: 25px 0;
 }
 
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
@@ -25,8 +25,8 @@ form {
 	margin: 0;
 	padding: $pad/1.5 $pad/1.5;
 	@include radius;
-	@include type-light;
-	font-size: $type-size-base*0.84;
+	@include type-regular;
+	font-size: $type-size-base*0.87;
 	outline: none;
 	border: none;
 }
