@@ -2,47 +2,68 @@
 'use strict';
 // a sample test for the API using Mocha, Chai, and SuperTest.
 
+// Module dependencies ==========================
 var should = require('chai').should;
 var expect = require('chai').expect;
 var supertest = require('supertest');
 var api = supertest('http://127.0.0.1:8080');
 var mongoose = require('mongoose');
-var navlist = require('../server/models/functions/build-object-list');
-var dbURI    = 'mongodb://127.0.0.1:27017/test-db'
 
+mongoose.connect('mongodb://127.0.0.1:27017/tekpub_test');
+
+// Set global to work outside of node ===========
 global.rootRequire = function(name) {
 	    	name = name.substring(1, name.length);
 	    	var dir = __dirname.substring(0, __dirname.length - 4);
 		    return require(dir + name);
 		};
 
-if ( process.env.NODE_ENV !== 'test' ) {
-	console.log("Woops, you want NODE_ENV=test before you try this again!");
-	process.exit(1);
-}
+// What functions are we testing? ===============
+var navlist  = require('../server/models/functions/build-object-list');
+var devTests = require('../server/models/auth/user');
 
-describe('User', function(){
-	it('returns a 200 response',function(done){
-		api.get('/users/1')
-		.set('Accept', 'application/json')
-		.expect(200, done);
+// Required models ==============================
+var User = require('../server/models/data/');
+
+
+// Connect to the test database =================
+
+
+// Write A Test =================================
+describe('Mock a full test', function(){
+
+	describe("Test creation", function(){  
+	//holds a customer to use in the each test  
+		var currentCustomer = null;  
+		beforeEach(function(done){    
+	//add some test data    
+			.create( function(doc){      
+				currentCustomer = doc;      
+				done();    
+			});  
+		});    
+	
+		afterEach(function(done){    
+	//delete all the customer records
+			customer.model.remove({}, function() {      
+				done();    
+			});  
+		});  
+		//tests...  
 	});
 });
 
+
+// FUNCTION TESTS ===============================
 describe('NavList', function(){
-	// var record_id = mongoose.Types.ObjectId('54f0c190d86c9ed326251fc1');	
-	// before(function (){});
-	it('Should return an object with two parts',function(done){
-			navlist('54f0c190d86c9ed326251fc1', function(err, list){
-					expect(list).to.be.an('object');
-					expect(list.test).to.be.a('string');
-					expect(list.list).to.not.be.empty;
-					done();
-				});
+	describe('Nav.Testname', function(){
+		it('testname',function(done){
+				// navlist('54f0c190d86c9ed326251fc1', function(err, list){
+				// 		expect(list).to.be.an('object');
+				// 		expect(list.test).to.be.a('string');
+				// 		expect(list.list).to.not.be.empty;
+				// 		done();
+				// 	});
+		});
 	});
-
-describe('',function(){
-
-});
-
 });

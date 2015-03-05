@@ -4,8 +4,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var connect = rootRequire('./config/db');
-var db = connect.db;
+// var connect = rootRequire('./config/db');
+// var db = connect.db;
 
 // Messages are the basic unit of information in Field Guide.
 // They are currently associated to Tasks and Tags (themes)
@@ -38,4 +38,4 @@ MessageSchema.pre('save', function(next){
   next();
 });
 
-module.exports = db.model('Message', MessageSchema);
+module.exports = mongoose.model('Message', MessageSchema);

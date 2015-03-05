@@ -179,6 +179,19 @@ module.exports = function(app, passport, debug) {
         });
 
 // Debug Routes -------------------
+    app.route('/debug/message')
+        .put(function(req, res){
+            var connectionOne = require('./models/app-connect');
+            var Msg = connectionOne.model('Message');
+
+            Msg.create({body: 'new message test'}, function(err, update){
+                if(err){console.log(err);}
+                console.log(update);
+            });
+
+        });
+
+
     // app.route('/debug/test')
     // .get(function(req,res){
     //     Test.find()
