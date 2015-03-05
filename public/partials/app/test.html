@@ -53,34 +53,55 @@
 			
 				<div class="sheet-holder">
 					<div class="sheet">
-						
+						<!-- '!test.kind || test.kind === "prototype"' -->
 						<div class="module third test-type">
 							<h3>Interview</h3>
 							<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
-							<button class="button small" ng-if='!test.kind || test.kind === "prototype"' ng-click='selectPrototype("interview")'>Select</button>
+							<button class="button-inactive med" ng-class="{'select-active': test.kind || test.kind === 'interview', 'select-inactive': test.kind ==='prototype'}" ng-click='selectPrototype("interview")'>Select</button>
 							<div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
 						</div>
 						
 						<div class="module third test-type">
 							<h3>Prototype or Website</h3>
 							<p>You'll want to use this type of test if you have a prototype in invision or Marvel and want to test it with your own customers.</p>
-							<button class="button small" ng-if='!test.kind || test.kind === "interview"' ng-click='selectPrototype("prototype")'>Select</button>
+							<button class="button-inactive med" ng-class="{'select-active': test.kind || test.kind === 'prototype', 'select-inactive': test.kind ==='interview'}" ng-click='selectPrototype("prototype")'>Select</button>
 							<div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
 						</div>
 
 						<div class="module third test-type">
 							<h3>Video</h3>
 							<p>This is best used for getting notes and video clips from a service like UserTesting.com</p>
-							<button class="button small" ng-if='!test.kind || test.kind === "interview"' ng-click='selectPrototype("prototype")'>Select</button>
+							<!-- <button class="button med" ng-if='!test.kind || test.kind === "interview"' ng-click='selectPrototype("prototype")'>Select</button> -->
 							<div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
 						</div>
 						
 						<div class="clear"></div>
 						
+						<hr>
+
 						<ul class="nobullets" ng-show="anchor===1 && test.kind">
-							<form name="prototypeForm">
-							
-								<li>
+							<form name="prototypeForm" class="prototype-form">
+
+									<li>
+										<label for="field-testname">Test title</label>
+										<input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="My amazing test" ng-blur="updateTest()" />
+									</li>
+
+									<li ng-show="test.kind === 'prototype'">
+										<label for="field-prototypeurl">What is your prototype or website URL?</label>
+										<input class="input" id="field-prototypeurl" ng-model="test.link" value="" placeholder="http://invision.com/JHGYT" type="url" name="url"/ />
+<!-- 										<span ng-show="!prototypeForm.$valid" style="color:red;">This appears to be an invalid URL.<br></span>
+										<small>Using InVision? Make sure you turn off <strong>Force "Add to Home Screen"</strong> in your share settings</small> -->
+									</li>
+
+									<li>
+										<label for="field-prototypeurl">What are your test objectives?</label>
+										<textarea msd-elastic class="input" id="field-objective" type="text" value="" ng-model="test.desc" placeholder="Validate the colours on my header" />
+										</textarea>	
+									</li>
+
+								<!-- original form -->
+		<!-- 						<li>
 									<label for="field-testname">Your test name</label>
 									<input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="e.g. onboard flow" ng-blur="updateTest()" />
 								</li>
@@ -98,7 +119,7 @@
 								<li>
 									<label for="field-prototypeurl">Your test objectives</label>
 									<textarea msd-elastic class="input" id="field-objective" type="text" value="" ng-model="test.desc" placeholder="What is the purpose of this test? What do you want to learn?" />
-								</li>
+								</li> -->
 								
 								<!--<li>
 									<button class="button" type="submit" ng-click="saveAndMove(3)" >Next step</button>
@@ -107,9 +128,9 @@
 							</form>
 						</ul>
 						
-						<hr>
+						
 
-						<section>
+<!-- 						<section>
 							<form action="">
 							<label>Test title</label>
 								<input class="input" placeholder="My amazing test" />
@@ -121,7 +142,7 @@
 								<textarea msd-elastic ng-model="newtask.desc" class="input small" id="field-textarea" placeholder="Validates the colours on my header">
 								</textarea>	
 							</form>
-						</section>
+						</section> -->
 
 					</div>
 				</div>

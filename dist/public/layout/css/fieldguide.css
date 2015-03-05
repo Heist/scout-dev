@@ -257,7 +257,7 @@ FORMS!
 */
 form {
   padding: 0;
-  margin: 0; }
+  margin: -10px 0; }
 
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
 .input {
@@ -384,6 +384,9 @@ textarea.input {
     background: #7a9e0e;
     color: #fff;
     text-decoration: none; }
+  .button.med {
+    font-size: 12px;
+    padding: 10px 30px; }
   .button.small {
     font-size: 12px;
     padding: 2.5px 10px; }
@@ -455,6 +458,17 @@ textarea.input {
     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+
+.button-inactive {
+  background: #fff;
+  color: #939598;
+  border: 1px solid #cdcecf;
+  outline: 0;
+  border-radius: 3px;
+  cursor: pointer; }
+  .button-inactive.med {
+    font-size: 12px;
+    padding: 10px 30px; }
 
 /* Do some stuff to deal with the reprehensible state of 'select' elements */
 .input-select {
@@ -1796,7 +1810,7 @@ hr {
     #view-editing .test-setup .sheet {
       padding: 20px; }
     #view-editing .test-setup h4:first-child {
-      padding: 20px 0 185px 0; }
+      padding: 20px 0 222px 0; }
     #view-editing .test-setup .nobullets {
       margin-top: 40px;
       width: 100%; }
@@ -1806,31 +1820,45 @@ hr {
       width: 100%;
       padding: 0;
       margin: 20px auto; }
-    #view-editing .test-setup section {
-      margin: 0 0 20px 0; }
-      #view-editing .test-setup section ::-webkit-input-placeholder {
-        color: #cdcecf;
-        font-size: 12.5px;
-        font-style: italic; }
-      #view-editing .test-setup section :-moz-placeholder {
-        /* Firefox 18- */
-        color: #cdcecf;
-        font-size: 12.5px;
-        font-style: italic; }
-      #view-editing .test-setup section ::-moz-placeholder {
-        /* Firefox 19+ */
-        color: #cdcecf;
-        font-size: 12.5px;
-        font-style: italic; }
-      #view-editing .test-setup section :-ms-input-placeholder {
-        color: #cdcecf;
-        font-size: 12.5px;
-        font-style: italic; }
-      #view-editing .test-setup section .input {
-        width: 100%; }
+    #view-editing .test-setup ::-webkit-input-placeholder {
+      color: #cdcecf;
+      font-size: 12.5px;
+      font-style: italic; }
+    #view-editing .test-setup :-moz-placeholder {
+      /* Firefox 18- */
+      color: #cdcecf;
+      font-size: 12.5px;
+      font-style: italic; }
+    #view-editing .test-setup ::-moz-placeholder {
+      /* Firefox 19+ */
+      color: #cdcecf;
+      font-size: 12.5px;
+      font-style: italic; }
+    #view-editing .test-setup :-ms-input-placeholder {
+      color: #cdcecf;
+      font-size: 12.5px;
+      font-style: italic; }
+    #view-editing .test-setup .select-active {
+      background: #85ac0f;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer; }
+      #view-editing .test-setup .select-active:hover {
+        background: #7a9e0e;
+        color: #fff;
+        text-decoration: none; }
+      #view-editing .test-setup .select-active:after {
+        content: 'ed'; }
+    #view-editing .test-setup .select-inactive {
+      background: #fff;
+      color: #939598;
+      border: 1px solid #cdcecf;
+      cursor: pointer; }
+      #view-editing .test-setup .select-inactive:after {
+        content: ''; }
   #view-editing .test-type {
     padding: 5px;
-    margin: 0;
+    margin: 10px 0;
     text-align: center;
     position: relative;
     border: 1px solid #fff; }
