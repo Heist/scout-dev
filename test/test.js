@@ -50,14 +50,14 @@ describe('User', function(){
 
 describe('NavList', function(){
 	// var record_id = mongoose.Types.ObjectId('54f0c190d86c9ed326251fc1');	
-	before(function (){});
+	// before(function (){});
 	it('Should return an object with two parts',function(done){
 			navlist('54f0c190d86c9ed326251fc1', function(err, list){
 					expect(list).to.be.an('object');
-					expect(doc.test).to.be.a('string');
+					expect(list.test).to.be.a('string');
+					expect(list.list).to.not.be.empty;
 					done();
 				});
 	});
 
-	
 });
