@@ -30,6 +30,7 @@ module.exports = function(report_id, next){
                 .sort({name: 1})
                 .exec(function(err, docs){
                     if (err) { console.log(err); }
+                    if(!docs ){ callback(null, null); }
                     callback(null, docs);
                 });
         },
@@ -38,7 +39,7 @@ module.exports = function(report_id, next){
                 .sort({ report_index: 'asc'})
                 .exec(function(err, docs){
                     if (err) { console.log(err); }
-                    
+                    if(!docs ){ callback(null, null); }
                     callback(null, docs);
                 });
         },
@@ -47,28 +48,39 @@ module.exports = function(report_id, next){
                 .limit(1)
                 .exec(function(err, docs){
                     if(err){console.log(err);}
+                    if(!docs ){ callback(null, null); }
                     callback(null, docs);
                 });
         }
     },
     function(err, results) {
         var return_array = [];
+        if (results.test){
+            _.each(results.test, function(test){
+                return_array.push(test);
+            });
+        }
 
-        _.each(results.test, function(test){
-            return_array.push(test);
-        });
-        _.each(results.tasks, function(task){
-            return_array.push(task);
-        });
-        _.each(results.tags, function(tag){
-            return_array.push(tag);
-        });
+        if(results.tasks){
+            _.each(results.tasks, function(task){
+                return_array.push(task);
+            });
+        }
 
-        var navlist = {
-            test: results.test[0].name,
-            list: return_array
-        };
-        
+        if(results.tags){
+            _.each(results.tags, function(tag){
+                return_array.push(tag);
+            });
+        }
+
+        // todo: refactor so this does not fail if things are null.
+        if(results.test.length > 0){
+            var navlist = {
+                test: results.test[0].name,
+                list: return_array
+            };
+        }
+
         next(null, navlist);
     });
 
