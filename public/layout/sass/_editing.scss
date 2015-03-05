@@ -82,7 +82,7 @@
 		hr {
 			width: 100%;
 			padding: 0;
-			margin: 20px auto;
+			margin: 10px auto;
 		}
 
 		@include input-placeholders;
@@ -109,8 +109,7 @@
 	}
 
 	.test-type {
-		padding: $pad/4;
-		margin: 10px 0;
+		padding: $pad;
 		text-align: center;
 		position: relative;
 		border: 1px solid $white;

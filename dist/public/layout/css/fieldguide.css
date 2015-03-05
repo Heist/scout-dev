@@ -1821,7 +1821,7 @@ hr {
     #view-editing .test-setup hr {
       width: 100%;
       padding: 0;
-      margin: 20px auto; }
+      margin: 10px auto; }
     #view-editing .test-setup ::-webkit-input-placeholder {
       color: #cdcecf;
       font-size: 12.5px;
@@ -1859,8 +1859,7 @@ hr {
       #view-editing .test-setup .select-inactive:after {
         content: ''; }
   #view-editing .test-type {
-    padding: 5px;
-    margin: 10px 0;
+    padding: 20px;
     text-align: center;
     position: relative;
     border: 1px solid #fff; }
