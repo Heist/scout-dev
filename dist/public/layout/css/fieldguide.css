@@ -1810,7 +1810,7 @@ hr {
     #view-editing .test-setup .sheet {
       padding: 20px; }
     #view-editing .test-setup h4:first-child {
-      padding: 20px 0 224px 0;
+      padding: 20px 0 204px 0;
       margin: 0; }
     #view-editing .test-setup h4.no-pad {
       padding: 0; }
@@ -1868,7 +1868,7 @@ hr {
     #view-editing .test-type p {
       font-size: 12px;
       line-height: 17px;
-      height: 70px; }
+      height: 50px; }
     #view-editing .test-type h3 {
       font-size: 17.5px; }
     #view-editing .test-type.selected {
