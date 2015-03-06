@@ -469,6 +469,15 @@ textarea.input {
   .button-inactive.med {
     font-size: 12px;
     padding: 10px 30px; }
+    .button-inactive.med:hover {
+      background: #85ac0f;
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid #86aa25; }
+      .button-inactive.med:hover:hover {
+        background: #7a9e0e;
+        color: #fff;
+        text-decoration: none; }
 
 /* Do some stuff to deal with the reprehensible state of 'select' elements */
 .input-select {
@@ -1844,6 +1853,7 @@ hr {
       background: #85ac0f;
       color: #fff;
       text-decoration: none;
+      border: 1px solid #86aa25;
       cursor: pointer; }
       #view-editing .test-setup .select-active:hover {
         background: #7a9e0e;
