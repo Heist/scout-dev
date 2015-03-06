@@ -81,11 +81,10 @@ describe("Check Passport", function(){
 				name:'becky',
 				password:'becky'
 			}).then(function(err, res){
-				console.log('response', res.body);
 				expect(res.body).to.deep.include({redirect: '/overview', msg:'register user worked' });
 				done();
 			}).catch(function(err){
-
+				done(err);
 			}).done();
 		});
 	});
