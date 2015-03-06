@@ -42,33 +42,31 @@ var Task = global.rootRequire('./server/models/data/task');
 var Test = global.rootRequire('./server/models/data/test');
 
 describe("Check Passport", function(){
-	
-	var baseUrl = '/auth/login';
-	var emailAddress = 'login@heistmade.com';
-	var realPassword = 'login';
-	var name = 'login';
-	var account = mongoose.Types.ObjectId();
+
+	var makeUser = {
+		name : 'login',
+		email : 'login@heistmade.com',
+		password : 'login',
+		_account : mongoose.Types.ObjectId()
+	}; 
+
 	var agent = supertest.agent(app);
+	var globalUser;
 
-	// // beforeEach(function (done) {
-
-	// 	User.generateHash(realPassword, function (err, passwordHash) {
-	// 	// Create a User
-	// 		User.create({
-	// 				_account : account,
-	// 				name: name,
-	// 				local            : {
-	// 					email        : emailAddress,
-	// 					password     : passwordHash,
-	// 					name         : name
-	// 				}
-	// 			}, 
-	// 			function (err, u) {
-	// 				console.log(u);
-	// 				done();
-	// 			});
-	// 	});
-	// // });
+	beforeEach(function(done){
+		var user = function(make){
+			return User.generateHash(make.password, function(err, password){
+				User.create(make, function(err, u){
+					if(err){console.log(err);}
+					return u;
+				});
+			});
+		}
+		
+		globalUser = user(makeUser);
+		console.log(globalUser);
+		done();
+	});
 
 	afterEach(function(done){
 		User.remove(function(err, doc){
@@ -76,9 +74,10 @@ describe("Check Passport", function(){
 		});
 	});
 
+
+
 	describe('POST /auth/signup', function () {
 		var url = '/auth/signup';
-
 		it('should fail an empty request', function(done){
 			agent.post(url)
 			.send({ user: null, password: null })
@@ -108,16 +107,10 @@ describe("Check Passport", function(){
 				done();
 			});
 		});
-
-		// 	api(app)
-		// 		.post(baseUrl)
-		// 		.send(post)
-		// 		.expect(302)
-		// 		.end(function (err, res) {
-		// 			should.not.exist(err);
-		// 			// confirm the redirect
-		// 			res.header.location.should.include('/login');
-		// 			done();
-		// 		});
-		});
 	});
+
+	describe('POST /auth/login', function(){
+		var url = '/auth/login';
+
+	});
+});
