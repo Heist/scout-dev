@@ -43,6 +43,8 @@ describe("Get a new user from Passport", function(){
 	var baseUrl = '/auth/login';
 	var emailAddress = 'login@heistmade.com';
 	var realPassword = 'login';
+	var name = 'login';
+	var account = mongoose.Types.ObjectId();
 
 	beforeEach(function (done) {
 	// TODO this should be refactored into a User.new() function.
@@ -74,6 +76,11 @@ describe("Get a new user from Passport", function(){
 
 	afterEach(function(done){
 		User.remove(function(err, doc){
+			// done();
+		});
+		
+		User.find().exec(function(err, docs){
+			console.log(docs);
 			done();
 		});
 	});
