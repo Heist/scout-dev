@@ -2,16 +2,17 @@
 'use strict';
 // a sample test for the API using Mocha, Chai, and SuperTest.
 
+var app = require('../server.js');
+
 // Module dependencies ==========================
 var should = require('chai').should;
 var expect = require('chai').expect;
 var supertest = require('supertest');
-var api = supertest('http://127.0.0.1:8080');
+var api = supertest(app);
+
 var mongoose = require('mongoose');
 
-var app = require('../server').app;
-
-// // Set global to work outside of node ===========
+// Set global to work outside of node ===========
 global.rootRequire = function(name) {
 	    	name = name.substring(1, name.length);
 	    	var dir = __dirname.substring(0, __dirname.length - 5);
@@ -72,10 +73,10 @@ describe("Get a new user from Passport", function(){
 
 	describe('POST /auth/login', function () {
 		it('Should return 200 on a user route', function(done){
-			api(app).get('/auth/login')
+			api.get('/auth/login')
 				.expect(200)
 				.end(function(err, res){
-					console.log(res);
+					// console.log(res);
 					done();
 				});
 		});
