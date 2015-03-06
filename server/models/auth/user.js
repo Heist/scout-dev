@@ -48,12 +48,13 @@ var userSchema = new Schema({
 });
 
 // generating a hash
-userSchema.methods.generateHash = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+userSchema.statics.generateHash = function(password, callback) {
+    var pass = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    callback(null, pass);
 };
 
 // checking if password is valid
-userSchema.methods.validPassword = function(password) {
+userSchema.statics.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
