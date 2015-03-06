@@ -72,7 +72,7 @@ describe("Get a new user from Passport", function(){
 
 	describe('POST /auth/login', function () {
 		it('Should return 200 on a user route', function(done){
-			api.get('/auth/login')
+			api(app).get('/auth/login')
 				.expect(200)
 				.end(function(err, res){
 					console.log(res);
