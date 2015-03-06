@@ -75,13 +75,12 @@ describe("Get a new user from Passport", function(){
 		it('Should return 200 on a user route', function(done){
 			api.get('/auth/login')
 				.set('Accept', 'application/json')
-	      		// .expect('Content-Type', /json/)
-	      		.expect(200, done);
-				// .end(function(err, res){
-				// 	expect(res).to.deep.include.members({redirect: '/overview', msg:'login worked'});
-				// 	console.log(res);
-				// 	done();
-				// });
+	      		.expect(200)
+				.end(function(err, res){
+					expect(res).to.deep.include.members({redirect: '/overview', msg:'login worked'});
+					console.log(res);
+					done();
+				});
 		});
 
 		// it('Should return an object with four properties if it succeeds', function (done) {
