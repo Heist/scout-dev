@@ -89,14 +89,13 @@ module.exports = function(app, passport) {
                 if(req.user.local.email){
                     // user is logged in and has e-mail
                     return done(null, req.user);
-                }
-                if(!req.user.local.email){
+                } else {
                     // user is logged in and has no e-mail.
                     req.user.local = {
                         email : email,
                         password : user.generateHash(password)
                     };
-
+                    
                     req.user.save(function(err, data) {
                         if (err) {throw err;}
                         console.log('User updated', data);
@@ -114,33 +113,22 @@ module.exports = function(app, passport) {
                     return Invitation.findOne({'_id': req.body.invite})
                           .exec(function(err, invite){
                             if (err){throw err;}
-                            if(!invite){
-                                // this is a fresh signup
-                                // console.log('no invite');
-                            } else {
+                            if(invite){
                                 // there was a pending invite with that invite _id, and it's not pending now.
                                 invite.pending = false;
-                                invite.save(function(err, inv){
-                                    if (err){throw err;}
-                                });
+                                invite.save();
                             }
                         });
                 }).then(function(invite){
-                    // make a new user
-                    var account;
-                    if (invite){ account = invite._account; }
-                    else { account = mongoose.Types.ObjectId(); }
-
-                    var new_user = { 'name' : req.body.name,
-                                   '_account' : account,
-                                   'local.email' : email ,
-                                   'local.password' : generateHash(password)
-                            };
-
-                    return User.create(new_user, 
-                            function(err, user){ 
-                                if (err){throw err;} 
-                                if(invite === null){
+                    // make a new user and some tests.
+                    return User.create({ 
+                                'name' : req.body.name,
+                                '_account' : invite ? invite._account : mongoose.Types.ObjectId(),
+                                'local.email' : email ,
+                                'local.password' : generateHash(password)
+                            }, function(err, user){ 
+                                if (err){ throw err; } 
+                                if(!invite){
                                     return newUserTests(user._account, user._id, function(err, callback){
                                         console.log('newUserTests generated tests for', user._id);
                                     });
