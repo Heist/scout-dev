@@ -213,6 +213,11 @@ textarea.input {
 	&.med {
 		font-size: $type-size-base*0.8;
 		padding: 10px 30px;
+
+		&:hover {
+			@include button-colour($fg-green, $white);
+			border: 1px solid $fg-green-light;
+		}
 	}
 }
 

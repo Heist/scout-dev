@@ -89,6 +89,7 @@
 
 		.select-active {
 			@include button-colour($fg-green, $white);
+			border: 1px solid $fg-green-light;
 			cursor: pointer;
 
 			&:after {
