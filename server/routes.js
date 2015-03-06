@@ -82,17 +82,13 @@ module.exports = function(app, passport, debug) {
         if (!req.body.email || !req.body.password) {
             return res.json({ error: 'Email and Password required' });
         }
+
         passport.authenticate('local-login', function(err, user, info) {
-            if (err) {
-                return res.json(err);
-            }
-            if (user.error) {
-                return res.json({ error: user.error });
-            }
+            if (err) { return res.json(err); }
+            if (user.error) { return res.json({ error: user.error }); }
+
             req.logIn(user, function(err) {
-                if (err) {
-                    return res.json(err);
-                }
+                if (err) { return res.json(err); }
 
                 return res.json({ 'user': mongoose.Types.ObjectId(req.user._id),  'name':req.user.name, redirect: '/overview', msg:'login worked' });
             });
@@ -105,25 +101,19 @@ module.exports = function(app, passport, debug) {
         if (!req.body.email || !req.body.password) {
             return res.json({ error: 'Email and Password required' });
         }
-        passport.authenticate('local-signup', function(err, user, info) {
+        passport.authenticate('local-signup', function(err, reply, info) {
             if (err) { return res.json(err); }
-            
-            if (user.error) {
-                return res.json({ error: user.error });
-            }
-            if (info){
-                // console.log('auth signup info', info);
-            }
+            if (reply.error) { return res.json({ error: res.error }); }
+            if (info){ console.log('auth signup info', info); }
 
-            if (user){
-                // console.log('auth signup user', user);
-            }
+            if (reply){ console.log('auth signup user', reply); }
             
-            req.logIn(user, function(err) {
+            req.logIn(reply, function(err) {
                 if (err) { return res.json(err); }
-                // console.log('auth/signup authenticated user', req.user);
+                console.log('auth/signup authenticated user', req.user);
                 res.json({ 'user': req.user._id, 'onboarding': req.user.onboarding, 'name':req.user.name, redirect: '/overview', msg:'register user worked' });
             });
+            
         })(req, res);
     });
 

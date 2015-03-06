@@ -7,7 +7,7 @@ var app = require('../server.js');
 // Module dependencies ==========================
 var should = require('chai').should;
 var expect = require('chai').expect;
-var supertest = require('supertest');
+var request = require('supertest-as-promised');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 // var api = supertest(app);
@@ -31,68 +31,48 @@ var devTests = require('../server/models/auth/user');
 
 // Auth DB ======================================
 var User = global.rootRequire('./server/models/auth/user');
-var Invite = global.rootRequire('./server/models/auth/invitation');
+// var Invite = global.rootRequire('./server/models/auth/invitation');
 
-// App DB =======================================
-var Comment = global.rootRequire('./server/models/data/comment');
-var Message = global.rootRequire('./server/models/data/message');
-var Subject = global.rootRequire('./server/models/data/subject');
-var Tag = global.rootRequire('./server/models/data/tag');
-var Task = global.rootRequire('./server/models/data/task');
+// // App DB =======================================
+// var Comment = global.rootRequire('./server/models/data/comment');
+// var Message = global.rootRequire('./server/models/data/message');
+// var Subject = global.rootRequire('./server/models/data/subject');
+// var Tag = global.rootRequire('./server/models/data/tag');
+// var Task = global.rootRequire('./server/models/data/task');
 var Test = global.rootRequire('./server/models/data/test');
 
 describe("Check Passport", function(){
-
-	var makeUser = {
-		name : 'login',
-		email : 'login@heistmade.com',
-		password : 'login',
-		_account : mongoose.Types.ObjectId()
-	}; 
-
-	var agent = supertest.agent(app);	
-	var globalUser;
-	beforeEach(function(done){
-		var promise =
-			User.generateHash(make.password, function(err, password){
-				User.create(make, function(err, u){
-					if(err){console.log(err);}
-					return u;
-				});
-		}
-		promise.then(function(u){
-			globalUser = user(makeUser);
-			done();
-		});
-		
-	});
-
-	afterEach(function(done){
-		User.remove(function(err, doc){
-			done();
+	var agent = request.agent(app);	
+	
+	before(function(){
+		// make a demo user to use in this block of login checks
+		User.create({
+			name : 'login',
+			email : 'login@heistmade.com',
+			password : User.generateHash('login', function(err, password){
+						return password;
+					}),
+			_account : mongoose.Types.ObjectId()
+		}, function(err, u){
+			if(err){console.log(err);} 
 		});
 	});
 
-
-
+	after(function(done){
+		User.remove({}, function(err, doc){});
+		Test.remove({}, function(err, doc){});
+		done();
+	});
+	
 	describe('POST /auth/signup', function () {
-		console.log(globalUser);
 		var url = '/auth/signup';
 		it('should fail an empty request', function(done){
 			agent.post(url)
 			.send({ user: null, password: null })
 			.end(function(err, res) {
-				// user1 will manage its own cookies
-				// res.redirects contains an Array of redirects
-				// console.log(res);
-				// console.log(res);
 				expect(res.body).to.deep.include({ error: 'Email and Password required' });
 				done();
 			});
-		});
-
-		it('should deny registered e-mail addresses', function(done){
-			done();
 		});
 
 		it('should register a new user on the db', function(done){
@@ -100,17 +80,14 @@ describe("Check Passport", function(){
 				email: 'becky@made.com', 
 				name:'becky',
 				password:'becky'
-			}).end(function(err, res) {
-				// agent will manage its own cookies
-				// res.redirects contains an Array of redirects
+			}).then(function(err, res){
+				console.log('response', res.body);
 				expect(res.body).to.deep.include({redirect: '/overview', msg:'register user worked' });
 				done();
-			});
+			}).catch(function(err){
+
+			}).done();
 		});
 	});
 
-	describe('POST /auth/login', function(){
-		var url = '/auth/login';
-
-	});
 });

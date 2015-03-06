@@ -73,6 +73,7 @@
     "main-bower-files": "^2.4.1",
     "mocha": "^2.1.0",
     "supertest": "^0.15.0",
+    "supertest-as-promised": "^1.0.0",
     "vinyl-transform": "^1.0.0"
   }
 }

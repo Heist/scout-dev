@@ -85,8 +85,6 @@ module.exports = function(app, passport) {
         function(req, email, password, done){
             if (email) {email = email.toLowerCase();} // Use lower-case e-mails to avoid case-sensitive e-mail matching
             
-            console.log('new user signup account touched', req.body._account);
-            
                 // user is logged in and has e-mail
             if (req.user && req.user.local.email){
                 console.log('Please log out before signing up again.');
@@ -142,7 +140,6 @@ module.exports = function(app, passport) {
                     return User.create(new_user, 
                             function(err, user){ 
                                 if (err){throw err;} 
-
                                 if(invite === null){
                                     return newUserTests(user._account, user._id, function(err, callback){
                                         console.log('newUserTests generated tests for', user._id);
