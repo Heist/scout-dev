@@ -80,8 +80,10 @@ describe("Check Passport", function(){
 				email: 'becky@made.com', 
 				name:'becky',
 				password:'becky'
-			}).then(function(err, res){
-				expect(res.body).to.deep.include({redirect: '/overview', msg:'register user worked' });
+			}).then(function(data){
+				// console.log('test response', res, err);
+				console.log('is it in the wrong place', data.body);
+				expect(data.body).to.deep.include({redirect: '/overview', msg:'register user worked' });
 				done();
 			}).catch(function(err){
 				done(err);

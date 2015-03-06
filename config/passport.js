@@ -87,7 +87,7 @@ module.exports = function(app, passport) {
             
                 // user is logged in and has e-mail
             if (req.user && req.user.local.email){
-                console.log('Please log out before signing up again.');
+                // console.log('Please log out before signing up again.');
                 return done(null, req.user);
             }
 
@@ -116,7 +116,7 @@ module.exports = function(app, passport) {
                             if (err){throw err;}
                             if(!invite){
                                 // this is a fresh signup
-                                console.log('no invite');
+                                // console.log('no invite');
                             } else {
                                 // there was a pending invite with that invite _id, and it's not pending now.
                                 invite.pending = false;

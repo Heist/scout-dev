@@ -104,13 +104,13 @@ module.exports = function(app, passport, debug) {
         passport.authenticate('local-signup', function(err, reply, info) {
             if (err) { return res.json(err); }
             if (reply.error) { return res.json({ error: res.error }); }
-            if (info){ console.log('auth signup info', info); }
+            // if (info){ console.log('auth signup info', info); }
 
-            if (reply){ console.log('auth signup user', reply); }
+            // if (reply){ console.log('auth signup user', reply); }
             
             req.logIn(reply, function(err) {
                 if (err) { return res.json(err); }
-                console.log('auth/signup authenticated user', req.user);
+                // console.log('auth/signup authenticated user', req.user);
                 res.json({ 'user': req.user._id, 'onboarding': req.user.onboarding, 'name':req.user.name, redirect: '/overview', msg:'register user worked' });
             });
             
