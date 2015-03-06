@@ -50,22 +50,21 @@ describe("Check Passport", function(){
 		_account : mongoose.Types.ObjectId()
 	}; 
 
-	var agent = supertest.agent(app);
+	var agent = supertest.agent(app);	
 	var globalUser;
-
 	beforeEach(function(done){
-		var user = function(make){
-			return User.generateHash(make.password, function(err, password){
+		var promise =
+			User.generateHash(make.password, function(err, password){
 				User.create(make, function(err, u){
 					if(err){console.log(err);}
 					return u;
 				});
-			});
 		}
+		promise.then(function(u){
+			globalUser = user(makeUser);
+			done();
+		});
 		
-		globalUser = user(makeUser);
-		console.log(globalUser);
-		done();
 	});
 
 	afterEach(function(done){
@@ -77,6 +76,7 @@ describe("Check Passport", function(){
 
 
 	describe('POST /auth/signup', function () {
+		console.log(globalUser);
 		var url = '/auth/signup';
 		it('should fail an empty request', function(done){
 			agent.post(url)
