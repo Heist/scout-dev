@@ -8,7 +8,9 @@ var app = require('../server.js');
 var should = require('chai').should;
 var expect = require('chai').expect;
 var supertest = require('supertest');
-var api = supertest(app);
+var express = require('express');
+var cookieParser = require('cookie-parser');
+// var api = supertest(app);
 
 var mongoose = require('mongoose');
 
@@ -72,16 +74,31 @@ describe("Get a new user from Passport", function(){
 	});
 
 	describe('POST /auth/login', function () {
-		it('Should return 200 on a user route', function(done){
-			api.get('/auth/login')
-				.set('Accept', 'application/json')
-	      		.expect(200)
-				.end(function(err, res){
-					expect(res).to.deep.include.members({redirect: '/overview', msg:'login worked'});
-					console.log(res);
-					done();
-				});
+		var agent = supertest.agent(app);
+		
+		it('should return a login', function(done){
+			agent
+			.post('/auth/login')
+			.send({ user: emailAddress, password: realPassword })
+			.end(function(err, res) {
+				// user1 will manage its own cookies
+				// res.redirects contains an Array of redirects
+				console.log(res);
+				done();
+			});
 		});
+
+		// done();
+		// it('Should return 200 on a user route', function(done){
+		// 	api.get('/auth/login')
+		// 		.set('Accept', 'application/json')
+	 //      		.expect(200)
+		// 		.end(function(err, res){
+		// 			expect(res).to.deep.include.members({redirect: '/overview', msg:'login worked'});
+		// 			console.log(res);
+		// 			done();
+		// 		});
+		// });
 
 		// it('Should return an object with four properties if it succeeds', function (done) {
 		// 	// post is what we will be sending to the /auth/local
