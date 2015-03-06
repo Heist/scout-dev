@@ -53,23 +53,22 @@ describe("Get a new user from Passport", function(){
 	// });
 
 		User.generateHash(realPassword, function (err, passwordHash) {
-		// 	// Create a User
-			console.log('inside hash', passwordHash );
-			done();
-		// 	// var u = {
-		// 	// 	_account : account,
-		// 	// 	name: name,
-		// 	// 	local            : {
-		// 	// 		email        : emailAddress,
-		// 	// 		password     : passwordHash,
-		// 	// 		name         : name
-		// 	// 	}
-		// 	// };
+		// Create a User
+			var u = {
+				_account : account,
+				name: name,
+				local            : {
+					email        : emailAddress,
+					password     : passwordHash,
+					name         : name
+				}
+			};
 	 
-		// 	// User.create(u, function (err, u) {
-		// 	// 	// call the done() method so the mocha knows we are done.
-		// 	// 	done();
-		// 	// });
+			User.create(u, function (err, u) {
+				// call the done() method so the mocha knows we are done.
+				console.log(u);
+				done();
+			});
 		});
 	});
 
