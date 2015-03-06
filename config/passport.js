@@ -81,30 +81,30 @@ module.exports = function(app, passport) {
             passwordField : 'password',
             passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
         },
-        
         function(req, email, password, done){
-            if (email) {email = email.toLowerCase();} // Use lower-case e-mails to avoid case-sensitive e-mail matching
+            email = email ? email.toLowerCase() : '' ; // Use lower-case e-mails to avoid case-sensitive e-mail matching
             
-                // user is logged in and has e-mail
-            if (req.user && req.user.local.email){
+            if (req.user){
                 // console.log('Please log out before signing up again.');
-                return done(null, req.user);
-            }
-
-            // user is logged in and has no e-mail.
-            if (req.user && !req.user.local.email){
-                var user = req.user;
-                user.local.email = email;
-                user.local.password = user.generateHash(password);
-                user.save(function(err, data) {
-                    if (err) {throw err;}
-                    console.log('User updated', data);
+                if(req.user.local.email){
+                    // user is logged in and has e-mail
                     return done(null, req.user);
-                });
-            }
+                }
+                if(!req.user.local.email){
+                    // user is logged in and has no e-mail.
+                    req.user.local = {
+                        email : email,
+                        password : user.generateHash(password)
+                    };
 
-            // if no user is logged in
-            if (!req.user) { 
+                    req.user.save(function(err, data) {
+                        if (err) {throw err;}
+                        console.log('User updated', data);
+                        return done(null, req.user);
+                    });
+                }
+            } else { 
+                // if no user is logged in
                 var promise = User.findOne({ 'local.email' :  email })
                                   .exec(function(err, user) {
                                         if(user){ return done(null, 'That email is already taken.'); } 
