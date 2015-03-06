@@ -81,13 +81,28 @@ describe("Check Passport", function(){
 				name:'becky',
 				password:'becky'
 			}).then(function(data){
-				// console.log('test response', res, err);
-				console.log('is it in the wrong place', data.body);
 				expect(data.body).to.deep.include({redirect: '/overview', msg:'register user worked' });
 				done();
 			}).catch(function(err){
 				done(err);
 			}).done();
+		});
+
+		it('should fail a repeat request', function(done){
+			agent.post(url).send({
+				email: 'login@heistmade.com', 
+				name:'becky',
+				password:'becky'
+			})
+			.then(function(data){
+				console.log(data.body);
+				expect(data.body).to.equal('That email is already taken.');
+				done();
+			})
+			.catch(function(err){
+				done(err);
+			})
+			.done();
 		});
 	});
 
