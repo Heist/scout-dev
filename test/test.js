@@ -47,50 +47,41 @@ describe("Get a new user from Passport", function(){
 	var account = mongoose.Types.ObjectId();
 
 	beforeEach(function (done) {
-	// TODO this should be refactored into a User.new() function.
-	// Hash the password
-	// User.find().exec(function(err, docs){
-	// 	console.log(docs);
-	// 	done();
-	// });
-
 		User.generateHash(realPassword, function (err, passwordHash) {
 		// Create a User
-			var u = {
-				_account : account,
-				name: name,
-				local            : {
-					email        : emailAddress,
-					password     : passwordHash,
-					name         : name
-				}
-			};
-	 
-			User.create(u, function (err, u) {
-				// call the done() method so the mocha knows we are done.
-				console.log(u);
-				done();
-			});
+			User.create({
+					_account : account,
+					name: name,
+					local            : {
+						email        : emailAddress,
+						password     : passwordHash,
+						name         : name
+					}
+				}, 
+				function (err, u) {
+					done();
+				});
 		});
 	});
 
 	afterEach(function(done){
 		User.remove(function(err, doc){
-			// done();
-		});
-		
-		User.find().exec(function(err, docs){
-			console.log(docs);
 			done();
 		});
 	});
 
 	describe('POST /auth/login', function () {
-		
-		it('should redirect to "/account" if authentication fails', function (done) {
-			console.log('it block');
-			done();
-			// post is what we will be sending to the /auth/local
+		it('Should return 200 on a user route', function(done){
+			api.get('/auth/login')
+				.expect(200)
+				.end(function(err, res){
+					console.log(res);
+					done();
+				});
+		});
+
+		// it('Should return an object with four properties if it succeeds', function (done) {
+		// 	// post is what we will be sending to the /auth/local
 		// 	var post = {
 		// 		email: emailAddress,
 		// 		password: realPassword
@@ -99,12 +90,14 @@ describe("Get a new user from Passport", function(){
 		// 	api(app)
 		// 		.post(baseUrl)
 		// 		.send(post)
-		// 		.expect(302)
+		// 		.expect(200)
 		// 		.end(function (err, res) {
-		// 		 should.not.exist(err);
-		// 		 // confirm the redirect
-		// 			 res.header.location.should.include('/account');
-		// 			 done();
+		// 			console.log(res);
+		// 			done();
+		// 		 // should.not.exist(err);
+		// 		 // // confirm the redirect
+		// 			//  res.header.location.should.include('/account');
+		// 			//  done();
 		// 		});
 		// });
 
@@ -128,7 +121,7 @@ describe("Get a new user from Passport", function(){
 	});
 
 
-});
+// });
 
 // // Write A Test =================================
 // describe('Mock a full test', function(){
