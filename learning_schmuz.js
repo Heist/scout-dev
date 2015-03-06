@@ -86,28 +86,65 @@ describe("Check Passport", function(){
 				// user1 will manage its own cookies
 				// res.redirects contains an Array of redirects
 				// console.log(res);
-				// console.log(res);
-				expect(res.body).to.deep.include({ error: 'Email and Password required' });
+				expect(res).to.deep.include({ error: 'Email and Password required' });
 				done();
 			});
 		});
 
 		it('should deny registered e-mail addresses', function(done){
-			done();
+			
 		});
 
 		it('should register a new user on the db', function(done){
 			agent.post(url).send({
-				email: 'becky@made.com', 
-				name:'becky',
-				password:'becky'
+				user: 'becky@made.com',
+				password : 'becky'
 			}).end(function(err, res) {
 				// agent will manage its own cookies
 				// res.redirects contains an Array of redirects
-				expect(res.body).to.deep.include({redirect: '/overview', msg:'register user worked' });
-				done();
+				expect(401, done);
+				
 			});
 		});
+
+		// done();
+		// it('Should return 200 on a user route', function(done){
+		// 	api.get('/auth/login')
+		// 		.set('Accept', 'application/json')
+	 //      		.expect(200)
+		// 		.end(function(err, res){
+		// 			expect(res).to.deep.include.members({redirect: '/overview', msg:'login worked'});
+		// 			console.log(res);
+		// 			done();
+		// 		});
+		// });
+
+		// it('Should return an object with four properties if it succeeds', function (done) {
+		// 	// post is what we will be sending to the /auth/local
+		// 	var post = {
+		// 		email: emailAddress,
+		// 		password: realPassword
+		// 	};
+
+		// 	api(app)
+		// 		.post(baseUrl)
+		// 		.send(post)
+		// 		.expect(200)
+		// 		.end(function (err, res) {
+		// 			console.log(res);
+		// 			done();
+		// 		 // should.not.exist(err);
+		// 		 // // confirm the redirect
+		// 			//  res.header.location.should.include('/account');
+		// 			//  done();
+		// 		});
+		// });
+
+		// it('should redirect to "/login" if authentication fails', function (done) {
+		// 	var post = {
+		// 		email: 'berry@example.com',
+		// 		password: 'fakepassword'
+		// 	};
 
 		// 	api(app)
 		// 		.post(baseUrl)
@@ -121,3 +158,45 @@ describe("Check Passport", function(){
 		// 		});
 		});
 	});
+
+
+// });
+
+// // Write A Test =================================
+// describe('Mock a full test', function(){
+
+// 	describe("Test creation", function(){  
+// 	//holds a customer to use in the each test  
+// 		var currentCustomer = null;  
+// 		beforeEach(function(done){    
+// 	//add some test data    
+// 			.create( function(doc){      
+// 				currentCustomer = doc;      
+// 				done();    
+// 			});  
+// 		});    
+	
+// 		afterEach(function(done){    
+// 	//delete all the customer records
+// 			customer.model.remove({}, function() {      
+// 				done();    
+// 			});  
+// 		});  
+// 		//tests...  
+// 	});
+// });
+
+
+// FUNCTION TESTS ===============================
+// describe('NavList', function(){
+// 	describe('Nav.Testname', function(){
+// 		it('testname',function(done){
+// 				navlist('54f0c190d86c9ed326251fc1', function(err, list){
+// 						expect(list).to.be.an('object');
+// 						expect(list.test).to.be.a('string');
+// 						expect(list.list).to.not.be.empty;
+// 						done();
+// 					});
+// 		});
+// 	});
+// });
