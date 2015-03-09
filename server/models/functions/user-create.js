@@ -32,20 +32,20 @@ module.exports = function(user, next){
             	callback(null, null);
             }
         },
-        function(arg, callback){
+        function(invite, callback){
         	console.log('make me a user', user.password);
 		    
 		    var pass = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8), null);
 
             User.create({ 
                 'name' : user.name,
-                '_account' : arg ? arg._account : mongoose.Types.ObjectId(),
+                '_account' : invite ? invite._account : mongoose.Types.ObjectId(),
                 'local.email' : user.email,
                 'local.password' : pass
             }, function(err, user){ 
                 if (err){ console.log(err); }
                 console.log('making a new user', user);
-                callback(null, {invite: arg.invite, user : user});
+                callback(null, {invite: invite, user : user});
             });
         },
         function(arg, callback){
