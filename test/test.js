@@ -48,21 +48,23 @@ describe("Check Passport", function(){
 		// make a demo user to use in this block of login checks
 		User.create({
 			name : 'login',
-			email : 'login@heistmade.com',
-			password : User.generateHash('login', function(err, password){
-						return password;
-					}),
+			local : {
+						email : 'login@heistmade.com',
+						password : User.generateHash('login', function(err, password){
+										return password;
+									})
+					},
 			_account : mongoose.Types.ObjectId()
 		}, function(err, u){
 			if(err){console.log(err);} 
 		});
 	});
 
-	after(function(done){
-		User.remove({}, function(err, doc){});
-		Test.remove({}, function(err, doc){});
-		done();
-	});
+	// after(function(done){
+	// 	User.remove({}, function(err, doc){});
+	// 	Test.remove({}, function(err, doc){});
+	// 	done();
+	// });
 	
 	describe('POST /auth/signup', function () {
 		var url = '/auth/signup';

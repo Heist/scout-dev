@@ -84,6 +84,13 @@ module.exports = function(app, passport) {
         function(req, email, password, done){
             email = email ? email.toLowerCase() : '' ; // Use lower-case e-mails to avoid case-sensitive e-mail matching
             
+            // check if we are already logged in, and if so, return
+            // check if that user is already on the system, and if so, return
+            // create a new user
+            // check if there is an invitation for that user on the system
+            // update the invitation to not be pending if there is
+            // return
+
             if (req.user){
                 // console.log('Please log out before signing up again.');
                 if(req.user.local.email){
@@ -95,30 +102,35 @@ module.exports = function(app, passport) {
                         email : email,
                         password : user.generateHash(password)
                     };
-                    
+
                     req.user.save(function(err, data) {
                         if (err) {throw err;}
-                        console.log('User updated', data);
                         return done(null, req.user);
                     });
                 }
             } else { 
                 // if no user is logged in
-                var promise = User.findOne({ 'local.email' :  email })
-                                  .exec(function(err, user) {
-                                        if(user){ return done(null, 'That email is already taken.'); } 
-                                    });
-
-                promise.then(function(){
-                    return Invitation.findOne({'_id': req.body.invite})
-                          .exec(function(err, invite){
-                            if (err){throw err;}
-                            if(invite){
-                                // there was a pending invite with that invite _id, and it's not pending now.
-                                invite.pending = false;
-                                invite.save();
-                            }
+                var promise =
+                    User.findOne({ 'local.email' :  email })
+                        .exec(function(err, user) {
+                            if(user){ return done(null, 'That email is already taken.'); } 
+                            return null;
                         });
+
+                promise.then(function(user){
+                    if(user === null ){
+                        return Invitation.findOne({'_id': req.body.invite})
+                              .exec(function(err, invite){
+                                if (err){throw err;}
+                                if(invite){
+                                    // there was a pending invite with that invite _id, and it's not pending now.
+                                    invite.pending = false;
+                                    invite.save();
+                                }
+                            });
+                          } else {
+                            return done(null, user);
+                          }
                 }).then(function(invite){
                     // make a new user and some tests.
                     return User.create({ 

@@ -19,7 +19,7 @@ else {
 
 	var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/field_guide_app_test';
 	var db = mongoose.createConnection(mongoUrl);
-	var auth_db = db.useDb('field_guide_app_test');
+	var auth_db = db.useDb('field_guide_users_test');
 	
 	console.log(mongoUrl);
 }
