@@ -9,9 +9,9 @@ module.exports = function(user, next){
     var async = require('async');
 
 // load data storage models =====================
-    var User = require('../server/models/auth/user');
-    var Invitation = require('../server/models/auth/invitation');
-    var newUserTests = require('../server/models/functions/default-tests.js');
+    var User = global.rootRequire('./server/models/auth/user');
+    var Invitation = global.rootRequire('./server/models/auth/invitation');
+    var newUserTests = global.rootRequire('./server/models/functions/default-tests.js');
 
 // CREATE A NEW USER ============================
 	console.log('new user', user);

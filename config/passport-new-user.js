@@ -18,18 +18,16 @@ module.exports =  function(user, next){
           User.findOne({ 'local.email' : user.email })
             .exec(function(err, doc) {
                 if(err){console.log(err);}
-                console.log('first function email', user.email);
                 var call = (doc !== null ) ? 'That email is already taken.' : null ;
                 callback(null, call);
             });
         },
-        function(next, callback){
-            console.log('hit new user');
-            if(next !== null ){ console.log('aint no next'); callback(null, next); }
+        function(arg, callback){
+            if(arg !== null ){ console.log('aint no next'); callback(null, arg); }
             else {
-                console.log('hit new user');
                 newUser(user, function(err, doc){
                     if(err){console.log(err);}
+                    console.log('inside newUser');
                     callback(null, doc);
                 });
             }
