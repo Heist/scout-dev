@@ -92,29 +92,16 @@ module.exports = function(app, passport) {
             // return
 
             if (req.user){
-                // console.log('Please log out before signing up again.');
-                if(req.user.local.email){
-                    // user is logged in and has e-mail
-                    return done(null, req.user);
-                } else {
-                    // user is logged in and has no e-mail.
-                    req.user.local = {
-                        email : email,
-                        password : user.generateHash(password)
-                    };
-
-                    req.user.save(function(err, data) {
-                        if (err) {throw err;}
-                        return done(null, req.user);
-                    });
-                }
+                return done(null, 'Please log out before signing up again.');
             } else { 
                 // if no user is logged in
+                console.log('passport email', email);
                 var promise =
                     User.findOne({ 'local.email' :  email })
                         .exec(function(err, user) {
+                            if(err){console.log(err); }
                             if(user){ return done(null, 'That email is already taken.'); } 
-                            return null;
+                            else { return null; }
                         });
 
                 promise.then(function(user){
