@@ -108,9 +108,10 @@ module.exports = function(app, passport, debug) {
                 req.logIn(reply.user, function(err) {
                     if (err) { return res.json(err); }
                     res.json({ 
-                        'user' : reply.user._id, 
+                        'user' : reply.user._id,
+                        '_account' : reply.user._account,
                         'email': reply.user.local.email, 
-                        'name' : reply.user.name, 
+                        'name' : reply.user.name,
                         'msg'  : 'register user worked',
                         'redirect'   : '/overview',
                         'onboarding' : reply.user.onboarding 
@@ -118,7 +119,6 @@ module.exports = function(app, passport, debug) {
                 });
                 
             } else {
-                console.log('reply', reply);
                 res.json(reply);
             }
             
@@ -126,8 +126,6 @@ module.exports = function(app, passport, debug) {
     });
 
     app.post('/auth/logout', function(req, res) {
-        // console.log('logout request', req);
-
         req.logout();
         res.json({ redirect: '/login' });
     });

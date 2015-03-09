@@ -23,7 +23,7 @@ module.exports =  function(user, next){
             });
         },
         function(arg, callback){
-            if(arg !== null ){ console.log('aint no next'); callback(null, arg); }
+            if(arg !== null ){ callback(null, arg); }
             else {
                 newUser(user, function(err, doc){
                     if(err){console.log(err);}

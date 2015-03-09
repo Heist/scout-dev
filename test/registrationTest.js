@@ -1,6 +1,7 @@
-// test.js 
+// registrationTest.js 
+// Tests user registration routes
 'use strict';
-// a sample test for the API using Mocha, Chai, and SuperTest.
+
 
 var app = require('../server.js');
 
@@ -31,7 +32,7 @@ var devTests = require('../server/models/auth/user');
 
 // Auth DB ======================================
 var User = global.rootRequire('./server/models/auth/user');
-// var Invite = global.rootRequire('./server/models/auth/invitation');
+var Invite = global.rootRequire('./server/models/auth/invitation');
 
 // // App DB =======================================
 // var Comment = global.rootRequire('./server/models/data/comment');
@@ -43,26 +44,36 @@ var Test = global.rootRequire('./server/models/data/test');
 
 describe("Check Passport", function(){
 	// var agent = request.agent(app); // this is to check logins, not account creation.
-	
+	var account = mongoose.Types.ObjectId();
+
 	before(function(){
 		// make a demo user to use in this block of login checks
 		User.create({
 			name : 'login',
 			local : {
-						email : 'login@heistmade.com',
-						password : User.generateHash('login', function(err, password){
-										return password;
-									})
+					email : 'login@heistmade.com',
+					password : User.generateHash('login', function(err, password){
+									return password;
+								})
 					},
-			_account : mongoose.Types.ObjectId()
+			_account : account
 		}, function(err, u){
 			if(err){console.log(err);} 
-		});
+			Invite.create({
+                _account : u._account,
+                created_by_user : u._id,
+                invite_email : 'sarah@made.com'
+            }, function(err, invite){
+                if(err){ console.log(err); }
+                console.log('invite', invite);
+            });
+		});        
 	});
 
 	after(function(done){
 		User.remove({}, function(err, doc){});
 		Test.remove({}, function(err, doc){});
+		Invite.remove({}, function(err, doc){});
 		done();
 	});
 	
@@ -84,7 +95,6 @@ describe("Check Passport", function(){
 				name:'becky',
 				password:'becky'
 			}).then(function(data){
-				console.log('data', data.body);
 				expect(data.body).to.deep.include({redirect: '/overview', msg:'register user worked' });
 				done();
 			}).catch(function(err){
@@ -107,6 +117,20 @@ describe("Check Passport", function(){
 				done(err);
 			})
 			.done();
+		});
+
+		it('should set an existing invitation from pending', function(done){
+			api.post(url).send({
+				email: 'sarah@made.com', 
+				name:'sarah',
+				password:'sarah'
+			}).then(function(data){
+				console.log(data.body, account);
+				expect(data.body._account).to.equal(account.toString());
+				done();
+			}).catch(function(err){
+				done(err);
+			}).done();
 		});
 	});
 

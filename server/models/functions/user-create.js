@@ -17,26 +17,25 @@ module.exports = function(user, next){
 // CREATE A NEW USER ============================
 	async.waterfall([
         function(callback){
-        	console.log('find me an invitation');
-        	if(user.invite){
-	            Invitation.findOne({'_id': user.invite})
+	            Invitation.findOne({'invite_email': user.email})
 	                .exec(function(err, invite){
 	                    if (err){ console.log(err); }
-                    // there was a pending invite with that invite _id, and it's not pending now.
-                        invite.pending = false;
-                        invite.save(function(err, data){
-                            callback(null, invite);
-                        });
+                        if( !invite ){ callback(null, null); }
+                        else {
+                            console.log('invite found', invite._account);
+                        // there was a pending invite with that invite _id, and it's not pending now.
+                            invite.pending = false;
+                            invite.save(function(err, data){
+                                callback(null, data);
+                            });
+                        }
 	                });
-            } else {
-            	callback(null, null);
-            }
         },
         function(invite, callback){
 		    var pass = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8), null);
             User.create({ 
                 'name' : user.name,
-                '_account' : invite ? invite._account : mongoose.Types.ObjectId(),
+                '_account' : (invite !== null ) ? invite._account : mongoose.Types.ObjectId(),
                 'local.email' : user.email,
                 'local.password' : pass
             }, function(err, user){ 
@@ -46,7 +45,7 @@ module.exports = function(user, next){
         },
         function(arg, callback){
         	if(arg.invite === null ){
-        		console.log('make some tests');
+        		// console.log('make some tests');
                 newUserTests(arg.user._account, arg.user._id, function(err, tests){
                     callback(null, {user: arg.user, tests: true});
                 });
