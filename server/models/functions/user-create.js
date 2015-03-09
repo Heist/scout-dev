@@ -33,10 +33,7 @@ module.exports = function(user, next){
             }
         },
         function(invite, callback){
-        	console.log('make me a user', user.password);
-		    
 		    var pass = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8), null);
-
             User.create({ 
                 'name' : user.name,
                 '_account' : invite ? invite._account : mongoose.Types.ObjectId(),
@@ -44,20 +41,17 @@ module.exports = function(user, next){
                 'local.password' : pass
             }, function(err, user){ 
                 if (err){ console.log(err); }
-                console.log('making a new user', user);
                 callback(null, {invite: invite, user : user});
             });
         },
         function(arg, callback){
-        	console.log('test for invites', arg);
-        	if(arg.invite === '' ){
+        	if(arg.invite === null ){
         		console.log('make some tests');
-                newUserTests(user._account, user._id, function(err, tests){
-                    console.log('newUserTests generated tests for', user._id);
-                    callback(null, arg.user);
+                newUserTests(arg.user._account, arg.user._id, function(err, tests){
+                    callback(null, {user: arg.user, tests: true});
                 });
         	} else {
-        		callback(null, arg.user);
+        		callback(null, {user: arg.user, tests: false});
         	}
         }], function(err, results){
         	if(err){console.log(err);}
