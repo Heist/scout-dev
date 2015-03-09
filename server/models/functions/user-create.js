@@ -55,7 +55,6 @@ module.exports = function(user, next){
         	}
         }], function(err, results){
         	if(err){console.log(err);}
-        	console.log('new user', results);
         	next(null, results);
         });
 };

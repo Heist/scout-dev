@@ -71,8 +71,9 @@ describe("Check Passport", function(){
 		it('should fail an empty request', function(done){
 			api.post(url)
 			.send({ user: null, password: null })
-			.end(function(err, res) {
-				expect(res.body).to.deep.include({ error: 'Email and Password required' });
+			.end(function(err, data) {
+				
+				expect(data.body).to.deep.include({ error: 'Email and Password required' });
 				done();
 			});
 		});
@@ -83,6 +84,7 @@ describe("Check Passport", function(){
 				name:'becky',
 				password:'becky'
 			}).then(function(data){
+				console.log('data', data.body);
 				expect(data.body).to.deep.include({redirect: '/overview', msg:'register user worked' });
 				done();
 			}).catch(function(err){

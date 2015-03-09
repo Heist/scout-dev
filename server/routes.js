@@ -96,29 +96,32 @@ module.exports = function(app, passport, debug) {
     });
 
     // process the signup form
-    app.post('/auth/signup', function(req, res, next) {
+    app.post('/auth/signup', function(req, res) {
         console.log(req.body);
         if (!req.body.email || !req.body.password) {
             return res.json({ error: 'Email and Password required' });
         }
-        passport.authenticate('local-signup', function(err, reply, info) {
-            if (err) { return res.json(err); }
-            if (reply.error) { return res.json({ error: res.error }); }
-            if (info) { console.log(info); }
-            if (reply){ 
-                console.log('auth signup user', reply); 
-                req.logIn(reply, function(err) {
+        passport.authenticate('local-signup', function(err, reply) {
+            if (err) { console.log(err); }
+
+            if(reply.user){
+                req.logIn(reply.user, function(err) {
                     if (err) { return res.json(err); }
                     res.json({ 
-                        'user' : req.user._id, 
-                        'email': req.user.local.email, 
-                        'name' : req.user.name, 
+                        'user' : reply.user._id, 
+                        'email': reply.user.local.email, 
+                        'name' : reply.user.name, 
                         'msg'  : 'register user worked',
                         'redirect'   : '/overview',
-                        'onboarding' : req.user.onboarding 
+                        'onboarding' : reply.user.onboarding 
                     });
                 });
+                
+            } else {
+                console.log('reply', reply);
+                res.json(reply);
             }
+            
         })(req, res);
     });
 
