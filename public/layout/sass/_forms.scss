@@ -4,18 +4,29 @@ FORMS!
 
 form {
 	padding: 0;
-	margin: 0;
+	margin: 25px 0;
 }
 
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
 
-.input, .button {
+.input {
+	display: inline-block;
+	margin: 0 0 20px 0;
+	padding: $pad/1.5 $pad/1.5;
+	@include radius;
+	@include type-light;
+	font-size: $type-size-base*0.87;
+	outline: none;
+	border: none;
+}
+
+.button {
 	display: inline-block;
 	margin: 0;
 	padding: $pad/1.5 $pad/1.5;
 	@include radius;
-	@include type-light;
-	font-size: $type-size-base*0.9;
+	@include type-regular;
+	font-size: $type-size-base*0.87;
 	outline: none;
 	border: none;
 }
@@ -125,6 +136,11 @@ textarea.input {
 	@include button-colour($fg-green, $white);
 	cursor: pointer;
 	
+	&.med {
+		font-size: $type-size-base*0.8;
+		padding: 10px 30px;
+	}
+
 	&.small {
 		font-size: $type-size-base*0.8;
 		padding: $pad/8 $pad/2;
@@ -184,7 +200,25 @@ textarea.input {
 		@include dropshadow;
 		
 	}
+}
 
+.button-inactive {
+	background: $white;
+	color: $fg-grey;
+	border: 1px solid $fg-grey-light;
+	outline: 0;
+	border-radius: 3px;
+	cursor: pointer;
+
+	&.med {
+		font-size: $type-size-base*0.8;
+		padding: 10px 30px;
+
+		&:hover {
+			@include button-colour($fg-green, $white);
+			border: 1px solid $fg-green-light;
+		}
+	}
 }
 
 
@@ -219,16 +253,13 @@ textarea.input {
 }
 
 
-
-
-
-
 label {
 	padding: 0;
 	margin: 0;
-	font-size: $type-size-base*0.7;
-	opacity: 0.8;
-	text-transform: uppercase;
+	font-size: $type-size-base*0.8;
+	opacity: 1;
+	color: $fg-black;
+	font-weight: 600;
 }
 
 

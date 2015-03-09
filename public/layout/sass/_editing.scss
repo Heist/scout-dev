@@ -61,20 +61,56 @@
 		.sheet {
 			padding: $pad;
 		}
+
+		h4:first-child {
+			padding: 20px 0 204px 0;
+			margin: 0;
+		}
 		
+		h4.no-pad {
+			padding: 0;
+		}
+
 		.nobullets {
-			margin-top: $pad*2;
 			width: 100%;
 			
 			.input {
 				width: 100%;
 			}
 		}		
+
+		hr {
+			width: 100%;
+			padding: 0;
+			margin: 10px auto;
+		}
+
+		@include input-placeholders;
+
+		.select-active {
+			@include button-colour($fg-green, $white);
+			border: 1px solid $fg-green-light;
+			cursor: pointer;
+
+			&:after {
+				content: 'ed';
+			}
+		}
+
+		.select-inactive {
+			background: $white;
+			color: $fg-grey;
+			border: 1px solid $fg-grey-light;
+			cursor: pointer;
+
+			&:after {
+				content: '';
+			}
+		}
 	}
 
 	.test-type {
 		padding: $pad;
-		margin: 0;
 		text-align: center;
 		position: relative;
 		border: 1px solid $white;
@@ -82,7 +118,17 @@
 		.selected-arrow {
 			display: none;
 		}
-		
+
+		p {
+			font-size: 12px;
+			line-height: 17px;
+			height: 50px;
+		}
+
+		h3 {
+			font-size: 17.5px;
+		}
+
 		&.selected {
 			@include radius;
 			border: 1px solid $fg-green-light;
