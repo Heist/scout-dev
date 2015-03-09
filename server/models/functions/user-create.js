@@ -7,6 +7,7 @@ module.exports = function(user, next){
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
     var async = require('async');
+	var bcrypt = require('bcrypt-nodejs');
 
 // load data storage models =====================
     var User = global.rootRequire('./server/models/auth/user');
@@ -33,11 +34,14 @@ module.exports = function(user, next){
         },
         function(arg, callback){
         	console.log('make me a user', user.password);
+		    
+		    var pass = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8), null);
+
             User.create({ 
                 'name' : user.name,
                 '_account' : arg ? arg._account : mongoose.Types.ObjectId(),
                 'local.email' : user.email,
-                'local.password' : User.generateHash(user.password, next)
+                'local.password' : pass
             }, function(err, user){ 
                 if (err){ console.log(err); }
                 console.log('making a new user', user);
@@ -45,7 +49,8 @@ module.exports = function(user, next){
             });
         },
         function(arg, callback){
-        	if(arg.invite !== null ){
+        	console.log('test for invites', arg);
+        	if(arg.invite === '' ){
         		console.log('make some tests');
                 newUserTests(user._account, user._id, function(err, tests){
                     console.log('newUserTests generated tests for', user._id);
@@ -54,5 +59,9 @@ module.exports = function(user, next){
         	} else {
         		callback(null, arg.user);
         	}
-        }], next);
+        }], function(err, results){
+        	if(err){console.log(err);}
+        	console.log('new user', results);
+        	next(null, results);
+        });
 };
