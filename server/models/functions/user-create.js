@@ -14,8 +14,10 @@ module.exports = function(user, next){
     var newUserTests = require('../server/models/functions/default-tests.js');
 
 // CREATE A NEW USER ============================
+	console.log('new user', user);
 	async.waterfall([
         function(callback){
+        	console.log('find me an invitation');
             Invitation.findOne({'_id': user.invite_id})
                 .exec(function(err, invite){
                     if (err){ console.log(err); }
@@ -30,6 +32,7 @@ module.exports = function(user, next){
                 });
         },
         function(arg, callback){
+        	console.log('make me a user');
             User.create({ 
                 'name' : user.name,
                 '_account' : arg.invite ? arg.invite._account : mongoose.Types.ObjectId(),
@@ -38,6 +41,7 @@ module.exports = function(user, next){
             }, function(err, user){ 
                 if (err){ console.log(err); } 
                 if(!arg.invite){
+                	console.log('make some tests');
                     newUserTests(user._account, user._id, function(err, tests){
                         console.log('newUserTests generated tests for', user._id);
                         callback(null, tests);

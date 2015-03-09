@@ -90,22 +90,22 @@ describe("Check Passport", function(){
 			}).done();
 		});
 
-		it('should fail a repeat request', function(done){
-			api.post(url).send({
-				email: 'login@heistmade.com', 
-				name:'becky',
-				password:'becky'
-			})
-			.then(function(data){
-				console.log(data.body);
-				expect(data.body).to.equal('That email is already taken.');
-				done();
-			})
-			.catch(function(err){
-				done(err);
-			})
-			.done();
-		});
+		// it('should fail a repeat request', function(done){
+		// 	api.post(url).send({
+		// 		email: 'login@heistmade.com', 
+		// 		name:'becky',
+		// 		password:'becky'
+		// 	})
+		// 	.then(function(data){
+		// 		console.log(data.body);
+		// 		expect(data.body).to.equal('That email is already taken.');
+		// 		done();
+		// 	})
+		// 	.catch(function(err){
+		// 		done(err);
+		// 	})
+		// 	.done();
+		// });
 	});
 
 });

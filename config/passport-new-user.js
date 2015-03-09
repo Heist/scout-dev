@@ -2,7 +2,6 @@
 // passport user creation function
 'use strict';
 
-
 module.exports =  function(user, next){
 // Module Dependencies
     var async = require('async');
@@ -19,13 +18,16 @@ module.exports =  function(user, next){
           User.findOne({ 'local.email' : user.email })
             .exec(function(err, doc) {
                 if(err){console.log(err);}
+                console.log('first function email', user.email);
                 var call = (doc !== null ) ? 'That email is already taken.' : null ;
-                next(null, call);
+                callback(null, call);
             });
         },
         function(next, callback){
-            if(next !== null ){ callback(null, next); }
+            console.log('hit new user');
+            if(next !== null ){ console.log('aint no next'); callback(null, next); }
             else {
+                console.log('hit new user');
                 newUser(user, function(err, doc){
                     if(err){console.log(err);}
                     callback(null, doc);
