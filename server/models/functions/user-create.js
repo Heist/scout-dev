@@ -18,26 +18,32 @@ module.exports = function(user, next){
 	async.waterfall([
         function(callback){
         	console.log('find me an invitation');
-            Invitation.findOne({'_id': user.invite_id})
-                .exec(function(err, invite){
-                    if (err){ console.log(err); }
-                    if (!invite){ callback(null, null); }
-                    if(invite){
-                        // there was a pending invite with that invite _id, and it's not pending now.
+        	if(user.invite){
+	            Invitation.findOne({'_id': user.invite})
+	                .exec(function(err, invite){
+	                    if (err){ console.log(err); }
+                    // there was a pending invite with that invite _id, and it's not pending now.
                         invite.pending = false;
                         invite.save(function(err, data){
-                            callback(null, {invite: invite});
+                            callback(null, invite);
                         });
-                    }
-                });
+	                });
+            } else {
+            	callback(null, null);
+            }
         },
         function(arg, callback){
-        	console.log('make me a user');
+        	console.log('make me a user', user.password);
+        	var pass = return User.generateHash(user.password, function(err, next){
+	        				return next;
+			        	});
+        	console.log(pass);
+        	
             User.create({ 
                 'name' : user.name,
-                '_account' : arg.invite ? arg.invite._account : mongoose.Types.ObjectId(),
+                '_account' : arg ? arg._account : mongoose.Types.ObjectId(),
                 'local.email' : user.email,
-                'local.password' : User.generateHash(user.password)
+                'local.password' : pass
             }, function(err, user){ 
                 if (err){ console.log(err); } 
                 if(!arg.invite){

@@ -88,7 +88,7 @@ module.exports = function(app, passport) {
                 name : req.body.name,
                 email : email ? email.toLowerCase() : '' , // Use lower-case e-mails to avoid case-sensitive e-mail matching
                 password : password,
-                // invite: req.body.invite || ''
+                invite: req.body.invite || ''
             };
 
             passportNewUser(user, function(err, next){
