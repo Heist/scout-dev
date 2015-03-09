@@ -14,7 +14,7 @@ module.exports = function(app, passport) {
     // load up the user model
     var User = require('../server/models/auth/user');
     var Invitation = require('../server/models/auth/invitation');
-    var newUserTests = require('../server/models/functions/default-tests.js');
+    var passportNewUser = require('./config/passport-new-user');
 
     // load the auth variables
     var configAuth = require('./auth')(app);
@@ -82,62 +82,20 @@ module.exports = function(app, passport) {
             passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
         },
         function(req, email, password, done){
-            email = email ? email.toLowerCase() : '' ; // Use lower-case e-mails to avoid case-sensitive e-mail matching
+            if (req.user){ return done(null, 'Please log out before signing up again.'); } 
             
-            // check if we are already logged in, and if so, return
-            // check if that user is already on the system, and if so, return
-            // create a new user
-            // check if there is an invitation for that user on the system
-            // update the invitation to not be pending if there is
-            // return
+            var user = {
+                name : req.body.name,
+                email : email ? email.toLowerCase() : '' , // Use lower-case e-mails to avoid case-sensitive e-mail matching
+                password : password,
+                invite: req.body.invite
+            };
 
-            if (req.user){
-                return done(null, 'Please log out before signing up again.');
-            } else { 
-                // if no user is logged in
-                console.log('passport email', email);
-                var promise =
-                    User.findOne({ 'local.email' :  email })
-                        .exec(function(err, user) {
-                            if(err){console.log(err); }
-                            if(user){ return done(null, 'That email is already taken.'); } 
-                            else { return null; }
-                        });
-
-                promise.then(function(user){
-                    if(user === null ){
-                        return Invitation.findOne({'_id': req.body.invite})
-                              .exec(function(err, invite){
-                                if (err){throw err;}
-                                if(invite){
-                                    // there was a pending invite with that invite _id, and it's not pending now.
-                                    invite.pending = false;
-                                    invite.save();
-                                }
-                            });
-                          } else {
-                            return done(null, user);
-                          }
-                }).then(function(invite){
-                    // make a new user and some tests.
-                    return User.create({ 
-                                'name' : req.body.name,
-                                '_account' : invite ? invite._account : mongoose.Types.ObjectId(),
-                                'local.email' : email ,
-                                'local.password' : generateHash(password)
-                            }, function(err, user){ 
-                                if (err){ throw err; } 
-                                if(!invite){
-                                    return newUserTests(user._account, user._id, function(err, callback){
-                                        console.log('newUserTests generated tests for', user._id);
-                                    });
-                                }
-                            });
-
-                }).then(function(user){
-                    return done(null, user);
-                });
-            } 
+            passportNewUser(user, function(err, next){
+                if(err){console.log(err);}
+                done(null, next);
+            });
+        
         })
     );
 

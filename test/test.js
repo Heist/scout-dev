@@ -10,7 +10,7 @@ var expect = require('chai').expect;
 var request = require('supertest-as-promised');
 var express = require('express');
 var cookieParser = require('cookie-parser');
-// var api = supertest(app);
+var api = request(app);
 
 var mongoose = require('mongoose');
 
@@ -42,7 +42,7 @@ var User = global.rootRequire('./server/models/auth/user');
 var Test = global.rootRequire('./server/models/data/test');
 
 describe("Check Passport", function(){
-	var agent = request.agent(app);	
+	// var agent = request.agent(app); // this is to check logins, not account creation.
 	
 	before(function(){
 		// make a demo user to use in this block of login checks
@@ -60,16 +60,16 @@ describe("Check Passport", function(){
 		});
 	});
 
-	// after(function(done){
-	// 	User.remove({}, function(err, doc){});
-	// 	Test.remove({}, function(err, doc){});
-	// 	done();
-	// });
+	after(function(done){
+		User.remove({}, function(err, doc){});
+		Test.remove({}, function(err, doc){});
+		done();
+	});
 	
 	describe('POST /auth/signup', function () {
 		var url = '/auth/signup';
 		it('should fail an empty request', function(done){
-			agent.post(url)
+			api.post(url)
 			.send({ user: null, password: null })
 			.end(function(err, res) {
 				expect(res.body).to.deep.include({ error: 'Email and Password required' });
@@ -78,7 +78,7 @@ describe("Check Passport", function(){
 		});
 
 		it('should register a new user on the db', function(done){
-			agent.post(url).send({
+			api.post(url).send({
 				email: 'becky@made.com', 
 				name:'becky',
 				password:'becky'
@@ -91,7 +91,7 @@ describe("Check Passport", function(){
 		});
 
 		it('should fail a repeat request', function(done){
-			agent.post(url).send({
+			api.post(url).send({
 				email: 'login@heistmade.com', 
 				name:'becky',
 				password:'becky'
