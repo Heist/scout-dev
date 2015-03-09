@@ -14,7 +14,6 @@ module.exports = function(user, next){
     var newUserTests = global.rootRequire('./server/models/functions/default-tests.js');
 
 // CREATE A NEW USER ============================
-	console.log('new user', user);
 	async.waterfall([
         function(callback){
         	console.log('find me an invitation');
@@ -34,27 +33,26 @@ module.exports = function(user, next){
         },
         function(arg, callback){
         	console.log('make me a user', user.password);
-        	var pass = return User.generateHash(user.password, function(err, next){
-	        				return next;
-			        	});
-        	console.log(pass);
-        	
             User.create({ 
                 'name' : user.name,
                 '_account' : arg ? arg._account : mongoose.Types.ObjectId(),
                 'local.email' : user.email,
-                'local.password' : pass
+                'local.password' : User.generateHash(user.password, next)
             }, function(err, user){ 
-                if (err){ console.log(err); } 
-                if(!arg.invite){
-                	console.log('make some tests');
-                    newUserTests(user._account, user._id, function(err, tests){
-                        console.log('newUserTests generated tests for', user._id);
-                        callback(null, tests);
-                    });
-                } else {
-                	callback(null, user);
-                }
+                if (err){ console.log(err); }
+                console.log('making a new user', user);
+                callback(null, {invite: arg.invite, user : user});
             });
+        },
+        function(arg, callback){
+        	if(arg.invite !== null ){
+        		console.log('make some tests');
+                newUserTests(user._account, user._id, function(err, tests){
+                    console.log('newUserTests generated tests for', user._id);
+                    callback(null, arg.user);
+                });
+        	} else {
+        		callback(null, arg.user);
+        	}
         }], next);
 };

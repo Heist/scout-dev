@@ -27,7 +27,7 @@ module.exports =  function(user, next){
             else {
                 newUser(user, function(err, doc){
                     if(err){console.log(err);}
-                    console.log('inside newUser');
+                    console.log('inside newUser', doc);
                     callback(null, doc);
                 });
             }
