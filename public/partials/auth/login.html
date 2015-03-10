@@ -60,12 +60,12 @@
 						
 						<li>
 							<input class="input" type="email" name="username" value="" placeholder="Your e-mail address" ng-class="{'error': regForm.username.$error.email && !regForm.username.$pristine}" ng-model="user.email" required /> 
-							<span ng-show="regForm.username.$error.email && !regForm.username.$pristine" ng-class="{'error': }">&times; Please enter a valid email address.</span>
+							<span class="small" ng-show="regForm.username.$error.email && !regForm.username.$pristine" ng-class="{'error': }">&times; Please enter a valid email address.</span>
 						</li>
 
 						<li>
 							<input class="input" type="email" name="username" value="" placeholder="Please confirm your e-mail address" ng-model="user.emailConfirm" ng-class="{'error': regForm.username.$error.email && !regForm.username.$pristine}" ng-match="user.email" required/> 
-							<span ng-show="regForm.username.$error.email && !regForm.username.$pristine">&times; Email address does not match.</span>
+							<span class="small" ng-show="regForm.username.$error.email && !regForm.username.$pristine">&times; Email address does not match.</span>
 						</li>
 						
 						<li>
@@ -75,7 +75,7 @@
 						
 						<li>
 							<input class="input" type="password" name="confirm" id="confirm-password" value="" placeholder="Please confirm your new password" ng-model="user.passwordConfirm" ng-class="{'error': regForm.confirm.$error.match && !regForm.confirm.$pristine}" ng-match="user.password" required/>
-							<span ng-show="regForm.confirm.$error.match && !regForm.confirm.$pristine" >&times; Passwords do not match.</span>
+							<span class="small" ng-show="regForm.confirm.$error.match && !regForm.confirm.$pristine" >&times; Passwords do not match.</span>
 						</li>
 						
 						<li class="text-center">
