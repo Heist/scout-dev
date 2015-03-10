@@ -75,38 +75,38 @@ module.exports = function(app, passport, debug) {
         });
 
     // process the login form
-    // app.post('/auth/login', function(req, res, next) {
-    //     console.log('touched login', req.body)
-
-    //     if (!req.body.email || !req.body.password) {
-    //         return res.json({ error: 'Email and Password required' });
-    //     }
-
-    //     passport.authenticate('local-login', function(err, user) {
-    //         console.log('login result', user);
-    //         if (err) { return res.json(err); }
-    //         if (user.error) { return res.json({ error: user.error }); }
-
-            // req.logIn(user, function(err) {
-            //     if (err) { return res.json(err); }
-                
-            //     res.json({ 'user': mongoose.Types.ObjectId(req.user._id),  'name':req.user.name, redirect: '/overview', msg:'login worked' });
-            // });
-    //     })(req, res);
-    // });
-
     app.post('/auth/login', function(req, res, next) {
-      passport.authenticate('local-login', function(err, user, info) {
-        if (err) { return next(err); }
-        if (!user) { return res.redirect('/login'); }
-        
-        req.logIn(user, function(err) {
+        console.log('touched login', req.body)
+
+        if (!req.body.email || !req.body.password) {
+            return res.json({ error: 'Email and Password required' });
+        }
+
+        passport.authenticate('local-login', function(err, user) {
+            console.log('login result', user);
+            if (err) { return res.json(err); }
+            if (user.error) { return res.json({ error: user.error }); }
+
+            req.logIn(user, function(err) {
                 if (err) { return res.json(err); }
                 
                 res.json({ 'user': mongoose.Types.ObjectId(req.user._id),  'name':req.user.name, redirect: '/overview', msg:'login worked' });
             });
-      })(req, res, next);
+        })(req, res);
     });
+
+    // app.post('/auth/login', function(req, res, next) {
+    //   passport.authenticate('local-login', function(err, user, info) {
+    //     if (err) { return next(err); }
+    //     if (!user) { return res.redirect('/login'); }
+        
+    //     req.logIn(user, function(err) {
+    //             if (err) { return res.json(err); }
+                
+    //             res.json({ 'user': mongoose.Types.ObjectId(req.user._id),  'name':req.user.name, redirect: '/overview', msg:'login worked' });
+    //         });
+    //   })(req, res, next);
+    // });
 
     app.post('/auth/logout', function(req, res) {
         req.logout();
