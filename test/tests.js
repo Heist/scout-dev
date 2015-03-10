@@ -44,7 +44,7 @@ var Invite = global.rootRequire('./server/models/auth/invitation');
 var Test = global.rootRequire('./server/models/data/test');
 
 describe("Check Passport", function(){
-	// var agent = request.agent(app); // this is to check logins, not account creation.
+	var agent = request.agent(app); // this is to check logins, not account creation.
 	var account = mongoose.Types.ObjectId();
 
 	before(function(){
@@ -131,9 +131,39 @@ describe("Check Passport", function(){
 				done(err);
 			}).done();
 		});
+	});
+
+	describe('POST login/logout', function(){
+		it('should reject an empty request', function(done){
+			agent.post('/auth/login').send({
+				email:'',
+				name: 'login',
+				password: 'login'
+			})
+			.then(function(data){
+				expect(data.body).to.deep.include({ error: 'Email and Password required' });
+				done();
+			})
+			.catch(function(err){done(err);})
+			.done();
+		})
+
+		it('should log in an existing user', function(done){
+			agent.post('/auth/login').send({
+				email:'login@heistmade.com',
+				name: 'login',
+				password: 'login'
+			})
+			.then(function(data){
+				expect(data.body).to.deep.include({name:'login', redirect: '/overview', msg:'login worked' });
+				done();
+			})
+			.catch(function(err){done(err);})
+			.done();
+		})
 
 		it('should log out a logged-in account', function(done){
-			api.post('/api/logout')
+			agent.post('/auth/logout')
 			.send({})
 			.then(function(data){
 				expect(data.body).to.deep.include({ redirect: '/login' });
@@ -142,20 +172,5 @@ describe("Check Passport", function(){
 				done(err);
 			}).done();
 		});
-
-		// it('should log in an existing user', function(done){
-		// 	api.post('/api/login').send({
-		// 		email:'login@heistmade.com',
-		// 		name: 'login',
-		// 		password: 'login'
-		// 	})
-		// 	.then(function(data){
-		// 		expect(data.body).to.deep.include({name:'login', redirect: '/overview', msg:'login worked' });
-		// 		done();
-		// 	})
-		// 	.catch(function(err){done(err);})
-		// 	.done();
-		// })
 	});
-
 });

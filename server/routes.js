@@ -92,6 +92,12 @@ module.exports = function(app, passport, debug) {
         })(req, res);
     });
 
+    app.post('/auth/logout', function(req, res) {
+        req.logout();
+        res.json({ redirect: '/login' });
+    });
+
+
     // process the signup form
     app.post('/auth/signup', function(req, res) {
         console.log(req.body);
@@ -120,11 +126,6 @@ module.exports = function(app, passport, debug) {
             }
             
         })(req, res);
-    });
-
-    app.post('/auth/logout', function(req, res) {
-        req.logout();
-        res.json({ redirect: '/login' });
     });
 
 // PASSWORD RESET ROUTES ==================================
