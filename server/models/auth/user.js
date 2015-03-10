@@ -53,6 +53,10 @@ userSchema.statics.generateHash = function(password, callback) {
     callback(null, pass);
 };
 
+userSchema.methods.genHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
 // checking if password is valid
 userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
