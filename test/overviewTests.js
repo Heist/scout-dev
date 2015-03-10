@@ -72,26 +72,24 @@ describe('Check overview and population', function(){
 
 	describe('Automatic dev test generation', function(){
 		it('should generate tests on the db and populate them with data', function(done){
-
 			agent.post('/auth/login').send({
 				email:'login@heistmade.com',
 				password: 'login'
 			}).expect(200).end(function(err, res){
-					
+				// logged in? good! Check some tests...
 				agent
-                .post('/api/dev_tests/')
-                .send({})
-                .expect(200)
-                .end(function(err, res) {
-                	console.log('data returned login', res);
-                    should.not.exist(err);
-                    console.log(res.headers['set-cookie']); // Should print nothing.
-                    res.body.should.have.property('user');
-                    res.body.user.should.have.properties('name', 'email');
-                    done();
-                });
-				})
-			
+	            .post('/api/dev_tests/')
+	            .send({})
+	            .expect(200)
+	            .end(function(err, res) {
+	            	console.log('data returned login', res.body);
+	                should.not.exist(err);
+	                console.log(res.headers['set-cookie']); // Should print nothing.
+	                res.body.should.have.property('user');
+	                res.body.user.should.have.properties('name', 'email');
+	                done();
+	            });
+			});
 		});
 	});	
 
