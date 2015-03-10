@@ -89,9 +89,7 @@ describe("Check Passport", function(){
 
 	describe('Test creation and manipulation', function(){
 		describe('Automatic dev test generation', function(){
-			it('should touch test creation', function(done){
-				done();
-			});
+			it('should touch test creation', function(done){ done(); });
 
 			it('should create a test set owned by login', function(done){
 				agent.post('/auth/login').send({
@@ -99,20 +97,28 @@ describe("Check Passport", function(){
 				password: 'login'
 				}).expect(200).end(function(err, res){
 					// logged in? good! Check some tests...
-						agent.post('/api/dev_tests/')
-			            .send({})
-			            .expect(200)
-			            .end(function(err, res) {
-			            	console.log('data returned login', res.body);
-			                should.not.exist(err);
-			                console.log(res.headers['set-cookie']); // Should print nothing.
-			                res.body.should.have.property('user');
-			                res.body.user.should.have.properties('name', 'email');
-			                done();
-			            });
+					agent.post('/api/dev_tests/')
+		            .send({})
+		            .expect(200)
+		            .end(function(err, res) {
+		            	console.log('data returned login', res.body);
+		                should.not.exist(err);
+		                console.log(res.headers['set-cookie']); // Should print nothing.
+		                res.body.should.be.an('object');
+		                res.body.user.should.have.properties('test', '_tasks');
+		                done();
+		            });
+
+		            agent.get('/api/test/')
+		            .send({})
+		            .expect(200)
+		            .end(function(err, res){
+		            	console.log(res.body)
+		            	done();
+		            });
+
 				});
 			});
-			
 		});
 	});
 
