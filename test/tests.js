@@ -2,7 +2,7 @@
 // Tests user registration routes
 'use strict';
 
-// require('blanket')({ pattern: function (filename) { return !/node_modules/.test(filename); } });
+require('blanket')({ pattern: function (filename) { return !/node_modules/.test(filename); } });
 
 var app = require('../server.js');
 
@@ -153,7 +153,9 @@ describe("Check Passport", function(){
 		it('should deny a non-logged-in user', function(done){
 			api.get('/api/test/')
 				.then(function(data){
-					
+					expect(data.body).to.be.an('object');
+					expect(data.body).to.be.empty;
+					done();
 				})
 				.catch(function(err){ done(err); })
 				.done();
@@ -171,6 +173,18 @@ describe("Check Passport", function(){
 			.catch(function(err){done(err);})
 			.done();
 		})
+
+		it('should get logged-in request tests',function(done){
+			agent.get('/api/test/')
+				.then(function(data){
+					console.log(data.body);
+					expect(data.body).to.be.an('array');
+					expect(data.body).to.have.length.of.at.least(1);
+					done();
+				})
+				.catch(function(err){ done(err); })
+				.done();
+		});
 
 		it('should log out a logged-in account', function(done){
 			agent.post('/auth/logout')
