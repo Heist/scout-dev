@@ -9,10 +9,7 @@ var app = require('../server.js');
 // Module dependencies ==========================
 var should = require('chai').should;
 var expect = require('chai').expect;
-var bcrypt = require('bcrypt-nodejs');
 var request = require('supertest-as-promised');
-var express = require('express');
-var cookieParser = require('cookie-parser');
 var api = request(app);
 
 var mongoose = require('mongoose');
@@ -37,11 +34,6 @@ var User = global.rootRequire('./server/models/auth/user');
 var Invite = global.rootRequire('./server/models/auth/invitation');
 
 // // App DB =======================================
-// var Comment = global.rootRequire('./server/models/data/comment');
-// var Message = global.rootRequire('./server/models/data/message');
-// var Subject = global.rootRequire('./server/models/data/subject');
-// var Tag = global.rootRequire('./server/models/data/tag');
-// var Task = global.rootRequire('./server/models/data/task');
 var Test = global.rootRequire('./server/models/data/test');
 
 describe("Check Passport", function(){
