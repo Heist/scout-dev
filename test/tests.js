@@ -53,13 +53,11 @@ describe("Check Passport", function(){
 	before(function(){
 		// make a demo user to use in this block of login checks
 
-        var pass = User.schema.methods.genHash('login');
-
 		User.create({
 			name : 'login',
 			local : {
 					email : 'login@heistmade.com',
-					password : pass
+					password : User.schema.methods.genHash('login')
 					},
 			_account : account
 		}, function(err, u){
@@ -70,9 +68,8 @@ describe("Check Passport", function(){
                 invite_email : 'sarah@made.com'
             }, function(err, invite){
                 if(err){ console.log(err); }
-                // console.log('invite', invite);
             });
-		});        
+		});
 	});
 
 	after(function(done){
@@ -89,7 +86,36 @@ describe("Check Passport", function(){
 
 		done();
 	});
-	
+
+	describe('Test creation and manipulation', function(){
+		describe('Automatic dev test generation', function(){
+			it('should touch test creation', function(done){
+				done();
+			});
+
+			it('should create a test set owned by login', function(done){
+				agent.post('/auth/login').send({
+				email:'login@heistmade.com',
+				password: 'login'
+				}).expect(200).end(function(err, res){
+					// logged in? good! Check some tests...
+						agent.post('/api/dev_tests/')
+			            .send({})
+			            .expect(200)
+			            .end(function(err, res) {
+			            	console.log('data returned login', res.body);
+			                should.not.exist(err);
+			                console.log(res.headers['set-cookie']); // Should print nothing.
+			                res.body.should.have.property('user');
+			                res.body.user.should.have.properties('name', 'email');
+			                done();
+			            });
+				});
+			});
+			
+		});
+	});
+
 	describe('POST /auth/signup', function () {
 		var url = '/auth/signup';
 		it('should fail an empty request', function(done){
