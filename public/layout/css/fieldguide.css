@@ -1585,7 +1585,8 @@ hr {
     width: 100%;
     margin-bottom: 4px; }
   #view-login input[type=checkbox] {
-    width: 15px; }
+    width: 15px;
+    text-align: center; }
   #view-login li:last-child {
     text-align: center; }
   #view-login a {
@@ -1595,6 +1596,8 @@ hr {
     height: auto; }
   #view-login .messaging {
     border: 1px solid rgba(255, 255, 255, 0.25); }
+  #view-login .error {
+    border: 2px solid red; }
 
 /* register */
 #view-register {

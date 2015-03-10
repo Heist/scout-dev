@@ -19,12 +19,12 @@
 
 	input[type=checkbox] {
 		width: 15px;
+		text-align: center;
 	}
 
 	li:last-child {
 		text-align: center;
 	}
-	
 	
 	a {
 		color: $white;
@@ -39,6 +39,10 @@
 	
 	.messaging {
 		border: 1px solid transparentize($white,0.75);
+	}
+
+	.error {
+		border: 2px solid red;
 	}
 }
 
