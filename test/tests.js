@@ -25,16 +25,26 @@ global.rootRequire = function(name) {
 var navlist  = require('../server/models/functions/build-object-list');
 var devTests = require('../server/models/auth/user');
 
-// Required data schema ========================================
+// =============================================================
+// Required data schema 
 // database is set by ip address in config/db.js
 // database should perhaps be set by process.env.NODE_ENV
 
-// Auth DB ======================================
-var User = global.rootRequire('./server/models/auth/user');
+// Auth DB ========
+var User   = global.rootRequire('./server/models/auth/user');
 var Invite = global.rootRequire('./server/models/auth/invitation');
 
-// // App DB =======================================
-var Test = global.rootRequire('./server/models/data/test');
+// App DB =========
+var Test    = global.rootRequire('./server/models/data/test');
+var Tag     = global.rootRequire('./server/models/data/tag');
+var Task    = global.rootRequire('./server/models/data/task');
+var	Message = global.rootRequire('./server/models/data/message');
+var Comment = global.rootRequire('./server/models/data/comment');
+var Subject = global.rootRequire('./server/models/data/subject');
+
+// =============================================================
+// START TESTS 
+// =============================================================
 
 describe("Check Passport", function(){
 	var agent = request.agent(app); // this is to check logins, not account creation.
@@ -66,9 +76,17 @@ describe("Check Passport", function(){
 	});
 
 	after(function(done){
+		// clean the DB =====
 		User.remove({}, function(err, doc){});
-		Test.remove({}, function(err, doc){});
 		Invite.remove({}, function(err, doc){});
+		
+		Test.remove({}, function(err, doc){});
+		Tag.remove({}, function(err, doc){});
+		Task.remove({}, function(err, doc){});
+		Message.remove({}, function(err, doc){});
+		Comment.remove({}, function(err, doc){});
+		Subject.remove({}, function(err, doc){});
+
 		done();
 	});
 	
@@ -165,7 +183,7 @@ describe("Check Passport", function(){
 			.catch(function(err){done(err);})
 			.done();
 		})
-		
+
 		it('should log out a logged-in account', function(done){
 			agent.post('/auth/logout')
 			.send({})
