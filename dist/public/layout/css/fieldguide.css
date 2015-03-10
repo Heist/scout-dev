@@ -1579,9 +1579,15 @@ hr {
   color: #fff;
   height: 100%;
   padding: 15% 0 0 0; }
+  #view-login label {
+    color: #fff; }
   #view-login input, #view-login button {
     width: 100%;
     margin-bottom: 4px; }
+  #view-login input[type=checkbox] {
+    width: 15px; }
+  #view-login li:last-child {
+    text-align: center; }
   #view-login a {
     color: #fff; }
   #view-login #logo img {
