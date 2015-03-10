@@ -50,12 +50,9 @@ describe("Check Passport", function(){
 
 	before(function(){
 		// make a demo user to use in this block of login checks
-		var generateHash = function(password) {
-                    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-                };
 
-        var pass = generateHash('login');
-        
+        var pass = User.schema.methods.genHash('login');
+
 		User.create({
 			name : 'login',
 			local : {
@@ -155,8 +152,8 @@ describe("Check Passport", function(){
 
 		it('should log in an existing user', function(done){
 			agent.post('/auth/login').send({
-				email:'login@heistmade.com'
-				,password: 'login'
+				email:'login@heistmade.com',
+				password: 'login'
 			})
 			.then(function(data){
 				console.log(data.body);

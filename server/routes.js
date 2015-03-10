@@ -87,11 +87,11 @@ module.exports = function(app, passport, debug) {
     //         if (err) { return res.json(err); }
     //         if (user.error) { return res.json({ error: user.error }); }
 
-    //         req.logIn(user, function(err) {
-    //             if (err) { return res.json(err); }
+            // req.logIn(user, function(err) {
+            //     if (err) { return res.json(err); }
                 
-    //             res.json({ 'user': mongoose.Types.ObjectId(req.user._id),  'name':req.user.name, redirect: '/overview', msg:'login worked' });
-    //         });
+            //     res.json({ 'user': mongoose.Types.ObjectId(req.user._id),  'name':req.user.name, redirect: '/overview', msg:'login worked' });
+            // });
     //     })(req, res);
     // });
 
@@ -99,10 +99,12 @@ module.exports = function(app, passport, debug) {
       passport.authenticate('local-login', function(err, user, info) {
         if (err) { return next(err); }
         if (!user) { return res.redirect('/login'); }
+        
         req.logIn(user, function(err) {
-          if (err) { return next(err); }
-          return res.redirect('/users/' + user.username);
-        });
+                if (err) { return res.json(err); }
+                
+                res.json({ 'user': mongoose.Types.ObjectId(req.user._id),  'name':req.user.name, redirect: '/overview', msg:'login worked' });
+            });
       })(req, res, next);
     });
 

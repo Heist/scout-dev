@@ -50,7 +50,7 @@ module.exports = function(app, passport) {
         if (email) {email = email.toLowerCase();} // Use lower-case e-mails to avoid case-sensitive e-mail matching
         // console.log('touched local login');
         // asynchronous
-        // process.nextTick(function() {
+        process.nextTick(function() {
             User.findOne({ 'local.email' :  email }, function(err, user) {
                 // if there are any errors, return the error
                 if (err) {return done(err);}
@@ -59,15 +59,14 @@ module.exports = function(app, passport) {
                 if (!user) { return done(null, { error: 'No user found. ' }); }
 
                 if (!user.validPassword(password))
-                    {   console.log('no valid password');
-                        return done(null, { error: 'Oops! Wrong password.' });}
-                        
+                    {   return done(null, { error: 'Oops! Wrong password.' });}
+
                 // all is well, return user
                 if(user)
                     {   console.log('found a user', user);
                         return done(null, user); }
             });
-        // });
+        });
     }));
 
 // =========================================================================
