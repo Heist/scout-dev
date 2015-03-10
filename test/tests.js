@@ -2,6 +2,7 @@
 // Tests user registration routes
 'use strict';
 
+require('blanket')({ pattern: function (filename) { return !/node_modules/.test(filename); } });
 
 var app = require('../server.js');
 
@@ -65,7 +66,7 @@ describe("Check Passport", function(){
                 invite_email : 'sarah@made.com'
             }, function(err, invite){
                 if(err){ console.log(err); }
-                console.log('invite', invite);
+                // console.log('invite', invite);
             });
 		});        
 	});
@@ -83,7 +84,6 @@ describe("Check Passport", function(){
 			api.post(url)
 			.send({ user: null, password: null })
 			.end(function(err, data) {
-				
 				expect(data.body).to.deep.include({ error: 'Email and Password required' });
 				done();
 			});
@@ -109,7 +109,6 @@ describe("Check Passport", function(){
 				password:'becky'
 			})
 			.then(function(data){
-				console.log(data.body);
 				expect(data.body).to.equal('That email is already taken.');
 				done();
 			})
@@ -119,19 +118,44 @@ describe("Check Passport", function(){
 			.done();
 		});
 
-		it('should set an existing invitation from pending', function(done){
-			api.post(url).send({
+		it('should set new user account from existing invitation', function(done){
+			api.post(url)
+			.send({
 				email: 'sarah@made.com', 
 				name:'sarah',
 				password:'sarah'
 			}).then(function(data){
-				console.log(data.body, account);
 				expect(data.body._account).to.equal(account.toString());
 				done();
 			}).catch(function(err){
 				done(err);
 			}).done();
 		});
+
+		it('should log out a logged-in account', function(done){
+			api.post('/api/logout')
+			.send({})
+			.then(function(data){
+				expect(data.body).to.deep.include({ redirect: '/login' });
+				done();
+			}).catch(function(err){
+				done(err);
+			}).done();
+		});
+
+		// it('should log in an existing user', function(done){
+		// 	api.post('/api/login').send({
+		// 		email:'login@heistmade.com',
+		// 		name: 'login',
+		// 		password: 'login'
+		// 	})
+		// 	.then(function(data){
+		// 		expect(data.body).to.deep.include({name:'login', redirect: '/overview', msg:'login worked' });
+		// 		done();
+		// 	})
+		// 	.catch(function(err){done(err);})
+		// 	.done();
+		// })
 	});
 
 });

@@ -76,21 +76,18 @@ module.exports = function(app, passport, debug) {
 
     // process the login form
     app.post('/auth/login', function(req, res, next) {
-        // make sure that you're logged out before trying to log anyone else in
-        // req.logout();
-
         if (!req.body.email || !req.body.password) {
             return res.json({ error: 'Email and Password required' });
         }
 
-        passport.authenticate('local-login', function(err, user, info) {
+        passport.authenticate('local-login', function(err, user) {
             if (err) { return res.json(err); }
             if (user.error) { return res.json({ error: user.error }); }
 
             req.logIn(user, function(err) {
                 if (err) { return res.json(err); }
-
-                return res.json({ 'user': mongoose.Types.ObjectId(req.user._id),  'name':req.user.name, redirect: '/overview', msg:'login worked' });
+                console.log('login result', user);
+                res.json({ 'user': mongoose.Types.ObjectId(req.user._id),  'name':req.user.name, redirect: '/overview', msg:'login worked' });
             });
         })(req, res);
     });

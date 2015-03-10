@@ -22,7 +22,7 @@ module.exports = function(user, next){
 	                    if (err){ console.log(err); }
                         if( !invite ){ callback(null, null); }
                         else {
-                            console.log('invite found', invite._account);
+                            // console.log('invite found', invite._account);
                         // there was a pending invite with that invite _id, and it's not pending now.
                             invite.pending = false;
                             invite.save(function(err, data){
