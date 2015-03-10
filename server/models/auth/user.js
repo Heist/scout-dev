@@ -54,7 +54,7 @@ userSchema.statics.generateHash = function(password, callback) {
 };
 
 // checking if password is valid
-userSchema.statics.validPassword = function(password) {
+userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 

@@ -48,26 +48,26 @@ module.exports = function(app, passport) {
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     }, function(req, email, password, done) {
         if (email) {email = email.toLowerCase();} // Use lower-case e-mails to avoid case-sensitive e-mail matching
-
+        // console.log('touched local login');
         // asynchronous
-        process.nextTick(function() {
+        // process.nextTick(function() {
             User.findOne({ 'local.email' :  email }, function(err, user) {
                 // if there are any errors, return the error
-                if (err)
-                    {return done(err);}
+                if (err) {return done(err);}
 
                 // if no user is found, return the message
-                if (!user)
-                    {return done(null, { error: 'No user found. ' });}
+                if (!user) { return done(null, { error: 'No user found. ' }); }
 
                 if (!user.validPassword(password))
-                    {return done(null, { error: 'Oops! Wrong password.' });}
-
+                    {   console.log('no valid password');
+                        return done(null, { error: 'Oops! Wrong password.' });}
+                        
                 // all is well, return user
-                else
-                    {return done(null, user);}
+                if(user)
+                    {   console.log('found a user', user);
+                        return done(null, user); }
             });
-        });
+        // });
     }));
 
 // =========================================================================
