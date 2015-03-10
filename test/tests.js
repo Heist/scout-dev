@@ -165,19 +165,7 @@ describe("Check Passport", function(){
 			.catch(function(err){done(err);})
 			.done();
 		})
-
-		it('should get logged-in request tests',function(done){
-			agent.get('/api/test/')
-				.then(function(data){
-					console.log(data.body);
-					expect(data.body).to.be.an('array');
-					expect(data.body).to.have.length.of.at.least(1);
-					done();
-				})
-				.catch(function(err){ done(err); })
-				.done();
-		});
-
+		
 		it('should log out a logged-in account', function(done){
 			agent.post('/auth/logout')
 			.send({})
