@@ -76,14 +76,11 @@ module.exports = function(app, passport, debug) {
 
     // process the login form
     app.post('/auth/login', function(req, res, next) {
-        console.log('touched login', req.body)
-
         if (!req.body.email || !req.body.password) {
             return res.json({ error: 'Email and Password required' });
         }
 
         passport.authenticate('local-login', function(err, user) {
-            console.log('login result', user);
             if (err) { return res.json(err); }
             if (user.error) { return res.json({ error: user.error }); }
 
@@ -95,19 +92,6 @@ module.exports = function(app, passport, debug) {
         })(req, res);
     });
 
-    // app.post('/auth/login', function(req, res, next) {
-    //   passport.authenticate('local-login', function(err, user, info) {
-    //     if (err) { return next(err); }
-    //     if (!user) { return res.redirect('/login'); }
-        
-    //     req.logIn(user, function(err) {
-    //             if (err) { return res.json(err); }
-                
-    //             res.json({ 'user': mongoose.Types.ObjectId(req.user._id),  'name':req.user.name, redirect: '/overview', msg:'login worked' });
-    //         });
-    //   })(req, res, next);
-    // });
-
     app.post('/auth/logout', function(req, res) {
         req.logout();
         res.json({ redirect: '/login' });
@@ -116,7 +100,7 @@ module.exports = function(app, passport, debug) {
 
     // process the signup form
     app.post('/auth/signup', function(req, res) {
-        console.log(req.body);
+        // console.log(req.body);
         if (!req.body.email || !req.body.password) {
             return res.json({ error: 'Email and Password required' });
         }
@@ -148,7 +132,6 @@ module.exports = function(app, passport, debug) {
     // forgotten passwords
     app.post('/auth/forgot', function(req, res, next) {
         var forgotPassword = global.rootRequire('./server/models/functions/forgot-password-token');
-
         forgotPassword( req.body.email, app, function(err, password){
             res.send(passport);
         });
@@ -156,7 +139,7 @@ module.exports = function(app, passport, debug) {
 
     // password reset route
     app.get('/reset/:token', function(req, res) {
-        console.log('check reset');
+        // console.log('check reset');
         User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
             if (!user) { res.send('0'); }
             res.send('1');
@@ -165,7 +148,7 @@ module.exports = function(app, passport, debug) {
 
     // password reset route
     app.post('/reset/:token', function(req, res) {
-        console.log('password reset queued');
+        // console.log('password reset queued');
         var resetPassword = global.rootRequire('./server/models/functions/reset-lost-password');
 
         resetPassword(req.params.token, req.body.password, app, function(err, pass){

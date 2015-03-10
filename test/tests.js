@@ -136,19 +136,19 @@ describe("Check Passport", function(){
 	});
 
 	describe('POST login/logout', function(){
-		// it('should reject an empty request', function(done){
-		// 	api.post('/auth/login').send({
-		// 		email:'',
-		// 		name: 'login',
-		// 		password: 'login'
-		// 	})
-		// 	.then(function(data){
-		// 		expect(data.body).to.deep.include({ error: 'Email and Password required' });
-		// 		done();
-		// 	})
-		// 	.catch(function(err){done(err);})
-		// 	.done();
-		// })
+		it('should reject an empty request', function(done){
+			api.post('/auth/login').send({
+				email:'',
+				name: 'login',
+				password: 'login'
+			})
+			.then(function(data){
+				expect(data.body).to.deep.include({ error: 'Email and Password required' });
+				done();
+			})
+			.catch(function(err){done(err);})
+			.done();
+		})
 
 		it('should log in an existing user', function(done){
 			agent.post('/auth/login').send({
@@ -156,7 +156,6 @@ describe("Check Passport", function(){
 				password: 'login'
 			})
 			.then(function(data){
-				console.log(data.body);
 				expect(data.body).to.deep.include({name:'login', redirect: '/overview', msg:'login worked' });
 				done();
 			})
@@ -164,15 +163,15 @@ describe("Check Passport", function(){
 			.done();
 		})
 
-		// it('should log out a logged-in account', function(done){
-		// 	agent.post('/auth/logout')
-		// 	.send({})
-		// 	.then(function(data){
-		// 		expect(data.body).to.deep.include({ redirect: '/login' });
-		// 		done();
-		// 	}).catch(function(err){
-		// 		done(err);
-		// 	}).done();
-		// });
+		it('should log out a logged-in account', function(done){
+			agent.post('/auth/logout')
+			.send({})
+			.then(function(data){
+				expect(data.body).to.deep.include({ redirect: '/login' });
+				done();
+			}).catch(function(err){
+				done(err);
+			}).done();
+		});
 	});
 });

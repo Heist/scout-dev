@@ -63,8 +63,7 @@ module.exports = function(app, passport) {
 
                 // all is well, return user
                 if(user)
-                    {   console.log('found a user', user);
-                        return done(null, user); }
+                    {  return done(null, user); }
             });
         });
     }));
