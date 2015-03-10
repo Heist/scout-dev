@@ -150,6 +150,15 @@ describe("Check Passport", function(){
 			.done();
 		})
 
+		it('should deny a non-logged-in user', function(done){
+			api.get('/api/test/')
+				.then(function(data){
+					
+				})
+				.catch(function(err){ done(err); })
+				.done();
+		});
+
 		it('should log in an existing user', function(done){
 			agent.post('/auth/login').send({
 				email:'login@heistmade.com',
