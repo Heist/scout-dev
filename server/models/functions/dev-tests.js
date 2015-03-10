@@ -221,20 +221,20 @@ module.exports = function(account, user, next){
                         }
                     ], 
                     function(err, results){ 
-                        callback(null, { test : arg.test });
+                        Test.findOne({'_id':arg.test._id})
+                        .populate('_messages _subjects _tasks')
+                        .exec(function(err,test){
+                            callback(null, { test : test });
+                        });
                     });
                 }
-            ], 
-            function(err, results){
-                callback(null, results);
-            });                
+            ], callback );                
         },
         function(arg, callback){
             callback(null, arg);
         }
     ], 
     function(err, results){
-        console.log('route results', results);
         next(null, results.test);
     });
 
