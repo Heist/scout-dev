@@ -1146,7 +1146,7 @@ hr {
         #timeline ul .message .message-details .message-details-avatar {
           width: 20px;
           text-align: center;
-          overtest: hidden;
+          overflow: hidden;
           margin: 0 10px 0 0;
           padding: 0 0 2px 0;
           font-size: 22.5px;
@@ -1198,7 +1198,9 @@ hr {
     padding: 15px 0;
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
-    font-weight: 300; }
+    font-weight: 300;
+    overflow-y: auto;
+    height: 93%; }
     #timeline-user #timeline-user-only .timeline-user-avatar {
       display: block;
       padding: 0;
@@ -1220,7 +1222,7 @@ hr {
   #timeline-user .timeline-user-avatar {
     display: inline-block;
     vertical-align: middle;
-    overtest: hidden; }
+    overflow: hidden; }
 
 #timeline-device {
   padding: 10px;
