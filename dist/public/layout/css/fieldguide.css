@@ -1125,7 +1125,6 @@ hr {
   padding: 0 0 150px 0;
   width: 100%;
   height: 100%;
-  background: red;
   overflow: auto;
   margin: 0;
   background: url('../assets/timeline-line.gif') repeat-y 24px top;
@@ -1146,7 +1145,7 @@ hr {
         #timeline ul .message .message-details .message-details-avatar {
           width: 20px;
           text-align: center;
-          overtest: hidden;
+          overflow: hidden;
           margin: 0 10px 0 0;
           padding: 0 0 2px 0;
           font-size: 22.5px;
@@ -1220,7 +1219,7 @@ hr {
   #timeline-user .timeline-user-avatar {
     display: inline-block;
     vertical-align: middle;
-    overtest: hidden; }
+    overflow: hidden; }
 
 #timeline-device {
   padding: 10px;
@@ -2436,7 +2435,8 @@ hr {
     float: left;
     width: 90%; }
     .message .message-body p {
-      margin-bottom: 0 !important; }
+      margin-bottom: 0 !important;
+      color: #939598; }
     .message .message-body small {
       display: block;
       margin: 0;
@@ -2525,7 +2525,12 @@ hr {
       height: 80%;
       overflow: auto; }
       #view-findings #findings-nav #sidebar li {
-        width: 95%; }
+        width: 95%;
+        padding-bottom: 20px; }
+      #view-findings #findings-nav #sidebar .test-id h3 {
+        font-family: "proxima-nova",sans-serif;
+        font-style: normal;
+        font-weight: 600; }
   #view-findings .sheet-holder {
     position: absolute;
     top: 0;

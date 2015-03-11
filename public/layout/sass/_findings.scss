@@ -14,7 +14,6 @@
 		}
 	}
 	
-	
 	&.show-comments {
 		
 		.sheet-holder {
@@ -26,7 +25,7 @@
 			left: 5%;
 			@include animated;
 		}
-	
+
 		.message-comments {
 			display: block;
 		}
@@ -76,6 +75,14 @@
 			
 			li {
 				width: 95%;
+				padding-bottom: 20px;
+			}
+
+			.test-id {
+
+				h3 {
+					@include type-bold;
+				}
 			}
 		}
 	}
