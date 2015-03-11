@@ -2,7 +2,7 @@
 // Tests user registration routes
 'use strict';
 
-require('blanket')({ pattern: function (filename) { return !/node_modules/.test(filename); } });
+// require('blanket')({ pattern: function (filename) { return !/node_modules/.test(filename); } });
 
 // Set global to work outside of node =========================
 global.rootRequire = function(name) {

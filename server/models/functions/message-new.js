@@ -1,4 +1,4 @@
-// new-message.js
+// message-new.js
 // create a new message on the DB
 'use strict';
 

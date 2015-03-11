@@ -14,8 +14,8 @@ module.exports = function(app, passport, io, debug) {
     var Subject = global.rootRequire('./server/models/data/subject');
 
 // load functions ========================================= 
-    var newMessage = global.rootRequire('./server/models/functions/new-message.js');
-    var objectUpdates  = global.rootRequire('./server/models/functions/object-updates');
+    var newMessage = global.rootRequire('./server/models/functions/message-new.js');
+    var objectUpdates  = global.rootRequire('./server/models/functions/object-update');
 
 // RUN ROUTES =============================================
     app.route('/api/run/')

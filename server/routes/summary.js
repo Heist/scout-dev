@@ -8,7 +8,7 @@ module.exports = function (app, passport, debug) {
 
 // load functions ===============================
     var buildSummary   = global.rootRequire('./server/models/functions/build-summary');
-    var objectUpdates  = global.rootRequire('./server/models/functions/object-updates');
+    var objectUpdates  = global.rootRequire('./server/models/functions/object-update');
     var messageFav     = global.rootRequire('./server/models/functions/message-fav');
     var newComment     = global.rootRequire('./server/models/functions/comment');    
 

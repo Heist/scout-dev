@@ -1,4 +1,4 @@
-// object-updates.js
+// object-update.js
 'use strict';
 
 // Takes an array of objects, finds each object in array on server

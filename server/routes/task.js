@@ -12,7 +12,7 @@ module.exports = function(app, passport, debug) {
     
 // load functions ===============================
     var deleteTask     = global.rootRequire('./server/models/functions/delete-task.js');
-    var objectUpdates  = global.rootRequire('./server/models/functions/object-updates');
+    var objectUpdates  = global.rootRequire('./server/models/functions/object-update');
 
 // TASK ROUTES ===================================================
 
