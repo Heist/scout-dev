@@ -16,7 +16,7 @@ module.exports = function(app, passport, debug) {
     var models  = require('../models');
  
 // load functions  ==============================
-    var functions  = require('../models/functions');
+    var fn  = require('../models/functions');
 
 // PASSWORD ROUTES ==============================
     app.post('/auth/forgot', function(req, res, next) {        

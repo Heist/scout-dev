@@ -3,7 +3,7 @@
 'use strict';
 
 module.exports = function(request, user, next){
-    var models = require('../models');
+    var models = require('../../models');
 
 // COMMENT ON A MESSAGE ===================================
     var reply = {};

@@ -14,7 +14,7 @@ module.exports = function(app, debug){
     var models  = require('../models');
  
 // load functions  ==============================
-    var functions  = require('../models/functions')
+    var fn  = require('../models/functions')
     var Emailer     = require('../models/mailer');
 
 // Invite ROUTES ======================================
@@ -70,7 +70,7 @@ module.exports = function(app, debug){
     app.route('/api/invite/')
         .post(function(req,res){
             // create a new Invite
-            functions.createInvite(req.body, req.user, function(err, invite){
+            fn.createInvite(req.body, req.user, function(err, invite){
                 if(err){console.log(err);}
                 res.json(invite);
             });
@@ -82,7 +82,7 @@ module.exports = function(app, debug){
         })
         .post(function(req,res){
             // this is to resend an Invite already sent
-            functions.resendInvite(req.params._id, req.user, function(err, invite){
+            fn.resendInvite(req.params._id, req.user, function(err, invite){
                 if(err){console.log(err);}
                 res.json(invite);
             });

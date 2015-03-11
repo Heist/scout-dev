@@ -6,7 +6,7 @@ module.exports = function(request, next){
 
 // Module dependencies ==========================
     var async    = require('async');
-    var models = require('../models');
+    var models = require('../../models');
 
 // CREATE A NEW SUBJECT ===================================
     async.waterfall([function(callback){

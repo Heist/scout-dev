@@ -5,18 +5,14 @@
 module.exports = function(message_array, next){
 
 // Module dependencies ==========================
-    var mongoose = require('mongoose');  // can't set an ObjectID without this.
-    var _        = require('lodash');
     var async    = require('async');
-
-// load data storage models =====================
-    var Message  = global.rootRequire('./server/models/data/message');
+    var models = require('../../models');
 
 // Map an array of messages and return them as favourited ===============
 
     async.map(message_array,
         function(msg, callback){
-            Message.findByIdAndUpdate(
+            models.Message.findByIdAndUpdate(
                 msg._id, 
                 { 
                     'fav_task' : msg.fav_task,

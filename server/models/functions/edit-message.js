@@ -9,14 +9,10 @@ module.exports = function(msg, next){
     var _        = require('lodash');
     var async    = require('async');
     var Promise  = require('bluebird');
+    var models   = require('../../models');
+    var fn       = require('../models/functions');
 
-// load data storage models =====================
-    var Message = global.rootRequire('./server/models/data/message');
-    var Tag     = global.rootRequire('./server/models/data/tag');
-
-// load functions ===============================
-    var tagPuller = global.rootRequire('./server/models/functions/tag-puller.js');
-    var tags = tagPuller(msg.body);
+    var tags = fn.tagPuller(msg.body);
 
 // EDIT A MESSAGE =========================================
 
@@ -38,7 +34,7 @@ module.exports = function(msg, next){
             // If the tag's there and doesn't have the msg, push it, save.
 
             async.map(tags, function (name, callback) {
-                Tag.findOne({'name' : name})
+                models.Tag.findOne({'name' : name})
                     .exec(function (err, doc) {
                         if(err){ console.log(err); }
 
@@ -70,7 +66,7 @@ module.exports = function(msg, next){
         },
         function(tag_set, callback){
             // Save the new message body
-            Message.findOne({'_id' : msg._id})
+            models.Message.findOne({'_id' : msg._id})
                .exec(function(err, m){
                     m.body = msg.body;
                     m.save(function(err, data){
@@ -83,7 +79,7 @@ module.exports = function(msg, next){
              // then send them to have new messages added to their joins
             async.waterfall([
                 function(callback) {
-                    Tag.find({'_messages' : {$in : [msg._id]}, 'name' : {$nin : tags}})
+                    models.Tag.find({'_messages' : {$in : [msg._id]}, 'name' : {$nin : tags}})
                        .exec(function(err, docs){
                             if(err){ console.log(err); }
                             callback(null, docs);
@@ -108,7 +104,7 @@ module.exports = function(msg, next){
         function(args, callback){
             // If there are tags that still hold messages that have been deleted
             // Remove the reference to those messages from the tag
-            Tag.remove({'_messages' : {$size : 0}}, function(err, gone){
+            models.Tag.remove({'_messages' : {$size : 0}}, function(err, gone){
                 callback(null, args);
             });
         }      

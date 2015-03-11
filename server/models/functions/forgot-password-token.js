@@ -7,11 +7,8 @@ module.exports = function(emailAddress, app, next){
     var async   = require('async');
     var crypto  = require('crypto');
     var nodemailer = require('nodemailer');
-
-// load data models =============================
-    var User    = global.rootRequire('./server/models/auth/user');
-
-// load functions ===============================
+    
+    var models = require('../../models');
 
 // SEND A LOST PASSWORD TOKEN =============================
     async.waterfall([
@@ -22,7 +19,7 @@ module.exports = function(emailAddress, app, next){
             });
         },
         function(token, done) {
-            User.findOne({ 'local.email': emailAddress }, function(err, user) {
+            models.User.findOne({ 'local.email': emailAddress }, function(err, user) {
                 if (!user) {
                     done(err, token, '0');
                 } else {

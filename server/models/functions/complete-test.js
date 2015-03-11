@@ -8,8 +8,8 @@ module.exports = function(test_id, next){
     var _ = require('lodash');
     var async = require('async');
     
-    var models = require('../models');
-    var functions = require('../models/functions');
+    var models = require('../../models');
+    var fn = require('../models/functions');
 
 // FINISH THE TEST AND POST CHANGES =======================
     

@@ -14,7 +14,7 @@ module.exports = function(app, passport, debug) {
     var models  = require('../models');
  
 // load functions  ==============================
-    var functions  = require('../models/functions')
+    var fn  = require('../models/functions')
 
 //MESSAGE ROUTES  ================================================
 
@@ -22,14 +22,14 @@ module.exports = function(app, passport, debug) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
-        functions.messageNew(req.body, req.user._id, function(err, message){
+        fn.messageNew(req.body, req.user._id, function(err, message){
                 if(err){console.log(err);}
                 res.json(message);
             });
     })
     .put(function(req, res){
     // Edit the body of a message and change its tag associations
-        functions.editMessage(req.body, function(err, msg){
+        fn.editMessage(req.body, function(err, msg){
             if(err){console.log(err);}
             res.json(msg);
         });
@@ -39,7 +39,7 @@ module.exports = function(app, passport, debug) {
    .put(function(req, res){
     // post fav to a message or array of messages
         var message_array = [req.body];
-        functions.messageFav(message_array, function(err, messages){
+        fn.messageFav(message_array, function(err, messages){
             if(err){console.log(err);}
             res.json(messages);
         });

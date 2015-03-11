@@ -14,7 +14,7 @@ var Test    = require('../data/test');
 var Tag     = require('../data/tag');
 var Subject = require('../data/subject');
 var User    = require('../auth/user');
-var Invitation = require('../auth/invitation');
+var Invite = require('../auth/Invite');
 
 var getUser = function (account) {
     return User.find({'_account': account}).select('name local.email');

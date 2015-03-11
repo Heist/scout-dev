@@ -11,7 +11,7 @@ module.exports = function(app, passport, io, debug) {
     var models  = require('../models');
  
 // load functions  ==============================
-    var functions  = require('../models/functions');
+    var fn  = require('../models/functions');
 
 // RUN ROUTES =============================================
     app.route('/api/run/')
@@ -20,7 +20,7 @@ module.exports = function(app, passport, io, debug) {
         .post(function(req,res){
             // req.body should be an array of objects on DB to be updated.
             
-            functions.objectUpdate(req.body, function(err, next){
+            fn.objectUpdate(req.body, function(err, next){
                 if(err){ console.log(err); }
                 res.json('completed', next);
             });

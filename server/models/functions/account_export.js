@@ -13,7 +13,7 @@ module.exports = function(account, callback, debug){
     var async = require('async');
 
     // load data storage models
-    var models = require('../models');
+    var models = require('../../models');
 
     // get all users who have the same account number as this user
     // get all tests with that account number

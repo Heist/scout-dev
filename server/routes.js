@@ -17,7 +17,7 @@ module.exports = function(app, passport, debug) {
 
 // load data storage models
     var models = require('./models');
-    var functions = require('./models/functions')
+    var fn = require('./models/functions')
 
 
 // AUTH ROUTES ============================================
@@ -120,7 +120,7 @@ module.exports = function(app, passport, debug) {
 // PASSWORD RESET ROUTES ==================================
     // forgotten passwords
     app.post('/auth/forgot', function(req, res, next) {
-        functions.forgotPasswordToken( req.body.email, app, function(err, password){
+        fn.forgotPasswordToken( req.body.email, app, function(err, password){
             res.send(passport);
         });
     });
@@ -136,7 +136,7 @@ module.exports = function(app, passport, debug) {
 
     // password reset route
     app.post('/reset/:token', function(req, res) {
-        functions.resetPassword(req.params.token, req.body.password, app, function(err, pass){
+        fn.resetPassword(req.params.token, req.body.password, app, function(err, pass){
             if(err){console.log(err);}
             res.send(pass);
         });
@@ -146,8 +146,8 @@ module.exports = function(app, passport, debug) {
 // PUBLIC ROUTES ==========================================
     app.route('/auth/invite/:_id')
         .get(function(req,res){
-            // get an existing invitation to populate the registration page
-            models.Invitation.findById(req.params._id)
+            // get an existing Invite to populate the registration page
+            models.Invite.findById(req.params._id)
                 .select('invite_email')
                 .exec(function(err,invite){
                     if(err) { return console.log(err); }
@@ -239,7 +239,7 @@ module.exports = function(app, passport, debug) {
 
     // app.route('/debug/invite')
     //     .get(function(req,res){
-    //         Invitation.find(function(err, invites) {
+    //         Invite.find(function(err, invites) {
     //                 if(err){console.log(err);}
 
     //                 res.json(invites);
@@ -263,7 +263,7 @@ module.exports = function(app, passport, debug) {
     // require('./routes/account_export')(app);
     app.route('/auth/export/account/')
         .get(function(req,res){
-            functions.accountExporter(req.user._account, function(err, account) {
+            fn.accountExporter(req.user._account, function(err, account) {
                 if(err){console.log(err);}
                 res.json(account);
             });
@@ -276,7 +276,7 @@ module.exports = function(app, passport, debug) {
 
     app.route('/api/public/report/:_id')
     .get(function(req, res){
-        functions.buildSummary(req.params._id, function(err, summary){
+        fn.buildSummary(req.params._id, function(err, summary){
             if(err){console.log(err);}
             res.json(summary);
         });

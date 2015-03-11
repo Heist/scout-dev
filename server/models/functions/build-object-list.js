@@ -8,7 +8,7 @@ module.exports = function(report_id, next){
     var _ = require('lodash');
     var async = require('async');
     
-    var models = require('../models');
+    var models = require('../../models');
 
 // CREATE THE LEFT NAVIGATION LIST ========================
     // get all relevant objects, sanitize them and return them in an array

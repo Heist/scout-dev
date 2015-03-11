@@ -1,22 +1,16 @@
 // resend-invite.js
-// Resend an extant invitation
+// Resend an extant Invite
 'use strict';
 
 module.exports = function(inviteId, inviter, next){
 
-// Module dependencies ====================================
-    var mongoose = require('mongoose');  // Permits use of ObjectID type
-    var _        = require('lodash');
-    var async    = require('async');
-    var Promise  = require('bluebird');
+// Module dependencies ==========================
+    var async   = require('async');
+    var Emailer = require('../models/mailer');
+    var models  = require('../../models');
 
-// Load models ============================================
-    var User       = global.rootRequire('./server/models/auth/user');
-    var Invitation = global.rootRequire('./server/models/auth/invitation');
-    var Emailer    = global.rootRequire('./server/models/mailer');
-
-// Create an invitation ===================================
-    Invitation.findById(inviteId)
+// Create an Invite ===================================
+    models.Invite.findById(inviteId)
         .exec(function(err,invite){
             
             var envelope_options = {
@@ -29,7 +23,7 @@ module.exports = function(inviteId, inviter, next){
             };
 
             var message_variables = {
-                invitation_by: "Field Guide",
+                Invite_by: "Field Guide",
                 invite_link: 'http://projects.fieldguideapp.com/login/'+invite._id
             };
 

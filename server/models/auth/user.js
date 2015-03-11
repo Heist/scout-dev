@@ -11,7 +11,7 @@ var Schema = mongoose.Schema;
  
 // Users are the people who log in to our system to use it.
 // They live on a separate DB from data.
-// This DB is also where we store invitations.
+// This DB is also where we store Invites.
 
 var userSchema = new Schema({
     _account: {type: Schema.Types.ObjectId},

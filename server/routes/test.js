@@ -10,7 +10,7 @@ module.exports = function(app, passport, debug) {
     var models  = require('../models');
  
 // load functions  ==============================
-    var functions  = require('../models/functions');
+    var fn  = require('../models/functions');
 
 // TEST ROUTES ===================================================
 
@@ -38,7 +38,7 @@ module.exports = function(app, passport, debug) {
     app.route('/api/dev_tests/')
     .post(function(req, res){
     // This builds a mock for testing reports
-        functions.devTest(req.user._account, req.user._id, function(err, test){
+        fn.devTest(req.user._account, req.user._id, function(err, test){
             res.json(test);
         });
     });
@@ -55,20 +55,20 @@ module.exports = function(app, passport, debug) {
     })
     .post(function(req,res){
     // Duplicate a test with new steps and things but which appears to be identical
-        functions.dupeTest(req.params._id, function(err, test){
+        fn.dupeTest(req.params._id, function(err, test){
             res.json(test);
         });
     })
     .put(function(req,res){
     // update one test with new information
-        functions.editTest(req.body, function(err, test){
+        fn.editTest(req.body, function(err, test){
             if(err){console.log(err);}
             res.json(test);
         });
     })
     .delete(function(req,res){
     // Delete a test and dependencies
-        functions.delTest(req.params._id, function(err, test){
+        fn.delTest(req.params._id, function(err, test){
             if(err){ console.log(err); }
             res.json(test);
         });

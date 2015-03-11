@@ -10,7 +10,7 @@ module.exports = function(app, passport, debug) {
     var models  = require('../models');
  
 // load functions  ==============================
-    var functions  = require('../models/functions');
+    var fn  = require('../models/functions');
 
 // TASK ROUTES ===================================================
 
@@ -27,7 +27,7 @@ module.exports = function(app, passport, debug) {
         // update an array of tasks
         var arr = _.toArray(req.body);
 
-        functions.objectUpdate(arr, function(err, update){
+        fn.objectUpdate(arr, function(err, update){
             if(err){console.log(err);}
             res.json(update);
         });
@@ -66,14 +66,14 @@ module.exports = function(app, passport, debug) {
     })
     .put(function(req,res){
     // update a single task
-        functions.objectUpdate([req.body], function(err, update){
+        fn.objectUpdate([req.body], function(err, update){
             if(err){console.log(err);}
             res.json(update);
         });
     })
     .delete(function(req,res){
     // delete a task
-        functions.deleteTask(req.params._id, function(err, task){
+        fn.deleteTask(req.params._id, function(err, task){
             if(err){console.log(err);}
             res.json(task);
         });

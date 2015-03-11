@@ -5,14 +5,8 @@
 module.exports = function(test, next){
 
 // Module dependencies ==========================
-    var mongoose = require('mongoose');  // can't set an ObjectID without this.
-    var _        = require('lodash');
     var async    = require('async');
-    var Promise  = require('bluebird');
-
-// load data storage models =====================
-    var Test   = global.rootRequire('./server/models/data/test');
-    var Task       = global.rootRequire('./server/models/data/task');
+    var models   = require('../../models');
 
 // EDIT A TEST ============================================ 
 
@@ -24,7 +18,7 @@ module.exports = function(test, next){
                 tasks = _.pluck(test._tasks, '_id');
 
                 async.each(test._tasks, function(task){
-                    Task.findOneAndUpdate(
+                    models.Task.findOneAndUpdate(
                         {'_id': task._id},
                         {index : task.index },
                         function(err, doc){
@@ -38,7 +32,7 @@ module.exports = function(test, next){
             }
         },
         function(tasks, callback){
-            Test.findOneAndUpdate(
+            models.Test.findOneAndUpdate(
             { _id : test._id },
             {
                 desc    : test.desc,

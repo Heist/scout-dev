@@ -7,7 +7,7 @@ module.exports = function(app, passport, debug) {
     var models  = require('../models');
  
 // load functions  ==============================
-    var functions  = require('../models/functions');
+    var fn  = require('../models/functions');
 
 // SUBJECT ROUTES ===============================================
     app.route('/api/subject/')
@@ -20,7 +20,7 @@ module.exports = function(app, passport, debug) {
                     });
             })
         .post(function(req,res){
-                functions.addSubject(req.body, function(err, subject){
+                fn.addSubject(req.body, function(err, subject){
                     if(err){ console.log(err); }
                     console.log(subject);
                     res.json(subject);
