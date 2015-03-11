@@ -1139,7 +1139,8 @@ hr {
     #timeline ul .message {
       padding: 8px 0 0 12.5px;
       line-height: 19.2px;
-      margin: 0 0 10px 0; }
+      margin: 0 0 10px 0;
+      background: red; }
       #timeline ul .message .message-details {
         float: left; }
         #timeline ul .message .message-details .message-details-avatar {
@@ -2284,6 +2285,21 @@ hr {
 /* how we style notes within summaries and reports */
 .message-group {
   margin: 0;
+  padding: 0; }
+
+/* this styles the line on the summary page where all the notes live */
+.overlay-border {
+  width: 90%;
+  border-right: 1px solid #ddd; }
+
+.container-one {
+  position: relative; }
+
+.container-two {
+  position: absolute;
+  right: -47px; }
+
+.sheet {
   padding: 0; }
 
 /* message user header */

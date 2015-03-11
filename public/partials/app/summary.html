@@ -92,6 +92,7 @@
 	<!-- main content -->
 	<div class="sheet-holder">						
 		<div class="sheet" ng-model="selected">
+		<div class="overlay-border">
 			
 			<div class="findings-header">	
 				<h3 class="dark float-left"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h3>
@@ -137,103 +138,110 @@
 			<div class="message-group" ng-repeat="user in messages" ng-show="selected._messages">
 				
 				<!-- participant name -->
+
 				<div class="message-user">
 					<img src="/layout/assets/avatar.svg" /> {{user[0]._subject.name}}
-					<div class="expand-button float-right" ng-show="selected.doctype === 'task'">
+
+					
+<!-- 					<div class="expand-button float-right" ng-show="selected.doctype === 'task'">
 						<div class="expand-button-body small" ng-click="toggleNote(user[0]._subject._id)">+</div>
 						<div class="expand-button-helper small">Add new note?</div>
-					</div>
+					</div> -->
+					
 					
 					<div class="clear"></div>
 				</div>
-				
-				
+
+
 				<!-- input notes -->
 				<div class="message-input" ng-show="inputNote === user[0]._subject._id">
 					<textarea class="input" ng-model='newnote' name="field-input" placeholder="Your new notes for this participant">
 					</textarea>
 					<button class="button small" ng-click="postMessage(newnote, user[0]._subject)">Add Note</button>
 				</div>
-			
-				
-				
+
 				<!-- message -->
 				<div ng-repeat="message in user" class="message" 
 				ng-show="showObjectMessages(message, selected)"
 				ng-class="{selected: commentMessage._id === message._id}">
 									
 					
+
 					<!--<div class="message-edit"><img src="/layout/assets/pencil.svg"/></div>-->
 					
-					<div class="message-body" ng-click="editMessage(message, $index)">
-						<p ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></p>
-						<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
-						<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
+					<div class="container-one">
+						<div class="message-body" ng-click="editMessage(message, $index)">
+							<p ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></p>
+							<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
+							<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
+						</div>
 					</div>
 					
-					
-					
-					<div class="message-fave" ng-show="selected.doctype === 'task'">
-						<a ng-click="saveFav(message)" ng-if="message.fav_task">
-							<img src="/layout/assets/show.svg" />
-						</a>
-						<a ng-click="saveFav(message)" ng-if="!message.fav_task" >
-							<img src="/layout/assets/hidden.svg" />
-						</a>
+					<div class="container-two">
+						<div class="message-fave" ng-show="selected.doctype === 'task'">
+							<a ng-click="saveFav(message)" ng-if="message.fav_task">
+								<img src="/layout/assets/show.svg" />
+							</a>
+							<a ng-click="saveFav(message)" ng-if="!message.fav_task" >
+								<img src="/layout/assets/hidden.svg" />
+							</a>
+						</div>
+						
+						<div class="message-fave" ng-show="selected.doctype === 'tag'">
+							<a ng-click="saveFav(message)" ng-if="message.fav_tag">
+								<img src="/layout/assets/show.svg" />
+							</a>
+							<a ng-click="saveFav(message)" ng-if="!message.fav_tag" >
+								<img src="/layout/assets/hidden.svg" />
+							</a>
+						</div>
 					</div>
 					
-					<div class="message-fave" ng-show="selected.doctype === 'tag'">
-						<a ng-click="saveFav(message)" ng-if="message.fav_tag">
-							<img src="/layout/assets/show.svg" />
-						</a>
-						<a ng-click="saveFav(message)" ng-if="!message.fav_tag" >
-							<img src="/layout/assets/hidden.svg" />
-						</a>
-					</div>
-					
-					
-			
+
 					<div class="clear"></div>
 					
 					<!-- if comments, display count -->
-					<div class="message-comment-count" ng-show="message._comments.length > 0" ng-click="showComments(message)">
+			<!-- 		<div class="message-comment-count" ng-show="message._comments.length > 0" ng-click="showComments(message)">
 						{{ message._comments.length}}
-					</div>
+					</div> -->
 
 					<!-- if no comments -->
-					<div class="message-comment-count empty" 
+				<!-- 	<div class="message-comment-count empty" 
 						ng-show="message._comments.length === 0 || !message._comments" ng-click="showComments(message)">
 						+
 					</div>
-					
-					<div class="message-comments" ng-show="commentMessage._id === message._id">
+					 -->
+					<!-- <div class="message-comments" ng-show="commentMessage._id === message._id"> -->
 						<!-- if comments, display coments -->
-						<div class="message-comment" ng-repeat="comment in message._comments">
+						<!-- <div class="message-comment" ng-repeat="comment in message._comments">
 							<small><strong>{{comment.name}}</strong> {{comment.created | date:'MMM d yyyy'}}</small>
 							<p>{{comment.body}}</p>
-						</div>
+						</div> -->
 
 						<!-- message-comment new -->
-						<div class="message-comment-submit">
+				<!-- 		<div class="message-comment-submit">
 							<form ng-model="comment">
 								<textarea class="input small" ng-model="comment.body"> </textarea>
 								<small><a ng-click="addComment(comment)">Add comment</a></small>
 							</form>
 						</div>
-					</div>
+					</div> -->
 					<!-- / display comments -->
 					
 		
 					
 					
 				</div>
-				<!-- / message -->
+				<!-- / message ng repeat -->
 		
 			</div>
 			<!-- /messages -->
+
 			
 			
 		</div>
+	
+	</div> <!-- overlay border -->
 	</div>
 	<!-- / main content -->
 
