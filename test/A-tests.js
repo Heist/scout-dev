@@ -2,7 +2,7 @@
 // Tests user registration routes
 'use strict';
 
-require('blanket')({ pattern: function (filename) { return !/node_modules/.test(filename); } });
+// require('blanket')({ pattern: function (filename) { return !/node_modules/.test(filename); } });
 
 var app = require('../server.js');
 
@@ -30,11 +30,11 @@ var devTests = require('../server/models/auth/user');
 // database is set by ip address in config/db.js
 // database should perhaps be set by process.env.NODE_ENV
 
-// Auth DB ========
+// Auth DB ==================
 var User   = global.rootRequire('./server/models/auth/user');
 var Invite = global.rootRequire('./server/models/auth/invitation');
 
-// App DB =========
+// App DB ===================
 var Test    = global.rootRequire('./server/models/data/test');
 var Tag     = global.rootRequire('./server/models/data/tag');
 var Task    = global.rootRequire('./server/models/data/task');
@@ -43,84 +43,53 @@ var Comment = global.rootRequire('./server/models/data/comment');
 var Subject = global.rootRequire('./server/models/data/subject');
 
 // =============================================================
+// ROOT FUNCTIONS
+// =============================================================
+
+var account = mongoose.Types.ObjectId();
+
+before(function(){
+	// make a demo user to use in this block of login checks
+	User.create({
+		name : 'login',
+		local : {
+				email : 'login@heistmade.com',
+				password : User.schema.methods.genHash('login')
+				},
+		_account : account
+	}, function(err, u){
+		if(err){console.log(err);} 
+		Invite.create({
+            _account : u._account,
+            created_by_user : u._id,
+            invite_email : 'sarah@made.com'
+        }, function(err, invite){
+            if(err){ console.log(err); }
+        });
+	});
+});
+
+after(function(done){
+	// clean the DB =====
+	User.remove({}, function(err, doc){});
+	Invite.remove({}, function(err, doc){});
+	
+	Test.remove({}, function(err, doc){});
+	Tag.remove({}, function(err, doc){});
+	Task.remove({}, function(err, doc){});
+	Message.remove({}, function(err, doc){});
+	Comment.remove({}, function(err, doc){});
+	Subject.remove({}, function(err, doc){});
+
+	done();
+});
+
+// =============================================================
 // START TESTS 
 // =============================================================
 
 describe("Check Passport", function(){
 	var agent = request.agent(app); // this is to check logins, not account creation.
-	var account = mongoose.Types.ObjectId();
-
-	before(function(){
-		// make a demo user to use in this block of login checks
-
-		User.create({
-			name : 'login',
-			local : {
-					email : 'login@heistmade.com',
-					password : User.schema.methods.genHash('login')
-					},
-			_account : account
-		}, function(err, u){
-			if(err){console.log(err);} 
-			Invite.create({
-                _account : u._account,
-                created_by_user : u._id,
-                invite_email : 'sarah@made.com'
-            }, function(err, invite){
-                if(err){ console.log(err); }
-            });
-		});
-	});
-
-	after(function(done){
-		// clean the DB =====
-		User.remove({}, function(err, doc){});
-		Invite.remove({}, function(err, doc){});
-		
-		Test.remove({}, function(err, doc){});
-		Tag.remove({}, function(err, doc){});
-		Task.remove({}, function(err, doc){});
-		Message.remove({}, function(err, doc){});
-		Comment.remove({}, function(err, doc){});
-		Subject.remove({}, function(err, doc){});
-
-		done();
-	});
-
-	describe('Test creation and manipulation', function(){
-		describe('Automatic dev test generation', function(){
-			it('should touch test creation', function(done){ done(); });
-
-			it('should create a test set owned by login', function(done){
-				agent.post('/auth/login').send({
-				email:'login@heistmade.com',
-				password: 'login'
-				}).expect(200).end(function(err, res){
-					// logged in? good! Check some tests...
-					agent.post('/api/dev_tests/')
-		            .send({})
-		            .expect(200)
-		            .end(function(err, res) {
-		            	console.log('data returned login', res.body);
-		                should.not.exist(err);
-		                console.log(res.headers['set-cookie']); // Should print nothing.
-		                res.body.should.be.an('object');
-		                res.body.user.should.have.properties('test', '_tasks');
-		                done();
-		            });
-
-		            agent.get('/api/test/')
-		            .send({})
-		            .expect(200)
-		            .end(function(err, res){
-		            	console.log(res.body)
-		            	done();
-		            });
-
-				});
-			});
-		});
-	});
 
 	describe('POST /auth/signup', function () {
 		var url = '/auth/signup';
