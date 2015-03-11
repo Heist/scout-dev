@@ -10,7 +10,7 @@ module.exports = function(msg, next){
     var async    = require('async');
     var Promise  = require('bluebird');
     var models   = require('../../models');
-    var fn       = require('../models/functions');
+    var fn       = require('../../models/functions');
 
     var tags = fn.tagPuller(msg.body);
 

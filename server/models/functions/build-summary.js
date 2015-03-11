@@ -6,18 +6,18 @@
 module.exports = function(report_id, next){
 // Module dependencies ==========================
     var async = require('async');
-    var fn = require('../models/functions');
+    var fn    = require('../../models/functions');
 
 // BUILD A REPORT OBJECT ==================================
     async.parallel({
         navlist: function(callback){
-            fn.buildNavList(report_id, function(err, list){
+            fn.buildObjectList(report_id, function(err, list){
                 if(err){console.log(err);}
                 callback(null, list);
             });
         },
         messages: function(callback){
-            fn.buildMsgList(report_id, function(err, list){
+            fn.messageList(report_id, function(err, list){
                 if(err){console.log(err);}
                 callback(null, list);
             });
