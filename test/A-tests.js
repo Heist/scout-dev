@@ -2,9 +2,9 @@
 // Tests user registration routes
 'use strict';
 
-// require('blanket')({ pattern: function (filename) { return !/node_modules/.test(filename); } });
+require('blanket')({ pattern: function (filename) { return !/node_modules/.test(filename); } });
 
-// Set global to work outside of node ===========
+// Set global to work outside of node =========================
 global.rootRequire = function(name) {
 	    	name = name.substring(1, name.length);
 	    	var dir = __dirname.substring(0, __dirname.length - 5);
@@ -21,11 +21,6 @@ var models = require('../server/models')
 
 var app = require('../server.js');
 var api = request(app);
-
-
-// What functions are we testing? ===============
-var navlist  = global.rootRequire('./server/models/functions/build-object-list');
-var devTests = global.rootRequire('./server/models/auth/user');
 
 // =============================================================
 // ROOT FUNCTIONS
