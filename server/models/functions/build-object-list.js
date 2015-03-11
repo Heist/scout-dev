@@ -5,10 +5,9 @@
 module.exports = function(report_id, next){
 
 // Module dependencies ==========================
-    var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
     var async = require('async');
-    var Promise = require('bluebird');
+    
     var models = require('../models');
 
 // CREATE THE LEFT NAVIGATION LIST ========================

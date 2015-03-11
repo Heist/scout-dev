@@ -5,31 +5,23 @@
 module.exports = function(test_id, next){
 
 // Module dependencies ==========================
-    var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
     var async = require('async');
-    var Promise = require('bluebird');
-
-// load data storage models =====================
-    var Task    = global.rootRequire('./server/models/data/task');
-    var Test    = global.rootRequire('./server/models/data/test');
-    var Tag     = global.rootRequire('./server/models/data/tag');
-    var Subject = global.rootRequire('./server/models/data/subject');
-
-// load functions ===============================
-    var objectUpdate  = global.rootRequire('./server/models/functions/object-update');
+    
+    var models = require('../models');
+    var functions = require('../models/functions');
 
 // FINISH THE TEST AND POST CHANGES =======================
     
     async.map(req.body.tasks, 
         function(task, callback){
-            Task.findById(task, function(err, doc){
+            models.Task.findById(task, function(err, doc){
                 if(!doc){
                     callback(null, null);
                 }
 
-                if(doc._subjects.indexOf(req.body.subject) === -1){
-                    doc._subjects.push(req.body.subject);
+                if(doc._subjects.indexOf(test_id) === -1){
+                    doc._subjects.push(test_id);
                 }
 
                 doc.save(function(err, data){

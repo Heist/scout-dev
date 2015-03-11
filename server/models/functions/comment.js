@@ -3,14 +3,12 @@
 'use strict';
 
 module.exports = function(request, user, next){
-// load data storage models =====================
-    var Message = global.rootRequire('./server/models/data/message');
-    var Comment = global.rootRequire('./server/models/data/comment');
+    var models = require('../models');
 
 // COMMENT ON A MESSAGE ===================================
     var reply = {};
 
-    var promise = Comment.create( {
+    var promise = models.Comment.create( {
             name: user.name,
             body: request.body,
             created_by_user: user._id
@@ -21,7 +19,7 @@ module.exports = function(request, user, next){
 
     promise.then(function(comment){
         reply.comment = comment;
-        return Message.findOneAndUpdate(
+        return models.Message.findOneAndUpdate(
             {'_id' : request.msg},
             {$push : {_comments: comment._id}},
             function(err, msg){
@@ -29,7 +27,7 @@ module.exports = function(request, user, next){
             });
 
     }).then(function(){
-        Message.findOne({'_id': request.msg})
+        models.Message.findOne({'_id': request.msg})
            .populate('_comments _subject')
            .exec(function(err, msg){
                 if (err) { console.log(err);}
