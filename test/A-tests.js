@@ -17,7 +17,7 @@ var expect = require('chai').expect;
 var request = require('supertest-as-promised');
 
 var mongoose = require('mongoose');
-var models = require('../server/models')
+var models = require('../server/models');
 
 var app = require('../server.js');
 var api = request(app);
