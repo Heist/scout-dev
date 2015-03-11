@@ -3,7 +3,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var connect = rootRequire('./config/db');
+var connect = global.rootRequire('./config/db');
 connect = connect.auth;
 
 var bcrypt = require('bcrypt-nodejs');

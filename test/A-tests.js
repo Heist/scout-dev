@@ -4,16 +4,6 @@
 
 // require('blanket')({ pattern: function (filename) { return !/node_modules/.test(filename); } });
 
-var app = require('../server.js');
-
-// Module dependencies ==========================
-var should = require('chai').should;
-var expect = require('chai').expect;
-var request = require('supertest-as-promised');
-var api = request(app);
-
-var mongoose = require('mongoose');
-
 // Set global to work outside of node ===========
 global.rootRequire = function(name) {
 	    	name = name.substring(1, name.length);
@@ -21,26 +11,21 @@ global.rootRequire = function(name) {
 		    return require(dir + name);
 		};
 
+// Module dependencies ==========================
+var should = require('chai').should;
+var expect = require('chai').expect;
+var request = require('supertest-as-promised');
+
+var mongoose = require('mongoose');
+var models = require('../server/models')
+
+var app = require('../server.js');
+var api = request(app);
+
+
 // What functions are we testing? ===============
-var navlist  = require('../server/models/functions/build-object-list');
-var devTests = require('../server/models/auth/user');
-
-// =============================================================
-// Required data schema 
-// database is set by ip address in config/db.js
-// database should perhaps be set by process.env.NODE_ENV
-
-// Auth DB ==================
-var User   = global.rootRequire('./server/models/auth/user');
-var Invite = global.rootRequire('./server/models/auth/invitation');
-
-// App DB ===================
-var Test    = global.rootRequire('./server/models/data/test');
-var Tag     = global.rootRequire('./server/models/data/tag');
-var Task    = global.rootRequire('./server/models/data/task');
-var	Message = global.rootRequire('./server/models/data/message');
-var Comment = global.rootRequire('./server/models/data/comment');
-var Subject = global.rootRequire('./server/models/data/subject');
+var navlist  = global.rootRequire('./server/models/functions/build-object-list');
+var devTests = global.rootRequire('./server/models/auth/user');
 
 // =============================================================
 // ROOT FUNCTIONS
@@ -50,16 +35,16 @@ var account = mongoose.Types.ObjectId();
 
 before(function(){
 	// make a demo user to use in this block of login checks
-	User.create({
+	models.User.create({
 		name : 'login',
 		local : {
 				email : 'login@heistmade.com',
-				password : User.schema.methods.genHash('login')
+				password : models.User.schema.methods.genHash('login')
 				},
 		_account : account
 	}, function(err, u){
 		if(err){console.log(err);} 
-		Invite.create({
+		models.Invite.create({
             _account : u._account,
             created_by_user : u._id,
             invite_email : 'sarah@made.com'
@@ -71,15 +56,15 @@ before(function(){
 
 after(function(done){
 	// clean the DB =====
-	User.remove({}, function(err, doc){});
-	Invite.remove({}, function(err, doc){});
+	models.User.remove({}, function(err, doc){});
+	models.Invite.remove({}, function(err, doc){});
 	
-	Test.remove({}, function(err, doc){});
-	Tag.remove({}, function(err, doc){});
-	Task.remove({}, function(err, doc){});
-	Message.remove({}, function(err, doc){});
-	Comment.remove({}, function(err, doc){});
-	Subject.remove({}, function(err, doc){});
+	models.Test.remove({}, function(err, doc){});
+	models.Tag.remove({}, function(err, doc){});
+	models.Task.remove({}, function(err, doc){});
+	models.Message.remove({}, function(err, doc){});
+	models.Comment.remove({}, function(err, doc){});
+	models.Subject.remove({}, function(err, doc){});
 
 	done();
 });
