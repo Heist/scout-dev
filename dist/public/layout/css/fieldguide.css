@@ -2284,7 +2284,7 @@ hr {
 /* how we style notes within summaries and reports */
 .message-group {
   margin: 0;
-  padding: 0; }
+  padding: 0 0 20px 0; }
   .message-group .add-note-button {
     margin: 0 40px; }
     .message-group .add-note-button .add-note-button-body {
@@ -2358,7 +2358,7 @@ hr {
   right: -47px; }
 
 .sheet {
-  padding: 0 0 20px 0; }
+  padding: 0; }
 
 /* message user header */
 .message-user {
