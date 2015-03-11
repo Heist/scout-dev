@@ -17,7 +17,7 @@ module.exports = function(test_id, next){
     var Subject = global.rootRequire('./server/models/data/subject');
 
 // load functions ===============================
-    var objectUpdates  = global.rootRequire('./server/models/functions/object-update');
+    var objectUpdate  = global.rootRequire('./server/models/functions/object-update');
 
 // FINISH THE TEST AND POST CHANGES =======================
     

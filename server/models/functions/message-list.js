@@ -1,4 +1,4 @@
-// messages-list.js
+// message-list.js
 // get all the messages for a given report
 'use strict';
 

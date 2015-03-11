@@ -1,5 +1,6 @@
 // function index
 // index.js
+(function(){
 'use strict';
 
 module.exports= {
@@ -26,3 +27,4 @@ module.exports= {
 	tagPuller       : require('./tag-puller'),
 	userCreate      : require('./user-create')
 }
+})();

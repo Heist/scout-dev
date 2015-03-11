@@ -13,16 +13,7 @@ module.exports = function(account, callback, debug){
     var async = require('async');
 
     // load data storage models
-    var Comment = require('../data/comment');
-    var Message = require('../data/message');
-    var Task    = require('../data/task');
-    var Test    = require('../data/test');
-    var Tag     = require('../data/tag');
-    var Subject = require('../data/subject');
-    var User    = require('../auth/user');
-    var Invitation = require('../auth/invitation');
-
-    console.log('account get user', account);
+    var models = require('../models');
 
     // get all users who have the same account number as this user
     // get all tests with that account number
@@ -31,7 +22,7 @@ module.exports = function(account, callback, debug){
 
     async.parallel({
         users: function(callback){
-            User.find({'_account': account })
+            models.User.find({'_account': account })
                 .select('name local.email')
                 .exec(function(err, data){
                     if(err){console.log(err);}
@@ -41,7 +32,7 @@ module.exports = function(account, callback, debug){
         tests: function(callback){
             async.waterfall([
                 function(callback){
-                    Test.find({'created_by_account' : account})
+                    models.Test.find({'created_by_account' : account})
                         .populate('created_by_user')
                         .select('name platform desc updated created created_by_user')
                         .exec(function(err, data){
@@ -58,7 +49,7 @@ module.exports = function(account, callback, debug){
                                     callback(null, arg);   
                                 },
                                 tasks: function(callback){
-                                    Task.find({'_test' : arg._id})
+                                    models.Task.find({'_test' : arg._id})
                                     .populate('_test _messages')
                                     .select('_messages created desc name pass_fail index report_index updated visible ')
                                     .exec(function(err, data){
@@ -75,7 +66,7 @@ module.exports = function(account, callback, debug){
                                                 async.map(obj._messages, 
                                                     function(msg, callback){
                                                         // if a message exists, find it, populate it, and return it.
-                                                        Message.findOne({'_id':msg._id})
+                                                        models.Message.findOne({'_id':msg._id})
                                                             .populate('_comments')
                                                             .exec(function(err, data){
                                                                 if(err){console.log(err);}
@@ -97,7 +88,7 @@ module.exports = function(account, callback, debug){
                                     });
                                 }, 
                                 tags: function(callback){
-                                    Tag.find({'_test' : arg._id})
+                                    models.Tag.find({'_test' : arg._id})
                                         .populate('_test _messages')
                                         .exec(function(err, data){
                                                 if(err){console.log(err);}
@@ -113,7 +104,7 @@ module.exports = function(account, callback, debug){
                                                         async.map(obj._messages, 
                                                             function(msg, callback){
                                                                 // if a message exists, find it, populate it, and return it.
-                                                                Message.findOne({'_id':msg._id})
+                                                                models.Message.findOne({'_id':msg._id})
                                                                     .populate('_comments')
                                                                     .exec(function(err, data){
                                                                         if(err){console.log(err);}

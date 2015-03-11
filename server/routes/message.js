@@ -1,4 +1,5 @@
 //message.js
+(function(){
 'use strict';
 
 module.exports = function(app, passport, debug) {
@@ -54,3 +55,4 @@ module.exports = function(app, passport, debug) {
             });
     });
 };
+})();

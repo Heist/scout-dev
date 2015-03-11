@@ -9,12 +9,7 @@ module.exports = function(report_id, next){
     var _ = require('lodash');
     var async = require('async');
     var Promise = require('bluebird');
-
-// load data storage models =====================
-    var Task    = global.rootRequire('./server/models/data/task');
-    var Test    = global.rootRequire('./server/models/data/test');
-    var Tag     = global.rootRequire('./server/models/data/tag');
-    var Subject = global.rootRequire('./server/models/data/subject');
+    var models = require('../models');
 
 // CREATE THE LEFT NAVIGATION LIST ========================
     // get all relevant objects, sanitize them and return them in an array
@@ -26,7 +21,7 @@ module.exports = function(report_id, next){
     // TODO: FIX ON TEST CREATION PAGE.
     async.parallel({
         tags: function(callback){
-            Tag.find({'_test' : report_id })
+            models.Tag.find({'_test' : report_id })
                 .sort({name: 1})
                 .exec(function(err, docs){
                     if (err) { console.log(err); }
@@ -35,7 +30,7 @@ module.exports = function(report_id, next){
                 });
         },
         tasks: function(callback){
-            Task.find({'_test': report_id})
+            models.Task.find({'_test': report_id})
                 .sort({ report_index: 'asc'})
                 .exec(function(err, docs){
                     if (err) { console.log(err); }
@@ -44,7 +39,7 @@ module.exports = function(report_id, next){
                 });
         },
         test: function(callback){
-            Test.find({'_id' : report_id})
+            models.Test.find({'_id' : report_id})
                 .limit(1)
                 .exec(function(err, docs){
                     if(err){console.log(err);}
@@ -73,15 +68,14 @@ module.exports = function(report_id, next){
             });
         }
 
-        // todo: refactor so this does not fail if things are null.
-        if(results.test.length > 0){
-            var navlist = {
-                test: results.test[0].name,
-                list: return_array
-            };
-        }
+        var navlist = {
+            test : (results.test.length > 0) ? results.test[0].name : 'Test name not found',
+            list: return_array
+        };
 
+        // todo: refactor so this does not fail if things are null.
         next(null, navlist);
+        
     });
 
 };

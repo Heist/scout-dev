@@ -8,7 +8,7 @@ module.exports = function(report_id, next){
 
 // load functions ===============================
     var buildNavList   = global.rootRequire('./server/models/functions/build-object-list');
-    var buildMsgList   = global.rootRequire('./server/models/functions/messages-list');
+    var buildMsgList   = global.rootRequire('./server/models/functions/message-list');
 
 // BUILD A REPORT OBJECT ==================================
     async.parallel({

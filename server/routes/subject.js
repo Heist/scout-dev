@@ -4,15 +4,15 @@
 module.exports = function(app, passport, debug) {
 
 // load data storage models =====================
-    var Subject = global.rootRequire('./server/models/data/subject');
-
-// load functions ===============================
-    var addSubject = global.rootRequire('./server/models/functions/add-subject');
+    var models  = require('../models');
+ 
+// load functions  ==============================
+    var functions  = require('../models/functions');
 
 // SUBJECT ROUTES ===============================================
     app.route('/api/subject/')
         .get(function(req,res){
-                Subject.find({})
+                models.Subject.find({})
                     .exec(function(err,subjects){
                         if(err){console.log(err);}
                         
@@ -20,7 +20,7 @@ module.exports = function(app, passport, debug) {
                     });
             })
         .post(function(req,res){
-                addSubject(req.body, function(err, subject){
+                functions.addSubject(req.body, function(err, subject){
                     if(err){ console.log(err); }
                     console.log(subject);
                     res.json(subject);
@@ -29,7 +29,7 @@ module.exports = function(app, passport, debug) {
 
     app.route('/api/subject/:_id')
         .get(function(req, res){
-            Subject.findById(req.params._id)
+            models.Subject.findById(req.params._id)
                 .exec(function(err, subject){
                     if(err){console.log(err);}
                     res.json(subject);

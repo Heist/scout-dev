@@ -4,12 +4,12 @@
 module.exports = function(app, passport, debug) {
 
 // load data storage models =====================
-    var Tag     = require('../models/data/tag');
-    
+    var models  = require('../models');
+
 // TAG ROUTES ================================================
     app.route('/api/tag/')
         .get(function(req,res){
-            Tag.find(function(err, tags) {
+            models.Tag.find(function(err, tags) {
                     if(err){console.log(err);}
                     res.json(tags);
                 });
@@ -17,7 +17,7 @@ module.exports = function(app, passport, debug) {
 
     app.route('/api/tag/:_id')
         .get(function(req,res){
-            Tag.findById(req.params._id)
+            models.Tag.findById(req.params._id)
                 .exec(function(err, tags) {
                     if(err){console.log(err);}
                     res.json(tags);

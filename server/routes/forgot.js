@@ -3,19 +3,23 @@
 
 module.exports = function(app, passport, debug) {
 
-    // Module dependencies
-    var mongoose = require('mongoose');  // THIS MAKES MESSAGE AGGREGATION WORK IN TEST RETURNS FOR SUMMARIES.
+// Module dependencies ==========================
+    var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
     var async = require('async');
+    var Promise = require('bluebird');
     var crypto = require('crypto');
     var nodemailer = require('nodemailer');
 
-    // Models
-    var User = require('../models/auth/user');
 
-    app.post('/auth/forgot', function(req, res, next) {
-        console.log('touched forgotten password route');
-        
+// load data storage models =====================
+    var models  = require('../models');
+ 
+// load functions  ==============================
+    var functions  = require('../models/functions');
+
+// PASSWORD ROUTES ==============================
+    app.post('/auth/forgot', function(req, res, next) {        
         async.waterfall([
             function(done) {
                 crypto.randomBytes(20, function(err, buf) {
@@ -24,7 +28,7 @@ module.exports = function(app, passport, debug) {
                 });
             },
             function(token, done) {
-                User.findOne({ email: req.body.email }, function(err, user) {
+                models.User.findOne({ email: req.body.email }, function(err, user) {
                     if (!user) {
                         done(err, token, '0');
                     } else {
