@@ -196,6 +196,7 @@
             $http
                 .post('/api/run/', $scope.update)
                 .success(function(data){
+                    console.log(data);
                     $location.path('/overview');
                 });
 

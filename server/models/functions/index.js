@@ -9,7 +9,6 @@ module.exports= {
 	buildObjectList : require('./build-object-list'),
 	buildSummary    : require('./build-summary'),
 	comment         : require('./comment'),
-	completeTest    : require('./complete-test'),
 	createInvite    : require('./create-invite'),
 	defaultTests    : require('./default-tests'),
 	deleteTest      : require('./delete-test'),
