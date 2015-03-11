@@ -169,15 +169,14 @@
 
 					<!--<div class="message-edit"><img src="/layout/assets/pencil.svg"/></div>-->
 					
-					<div class="container-one">
-						<div class="message-body" ng-click="editMessage(message, $index)">
-							<p ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></p>
-							<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
-							<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
-						</div>
+			
+					<div class="message-body" ng-click="editMessage(message, $index)">
+						<p ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></p>
+						<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
+						<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 					</div>
 					
-					<div class="container-two">
+					<div class="summary-border">
 						<div class="message-fave" ng-show="selected.doctype === 'task'">
 							<a ng-click="saveFav(message)" ng-if="message.fav_task">
 								<img src="/layout/assets/show.svg" />

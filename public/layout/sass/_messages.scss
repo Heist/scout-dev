@@ -17,11 +17,7 @@
 	border-right: 1px solid $border-grey;
 }
 
-.container-one {
-	position: relative;
-}
-
-.container-two {
+.summary-border {
 	position: absolute;
 	right: -47px;
 }
@@ -75,7 +71,7 @@
 /* individual messages */
 
 .message {
-	padding: $pad/1.5 $pad*2;
+	padding: $pad/1.5 0 $pad/1.5 $pad*2;
 	border-left: 4px solid $white;
 	border-right: 4px solid $white;
 	position: relative;
