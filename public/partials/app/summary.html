@@ -142,13 +142,6 @@
 				<div class="message-user">
 					<img src="/layout/assets/avatar.svg" /> {{user[0]._subject.name}}
 
-					
-<!-- 					<div class="expand-button float-right" ng-show="selected.doctype === 'task'">
-						<div class="expand-button-body small" ng-click="toggleNote(user[0]._subject._id)">+</div>
-						<div class="expand-button-helper small">Add new note?</div>
-					</div> -->
-					
-					
 					<div class="clear"></div>
 				</div>
 
@@ -196,7 +189,6 @@
 						</div>
 					</div>
 					
-
 					<div class="clear"></div>
 					
 					<!-- if comments, display count -->
@@ -233,6 +225,12 @@
 				</div>
 				<!-- / message ng repeat -->
 		
+				<div class="add-note-button" ng-show="selected.doctype === 'task'">
+					<div class="add-note-button-body small" ng-click="toggleNote(user[0]._subject._id)">+</div>
+					<div class="add-note-button-helper small">Add new note?</div>
+					<div class="clear"></div>
+				</div>
+
 			</div>
 			<!-- /messages -->
 

@@ -1139,8 +1139,7 @@ hr {
     #timeline ul .message {
       padding: 8px 0 0 12.5px;
       line-height: 19.2px;
-      margin: 0 0 10px 0;
-      background: red; }
+      margin: 0 0 10px 0; }
       #timeline ul .message .message-details {
         float: left; }
         #timeline ul .message .message-details .message-details-avatar {
@@ -2286,6 +2285,68 @@ hr {
 .message-group {
   margin: 0;
   padding: 0; }
+  .message-group .add-note-button {
+    margin: 0 40px; }
+    .message-group .add-note-button .add-note-button-body {
+      background: #fff;
+      color: #999999;
+      margin: 0;
+      padding: 6px;
+      -moz-border-radius: 40px;
+      -webkit-border-radius: 40px;
+      border-radius: 40px;
+      height: 40px;
+      width: 40px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 28.5px;
+      line-height: 1;
+      -webkit-transition-duration: 0.2s;
+      -webkit-transition-timing: ease-out;
+      -o-transition-duration: 0.2s;
+      -o-transition-timing: ease-out;
+      -moz-transition-duration: 0.2s;
+      -moz-transition-timing: ease-out;
+      -ms-transition-duration: 0.2s;
+      -ms-transition-timing: ease-out;
+      transition-duration: 0.2s;
+      transition-timing: ease-out;
+      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      float: left; }
+      .message-group .add-note-button .add-note-button-body.small {
+        height: 24px;
+        width: 24px;
+        padding: 0px;
+        font-size: 15px;
+        line-height: 25.5px;
+        border: 1px solid #dddddd; }
+    .message-group .add-note-button:hover .add-note-button-helper {
+      display: block; }
+    .message-group .add-note-button:hover .add-note-button-body {
+      background: #42474c;
+      color: #fff;
+      -webkit-transition-duration: 0.2s;
+      -webkit-transition-timing: ease-out;
+      -o-transition-duration: 0.2s;
+      -o-transition-timing: ease-out;
+      -moz-transition-duration: 0.2s;
+      -moz-transition-timing: ease-out;
+      -ms-transition-duration: 0.2s;
+      -ms-transition-timing: ease-out;
+      transition-duration: 0.2s;
+      transition-timing: ease-out; }
+    .message-group .add-note-button .add-note-button-helper {
+      float: left;
+      display: none;
+      font-size: 15px;
+      color: #7c7d80;
+      margin: 0 0 0 10px; }
+      .message-group .add-note-button .add-note-button-helper.small {
+        top: 2px;
+        font-size: 12px;
+        right: 30px; }
 
 /* this styles the line on the summary page where all the notes live */
 .overlay-border {
@@ -2297,7 +2358,7 @@ hr {
   right: -47px; }
 
 .sheet {
-  padding: 0; }
+  padding: 0 0 20px 0; }
 
 /* message user header */
 .message-user {
