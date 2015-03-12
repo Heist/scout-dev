@@ -25,7 +25,7 @@ describe('The Tag Pool', function(){
 	it('removes tags from body of note and stores them in .tags', function(done){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
 			.end(function(err, res) { // get logged in
-				agent.get('/api/subjects/') // get our subject and test to post our message to
+				agent.get('/api/subject/') // get our subject and test to post our message to
 				.end(function(err, res){
 					console.log(res.body);
 					done();
