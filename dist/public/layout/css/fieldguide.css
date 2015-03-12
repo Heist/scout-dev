@@ -1346,7 +1346,7 @@ hr {
       #sidebar ul li .sidebar-visibility img {
         width: auto;
         height: 10px;
-        margin: 5px 0 0 0; }
+        margin: 10px 0 0 0; }
 
 /* modal styles */
 .modal {
@@ -2600,7 +2600,8 @@ hr {
       overflow: auto; }
       #view-findings #findings-nav #sidebar li {
         width: 95%;
-        padding-bottom: 20px; }
+        padding-top: 15px;
+        padding-bottom: 15px; }
       #view-findings #findings-nav #sidebar .test-id h3 {
         font-family: "proxima-nova",sans-serif;
         font-style: normal;
