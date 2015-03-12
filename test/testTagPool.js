@@ -24,13 +24,24 @@ describe('The Tag Pool', function(){
 
 	it('removes tags from body of note and stores them in .tags', function(done){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
-			.end(function(err, res) {
-				agent.post('/api/message/').send({msg : 'This is a #blue #note #purple'})
-				.end(function(err, data){
-					expect(data.body).to.be.an('object');
-					expect(data.body.tags).to.have.length(3);
-					expect(data.body.msg).to.equal('This is a');
-					done();	
+			.end(function(err, res) { // get logged in
+				agent.get('/api/subjects/') // get our subject and test to post our message to
+				.end(function(err, res){
+					console.log(res.body);
+					done();
+					// agent.post('/api/message/').send({
+					// 		msg : {
+					// 			body : 'This is a #blue #note #purple', 
+					// 			_test : '' ,
+					// 			_subject : ''
+					// 		}
+					// 	})
+					// .end(function(err, data){
+					// 	expect(data.body).to.be.an('object');
+					// 	expect(data.body.tags).to.have.length(3);
+					// 	expect(data.body.msg).to.equal('This is a');
+					// 	done();	
+					// });
 				});
 			});
 		// agent.login

@@ -51,7 +51,7 @@ module.exports = function(request, user, next){
 
         var o = (type === 'tag') ? {upsert : true }  : {upsert : false } ;
 
-       return model.findOneAndUpdateAsync(q, u, o, function(err, obj){});
+       return model.findOneAndUpdate(q, u, o, function(err, obj){});
 
     };
 

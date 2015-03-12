@@ -29,7 +29,7 @@ var api = request(app);
 
 var account = mongoose.Types.ObjectId();
 
-before(function(){
+before(function(done){
 	// make a demo user to use in this block of login checks
 	models.User.create({
 		name : 'login',
@@ -51,6 +51,7 @@ before(function(){
         fn.devTests(u._account, u, function(err, tests){
         	if(err){console.log(err)};
         	console.log('done tests');
+        	done();
         });
 	});
 
