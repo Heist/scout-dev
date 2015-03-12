@@ -3,7 +3,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var connect = rootRequire('./config/db');
+var connect = global.rootRequire('./config/db');
 connect = connect.auth;
 
 var bcrypt = require('bcrypt-nodejs');
@@ -11,7 +11,7 @@ var Schema = mongoose.Schema;
  
 // Users are the people who log in to our system to use it.
 // They live on a separate DB from data.
-// This DB is also where we store invitations.
+// This DB is also where we store Invites.
 
 var userSchema = new Schema({
     _account: {type: Schema.Types.ObjectId},
@@ -48,7 +48,12 @@ var userSchema = new Schema({
 });
 
 // generating a hash
-userSchema.methods.generateHash = function(password) {
+userSchema.statics.generateHash = function(password, callback) {
+    var pass = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    callback(null, pass);
+};
+
+userSchema.methods.genHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 

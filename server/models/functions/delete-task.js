@@ -3,17 +3,9 @@
 
 module.exports = function(task, next){
 
-// Module dependencies
-    var mongoose = require('mongoose');  // can't set an ObjectID without this.
-    var _ = require('lodash');
+// Module dependencies ==========================
     var async = require('async');
-
-// load data storage models
-    var Message = global.rootRequire('./server/models/data/message');
-    var Task    = global.rootRequire('./server/models/data/task');
-    var Test    = global.rootRequire('./server/models/data/test');
-    var Tag     = global.rootRequire('./server/models/data/tag');
-    var Subject = global.rootRequire('./server/models/data/subject');
+    var models   = require('../../models');
 
 // delete a task
     // find a task
@@ -22,10 +14,10 @@ module.exports = function(task, next){
 
     async.parallel([
         function(callback){
-            Task.findById(task, function(err, doc){
+            models.Task.findById(task, function(err, doc){
                 if(err){ console.log(err); }
 
-                Test.findOne({'_id': doc._test})
+                models.Test.findOne({'_id': doc._test})
                     .exec(function(err, test){
                         if(err){ console.log(err); }
 
@@ -41,14 +33,14 @@ module.exports = function(task, next){
             });
         },
         function(callback){
-            Message.remove({ '_task' : task }, 
+            models.Message.remove({ '_task' : task }, 
                 function(err, msg){
                     if(err){console.log(err);}
                     callback(null, 'msg');
                 });
         },
         function(callback){
-            Tag.remove({_task: task},
+            models.Tag.remove({_task: task},
                 function(err, msg){
                     if(err){console.log(err);}
                     callback(null, 'tag');

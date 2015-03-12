@@ -1,4 +1,5 @@
 // server.js
+'use strict';
 
 // modules ==========================================================
 var express = require('express');
@@ -6,6 +7,7 @@ var app = express();
 var http = require('http');
 var path = require('path');
 var _ = require('lodash');
+var async = require('async');
 var debug = require('debug')('http');
 
 // Turn the app on and hook sockets 0.9 to it.

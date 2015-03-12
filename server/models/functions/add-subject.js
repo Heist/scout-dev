@@ -6,15 +6,12 @@ module.exports = function(request, next){
 
 // Module dependencies ==========================
     var async    = require('async');
-
-// load data storage models =====================
-    var Subject = global.rootRequire('./server/models/data/subject');
-    var Test     = global.rootRequire('./server/models/data/test');
+    var models = require('../../models');
 
 // CREATE A NEW SUBJECT ===================================
     async.waterfall([function(callback){
 
-        Subject.create({
+        models.Subject.create({
             name     : request.name,
             testroom : request.testroom,
             test     : request.test
@@ -25,7 +22,7 @@ module.exports = function(request, next){
         });
 
     }, function(subject, callback){
-        Test.findOneAndUpdate(
+        models.Test.findOneAndUpdate(
             {'_id' : subject.test},
             {'last_run' : new Date(),
               $push : { _subjects : subject._id } 

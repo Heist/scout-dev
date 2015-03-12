@@ -9,9 +9,7 @@ module.exports = function(account, id, callback, debug){
     var _ = require('lodash');
     var async = require('async');
 
-// load data storage models
-    var Task    = global.rootRequire('./server/models/data/task');
-    var Test    = global.rootRequire('./server/models/data/test');
+    var models   = require('../../models');
 
 // Abstract and create tests 
     var new_test_1 = {
@@ -37,7 +35,7 @@ module.exports = function(account, id, callback, debug){
 
     async.parallel([
         function(callback){
-            Test.create(new_test_1 , function(err, test){
+            models.Test.create(new_test_1 , function(err, test){
                 var tasks = [
                     {
                         _test : test._id,
@@ -81,7 +79,7 @@ module.exports = function(account, id, callback, debug){
                         index : 6
                     }];
 
-                Task.create(tasks, function(err, t0, t1, t2, t3, t4, t5, t6){
+                models.Task.create(tasks, function(err, t0, t1, t2, t3, t4, t5, t6){
                     test._tasks.push(t0._id, t1._id, t2._id, t3._id, t4._id, t5._id, t6._id);
                     test.save(function(err, new_test){
                         callback(null, new_test);
@@ -90,7 +88,7 @@ module.exports = function(account, id, callback, debug){
             });
         },
         function(callback){
-            Test.create(new_test_2 , function(err, test){
+            models.Test.create(new_test_2 , function(err, test){
                 var tasks = [{
                     _test: test._id,
                     name :"Introduction",
@@ -133,7 +131,7 @@ module.exports = function(account, id, callback, debug){
                     index:7
                 }];
 
-                Task.create(tasks, function(err, t0, t1, t2, t3, t4, t5, t6, t7){
+                models.Task.create(tasks, function(err, t0, t1, t2, t3, t4, t5, t6, t7){
                     test._tasks.push(t0._id, t1._id, t2._id, t3._id, t4._id, t5._id, t6._id, t7._id);
                     test.save(function(err, new_test){
                         callback(null, new_test);
@@ -144,7 +142,7 @@ module.exports = function(account, id, callback, debug){
     ],
     // optional callback
     function(err, results){
-        Test.find({'created_by_user' : id}).populate('_tasks').exec();
+        models.Test.find({'created_by_user' : id}).populate('_tasks').exec();
         callback(null, results);
     });
 }

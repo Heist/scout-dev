@@ -8,7 +8,7 @@ var Promise = require('bluebird');
 
 // load data storage models
 var User    = require('../auth/user');
-var Invitation = require('../auth/invitation');
+var Invite = require('../auth/Invite');
 
 
   // TODO: Async refactor =================================
@@ -16,10 +16,10 @@ var Invitation = require('../auth/invitation');
     // add them to your account? << this needs its own route.
     // throw an error and block a signup
 
-    // else find an invitation and pass it along
-    // if the invitation has been found, send an error that it has already been found
-    // if no invitation exists, and no user exists, then create a new invitation
-    // then e-mail that invitation to the relevant user
+    // else find an Invite and pass it along
+    // if the Invite has been found, send an error that it has already been found
+    // if no Invite exists, and no user exists, then create a new Invite
+    // then e-mail that Invite to the relevant user
 
 
 var getUser = function (address) {
@@ -27,7 +27,7 @@ var getUser = function (address) {
 };
 
 var getInvite = function(address){
-    return Invitation.findOne({'invite_email' : address});
+    return Invite.findOne({'invite_email' : address});
 };
 
 // .then(function () { throw... }) -> this promise will be rejected

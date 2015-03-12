@@ -1,12 +1,12 @@
-// server/models/data/invitation.js
+// server/models/data/Invite.js
 'use strict';
 
 // Lives in the auth database, called field_guide_users
-// ID of invitation and _account get passed with the invitation
+// ID of Invite and _account get passed with the Invite
 // When a user clicks on an invite link, and goes to register, if they are already registered,
 // Pending is set to false and we offer a password reset link
 
-// Invitations are how we get new users into the system.
+// Invites are how we get new users into the system.
 
 var mongoose = require('mongoose');
 var connect = rootRequire('./config/db');
@@ -34,4 +34,4 @@ inviteSchema.pre('save', function(next){
     next();
 });
 
-module.exports = connect.model('Invitation', inviteSchema);
+module.exports = connect.model('Invite', inviteSchema);

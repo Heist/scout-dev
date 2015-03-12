@@ -7,19 +7,17 @@ module.exports = function(app, passport, debug) {
     var async    = require('async');
 
 // load data storage models =====================
-    var Task    = global.rootRequire('./server/models/data/task');
-    var Test    = global.rootRequire('./server/models/data/test');
-    
-// load functions ===============================
-    var deleteTask     = global.rootRequire('./server/models/functions/delete-task.js');
-    var objectUpdates  = global.rootRequire('./server/models/functions/object-updates');
+    var models  = require('../models');
+ 
+// load functions  ==============================
+    var fn  = require('../models/functions');
 
 // TASK ROUTES ===================================================
 
     app.route('/api/task/')
     // get all tasks
     .get(function(req,res){
-        Task.find({}, 
+        models.Task.find({}, 
             function(err, tasks) {
                 if(err){ console.log(err); }
                 res.json(tasks);
@@ -29,7 +27,7 @@ module.exports = function(app, passport, debug) {
         // update an array of tasks
         var arr = _.toArray(req.body);
 
-        objectUpdates(arr, function(err, update){
+        fn.objectUpdate(arr, function(err, update){
             if(err){console.log(err);}
             res.json(update);
         });
@@ -38,7 +36,7 @@ module.exports = function(app, passport, debug) {
         // Create a new task and push it to a test.
         // TODO: This relies on a dual pointer. We should remove that shit.
 
-        Task.create({
+        models.Task.create({
             name : req.body.name,
             desc : req.body.desc,
             _test : req.body._test,
@@ -46,7 +44,7 @@ module.exports = function(app, passport, debug) {
         }, function(err, task){
             if(err){ console.log(err); }
 
-            Test.findOneAndUpdate(
+            models.Test.findOneAndUpdate(
                 { '_id' : task._test},
                 { $push: { '_tasks' : task._id} },
                 { upsert : false },
@@ -60,7 +58,7 @@ module.exports = function(app, passport, debug) {
     app.route('/api/task/:_id')
     .get(function(req,res){
     // get single task
-        Task.findById(req.params._id)
+        models.Task.findById(req.params._id)
             .exec(function(err,task){
                 if(err){console.log(err);}
                 res.json(task);
@@ -68,16 +66,14 @@ module.exports = function(app, passport, debug) {
     })
     .put(function(req,res){
     // update a single task
-        var arr = [req.body];
-
-        objectUpdates(arr, function(err, update){
+        fn.objectUpdate([req.body], function(err, update){
             if(err){console.log(err);}
             res.json(update);
         });
     })
     .delete(function(req,res){
     // delete a task
-        deleteTask(req.params._id, function(err, task){
+        fn.deleteTask(req.params._id, function(err, task){
             if(err){console.log(err);}
             res.json(task);
         });

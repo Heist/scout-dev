@@ -1,0 +1,50 @@
+// unit tests for the tag pool backend
+
+(function(){
+'use strict';
+
+// Module dependencies ==========================
+var should = require('chai').should;
+var expect = require('chai').expect;
+var request = require('supertest-as-promised');
+
+var mongoose = require('mongoose');
+var models = require('../server/models');
+
+var app = require('../server.js');
+var api = request(app);
+
+// Tag Pool Tests  ==============================
+
+describe('The Tag Pool', function(){
+
+	it('on tag creation, should store in pool as a whole', function(done){
+		done();
+	});
+
+	it('should remove tags from the body of a note', function(done){
+
+	});
+
+	it('should create tags per user', function(done){
+		done();
+	});
+
+	it('should make tags available to anyone on that test', function(done){
+		done();
+	});
+
+	it('should store tags on notes', function(done){
+		done();
+	});
+
+	it('should lowercase tags and check against canonical tag', function(done){
+		done();
+	});
+
+	it('should save lowercased tags to test list of tags', function(done){
+		done();
+	});
+})
+
+})();

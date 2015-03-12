@@ -1,4 +1,6 @@
 // routes.js
+'use strict';
+
 module.exports = function(app, passport, debug) {
 // CONFIGURATION =====================================================
 
@@ -14,20 +16,9 @@ module.exports = function(app, passport, debug) {
     var Trello  = require('node-trello');
 
 // load data storage models
-    var Comment = require('./models/data/comment');
-    var Message = require('./models/data/message');
-    var Task    = require('./models/data/task');
-    var Test    = require('./models/data/test');
-    var Tag     = require('./models/data/tag');
-    var Subject = require('./models/data/subject');
-    var User    = require('./models/auth/user');
-    var Invitation = require('./models/auth/invitation');
+    var models = require('./models');
+    var fn = require('./models/functions')
 
-    // console logging
-    app.use(function(req, res, next) {
-        // console.log('Something is happening.');
-        next(); // make sure we go to the next routes and don't stop here
-    });
 
 // AUTH ROUTES ============================================
 // route middleware to ensure user is logged in - ajax get
@@ -50,9 +41,7 @@ module.exports = function(app, passport, debug) {
 // LOGIN ROUTES ===========================================
 
     // is someone logged in?
-
     app.get('/loggedin', function(req, res) {
-
             // console.log('check me for things', req.user);
             if(req.user){
                 if (req.isAuthenticated()) { 
@@ -76,78 +65,70 @@ module.exports = function(app, passport, debug) {
 
     // process the login form
     app.post('/auth/login', function(req, res, next) {
-        // make sure that you're logged out before trying to log anyone else in
-        // req.logout();
-
         if (!req.body.email || !req.body.password) {
             return res.json({ error: 'Email and Password required' });
         }
-        passport.authenticate('local-login', function(err, user, info) {
-            if (err) {
-                return res.json(err);
-            }
-            if (user.error) {
-                return res.json({ error: user.error });
-            }
-            req.logIn(user, function(err) {
-                if (err) {
-                    return res.json(err);
-                }
 
-                return res.json({ 'user': mongoose.Types.ObjectId(req.user._id),  'name':req.user.name, redirect: '/overview', msg:'login worked' });
-            });
-        })(req, res);
-    });
-
-    // process the signup form
-    app.post('/auth/signup', function(req, res, next) {
-        console.log(req.body);
-        if (!req.body.email || !req.body.password) {
-            return res.json({ error: 'Email and Password required' });
-        }
-        passport.authenticate('local-signup', function(err, user, info) {
+        passport.authenticate('local-login', function(err, user) {
             if (err) { return res.json(err); }
-            
-            if (user.error) {
-                return res.json({ error: user.error });
-            }
-            if (info){
-                // console.log('auth signup info', info);
-            }
+            if (user.error) { return res.json({ error: user.error }); }
 
-            if (user){
-                // console.log('auth signup user', user);
-            }
-            
             req.logIn(user, function(err) {
                 if (err) { return res.json(err); }
-                // console.log('auth/signup authenticated user', req.user);
-                res.json({ 'user': req.user._id, 'onboarding': req.user.onboarding, 'name':req.user.name, redirect: '/overview', msg:'register user worked' });
+                
+                res.json({ 'user': mongoose.Types.ObjectId(req.user._id),  'name':req.user.name, redirect: '/overview', msg:'login worked' });
             });
         })(req, res);
     });
 
     app.post('/auth/logout', function(req, res) {
-        // console.log('logout request', req);
-
         req.logout();
         res.json({ redirect: '/login' });
+    });
+
+
+    // process the signup form
+    app.post('/auth/signup', function(req, res) {
+        if (!req.body.email || !req.body.password) {
+            return res.json({ error: 'Email and Password required' });
+        }
+
+        passport.authenticate('local-signup', function(err, reply) {
+            if (err) { console.log(err); }
+
+            if(reply.user){
+                req.logIn(reply.user, function(err) {
+                    if (err) { return res.json(err); }
+                    res.json({ 
+                        'user' : reply.user._id,
+                        '_account' : reply.user._account,
+                        'email': reply.user.local.email, 
+                        'name' : reply.user.name,
+                        'msg'  : 'register user worked',
+                        'redirect'   : '/overview',
+                        'onboarding' : reply.user.onboarding 
+                    });
+                });
+                
+            } else {
+                res.json(reply);
+            }
+            
+        })(req, res);
     });
 
 // PASSWORD RESET ROUTES ==================================
     // forgotten passwords
     app.post('/auth/forgot', function(req, res, next) {
-        var forgotPassword = global.rootRequire('./server/models/functions/forgot-password-token');
-
-        forgotPassword( req.body.email, app, function(err, password){
+        fn.forgotPasswordToken( req.body.email, app, function(err, password){
             res.send(passport);
         });
     });
 
     // password reset route
     app.get('/reset/:token', function(req, res) {
-        console.log('check reset');
-        User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+        // console.log('check reset');
+        models.User.findOne({ 'resetPasswordToken' : req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
             if (!user) { res.send('0'); }
             res.send('1');
         });
@@ -155,10 +136,7 @@ module.exports = function(app, passport, debug) {
 
     // password reset route
     app.post('/reset/:token', function(req, res) {
-        console.log('password reset queued');
-        var resetPassword = global.rootRequire('./server/models/functions/reset-lost-password');
-
-        resetPassword(req.params.token, req.body.password, app, function(err, pass){
+        fn.resetPassword(req.params.token, req.body.password, app, function(err, pass){
             if(err){console.log(err);}
             res.send(pass);
         });
@@ -168,8 +146,8 @@ module.exports = function(app, passport, debug) {
 // PUBLIC ROUTES ==========================================
     app.route('/auth/invite/:_id')
         .get(function(req,res){
-            // get an existing invitation to populate the registration page
-            Invitation.findById(req.params._id)
+            // get an existing Invite to populate the registration page
+            models.Invite.findById(req.params._id)
                 .select('invite_email')
                 .exec(function(err,invite){
                     if(err) { return console.log(err); }
@@ -179,6 +157,16 @@ module.exports = function(app, passport, debug) {
         });
 
 // Debug Routes -------------------
+    // app.route('/debug/message')
+    //     .put(function(req, res){
+    //         var connectionOne = require('./models/app-connect');
+    //         var Msg = connectionOne.model('Message');
+    //         Msg.create({body: 'new message test'}, function(err, update){
+    //             if(err){console.log(err);}
+    //             console.log(update);
+    //         });
+    //     });
+
     // app.route('/debug/test')
     // .get(function(req,res){
     //     Test.find()
@@ -251,7 +239,7 @@ module.exports = function(app, passport, debug) {
 
     // app.route('/debug/invite')
     //     .get(function(req,res){
-    //         Invitation.find(function(err, invites) {
+    //         Invite.find(function(err, invites) {
     //                 if(err){console.log(err);}
 
     //                 res.json(invites);
@@ -275,8 +263,7 @@ module.exports = function(app, passport, debug) {
     // require('./routes/account_export')(app);
     app.route('/auth/export/account/')
         .get(function(req,res){
-            var accountExporter = require('./models/functions/account_export');
-            accountExporter(req.user._account, function(err, account) {
+            fn.accountExporter(req.user._account, function(err, account) {
                 if(err){console.log(err);}
                 res.json(account);
             });
@@ -289,8 +276,7 @@ module.exports = function(app, passport, debug) {
 
     app.route('/api/public/report/:_id')
     .get(function(req, res){
-        var buildSummary = global.rootRequire('./server/models/functions/build-summary');
-        buildSummary(req.params._id, function(err, summary){
+        fn.buildSummary(req.params._id, function(err, summary){
             if(err){console.log(err);}
             res.json(summary);
         });
@@ -306,37 +292,6 @@ module.exports = function(app, passport, debug) {
     });
 
 
-// CONNECT ROUTES =========================================
-
-    app.get('/connect/trello',
-        passport.authorize('trello-authz', { failureRedirect: '/account' })
-        // ,function(req, res) {
-        //     res.send({trello : true});
-        // }
-        );
-
-
-    app.get('/connect/trello/callback',
-      passport.authorize('trello-authz', { failureRedirect: '/account' }),
-      function(req, res) {
-        // this sends things to the popup window.
-        // var script = '$scope.parentWindow = window.opener.$windowScope;
-        //              console.log($scope.connector);';
-        res.send('<html><head><script>window.opener.inviteCallback(); window.close();</script>'+
-                '</head><body><h1>Thanks for attaching your account.</h1></body></html>');
-    });
-
-    app.delete('/connect/trello', function(req, res){
-        // console.log(req.body);
-
-        req.user.trello.id = '';
-        req.user.trello.token = '';
-        req.user.trello.tokenSecret = '';
-        req.user.save();
-
-        res.json({trello : false});
-    });
-
 // ACCOUNT ROUTES =========================================
     require('./routes/account')(app, debug);
 
@@ -344,9 +299,6 @@ module.exports = function(app, passport, debug) {
     require('./routes/user')(app, passport);
 
 // OBJECT ROUTES ==========================================
-
-// Session Routes
-    // require('./routes/session')(app, debug);
 
 // Test Routes
     require('./routes/test')(app, debug);

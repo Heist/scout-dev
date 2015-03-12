@@ -14,7 +14,7 @@ module.exports = function(app, passport) {
     // load up the user model
     var User = require('../server/models/auth/user');
     var Invitation = require('../server/models/auth/invitation');
-    var newUserTests = require('../server/models/functions/default-tests.js');
+    var passportNewUser = require('../config/passport-new-user');
 
     // load the auth variables
     var configAuth = require('./auth')(app);
@@ -48,24 +48,22 @@ module.exports = function(app, passport) {
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     }, function(req, email, password, done) {
         if (email) {email = email.toLowerCase();} // Use lower-case e-mails to avoid case-sensitive e-mail matching
-
+        // console.log('touched local login');
         // asynchronous
         process.nextTick(function() {
             User.findOne({ 'local.email' :  email }, function(err, user) {
                 // if there are any errors, return the error
-                if (err)
-                    {return done(err);}
+                if (err) {return done(err);}
 
                 // if no user is found, return the message
-                if (!user)
-                    {return done(null, { error: 'No user found. ' });}
+                if (!user) { return done(null, { error: 'No user found. ' }); }
 
                 if (!user.validPassword(password))
-                    {return done(null, { error: 'Oops! Wrong password.' });}
+                    {   return done(null, { error: 'Oops! Wrong password.' });}
 
                 // all is well, return user
-                else
-                    {return done(null, user);}
+                if(user)
+                    {  return done(null, user); }
             });
         });
     }));
@@ -81,79 +79,20 @@ module.exports = function(app, passport) {
             passwordField : 'password',
             passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
         },
-        
         function(req, email, password, done){
-            if (email) {email = email.toLowerCase();} // Use lower-case e-mails to avoid case-sensitive e-mail matching
+            if (req.user){ return done(null, 'Please log out before signing up again.'); } 
             
-            console.log('new user signup account touched', req.body._account);
-            
-                // user is logged in and has e-mail
-            if (req.user && req.user.local.email){
-                console.log('Please log out before signing up again.');
-                return done(null, req.user);
-            }
+            var user = {
+                name : req.body.name,
+                email : email ? email.toLowerCase() : '' , // Use lower-case e-mails to avoid case-sensitive e-mail matching
+                password : password,
+                invite: req.body.invite || ''
+            };
 
-            // user is logged in and has no e-mail.
-            if (req.user && !req.user.local.email){
-                var user = req.user;
-                user.local.email = email;
-                user.local.password = user.generateHash(password);
-                user.save(function(err, data) {
-                    if (err) {throw err;}
-                    console.log('User updated', data);
-                    return done(null, req.user);
-                });
-            }
-
-            // if no user is logged in
-            if (!req.user) { 
-                var promise = User.findOne({ 'local.email' :  email })
-                                  .exec(function(err, user) {
-                                        if(user){ return done(null, 'That email is already taken.'); } 
-                                    });
-
-                promise.then(function(){
-                    return Invitation.findOne({'_id': req.body.invite})
-                          .exec(function(err, invite){
-                            if (err){throw err;}
-                            if(!invite){
-                                // this is a fresh signup
-                                console.log('no invite');
-                            } else {
-                                // there was a pending invite with that invite _id, and it's not pending now.
-                                invite.pending = false;
-                                invite.save(function(err, inv){
-                                    if (err){throw err;}
-                                });
-                            }
-                        });
-                }).then(function(invite){
-                    // make a new user
-                    var account;
-                    if (invite){ account = invite._account; }
-                    else { account = mongoose.Types.ObjectId(); }
-
-                    var new_user = { 'name' : req.body.name,
-                                   '_account' : account,
-                                   'local.email' : email ,
-                                   'local.password' : generateHash(password)
-                            };
-
-                    return User.create(new_user, 
-                            function(err, user){ 
-                                if (err){throw err;} 
-
-                                if(invite === null){
-                                    return newUserTests(user._account, user._id, function(err, callback){
-                                        console.log('newUserTests generated tests for', user._id);
-                                    });
-                                }
-                            });
-
-                }).then(function(user){
-                    return done(null, user);
-                });
-            } 
+            passportNewUser(user, function(err, next){
+                if(err){console.log(err);}
+                done(null, next);
+            });
         })
     );
 

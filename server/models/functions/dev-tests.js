@@ -10,13 +10,7 @@ module.exports = function(account, user, next){
     var async = require('async');
     var Promise = require('bluebird');
 
-// load data storage models
-    var Message = global.rootRequire('./server/models/data/message');
-    var Task    = global.rootRequire('./server/models/data/task');
-    var Test    = global.rootRequire('./server/models/data/test');
-    var Tag     = global.rootRequire('./server/models/data/tag');
-    var Subject = global.rootRequire('./server/models/data/subject');
-
+    var models = require('../../models');
 
 // The promisified chain to make this a WHOLE bunch cleaner...
 // https://gist.githubusercontent.com/artcommacode/45c85e867d1bd1f3c1bb/raw/gistfile1.js
@@ -51,7 +45,7 @@ module.exports = function(account, user, next){
         function(callback){
             async.waterfall([
                 function(callback){
-                    Test.create({
+                    models.Test.create({
                         created_by_account: account,
                         created_by_user : user,
                         name : "DeveloperTest",
@@ -73,7 +67,7 @@ module.exports = function(account, user, next){
                                 index : 1
                             }];
 
-                        Task.create(tasks, function(err, t0, t1){
+                        models.Task.create(tasks, function(err, t0, t1){
                             test._tasks.push(t0._id, t1._id);
                             test.save(function(err, data){
                                 callback(null, data);
@@ -82,7 +76,7 @@ module.exports = function(account, user, next){
                     });
                 }, 
                 function(arg, callback){
-                    Subject.create({ name: 'Jane she is a cat' },
+                    models.Subject.create({ name: 'Jane she is a cat' },
                         function(err, data){
                             if (err) { console.log(err); }
                             callback(null, {test: arg, subject: data});
@@ -91,7 +85,7 @@ module.exports = function(account, user, next){
                 function(arg, callback){
                     async.parallel({
                         test: function(done){
-                            Test.findOne({'_id' : arg.test._id})
+                            models.Test.findOne({'_id' : arg.test._id})
                                 .exec(function(err, test){
                                     test._subjects.push(arg.subject._id);
                                     test.save(function(err, saved){
@@ -102,7 +96,7 @@ module.exports = function(account, user, next){
                         tasks: function(done){
                             async.map(arg.test._tasks,
                                 function(task, yeah){
-                                    Task.findOne({'_id' : task})
+                                    models.Task.findOne({'_id' : task})
                                         .exec(function(err, item){
                                             item._subjects.push(arg.subject._id);
                                             item.save(function(err, saved){
@@ -142,7 +136,7 @@ module.exports = function(account, user, next){
                     // this will create a rack of messages to put into tests.
                     var arr2 = arr.concat(arr);
 
-                    Message.create( arr2,
+                    models.Message.create( arr2,
                         function(err, d0, d1, d2, d3, d4, d5){
                             if (err) { console.log(err);} 
 
@@ -190,7 +184,7 @@ module.exports = function(account, user, next){
                         function(callback){
                             // this needs to be by test and tag.
                             // test issss...
-                            Tag.findOneAndUpdate(
+                            models.Tag.findOneAndUpdate(
                                 {'name': 'yellow', '_test' : arg.test._id },
                                 {'_messages': arg.yellow,
                                 '_test': arg.test._id },
@@ -200,7 +194,7 @@ module.exports = function(account, user, next){
                                 });
                         },
                         function(callback){
-                            Tag.findOneAndUpdate(
+                            models.Tag.findOneAndUpdate(
                                 {'name': 'blue', '_test' : arg.test._id },
                                 {'_messages': arg.blue,
                                  '_test': arg.test._id },
@@ -210,7 +204,7 @@ module.exports = function(account, user, next){
                                 });
                         },
                         function(callback){
-                            Tag.findOneAndUpdate(
+                            models.Tag.findOneAndUpdate(
                                 {'name': 'green', '_test' : arg.test._id },
                                 {'_messages': arg.green,
                                  '_test': arg.test._id },
@@ -221,20 +215,20 @@ module.exports = function(account, user, next){
                         }
                     ], 
                     function(err, results){ 
-                        callback(null, { test : arg.test });
+                        models.Test.findOne({'_id':arg.test._id})
+                        .populate('_messages _subjects _tasks')
+                        .exec(function(err,test){
+                            callback(null, { test : test });
+                        });
                     });
                 }
-            ], 
-            function(err, results){
-                callback(null, results);
-            });                
+            ], callback );                
         },
         function(arg, callback){
             callback(null, arg);
         }
     ], 
     function(err, results){
-        console.log('route results', results);
         next(null, results.test);
     });
 

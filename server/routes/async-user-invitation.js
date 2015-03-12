@@ -4,11 +4,11 @@
     var Promise = require('bluebird');
 
     var User    = require('../models/auth/user');
-    var Invitation = require('../models/auth/invitation');
+    var Invite = require('../models/auth/Invite');
     var Emailer  = require('../models/mailer');
 
 
- // INVITATION ROUTES ==================================
+ // Invite ROUTES ==================================
     app.route('/api/invite/')
         .post(function(req,res){
             async.waterfall([
@@ -32,28 +32,28 @@
                         callback(null, user);
                     }
 
-                    Invitation
+                    Invite
                         .findOne({'invite_email' : req.body.address})
                         .exec(function(err, i){
                             if(!i){ 
-                                // if there is no invitation, pass to next step.
+                                // if there is no Invite, pass to next step.
                                 callback(null, null); 
                             }
                             else {
                                 // if there is an invite, pass that to results.
-                                callback(null, 'You have already sent that invitation.');
+                                callback(null, 'You have already sent that Invite.');
                             }
                         });
                 },
                 function(args, callback){
                     
                     if(args !== null){
-                        // If either a user or an invitation exists on the system, pass it along.
+                        // If either a user or an Invite exists on the system, pass it along.
                         callback(null, args);
                     }
 
-                    // Send an invitation in e-mail to whomever.
-                    var invite = new Invitation();
+                    // Send an Invite in e-mail to whomever.
+                    var invite = new Invite();
                     invite._account = req.user._account;
                     invite.created_by = req.user._id;
                     invite.invite_email = req.body.address;
@@ -79,7 +79,7 @@
                         if (err) { 
                             console.log(err); 
                         }
-                        callback(null, 'Invitation sent to '+ invite.invite_email);
+                        callback(null, 'Invite sent to '+ invite.invite_email);
                     });
                 }
             ], 

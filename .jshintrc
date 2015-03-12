@@ -20,6 +20,7 @@
  
     "predef":   [
         "$",
+        "module",
         "_",
         "angular",
         "jQuery",
@@ -33,7 +34,11 @@
         "RED",
         "red",
         "FB",
-        "Scroller"
+        "Scroller",
+        "describe",
+        "beforeEach",
+        "it",
+        "expect"
     ],
  
  
