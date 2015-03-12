@@ -10,6 +10,7 @@ var request = require('supertest-as-promised');
 
 var mongoose = require('mongoose');
 var models = require('../server/models');
+var fn = require('../server/models/functions');
 
 var app = require('../server.js');
 var api = request(app);
@@ -25,42 +26,33 @@ describe('The Tag Pool', function(){
 	it('removes tags from body of note and stores them in .tags', function(done){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
 			.end(function(err, res) { // get logged in
-				agent.get('/api/subject/')
-				.then(function(next){
-					console.log(next.body);
-					// next = {subject : res.body._id, test : agent.get('/api/test/')};
-				})
-				.then(function(err, res, next){
-					console.log(next);
-				})
-				.catch(function(err){
-					done(err);
-				})
-				.done();
-			});
+				
+				var findS = function(){
+								return models.Subject.findOne({});
+							}
+				var findT = function(){
+								return models.Test.findOne({});
+							}
 
-				// get our subject and test to post our message to
-				// .end(function(err, res){
-				// 	console.log(res.body);
-				// 	agent.get('/api/test/')
-				// 	.end(function(err, res){
-				// 		console.log(res.body);
-				// 		done();	
-				// 	})
+
+				findS.then(function(s){
+					findT.then(function(s, t){
+						fn.messageNew({
+							body : 'This is a #blue #note #purple', 
+							_test : t._id ,
+							_subject : s._id
+						}, agent, 
+						function(err, data){
+							expect(data.body).to.be.an('object');
+							expect(data.body.tags).to.have.length(3);
+							expect(data.body.msg).to.equal('This is a');
+							done();	
+						})
+					})
+				})
+				
+			});
 					
-					// agent.post('/api/message/').send({
-					// 		msg : {
-					// 			body : 'This is a #blue #note #purple', 
-					// 			_test : '' ,
-					// 			_subject : ''
-					// 		}
-					// 	})
-					// .end(function(err, data){
-					// 	expect(data.body).to.be.an('object');
-					// 	expect(data.body.tags).to.have.length(3);
-					// 	expect(data.body.msg).to.equal('This is a');
-					// 	done();	
-					// });
 	});
 
 	it.skip('should create tags per user', function(done){
