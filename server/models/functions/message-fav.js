@@ -9,12 +9,11 @@ module.exports = function(message_array, next){
     var models = require('../../models');
 
 // Map an array of messages and return them as favourited ===============
-
     async.map(message_array,
         function(msg, callback){
             models.Message.findByIdAndUpdate(
-                msg._id, 
-                { 
+                msg._id,
+                {
                     'fav_task' : msg.fav_task,
                     'fav_tag'  : msg.fav_tag
                 }, 
