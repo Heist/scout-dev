@@ -34,7 +34,7 @@
             if($rootScope.user.onboard !== 100){
                 $rootScope.user.onboard = num;
     
-                var ce = '/api/user/'+$rootScope.user._id;
+                var url = '/api/user/'+$rootScope.user._id;
                 var dataOut = {onboard : $rootScope.user.onboard};
     
                 $http
