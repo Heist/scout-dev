@@ -18,6 +18,14 @@ var api = request(app);
 
 describe('The Tag Pool', function(){
 
+	it('on tag creation, should store in pool as a whole', function(done){
+		done();
+	});
+
+	it('should remove tags from the body of a note', function(done){
+
+	});
+
 	it('should create tags per user', function(done){
 		done();
 	});

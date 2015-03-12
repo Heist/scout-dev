@@ -20,6 +20,8 @@ module.exports = function(message, next){
             tags.push(msg);
         });
     }
-    
+
+    console.log(msg, tags);
+   
     return tags;
 };
