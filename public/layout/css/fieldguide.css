@@ -254,7 +254,7 @@ FORMS!
 */
 form {
   padding: 0;
-  margin: 25px 0; }
+  margin: 10px 0; }
 
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
 .input {
@@ -513,15 +513,15 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
   color: #fff;
   text-decoration: none;
   cursor: pointer;
-  font-size: 13.5px;
-  padding: 17px 30px; }
+  font-size: 14.025px;
+  padding: 16px 30px; }
   .button:hover {
     background: #7a9e0e;
     color: #fff;
     text-decoration: none; }
   .button.med {
-    font-size: 12px;
-    padding: 11px 30px; }
+    font-size: 12.525px;
+    padding: 11px 20px; }
   .button.small {
     font-size: 12px;
     padding: 2.5px 10px; }

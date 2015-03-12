@@ -3,12 +3,12 @@
 .button {
 	@include button-colour($fg-green, $white);
 	cursor: pointer;
-	font-size: $type-size-base*0.9;
-	padding: 17px 30px;
+	font-size: $type-size-base*0.935;
+	padding: 16px 30px;
 
 	&.med {
-		font-size: $type-size-base*0.8;
-		padding: 11px 30px;
+		font-size: $type-size-base*0.835;
+		padding: 11px 20px;
 	}
 
 	&.small {
