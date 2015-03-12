@@ -25,14 +25,28 @@ describe('The Tag Pool', function(){
 	it('removes tags from body of note and stores them in .tags', function(done){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
 			.end(function(err, res) { // get logged in
-				agent.get('/api/subject/') // get our subject and test to post our message to
-				.end(function(err, res){
-					console.log(res.body);
-					agent.get('/api/test/')
-					.end(function(err, res){
-						console.log(res.body);
-						done();	
-					})
+				agent.get('/api/subject/')
+				.then(function(next){
+					console.log(next.body);
+					// next = {subject : res.body._id, test : agent.get('/api/test/')};
+				})
+				.then(function(err, res, next){
+					console.log(next);
+				})
+				.catch(function(err){
+					done(err);
+				})
+				.done();
+			});
+
+				// get our subject and test to post our message to
+				// .end(function(err, res){
+				// 	console.log(res.body);
+				// 	agent.get('/api/test/')
+				// 	.end(function(err, res){
+				// 		console.log(res.body);
+				// 		done();	
+				// 	})
 					
 					// agent.post('/api/message/').send({
 					// 		msg : {
@@ -47,12 +61,6 @@ describe('The Tag Pool', function(){
 					// 	expect(data.body.msg).to.equal('This is a');
 					// 	done();	
 					// });
-				});
-			});
-		// agent.login
-		// agent.put('/api/message/', message with tags);
-		// 
-
 	});
 
 	it.skip('should create tags per user', function(done){
