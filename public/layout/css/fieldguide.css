@@ -601,20 +601,21 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
   outline: 0;
   border-radius: 3px;
   cursor: pointer; }
-  .button-inactive :hover {
-    background: red; }
+  .button-inactive:hover {
+    background: #85ac0f;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid transparent; }
+    .button-inactive:hover:hover {
+      background: #7a9e0e;
+      color: #fff;
+      text-decoration: none; }
   .button-inactive.med {
     font-size: 12px;
-    padding: 10px 30px; }
-    .button-inactive.med:hover {
-      background: #85ac0f;
-      color: #fff;
-      text-decoration: none;
-      border: 1px solid transparent; }
-      .button-inactive.med:hover:hover {
-        background: #7a9e0e;
-        color: #fff;
-        text-decoration: none; }
+    padding: 11px 30px; }
+  .button-inactive.small {
+    font-size: 12px;
+    padding: 2.5px 10px; }
 
 /* components */
 /* styles for bits */

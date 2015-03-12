@@ -79,18 +79,19 @@
 	outline: 0;
 	border-radius: 3px;
 	cursor: pointer;
-	
-	:hover {
-		background: red;
-	}
-
-	&.med {
-		font-size: $type-size-base*0.8;
-		padding: 10px 30px;
 
 		&:hover {
 			@include button-colour($fg-green, $white);
 			border: 1px solid transparent;
 		}
+
+	&.med {
+		font-size: $type-size-base*0.8;
+		padding: 11px 30px;
+	}
+
+	&.small {
+		font-size: $type-size-base*0.8;
+		padding: 2.5px 10px;
 	}
 }
