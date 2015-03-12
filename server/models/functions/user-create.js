@@ -1,0 +1,55 @@
+// user-create.js
+// create a new user on the system
+'use strict';
+
+module.exports = function(user, next){
+// Module dependencies ==========================
+    var async    = require('async');
+	var bcrypt   = require('bcrypt-nodejs');
+    var mongoose = require('mongoose');
+    var models   = require('../../models');
+    var fn       = require('../../models/functions');
+
+// CREATE A NEW USER ============================
+	async.waterfall([
+        function(callback){
+	            models.Invite.findOne({'invite_email': user.email})
+	                .exec(function(err, invite){
+	                    if (err){ console.log(err); }
+                        if( !invite ){ callback(null, null); }
+                        else {
+                            // console.log('invite found', invite._account);
+                        // there was a pending invite with that invite _id, and it's not pending now.
+                            invite.pending = false;
+                            invite.save(function(err, data){
+                                callback(null, data);
+                            });
+                        }
+	                });
+        },
+        function(invite, callback){
+		    var pass = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8), null);
+            models.User.create({ 
+                'name' : user.name,
+                '_account' : (invite !== null ) ? invite._account : mongoose.Types.ObjectId(),
+                'local.email' : user.email,
+                'local.password' : pass
+            }, function(err, user){ 
+                if (err){ console.log(err); }
+                callback(null, {invite: invite, user : user});
+            });
+        },
+        function(arg, callback){
+        	if(arg.invite === null ){
+        		// console.log('make some tests');
+                fn.defaultTests(arg.user._account, arg.user._id, function(err, tests){
+                    callback(null, {user: arg.user, tests: true});
+                });
+        	} else {
+        		callback(null, {user: arg.user, tests: false});
+        	}
+        }], function(err, results){
+        	if(err){console.log(err);}
+        	next(null, results);
+        });
+};

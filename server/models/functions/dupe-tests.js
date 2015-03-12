@@ -5,24 +5,15 @@
 
 module.exports = function(test, next){
 
-// Module dependencies
-    var mongoose = require('mongoose');  // can't set an ObjectID without this.
-    var _ = require('lodash');
-    var async = require('async');
-    var Promise = require('bluebird');
-
-// load data storage models
-    var Message = global.rootRequire('./server/models/data/message');
-    var Task    = global.rootRequire('./server/models/data/task');
-    var Test    = global.rootRequire('./server/models/data/test');
-    var Tag     = global.rootRequire('./server/models/data/tag');
-    var Subject = global.rootRequire('./server/models/data/subject');
+// Module dependencies ==========================
+    var async    = require('async');
+    var models   = require('../../models');
 
 // Duplicate existing tests through a waterfall callback.
     console.log(test);
     async.waterfall([
         function(callback) {
-            Test.findById(test)
+            models.Test.findById(test)
                 .populate({path:'_tasks'})
                 .exec(function(err, doc){
                     if(err){console.log(err);}
@@ -43,7 +34,7 @@ module.exports = function(test, next){
                     visible : 'true'
                 };
 
-            Test.create(update, function(err, test){
+            models.Test.create(update, function(err, test){
                 if (err){console.log(err);}
 
                 callback(null, {'old' : old, 'test' : test});
@@ -61,7 +52,7 @@ module.exports = function(test, next){
                         _test : args.test._id
                     };
 
-                    Task.create(make, function(err, doc){
+                    models.Task.create(make, function(err, doc){
                         if (err){ console.log(err); }
                         callback(null,doc._id);
                     });

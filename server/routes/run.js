@@ -1,4 +1,5 @@
 // run.js
+(function(){
 'use strict';
 
 module.exports = function(app, passport, io, debug) {
@@ -6,16 +7,11 @@ module.exports = function(app, passport, io, debug) {
 // Module dependencies ====================================
     var async = require('async');
 
-// load data storage models ===============================
-    var Message = global.rootRequire('./server/models/data/message');
-    var Task    = global.rootRequire('./server/models/data/task');
-    var Test    = global.rootRequire('./server/models/data/test');
-    var Tag     = global.rootRequire('./server/models/data/tag');
-    var Subject = global.rootRequire('./server/models/data/subject');
-
-// load functions ========================================= 
-    var newMessage = global.rootRequire('./server/models/functions/new-message.js');
-    var objectUpdates  = global.rootRequire('./server/models/functions/object-updates');
+// load data storage models =====================
+    var models  = require('../models');
+ 
+// load functions  ==============================
+    var fn  = require('../models/functions');
 
 // RUN ROUTES =============================================
     app.route('/api/run/')
@@ -23,8 +19,8 @@ module.exports = function(app, passport, io, debug) {
         })
         .post(function(req,res){
             // req.body should be an array of objects on DB to be updated.
-            
-            objectUpdates(req.body, function(err, next){
+            console.log('test complete');
+            fn.objectUpdate(req.body, function(err, next){
                 if(err){ console.log(err); }
                 res.json('completed', next);
             });
@@ -34,7 +30,7 @@ module.exports = function(app, passport, io, debug) {
         .get(function(req,res){
 
             // Find a test by _id and _account and populate its tasks, then return.
-            Test.findOne({
+            models.Test.findOne({
                     '_id' : req.params._id, 
                     '_tasks': {$not: {$size: 0}}, 
                     'created_by_account' : req.user._account 
@@ -47,3 +43,4 @@ module.exports = function(app, passport, io, debug) {
 
         });
 };
+})();

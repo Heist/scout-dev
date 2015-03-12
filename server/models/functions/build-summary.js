@@ -1,25 +1,23 @@
 // build-summary.js
 // builds out the response object for a summary.
+(function(){
 'use strict';
 
 module.exports = function(report_id, next){
 // Module dependencies ==========================
     var async = require('async');
-
-// load functions ===============================
-    var buildNavList   = global.rootRequire('./server/models/functions/build-object-list');
-    var buildMsgList   = global.rootRequire('./server/models/functions/messages-list');
+    var fn    = require('../../models/functions');
 
 // BUILD A REPORT OBJECT ==================================
     async.parallel({
         navlist: function(callback){
-            buildNavList(report_id, function(err, list){
+            fn.buildObjectList(report_id, function(err, list){
                 if(err){console.log(err);}
                 callback(null, list);
             });
         },
         messages: function(callback){
-            buildMsgList(report_id, function(err, list){
+            fn.messageList(report_id, function(err, list){
                 if(err){console.log(err);}
                 callback(null, list);
             });
@@ -30,3 +28,4 @@ module.exports = function(report_id, next){
         next(null, results);
     });
 };
+})();

@@ -1,5 +1,5 @@
 // create-invite.js
-// Create a new invitation
+// Create a new Invite
 'use strict';
 
 module.exports = function(address, inviter, next){
@@ -9,16 +9,16 @@ module.exports = function(address, inviter, next){
     var _        = require('lodash');
     var async    = require('async');
     var Promise  = require('bluebird');
+    
+    var models   = require('../../models');
 
 // Load models ============================================
-    var User       = global.rootRequire('./server/models/auth/user');
-    var Invitation = global.rootRequire('./server/models/auth/invitation');
-    var Emailer    = global.rootRequire('./server/models/mailer');
+    var Emailer = require('../models/mailer');
 
-// Create an invitation ===================================
+// Create an Invite ===================================
     async.waterfall([
         function(callback){
-            User.findOne({'local.email' : address })
+            models.User.findOne({'local.email' : address })
                 .exec(function(err, user){
                     if(!user){
                         // if there is no user, set user to null.
@@ -37,29 +37,29 @@ module.exports = function(address, inviter, next){
                 callback(null, user);
             }
 
-            Invitation
+            models.Invite
                 .findOne({'invite_email' : address})
                 .exec(function(err, i){
                     if(!i){ 
-                        // if there is no invitation, pass to next step.
+                        // if there is no Invite, pass to next step.
                         callback(null, null); 
                     }
                     else {
                         // if there is an invite, pass that to results.
-                        callback(null, 'You have already sent that invitation.');
+                        callback(null, 'You have already sent that Invite.');
                     }
                 });
         },
         function(args, callback){
             if(args !== null){
-                // If either a user or an invitation exists on the system, pass it along.
+                // If either a user or an Invite exists on the system, pass it along.
                 callback(null, args);
             }
 
-            // Send an invitation in e-mail to whomever.
+            // Send an Invite in e-mail to whomever.
             // TODO: Promisify this bit.
             
-            Invitation.create({
+            models.Invite.create({
                 _account : inviter._account,
                 created_by_user : inviter._id,
                 invite_email : address
@@ -72,7 +72,7 @@ module.exports = function(address, inviter, next){
                       subject: "Invite from Field Guide",
                       template: "invite"
                     },
-                    { invitation_by: inviter.name,
+                    { Invite_by: inviter.name,
                       invite_link: 'http://projects.fieldguideapp.com/login/'+invite._id
                     });
 
@@ -80,7 +80,7 @@ module.exports = function(address, inviter, next){
                     if (err) { 
                         console.log(err); 
                     }
-                    callback(null, 'Invitation sent to '+ invite.invite_email);
+                    callback(null, 'Invite sent to '+ invite.invite_email);
                 });
             });
         }

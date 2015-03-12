@@ -1,16 +1,19 @@
 // onboarding and user models
 // user.js
-'user strict';
+(function(){
+'use strict';
 
 module.exports = function(app, passport) {
-var User = global.rootRequire('./server/models/auth/user');
+// load data storage models =====================
+    var models  = require('../models');
+
 
 app.route('/api/user/:_id')
     .get(function(req,res){
 
     })
     .put(function(req,res){
-        User.findOne({'_id' : req.user._id})
+        models.User.findOne({'_id' : req.user._id})
             .exec(function(err, user){
                 if(err){console.log(err);}
                 if(user){
@@ -30,3 +33,4 @@ app.route('/api/user/:_id')
     });
 
 };
+})();

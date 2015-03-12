@@ -186,11 +186,11 @@
 
         $scope.saveFav = function(message){
             if($scope.selected.doctype === 'task'){
-                return (message.fav_task) ? message.fav_task = false : message.fav_task = true ;
+                message.fav_task = ( message.fav_task === true ) ? false : true ;
             }
 
             if($scope.selected.doctype === 'tag'){
-                return (message.fav_tag) ? message.fav_tag = false : message.fav_tag = true ;
+                message.fav_tag = (message.fav_task === true ) ? false : true ;
             }
 
             $http.put('/api/message/fav', message);

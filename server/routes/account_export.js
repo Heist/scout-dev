@@ -7,12 +7,8 @@ module.exports = function(app, debug){
     var _ = require('lodash');
     var async = require('async');
 
-    //load data storage models
-    var Message = require('../models/data/message');
-    var Task    = require('../models/data/task');
-    var Test    = require('../models/data/test');
-    var Tag     = require('../models/data/tag');
-    var Subject = require('../models/data/subject');
+    //load data storage models 
+    var models = require('../models/');
 
 
     app.route('/api/export/account/:_account')

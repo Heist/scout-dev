@@ -34,7 +34,7 @@
             if($rootScope.user.onboard !== 100){
                 $rootScope.user.onboard = num;
     
-                var url = '/api/user/'+$rootScope.user._id;
+                var ce = '/api/user/'+$rootScope.user._id;
                 var dataOut = {onboard : $rootScope.user.onboard};
     
                 $http
@@ -196,6 +196,7 @@
             $http
                 .post('/api/run/', $scope.update)
                 .success(function(data){
+                    console.log(data);
                     $location.path('/overview');
                 });
 

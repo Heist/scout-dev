@@ -1,4 +1,5 @@
 //message.js
+(function(){
 'use strict';
 
 module.exports = function(app, passport, debug) {
@@ -10,44 +11,25 @@ module.exports = function(app, passport, debug) {
     var Promise = require('bluebird');
 
 // load data storage models =====================
-    var Message = global.rootRequire('./server/models/data/message');
-    var Task    = global.rootRequire('./server/models/data/task');
-    var Test    = global.rootRequire('./server/models/data/test');
-    var Tag     = global.rootRequire('./server/models/data/tag');
-    var Subject = global.rootRequire('./server/models/data/subject');
-
+    var models  = require('../models');
+ 
 // load functions  ==============================
-    var newMessage     = global.rootRequire('./server/models/functions/new-message.js');
-    var messageFav = global.rootRequire('./server/models/functions/message-fav');
-    var buildMsgList   = global.rootRequire('./server/models/functions/messages-list');
-    var editMsg        = global.rootRequire('./server/models/functions/edit-message.js');
+    var fn  = require('../models/functions')
 
 //MESSAGE ROUTES  ================================================
 
  // Message Routes from Summary ===========================
     app.route('/api/message/')
-    .get(function(req,res){
-        // return all messages in the system. This is too many messages.
-        // TODO: get all messages by current user?
-        // Get all messages for current user account?
-        // Messages don't store their account, because they're a User's creation. Bad?
-        
-        // Message.find({})
-        //     .exec(function(err, messages) {
-        //         if(err){ console.log(err); }
-        //         res.json(messages);
-        //     });
-    })
     .post(function(req,res){
      // Create a new message
-        newMessage(req.body, req.user._id, function(err, message){
+        fn.messageNew(req.body, req.user._id, function(err, message){
                 if(err){console.log(err);}
                 res.json(message);
             });
     })
     .put(function(req, res){
     // Edit the body of a message and change its tag associations
-        editMsg(req.body, function(err, msg){
+        fn.editMessage(req.body, function(err, msg){
             if(err){console.log(err);}
             res.json(msg);
         });
@@ -57,7 +39,7 @@ module.exports = function(app, passport, debug) {
    .put(function(req, res){
     // post fav to a message or array of messages
         var message_array = [req.body];
-        messageFav(message_array, function(err, messages){
+        fn.messageFav(message_array, function(err, messages){
             if(err){console.log(err);}
             res.json(messages);
         });
@@ -66,10 +48,11 @@ module.exports = function(app, passport, debug) {
     app.route('/api/message/:_id')
     .get(function(req,res){
         //get one specific message
-        Message.findById(req.params._id)
+        models.Message.findById(req.params._id)
             .exec(function(err,msg){
                 if(err){ console.log(err); }
                 res.json(msg);
             });
     });
 };
+})();

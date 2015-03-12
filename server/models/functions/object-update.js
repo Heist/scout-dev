@@ -1,4 +1,4 @@
-// object-updates.js
+// object-update.js
 'use strict';
 
 // Takes an array of objects, finds each object in array on server
@@ -8,18 +8,8 @@
 module.exports = function(object_array, next){
 
 // Module dependencies ==========================
-    var mongoose = require('mongoose');  // can't set an ObjectID without this.
-    var _ = require('lodash');
-    var async = require('async');
-    var Promise = require('bluebird');
-
-// load data storage models ==========================
-    var Message = global.rootRequire('./server/models/data/message');
-    var Task    = global.rootRequire('./server/models/data/task');
-    var Test    = global.rootRequire('./server/models/data/test');
-    var Tag     = global.rootRequire('./server/models/data/tag');
-    var Subject = global.rootRequire('./server/models/data/subject');
-
+    var async    = require('async');
+    var models = require('../../models');
 
 // UPDATE OBJECTS FROM NAVIGATION LIST ====================
 // Did we get a properly formed object array?
@@ -27,9 +17,9 @@ module.exports = function(object_array, next){
         function(obj, callback){
 
             var Model;
-            if(obj.doctype === 'tag') { Model = Tag;  }
-            if(obj.doctype === 'task'){ Model = Task; }
-            if(obj.doctype === 'test'){ Model = Test; }
+            if(obj.doctype === 'tag') { Model = models.Tag;  }
+            if(obj.doctype === 'task'){ Model = models.Task; }
+            if(obj.doctype === 'test'){ Model = models.Test; }
 
             Model.findOne({'_id' : obj._id})
                  .exec(function(err, model){

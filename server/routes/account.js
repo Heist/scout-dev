@@ -1,26 +1,23 @@
 // /routes/account.js
 'use strict';
 
-// ACCOUNT AND INVITATION ROUTES =========================================
+// ACCOUNT AND Invite ROUTES =========================================
 
 module.exports = function(app, debug){
-
 // Module dependencies ==========================
-    var mongoose = require('mongoose');  // Permits use of ObjectID type
-    var _        = require('lodash');
-    var async    = require('async');
-    var Promise  = require('bluebird');
+    var mongoose = require('mongoose');  // can't set an ObjectID without this.
+    var _ = require('lodash');
+    var async = require('async');
+    var Promise = require('bluebird');
 
-// Load models ==================================
-    var User        = global.rootRequire('./server/models/auth/user');
-    var Invitation  = global.rootRequire('./server/models/auth/invitation');
-    var Emailer     = global.rootRequire('./server/models/mailer');
+// load data storage models =====================
+    var models  = require('../models');
+ 
+// load functions  ==============================
+    var fn  = require('../models/functions')
+    var Emailer     = require('../models/mailer');
 
-// Load functions ===============================
-    var createInvite = global.rootRequire('./server/models/functions/create-invite');
-    var resendInvite = global.rootRequire('./server/models/functions/resend-invite');
-
-// INVITATION ROUTES ======================================
+// Invite ROUTES ======================================
     app.route('/api/account/:_user')
         .get(function(req,res){
         // if there's a user, get a user
@@ -29,7 +26,7 @@ module.exports = function(app, debug){
 
             var reply = {};
             var promise = 
-                User.findById(getUser).exec();
+                models.User.findById(getUser).exec();
 
             promise.then(function(user){
                             
@@ -41,13 +38,13 @@ module.exports = function(app, debug){
 
                 if (user.trello.id){ reply.trello = true; }
 
-                return User.find({_account: user._account}).select('local.email name _account').exec();
+                return models.User.find({_account: user._account}).select('local.email name _account').exec();
 
             })
             .then(function(team_members){
                 reply.team = team_members;
                 
-                return Invitation.find({_account: reply.account, pending: true}).exec();
+                return models.Invite.find({_account: reply.account, pending: true}).exec();
             })
             .then(function(invites){
                 reply.invites = invites;
@@ -69,11 +66,11 @@ module.exports = function(app, debug){
         //     });
         // });
 
-    // INVITATION ROUTES ==================================
+    // Invite ROUTES ==================================
     app.route('/api/invite/')
         .post(function(req,res){
-            // create a new invitation
-            createInvite(req.body, req.user, function(err, invite){
+            // create a new Invite
+            fn.createInvite(req.body, req.user, function(err, invite){
                 if(err){console.log(err);}
                 res.json(invite);
             });
@@ -84,16 +81,16 @@ module.exports = function(app, debug){
             console.log('invite put');
         })
         .post(function(req,res){
-            // this is to resend an invitation already sent
-            resendInvite(req.params._id, req.user, function(err, invite){
+            // this is to resend an Invite already sent
+            fn.resendInvite(req.params._id, req.user, function(err, invite){
                 if(err){console.log(err);}
                 res.json(invite);
             });
         })
         .delete(function(req,res){
-            Invitation.remove({'_id': req.params._id}, function(err, invite){
+            models.Invite.remove({'_id': req.params._id}, function(err, invite){
                 if(err) {return console.log (err);}
-                res.json('Invitation recalled');
+                res.json('Invite recalled');
             });
         });
 };

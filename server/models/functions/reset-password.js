@@ -5,12 +5,10 @@
 
 module.exports = function(token, pass, app, next){
 // Module dependencies ==========================
-    var async   = require('async');
-    var bcrypt = require('bcrypt-nodejs');
+    var async      = require('async');
+    var bcrypt     = require('bcrypt-nodejs');
     var nodemailer = require('nodemailer');
-
-// load data models =============================
-    var User    = global.rootRequire('./server/models/auth/user');
+    var models     = require('../../models');
 
 // load functions ===============================
 
@@ -18,7 +16,7 @@ module.exports = function(token, pass, app, next){
 
     async.waterfall([
         function(done) {
-            User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+            models.User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
                 if (!user) { done(null, null);}
 
                 // TODO: Abstract this shit onto the user model

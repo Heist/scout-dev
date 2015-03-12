@@ -1,4 +1,4 @@
-// new-message.js
+// message-new.js
 // create a new message on the DB
 'use strict';
 
@@ -8,21 +8,15 @@ module.exports = function(request, user, next){
     var async    = require('async');
 
 // load data storage models =====================
-    var Message = global.rootRequire('./server/models/data/message');
-    var Task    = global.rootRequire('./server/models/data/task');
-    var Test    = global.rootRequire('./server/models/data/test');
-    var Tag     = global.rootRequire('./server/models/data/tag');
-    var Subject = global.rootRequire('./server/models/data/subject');
-
-// load functions ===============================
-    var tagPuller = global.rootRequire('./server/models/functions/tag-puller.js');
-
+    var models = require('../../models');
+    var fn     = require('../../models/functions');
+    
 
 // CREATE A NEW MESSAGE ===================================
 
 // set message variables from request object.
     var body = request.body,
-        tags = tagPuller(body) || null,
+        tags = fn.tagPuller(body) || null,
         _subject = request._subject,
         _test = request._test,
         _task = request._task;
@@ -32,7 +26,7 @@ module.exports = function(request, user, next){
     async.waterfall([
         function(callback){
             // Create the message
-            Message.create(
+            models.Message.create(
                 {
                     _subject : _subject,
                     _test : _test,
@@ -46,7 +40,7 @@ module.exports = function(request, user, next){
         },
         function(msg, callback){
             // Return the message with the subject populated
-            Message.findById(msg._id)
+            models.Message.findById(msg._id)
                    .populate('_subject')
                    .exec(function(err, note){
                         if (err) { console.log(err); }
@@ -58,7 +52,7 @@ module.exports = function(request, user, next){
             async.parallel({
                 task: function(callback){
                     if (_task){
-                        Task.findOneAndUpdate(
+                        models.Task.findOneAndUpdate(
                             {'_id':_task},
                             {$push: { _messages: msg._id }},
                             {upsert : false },
@@ -70,7 +64,7 @@ module.exports = function(request, user, next){
                     }
                 },
                 subject: function(callback){
-                    Subject.findOneAndUpdate(
+                    models.Subject.findOneAndUpdate(
                             {'_id': _subject},
                             {$push: { _messages: msg._id }},
                             {upsert : false },
@@ -84,7 +78,7 @@ module.exports = function(request, user, next){
                     if(tags){
                         async.map(tags, 
                             function(tag, callback){
-                                Tag.findOneAndUpdate( 
+                                models.Tag.findOneAndUpdate( 
                                     {name: tag, _test: msg._test}, 
                                     { $push: { _messages: msg._id },
                                             name: tag,
