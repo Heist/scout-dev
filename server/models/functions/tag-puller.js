@@ -17,11 +17,12 @@ module.exports = function(message, next){
     if (tagIt){
         _.each(tagIt, function(tag){
             var msg = tag.replace(hashPull,'');
+            console.log(msg);
             tags.push(msg);
         });
     }
 
-    console.log(msg, tags);
+    console.log(message, tags);
    
     return tags;
 };

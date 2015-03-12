@@ -15,8 +15,8 @@ module.exports = function(request, user, next){
 // CREATE A NEW MESSAGE ===================================
 
 // set message variables from request object.
-    var body = request.body,
-        // tags = fn.tagPuller(body) || null,
+    var body = request,
+        tags = fn.tagPuller(body) || null,
         _subject = request._subject,
         _test = request._test,
         _task = request._task;
