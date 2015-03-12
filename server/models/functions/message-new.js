@@ -11,7 +11,6 @@ module.exports = function(request, user, next){
     var models = require('../../models');
     var fn     = require('../../models/functions');
     
-    console.log('new message in message-new', request);
 // CREATE A NEW MESSAGE ===================================
 
 // set message variables from request object.
@@ -104,6 +103,7 @@ module.exports = function(request, user, next){
     ], 
     function(err, results){
         // End of waterfall chain - new message and tags return here.
+        console.log('waterfall', results);
         if(err){console.log(err);}
         next(null, {msg: results.msg, tags: results.waterfall.tags});
     });

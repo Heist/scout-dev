@@ -3,27 +3,27 @@
 'use strict';
 
 module.exports = function(message, next){
-    console.log('message in tagpuller', message);
 // Module dependencies ==========================
     var _ = require('lodash');
 
 // Catch some hashtags ====================================
 
-    var tags = [];
+    var tags_raw = [];
     var hashCatch = new RegExp(/\S*#\S+/gi);
-    var hashPull = new RegExp(/#/gi);
+
+    var msg_body = message.replace( hashCatch,'');
     var tagIt = message.match(hashCatch);
     
     if (tagIt){
         _.each(tagIt, function(tag){
-            var msg = tag.replace(hashPull,'');
-            console.log(msg);
-            tags.push(msg);
+            var tagName = tag.replace(/#/gi,'');
+            tags_raw.push(tagName);
         });
     }
+    
+    console.log(msg_body, tags_raw);
 
-    console.log(tagIt);
-    console.log(message, tags);
-   
-    return tagIt;
+    var reply = { msg :  msg_body, tags: tags_raw }
+
+    return reply;
 };

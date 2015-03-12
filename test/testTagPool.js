@@ -27,10 +27,9 @@ describe('The Tag Pool', function(){
 			.end(function(err, res) {
 				agent.post('/api/message/').send({msg : 'This is a #blue #note #purple'})
 				.end(function(err, data){
-					console.log(data.body);
 					expect(data.body).to.be.an('object');
 					expect(data.body.tags).to.have.length(3);
-					expect(data.body.body).to.equal('This is a');
+					expect(data.body.msg).to.equal('This is a');
 					done();	
 				});
 			});

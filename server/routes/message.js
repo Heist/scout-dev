@@ -22,9 +22,9 @@ module.exports = function(app, passport, debug) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
-        // console.log('new message', req.body.msg);
         fn.messageNew(req.body.msg, req.user._id, function(err, message){
                 if(err){console.log(err);}
+                // console.log(message);
                 res.json(message);
             });
     })
