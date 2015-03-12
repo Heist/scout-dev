@@ -1,4 +1,4 @@
-// unit tests for the tag pool backend
+// unit.skip tests for the tag pool backend
 
 (function(){
 'use strict';
@@ -18,32 +18,34 @@ var api = request(app);
 
 describe('The Tag Pool', function(){
 
-	it('on tag creation, should store in pool as a whole', function(done){
-		done();
-	});
 
-	it('should remove tags from the body of a note', function(done){
+
+	it.skip('on tag creation, should store in pool as a whole', function(done){
 
 	});
 
-	it('should create tags per user', function(done){
-		done();
+	it.skip('should remove tags from the body of a note', function(done){
+
 	});
 
-	it('should make tags available to anyone on that test', function(done){
-		done();
+	it.skip('should create tags per user', function(done){
+		
 	});
 
-	it('should store tags on notes', function(done){
-		done();
+	it.skip('should make tags available to anyone on that test', function(done){
+		
 	});
 
-	it('should lowercase tags and check against canonical tag', function(done){
-		done();
+	it.skip('should store tags on notes', function(done){
+		
 	});
 
-	it('should save lowercased tags to test list of tags', function(done){
-		done();
+	it.skip('should lowercase tags and check against canonical tag', function(done){
+		
+	});
+
+	it.skip('should save lowercased tags to test list of tags', function(done){
+		
 	});
 })
 

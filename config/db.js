@@ -11,14 +11,12 @@ if(environment() !== 'test'){
 	var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/field_guide_app';
 	var db = mongoose.createConnection(mongoUrl);
 	var auth_db = db.useDb('field_guide_users');
-	console.log(mongoUrl);
 }
 	
 else {
-	console.log(environment());
 	var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/field_guide_app_test';
 	var db = mongoose.createConnection(mongoUrl);
-	var auth_db = db.useDb('field_guide_users_test');
+	var auth_db = db.useDb('field_guide_users_test');	
 }
 
 // this segment does not work right now.
@@ -27,6 +25,6 @@ else {
 		console.log('db open');
 	         // yay!
 	});
-
+console.log(mongoUrl);
 module.exports = {auth: auth_db, db: db};
 

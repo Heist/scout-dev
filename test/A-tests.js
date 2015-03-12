@@ -18,6 +18,7 @@ var request = require('supertest-as-promised');
 
 var mongoose = require('mongoose');
 var models = require('../server/models');
+var fn = require('../server/models/functions');
 
 var app = require('../server.js');
 var api = request(app);
@@ -46,7 +47,16 @@ before(function(){
         }, function(err, invite){
             if(err){ console.log(err); }
         });
+
+        fn.devTests(u._account, u, function(err, tests){
+        	if(err){console.log(err)};
+        	console.log('done tests');
+        });
 	});
+
+
+
+
 });
 
 after(function(done){
