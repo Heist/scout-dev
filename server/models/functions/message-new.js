@@ -11,17 +11,17 @@ module.exports = function(request, user, next){
     var models = require('../../models');
     var fn     = require('../../models/functions');
     
-
+    console.log('new message in message-new', request);
 // CREATE A NEW MESSAGE ===================================
 
 // set message variables from request object.
     var body = request.body,
-        tags = fn.tagPuller(body) || null,
+        // tags = fn.tagPuller(body) || null,
         _subject = request._subject,
         _test = request._test,
         _task = request._task;
 
-    console.log('new message', request);
+
 
     async.waterfall([
         function(callback){

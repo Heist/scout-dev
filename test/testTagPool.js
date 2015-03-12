@@ -17,14 +17,26 @@ var api = request(app);
 // Tag Pool Tests  ==============================
 
 describe('The Tag Pool', function(){
-
-
-
+	var agent = request.agent(app); // this is to check logins, not account creation.
 	it.skip('on tag creation, should store in pool as a whole', function(done){
 
 	});
 
-	it.skip('should remove tags from the body of a note', function(done){
+	it('removes tags from body of note and stores them in .tags', function(done){
+		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
+			.end(function(err, res) {
+				agent.post('/api/message/').send({msg : 'This is a #blue #note #purple'})
+				.end(function(err, data){
+					console.log(data.body);
+					expect(data.body).to.be.an('object');
+					expect(data.body.tags).to.have.length(3);
+					expect(data.body.body).to.equal('This is a');
+					done();	
+				});
+			});
+		// agent.login
+		// agent.put('/api/message/', message with tags);
+		// 
 
 	});
 

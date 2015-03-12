@@ -3,7 +3,7 @@
 'use strict';
 
 module.exports = function(message, next){
-
+    console.log('message in tagpuller', message);
 // Module dependencies ==========================
     var _ = require('lodash');
 
