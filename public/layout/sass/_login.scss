@@ -7,12 +7,24 @@
 	color: $white;
 	height: 100%;
 	padding: 15% 0 0 0;	
+
+	label {
+		color: $white;
+	}
 	
 	input, button {
 		width: 100%;
 		margin-bottom: $pad/5;
 	}
-	
+
+	input[type=checkbox] {
+		width: 15px;
+		text-align: center;
+	}
+
+	li:last-child {
+		text-align: center;
+	}
 	
 	a {
 		color: $white;
@@ -27,6 +39,10 @@
 	
 	.messaging {
 		border: 1px solid transparentize($white,0.75);
+	}
+
+	.error {
+		border: 2px solid red; 
 	}
 }
 
