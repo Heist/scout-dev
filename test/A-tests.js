@@ -52,28 +52,7 @@ before(function(done){
         fn.devTests(u._account, u, function(err, tests){
         	if(err){console.log(err);}
         	console.log('done tests');
-        	// done();
-        	agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
-			.end(function(err, res) { // get logged in
-				agent.get('/api/subject/') // get our subject and test to post our message to
-				.end(function(err, res){
-					console.log(res.body);
-					done();
-					// agent.post('/api/message/').send({
-					// 		msg : {
-					// 			body : 'This is a #blue #note #purple', 
-					// 			_test : '' ,
-					// 			_subject : ''
-					// 		}
-					// 	})
-					// .end(function(err, data){
-					// 	expect(data.body).to.be.an('object');
-					// 	expect(data.body.tags).to.have.length(3);
-					// 	expect(data.body.msg).to.equal('This is a');
-					// 	done();	
-					// });
-				});
-			});
+        	done();
         });
 	});
 

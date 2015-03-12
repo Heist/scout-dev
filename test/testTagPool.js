@@ -28,7 +28,12 @@ describe('The Tag Pool', function(){
 				agent.get('/api/subject/') // get our subject and test to post our message to
 				.end(function(err, res){
 					console.log(res.body);
-					done();
+					agent.get('/api/test/')
+					.end(function(err, res){
+						console.log(res.body);
+						done();	
+					})
+					
 					// agent.post('/api/message/').send({
 					// 		msg : {
 					// 			body : 'This is a #blue #note #purple', 
