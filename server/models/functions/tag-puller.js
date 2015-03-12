@@ -25,5 +25,5 @@ module.exports = function(message, next){
     console.log(tagIt);
     console.log(message, tags);
    
-    return tags;
+    return tagIt;
 };

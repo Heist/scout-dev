@@ -83,7 +83,7 @@ describe("Check Passport", function(){
 
 	describe('POST /auth/signup', function () {
 		var url = '/auth/signup';
-		it('should fail an empty request', function(done){
+		it.skip('should fail an empty request', function(done){
 			api.post(url)
 			.send({ user: null, password: null })
 			.end(function(err, data) {
@@ -92,7 +92,7 @@ describe("Check Passport", function(){
 			});
 		});
 
-		it('should register a new user on the db', function(done){
+		it.skip('should register a new user on the db', function(done){
 			api.post(url).send({
 				email: 'becky@made.com', 
 				name:'becky',
@@ -105,7 +105,7 @@ describe("Check Passport", function(){
 			}).done();
 		});
 
-		it('should fail a repeat request', function(done){
+		it.skip('should fail a repeat request', function(done){
 			api.post(url).send({
 				email: 'login@heistmade.com', 
 				name:'becky',
@@ -121,7 +121,7 @@ describe("Check Passport", function(){
 			.done();
 		});
 
-		it('should set new user account from existing invitation', function(done){
+		it.skip('should set new user account from existing invitation', function(done){
 			api.post(url)
 			.send({
 				email: 'sarah@made.com', 
@@ -137,7 +137,7 @@ describe("Check Passport", function(){
 	});
 
 	describe('POST login/logout', function(){
-		it('should reject an empty request', function(done){
+		it.skip('should reject an empty request', function(done){
 			api.post('/auth/login').send({
 				email:'',
 				name: 'login',
@@ -151,7 +151,7 @@ describe("Check Passport", function(){
 			.done();
 		})
 
-		it('should deny a non-logged-in user', function(done){
+		it.skip('should deny a non-logged-in user', function(done){
 			api.get('/api/test/')
 				.then(function(data){
 					expect(data.body).to.be.an('object');
@@ -162,7 +162,7 @@ describe("Check Passport", function(){
 				.done();
 		});
 
-		it('should log in an existing user', function(done){
+		it.skip('should log in an existing user', function(done){
 			agent.post('/auth/login').send({
 				email:'login@heistmade.com',
 				password: 'login'
@@ -175,7 +175,7 @@ describe("Check Passport", function(){
 			.done();
 		})
 
-		it('should log out a logged-in account', function(done){
+		it.skip('should log out a logged-in account', function(done){
 			agent.post('/auth/logout')
 			.send({})
 			.then(function(data){
