@@ -8,10 +8,11 @@ Master Sass
 @import "variables";
 @import "colours";
 @import "fonts";
-@import "helpers";
+@import "mixins";
 @import "typography";
 @import "forms";
 @import "grid";
+@import "buttons";
 
 
 /* components */ 
@@ -23,7 +24,6 @@ Master Sass
 @import "modal";
 @import "pricing";
 @import "subbar";
-@import "mixins";
 
 /* specific views */
 @import "login";

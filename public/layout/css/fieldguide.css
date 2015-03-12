@@ -29,10 +29,7 @@ custom fonts
 ========================
 */
 /* p n a */
-/*
-mixins
-========================
-*/
+/* Mixins */
 /*
 helpers
 ========================
@@ -374,111 +371,6 @@ textarea.input {
 .placeholder {
   color: rgba(124, 125, 128, 0.6); }
 
-/* button colour mixin */
-.button {
-  background: #85ac0f;
-  color: #fff;
-  text-decoration: none;
-  cursor: pointer; }
-  .button:hover {
-    background: #7a9e0e;
-    color: #fff;
-    text-decoration: none; }
-  .button.med {
-    font-size: 12px;
-    padding: 10px 30px; }
-  .button.small {
-    font-size: 12px;
-    padding: 2.5px 10px; }
-  .button.disabled {
-    cursor: not-allowed;
-    opacity: 0.4; }
-  .button.dark {
-    background: #323539;
-    color: #fff;
-    text-decoration: none; }
-    .button.dark:hover {
-      background: #2b2d31;
-      color: #fff;
-      text-decoration: none; }
-  .button.destructive {
-    background: #f37960;
-    color: #fff;
-    text-decoration: none; }
-    .button.destructive:hover {
-      background: #f26d52;
-      color: #fff;
-      text-decoration: none; }
-  .button.secondary {
-    background: #7c7d80;
-    color: #fff;
-    text-decoration: none; }
-    .button.secondary:hover {
-      background: #747578;
-      color: #fff;
-      text-decoration: none; }
-  .button.header {
-    background: #fff;
-    color: #f37960;
-    text-decoration: none; }
-    .button.header:hover {
-      background: #f7f7f7;
-      color: #f37960;
-      text-decoration: none; }
-  .button.hollow {
-    background: #f6f6f6;
-    color: #7c7d80;
-    text-decoration: none;
-    border: 1px solid #b0b0b2; }
-    .button.hollow:hover {
-      background: #eeeeee;
-      color: #7c7d80;
-      text-decoration: none; }
-  .button.fake {
-    color: #aaaaaa;
-    background: none;
-    border: 1px solid #c3c3c3;
-    cursor: default !important; }
-    .button.fake:hover {
-      background: none;
-      -moz-box-shadow: 0 1px 3px transparent;
-      -webkit-box-shadow: 0 1px 3px transparent;
-      box-shadow: 0 1px 3px transparent; }
-  .button.blue {
-    background: #0abcd7; }
-  .button.slack {
-    color: #42474c;
-    background: #fff;
-    background-image: url('/layout/assets/slack-sticker.png');
-    background-position-x: 10px;
-    background-position-y: center;
-    background-repeat: no-repeat;
-    background-size: 26px;
-    padding-left: 45px;
-    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
-
-.button-inactive {
-  background: #fff;
-  color: #939598;
-  border: 1px solid #cdcecf;
-  outline: 0;
-  border-radius: 3px;
-  cursor: pointer; }
-  .button-inactive.med {
-    font-size: 12px;
-    padding: 10px 30px; }
-    .button-inactive.med:hover {
-      background: #85ac0f;
-      color: #fff;
-      text-decoration: none;
-      border: 1px solid #86aa25; }
-      .button-inactive.med:hover:hover {
-        background: #7a9e0e;
-        color: #fff;
-        text-decoration: none; }
-
 /* Do some stuff to deal with the reprehensible state of 'select' elements */
 .input-select {
   border: 1px solid #dddddd;
@@ -614,6 +506,115 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 
 .large-pane {
   width: 67%; }
+
+/* Buttons */
+.button {
+  background: #85ac0f;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 13.5px;
+  padding: 17px 30px; }
+  .button:hover {
+    background: #7a9e0e;
+    color: #fff;
+    text-decoration: none; }
+  .button.med {
+    font-size: 12px;
+    padding: 11px 30px; }
+  .button.small {
+    font-size: 12px;
+    padding: 2.5px 10px; }
+  .button.disabled {
+    cursor: not-allowed;
+    opacity: 0.4; }
+  .button.dark {
+    background: #323539;
+    color: #fff;
+    text-decoration: none; }
+    .button.dark:hover {
+      background: #2b2d31;
+      color: #fff;
+      text-decoration: none; }
+  .button.destructive {
+    background: #f37960;
+    color: #fff;
+    text-decoration: none; }
+    .button.destructive:hover {
+      background: #f26d52;
+      color: #fff;
+      text-decoration: none; }
+  .button.secondary {
+    background: #7c7d80;
+    color: #fff;
+    text-decoration: none; }
+    .button.secondary:hover {
+      background: #747578;
+      color: #fff;
+      text-decoration: none; }
+  .button.header {
+    background: #fff;
+    color: #f37960;
+    text-decoration: none; }
+    .button.header:hover {
+      background: #f7f7f7;
+      color: #f37960;
+      text-decoration: none; }
+  .button.hollow {
+    background: #f6f6f6;
+    color: #7c7d80;
+    text-decoration: none;
+    border: 1px solid #b0b0b2; }
+    .button.hollow:hover {
+      background: #eeeeee;
+      color: #7c7d80;
+      text-decoration: none; }
+  .button.fake {
+    color: #aaaaaa;
+    background: none;
+    border: 1px solid #c3c3c3;
+    cursor: default !important; }
+    .button.fake:hover {
+      background: none;
+      -moz-box-shadow: 0 1px 3px transparent;
+      -webkit-box-shadow: 0 1px 3px transparent;
+      box-shadow: 0 1px 3px transparent; }
+  .button.blue {
+    background: #0abcd7; }
+  .button.slack {
+    color: #42474c;
+    background: #fff;
+    background-image: url('/layout/assets/slack-sticker.png');
+    background-position-x: 10px;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 26px;
+    padding-left: 45px;
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+
+.button-inactive {
+  background: #fff;
+  color: #939598;
+  border: 1px solid #cdcecf;
+  outline: 0;
+  border-radius: 3px;
+  cursor: pointer; }
+  .button-inactive :hover {
+    background: red; }
+  .button-inactive.med {
+    font-size: 12px;
+    padding: 10px 30px; }
+    .button-inactive.med:hover {
+      background: #85ac0f;
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid transparent; }
+      .button-inactive.med:hover:hover {
+        background: #7a9e0e;
+        color: #fff;
+        text-decoration: none; }
 
 /* components */
 /* styles for bits */
@@ -1569,7 +1570,6 @@ hr {
       background: url('/layout/assets/stepped/right-completed.png') no-repeat center center;
       background-size: cover; }
 
-/* Mixins */
 /* specific views */
 /* login & registration forms etc. */
 /* login */
