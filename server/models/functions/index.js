@@ -24,6 +24,7 @@ module.exports= {
 	resendInvite    : require('./resend-invite'),
 	resetPassword   : require('./reset-password'),
 	tagPuller       : require('./tag-puller'),
+	toTitleCase		: require('./toTitleCase'),
 	userCreate      : require('./user-create')
 }
 })();

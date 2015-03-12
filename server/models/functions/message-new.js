@@ -5,12 +5,15 @@
 module.exports = function(request, user, next){
 
 // Module dependencies ==========================
-    var async    = require('async');
+    var async   = require('async');
+    var Promise = require('bluebird');
 
 // load data storage models =====================
     var models = require('../../models');
     var fn     = require('../../models/functions');
     
+    Promise.promisifyAll(models);
+
 // CREATE A NEW MESSAGE ===================================
 
 // set message variables from request object.
@@ -20,56 +23,75 @@ module.exports = function(request, user, next){
         _test = request._test,
         _task = request._task;
 
+    var messageMake = function( _subject, _test, body, user){
+        return models.Message.create({ _subject : _subject, _test : _test, body : body, created_by : user });
+    }
+
+    var findMessage = function(_id){ 
+        return models.Message.findById(_id).populate('_subject')
+    }
+
+    var modelUpdate = function(type, obj_id, tag, msg){
+        var title = fn.toTitleCase(type);
+        var model = 'models.'.concat(title);
+
+        var q = (type === 'tag') ? {name: tag, _test: msg._test} : {'_id': obj_id};
+
+        var u = (type === 'tag') ? 
+                { $push: { _messages: msg._id }, name: tag, _test: msg._test } : 
+                { $push: { _messages: msg._id } };
+
+        var o = (type === 'tag') ? {upsert : true }  : {upsert : false } ;
+
+       return model.findOneAndUpdateAsync(q, u, o, function(err, obj){ return obj; });
+
+    };
+
 
 
     async.waterfall([
         function(callback){
             // Create the message
-            models.Message.create(
-                {
-                    _subject : _subject,
-                    _test : _test,
-                    body : body,
-                    created_by : user
-                },
-                function(err, msg){
-                    if (err) { console.log(err); } 
-                    callback(null, msg);
-                });
+            // models.Message.create(
+            //     ,
+            //     function(err, msg){
+            //         if (err) { console.log(err); } 
+            //         callback(null, msg);
+            //     });
         },
         function(msg, callback){
             // Return the message with the subject populated
-            models.Message.findById(msg._id)
-                   .populate('_subject')
-                   .exec(function(err, note){
-                        if (err) { console.log(err); }
-                        callback(null, note); 
-                    });
+            // models.Message.findById(msg._id)
+            //        .populate('_subject')
+            //        .exec(function(err, note){
+            //             if (err) { console.log(err); }
+            //             callback(null, note); 
+            //         });
         },
         function(msg, callback){
             // with the message populated, return the new message array
             async.parallel({
-                task: function(callback){
-                    if (_task){
-                        models.Task.findOneAndUpdate(
-                            {'_id':_task},
-                            {$push: { _messages: msg._id }},
-                            {upsert : false },
-                            function(err, task){
-                                callback(null, task);
-                            });
-                    } else {
-                        callback(null, null);
-                    }
+                // task: function(callback){
+                //     if (_task){
+                //         models.Task.findOneAndUpdate(
+                //             {'_id':_task},
+                //             {$push: { _messages: msg._id }},
+                //             {upsert : false },
+                //             function(err, task){
+                //                 callback(null, task);
+                //             });
+                //     } else {
+                //         callback(null, null);
+                //     }
                 },
                 subject: function(callback){
-                    models.Subject.findOneAndUpdate(
-                            {'_id': _subject},
-                            {$push: { _messages: msg._id }},
-                            {upsert : false },
-                            function(err, subject){
-                                callback(null, subject);
-                            });
+                    // models.Subject.findOneAndUpdate(
+                    //         {'_id': _subject},
+                    //         {$push: { _messages: msg._id }},
+                    //         {upsert : false },
+                    //         function(err, subject){
+                    //             callback(null, subject);
+                    //         });
                 },
                 tags: function(callback){
                     // If there are tags, map the messages into them.
@@ -77,16 +99,16 @@ module.exports = function(request, user, next){
                     if(tags){
                         async.map(tags, 
                             function(tag, callback){
-                                models.Tag.findOneAndUpdate( 
-                                    {name: tag, _test: msg._test}, 
-                                    { $push: { _messages: msg._id },
-                                            name: tag,
-                                            _test: msg._test
-                                    }, 
-                                    {upsert:true}, 
-                                    function(err, data){ 
-                                        callback(null, data);
-                                    });
+                                // models.Tag.findOneAndUpdate( 
+                                //     {name: tag, _test: msg._test}, 
+                                //     { $push: { _messages: msg._id },
+                                //             name: tag,
+                                //             _test: msg._test
+                                //     }, 
+                                //     {upsert:true}, 
+                                //     function(err, data){ 
+                                //         callback(null, data);
+                                //     });
                             }, 
                             function(err, results){
                                 callback(null, results);
