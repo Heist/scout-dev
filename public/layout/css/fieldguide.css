@@ -29,10 +29,7 @@ custom fonts
 ========================
 */
 /* p n a */
-/*
-mixins
-========================
-*/
+/* Mixins */
 /*
 helpers
 ========================
@@ -176,7 +173,7 @@ a {
   cursor: pointer; }
   a:hover {
     text-decoration: underline;
-    color: #6c8b0c; }
+    color: #818387; }
   a.alt {
     color: #0abcd7; }
     a.alt:hover {
@@ -241,7 +238,7 @@ ul {
         border: 2px solid #f2f2f0;
         padding: 6.66667px 10px; }
         ul.tags li a:hover {
-          color: #6c8b0c; }
+          color: #818387; }
 
 /* nested ULs */
 ul.lined ul.tags li {
@@ -257,7 +254,7 @@ FORMS!
 */
 form {
   padding: 0;
-  margin: 25px 0; }
+  margin: 10px 0; }
 
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
 .input {
@@ -373,111 +370,6 @@ textarea.input {
 
 .placeholder {
   color: rgba(124, 125, 128, 0.6); }
-
-/* button colour mixin */
-.button {
-  background: #85ac0f;
-  color: #fff;
-  text-decoration: none;
-  cursor: pointer; }
-  .button:hover {
-    background: #7a9e0e;
-    color: #fff;
-    text-decoration: none; }
-  .button.med {
-    font-size: 12px;
-    padding: 10px 30px; }
-  .button.small {
-    font-size: 12px;
-    padding: 2.5px 10px; }
-  .button.disabled {
-    cursor: not-allowed;
-    opacity: 0.4; }
-  .button.dark {
-    background: #323539;
-    color: #fff;
-    text-decoration: none; }
-    .button.dark:hover {
-      background: #2b2d31;
-      color: #fff;
-      text-decoration: none; }
-  .button.destructive {
-    background: #f37960;
-    color: #fff;
-    text-decoration: none; }
-    .button.destructive:hover {
-      background: #f26d52;
-      color: #fff;
-      text-decoration: none; }
-  .button.secondary {
-    background: #7c7d80;
-    color: #fff;
-    text-decoration: none; }
-    .button.secondary:hover {
-      background: #747578;
-      color: #fff;
-      text-decoration: none; }
-  .button.header {
-    background: #fff;
-    color: #f37960;
-    text-decoration: none; }
-    .button.header:hover {
-      background: #f7f7f7;
-      color: #f37960;
-      text-decoration: none; }
-  .button.hollow {
-    background: #f6f6f6;
-    color: #7c7d80;
-    text-decoration: none;
-    border: 1px solid #b0b0b2; }
-    .button.hollow:hover {
-      background: #eeeeee;
-      color: #7c7d80;
-      text-decoration: none; }
-  .button.fake {
-    color: #aaaaaa;
-    background: none;
-    border: 1px solid #c3c3c3;
-    cursor: default !important; }
-    .button.fake:hover {
-      background: none;
-      -moz-box-shadow: 0 1px 3px transparent;
-      -webkit-box-shadow: 0 1px 3px transparent;
-      box-shadow: 0 1px 3px transparent; }
-  .button.blue {
-    background: #0abcd7; }
-  .button.slack {
-    color: #42474c;
-    background: #fff;
-    background-image: url('/layout/assets/slack-sticker.png');
-    background-position-x: 10px;
-    background-position-y: center;
-    background-repeat: no-repeat;
-    background-size: 26px;
-    padding-left: 45px;
-    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
-
-.button-inactive {
-  background: #fff;
-  color: #939598;
-  border: 1px solid #cdcecf;
-  outline: 0;
-  border-radius: 3px;
-  cursor: pointer; }
-  .button-inactive.med {
-    font-size: 12px;
-    padding: 10px 30px; }
-    .button-inactive.med:hover {
-      background: #85ac0f;
-      color: #fff;
-      text-decoration: none;
-      border: 1px solid #86aa25; }
-      .button-inactive.med:hover:hover {
-        background: #7a9e0e;
-        color: #fff;
-        text-decoration: none; }
 
 /* Do some stuff to deal with the reprehensible state of 'select' elements */
 .input-select {
@@ -614,6 +506,116 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 
 .large-pane {
   width: 67%; }
+
+/* Buttons */
+.button {
+  background: #85ac0f;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 14.025px;
+  padding: 16px 30px; }
+  .button:hover {
+    background: #7a9e0e;
+    color: #fff;
+    text-decoration: none; }
+  .button.med {
+    font-size: 12.525px;
+    padding: 11px 20px; }
+  .button.small {
+    font-size: 12px;
+    padding: 2.5px 10px; }
+  .button.disabled {
+    cursor: not-allowed;
+    opacity: 0.4; }
+  .button.dark {
+    background: #323539;
+    color: #fff;
+    text-decoration: none; }
+    .button.dark:hover {
+      background: #2b2d31;
+      color: #fff;
+      text-decoration: none; }
+  .button.destructive {
+    background: #f37960;
+    color: #fff;
+    text-decoration: none; }
+    .button.destructive:hover {
+      background: #f26d52;
+      color: #fff;
+      text-decoration: none; }
+  .button.secondary {
+    background: #7c7d80;
+    color: #fff;
+    text-decoration: none; }
+    .button.secondary:hover {
+      background: #747578;
+      color: #fff;
+      text-decoration: none; }
+  .button.header {
+    background: #fff;
+    color: #f37960;
+    text-decoration: none; }
+    .button.header:hover {
+      background: #f7f7f7;
+      color: #f37960;
+      text-decoration: none; }
+  .button.hollow {
+    background: #f6f6f6;
+    color: #7c7d80;
+    text-decoration: none;
+    border: 1px solid #b0b0b2; }
+    .button.hollow:hover {
+      background: #eeeeee;
+      color: #7c7d80;
+      text-decoration: none; }
+  .button.fake {
+    color: #aaaaaa;
+    background: none;
+    border: 1px solid #c3c3c3;
+    cursor: default !important; }
+    .button.fake:hover {
+      background: none;
+      -moz-box-shadow: 0 1px 3px transparent;
+      -webkit-box-shadow: 0 1px 3px transparent;
+      box-shadow: 0 1px 3px transparent; }
+  .button.blue {
+    background: #0abcd7; }
+  .button.slack {
+    color: #42474c;
+    background: #fff;
+    background-image: url('/layout/assets/slack-sticker.png');
+    background-position-x: 10px;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 26px;
+    padding-left: 45px;
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+
+.button-inactive {
+  background: #fff;
+  color: #939598;
+  border: 1px solid #cdcecf;
+  outline: 0;
+  border-radius: 3px;
+  cursor: pointer; }
+  .button-inactive:hover {
+    background: #85ac0f;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid transparent; }
+    .button-inactive:hover:hover {
+      background: #7a9e0e;
+      color: #fff;
+      text-decoration: none; }
+  .button-inactive.med {
+    font-size: 12px;
+    padding: 11px 30px; }
+  .button-inactive.small {
+    font-size: 12px;
+    padding: 2.5px 10px; }
 
 /* components */
 /* styles for bits */
@@ -1125,7 +1127,6 @@ hr {
   padding: 0 0 150px 0;
   width: 100%;
   height: 100%;
-  background: red;
   overflow: auto;
   margin: 0;
   background: url('../assets/timeline-line.gif') repeat-y 24px top;
@@ -1146,7 +1147,7 @@ hr {
         #timeline ul .message .message-details .message-details-avatar {
           width: 20px;
           text-align: center;
-          overtest: hidden;
+          overflow: hidden;
           margin: 0 10px 0 0;
           padding: 0 0 2px 0;
           font-size: 22.5px;
@@ -1198,7 +1199,9 @@ hr {
     padding: 15px 0;
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
-    font-weight: 300; }
+    font-weight: 300;
+    overflow-y: auto;
+    height: 93%; }
     #timeline-user #timeline-user-only .timeline-user-avatar {
       display: block;
       padding: 0;
@@ -1220,7 +1223,7 @@ hr {
   #timeline-user .timeline-user-avatar {
     display: inline-block;
     vertical-align: middle;
-    overtest: hidden; }
+    overflow: hidden; }
 
 #timeline-device {
   padding: 10px;
@@ -1315,7 +1318,7 @@ hr {
     line-height: 1.2; }
     #sidebar ul li .task-boop {
       position: absolute;
-      top: 16px;
+      top: 20px;
       right: 20px;
       width: 6.66667px !important;
       height: 6.66667px !important;
@@ -1347,7 +1350,7 @@ hr {
       #sidebar ul li .sidebar-visibility img {
         width: auto;
         height: 10px;
-        margin: 5px 0 0 0; }
+        margin: 10px 0 0 0; }
 
 /* modal styles */
 .modal {
@@ -1368,16 +1371,53 @@ hr {
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); }
+    .modal .modal-interior ::-webkit-input-placeholder {
+      color: #cdcecf;
+      font-size: 12.5px;
+      font-style: italic; }
+    .modal .modal-interior :-moz-placeholder {
+      /* Firefox 18- */
+      color: #cdcecf;
+      font-size: 12.5px;
+      font-style: italic; }
+    .modal .modal-interior ::-moz-placeholder {
+      /* Firefox 19+ */
+      color: #cdcecf;
+      font-size: 12.5px;
+      font-style: italic; }
+    .modal .modal-interior :-ms-input-placeholder {
+      color: #cdcecf;
+      font-size: 12.5px;
+      font-style: italic; }
     .modal .modal-interior .input {
-      width: 100%; }
+      width: 100%;
+      margin: 0; }
     .modal .modal-interior li {
       padding: 10px 0; }
       .modal .modal-interior li:last-child {
-        border: none; }
+        border: none;
+        margin: 20px 0 30px 0; }
+    .modal .modal-interior .button:first-child, .modal .modal-interior .button:nth-child(2) {
+      background: none;
+      color: #939598;
+      padding: 10px 240px 0 0; }
+      .modal .modal-interior .button:first-child:hover, .modal .modal-interior .button:hover:nth-child(2) {
+        text-decoration: underline;
+        color: #818387; }
+    .modal .modal-interior .button:nth-child(2) {
+      padding: 10px 10px 0 0; }
+      .modal .modal-interior .button:nth-child(2):hover {
+        text-decoration: underline;
+        color: #818387; }
     .modal .modal-interior .modal-interior-title {
-      text-align: center;
+      text-align: left;
       margin: 0;
       padding: 0 0 10px 0; }
+      .modal .modal-interior .modal-interior-title h2 {
+        font-family: "proxima-nova",sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        color: #42474c; }
       .modal .modal-interior .modal-interior-title h3 {
         font-family: "proxima-nova",sans-serif;
         font-style: normal;
@@ -1570,7 +1610,6 @@ hr {
       background: url('/layout/assets/stepped/right-completed.png') no-repeat center center;
       background-size: cover; }
 
-/* Mixins */
 /* specific views */
 /* login & registration forms etc. */
 /* login */
@@ -2285,6 +2324,80 @@ hr {
 /* how we style notes within summaries and reports */
 .message-group {
   margin: 0;
+  padding: 0 0 20px 0; }
+  .message-group .add-note-button {
+    margin: 0 40px; }
+    .message-group .add-note-button .add-note-button-body {
+      background: #fff;
+      color: #999999;
+      margin: 0;
+      padding: 6px;
+      -moz-border-radius: 40px;
+      -webkit-border-radius: 40px;
+      border-radius: 40px;
+      height: 40px;
+      width: 40px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 28.5px;
+      line-height: 1;
+      -webkit-transition-duration: 0.2s;
+      -webkit-transition-timing: ease-out;
+      -o-transition-duration: 0.2s;
+      -o-transition-timing: ease-out;
+      -moz-transition-duration: 0.2s;
+      -moz-transition-timing: ease-out;
+      -ms-transition-duration: 0.2s;
+      -ms-transition-timing: ease-out;
+      transition-duration: 0.2s;
+      transition-timing: ease-out;
+      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      float: left; }
+      .message-group .add-note-button .add-note-button-body.small {
+        height: 24px;
+        width: 24px;
+        padding: 0px;
+        font-size: 15px;
+        line-height: 25.5px;
+        border: 1px solid #dddddd; }
+    .message-group .add-note-button:hover .add-note-button-helper {
+      display: block; }
+    .message-group .add-note-button:hover .add-note-button-body {
+      background: #42474c;
+      color: #fff;
+      -webkit-transition-duration: 0.2s;
+      -webkit-transition-timing: ease-out;
+      -o-transition-duration: 0.2s;
+      -o-transition-timing: ease-out;
+      -moz-transition-duration: 0.2s;
+      -moz-transition-timing: ease-out;
+      -ms-transition-duration: 0.2s;
+      -ms-transition-timing: ease-out;
+      transition-duration: 0.2s;
+      transition-timing: ease-out; }
+    .message-group .add-note-button .add-note-button-helper {
+      float: left;
+      display: none;
+      font-size: 15px;
+      color: #7c7d80;
+      margin: 0 0 0 10px; }
+      .message-group .add-note-button .add-note-button-helper.small {
+        top: 2px;
+        font-size: 12px;
+        right: 30px; }
+
+/* this styles the line on the summary page where all the notes live */
+.overlay-border {
+  width: 90%;
+  border-right: 1px solid #ddd; }
+
+.summary-border {
+  position: absolute;
+  right: -47px; }
+
+.sheet {
   padding: 0; }
 
 /* message user header */
@@ -2318,7 +2431,7 @@ hr {
 
 /* individual messages */
 .message {
-  padding: 13.33333px 40px;
+  padding: 13.33333px 0 13.33333px 40px;
   border-left: 4px solid #fff;
   border-right: 4px solid #fff;
   position: relative;
@@ -2436,7 +2549,8 @@ hr {
     float: left;
     width: 90%; }
     .message .message-body p {
-      margin-bottom: 0 !important; }
+      margin-bottom: 0 !important;
+      color: #939598; }
     .message .message-body small {
       display: block;
       margin: 0;
@@ -2525,7 +2639,13 @@ hr {
       height: 80%;
       overflow: auto; }
       #view-findings #findings-nav #sidebar li {
-        width: 95%; }
+        width: 95%;
+        padding-top: 15px;
+        padding-bottom: 15px; }
+      #view-findings #findings-nav #sidebar .test-id h3 {
+        font-family: "proxima-nova",sans-serif;
+        font-style: normal;
+        font-weight: 600; }
   #view-findings .sheet-holder {
     position: absolute;
     top: 0;

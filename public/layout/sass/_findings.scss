@@ -2,7 +2,6 @@
 
 
 #view-findings {
-		
 	padding: 0;
 	margin: 0;
 	
@@ -13,7 +12,6 @@
 			bottom: 0;
 		}
 	}
-	
 	
 	&.show-comments {
 		
@@ -26,7 +24,7 @@
 			left: 5%;
 			@include animated;
 		}
-	
+
 		.message-comments {
 			display: block;
 		}
@@ -76,6 +74,15 @@
 			
 			li {
 				width: 95%;
+				padding-top: 15px;
+				padding-bottom: 15px;
+			}
+
+			.test-id {
+
+				h3 {
+					@include type-bold;
+				}
 			}
 		}
 	}
@@ -129,7 +136,6 @@
 		border-bottom: 1px solid $line;
 		margin: 0 0 $pad 0;
 	}
-	
 	
 }
 

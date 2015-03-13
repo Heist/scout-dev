@@ -6,6 +6,8 @@ palette
 specific colours
 */
 
+$border-grey: #ddd; 
+
 /* generic */
 
 $white: #fff;
@@ -63,6 +65,9 @@ $modal-bg: transparentize($fg-slate, 0.1);
 
 $link: $fg-green;
 $link-hover: darken($link, 7%);
+
+$link-grey: $fg-grey;
+$link-hover: darken($link-grey, 7%);
 
 $link-alt: $fg-blue;
 $link-alt-hover: darken($link-alt, 7%);
