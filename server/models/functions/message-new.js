@@ -10,8 +10,8 @@ module.exports = function(request, user, next){
 
 // load data storage models =====================
     var fn     = require('../../models/functions');
-    var models = Promise.promisifyAll(require('../../models'););
-
+    var models = Promise.promisifyAll(require('../../models'));
+    Promise.promisifyAll(require("mongoose"));
 // CREATE A NEW MESSAGE ===================================
 
 // set message variables from request object.
@@ -33,7 +33,7 @@ module.exports = function(request, user, next){
     }
 
     var findMessage = function(_id){ 
-        return models.Message.findByIdAsync(_id).populate('_subject')
+        return models.Message.findById(_id).populate('_subject').execAsync({});
     }
 
     var modelUpdate = function(type, _id, msg){
@@ -49,7 +49,7 @@ module.exports = function(request, user, next){
 
         var o = (type === 'tag') ? {upsert : true }  : {upsert : false } ;
 
-       return model.findOneAndUpdateAsync(q, u, o, function(err, obj){});
+       return model.findOneAndUpdateAsync(q, u, o, function(err, obj){}).execAsync({});
 
     };
 
@@ -58,10 +58,10 @@ module.exports = function(request, user, next){
             return findMessage(m._id).then(function(m){
                 return async.parallel({
                     task: function(callback){
-                        modelUpdate('task', make._task, m);
+                        models.Task.findOneAndUpdateAsync({'_id': make._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, next){});
                     },
                     subject: function(callback){
-                        modelUpdate('subject', make._subject, m);
+                        models.Subject.findOneAndUpdateAsync({'_id': make._subject}, { $push: { _messages: m._id } },{upsert : false }, function(err, next){});
                     },
                     tags: function(callback){
                         async.map(make.tags, 
