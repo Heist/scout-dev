@@ -23,7 +23,7 @@ var models = Promise.promisifyAll(require('../server/models'));
 describe('The Tag Pool', function(){
 	var agent = request.agent(app); // this is to check logins, not account creation.
 	var m = {};
-	
+		
 	before(function(done){
 			var obj = models.Subject.findOneAsync({});
 			obj.then(function(s){
@@ -39,10 +39,6 @@ describe('The Tag Pool', function(){
 						});
 			});
 	})
-
-	it.skip('on tag creation, should store in pool as a whole', function(done){
-
-	});
 
 	it('tests a new message, removes tags from body of note and stores them in .tags', function(done){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
@@ -62,6 +58,19 @@ describe('The Tag Pool', function(){
 						done();
 					});
 			});
+	});
+
+	it.skip('on tag creation, should store in pool as a whole', function(done){
+		// log in
+		// get a given test
+		// get all the available tags for that test
+		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
+			.end(function(err, res) {
+				agent.get('/api/test/'+m.t._id)
+					.end(function(err,res){
+						done();
+					})
+			})
 	});
 
 	it.skip('does not accept a message without a test', function(){
