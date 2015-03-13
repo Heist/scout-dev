@@ -30,16 +30,26 @@
 			}
 		}
 
-		.button:first-child, .button:nth-child(2) {
+		.button:first-child {
 			background: none;
 			color: $fg-grey;
-			padding: 10px 120px 0 0;
+			padding: 10px 240px 0 0;
 
 			&:hover {
 				text-decoration: underline;
 				color: $link-hover;
 			}
 		}
+
+		.button:nth-child(2) {
+			@extend .button:first-child;
+			padding: 10px 10px 0 0;
+
+			&:hover {
+				@extend .button:first-child&:hover;
+			}
+		}
+
 
 		
 		.modal-interior-title {
