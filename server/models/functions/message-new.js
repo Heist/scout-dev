@@ -55,7 +55,7 @@ module.exports = function(request, user, next){
 
     };
 
-    function newMessage(make, next){
+    var newMessage = function(make, next){
         return messageMake(make).then(function(m){
             return findMessage(m._id).then(function(m){
                 return async.parallel({
@@ -74,10 +74,13 @@ module.exports = function(request, user, next){
                 },
                 function(err, results){
                     if(err){console.log(err);}
-                    next(err, results);
                     console.log({msg: results.msg, tags: results.waterfall.tags});
+                    next(err, results);
+                    
                 });
             })
         })
     }
+
+    return newMessage(update, fn);
 };

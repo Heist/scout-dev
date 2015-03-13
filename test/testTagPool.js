@@ -31,15 +31,15 @@ describe('The Tag Pool', function(){
 
 			obj.then(function(s){
 				m.s = s;
-				done();
+				return models.Test.findOneAsync({})
+						.then(function(t){
+							m.t = t;
+							done();
+						});
 			});
 
 
-					// return models.Test.findOne({}).exec({})
-					// 	.then(function(t){
-					// 		m.t = t;
-							
-					// 	});
+					
 	})
 
 	it.skip('on tag creation, should store in pool as a whole', function(done){
@@ -50,16 +50,16 @@ describe('The Tag Pool', function(){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
 			.end(function(err, res) { // get logged in
 				// This may require a more global variable.
-				fn.messageNew({
-					body : 'This is a #blue #note #purple', 
-					// _test : m.t._id,
-					_subject : m.s._id
-				}, agent, 
-				function(err, data){
-					console.log(data);
-					done();
-				});
-				
+				agent.post('/api/message/')
+					.send({
+						body : 'This is a #blue #note #purple', 
+						_test : m.t._id,
+						_subject : m.s._id
+					})
+					.end(function(err, res){
+						console.log('data returned', err, res);
+						done();
+					});
 			});
 	});
 

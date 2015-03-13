@@ -7,12 +7,12 @@ module.exports = function(message, next){
     var _ = require('lodash');
 
 // Catch some hashtags ====================================
-
+    // console.log('pull some tags', message);
     var tags_raw = [];
     var hashCatch = new RegExp(/\S*#\S+/gi);
 
-    var msg_body = message.replace( hashCatch,'');
-    var tagIt = message.match(hashCatch);
+    var msg_body = message.body.replace( hashCatch,'');
+    var tagIt = message.body.match(hashCatch);
     
     if (tagIt){
         _.each(tagIt, function(tag){
