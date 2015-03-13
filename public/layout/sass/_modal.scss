@@ -15,7 +15,7 @@
 		margin: 10% 0 0 0;
 		@include radius;
 		@include dropshadowULTRA;
-		
+		@include input-placeholders;
 		.input {
 			width: 100%;
 		}
@@ -28,12 +28,28 @@
 			}
 		}
 
+		button:first-child, button:nth-child(2) {
+			background: none;
+			color: $fg-grey;
+			padding: 10px 120px 0 0;
+
+			&:hover {
+				text-decoration: underline;
+				color: $link-hover;
+			}
+		}
+
 		
 		.modal-interior-title {
-			text-align: center;
+			text-align: left;
 			margin: 0;
 			padding: 0 0 $pad/2 0;
 			
+			h2 {
+				@include type-regular;
+				color: $fg-slate;
+			}
+
 			h3 {
 				@include type-light;
 				

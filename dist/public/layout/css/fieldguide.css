@@ -173,7 +173,7 @@ a {
   cursor: pointer; }
   a:hover {
     text-decoration: underline;
-    color: #6c8b0c; }
+    color: #818387; }
   a.alt {
     color: #0abcd7; }
     a.alt:hover {
@@ -238,7 +238,7 @@ ul {
         border: 2px solid #f2f2f0;
         padding: 6.66667px 10px; }
         ul.tags li a:hover {
-          color: #6c8b0c; }
+          color: #818387; }
 
 /* nested ULs */
 ul.lined ul.tags li {
@@ -1371,16 +1371,46 @@ hr {
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); }
+    .modal .modal-interior ::-webkit-input-placeholder {
+      color: #cdcecf;
+      font-size: 12.5px;
+      font-style: italic; }
+    .modal .modal-interior :-moz-placeholder {
+      /* Firefox 18- */
+      color: #cdcecf;
+      font-size: 12.5px;
+      font-style: italic; }
+    .modal .modal-interior ::-moz-placeholder {
+      /* Firefox 19+ */
+      color: #cdcecf;
+      font-size: 12.5px;
+      font-style: italic; }
+    .modal .modal-interior :-ms-input-placeholder {
+      color: #cdcecf;
+      font-size: 12.5px;
+      font-style: italic; }
     .modal .modal-interior .input {
       width: 100%; }
     .modal .modal-interior li {
       padding: 10px 0; }
       .modal .modal-interior li:last-child {
         border: none; }
+    .modal .modal-interior button:first-child, .modal .modal-interior button:nth-child(2) {
+      background: none;
+      color: #939598;
+      padding: 10px 120px 0 0; }
+      .modal .modal-interior button:first-child:hover, .modal .modal-interior button:nth-child(2):hover {
+        text-decoration: underline;
+        color: #818387; }
     .modal .modal-interior .modal-interior-title {
-      text-align: center;
+      text-align: left;
       margin: 0;
       padding: 0 0 10px 0; }
+      .modal .modal-interior .modal-interior-title h2 {
+        font-family: "proxima-nova",sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        color: #42474c; }
       .modal .modal-interior .modal-interior-title h3 {
         font-family: "proxima-nova",sans-serif;
         font-style: normal;
