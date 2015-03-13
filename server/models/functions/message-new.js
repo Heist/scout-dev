@@ -16,7 +16,7 @@ module.exports = function(request, user, next){
 
 // set message variables from request object.
     var tags = fn.tagPuller(request.body);
-    
+    console.log('body of request', request.body);
     var update = {
         body : request.body,
         msg  : tags.msg,
