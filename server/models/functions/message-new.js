@@ -15,9 +15,12 @@ module.exports = function(request, user, next){
 // CREATE A NEW MESSAGE ===================================
 
 // set message variables from request object.
+    var tags = fn.tagPuller(request.body);
+    
     var update = {
-        body : request,
-        tags : fn.tagPuller(request) || null,
+        body : request.body,
+        msg  : tags.msg,
+        tags : tags.tags || null,
         _subject : request._subject,
         _test : request._test,
         _task : request._task,
@@ -36,21 +39,15 @@ module.exports = function(request, user, next){
         return models.Message.findById(_id).populate('_subject').execAsync({});
     }
 
-    var modelUpdate = function(type, _id, msg){
-        var title = fn.toTitleCase(type);
-        var model = 'models.'.concat(title);
-
+    var tagUpdate = function(name, _test, msg_id, next){
         // test the object - if it's an ObjectId, use it raw, otherwise, use the name
-        var q = (type === 'tag') ? {name: _id, _test: msg._test} : {'_id': _id};
+        var q = {'name': name, '_test': _test};
+        var u = { $push: { '_messages': msg_id }, 'name': name, '_test': _test };
+        var o = {upsert : true };
 
-        var u = (type === 'tag') ? 
-                { $push: { _messages: msg._id }, name: _id, _test: msg._test } : 
-                { $push: { _messages: msg._id } };
-
-        var o = (type === 'tag') ? {upsert : true }  : {upsert : false } ;
-
-       return model.findOneAndUpdateAsync(q, u, o, function(err, obj){}).execAsync({});
-
+       return models.Tag.findOneAndUpdateAsync(q, u, o, function(err, obj){
+                return next(null, obj);
+            });
     };
 
     var newMessage = function(make, next){
@@ -58,15 +55,17 @@ module.exports = function(request, user, next){
             return findMessage(m._id).then(function(m){
                 return async.parallel({
                     task: function(callback){
-                        models.Task.findOneAndUpdateAsync({'_id': make._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, next){});
+                        models.Task.findOneAndUpdateAsync({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, next){});
                     },
                     subject: function(callback){
-                        models.Subject.findOneAndUpdateAsync({'_id': make._subject}, { $push: { _messages: m._id } },{upsert : false }, function(err, next){});
+                        models.Subject.findOneAndUpdateAsync({'_id': m._subject}, { $push: { _messages: m._id } },{upsert : false }, function(err, next){});
                     },
                     tags: function(callback){
-                        async.map(make.tags, 
+                        console.log('tags', make.tags);
+                        async.map(make.tags,
                             function(tag, callback){
-                                modelUpdate('tag', tag, m);
+                                console.log(tag);
+                                tagUpdate(tag, m._test, m._id);
                             }, callback );
                     }
                 },
