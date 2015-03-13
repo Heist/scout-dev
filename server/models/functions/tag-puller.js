@@ -11,9 +11,10 @@ module.exports = function(message, next){
     var tags_raw = [];
     var hashCatch = new RegExp(/\S*#\S+/gi);
 
-    var msg_body = message.body.replace( hashCatch,'');
-    var tagIt = message.body.match(hashCatch);
-    
+    var msg_body = message.replace( hashCatch,'');
+    var tagIt = message.match(hashCatch);
+    var msg_clean = msg_body.trim();
+
     if (tagIt){
         _.each(tagIt, function(tag){
             var tagName = tag.replace(/#/gi,'');
@@ -23,7 +24,7 @@ module.exports = function(message, next){
     
     console.log(msg_body, tags_raw);
 
-    var reply = { msg :  msg_body, tags: tags_raw }
+    var reply = { msg :  msg_clean, tags: tags_raw }
 
     return reply;
 };

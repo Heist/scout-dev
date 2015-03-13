@@ -14,9 +14,10 @@ module.exports = function(request, user, next){
     Promise.promisifyAll(require("mongoose"));
 // CREATE A NEW MESSAGE ===================================
 
+    console.log('body of request', request.body);
 // set message variables from request object.
     var tags = fn.tagPuller(request.body);
-    console.log('body of request', request.body);
+
     var update = {
         body : request.body,
         msg  : tags.msg,
@@ -26,6 +27,8 @@ module.exports = function(request, user, next){
         _task : request._task,
         user : user
     };
+
+    console.log('make', update);
 
     var messageMake = function( make ){
         return models.Message.createAsync({ 
