@@ -9,10 +9,8 @@ module.exports = function(request, user, next){
     var Promise = require('bluebird');
 
 // load data storage models =====================
-    var models = require('../../models');
     var fn     = require('../../models/functions');
-    
-    Promise.promisifyAll(models);
+    var models = Promise.promisifyAll(require('../../models'););
 
 // CREATE A NEW MESSAGE ===================================
 
@@ -27,7 +25,7 @@ module.exports = function(request, user, next){
     };
 
     var messageMake = function( make ){
-        return models.Message.create({ 
+        return models.Message.createAsync({ 
             '_subject' : make._subject, 
             '_test' : make._test, 
             'body' : make.body, 
@@ -35,7 +33,7 @@ module.exports = function(request, user, next){
     }
 
     var findMessage = function(_id){ 
-        return models.Message.findById(_id).populate('_subject')
+        return models.Message.findByIdAsync(_id).populate('_subject')
     }
 
     var modelUpdate = function(type, _id, msg){
@@ -51,7 +49,7 @@ module.exports = function(request, user, next){
 
         var o = (type === 'tag') ? {upsert : true }  : {upsert : false } ;
 
-       return model.findOneAndUpdate(q, u, o, function(err, obj){});
+       return model.findOneAndUpdateAsync(q, u, o, function(err, obj){});
 
     };
 
