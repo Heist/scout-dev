@@ -5,106 +5,60 @@
 module.exports = function(request, user, next){
 
 // Module dependencies ==========================
-    var async    = require('async');
+    var async   = require('async');
+    var Bluebird = require('bluebird');
 
 // load data storage models =====================
-    var models = require('../../models');
     var fn     = require('../../models/functions');
-    
-
+    var models = require('../../models');
+    Bluebird.promisifyAll(require("mongoose"));
 // CREATE A NEW MESSAGE ===================================
-
 // set message variables from request object.
-    var body = request.body,
-        tags = fn.tagPuller(body) || null,
-        _subject = request._subject,
-        _test = request._test,
-        _task = request._task;
 
-    console.log('new message', request);
+    var tags = fn.tagPuller(request.body);
 
-    async.waterfall([
-        function(callback){
-            // Create the message
-            models.Message.create(
-                {
-                    _subject : _subject,
-                    _test : _test,
-                    body : body,
-                    created_by : user
-                },
-                function(err, msg){
-                    if (err) { console.log(err); } 
-                    callback(null, msg);
-                });
-        },
-        function(msg, callback){
-            // Return the message with the subject populated
-            models.Message.findById(msg._id)
-                   .populate('_subject')
-                   .exec(function(err, note){
-                        if (err) { console.log(err); }
-                        callback(null, note); 
-                    });
-        },
-        function(msg, callback){
-            // with the message populated, return the new message array
-            async.parallel({
-                task: function(callback){
-                    if (_task){
-                        models.Task.findOneAndUpdate(
-                            {'_id':_task},
-                            {$push: { _messages: msg._id }},
-                            {upsert : false },
-                            function(err, task){
-                                callback(null, task);
-                            });
-                    } else {
-                        callback(null, null);
-                    }
-                },
-                subject: function(callback){
-                    models.Subject.findOneAndUpdate(
-                            {'_id': _subject},
-                            {$push: { _messages: msg._id }},
-                            {upsert : false },
-                            function(err, subject){
-                                callback(null, subject);
-                            });
-                },
-                tags: function(callback){
-                    // If there are tags, map the messages into them.
-                    // reminder: the tags are not attached to the message. The message is attached to tags.
-                    if(tags){
-                        async.map(tags, 
-                            function(tag, callback){
-                                models.Tag.findOneAndUpdate( 
-                                    {name: tag, _test: msg._test}, 
-                                    { $push: { _messages: msg._id },
-                                            name: tag,
-                                            _test: msg._test
-                                    }, 
-                                    {upsert:true}, 
-                                    function(err, data){ 
-                                        callback(null, data);
-                                    });
-                            }, 
-                            function(err, results){
-                                callback(null, results);
-                            });
-                    } else {
-                        callback(null, null);
-                    }
-                }
-            }, function(err, results){
-                // End of parallel callback chain
-                callback(null, {msg: msg, waterfall: results});
-            });
-        }
-    ], 
-    function(err, results){
-        // End of waterfall chain - new message and tags return here.
-        if(err){console.log(err);}
-        next(null, {msg: results.msg, tags: results.waterfall.tags});
-    });
+    var update = {
+        body : request.body,
+        msg  : tags.msg,
+        tags : tags.tags || null,
+        _subject : request._subject,
+        _test : request._test,
+        _task : request._task,
+        user : user
+    };
+
+    var messageMake = function( make ){
+        return models.Message.createAsync({ 
+            '_subject' : make._subject, 
+            '_test' : make._test,
+            '_task' : make._task,
+            'body' : make.msg,
+            'created_by' : make.user });
+    }
+
+    var findMessage = function(_id){ 
+        return models.Message.findById(_id).populate('_subject').execAsync({});
+    }
+
+    var newMessage = function (make, next) {
+        return messageMake(make).then(function (message) {
+            return findMessage(message._id)
+        }).then(function (m) {
+            var testTags = [ 'blue', 'note', 'purple' ];
+            return Bluebird.all([
+                models.Task.findOneAndUpdate({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){}),
+                models.Subject.findOneAndUpdate({'_id': m._subject}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){}),
+                Bluebird.map(testTags, function(tag){ 
+                    return models.Tag.findOneAndUpdate({ 'name' : tag }, { $push: { '_messages': m.id }, 'name': tag }, {upsert : true }, function(err,item){})
+                })
+            ])
+        }).then(function(parts){
+            return next({ msg: update.msg, tags : update.tags });
+        }).catch(function (error) {
+            if(error){console.log(error);}
+            // error
+            })
+    };
+
+    return newMessage(update, next);
 };

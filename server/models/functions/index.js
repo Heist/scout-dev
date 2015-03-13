@@ -14,9 +14,9 @@ module.exports= {
 	deleteTest      : require('./delete-test'),
 	devTests        : require('./dev-tests'),
 	dupeTests       : require('./dupe-tests'),
-	editMessage     : require('./edit-message'),
 	editTest        : require('./edit-test'),
 	forgotPasswordToken : require('./forgot-password-token'),
+	messageEdit     : require('./message-edit'),
 	messageFav      : require('./message-fav'),
 	messageList     : require('./message-list'),
 	messageNew      : require('./message-new'),
@@ -24,6 +24,7 @@ module.exports= {
 	resendInvite    : require('./resend-invite'),
 	resetPassword   : require('./reset-password'),
 	tagPuller       : require('./tag-puller'),
+	toTitleCase		: require('./toTitleCase'),
 	userCreate      : require('./user-create')
 }
 })();

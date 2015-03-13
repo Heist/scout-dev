@@ -22,14 +22,16 @@ module.exports = function(app, passport, debug) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
-        fn.messageNew(req.body, req.user._id, function(err, message){
+        fn.messageNew(req.body, req.user._id, function(data, err){
                 if(err){console.log(err);}
-                res.json(message);
+                // console.log('messages START HERE', data, err  );
+                res.json(data);
             });
     })
     .put(function(req, res){
     // Edit the body of a message and change its tag associations
-        fn.editMessage(req.body, function(err, msg){
+        console.log(req.body);
+        fn.messageEdit(req.body, function(err, msg){
             if(err){console.log(err);}
             res.json(msg);
         });

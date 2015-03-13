@@ -3,25 +3,25 @@
 'use strict';
 
 module.exports = function(message, next){
-
 // Module dependencies ==========================
     var _ = require('lodash');
 
 // Catch some hashtags ====================================
-
-    var tags = [];
+    var tags_raw = [];
     var hashCatch = new RegExp(/\S*#\S+/gi);
-    var hashPull = new RegExp(/#/gi);
+
+    var msg_body = message.replace( hashCatch,'');
     var tagIt = message.match(hashCatch);
-    
+    var msg_clean = msg_body.trim();
+
     if (tagIt){
         _.each(tagIt, function(tag){
-            var msg = tag.replace(hashPull,'');
-            tags.push(msg);
+            var tagName = tag.replace(/#/gi,'');
+            tags_raw.push(tagName);
         });
     }
+    
+    var reply = { msg :  msg_clean, tags: tags_raw }
 
-    console.log(msg, tags);
-   
-    return tags;
+    return reply;
 };

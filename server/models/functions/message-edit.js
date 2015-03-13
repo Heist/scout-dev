@@ -32,7 +32,6 @@ module.exports = function(msg, next){
             // Find all the tags that are in the new list
             // If there's a tag in the new list not in the DB, make it, push msg
             // If the tag's there and doesn't have the msg, push it, save.
-
             async.map(tags, function (name, callback) {
                 models.Tag.findOne({'name' : name})
                     .exec(function (err, doc) {

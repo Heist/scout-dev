@@ -27,6 +27,6 @@ var mongoose = require('mongoose');
 		console.log('db open');
 	         // yay!
 	});
-
+console.log(mongoUrl);
 module.exports = {auth: auth_db, db: db};
 
