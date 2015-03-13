@@ -1390,11 +1390,13 @@ hr {
       font-size: 12.5px;
       font-style: italic; }
     .modal .modal-interior .input {
-      width: 100%; }
+      width: 100%;
+      margin: 0; }
     .modal .modal-interior li {
       padding: 10px 0; }
       .modal .modal-interior li:last-child {
-        border: none; }
+        border: none;
+        margin: 20px 0 30px 0; }
     .modal .modal-interior button:first-child, .modal .modal-interior button:nth-child(2) {
       background: none;
       color: #939598;
