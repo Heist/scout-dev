@@ -46,7 +46,8 @@
 			padding: 10px 10px 0 0;
 
 			&:hover {
-				@extend .button:first-child&:hover;
+				text-decoration: underline;
+				color: $link-hover;
 			}
 		}
 

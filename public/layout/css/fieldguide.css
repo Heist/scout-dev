@@ -1397,16 +1397,14 @@ hr {
       .modal .modal-interior li:last-child {
         border: none;
         margin: 20px 0 30px 0; }
-    .modal .modal-interior .button:first-child {
+    .modal .modal-interior .button:first-child, .modal .modal-interior .button:nth-child(2) {
       background: none;
       color: #939598;
       padding: 10px 240px 0 0; }
-      .modal .modal-interior .button:first-child:hover {
+      .modal .modal-interior .button:first-child:hover, .modal .modal-interior .button:hover:nth-child(2) {
         text-decoration: underline;
         color: #818387; }
     .modal .modal-interior .button:nth-child(2) {
-      background: none;
-      color: #939598;
       padding: 10px 10px 0 0; }
       .modal .modal-interior .button:nth-child(2):hover {
         text-decoration: underline;
