@@ -53,9 +53,11 @@ module.exports = function(request, user, next){
                     return models.Tag.findOneAndUpdate({ 'name' : tag }, { $push: { '_messages': m.id }, 'name': tag }, {upsert : true }, function(err,item){})
                 })
             ])
-        }).then(function(tags){
+        }).then(function(parts){
             // console.log(tags);
-            return next(tags);
+            var reply = { msg: update.msg, tags : update.tags };
+            console.log(reply);
+            return next(reply);
         }).catch(function (error) {
             // error
             })

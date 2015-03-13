@@ -56,7 +56,7 @@ describe('The Tag Pool', function(){
 						_subject : m.s._id
 					})
 					.end(function(err, res){
-						console.log('data returned', err, res);
+						console.log('data returned', err, res.body);
 						expect(res.body).to.be.an('object')
 						expect(res.body.tags).to.have.length(3)
 						expect(res.body.body).to.equal('This is a')
