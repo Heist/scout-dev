@@ -7,52 +7,68 @@
 var should = require('chai').should;
 var expect = require('chai').expect;
 var request = require('supertest-as-promised');
+var Promise = require('bluebird');
 
 var mongoose = require('mongoose');
-var models = require('../server/models');
+// var models = require('../server/models');
 var fn = require('../server/models/functions');
 
 var app = require('../server.js');
 var api = request(app);
 
 // Tag Pool Tests  ==============================
+var models = Promise.promisifyAll(require('../server/models'));
+
 
 describe('The Tag Pool', function(){
 	var agent = request.agent(app); // this is to check logins, not account creation.
+	var m = {};
+	
+	before(function(done){
+
+
+			var obj = models.Subject.findOneAsync({});
+
+			obj.then(function(s){
+				m.s = s;
+				done();
+			});
+
+
+					// return models.Test.findOne({}).exec({})
+					// 	.then(function(t){
+					// 		m.t = t;
+							
+					// 	});
+	})
+
 	it.skip('on tag creation, should store in pool as a whole', function(done){
 
 	});
 
-	it('removes tags from body of note and stores them in .tags', function(done){
+	it('tests a new message, removes tags from body of note and stores them in .tags', function(done){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
 			.end(function(err, res) { // get logged in
-				
-				var findS = function(){
-								return models.Subject.findOne({});
-							}
-				var findT = function(){
-								return models.Test.findOne({});
-							}
-
-
-				findS.then(function(s){
-					findT.then(function(s, t){
-						fn.messageNew({
-							body : 'This is a #blue #note #purple', 
-							_test : t._id ,
-							_subject : s._id
-						}, agent, 
-						function(err, data){
-							expect(data.body).to.be.an('object');
-							expect(data.body.tags).to.have.length(3);
-							expect(data.body.msg).to.equal('This is a');
-							done();	
-						})
-					})
-				})
+				// This may require a more global variable.
+				fn.messageNew({
+					body : 'This is a #blue #note #purple', 
+					// _test : m.t._id,
+					_subject : m.s._id
+				}, agent, 
+				function(err, data){
+					console.log(data);
+					done();
+				});
 				
 			});
-					
+	});
+
+	it.skip('does not accept a message without a test', function(){
+
+	});
+
+	it.skip('does not accept a message without a subject', function(){
+
 	});
 
 	it.skip('should create tags per user', function(done){

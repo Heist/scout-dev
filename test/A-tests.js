@@ -31,6 +31,7 @@ var account = mongoose.Types.ObjectId();
 
 before(function(done){
 	var agent = request.agent(app);
+	
 	// make a demo user to use in this block of login checks
 	models.User.create({
 		name : 'login',
@@ -52,13 +53,9 @@ before(function(done){
         fn.devTests(u._account, u, function(err, tests){
         	if(err){console.log(err);}
         	console.log('done tests');
-        	done();
+			done();
         });
 	});
-
-
-
-
 });
 
 after(function(done){
