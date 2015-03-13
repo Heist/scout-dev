@@ -55,10 +55,9 @@ module.exports = function(request, user, next){
             ])
         }).then(function(parts){
             // console.log(tags);
-            var reply = { msg: update.msg, tags : update.tags };
-            console.log(reply);
-            return next(reply);
+            return next({ msg: update.msg, tags : update.tags });
         }).catch(function (error) {
+            if(error){console.log(error);}
             // error
             })
     };
