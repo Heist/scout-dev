@@ -30,7 +30,7 @@
 			}
 		}
 
-		button:first-child, button:nth-child(2) {
+		.button:first-child, .button:nth-child(2) {
 			background: none;
 			color: $fg-grey;
 			padding: 10px 120px 0 0;
