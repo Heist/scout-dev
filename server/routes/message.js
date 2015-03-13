@@ -23,10 +23,10 @@ module.exports = function(app, passport, debug) {
     .post(function(req,res){
      // Create a new message
         // console.log('new message', req.body, req.user._id);
-        fn.messageNew(req.body, req.user._id, function(err, m){
+        fn.messageNew(req.body, req.user._id, function(data, err){
                 if(err){console.log(err);}
-                console.log('message', m);
-                res.json(m);
+                // console.log('messages START HERE', data, err  );
+                res.json(data);
             });
     })
     .put(function(req, res){

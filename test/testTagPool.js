@@ -56,7 +56,7 @@ describe('The Tag Pool', function(){
 						_subject : m.s._id
 					})
 					.end(function(err, res){
-						console.log('data returned', err, res);
+						// console.log('data returned', err, res);
 						done();
 					});
 			});
