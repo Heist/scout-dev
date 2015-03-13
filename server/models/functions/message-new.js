@@ -49,12 +49,10 @@ module.exports = function(request, user, next){
                 models.Task.findOneAndUpdate({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){}),
                 models.Subject.findOneAndUpdate({'_id': m._subject}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){}),
                 Bluebird.map(testTags, function(tag){ 
-                    // console.log(tag, m._id, m._test);
                     return models.Tag.findOneAndUpdate({ 'name' : tag }, { $push: { '_messages': m.id }, 'name': tag }, {upsert : true }, function(err,item){})
                 })
             ])
         }).then(function(parts){
-            // console.log(tags);
             return next({ msg: update.msg, tags : update.tags });
         }).catch(function (error) {
             if(error){console.log(error);}

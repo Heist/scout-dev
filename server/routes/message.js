@@ -22,7 +22,6 @@ module.exports = function(app, passport, debug) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
-        // console.log('new message', req.body, req.user._id);
         fn.messageNew(req.body, req.user._id, function(data, err){
                 if(err){console.log(err);}
                 // console.log('messages START HERE', data, err  );
@@ -31,6 +30,7 @@ module.exports = function(app, passport, debug) {
     })
     .put(function(req, res){
     // Edit the body of a message and change its tag associations
+        console.log(req.body);
         fn.messageEdit(req.body, function(err, msg){
             if(err){console.log(err);}
             res.json(msg);
