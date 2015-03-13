@@ -7,7 +7,6 @@ module.exports = function(message, next){
     var _ = require('lodash');
 
 // Catch some hashtags ====================================
-    // console.log('pull some tags', message);
     var tags_raw = [];
     var hashCatch = new RegExp(/\S*#\S+/gi);
 
@@ -22,8 +21,6 @@ module.exports = function(message, next){
         });
     }
     
-    console.log(msg_body, tags_raw);
-
     var reply = { msg :  msg_clean, tags: tags_raw }
 
     return reply;

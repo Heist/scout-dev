@@ -13,9 +13,8 @@ module.exports = function(request, user, next){
     var models = Promise.promisifyAll(require('../../models'));
     Promise.promisifyAll(require("mongoose"));
 // CREATE A NEW MESSAGE ===================================
-
-    console.log('body of request', request.body);
 // set message variables from request object.
+
     var tags = fn.tagPuller(request.body);
 
     var update = {
@@ -28,13 +27,12 @@ module.exports = function(request, user, next){
         user : user
     };
 
-    console.log('make', update);
-
     var messageMake = function( make ){
         return models.Message.createAsync({ 
             '_subject' : make._subject, 
-            '_test' : make._test, 
-            'body' : make.body, 
+            '_test' : make._test,
+            '_task' : make._task,
+            'body' : make.msg,
             'created_by' : make.user });
     }
 
@@ -48,9 +46,7 @@ module.exports = function(request, user, next){
         var u = { $push: { '_messages': msg_id }, 'name': name, '_test': _test };
         var o = {upsert : true };
 
-       return models.Tag.findOneAndUpdateAsync(q, u, o, function(err, obj){
-                return next(null, obj);
-            });
+       return models.Tag.findOneAndUpdateAsync(q, u, o, function(err, obj){});
     };
 
     var newMessage = function(make, next){
@@ -58,23 +54,32 @@ module.exports = function(request, user, next){
             return findMessage(m._id).then(function(m){
                 return async.parallel({
                     task: function(callback){
-                        models.Task.findOneAndUpdateAsync({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, next){});
+                        models.Task.findOneAndUpdate({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, next){
+                            if(err){console.log(err);}
+                            callback(null, next);
+                        });
                     },
                     subject: function(callback){
-                        models.Subject.findOneAndUpdateAsync({'_id': m._subject}, { $push: { _messages: m._id } },{upsert : false }, function(err, next){});
-                    },
-                    tags: function(callback){
-                        console.log('tags', make.tags);
-                        async.map(make.tags,
-                            function(tag, callback){
-                                console.log(tag);
-                                tagUpdate(tag, m._test, m._id);
-                            }, callback );
+                        models.Subject.findOneAndUpdate({'_id': m._subject}, { $push: { _messages: m._id } },{upsert : false }, function(err, next){
+                            callback(null, next);
+                        });
                     }
+                    // ,tags: function(callback){
+                    //     console.log('tags', make.tags);
+                    //     async.map(make.tags,
+                    //         function(tag, callback){
+                    //             console.log(tag);
+                    //             var tUpdate = (function(){tagUpdate(tag, m._test, m._id)}());
+                    //             callback(null, tUpdate);
+                    //         }, function(err, results){
+                    //             console.log('results', results)
+                    //             callback(null, results);
+                    //         } );
+                    // }
                 },
                 function(err, results){
                     if(err){console.log(err);}
-                    console.log({msg: results.msg, tags: results.waterfall.tags});
+                    console.log(results);
                     next(err, results);
                     
                 });

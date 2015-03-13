@@ -25,21 +25,19 @@ describe('The Tag Pool', function(){
 	var m = {};
 	
 	before(function(done){
-
-
 			var obj = models.Subject.findOneAsync({});
-
 			obj.then(function(s){
 				m.s = s;
-				return models.Test.findOneAsync({})
+				return models.Test.findOneAsync({'_subjects': {$in: [m.s._id]}})
 						.then(function(t){
 							m.t = t;
-							done();
+							return models.Task.findOneAsync({'_test':m.t._id, '_subjects': {$in: [m.s._id]}})
+							.then(function(tsk){
+								m.tsk = tsk;
+								done();
+							})
 						});
 			});
-
-
-					
 	})
 
 	it.skip('on tag creation, should store in pool as a whole', function(done){
@@ -50,10 +48,12 @@ describe('The Tag Pool', function(){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
 			.end(function(err, res) { // get logged in
 				// This may require a more global variable.
+				console.log('m', m.tsk._id, m.t._id, m.s._id);
 				agent.post('/api/message/')
 					.send({
 						body : 'This is a #blue #note #purple', 
 						_test : m.t._id,
+						_task : m.tsk._id,
 						_subject : m.s._id
 					})
 					.end(function(err, res){
