@@ -6,12 +6,12 @@ module.exports = function(request, user, next){
 
 // Module dependencies ==========================
     var async   = require('async');
-    var Promise = require('bluebird');
+    var Bluebird = require('bluebird');
 
 // load data storage models =====================
     var fn     = require('../../models/functions');
-    var models = Promise.promisifyAll(require('../../models'));
-    Promise.promisifyAll(require("mongoose"));
+    var models = require('../../models');
+    Bluebird.promisifyAll(require("mongoose"));
 // CREATE A NEW MESSAGE ===================================
 // set message variables from request object.
 
@@ -44,48 +44,42 @@ module.exports = function(request, user, next){
         // test the object - if it's an ObjectId, use it raw, otherwise, use the name
         var q = {'name': name, '_test': _test};
         var u = { $push: { '_messages': msg_id }, 'name': name, '_test': _test };
-        var o = {upsert : true };
-
-       return models.Tag.findOneAndUpdateAsync(q, u, o, function(err, obj){});
+        // var o = {upsert : true };
+       return models.Tag.findOneAndUpdate(q, u, o, function(err, obj){});
     };
 
-    var newMessage = function(make, next){
-        return messageMake(make).then(function(m){
-            return findMessage(m._id).then(function(m){
-                return async.parallel({
-                    task: function(callback){
-                        models.Task.findOneAndUpdate({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, next){
-                            if(err){console.log(err);}
-                            callback(null, next);
-                        });
-                    },
-                    subject: function(callback){
-                        models.Subject.findOneAndUpdate({'_id': m._subject}, { $push: { _messages: m._id } },{upsert : false }, function(err, next){
-                            callback(null, next);
-                        });
-                    }
-                    // ,tags: function(callback){
-                    //     console.log('tags', make.tags);
-                    //     async.map(make.tags,
-                    //         function(tag, callback){
-                    //             console.log(tag);
-                    //             var tUpdate = (function(){tagUpdate(tag, m._test, m._id)}());
-                    //             callback(null, tUpdate);
-                    //         }, function(err, results){
-                    //             console.log('results', results)
-                    //             callback(null, results);
-                    //         } );
-                    // }
-                },
-                function(err, results){
-                    if(err){console.log(err);}
-                    console.log(results);
-                    next(err, results);
-                    
-                });
-            })
-        })
+    var newMessage = function (make, next) {
+      return messageMake(make).then(function (message) {
+        return findMessage(message._id)
+      }).then(function (m) {
+        return Bluebird.all([
+          models.Task.findOneAndUpdate({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){}),
+          models.Subject.findOneAndUpdate({'_id': m._subject}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){})
+        ])
+      }).then(function(tags){
+            // this works for the first two models...
+      }).catch(function (error) {
+        // error
+      })
     }
 
-    return newMessage(update, fn);
+    var mapTags = function(tags){
+        console.log('tags', update.tags, tags[0]._id,tags[1]._id);
+        var testTags = [ 'blue', 'note', 'purple' ];
+        Bluebird.all(
+            testTags.map(function(thing){
+            // return promise of thing mapped
+            console.log(thing);
+            models.Tag.findOneAndUpdate(
+                {'name': thing, '_test': m._test},
+                { $push: { '_messages': m._id }, 'name': tag, '_test': m._test },
+                {upsert : true }, 
+                function(err, obj){})
+            })
+        ).then(function(things){
+            console.log('mapped', things);
+        });
+    }
+
+    return newMessage(update, next);
 };

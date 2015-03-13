@@ -48,7 +48,6 @@ describe('The Tag Pool', function(){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
 			.end(function(err, res) { // get logged in
 				// This may require a more global variable.
-				console.log('m', m.tsk._id, m.t._id, m.s._id);
 				agent.post('/api/message/')
 					.send({
 						body : 'This is a #blue #note #purple', 
