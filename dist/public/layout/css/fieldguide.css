@@ -1318,7 +1318,7 @@ hr {
     line-height: 1.2; }
     #sidebar ul li .task-boop {
       position: absolute;
-      top: 16px;
+      top: 20px;
       right: 20px;
       width: 6.66667px !important;
       height: 6.66667px !important;
