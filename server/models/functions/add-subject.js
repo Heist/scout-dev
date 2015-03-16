@@ -11,15 +11,16 @@ module.exports = function(request, next){
     // console.log('adding a subject', request);
     
 // CREATE A NEW SUBJECT ===================================
-    async.waterfall([function(callback){
+    async.waterfall([
 
+    function(callback){
         models.Subject.create({
             name     : request.name,
             testroom : request.testroom,
             test     : request.test
-        }, callback );
-
-    }, function(subject, callback){
+        }, callback );},
+        
+    function(subject, callback){
         models.Test.findOneAndUpdate(
             {'_id' : subject.test},
             {'last_run' : new Date(),
@@ -27,6 +28,5 @@ module.exports = function(request, next){
             }, function(err, results){
                 callback(null, subject);
             });
-            
     }], next);
 };
