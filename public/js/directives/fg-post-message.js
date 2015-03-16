@@ -14,7 +14,7 @@
                     note._subject = subject_id;
 
                     var promise = $http.post('/api/message/', note).then(function(response) {
-                        console.log('new reply', response);
+                        // console.log('new reply', response);
                         return response;
                     });
 
