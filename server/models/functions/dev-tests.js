@@ -16,7 +16,7 @@ module.exports = function(account, user, next){
     var createTest = function(acct, usr){
         console.log('create subject', acct, usr);
 
-        return models.Test.create({
+        return models.Test.createAsync({
                         created_by_account: acct,
                         created_by_user : usr,
                         name : "DeveloperTest",
@@ -33,7 +33,7 @@ module.exports = function(account, user, next){
             name: 'Jane she is a cat',
             test     : test
         };
-        return fn.addSubject(newSubject, callback);
+        return fn.addSubjectAsync(newSubject, callback);
     }
 
     var createTasks = function(test){
@@ -53,7 +53,7 @@ module.exports = function(account, user, next){
         }];
 
         return Bluebird.map(tasks, function(task){
-            models.Task.create(task, function(err, t){});
+            models.Task.createAsync(task, function(err, t){});
         });
     }
 
