@@ -33,16 +33,21 @@ module.exports = function(account, user, next){
     var createSubject = function(test){
         console.log('create subject devTest', test);
 
-        var newSubject = {
-            name: 'Jane she is a cat',
-            test     : test
-        };
+        var obj = {
+                    name: 'Jane she is a cat',
+                    test     : test
+                };
 
-        return fn.addSubject(newSubject, function(err, next){
-                if(err){console.log(err)}
-                console.log('new subject', next);
-                return next;
-            });
+        return models.Subject.create(obj, function(err, s){})
+                .then(function(s){
+                    return Bluebird.all([
+                        models.Test.findOneAndUpdate({'_id' : test}, {'last_run' : new Date(), $push : { _subjects : s._id }}, function(err, obj){}),
+                        s
+                    ])
+                })
+                .then(function(array){
+                    return array[1];
+                });
     }
 
     var createTasks = function(test){
@@ -102,19 +107,13 @@ module.exports = function(account, user, next){
         return createTest(acct, usr)
         .then(function(test){
             console.log('test', test._id);
-            return createSubject(test._id);
-            // return Bluebird.all([
-            //     // createTasks(test._id),
-                 
-            //     ])
-        }).then(function(array){
-            console.log('array', array);
+            return createSubject(test._id); 
+        }).then(function(subject){
+            console.log('subject', subject); // createSubject is undefined here.
         }).then(function (error) {
-              console.log(error)
+              if(error){console.log(error);}
             });
     };
-
-    // return createTest(account, user._id);
 
     return mockTest(account, user._id);
 };
