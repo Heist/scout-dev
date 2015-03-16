@@ -73,12 +73,38 @@ describe('The Tag Pool', function(){
 			})
 	});
 
-	it.skip('does not accept a message without a test', function(){
-
+	it('does not accept a message without a test', function(){
+		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
+			.end(function(err, res) { // get logged in
+				// This may require a more global variable.
+				agent.post('/api/message/')
+					.send({
+						body : 'This is a #blue #note #purple', 
+						_task : m.tsk._id,
+						_subject : m.s._id
+					})
+					.end(function(err, res){
+						expect(res.body).to.equal('Sorry, you need a test.')
+						done();
+					});
+			});
 	});
 
-	it.skip('does not accept a message without a subject', function(){
-
+	it('does not accept a message without a subject', function(){
+		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
+			.end(function(err, res) { // get logged in
+				// This may require a more global variable.
+				agent.post('/api/message/')
+					.send({
+						body : 'This is a #blue #note #purple', 
+						_test : m.t._id,
+						_task : m.tsk._id,
+					})
+					.end(function(err, res){
+						expect(res.body).to.equal('Sorry, you need a subject.')
+						done();
+					});
+			});
 	});
 
 	it.skip('should create tags per user', function(done){

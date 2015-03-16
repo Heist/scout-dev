@@ -54,10 +54,10 @@ module.exports = function(request, user, next){
             ])
         }).then(function(parts){
             return next({ msg: update.msg, tags : update.tags });
-        }).catch(function (error) {
-            if(error){console.log(error);}
-            // error
-            })
+        }).error(function (e) {
+            console.error("unable to read file, because: ", e.message);
+            return e.message;
+        });
     };
 
     return newMessage(update, next);
