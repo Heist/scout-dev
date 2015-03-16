@@ -1267,9 +1267,11 @@ hr {
       padding: 13.33333px 20px;
       margin: 0;
       width: 100%; }
-      #tasklist ul li.title:hover {
-        background: #f6f6f6;
-        cursor: default; }
+      #tasklist ul li.title {
+        margin: 0 0 20px 0; }
+        #tasklist ul li.title:hover {
+          background: #f6f6f6;
+          cursor: default; }
       #tasklist ul li h3 {
         margin: 0 0 2px 0;
         padding: 0;
@@ -2117,6 +2119,8 @@ hr {
     #view-testing #testing-guide h5 {
       margin: 0;
       text-transform: uppercase; }
+    #view-testing #testing-guide p {
+      padding: 20px 0 0 0; }
   #view-testing .sheet-holder {
     width: 70%;
     height: 100%;
