@@ -16,22 +16,19 @@ module.exports = function(account, user, next){
 
     var createTest = function(acct, usr){
         // this is just straight not working.
-
-
-        console.log('create test', acct, usr);
-        var test = new models.Test({
+        var obj = {
                         created_by_account: acct,
                         created_by_user : usr,
                         name : "DeveloperTest",
                         desc : "- Pew\n"+
                                "- Rub face on everything.\n",
                         kind : "interview"
-                    });
+                    };
 
-        return test.save(function(err, test){
-            if(err){console.log(err);}
-            console.log(test);
-        });
+        return models.Test.create(obj, function(err, test){ 
+                console.log(test);
+                return test; 
+            });
     };
 
     var createSubject = function(test){
@@ -94,10 +91,16 @@ module.exports = function(account, user, next){
     }
 
     var mockTest = function(acct, usr){
-        return createTest(acct, usr).then(function(test){
-        }).then(function (test) {
-            console.log('done', test)
-        }).catch(function (error) {
+        return createTest(acct, usr)
+        .then(function(test){
+            console.log('test');
+            return Bluebird.all([
+                createTasks(test),
+                createSubject(test)
+                ])
+        }).then(function(array){
+            console.log(array);
+        }).then(function (error) {
               console.log(error)
             });
     };

@@ -41,9 +41,10 @@ module.exports = function(request, user, next){
     }
 
     var newMessage = function (make, next) {
-        return messageMake(make).then(function (message) {
-            return findMessage(message._id)
-        }).then(function (m) {
+        return messageMake(make)
+        .then(function (message) {
+            return findMessage(message._id) })
+        .then(function (m) {
             var testTags = [ 'blue', 'note', 'purple' ];
             return Bluebird.all([
                 models.Task.findOneAndUpdate({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){}),
@@ -51,10 +52,10 @@ module.exports = function(request, user, next){
                 Bluebird.map(testTags, function(tag){ 
                     return models.Tag.findOneAndUpdate({ 'name' : tag }, { $push: { '_messages': m.id }, 'name': tag }, {upsert : true }, function(err,item){})
                 })
-            ])
-        }).then(function(parts){
-            return next({ msg: update.msg, tags : update.tags });
-        }).error(function (e) {
+            ])})
+        .then(function(parts){
+            return next({ msg: update.msg, tags : update.tags }); })
+        .error(function (e) {
             console.error("unable to read file, because: ", e.message);
             return e.message;
         });
