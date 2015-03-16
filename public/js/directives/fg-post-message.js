@@ -13,8 +13,9 @@
                     note._test = test;
                     note._subject = subject_id;
 
-                    var promise = $http.post('/api/message/', {msg : note}).then(function (response) {
-                        return response.data;
+                    var promise = $http.post('/api/message/', note).then(function(response) {
+                        // console.log('new reply', response);
+                        return response;
                     });
 
                     return promise;

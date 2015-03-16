@@ -65,7 +65,7 @@ module.exports = function(app, passport, debug) {
     })
     .delete(function(req,res){
     // Delete a test and dependencies
-        fn.delTest(req.params._id, function(err, test){
+        fn.deleteTest(req.params._id, function(err, test){
             if(err){ console.log(err); }
             res.json(test);
         });
