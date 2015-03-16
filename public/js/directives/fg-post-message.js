@@ -13,7 +13,8 @@
                     note._test = test;
                     note._subject = subject_id;
 
-                    var promise = $http.post('/api/message/', {msg : note}).then(function (response) {
+                    var promise = $http.post('/api/message/', note).then(function (response) {
+                        console.log(response.data);
                         return response.data;
                     });
 

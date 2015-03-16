@@ -12,6 +12,7 @@ module.exports = function(request, user, next){
     var fn     = require('../../models/functions');
     var models = require('../../models');
     Bluebird.promisifyAll(require("mongoose"));
+    
 // CREATE A NEW MESSAGE ===================================
 // set message variables from request object.
 
