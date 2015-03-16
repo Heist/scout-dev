@@ -32,11 +32,9 @@ module.exports = function(account, user, next){
 
     var createSubject = function(test){
         console.log('create subject devTest', test);
-
-        var obj = {
-                    name: 'Jane she is a cat',
-                    test     : test
-                };
+        
+        var obj = { name: 'Jane she is a cat',
+                    test     : test };
 
         return models.Subject.create(obj, function(err, s){})
                 .then(function(s){
@@ -107,9 +105,12 @@ module.exports = function(account, user, next){
         return createTest(acct, usr)
         .then(function(test){
             console.log('test', test._id);
-            return createSubject(test._id); 
-        }).then(function(subject){
-            console.log('subject', subject); // createSubject is undefined here.
+            return Bluebird.all([
+                    createSubject(test._id), 
+                    createTasks(test._id) 
+                ])
+        }).then(function(arr){
+            console.log('arr', arr); // createSubject is undefined here.
         }).then(function (error) {
               if(error){console.log(error);}
             });
