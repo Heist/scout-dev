@@ -51,13 +51,14 @@ gulp.task('scripts', function () {
 });
 
 // Compile CSS
+var sassDest = '';
 gulp.task('sass', function() {
   return gulp.src('public/layout/sass/*.scss')
+    .pipe(newer('public/layout/sass/*.scss')).on('error', errorHandler)
     .pipe(sass({ style: 'expanded' }))
     .pipe(addsrc.append('bower_components/**/*.css'))
     .pipe(gulp.dest('public/layout/css'))
-    .pipe(gulp.dest('dist/public/layout/css'))
-    .pipe(notify({ message: "Your files are now organized" }));
+    .pipe(gulp.dest('dist/public/layout/css'));
 });
 
 gulp.task('fonts', function() {
