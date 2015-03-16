@@ -102,7 +102,7 @@ module.exports = function(account, user, next){
             });
     };
 
-    return createTest(account, user._id);
-    // return mockTest(account, user._id);
+    // return createTest(account, user._id);
+    return mockTest(account, user._id);
 };
              
