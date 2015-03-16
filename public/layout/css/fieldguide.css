@@ -2177,6 +2177,11 @@ hr {
     #view-testing #button-endtest .expand-button .expand-button-body {
       color: #fff;
       background: #323539; }
+      #view-testing #button-endtest .expand-button .expand-button-body .checkmark {
+        background: url('../assets/checkmark.svg') no-repeat;
+        width: 15px;
+        height: 15px;
+        margin: 7px auto; }
   #view-testing #button-canceltest {
     position: absolute;
     right: 30px;

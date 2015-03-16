@@ -126,6 +126,13 @@
 			.expand-button-body {
 				color: $white;
 				background: $fg-black;
+
+				.checkmark {
+					background: url('../assets/checkmark.svg') no-repeat;
+					width: 15px;
+					height: 15px;
+					margin: 7px auto;
+				}
 			}
 		}
 	}
