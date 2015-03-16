@@ -8,32 +8,32 @@ module.exports = function(test, next){
     var models   = require('../../models');
 
 // DELETE TEST ============================================
-
+    console.log(test);
     async.parallel([
         function(callback){
-            models.Test.remove({ _id : test}, 
-                function(err){
+            models.Test.remove({ '_id' : test}, 
+                function(err, doc){
                     if(err){ console.log(err); }
                     callback(null, 'test');
                 });
         },
         function(callback){
-            models.Task.remove({ _test : test },
-                function(err){
+            models.Task.remove({ '_test' : test },
+                function(err, doc){
                     if(err){ console.log(err); }
                     callback(null, 'task');
                 });
         },
         function(callback){
-            models.Message.remove({ _test : test }, 
-                function(err){
+            models.Message.remove({ '_test' : test }, 
+                function(err, doc){
                     if(err){ console.log(err); }
                     callback(null, 'messages');
                 });
         },
         function(callback){
-            models.Tag.remove({ _test : test },
-                 function(err){
+            models.Tag.remove({ '_test' : test },
+                 function(err, doc){
                         if(err){ console.log(err); }
                         callback(null, 'tags');
                     });
@@ -41,6 +41,8 @@ module.exports = function(test, next){
     ], 
     function(err, results){
         if(err){ console.log(err); }
+        console.log(results, test);
+
         next(null, test);
     });  
 };
