@@ -11,7 +11,11 @@ module.exports = function(account, user, next){
     var fn = require('../../models/functions');
     var models = Bluebird.promisifyAll(require('../../models'));
 
+    console.log('mocking tests .... ', account, user); 
+
     var createTest = function(acct, usr){
+        console.log('create subject', acct, usr);
+
         return models.Test.create({
                         created_by_account: acct,
                         created_by_user : usr,
@@ -23,6 +27,8 @@ module.exports = function(account, user, next){
     }
 
     var createSubject = function(test){
+        console.log('create subject', test);
+
         var newSubject = {
             name: 'Jane she is a cat',
             test     : test
@@ -31,6 +37,8 @@ module.exports = function(account, user, next){
     }
 
     var createTasks = function(test){
+        console.log('create tasks', test);
+
          var tasks = [{
             name  :"Task 1",
             desc  :"Chase ball of string and scratch the furniture and always hungry. \n- Nap all day.",
@@ -40,7 +48,7 @@ module.exports = function(account, user, next){
         {
             name  : "Task 2",
             desc  : "Sunbathe climb the curtains run hiss purr. \n- Puking I don't like that food claw scratched eat.",
-            index : 1
+            index : 1,
             _test : test
         }];
 
@@ -49,7 +57,7 @@ module.exports = function(account, user, next){
         });
     }
 
-    var createMessages = function(subject, tasks, test, user){
+    var createMessages = function(subject, tasks, test, usr){
         // there will be two tasks in here
 
         var arr = ['One #yellow #blue #green', 'Two #yellow #blue','Three #yellow'];
@@ -60,13 +68,13 @@ module.exports = function(account, user, next){
                 _subject : subject,
                 _test : test,
                 _task : task,
-                user : user
+                user : usr
             }
         };
         
         var posterList = _.map(arr, note);
 
-        console.log(posterList);
+        console.log('create messages', posterList);
         // each item in array is set to be the body of the object
         // then each object is given the same message values
         // return the object array
@@ -85,7 +93,6 @@ module.exports = function(account, user, next){
                     console.log(array);
                     return createMessages(array[1], array[0], array[1]._test, user)
                 })
-            })
         }).then(function (test) {
             console.log('done')
         }).catch(function (error) {
