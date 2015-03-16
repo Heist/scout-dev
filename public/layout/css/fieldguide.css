@@ -1400,7 +1400,7 @@ hr {
     .modal .modal-interior .button:first-child, .modal .modal-interior .button:nth-child(2) {
       background: none;
       color: #939598;
-      padding: 10px 240px 0 0; }
+      padding: 10px 180px 0 0; }
       .modal .modal-interior .button:first-child:hover, .modal .modal-interior .button:hover:nth-child(2) {
         text-decoration: underline;
         color: #818387; }
