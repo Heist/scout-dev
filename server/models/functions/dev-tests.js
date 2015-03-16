@@ -96,7 +96,8 @@ module.exports = function(account, user, next){
 
         return Bluebird.map(list, function(msg){
             return fn.messageNew(note, function(err, note){
-                    if(err){console.log(err)}
+                    if(err){console.log(err);}
+                        console.log(note);
                     return note;
                 });
         });
