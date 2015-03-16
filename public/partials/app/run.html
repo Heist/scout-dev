@@ -251,6 +251,11 @@
 					<textarea class="input" ng-model='message' name="field-input" placeholder="Type notes" ui-keypress="{13:'postMessage(message)'}" />
 					</textarea>
 				</div>
+				<div id="recent-hash-tags">
+					<p>#Themes</p>
+					<span ng-show="object.doctype === 'tag'">#</span>
+				</div>
+
 				
 				<!-- timeline -->
 				<div id="timeline" scroll-glue="glued">

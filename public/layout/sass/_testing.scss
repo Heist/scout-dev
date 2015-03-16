@@ -77,7 +77,7 @@
 			left: 0;
 			width: 100%;
 			padding: $pad/4;
-			height: 120px;
+			height: 150px;
 			background: $white;
 			z-index: 9999;
 			border-top: 1px solid $line;
@@ -92,6 +92,22 @@
 
 				}
 			}
+		}
+
+		#recent-hash-tags {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			padding: $pad/4;
+			height: 45px;
+			z-index: 9999;
+			border-top: 1px solid $line;
+
+			p {
+				margin: 5px 0 0 10px;
+			}
+
 		}
 		
 		/* suppress message-hover during running tests */
