@@ -124,6 +124,20 @@
 			}
 		}
 	}
+
+	#button-canceltest {
+		position: absolute;
+		right: $pad*1.5;
+		top: $pad*4;
+		z-index: 999999;
+		
+		.expand-button {
+			.expand-button-body {
+				color: $white;
+				background: $fg-grey-light;
+			}
+		}
+	}
 	
 	
 	#button-newtask {

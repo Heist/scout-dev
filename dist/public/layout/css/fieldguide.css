@@ -2172,6 +2172,14 @@ hr {
     #view-testing #button-endtest .expand-button .expand-button-body {
       color: #fff;
       background: #323539; }
+  #view-testing #button-canceltest {
+    position: absolute;
+    right: 30px;
+    top: 80px;
+    z-index: 999999; }
+    #view-testing #button-canceltest .expand-button .expand-button-body {
+      color: #fff;
+      background: #cdcecf; }
   #view-testing #button-newtask {
     position: absolute;
     right: 70.5%;
