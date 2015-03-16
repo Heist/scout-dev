@@ -1415,16 +1415,16 @@ hr {
       .modal .modal-interior li:last-child {
         border: none;
         margin: 20px 0 30px 0; }
-    .modal .modal-interior .button:first-child, .modal .modal-interior .button:nth-child(2) {
+    .modal .modal-interior .button.cancel, .modal .modal-interior .button.dry-run {
       background: none;
       color: #939598;
       padding: 10px 180px 0 0; }
-      .modal .modal-interior .button:first-child:hover, .modal .modal-interior .button:hover:nth-child(2) {
+      .modal .modal-interior .button.cancel:hover, .modal .modal-interior .button.dry-run:hover {
         text-decoration: underline;
         color: #818387; }
-    .modal .modal-interior .button:nth-child(2) {
+    .modal .modal-interior .button.dry-run {
       padding: 10px 10px 0 0; }
-      .modal .modal-interior .button:nth-child(2):hover {
+      .modal .modal-interior .button.dry-run:hover {
         text-decoration: underline;
         color: #818387; }
     .modal .modal-interior .modal-interior-title {

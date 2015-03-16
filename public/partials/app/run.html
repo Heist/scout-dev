@@ -128,9 +128,9 @@
 			
 			
 			<li>
-				<a href="#" class="secondary button med" ng-click="changeOnboard(100)">Cancel</a>
+				<a href="#" class="secondary button cancel med" ng-click="changeOnboard(100)">Cancel</a>
 			
-				<a class="button med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a>
+				<a class="button dry-run med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a>
 			
 				<button class="button med float-right" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Start</button>
 				
@@ -219,7 +219,7 @@
 					<h5>Objectives</h5>
 					<p>	{{test.desc}}</p>
 				</li>
-				
+
 				<li><h5>Tasks</h5></li>
 				
 				<li ng-repeat="obj in navlist" ng-class="{ 'active': obj._id === selected._id }" ng-click="select($index)">

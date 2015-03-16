@@ -30,7 +30,7 @@
 			}
 		}
 
-		.button:first-child {
+		.button.cancel {
 			background: none;
 			color: $fg-grey;
 			padding: 10px 180px 0 0;
@@ -41,8 +41,8 @@
 			}
 		}
 
-		.button:nth-child(2) {
-			@extend .button:first-child;
+		.button.dry-run {
+			@extend .button.cancel;
 			padding: 10px 10px 0 0;
 
 			&:hover {
