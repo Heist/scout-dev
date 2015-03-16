@@ -5,38 +5,16 @@
 module.exports = function(account, user, next){
 
 // Module dependencies
-    var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
-    var async = require('async');
     var Bluebird = require('bluebird');
-    var fn = require('../../models/functions');
 
+    var fn = require('../../models/functions');
     var models = Bluebird.promisifyAll(require('../../models'));
 
-    var tasks = [{
-            name  :"Task 1",
-            desc  :"Chase ball of string and scratch the furniture and always hungry. \n- Nap all day.",
-            index : 0
-        }, 
-        {
-            name  : "Task 2",
-            desc  : "Sunbathe climb the curtains run hiss purr. \n- Puking I don't like that food claw scratched eat.",
-            index : 1
-        }];
-
-    var createSubject = function(test){
-        var newSubject = {
-            name: 'Jane she is a cat',
-            test     : test
-        };
-
-        return fn.addSubject(newSubject, callback);
-    }
-
-    var createTest = function(account, user){
+    var createTest = function(acct, usr){
         return models.Test.create({
-                        created_by_account: account,
-                        created_by_user : user,
+                        created_by_account: acct,
+                        created_by_user : usr,
                         name : "DeveloperTest",
                         desc : "- Pew\n"+
                                "- Rub face on everything.\n",
@@ -44,13 +22,36 @@ module.exports = function(account, user, next){
                     });
     }
 
-    var createTasks = function(tasks, test){
+    var createSubject = function(test){
+        var newSubject = {
+            name: 'Jane she is a cat',
+            test     : test
+        };
+        return fn.addSubject(newSubject, callback);
+    }
+
+    var createTasks = function(test){
+         var tasks = [{
+            name  :"Task 1",
+            desc  :"Chase ball of string and scratch the furniture and always hungry. \n- Nap all day.",
+            index : 0,
+            _test : test
+        }, 
+        {
+            name  : "Task 2",
+            desc  : "Sunbathe climb the curtains run hiss purr. \n- Puking I don't like that food claw scratched eat.",
+            index : 1
+            _test : test
+        }];
+
         return Bluebird.map(tasks, function(task){
             models.Task.create(task, function(err, t){});
         });
     }
 
-    var createMessages = function(subject, task, test, user){
+    var createMessages = function(subject, tasks, test, user){
+        // there will be two tasks in here
+
         var arr = ['One #yellow #blue #green', 'Two #yellow #blue','Three #yellow'];
 
         var note = function(tag){
@@ -76,41 +77,20 @@ module.exports = function(account, user, next){
     }
 
     var mockTest = function(){
-        return createTest({}).then({
-            return createTasks({}).then({
-                return createSubject({}).then({
-                    return createMessages({})
+        return createTest(account, user).then(function(test){
+            return Bluebird.all([
+                createTasks(test),
+                createSubject(test)
+                ]).then(function(array){
+                    console.log(array);
+                    return createMessages(array[1], array[0], array[1]._test, user)
                 })
             })
+        }).then(function (test) {
+            console.log('done')
         }).catch(function (error) {
               console.log(error)
             });
     };
-
-// The promisified chain to make this a WHOLE bunch cleaner...
-// https://gist.githubusercontent.com/artcommacode/45c85e867d1bd1f3c1bb/raw/gistfile1.js
-// var tasks = [{
-//   name: "Task 1",
-//   desc: "Chase ball of string and scratch the furniture and always hungry. \n- Nap all day."
-// }, {
-//   name: "Task 2",
-//   desc: "Sunbathe climb the curtains run hiss purr. \n- Puking I don't like that food claw scratched eat."
-// }]
-// var createTest = Promise.promisify(Test.create, Test)
-// var createTask = Promise.promisify(Task.create, Task)
-// var saveTest = Promise.promisify(test.save, test)
-
-// createTest(test).then(function (test) {
-//   return Promise.all(tasks.map(function (task) {
-//     task._test = test._id
-//     return createTask(task)
-//   })).then(function (tasks) {
-//     test._tasks.concat(tasks)
-//     return saveTest(test)
-//   })
-// }).then(function (test) {
-//   console.log('done')
-// }).catch(function (error) {
-//   console.log(error)
-// })
+};
              
