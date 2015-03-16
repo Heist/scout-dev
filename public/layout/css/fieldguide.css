@@ -1129,7 +1129,6 @@ hr {
   height: 100%;
   overflow: auto;
   margin: 0;
-  background: url('../assets/timeline-line.gif') repeat-y 24px top;
   /* first-run message on timeline */ }
   #timeline ul {
     list-style: none;
@@ -1162,7 +1161,7 @@ hr {
             color: #7c7d80; }
       #timeline ul .message .message-body {
         float: left;
-        width: 80%;
+        width: 100%;
         color: #323539; }
         #timeline ul .message .message-body p {
           margin-bottom: 0; }

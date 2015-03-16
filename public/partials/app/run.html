@@ -204,7 +204,7 @@
 		<div id="tasklist">
 						
 			<ul>
-				<li class="title"><div class="avatar"><span>SC</span></div><small>Testing with</small>
+				<li class="title"><div class="avatar"><span></span></div><small>Testing with</small>
 					<h3>{{user.name}}</h3>
 				</li>
 				
@@ -245,9 +245,9 @@
 						
 						<!-- empty state -->
 						<li class="message" id="firstrun">
-							<div class="message-details">
+							<!-- <div class="message-details">
 								<div class="message-details-avatar avatar-header">&bull;</div>
-							</div>
+							</div> -->
 							<div class="message-body">
 								<strong>Your test is running!</strong> Remember, it&rsquo;s all about capturing notes &mdash;
 								you&rsquo;ll have an opportunity to <strong>edit and sort</strong> when creating your Report. 
@@ -259,10 +259,11 @@
 								
 						<li class="message" ng-repeat="message in timeline track by $index">
 							
-							<div class="message-details"><!-- show the user's avatar -->
-								<div class="message-details-avatar avatar-header" ng-if="message.title">&bull;</div>
+							<!-- <div class="message-details"> -->
+							<!-- show the user's avatar -->
+							<!-- 	<div class="message-details-avatar avatar-header" ng-if="message.title">&bull;</div>
 								<div class="message-details-avatar avatar-message" ng-if="!message.title">&bull;</div>
-							</div>
+							</div> -->
 		
 							<div class="message-body">
 								<small ng-if="message.title">{{message.title}}</small>
