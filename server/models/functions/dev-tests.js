@@ -38,7 +38,11 @@ module.exports = function(account, user, next){
             name: 'Jane she is a cat',
             test     : test
         };
-        return fn.addSubject(newSubject, callback);
+
+        return fn.addSubject(newSubject, function(err, next){
+                if(err){console.log(err;}
+                return next;
+            });
     }
 
     var createTasks = function(test){
@@ -58,7 +62,10 @@ module.exports = function(account, user, next){
         }];
 
         return Bluebird.map(tasks, function(task){
-            models.Task.createAsync(task, function(err, t){});
+            models.Task.create(task, function(err, t){ 
+                if(err){console.log(err);}
+                return t; 
+            });
         });
     }
 
@@ -93,10 +100,10 @@ module.exports = function(account, user, next){
     var mockTest = function(acct, usr){
         return createTest(acct, usr)
         .then(function(test){
-            console.log('test');
+            console.log('test', test._id);
             return Bluebird.all([
-                createTasks(test),
-                createSubject(test)
+                createTasks(test._id)
+                //, createSubject(test._id)
                 ])
         }).then(function(array){
             console.log(array);
