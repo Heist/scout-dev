@@ -23,27 +23,6 @@ module.exports = function(account, user, next){
             desc  : "Sunbathe climb the curtains run hiss purr. \n- Puking I don't like that food claw scratched eat.",
             index : 1
         }];
-    
-    var msgArr = [ 'One #yellow #blue #green', 'Two #yellow #blue', 'Three #yellow' ];
-    var msgArr2 = [{
-                body:'One #yellow #blue #green',
-                _test: test._id,
-                _subject: subject._id,
-                _task: task._id
-            },
-            {
-                body:'Two #yellow #blue',
-                _test: test._id,
-                _subject: subject._id,
-                _task: task._id
-            },
-            {
-                body:'Three #yellow',
-                _test: test._id,
-                _subject: subject._id,
-                _task: task._id
-            }
-        ];
 
     var createSubject = function(test){
         var newSubject = {
@@ -71,17 +50,25 @@ module.exports = function(account, user, next){
         });
     }
 
-    var createMessages = function(arr, subject, task, test, user){
+    var createMessages = function(subject, task, test, user){
+        var arr = ['One #yellow #blue #green', 'Two #yellow #blue','Three #yellow'];
 
-        var update = {
-            body : request.body,
-            msg  : tags.msg,
-            tags : tags.tags || null,
-            _subject : request.subject,
-            _test : request.test,
-            _task : request.task,
-            user : user
+        var note = function(tag){
+            return {
+                body : tag,
+                _subject : subject,
+                _test : test,
+                _task : task,
+                user : user
+            }
         };
+        
+        var posterList = _.map(arr, note);
+
+        console.log(posterList);
+        // each item in array is set to be the body of the object
+        // then each object is given the same message values
+        // return the object array
 
         return Bluebird.map(arr, function(msg){ 
                 fn.messageNew(msg, function(err, msg){});
