@@ -22,7 +22,7 @@
 	}
 	
 	#testing-guide {
-		width: 30%;
+		width: 25%;
 		height: 100%;
 		position: absolute;
 		padding: $pad 0 0 0;
@@ -42,9 +42,9 @@
 	
 	
 	.sheet-holder {
-		width: 70%;
+		width: 75%;
 		height: 100%;
-		padding: $pad $pad $pad 0;
+		padding: $pad 70px $pad 0;
 		margin: 0;
 		position: absolute;
 		top: 0;
@@ -134,7 +134,7 @@
 	
 	#button-endtest {
 		position: absolute;
-		right: $pad*1.5;
+		right: 15px;
 		top: $pad*1.5;
 		z-index: 999999;
 		
@@ -155,7 +155,7 @@
 
 	#button-canceltest {
 		position: absolute;
-		right: $pad*1.5;
+		right: 15px;
 		top: $pad*4;
 		z-index: 999999;
 		
@@ -170,7 +170,7 @@
 	
 	#button-newtask {
 		position: absolute;
-		right: 70.5%;
+		right: 75.5%;
 		bottom: $pad/2;
 		z-index: 999999;
 		margin: 0;
