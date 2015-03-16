@@ -6,6 +6,7 @@ module.exports = function(test, next){
 
 // Module dependencies ==========================
     var async    = require('async');
+    var _ = require('lodash');
     var models   = require('../../models');
 
 // EDIT A TEST ============================================ 
