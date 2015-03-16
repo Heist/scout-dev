@@ -29,6 +29,11 @@
 		left: 0;
 		top: 0;
 		overflow: auto;
+
+		h5 {
+			margin: 0;
+			text-transform: uppercase;
+		}
 	}
 	
 	
@@ -134,7 +139,7 @@
 		.expand-button {
 			.expand-button-body {
 				color: $white;
-				background: $fg-green;
+				background: $fg-blue;
 			}
 			
 			.expand-button-helper {
