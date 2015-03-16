@@ -42,6 +42,7 @@
             $scope.explanation = _.findWhere(explanations, {anchor:x});
             if(x === 5){
                 mixpanel.track('Test setup completion page', { 'user': $rootScope.user });
+                $location.path('/overview');
             }
         };
 
