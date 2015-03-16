@@ -10,6 +10,8 @@
                     addTask : function(test, task, index){
                         mixpanel.track('Task added', { 'user': $rootScope.user });
                         
+                        console.log(task, test);
+                        
                         task._test = test;
                         task.index = index;
 
