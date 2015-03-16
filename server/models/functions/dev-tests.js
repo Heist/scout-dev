@@ -69,9 +69,7 @@ module.exports = function(account, user, next){
 
                         models.Task.create(tasks, function(err, t0, t1){
                             test._tasks.push(t0._id, t1._id);
-                            test.save(function(err, data){
-                                callback(null, data);
-                            });
+                            test.save(callback);
                         });
                     });
                 }, 
@@ -88,9 +86,7 @@ module.exports = function(account, user, next){
                             models.Test.findOne({'_id' : arg.test._id})
                                 .exec(function(err, test){
                                     test._subjects.push(arg.subject._id);
-                                    test.save(function(err, saved){
-                                        done(null, saved);
-                                    });
+                                    test.save(done);
                                 });
                         },
                         tasks: function(done){
@@ -103,10 +99,7 @@ module.exports = function(account, user, next){
                                                 yeah(null, saved);
                                             });
                                         });
-                                }, 
-                            function(err, results){
-                                done(null, results);
-                            });
+                                }, done );
                         }
                     }, 
                     function(err, results){
@@ -162,24 +155,15 @@ module.exports = function(account, user, next){
                     async.parallel([
                         function(callback){
                             arg.subject._messages = arg.yellow;
-                            arg.subject.save(function(err, subject){
-                                if (err) { console.log(err); }
-                                callback(null, subject);
-                            });
+                            arg.subject.save(function(callback);
                         },
                         function(callback){                    
                             arg.tasks[0]._messages = arg.task2;
-                            arg.tasks[0].save(function(err,data){
-                                if (err) { console.log(err); }
-                                callback(null, data);
-                            });
+                            arg.tasks[0].save(callback);
                         },
                         function(callback){                    
                             arg.tasks[1]._messages = arg.task2;
-                            arg.tasks[1].save(function(err,data){
-                                if (err) { console.log(err); }
-                                callback(null, data);
-                            });
+                            arg.tasks[1].save(callback);
                         },
                         function(callback){
                             // this needs to be by test and tag.
@@ -189,9 +173,8 @@ module.exports = function(account, user, next){
                                 {'_messages': arg.yellow,
                                 '_test': arg.test._id },
                                 { upsert: true },
-                                function(err, data){
-                                    callback(null, data);
-                                });
+                                callback
+                                );
                         },
                         function(callback){
                             models.Tag.findOneAndUpdate(
@@ -199,19 +182,14 @@ module.exports = function(account, user, next){
                                 {'_messages': arg.blue,
                                  '_test': arg.test._id },
                                 { upsert: true },
-                                function(err, data){
-                                    callback(null, data);
-                                });
+                                callback);
                         },
                         function(callback){
                             models.Tag.findOneAndUpdate(
                                 {'name': 'green', '_test' : arg.test._id },
                                 {'_messages': arg.green,
                                  '_test': arg.test._id },
-                                { upsert: true },
-                                function(err, data){
-                                    callback(null, data);
-                                });
+                                { upsert: true }, callback );
                         }
                     ], 
                     function(err, results){ 
