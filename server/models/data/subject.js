@@ -16,6 +16,7 @@ var db = connect.db;
 
 var SubjectSchema = new Schema ({
     _tests : [{ type: Schema.Types.ObjectId, ref: 'Test' }],
+    _test : [{ type: Schema.Types.ObjectId, ref: 'Test', required : true }],
     _messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
 
     name: {type:String, trim:true},

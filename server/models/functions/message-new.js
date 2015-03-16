@@ -15,15 +15,15 @@ module.exports = function(request, user, next){
 // CREATE A NEW MESSAGE ===================================
 // set message variables from request object.
 
-    var tags = fn.tagPuller(request.body);
+    var tags = fn.tagPuller(request.msg.body);
 
     var update = {
-        body : request.body,
+        body : request.msg.body,
         msg  : tags.msg,
         tags : tags.tags || null,
-        _subject : request._subject,
-        _test : request._test,
-        _task : request._task,
+        _subject : request.msg._subject,
+        _test : request.msg._test,
+        _task : request.msg._task,
         user : user
     };
 

@@ -33,8 +33,8 @@ module.exports = function(account, user, next){
     var createSubject = function(test){
         console.log('create subject devTest', test);
         
-        var obj = { name: 'Jane she is a cat',
-                    test     : test };
+        var obj = { name  : 'Jane she is a cat',
+                    _test : test };
 
         return models.Subject.create(obj, function(err, s){})
                 .then(function(s){
@@ -73,32 +73,41 @@ module.exports = function(account, user, next){
 
     var createMessages = function(subject, tasks, test, usr){
         // there will be two tasks in here
-        console.log('making messages...', subject, tasks, test, usr);
+        // console.log('making messages...', subject, tasks, test, usr);
 
         var arr = ['One #yellow #blue #green', 'Two #yellow #blue','Three #yellow'];
 
-        var note = function(tag){
-            return {
-                body : tag,
-                _subject : subject,
-                _test : test,
-                _task : task,
-                user : usr
-            }
-        };
-        
-        var posterList = _.map(arr, note);
+        // var note = function(tag){
+        //     return {
+        //         body : tag,
+        //         _subject : subject,
+        //         _test : test,
+        //         _task : task,
+        //         user : usr
+        //     }
+        // };
 
-        console.log('create messages', posterList);
+        var posterList =  function(m){
+                    return Bluebird.map(m, function(msg){
+                        return {
+                            body : msg,
+                            _subject : subject,
+                            _test : test,
+                            user : usr
+                        }
+                    });
+                }
+        // var goBot = posterList(tasks, arr);
+        console.log('create messages', posterList(arr));
         // each item in array is set to be the body of the object
         // then each object is given the same message values
         // return the object array
 
-        return Bluebird.map(arr, function(msg){ 
-                return fn.messageNew(msg, function(err, msg){
-                    return msg;
-                });
-            })
+        // return Bluebird.map(arr, function(msg){ 
+        //         return fn.messageNew(msg, function(err, msg){
+        //             return msg;
+        //         });
+        //     });
     }
 
     var mockTest = function(acct, usr){
@@ -110,9 +119,12 @@ module.exports = function(account, user, next){
                     createTasks(test._id) 
                 ])
         }).then(function(arr){
-            console.log('arr', arr); // createSubject is undefined here.
-        }).then(function (error) {
-              if(error){console.log(error);}
+            console.log(arr[0]._test[0])
+            return createMessages(arr[0]._id, arr[1], arr[0]._test[0], usr);
+        }).then(function(messages) {
+            if(error){console.log(error);}
+            console.log(messages);
+              
             });
     };
 
