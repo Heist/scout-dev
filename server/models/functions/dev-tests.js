@@ -7,16 +7,19 @@ module.exports = function(account, user, next){
 // Module dependencies
     var _ = require('lodash');
     var Bluebird = require('bluebird');
+    var mongoose = Bluebird.promisifyAll(require('mongoose'));
 
     var models = Bluebird.promisifyAll(require('../../models'));
     var fn = Bluebird.promisifyAll(require('../../models/functions'));
 
-    console.log('mocking tests .... ', account, user); 
+    console.log('mocking tests .... ', account, user._id);
 
     var createTest = function(acct, usr){
-        console.log('create subject', acct, usr);
+        // this is just straight not working.
 
-        return models.Test.createAsync({
+
+        console.log('create test', acct, usr);
+        var test = new models.Test({
                         created_by_account: acct,
                         created_by_user : usr,
                         name : "DeveloperTest",
@@ -24,16 +27,21 @@ module.exports = function(account, user, next){
                                "- Rub face on everything.\n",
                         kind : "interview"
                     });
-    }
+
+        return test.save(function(err, test){
+            if(err){console.log(err);}
+            console.log(test);
+        });
+    };
 
     var createSubject = function(test){
-        console.log('create subject', test);
+        console.log('create subject devTest', test);
 
         var newSubject = {
             name: 'Jane she is a cat',
             test     : test
         };
-        return fn.addSubjectAsync(newSubject, callback);
+        return fn.addSubject(newSubject, callback);
     }
 
     var createTasks = function(test){
@@ -85,15 +93,16 @@ module.exports = function(account, user, next){
             })
     }
 
-    var mockTest = function(){
-        return createTest(account, user).then(function(test){
+    var mockTest = function(acct, usr){
+        return createTest(acct, usr).then(function(test){
         }).then(function (test) {
-            console.log('done')
+            console.log('done', test)
         }).catch(function (error) {
               console.log(error)
             });
     };
 
-    return mockTest();
+    return createTest(account, user._id);
+    // return mockTest(account, user._id);
 };
              

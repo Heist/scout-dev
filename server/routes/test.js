@@ -26,10 +26,7 @@ module.exports = function(app, passport, debug) {
     .post(function(req,res){
         console.log('touched New Test', req.user);
     // add a new test
-        models.Test.create({
-            created_by_account : req.user._account,
-            created_by_user : req.user._id
-        }, function(err, test){
+        fn.testNew(req, function(err, test){
             if(err){console.log(err);}
             res.json(test);
         });
