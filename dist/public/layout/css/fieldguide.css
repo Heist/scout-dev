@@ -2713,7 +2713,7 @@ hr {
     font-weight: 600;
     opacity: 0.6; }
   #view-findings .findings-description {
-    padding: 0 40px; }
+    padding: 0 40px 10px 40px; }
     #view-findings .findings-description p {
       padding: 0 0 10px 0;
       color: #42474c; }
