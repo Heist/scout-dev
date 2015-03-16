@@ -8,8 +8,8 @@ module.exports = function(account, user, next){
     var _ = require('lodash');
     var Bluebird = require('bluebird');
 
-    var fn = require('../../models/functions');
     var models = Bluebird.promisifyAll(require('../../models'));
+    var fn = Bluebird.promisifyAll(require('../../models/functions'));
 
     console.log('mocking tests .... ', account, user); 
 
@@ -60,7 +60,7 @@ module.exports = function(account, user, next){
     var createMessages = function(subject, tasks, test, usr){
         // there will be two tasks in here
         console.log('making messages...', subject, tasks, test, usr);
-        
+
         var arr = ['One #yellow #blue #green', 'Two #yellow #blue','Three #yellow'];
 
         var note = function(tag){
@@ -87,18 +87,13 @@ module.exports = function(account, user, next){
 
     var mockTest = function(){
         return createTest(account, user).then(function(test){
-            return Bluebird.all([
-                createTasks(test),
-                createSubject(test)
-                ]).then(function(array){
-                    console.log(array);
-                    return createMessages(array[1], array[0], array[1]._test, user)
-                })
         }).then(function (test) {
             console.log('done')
         }).catch(function (error) {
               console.log(error)
             });
     };
+
+    return mockTest();
 };
              
