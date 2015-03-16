@@ -59,7 +59,8 @@ module.exports = function(account, user, next){
 
     var createMessages = function(subject, tasks, test, usr){
         // there will be two tasks in here
-
+        console.log('making messages...', subject, tasks, test, usr);
+        
         var arr = ['One #yellow #blue #green', 'Two #yellow #blue','Three #yellow'];
 
         var note = function(tag){
