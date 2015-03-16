@@ -46,7 +46,7 @@ module.exports = function(test, next){
                 name    : test.name,
                 platform: test.platform,
                 kind    : test.kind,
-                _tasks  : tasks
+                _tasks  : tasks || []
             },
             { upsert : true },
             function (err, doc) {

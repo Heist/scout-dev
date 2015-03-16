@@ -13,7 +13,7 @@ var db = connect.db;
 // how we call messages and subjects into relations with each other.
 
 var TestSchema = new Schema({
-        _tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
+        _tasks: [{ type: Schema.Types.ObjectId, ref: 'Task'}],
         _subjects: [{ type: Schema.Types.ObjectId, ref: 'Subject' }],
         doctype : { type: String, trim: true, default: 'test' },
 
@@ -45,6 +45,10 @@ TestSchema.pre('save', function(next){
     if ( !this.created ) {
         this.created = now;
     }
+    if ( !this._tasks || this._tasks.length == 0 ) {
+        this._tasks = [];
+      }
+
     next();
 });
 
