@@ -42,6 +42,7 @@
             $scope.explanation = _.findWhere(explanations, {anchor:x});
             if(x === 5){
                 mixpanel.track('Test setup completion page', { 'user': $rootScope.user });
+                $location.path('/overview');
             }
         };
 
@@ -88,7 +89,6 @@
             testBuildFunctions.addTask($stateParams._id, task, $scope.tasks.length)
                 .success(function(data){
                     $scope.tasks.push(data);
-                    console.log(data);
                     $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
                     $scope.newtask = '';
                 });
