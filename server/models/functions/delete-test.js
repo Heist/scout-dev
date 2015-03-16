@@ -8,7 +8,7 @@ module.exports = function(test, next){
     var models   = require('../../models');
 
 // DELETE TEST ============================================
-    console.log(test);
+    console.log('delete', test);
     async.parallel([
         function(callback){
             models.Test.remove({ '_id' : test}, 
