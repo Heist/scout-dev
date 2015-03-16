@@ -35,7 +35,11 @@ module.exports = function(app, passport, debug) {
     .post(function(req,res){
         // Create a new task and push it to a test.
         // TODO: This relies on a dual pointer. We should remove that shit.
-        console.log(req.body);
+        console.log('add a task', req.body);
+        // models.Test.findById(req.body._test).exec(function(err, test){
+        //     if(err){console.log(err);}
+        //     console.log('this is dumb', test)
+        // });
         
         models.Task.create({
             name : req.body.name,
