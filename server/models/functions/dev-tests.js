@@ -25,8 +25,7 @@ module.exports = function(account, user, next){
                         kind : "interview"
                     };
 
-        return models.Test.create(obj, function(err, test){ 
-                console.log(test);
+        return models.Test.create(obj, function(err, test){
                 return test; 
             });
     };
@@ -40,7 +39,8 @@ module.exports = function(account, user, next){
         };
 
         return fn.addSubject(newSubject, function(err, next){
-                if(err){console.log(err;}
+                if(err){console.log(err)}
+                console.log('new subject', next);
                 return next;
             });
     }
@@ -62,9 +62,8 @@ module.exports = function(account, user, next){
         }];
 
         return Bluebird.map(tasks, function(task){
-            models.Task.create(task, function(err, t){ 
-                if(err){console.log(err);}
-                return t; 
+            return models.Task.create(task, function(err, t){ 
+                return t;
             });
         });
     }
@@ -93,7 +92,9 @@ module.exports = function(account, user, next){
         // return the object array
 
         return Bluebird.map(arr, function(msg){ 
-                fn.messageNew(msg, function(err, msg){});
+                return fn.messageNew(msg, function(err, msg){
+                    return msg;
+                });
             })
     }
 
@@ -101,18 +102,20 @@ module.exports = function(account, user, next){
         return createTest(acct, usr)
         .then(function(test){
             console.log('test', test._id);
-            return Bluebird.all([
-                createTasks(test._id)
-                //, createSubject(test._id)
-                ])
+            return createSubject(test._id);
+            // return Bluebird.all([
+            //     // createTasks(test._id),
+                 
+            //     ])
         }).then(function(array){
-            console.log(array);
+            console.log('array', array);
         }).then(function (error) {
               console.log(error)
             });
     };
 
     // return createTest(account, user._id);
+
     return mockTest(account, user._id);
 };
              
