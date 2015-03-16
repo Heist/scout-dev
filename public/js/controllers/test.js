@@ -167,13 +167,13 @@
 
             // index the tasks appropriately and make sure they're put away
             var task_count=0;
+            
             _.each($scope.tasks, function(task){
                 task.index = task_count;
                 task_count++;
             });
             
-            $http
-                .put(url, data_out, {timeout:5000});
+            $http.put(url, data_out, {timeout:5000});
         };
 
     // RETURN TO MAIN SCREEN ====================
