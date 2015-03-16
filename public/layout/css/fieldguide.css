@@ -1268,7 +1268,7 @@ hr {
       margin: 0;
       width: 100%; }
       #tasklist ul li.title {
-        margin: 0 0 20px 0; }
+        margin: 10px 0 20px 0; }
         #tasklist ul li.title:hover {
           background: #f6f6f6;
           cursor: default; }
