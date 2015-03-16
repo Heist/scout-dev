@@ -48,7 +48,6 @@ module.exports = function(account, user, next){
     var createSubject = function(test){
         var newSubject = {
             name: 'Jane she is a cat',
-            testroom : request.testroom,
             test     : test
         };
 
@@ -67,72 +66,39 @@ module.exports = function(account, user, next){
     }
 
     var createTasks = function(tasks, test){
-        return models.Task.create(tasks, function(err, t0, t1){});
+        return Bluebird.map(tasks, function(task){
+            models.Task.create(task, function(err, t){});
+        });
     }
 
-    var updateWithSubject = function(){ 
-        // this should push the new subject into the test and tasks.
-            async.parallel({
-                        
-                        tasks: function(done){
-                            async.map(arg.test._tasks,
-                                function(task, yeah){
-                                    models.Task.findOne({'_id' : task})
-                                        .exec(function(err, item){
-                                            item._subjects.push(arg.subject._id);
-                                            item.save(function(err, saved){
-                                                yeah(null, saved);
-                                            });
-                                        });
-                                }, done );
-                        }
-        }
+    var createMessages = function(arr, subject, task, test, user){
 
-        var createMessages = function(arr, subject, task, test, user){
+        var update = {
+            body : request.body,
+            msg  : tags.msg,
+            tags : tags.tags || null,
+            _subject : request.subject,
+            _test : request.test,
+            _task : request.task,
+            user : user
+        };
 
-            var update = {
-                body : request.body,
-                msg  : tags.msg,
-                tags : tags.tags || null,
-                _subject : request.subject,
-                _test : request.test,
-                _task : request.task,
-                user : user
-            };
+        return Bluebird.map(arr, function(msg){ 
+                fn.messageNew(msg, function(err, msg){});
+            })
+    }
 
-            return Bluebird.map(arr, function(msg){ 
-                    fn.messageNew(msg, )
+    var mockTest = function(){
+        return createTest({}).then({
+            return createTasks({}).then({
+                return createSubject({}).then({
+                    return createMessages({})
                 })
-        }
-
-        
-
-                    // concatenate 2X arr for an array to transcribe to messages
-                    // this will create a rack of messages to put into tests.
-                    var arr2 = arr.concat(arr);
-
-                    models.Message.create( arr2,
-                        function(err, d0, d1, d2, d3, d4, d5){
-                            if (err) { console.log(err);} 
-
-                            // TODO: Something in here is rotten because
-                            // Tags cross-delete between tests when deleting OR creating a NEW test
-                            // They also persist their visibility, which should not be.
-
-                            var output = {
-                                task1 : [d0._id, d1._id, d2._id],
-                                task2 : [d3._id, d4._id, d5._id],
-                                yellow: [d0._id, d1._id, d2._id, d3._id, d4._id, d5._id],
-                                blue: [d0._id,d1._id,d3._id,d4._id],
-                                green: [d0._id,d3._id],
-                                subject: arg.subject,
-                                test: arg.test,
-                                tasks: arg.tasks
-                            };
-                           
-                            callback(null, output);
-                        });
-
+            })
+        }).catch(function (error) {
+              console.log(error)
+            });
+    };
 
 // The promisified chain to make this a WHOLE bunch cleaner...
 // https://gist.githubusercontent.com/artcommacode/45c85e867d1bd1f3c1bb/raw/gistfile1.js
