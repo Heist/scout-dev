@@ -73,41 +73,34 @@ module.exports = function(account, user, next){
 
     var createMessages = function(subject, tasks, test, usr){
         // there will be two tasks in here
-        // console.log('making messages...', subject, tasks, test, usr);
-
         var arr = ['One #yellow #blue #green', 'Two #yellow #blue','Three #yellow'];
+        var tasks = _.pluck(tasks, '_id');
 
-        // var note = function(tag){
-        //     return {
-        //         body : tag,
-        //         _subject : subject,
-        //         _test : test,
-        //         _task : task,
-        //         user : usr
-        //     }
-        // };
+        var posterList =  function( m, s, ta, t, u){
+                return  _.map(ta, function(task){
+                   return _.map(m, function(msg){
+                            // return
+                            return {
+                                    body : msg,
+                                    _subject : s,
+                                    _test : t,
+                                    _task : task,
+                                    user : u
+                                }
+                        });
+                });
+        }
+        
+        var list = posterList(arr, subject, tasks, test, usr);
+        list = list[0].concat(list[1]);
 
-        var posterList =  function(m){
-                    return Bluebird.map(m, function(msg){
-                        return {
-                            body : msg,
-                            _subject : subject,
-                            _test : test,
-                            user : usr
-                        }
-                    });
-                }
-        // var goBot = posterList(tasks, arr);
-        console.log('create messages', posterList(arr));
-        // each item in array is set to be the body of the object
-        // then each object is given the same message values
-        // return the object array
+        return Bluebird.map(list, function(msg){
+            return fn.messageNew(note, function(err, note){
+                    if(err){console.log(err)}
+                    return note;
+                });
+        });
 
-        // return Bluebird.map(arr, function(msg){ 
-        //         return fn.messageNew(msg, function(err, msg){
-        //             return msg;
-        //         });
-        //     });
     }
 
     var mockTest = function(acct, usr){
