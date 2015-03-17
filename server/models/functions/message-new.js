@@ -56,7 +56,7 @@ module.exports = function(request, user, next){
                 })
             ])
         }).then(function(parts){
-            return next({ body: update.msg, tags : update.tags, created : parts[0].updated });
+            return next(null, { body: update.msg, tags : update.tags, created : parts[0].updated });
         }).catch(function (error) {
             if(error){console.log('there was an error', error);}
             })
