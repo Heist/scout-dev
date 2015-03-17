@@ -50,7 +50,7 @@ before(function(done){
             if(err){ console.log(err); }
         });
 
-        fn.devTests(u._account, u, function(err, tests){
+        fn.devTests(u._account, u).then(function(tests){
         	if(err){console.log(err);}
         	console.log('done tests', tests);
 			done();

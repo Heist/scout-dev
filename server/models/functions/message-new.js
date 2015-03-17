@@ -16,10 +16,11 @@ module.exports = function(request, user){
 // CREATE A NEW MESSAGE ===================================
 // set message variables from request object.
 
-    // console.log('message request');
+    // console.log('message request', request);
 
     var tags = fn.tagPuller(request.body);
-    
+    // console.log('tags', tags);
+
     var update = {
         body : request.body,
         msg  : tags.msg,
@@ -41,9 +42,7 @@ module.exports = function(request, user){
     }
 
     var findMessage = function(_id, callback){ 
-        return models.Message.findById(_id).populate('_subject').exec(function(err, next){
-            if(err){console.log('findMessageError', err)}
-        });
+        
     }
 
     var newMessage = function(make) {
@@ -60,8 +59,11 @@ module.exports = function(request, user){
                     })
                 ])
         }).then(function(arr){
-            return findMessage(note._id, function(err, obj){ if(err){console.log(err);} return obj;})
+            return models.Message.findById(note._id).populate('_subject').exec(function(err, next){
+                if(err){console.log('findMessageError', err)}
+            });
         }).then(function(message){
+            // console.log('message');
             return message;
         });
     };
