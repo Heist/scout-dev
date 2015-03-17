@@ -19,6 +19,7 @@ module.exports = function(request, user){
     // console.log('message request');
 
     var tags = fn.tagPuller(request.body);
+    
     var update = {
         body : request.body,
         msg  : tags.msg,

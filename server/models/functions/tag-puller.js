@@ -8,6 +8,7 @@ module.exports = function(message, next){
 
 // Catch some hashtags ====================================
 try {
+        console.log('tag', message);
         var tags_raw = [];
         var hashCatch = new RegExp(/\S*#\S+/gi);
 
