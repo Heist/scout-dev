@@ -69,15 +69,14 @@ module.exports = function(account, user, next){
         });
     }
 
-    var createMessages = function(subject, tasks, test, usr){
+    var createMessagesList = function(subject, tasks, test, usr){
         // there will be two tasks in here
         var arr = ['One #yellow #blue #green', 'Two #yellow #blue','Three #yellow'];
         var tasks = _.pluck(tasks, '_id');
 
         var posterList =  function( m, s, ta, t, u){
-                return  _.map(ta, function(task){
-                   return _.map(m, function(msg){
-                            // return
+                return  Bluebird.map(ta, function(task){
+                   return Bluebird.map(m, function(msg){
                             return {
                                     body : msg,
                                     _subject : s,
@@ -89,20 +88,13 @@ module.exports = function(account, user, next){
                 });
         }
         
-        var list = posterList(arr, subject, tasks, test, usr);
-        list = list[0].concat(list[1]);
-        console.log(list.length);
-
-
-        return Bluebird.map(list, function(msg){
-                console.log(msg);
-                return fn.messageNew(msg, msg.user).then(function(thing){
-                    console.log('thing', thing);
-                    return thing;
-                })
-            });
-
+        return posterList(arr, subject, tasks, test, usr)
+                    .then(function(array){
+                        return array;
+                    });
     }
+
+
 
     var mockTest = function(acct, usr){
         return createTest(acct, usr)
@@ -114,7 +106,15 @@ module.exports = function(account, user, next){
             })
             .then(function(arr){
                 console.log('mock test 2', arr[0]._id, arr[1].length, arr[0]._test[0], usr);
-                return createMessages(arr[0]._id, arr[1], arr[0]._test[0], usr)
+                return createMessagesList(arr[0]._id, arr[1], arr[0]._test[0], usr)
+            })
+            .then(function(messageList){
+                console.log(messageList);
+                return Bluebird.map(messageList, function(msg){
+                    return fn.messageNew(msg, msg.user).then(function(thing){
+                        return thing;
+                    })
+                });  
             })
             .then(function(next){
                 if(error){console.log(error);}
