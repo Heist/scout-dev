@@ -109,7 +109,7 @@ module.exports = function(account, user, next){
                 return createMessagesList(arr[0]._id, arr[1], arr[0]._test[0], usr)
             })
             .then(function(messageList){
-                console.log(messageList);
+                // console.log(messageList);
                 return Bluebird.map(messageList, function(msg){
                     return fn.messageNew(msg, msg.user).then(function(thing){
                         return thing;
