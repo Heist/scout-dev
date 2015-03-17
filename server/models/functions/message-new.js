@@ -36,28 +36,26 @@ module.exports = function(request, user, next){
             '_task' : make._task,
             'body' : make.msg,
             'created_by_user' : make.user },
-            function(err, obj){ 
-                if(err){console.log('make err', err);} 
-                return obj;
-            });
+            function(err, obj){ if(err){console.log('make err', err);} });
     }
 
-    var findMessage = function(_id){ 
+    var findMessage = function(_id, callback){ 
         console.log('find message', _id)
         return models.Message.findById(_id).populate('_subject').execAsync(function(err, next){
             if(err){console.log('findMessageError', err)}
-            return next;
+            if(!next){console.log('no messages found');}
+            // console.log('hello', next);
+            return callback(null, next);
         });
     }
 
     var newMessage = function (make, next) {
-        console.log('make', make);
-        return messageMake(make)
-        .then(function (message) {
-            console.log('message', message);
-            return findMessage(message._id)
-            })
-        .then(function (m) {
+        // console.log('make', make);
+        return messageMake(make).then(function(message) {
+
+        // console.log('message', message);
+        // return models.Message.findById(_id).populate('_subject').exec(function(err, next){if(err){console.log('findMessageError', err) return next}});
+        return findMessage(message._id, function(err, obj){if(err){console.log(err);} console.log('new', obj); }).then(function (m) {
             console.log('em', m)
             return Bluebird.all([
                 models.Task.findOneAndUpdate({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
@@ -72,6 +70,7 @@ module.exports = function(request, user, next){
         }).catch(function (error) {
             if(error){console.log('there was an error', error);}
             })
+        });
     };
 
     return newMessage(update, next);
