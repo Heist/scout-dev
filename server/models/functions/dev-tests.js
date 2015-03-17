@@ -8,6 +8,7 @@ module.exports = function(account, user, next){
     var _ = require('lodash');
     var Bluebird = require('bluebird');
     var mongoose = Bluebird.promisifyAll(require('mongoose'));
+    var async = require('async');
 
     var models = Bluebird.promisifyAll(require('../../models'));
     var fn = Bluebird.promisifyAll(require('../../models/functions'));
@@ -91,12 +92,16 @@ module.exports = function(account, user, next){
         
         var list = posterList(arr, subject, tasks, test, usr);
         list = list[0].concat(list[1]);
+        console.log(list.length);
 
-        return _.map(list, function(msg){
-            console.log(msg);
-            return fn.messageNew(msg, usr, function(err, message){
+
+        async.map(list, function(msg, cb){
+            fn.messageNew(msg, usr, function(err, message){
                 if(err){console.log(err);}
                 console.log(message);
+                cb(null, message);
+            }, function(err, results){
+                console.log(results);
             });
         });
 
