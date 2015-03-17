@@ -41,7 +41,7 @@ module.exports = function(request, user, next){
             '_test' : make._test,
             '_task' : make._task,
             'body' : make.msg,
-            'created_by' : make.user }, function(err, obj){ if(err){console.log(err);} console.log(obj); return obj; });
+            'created_by_user' : make.user }, function(err, obj){ if(err){console.log('make err', err);} console.log(obj); return obj; });
     }
 
     var findMessage = function(_id){ 
