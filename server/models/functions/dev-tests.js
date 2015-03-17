@@ -113,14 +113,11 @@ module.exports = function(account, user){
                 return Bluebird.map(list, function(msg){
                      return fn.messageNew(msg, msg.user)
                         .then(function(message){
-                            console.log('message inside Bluebird', message._id);
                             return message;
                         });
                  });
             })
             .then(function(end){
-                // if(error){console.log(error);}
-                console.log('messages final', end);
                 return end;
             })
     };
