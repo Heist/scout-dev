@@ -60,6 +60,7 @@ module.exports = function(request, user){
                     })
                 ])
             }).then(function(parts){
+                console.log('parts');
                 var reply = { body: make.msg, tags : make.tags, created : parts[0].updated }
                 return reply;
             }).catch(function (error) {

@@ -94,14 +94,9 @@ module.exports = function(account, user, next){
         console.log(list.length);
 
 
-        return Bluebird.map(list,
-            function(msg){
-                return fn.messageNew(msg, usr, function(err, message){
-                    if(err){console.log(err);}
-                    console.log('new', message); // this is fine
-                    return message; // this returns nothing
-                })
-            });
+        return Bluebird.map(list, function(msg){
+                    return fn.messageNew(msg, msg.user)
+                });
 
     }
 
@@ -111,16 +106,12 @@ module.exports = function(account, user, next){
                     createSubject(test._id), 
                     createTasks(test._id) 
                 ]).then(function(arr){
-                    console.log(arr[0]._id, arr[1].length, arr[0]._test[0], usr);
-                    return createMessages(arr[0]._id, arr[1], arr[0]._test[0], usr, 
-                        function(err, obj){ 
-                            if(err){console.log(err);} 
-                            console.log('create messages', obj); 
-                            return obj; })
+                    console.log('mock test 2', arr[0]._id, arr[1].length, arr[0]._test[0], usr);
+                    return createMessages(arr[0]._id, arr[1], arr[0]._test[0], usr)
                     .then(function(next){
                         if(error){console.log(error);}
-                        console.log('messages', messages);
-                        return messages;
+                        console.log('messages final', next);
+                        return next;
                     })
                 })
         }).then(function(err){
