@@ -16,6 +16,8 @@ module.exports = function(request, user, next){
 // CREATE A NEW MESSAGE ===================================
 // set message variables from request object.
 
+    console.log('message request', request, user);
+
     var tags = fn.tagPuller(request.msg.body);
 
     var update = {
@@ -46,18 +48,18 @@ module.exports = function(request, user, next){
         .then(function (message) {
             return findMessage(message._id) })
         .then(function (m) {
-            var testTags = [ 'blue', 'note', 'purple' ];
+            // var testTags = [ 'blue', 'note', 'purple' ];
             return Bluebird.all([
                 models.Task.findOneAndUpdate({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){}),
                 models.Subject.findOneAndUpdate({'_id': m._subject}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){}),
-                Bluebird.map(testTags, function(tag){ 
+                Bluebird.map(make.tags, function(tag){ 
                     return models.Tag.findOneAndUpdate({ 'name' : tag }, { $push: { '_messages': m.id }, 'name': tag }, {upsert : true }, function(err,item){})
                 })
             ])
         }).then(function(parts){
             return next({ body: update.msg, tags : update.tags, created : parts[0].updated });
         }).catch(function (error) {
-            if(error){console.log(error);}
+            if(error){console.log('there was an error', error);}
             })
     };
 

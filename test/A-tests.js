@@ -52,7 +52,7 @@ before(function(done){
 
         fn.devTests(u._account, u, function(err, tests){
         	if(err){console.log(err);}
-        	console.log('done tests');
+        	console.log('done tests', tests);
 			done();
         });
 	});

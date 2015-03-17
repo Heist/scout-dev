@@ -49,8 +49,6 @@ module.exports = function(account, user, next){
     }
 
     var createTasks = function(test){
-        console.log('create tasks', test);
-
          var tasks = [{
             name  :"Task 1",
             desc  :"Chase ball of string and scratch the furniture and always hungry. \n- Nap all day.",
@@ -94,12 +92,11 @@ module.exports = function(account, user, next){
         var list = posterList(arr, subject, tasks, test, usr);
         list = list[0].concat(list[1]);
 
-        return Bluebird.map(list, function(msg){
-            return fn.messageNew(note, function(err, note){
-                    if(err){console.log(err);}
-                        console.log(note);
-                    return note;
-                });
+        return _.map(list, function(msg){
+            console.log(msg);
+            return fn.messageNew(msg, function(err, message){
+                console.log(message);
+            });
         });
 
     }
@@ -107,19 +104,18 @@ module.exports = function(account, user, next){
     var mockTest = function(acct, usr){
         return createTest(acct, usr)
         .then(function(test){
-            console.log('test', test._id);
             return Bluebird.all([
                     createSubject(test._id), 
                     createTasks(test._id) 
                 ])
         }).then(function(arr){
-            console.log(arr[0]._test[0])
+            console.log('array', arr[0]._test[0]);
             return createMessages(arr[0]._id, arr[1], arr[0]._test[0], usr);
         }).then(function(messages) {
             if(error){console.log(error);}
             console.log(messages);
-              
-            });
+            return messages;       
+        });
     };
 
     return mockTest(account, user._id);
