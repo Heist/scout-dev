@@ -48,7 +48,6 @@ module.exports = function(request, user, next){
         .then(function (message) {
             return findMessage(message._id) })
         .then(function (m) {
-            // var testTags = [ 'blue', 'note', 'purple' ];
             return Bluebird.all([
                 models.Task.findOneAndUpdate({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){}),
                 models.Subject.findOneAndUpdate({'_id': m._subject}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){}),
