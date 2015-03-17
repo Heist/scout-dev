@@ -105,22 +105,22 @@ module.exports = function(account, user, next){
     }
 
     var mockTest = function(acct, usr){
-        return createTest(acct, usr).then(function(test){ 
-            return Bluebird.all([
+        return createTest(acct, usr)
+            .then(function(test){
+                return Bluebird.all([
                     createSubject(test._id), 
                     createTasks(test._id) 
-                ]).then(function(arr){
-                    console.log('mock test 2', arr[0]._id, arr[1].length, arr[0]._test[0], usr);
-                    return createMessages(arr[0]._id, arr[1], arr[0]._test[0], usr)
-                    .then(function(next){
-                        if(error){console.log(error);}
-                        console.log('messages final', next);
-                        return next;
-                    })
-                })
-        }).then(function(err){
-            if(err){console.log(err)}
-        });// grab errors here)
+                ])
+            })
+            .then(function(arr){
+                console.log('mock test 2', arr[0]._id, arr[1].length, arr[0]._test[0], usr);
+                return createMessages(arr[0]._id, arr[1], arr[0]._test[0], usr)
+            })
+            .then(function(next){
+                if(error){console.log(error);}
+                console.log('messages final', next);
+                return next;
+            })
     };
 
     return mockTest(account, user._id);
