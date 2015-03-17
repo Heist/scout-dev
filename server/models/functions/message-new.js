@@ -16,12 +16,9 @@ module.exports = function(request, user, next){
 // CREATE A NEW MESSAGE ===================================
 // set message variables from request object.
 
-    console.log('message request', request, user);
+    console.log('message request');
 
     var tags = fn.tagPuller(request.body);
-
-    console.log('tags');
-
     var update = {
         body : request.body,
         msg  : tags.msg,
@@ -32,28 +29,29 @@ module.exports = function(request, user, next){
         user : user
     };
 
-    console.log('update', update);
-
     var messageMake = function( make ){
-        console.log('make message', make);
         return models.Message.create({ 
             '_subject' : make._subject, 
             '_test' : make._test,
             '_task' : make._task,
             'body' : make.msg,
-            'created_by_user' : make.user }, function(err, obj){ if(err){console.log('make err', err);} console.log(obj); return obj; });
+            'created_by_user' : make.user },
+            function(err, obj){ 
+                if(err){console.log('make err', err);} 
+                return obj;
+            });
     }
 
     var findMessage = function(_id){ 
-        console.log('find', _id);
-        return models.Message.findById(_id).populate('_subject').execAsync();
+        return models.Message.findById(_id).populate('_subject').execAsync(function(err, next){
+            if(err){console.log('findMessageError', err)}
+            return next;
+        });
     }
 
     var newMessage = function (make, next) {
-        console.log('newMessage', make);
         return messageMake(make)
         .then(function (message) {
-            console.log(message)
             return findMessage(message._id) })
         .then(function (m) {
             console.log(m)
