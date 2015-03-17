@@ -46,33 +46,30 @@ module.exports = function(request, user){
         });
     }
 
-    var newMessage = function (make) {
-        // console.log('make', make);
+    var newMessage = function(make) {
+        console.log('make');
         return messageMake(make)
-        .then(function(message) {
+        .then(function(message){
+            console.log('message');
             return findMessage(message._id, function(err, obj){ if(err){console.log(err);} return obj;})
-            .then(function(m){
-                console.log('m');
-                return Bluebird.all([
-                    models.Task.findOneAndUpdate({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
-                    models.Subject.findOneAndUpdate({'_id': m._subject}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no subject found')} return obj;}),
+        }).then(function(found){
+            console.log('found',found);
+
+            return Bluebird.all([
+                    models.Task.findOneAndUpdate({'_id': found._task}, { $push: { _messages: found._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
+                    models.Subject.findOneAndUpdate({'_id': found._subject}, { $push: { _messages: found._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no subject found')} return obj;}),
                     Bluebird.map(make.tags, function(tag){ 
-                        return models.Tag.findOneAndUpdate({ 'name' : tag }, { $push: { '_messages': m.id }, 'name': tag }, {upsert : true }, function(err,obj){if(err){console.log('task update', err)} if(!obj){console.log('no tag found')} return obj;})
+                        return models.Tag.findOneAndUpdate({ 'name' : tag }, { $push: { '_messages': found.id }, 'name': tag }, {upsert : true }, function(err,obj){if(err){console.log('task update', err)} if(!obj){console.log('no tag found')} return obj;})
                     })
                 ])
-                .then(function(arr){
-                    console.log('parts');
-                    return arr;
-                })
-            })
-        })
-        .catch(function (error) {
-            if(error){console.log('there was an error', error);}
+        }).then(function(arr){
+            // console.log(arr);
+            return arr;
         });
     };
 
-    var gopro = newMessage(update);
-    console.log("gopro", goPro);
-
-    return newMessage(update);
+    
+    console.log('returned 1');
+    newMessage(update).then(function(returned){console.log('returned 2', returned)});
+    console.log('returned 3');
 };
