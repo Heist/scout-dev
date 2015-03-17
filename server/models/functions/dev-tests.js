@@ -95,6 +95,7 @@ module.exports = function(account, user, next){
         return _.map(list, function(msg){
             console.log(msg);
             return fn.messageNew(msg, usr, function(err, message){
+                if(err){console.log(err);}
                 console.log(message);
             });
         });
