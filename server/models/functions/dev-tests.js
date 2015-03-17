@@ -95,6 +95,7 @@ module.exports = function(account, user, next){
 
 
         return Bluebird.map(list, function(msg){
+                    console.log(msg);
                     return fn.messageNew(msg, msg.user)
                 });
 
@@ -107,7 +108,7 @@ module.exports = function(account, user, next){
                     createTasks(test._id) 
                 ]).then(function(arr){
                     console.log('mock test 2', arr[0]._id, arr[1].length, arr[0]._test[0], usr);
-                    return createMessages(arr[0]._id, arr[1], arr[0]._test[0], usr)
+                    return createMessages(arr[0]._id, arr[1], arr[0]._test[0], usr);
                     .then(function(next){
                         if(error){console.log(error);}
                         console.log('messages final', next);
