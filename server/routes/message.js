@@ -23,9 +23,9 @@ module.exports = function(app, passport, debug) {
     .post(function(req,res){
      // Create a new message
         console.log(req.body)
-        fn.messageNew(req.body, req.user._id, function(data, err){
-                if(err){console.log(err);}
-                console.log('messages START HERE', data, err );
+        fn.messageNew(req.body, req.user._id)
+            .then(function(data){
+                console.log('messages START HERE', data);
                 res.json(data);
             });
     })

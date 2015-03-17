@@ -2,7 +2,7 @@
 // create a new message on the DB
 'use strict';
 
-module.exports = function(request, user, next){
+module.exports = function(request, user){
 
 // Module dependencies ==========================
     var async   = require('async');
@@ -16,7 +16,7 @@ module.exports = function(request, user, next){
 // CREATE A NEW MESSAGE ===================================
 // set message variables from request object.
 
-    console.log('message request');
+    // console.log('message request');
 
     var tags = fn.tagPuller(request.body);
     var update = {
@@ -46,7 +46,7 @@ module.exports = function(request, user, next){
         });
     }
 
-    var newMessage = function (make, next) {
+    var newMessage = function (make) {
         // console.log('make', make);
         return messageMake(make)
         .then(function(message) {
@@ -61,12 +61,12 @@ module.exports = function(request, user, next){
                 ])
             }).then(function(parts){
                 var reply = { body: make.msg, tags : make.tags, created : parts[0].updated }
-                return next(null, reply);
+                return reply;
             }).catch(function (error) {
                 if(error){console.log('there was an error', error);}
             })
         });
     };
 
-    return newMessage(update, next);
+    return newMessage(update);
 };

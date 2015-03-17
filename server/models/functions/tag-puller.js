@@ -11,8 +11,7 @@ try {
         var tags_raw = [];
         var hashCatch = new RegExp(/\S*#\S+/gi);
 
-        console.log(message);
-        
+        // console.log('pull tags', message);
         var msg_body = message.replace( hashCatch,'');
         var tagIt = message.match(hashCatch);
         var msg_clean = msg_body.trim();

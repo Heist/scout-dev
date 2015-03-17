@@ -17,14 +17,13 @@ module.exports = function(account, user, next){
 
     var createTest = function(acct, usr){
         // this is just straight not working.
-        var obj = {
-                        created_by_account: acct,
-                        created_by_user : usr,
-                        name : "DeveloperTest",
-                        desc : "- Pew\n"+
-                               "- Rub face on everything.\n",
-                        kind : "interview"
-                    };
+        var obj = { created_by_account: acct,
+                    created_by_user : usr,
+                    name : "DeveloperTest",
+                    desc : "- Pew\n"+
+                           "- Rub face on everything.\n",
+                    kind : "interview"
+                };
 
         return models.Test.create(obj, function(err, test){
                 return test; 
@@ -95,32 +94,38 @@ module.exports = function(account, user, next){
         console.log(list.length);
 
 
-        return _.map(list,
+        return Bluebird.map(list,
             function(msg){
                 return fn.messageNew(msg, usr, function(err, message){
                     if(err){console.log(err);}
-                    // console.log('new', message);
-                    // return(message);
+                    console.log('new', message); // this is fine
+                    return message; // this returns nothing
                 })
             });
 
     }
 
     var mockTest = function(acct, usr){
-        return createTest(acct, usr)
-        .then(function(test){
+        return createTest(acct, usr).then(function(test){ 
             return Bluebird.all([
                     createSubject(test._id), 
                     createTasks(test._id) 
-                ])
-        }).then(function(arr){
-            console.log('array', arr[0]._test[0]);
-            return createMessages(arr[0]._id, arr[1], arr[0]._test[0], usr);
-        }).then(function(messages) {
-            if(error){console.log(error);}
-            console.log('messages', messages);
-            return messages;       
-        });
+                ]).then(function(arr){
+                    console.log(arr[0]._id, arr[1].length, arr[0]._test[0], usr);
+                    return createMessages(arr[0]._id, arr[1], arr[0]._test[0], usr, 
+                        function(err, obj){ 
+                            if(err){console.log(err);} 
+                            console.log('create messages', obj); 
+                            return obj; })
+                    .then(function(next){
+                        if(error){console.log(error);}
+                        console.log('messages', messages);
+                        return messages;
+                    })
+                })
+        }).then(function(err){
+            if(err){console.log(err)}
+        });// grab errors here)
     };
 
     return mockTest(account, user._id);
