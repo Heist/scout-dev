@@ -40,7 +40,7 @@ module.exports = function(request, user, next){
     }
 
     var findMessage = function(_id, callback){ 
-        console.log('find message', _id)
+        // console.log('find message', _id)
         return models.Message.findById(_id).populate('_subject').exec(function(err, next){
             if(err){console.log('findMessageError', err)}
         });
@@ -61,7 +61,6 @@ module.exports = function(request, user, next){
                 ])
             }).then(function(parts){
                 var reply = { body: make.msg, tags : make.tags, created : parts[0].updated }
-                console.log('reply', reply);
                 return next(null, reply);
             }).catch(function (error) {
                 if(error){console.log('there was an error', error);}

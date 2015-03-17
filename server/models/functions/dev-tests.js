@@ -95,15 +95,14 @@ module.exports = function(account, user, next){
         console.log(list.length);
 
 
-        async.map(list, function(msg, cb){
-            fn.messageNew(msg, usr, function(err, message){
-                if(err){console.log(err);}
-                console.log(message);
-                cb(null, message);
-            }, function(err, results){
-                console.log(results);
+        return _.map(list,
+            function(msg){
+                return fn.messageNew(msg, usr, function(err, message){
+                    if(err){console.log(err);}
+                    // console.log('new', message);
+                    // return(message);
+                })
             });
-        });
 
     }
 
@@ -119,7 +118,7 @@ module.exports = function(account, user, next){
             return createMessages(arr[0]._id, arr[1], arr[0]._test[0], usr);
         }).then(function(messages) {
             if(error){console.log(error);}
-            console.log(messages);
+            console.log('messages', messages);
             return messages;       
         });
     };
