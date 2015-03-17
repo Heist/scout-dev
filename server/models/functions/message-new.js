@@ -47,14 +47,12 @@ module.exports = function(request, user){
     }
 
     var newMessage = function(make) {
-        console.log('make');
+        // console.log('make');
+        var note ={};
         return messageMake(make)
-        .then(function(message){
-            console.log('message');
-            return findMessage(message._id, function(err, obj){ if(err){console.log(err);} return obj;})
-        }).then(function(found){
-            console.log('found',found);
-
+          .then(function(found){
+            note._id = found._id;
+            // console.log('found',found);
             return Bluebird.all([
                     models.Task.findOneAndUpdate({'_id': found._task}, { $push: { _messages: found._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
                     models.Subject.findOneAndUpdate({'_id': found._subject}, { $push: { _messages: found._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no subject found')} return obj;}),
@@ -63,13 +61,17 @@ module.exports = function(request, user){
                     })
                 ])
         }).then(function(arr){
-            // console.log(arr);
-            return arr;
+            console.log('note', note);
+            return findMessage(note._id, function(err, obj){ if(err){console.log(err);} return obj;})
+        }).then(function(message){
+            console.log('extract the message to actually return...', message);
+            return message;
         });
     };
-
     
-    console.log('returned 1');
-    newMessage(update).then(function(returned){console.log('returned 2', returned)});
-    console.log('returned 3');
+    // console.log('returned 1');
+    // newMessage(update).then(function(returned){console.log('returned 2', returned)});
+    // console.log('returned 3');
+
+    return newMessage(update);
 };
