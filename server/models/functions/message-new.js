@@ -43,6 +43,7 @@ module.exports = function(request, user, next){
     }
 
     var findMessage = function(_id){ 
+        console.log('find message', _id)
         return models.Message.findById(_id).populate('_subject').execAsync(function(err, next){
             if(err){console.log('findMessageError', err)}
             return next;
@@ -50,19 +51,23 @@ module.exports = function(request, user, next){
     }
 
     var newMessage = function (make, next) {
+        console.log('make', make);
         return messageMake(make)
         .then(function (message) {
-            return findMessage(message._id) })
+            console.log('message', message);
+            return findMessage(message._id)
+            })
         .then(function (m) {
-            console.log(m)
+            console.log('em', m)
             return Bluebird.all([
-                models.Task.findOneAndUpdate({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){}),
-                models.Subject.findOneAndUpdate({'_id': m._subject}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){}),
+                models.Task.findOneAndUpdate({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
+                models.Subject.findOneAndUpdate({'_id': m._subject}, { $push: { _messages: m._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no subject found')} return obj;}),
                 Bluebird.map(make.tags, function(tag){ 
-                    return models.Tag.findOneAndUpdate({ 'name' : tag }, { $push: { '_messages': m.id }, 'name': tag }, {upsert : true }, function(err,item){})
+                    return models.Tag.findOneAndUpdate({ 'name' : tag }, { $push: { '_messages': m.id }, 'name': tag }, {upsert : true }, function(err,obj){if(err){console.log('task update', err)} if(!obj){console.log('no tag found')} return obj;})
                 })
             ])
         }).then(function(parts){
+            console
             return next(null, { body: update.msg, tags : update.tags, created : parts[0].updated });
         }).catch(function (error) {
             if(error){console.log('there was an error', error);}
