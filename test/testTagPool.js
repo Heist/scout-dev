@@ -41,42 +41,7 @@ describe('The Tag Pool', function(){
 			});
 	})
 
-	it('POST to /api/message, logged in', function(done){
-		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
-			.end(function(err, res) { // get logged in
-				// This may require a more global variable.
-				// console.log('testTagPool message return', m);
-				agent.post('/api/message/')
-					.send({
-						body : 'This is a #blue #note #purple', 
-						_test : m.t._id,
-						_task : m.tsk._id,
-						_subject : m.s._id
-					})
-					.end(function(err, res){
-						// console.log('response', res.body);
-						expect(res.body).to.be.an('object')
-						expect(res.body._tags).to.have.length(3)
-						expect(res.body.body).to.equal('This is a')
-						done();
-					});
-			});
-	});
-
-	it.skip('on tag creation, should store in pool as a whole', function(done){
-		// log in
-		// get a given test
-		// get all the available tags for that test
-		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
-			.end(function(err, res) {
-				agent.get('/api/test/'+m.t._id)
-					.end(function(err,res){
-						done();
-					})
-			})
-	});
-
-	it('does not accept a message without a test', function(){
+		it('does not accept a message without a test', function(){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
 			.end(function(err, res) { // get logged in
 				// This may require a more global variable.
@@ -109,6 +74,41 @@ describe('The Tag Pool', function(){
 					});
 			});
 	});
+
+	it('POST to /api/message, logged in', function(done){
+		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
+			.end(function(err, res) { // get logged in
+				// This may require a more global variable.
+				// console.log('testTagPool message return', m);
+				agent.post('/api/message/')
+					.send({
+						body : 'This is a #blue #note #purple', 
+						_test : m.t._id,
+						_task : m.tsk._id,
+						_subject : m.s._id
+					})
+					.end(function(err, res){
+						expect(res.body).to.be.an('object')
+						expect(res.body._tags).to.have.length(3)
+						expect(res.body.body).to.equal('This is a')
+						done();
+					});
+			});
+	});
+
+	it.skip('on tag creation, should store in pool as a whole', function(done){
+		// log in
+		// get a given test
+		// get all the available tags for that test
+		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
+			.end(function(err, res) {
+				agent.get('/api/test/'+m.t._id)
+					.end(function(err,res){
+						done();
+					})
+			})
+	});
+
 
 	it.skip('should create tags per user', function(done){
 		
