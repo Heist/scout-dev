@@ -20,6 +20,7 @@ var MessageSchema = new Schema ({
     _test : { type: Schema.Types.ObjectId, ref: 'Test', required: true },
     _task : { type: Schema.Types.ObjectId, ref: 'Task' },
     _comments : [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    _tags : [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
 
     body : { type: String, trim: true, required: true },
     created_by_user : { type: Schema.Types.ObjectId, required: true  },

@@ -59,6 +59,14 @@ module.exports = function(request, user){
                     })
                 ])
         }).then(function(arr){
+            console.log('arr for salting tags back to messages', arr);
+            if(arr[3] > 0){
+                var tags = arr[3];
+                return models.Message.findOneAndUpdate({'_id': note._id }, {$push : {_tags: arr[3] } }, function(err, obj){});
+            } else {
+                return arr;
+            }
+        }).then(function(arr){
             return models.Message.findById(note._id).populate('_subject').exec(function(err, next){
                 if(err){console.log('findMessageError', err)}
             });
