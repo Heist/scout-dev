@@ -52,13 +52,13 @@ describe('The Tag Pool', function(){
 						_subject : m.s._id
 					})
 					.end(function(err, res){
-						expect(res.body).to.deep.include({error : 'Bad message request.' })
+						expect(res.body).to.equal('Path `_test` is required.')
 						done();
 					});
 			});
 	});
 
-	it.skip('does not accept a message without a subject', function(){
+	it('does not accept a message without a subject', function(){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
 			.end(function(err, res) { // get logged in
 				// This may require a more global variable.
@@ -69,7 +69,7 @@ describe('The Tag Pool', function(){
 						_task : m.tsk._id,
 					})
 					.end(function(err, res){
-						expect(res.body).to.deep.include({error : 'Bad message request.' })
+						expect(res.body).to.equal('Path `_subject` is required.')
 						done();
 					});
 			});
@@ -98,7 +98,7 @@ describe('The Tag Pool', function(){
 	})
 
 
-	it.skip('POST to /api/message, logged in', function(done){
+	it('POST to /api/message, logged in', function(done){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
 			.end(function(err, res) { // get logged in
 				// This may require a more global variable.
