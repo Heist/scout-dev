@@ -115,15 +115,13 @@ module.exports = function(account, user){
                 return Bluebird.map(list, function(msg){
                     console.log('bluebird msg', msg);
                     return fn.messageNew(msg, msg.user)
-                    .then(function(msg){
-                        console.log('made it back');
-                    });
+                    // .then(function(msg){
+                    //     console.log('made it back');
+
+                    // });
                  });
-            }).then(function(arr){
-                console.log('new messages', arr);
-                return arr;
             }).then(function(end){
-                console.log('devTests end', end );
+                console.log('devTests end', end.length );
                 return end;
             })
     };

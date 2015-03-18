@@ -51,7 +51,7 @@ before(function(done){
 
             fn.devTests(u._account, u).then(function(tests){
 	        	if(err){console.log(err);}
-	        	console.log(tests);
+	        	console.log('dev tests done');
 				done();
 	        });
         });

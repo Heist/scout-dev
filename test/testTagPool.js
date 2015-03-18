@@ -27,7 +27,7 @@ describe('The Tag Pool', function(){
 	before(function(done){
 			var obj = models.Subject.findOneAsync();
 			obj.then(function(s){
-				m.s = s; console.log(s);
+				m.s = s;
 				return models.Test.findOneAsync({'_subjects': {$in: [m.s._id]}})
 						.then(function(t){
 							m.t = t;
