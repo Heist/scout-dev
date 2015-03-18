@@ -55,21 +55,26 @@ module.exports = function(request, user){
                     models.Task.findOneAndUpdate({'_id': found._task}, { $push: { _messages: found._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
                     models.Subject.findOneAndUpdate({'_id': found._subject}, { $push: { _messages: found._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no subject found')} return obj;}),
                     Bluebird.map(make.tags, function(tag){ 
-                        return models.Tag.findOneAndUpdate({ 'name' : tag , '_test' : make._test }, { $push: { '_messages': found.id }, 'name': tag }, {upsert : true }, function(err,obj){if(err){console.log('task update', err)} if(!obj){console.log('no tag found')} return obj._id;})
+                        return models.Tag.findOneAndUpdate({ 'name' : tag , '_test' : make._test }, { $push: { '_messages': found.id }, 'name': tag }, {upsert : true }, function(err,obj){if(err){console.log('task update', err)} if(!obj){console.log('no tag found')} return obj})
                     })
                 ])
         }).then(function(arr){
-            console.log('arr for salting tags back to messages', arr.length);
-            console.log('salt tags', arr[2]);
-            if(arr[2] > 0){
+            // console.log('arr for salting tags back to messages', arr.length);
+            // console.log('salt tags', arr[2]);
+
+            if(arr[2].length > 0){
                 console.log('arr 3', arr[2]);
                 var tags = arr[2];
-                return models.Message.findOneAndUpdate({'_id': note._id }, {$push : {_tags: arr[3] } }, function(err, obj){});
+                return Bluebird.map(tags, function(tag){
+                    models.Message.findOneAndUpdate({'_id': note._id }, {$push : {'_tags': tag } }, function(err, obj){});
+                })
             } else {
                 return arr;
             }
+
         }).then(function(arr){
-            return models.Message.findById(note._id).populate('_subject').exec(function(err, next){
+            console.log('find by id and return', arr);
+            return models.Message.findById(note._id).populate('_subject _tags').exec(function(err, next){
                 if(err){console.log('findMessageError', err)}
             });
         }).then(function(message){

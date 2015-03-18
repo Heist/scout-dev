@@ -55,9 +55,9 @@ describe('The Tag Pool', function(){
 					})
 					.end(function(err, res){
 						// console.log('response', res.body);
-						// expect(res.body).to.be.an('object')
-						// expect(res.body.tags).to.have.length(3)
-						// expect(res.body.msg).to.equal('This is a')
+						expect(res.body).to.be.an('object')
+						expect(res.body._tags).to.have.length(3)
+						expect(res.body.body).to.equal('This is a')
 						done();
 					});
 			});
