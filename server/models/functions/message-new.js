@@ -29,10 +29,11 @@ module.exports = function(request, user){
         user : user
     };
 
-    if(!update.msg || !update._subject || !update._test || !update._task){
-        console.log('returning');
-        return { error : 'Bad message request.' };
-    }
+    // if(!update.msg || !update._subject || !update._test || !update._task){
+    //     console.log('returning');
+    //     return { error : 'Bad message request.' };
+    // }
+
     console.log('after return');
     var newMessage = function(make) {
         // console.log('make');
@@ -72,8 +73,9 @@ module.exports = function(request, user){
                 return message;
             });
         }).catch(function(err){
-            if(err){console.log(err);}
-            return;
+            if(err){console.log('something went wrong', err);}
+            if(err.message){ return err.errors.body.message ;}
+            return err;
         })
     };
 
