@@ -117,7 +117,6 @@ module.exports = function(account, user){
                     return fn.messageNew(msg, msg.user)
                     .then(function(msg){
                         console.log('made it back');
-                        console.log(msg);
                     });
                  });
             }).then(function(arr){
