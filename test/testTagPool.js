@@ -27,7 +27,7 @@ describe('The Tag Pool', function(){
 	before(function(done){
 			var obj = models.Subject.findOneAsync();
 			obj.then(function(s){
-				m.s = s;
+				m.s = s; console.log(s);
 				return models.Test.findOneAsync({'_subjects': {$in: [m.s._id]}})
 						.then(function(t){
 							m.t = t;
@@ -74,6 +74,25 @@ describe('The Tag Pool', function(){
 					});
 			});
 	});
+
+	it('should return null if note is just a tag', function(done){
+		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
+			.end(function(err, res) { // get logged in
+				// This may require a more global variable.
+				// console.log('testTagPool message return', m);
+				agent.post('/api/message/')
+					.send({
+						body : '#purple', 
+						_test : m.t._id,
+						_task : m.tsk._id,
+						_subject : m.s._id
+					})
+					.end(function(err, res){
+						done();
+					});
+			});
+	})
+
 
 	it('POST to /api/message, logged in', function(done){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })

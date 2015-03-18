@@ -13,6 +13,9 @@ module.exports = function(account, user){
     var models = Bluebird.promisifyAll(require('../../models'));
     var fn = Bluebird.promisifyAll(require('../../models/functions'));
 
+
+    console.log('devTests');
+
     var createTest = function(acct, usr){
         // this is just straight not working.
         var obj = { created_by_account: acct,
@@ -74,7 +77,7 @@ module.exports = function(account, user){
 
     var createMessagesList = function(subject, task, test, usr){
         // there will be two tasks in here
-        var arr = ['One #yellow #blue #green', 'Two #yellow #blue','Three #yellow', 'Four'];
+        var arr = ['One #yellow #blue #green', 'Two #yellow #blue','Three #yellow'];
 
         var posterList =  function( m, s, ta, t, u){
                    return Bluebird.map(m, function(msg){
@@ -108,15 +111,17 @@ module.exports = function(account, user){
                 });
             }).then(function(messageList){
                 var list = _.flatten(messageList);
-                console.log('msgList', list[1]);
+                console.log('message', list);
                 return Bluebird.map(list, function(msg){
                      return fn.messageNew(msg, msg.user)
                         .then(function(message){
+                            console.log('message', message);
                             return message;
                         });
                  });
             })
             .then(function(end){
+                console.log('devTests end', end );
                 return end;
             })
     };

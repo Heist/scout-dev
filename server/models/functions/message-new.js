@@ -31,25 +31,18 @@ module.exports = function(request, user){
         user : user
     };
 
-    var messageMake = function( make ){
-        return models.Message.create({ 
+    var newMessage = function(make) {
+        console.log('make');
+        var note = {};
+        return models.Message.createAsync({ 
             '_subject' : make._subject, 
             '_test' : make._test,
             '_task' : make._task,
             'body' : make.msg,
             'created_by_user' : make.user },
-            function(err, obj){ if(err){console.log('make err', err);} });
-    }
-
-    var findMessage = function(_id, callback){ 
-        
-    }
-
-    var newMessage = function(make) {
-        // console.log('make');
-        var note = {};
-        return messageMake(make)
-          .then(function(found){
+            function(err, obj){ if(err){ console.log('make err', err);} })
+        .then(function(found){
+            console.log('found', found)
             note._id = found._id;
             return Bluebird.all([
                     models.Task.findOneAndUpdate({'_id': found._task}, { $push: { _messages: found._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
@@ -58,27 +51,30 @@ module.exports = function(request, user){
                         return models.Tag.findOneAndUpdate({ 'name' : tag , '_test' : make._test }, { $push: { '_messages': found.id }, 'name': tag }, {upsert : true }, function(err,obj){if(err){console.log('task update', err)} if(!obj){console.log('no tag found')} return obj})
                     })
                 ])
-        }).then(function(arr){
-            // console.log('arr for salting tags back to messages', arr.length);
-            // console.log('salt tags', arr[2]);
+            .then(function(arr){
+                // console.log('arr for salting tags back to messages', arr.length);
+                console.log('salt tags', arr[2]);
 
-            if(arr[2].length > 0){
-                console.log('arr 3', arr[2]);
-                var tags = arr[2];
-                return Bluebird.map(tags, function(tag){
-                    models.Message.findOneAndUpdate({'_id': note._id }, {$push : {'_tags': tag } }, function(err, obj){});
-                })
-            } else {
-                return arr;
-            }
+                if(arr[2].length > 0){
+                    console.log('arr 3', arr[2]);
+                    var tags = arr[2];
+                    return Bluebird.map(tags, function(tag){
+                        models.Message.findOneAndUpdate({'_id': note._id }, {$push : {'_tags': tag } }, function(err, obj){});
+                    })
+                } else {
+                    return arr;
+                }
 
-        }).then(function(arr){
-            console.log('find by id and return', arr);
-            return models.Message.findById(note._id).populate('_subject _tags').exec(function(err, next){
-                if(err){console.log('findMessageError', err)}
+            }).then(function(arr){
+                console.log('find by id and return', arr);
+                return models.Message.findById(note._id).populate('_subject _tags').exec(function(err, next){
+                    if(err){console.log('findMessageError', err)}
+                });
+            }).then(function(message){
+                return message;
             });
-        }).then(function(message){
-            return message;
+        }).catch(TypeError, function(error){
+            console.log('This is an error', error);
         });
     };
 

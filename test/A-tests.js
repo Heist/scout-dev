@@ -48,11 +48,12 @@ before(function(done){
             invite_email : 'sarah@made.com'
         }, function(err, invite){
             if(err){ console.log(err); }
-        });
 
-        fn.devTests(u._account, u).then(function(tests){
-        	if(err){console.log(err);}
-			done();
+            fn.devTests(u._account, u).then(function(tests){
+	        	if(err){console.log(err);}
+	        	console.log(tests);
+				done();
+	        });
         });
 	});
 });

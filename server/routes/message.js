@@ -22,7 +22,7 @@ module.exports = function(app, passport, debug) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
-        console.log('request', req.body);
+        console.log('request', req.body, req.user._id);
         fn.messageNew(req.body, req.user._id)
             .then(function(data){
                 console.log('messages START HERE', data);
