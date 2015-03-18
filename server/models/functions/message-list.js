@@ -12,7 +12,6 @@ module.exports = function(report_id, next){
        .populate({path:'_comments', select: 'name body created'})
        .exec(function(err, docs){
             if(err){console.log(err);}
-
             next(null, docs);
         });
 };

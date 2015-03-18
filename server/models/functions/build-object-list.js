@@ -18,6 +18,15 @@ module.exports = function(report_id, next){
     // Right. They aren't returned to the Test this way. This is purely for Reports.
     // Sooooooo, normal index is no use.
     // TODO: FIX ON TEST CREATION PAGE.
+
+
+    // ADD INDEXES TO QUERIED (ie: _test) FIELDS
+    // db.tags.createIndex({_test:1}) << for example, to create an index on the field "_tests"
+    // Get all report IDs, then make the three queries. 
+    // there is a little bit of latency on every db request.
+
+    // if we are accidentally making 150 queries to the DB, then that might be what is slowing it down.
+
     async.parallel({
         tags: function(callback){
             models.Tag.find({'_test' : report_id })

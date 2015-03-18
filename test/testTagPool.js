@@ -25,13 +25,14 @@ describe('The Tag Pool', function(){
 	var m = {};
 		
 	before(function(done){
-			var obj = models.Subject.findOneAsync({});
+			var obj = models.Subject.findOneAsync();
 			obj.then(function(s){
 				m.s = s;
 				return models.Test.findOneAsync({'_subjects': {$in: [m.s._id]}})
 						.then(function(t){
 							m.t = t;
-							return models.Task.findOneAsync({'_test':m.t._id, '_subjects': {$in: [m.s._id]}})
+							console.log(m.t._id, m.s._id);
+							return models.Task.findOneAsync({'_test': m.t._id, '_subjects': {$in: [m.s._id]}})
 							.then(function(tsk){
 								m.tsk = tsk;
 								done();
@@ -40,10 +41,11 @@ describe('The Tag Pool', function(){
 			});
 	})
 
-	it('tests a new message, removes tags from body of note and stores them in .tags', function(done){
+	it('POST to /api/message, logged in', function(done){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
 			.end(function(err, res) { // get logged in
 				// This may require a more global variable.
+				console.log(m);
 				agent.post('/api/message/')
 					.send({
 						body : 'This is a #blue #note #purple', 
@@ -52,6 +54,7 @@ describe('The Tag Pool', function(){
 						_subject : m.s._id
 					})
 					.end(function(err, res){
+						console.log('response', err, res.body);
 						expect(res.body).to.be.an('object')
 						expect(res.body.tags).to.have.length(3)
 						expect(res.body.msg).to.equal('This is a')

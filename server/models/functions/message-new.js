@@ -63,7 +63,6 @@ module.exports = function(request, user){
                 if(err){console.log('findMessageError', err)}
             });
         }).then(function(message){
-            // console.log('message');
             return message;
         });
     };

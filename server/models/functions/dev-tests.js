@@ -13,8 +13,6 @@ module.exports = function(account, user){
     var models = Bluebird.promisifyAll(require('../../models'));
     var fn = Bluebird.promisifyAll(require('../../models/functions'));
 
-    console.log('mocking tests .... ', account, user._id);
-
     var createTest = function(acct, usr){
         // this is just straight not working.
         var obj = { created_by_account: acct,
@@ -31,8 +29,6 @@ module.exports = function(account, user){
     };
 
     var createSubject = function(test){
-        console.log('create subject devTest', test);
-        
         var obj = { name  : 'Jane she is a cat',
                     _test : test };
 
@@ -49,6 +45,7 @@ module.exports = function(account, user){
     }
 
     var createTasks = function(test){
+        console.log('task test', test);
          var tasks = [{
             name  :"Task 1",
             desc  :"Chase ball of string and scratch the furniture and always hungry. \n- Nap all day.",
@@ -63,9 +60,11 @@ module.exports = function(account, user){
         }];
 
         return Bluebird.map(tasks, function(task){
-            return models.Task.create(task, function(err, t){ 
-                return t;
-            });
+            return  models.Task.create(task, function(err, t){ if(err){console.log('task make err', err)}})
+                    .then(function(t){
+                        console.log('t', t);
+                       return models.Test.findOneAndUpdate({'_id' : test}, {'last_run' : new Date(), $push : { _subjects : t._id }}, function(err, obj){})
+                    })
         });
     }
 
@@ -74,6 +73,7 @@ module.exports = function(account, user){
         var arr = ['One #yellow #blue #green', 'Two #yellow #blue','Three #yellow'];
 
         var posterList =  function( m, s, ta, t, u){
+            console.log('test posterList', t);
                    return Bluebird.map(m, function(msg){
                             return {
                                     body : msg,
@@ -94,22 +94,24 @@ module.exports = function(account, user){
 
 
     var mockTest = function(acct, usr){
+        var t = {};
         return createTest(acct, usr)
             .then(function(test){
+                t.test = test._id;
                 return Bluebird.all([
                     createSubject(test._id), 
-                    createTasks(test._id) 
+                    createTasks(test._id)
                 ])
             })
             .then(function(arr){
-                console.log('mock test 2', arr[1].length);
+                console.log(_.flatten(arr));
                 return Bluebird.map(arr[1], function(task){
-                    console.log('mapped', task._id);
-                    return createMessagesList(arr[0]._id, task._id, task._test, usr)
+                    return createMessagesList(arr[0]._id, task._id, t._test, usr)
                 });
             })
             .then(function(messageList){
                 var list = _.flatten(messageList);
+                console.log('msgList', list[1]);
                 return Bluebird.map(list, function(msg){
                      return fn.messageNew(msg, msg.user)
                         .then(function(message){
