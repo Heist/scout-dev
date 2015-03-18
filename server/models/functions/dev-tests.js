@@ -121,7 +121,7 @@ module.exports = function(account, user){
                     // });
                  });
             }).then(function(end){
-                console.log('devTests end', end.length );
+                console.log('devTests end', end );
                 return end;
             })
     };

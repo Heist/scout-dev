@@ -16,7 +16,7 @@ module.exports = function(request, user){
     
 // CREATE A NEW MESSAGE ===================================
 // set message variables from request object.
-
+    
     var tags = fn.tagPuller(request.body);
 
     var update = {
@@ -29,6 +29,11 @@ module.exports = function(request, user){
         user : user
     };
 
+    if(!update.msg || !update._subject || !update._test || !update._task){
+        console.log('returning');
+        return { error : 'Bad message request.' };
+    }
+    console.log('after return');
     var newMessage = function(make) {
         // console.log('make');
         var note = {};
@@ -39,8 +44,8 @@ module.exports = function(request, user){
                     'created_by_user' : make.user };
 
         return new models.Message(msg).saveAsync()
-        .then(function(found){
-            var note = found[0];
+        .get(0)
+        .then(function(note){
             console.log('found', note._id, note._task, note._subject, make._test );
             return Bluebird.all([
                     models.Task.findOneAndUpdate({'_id': note._task}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
@@ -68,7 +73,8 @@ module.exports = function(request, user){
             });
         }).catch(function(err){
             if(err){console.log(err);}
-        });
+            return;
+        })
     };
 
     return newMessage(update);

@@ -22,12 +22,11 @@ module.exports = function(app, passport, debug) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
-        console.log('request', req.body, req.user._id);
-        fn.messageNew(req.body, req.user._id)
-            .then(function(data){
-                console.log('messages START HERE', data);
-                res.json(data);
-            });
+        var messageNew = require('../models/functions/message-new')
+        messageNew(req.body, req.user._id).then(function(data){
+            console.log('fucking return something');
+            res.json(data);
+        });
     })
     .put(function(req, res){
     // Edit the body of a message and change its tag associations
