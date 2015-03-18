@@ -45,7 +45,7 @@ describe('The Tag Pool', function(){
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' })
 			.end(function(err, res) { // get logged in
 				// This may require a more global variable.
-				console.log('testTagPool message return', m);
+				// console.log('testTagPool message return', m);
 				agent.post('/api/message/')
 					.send({
 						body : 'This is a #blue #note #purple', 
@@ -54,7 +54,7 @@ describe('The Tag Pool', function(){
 						_subject : m.s._id
 					})
 					.end(function(err, res){
-						console.log('response', res.body);
+						// console.log('response', res.body);
 						// expect(res.body).to.be.an('object')
 						// expect(res.body.tags).to.have.length(3)
 						// expect(res.body.msg).to.equal('This is a')

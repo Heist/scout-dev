@@ -74,7 +74,7 @@ module.exports = function(account, user){
 
     var createMessagesList = function(subject, task, test, usr){
         // there will be two tasks in here
-        var arr = ['One #yellow #blue #green', 'Two #yellow #blue','Three #yellow'];
+        var arr = ['One #yellow #blue #green', 'Two #yellow #blue','Three #yellow', 'Four'];
 
         var posterList =  function( m, s, ta, t, u){
                    return Bluebird.map(m, function(msg){
