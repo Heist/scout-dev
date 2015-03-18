@@ -44,27 +44,31 @@ module.exports = function(account, user){
                 });
     }
 
-    var createTasks = function(test){
-        console.log('task test', test);
+    var createTasks = function(test, subject){
          var tasks = [{
             name  :"Task 1",
             desc  :"Chase ball of string and scratch the furniture and always hungry. \n- Nap all day.",
             index : 0,
-            _test : test
+            _test : test,
+            _subjects : [subject]
         }, 
         {
             name  : "Task 2",
             desc  : "Sunbathe climb the curtains run hiss purr. \n- Puking I don't like that food claw scratched eat.",
             index : 1,
-            _test : test
+            _test : test,
+            _subjects : [subject]
         }];
 
         return Bluebird.map(tasks, function(task){
+            var rt = {};
             return  models.Task.create(task, function(err, t){ if(err){console.log('task make err', err)}})
                     .then(function(t){
-                        console.log('t', t);
-                       return models.Test.findOneAndUpdate({'_id' : test}, {'last_run' : new Date(), $push : { _subjects : t._id }}, function(err, obj){})
-                    })
+                        rt = t;
+                        return models.Test.findOneAndUpdate({'_id' : test}, {'last_run' : new Date(), $push : { _tasks : t._id }}, function(err, obj){})
+                    }).then(function(t){
+                        return rt;
+                    });
         });
     }
 
@@ -73,7 +77,6 @@ module.exports = function(account, user){
         var arr = ['One #yellow #blue #green', 'Two #yellow #blue','Three #yellow'];
 
         var posterList =  function( m, s, ta, t, u){
-            console.log('test posterList', t);
                    return Bluebird.map(m, function(msg){
                             return {
                                     body : msg,
@@ -98,18 +101,14 @@ module.exports = function(account, user){
         return createTest(acct, usr)
             .then(function(test){
                 t.test = test._id;
-                return Bluebird.all([
-                    createSubject(test._id), 
-                    createTasks(test._id)
-                ])
-            })
-            .then(function(arr){
-                console.log(_.flatten(arr));
-                return Bluebird.map(arr[1], function(task){
-                    return createMessagesList(arr[0]._id, task._id, t._test, usr)
+                return createSubject(t.test);
+            }).then(function(subject){
+                return createTasks(t.test, subject._id);
+            }).then(function(tasks){
+                return Bluebird.map(tasks, function(task){
+                    return createMessagesList(task._subjects[0], task._id, t.test, usr);
                 });
-            })
-            .then(function(messageList){
+            }).then(function(messageList){
                 var list = _.flatten(messageList);
                 console.log('msgList', list[1]);
                 return Bluebird.map(list, function(msg){
