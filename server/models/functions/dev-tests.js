@@ -111,16 +111,19 @@ module.exports = function(account, user){
                 });
             }).then(function(messageList){
                 var list = _.flatten(messageList);
-                console.log('message', list);
+                console.log('messageList', list.length);
                 return Bluebird.map(list, function(msg){
-                     return fn.messageNew(msg, msg.user)
-                        .then(function(message){
-                            console.log('message', message);
-                            return message;
-                        });
+                    console.log('bluebird msg', msg);
+                    return fn.messageNew(msg, msg.user)
+                    .then(function(msg){
+                        console.log('made it back');
+                        console.log(msg);
+                    });
                  });
-            })
-            .then(function(end){
+            }).then(function(arr){
+                console.log('new messages', arr);
+                return arr;
+            }).then(function(end){
                 console.log('devTests end', end );
                 return end;
             })
