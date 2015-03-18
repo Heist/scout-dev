@@ -56,7 +56,7 @@ module.exports = function(request, user){
                         return models.Message.findOneAndUpdateAsync({'_id': note._id }, {$push : {'_tags': tag } }, function(err, obj){});
                     })
             }).then(function(arr){
-                console.log('find by id and return array length', arr.length);
+                console.log('find by id and return array length', arr);
                 return models.Message.findById(note._id).populate('_subject _tags').execAsync(function(err, next){
                     if(err){console.log('findMessageError', err)}
                 });
