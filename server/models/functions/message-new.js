@@ -51,13 +51,15 @@ module.exports = function(request, user){
                 ])
             .then(function(arr){
                 var tags = arr[2];
+
                 return Bluebird.map(tags, function(tag){
+                    console.log(note._id, tag);
                         console.log('salt', tag.name);
-                        return models.Message.findOneAndUpdateAsync({'_id': note._id }, {$push : {'_tags': tag } }, function(err, obj){});
+                        return models.Message.findOneAndUpdate({'_id': note._id }, {$push : {'_tags': tag } }, function(err, obj){});
                     })
             }).then(function(arr){
-                console.log('find by id and return array length', arr);
-                return models.Message.findById(note._id).populate('_subject _tags').execAsync(function(err, next){
+                console.log('find by id and return array length', arr.length);
+                return models.Message.findById(note._id).populate('_subject _tags').exec(function(err, next){
                     if(err){console.log('findMessageError', err)}
                 });
             }).then(function(message){
