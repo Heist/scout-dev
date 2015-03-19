@@ -31,7 +31,7 @@
 
                     return deferred.promise;
                 };
-            
+            console.log('checkLoggedin', checkLoggedin());
             return checkLoggedin;
         }]);
 })();
