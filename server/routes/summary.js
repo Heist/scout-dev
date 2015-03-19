@@ -14,11 +14,15 @@ module.exports = function (app, passport, debug) {
     app.route('/api/summary/:_id')
     .get(function(req, res){
     // get the navigation console for the summary.
-        fn.buildSummary(req.params._id, function(err, summary){
-            if(err){ console.log(err); }
-            // console.log('summary', summary);
-            res.json(summary);
-        });
+        fn.buildObjectList(req.params._id).then(function(list){
+            console.log(list);
+            res.json(list);
+        })
+        // fn.buildSummary(req.params._id, function(err, summary){
+        //     if(err){ console.log(err); }
+        //     // console.log('summary', summary);
+        //     res.json(summary);
+        // });
     })
     .put(function(req, res){
         // this should be used for updating objects with

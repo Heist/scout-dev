@@ -13,7 +13,6 @@ module.exports = function(report_id, next){
 // CREATE THE LEFT NAVIGATION LIST ========================
     // get all relevant objects, sanitize them and return them in an array for left nav of summary
 
-
     // TODO: When we make tasks, they live in the Test, and the Test stores their order, right?
     // Right. They aren't returned to the Test this way. This is purely for Reports.
     // Sooooooo, normal index is no use.
@@ -31,12 +30,10 @@ module.exports = function(report_id, next){
             models.Task.find({'_test': report_id}).sort({ report_index: 'asc'}).execAsync(),
             models.Test.find({'_id' : report_id}).limit(1).execAsync()
         ]).then(function(arr){
-                var array = _.flatten(arr);
-                console.log(array);
 
                 var navlist = {
                     test : (arr[2].length > 0) ? arr[2][0].name : 'Test name not found',
-                    list: arr
+                    list: _.flatten(arr)
                 };
 
                 return navlist;

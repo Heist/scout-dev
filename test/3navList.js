@@ -54,7 +54,10 @@ describe('Nav List', function(){
 	it('does not accept a message without a test', function(done){
 		loggedIn.get('/api/summary/'+m.t._id)
 			.end(function(err, res){
-				console.log(res.body);
+				expect(res.body).to.be.an('object');
+				expect(res.body.list).to.be.an('array');
+				expect(res.body.list).to.have.length(9);
+				expect(res.body.test).to.be.a('string');
 				done();
 			});
 	});
