@@ -86,7 +86,7 @@ describe('The Tag Pool', function(){
 				_subject : m.s._id
 			})
 			.end(function(err, res){
-				console.log('test end', res.body)
+				// console.log('test end', res.body)
 				expect(res.body).to.equal('Path `body` is required.')
 				done();
 			});
@@ -101,7 +101,7 @@ describe('The Tag Pool', function(){
 				_subject : m.s._id
 			})
 			.end(function(err, res){
-				console.log('test login message post');
+				// console.log('test login message post');
 				expect(res.body).to.be.an('object')
 				expect(res.body._tags).to.have.length(3)
 				expect(res.body.body).to.equal('This is a')

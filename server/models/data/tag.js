@@ -18,6 +18,7 @@ var TagSchema = new Schema({
     doctype : { type: String, trim: true, default: 'tag' },
 
     // body: { type : String, trim : true },
+    checkName : { type : String, lowercase:true, trim : true },
     name: { type : String, trim : true },
     summary: { type : String, trim : true },
     embed   : { type: String, default: '' },

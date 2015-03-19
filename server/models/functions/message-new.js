@@ -5,7 +5,6 @@
 module.exports = function(request, user){
 
 // Module dependencies ==========================
-    var async   = require('async');
     var Bluebird = require('bluebird');
 
 // load data storage models =====================
@@ -29,7 +28,7 @@ module.exports = function(request, user){
         user : user
     };
 
-    console.log('after return');
+    // console.log('after return');
     var newMessage = function(make) {
         // console.log('make');
         var note = {};
@@ -42,7 +41,7 @@ module.exports = function(request, user){
         return new models.Message(msg).saveAsync()
         .get(0)
         .then(function(note){
-            console.log('found', note._id, note._task, note._subject, make._test );
+            // console.log('found', note._id, note._task, note._subject, make._test );
             return Bluebird.all([
                     models.Task.findOneAndUpdate({'_id': note._task}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
                     models.Subject.findOneAndUpdate({'_id': note._subject}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no subject found')} return obj;}),
@@ -51,24 +50,21 @@ module.exports = function(request, user){
                     })
                 ])
             .then(function(arr){
-                var tags = arr[2];
-
-                return Bluebird.map(tags, function(tag){
-                    console.log(note._id, tag);
-                        console.log('salt', tag.name);
+                return Bluebird.map(arr[2], function(tag){
+                        // console.log('salt', tag.name);
                         return models.Message.findOneAndUpdate({'_id': note._id }, {$push : {'_tags': tag } }, function(err, obj){});
                     })
             }).then(function(arr){
-                console.log('find by id and return array length', arr.length);
+                // console.log('find by id and return array length', arr.length);
                 return models.Message.findById(note._id).populate('_subject _tags').exec(function(err, next){
                     if(err){console.log('findMessageError', err)}
                 });
             }).then(function(message){
-                console.log('return message', message.body);
+                // console.log('return message', message.body);
                 return message;
             });
         }).catch(function(err){
-            if(err){console.log('something went wrong', err);}
+            // if(err){console.log('something went wrong', err);}
             if(err.message){ return err.errors.body.message ;}
             return err;
         })

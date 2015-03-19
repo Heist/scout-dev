@@ -14,7 +14,7 @@ module.exports = function(account, user){
     var fn = Bluebird.promisifyAll(require('../../models/functions'));
 
 
-    console.log('devTests');
+    // console.log('devTests');
 
     var createTest = function(acct, usr){
         // this is just straight not working.
@@ -65,7 +65,9 @@ module.exports = function(account, user){
 
         return Bluebird.map(tasks, function(task){
             var rt = {};
-            return  models.Task.create(task, function(err, t){ if(err){console.log('task make err', err)}})
+            return  models.Task.create(task, function(err, t){ 
+                // if(err){console.log('task make err', err) }
+                    })
                     .then(function(t){
                         rt = t;
                         return models.Test.findOneAndUpdate({'_id' : test}, {'last_run' : new Date(), $push : { _tasks : t._id }}, function(err, obj){})
@@ -111,17 +113,10 @@ module.exports = function(account, user){
                 });
             }).then(function(messageList){
                 var list = _.flatten(messageList);
-                console.log('messageList', list.length);
                 return Bluebird.map(list, function(msg){
-                    console.log('bluebird msg', msg);
                     return fn.messageNew(msg, msg.user)
-                    // .then(function(msg){
-                    //     console.log('made it back');
-
-                    // });
                  });
             }).then(function(end){
-                console.log('devTests end', end );
                 return end;
             })
     };
