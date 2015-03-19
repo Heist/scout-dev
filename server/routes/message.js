@@ -22,8 +22,8 @@ module.exports = function(app, passport, debug) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
-        var messageNew = require('../models/functions/message-new')
-        messageNew(req.body, req.user._id).then(function(data){
+        // var messageNew = require('../models/functions/message-new')
+        fn.messageNew(req.body, req.user._id).then(function(data){
             res.json(data);
         });
     })

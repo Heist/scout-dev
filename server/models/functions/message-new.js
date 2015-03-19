@@ -29,11 +29,6 @@ module.exports = function(request, user){
         user : user
     };
 
-    // if(!update.msg || !update._subject || !update._test || !update._task){
-    //     console.log('returning');
-    //     return { error : 'Bad message request.' };
-    // }
-
     console.log('after return');
     var newMessage = function(make) {
         // console.log('make');

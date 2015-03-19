@@ -1,6 +1,6 @@
 // function index
 // index.js
-(function(){
+
 'use strict';
 
 module.exports= {
@@ -28,4 +28,3 @@ module.exports= {
 	toTitleCase		: require('./toTitleCase'),
 	userCreate      : require('./user-create')
 }
-})();

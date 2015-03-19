@@ -5,6 +5,7 @@ module.exports = function(app, passport, debug) {
 
 // load data storage models =====================
     var models  = require('../models');
+    var fn      = require('../models/functions');
 
 // TAG ROUTES ================================================
     app.route('/api/tag/')
@@ -13,6 +14,13 @@ module.exports = function(app, passport, debug) {
                     if(err){console.log(err);}
                     res.json(tags);
                 });
+        })
+        .post(function(req, res){
+            console.log(req.body);
+
+            fn.tagMaker(req.body).then(function(data){
+                res.json(data);
+            });
         });
 
     app.route('/api/tag/:_id')
