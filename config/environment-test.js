@@ -20,6 +20,11 @@ module.exports = function(){
 		return address;
 	};
 	
-	var str = list(net).split('.');
-	return (str[0].length > 2) ? 'production' : 'test';
+	// console.log(list(net));
+	if(list(net)){
+		var str = list(net).split('.');
+		return (str[0].length > 2) ? 'production' : 'test';
+	} else {
+		return 'test';
+	}
 }

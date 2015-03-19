@@ -26,7 +26,7 @@ module.exports = function(report_id, next){
     // there is a little bit of latency on every db request.
 
     // if we are accidentally making 150 queries to the DB, then that might be what is slowing it down.
-
+    
     async.parallel({
         tags: function(callback){
             models.Tag.find({'_test' : report_id })

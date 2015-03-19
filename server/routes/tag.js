@@ -23,7 +23,7 @@ module.exports = function(app, passport, debug) {
 
     app.route('/api/tag/:_id')
         .get(function(req,res){
-            models.Tag.findById(req.params._id)
+            models.Tag.find({'_test':req.params._id})
                 .exec(function(err, tags) {
                     if(err){console.log(err);}
                     res.json(tags);

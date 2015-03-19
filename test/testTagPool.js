@@ -33,7 +33,6 @@ describe('The Tag Pool', function(){
 		})
 		.then(function(t){
 			m.t = t;
-			console.log(m.t._id, m.s._id);
 			return models.Task.findOneAsync({'_test': m.t._id, '_subjects': {$in: [m.s._id]}});
 		})
 		.then(function(tsk){
@@ -49,11 +48,10 @@ describe('The Tag Pool', function(){
 
 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' }).end(function(err, res){
 			loggedIn = agent;
-			// return loggedIn;
 		})
 	})
 
-	it('does not accept a message without a test', function(){
+	it('does not accept a message without a test', function(done){
 		loggedIn.post('/api/message/')
 			.send({
 				body : 'This is a #blue #note #purple', 
@@ -66,7 +64,7 @@ describe('The Tag Pool', function(){
 			});
 	});
 
-	it('does not accept a message without a subject', function(){
+	it('does not accept a message without a subject', function(done){
 		loggedIn.post('/api/message/')
 			.send({
 				body : 'This is a #blue #note #purple', 
@@ -79,7 +77,7 @@ describe('The Tag Pool', function(){
 			});
 	});
 
-	it('should reject note if just a tag', function(done){
+	it('Reject note if just a tag', function(done){
 		loggedIn.post('/api/message/')
 			.send({
 				body : '#purple', 
@@ -88,13 +86,12 @@ describe('The Tag Pool', function(){
 				_subject : m.s._id
 			})
 			.end(function(err, res){
-				// console.log('test end', res.body)
 				expect(res.body).to.equal('Path `body` is required.')
 				done();
 			});
 	})
 
-	it('Should accept a full message', function(done){
+	it('Accept a full message', function(done){
 		loggedIn.post('/api/message/')
 			.send({
 				body : 'This is a #blue #note #purple', 
@@ -103,7 +100,6 @@ describe('The Tag Pool', function(){
 				_subject : m.s._id
 			})
 			.end(function(err, res){
-				// console.log('test login message post');
 				expect(res.body).to.be.an('object')
 				expect(res.body._tags).to.have.length(3)
 				expect(res.body.body).to.equal('This is a')
@@ -111,7 +107,7 @@ describe('The Tag Pool', function(){
 			});
 	});
 
-	it('Should accept a tag without a message', function(done){
+	it('Accept tag without message', function(done){
 		loggedIn.post('/api/tag/')
 			.send({
 				_test : m.t._id,
@@ -125,7 +121,7 @@ describe('The Tag Pool', function(){
 			})
 	});
 
-	it('Should accept a tag with a message', function(done){
+	it('Accept a tag with message', function(done){
 		loggedIn.post('/api/tag/')
 			.send({
 				_test : m.t._id,
@@ -141,7 +137,7 @@ describe('The Tag Pool', function(){
 			})
 	});	
 
-	it('Should update an existing tag with a new message', function(done){
+	it('Update existing tag with new message', function(done){
 		loggedIn.post('/api/tag/')
 			.send({
 				_test : m.t._id,
@@ -156,26 +152,29 @@ describe('The Tag Pool', function(){
 				done();
 			})
 	})
-	
-	it.skip('should create tags by each test', function(done){
-		
+
+	it('Change capitalization on an existing tag name', function(done){
+		loggedIn.post('/api/tag/')
+			.send({
+				_test : m.t._id,
+				name: 'Blue',
+				msg:  m.msg2._id
+			})
+			.end(function(err,res){
+				expect(res.body.nameCheck).to.equal('blue')
+				expect(res.body.name).to.equal('Blue')
+				done();
+			})
 	});
 
-	it.skip('should make tags available to anyone on that test', function(done){
-		
+	it('should return tags by test', function(done){
+			loggedIn.get('/api/tag/'+m.t._id)
+				.end(function(err,res){
+					expect(res.body).to.have.length(6);
+					done();
+				});
 	});
 
-	it.skip('should store tags on notes', function(done){
-		
-	});
-
-	it.skip('should lowercase tags and check against canonical tag', function(done){
-		
-	});
-
-	it.skip('should save lowercased tags to test list of tags', function(done){
-		
-	});
 })
 
 })();
