@@ -109,19 +109,21 @@ describe('The Tag Pool', function(){
 			});
 	});
 
-	it.skip('Should accept a tag without a message', function(done){
+	it('Should accept a tag without a message', function(done){
 		loggedIn.post('/api/tag/')
 			.send({
 				_test : m.t._id,
 				name: 'Blue'
 			})
 			.end(function(err,res){
-				console.log(res.body);
+				expect(res.body.nameCheck).to.equal('blue')
+				expect(res.body.name).to.equal('Blue')
+				expect(res.body._messages).to.have.length(0);
 				done();
 			})
 	});
 
-	it.skip('Should accept a tag with a message', function(done){
+	it('Should accept a tag with a message', function(done){
 		loggedIn.post('/api/tag/')
 			.send({
 				_test : m.t._id,
@@ -129,7 +131,10 @@ describe('The Tag Pool', function(){
 				msg:  m.msg._id
 			})
 			.end(function(err,res){
-				console.log(res.body);
+				expect(res.body.nameCheck).to.equal('blue')
+				expect(res.body.name).to.equal('Blue')
+				expect(res.body._messages).to.have.length(1);
+				expect(res.body._messages[0]).to.equal(m.msg._id.toString());
 				done();
 			})
 	});	

@@ -23,6 +23,7 @@ module.exports= {
 	objectUpdate    : require('./object-update'),
 	resendInvite    : require('./resend-invite'),
 	resetPassword   : require('./reset-password'),
+	tagMaker		: require('./tag-maker'),
 	tagPuller       : require('./tag-puller'),
 	testNew			: require('./test-new'),
 	toTitleCase		: require('./toTitleCase'),

@@ -16,8 +16,6 @@ module.exports = function(app, passport, debug) {
                 });
         })
         .post(function(req, res){
-            console.log(req.body);
-
             fn.tagMaker(req.body).then(function(data){
                 res.json(data);
             });

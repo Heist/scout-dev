@@ -5,23 +5,37 @@
 
 // converts them to lowercase, 
 // checks them against the existing test-indexed tag database
-// if the database does not have a variant of tag
-// inserts the non-lowercase version as name
-// inserts the lowercase version as indexed name
+// upsert=== true if the database does not have a variant of tag inserts the non-lowercase version as name 
+// lowercase.true inserts the lowercase version as indexed name
 // if optional property message_id exists,
 // pushes message_id to the tag
 // returns the 
-module.exports = function(string, test, message){
-	var _ = require('lodash');
+module.exports = function(tag){
 	var Bluebird = require('bluebird');
-
-	var fn     = require('../../models/functions');
     var models = Bluebird.promisifyAll(require('../../models'));
-
+    
 // Check tags against the DB of existing tagnames
-	var testStr = string.toLowerCase();
+	var testStr = tag.name.toLowerCase();
+	var u = {
+		  name: tag.name,
+		  _test: tag._test,
+		};
 
-	var obj = models.Tag.findOne('')
+// messages are optional when setting up tags
+	if (tag.msg) {
+	  u.$push = {
+	    _messages: tag.msg
+	  };
+	}
 
+	var q = {'nameCheck': testStr, '_test' : tag._test };
+	var o = {upsert : true};
 
+// okay let's make this a findOneAndUpdate...
+	var tagMade = models.Tag.findOneAndUpdate(q, u, o, function(err, obj){});
+
+	return tagMade.then(function(data){
+		// console.log(data);
+		return data;
+	});
 };
