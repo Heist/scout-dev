@@ -38,10 +38,12 @@ describe('The Tag Pool', function(){
 		})
 		.then(function(tsk){
 			m.tsk = tsk;
-			return models.Message.findOneAsync({'_test': m.t._id});
+			return models.Message.findAsync({'_test': m.t._id});
 		})
 		.then(function(msg){
-			m.msg = msg;
+			m.msg = msg[0];
+			m.msg2 = msg[1];
+			m.msg3 = msg[2];
 			done();
 		});	
 
@@ -113,11 +115,11 @@ describe('The Tag Pool', function(){
 		loggedIn.post('/api/tag/')
 			.send({
 				_test : m.t._id,
-				name: 'Blue'
+				name: 'Gray'
 			})
 			.end(function(err,res){
-				expect(res.body.nameCheck).to.equal('blue')
-				expect(res.body.name).to.equal('Blue')
+				expect(res.body.nameCheck).to.equal('gray')
+				expect(res.body.name).to.equal('Gray')
 				expect(res.body._messages).to.have.length(0);
 				done();
 			})
@@ -127,25 +129,34 @@ describe('The Tag Pool', function(){
 		loggedIn.post('/api/tag/')
 			.send({
 				_test : m.t._id,
-				name: 'Blue',
+				name: 'Gray',
 				msg:  m.msg._id
 			})
 			.end(function(err,res){
-				expect(res.body.nameCheck).to.equal('blue')
-				expect(res.body.name).to.equal('Blue')
+				expect(res.body.nameCheck).to.equal('gray')
+				expect(res.body.name).to.equal('Gray')
 				expect(res.body._messages).to.have.length(1);
 				expect(res.body._messages[0]).to.equal(m.msg._id.toString());
 				done();
 			})
 	});	
 
-	it.skip('Should set tag capitalization by first use of tag', function(done){
-		loggedIn.get('/api/test/'+m.t._id)
+	it('Should update an existing tag with a new message', function(done){
+		loggedIn.post('/api/tag/')
+			.send({
+				_test : m.t._id,
+				name: 'Gray',
+				msg:  m.msg2._id
+			})
 			.end(function(err,res){
+				expect(res.body.nameCheck).to.equal('gray')
+				expect(res.body.name).to.equal('Gray')
+				expect(res.body._messages).to.have.length(2);
+				expect(res.body._messages[1]).to.equal(m.msg2._id.toString());
 				done();
 			})
-	});
-
+	})
+	
 	it.skip('should create tags by each test', function(done){
 		
 	});
