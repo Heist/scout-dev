@@ -11,10 +11,9 @@ module.exports = function(report_id, next){
 // BUILD A REPORT OBJECT ==================================
     async.parallel({
         navlist: function(callback){
-            fn.buildObjectList(report_id, function(err, list){
-                if(err){console.log(err);}
-                callback(null, list);
-            });
+            fn.buildObjectList(report_id).then(function(data){
+                    callback(null, data);
+                });
         },
         messages: function(callback){
             fn.messageList(report_id, function(err, list){

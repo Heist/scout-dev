@@ -51,13 +51,16 @@ describe('Nav List', function(){
 		})
 	})
 
-	it('does not accept a message without a test', function(done){
+	it('returns a list of messsages and a list of objects', function(done){
 		loggedIn.get('/api/summary/'+m.t._id)
 			.end(function(err, res){
 				expect(res.body).to.be.an('object');
-				expect(res.body.list).to.be.an('array');
-				expect(res.body.list).to.have.length(9);
-				expect(res.body.test).to.be.a('string');
+				expect(res.body.navlist).to.be.an('object');
+				expect(res.body.navlist).to.have.property('test');
+				expect(res.body.navlist).to.have.property('list');
+				expect(res.body.navlist.test).to.be.a('string');
+				expect(res.body.navlist.list).to.have.length(9);
+				expect(res.body.messages).to.be.an('array');
 				done();
 			});
 	});
