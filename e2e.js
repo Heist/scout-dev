@@ -3,11 +3,11 @@
 
 exports.config = {
 	seleniumAddress: 'http://localhost:4444/wd/hub',
-	specs: ['test/public/spec.js']
-	// 'browserName': 'phantomjs',
-	// capabilities: {
-	// 'browserName': 'phantomjs',
-	// 'phantomjs.binary.path':'./node_modules/phantomjs/bin/phantomjs',
-	// 'phantomjs.cli.args':['--logfile=phantom.log', '--loglevel=DEBUG']
-	// }
+	// seleniumServerJar: 'node_modules/selenium-server/lib/runner/selenium-server-standalone-2.38.0.jar',
+	specs: ['test/public/spec.js'],
+	// multiCapabilities: [{
+	// 	browserName: 'firefox'
+	// }, {
+	// 	browserName: 'chrome'
+	// }]
 }
