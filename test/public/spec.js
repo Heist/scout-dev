@@ -88,6 +88,30 @@ describe('Test Editing', function(){
 	// walkthrough steps here
 })
 
+describe('Summary Controller', function(){
+	// from overview
+	// click report on developer test
+	// report url should equal report url
+
+	// left nav should have six elements
+	// on clicking the down button for the element "summary" the second entry
+	// should be "summary"
+	// and the rest should be six entries all in order
+
+	// on refresh the second element should remain in the same order
+	// on entering data in the summary field, then clicking out, then clicking back
+	// the summary field should still be set
+
+	// on clicking "share" the report link should have a /p/ in it and be populated
+
+	// on clicking the visibility of any element in the left nav
+	// then clicking the report
+	// that element should not be present in the left nav
+
+	// each entry should have messages associated with them
+	
+})
+
 // describe('PasswordController', function() {
 //   beforeEach(module('app'));
 
