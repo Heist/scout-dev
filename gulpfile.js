@@ -47,7 +47,7 @@ gulp.task('scripts', function () {
     .pipe(gulp.dest('public/js'))
     .pipe(stripDebug()).on('error', errorHandler)
     .pipe(gulp.dest('dist/public/js'))
-    .pipe(notify({ message: "Your files are now organized" }));
+    .pipe(notify({ message: "JS: Your files are now organized" }));
 });
 
 // Compile CSS
@@ -58,7 +58,8 @@ gulp.task('sass', function() {
     .pipe(sass({ style: 'expanded' }))
     .pipe(addsrc.append('bower_components/**/*.css'))
     .pipe(gulp.dest('public/layout/css'))
-    .pipe(gulp.dest('dist/public/layout/css'));
+    .pipe(gulp.dest('dist/public/layout/css'))
+    .pipe(notify({ message: "CSS: Your files are now organized" }));
 });
 
 gulp.task('fonts', function() {
