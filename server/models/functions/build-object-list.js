@@ -8,7 +8,7 @@ module.exports = function(report_id, next){
     var _ = require('lodash');
     var Bluebird = require('bluebird');
     
-    var models = require('../../models');
+    var models = Bluebird.promisifyAll(require('../../models'));
 
 // CREATE THE LEFT NAVIGATION LIST ========================
     // get all relevant objects, sanitize them and return them in an array for left nav of summary
@@ -26,17 +26,16 @@ module.exports = function(report_id, next){
     // if we are accidentally making 150 queries to the DB, then that might be what is slowing it down.
     
     return Bluebird.all([
-            models.Tag.find({'_test' : report_id }).sort({name: 1}).execAsync(),
-            models.Task.find({'_test': report_id}).sort({ report_index: 'asc'}).execAsync(),
-            models.Test.find({'_id' : report_id}).limit(1).execAsync()
+            models.Tag.find({'_test' : report_id }).sort({name: 1}).exec(),
+            models.Task.find({'_test': report_id}).sort({ report_index: 'asc'}).exec(),
+            models.Test.find({'_id' : report_id}).limit(1).exec()
         ]).then(function(arr){
+            var navlist = {
+                test : (arr[2].length > 0) ? arr[2][0].name : 'Test name not found',
+                list: _.flatten(arr)
+            };
 
-                var navlist = {
-                    test : (arr[2].length > 0) ? arr[2][0].name : 'Test name not found',
-                    list: _.flatten(arr)
-                };
-
-                return navlist;
+            return navlist;
         }).catch(function(err){
             if(err){console.log('navlist err', err);}
         })

@@ -6,18 +6,18 @@ beforeEach(function() {
 
 
 // slow up the interactions for watching
-	var origFn = browser.driver.controlFlow().execute;
+	// var origFn = browser.driver.controlFlow().execute;
 
-	browser.driver.controlFlow().execute = function() {
-		var args = arguments;
+	// browser.driver.controlFlow().execute = function() {
+	// 	var args = arguments;
 
-	// queue 100ms wait
-		origFn.call(browser.driver.controlFlow(), function() {
-		return protractor.promise.delayed(100);
-	});
+	// // queue 100ms wait
+	// 	origFn.call(browser.driver.controlFlow(), function() {
+	// 	return protractor.promise.delayed(100);
+	// });
 
-		return origFn.apply(browser.driver.controlFlow(), args);
-	};
+	// 	return origFn.apply(browser.driver.controlFlow(), args);
+	// };
 });
 
 describe('Authentication capabilities', function() {
@@ -27,6 +27,7 @@ describe('Authentication capabilities', function() {
   var loginButton = element(by.id('loginSubmit'));
   var error = element(by.model('flashmessage'));
   var logout = element(by.id('logout'));
+  var loginURL;
 
 	it('should accept a valid email address and password', function() {
 		loginURL = browser.getCurrentUrl();
@@ -39,54 +40,53 @@ describe('Authentication capabilities', function() {
 	    expect(browser.getCurrentUrl()).toEqual('http://127.0.0.1:8080/');
 	  });
 
-  // it('should redirect to the login page if trying to load protected page while not authenticated', function() {
-  //   browser.get('/login');
-  //   loginURL = browser.getCurrentUrl();
+	it('should return to the login page after logout', function() {
+	    var logoutButton =  element(by.id('logout'));
+	    logoutButton.click();
+	    expect(browser.getCurrentUrl()).toEqual(loginURL);
+	  });
 
-  //   browser.get('/overview');
-  //   expect(browser.getCurrentUrl()).toEqual(loginURL);
-  // });
+	it('should redirect to the login page if trying to load protected page while not authenticated', function(){
+		browser.get('http://127.0.0.1:8080/overview');
+		expect(browser.getCurrentUrl()).toEqual(loginURL);
+	});
 
-  // it('should return to the login page after logout', function() {
-  //   var logoutButton =  element(by.id('logout'));
-  //   logoutButton.click();
-  //   expect(browser.getCurrentUrl()).toEqual(loginURL);
-  // });
+	it('should reject poorly-formed credentials', function(){
+		email.sendKeys('login@');
+	    password.sendKeys('test');
+	    loginButton.click();
+	    expect(browser.getCurrentUrl()).toEqual(loginURL);
+	});
 });
 
-  // it('should warn on missing/malformed credentials', function() {
-  //   email.clear();
-  //   password.clear();
+describe('Onboard Controller', function(){
+	// get api test
+	// overview stage one
+	// overview stage two
+	// overview stage three-six is in Run -
+	// overview seven to nine is in Summary
+})
 
-  //   password.sendKeys('test');
-  //   loginButton.click();
-  //   expect(error.getText()).toMatch('missing email');
+describe('Overview Screen', function(){
+	// check for a user in rootscope by scope injection
+	// try adding a new test
+	// check the location path
+	// set the number of tests
+	// go back to the test screen
+	// tests should equal previous tests plus one
+	// click edit edit should take one to the test edit screen
+	// return to main screen
+	// click report of the element called developer tests
+	// report should take you to the summary screen
+	// click delete, refresh screen
+	// delete should remove the test that was deleted
+	// click duplicate
+	// duplicate should result in two tests with the same name and same number of sub-objects
+})
 
-  //   email.sendKeys('test');
-  //   loginButton.click();
-  //   expect(error.getText()).toMatch('invalid email');
-
-  //   email.sendKeys('@example.com');
-  //   password.clear();
-  //   loginButton.click();
-  //   expect(error.getText()).toMatch("unauthorized request");
-  // });
-
-
-
-
-// describe('LoginController', function(){
-// 	var userEmail = element.all(by.model('user.email')).first();
-// 	var userPassword = element.all(by.model('user.password')).first();
-
-// 	it('should enter data onscreen', function(){
-// 		userEmail.sendKeys('login@heistmade.com');
-// 		userPassword.sendKeys('login');
-// 	})
-
-
-// });
-
+describe('Test Editing', function(){
+	// walkthrough steps here
+})
 
 // describe('PasswordController', function() {
 //   beforeEach(module('app'));
