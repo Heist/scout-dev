@@ -109,7 +109,15 @@ describe('Summary Controller', function(){
 	// that element should not be present in the left nav
 
 	// each entry should have messages associated with them
-	
+	// messages should be listed under a user name
+	// on clicking visible, the message should disappear on switching to preview
+
+	// adding a message should work to nest a new message under user
+	// adding a new message with a new tag should result in that tag turning up on the left nav
+	// clicking on the new tag should show a message under a user with that message's content
+	// and all other tags beneath the message
+
+	// clicking on the eyeglasses should return to overview
 })
 
 // describe('PasswordController', function() {
