@@ -9,6 +9,32 @@
     // get the starting data from resolve
         var data = loadData.data;
         
+        // avatar initials
+        // TODO: refactor into service or add to check in process
+        // this might be a good refactored into a directive
+        // that gives you an avatar bubble
+
+        var y = '';
+        var res = '';
+        var x = $rootScope.user.name.split(' ');
+
+        for(var i = 0; i < x.length; i++){
+
+            if(i === 0){
+                y = x[i].substr(0,1);
+            }  else {
+                var n = x[i].substr(0,1);
+                res = y.concat(n);
+            }
+        }
+
+        if(y.length > 0){
+            $scope.initials = res;
+        } else {
+            $scope.initials = 'N/A';
+        }
+
+
     // set up and reset variables to clear cache from state changes.
         $scope.update = [];
         $scope.task = {};
