@@ -85,7 +85,24 @@ describe('Overview Screen', function(){
 })
 
 describe('Test Editing', function(){
-	// walkthrough steps here
+	// from overview click edit
+	// edit should take you to main screen
+	// anchor should be step 1
+	// selecting interview or prototype should display appropriate value
+	// setting information on those fields should store that information
+	// clicking Add Tasks should take you to step 2
+
+	// adding three tasks should result in five tasks
+
+	// clicking the up button should result in the task list being reordered
+	// exit to main screen, come back, and test task list order
+
+	// clicking the down button should result in the task list being reordered
+	// exit to main screen, come back, and test task list order
+
+	// clicking "done" should take one to the overview screen
+
+	// there should be no option to "run" unless tasks exist.
 })
 
 describe('Summary Controller', function(){
@@ -118,6 +135,20 @@ describe('Summary Controller', function(){
 	// and all other tags beneath the message
 
 	// clicking on the eyeglasses should return to overview
+})
+
+describe('Run Controller', function(){
+	//from overview, click run test
+	// loading in a user should set the user
+
+	// clicking cancel should return one to overview
+	
+	// dry run should not add a user to the test, 
+	// and should permit the test to be run without the user
+
+	// adding a message should push that message to the timeline
+
+	// clicking "exit test" should send the test to the overview page
 })
 
 // describe('PasswordController', function() {
