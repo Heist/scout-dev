@@ -130,7 +130,7 @@
 			<li>
 				<a href="#" class="secondary button med" ng-click="changeOnboard(100)">Cancel</a>
 			
-				<a class="button med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a>
+<!-- 				<a class="button med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a> -->
 			
 				<button class="button med float-right" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Start</button>
 				
@@ -265,7 +265,8 @@
 							<div class="message-body">
 								<small ng-if="message.title">{{message.title}}</small>
 								<p ng-bind-html="message.body | hashtag"></p>
-								<small>{{message.created | date : 'hh:mm a'}}{{task._id}}</small>
+								<small>{{message.created | date : 'hh:mm a'}}</small>
+								<small ng-repeat="tag in message._tags" style='display:inline; float:left;'>{{tag.name}}&nbsp;</small>
 							</div>
 		
 							<div class="clear"></div>

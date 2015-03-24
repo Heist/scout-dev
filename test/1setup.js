@@ -48,12 +48,12 @@ before(function(done){
             invite_email : 'sarah@made.com'
         }, function(err, invite){
             if(err){ console.log(err); }
-        });
 
-        fn.devTests(u._account, u, function(err, tests){
-        	if(err){console.log(err);}
-        	console.log('done tests');
-			done();
+            fn.devTests(u._account, u).then(function(tests){
+	        	if(err){console.log(err);}
+	        	console.log('dev tests done');
+				done();
+	        });
         });
 	});
 });
@@ -70,7 +70,30 @@ after(function(done){
 	models.Comment.remove({}, function(err, doc){});
 	models.Subject.remove({}, function(err, doc){});
 
-	done();
+	models.User.create({
+		name : 'login',
+		local : {
+				email : 'login@heistmade.com',
+				password : models.User.schema.methods.genHash('login')
+				},
+		_account : account
+	}, function(err, u){
+		if(err){console.log(err);} 
+		models.Invite.create({
+            _account : u._account,
+            created_by_user : u._id,
+            invite_email : 'sarah@made.com'
+        }, function(err, invite){
+            if(err){ console.log(err); }
+
+            fn.devTests(u._account, u).then(function(tests){
+	        	if(err){console.log(err);}
+	        	console.log('dev tests done');
+				done();
+	        });
+        });
+	});
+
 });
 
 // =============================================================

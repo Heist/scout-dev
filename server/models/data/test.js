@@ -17,8 +17,8 @@ var TestSchema = new Schema({
         _subjects: [{ type: Schema.Types.ObjectId, ref: 'Subject' }],
         doctype : { type: String, trim: true, default: 'test' },
 
-        created_by_account : {type: Schema.Types.ObjectId},
-        created_by_user : {type: Schema.Types.ObjectId},
+        created_by_account : {type: Schema.Types.ObjectId, required: true},
+        created_by_user : {type: Schema.Types.ObjectId, required: true},
         last_run : Date,
         desc    : { type: String, trim: true, default: '' },
         link    : { type: String, trim: true, default: '' },

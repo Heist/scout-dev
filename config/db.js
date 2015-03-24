@@ -3,7 +3,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
-// var environment = require('../config/environment-test');
+var environment = require('../config/environment-test');
 // reminder: this is local because it's local to _the server_
 // server's always gon' be local to the code
 	
@@ -15,10 +15,10 @@ var mongoose = require('mongoose');
 // }
 	
 // else {
-	// console.log(environment());
-	// var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/field_guide_app_test';
-	// var db = mongoose.createConnection(mongoUrl);
-	// var auth_db = db.useDb('field_guide_users_test');
+// 	console.log(environment());
+// 	var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/field_guide_app_test';
+// 	var db = mongoose.createConnection(mongoUrl);
+// 	var auth_db = db.useDb('field_guide_users_test');
 // }
 
 // this segment does not work right now.

@@ -15,7 +15,7 @@ var TaskSchema = new Schema ({
     _messages:[{ type: Schema.Types.ObjectId, ref: 'Message' }],
     _tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
     _subjects: [{ type: Schema.Types.ObjectId, ref: 'Subject' }],
-    _test : { type: Schema.Types.ObjectId, ref: 'Test' },
+    _test : { type: Schema.Types.ObjectId, ref: 'Test', required: true },
     
     doctype : { type: String, trim: true, default: 'task' },
 

@@ -16,16 +16,16 @@ var db = connect.db;
 // independent of that Subject.
 
 var MessageSchema = new Schema ({
-    _subject : { type: Schema.Types.ObjectId, ref: 'Subject' },
-    _test : { type: Schema.Types.ObjectId, ref: 'Test' },
+    _subject : { type: Schema.Types.ObjectId, ref: 'Subject', required: true },
+    _test : { type: Schema.Types.ObjectId, ref: 'Test', required: true },
     _task : { type: Schema.Types.ObjectId, ref: 'Task' },
     _comments : [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    _tags : [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
 
-    body : { type: String, trim: true },
-    created_by_user : { type: Schema.Types.ObjectId },
+    body : { type: String, trim: true, required: true },
+    created_by_user : { type: Schema.Types.ObjectId, required: true  },
     fav_task : { type: Boolean, default: true },
     fav_tag : { type: Boolean, default: true },
-    
     
     created: Date
 });
