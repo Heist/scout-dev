@@ -40,7 +40,6 @@
                 $http
                     .put(url, dataOut)
                     .success(function(data){
-                        console.log($rootScope.user);
                         if($rootScope.user.onboard === 8 ){
                             $location.path('/summary/'+$scope.test._id);
                         }
@@ -183,7 +182,6 @@
             } else {
                 postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
-                        console.log('data', data.data);
                         $scope.timeline.push(data.data);
                         $scope.message='';
                     });
@@ -197,8 +195,6 @@
             $http
                 .post('/api/run/', $scope.update)
                 .success(function(data){
-                    console.log('success');
-                    console.log(data);
                     $location.path('/overview');
                 });
 
