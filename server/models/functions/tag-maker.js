@@ -37,11 +37,24 @@ module.exports = function(tag){
 
 	return promise.then(function(tag){
 		data = tag;
-		return models.Test.findOneAndUpdate(
-					{'_id'  : tag._test }, 
-					{$push  : {'_tags': tag._id } },
-				 	{upsert : false},
-				 	function(err, obj){})
+
+		return models.Test.findOne({'_id'  : tag._test }).exec();
+	})
+	.then(function(test){
+		// check if that tag already exists on the test
+		// if so, just pass to next
+		// otherwise, add the tag to the test.
+		console.log(test._tags.length);
+
+		if (test._tags.indexOf(data._id) === -1){
+			console.log('not found')
+			test._tags.push(data._id);
+			return test.save();
+		} else {
+			console.log('found')
+			return;
+		}
+
 	})
 	.then(function(test){
 		return data;
