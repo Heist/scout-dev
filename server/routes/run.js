@@ -23,24 +23,23 @@ module.exports = function(app, passport, io, debug) {
             fn.objectUpdate(req.body, function(err, next){
                 if(err){ console.log(err); }
                 res.json(next);
-                console.log('completed', next);
-                console.log('test complete');
             });
         });
 
     app.route('/api/run/:_id')
         .get(function(req,res){
-
+            console.log('run test');
             // Find a test by _id and _account and populate its tasks, then return.
             models.Test.findOne({
                     '_id' : req.params._id, 
                     '_tasks': {$not: {$size: 0}}, 
                     'created_by_account' : req.user._account 
                 })
-                .populate('_tasks')
-                .exec(function(err, docs){
+                .populate('_tasks _tags')
+                .exec(function(err, test){
                     if(err){console.log(err);}
-                    res.json(docs);
+                    console.log(test);
+                    res.json(test);
                 });
 
         });

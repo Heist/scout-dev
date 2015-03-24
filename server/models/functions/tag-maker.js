@@ -14,6 +14,7 @@ module.exports = function(tag){
 	var Bluebird = require('bluebird');
     var models = Bluebird.promisifyAll(require('../../models'));
     
+    console.log('tagmaker');
 // Check tags against the DB of existing tagnames
 	var testStr = tag.name.toLowerCase();
 	var u = {
@@ -30,12 +31,33 @@ module.exports = function(tag){
 
 	var q = {'nameCheck': testStr, '_test' : tag._test };
 	var o = {upsert : true};
-
+	var data;
 // okay let's make this a findOneAndUpdate...
-	var tagMade = models.Tag.findOneAndUpdate(q, u, o, function(err, obj){});
+	var promise = models.Tag.findOneAndUpdate(q, u, o, function(err, obj){});
 
-	return tagMade.then(function(data){
-		// console.log(data);
+	return promise.then(function(tag){
+		data = tag;
+
+		return models.Test.findOne({'_id'  : tag._test }).exec();
+	})
+	.then(function(test){
+		// check if that tag already exists on the test
+		// if so, just pass to next
+		// otherwise, add the tag to the test.
+		console.log(test._tags.length);
+
+		if (test._tags.indexOf(data._id) === -1){
+			console.log('not found')
+			test._tags.push(data._id);
+			return test.save();
+		} else {
+			console.log('found')
+			return;
+		}
+
+	})
+	.then(function(test){
 		return data;
 	});
+
 };

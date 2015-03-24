@@ -15,6 +15,8 @@ var db = connect.db;
 var TestSchema = new Schema({
         _tasks: [{ type: Schema.Types.ObjectId, ref: 'Task'}],
         _subjects: [{ type: Schema.Types.ObjectId, ref: 'Subject' }],
+        _tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
+        
         doctype : { type: String, trim: true, default: 'test' },
 
         created_by_account : {type: Schema.Types.ObjectId, required: true},
