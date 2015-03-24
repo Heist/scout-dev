@@ -128,9 +128,9 @@
 			
 			
 			<li>
-				<a href="#" class="secondary button med" ng-click="changeOnboard(100)">Cancel</a>
-			
-<!-- 				<a class="button med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a> -->
+				<a href="#" class="secondary button cancel med" ng-click="changeOnboard(100)">Cancel</a>
+
+				<!-- <a class="button dry-run med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a> -->
 			
 				<button class="button med float-right" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Start</button>
 				
@@ -184,10 +184,19 @@
 	
 	<div id="button-endtest">
 		<div class="expand-button">
-			<div class="expand-button-body" ng-click="postTest()">&times;</div>
-			<div class="expand-button-helper">End this test</div>
+			<div class="expand-button-body" ng-click="postTest()">
+				<div class="checkmark"></div>
+			</div>
+			<div class="expand-button-helper">Done</div>
 		</div>
 	</div>
+
+<!-- 	<div id="button-canceltest">
+		<div class="expand-button">
+			<div class="expand-button-body" ng-click="postTest()">&times;</div>
+			<div class="expand-button-helper">Cancel</div>
+		</div>
+	</div> -->
 	
 	<div id="button-newtask">
 		<div class="expand-button">
@@ -204,12 +213,18 @@
 		<div id="tasklist">
 						
 			<ul>
-				<li class="title"><small>Project</small><h3>{{test.name}}</h3></li>
-			
-				<li ng-repeat="obj in navlist" 
-					ng-class="{ 'active': obj._id === selected._id }"
-         			ng-click="select($index)">
+				<li class="title"><div class="avatar"><span ng-model="initials">{{subject.initials}}</span></div><small>Testing with</small>
+					<h3>{{subject.name}}</h3>
+				</li>
+				
+				<li>
+					<h5>Objectives</h5>
+					<p>	{{test.desc}}</p>
+				</li>
 
+				<li><h5>Tasks</h5></li>
+				
+				<li ng-repeat="obj in navlist" ng-class="{ 'active': obj._id === selected._id }" ng-click="select($index)">
 					<h3>{{obj.name}}<br /></h3>
 
 					<p ng-bind-html="obj.desc | linebreaker"></p>
@@ -236,6 +251,11 @@
 					<textarea class="input" ng-model='message' name="field-input" placeholder="Type notes" ui-keypress="{13:'postMessage(message)'}" />
 					</textarea>
 				</div>
+				<div id="recent-hash-tags">
+					<p>#Themes</p>
+					<span ng-show="object.doctype === 'tag'">#</span>
+				</div>
+
 				
 				<!-- timeline -->
 				<div id="timeline" scroll-glue="glued">
@@ -243,9 +263,9 @@
 						
 						<!-- empty state -->
 						<li class="message" id="firstrun">
-							<div class="message-details">
+							<!-- <div class="message-details">
 								<div class="message-details-avatar avatar-header">&bull;</div>
-							</div>
+							</div> -->
 							<div class="message-body">
 								<strong>Your test is running!</strong> Remember, it&rsquo;s all about capturing notes &mdash;
 								you&rsquo;ll have an opportunity to <strong>edit and sort</strong> when creating your Report. 
@@ -257,10 +277,11 @@
 								
 						<li class="message" ng-repeat="message in timeline track by $index">
 							
-							<div class="message-details"><!-- show the user's avatar -->
-								<div class="message-details-avatar avatar-header" ng-if="message.title">&bull;</div>
+							<!-- <div class="message-details"> -->
+							<!-- show the user's avatar -->
+							<!-- 	<div class="message-details-avatar avatar-header" ng-if="message.title">&bull;</div>
 								<div class="message-details-avatar avatar-message" ng-if="!message.title">&bull;</div>
-							</div>
+							</div> -->
 		
 							<div class="message-body">
 								<small ng-if="message.title">{{message.title}}</small>

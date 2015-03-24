@@ -60,6 +60,7 @@
 						
 						<li>
 							<input class="input" type="email" name="username" value="" placeholder="Your e-mail address" ng-class="{'error': regForm.username.$error.email && !regForm.username.$pristine}" ng-model="user.email" required /> 
+
 							<span class="small" ng-show="regForm.username.$error.email && !regForm.username.$pristine" ng-class="{'error': regForm.username.$error.email && !regForm.username.$pristine}">&times; Please enter a valid email address.</span>
 						</li>
 

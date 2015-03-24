@@ -8,8 +8,7 @@
     function(loadData, testBuildFunctions, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
     // get the starting data from resolve
         var data = loadData.data;
-        console.log(data);
-        
+
     // set up and reset variables to clear cache from state changes.
         $scope.update = [];
         $scope.task = {};
@@ -171,6 +170,44 @@
                     $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);
+
+                    // Avatar initials
+                    // TODO: refactor into service or add to check in process
+                    // This might be a good refactored into a directive,
+                    // that gives you an avatar bubble
+
+                    var firstInitial = '';
+                    var firstLastInitials = '';
+
+                    // user's entered words changes to an array of strings separated by commas
+                    var participantName = data.name.split(' ');
+
+                    for(var i = 0; i < participantName.length; i++){
+                        console.log(participantName);
+
+
+                        if (i === 0){
+
+                            // set firstInitial to equal participant's name first letter
+                            firstInitial = participantName[i].substr(0,1);
+                            console.log(firstInitial);
+                        }  else {
+
+                            // create a new variable to set participant's first initial
+                            var secondInitial = participantName[i].substr(0,1);
+
+                            // concat's first initial with second initial
+                            firstLastInitials = firstInitial.concat(secondInitial);
+                            console.log(firstLastInitials);
+                        }
+                    }
+
+                    // if first initial's length is greater than 0, have directive set to firstLastInitials which concats two initials
+                    if (firstLastInitials.length > 0){
+                        $scope.subject.initials = firstLastInitials;
+                    } else  {
+                        $scope.subject.initials = firstInitial;
+                    }
 
                     socket.emit('channel', {room : subject.testroom, test: subject.test});
                     mixpanel.track('Add Participant Name', {});
