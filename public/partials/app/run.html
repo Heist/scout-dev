@@ -130,7 +130,7 @@
 			<li>
 				<a href="#" class="secondary button cancel med" ng-click="changeOnboard(100)">Cancel</a>
 			
-				<a class="button dry-run med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a>
+				<!-- <a class="button dry-run med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a> -->
 			
 				<button class="button med float-right" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Start</button>
 				
@@ -191,12 +191,12 @@
 		</div>
 	</div>
 
-	<div id="button-canceltest">
+<!-- 	<div id="button-canceltest">
 		<div class="expand-button">
 			<div class="expand-button-body" ng-click="postTest()">&times;</div>
 			<div class="expand-button-helper">Cancel</div>
 		</div>
-	</div>
+	</div> -->
 	
 	<div id="button-newtask">
 		<div class="expand-button">
@@ -213,7 +213,7 @@
 		<div id="tasklist">
 						
 			<ul>
-				<li class="title"><div class="avatar"><span ng-model="initials">{{initials}}</span></div><small>Testing with</small>
+				<li class="title"><div class="avatar"><span ng-model="initials">{{subject.initials}}</span></div><small>Testing with</small>
 					<h3>{{subject.name}}</h3>
 				</li>
 				
