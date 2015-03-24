@@ -18,15 +18,15 @@
 					<ul class="nobullets withlabels">
 						<li ng-show="flashmessage" class="messaging messaging-problem">{{flashmessage}}</li>
 						<li>
-							<input class="input" type="text" name="username" value="" placeholder="Your e-mail address" ng-model="user.email"/>
+							<input class="input" type="text" name="username" value="" placeholder="Your e-mail address" ng-model="user.email" required/>
 						</li>
 						
 						<li>
-							<input class="input" type="password" id="field-password" name="" value="" placeholder="Your password"  ng-model="user.password"/>
+							<input class="input" type="password" id="field-password" name="" value="" placeholder="Your password"  ng-model="user.password" required/>
 						</li>
 						
 						<li class="text-center">
-							<button class="button dark" type="submit" ng-click="login(user)">Login</button> 
+							<button id='loginSubmit' class="button dark" type="submit" ng-click="login(user)">Login</button> 
 							<!--<small><a ng-click="register(user)">Register?</a></small>-->
 						</li>
 						
