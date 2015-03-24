@@ -23,6 +23,7 @@ module.exports = function(app, passport, io, debug) {
             fn.objectUpdate(req.body, function(err, next){
                 if(err){ console.log(err); }
                 res.json('completed', next);
+                console.log('completed', next);
                 console.log('test complete');
             });
         });
