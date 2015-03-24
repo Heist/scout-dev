@@ -25,7 +25,7 @@ var TagSchema = new Schema({
 
     index: Number,
     report_index: Number,
-    visible: { type:Boolean, default: true },
+    visible: { type:Boolean, default: false },
     summarized : { type:Boolean, default:false }
 });
 

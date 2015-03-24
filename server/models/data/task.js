@@ -23,7 +23,7 @@ var TaskSchema = new Schema ({
     desc : { type : String, trim : true },
     summary: { type : String, trim : true },
     pass_fail: { type: Boolean, default: true },
-    visible: { type:Boolean, default: true },
+    visible: { type:Boolean, default: false },
     embed   : { type: String, default: '' },
 
     index: Number,
