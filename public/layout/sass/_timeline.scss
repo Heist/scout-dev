@@ -7,7 +7,7 @@
 	height: 100%;
 	overflow: auto;
 	margin: 0;
-	background: url('../assets/timeline-line.gif') repeat-y 24px top;
+	// background: url('../assets/timeline-line.gif') repeat-y 24px top;
 		
 	ul {
 		list-style: none;
@@ -50,7 +50,7 @@
 			
 			.message-body {
 				float: left;
-				width: 80%;
+				width: 100%;
 				color: $fg-black;
 								
 				p {
