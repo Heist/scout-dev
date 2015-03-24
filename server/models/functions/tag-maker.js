@@ -14,6 +14,7 @@ module.exports = function(tag){
 	var Bluebird = require('bluebird');
     var models = Bluebird.promisifyAll(require('../../models'));
     
+    console.log('tagmaker');
 // Check tags against the DB of existing tagnames
 	var testStr = tag.name.toLowerCase();
 	var u = {
@@ -30,12 +31,20 @@ module.exports = function(tag){
 
 	var q = {'nameCheck': testStr, '_test' : tag._test };
 	var o = {upsert : true};
-
+	var data;
 // okay let's make this a findOneAndUpdate...
-	var tagMade = models.Tag.findOneAndUpdate(q, u, o, function(err, obj){});
+	var promise = models.Tag.findOneAndUpdate(q, u, o, function(err, obj){});
 
-	return tagMade.then(function(data){
-		// console.log(data);
+	return promise.then(function(tag){
+		data = tag;
+		return models.Test.findOneAndUpdate(
+					{'_id'  : tag._test }, 
+					{$push  : {'_tags': tag._id } },
+				 	{upsert : false},
+				 	function(err, obj){})
+	})
+	.then(function(test){
 		return data;
 	});
+
 };

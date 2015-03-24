@@ -8,6 +8,7 @@
     function(loadData, testBuildFunctions, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
     // get the starting data from resolve
         var data = loadData.data;
+        console.log(data);
         
     // set up and reset variables to clear cache from state changes.
         $scope.update = [];
@@ -182,6 +183,7 @@
             } else {
                 postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
+                        console.log(data);
                         $scope.timeline.push(data.data);
                         $scope.message='';
                     });

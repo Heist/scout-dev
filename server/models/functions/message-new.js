@@ -35,6 +35,7 @@ module.exports = function(request, user){
                     })
             ]).then(function(arr){
                 // create the dual-pointer on the message for tag population
+                console.log('check the array', arr.length);
                 return Bluebird.map(arr[2], function(tag){
                     return models.Message.findOneAndUpdate({'_id': note._id }, {$push : {'_tags': tag } }, function(err, obj){});
                 })
