@@ -1199,7 +1199,6 @@ hr {
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 300;
-    overflow-y: auto;
     height: 93%; }
     #timeline-user #timeline-user-only .timeline-user-avatar {
       display: block;
