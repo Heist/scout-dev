@@ -56,6 +56,13 @@
 				p {
 					margin-bottom: 0;
 				}
+
+				pre.messages {
+					font-size: 15px;
+					@include type-regular;
+					color: $fg-grey;
+					margin: 0;
+				}
 				
 				small {
 					font-size: $type-size-base*0.6;

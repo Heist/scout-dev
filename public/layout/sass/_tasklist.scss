@@ -54,6 +54,13 @@
 				font-size: $type-size-base*0.8;
 				line-height: $type-line-base*0.8;
 			}
+
+			pre.objectives {
+				font-size: 12px;
+				@include type-regular;
+				line-height: 19.2px;
+				margin: 20px 0 0 0;
+			}
 			
 			small {
 				text-transform: uppercase;
