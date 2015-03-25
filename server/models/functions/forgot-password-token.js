@@ -64,7 +64,7 @@ module.exports = function(emailAddress, app, next){
         } 
     ], function(err, results) {
         if (err){ return next(err); }
-        console.log('waterfall results email', results);
+        console.log('waterfall results email forgot-token', results);
         next(null, results);
     });  
 };

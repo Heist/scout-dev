@@ -114,6 +114,18 @@ describe("Check Passport", function(){
 			});
 		});
 
+		it.skip('should give an existing user a password token', function(done){
+
+		})
+
+		it.skip('should ask a new user to register their e-mail on password forget', function(done){
+
+		})
+
+		it.skip('should reset an existing user password on reset', function(done){
+			
+		})
+
 		it.skip('should register a new user on the db', function(done){
 			api.post(url).send({
 				email: 'becky@made.com', 
