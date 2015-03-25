@@ -1198,8 +1198,7 @@ hr {
     padding: 15px 0;
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
-    font-weight: 300;
-    height: 93%; }
+    font-weight: 300; }
     #timeline-user #timeline-user-only .timeline-user-avatar {
       display: block;
       padding: 0;
@@ -2178,7 +2177,8 @@ hr {
     height: 100%;
     float: right;
     padding: 0;
-    margin: 0; }
+    margin: 0;
+    overflow-y: auto; }
   #view-testing #button-endtest {
     position: absolute;
     right: 15px;
