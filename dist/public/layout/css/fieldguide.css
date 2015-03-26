@@ -91,7 +91,7 @@ html, body {
 body {
   font-size: 15px;
   line-height: 24px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -113,7 +113,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 30px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
   letter-spacing: -1px;
@@ -121,7 +121,7 @@ h1 {
 
 h2 {
   font-size: 30px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
   letter-spacing: -1px;
@@ -129,12 +129,12 @@ h2 {
 
 h3 {
   font-size: 18.75px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   margin: 0 0 10px 0; }
   h3.h3-light {
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 400;
     opacity: 0.6;
@@ -142,10 +142,15 @@ h3 {
 
 h4 {
   font-size: 15px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   margin: 0 0 5px 0; }
+
+h5 {
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 600; }
 
 /* copy */
 p {
@@ -153,9 +158,9 @@ p {
   margin: 0 0 20px 0; }
 
 strong {
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600; }
+  font-weight: 400; }
 
 .dark {
   color: #42474c; }
@@ -166,9 +171,9 @@ strong {
 
 a {
   color: #85ac0f;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   text-decoration: none;
   cursor: pointer; }
   a:hover {
@@ -264,7 +269,7 @@ form {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 13.5px;
@@ -278,7 +283,7 @@ form {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 13.05px;
@@ -390,7 +395,7 @@ textarea.input {
     background-image: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
@@ -628,9 +633,9 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
   #help-bubble .help-bubble-open {
     background: #dddddd;
     color: #42474c;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     display: block;
     width: 50px;
     height: 50px;
@@ -676,9 +681,9 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
   border-radius: 4px;
   margin: 5px 0 0 0;
   font-size: 9px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0;
   color: #fff;
@@ -829,9 +834,9 @@ hr {
   font-size: 12px;
   line-height: 1.2; }
   #nav-acct-status span {
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     color: #872717; }
 
 #nav-mgmt {
@@ -1151,9 +1156,9 @@ hr {
           padding: 0 0 2px 0;
           font-size: 22.5px;
           line-height: 10px;
-          font-family: "proxima-nova",sans-serif;
+          font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
-          font-weight: 600;
+          font-weight: 400;
           background: #fff; }
           #timeline ul .message .message-details .message-details-avatar.avatar-header {
             color: #bfed34; }
@@ -1196,7 +1201,7 @@ hr {
     width: 100%;
     text-align: center;
     padding: 15px 0;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300; }
     #timeline-user #timeline-user-only .timeline-user-avatar {
@@ -1214,7 +1219,7 @@ hr {
         height: auto;
         opacity: 0.4; }
     #timeline-user #timeline-user-only small {
-      font-family: "proxima-nova",sans-serif;
+      font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400; }
   #timeline-user .timeline-user-avatar {
@@ -1258,7 +1263,7 @@ hr {
         text-transform: uppercase;
         text-align: center;
         display: block;
-        margin: 15px auto;
+        margin: 13px auto;
         font-size: 25px;
         font-weight: 600; }
     #tasklist ul li {
@@ -1273,7 +1278,7 @@ hr {
       #tasklist ul li h3 {
         margin: 0 0 2px 0;
         padding: 0;
-        font-family: "proxima-nova",sans-serif;
+        font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 400; }
       #tasklist ul li p {
@@ -1294,9 +1299,9 @@ hr {
         color: #fff;
         background: #86aa25; }
         #tasklist ul li.active h3 {
-          font-family: "proxima-nova",sans-serif;
+          font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
-          font-weight: 600; }
+          font-weight: 400; }
         #tasklist ul li.active:hover {
           cursor: auto;
           box-shadow: none; }
@@ -1308,7 +1313,7 @@ hr {
 #sidebar .test-id {
   padding: 20px 10px 20px 10px; }
   #sidebar .test-id h3 {
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
     margin: 0;
@@ -1353,9 +1358,9 @@ hr {
     #sidebar ul li.active {
       position: relative;
       color: #42474c;
-      font-family: "proxima-nova",sans-serif;
+      font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 600; }
+      font-weight: 400; }
       #sidebar ul li.active:hover {
         cursor: auto; }
     #sidebar ul li .sidebar-visibility {
@@ -1430,12 +1435,12 @@ hr {
       margin: 0;
       padding: 0 0 10px 0; }
       .modal .modal-interior .modal-interior-title h2 {
-        font-family: "proxima-nova",sans-serif;
+        font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 400;
         color: #42474c; }
       .modal .modal-interior .modal-interior-title h3 {
-        font-family: "proxima-nova",sans-serif;
+        font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300; }
         .modal .modal-interior .modal-interior-title h3.float-right {
@@ -1463,11 +1468,11 @@ hr {
   color: #323539; }
   .plan-price-point big {
     font-size: 45px;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300; }
   .plan-price-point span {
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 100;
     opacity: 0.8; }
@@ -1484,9 +1489,9 @@ hr {
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing: 4px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600; }
+  font-weight: 400; }
 
 .upgrade-notice {
   padding: 20px 20px 15px 20px;
@@ -1577,16 +1582,16 @@ hr {
       color: #7c7d80;
       text-decoration: none;
       opacity: 0.6;
-      font-family: "proxima-nova",sans-serif;
+      font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
       line-height: 14.4px; }
       .stepped-nav li a:hover {
         opacity: 1.0; }
     .stepped-nav li.step-active a {
-      font-family: "proxima-nova",sans-serif;
+      font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 600; }
+      font-weight: 400; }
     .stepped-nav li .step-state {
       display: block;
       height: 20px;
@@ -1832,7 +1837,7 @@ hr {
       .overview-test.overview-test-empty .overview-test-container .test-info .overview-test-add {
         color: #7c7d80;
         border: 1px solid #7c7d80;
-        font-family: "proxima-nova",sans-serif;
+        font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300;
         font-size: 30px;
@@ -1993,9 +1998,9 @@ hr {
       #view-editing .test-details .test-details-devicetype.unavailable {
         cursor: not-allowed; }
       #view-editing .test-details .test-details-devicetype.selected {
-        font-family: "proxima-nova",sans-serif;
+        font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 600;
+        font-weight: 400;
         color: #85ac0f;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
@@ -2284,9 +2289,9 @@ hr {
   #view-account .plan-picker h3 {
     padding: 13.33333px 0 0 0; }
   #view-account .plan-picker .button {
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 600; }
+    font-weight: 400; }
   #view-account .pm-app {
     border: 1px solid #dddddd;
     -moz-border-radius: 3px;
@@ -2407,7 +2412,7 @@ hr {
         width: 24px;
         padding: 0px;
         font-size: 15px;
-        line-height: 25.5px;
+        line-height: 21.5px;
         border: 1px solid #dddddd; }
     .message-group .add-note-button:hover .add-note-button-helper {
       display: block; }
@@ -2452,9 +2457,9 @@ hr {
   padding: 20px 40px 0 20px;
   color: #42474c;
   font-size: 12px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600; }
+  font-weight: 400; }
   .message-user img {
     width: 13px;
     height: auto;
@@ -2524,9 +2529,9 @@ hr {
     padding: 6.66667px 10px 6.66667px 20px;
     font-size: 11px;
     line-height: 0.9;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     color: #bebebe;
     background: url('../assets/comment-inactive.svg') no-repeat right top;
     background-size: contain;
@@ -2535,9 +2540,9 @@ hr {
       background: url('../assets/comment-empty.svg') no-repeat right top;
       background-size: contain;
       color: #bebebe;
-      font-family: "proxima-nova",sans-serif;
+      font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 700; }
+      font-weight: 600; }
   .message .message-fave {
     float: right; }
     .message .message-fave img {
@@ -2556,7 +2561,7 @@ hr {
     .message .message-comments small {
       opacity: 0.6;
       font-size: 10.5px;
-      font-family: "proxima-nova",sans-serif;
+      font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 300; }
     .message .message-comments .message-comment-submit {
@@ -2573,9 +2578,9 @@ hr {
         padding: 0;
         margin: 0;
         line-height: 12px;
-        font-family: "proxima-nova",sans-serif;
+        font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 600; }
+        font-weight: 400; }
         .message .message-comments .message-comment-submit small a {
           text-decoration: underline; }
   .message .message-details {
@@ -2690,9 +2695,9 @@ hr {
         padding-top: 15px;
         padding-bottom: 15px; }
       #view-findings #findings-nav #sidebar .test-id h3 {
-        font-family: "proxima-nova",sans-serif;
+        font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 600; }
+        font-weight: 400; }
   #view-findings .sheet-holder {
     position: absolute;
     top: 0;
@@ -2718,9 +2723,9 @@ hr {
     padding: 0 40px 10px 40px;
     margin: -30px 0 40px 0;
     font-size: 12px;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     opacity: 0.6; }
   #view-findings .findings-description {
     padding: 0 40px 10px 40px; }
@@ -2806,9 +2811,9 @@ hr {
       background: #fff;
       color: #42474c;
       padding: 8px 20px;
-      font-family: "proxima-nova",sans-serif;
+      font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 600;
+      font-weight: 400;
       -moz-border-radius: 40px;
       -webkit-border-radius: 40px;
       border-radius: 40px;

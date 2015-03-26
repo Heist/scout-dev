@@ -4,62 +4,62 @@ custom fonts
 */
 
 @mixin type-extralight {
-	@include pna-extralight;
+	@include gibson-extralight;
 }
 
 @mixin type-light {
-	@include pna-light;
+	@include gibson-light;
 }
 
 @mixin type-regular {
-	@include pna-regular;
+	@include gibson-regular;
 }
 
 @mixin type-bold {
-	@include pna-bold;
+	@include gibson-bold;
 }
 
 @mixin type-extrabold {
-	@include pna-extrabold;
+	@include gibson-extrabold;
 }
 
 
 
 /* p n a */
 
-@mixin pna-extralight {
-	font-family: "proxima-nova",sans-serif;
+@mixin gibson-extralight {
+	font-family: "canada-type-gibson",sans-serif;
 	font-style: normal;
 	font-weight: 100;
 	
 }
 
 
-@mixin pna-light {
-	font-family: "proxima-nova",sans-serif;
+@mixin gibson-light {
+	font-family: "canada-type-gibson",sans-serif;
 	font-style: normal;
 	font-weight: 300;
 	
 }
 
-@mixin pna-regular {
-	font-family: "proxima-nova",sans-serif;
+@mixin gibson-regular {
+	font-family: "canada-type-gibson",sans-serif;
 	font-style: normal;
 	font-weight: 400;
 	
 }
 
-@mixin pna-bold {
-	font-family: "proxima-nova",sans-serif;
+@mixin gibson-bold {
+	font-family: "canada-type-gibson",sans-serif;
 	font-style: normal;
-	font-weight: 600;
+	font-weight: 400;
 	
 }
 
-@mixin pna-extrabold {
-	font-family: "proxima-nova",sans-serif;
+@mixin gibson-extrabold {
+	font-family: "canada-type-gibson",sans-serif;
 	font-style: normal;
-	font-weight: 700;
+	font-weight: 600;
 	
 }
 
