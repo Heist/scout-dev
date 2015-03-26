@@ -58,7 +58,7 @@
 			        <span ng-show="object.doctype === 'test'"><strong>Summary</strong></span>
 			        <span ng-hide="object.doctype === 'test'">{{object.name}}</span>                    
 			        
-			        <div class="sidebar-visibility">
+			        <div class="sidebar-visibility" data-tooltip="Include in report">
 			            <a ng-click="toggleVis(object)" ng-show="object.visible">
 			                <img src="/layout/assets/show.svg" />
 			            </a>
