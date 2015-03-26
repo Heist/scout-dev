@@ -102,6 +102,22 @@ body {
   -moz-font-feature-settings: "kern";
   -moz-font-feature-settings: "kern=1"; }
 
+pre {
+  white-space: pre-wrap;
+  /* CSS3 browsers  */
+  white-space: -moz-pre-wrap !important;
+  /* 1999+ Mozilla  */
+  white-space: -pre-wrap;
+  /* Opera 4 thru 6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 and up */
+  word-wrap: break-word;
+  /* IE 5.5+ and up */
+  /* overflow-x: auto; */
+  /* Firefox 2 only */
+  /* width: 99%; */
+  /* only if needed */ }
+
 /* headers */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
@@ -148,7 +164,7 @@ h4 {
   margin: 0 0 5px 0; }
 
 /* copy */
-p {
+p, pre {
   padding: 0;
   margin: 0 0 20px 0; }
 
@@ -1227,6 +1243,13 @@ hr {
         color: #323539; }
         #timeline ul .message .message-body p {
           margin-bottom: 0; }
+        #timeline ul .message .message-body pre.messages {
+          font-size: 15px;
+          font-family: "proxima-nova",sans-serif;
+          font-style: normal;
+          font-weight: 400;
+          color: #939598;
+          margin: 0; }
         #timeline ul .message .message-body small {
           font-size: 9px;
           line-height: 14.4px;
@@ -1343,6 +1366,13 @@ hr {
         padding: 0;
         font-size: 12px;
         line-height: 19.2px; }
+      #tasklist ul li pre.objectives {
+        font-size: 12px;
+        font-family: "proxima-nova",sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 19.2px;
+        margin: 20px 0 0 0; }
       #tasklist ul li small {
         text-transform: uppercase;
         margin: 0;
@@ -2660,6 +2690,13 @@ hr {
     .message .message-body p {
       margin-bottom: 0 !important;
       color: #939598; }
+    .message .message-body pre.messages {
+      font-size: 15px;
+      font-family: "proxima-nova",sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      color: #939598;
+      margin: 0; }
     .message .message-body small {
       display: block;
       margin: 0;
