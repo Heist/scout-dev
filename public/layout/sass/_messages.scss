@@ -33,7 +33,7 @@
 				width: $pad*1.2;
 				padding: 0px;
 				font-size: $type-size-base;
-				line-height: 21.5px;
+				line-height: $type-size-base*1.5;
 				border: 1px solid $line;
 			}
 		}
