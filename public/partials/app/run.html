@@ -219,7 +219,7 @@
 				
 				<li>
 					<h5>Objectives</h5>
-					<p>	{{test.desc}}</p>
+					<pre class="objectives">{{test.desc}}</pre>
 				</li>
 
 				<li><h5>Tasks</h5></li>
@@ -285,7 +285,7 @@
 		
 							<div class="message-body">
 								<small ng-if="message.title">{{message.title}}</small>
-								<p ng-bind-html="message.body | hashtag"></p>
+								<pre class="messages" ng-bind-html="message.body | hashtag"></pre>
 								<small>{{message.created | date : 'hh:mm a'}}</small>
 								<small ng-repeat="tag in message._tags" style='display:inline; float:left;'>{{tag.name}}&nbsp;</small>
 							</div>

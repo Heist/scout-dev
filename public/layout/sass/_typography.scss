@@ -22,6 +22,15 @@ body {
 	-moz-font-feature-settings: "kern=1";
 }
 
+pre {
+	white-space: pre-wrap;                 /* CSS3 browsers  */
+	white-space: -moz-pre-wrap !important; /* 1999+ Mozilla  */
+	white-space: -pre-wrap;                /* Opera 4 thru 6 */
+	white-space: -o-pre-wrap;              /* Opera 7 and up */
+	word-wrap: break-word;                 /* IE 5.5+ and up */
+	/* overflow-x: auto; */                /* Firefox 2 only */
+	/* width: 99%; */		       /* only if needed */
+}
 
 /* headers */
 
@@ -70,11 +79,14 @@ h4 {
 	margin: 0 0 $pad/4 0;
 }
 
+h5 {
+	@include type-extrabold;
+}
 
 /* copy */
 
 
-p {
+p, pre {
 	padding: 0;
 	margin: 0 0 $pad 0;
 }

@@ -58,7 +58,7 @@
 			        <span ng-show="object.doctype === 'test'"><strong>Summary</strong></span>
 			        <span ng-hide="object.doctype === 'test'">{{object.name}}</span>                    
 			        
-			        <div class="sidebar-visibility">
+			        <div class="sidebar-visibility" data-tooltip="Include in report">
 			            <a ng-click="toggleVis(object)" ng-show="object.visible">
 			                <img src="/layout/assets/show.svg" />
 			            </a>
@@ -164,7 +164,7 @@
 					
 			
 					<div class="message-body" ng-click="editMessage(message, $index)">
-						<p ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></p>
+						<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
 						<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
 						<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 					</div>
