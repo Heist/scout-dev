@@ -276,6 +276,13 @@
 			margin-bottom: 0 !important;
 			color: $fg-grey;
 		}
+
+		pre.messages {
+			font-size: 15px;
+			@include type-regular;
+			color: $fg-grey;
+			margin: 0;
+		}
 		
 		
 		small {

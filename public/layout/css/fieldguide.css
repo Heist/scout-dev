@@ -2628,6 +2628,13 @@ hr {
     .message .message-body p {
       margin-bottom: 0 !important;
       color: #939598; }
+    .message .message-body pre.messages {
+      font-size: 15px;
+      font-family: "proxima-nova",sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      color: #939598;
+      margin: 0; }
     .message .message-body small {
       display: block;
       margin: 0;
