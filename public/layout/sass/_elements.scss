@@ -63,14 +63,15 @@
 [data-tooltip]:after {
   z-index: 1000;
   padding: 8px;
-  width: 150px;
+  width: 65px;
   background-color: $fg-blue-dark;
   background-color: hsla(195, 50%, 33%, 0.9);
   border-radius: 3px;
   color: #fff;
   content: attr(data-tooltip);
-  font-size: 14px;
-  line-height: 1.2;
+  font-size: 12px;
+  line-height: 1;
+  text-align: center;
 }
 
 [data-tooltip]:before,
@@ -97,7 +98,7 @@
 [data-tooltip]:after,
 .tooltip:after,
 .tooltip-top:after {
-  margin-left: -73px;
+  margin-left: -33px;
 }
 
 [data-tooltip]:hover:before,
