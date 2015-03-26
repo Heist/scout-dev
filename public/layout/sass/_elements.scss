@@ -65,7 +65,7 @@
   padding: 8px;
   width: 65px;
   background-color: $fg-blue-dark;
-  background-color: hsla(195, 50%, 33%, 0.9);
+  background-color: hsla(195, 50%, 33%, 0.85);
   border-radius: 3px;
   color: #fff;
   content: attr(data-tooltip);
@@ -91,7 +91,7 @@
   margin-left: -6px;
   margin-bottom: -12px;
   border-top-color: $fg-blue-dark;
-  border-top-color: hsla(195, 50%, 33%, 0.9);
+  border-top-color: hsla(195, 50%, 33%, 0.85);
 }
 
 // horizontally align top/bottom tooltips

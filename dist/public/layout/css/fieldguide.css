@@ -655,7 +655,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
   padding: 8px;
   width: 65px;
   background-color: #2a687d;
-  background-color: rgba(42, 105, 126, 0.9);
+  background-color: rgba(42, 105, 126, 0.85);
   border-radius: 3px;
   color: #fff;
   content: attr(data-tooltip);
@@ -671,7 +671,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
   margin-left: -6px;
   margin-bottom: -12px;
   border-top-color: #2a687d;
-  border-top-color: rgba(42, 105, 126, 0.9); }
+  border-top-color: rgba(42, 105, 126, 0.85); }
 
 [data-tooltip]:after, .tooltip:after, .tooltip-top:after {
   margin-left: -33px; }
