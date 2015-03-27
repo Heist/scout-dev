@@ -1962,6 +1962,8 @@ hr {
   /* step 2 */
   /* step 3 */
   /* step 5 */ }
+  #view-editing ul {
+    clear: both; }
   #view-editing .cta {
     float: right; }
     #view-editing .cta .button.cancel, #view-editing .cta .modal .modal-interior .button.dry-run, .modal .modal-interior #view-editing .cta .button.dry-run {
@@ -2049,10 +2051,12 @@ hr {
       #view-editing .test-setup .select-inactive:after {
         content: ''; }
   #view-editing .test-type {
-    padding: 5px 5px 30px 5px;
+    padding: 5px 5px 10px 5px;
     text-align: center;
     position: relative;
-    border: 1px solid #fff; }
+    cursor: pointer; }
+    #view-editing .test-type.active {
+      border-bottom: 3px solid #85ac0f; }
     #view-editing .test-type .selected-arrow {
       display: none; }
     #view-editing .test-type p {

@@ -4,9 +4,13 @@
     margin: 0;
     padding: 0;
 
+    ul {
+    	clear: both;
+    }
+
     .cta {
     	float: right;
-    	
+
     	.button.cancel {
         padding: 10px;
     	}
@@ -95,10 +99,14 @@
         }
     }
     .test-type {
-        padding: 5px 5px 30px 5px;
+        padding: 5px 5px 10px 5px;
         text-align: center;
         position: relative;
-        border: 1px solid $white;
+        cursor: pointer;
+
+        &.active {
+        	border-bottom: 3px solid $fg-green;
+        }
 
         .selected-arrow {
             display: none;
