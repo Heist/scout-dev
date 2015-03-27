@@ -10,7 +10,7 @@
     z-index: 99999999;
     .modal-interior {
         background: $white;
-        padding: ($pad * 1.5) ($pad * 2) 0 ($pad * 2);
+        padding: ($pad * 1.5) ($pad * 2) ($pad * 1.5) ($pad * 2);
         margin: 10% 0 0 0;
         @include radius;
         @include dropshadowULTRA;
@@ -20,7 +20,7 @@
             margin: 0;
         }
         li {
-            padding: ($pad / 2) 0;
+            padding: ($pad / 2) 0 0 0;
             &:last-child {
                 border: none;
             }

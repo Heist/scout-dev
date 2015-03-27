@@ -1487,7 +1487,7 @@ hr {
   z-index: 99999999; }
   .modal .modal-interior {
     background: #fff;
-    padding: 30px 40px 0 40px;
+    padding: 30px 40px 30px 40px;
     margin: 10% 0 0 0;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -1517,7 +1517,7 @@ hr {
       width: 100%;
       margin: 0; }
     .modal .modal-interior li {
-      padding: 10px 0; }
+      padding: 10px 0 0 0; }
       .modal .modal-interior li:last-child {
         border: none; }
     .modal .modal-interior .button.cancel, .modal .modal-interior .button.dry-run {
@@ -1962,6 +1962,10 @@ hr {
   /* step 2 */
   /* step 3 */
   /* step 5 */ }
+  #view-editing .cta {
+    float: right; }
+    #view-editing .cta .button.cancel, #view-editing .cta .modal .modal-interior .button.dry-run, .modal .modal-interior #view-editing .cta .button.dry-run {
+      padding: 10px; }
   #view-editing textarea.input {
     line-height: 18.75px;
     height: 130px;

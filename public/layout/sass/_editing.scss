@@ -4,6 +4,14 @@
     margin: 0;
     padding: 0;
 
+    .cta {
+    	float: right;
+    	
+    	.button.cancel {
+        padding: 10px;
+    	}
+    }
+	
     textarea.input {
     	line-height: $type-size-base*1.25;
     	height: 130px;
@@ -91,6 +99,7 @@
         text-align: center;
         position: relative;
         border: 1px solid $white;
+
         .selected-arrow {
             display: none;
         }

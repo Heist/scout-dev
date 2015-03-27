@@ -93,7 +93,7 @@
 			
 		</div>
 		<!-- create new project modal -->
-		<div class="modal" ng-model="live" ng-show="live">
+		<div class="modal" ng-model="live" ng-hide="live">
 			<div class="module one-third">&nbsp;</div>
 			
 			<div id="view-editing">
@@ -137,13 +137,11 @@
 								</textarea>
 							</li>
 						</form>
-						<li>
+						<div class="cta">
 							<a href="#" class="secondary button cancel med" ng-click="changeOnboard(100)">Cancel</a>
 							<!-- <a class="button dry-run med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a> -->
-							
-							<button class="button med float-right" type="submit">Start</button>
-							
-						</li>
+							<button class="button med" type="submit">Create</button>
+						</div>
 					</ul>
 				</div>
 				</div> <!-- / view-editing -->
