@@ -1,357 +1,274 @@
 /* editing a test */
 
-
-
 #view-editing {
-	margin: 0;
-	padding: 0;
-	
-	.container {
-		padding: $pad 0 0 0;
-	}
-	
-	.sheet-holder {
-		padding: 0 0 $pad*2 0;
-	}
-	
-	#header-min {
-		padding-left: 0;
-		padding-right: 0;
-		
-		h3 {
-			width: 33.3%;
-		}
-	}	
-	
-	.stepped-nav {
-		float: left;
-		width: 33.3% !important;
-	}
-	
-	
-	.tutorial {
-		padding: 0 $pad 0 0;
+    margin: 0;
+    padding: 0;
 
-		p {
-			margin: 0;
-			padding: $pad 0 0 0;
-			font-size: $type-size-base*0.8;
-			line-height: $type-line-base*0.8;
-		}
-	}
-	
-	
-	.next-button {
-		padding-left: $pad;
+    textarea.input {
+    	line-height: $type-size-base*1.25;
+    	height: 130px;
+    	resize: none;
+    }
 
-		.button {
-			padding-left: $pad*1.5;
-			padding-right: $pad*1.5;
-		}
-	}
-	
-	
-	
+    .container {
+        padding: $pad 0 0 0;
+    }
+    .sheet-holder {
+        padding: 0 0 ($pad * 2) 0;
+    }
+    #header-min {
+        padding-left: 0;
+        padding-right: 0;
+        h3 {
+            width: 33.3%;
+        }
+    }
+    .stepped-nav {
+        float: left;
+        width: 33.3% !important;
+    }
+    .tutorial {
+        padding: 0 $pad 0 0;
+        p {
+            margin: 0;
+            padding: $pad 0 0 0;
+            font-size: $type-size-base * 0.8;
+            line-height: $type-line-base * 0.8;
+        }
+    }
+    .next-button {
+        padding-left: $pad;
+        .button {
+            padding-left: $pad * 1.5;
+            padding-right: $pad * 1.5;
+        }
+    }
+    /* step 1 */
+    .test-setup {
+        padding: $pad 0 0 0;
+        .sheet {
+            padding: $pad;
+        }
+        h4:first-child {
+            padding: 20px 0 191px 0;
+            margin: 0;
+        }
+        h4.no-pad {
+            padding: 0;
+        }
+        .nobullets {
+            width: 100%;
+            .input {
+                width: 100%;
+            }
+        }
+        hr {
+            width: 100%;
+            padding: 0;
+            margin: 10px auto;
+        }
+        @include input-placeholders;
+        .select-active {
+            @include button-colour($fg-green, $white);
+            border: 1px solid $fg-green-light;
+            cursor: pointer;
+            &:after {
+                content: 'ed';
+            }
+        }
+        .select-inactive {
+            background: $white;
+            color: $fg-grey;
+            border: 1px solid $fg-grey-light;
+            cursor: pointer;
+            &:after {
+                content: '';
+            }
+        }
+    }
+    .test-type {
+        padding: 5px 5px 30px 5px;
+        text-align: center;
+        position: relative;
+        border: 1px solid $white;
+        .selected-arrow {
+            display: none;
+        }
+        p {
+            font-size: 12px;
+            line-height: 17px;
+            margin: 0 0 10px 0;
+            // height: 50px;
+        }
 
-	/* step 1 */
-	
-	.test-setup {
-		padding: $pad 0 0 0;
-		
-		.sheet {
-			padding: $pad;
-		}
+        a {
+        	color: $fg-blue;
+        	font-size: 11px;
+        	text-decoration: underline;
+        }
 
-		h4:first-child {
-			padding: 20px 0 191px 0;
-			margin: 0;
-		}
-		
-		h4.no-pad {
-			padding: 0;
-		}
-
-		.nobullets {
-			width: 100%;
-			
-			.input {
-				width: 100%;
-			}
-		}		
-
-		hr {
-			width: 100%;
-			padding: 0;
-			margin: 10px auto;
-		}
-
-		@include input-placeholders;
-
-		.select-active {
-			@include button-colour($fg-green, $white);
-			border: 1px solid $fg-green-light;
-			cursor: pointer;
-
-			&:after {
-				content: 'ed';
-			}
-		}
-
-		.select-inactive {
-			background: $white;
-			color: $fg-grey;
-			border: 1px solid $fg-grey-light;
-			cursor: pointer;
-
-			&:after {
-				content: '';
-			}
-		}
-	}
-
-	.test-type {
-		padding: $pad;
-		text-align: center;
-		position: relative;
-		border: 1px solid $white;
-		
-		.selected-arrow {
-			display: none;
-		}
-
-		p {
-			font-size: 12px;
-			line-height: 17px;
-			height: 50px;
-		}
-
-		h3 {
-			font-size: 17.5px;
-		}
-
-		&.selected {
-			@include radius;
-			border: 1px solid $fg-green-light;
-			color: $fg-green;
-			
-			.selected-arrow {
-				position: absolute;
-				display: block;
-				width: 100%;
-				text-align: center;
-				height: 7px;
-				bottom: -7px;
-				left: 0;
-				
-				img {
-					width: 14px;
-					height: auto;
-				}
-			}
-		}
-		
-		strong {
-			border-bottom: 1px dashed $line;
-		}
-		
-		img {
-			width: 100px;
-			height: auto;
-			padding: 0 0 $pad/2 0;
-		}
-	}
-
-
-	/* step 2 */
-
-	.test-details {
-		float: none;
-		padding: 0 $pad*3 $pad*2 $pad*3;
-		margin: $pad 0;
-		
-		.input {
-			width: 100%;
-		}
-		
-		li {
-			padding: 0 0 $pad 0;
-		}
-		
-		.test-details-devicetype {
-			cursor: pointer;
-			float: left;
-			text-align: center;
-			padding: $pad/2 $pad/2 0 $pad/2;
-			font-size: $type-size-base*0.8;
-			
-			img {
-				height: 100px;
-				width: auto;
-				opacity: 0.4;
-			}
-			
-			&.phone, &.tablet {
-				width: 25%;
-			}
-			&.desktop {
-				width: 50%;
-			}
-			
-			&.unavailable {
-				cursor: not-allowed;
-			}
-			
-			&.selected {
-				@include type-bold;
-				color: $fg-green;
-				@include radius;
-				border: 1px solid $fg-green-light;
-				
-				img {
-					opacity: 1.0;
-				}	
-			}
-		}
-		
-
-	}
-	
-	
-	/* step 3 */
-	
-	.test-tasks {
-		padding: $pad 0 0 0;
-
-		h4 {
-			padding: 20px 0 10px 0;
-			margin: 0;
-		}
-
-		p {
-			padding: 0; 
-		}
-
-		.sheet {
-			padding: 0;
-		}
-
-
-		.add-task {
-			padding: $pad*1.5;
-			background-color: #fafafa;
-			border-top: 1px $line solid;
-			width: 100%;
-			position: relative;
-			display: block;
-
-			.input {
-				width: 100%;
-				margin: 0 0 2px 0;
-			}
-
-			@include input-placeholders;
-		}
-
-		
-		/* steps list */
-		#steps {
-			padding: $pad 0 $pad/2 0;
-			margin: 0;
-			width: 100%;
-			list-style: none;
-			
-			.steps-empty-message {
-				padding: 0 0 $pad/2 $pad*2;
-				opacity: 0.6;
-			}
-
-			
-			li {
-				position: relative;
-				padding: 0 $pad*1.5;
-				
-				.input {
-					border-color: $white;
-				}
-				
-				&:hover {
-					.step-ordering {
-						opacity: 1.0;
-					}
-					
-					.step-controls {
-						opacity: 1.0;
-					}
-					
-					.input {
-						border-color: $line;
-					}
-				}
-				
-				.step-ordering {
-					position: absolute;
-					top: $pad/4;
-					left: 10px;
-					width: 20px;
-					opacity: 0.2;
-					
-					div {
-						cursor: pointer;
-					}
-					
-				}
-				
-				
-				.step-contents {
-					float: left;
-					width: 100%;
-					
-					.input {
-						width: 100%;
-						margin: 0 0 2px 0;
-						color: $fg-grey;
-					}
-				}
-				
-				.step-controls {
-					position: absolute;
-					width: 20px;
-					text-align: right;
-					top: $pad/4;
-					right: 10px;
-					opacity: 0;
-				}
-				
-				
-			}
-
-		}
-		
-		
-	}
-	
-	
-	/* step 5 */
-	
-	.test-done {
-		float: none;
-		padding: $pad*2 $pad $pad $pad;
-		text-align: center;
-		border: 1px solid $line;
-		@include radius;
-		margin: 0;
-	}
-	
+        h3 {
+            font-size: 17.5px;
+        }
+        &.selected {
+            @include radius;
+            border: 1px solid $fg-green-light;
+            color: $fg-green;
+            .selected-arrow {
+                position: absolute;
+                display: block;
+                width: 100%;
+                text-align: center;
+                height: 7px;
+                bottom: -7px;
+                left: 0;
+                img {
+                    width: 14px;
+                    height: auto;
+                }
+            }
+        }
+        strong {
+            border-bottom: 1px dashed $line;
+        }
+        img {
+            width: 100px;
+            height: auto;
+            padding: 0 0 ($pad / 2) 0;
+        }
+    }
+    /* step 2 */
+    .test-details {
+        float: none;
+        padding: 0 ($pad * 3) ($pad * 2) ($pad * 3);
+        margin: $pad 0;
+        .input {
+            width: 100%;
+        }
+        li {
+            padding: 0 0 $pad 0;
+        }
+        .test-details-devicetype {
+            cursor: pointer;
+            float: left;
+            text-align: center;
+            padding: ($pad / 2) ($pad / 2) 0 ($pad / 2);
+            font-size: $type-size-base * 0.8;
+            img {
+                height: 100px;
+                width: auto;
+                opacity: 0.4;
+            }
+            &.phone, &.tablet {
+                width: 25%;
+            }
+            &.desktop {
+                width: 50%;
+            }
+            &.unavailable {
+                cursor: not-allowed;
+            }
+            &.selected {
+                @include type-bold;
+                color: $fg-green;
+                @include radius;
+                border: 1px solid $fg-green-light;
+                img {
+                    opacity: 1.0;
+                }
+            }
+        }
+    }
+    /* step 3 */
+    .test-tasks {
+        padding: $pad 0 0 0;
+        h4 {
+            padding: 20px 0 10px 0;
+            margin: 0;
+        }
+        p {
+            padding: 0;
+        }
+        .sheet {
+            padding: 0;
+        }
+        .add-task {
+            padding: $pad * 1.5;
+            background-color: #fafafa;
+            border-top: 1px $line solid;
+            width: 100%;
+            position: relative;
+            display: block;
+            .input {
+                width: 100%;
+                margin: 0 0 2px 0;
+            }
+            @include input-placeholders;
+        }
+        /* steps list */
+        #steps {
+            padding: $pad 0 ($pad / 2) 0;
+            margin: 0;
+            width: 100%;
+            list-style: none;
+            .steps-empty-message {
+                padding: 0 0 ($pad / 2) ($pad * 2);
+                opacity: 0.6;
+            }
+            li {
+                position: relative;
+                padding: 0 ($pad * 1.5);
+                .input {
+                    border-color: $white;
+                }
+                &:hover {
+                    .step-ordering {
+                        opacity: 1.0;
+                    }
+                    .step-controls {
+                        opacity: 1.0;
+                    }
+                    .input {
+                        border-color: $line;
+                    }
+                }
+                .step-ordering {
+                    position: absolute;
+                    top: $pad / 4;
+                    left: 10px;
+                    width: 20px;
+                    opacity: 0.2;
+                    div {
+                        cursor: pointer;
+                    }
+                }
+                .step-contents {
+                    float: left;
+                    width: 100%;
+                    .input {
+                        width: 100%;
+                        margin: 0 0 2px 0;
+                        color: $fg-grey;
+                    }
+                }
+                .step-controls {
+                    position: absolute;
+                    width: 20px;
+                    text-align: right;
+                    top: $pad / 4;
+                    right: 10px;
+                    opacity: 0;
+                }
+            }
+        }
+    }
+    /* step 5 */
+    .test-done {
+        float: none;
+        padding: ($pad * 2) $pad $pad $pad;
+        text-align: center;
+        border: 1px solid $line;
+        @include radius;
+        margin: 0;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
