@@ -96,7 +96,7 @@
 		<div class="modal" ng-model="live" ng-hide="live">
 			<div class="module one-third">&nbsp;</div>
 			
-			<div id="view-editing">
+			<div id="view-editing" ng-model="test">
 				<div class="module two-fifths modal-interior">
 					
 					<div class="modal-interior-title">
@@ -114,7 +114,7 @@
 						<h3>Prototype or Website</h3>
 						<p>You have a behavioural type of test that doesn’t have any visuals associated to it.</p>
 						<a href="#">Tell me more about Prototype testing</a>
-						<!-- 		<button class="button-inactive med" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>Select</button> -->
+						<!-- <button class="button-inactive med" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>Select</button> -->
 					</div>
 					
 					<ul class="nobullets">
@@ -126,7 +126,7 @@
 							<li ng-show="test.kind === 'prototype'">
 								<label for="field-prototypeurl">What is your prototype or website URL?</label>
 								<input class="input" id="field-prototypeurl" ng-model="test.link" value="" placeholder="http://invision.com/JHGYT" type="url" name="url"/ />
-								<!-- 										<span ng-show="!prototypeForm.$valid" style="color:red;">This appears to be an invalid URL.<br></span>
+								<!-- <span ng-show="!prototypeForm.$valid" style="color:red;">This appears to be an invalid URL.<br></span>
 								<small>Using InVision? Make sure you turn off <strong>Force "Add to Home Screen"</strong> in your share settings</small> -->
 							</li>
 							<li>
