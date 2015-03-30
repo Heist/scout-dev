@@ -105,16 +105,16 @@
 					
 					<div class="module half test-type" ng-class='{"select-active": test.kind || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>
 						<h3>Interview</h3>
-						<p>You have a behavioural type of test that doesn’t have any visuals associated to it.</p>
+						<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
 						<a href="#">Tell me more about Interview tests</a>
-					<!-- 		<button class="button-inactive med" ng-class='{"select-active": test.kind || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>Select</button> -->
+							<button class="button-inactive med" ng-class='{"select-active": test.kind || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>Select</button>
 					</div>
 					
 					<div class="module half test-type" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>
 						<h3>Prototype or Website</h3>
-						<p>You have a behavioural type of test that doesn’t have any visuals associated to it.</p>
+						<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
 						<a href="#">Tell me more about Prototype testing</a>
-					<!-- 	<button class="button-inactive med" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>Select</button> -->
+							<button class="button-inactive med" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>Select</button>
 					</div>
 					
 					<ul class="nobullets">
@@ -141,7 +141,7 @@
 						<div class="cta">
 							<a href="#" class="secondary button cancel med" ng-click="changeOnboard(100)">Cancel</a>
 							<!-- <a class="button dry-run med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a> -->
-							<button class="button med" type="submit">Create</button>
+							<button class="button med" ng-click="saveAndMove(3)">Create</button>
 						</div>
 					</ul>
 				</div>
