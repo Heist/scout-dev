@@ -22,6 +22,9 @@ var fn = require('../server/models/functions');
 
 var app = require('../server.js');
 var api = request(app);
+var environment = require('../config/environment-test');
+
+// field_guide_users_test
 
 // =============================================================
 // ROOT FUNCTIONS
@@ -32,6 +35,10 @@ var account = mongoose.Types.ObjectId();
 before(function(done){
 	var agent = request.agent(app);
 	
+	// if(environment() !== 'test'){
+	// 	throw new Error("Production environment, do not wipe DB.");
+	// }
+        
 	// make a demo user to use in this block of login checks
 	models.User.create({
 		name : 'login',
@@ -60,6 +67,10 @@ before(function(done){
 
 after(function(done){
 	// clean the DB =====
+	// if(environment() !== 'test'){
+	// 	throw new Error("Production environment, do not wipe DB.");
+	// }
+
 	models.User.remove({}, function(err, doc){});
 	models.Invite.remove({}, function(err, doc){});
 	
@@ -123,7 +134,7 @@ describe("Check Passport", function(){
 		})
 
 		it.skip('should reset an existing user password on reset', function(done){
-			
+
 		})
 
 		it.skip('should register a new user on the db', function(done){
