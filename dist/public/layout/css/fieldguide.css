@@ -1265,7 +1265,14 @@ hr {
           letter-spacing: 1px; }
           #timeline ul .message .message-body small.hashtag {
             display: inline;
-            float: left; }
+            float: left;
+            color: #0abcd7;
+            text-transform: lowercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            padding: 5px 3px 0 0; }
+            #timeline ul .message .message-body small.hashtag.hashtag:before {
+              content: "#"; }
   #timeline #firstrun .message-body, #timeline #firstrun .message-details {
     padding-top: 20px;
     padding-bottom: 20px; }

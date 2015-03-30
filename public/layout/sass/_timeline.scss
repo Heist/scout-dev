@@ -76,6 +76,15 @@
 					&.hashtag {
 						display: inline;
 						float: left;
+						color: $fg-blue;
+						text-transform: lowercase;
+						font-size: 12px;
+						letter-spacing: 0.5px;
+						padding: 5px 3px 0 0;
+
+						&.hashtag:before {
+							content:"#";
+						}
 					}
 				}
 			}
