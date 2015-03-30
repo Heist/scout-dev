@@ -56,6 +56,13 @@
 				p {
 					margin-bottom: 0;
 				}
+
+				pre.messages {
+					font-size: 15px;
+					@include type-regular;
+					color: $fg-grey;
+					margin: 0;
+				}
 				
 				small {
 					font-size: $type-size-base*0.6;
@@ -110,8 +117,6 @@
 		text-align: center;
 		padding: $pad*0.75 0;
 		@include type-light;
-		overflow-y: auto;
-		height: 93%;
 		
 		.timeline-user-avatar {
 			display: block;

@@ -191,12 +191,12 @@
 		</div>
 	</div>
 
-<!-- 	<div id="button-canceltest">
+	<div id="button-canceltest">
 		<div class="expand-button">
 			<div class="expand-button-body" ng-click="postTest()">&times;</div>
-			<div class="expand-button-helper">Cancel</div>
+			<div class="expand-button-helper" ng-click="changeOnboard(100)">Cancel</div>
 		</div>
-	</div> -->
+	</div>
 	
 	<div id="button-newtask">
 		<div class="expand-button">
@@ -219,7 +219,7 @@
 				
 				<li>
 					<h5>Objectives</h5>
-					<p>	{{test.desc}}</p>
+					<pre class="objectives">{{test.desc}}</pre>
 				</li>
 
 				<li><h5>Tasks</h5></li>
@@ -285,7 +285,7 @@
 		
 							<div class="message-body">
 								<small ng-if="message.title">{{message.title}}</small>
-								<p ng-bind-html="message.body | hashtag"></p>
+								<pre class="messages" ng-bind-html="message.body | hashtag"></pre>
 								<small>{{message.created | date : 'hh:mm a'}}</small>
 								<small ng-repeat="tag in message._tags" style='display:inline; float:left;'>{{tag.name}}&nbsp;</small>
 							</div>
@@ -317,7 +317,7 @@
 							
 					</div>
 
-					<div id="timeline-user-only" style="top:10%;" ng-show="subject.testroom">
+					<div id="timeline-user-only" style="top:5%;" ng-show="subject.testroom">
 						<canvas id="feed"></canvas>
 						<img id='ia' style='display:none;'/>
 						<div style='clear'></div>

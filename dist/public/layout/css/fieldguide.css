@@ -91,7 +91,7 @@ html, body {
 body {
   font-size: 15px;
   line-height: 24px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -101,6 +101,22 @@ body {
   -webkit-font-feature-settings: "kern";
   -moz-font-feature-settings: "kern";
   -moz-font-feature-settings: "kern=1"; }
+
+pre {
+  white-space: pre-wrap;
+  /* CSS3 browsers  */
+  white-space: -moz-pre-wrap !important;
+  /* 1999+ Mozilla  */
+  white-space: -pre-wrap;
+  /* Opera 4 thru 6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 and up */
+  word-wrap: break-word;
+  /* IE 5.5+ and up */
+  /* overflow-x: auto; */
+  /* Firefox 2 only */
+  /* width: 99%; */
+  /* only if needed */ }
 
 /* headers */
 h1, h2, h3, h4, h5, h6 {
@@ -113,7 +129,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 30px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
   letter-spacing: -1px;
@@ -121,7 +137,7 @@ h1 {
 
 h2 {
   font-size: 30px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
   letter-spacing: -1px;
@@ -129,12 +145,12 @@ h2 {
 
 h3 {
   font-size: 18.75px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   margin: 0 0 10px 0; }
   h3.h3-light {
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 400;
     opacity: 0.6;
@@ -142,20 +158,25 @@ h3 {
 
 h4 {
   font-size: 15px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   margin: 0 0 5px 0; }
 
+h5 {
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 600; }
+
 /* copy */
-p {
+p, pre {
   padding: 0;
   margin: 0 0 20px 0; }
 
 strong {
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600; }
+  font-weight: 400; }
 
 .dark {
   color: #42474c; }
@@ -166,9 +187,9 @@ strong {
 
 a {
   color: #85ac0f;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   text-decoration: none;
   cursor: pointer; }
   a:hover {
@@ -264,7 +285,7 @@ form {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 13.5px;
@@ -278,7 +299,7 @@ form {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 13.05px;
@@ -390,7 +411,7 @@ textarea.input {
     background-image: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
@@ -405,7 +426,7 @@ label {
   font-size: 12px;
   opacity: 1;
   color: #323539;
-  font-weight: 600; }
+  font-weight: 400; }
 
 /* replace radio butts and checkboxes */
 .icheckbox_flat, .iradio_flat {
@@ -619,6 +640,68 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 
 /* components */
 /* styles for bits */
+/* tooltips */
+[data-tooltip], .tooltip {
+  position: relative;
+  cursor: pointer; }
+
+[data-tooltip]:before, [data-tooltip]:after, .tooltip:before, .tooltip:after {
+  position: absolute;
+  visibility: hidden;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  -webkit-transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, -webkit-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+  -moz-transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, -moz-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  pointer-events: none; }
+
+[data-tooltip]:hover:before, [data-tooltip]:hover:after, [data-tooltip]:focus:before, [data-tooltip]:focus:after, .tooltip:hover:before, .tooltip:hover:after, .tooltip:focus:before, .tooltip:focus:after {
+  visibility: visible;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1; }
+
+.tooltip:before, [data-tooltip]:before {
+  z-index: 1001;
+  border: 6px solid transparent;
+  background: transparent;
+  content: ""; }
+
+.tooltip:after, [data-tooltip]:after {
+  z-index: 1000;
+  padding: 8px;
+  width: 65px;
+  background-color: #2a687d;
+  background-color: rgba(42, 105, 126, 0.85);
+  border-radius: 3px;
+  color: #fff;
+  content: attr(data-tooltip);
+  font-size: 12px;
+  line-height: 1;
+  text-align: center; }
+
+[data-tooltip]:before, [data-tooltip]:after, .tooltip:before, .tooltip:after, .tooltip-top:before, .tooltip-top:after {
+  bottom: 100%;
+  left: 50%; }
+
+[data-tooltip]:before, .tooltip:before, .tooltip-top:before {
+  margin-left: -6px;
+  margin-bottom: -12px;
+  border-top-color: #2a687d;
+  border-top-color: rgba(42, 105, 126, 0.85); }
+
+[data-tooltip]:after, .tooltip:after, .tooltip-top:after {
+  margin-left: -33px; }
+
+[data-tooltip]:hover:before, [data-tooltip]:hover:after, [data-tooltip]:focus:before, [data-tooltip]:focus:after, .tooltip:hover:before, .tooltip:hover:after, .tooltip:focus:before, .tooltip:focus:after, .tooltip-top:hover:before, .tooltip-top:hover:after, .tooltip-top:focus:before, .tooltip-top:focus:after {
+  -webkit-transform: translateY(-12px);
+  -moz-transform: translateY(-12px);
+  transform: translateY(-12px); }
+
 /* help bubble */
 #help-bubble {
   position: fixed;
@@ -628,9 +711,9 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
   #help-bubble .help-bubble-open {
     background: #dddddd;
     color: #42474c;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     display: block;
     width: 50px;
     height: 50px;
@@ -676,9 +759,9 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
   border-radius: 4px;
   margin: 5px 0 0 0;
   font-size: 9px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0;
   color: #fff;
@@ -829,9 +912,9 @@ hr {
   font-size: 12px;
   line-height: 1.2; }
   #nav-acct-status span {
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     color: #872717; }
 
 #nav-mgmt {
@@ -1151,9 +1234,9 @@ hr {
           padding: 0 0 2px 0;
           font-size: 22.5px;
           line-height: 10px;
-          font-family: "proxima-nova",sans-serif;
+          font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
-          font-weight: 600;
+          font-weight: 400;
           background: #fff; }
           #timeline ul .message .message-details .message-details-avatar.avatar-header {
             color: #bfed34; }
@@ -1165,6 +1248,13 @@ hr {
         color: #323539; }
         #timeline ul .message .message-body p {
           margin-bottom: 0; }
+        #timeline ul .message .message-body pre.messages {
+          font-size: 15px;
+          font-family: "canada-type-gibson",sans-serif;
+          font-style: normal;
+          font-weight: 400;
+          color: #939598;
+          margin: 0; }
         #timeline ul .message .message-body small {
           font-size: 9px;
           line-height: 14.4px;
@@ -1196,11 +1286,9 @@ hr {
     width: 100%;
     text-align: center;
     padding: 15px 0;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 300;
-    overflow-y: auto;
-    height: 93%; }
+    font-weight: 300; }
     #timeline-user #timeline-user-only .timeline-user-avatar {
       display: block;
       padding: 0;
@@ -1216,7 +1304,7 @@ hr {
         height: auto;
         opacity: 0.4; }
     #timeline-user #timeline-user-only small {
-      font-family: "proxima-nova",sans-serif;
+      font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400; }
   #timeline-user .timeline-user-avatar {
@@ -1260,7 +1348,7 @@ hr {
         text-transform: uppercase;
         text-align: center;
         display: block;
-        margin: 15px auto;
+        margin: 13px auto;
         font-size: 25px;
         font-weight: 600; }
     #tasklist ul li {
@@ -1275,7 +1363,7 @@ hr {
       #tasklist ul li h3 {
         margin: 0 0 2px 0;
         padding: 0;
-        font-family: "proxima-nova",sans-serif;
+        font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 400; }
       #tasklist ul li p {
@@ -1283,6 +1371,13 @@ hr {
         padding: 0;
         font-size: 12px;
         line-height: 19.2px; }
+      #tasklist ul li pre.objectives {
+        font-size: 12px;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 19.2px;
+        margin: 20px 0 0 0; }
       #tasklist ul li small {
         text-transform: uppercase;
         margin: 0;
@@ -1296,9 +1391,9 @@ hr {
         color: #fff;
         background: #86aa25; }
         #tasklist ul li.active h3 {
-          font-family: "proxima-nova",sans-serif;
+          font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
-          font-weight: 600; }
+          font-weight: 400; }
         #tasklist ul li.active:hover {
           cursor: auto;
           box-shadow: none; }
@@ -1310,7 +1405,7 @@ hr {
 #sidebar .test-id {
   padding: 20px 10px 20px 10px; }
   #sidebar .test-id h3 {
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
     margin: 0;
@@ -1355,9 +1450,9 @@ hr {
     #sidebar ul li.active {
       position: relative;
       color: #42474c;
-      font-family: "proxima-nova",sans-serif;
+      font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 600; }
+      font-weight: 400; }
       #sidebar ul li.active:hover {
         cursor: auto; }
     #sidebar ul li .sidebar-visibility {
@@ -1432,12 +1527,12 @@ hr {
       margin: 0;
       padding: 0 0 10px 0; }
       .modal .modal-interior .modal-interior-title h2 {
-        font-family: "proxima-nova",sans-serif;
+        font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 400;
         color: #42474c; }
       .modal .modal-interior .modal-interior-title h3 {
-        font-family: "proxima-nova",sans-serif;
+        font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300; }
         .modal .modal-interior .modal-interior-title h3.float-right {
@@ -1465,11 +1560,11 @@ hr {
   color: #323539; }
   .plan-price-point big {
     font-size: 45px;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300; }
   .plan-price-point span {
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 100;
     opacity: 0.8; }
@@ -1486,9 +1581,9 @@ hr {
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing: 4px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600; }
+  font-weight: 400; }
 
 .upgrade-notice {
   padding: 20px 20px 15px 20px;
@@ -1579,16 +1674,16 @@ hr {
       color: #7c7d80;
       text-decoration: none;
       opacity: 0.6;
-      font-family: "proxima-nova",sans-serif;
+      font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
       line-height: 14.4px; }
       .stepped-nav li a:hover {
         opacity: 1.0; }
     .stepped-nav li.step-active a {
-      font-family: "proxima-nova",sans-serif;
+      font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 600; }
+      font-weight: 400; }
     .stepped-nav li .step-state {
       display: block;
       height: 20px;
@@ -1834,7 +1929,7 @@ hr {
       .overview-test.overview-test-empty .overview-test-container .test-info .overview-test-add {
         color: #7c7d80;
         border: 1px solid #7c7d80;
-        font-family: "proxima-nova",sans-serif;
+        font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300;
         font-size: 30px;
@@ -1995,9 +2090,9 @@ hr {
       #view-editing .test-details .test-details-devicetype.unavailable {
         cursor: not-allowed; }
       #view-editing .test-details .test-details-devicetype.selected {
-        font-family: "proxima-nova",sans-serif;
+        font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 600;
+        font-weight: 400;
         color: #85ac0f;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
@@ -2179,7 +2274,8 @@ hr {
     height: 100%;
     float: right;
     padding: 0;
-    margin: 0; }
+    margin: 0;
+    overflow-y: auto; }
   #view-testing #button-endtest {
     position: absolute;
     right: 15px;
@@ -2285,9 +2381,9 @@ hr {
   #view-account .plan-picker h3 {
     padding: 13.33333px 0 0 0; }
   #view-account .plan-picker .button {
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 600; }
+    font-weight: 400; }
   #view-account .pm-app {
     border: 1px solid #dddddd;
     -moz-border-radius: 3px;
@@ -2408,7 +2504,7 @@ hr {
         width: 24px;
         padding: 0px;
         font-size: 15px;
-        line-height: 25.5px;
+        line-height: 22.5px;
         border: 1px solid #dddddd; }
     .message-group .add-note-button:hover .add-note-button-helper {
       display: block; }
@@ -2453,9 +2549,9 @@ hr {
   padding: 20px 40px 0 20px;
   color: #42474c;
   font-size: 12px;
-  font-family: "proxima-nova",sans-serif;
+  font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600; }
+  font-weight: 400; }
   .message-user img {
     width: 13px;
     height: auto;
@@ -2525,9 +2621,9 @@ hr {
     padding: 6.66667px 10px 6.66667px 20px;
     font-size: 11px;
     line-height: 0.9;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     color: #bebebe;
     background: url('../assets/comment-inactive.svg') no-repeat right top;
     background-size: contain;
@@ -2536,9 +2632,9 @@ hr {
       background: url('../assets/comment-empty.svg') no-repeat right top;
       background-size: contain;
       color: #bebebe;
-      font-family: "proxima-nova",sans-serif;
+      font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 700; }
+      font-weight: 600; }
   .message .message-fave {
     float: right; }
     .message .message-fave img {
@@ -2557,7 +2653,7 @@ hr {
     .message .message-comments small {
       opacity: 0.6;
       font-size: 10.5px;
-      font-family: "proxima-nova",sans-serif;
+      font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 300; }
     .message .message-comments .message-comment-submit {
@@ -2574,9 +2670,9 @@ hr {
         padding: 0;
         margin: 0;
         line-height: 12px;
-        font-family: "proxima-nova",sans-serif;
+        font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 600; }
+        font-weight: 400; }
         .message .message-comments .message-comment-submit small a {
           text-decoration: underline; }
   .message .message-details {
@@ -2599,6 +2695,13 @@ hr {
     .message .message-body p {
       margin-bottom: 0 !important;
       color: #939598; }
+    .message .message-body pre.messages {
+      font-size: 15px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      color: #939598;
+      margin: 0; }
     .message .message-body small {
       display: block;
       margin: 0;
@@ -2691,9 +2794,9 @@ hr {
         padding-top: 15px;
         padding-bottom: 15px; }
       #view-findings #findings-nav #sidebar .test-id h3 {
-        font-family: "proxima-nova",sans-serif;
+        font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 600; }
+        font-weight: 400; }
   #view-findings .sheet-holder {
     position: absolute;
     top: 0;
@@ -2719,9 +2822,9 @@ hr {
     padding: 0 40px 10px 40px;
     margin: -30px 0 40px 0;
     font-size: 12px;
-    font-family: "proxima-nova",sans-serif;
+    font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     opacity: 0.6; }
   #view-findings .findings-description {
     padding: 0 40px 10px 40px; }
@@ -2807,9 +2910,9 @@ hr {
       background: #fff;
       color: #42474c;
       padding: 8px 20px;
-      font-family: "proxima-nova",sans-serif;
+      font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 600;
+      font-weight: 400;
       -moz-border-radius: 40px;
       -webkit-border-radius: 40px;
       border-radius: 40px;

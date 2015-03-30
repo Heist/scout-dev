@@ -183,14 +183,10 @@
                     var participantName = data.name.split(' ');
 
                     for(var i = 0; i < participantName.length; i++){
-                        console.log(participantName);
-
 
                         if (i === 0){
-
                             // set firstInitial to equal participant's name first letter
                             firstInitial = participantName[i].substr(0,1);
-                            console.log(firstInitial);
                         }  else {
 
                             // create a new variable to set participant's first initial
@@ -198,7 +194,6 @@
 
                             // concat's first initial with second initial
                             firstLastInitials = firstInitial.concat(secondInitial);
-                            console.log(firstLastInitials);
                         }
                     }
 

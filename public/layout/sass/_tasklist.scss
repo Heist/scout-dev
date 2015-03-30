@@ -22,7 +22,7 @@
 				text-transform: uppercase;
 				text-align: center;
 				display: block;
-				margin: 15px auto;
+				margin: 13px auto;
 				font-size: 25px;
 				font-weight: 600;
 			}
@@ -53,6 +53,13 @@
 				padding: 0;
 				font-size: $type-size-base*0.8;
 				line-height: $type-line-base*0.8;
+			}
+
+			pre.objectives {
+				font-size: 12px;
+				@include type-regular;
+				line-height: 19.2px;
+				margin: 20px 0 0 0;
 			}
 			
 			small {
