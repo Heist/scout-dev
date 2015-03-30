@@ -1263,6 +1263,9 @@ hr {
           margin: 0;
           text-transform: uppercase;
           letter-spacing: 1px; }
+          #timeline ul .message .message-body small.hashtag {
+            display: inline;
+            float: left; }
   #timeline #firstrun .message-body, #timeline #firstrun .message-details {
     padding-top: 20px;
     padding-bottom: 20px; }

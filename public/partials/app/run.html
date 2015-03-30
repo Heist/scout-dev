@@ -286,8 +286,7 @@
 							<div class="message-body">
 								<small ng-if="message.title">{{message.title}}</small>
 								<pre class="messages" ng-bind-html="message.body | hashtag"></pre>
-								<small>{{message.created | date : 'hh:mm a'}}</small>
-								<small ng-repeat="tag in message._tags" style='display:inline; float:left;'>{{tag.name}}&nbsp;</small>
+								<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}&nbsp;</small>
 							</div>
 		
 							<div class="clear"></div>
