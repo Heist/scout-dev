@@ -52,7 +52,7 @@ module.exports = function(app, passport, debug) {
     })
     .post(function(req,res){
     // Duplicate a test with new steps and things but which appears to be identical
-        fn.dupeTest(req.params._id, function(err, test){
+        fn.dupeTests(req.params._id, function(err, test){
             res.json(test);
         });
     })
