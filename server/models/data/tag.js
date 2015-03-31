@@ -34,7 +34,7 @@ TagSchema.pre('save', function(next){
         this.summarized = true;
     }
     if(this.name){
-        this.nameCheck = name;
+        this.nameCheck = this.name;
     }
     next();
 });
