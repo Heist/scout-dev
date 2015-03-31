@@ -33,6 +33,8 @@ module.exports = function(object_array, next){
                     model.pass_fail  = (obj.pass_fail === false) ? obj.pass_fail : true;
                     model.summarized = (obj.summarized === false) ? obj.summarized : true;
 
+                    model.name       = obj.name || model.name;
+                    model.desc       = obj.desc || model.desc;
                     model.embed      = obj.embed || model.embed || '';
                     model.summary    = obj.summary || model.summarized || '';
                 

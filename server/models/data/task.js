@@ -38,6 +38,7 @@ TaskSchema.pre('save', function(next){
     if ( !this.created ) {
         this.created = now;
     }
+    
     next();
 });
 
