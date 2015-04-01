@@ -41,18 +41,26 @@ module.exports = function(request, user){
                 })
             }).then(function(arr){
                 // return the populated message so you can insert it into the timeline
-                return models.Message.findById(note._id).populate('_subject _tags').exec(function(err, next){});
-            }).then(function(message){
-                return message;
+                console.log('arr checked');
+                return Bluebird.all([ 
+                    models.Message.findById(note._id).populate('_subject _tags').exec(function(err, next){}),
+                    models.Tag.find({'_test' : msg._test}).exec(function(err, next){})
+                    ])
+            }).then(function(arr){
+                console.log(arr);
+                    var sendThis;
+                    sendThis = {msg: arr[0], tags: arr[1]};
+                    return sendThis;
             });
         }).catch(function(err){
             if(err.errors){
                 var r = null; 
                 for (var k in err.errors){ 
-                        if (r !== null) {
+                    if (r !== null) {
                     } else {
                         r = err.errors[k];
                     }
+
                     return r.message;
                 } 
              }

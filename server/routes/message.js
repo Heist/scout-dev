@@ -24,6 +24,7 @@ module.exports = function(app, passport, debug) {
      // Create a new message
         // var messageNew = require('../models/functions/message-new')
         fn.messageNew(req.body, req.user._id).then(function(data){
+            console.log('messsageNew Route', data);
             res.json(data);
         });
     })

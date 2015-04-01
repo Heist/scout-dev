@@ -16,6 +16,7 @@ module.exports= {
 	dupeTests       : require('./dupe-tests'),
 	editTest        : require('./edit-test'),
 	forgotPasswordToken : require('./forgot-password-token'),
+	getTags			: require('./get-tags'),
 	messageEdit     : require('./message-edit'),
 	messageFav      : require('./message-fav'),
 	messageList     : require('./message-list'),
