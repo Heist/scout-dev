@@ -252,8 +252,7 @@
 					</textarea>
 				</div>
 				<div id="recent-hash-tags">
-					<p>#Themes</p>
-					<span ng-show="object.doctype === 'tag'">#</span>
+					<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}&nbsp; &nbsp;</small>
 				</div>
 
 				
@@ -286,7 +285,6 @@
 							<div class="message-body">
 								<small ng-if="message.title">{{message.title}}</small>
 								<pre class="messages" ng-bind-html="message.body | hashtag"></pre>
-								<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}&nbsp;</small>
 							</div>
 		
 							<div class="clear"></div>
