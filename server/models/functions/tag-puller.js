@@ -15,7 +15,7 @@ module.exports = function(message, next){
             // console.log('pull tags', message);
             var msg_body = message.replace( hashCatch,'');
             var tagIt = message.match(hashCatch);
-            var msg_clean = msg_body.trim();
+            var msg_clean = message.trim();
 
             if (tagIt){
                 _.each(tagIt, function(tag){

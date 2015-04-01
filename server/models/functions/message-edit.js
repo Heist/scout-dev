@@ -12,8 +12,8 @@ module.exports = function(msg, next){
     var models   = require('../../models');
     var fn       = require('../../models/functions');
 
-    var tags = fn.tagPuller(msg.body);
-
+    var tag = fn.tagPuller(msg.body);
+    var tags = tag.tags;
 // EDIT A MESSAGE =========================================
 
     // edit a message. First edit tags related to message, then edit message body.
@@ -26,6 +26,7 @@ module.exports = function(msg, next){
     // reply with res.json({tags : tags, msg: msg});
 
     // globals to sort through
+
 
     async.waterfall([
         function(callback) {
@@ -41,7 +42,7 @@ module.exports = function(msg, next){
 
                         if (!tg) {
                             // create a new tag and push a message to it, save and exit
-                            var t = new Tag();
+                            var t = new models.Tag();
                             t.name = name;
                             t._test = msg._test;
                             t._messages.push(msg._id);

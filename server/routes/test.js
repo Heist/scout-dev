@@ -35,7 +35,8 @@ module.exports = function(app, passport, debug) {
     app.route('/api/dev_tests/')
     .post(function(req, res){
     // This builds a mock for testing reports
-        fn.devTests(req.user._account, req.user._id, function(err, test){
+    console.log('add dev tests', req.body);
+        fn.devTests(req.user._account, req.user).then(function(test){
             res.json(test);
         });
     });
