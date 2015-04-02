@@ -210,6 +210,18 @@
                 });
         };
 
+         // MESSAGE FUNCTIONS ==================================
+        $scope.messageEditToggle = '';
+        $scope.editMessage = function(message){
+            // clear this on blur to block weird toggle bug
+            $scope.messageEditToggle = message._id;
+        };
+
+        $scope.saveEdit = function(message){
+            $scope.messageEditToggle = '';
+            $http.put('/api/message/', message);
+        };
+
         $scope.postMessage = function(message){
             if(message.length <= 0){
                 return ;
@@ -224,6 +236,7 @@
             }
         };
 
+        // END TEST =============================
         $scope.postTest = function(){
             // Send tasks that have had a subject added to the DB.
             mixpanel.track('Test completed', {});
