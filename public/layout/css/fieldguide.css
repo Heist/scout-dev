@@ -80,6 +80,14 @@ helpers
 .float-right {
   float: right; }
 
+.clearfix:after {
+  content: " ";
+  /* Older browser do not support empty content */
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both; }
+
 /*
 typography
 ========================
@@ -287,7 +295,7 @@ form {
   border-radius: 3px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 13.5px;
   outline: none;
   border: none; }
@@ -471,6 +479,9 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 
 .third {
   width: 33.3333%; }
+
+.one-third {
+  width: 30%; }
 
 .two-thirds {
   width: 66.6666%; }
@@ -1486,7 +1497,7 @@ hr {
   z-index: 99999999; }
   .modal .modal-interior {
     background: #fff;
-    padding: 30px 40px 0 40px;
+    padding: 30px 40px 30px 40px;
     margin: 10% 0 0 0;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -1516,10 +1527,9 @@ hr {
       width: 100%;
       margin: 0; }
     .modal .modal-interior li {
-      padding: 10px 0; }
+      padding: 10px 0 0 0; }
       .modal .modal-interior li:last-child {
-        border: none;
-        margin: 20px 0 30px 0; }
+        border: none; }
     .modal .modal-interior .button.cancel, .modal .modal-interior .button.dry-run {
       background: none;
       color: #939598;
@@ -1801,7 +1811,8 @@ hr {
 #view-overview {
   margin: 0;
   padding: 0;
-  position: relative; }
+  position: relative;
+  height: 100%; }
   #view-overview .container {
     padding: 20px 0 0 0; }
     #view-overview .container #header-min {
@@ -1961,6 +1972,16 @@ hr {
   /* step 2 */
   /* step 3 */
   /* step 5 */ }
+  #view-editing ul {
+    clear: both; }
+  #view-editing .cta {
+    float: right; }
+    #view-editing .cta .button.cancel, #view-editing .cta .modal .modal-interior .button.dry-run, .modal .modal-interior #view-editing .cta .button.dry-run {
+      padding: 10px; }
+  #view-editing textarea.input {
+    line-height: 18.75px;
+    height: 130px;
+    resize: none; }
   #view-editing .container {
     padding: 20px 0 0 0; }
   #view-editing .sheet-holder {
@@ -2040,16 +2061,22 @@ hr {
       #view-editing .test-setup .select-inactive:after {
         content: ''; }
   #view-editing .test-type {
-    padding: 20px;
+    padding: 5px 5px 10px 5px;
     text-align: center;
     position: relative;
-    border: 1px solid #fff; }
+    cursor: pointer; }
+    #view-editing .test-type.active {
+      border-bottom: 3px solid #85ac0f; }
     #view-editing .test-type .selected-arrow {
       display: none; }
     #view-editing .test-type p {
       font-size: 12px;
       line-height: 17px;
-      height: 50px; }
+      margin: 0 0 10px 0; }
+    #view-editing .test-type a {
+      color: #0abcd7;
+      font-size: 11px;
+      text-decoration: underline; }
     #view-editing .test-type h3 {
       font-size: 17.5px; }
     #view-editing .test-type.selected {
