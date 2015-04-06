@@ -2658,8 +2658,12 @@ hr {
         background-size: contain;
         color: #fff; }
   .message .delete-message {
+    font-size: 12px;
     float: right;
-    margin: 0 20px 20px 0; }
+    margin: 0 30px 20px 0; }
+    .message .delete-message:hover {
+      color: #9bbb3a;
+      cursor: pointer; }
   .message .message-comment-count {
     position: absolute;
     left: 102%;

@@ -165,8 +165,14 @@
 	}
 
 	.delete-message {
+		font-size: 12px;
 		float: right;
-		margin: 0 20px 20px 0;
+		margin: 0 30px 20px 0;
+
+		&:hover {
+			color: $fg-green-grassy;
+			cursor: pointer;
+		}
 	}
 	
 	.message-comment-count {

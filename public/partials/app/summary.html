@@ -157,7 +157,7 @@
 				<div ng-repeat="message in user" class="message" 
 				ng-show="showObjectMessages(message, selected)"
 				ng-class="{selected: commentMessage._id === message._id}">
-				<pre ng-click="deleteMessage(message)" class="delete-message">&times;</pre>
+				<div ng-click="deleteMessage(message)" class="delete-message">&times;</div>
 									
 					
 
