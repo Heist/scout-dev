@@ -2064,9 +2064,15 @@ hr {
     padding: 5px 5px 10px 5px;
     text-align: center;
     position: relative;
-    cursor: pointer; }
-    #view-editing .test-type.active {
-      border-bottom: 3px solid #85ac0f; }
+    cursor: pointer;
+    border-bottom: 4px solid #fff;
+    margin: 0 0 20px 0; }
+    #view-editing .test-type:hover {
+      border-bottom: 4px solid #85ac0f; }
+    #view-editing .test-type.select-active {
+      border-bottom: 4px solid #85ac0f; }
+    #view-editing .test-type.select-inactive {
+      border-bottom: 0; }
     #view-editing .test-type .selected-arrow {
       display: none; }
     #view-editing .test-type p {
