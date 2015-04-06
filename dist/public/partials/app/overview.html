@@ -89,9 +89,11 @@
 			
 		</div>
 		<!-- create new project modal -->
-		<div class="modal" ng-model="newProject" ng-show="newProject">
+		
+		<div class="modal" ng-model="newProject" ng-if="newProject">
 			<ng-include src="'partials/app/_new-project.html'"></ng-include>
 		</div>
+
 		<!-- / create new project modal -->
 
 			<!-- test -->

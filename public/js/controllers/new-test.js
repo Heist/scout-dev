@@ -4,11 +4,13 @@
 
 	angular.module('field_guide_controls')
 	.controller('newTest', 
-    ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
-    function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
-        
+    		['testBuildFunctions','$scope','$http','$stateParams','$state','$location','$rootScope',
+    function( testBuildFunctions,  $scope,  $http,  $stateParams,  $state,  $location, $rootScope){
+        console.log('loaded new test');
     	// SETUP VARIABLES ==========================
         $scope.test = {};
+        $scope.test.created_by_user = $rootScope.user;
+        mixpanel.track('Add new test', { 'user' : $rootScope.user });
 
     	// TEST UPDATE ==============================
     	$scope.selectPrototype = function(kind){
@@ -41,21 +43,8 @@
         }
 
         $scope.cancelTest = function(){
-        	console.log('cancel test');
-        	console.log($scope.$parent.newProject)
-        	console.log($scope);
-        	// $scope.$parent.newProject = false;
-
+       
         }
-                // var test = {};
-                
-                // if($rootScope.user){
-                //     console.log($rootScope.user);
-                //     test.created_by_user = $rootScope.user;
-                //     mixpanel.track('Add new test', { 'user' : $rootScope.user });
-                // } else {
-                //     console.log('whoops, needs a checkin');
-                // }
 
                 // var url = '/api/test/';
                 // var data_out = test;
