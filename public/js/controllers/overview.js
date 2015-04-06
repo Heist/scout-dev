@@ -4,29 +4,24 @@
 
     // OVERVIEW CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-        .controller('overview', ['$scope','$http', '$location', '$stateParams','$rootScope', function($scope, $http, $location, $stateParams, $rootScope){
+        .controller('overview', ['loadData', '$scope','$http', '$location', '$stateParams','$rootScope', function(loadData, $scope, $http, $location, $stateParams, $rootScope){
         
         // get all sessions and their tests on first load
-        $http
-            .get('/api/test/', {timeout : 5000})
-            .success(function(data) {
-                $scope.tests = data;
-                
-                if($rootScope.user.onboard === 2){ 
-                }
+        $scope.tests = loadData.data;
+        
+        if($rootScope.user.onboard === 2){}
 
-                if($rootScope.user.onboard === 3 || $rootScope.user.onboard === 4 || $rootScope.user.onboard === 5 ){
-                    $location.path('/run/'+$scope.tests[1]._id);
-                }
+        if($rootScope.user.onboard === 3 || $rootScope.user.onboard === 4 || $rootScope.user.onboard === 5 ){
+            $location.path('/run/'+$scope.tests[1]._id);
+        }
 
-                if($rootScope.user.onboard === 6 && $scope.tests.length > 0){
-                    $location.path('/summary/'+$scope.tests[1]._id);
-                }
+        if($rootScope.user.onboard === 6 && $scope.tests.length > 0){
+            $location.path('/summary/'+$scope.tests[1]._id);
+        }
 
-                if($rootScope.user.onboard === 7 && $scope.tests.length > 0){
-                    $location.path('/report/'+$scope.tests[1]._id);
-                }
-            });
+        if($rootScope.user.onboard === 7 && $scope.tests.length > 0){
+            $location.path('/report/'+$scope.tests[1]._id);
+        }
 
         // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
@@ -64,27 +59,8 @@
         };
 
         $scope.newTest = function(){
-                var test = {};
-                
-                if($rootScope.user){
-                    console.log($rootScope.user);
-                    test.created_by_user = $rootScope.user;
-                    mixpanel.track('Add new test', { 'user' : $rootScope.user });
-                } else {
-                    console.log('whoops, needs a checkin');
-                }
-
-                var url = '/api/test/';
-                var data_out = test;
-                
-                $http
-                    .post(url, data_out)
-                    .success(function(data){
-                        console.log(data);
-                        $location.path('/edit/test/'+ data._id);
-                        $scope.tests.push(data);
-                    });
-            };
+            $scope.newProject = true;
+        };
 
         $scope.removeTest = function(test){ 
             // delete a test from the database
@@ -126,6 +102,10 @@
         $scope.loadReport = function(test_id){
             $location.path('/report/'+ test_id);
         };
+
+    // TEST OVERLAY =============================
+
+
 
     }]);
 })();

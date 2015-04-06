@@ -1,7 +1,5 @@
 <div id="view-overview">
 	
-	
-	
 	<div class="onboard-content onboard-overview-step1" ng-show="user.onboard === 1">
 		<div class="container">
 			<div class="module third">
@@ -17,8 +15,6 @@
 			</div>
 		</div>
 	</div>
-	
-	
 	
 	<div class="onboard-content onboard-overview-step2" ng-show="user.onboard === 2">
 		<div class="container">
@@ -62,9 +58,9 @@
 		<a class="button slack" href="https://fieldguide.typeform.com/to/qrRHYS" target="_">Get on Slack</a>
 		<a class="button" href="#">Okay, let&rsquo;s go!</a>
 	</div>
+
+
 	<ng-include src="'partials/app/_header-full.html'"></ng-include>
-	
-	
 	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
 	
 	
@@ -93,62 +89,10 @@
 			
 		</div>
 		<!-- create new project modal -->
-		<div class="modal" ng-model="live" ng-hide="live">
-			<div class="module one-third">&nbsp;</div>
-			
-			<div id="view-editing" ng-model="test">
-				<div class="module two-fifths modal-interior">
-					
-					<div class="modal-interior-title">
-						<h2 class="text-center">New Project</h2>
-					</div>
-					
-					<div class="module half test-type" ng-class='{"select-active": test.kind || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>
-						<h3>Interview</h3>
-						<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
-						<a href="#">Tell me more about Interview tests</a>
-					<!-- 		<button class="button-inactive med" ng-class='{"select-active": test.kind || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>Select</button> -->
-					</div>
-					
-					<div class="module half test-type" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>
-						<h3>Prototype or Website</h3>
-						<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
-						<a href="#">Tell me more about Prototype testing</a>
-					<!-- 		<button class="button-inactive med" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>Select</button> -->
-					</div>
-					
-					<ul class="nobullets">
-						<form name="prototypeForm" class="prototype-form">
-							<li>
-								<label for="field-testname">Project name</label>
-								<input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="Name of the product you're testing" ng-blur="updateTest()" />
-							</li>
-							<li ng-show="test.kind === 'prototype'">
-								<label for="field-prototypeurl">What is your prototype or website URL?</label>
-								<input class="input" id="field-prototypeurl" ng-model="test.link" value="" placeholder="http://invision.com/JHGYT" type="url" name="url"/ />
-								<!-- <span ng-show="!prototypeForm.$valid" style="color:red;">This appears to be an invalid URL.<br></span>
-								<small>Using InVision? Make sure you turn off <strong>Force "Add to Home Screen"</strong> in your share settings</small> -->
-							</li>
-							<li>
-								<label for="field-prototypeurl">Test objectives</label>
-								<textarea msd-elastic class="input" id="field-objective" type="text" value="" ng-model="test.desc" placeholder="What questions do you want answered?
-								
-								- Do users understand the header interaction?
-								- Are they comfortable with the cart language?" />
-								</textarea>
-							</li>
-						</form>
-						<div class="cta">
-							<a href="#" class="secondary button cancel med" ng-click="changeOnboard(100)">Cancel</a>
-							<button class="button med" ng-click="saveAndMove(3)">Create</button>
-						</div>
-					</ul>
-				</div>
-				</div><!--  / view-editing -->
-				
-				<div class="clear"></div>
-			</div>
-			<!-- / create new project modal -->
+		<div class="modal" ng-model="newProject" ng-hide="newProject">
+			<ng-include src="'partials/app/_new-project.html'"></ng-include>
+		</div>
+		<!-- / create new project modal -->
 
 			<!-- test -->
 			<div class="overview-test module quarter" ng-repeat="test in tests | orderBy:'created'">

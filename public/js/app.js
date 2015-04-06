@@ -131,6 +131,12 @@
                 resolve: { 
                     loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
+                        }],
+                    loadData : ['$http', '$stateParams', function($http, $stateParams){
+                            return $http.get('/api/test/', {timeout : 5000, cache:false})
+                                .success(function(data) {
+                                    return data;
+                                });
                         }]
                 }
             })
@@ -141,6 +147,12 @@
                 resolve: { 
                     loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
+                        }],
+                    loadData : ['$http', '$stateParams', function($http, $stateParams){
+                            return $http.get('/api/test/', {timeout : 5000, cache:false})
+                                .success(function(data) {
+                                    return data;
+                                });
                         }]
                 }
             })

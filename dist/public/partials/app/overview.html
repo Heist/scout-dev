@@ -1,7 +1,5 @@
 <div id="view-overview">
 	
-	
-	
 	<div class="onboard-content onboard-overview-step1" ng-show="user.onboard === 1">
 		<div class="container">
 			<div class="module third">
@@ -11,15 +9,12 @@
 				<p>Let&rsquo;s jump right into the thick of it and show you how to run a test.</p>
 			</div>
 			<div class="module third text-right">
-
 				<!-- this first link completely exits out of onboard -->
-				<a href="#" class="secondary" ng-click="changeOnboard(100)"><small >I&rsquo;m okay on my own</small></a> &nbsp;&nbsp; 
+				<a href="#" class="secondary" ng-click="changeOnboard(100)"><small >I&rsquo;m okay on my own</small></a> &nbsp;&nbsp;
 				<a class="button" ng-click="changeOnboard(2)">Start</a>
 			</div>
 		</div>
 	</div>
-	
-	
 	
 	<div class="onboard-content onboard-overview-step2" ng-show="user.onboard === 2">
 		<div class="container">
@@ -35,7 +30,7 @@
 				</ul>
 				
 				<a href="#" target="_" class="appstore-link"><img src="/layout/assets/appstore.svg"></a>
-	
+				
 			</div>
 			
 			<div class="module two-thirds app-demo">
@@ -49,14 +44,13 @@
 			<div class="module two-thirds">
 				<h3>This might be a good time to download the Field Guide companion app for iOS, if you&rsquo;d like.</h3>
 			</div>
-		
+			
 			<div class="module third text-right">
 				<a ng-click="changeOnboard(100)" class="secondary"><small>I&rsquo;ll do this later</small></a> &nbsp;&nbsp; <a class="button" ng-click="changeOnboard(3)">Got it, next</a>
 			</div>
 		</div>
 	</div>
 	
-
 	<!-- this div shows up at the end of onboard, when we come back around from the report -->
 	<div id="onboard-overview-box" ng-show="user.onboard === 20">
 		<h3>Great job!</h3>
@@ -67,115 +61,105 @@
 
 
 	<ng-include src="'partials/app/_header-full.html'"></ng-include>
-	
-	
 	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
 	
 	
 	
-
 	<!-- show tests in db -->
-	<div class="container">	
+	<div class="container">
 		
-		<div id="header-min">		
-			<h3 class="h3-light float-left">My projects</h3>		
-				
+		<div id="header-min">
+			<h3 class="h3-light float-left">My projects</h3>
+			
 			<div class="overview-controls">
 				<div class="expand-button">
 					<div class="expand-button-body" ng-click="newTest()">+</div>
-				
+					
 					<div class="expand-button-helper">Add new project</div>
 				</div>
 				<!-- <div class="expand-button">
-					<div class="expand-button-body" ng-click="devTest()">+</div>
-				
-					<div class="expand-button-helper">Add mock</div>
-				</div> -->
+								<div class="expand-button-body" ng-click="devTest()">+</div>
 							
+								<div class="expand-button-helper">Add mock</div>
+				</div> -->
+				
 			</div>
 			
 			<div class="clear"></div>
-		</div>
-		
-		
-
-		<!-- test -->
-		<div class="overview-test module quarter" ng-repeat="test in tests | orderBy:'created'">
-			<div class="overview-test-container">
 			
-				<div class="test-info">
-					<h3>{{test.name}}</h3>
-					<small>{{test.kind}} &mdash;
+		</div>
+		<!-- create new project modal -->
+		<div class="modal" ng-model="newProject" ng-hide="newProject">
+			<ng-include src="'partials/app/_new-project.html'"></ng-include>
+		</div>
+		<!-- / create new project modal -->
+
+			<!-- test -->
+			<div class="overview-test module quarter" ng-repeat="test in tests | orderBy:'created'">
+				<div class="overview-test-container">
+					
+					<div class="test-info">
+						<h3>{{test.name}}</h3>
+						<small>{{test.kind}} &mdash;
 						<span ng-show="test._subjects.length > 0">Tested {{test._subjects.length}} times</span>
 						<span ng-show="test._subjects.length === 0">Never tested</span>
-					</small>
-					
-					<div class="editTest-tooltips">
-						<span ng-show="editTestedit">Edit</span>
-						<span ng-show="editTestdupe">Duplicate</span>
-						<span ng-show="editTestdelete">Delete</span>
-					</div>
-					
-					<div class="editTest">
+						</small>
 						
-						<a ng-mouseover="editTestedit=true" ng-mouseleave="editTestedit=false" ng-click="editTest(test)"><img src="/layout/assets/edit.svg" /></a> &nbsp;
-						<a ng-mouseover="editTestdupe=true" ng-mouseleave="editTestdupe=false" ng-click="dupeTest(test)"><img src="/layout/assets/duplicate.svg" /></a> &nbsp;
-						<a ng-mouseover="editTestdelete=true" ng-mouseleave="editTestdelete=false" class="dangerous"
-						ng-confirm-click="Are you sure you want to delete this project? Your notes and summaries for this project will be permanently removed." 
-						confirmed-click-action="removeTest(test)">
-							<img src="/layout/assets/delete.svg" />
-						</a>  
+						<div class="editTest-tooltips">
+							<span ng-show="editTestedit">Edit</span>
+							<span ng-show="editTestdupe">Duplicate</span>
+							<span ng-show="editTestdelete">Delete</span>
+						</div>
+						
+						<div class="editTest">
+							
+							<a ng-mouseover="editTestedit=true" ng-mouseleave="editTestedit=false" ng-click="editTest(test)"><img src="/layout/assets/edit.svg" /></a> &nbsp;
+							<a ng-mouseover="editTestdupe=true" ng-mouseleave="editTestdupe=false" ng-click="dupeTest(test)"><img src="/layout/assets/duplicate.svg" /></a> &nbsp;
+							<a ng-mouseover="editTestdelete=true" ng-mouseleave="editTestdelete=false" class="dangerous"
+								ng-confirm-click="Are you sure you want to delete this project? Your notes and summaries for this project will be permanently removed."
+								confirmed-click-action="removeTest(test)">
+								<img src="/layout/assets/delete.svg" />
+							</a>
+						</div>
 					</div>
-				</div>
-				
-				
-				<div class="test-controls-empty" ng-show="test._tasks.length === 0">
-					<small><a ng-click="editTest(test)">You need to add some tasks.</a></small>
-				</div>
-				
-			
-				<div class="test-controls">
-				
-					<a class="left" ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run Test</a>
-		
-					<a class="right" ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0">Report</a>
 					
-					<a class="right" ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0">Report</a>
 					
-					<div class="clear"></div>	
-				</div>	
-	
+					<div class="test-controls-empty" ng-show="test._tasks.length === 0">
+						<small><a ng-click="editTest(test)">You need to add some tasks.</a></small>
+					</div>
+					
+					
+					<div class="test-controls">
+						
+						<a class="left" ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run Test</a>
+						
+						<a class="right" ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0">Report</a>
+						
+						<a class="right" ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0">Report</a>
+						
+						<div class="clear"></div>
+					</div>
+					
+				</div>
 			</div>
-		</div>	
-		<!-- / test -->
-		
-		
-		<!-- empty test prompt -->
-<!-- 		<div class="overview-test module quarter overview-test-empty" ng-click="newTest()">
+			<!-- / test -->
+			
+			
+			<!-- empty test prompt -->
+			<!-- 		<div class="overview-test module quarter overview-test-empty" ng-click="newTest()">
 				<div class="overview-test-container">
-				
-					<div class="test-info">
-						<div class="overview-test-add">+</div>
-						<h3>Create a new project</h3>
-					</div>
-				
+							
+								<div class="test-info">
+												<div class="overview-test-add">+</div>
+												<h3>Create a new project</h3>
+								</div>
+							
 				</div>
 			</div> -->
-		<!-- /empty test prompt -->
-		
-		
-		<div class="clear"></div>		
+			<!-- /empty test prompt -->
 			
+			
+			<div class="clear"></div>
+			
+		</div>
 	</div>
-
-</div>
-
-
-
-
-
-
-
-
-
-
