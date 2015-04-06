@@ -1220,10 +1220,42 @@ hr {
     #timeline ul li {
       padding: 0;
       margin: 0; }
-    #timeline ul .message {
+    #timeline ul .message-no-highlite {
       padding: 8px 0 0 12.5px;
       line-height: 19.2px;
       margin: 0 0 10px 0; }
+    #timeline ul .message {
+      padding: 8px 0 8px 12.5px;
+      line-height: 19.2px;
+      margin: 0 0 10px 0;
+      border-left: 4px solid #fff;
+      border-right: 4px solid #fff;
+      position: relative;
+      -webkit-transition-duration: 0.2s;
+      -webkit-transition-timing: ease-out;
+      -o-transition-duration: 0.2s;
+      -o-transition-timing: ease-out;
+      -moz-transition-duration: 0.2s;
+      -moz-transition-timing: ease-out;
+      -ms-transition-duration: 0.2s;
+      -ms-transition-timing: ease-out;
+      transition-duration: 0.2s;
+      transition-timing: ease-out; }
+      #timeline ul .message:hover, #timeline ul .message.selected {
+        color: #42474c;
+        background: #f3f7e7;
+        border-left: 4px solid #9bbb3a;
+        border-right: 4px solid #9bbb3a;
+        -webkit-transition-duration: 0.2s;
+        -webkit-transition-timing: ease-out;
+        -o-transition-duration: 0.2s;
+        -o-transition-timing: ease-out;
+        -moz-transition-duration: 0.2s;
+        -moz-transition-timing: ease-out;
+        -ms-transition-duration: 0.2s;
+        -ms-transition-timing: ease-out;
+        transition-duration: 0.2s;
+        transition-timing: ease-out; }
       #timeline ul .message .message-details {
         float: left; }
         #timeline ul .message .message-details .message-details-avatar {
@@ -2244,7 +2276,7 @@ hr {
     float: left;
     width: 55%;
     height: 100%;
-    padding: 0 5px 0 0;
+    padding: 0;
     margin: 0;
     position: relative;
     border-right: 1px solid #dddddd;
@@ -2277,10 +2309,6 @@ hr {
       overflow: auto; }
       #view-testing #testing-input #recent-hash-tags p {
         margin: 5px 0 0 10px; }
-    #view-testing #testing-input .message:hover {
-      background: #fff !important;
-      border-left: 4px solid #fff !important;
-      border-right: 4px solid #fff !important; }
   #view-testing #testing-client {
     width: 45%;
     height: 100%;

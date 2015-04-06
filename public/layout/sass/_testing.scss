@@ -67,7 +67,7 @@
 		float: left;
 		width: 55%;
 		height: 100%;
-		padding: 0 5px 0 0;
+		padding: 0;
 		margin: 0;
 		position: relative;
 		border-right: 1px solid $line;
@@ -113,13 +113,12 @@
 
 		}
 		
-		/* suppress message-hover during running tests */
-		
-		.message:hover {
-			background: $white !important;
-			border-left: 4px solid $white !important;
-			border-right: 4px solid $white !important;
-		}
+		/* suppress message-hover during running tests */		
+		// .message:hover {
+		// 	background: $white !important;
+		// 	border-left: 4px solid $white !important;
+		// 	border-right: 4px solid $white !important;
+		// }
 		
 	}
 	

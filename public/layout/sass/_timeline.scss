@@ -19,10 +19,29 @@
 			margin: 0;
 		}
 		
-		.message {
+		.message-no-highlite {
 			padding: $pad/2.5 0 0 $pad/1.6;
 			line-height: $type-line-base*0.8;
 			margin: 0 0 $pad/2 0;
+		}
+
+		.message {
+			padding: $pad/2.5 0 $pad/2.5 $pad/1.6;
+			line-height: $type-line-base*0.8;
+			margin: 0 0 $pad/2 0;
+
+			border-left: 4px solid $white;
+			border-right: 4px solid $white;
+			position: relative;
+			@include animated;
+					
+			&:hover, &.selected {
+				color: $fg-slate;
+				background: #f3f7e7;
+				border-left: 4px solid $fg-green-grassy;
+				border-right: 4px solid $fg-green-grassy;
+				@include animated;
+			}
 						
 			.message-details {
 				float: left;
