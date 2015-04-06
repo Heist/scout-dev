@@ -284,7 +284,7 @@
 
 							<div class="message-body" ng-click="editMessage(message)">
 								<small ng-if="message.title">{{message.title}}</small>
-								<pre class="messages" ng-bind-html="message.body | hashtag"></pre>
+								<pre class="messages" ng-bind-html="message.body | hashtag linebreaker" ng-show="messageEditToggle != message._id"></pre>
 								<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
 							</div>
 		
