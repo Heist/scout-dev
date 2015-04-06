@@ -42,7 +42,12 @@
 				border-right: 4px solid $fg-green-grassy;
 				@include animated;
 			}
-						
+			
+			.message-body textarea {
+				width: 98%;
+				margin: 0;
+			}
+
 			.message-details {
 				float: left;
 				

@@ -1256,6 +1256,9 @@ hr {
         -ms-transition-timing: ease-out;
         transition-duration: 0.2s;
         transition-timing: ease-out; }
+      #timeline ul .message .message-body textarea {
+        width: 98%;
+        margin: 0; }
       #timeline ul .message .message-details {
         float: left; }
         #timeline ul .message .message-details .message-details-avatar {
