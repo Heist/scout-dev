@@ -59,16 +59,11 @@
         };
 
         $scope.newTest = function(){
-            console.log('clicked new test', $scope.newProject);
-
             if($scope.newProject  || $scope.newProject === true  ){
-                console.log('truthy'); 
                 $scope.newProject = false; 
                 return;
             }
-            
             if(!$scope.newProject || $scope.newProject === false ){  
-                console.log('falsey'); 
                 $scope.newProject = true; 
                 return;
             }

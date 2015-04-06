@@ -12,14 +12,12 @@
 			<h3>Interview</h3>
 			<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
 			<a href="#">Tell me more about Interview tests</a>
-		<!-- 		<button class="button-inactive med" ng-class='{"select-active": test.kind || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>Select</button> -->
 		</div>
 		
 		<div class="module half test-type" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>
 			<h3>Prototype or Website</h3>
 			<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
 			<a href="#">Tell me more about Prototype testing</a>
-		<!-- 		<button class="button-inactive med" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>Select</button> -->
 		</div>
 		
 		<ul class="nobullets">
@@ -30,9 +28,7 @@
 				</li>
 				<li ng-show="test.kind === 'prototype'">
 					<label for="field-prototypeurl">What is your prototype or website URL?</label>
-					<input class="input" id="field-prototypeurl" ng-model="test.link" value="" placeholder="http://invision.com/JHGYT" type="url" name="url"/ />
-					<!-- <span ng-show="!prototypeForm.$valid" style="color:red;">This appears to be an invalid URL.<br></span>
-					<small>Using InVision? Make sure you turn off <strong>Force "Add to Home Screen"</strong> in your share settings</small> -->
+					<input class="input" id="field-prototypeurl" ng-model="test.link" placeholder="http://invision.com/JHGYT" type="url" name="url" />
 				</li>
 				<li>
 					<label for="field-prototypeurl">Test objectives</label>
@@ -45,7 +41,7 @@
 			</form>
 			<div class="cta">
 				<a href="#" class="secondary button cancel med" ng-click="$parent.newTest()">Cancel</a>
-				<button class="button med" ng-click="saveAndMove(3)">Create</button>
+				<button class="button med" ng-click="addTest(test)">Create</button>
 			</div>
 		</ul>
 	</div>

@@ -5,10 +5,18 @@
 module.exports = function(req, next){
 	var models = require('../../models');
 
-	models.Test.create({
+	var make = {
+			name : req.body.name,
+			kind : req.body.kind,
+			link : req.body.link || '',
+			desc : req.body.desc,
             created_by_account : req.user._account,
             created_by_user : req.user._id
-        }, function(err, test){
+	}
+
+	models.Test.create(
+		make,
+		function(err, test){
             if(err){console.log(err);}
             next(null, test);
         });

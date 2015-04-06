@@ -9,8 +9,8 @@
         console.log('loaded new test');
     	// SETUP VARIABLES ==========================
         $scope.test = {};
+
         $scope.test.created_by_user = $rootScope.user;
-        mixpanel.track('Add new test', { 'user' : $rootScope.user });
 
     	// TEST UPDATE ==============================
     	$scope.selectPrototype = function(kind){
@@ -24,37 +24,22 @@
 
         $scope.updateTest = function(){
             // reminder: this pushes an update to an already-created test
-            var test = $scope.test;
-            
+        };
+
+        $scope.addTest = function(test){
+        	console.log(test);
+
             if($scope.test.name){
                 mixpanel.track('Test name changed', { 'user': $rootScope.user });
             }
 
-            if($scope.test.desc){
-                test.desc = $scope.test.desc;
-            }
-
-            var url = '/api/test/'+$stateParams._id;
-            var data_out = test;
-        };
-
-        $scope.addTest = function(){
-        	// in here, add the new test once someone's entered all their weird testing data.
+            $http
+                .post('/api/test/', test)
+                .success(function(data){
+                    $scope.$parent.tests.push(data);
+                    $scope.$parent.newTest();
+                });
         }
-
-        $scope.cancelTest = function(){
-       
-        }
-
-                // var url = '/api/test/';
-                // var data_out = test;
-                
-                // $http
-                //     .post(url, data_out)
-                //     .success(function(data){
-                        
-                //         $scope.tests.push(data);
-                //     });
 
 	}]);
 
