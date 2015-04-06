@@ -39,6 +39,14 @@
         $scope.addTest = function(){
         	// in here, add the new test once someone's entered all their weird testing data.
         }
+
+        $scope.cancelTest = function(){
+        	console.log('cancel test');
+        	console.log($scope.$parent.newProject)
+        	console.log($scope);
+        	// $scope.$parent.newProject = false;
+
+        }
                 // var test = {};
                 
                 // if($rootScope.user){
