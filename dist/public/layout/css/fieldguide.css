@@ -2272,7 +2272,9 @@ hr {
       padding: 5px;
       height: 45px;
       z-index: 9999;
-      border-top: 1px solid #dddddd; }
+      border-top: 1px solid #dddddd;
+      line-height: 17px;
+      overflow: auto; }
       #view-testing #testing-input #recent-hash-tags p {
         margin: 5px 0 0 10px; }
     #view-testing #testing-input .message:hover {

@@ -104,6 +104,8 @@
 			height: 45px;
 			z-index: 9999;
 			border-top: 1px solid $line;
+			line-height: 17px;
+			overflow: auto;
 
 			p {
 				margin: 5px 0 0 10px;
