@@ -2657,6 +2657,9 @@ hr {
         background: url('../assets/comment-active.svg') no-repeat right top;
         background-size: contain;
         color: #fff; }
+  .message .delete-message {
+    float: right;
+    margin: 0 20px 20px 0; }
   .message .message-comment-count {
     position: absolute;
     left: 102%;
