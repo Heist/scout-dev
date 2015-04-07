@@ -103,14 +103,25 @@
         text-align: center;
         position: relative;
         cursor: pointer;
+        border-bottom: 4px solid $white;
+        margin: 0 0 20px 0;
 
-        &.active {
-        	border-bottom: 3px solid $fg-green;
+        &:hover {
+            border-bottom: 4px solid $fg-green;
+        }
+
+        &.select-active {
+        	border-bottom: 4px solid $fg-green;
+        }
+
+        &.select-inactive {
+            border-bottom: 0;
         }
 
         .selected-arrow {
             display: none;
         }
+
         p {
             font-size: 12px;
             line-height: 17px;
