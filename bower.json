@@ -24,7 +24,8 @@
     "canvas2image": "*",
     "lodash": "~2.4.1",
     "angular-youtube-mb": "~0.1.6",
-    "angular-payments": "*"
+    "angular-payments": "*",
+    "angular-typeahead": "~0.2.2"
   },
   "overrides": {
     "jquery": {
