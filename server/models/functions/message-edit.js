@@ -23,8 +23,9 @@ module.exports = function(msg, next){
     
     return models.Message.findOneAsync({'_id' : msg._id})
         .then(function(returned){
-            returned.body = msg.body;
             console.log('find me', returned._id);
+            returned.body = msg.body;
+            
             // create a new message that copies the old message
             // delete the old message
             // check the tags for the old message and remove it from them
