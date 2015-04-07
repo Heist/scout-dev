@@ -22,9 +22,11 @@ module.exports = function(app, passport, debug) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
-        var reply = {};
+        console.log('new message', req.body);
+        
         fn.messageNew(req.body, req.user._id)
             .then(function(data){
+                console.log(data);
                 res.json(data);
                 //TODO: in here, should we be adding tags to the overall tag pool and returning it?
             })

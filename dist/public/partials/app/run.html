@@ -277,30 +277,23 @@
 						<li class="message">
 							<div class="message-body" ng-click="editMessage(message)">
 								<small>Starting Test</small>
-								<pre class="messages" ng-bind-html="message.body | hashtag"></pre>
-							</div>
-
-							<div class="clear"></div>
-						</li>
-						<li class="message">
-							<div class="message-body" ng-click="editMessage(message)">
-								<small>Starting Task</small>
-								<pre class="messages" ng-bind-html="message.body | hashtag"></pre>
+								<pre class="messages">{{test.name}}</pre>
 							</div>
 
 							<div class="clear"></div>
 						</li>
 						<li class="message" ng-repeat="message in timeline track by $index" >
-							<!-- <div class="message-details"> -->
-							<!-- show the user's avatar -->
-							<!-- 	<div class="message-details-avatar avatar-header" ng-if="message.title">&bull;</div>
-								<div class="message-details-avatar avatar-message" ng-if="!message.title">&bull;</div>
-							</div> -->
-
 							<div class="message-body" ng-click="editMessage(message)">
 								<small ng-if="message.title">{{message.title}}</small>
-								<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-								<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
+
+								<!-- non-editable guideline messages -->
+								<pre class="messages" ng-if="message.title === 'Starting task'">
+									{{message.body}}
+								</pre>
+
+								<!-- Editable messages - if a message is not a guideline -->
+								<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
+								<textarea class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
 							</div>
 		
 							<div class="clear"></div>

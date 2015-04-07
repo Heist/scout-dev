@@ -228,9 +228,9 @@
             } else {
                 postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
-                        console.log(data);
-                        $scope.timeline.push(data.data.msg);
-                        $scope.tags = data.data.tags;
+                        console.log('okay what', data);
+                        $scope.timeline.push(data.data);
+                        // $scope.tags = data.data._tags;
                         $scope.message='';
                     });
             }
