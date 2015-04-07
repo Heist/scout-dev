@@ -22,6 +22,7 @@ module.exports = function(app, passport, debug) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
+     console.log('find post message route');
         fn.messageNew(req.body, req.user._id).then(function(data){
             if(typeof data === 'object'){
                 models.Tag.findAsync({'_test' : req.body._test})
@@ -36,7 +37,7 @@ module.exports = function(app, passport, debug) {
     .put(function(req, res){
     // Edit the body of a message and change its tag associations
 
-        // console.log('find this message route', req.body._id);
+        console.log('find put message route');
         fn.messageEdit(req.body).then(function(data){
             if(typeof data === 'object'){
                 models.Tag.findAsync({'_test' : data._test})

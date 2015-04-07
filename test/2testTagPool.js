@@ -55,8 +55,7 @@ describe('The Tag Pool', function(){
 					_subject : m.s._id
 				})
 				.end(function(err, res){
-					console.log('whats going on', res.body.msg._tags[0]);
-					// m.puce = res.body._id;
+					m.puce = res.body.msg._tags[0];
 					done();
 				})
 			})
@@ -104,7 +103,7 @@ describe('The Tag Pool', function(){
 			});
 	})
 
-	it('Accept a full message', function(done){
+	it('should accept a full message', function(done){
 		loggedIn.post('/api/message/')
 			.send({
 				body : 'This is a #blue #note #purple', 
@@ -116,7 +115,7 @@ describe('The Tag Pool', function(){
 				expect(res.body).to.be.an('object')
 				expect(res.body.msg._tags).to.have.length(3)
 				expect(res.body.msg.body).to.equal('This is a #blue #note #purple')
-				expect(res.body.tags).to.have.length(5)
+				expect(res.body.tags).to.have.length(6)
 				done();
 			});
 	});
@@ -184,7 +183,7 @@ describe('The Tag Pool', function(){
 	it('should return tags by test', function(done){
 			loggedIn.get('/api/tag/'+m.t._id)
 				.end(function(err,res){
-					expect(res.body).to.have.length(6);
+					expect(res.body).to.have.length(7);
 					done();
 				});
 	});
@@ -199,27 +198,25 @@ describe('The Tag Pool', function(){
 				expect(res.body).to.be.an('object')
 				expect(res.body.msg._tags).to.have.length(2)
 				expect(res.body.msg.body).to.equal('New message body #yeah #body')
-				expect(res.body.tags).to.have.length(8)
+				expect(res.body.tags).to.have.length(9)
 				done();
 			});
 	});
 
 	it('should remove a tag that has no messages', function(done){
-		console.log('puce!', m.puce);
-			// loggedIn.put('/api/message')
-			// 	.send({
-			// 		_id : res.body.msg._id,
-			// 		body : 'Kill puce'
-			// 	})
-			// 	.end(function(err, res){
-			// 		console.log(res.body)
-			// 		expect(res.body).to.be.an('object')
-			// 		expect(res.body.msg._tags).to.have.length(0)
-			// 		expect(res.body.msg.body).to.equal('Kill puce')
-			// 		expect(res.body.tags).to.have.length(8)
-			// 		done();
-			// 	})
-			
+			loggedIn.put('/api/message/')
+				.send({
+					_id : m.puce._id,
+					body : 'Kill puce'
+				})
+				.end(function(err, res){
+					console.log(res.body)
+					expect(res.body).to.be.an('object')
+					expect(res.body.msg._tags).to.have.length(0)
+					expect(res.body.msg.body).to.equal('Kill puce')
+					expect(res.body.tags).to.have.length(8)
+					done();
+				})
 	});
 })
 
