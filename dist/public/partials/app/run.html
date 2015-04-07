@@ -261,7 +261,7 @@
 					<ul>
 						
 						<!-- empty state -->
-						<li class="message" id="firstrun">
+						<li class="message-no-highlite" id="firstrun">
 							<!-- <div class="message-details">
 								<div class="message-details-avatar avatar-header">&bull;</div>
 							</div> -->
@@ -273,9 +273,24 @@
 							<div class="clear"></div>
 						</li>				
 						<!-- /empty state -->
-								
-						<li class="message" ng-repeat="message in timeline track by $index" >
+						
+						<li class="message">
+							<div class="message-body" ng-click="editMessage(message)">
+								<small>Starting Test</small>
+								<pre class="messages" ng-bind-html="message.body | hashtag"></pre>
+							</div>
 
+							<div class="clear"></div>
+						</li>
+						<li class="message">
+							<div class="message-body" ng-click="editMessage(message)">
+								<small>Starting Task</small>
+								<pre class="messages" ng-bind-html="message.body | hashtag"></pre>
+							</div>
+
+							<div class="clear"></div>
+						</li>
+						<li class="message" ng-repeat="message in timeline track by $index" >
 							<!-- <div class="message-details"> -->
 							<!-- show the user's avatar -->
 							<!-- 	<div class="message-details-avatar avatar-header" ng-if="message.title">&bull;</div>

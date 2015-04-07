@@ -273,7 +273,15 @@
 							<div class="clear"></div>
 						</li>				
 						<!-- /empty state -->
-								
+						
+						<li class="message">
+							<div class="message-body" ng-click="editMessage(message)">
+								<small>Starting Test</small>
+								<pre class="messages">{{test.name}}</pre>
+							</div>
+
+							<div class="clear"></div>
+						</li>
 						<li class="message" ng-repeat="message in timeline track by $index" >
 							<!-- <div class="message-details"> -->
 							<!-- show the user's avatar -->
@@ -283,8 +291,12 @@
 
 							<div class="message-body" ng-click="editMessage(message)">
 								<small ng-if="message.title">{{message.title}}</small>
-								<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-								<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
+								<pre class="messages" ng-if="message.title === 'Starting task'">
+									{{message.body}}
+								</pre>
+
+								<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
+								<textarea class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
 							</div>
 		
 							<div class="clear"></div>

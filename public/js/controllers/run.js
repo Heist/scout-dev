@@ -8,26 +8,26 @@
     function(loadData, testBuildFunctions, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
     // get the starting data from resolve
         var data = loadData.data;
-        console.log(data);
+
+        console.log('data', data);
+
+        $scope.test = data;
+        $scope.kind = data.kind;
+        $scope.navlist = data._tasks;
+
         $scope.tags = data._tags;
+    
     // set up and reset variables to clear cache from state changes.
         $scope.update = [];
         $scope.task = {};
         var message = {};
         
     // holds all messages currently in test
-        $scope.timeline = [{ 
-                title: 'Starting test', 
-                body: data.name 
-            }]; 
+        $scope.timeline = []; 
 
     // make sure the scroll works
         $scope.glued = true;
 
-        $scope.test = data;
-        $scope.kind = data.kind;
-        $scope.navlist = data._tasks;
-                
     // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
 
