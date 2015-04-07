@@ -2040,7 +2040,9 @@ hr {
     padding-left: 20px; }
     #view-editing .next-button .button {
       padding-left: 30px;
-      padding-right: 30px; }
+      padding-right: 30px;
+      position: absolute;
+      right: 20px; }
   #view-editing .test-setup {
     padding: 20px 0 0 0; }
     #view-editing .test-setup .sheet {

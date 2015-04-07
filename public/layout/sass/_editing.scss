@@ -53,6 +53,8 @@
         .button {
             padding-left: $pad * 1.5;
             padding-right: $pad * 1.5;
+            position: absolute;
+            right: 20px;
         }
     }
     /* step 1 */
