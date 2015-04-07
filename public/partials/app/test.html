@@ -18,9 +18,9 @@
 						<ul class="nobullets">
 							<!-- make below editable -->
 							<h2 ng-model="test.name">{{test.name}}</h2>
-							
+
 							<h3>Objectives</h3>
-								<pre id="test-descriptions" ng-model="test.desc">{{test.desc}}</pre>
+								<pre class="test-descriptions" ng-model="test.desc">{{test.desc}}</pre>
 							<!-- tags section goes here -->
 							<!-- <h3>Tags</h3> -->
 						
@@ -52,8 +52,10 @@
 								<!-- add a new task -->
 								<div class="add-task">
 									<form ng-model='newtask'>
+										<h4>Topic</h4>
 										<input class="input" ng-trim="false" ng-model="newtask.name"placeholder="Task name"><br/>
 										
+										<h4>Questions</h4>
 										<textarea msd-elastic ng-model="newtask.desc" class="input small" id="field-textarea" placeholder="Put talking points or task-specific questions here.">
 										</textarea>
 									</form>

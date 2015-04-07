@@ -3,6 +3,32 @@
 #view-editing {
     margin: 0;
     padding: 0;
+    background: $white;
+
+    .sheet {
+        box-shadow: none;
+    }
+    
+    h2 {
+        @include type-light;
+        color: $fg-black;
+        font-size: 24px;
+        margin: 0 0 40px 0;
+    }
+
+    h3 {
+        @include type-light;
+        color: $fg-black;
+        font-size: 16px;
+        margin: 20px 0;
+    }
+
+    pre.test-descriptions {
+        font-size: 12px;
+        @include type-light;
+        color: $fg-grey;
+        margin: 0;
+    }
 
     ul {
     	clear: both;
@@ -35,6 +61,7 @@
             width: 33.3%;
         }
     }
+
     .stepped-nav {
         float: left;
         width: 33.3% !important;
@@ -62,10 +89,6 @@
         padding: $pad 0 0 0;
         .sheet {
             padding: $pad;
-        }
-        h4:first-child {
-            padding: 20px 0 191px 0;
-            margin: 0;
         }
         h4.no-pad {
             padding: 0;

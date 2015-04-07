@@ -28,7 +28,7 @@ interpreted colours
 custom fonts
 ========================
 */
-/* p n a */
+/* gibson */
 /* Mixins */
 /*
 helpers
@@ -2003,10 +2003,34 @@ hr {
 #view-editing {
   margin: 0;
   padding: 0;
+  background: #fff;
   /* step 1 */
   /* step 2 */
   /* step 3 */
   /* step 5 */ }
+  #view-editing .sheet {
+    box-shadow: none; }
+  #view-editing h2 {
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    color: #323539;
+    font-size: 24px;
+    margin: 0 0 40px 0; }
+  #view-editing h3 {
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    color: #323539;
+    font-size: 16px;
+    margin: 20px 0; }
+  #view-editing pre.test-descriptions {
+    font-size: 12px;
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    color: #939598;
+    margin: 0; }
   #view-editing ul {
     clear: both; }
   #view-editing .cta {
@@ -2047,9 +2071,6 @@ hr {
     padding: 20px 0 0 0; }
     #view-editing .test-setup .sheet {
       padding: 20px; }
-    #view-editing .test-setup h4:first-child {
-      padding: 20px 0 191px 0;
-      margin: 0; }
     #view-editing .test-setup h4.no-pad {
       padding: 0; }
     #view-editing .test-setup .nobullets {
