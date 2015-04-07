@@ -27,7 +27,7 @@
         }
         .button.cancel {
             background: none;
-            color: red;
+            color: $fg-grey;
             padding: 10px 160px 0 0;
             &:hover {
                 text-decoration: underline;

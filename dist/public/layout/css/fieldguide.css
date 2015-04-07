@@ -1567,7 +1567,7 @@ hr {
         border: none; }
     .modal .modal-interior .button.cancel, .modal .modal-interior .button.dry-run {
       background: none;
-      color: red;
+      color: #939598;
       padding: 10px 160px 0 0; }
       .modal .modal-interior .button.cancel:hover, .modal .modal-interior .button.dry-run:hover {
         text-decoration: underline;
