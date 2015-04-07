@@ -17,19 +17,4 @@ module.exports = function(msg) {
 
 	return models.Message.removeAsync({'_id': msg._id})
 				 .catch(function(err){console.log(err)});
-
-	// Bluebird.all([
-	// 	models.Subject.findAsync( { _messages: { $in: [ msg._id ] } } ).then(function(data){
-	// 		// for each subject where the message exists,
-	// 		// splice the message out of the messages array.
-	// 		// save the subject.
-	// 	})
-	// ]);
-
-	// remove pointer from Subject
-	// remove pointer from Task
-	// remove pointer from Tags
-	// remove Message from DB
-
-
 }

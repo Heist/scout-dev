@@ -23,18 +23,27 @@ module.exports = function(app, passport, debug) {
     .post(function(req,res){
      // Create a new message
         console.log('new message', req.body);
-        
-        fn.messageNew(req.body, req.user._id)
-            .then(function(data){
-                console.log(data);
-                res.json(data);
-                //TODO: in here, should we be adding tags to the overall tag pool and returning it?
-            })
+    
+        Bluebird.all([
+            fn.messageNew(req.body, req.user._id),
+            models.Tag.findAsync({'_test' : req.body._test})
+        ]).then(function(arr){
+            console.log(arr);
+            res.json(arr);
+        }).catch(function(err){
+            console.log(err);
+        });
     })
     .put(function(req, res){
     // Edit the body of a message and change its tag associations
-        fn.messageEdit(req.body).then(function(data){
-            res.json(data);
+        Bluebird.all([
+            fn.messageEdit(req.body),
+            models.Tag.findAsync({'_test' : req.body._test})
+        ]).then(function(arr){
+            console.log(arr);
+            res.json(arr);
+        }).catch(function(err){
+            console.log(err);
         });
     });
 
