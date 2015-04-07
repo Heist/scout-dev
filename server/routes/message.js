@@ -36,7 +36,7 @@ module.exports = function(app, passport, debug) {
     })
     .put(function(req, res){
     // Edit the body of a message and change its tag associations
-
+        
         console.log('find put message route');
         fn.messageEdit(req.body).then(function(data){
             if(typeof data === 'object'){

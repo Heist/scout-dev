@@ -188,7 +188,7 @@ describe('The Tag Pool', function(){
 				});
 	});
 
-	it.skip('should edit an existing message', function(done){
+	it('should edit an existing message', function(done){
 		loggedIn.put('/api/message/')
 			.send({
 				_id : m.msg2._id,
@@ -204,6 +204,7 @@ describe('The Tag Pool', function(){
 	});
 
 	it('should remove a tag that has no messages', function(done){
+		console.log('m.puce', m.puce);
 			loggedIn.put('/api/message/')
 				.send({
 					_id : m.puce._id,
