@@ -55,7 +55,7 @@ describe('The Tag Pool', function(){
 					_subject : m.s._id
 				})
 				.end(function(err, res){
-					m.puce = res.body.msg._tags[0];
+					m.puce = res.body.msg;
 					done();
 				})
 			})
@@ -205,6 +205,7 @@ describe('The Tag Pool', function(){
 
 	it('should remove a tag that has no messages', function(done){
 		console.log('m.puce', m.puce);
+		// Puce is now a message, that should help with things
 			loggedIn.put('/api/message/')
 				.send({
 					_id : m.puce._id,

@@ -20,7 +20,9 @@ module.exports = function(msg, next){
     // edit a message.
     // finds the message to edit, makes a new one that's a copy, wipes the old one.
     // there are dual-pointers everywhere, oh well.
-    console.log(msg);
+
+    // FIND A MESSAGE  from a message ID then do the above
+
     return models.Message.find({'_id':msg._id}).exec(function(err, data){
         console.log('what', data);
     })
