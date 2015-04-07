@@ -59,7 +59,7 @@ describe('Nav List', function(){
 				expect(res.body.navlist).to.have.property('test');
 				expect(res.body.navlist).to.have.property('list');
 				expect(res.body.navlist.test).to.be.a('string');
-				expect(res.body.navlist.list).to.have.length(9);
+				expect(res.body.navlist.list).to.have.length(6);
 				expect(res.body.messages).to.be.an('array');
 				done();
 			});

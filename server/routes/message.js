@@ -8,11 +8,11 @@ module.exports = function(app, passport, debug) {
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
     var async = require('async');
-    var Promise = require('bluebird');
+    var Bluebird = require('bluebird');
 
 // load data storage models =====================
-    var models  = require('../models');
- 
+    var models = Bluebird.promisifyAll(require('../models'));
+
 // load functions  ==============================
     var fn  = require('../models/functions')
 
@@ -22,18 +22,17 @@ module.exports = function(app, passport, debug) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
-        // var messageNew = require('../models/functions/message-new')
-        fn.messageNew(req.body, req.user._id).then(function(data){
-            // console.log('messsageNew Route', data);
-            res.json(data);
-        });
+        var reply = {};
+        fn.messageNew(req.body, req.user._id)
+            .then(function(data){
+                res.json(data);
+                //TODO: in here, should we be adding tags to the overall tag pool and returning it?
+            })
     })
     .put(function(req, res){
     // Edit the body of a message and change its tag associations
-        // console.log(req.body);
-        fn.messageEdit(req.body, function(err, msg){
-            if(err){console.log(err);}
-            res.json(msg);
+        fn.messageEdit(req.body).then(function(data){
+            res.json(data);
         });
     });
 

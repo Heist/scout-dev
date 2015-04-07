@@ -77,7 +77,7 @@ describe('The Tag Pool', function(){
 			});
 	});
 
-	it('Reject note if just a tag', function(done){
+	it.skip('Reject note if just a tag', function(done){
 		loggedIn.post('/api/message/')
 			.send({
 				body : '#purple', 
@@ -102,7 +102,7 @@ describe('The Tag Pool', function(){
 			.end(function(err, res){
 				expect(res.body).to.be.an('object')
 				expect(res.body._tags).to.have.length(3)
-				expect(res.body.body).to.equal('This is a')
+				expect(res.body.body).to.equal('This is a #blue #note #purple')
 				done();
 			});
 	});
@@ -176,10 +176,20 @@ describe('The Tag Pool', function(){
 	});
 
 	it('should edit an existing message', function(done){
-
+		loggedIn.put('/api/message/')
+			.send({
+				_id : m.msg2._id,
+				body: 'New message body #yeah #body'
+			})
+			.end(function(err,res){
+				expect(res.body).to.be.an('object')
+				expect(res.body._tags).to.have.length(2)
+				expect(res.body.body).to.equal('New message body #yeah #body')
+				done();
+			});
 	});
 
-	it('should update a tag with a new message', function(done){
+	it.skip('should update a tag with a new message', function(done){
 
 	});
 })
