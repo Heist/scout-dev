@@ -43,11 +43,23 @@ describe('The Tag Pool', function(){
 			m.msg = msg[0];
 			m.msg2 = msg[1];
 			m.msg3 = msg[2];
-			done();
-		});	
+		}).then(function(next){
+			agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' }).end(function(err, res){
+				loggedIn = agent;
 
-		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' }).end(function(err, res){
-			loggedIn = agent;
+				loggedIn.post('/api/message/')
+				.send({
+					body : 'New message body #puce', 
+					_test : m.t._id,
+					_task : m.tsk._id,
+					_subject : m.s._id
+				})
+				.end(function(err, res){
+					console.log('whats going on', res.body.msg._tags[0]);
+					// m.puce = res.body._id;
+					done();
+				})
+			})
 		})
 	})
 
@@ -177,7 +189,7 @@ describe('The Tag Pool', function(){
 				});
 	});
 
-	it('should edit an existing message', function(done){
+	it.skip('should edit an existing message', function(done){
 		loggedIn.put('/api/message/')
 			.send({
 				_id : m.msg2._id,
@@ -192,8 +204,22 @@ describe('The Tag Pool', function(){
 			});
 	});
 
-	it.skip('should update a tag with a new message', function(done){
-
+	it('should remove a tag that has no messages', function(done){
+		console.log('puce!', m.puce);
+			// loggedIn.put('/api/message')
+			// 	.send({
+			// 		_id : res.body.msg._id,
+			// 		body : 'Kill puce'
+			// 	})
+			// 	.end(function(err, res){
+			// 		console.log(res.body)
+			// 		expect(res.body).to.be.an('object')
+			// 		expect(res.body.msg._tags).to.have.length(0)
+			// 		expect(res.body.msg.body).to.equal('Kill puce')
+			// 		expect(res.body.tags).to.have.length(8)
+			// 		done();
+			// 	})
+			
 	});
 })
 

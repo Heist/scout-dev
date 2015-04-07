@@ -35,6 +35,8 @@ module.exports = function(app, passport, debug) {
     })
     .put(function(req, res){
     // Edit the body of a message and change its tag associations
+
+        // console.log('find this message route', req.body._id);
         fn.messageEdit(req.body).then(function(data){
             if(typeof data === 'object'){
                 models.Tag.findAsync({'_test' : data._test})

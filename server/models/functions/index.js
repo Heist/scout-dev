@@ -27,6 +27,7 @@ module.exports= {
 	resetPassword   : require('./reset-password'),
 	tagMaker		: require('./tag-maker'),
 	tagPuller       : require('./tag-puller'),
+	tagRemove		: require('./tag-remove'),
 	testNew			: require('./test-new'),
 	toTitleCase		: require('./toTitleCase'),
 	userCreate      : require('./user-create')

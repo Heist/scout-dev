@@ -3,7 +3,6 @@
 'use strict';
 
 module.exports = function(msg) {
-	// body...
 // Module dependencies ==========================
     var Bluebird = require('bluebird');
     var _ = require('lodash');
@@ -15,6 +14,7 @@ module.exports = function(msg) {
 	// retrieve message _id
 	console.log('remove this', msg._id);
 
+	// first, remove the message
 	return models.Message.removeAsync({'_id': msg._id})
-				 .catch(function(err){console.log(err)});
+				.catch(function(err){console.log(err)});
 }

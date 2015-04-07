@@ -24,14 +24,35 @@ module.exports = function(msg, next){
     return models.Message.findOneAsync({'_id' : msg._id})
         .then(function(returned){
             returned.body = msg.body;
-
-            return Bluebird.all([
-                fn.messageNew(returned, returned.created_by_user),
-                fn.messageRemove(returned)
-            ]);
-        }).then(function(arr){
-            return arr[0];
-        }) 
+            // console.log('find me', returned._id);
+            // create a new message that copies the old message
+            // delete the old message
+            // check the tags for the old message and remove it from them
+            // if there are any empy tags, remove them
+            
+            return fn.messageNew(returned, returned.created_by_user)
+            .then(function(checkForTags){
+                // return models.Tag.findAsync({ '_messages' : {$in: [returned._id]}})
+                //     .then(function(tags){
+                //         // console.log('tag removal', tags);
+                //         return Bluebird.map(tags, function(tag){
+                //             var pos = tag._messages.indexOf(returned._id);
+                //             // console.log('found old id', pos, tag.name);
+                //             tag._messages.splice(pos, 1);
+                //             return tag; 
+                //         }).then(function(d){
+                //             return d;
+                //         })
+                //     })
+                return checkForTags;
+            })
+            // .then(function(data){
+            //     return fn.messageRemove(returned);
+            // })
+            // .then(function(arr){
+            //     return arr[0];
+            // });
+        })
         .catch(function(err){
             console.log(err);
         }); 
