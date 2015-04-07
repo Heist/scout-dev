@@ -16,7 +16,7 @@
 
                     var promise = $http.post('/api/message/', note).then(function(response) {
                         // console.log('new reply', response);
-                        return response;
+                        return response.data;
                     });
 
                     return promise;

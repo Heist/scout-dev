@@ -212,6 +212,7 @@
 
          // MESSAGE FUNCTIONS ==================================
         $scope.messageEditToggle = '';
+
         $scope.editMessage = function(message){
             // clear this on blur to block weird toggle bug
             $scope.messageEditToggle = message._id;
@@ -229,8 +230,8 @@
                 postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
                         console.log('okay what', data);
-                        $scope.timeline.push(data.data);
-                        // $scope.tags = data.data._tags;
+                        $scope.timeline.push(data.msg);
+                        $scope.tags = data.tags;
                         $scope.message='';
                     });
             }
