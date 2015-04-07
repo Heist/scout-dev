@@ -28,7 +28,7 @@ module.exports = function(app, passport, io, debug) {
 
     app.route('/api/run/:_id')
         .get(function(req,res){
-            console.log('run test');
+            // console.log('run test');
             // Find a test by _id and _account and populate its tasks, then return.
             models.Test.findOne({
                     '_id' : req.params._id, 
@@ -38,7 +38,7 @@ module.exports = function(app, passport, io, debug) {
                 .populate('_tasks _tags')
                 .exec(function(err, test){
                     if(err){console.log(err);}
-                    console.log(test);
+                    // console.log(test);
                     res.json(test);
                 });
 

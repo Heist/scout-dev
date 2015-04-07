@@ -77,9 +77,7 @@ module.exports = function(address, inviter, next){
                     });
 
                 mailer.send(function(err, result) {
-                    if (err) { 
-                        console.log(err); 
-                    }
+                    if (err) {console.log(err);}
                     callback(null, 'Invite sent to '+ invite.invite_email);
                 });
             });

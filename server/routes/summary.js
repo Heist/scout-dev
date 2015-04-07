@@ -26,7 +26,7 @@ module.exports = function (app, passport, debug) {
     .put(function(req, res){
         // this should be used for updating objects with
         // visibility and summaries
-        console.log('object update this steeze', req.body);
+        // console.log('object update this steeze', req.body);
 
         var object_array = req.body.navlist || req.body;
         var message_array = req.body.messages || [];
@@ -54,7 +54,7 @@ module.exports = function (app, passport, debug) {
     })
     .post(function(req,res){
         // update an object but not any messages
-        console.log('solo update', req.body);
+        // console.log('solo update', req.body);
         
         fn.objectUpdate(req.body,
             function(err, update){

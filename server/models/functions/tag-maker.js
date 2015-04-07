@@ -14,7 +14,7 @@ module.exports = function(tag){
 	var Bluebird = require('bluebird');
     var models = Bluebird.promisifyAll(require('../../models'));
     
-    console.log('tagmaker');
+    // console.log('tagmaker');
 // Check tags against the DB of existing tagnames
 	var testStr = tag.name.toLowerCase();
 	var u = {
@@ -44,14 +44,14 @@ module.exports = function(tag){
 		// check if that tag already exists on the test
 		// if so, just pass to next
 		// otherwise, add the tag to the test.
-		console.log(test._tags.length);
+		// console.log(test._tags.length);
 
 		if (test._tags.indexOf(data._id) === -1){
-			console.log('not found')
+			// console.log('not found')
 			test._tags.push(data._id);
 			return test.save();
 		} else {
-			console.log('found')
+			// console.log('found')
 			return;
 		}
 

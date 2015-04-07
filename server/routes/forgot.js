@@ -74,7 +74,7 @@ module.exports = function(app, passport, debug) {
             } 
         ], function(err, results) {
             if (err){ return next(err); }
-            console.log('waterfall results email forgot js', results);
+            // console.log('waterfall results email forgot js', results);
             res.send(results);
         });
     });

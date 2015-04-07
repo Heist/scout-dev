@@ -22,7 +22,7 @@ module.exports = function(app, passport, debug) {
         .post(function(req,res){
                 fn.addSubject(req.body, function(err, subject){
                     if(err){ console.log(err); }
-                    console.log(subject);
+                    // console.log(subject);
                     res.json(subject);
                 });
             });

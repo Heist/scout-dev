@@ -78,7 +78,7 @@ module.exports = function(app, debug){
 
     app.route('/api/invite/:_id')
         .put(function(req,res){
-            console.log('invite put');
+            // console.log('invite put');
         })
         .post(function(req,res){
             // this is to resend an Invite already sent

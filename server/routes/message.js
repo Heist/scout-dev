@@ -24,13 +24,13 @@ module.exports = function(app, passport, debug) {
      // Create a new message
         // var messageNew = require('../models/functions/message-new')
         fn.messageNew(req.body, req.user._id).then(function(data){
-            console.log('messsageNew Route', data);
+            // console.log('messsageNew Route', data);
             res.json(data);
         });
     })
     .put(function(req, res){
     // Edit the body of a message and change its tag associations
-        console.log(req.body);
+        // console.log(req.body);
         fn.messageEdit(req.body, function(err, msg){
             if(err){console.log(err);}
             res.json(msg);

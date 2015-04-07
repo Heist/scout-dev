@@ -63,7 +63,7 @@ module.exports = function(io, app, passport, debug) {
     // this is only good on Socket 1.0+ - we are presently using Socket 0.9
 
     io.use(function(socket, next) {
-        console.log('socket query', socket.request._query, socket.id);
+        // console.log('socket query', socket.request._query, socket.id);
         var query = socket.request._query;
         room = query.test;
 
@@ -72,7 +72,7 @@ module.exports = function(io, app, passport, debug) {
         };
 
         socket.join(room);
-        console.log('room joined', room);
+        // console.log('room joined', room);
         next();
     });
 
@@ -101,7 +101,7 @@ module.exports = function(io, app, passport, debug) {
 
         if(error){ console.log(error);}
         
-        console.log('failed connection to socket.io:', message);
+        // console.log('failed connection to socket.io:', message);
         name = userNames.getGuestName();
         accept();
         
@@ -158,7 +158,7 @@ function testSession(main, channel){
     var roomList = [];
 
     io.on('connection', function (socket) {
-        console.log('hello user', user._account);
+        // console.log('hello user', user._account);
         console.log('someone connected from somewhere');
         // All of these variables die with the connection.
         // This probably works to kill old rooms and things?

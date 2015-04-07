@@ -10,7 +10,7 @@ module.exports = function(test, next){
     var models   = require('../../models');
 
 // Duplicate existing tests through a waterfall callback.
-    console.log(test);
+    // console.log(test);
     async.waterfall([
         function(callback) {
             models.Test.findById(test)
@@ -58,7 +58,7 @@ module.exports = function(test, next){
                     });
 
                 }, function(err, results){
-                    console.log('callback', results);
+                    // console.log('callback', results);
                     callback(null, {tasks: results, test: args.test});
                 });
             } else {

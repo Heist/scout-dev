@@ -175,6 +175,13 @@ describe('The Tag Pool', function(){
 				});
 	});
 
+	it('should edit an existing message', function(done){
+
+	});
+
+	it('should update a tag with a new message', function(done){
+
+	});
 })
 
 })();

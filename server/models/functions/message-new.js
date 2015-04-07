@@ -35,19 +35,19 @@ module.exports = function(request, user){
                     })
             ]).then(function(arr){
                 // create the dual-pointer on the message for tag population
-                console.log('check the array', arr.length);
+                // console.log('check the array', arr.length);
                 return Bluebird.map(arr[2], function(tag){
                     return models.Message.findOneAndUpdate({'_id': note._id }, {$push : {'_tags': tag } }, function(err, obj){});
                 })
             }).then(function(arr){
                 // return the populated message so you can insert it into the timeline
-                console.log('arr checked');
+                // console.log('arr checked');
                 return Bluebird.all([ 
                     models.Message.findById(note._id).populate('_subject _tags').exec(function(err, next){}),
                     models.Tag.find({'_test' : msg._test}).exec(function(err, next){})
                     ])
             }).then(function(arr){
-                console.log(arr);
+                // console.log(arr);
                     var sendThis;
                     sendThis = {msg: arr[0], tags: arr[1]};
                     return sendThis;
