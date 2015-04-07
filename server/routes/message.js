@@ -22,28 +22,28 @@ module.exports = function(app, passport, debug) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
-        console.log('new message', req.body);
-    
-        Bluebird.all([
-            fn.messageNew(req.body, req.user._id),
-            models.Tag.findAsync({'_test' : req.body._test})
-        ]).then(function(arr){
-            console.log(arr);
-            res.json(arr);
-        }).catch(function(err){
-            console.log(err);
+        fn.messageNew(req.body, req.user._id).then(function(data){
+            if(typeof data === 'object'){
+                models.Tag.findAsync({'_test' : req.body._test})
+                    .then(function(tags){
+                        res.json({msg: data, tags: tags});
+                    })
+            } else {
+                res.json(data);
+            }
         });
     })
     .put(function(req, res){
     // Edit the body of a message and change its tag associations
-        Bluebird.all([
-            fn.messageEdit(req.body),
-            models.Tag.findAsync({'_test' : req.body._test})
-        ]).then(function(arr){
-            console.log(arr);
-            res.json(arr);
-        }).catch(function(err){
-            console.log(err);
+        fn.messageEdit(req.body).then(function(data){
+            if(typeof data === 'object'){
+                models.Tag.findAsync({'_test' : data._test})
+                    .then(function(tags){
+                        res.json({msg: data, tags: tags});
+                    })
+            } else {
+                res.json(data);
+            }
         });
     });
 

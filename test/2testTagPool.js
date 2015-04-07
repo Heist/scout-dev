@@ -59,6 +59,7 @@ describe('The Tag Pool', function(){
 				_subject : m.s._id
 			})
 			.end(function(err, res){
+				console.log(res.body);
 				expect(res.body).to.equal('Path `_test` is required.')
 				done();
 			});
@@ -101,8 +102,9 @@ describe('The Tag Pool', function(){
 			})
 			.end(function(err, res){
 				expect(res.body).to.be.an('object')
-				expect(res.body._tags).to.have.length(3)
-				expect(res.body.body).to.equal('This is a #blue #note #purple')
+				expect(res.body.msg._tags).to.have.length(3)
+				expect(res.body.msg.body).to.equal('This is a #blue #note #purple')
+				expect(res.body.tags).to.have.length(5)
 				done();
 			});
 	});
@@ -183,8 +185,9 @@ describe('The Tag Pool', function(){
 			})
 			.end(function(err,res){
 				expect(res.body).to.be.an('object')
-				expect(res.body._tags).to.have.length(2)
-				expect(res.body.body).to.equal('New message body #yeah #body')
+				expect(res.body.msg._tags).to.have.length(2)
+				expect(res.body.msg.body).to.equal('New message body #yeah #body')
+				expect(res.body.tags).to.have.length(8)
 				done();
 			});
 	});
