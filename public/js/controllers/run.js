@@ -220,7 +220,11 @@
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $http.put('/api/message/', message);
+            $http.put('/api/message/', message)
+                .success(function(data){
+                    console.log('message edit', data);
+                    $scope.tags = data.tags;
+                });
         };
 
         $scope.postMessage = function(message){

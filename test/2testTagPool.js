@@ -49,7 +49,7 @@ describe('The Tag Pool', function(){
 
 				loggedIn.post('/api/message/')
 				.send({
-					body : 'New message body #puce', 
+					body : 'New message body #puce #blue', 
 					_test : m.t._id,
 					_task : m.tsk._id,
 					_subject : m.s._id
@@ -204,18 +204,16 @@ describe('The Tag Pool', function(){
 	});
 
 	it('should remove a tag that has no messages', function(done){
-		console.log('m.puce', m.puce);
 		// Puce is now a message, that should help with things
 			loggedIn.put('/api/message/')
 				.send({
 					_id : m.puce._id,
-					body : 'Kill puce'
+					body : 'Kill puce #yellow'
 				})
 				.end(function(err, res){
-					console.log(res.body)
 					expect(res.body).to.be.an('object')
-					expect(res.body.msg._tags).to.have.length(0)
-					expect(res.body.msg.body).to.equal('Kill puce')
+					expect(res.body.msg._tags).to.have.length(1)
+					expect(res.body.msg.body).to.equal('Kill puce #yellow')
 					expect(res.body.tags).to.have.length(8)
 					done();
 				})
