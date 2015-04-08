@@ -50,7 +50,6 @@
 				ng-click="activate(object, $index)" 
 				ng-class="{ 'active': object._id == selected._id }"
 				ng-if="object.visible" >
-					<span ng-show="object.doctype === 'tag'">#</span>
 					<span ng-show="object.doctype === 'test'"><strong>Overview</strong></span>
 					<span ng-hide="object.doctype === 'test'">{{object.name}}</span>	
 					

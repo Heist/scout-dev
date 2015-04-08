@@ -68,8 +68,11 @@
                 });
 
         $scope.testname = data.navlist.test;
-
-        $scope.activate(data.navlist.list[0], 0);
+            
+        var test_obj_arr = _.pluck(data.navlist.list, 'doctype');
+        var idx = _.indexOf(test_obj_arr, 'test');
+        
+        $scope.activate(data.navlist.list[idx], 0);
 
     // NAVIGATION =========================================
 
@@ -194,6 +197,12 @@
             $scope.inputNote = user;
         };
 
+// TODO:
+// on editing a note to remove a tag
+// the note should disappear from the tag even if it is being edited within that tag
+// it should then appear on any other tag that is on the left nav
+// if it does not have a tag to belong to, it should turn up only on tasks (v 1.0)
+
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
             $http.put('/api/message/', message)
@@ -218,18 +227,6 @@
                 });
         };
 
-        $scope.saveFav = function(message){
-            if($scope.selected.doctype === 'task'){
-                message.fav_task = ( message.fav_task === true ) ? false : true ;
-            }
-
-            if($scope.selected.doctype === 'tag'){
-                message.fav_tag = (message.fav_task === true ) ? false : true ;
-            }
-
-            $http.put('/api/message/fav', message);
-        };
-
         $scope.postMessage = function(message, subject){
             postMessage(message, $scope.selected._id, $scope.selected._test, subject._id )
                 .then(function(data){
@@ -245,6 +242,19 @@
                     navMod(data);
                 });
         };
+
+        $scope.saveFav = function(message){
+            if($scope.selected.doctype === 'task'){
+                message.fav_task = ( message.fav_task === true ) ? false : true ;
+            }
+
+            if($scope.selected.doctype === 'tag'){
+                message.fav_tag = (message.fav_task === true ) ? false : true ;
+            }
+
+            $http.put('/api/message/fav', message);
+        };
+
 
     // SAVE SUMMARY ==========================================
         $scope.saveSummary = function(){
