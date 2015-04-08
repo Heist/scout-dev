@@ -224,10 +224,8 @@
             $http.put('/api/message/', message)
                 .success(function(data){
                  // remove the previous message and insert the new one
-                    console.log('message edit id', data.msg._id);
-                    console.log('prev id', message._id);
-                    
                     $scope.tags = data.tags;
+
                     var arr = $scope.timeline;
                     var item ;
                     
@@ -240,9 +238,9 @@
                         }
                     }
 
-                    console.log('item', item);
                     arr.splice(item, 1, data.msg);
                     $scope.timeline = arr;
+                    console.log($scope.timeline);
                 });
         };
 
