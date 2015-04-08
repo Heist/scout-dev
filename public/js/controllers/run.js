@@ -141,7 +141,8 @@
 
             $scope.timeline.push({ 
                 title: 'Starting task', 
-                body: $scope.selected.name 
+                body: $scope.selected.name,
+                _id : 123
             });
 
             // get the id of the selected object, 
@@ -222,8 +223,26 @@
             $scope.messageEditToggle = '';
             $http.put('/api/message/', message)
                 .success(function(data){
-                    console.log('message edit', data);
+                 // remove the previous message and insert the new one
+                    console.log('message edit id', data.msg._id);
+                    console.log('prev id', message._id);
+                    
                     $scope.tags = data.tags;
+                    var arr = $scope.timeline;
+                    var item ;
+                    
+                   for(var i = 0; i < arr.length; i++){
+                        if(arr[i]._id && arr[i]._id === message._id){
+                            item = i
+                            return item;
+                        } else {
+                            return;
+                        }
+                    }
+
+                    console.log('item', item);
+                    arr.splice(item, 1, data.msg);
+                    $scope.timeline = arr;
                 });
         };
 
