@@ -54,19 +54,20 @@ module.exports = function(msg, next){
                                     var pos = tag._messages.indexOf(returned._id);
                                     console.log(pos);
                                     tag._messages.splice(pos, 1);
+                                    
                                     if (tag._messages.length === 0){
                                         // if the tag is empty, remove the tag from the db.
                                         models.Tag.remove({'_id':tag._id}, function(err, next){
-                                            return 'next';
-                                        });
-                                        
+                                            return tag.save();
+                                        }); 
                                     } else {
                                         // otherwise, return the tag itself
-                                        return tag;
+                                        return tag.save();
                                     }
                                 })
                         })
                         .then(function(tags){
+                            console.log('did the desplice work?', tags );
                             // get rid of empty tags in the array we return
                             tags = _.compact(tags);
                             // fn.messageRemove(returned);

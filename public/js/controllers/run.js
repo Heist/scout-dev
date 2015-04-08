@@ -223,10 +223,9 @@
             $scope.messageEditToggle = '';
             $http.put('/api/message/', message)
                 .success(function(data){
-                    console.log('old message', message._id);
-                    console.log('new message', data.msg._id);
+                 
                     console.log('tags', data.tags);
-                    console.log('array timeline', $scope.timeline);
+                 
                  // remove the previous message and insert the new one
                     $scope.tags = data.tags;
 
@@ -234,19 +233,14 @@
                     var item;
 
                    for(var i = 0; i < arr.length; i++){
-                    console.log('item', item, arr.length);
                         if(arr[i]._id && arr[i]._id === message._id){
-                            console.log('yep', message._id)
                             item = i
-                        } else {
-                            console.log('nope', arr[i]);
                         }
                     }
-                    console.log('item position', item );
-
+                    
                     arr.splice(item, 1, data.msg);
+
                     $scope.timeline = arr;
-                    console.log('scope timeline', $scope.timeline);
                 });
         };
 
