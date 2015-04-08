@@ -220,15 +220,30 @@ describe('The Tag Pool', function(){
 
 					loggedIn.put('/api/message/')
 						.send({
-							_id : m.puce._id,
-							body : 'Kill puce #blue #purple'
+							_id : res.body.msg._id,
+							body : 'Kill puce #news'
 						})
-						.end(function(err, res){
-							expect(res.body).to.be.an('object')
-							expect(res.body.msg._tags).to.have.length(2)
-							expect(res.body.msg.body).to.equal('Kill puce #blue #purple')
-							expect(res.body.tags).to.have.length(8)
-							done();
+						.end(function(err, res1){
+							expect(res1.body).to.be.an('object')
+							expect(res1.body.msg._tags).to.have.length(1)
+							// expect(res.body.msg._tags[1]._messages).to.have.length(2)
+							expect(res1.body.msg.body).to.equal('Kill puce #news')
+							expect(res1.body.tags).to.have.length(9)
+
+							loggedIn.put('/api/message/')
+								.send({
+									_id : res1.body.msg._id,
+									body : 'Kill puce #blue #purple'
+								})
+								.end(function(err, res2){
+									expect(res2.body).to.be.an('object')
+									expect(res2.body.msg._tags).to.have.length(2)
+									expect(res2.body.msg._tags[1]._messages).to.have.length(2)
+									expect(res2.body.msg.body).to.equal('Kill puce #blue #purple')
+									expect(res2.body.tags).to.have.length(8)
+
+									done();
+								})
 						})
 				})
 	});
