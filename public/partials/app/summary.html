@@ -166,7 +166,7 @@
 			
 					<div class="message-body" ng-click="editMessage(message, $index)">
 						<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-						<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
+						<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
 						<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 					</div>
 					

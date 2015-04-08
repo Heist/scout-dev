@@ -15,6 +15,21 @@
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams._id;
         $scope.showReportLink = false;
 
+        var navMod = function(n){
+            var indexCheck = _.pluck($scope.navlist, 'name');
+            _.each(n.tags, function(tag){
+                var idx = indexCheck.indexOf(tag.name);
+
+                if(idx === -1){
+                    tag.report_index = $scope.navlist.length;
+                    $scope.navlist.push(tag);
+                    $scope.navlist[tag.report_index]._messages.push(n.msg._id);
+                } else {
+                    $scope.navlist[idx]._messages.push(n.msg._id);
+                }
+            });
+        };
+
         // synchronous shit is weird. =====================
         $scope.activate = function(obj, selectedIndex) {
             // passes an object from left nav to the global selection variable
@@ -181,7 +196,26 @@
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $http.put('/api/message/', message);
+            $http.put('/api/message/', message)
+                .success(function(data){                 
+                    
+                 // add the new tags to the left nav
+                    console.log('tags', data.tags);
+                    navMod(data);
+
+                // remove the previous message and insert the new one
+                    var arr = $scope.timeline;
+                    var item;
+
+                   for(var i = 0; i < arr.length; i++){
+                        if(arr[i]._id && arr[i]._id === message._id){
+                            item = i
+                        }
+                    }
+                    
+                    arr.splice(item, 1, data.msg);
+                    $scope.timeline = arr;
+                });
         };
 
         $scope.saveFav = function(message){
@@ -208,24 +242,9 @@
                     $scope.messages[data.msg._subject.name].push(data.msg);
                     $scope.selected._messages.push(data.msg._id);
 
-                    var indexCheck = _.pluck($scope.leftNavList, 'name');
-
-                    _.each(data.tags, function(tag){
-                        
-                        var idx = indexCheck.indexOf(tag.name);
-
-                        if(idx === -1){
-                            tag.report_index = $scope.leftNavList.length;
-                            $scope.leftNavList.push(tag);
-                            $scope.leftNavList[tag.report_index]._messages.push(data.msg._id);
-                        } else {
-                            $scope.leftNavList[idx]._messages.push(data.msg._id);
-                        }
-                    });
+                    navMod(data);
                 });
         };
-
-
 
     // SAVE SUMMARY ==========================================
         $scope.saveSummary = function(){
