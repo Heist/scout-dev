@@ -16,19 +16,36 @@
 					<div class="sheet">
 						<div class="clear"></div>
 						<ul class="nobullets">
-							<!-- make below editable -->
-							<h2 ng-model="test.name">{{test.name}}</h2>
 
-							<h3>Objectives</h3>
-								<pre class="test-descriptions" ng-model="test.desc">{{test.desc}}</pre>
+
+							<!-- make below editable -->
+
+							<div class="project-details" ng-click="select(test)">
+								<h2>{{test.name}}</h2>
+
+								<h3>Objectives</h3>
+									<pre class="test-descriptions">{{test.desc}}</pre>
+							</div>
+
 							<!-- tags section goes here -->
-							<!-- <h3>Tags</h3> -->
+							<div class="tags">
+								<h3>Tags</h3>
+								<p>Because you're running a {{test.type}} test, we've created a couple of tags for you to use during your tests.</p>
+		
+								<div class="tag-pool">
+									<ul>
+										<li>#yolo</li>
+										<li>#swag</li>
+									</ul>
+								</div>
+								<textarea name="custom-tags" class="custom-tags" placeholder="Type your own tags here. ex. #passed, #failed"></textarea>
+							</div>
 						
 							<h3>Topics</h3>
 							<li ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
 							
 								<!-- Re-ordering tasks -->
-								<!-- 							<div class="step-ordering">
+								<!-- <div class="step-ordering">
 									<div ng-click="moveTask($index, -1)" class="elevator elevator-up">&#9650;</div>
 									<div ng-click="moveTask($index, 1)" class="elevator elevator-down">&#9660;</div>
 								</div>
@@ -36,16 +53,24 @@
 								<div class="step-controls">
 									<div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
 								</div> -->
-								
-								<div class="step-contents">
-									<form>
+<!-- ng-if="isActive(task)" -->
+								<div ng-click="select(task)">
+									<div class="task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
+										#{{task.name}}
+									</div>
+
+									<div class="task-descriptions" msd-elastic ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)">
+										<pre class="task-descriptions">{{task.desc}}</pre>
+									</div>
+								</div>
+								<!-- 	<form>
 										<input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
 										<textarea msd-elastic ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
 										</textarea>
-									</form>
-								</div>
+									</form> -->
 							
 								<div class="clear"></div>
+
 							</li>
 						
 							<li>
@@ -53,14 +78,14 @@
 								<div class="add-task">
 									<form ng-model='newtask'>
 										<h4>Topic</h4>
-										<input class="input" ng-trim="false" ng-model="newtask.name"placeholder="Task name"><br/>
+										<input class="input" ng-trim="false" ng-model="newtask.name"placeholder="What do you want to discuss with your participant?"><br/>
 										
 										<h4>Questions</h4>
-										<textarea msd-elastic ng-model="newtask.desc" class="input small" id="field-textarea" placeholder="Put talking points or task-specific questions here.">
+										<textarea msd-elastic ng-model="newtask.desc" class="input small" id="field-textarea" placeholder="List the questions you want answered.">
 										</textarea>
 									</form>
 									
-									<button class="button med" ng-click="newTask(newtask)">Add a task</a></button>
+									<button class="button med" ng-click="newTask(newtask)">Add task</a></button>
 									
 									<div class="clear"></div>
 								</div>

@@ -2085,15 +2085,52 @@ hr {
     font-style: normal;
     font-weight: 300;
     color: #323539;
-    font-size: 12px;
+    font-size: 14px;
     margin: 10px 0; }
-  #view-editing pre.test-descriptions {
+  #view-editing .task-title {
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: lowercase; }
+  #view-editing pre.test-descriptions, #view-editing pre.task-descriptions {
     font-size: 12px;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
     color: #939598;
+    margin: 0 0 40px 0; }
+  #view-editing .add-task form {
     margin: 0; }
+  #view-editing .add-task input, #view-editing .add-task textarea {
+    margin: 0 0 40px 0;
+    padding: 0;
+    border: 0; }
+  #view-editing .tags {
+    margin: 0 0 40px 0; }
+    #view-editing .tags p {
+      font-size: 10px;
+      margin: 0 0 10px 0; }
+    #view-editing .tags .tag-pool, #view-editing .tags textarea.custom-tags {
+      width: 490px;
+      height: 30px;
+      background: rgba(205, 206, 207, 0.2);
+      border: 1px solid rgba(205, 206, 207, 0.5); }
+      #view-editing .tags .tag-pool ul, #view-editing .tags textarea.custom-tags ul {
+        padding: 0; }
+        #view-editing .tags .tag-pool ul li, #view-editing .tags textarea.custom-tags ul li {
+          padding: 0 0 0 15px;
+          font-size: 10px;
+          color: #0abcd7;
+          display: inline-block; }
+          #view-editing .tags .tag-pool ul li:first-child, #view-editing .tags textarea.custom-tags ul li:first-child {
+            padding: 0 0 0 10px; }
+    #view-editing .tags textarea.custom-tags {
+      background: #fff;
+      border-top: 0;
+      resize: none;
+      padding: 8px;
+      outline: 0; }
   #view-editing .container {
     padding: 20px 0 0 0; }
   #view-editing .sheet-holder {
