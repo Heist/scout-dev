@@ -135,14 +135,24 @@
     }
 
     .add-task {
+
         form {
+        @include light-grey-border;
+        padding: 10px 20px;
             margin: 0;
         }
 
         input, textarea {
-            margin: 0 0 40px 0;
+            margin: 0 0 30px 0;
             padding: 0;
             border: 0;
+        }
+
+        .box {
+            padding: 20px 20px;
+            margin: 0;
+            @include light-grey-border;
+            border-top: 0;
         }
     }
 
@@ -156,7 +166,7 @@
             width: 490px;
             height: 30px;
             background: rgba(205,206,207,0.2);
-            border: 1px solid rgba(205,206,207,0.5);
+            @include light-grey-border;
             
             ul {
                 padding: 0;
