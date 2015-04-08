@@ -442,7 +442,7 @@ label {
   vertical-align: text-bottom; }
 
 /* fixes for stupid Firefox */
-button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner {
+button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .add-task textarea[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, #view-editing .add-task textarea[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, #view-editing .add-task textarea[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner, #view-editing .add-task textarea[type="file"] > input[type="button"]::-moz-focus-inner, #view-editing .add-task input[type="file"] > textarea[type="button"]::-moz-focus-inner, #view-editing .add-task textarea[type="file"] > textarea[type="button"]::-moz-focus-inner {
   border: 0;
   padding: 0;
   margin: 0; }
@@ -1788,10 +1788,10 @@ hr {
   padding: 15% 0 0 0; }
   #view-login label {
     color: #fff; }
-  #view-login input, #view-login button {
+  #view-login input, #view-login #view-editing .add-task textarea, #view-editing .add-task #view-login textarea, #view-login button {
     width: 100%;
     margin-bottom: 4px; }
-  #view-login input[type=checkbox] {
+  #view-login input[type=checkbox], #view-login #view-editing .add-task textarea[type=checkbox], #view-editing .add-task #view-login textarea[type=checkbox] {
     width: 15px;
     text-align: center; }
   #view-login li:last-child {
@@ -2102,14 +2102,21 @@ hr {
     margin: 0 0 40px 0; }
   #view-editing .add-task form {
     border: 1px solid rgba(205, 206, 207, 0.5);
-    padding: 10px 20px;
+    padding: 15px;
     margin: 0; }
   #view-editing .add-task input, #view-editing .add-task textarea {
+    width: 100%;
     margin: 0 0 30px 0;
     padding: 0;
-    border: 0; }
+    border: 0;
+    outline: 0; }
+  #view-editing .add-task textarea {
+    height: 65px;
+    overflow-y: auto;
+    resize: none;
+    margin: 0; }
   #view-editing .add-task .box {
-    padding: 20px 20px;
+    padding: 15px;
     margin: 0;
     border: 1px solid rgba(205, 206, 207, 0.5);
     border-top: 0; }
@@ -2342,7 +2349,7 @@ hr {
   background: #2e2723;
   background-size: cover;
   color: #fff; }
-  #view-observer-login input, #view-observer-login button {
+  #view-observer-login input, #view-observer-login #view-editing .add-task textarea, #view-editing .add-task #view-observer-login textarea, #view-observer-login button {
     width: 100%; }
   #view-observer-login #logo {
     margin: 0 0 20px 0; }
@@ -2438,7 +2445,7 @@ hr {
         #view-account .team-members li .team-member-avatar img {
           width: 24px;
           height: auto; }
-      #view-account .team-members li input {
+      #view-account .team-members li input, #view-account .team-members li #view-editing .add-task textarea, #view-editing .add-task #view-account .team-members li textarea {
         width: 80%; }
       #view-account .team-members li .team-member-info {
         float: left; }

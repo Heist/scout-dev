@@ -137,19 +137,29 @@
     .add-task {
 
         form {
-        @include light-grey-border;
-        padding: 10px 20px;
+            @include light-grey-border;
+            padding: 15px;
             margin: 0;
         }
 
-        input, textarea {
+        input {
+            width: 100%;
             margin: 0 0 30px 0;
             padding: 0;
             border: 0;
+            outline: 0;
+        }
+        
+        textarea {
+            @extend input;
+            height: 65px;
+            overflow-y: auto;
+            resize: none;
+            margin: 0;
         }
 
         .box {
-            padding: 20px 20px;
+            padding: 15px;
             margin: 0;
             @include light-grey-border;
             border-top: 0;
