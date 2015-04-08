@@ -225,7 +225,7 @@
                 .success(function(data){
                     console.log('old message', message._id);
                     console.log('new message', data.msg._id);
-                    console.log('new message', data.tags);
+                    console.log('tags', data.tags);
                     console.log('array timeline', $scope.timeline);
                  // remove the previous message and insert the new one
                     $scope.tags = data.tags;
