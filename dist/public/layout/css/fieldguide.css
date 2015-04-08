@@ -2145,6 +2145,9 @@ hr {
       resize: none;
       padding: 8px;
       outline: 0; }
+  #view-editing .done-button {
+    position: absolute;
+    right: 30px; }
   #view-editing .container {
     padding: 20px 0 0 0; }
   #view-editing .sheet-holder {
