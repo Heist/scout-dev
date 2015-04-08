@@ -205,17 +205,31 @@ describe('The Tag Pool', function(){
 
 	it('should remove a tag that has no messages', function(done){
 		// Puce is now a message, that should help with things
+		var nest;
 			loggedIn.put('/api/message/')
 				.send({
 					_id : m.puce._id,
 					body : 'Kill puce #yellow'
 				})
 				.end(function(err, res){
+					var nest = res.body;
 					expect(res.body).to.be.an('object')
 					expect(res.body.msg._tags).to.have.length(1)
 					expect(res.body.msg.body).to.equal('Kill puce #yellow')
 					expect(res.body.tags).to.have.length(8)
-					done();
+
+					loggedIn.put('/api/message/')
+						.send({
+							_id : m.puce._id,
+							body : 'Kill puce #blue #purple'
+						})
+						.end(function(err, res){
+							expect(res.body).to.be.an('object')
+							expect(res.body.msg._tags).to.have.length(2)
+							expect(res.body.msg.body).to.equal('Kill puce #blue #purple')
+							expect(res.body.tags).to.have.length(8)
+							done();
+						})
 				})
 	});
 })
