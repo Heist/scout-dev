@@ -1999,15 +1999,71 @@ hr {
         -webkit-border-radius: 60px;
         border-radius: 60px; }
 
-/* editing a test */
+/* new project */
+#view-new-project ul {
+  clear: both; }
+#view-new-project .cta {
+  float: right; }
+  #view-new-project .cta .button.cancel, #view-new-project .cta .modal .modal-interior .button.dry-run, .modal .modal-interior #view-new-project .cta .button.dry-run {
+    padding: 10px; }
+#view-new-project textarea.input {
+  line-height: 18.75px;
+  height: 130px;
+  resize: none; }
+#view-new-project .test-type {
+  padding: 5px 5px 10px 5px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  border-bottom: 4px solid #fff;
+  margin: 0 0 20px 0; }
+  #view-new-project .test-type:hover {
+    border-bottom: 4px solid #85ac0f; }
+  #view-new-project .test-type.select-active {
+    border-bottom: 4px solid #85ac0f; }
+  #view-new-project .test-type.select-inactive {
+    border-bottom: 0; }
+  #view-new-project .test-type .selected-arrow {
+    display: none; }
+  #view-new-project .test-type p {
+    font-size: 12px;
+    line-height: 17px;
+    margin: 0 0 10px 0; }
+  #view-new-project .test-type a {
+    color: #0abcd7;
+    font-size: 11px;
+    text-decoration: underline; }
+  #view-new-project .test-type h3 {
+    font-size: 17.5px; }
+  #view-new-project .test-type.selected {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #86aa25;
+    color: #85ac0f; }
+    #view-new-project .test-type.selected .selected-arrow {
+      position: absolute;
+      display: block;
+      width: 100%;
+      text-align: center;
+      height: 7px;
+      bottom: -7px;
+      left: 0; }
+      #view-new-project .test-type.selected .selected-arrow img {
+        width: 14px;
+        height: auto; }
+  #view-new-project .test-type strong {
+    border-bottom: 1px dashed #dddddd; }
+  #view-new-project .test-type img {
+    width: 100px;
+    height: auto;
+    padding: 0 0 10px 0; }
+
+/* editing tests/tasks */
 #view-editing {
   margin: 0;
   padding: 0;
-  background: #fff;
-  /* step 1 */
-  /* step 2 */
-  /* step 3 */
-  /* step 5 */ }
+  background: #fff; }
   #view-editing .sheet {
     box-shadow: none; }
   #view-editing h2 {
@@ -2038,48 +2094,14 @@ hr {
     font-weight: 300;
     color: #939598;
     margin: 0; }
-  #view-editing ul {
-    clear: both; }
-  #view-editing .cta {
-    float: right; }
-    #view-editing .cta .button.cancel, #view-editing .cta .modal .modal-interior .button.dry-run, .modal .modal-interior #view-editing .cta .button.dry-run {
-      padding: 10px; }
-  #view-editing textarea.input {
-    line-height: 18.75px;
-    height: 130px;
-    resize: none; }
   #view-editing .container {
     padding: 20px 0 0 0; }
   #view-editing .sheet-holder {
     padding: 0 0 40px 0; }
-  #view-editing #header-min {
-    padding-left: 0;
-    padding-right: 0; }
-    #view-editing #header-min h3 {
-      width: 33.3%; }
-  #view-editing .stepped-nav {
-    float: left;
-    width: 33.3% !important; }
-  #view-editing .tutorial {
-    padding: 0 20px 0 0; }
-    #view-editing .tutorial p {
-      margin: 0;
-      padding: 20px 0 0 0;
-      font-size: 12px;
-      line-height: 19.2px; }
-  #view-editing .next-button {
-    padding-left: 20px; }
-    #view-editing .next-button .button {
-      padding-left: 30px;
-      padding-right: 30px;
-      position: absolute;
-      right: 20px; }
   #view-editing .test-setup {
     padding: 20px 0 0 0; }
     #view-editing .test-setup .sheet {
       padding: 20px; }
-    #view-editing .test-setup h4.no-pad {
-      padding: 0; }
     #view-editing .test-setup .nobullets {
       width: 100%; }
       #view-editing .test-setup .nobullets .input {
@@ -2121,177 +2143,6 @@ hr {
       cursor: pointer; }
       #view-editing .test-setup .select-inactive:after {
         content: ''; }
-  #view-editing .test-type {
-    padding: 5px 5px 10px 5px;
-    text-align: center;
-    position: relative;
-    cursor: pointer;
-    border-bottom: 4px solid #fff;
-    margin: 0 0 20px 0; }
-    #view-editing .test-type:hover {
-      border-bottom: 4px solid #85ac0f; }
-    #view-editing .test-type.select-active {
-      border-bottom: 4px solid #85ac0f; }
-    #view-editing .test-type.select-inactive {
-      border-bottom: 0; }
-    #view-editing .test-type .selected-arrow {
-      display: none; }
-    #view-editing .test-type p {
-      font-size: 12px;
-      line-height: 17px;
-      margin: 0 0 10px 0; }
-    #view-editing .test-type a {
-      color: #0abcd7;
-      font-size: 11px;
-      text-decoration: underline; }
-    #view-editing .test-type h3 {
-      font-size: 17.5px; }
-    #view-editing .test-type.selected {
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      border-radius: 3px;
-      border: 1px solid #86aa25;
-      color: #85ac0f; }
-      #view-editing .test-type.selected .selected-arrow {
-        position: absolute;
-        display: block;
-        width: 100%;
-        text-align: center;
-        height: 7px;
-        bottom: -7px;
-        left: 0; }
-        #view-editing .test-type.selected .selected-arrow img {
-          width: 14px;
-          height: auto; }
-    #view-editing .test-type strong {
-      border-bottom: 1px dashed #dddddd; }
-    #view-editing .test-type img {
-      width: 100px;
-      height: auto;
-      padding: 0 0 10px 0; }
-  #view-editing .test-details {
-    float: none;
-    padding: 0 60px 40px 60px;
-    margin: 20px 0; }
-    #view-editing .test-details .input {
-      width: 100%; }
-    #view-editing .test-details li {
-      padding: 0 0 20px 0; }
-    #view-editing .test-details .test-details-devicetype {
-      cursor: pointer;
-      float: left;
-      text-align: center;
-      padding: 10px 10px 0 10px;
-      font-size: 12px; }
-      #view-editing .test-details .test-details-devicetype img {
-        height: 100px;
-        width: auto;
-        opacity: 0.4; }
-      #view-editing .test-details .test-details-devicetype.phone, #view-editing .test-details .test-details-devicetype.tablet {
-        width: 25%; }
-      #view-editing .test-details .test-details-devicetype.desktop {
-        width: 50%; }
-      #view-editing .test-details .test-details-devicetype.unavailable {
-        cursor: not-allowed; }
-      #view-editing .test-details .test-details-devicetype.selected {
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 400;
-        color: #85ac0f;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
-        border: 1px solid #86aa25; }
-        #view-editing .test-details .test-details-devicetype.selected img {
-          opacity: 1.0; }
-  #view-editing .test-tasks {
-    padding: 20px 0 0 0;
-    /* steps list */ }
-    #view-editing .test-tasks h4 {
-      padding: 20px 0 10px 0;
-      margin: 0; }
-    #view-editing .test-tasks p {
-      padding: 0; }
-    #view-editing .test-tasks .sheet {
-      padding: 0; }
-    #view-editing .test-tasks .add-task {
-      padding: 30px;
-      background-color: #fafafa;
-      border-top: 1px #dddddd solid;
-      width: 100%;
-      position: relative;
-      display: block; }
-      #view-editing .test-tasks .add-task .input {
-        width: 100%;
-        margin: 0 0 2px 0; }
-      #view-editing .test-tasks .add-task ::-webkit-input-placeholder {
-        color: #cdcecf;
-        font-size: 12.5px;
-        font-style: italic; }
-      #view-editing .test-tasks .add-task :-moz-placeholder {
-        /* Firefox 18- */
-        color: #cdcecf;
-        font-size: 12.5px;
-        font-style: italic; }
-      #view-editing .test-tasks .add-task ::-moz-placeholder {
-        /* Firefox 19+ */
-        color: #cdcecf;
-        font-size: 12.5px;
-        font-style: italic; }
-      #view-editing .test-tasks .add-task :-ms-input-placeholder {
-        color: #cdcecf;
-        font-size: 12.5px;
-        font-style: italic; }
-    #view-editing .test-tasks #steps {
-      padding: 20px 0 10px 0;
-      margin: 0;
-      width: 100%;
-      list-style: none; }
-      #view-editing .test-tasks #steps .steps-empty-message {
-        padding: 0 0 10px 40px;
-        opacity: 0.6; }
-      #view-editing .test-tasks #steps li {
-        position: relative;
-        padding: 0 30px; }
-        #view-editing .test-tasks #steps li .input {
-          border-color: #fff; }
-        #view-editing .test-tasks #steps li:hover .step-ordering {
-          opacity: 1.0; }
-        #view-editing .test-tasks #steps li:hover .step-controls {
-          opacity: 1.0; }
-        #view-editing .test-tasks #steps li:hover .input {
-          border-color: #dddddd; }
-        #view-editing .test-tasks #steps li .step-ordering {
-          position: absolute;
-          top: 5px;
-          left: 10px;
-          width: 20px;
-          opacity: 0.2; }
-          #view-editing .test-tasks #steps li .step-ordering div {
-            cursor: pointer; }
-        #view-editing .test-tasks #steps li .step-contents {
-          float: left;
-          width: 100%; }
-          #view-editing .test-tasks #steps li .step-contents .input {
-            width: 100%;
-            margin: 0 0 2px 0;
-            color: #939598; }
-        #view-editing .test-tasks #steps li .step-controls {
-          position: absolute;
-          width: 20px;
-          text-align: right;
-          top: 5px;
-          right: 10px;
-          opacity: 0; }
-  #view-editing .test-done {
-    float: none;
-    padding: 40px 20px 20px 20px;
-    text-align: center;
-    border: 1px solid #dddddd;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    margin: 0; }
 
 /* SESSION IN PROGRESS */
 #view-testing {
