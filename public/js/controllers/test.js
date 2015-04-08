@@ -152,35 +152,6 @@
                 .put(url, data_out);
         };
 
-         // MESSAGE FUNCTIONS ==================================
-         // this didn't work for me because it's relying on infrastructure that's not there
-
-        // $scope.messageEditToggle = '';
-        // $scope.editMessage = function(message){
-        //     console.log("test");
-        //     // clear this on blur to block weird toggle bug
-        //     $scope.messageEditToggle = message._id;
-        // };
-
-        // $scope.saveEdit = function(message){
-        //     $scope.messageEditToggle = '';
-        //     $http.put('/api/message/', message);
-        // };
-
-        // $scope.postMessage = function(message){
-        //     if(message.length <= 0){
-        //         return ;
-        //     } else {
-        //         postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
-        //             .then(function(data){
-        //                 console.log(data);
-        //                 $scope.timeline.push(data.data.msg);
-        //                 $scope.tags = data.data.tags;
-        //                 $scope.message='';
-        //             });
-        //     }
-        // };
-
     // TEST UPDATE ==============================
         $scope.updateTest = function(){
             // reminder: this pushes an update to an already-created test

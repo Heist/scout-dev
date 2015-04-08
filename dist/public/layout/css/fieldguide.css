@@ -553,7 +553,10 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
     text-decoration: none; }
   .button.med {
     font-size: 12.525px;
-    padding: 11px 20px; }
+    padding: 11px 20px;
+    border: 2px solid #85ac0f; }
+    .button.med:focus {
+      border: 2px solid #C6D39E; }
   .button.small {
     font-size: 12px;
     padding: 2.5px 10px; }
@@ -1568,7 +1571,8 @@ hr {
     .modal .modal-interior .button.cancel, .modal .modal-interior .button.dry-run {
       background: none;
       color: #939598;
-      padding: 10px 160px 0 0; }
+      padding: 10px 160px 0 0;
+      border: 0; }
       .modal .modal-interior .button.cancel:hover, .modal .modal-interior .button.dry-run:hover {
         text-decoration: underline;
         color: #818387; }

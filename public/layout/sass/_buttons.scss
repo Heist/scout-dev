@@ -9,9 +9,11 @@
 	&.med {
 		font-size: $type-size-base*0.835;
 		padding: 11px 20px;
-		// &:focus {
-		//     border: 1px solid red;
-		// }
+		border: 2px solid $fg-green;
+
+		&:focus {
+		    border: 2px solid $fg-green-grassy-light;
+		}
 	}
 
 	&.small {
