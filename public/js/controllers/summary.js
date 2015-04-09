@@ -95,13 +95,6 @@
             $scope.showReportLink = $scope.showReportLink ? false : true;
         };
 
-        $scope.showObjectMessages = function(msg, obj){
-            if(obj._messages){
-                if((obj._messages.indexOf(msg._id) >= 0)){                
-                    return true;
-                }
-            }
-        };
 
     // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
@@ -123,10 +116,10 @@
 
         // MOVE STEPS =========================================
 
-        $scope.msgFilter = function(message){
-            // Display messages that belong to the current selected item.
-            return (message._id === $scope.selected._id) ? true : false;
-        };
+        // $scope.msgFilter = function(message){
+        //     // Display messages that belong to the current selected item.
+        //     return (message._id === $scope.selected._id) ? true : false;
+        // };
 
         $scope.moveTask = function(old_index, new_index){   
             $scope.navlist = reportFunctions.moveTask($scope.navlist, old_index, new_index);
@@ -176,91 +169,35 @@
                     
                  // add the new tags to the left nav
                     console.log('tags', data.tags);
-                    console.log('selected messages 1', $scope.selected._messages, message._id);
                     // navMod(data, message);
 
-                    var indexCheck = _.pluck($scope.navlist, 'name'); // get a list of existing tags
-            
+                    // this works.
+                    // console.log('messages before', _.pluck($scope.messages[data.msg._subject.name], '_id'), data.msg._id, message._id);
+                    var idList = _.pluck($scope.messages[data.msg._subject.name], '_id');
+                    var idx = idList.indexOf(message._id);
+                    $scope.messages[data.msg._subject.name].splice(idx,1, data.msg);
+                    // console.log('messages after', _.pluck($scope.messages[data.msg._subject.name], '_id'), data.msg._id);
+
+                    // edit the messages list of the left navigation.
+                    var navlist_check = _.pluck($scope.navlist, 'name');
                     data.tags.map(function(tag) {
-                        var idx = indexCheck.indexOf(tag.name); // figure out if the tag already exists
-                        console.log('tag index check', idx );
-                        if(idx === -1){ // if the tag does not exist, make it, and push in new message
+                        var n = navlist_check.indexOf(tag.name);
+                        if(n === -1){ // if the tag does not exist, make it, and push in new message
                             console.log('pushing automatically', tag.name );
                             tag.report_index = $scope.navlist.length;
                             $scope.navlist.push(tag);
                             $scope.navlist[tag.report_index]._messages.push(data.msg._id);
                             return;
                         } else {
-                            // the tag exists, it is tag.name
-                            // does the current navlist item have the old message in its message list?
-                            var old_message_index = tag._messages.indexOf(message._id);
-                            console.log('old_message_index', old_message_index, message._id);
-
+                            var old_message_index = $scope.navlist[n]._messages.indexOf(message._id);
+                            console.log('old_message_index', $scope.navlist[n].name, old_message_index, 'new', data.msg._id, 'old', message._id, $scope.navlist[n]._messages);
                             if(old_message_index !== -1){ // message exists splice the new message in
-                                console.log('splicing');
-                                $scope.navlist[idx]._messages.splice(old_message_index, 1, data.msg._id);
-                            } else { 
-                                // the current navlist item does not have the old message. 
-                                // Does it qualify for the new one?
-                                // does the current tag exist on the current message?
-                                var tag_match_index = message._tags.indexOf(tag._id);
-                                console.log('no old message', tag_match_index);
-                                if(tag_match_index !== -1){
-                                    console.log('pushing');
-                                    $scope.navlist[idx]._messages.push(data.msg._id);
-                                }
+                                $scope.navlist[n]._messages.splice(old_message_index, 1, data.msg._id);
+                                console.log('splicing', $scope.navlist[n]._messages, 'new', data.msg._id, 'old', message._id );
                             }
+
                         }
                     })
-
-                    // for each tag that is on the new object
-                    // check to see if that tag is already in the navigation list
-                    // if it is not, add it to the navigation list
-                    // and push a message to it
-
-                    // if it is in the list
-                    // check to see if this message is already in the list
-                    // if the message is already in the list, splice it in
-
-                    // if the message is not already in the list, and the tag is already in the list
-
-                    var checkthis = _.pluck($scope.navlist, '_messages');
-                    console.log('selected messages 2', data.msg._id, message._id, checkthis);
-
-
-                        // else { // if the tag does exist...
-                        //     // is this an edited note? Does it already exist in the messages array?
-                        //     var check = $scope.navlist[idx]._messages.indexOf(message._id);
-                        //     console.log('checking new index', check);
-
-                        //     if(check !== -1){ // if the message is not new, splice it                                // splice the new message id over the old one.
-                        //         $scope.navlist[idx]._messages.splice(check, 1, data.msg._id);
-                        //     } else {
-                        //         if(tag._id === $scope.navlist[idx]._id){
-                        //             // does the tag match a message tag?
-                        //             // push the new message id to the object's message list
-                        //             $scope.navlist[idx]._messages.push(data.msg._id);
-                        //         }
-                        //     }
-                // remove the previous message and insert the new one to the selected tag's message array
-           
-                    // this needs to splice the new message into the actual message array
-                    // over the old message's position.
-
-                    // var newTimeline = $scope.messages.map(function (item) {
-                    //   if (item._id === message._id) { return data.msg; }
-                    //   return item
-                    // })
-
-                    // $scope.messages = newTimeline;
-
-                    // var item2 = $scope.messages[data.msg._subject.name].filter(function (item) {
-                    //       return item._id === message._id
-                    //     })[0];
-                    
-                    // console.log('item2', item2);
-
-                    // $scope.messages[data.msg._subject.name].splice(item2, 1, data.msg);
                 });
         };
 

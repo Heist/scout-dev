@@ -153,9 +153,11 @@
 					<button class="button small" ng-click="postMessage(newnote, user[0]._subject)">Add Note</button>
 				</div>
 
-				<!-- message -->
+				<!-- message ng-show="showObjectMessages(message, selected)"
+				ng-show="selected._messages.indexOf(message._id) !== -1"
+				 -->
 				<div ng-repeat="message in user" class="message" 
-				ng-show="showObjectMessages(message, selected)"
+				
 				ng-class="{selected: commentMessage._id === message._id}">
 				<div ng-click="deleteMessage(message)" class="delete-message">&times;</div>
 									
