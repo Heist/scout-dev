@@ -24,7 +24,8 @@ form {
 	}
 
 	&:focus {
-		border: 2px solid $fg-green-light-trans;
+		box-shadow:  0 0 4px $fg-green;
+		border: 1px solid $fg-grey-light;
 	}
 }
 

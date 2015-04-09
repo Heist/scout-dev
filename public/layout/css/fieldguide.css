@@ -299,7 +299,8 @@ form {
   .input:hover {
     border: 1px solid #949799; }
   .input:focus {
-    border: 2px solid rgba(198, 211, 158, 0.7); }
+    box-shadow: 0 0 4px #85ac0f;
+    border: 1px solid #D8DADB; }
 
 .button {
   display: inline-block;
