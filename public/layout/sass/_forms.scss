@@ -18,6 +18,15 @@ form {
 	font-size: $type-size-base*0.90;
 	outline: none;
 	border: none;
+
+	&:hover {
+		border: 1px solid $fg-grey;
+	}
+
+	&:focus {
+		box-shadow:  0 0 4px $fg-green;
+		border: 1px solid $fg-grey-light;
+	}
 }
 
 .button {
