@@ -6,7 +6,12 @@
 	font-size: $type-size-base*0.933;
 	border: 2px solid $fg-green;
 	padding: 11px 32.5px;
-
+	
+	&:hover {
+		background: $fg-green-dark;
+		border: 2px solid $fg-green-dark;
+	}
+	
 	&:focus {
 	    border: 2px solid $fg-green-light;
 	}
