@@ -192,16 +192,19 @@
                             return;
                         } else {
                             // the tag exists, it is tag.name
-                            // does it have the old message in its message list?
+                            // does the current navlist item have the old message in its message list?
                             var old_message_index = tag._messages.indexOf(message._id);
-                            console.log('old_message_index', old_message_index);
-                            if(old_message_index !== -1){ // splice the new message in
+                            console.log('old_message_index', old_message_index, message._id);
+
+                            if(old_message_index !== -1){ // message exists splice the new message in
                                 console.log('splicing');
                                 $scope.navlist[idx]._messages.splice(old_message_index, 1, data.msg._id);
-                            } else { // the tag does not have the old message. Does it qualify for the new one?
+                            } else { 
+                                // the current navlist item does not have the old message. 
+                                // Does it qualify for the new one?
                                 // does the current tag exist on the current message?
-                                console.log('no old message');
                                 var tag_match_index = message._tags.indexOf(tag._id);
+                                console.log('no old message', tag_match_index);
                                 if(tag_match_index !== -1){
                                     console.log('pushing');
                                     $scope.navlist[idx]._messages.push(data.msg._id);
