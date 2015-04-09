@@ -1,16 +1,18 @@
 /* new project */
 
 #view-new-project {
+
     ul {
         clear: both;
     }
 
-    .cta {
-        float: right;
-
-        .button.cancel {
-        padding: 10px;
-        }
+    .x {
+        position: absolute;
+        top: -25px;
+        right: -28px;
+        text-decoration: none;
+        color: $fg-grey;
+        @include type-extrabold;
     }
     
     textarea.input {

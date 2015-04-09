@@ -15,7 +15,11 @@
         @include radius;
         @include dropshadowULTRA;
         @include input-placeholders;
-
+    
+        ul {
+            margin: 0 0 10px 0;
+        }
+        
         li {
             padding: ($pad / 2) 0 0 0;
             &:last-child {
@@ -26,6 +30,8 @@
             text-align: left;
             margin: 0;
             padding: 0 0 30px 0;
+            position: relative;
+
             h2 {
                 @include type-regular;
                 color: $fg-slate;
@@ -41,6 +47,10 @@
                 height: auto;
                 margin: 0 0 ($pad / 4) 0;
             }
+        }
+
+        .cta {
+            margin: 20px 0 0 0;
         }
     }
 }

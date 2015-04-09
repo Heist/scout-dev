@@ -83,8 +83,8 @@ form {
 	background: $white;
 	border: 1px solid $line;
 	display: inline-block;
-	margin: 0 0 20px 0;
-	padding: $pad/1.5 $pad/1.5;
+	margin: 5px 0 10px 0;
+	padding: 11px $pad/1.5;
 	@include radius;
 	@include type-light;
 	font-size: $type-size-base*0.90;
