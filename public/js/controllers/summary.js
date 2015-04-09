@@ -186,11 +186,13 @@
 
                     // this needs to splice the new message into the actual message array
                     // over the old message's position.
+
                     var item2 = $scope.messages[data.msg._subject.name].filter(function (item) {
+                        console.log('i', item);
                           return item._id === message._id
                         })[0];
                     
-                    console.log('item2')
+                    console.log('item2', item2);
                     $scope.messages[data.msg._subject.name].splice(item2, 1, data.msg);
                 });
         };
