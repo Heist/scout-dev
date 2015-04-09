@@ -95,13 +95,6 @@
             $scope.showReportLink = $scope.showReportLink ? false : true;
         };
 
-        // $scope.showObjectMessages = function(msg, obj){
-        //     if(obj._messages){
-        //         if((obj._messages.indexOf(msg._id) >= 0)){                
-        //             return true;
-        //         }
-        //     }
-        // };
 
     // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
@@ -213,7 +206,7 @@
                     console.log(task_idx);
                     console.log('message to check for task cross-posting', data.msg._task, message._task);
                     console.log('navlist, check tasks for messages', task);
-                    
+
                     $scope.navlist[task_idx]._messages.push(data.msg._id);
                     
                     // okay what's happening with the tasks is that they are rightly removing their old message
