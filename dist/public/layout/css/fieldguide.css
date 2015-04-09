@@ -554,8 +554,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
     color: #fff;
     text-decoration: none; }
   .button:hover {
-    background: #70910D;
-    border: 2px solid #70910D; }
+    background: #70910D; }
   .button:focus {
     box-shadow: 0 0 6px #85ac0f; }
   .button.outline {
