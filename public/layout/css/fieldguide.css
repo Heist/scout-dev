@@ -283,25 +283,6 @@ form {
   margin: 10px 0; }
 
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
-.input {
-  display: inline-block;
-  margin: 0 0 20px 0;
-  padding: 13.33333px 13.33333px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  font-family: "canada-type-gibson",sans-serif;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 13.5px;
-  outline: none;
-  border: none; }
-  .input:hover {
-    border: 1px solid #949799; }
-  .input:focus {
-    box-shadow: 0 0 4px #85ac0f;
-    border: 1px solid #D8DADB; }
-
 .button {
   display: inline-block;
   margin: 0;
@@ -383,7 +364,23 @@ form {
 
 .input {
   background: #fff;
-  border: 1px solid #dddddd; }
+  border: 1px solid #dddddd;
+  display: inline-block;
+  margin: 0 0 20px 0;
+  padding: 13.33333px 13.33333px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 13.5px;
+  outline: none; }
+  .input:hover {
+    border: 1px solid #949799; }
+  .input:focus {
+    box-shadow: 0 0 4px #85ac0f;
+    border: 1px solid #D8DADB; }
   .input.small {
     font-size: 12px;
     line-height: 1.5; }

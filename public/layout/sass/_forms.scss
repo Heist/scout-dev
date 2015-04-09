@@ -9,26 +9,6 @@ form {
 
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
 
-.input {
-	display: inline-block;
-	margin: 0 0 20px 0;
-	padding: $pad/1.5 $pad/1.5;
-	@include radius;
-	@include type-light;
-	font-size: $type-size-base*0.90;
-	outline: none;
-	border: none;
-
-	&:hover {
-		border: 1px solid $fg-grey;
-	}
-
-	&:focus {
-		box-shadow:  0 0 4px $fg-green;
-		border: 1px solid $fg-grey-light;
-	}
-}
-
 .button {
 	display: inline-block;
 	margin: 0;
@@ -99,14 +79,24 @@ form {
 	}
 }
 
-
-
 .input {
 	background: $white;
-	border: 1px solid $line; 
+	border: 1px solid $line;
+	display: inline-block;
+	margin: 0 0 20px 0;
+	padding: $pad/1.5 $pad/1.5;
+	@include radius;
+	@include type-light;
+	font-size: $type-size-base*0.90;
+	outline: none;
+
+	&:hover {
+		border: 1px solid $fg-grey;
+	}
 
 	&:focus {
-		//@include insetshadow;
+		box-shadow:  0 0 4px $fg-green;
+		border: 1px solid $fg-grey-light;
 	}
 	
 	&.small {
