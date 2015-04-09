@@ -114,48 +114,6 @@
         };
 
 
-    // COMMENTING =========================================
-        $scope.showComments = function(message){
-            // if the comment toggle is the same as the current comment toggle
-            // hide commenting
-            // else show the new message's comments
-
-            if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
-                $scope.showCommentToggle = 'hide';
-                $scope.commentMessage = '';
-                return;
-            }
-
-            if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
-                $scope.showCommentToggle = 'show';
-                return;
-            }
-
-            if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
-                $scope.showCommentToggle = 'show'; 
-                $scope.commentMessage = message;
-                return;
-            }
-            
-            $scope.commentMessage = message;
-        };
-
-        
-        $scope.addComment = function(comment){
-            if(comment && comment.body.length > 0){
-                reportFunctions.postComment(comment, $scope.commentMessage._id)
-                    .then(function(data){
-                        comment.body = '';
-                        var arr = _.pluck($scope.messages, '_id');
-                        var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
-                        $scope.messages[msg_idx] = data;
-                    });
-            }
-            else {
-                $scope.showCommentToggle = 'hide';
-            }
-        };
-
         // MOVE STEPS =========================================
 
         $scope.msgFilter = function(message){
@@ -169,6 +127,7 @@
         };
 
         // OBJECT FUNCTIONS =====================================
+
         $scope.saveObject = function(obj){
             $http.post('/api/summary/object/', [obj]);
         };
@@ -212,18 +171,26 @@
                     console.log('tags', data.tags);
                     navMod(data);
 
-                // remove the previous message and insert the new one
-                    var arr = $scope.timeline;
-                    var item;
+                // remove the previous message and insert the new one to the selected tag's message array
+                    console.log('selected messages', $scope.selected._messages, message._id);
 
-                   for(var i = 0; i < arr.length; i++){
-                        if(arr[i]._id && arr[i]._id === message._id){
-                            item = i
-                        }
-                    }
+                    // this needs to find out where the old message id was and splice it if it is still here
+                    // if it is not here, delete the message from the _messages array
+                    var item1 = $scope.selected._messages.filter(function (item) {
+                        console.log(item);
+                          return item === message._id
+                        })[0];
                     
-                    arr.splice(item, 1, data.msg);
-                    $scope.timeline = arr;
+                    $scope.selected._messages.splice(item1, 1, data.msg._id);
+
+                    // this needs to splice the new message into the actual message array
+                    // over the old message's position.
+
+                    // var item2 = $scope.messages[data.msg._subject.name].filter(function (item) {
+                    //       return item._id === message._id
+                    //     })[0];
+
+                    // $scope.messages[data.msg._subject.name].splice(item2, 1, data.msg);
                 });
         };
 
@@ -269,5 +236,49 @@
                   messages : $scope.messages[0]
                 });
         };
+
+
+
+    // COMMENTING =========================================
+        // $scope.showComments = function(message){
+        //     // if the comment toggle is the same as the current comment toggle
+        //     // hide commenting
+        //     // else show the new message's comments
+
+        //     if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
+        //         $scope.showCommentToggle = 'hide';
+        //         $scope.commentMessage = '';
+        //         return;
+        //     }
+
+        //     if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
+        //         $scope.showCommentToggle = 'show';
+        //         return;
+        //     }
+
+        //     if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
+        //         $scope.showCommentToggle = 'show'; 
+        //         $scope.commentMessage = message;
+        //         return;
+        //     }
+            
+        //     $scope.commentMessage = message;
+        // };
+
+        
+        // $scope.addComment = function(comment){
+        //     if(comment && comment.body.length > 0){
+        //         reportFunctions.postComment(comment, $scope.commentMessage._id)
+        //             .then(function(data){
+        //                 comment.body = '';
+        //                 var arr = _.pluck($scope.messages, '_id');
+        //                 var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
+        //                 $scope.messages[msg_idx] = data;
+        //             });
+        //     }
+        //     else {
+        //         $scope.showCommentToggle = 'hide';
+        //     }
+        // };
     }]);
 })();

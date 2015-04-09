@@ -222,10 +222,9 @@
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
             $http.put('/api/message/', message)
-                .success(function(data){
-                 
+                .success(function(data){                 
                     console.log('tags', data.tags);
-                 
+
                  // remove the previous message and insert the new one
                     $scope.tags = data.tags;
 
