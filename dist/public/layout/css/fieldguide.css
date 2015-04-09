@@ -651,7 +651,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
-  padding: 0 30px 0 0;
+  padding: 8px 30px;
   border: 0;
   outline: 0;
   float: left; }
@@ -1625,6 +1625,9 @@ hr {
         margin: 0 0 5px 0; }
     .modal .modal-interior .cta {
       margin: 0;
+      float: right; }
+    .modal .modal-interior .cta-margin {
+      margin: 20px 0 0 0;
       float: right; }
 
 /* charging money / skrilla thrilla */
