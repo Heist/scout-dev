@@ -22,26 +22,6 @@
                 border: none;
             }
         }
-        .cancel {
-            background: none;
-            color: $fg-grey;
-            padding: 10px 160px 0 0;
-            border: 0;
-            outline: 0;
-
-            &:hover {
-                text-decoration: underline;
-                color: $link-hover;
-            }
-        }
-        .dry-run {
-            @extend .button.cancel;
-            padding: 10px 10px 0 0;
-            &:hover {
-                text-decoration: underline;
-                color: $link-hover;
-            }
-        }
         .modal-interior-title {
             text-align: left;
             margin: 0;

@@ -92,6 +92,28 @@
 	}
 }
 
+.button-cancel {
+    background: none;
+    color: $fg-grey-light;
+    padding: 0 30px 0 0;
+    border: 0;
+    outline: 0;
+
+    &:hover {
+        text-decoration: underline;
+        color: $link-hover;
+    }
+}
+
+.button-dry-run {
+    @extend .button.cancel;
+    padding: 10px 10px 0 0;
+    &:hover {
+        text-decoration: underline;
+        color: $link-hover;
+    }
+}
+
 .button-inactive {
 	background: $white;
 	color: $fg-grey;
