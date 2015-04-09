@@ -4,7 +4,6 @@
 	@include button-colour($fg-green, $white);
 	cursor: pointer;
 	font-size: $type-size-base*0.933;
-	border: 2px solid $fg-green;
 	padding: 11px 32.5px;
 	
 	&:hover {
@@ -13,7 +12,7 @@
 	}
 	
 	&:focus {
-	    border: 2px solid $fg-green-light;
+	    box-shadow:  0 0 6px $fg-green;
 	}
 
 	&.outline {

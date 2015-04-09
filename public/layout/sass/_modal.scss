@@ -22,18 +22,19 @@
                 border: none;
             }
         }
-        .button.cancel {
+        .cancel {
             background: none;
             color: $fg-grey;
             padding: 10px 160px 0 0;
             border: 0;
+            outline: 0;
 
             &:hover {
                 text-decoration: underline;
                 color: $link-hover;
             }
         }
-        .button.dry-run {
+        .dry-run {
             @extend .button.cancel;
             padding: 10px 10px 0 0;
             &:hover {

@@ -548,7 +548,6 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
   text-decoration: none;
   cursor: pointer;
   font-size: 13.995px;
-  border: 2px solid #85ac0f;
   padding: 11px 32.5px; }
   .button:hover {
     background: #7a9e0e;
@@ -558,7 +557,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
     background: #70910D;
     border: 2px solid #70910D; }
   .button:focus {
-    border: 2px solid #C6D39E; }
+    box-shadow: 0 0 6px #85ac0f; }
   .button.outline {
     background: #fff;
     color: #85ac0f;
@@ -1582,17 +1581,18 @@ hr {
       padding: 10px 0 0 0; }
       .modal .modal-interior li:last-child {
         border: none; }
-    .modal .modal-interior .button.cancel, .modal .modal-interior .button.dry-run {
+    .modal .modal-interior .cancel {
       background: none;
       color: #949799;
       padding: 10px 160px 0 0;
-      border: 0; }
-      .modal .modal-interior .button.cancel:hover, .modal .modal-interior .button.dry-run:hover {
+      border: 0;
+      outline: 0; }
+      .modal .modal-interior .cancel:hover {
         text-decoration: underline;
         color: #828588; }
-    .modal .modal-interior .button.dry-run {
+    .modal .modal-interior .dry-run {
       padding: 10px 10px 0 0; }
-      .modal .modal-interior .button.dry-run:hover {
+      .modal .modal-interior .dry-run:hover {
         text-decoration: underline;
         color: #828588; }
     .modal .modal-interior .modal-interior-title {
@@ -2022,7 +2022,7 @@ hr {
   clear: both; }
 #view-new-project .cta {
   float: right; }
-  #view-new-project .cta .button.cancel, #view-new-project .cta .modal .modal-interior .button.dry-run, .modal .modal-interior #view-new-project .cta .button.dry-run {
+  #view-new-project .cta .button.cancel, #view-new-project .cta .modal .modal-interior .dry-run, .modal .modal-interior #view-new-project .cta .dry-run {
     padding: 10px; }
 #view-new-project textarea.input {
   line-height: 18.75px;
