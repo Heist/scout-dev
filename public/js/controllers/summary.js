@@ -161,6 +161,25 @@
 // the note should disappear from the tag even if it is being edited within that tag
 // it should then appear on any other tag that is on the left nav
 // if it does not have a tag to belong to, it should turn up only on tasks (v 1.0)
+        var navMod = function(data){
+            var navlist_check = _.pluck($scope.navlist, 'name');
+           
+            data.tags.map(function(tag) {
+                var n = navlist_check.indexOf(tag.name);
+                if(n === -1){ // if the tag does not exist, make it, and push in new message
+                    console.log('pushing automatically', tag.name );
+                    tag.report_index = $scope.navlist.length;
+                    $scope.navlist.push(tag);
+                    $scope.navlist[tag.report_index]._messages.push(data.msg._id);
+                    return;
+                } else {
+                    if($scope.navlist[n].doctype==='tag'){
+                        $scope.navlist[n]._messages = tag._messages;    
+                    }
+                }
+            })
+        }
+
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
@@ -168,49 +187,14 @@
                 .success(function(data){                 
                     
                  // add the new tags to the left nav
-                    console.log('tags', data.tags);
-                    // navMod(data, message);
-
-                    // this works.
-                    // console.log('messages before', _.pluck($scope.messages[data.msg._subject.name], '_id'), data.msg._id, message._id);
-                    var idList = _.pluck($scope.messages[data.msg._subject.name], '_id');
-                    var idx = idList.indexOf(message._id);
+                    var idx = _.pluck($scope.messages[data.msg._subject.name], '_id').indexOf(message._id);
                     $scope.messages[data.msg._subject.name].splice(idx,1, data.msg);
-                    // console.log('messages after', _.pluck($scope.messages[data.msg._subject.name], '_id'), data.msg._id);
+                    
+                    var task_idx = _.pluck($scope.navlist, '_id').indexOf(message._task);
+                    $scope.navlist[task_idx]._messages.push(data.msg._id);
 
                     // edit the messages list of the left navigation.
-                    var navlist_check = _.pluck($scope.navlist, 'name');
-                    data.tags.map(function(tag) {
-                        var n = navlist_check.indexOf(tag.name);
-                        if(n === -1){ // if the tag does not exist, make it, and push in new message
-                            console.log('pushing automatically', tag.name );
-                            tag.report_index = $scope.navlist.length;
-                            $scope.navlist.push(tag);
-                            $scope.navlist[tag.report_index]._messages.push(data.msg._id);
-                            return;
-                        } else {
-                            // if this message still belongs to this tag,
-                            // update the message list for this navlist item with this returned tag set
-                            // check the navlist for the tag we are mapping
-                            // the tag is presumed to exist because the above didn't happen
-                            // $scope.navlist[n] is the current tag, add updated messages
-
-                            if($scope.navlist[n].doctype==='tag'){
-                                $scope.navlist[n]._messages = tag._messages;    
-                            }
-                        }
-                    })
-
-                    var task = _.pluck($scope.navlist, '_id');
-                    var task_idx = task.indexOf(message._task);
-                    console.log(task_idx);
-                    console.log('message to check for task cross-posting', data.msg._task, message._task);
-                    console.log('navlist, check tasks for messages', task);
-
-                    $scope.navlist[task_idx]._messages.push(data.msg._id);
-                    
-                    // okay what's happening with the tasks is that they are rightly removing their old message
-                    // and not re-mapping the new message
+                    navMod(data);
                 });
         };
 
@@ -226,7 +210,7 @@
                     $scope.messages[data.msg._subject.name].push(data.msg);
                     $scope.selected._messages.push(data.msg._id);
 
-                    // navMod(data);
+                    navMod(data);
                 });
         };
 
