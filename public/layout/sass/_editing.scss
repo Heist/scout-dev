@@ -43,21 +43,25 @@
             display: none;
         }
 
-        p {
-            font-size: 12px;
-            line-height: 17px;
-            margin: 0 0 10px 0;
+        h3 {
+            font-size: 17.5px;
+            @include type-light;
+            color: $fg-black;
         }
 
-        a {
+        p {
+            @include type-light;
+            font-size: 12px;
+            line-height: 17px;
+            margin: 0;
+        }
+
+        a.more-info {
             color: $fg-blue;
-            font-size: 11px;
+            font-size: 10px;
             text-decoration: underline;
         }
 
-        h3 {
-            font-size: 17.5px;
-        }
         &.selected {
             @include radius;
             border: 1px solid $fg-green-light;
