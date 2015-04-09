@@ -95,6 +95,13 @@
             $scope.showReportLink = $scope.showReportLink ? false : true;
         };
 
+        // $scope.showObjectMessages = function(msg, obj){
+        //     if(obj._messages){
+        //         if((obj._messages.indexOf(msg._id) >= 0)){                
+        //             return true;
+        //         }
+        //     }
+        // };
 
     // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
@@ -194,9 +201,23 @@
                             // check the navlist for the tag we are mapping
                             // the tag is presumed to exist because the above didn't happen
                             // $scope.navlist[n] is the current tag, add updated messages
-                            $scope.navlist[n]._messages = tag._messages;
+
+                            if($scope.navlist[n].doctype==='tag'){
+                                $scope.navlist[n]._messages = tag._messages;    
+                            }
                         }
                     })
+
+                    var task = _.pluck($scope.navlist, '_id');
+                    var task_idx = task.indexOf(message._task);
+                    console.log(task_idx);
+                    console.log('message to check for task cross-posting', data.msg._task, message._task);
+                    console.log('navlist, check tasks for messages', task);
+                    
+                    $scope.navlist[task_idx]._messages.push(data.msg._id);
+                    
+                    // okay what's happening with the tasks is that they are rightly removing their old message
+                    // and not re-mapping the new message
                 });
         };
 
