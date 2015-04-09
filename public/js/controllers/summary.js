@@ -15,20 +15,27 @@
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams._id;
         $scope.showReportLink = false;
 
-        var navMod = function(n){
-            var indexCheck = _.pluck($scope.navlist, 'name');
-            _.each(n.tags, function(tag){
-                var idx = indexCheck.indexOf(tag.name);
+        // var navMod = function(info, old){
+        //     var indexCheck = _.pluck($scope.navlist, 'name'); // get a list of existing tags
+            
+        //     _.each(info.tags, function(tag){ // for each tag in the returned data
+        //         var idx = indexCheck.indexOf(tag.name); // figure out if the tag already exists
 
-                if(idx === -1){
-                    tag.report_index = $scope.navlist.length;
-                    $scope.navlist.push(tag);
-                    $scope.navlist[tag.report_index]._messages.push(n.msg._id);
-                } else {
-                    $scope.navlist[idx]._messages.push(n.msg._id);
-                }
-            });
-        };
+        //         if(idx === -1){ // if the tag does not exist, make it, and push in new messages
+        //             tag.report_index = $scope.navlist.length;
+        //             $scope.navlist.push(tag);
+        //             $scope.navlist[tag.report_index]._messages.push(info.msg._id);
+        //         } else { // if the tag does exist, push in new messages
+        //             var check = (old) ? $scope.navlist[idx]._messages.indexOf(old._id) : -1 ;
+        //             console.log('check', check);
+        //             if(check === -1){ // if the message is new...
+        //                 $scope.navlist[idx]._messages.push(info.msg._id);
+        //             } else {
+        //                 $scope.navlist[idx]._messages.splice(check, 1, info.msg._id);
+        //             }
+        //         }
+        //     });
+        // };
 
         // synchronous shit is weird. =====================
         $scope.activate = function(obj, selectedIndex) {
@@ -169,30 +176,50 @@
                     
                  // add the new tags to the left nav
                     console.log('tags', data.tags);
-                    navMod(data);
+                    console.log('selected messages 1', $scope.selected._messages, message._id);
+                    // navMod(data, message);
+
+                    var indexCheck = _.pluck($scope.navlist, 'name'); // get a list of existing tags
+            
+                    data.tags.map(function(tag) {
+                        var idx = indexCheck.indexOf(tag.name); // figure out if the tag already exists
+
+                        if(idx === -1){ // if the tag does not exist, make it, and push in new message
+                            tag.report_index = $scope.navlist.length;
+                            $scope.navlist.push(tag);
+                            $scope.navlist[tag.report_index]._messages.push(data.msg._id);
+                        } else { // if the tag does exist...
+                            // is this an edited note? Does it already exist in the messages array?
+                            var check = $scope.navlist[idx]._messages.indexOf(message._id);
+
+                            if(check === -1){ // if the message is new...
+                                // push the new message id to the object's message list
+                                $scope.navlist[idx]._messages.push(data.msg._id);
+                            } else {
+                                // splice the new message id over the old one.
+                                $scope.navlist[idx]._messages.splice(check, 1, data.msg._id);
+                            }
+                        }
+                    })
 
                 // remove the previous message and insert the new one to the selected tag's message array
-                    console.log('selected messages', $scope.selected._messages, message._id);
-
-                    // this needs to find out where the old message id was,
-                    // and splice it if it is still here
-                    // if it is not here, delete the message from the _messages array
-
-                    var item1 = $scope.selected._messages.indexOf(message._id);
-                    console.log('item 1', item1, data.msg._id);
-
-                    $scope.selected._messages.splice(item1, 1, data.msg._id);
-                    console.log('selected messages', $scope.selected._messages, data.msg._id);
-
+           
                     // this needs to splice the new message into the actual message array
                     // over the old message's position.
 
+                    // var newTimeline = $scope.messages.map(function (item) {
+                    //   if (item._id === message._id) { return data.msg; }
+                    //   return item
+                    // })
+
+                    // $scope.messages = newTimeline;
+
                     var item2 = $scope.messages[data.msg._subject.name].filter(function (item) {
-                        console.log('i', item);
                           return item._id === message._id
                         })[0];
                     
                     console.log('item2', item2);
+
                     $scope.messages[data.msg._subject.name].splice(item2, 1, data.msg);
                 });
         };

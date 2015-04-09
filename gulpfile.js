@@ -59,7 +59,7 @@ gulp.task('sass', function() {
     .pipe(addsrc.append('bower_components/**/*.css'))
     .pipe(gulp.dest('public/layout/css'))
     .pipe(gulp.dest('dist/public/layout/css'))
-    .pipe(notify({ message: "CSS: Your files are now organized" }));
+    // .pipe(notify({ message: "CSS: Your files are now organized" }));
 });
 
 gulp.task('fonts', function() {
