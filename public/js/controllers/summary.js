@@ -189,16 +189,12 @@
                             $scope.navlist[tag.report_index]._messages.push(data.msg._id);
                             return;
                         } else {
-                            // $scope.navlist[n]._messages = tag._messages;
-                            var old_message_index = $scope.navlist[n]._messages.indexOf(message._id);
-                            console.log('old_message_index', $scope.navlist[n].name, old_message_index, 'new', data.msg._id, 'old', message._id, $scope.navlist[n]._messages);
-                            console.log('tag check', tag._messages, 'new', data.msg._id, 'old', message._id );
-                            if(old_message_index !== -1){ // message exists splice the new message in
-                                $scope.navlist[n]._messages.splice(old_message_index, 1, data.msg._id);
-                                // console.log('splicing', $scope.navlist[n]._messages, 'new', data.msg._id, 'old', message._id );
-                                // console.log('tag check', tag._messages, 'new', data.msg._id, 'old', message._id );
-                            }
-
+                            // if this message still belongs to this tag,
+                            // update the message list for this navlist item with this returned tag set
+                            // check the navlist for the tag we are mapping
+                            // the tag is presumed to exist because the above didn't happen
+                            // $scope.navlist[n] is the current tag, add updated messages
+                            $scope.navlist[n]._messages = tag._messages;
                         }
                     })
                 });
