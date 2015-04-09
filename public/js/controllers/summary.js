@@ -183,25 +183,62 @@
             
                     data.tags.map(function(tag) {
                         var idx = indexCheck.indexOf(tag.name); // figure out if the tag already exists
-
+                        console.log('tag index check', idx );
                         if(idx === -1){ // if the tag does not exist, make it, and push in new message
+                            console.log('pushing automatically', tag.name );
                             tag.report_index = $scope.navlist.length;
                             $scope.navlist.push(tag);
                             $scope.navlist[tag.report_index]._messages.push(data.msg._id);
-                        } else { // if the tag does exist...
-                            // is this an edited note? Does it already exist in the messages array?
-                            var check = $scope.navlist[idx]._messages.indexOf(message._id);
-
-                            if(check === -1){ // if the message is new...
-                                // push the new message id to the object's message list
-                                $scope.navlist[idx]._messages.push(data.msg._id);
-                            } else {
-                                // splice the new message id over the old one.
-                                $scope.navlist[idx]._messages.splice(check, 1, data.msg._id);
+                            return;
+                        } else {
+                            // the tag exists, it is tag.name
+                            // does it have the old message in its message list?
+                            var old_message_index = tag._messages.indexOf(message._id);
+                            console.log('old_message_index', old_message_index);
+                            if(old_message_index !== -1){ // splice the new message in
+                                console.log('splicing');
+                                $scope.navlist[idx]._messages.splice(old_message_index, 1, data.msg._id);
+                            } else { // the tag does not have the old message. Does it qualify for the new one?
+                                // does the current tag exist on the current message?
+                                console.log('no old message');
+                                var tag_match_index = message._tags.indexOf(tag._id);
+                                if(tag_match_index !== -1){
+                                    console.log('pushing');
+                                    $scope.navlist[idx]._messages.push(data.msg._id);
+                                }
                             }
                         }
                     })
 
+                    // for each tag that is on the new object
+                    // check to see if that tag is already in the navigation list
+                    // if it is not, add it to the navigation list
+                    // and push a message to it
+
+                    // if it is in the list
+                    // check to see if this message is already in the list
+                    // if the message is already in the list, splice it in
+
+                    // if the message is not already in the list, and the tag is already in the list
+
+                    var checkthis = _.pluck($scope.navlist, '_messages');
+                    console.log('selected messages 2', data.msg._id, message._id, checkthis);
+
+
+                        // else { // if the tag does exist...
+                        //     // is this an edited note? Does it already exist in the messages array?
+                        //     var check = $scope.navlist[idx]._messages.indexOf(message._id);
+                        //     console.log('checking new index', check);
+
+                        //     if(check !== -1){ // if the message is not new, splice it                                // splice the new message id over the old one.
+                        //         $scope.navlist[idx]._messages.splice(check, 1, data.msg._id);
+                        //     } else {
+                        //         if(tag._id === $scope.navlist[idx]._id){
+                        //             // does the tag match a message tag?
+                        //             // push the new message id to the object's message list
+                        //             $scope.navlist[idx]._messages.push(data.msg._id);
+                        //         }
+                        //     }
                 // remove the previous message and insert the new one to the selected tag's message array
            
                     // this needs to splice the new message into the actual message array
@@ -214,13 +251,13 @@
 
                     // $scope.messages = newTimeline;
 
-                    var item2 = $scope.messages[data.msg._subject.name].filter(function (item) {
-                          return item._id === message._id
-                        })[0];
+                    // var item2 = $scope.messages[data.msg._subject.name].filter(function (item) {
+                    //       return item._id === message._id
+                    //     })[0];
                     
-                    console.log('item2', item2);
+                    // console.log('item2', item2);
 
-                    $scope.messages[data.msg._subject.name].splice(item2, 1, data.msg);
+                    // $scope.messages[data.msg._subject.name].splice(item2, 1, data.msg);
                 });
         };
 
@@ -236,7 +273,7 @@
                     $scope.messages[data.msg._subject.name].push(data.msg);
                     $scope.selected._messages.push(data.msg._id);
 
-                    navMod(data);
+                    // navMod(data);
                 });
         };
 
