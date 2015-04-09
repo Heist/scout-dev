@@ -15,10 +15,7 @@
         @include radius;
         @include dropshadowULTRA;
         @include input-placeholders;
-        .input {
-            width: 100%;
-            margin: 0;
-        }
+
         li {
             padding: ($pad / 2) 0 0 0;
             &:last-child {

@@ -108,33 +108,30 @@
 	
 	<div class="module two-fifths modal-interior">
 		
-		<div class="modal-interior-title create-new-project">
+		<div class="modal-interior-title">
 			<h2 class="text-center">Run a new test</h2>
 		</div>
 		
 		<ul class="nobullets" ng-model="subject">
-			<li>
+			<li ng-class='{"half": kind === "prototype", "full" : kind !== "prototype"}'>
 				<label>Participant's name</label>
-				<input class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name" />
+				<input class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name"/>
 				<!-- taking out- ui-keypress="{13:'addSubject(subject)'}" - until we can determine how it'll play nice with a two-field form -->
 				</input>
 			</li>
-			
-			<li ng-show="kind === 'prototype'">
+
+			<li class="half" ng-show="kind === 'prototype'">
 				<!-- <label>Room ID from the Field Guide App &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://docs.google.com/forms/d/1MsYcOPq5X1foSuaHfuuhzOmkhijaNFBjB7XJMs3PSA0/viewform" target="_fdbk">Get the iOS Beta App</a></label> -->
 				<label>Room ID</label>
 				<input class="input" type="text" name="testroom" value="" placeholder="Field Guide app Room ID" ng-model="subject.testroom">
 				</input>
 			</li>
-			
-			<li>
+				<div class="clear"></div>
 				<a href="#" class="secondary button cancel med" ng-click="changeOnboard(100)" tabindex="1">Cancel</a>
 
 				<!-- <a class="button dry-run med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a> -->
 			
 				<button class="button med float-right" type="submit" ng-click="addSubject(subject); changeOnboard(2)" tabindex="0">Start test</button>
-				
-			</li>
 		
 		</ul>
 		

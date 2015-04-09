@@ -41,7 +41,26 @@
 		}
 	}
 	
+	// modal form
 	
+	li.half {
+		float: left;
+		width: 48%;
+
+		&:first-child {	
+		margin-right: 4%;
+		}
+	}
+
+	li.full {
+		float: left;
+		width: 100%;
+
+		&:first-child {	
+		margin-right: 0;
+		}
+	}
+
 	.sheet-holder {
 		width: 75%;
 		height: 100%;

@@ -375,7 +375,8 @@ form {
   font-style: normal;
   font-weight: 300;
   font-size: 13.5px;
-  outline: none; }
+  outline: none;
+  width: 100%; }
   .input:hover {
     border: 1px solid #949799; }
   .input:focus {
@@ -1577,9 +1578,6 @@ hr {
       color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
-    .modal .modal-interior .input {
-      width: 100%;
-      margin: 0; }
     .modal .modal-interior li {
       padding: 10px 0 0 0; }
       .modal .modal-interior li:last-child {
@@ -2246,6 +2244,16 @@ hr {
       text-transform: uppercase; }
     #view-testing #testing-guide p {
       padding: 20px 0 0 0; }
+  #view-testing li.half {
+    float: left;
+    width: 48%; }
+    #view-testing li.half:first-child {
+      margin-right: 4%; }
+  #view-testing li.full {
+    float: left;
+    width: 100%; }
+    #view-testing li.full:first-child {
+      margin-right: 0; }
   #view-testing .sheet-holder {
     width: 75%;
     height: 100%;

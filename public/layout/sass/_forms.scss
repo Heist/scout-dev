@@ -89,6 +89,7 @@ form {
 	@include type-light;
 	font-size: $type-size-base*0.90;
 	outline: none;
+	width: 100%;
 
 	&:hover {
 		border: 1px solid $fg-grey;
@@ -117,7 +118,6 @@ form {
 			border: 1px solid $line; 
 		} 
 	}
-	
 }
 
 textarea.input {
