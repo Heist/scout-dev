@@ -175,8 +175,8 @@
         .tag-pool {
             width: 490px;
             height: 30px;
-            background: rgba(205,206,207,0.2);
-            @include light-grey-border;
+            background: $light-grey-bg;
+            border: 1px solid $fg-grey-light;
             
             ul {
                 padding: 0;

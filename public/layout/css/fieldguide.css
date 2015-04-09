@@ -16,9 +16,6 @@ put all your core measurements, values etc. in here
 /*
 palette
 */
-/*
-specific colours
-*/
 /* generic */
 /* FG colours */
 /*
@@ -202,7 +199,7 @@ a {
   cursor: pointer; }
   a:hover {
     text-decoration: underline;
-    color: #818387; }
+    color: #828588; }
   a.alt {
     color: #0abcd7; }
     a.alt:hover {
@@ -267,7 +264,7 @@ ul {
         border: 2px solid #f2f2f0;
         padding: 6.66667px 10px; }
         ul.tags li a:hover {
-          color: #818387; }
+          color: #828588; }
 
 /* nested ULs */
 ul.lined ul.tags li {
@@ -545,18 +542,30 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
   color: #fff;
   text-decoration: none;
   cursor: pointer;
-  font-size: 14.025px;
-  padding: 16px 30px; }
+  font-size: 13.995px;
+  border: 2px solid #85ac0f;
+  padding: 11px 32.5px; }
   .button:hover {
     background: #7a9e0e;
     color: #fff;
     text-decoration: none; }
-  .button.med {
-    font-size: 12.525px;
-    padding: 11px 20px;
-    border: 2px solid #85ac0f; }
-    .button.med:focus {
-      border: 2px solid #C6D39E; }
+  .button:focus {
+    border: 2px solid #C6D39E; }
+  .button.outline {
+    background: #fff;
+    color: #85ac0f;
+    text-decoration: none;
+    border: 1px solid #C6D39E; }
+    .button.outline:hover {
+      background: #f7f7f7;
+      color: #85ac0f;
+      text-decoration: none; }
+    .button.outline:hover {
+      background: rgba(133, 172, 15, 0.14); }
+    .button.outline:focus {
+      box-shadow: 0 0 6px #C6D39E; }
+  .button.full {
+    width: 100%; }
   .button.small {
     font-size: 12px;
     padding: 2.5px 10px; }
@@ -631,8 +640,8 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
 
 .button-inactive {
   background: #fff;
-  color: #939598;
-  border: 1px solid #cdcecf;
+  color: #949799;
+  border: 1px solid #D8DADB;
   outline: 0;
   border-radius: 3px;
   cursor: pointer; }
@@ -784,8 +793,8 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
   .task-score.green {
     background: #85ac0f; }
     .task-score.green.inverted {
-      border: 2px solid #86aa25;
-      color: #86aa25 !important;
+      border: 2px solid #C6D39E;
+      color: #C6D39E !important;
       background: #fff; }
   .task-score.red {
     background: #f37960; }
@@ -836,7 +845,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
     background: #f37960;
     color: #fff; }
   .messaging.messaging-success {
-    background: #86aa25;
+    background: #C6D39E;
     color: #fff; }
   .messaging.messaging-neutral {
     background: #dddddd;
@@ -1258,8 +1267,8 @@ hr {
       #timeline ul .message:hover, #timeline ul .message.selected {
         color: #42474c;
         background: #f3f7e7;
-        border-left: 4px solid #9bbb3a;
-        border-right: 4px solid #9bbb3a;
+        border-left: 4px solid #85ac0f;
+        border-right: 4px solid #85ac0f;
         -webkit-transition-duration: 0.2s;
         -webkit-transition-timing: ease-out;
         -o-transition-duration: 0.2s;
@@ -1302,7 +1311,7 @@ hr {
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
           font-weight: 400;
-          color: #939598;
+          color: #949799;
           margin: 0; }
         #timeline ul .message .message-body small {
           font-size: 9px;
@@ -1448,7 +1457,7 @@ hr {
       #tasklist ul li.active {
         position: relative;
         color: #fff;
-        background: #86aa25; }
+        background: #C6D39E; }
         #tasklist ul li.active h3 {
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
@@ -1544,21 +1553,21 @@ hr {
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); }
     .modal .modal-interior ::-webkit-input-placeholder {
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     .modal .modal-interior :-moz-placeholder {
       /* Firefox 18- */
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     .modal .modal-interior ::-moz-placeholder {
       /* Firefox 19+ */
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     .modal .modal-interior :-ms-input-placeholder {
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     .modal .modal-interior .input {
@@ -1570,17 +1579,17 @@ hr {
         border: none; }
     .modal .modal-interior .button.cancel, .modal .modal-interior .button.dry-run {
       background: none;
-      color: #939598;
+      color: #949799;
       padding: 10px 160px 0 0;
       border: 0; }
       .modal .modal-interior .button.cancel:hover, .modal .modal-interior .button.dry-run:hover {
         text-decoration: underline;
-        color: #818387; }
+        color: #828588; }
     .modal .modal-interior .button.dry-run {
       padding: 10px 10px 0 0; }
       .modal .modal-interior .button.dry-run:hover {
         text-decoration: underline;
-        color: #818387; }
+        color: #828588; }
     .modal .modal-interior .modal-interior-title {
       text-align: left;
       margin: 0;
@@ -2043,7 +2052,7 @@ hr {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
-    border: 1px solid #86aa25;
+    border: 1px solid #C6D39E;
     color: #85ac0f; }
     #view-new-project .test-type.selected .selected-arrow {
       position: absolute;
@@ -2102,10 +2111,10 @@ hr {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
-    color: #939598;
+    color: #949799;
     margin: 0 0 40px 0; }
   #view-editing .add-task form {
-    border: 1px solid rgba(205, 206, 207, 0.5);
+    border: 1px solid #D8DADB;
     padding: 15px;
     margin: 0; }
   #view-editing .add-task input, #view-editing .add-task textarea {
@@ -2122,7 +2131,7 @@ hr {
   #view-editing .add-task .box {
     padding: 15px;
     margin: 0;
-    border: 1px solid rgba(205, 206, 207, 0.5);
+    border: 1px solid #D8DADB;
     border-top: 0; }
   #view-editing .tags {
     margin: 0 0 40px 0; }
@@ -2132,8 +2141,8 @@ hr {
     #view-editing .tags .tag-pool, #view-editing .tags textarea.custom-tags {
       width: 490px;
       height: 30px;
-      background: rgba(205, 206, 207, 0.2);
-      border: 1px solid rgba(205, 206, 207, 0.5); }
+      background: rgba(148, 151, 153, 0.2);
+      border: 1px solid #D8DADB; }
       #view-editing .tags .tag-pool ul, #view-editing .tags textarea.custom-tags ul {
         padding: 0; }
         #view-editing .tags .tag-pool ul li, #view-editing .tags textarea.custom-tags ul li {
@@ -2165,28 +2174,28 @@ hr {
       #view-editing .test-setup .nobullets .input {
         width: 100%; }
     #view-editing .test-setup ::-webkit-input-placeholder {
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     #view-editing .test-setup :-moz-placeholder {
       /* Firefox 18- */
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     #view-editing .test-setup ::-moz-placeholder {
       /* Firefox 19+ */
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     #view-editing .test-setup :-ms-input-placeholder {
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     #view-editing .test-setup .select-active {
       background: #85ac0f;
       color: #fff;
       text-decoration: none;
-      border: 1px solid #86aa25;
+      border: 1px solid #C6D39E;
       cursor: pointer; }
       #view-editing .test-setup .select-active:hover {
         background: #7a9e0e;
@@ -2196,8 +2205,8 @@ hr {
         content: 'ed'; }
     #view-editing .test-setup .select-inactive {
       background: #fff;
-      color: #939598;
-      border: 1px solid #cdcecf;
+      color: #949799;
+      border: 1px solid #D8DADB;
       cursor: pointer; }
       #view-editing .test-setup .select-inactive:after {
         content: ''; }
@@ -2307,7 +2316,7 @@ hr {
     z-index: 999999; }
     #view-testing #button-canceltest .expand-button .expand-button-body {
       color: #fff;
-      background: #cdcecf; }
+      background: #D8DADB; }
   #view-testing #button-newtask {
     position: absolute;
     right: 75.5%;
@@ -2546,7 +2555,7 @@ hr {
 /* this styles the line on the summary page where all the notes live */
 .overlay-border {
   width: 90%;
-  border-right: 1px solid #ddd; }
+  border-right: 1px solid #949799; }
 
 .summary-border {
   position: absolute;
@@ -2603,8 +2612,8 @@ hr {
   .message:hover, .message.selected {
     color: #42474c;
     background: #f3f7e7;
-    border-left: 4px solid #9bbb3a;
-    border-right: 4px solid #9bbb3a;
+    border-left: 4px solid #85ac0f;
+    border-right: 4px solid #85ac0f;
     -webkit-transition-duration: 0.2s;
     -webkit-transition-timing: ease-out;
     -o-transition-duration: 0.2s;
@@ -2630,7 +2639,7 @@ hr {
     float: right;
     margin: 0 30px 20px 0; }
     .message .delete-message:hover {
-      color: #9bbb3a;
+      color: #85ac0f;
       cursor: pointer; }
   .message .message-comment-count {
     position: absolute;
@@ -2712,13 +2721,13 @@ hr {
     width: 90%; }
     .message .message-body p {
       margin-bottom: 0 !important;
-      color: #939598; }
+      color: #949799; }
     .message .message-body pre.messages {
       font-size: 15px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
-      color: #939598;
+      color: #949799;
       margin: 0; }
     .message .message-body small {
       display: block;

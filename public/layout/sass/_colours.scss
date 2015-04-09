@@ -2,12 +2,6 @@
 palette
 */
 
-/*
-specific colours
-*/
-
-$border-grey: #ddd; 
-
 /* generic */
 
 $white: #fff;
@@ -22,17 +16,15 @@ $fg-brown-light: #483e38;
 $fg-brown-dark: #231e1b;
 
 $fg-slate: #42474c;
-$fg-grey: #939598;
-$fg-grey-light: #cdcecf;
+$fg-grey: #949799;
+$fg-grey-light: #D8DADB;
 
 $fg-blue: #0abcd7;
 $fg-blue-dark: #2a687d;
 
 $fg-green: #85ac0f;
-$fg-green-light: #86aa25;
-$fg-green-grassy: #9bbb3a;
-$fg-green-grassy-light: #C6D39E;
-$fg-green-dark: #627136;
+$fg-green-light: #C6D39E;
+$fg-green-dark: #70910D;
 
 $fg-butter: lighten(#fee49b, 10%);
 $fg-butter-brown: #c88649;
@@ -63,6 +55,8 @@ $background-overlay: darken($background, 4%);
 $background-dark: darken($background, 12%);
 
 $modal-bg: transparentize($fg-slate, 0.1);
+$light-grey-bg: transparentize($fg-grey, 0.8);
+$light-green-bg: transparentize($fg-green, 0.86);
 
 $link: $fg-green;
 $link-hover: darken($link, 7%);
