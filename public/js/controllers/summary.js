@@ -163,7 +163,8 @@
 // if it does not have a tag to belong to, it should turn up only on tasks (v 1.0)
         var navMod = function(data){
             var navlist_check = _.pluck($scope.navlist, 'name');
-           
+            var msg_tag       = _.pluck(data.msg._tags, 'name');
+
             data.tags.map(function(tag) {
                 var n = navlist_check.indexOf(tag.name);
                 if(n === -1){ // if the tag does not exist, make it, and push in new message
@@ -174,7 +175,7 @@
                     return;
                 } else {
                     if($scope.navlist[n].doctype==='tag'){
-                        $scope.navlist[n]._messages = tag._messages;    
+                        $scope.navlist[n]._messages = tag._messages;
                     }
                 }
             })
@@ -195,6 +196,32 @@
 
                     // edit the messages list of the left navigation.
                     navMod(data);
+
+                    // map the nav list
+                    // check if the old message had a tag the new message doesn't
+                    // if so, get the index of that tag name in the nav list
+                    // splice it out.
+
+                    message._tags.map(function(id, i){
+                        console.log('map', id)
+                        var tag = data.msg._tags.indexOf(id);
+                        console.log('tag index', tag)
+                        
+                        if(tag === -1){
+                            // that tag no longer exists in that message
+                            var nav = _.pluck($scope.navlist, '_id');
+                            var tag_index_if_present = nav.indexOf(id);
+                            console.log(name, nav, tag_index_if_present);
+
+                            // var msg = $scope.navlist[tag_index]._messages; // array of message ids
+                            // var msg_idx = msg.indexOf(message._id);
+
+                            // console.log('msg index', msg_idx);
+                            
+
+                            $scope.navlist.splice(tag_index_if_present, 1);
+                        }
+                    })
                 });
         };
 
