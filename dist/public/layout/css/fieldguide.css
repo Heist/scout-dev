@@ -16,9 +16,6 @@ put all your core measurements, values etc. in here
 /*
 palette
 */
-/*
-specific colours
-*/
 /* generic */
 /* FG colours */
 /*
@@ -28,7 +25,7 @@ interpreted colours
 custom fonts
 ========================
 */
-/* p n a */
+/* gibson */
 /* Mixins */
 /*
 helpers
@@ -202,7 +199,7 @@ a {
   cursor: pointer; }
   a:hover {
     text-decoration: underline;
-    color: #818387; }
+    color: #828588; }
   a.alt {
     color: #0abcd7; }
     a.alt:hover {
@@ -267,7 +264,7 @@ ul {
         border: 2px solid #f2f2f0;
         padding: 6.66667px 10px; }
         ul.tags li a:hover {
-          color: #818387; }
+          color: #828588; }
 
 /* nested ULs */
 ul.lined ul.tags li {
@@ -442,7 +439,7 @@ label {
   vertical-align: text-bottom; }
 
 /* fixes for stupid Firefox */
-button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner {
+button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .add-task textarea[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, #view-editing .add-task textarea[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, #view-editing .add-task textarea[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner, #view-editing .add-task textarea[type="file"] > input[type="button"]::-moz-focus-inner, #view-editing .add-task input[type="file"] > textarea[type="button"]::-moz-focus-inner, #view-editing .add-task textarea[type="file"] > textarea[type="button"]::-moz-focus-inner {
   border: 0;
   padding: 0;
   margin: 0; }
@@ -545,15 +542,30 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
   color: #fff;
   text-decoration: none;
   cursor: pointer;
-  font-size: 14.025px;
-  padding: 16px 30px; }
+  font-size: 13.995px;
+  border: 2px solid #85ac0f;
+  padding: 11px 32.5px; }
   .button:hover {
     background: #7a9e0e;
     color: #fff;
     text-decoration: none; }
-  .button.med {
-    font-size: 12.525px;
-    padding: 11px 20px; }
+  .button:focus {
+    border: 2px solid #C6D39E; }
+  .button.outline {
+    background: #fff;
+    color: #85ac0f;
+    text-decoration: none;
+    border: 1px solid #C6D39E; }
+    .button.outline:hover {
+      background: #f7f7f7;
+      color: #85ac0f;
+      text-decoration: none; }
+    .button.outline:hover {
+      background: rgba(133, 172, 15, 0.14); }
+    .button.outline:focus {
+      box-shadow: 0 0 6px #C6D39E; }
+  .button.full {
+    width: 100%; }
   .button.small {
     font-size: 12px;
     padding: 2.5px 10px; }
@@ -628,8 +640,8 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
 
 .button-inactive {
   background: #fff;
-  color: #939598;
-  border: 1px solid #cdcecf;
+  color: #949799;
+  border: 1px solid #D8DADB;
   outline: 0;
   border-radius: 3px;
   cursor: pointer; }
@@ -781,8 +793,8 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
   .task-score.green {
     background: #85ac0f; }
     .task-score.green.inverted {
-      border: 2px solid #86aa25;
-      color: #86aa25 !important;
+      border: 2px solid #C6D39E;
+      color: #C6D39E !important;
       background: #fff; }
   .task-score.red {
     background: #f37960; }
@@ -833,7 +845,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="but
     background: #f37960;
     color: #fff; }
   .messaging.messaging-success {
-    background: #86aa25;
+    background: #C6D39E;
     color: #fff; }
   .messaging.messaging-neutral {
     background: #dddddd;
@@ -1255,8 +1267,8 @@ hr {
       #timeline ul .message:hover, #timeline ul .message.selected {
         color: #42474c;
         background: #f3f7e7;
-        border-left: 4px solid #9bbb3a;
-        border-right: 4px solid #9bbb3a;
+        border-left: 4px solid #85ac0f;
+        border-right: 4px solid #85ac0f;
         -webkit-transition-duration: 0.2s;
         -webkit-transition-timing: ease-out;
         -o-transition-duration: 0.2s;
@@ -1299,7 +1311,7 @@ hr {
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
           font-weight: 400;
-          color: #939598;
+          color: #949799;
           margin: 0; }
         #timeline ul .message .message-body small {
           font-size: 9px;
@@ -1445,7 +1457,7 @@ hr {
       #tasklist ul li.active {
         position: relative;
         color: #fff;
-        background: #86aa25; }
+        background: #C6D39E; }
         #tasklist ul li.active h3 {
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
@@ -1541,21 +1553,21 @@ hr {
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); }
     .modal .modal-interior ::-webkit-input-placeholder {
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     .modal .modal-interior :-moz-placeholder {
       /* Firefox 18- */
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     .modal .modal-interior ::-moz-placeholder {
       /* Firefox 19+ */
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     .modal .modal-interior :-ms-input-placeholder {
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     .modal .modal-interior .input {
@@ -1567,16 +1579,17 @@ hr {
         border: none; }
     .modal .modal-interior .button.cancel, .modal .modal-interior .button.dry-run {
       background: none;
-      color: #939598;
-      padding: 10px 160px 0 0; }
+      color: #949799;
+      padding: 10px 160px 0 0;
+      border: 0; }
       .modal .modal-interior .button.cancel:hover, .modal .modal-interior .button.dry-run:hover {
         text-decoration: underline;
-        color: #818387; }
+        color: #828588; }
     .modal .modal-interior .button.dry-run {
       padding: 10px 10px 0 0; }
       .modal .modal-interior .button.dry-run:hover {
         text-decoration: underline;
-        color: #818387; }
+        color: #828588; }
     .modal .modal-interior .modal-interior-title {
       text-align: left;
       margin: 0;
@@ -1788,10 +1801,10 @@ hr {
   padding: 15% 0 0 0; }
   #view-login label {
     color: #fff; }
-  #view-login input, #view-login button {
+  #view-login input, #view-login #view-editing .add-task textarea, #view-editing .add-task #view-login textarea, #view-login button {
     width: 100%;
     margin-bottom: 4px; }
-  #view-login input[type=checkbox] {
+  #view-login input[type=checkbox], #view-login #view-editing .add-task textarea[type=checkbox], #view-editing .add-task #view-login textarea[type=checkbox] {
     width: 15px;
     text-align: center; }
   #view-login li:last-child {
@@ -1999,88 +2012,190 @@ hr {
         -webkit-border-radius: 60px;
         border-radius: 60px; }
 
-/* editing a test */
+/* new project */
+#view-new-project ul {
+  clear: both; }
+#view-new-project .cta {
+  float: right; }
+  #view-new-project .cta .button.cancel, #view-new-project .cta .modal .modal-interior .button.dry-run, .modal .modal-interior #view-new-project .cta .button.dry-run {
+    padding: 10px; }
+#view-new-project textarea.input {
+  line-height: 18.75px;
+  height: 130px;
+  resize: none; }
+#view-new-project .test-type {
+  padding: 5px 5px 10px 5px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  border-bottom: 4px solid #fff;
+  margin: 0 0 20px 0; }
+  #view-new-project .test-type:hover {
+    border-bottom: 4px solid #85ac0f; }
+  #view-new-project .test-type.select-active {
+    border-bottom: 4px solid #85ac0f; }
+  #view-new-project .test-type.select-inactive {
+    border-bottom: 0; }
+  #view-new-project .test-type .selected-arrow {
+    display: none; }
+  #view-new-project .test-type p {
+    font-size: 12px;
+    line-height: 17px;
+    margin: 0 0 10px 0; }
+  #view-new-project .test-type a {
+    color: #0abcd7;
+    font-size: 11px;
+    text-decoration: underline; }
+  #view-new-project .test-type h3 {
+    font-size: 17.5px; }
+  #view-new-project .test-type.selected {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #C6D39E;
+    color: #85ac0f; }
+    #view-new-project .test-type.selected .selected-arrow {
+      position: absolute;
+      display: block;
+      width: 100%;
+      text-align: center;
+      height: 7px;
+      bottom: -7px;
+      left: 0; }
+      #view-new-project .test-type.selected .selected-arrow img {
+        width: 14px;
+        height: auto; }
+  #view-new-project .test-type strong {
+    border-bottom: 1px dashed #dddddd; }
+  #view-new-project .test-type img {
+    width: 100px;
+    height: auto;
+    padding: 0 0 10px 0; }
+
+/* editing tests/tasks */
 #view-editing {
   margin: 0;
   padding: 0;
-  /* step 1 */
-  /* step 2 */
-  /* step 3 */
-  /* step 5 */ }
-  #view-editing ul {
-    clear: both; }
-  #view-editing .cta {
-    float: right; }
-    #view-editing .cta .button.cancel, #view-editing .cta .modal .modal-interior .button.dry-run, .modal .modal-interior #view-editing .cta .button.dry-run {
-      padding: 10px; }
-  #view-editing textarea.input {
-    line-height: 18.75px;
-    height: 130px;
-    resize: none; }
+  background: #fff; }
+  #view-editing .sheet {
+    box-shadow: none; }
+  #view-editing h2 {
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    color: #323539;
+    font-size: 24px;
+    margin: 0 0 40px 0; }
+  #view-editing h3 {
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    color: #323539;
+    font-size: 16px;
+    margin: 20px 0; }
+  #view-editing h4 {
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    color: #323539;
+    font-size: 14px;
+    margin: 10px 0; }
+  #view-editing .task-title {
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: lowercase; }
+  #view-editing pre.test-descriptions, #view-editing pre.task-descriptions {
+    font-size: 12px;
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    color: #949799;
+    margin: 0 0 40px 0; }
+  #view-editing .add-task form {
+    border: 1px solid #D8DADB;
+    padding: 15px;
+    margin: 0; }
+  #view-editing .add-task input, #view-editing .add-task textarea {
+    width: 100%;
+    margin: 0 0 30px 0;
+    padding: 0;
+    border: 0;
+    outline: 0; }
+  #view-editing .add-task textarea {
+    height: 65px;
+    overflow-y: auto;
+    resize: none;
+    margin: 0; }
+  #view-editing .add-task .box {
+    padding: 15px;
+    margin: 0;
+    border: 1px solid #D8DADB;
+    border-top: 0; }
+  #view-editing .tags {
+    margin: 0 0 40px 0; }
+    #view-editing .tags p {
+      font-size: 10px;
+      margin: 0 0 10px 0; }
+    #view-editing .tags .tag-pool, #view-editing .tags textarea.custom-tags {
+      width: 490px;
+      height: 30px;
+      background: rgba(148, 151, 153, 0.2);
+      border: 1px solid #D8DADB; }
+      #view-editing .tags .tag-pool ul, #view-editing .tags textarea.custom-tags ul {
+        padding: 0; }
+        #view-editing .tags .tag-pool ul li, #view-editing .tags textarea.custom-tags ul li {
+          padding: 0 0 0 15px;
+          font-size: 10px;
+          color: #0abcd7;
+          display: inline-block; }
+          #view-editing .tags .tag-pool ul li:first-child, #view-editing .tags textarea.custom-tags ul li:first-child {
+            padding: 0 0 0 10px; }
+    #view-editing .tags textarea.custom-tags {
+      background: #fff;
+      border-top: 0;
+      resize: none;
+      padding: 8px;
+      outline: 0; }
+  #view-editing .done-button {
+    position: absolute;
+    right: 30px; }
   #view-editing .container {
     padding: 20px 0 0 0; }
   #view-editing .sheet-holder {
     padding: 0 0 40px 0; }
-  #view-editing #header-min {
-    padding-left: 0;
-    padding-right: 0; }
-    #view-editing #header-min h3 {
-      width: 33.3%; }
-  #view-editing .stepped-nav {
-    float: left;
-    width: 33.3% !important; }
-  #view-editing .tutorial {
-    padding: 0 20px 0 0; }
-    #view-editing .tutorial p {
-      margin: 0;
-      padding: 20px 0 0 0;
-      font-size: 12px;
-      line-height: 19.2px; }
-  #view-editing .next-button {
-    padding-left: 20px; }
-    #view-editing .next-button .button {
-      padding-left: 30px;
-      padding-right: 30px; }
   #view-editing .test-setup {
     padding: 20px 0 0 0; }
     #view-editing .test-setup .sheet {
       padding: 20px; }
-    #view-editing .test-setup h4:first-child {
-      padding: 20px 0 191px 0;
-      margin: 0; }
-    #view-editing .test-setup h4.no-pad {
-      padding: 0; }
     #view-editing .test-setup .nobullets {
       width: 100%; }
       #view-editing .test-setup .nobullets .input {
         width: 100%; }
-    #view-editing .test-setup hr {
-      width: 100%;
-      padding: 0;
-      margin: 10px auto; }
     #view-editing .test-setup ::-webkit-input-placeholder {
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     #view-editing .test-setup :-moz-placeholder {
       /* Firefox 18- */
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     #view-editing .test-setup ::-moz-placeholder {
       /* Firefox 19+ */
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     #view-editing .test-setup :-ms-input-placeholder {
-      color: #cdcecf;
+      color: #D8DADB;
       font-size: 12.5px;
       font-style: italic; }
     #view-editing .test-setup .select-active {
       background: #85ac0f;
       color: #fff;
       text-decoration: none;
-      border: 1px solid #86aa25;
+      border: 1px solid #C6D39E;
       cursor: pointer; }
       #view-editing .test-setup .select-active:hover {
         background: #7a9e0e;
@@ -2090,182 +2205,11 @@ hr {
         content: 'ed'; }
     #view-editing .test-setup .select-inactive {
       background: #fff;
-      color: #939598;
-      border: 1px solid #cdcecf;
+      color: #949799;
+      border: 1px solid #D8DADB;
       cursor: pointer; }
       #view-editing .test-setup .select-inactive:after {
         content: ''; }
-  #view-editing .test-type {
-    padding: 5px 5px 10px 5px;
-    text-align: center;
-    position: relative;
-    cursor: pointer;
-    border-bottom: 4px solid #fff;
-    margin: 0 0 20px 0; }
-    #view-editing .test-type:hover {
-      border-bottom: 4px solid #85ac0f; }
-    #view-editing .test-type.select-active {
-      border-bottom: 4px solid #85ac0f; }
-    #view-editing .test-type.select-inactive {
-      border-bottom: 0; }
-    #view-editing .test-type .selected-arrow {
-      display: none; }
-    #view-editing .test-type p {
-      font-size: 12px;
-      line-height: 17px;
-      margin: 0 0 10px 0; }
-    #view-editing .test-type a {
-      color: #0abcd7;
-      font-size: 11px;
-      text-decoration: underline; }
-    #view-editing .test-type h3 {
-      font-size: 17.5px; }
-    #view-editing .test-type.selected {
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      border-radius: 3px;
-      border: 1px solid #86aa25;
-      color: #85ac0f; }
-      #view-editing .test-type.selected .selected-arrow {
-        position: absolute;
-        display: block;
-        width: 100%;
-        text-align: center;
-        height: 7px;
-        bottom: -7px;
-        left: 0; }
-        #view-editing .test-type.selected .selected-arrow img {
-          width: 14px;
-          height: auto; }
-    #view-editing .test-type strong {
-      border-bottom: 1px dashed #dddddd; }
-    #view-editing .test-type img {
-      width: 100px;
-      height: auto;
-      padding: 0 0 10px 0; }
-  #view-editing .test-details {
-    float: none;
-    padding: 0 60px 40px 60px;
-    margin: 20px 0; }
-    #view-editing .test-details .input {
-      width: 100%; }
-    #view-editing .test-details li {
-      padding: 0 0 20px 0; }
-    #view-editing .test-details .test-details-devicetype {
-      cursor: pointer;
-      float: left;
-      text-align: center;
-      padding: 10px 10px 0 10px;
-      font-size: 12px; }
-      #view-editing .test-details .test-details-devicetype img {
-        height: 100px;
-        width: auto;
-        opacity: 0.4; }
-      #view-editing .test-details .test-details-devicetype.phone, #view-editing .test-details .test-details-devicetype.tablet {
-        width: 25%; }
-      #view-editing .test-details .test-details-devicetype.desktop {
-        width: 50%; }
-      #view-editing .test-details .test-details-devicetype.unavailable {
-        cursor: not-allowed; }
-      #view-editing .test-details .test-details-devicetype.selected {
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 400;
-        color: #85ac0f;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
-        border: 1px solid #86aa25; }
-        #view-editing .test-details .test-details-devicetype.selected img {
-          opacity: 1.0; }
-  #view-editing .test-tasks {
-    padding: 20px 0 0 0;
-    /* steps list */ }
-    #view-editing .test-tasks h4 {
-      padding: 20px 0 10px 0;
-      margin: 0; }
-    #view-editing .test-tasks p {
-      padding: 0; }
-    #view-editing .test-tasks .sheet {
-      padding: 0; }
-    #view-editing .test-tasks .add-task {
-      padding: 30px;
-      background-color: #fafafa;
-      border-top: 1px #dddddd solid;
-      width: 100%;
-      position: relative;
-      display: block; }
-      #view-editing .test-tasks .add-task .input {
-        width: 100%;
-        margin: 0 0 2px 0; }
-      #view-editing .test-tasks .add-task ::-webkit-input-placeholder {
-        color: #cdcecf;
-        font-size: 12.5px;
-        font-style: italic; }
-      #view-editing .test-tasks .add-task :-moz-placeholder {
-        /* Firefox 18- */
-        color: #cdcecf;
-        font-size: 12.5px;
-        font-style: italic; }
-      #view-editing .test-tasks .add-task ::-moz-placeholder {
-        /* Firefox 19+ */
-        color: #cdcecf;
-        font-size: 12.5px;
-        font-style: italic; }
-      #view-editing .test-tasks .add-task :-ms-input-placeholder {
-        color: #cdcecf;
-        font-size: 12.5px;
-        font-style: italic; }
-    #view-editing .test-tasks #steps {
-      padding: 20px 0 10px 0;
-      margin: 0;
-      width: 100%;
-      list-style: none; }
-      #view-editing .test-tasks #steps .steps-empty-message {
-        padding: 0 0 10px 40px;
-        opacity: 0.6; }
-      #view-editing .test-tasks #steps li {
-        position: relative;
-        padding: 0 30px; }
-        #view-editing .test-tasks #steps li .input {
-          border-color: #fff; }
-        #view-editing .test-tasks #steps li:hover .step-ordering {
-          opacity: 1.0; }
-        #view-editing .test-tasks #steps li:hover .step-controls {
-          opacity: 1.0; }
-        #view-editing .test-tasks #steps li:hover .input {
-          border-color: #dddddd; }
-        #view-editing .test-tasks #steps li .step-ordering {
-          position: absolute;
-          top: 5px;
-          left: 10px;
-          width: 20px;
-          opacity: 0.2; }
-          #view-editing .test-tasks #steps li .step-ordering div {
-            cursor: pointer; }
-        #view-editing .test-tasks #steps li .step-contents {
-          float: left;
-          width: 100%; }
-          #view-editing .test-tasks #steps li .step-contents .input {
-            width: 100%;
-            margin: 0 0 2px 0;
-            color: #939598; }
-        #view-editing .test-tasks #steps li .step-controls {
-          position: absolute;
-          width: 20px;
-          text-align: right;
-          top: 5px;
-          right: 10px;
-          opacity: 0; }
-  #view-editing .test-done {
-    float: none;
-    padding: 40px 20px 20px 20px;
-    text-align: center;
-    border: 1px solid #dddddd;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    margin: 0; }
 
 /* SESSION IN PROGRESS */
 #view-testing {
@@ -2372,7 +2316,7 @@ hr {
     z-index: 999999; }
     #view-testing #button-canceltest .expand-button .expand-button-body {
       color: #fff;
-      background: #cdcecf; }
+      background: #D8DADB; }
   #view-testing #button-newtask {
     position: absolute;
     right: 75.5%;
@@ -2421,7 +2365,7 @@ hr {
   background: #2e2723;
   background-size: cover;
   color: #fff; }
-  #view-observer-login input, #view-observer-login button {
+  #view-observer-login input, #view-observer-login #view-editing .add-task textarea, #view-editing .add-task #view-observer-login textarea, #view-observer-login button {
     width: 100%; }
   #view-observer-login #logo {
     margin: 0 0 20px 0; }
@@ -2517,7 +2461,7 @@ hr {
         #view-account .team-members li .team-member-avatar img {
           width: 24px;
           height: auto; }
-      #view-account .team-members li input {
+      #view-account .team-members li input, #view-account .team-members li #view-editing .add-task textarea, #view-editing .add-task #view-account .team-members li textarea {
         width: 80%; }
       #view-account .team-members li .team-member-info {
         float: left; }
@@ -2611,7 +2555,7 @@ hr {
 /* this styles the line on the summary page where all the notes live */
 .overlay-border {
   width: 90%;
-  border-right: 1px solid #ddd; }
+  border-right: 1px solid #949799; }
 
 .summary-border {
   position: absolute;
@@ -2668,8 +2612,8 @@ hr {
   .message:hover, .message.selected {
     color: #42474c;
     background: #f3f7e7;
-    border-left: 4px solid #9bbb3a;
-    border-right: 4px solid #9bbb3a;
+    border-left: 4px solid #85ac0f;
+    border-right: 4px solid #85ac0f;
     -webkit-transition-duration: 0.2s;
     -webkit-transition-timing: ease-out;
     -o-transition-duration: 0.2s;
@@ -2695,7 +2639,7 @@ hr {
     float: right;
     margin: 0 30px 20px 0; }
     .message .delete-message:hover {
-      color: #9bbb3a;
+      color: #85ac0f;
       cursor: pointer; }
   .message .message-comment-count {
     position: absolute;
@@ -2777,13 +2721,13 @@ hr {
     width: 90%; }
     .message .message-body p {
       margin-bottom: 0 !important;
-      color: #939598; }
+      color: #949799; }
     .message .message-body pre.messages {
       font-size: 15px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
-      color: #939598;
+      color: #949799;
       margin: 0; }
     .message .message-body small {
       display: block;

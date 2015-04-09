@@ -59,11 +59,13 @@
         
         // SELECTION ======================================
         $scope.select = function(task) {
+            console.log('select works');
             $scope.selectedTask = task;
             // TODO: Set isActive in here. 
         };
         
         $scope.isActive = function(task) {
+            console.log('isActive works');
             return $scope.selectedTask === task;
         };
 

@@ -38,8 +38,8 @@
 			&:hover, &.selected {
 				color: $fg-slate;
 				background: #f3f7e7;
-				border-left: 4px solid $fg-green-grassy;
-				border-right: 4px solid $fg-green-grassy;
+				border-left: 4px solid $fg-green;
+				border-right: 4px solid $fg-green;
 				@include animated;
 			}
 			
