@@ -202,15 +202,16 @@
                     // if so, get the index of that tag name in the nav list
                     // splice it out.
 
-                    message._tags.map(function(id, i){
-                        console.log('map', id)
-                        var tag = data.msg._tags.indexOf(id);
+                    message._tags.map(function(msg_tags_id, i){
+                        console.log('map', msg_tags_id)
+                        var tag = data.msg._tags.indexOf(msg_tags_id);
                         console.log('tag index', tag)
                         
                         if(tag === -1){
                             // that tag no longer exists in that message
                             var nav = _.pluck($scope.navlist, '_id');
-                            var tag_index_if_present = nav.indexOf(id);
+                            var tag_index_if_present = nav.indexOf(msg_tags_id);
+                            
                             console.log(name, nav, tag_index_if_present);
 
                             // var msg = $scope.navlist[tag_index]._messages; // array of message ids
