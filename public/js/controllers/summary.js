@@ -174,23 +174,24 @@
                 // remove the previous message and insert the new one to the selected tag's message array
                     console.log('selected messages', $scope.selected._messages, message._id);
 
-                    // this needs to find out where the old message id was and splice it if it is still here
+                    // this needs to find out where the old message id was,
+                    // and splice it if it is still here
                     // if it is not here, delete the message from the _messages array
-                    var item1 = $scope.selected._messages.filter(function (item) {
-                        console.log(item);
-                          return item === message._id
-                        })[0];
-                    
+
+                    var item1 = $scope.selected._messages.indexOf(message._id);
+                    console.log('item 1', item1, data.msg._id);
+
                     $scope.selected._messages.splice(item1, 1, data.msg._id);
+                    console.log('selected messages', $scope.selected._messages, data.msg._id);
 
                     // this needs to splice the new message into the actual message array
                     // over the old message's position.
-
-                    // var item2 = $scope.messages[data.msg._subject.name].filter(function (item) {
-                    //       return item._id === message._id
-                    //     })[0];
-
-                    // $scope.messages[data.msg._subject.name].splice(item2, 1, data.msg);
+                    var item2 = $scope.messages[data.msg._subject.name].filter(function (item) {
+                          return item._id === message._id
+                        })[0];
+                    
+                    console.log('item2')
+                    $scope.messages[data.msg._subject.name].splice(item2, 1, data.msg);
                 });
         };
 
