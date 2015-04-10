@@ -15,28 +15,6 @@
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams._id;
         $scope.showReportLink = false;
 
-        // var navMod = function(info, old){
-        //     var indexCheck = _.pluck($scope.navlist, 'name'); // get a list of existing tags
-            
-        //     _.each(info.tags, function(tag){ // for each tag in the returned data
-        //         var idx = indexCheck.indexOf(tag.name); // figure out if the tag already exists
-
-        //         if(idx === -1){ // if the tag does not exist, make it, and push in new messages
-        //             tag.report_index = $scope.navlist.length;
-        //             $scope.navlist.push(tag);
-        //             $scope.navlist[tag.report_index]._messages.push(info.msg._id);
-        //         } else { // if the tag does exist, push in new messages
-        //             var check = (old) ? $scope.navlist[idx]._messages.indexOf(old._id) : -1 ;
-        //             console.log('check', check);
-        //             if(check === -1){ // if the message is new...
-        //                 $scope.navlist[idx]._messages.push(info.msg._id);
-        //             } else {
-        //                 $scope.navlist[idx]._messages.splice(check, 1, info.msg._id);
-        //             }
-        //         }
-        //     });
-        // };
-
         // synchronous shit is weird. =====================
         $scope.activate = function(obj, selectedIndex) {
             // passes an object from left nav to the global selection variable
@@ -161,6 +139,55 @@
 // the note should disappear from the tag even if it is being edited within that tag
 // it should then appear on any other tag that is on the left nav
 // if it does not have a tag to belong to, it should turn up only on tasks (v 1.0)
+        var addTagsToLeftNav = function(data){
+            var navlist_check = _.pluck($scope.navlist, 'name');
+            var msg_tag       = _.pluck(data.msg._tags, 'name');
+
+            data.tags.map(function(tag) {
+                var n = navlist_check.indexOf(tag.name);
+                if(n === -1){ // if the tag does not exist, make it, and push in new message
+                    console.log('pushing automatically', tag.name, tag._messages );
+                    tag.report_index = $scope.navlist.length;
+                    $scope.navlist.push(tag);
+                    $scope.navlist[tag.report_index]._messages.push(data.msg._id);
+                    return;
+                } else {
+                    if($scope.navlist[n].doctype==='tag'){
+                        $scope.navlist[n]._messages = tag._messages;
+                        // console.log('selected push', $scope.navlist[n]._messages);
+                        // this actually doesn't need to be touched like this.
+                    }
+                }
+            })
+        }
+
+        var pullDeadTags = function(data, message, navlist){
+            var nav_id_list = _.pluck(navlist, '_id');
+            // clear dead entries from the left nav when we edit a message.
+
+            message._tags.map(function(msg_tag, i){
+
+                var new_tag_idx = data.msg._tags.indexOf(msg_tag);
+                var id = (typeof msg_tag === 'object') ? msg_tag._id : msg_tag; // set id to check
+                
+                if(new_tag_idx === -1){                         // that tag no longer exists in that message
+                    var match_in_nav = nav_id_list.indexOf(id); // find the nav entry matching the no-longer-there tag.
+
+                    function strFilter (value){
+                        return value !== message._id;           // filter matching nav entry for old messages
+                    }
+
+                    var match_msg = navlist[match_in_nav]._messages.filter(strFilter);
+
+                    if(match_msg.length === 0){                 // no messages left? Kill the tag and select the next one.
+                        navlist.splice(match_in_nav,1);  // Kill tag in the nav
+                        $scope.activate($scope.navlist[match_in_nav], match_in_nav); // select new one.
+                        
+                    }    
+
+                }
+            })
+        }
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
@@ -168,49 +195,14 @@
                 .success(function(data){                 
                     
                  // add the new tags to the left nav
-                    console.log('tags', data.tags);
-                    // navMod(data, message);
-
-                    // this works.
-                    // console.log('messages before', _.pluck($scope.messages[data.msg._subject.name], '_id'), data.msg._id, message._id);
-                    var idList = _.pluck($scope.messages[data.msg._subject.name], '_id');
-                    var idx = idList.indexOf(message._id);
+                    var idx = _.pluck($scope.messages[data.msg._subject.name], '_id').indexOf(message._id);
                     $scope.messages[data.msg._subject.name].splice(idx,1, data.msg);
-                    // console.log('messages after', _.pluck($scope.messages[data.msg._subject.name], '_id'), data.msg._id);
-
-                    // edit the messages list of the left navigation.
-                    var navlist_check = _.pluck($scope.navlist, 'name');
-                    data.tags.map(function(tag) {
-                        var n = navlist_check.indexOf(tag.name);
-                        if(n === -1){ // if the tag does not exist, make it, and push in new message
-                            console.log('pushing automatically', tag.name );
-                            tag.report_index = $scope.navlist.length;
-                            $scope.navlist.push(tag);
-                            $scope.navlist[tag.report_index]._messages.push(data.msg._id);
-                            return;
-                        } else {
-                            // if this message still belongs to this tag,
-                            // update the message list for this navlist item with this returned tag set
-                            // check the navlist for the tag we are mapping
-                            // the tag is presumed to exist because the above didn't happen
-                            // $scope.navlist[n] is the current tag, add updated messages
-
-                            if($scope.navlist[n].doctype==='tag'){
-                                $scope.navlist[n]._messages = tag._messages;    
-                            }
-                        }
-                    })
-
-                    var task = _.pluck($scope.navlist, '_id');
-                    var task_idx = task.indexOf(message._task);
-                    console.log(task_idx);
-                    console.log('message to check for task cross-posting', data.msg._task, message._task);
-                    console.log('navlist, check tasks for messages', task);
-
-                    $scope.navlist[task_idx]._messages.push(data.msg._id);
                     
-                    // okay what's happening with the tasks is that they are rightly removing their old message
-                    // and not re-mapping the new message
+                    var task_idx = _.pluck($scope.navlist, '_id').indexOf(message._task);
+                    $scope.navlist[task_idx]._messages.push(data.msg._id);
+
+                    addTagsToLeftNav(data); // add new left nav tags to new tags
+                    pullDeadTags(data, message, $scope.navlist); // did we kill a tag? Kill a tag.
                 });
         };
 
@@ -226,7 +218,7 @@
                     $scope.messages[data.msg._subject.name].push(data.msg);
                     $scope.selected._messages.push(data.msg._id);
 
-                    // navMod(data);
+                    addTagsToLeftNav(data);
                 });
         };
 
