@@ -7,7 +7,6 @@
 	height: 100%;
 	overflow: auto;
 	margin: 0;
-	// background: url('../assets/timeline-line.gif') repeat-y 24px top;
 		
 	ul {
 		list-style: none;
@@ -20,7 +19,7 @@
 		}
 		
 		.message-no-highlite {
-			padding: $pad/2.5 0 $pad/2.5 $pad/1.6;
+			padding: $pad/2.5 $pad*1.5 $pad/2.5 $pad*1.5;
 			line-height: $type-line-base*0.8;
 			border-left: 4px solid $white;
 			border-right: 4px solid $white;
@@ -37,7 +36,7 @@
 		}
 
 		.message {
-			padding: $pad/2.5 0 $pad/2.5 $pad/1.6;
+			padding: $pad/2.5 $pad*1.5 $pad/2.5 $pad*1.5;
 			line-height: $type-line-base*0.8;
 			border-left: 4px solid $white;
 			border-right: 4px solid $white;

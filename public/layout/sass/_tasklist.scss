@@ -41,6 +41,13 @@
 					cursor: default;
 				}
 			}
+
+			&.no-highlite {
+				&:hover {
+					background: none;
+					cursor: default;
+				}
+			}
 				
 			h3 {
 				@include type-light;

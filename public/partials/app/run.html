@@ -216,12 +216,14 @@
 					<h3 class="participant-name">{{subject.name}}</h3>
 				</li>
 				
-				<li>
+				<li class="no-highlite">
 					<h5>Objectives</h5>
 					<pre class="objectives">{{test.desc}}</pre>
 				</li>
 
-				<li><h5>Tasks</h5></li>
+				<li class="no-highlite">
+					<h5>Tasks</h5>
+				</li>
 				
 				<li ng-repeat="obj in navlist" ng-class="{ 'active': obj._id === selected._id }" ng-click="select($index)">
 					<h3 class="tag-name">#{{obj.name}}</h3>
@@ -247,7 +249,7 @@
 				
 				<!-- input notes -->
 				<div id="session-input">
-					<textarea class="input" ng-model='message' name="field-input" placeholder="Type notes" ui-keypress="{13:'postMessage(message)'}" />
+					<textarea class="input" ng-model='message' name="field-input" placeholder="Remeber to give your notes #themes" ui-keypress="{13:'postMessage(message)'}" />
 					</textarea>
 				</div>
 				<div id="hash-tag-pool">
