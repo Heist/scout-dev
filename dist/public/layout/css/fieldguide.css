@@ -550,7 +550,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
   font-size: 14px;
   padding: 11px 32.5px;
   float: left;
-  margin: 0 0 0 3px; }
+  margin: 0; }
   .button:hover {
     background: #7a9e0e;
     color: #fff;
@@ -572,6 +572,8 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
       background: rgba(133, 172, 15, 0.14); }
     .button.outline:focus {
       box-shadow: 0 0 6px #C6D39E; }
+  .button.space {
+    margin: 0 0 0 3px; }
   .button.full {
     width: 100%; }
   .button.small {

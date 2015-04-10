@@ -6,7 +6,7 @@
 	font-size: 14px;
 	padding: 11px 32.5px;
 	float: left;
-	margin: 0 0 0 3px;
+	margin: 0;
 	
 	&:hover {
 		background: $fg-green-dark;
@@ -27,6 +27,10 @@
 		&:focus {
 			box-shadow:  0 0 6px $fg-green-light;
 		}
+	}
+	
+	&.space {
+		margin: 0 0 0 3px;
 	}
 	
 	&.full {
