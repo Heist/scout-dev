@@ -734,20 +734,20 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
   color: #fff;
   content: attr(data-tooltip);
   font-size: 12px;
-  line-height: 1;
+  line-height: 15px;
   text-align: center; }
 
 .tooltip:after, [data-tooltip-large]:after {
   z-index: 1000;
   padding: 8px;
-  width: 150px;
+  width: 145px;
   background-color: #2a687d;
   background-color: rgba(42, 105, 126, 0.85);
   border-radius: 3px;
   color: #fff;
   content: attr(data-tooltip-large);
   font-size: 12px;
-  line-height: 1;
+  line-height: 15px;
   text-align: center; }
 
 [data-tooltip]:before, [data-tooltip]:after, [data-tooltip-large]:before, [data-tooltip-large]:after, .tooltip:before, .tooltip:after, .tooltip-top:before, .tooltip-top:after {
