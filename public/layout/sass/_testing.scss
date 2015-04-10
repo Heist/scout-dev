@@ -103,7 +103,9 @@
                 height: 67%;
                 margin: 0;
                 border: none;
-                &:focus {}
+                &:focus {
+                    box-shadow: none;
+                }
             }
         }
         #hash-tag-pool {

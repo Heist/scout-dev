@@ -2361,6 +2361,8 @@ hr {
         height: 67%;
         margin: 0;
         border: none; }
+        #view-testing #testing-input #session-input textarea:focus {
+          box-shadow: none; }
     #view-testing #testing-input #hash-tag-pool {
       position: absolute;
       bottom: 0;
