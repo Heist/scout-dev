@@ -195,7 +195,7 @@
 
                         $scope.navlist.map(function(obj, i){
                             if(obj.doctype !== 'test'){
-                                console.log('object messages', obj._messages);
+                                console.log('object messages',obj.name, obj._messages);
                                 var n = obj._messages.indexOf(message._id);
                                 console.log('index of', n);
                                 if( n !== -1){
