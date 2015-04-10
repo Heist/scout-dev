@@ -191,12 +191,16 @@
                         console.log('edit message', message);
 
                         $scope.navlist.map(function(obj, i){
-                            var n = obj._messages.indexOf(message._id);
-                            if( n !== -1){
-                                obj._messages.splice(n, 1);
-                            }
-                            if(obj._messages.length === 0){
-                                $scope.navlist.splice(i, 1);
+                            if(obj.doctype !== 'test'){
+                                console.log('object messages', obj, obj._messages);
+                                var n = obj._messages.indexOf(message._id);
+                                console.log('index of', n);
+                                if( n !== -1){
+                                    obj._messages.splice(n, 1);
+                                }
+                                if(obj._messages.length === 0){
+                                    $scope.navlist.splice(i, 1);
+                                }
                             }
                         })
                     }
