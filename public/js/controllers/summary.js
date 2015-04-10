@@ -77,6 +77,9 @@
         $scope.activate = function(obj, selectedIndex) {
             // passes an object from left nav to the global selection variable
             // reset all previous reliant variables, there are a lot!
+            if(obj.doctype !== 'test'){
+                console.log(obj._messages);
+            }
             $scope.selected = '';
             $scope.commentMessage = '';
             $scope.selectedIndex = '';
