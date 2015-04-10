@@ -273,25 +273,25 @@
 						</li>				
 						<!-- /empty state -->
 						
-						<li class="message">
+						<li class="message-no-highlite">
 							<div class="message-body" ng-click="editMessage(message)">
 								<small>Starting Test</small>
-								<pre class="messages">{{test.name}}</pre>
+								<pre>{{test.name}}</pre>
 							</div>
 
 							<div class="clear"></div>
 						</li>
-						<li class="message" ng-repeat="message in timeline track by $index" >
+						<li ng-repeat="message in timeline track by $index" ng-class="{'message-no-highlite' : message.title === 'Starting task', 'message' : message.title !== 'Starting task'}">
 							<!-- <div class="message-details"> -->
 							<!-- show the user's avatar -->
 							<!-- 	<div class="message-details-avatar avatar-header" ng-if="message.title">&bull;</div>
 								<div class="message-details-avatar avatar-message" ng-if="!message.title">&bull;</div>
 							</div> -->
 
-							<div class="message-body" ng-click="editMessage(message)">
-								<small ng-if="message.title">{{message.title}}</small>
+							<div class="message-body" ng-click="editMessage(message)" >
+								<!-- <small ng-if="message.title">{{message.title}}</small> -->
 								<pre class="messages" ng-if="message.title === 'Starting task'">
-									{{message.body}}
+									<h3>#{{message.body}}</h3>
 								</pre>
 
 								<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>

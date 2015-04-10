@@ -1292,7 +1292,18 @@ hr {
     #timeline ul .message-no-highlite {
       padding: 8px 0 0 12.5px;
       line-height: 19.2px;
-      margin: 0 0 10px 0; }
+      margin: 0 0 10px 0;
+      border-left: 4px solid #fff;
+      border-right: 4px solid #fff; }
+      #timeline ul .message-no-highlite pre, #timeline ul .message-no-highlite small {
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 300; }
+      #timeline ul .message-no-highlite h3 {
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 300;
+        text-transform: lowercase; }
     #timeline ul .message {
       padding: 8px 0 8px 12.5px;
       line-height: 19.2px;
@@ -1352,28 +1363,22 @@ hr {
         color: #323539; }
         #timeline ul .message .message-body p {
           margin-bottom: 0; }
-        #timeline ul .message .message-body pre.messages {
-          font-size: 15px;
-          font-family: "canada-type-gibson",sans-serif;
-          font-style: normal;
-          font-weight: 400;
-          color: #949799;
-          margin: 0; }
         #timeline ul .message .message-body small {
           font-size: 9px;
           line-height: 14.4px;
-          opacity: 0.5;
           padding: 0;
           margin: 0;
-          text-transform: uppercase;
-          letter-spacing: 1px; }
+          text-transform: uppercase; }
           #timeline ul .message .message-body small.hashtag {
             display: inline;
             float: left;
             color: #00B5E3;
             text-transform: lowercase;
             font-size: 10px;
-            padding: 5px 7px 0 0; }
+            padding: 5px 7px 0 0;
+            font-family: "canada-type-gibson",sans-serif;
+            font-style: normal;
+            font-weight: 300; }
             #timeline ul .message .message-body small.hashtag.hashtag:before {
               content: "#"; }
   #timeline #firstrun .message-body, #timeline #firstrun .message-details {
@@ -2811,21 +2816,26 @@ hr {
   .message .message-body {
     float: left;
     width: 90%; }
+    .message .message-body h3 {
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 20px;
+      text-transform: lowercase; }
     .message .message-body p {
       margin-bottom: 0 !important;
       color: #949799; }
     .message .message-body pre.messages {
-      font-size: 15px;
+      font-size: 12px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 400;
+      font-weight: 300;
       color: #949799;
       margin: 0; }
     .message .message-body small {
       display: block;
       margin: 0;
-      padding: 0;
-      opacity: 0.6; }
+      padding: 0; }
     .message .message-body textarea {
       width: 100%; }
 

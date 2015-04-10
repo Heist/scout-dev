@@ -1,23 +1,25 @@
 <!-- Create New Project modal -->
 <div class="module one-third">&nbsp;</div>
 			
-<div id="view-editing" ng-controller="newTest" ng-model="test">
+<div id="view-new-project" ng-controller="newTest" ng-model="test">
 	<div class="module two-fifths modal-interior">
 		
+
 		<div class="modal-interior-title">
+			<a href="#" class="x" ng-click="$parent.newTest()">&times;</a>
 			<h2 class="text-center">New Project</h2>
 		</div>
-		
+
 		<div class="module half test-type" ng-class='{"select-active": test.kind || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>
 			<h3>Interview</h3>
 			<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
-			<a href="#">Tell me more about Interview tests</a>
+			<a href="#" class="more-info">Tell me more about Interview tests</a>
 		</div>
 		
 		<div class="module half test-type" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>
 			<h3>Prototype or Website</h3>
 			<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
-			<a href="#">Tell me more about Prototype testing</a>
+			<a href="#" class="more-info">Tell me more about Prototype testing</a>
 		</div>
 		
 		<ul class="nobullets">
@@ -40,8 +42,8 @@
 				</li>
 			</form>
 			<div class="cta">
-				<a href="#" class="secondary button cancel med" ng-click="$parent.newTest()">Cancel</a>
-				<button class="button med" ng-click="addTest(test)">Create project</button>
+				<a href="#" class="secondary button-cancel" ng-click="$parent.newTest()" tabindex="1">Cancel</a>
+				<button class="button med float-right" ng-click="editTest(test)" tabindex="0">Create project</button>
 			</div>
 		</ul>
 	</div>

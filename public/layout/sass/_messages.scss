@@ -283,14 +283,20 @@
 		float: left;
 		width: 90%;	
 
+		h3 {
+			@include type-light;
+			font-size: 20px;
+			text-transform: lowercase;
+		}
+
 		p {
 			margin-bottom: 0 !important;
 			color: $fg-grey;
 		}
 
 		pre.messages {
-			font-size: 15px;
-			@include type-regular;
+			font-size: 12px;
+			@include type-light;
 			color: $fg-grey;
 			margin: 0;
 		}
@@ -300,7 +306,6 @@
 			display: block;
 			margin: 0;
 			padding: 0;
-			opacity: 0.6;
 		}
 		
 		textarea {
