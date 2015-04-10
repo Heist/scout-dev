@@ -2365,10 +2365,27 @@ hr {
       border-top: 1px solid #dddddd; }
       #view-testing #testing-input #session-input textarea {
         width: 100%;
-        height: 80%;
+        height: 70%;
         margin: 0;
-        border: none;
-        font-style: italic; }
+        border: none; }
+        #view-testing #testing-input #session-input textarea ::-webkit-input-placeholder {
+          color: #D8DADB;
+          font-size: 12.5px;
+          font-style: italic; }
+        #view-testing #testing-input #session-input textarea :-moz-placeholder {
+          /* Firefox 18- */
+          color: #D8DADB;
+          font-size: 12.5px;
+          font-style: italic; }
+        #view-testing #testing-input #session-input textarea ::-moz-placeholder {
+          /* Firefox 19+ */
+          color: #D8DADB;
+          font-size: 12.5px;
+          font-style: italic; }
+        #view-testing #testing-input #session-input textarea :-ms-input-placeholder {
+          color: #D8DADB;
+          font-size: 12.5px;
+          font-style: italic; }
         #view-testing #testing-input #session-input textarea:focus {
           box-shadow: none; }
     #view-testing #testing-input #hash-tag-pool {
@@ -2377,17 +2394,18 @@ hr {
       left: 0;
       width: 100%;
       padding: 5px;
-      height: 29px;
+      height: 43px;
       z-index: 9999;
       border-top: 1px solid #dddddd;
       line-height: 17px;
-      overflow: auto;
       color: #00B5E3;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 300;
       font-size: 10px;
-      text-align: right; }
+      text-align: right;
+      overflow-x: auto;
+      overflow-y: hidden; }
       #view-testing #testing-input #hash-tag-pool .hashtag {
         padding: 0 10px; }
   #view-testing #testing-client {
