@@ -4,7 +4,7 @@ FORMS!
 
 form {
 	padding: 0;
-	margin: 10px 0;
+	margin: 20px 0;
 }
 
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
@@ -83,7 +83,7 @@ form {
 	background: $white;
 	border: 1px solid $line;
 	display: inline-block;
-	margin: 5px 0 10px 0;
+	margin: 0;
 	padding: 11px $pad/1.5;
 	@include radius;
 	@include type-light;
