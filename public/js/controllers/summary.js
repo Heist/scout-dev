@@ -60,14 +60,6 @@
                     var match_msg = navlist[match_in_nav]._messages.filter(strFilter);
                     var local_msg = _.pluck($scope.messages[message._subject.name]._messages)
                     console.log('match_msg', match_msg, message._id);
-                    // if(match_msg !== 0){
-                    //     match_msg.map(function(item, i){
-                    //         var n = local_msg.indexOf(item);
-                    //         if (n === -1){
-                    //             match_msg.splice(i, 1);
-                    //         }
-                    //     })
-                    // }
 
                     if(match_msg.length === 0){                 // no messages left? Kill the tag and select the next one.
                         console.log('splice this', match_msg);
@@ -80,36 +72,7 @@
             })
         }
 
-        var pullTagsFromDeleted = function(data){
-             // if we delete a message entirely 
-            var data_id =  (typeof data === 'object') ? data._id : data; // set id to check
-            if (typeof data === 'string'){
-                // string is message id to be deleted
-                // there is no new message, so no old tag
-                message._tags.map(function(msg_tag, i){
 
-                // var new_tag_idx = data.msg._tags.indexOf(msg_tag); // does the new message have the old tag?
-                var id = (typeof msg_tag === 'object') ? msg_tag._id : msg_tag; // set id to check
-                
-                // if(new_tag_idx === -1){                         // that tag no longer exists in that message
-                var match_in_nav = nav_id_list.indexOf(id); // find the nav entry matching the no-longer-there tag.
-
-                function strFilter (value){
-                    return value !== message._id;           // filter matching nav entry for old messages
-                }
-
-                var match_msg = navlist[match_in_nav]._messages.filter(strFilter);
-
-                if(match_msg.length === 0){                 // no messages left? Kill the tag and select the next one.
-                    navlist.splice(match_in_nav,1);  // Kill tag in the nav
-                    $scope.activate($scope.navlist[match_in_nav], match_in_nav); // select new one.
-                        
-                    // }    
-
-                }
-            })
-            }
-        }
         // synchronous shit is weird. =====================
         $scope.activate = function(obj, selectedIndex) {
             // passes an object from left nav to the global selection variable
@@ -226,7 +189,16 @@
                         var idx = _.pluck($scope.messages[message._subject.name], '_id').indexOf(message._id);
                         $scope.messages[message._subject.name].splice(idx,1);
                         console.log('edit message', message);
-                        pullDeadTags(data, message, $scope.navlist); // did we kill a tag? Kill a tag.
+
+                        $scope.navlist.map(function(obj, i){
+                            var n = obj._messages.indexOf(message._id);
+                            if( n !== -1){
+                                obj._messages.splice(n, 1);
+                            }
+                            if(obj._messages.length === 0){
+                                $scope.navlist.splice(i, 1);
+                            }
+                        })
                     }
                 })
         }
