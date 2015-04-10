@@ -1292,7 +1292,6 @@ hr {
     #timeline ul .message-no-highlite {
       padding: 8px 0 8px 12.5px;
       line-height: 19.2px;
-      margin: 0 0 10px 0;
       border-left: 4px solid #fff;
       border-right: 4px solid #fff; }
       #timeline ul .message-no-highlite pre, #timeline ul .message-no-highlite small {
@@ -1308,7 +1307,6 @@ hr {
     #timeline ul .message {
       padding: 8px 0 8px 12.5px;
       line-height: 19.2px;
-      margin: 0 0 10px 0;
       border-left: 4px solid #fff;
       border-right: 4px solid #fff;
       position: relative;
@@ -2333,7 +2331,7 @@ hr {
   #view-testing .sheet-holder {
     width: 75%;
     height: 100%;
-    padding: 20px 70px 20px 0;
+    padding: 0;
     margin: 0;
     position: absolute;
     top: 0;
