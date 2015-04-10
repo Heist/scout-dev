@@ -196,18 +196,26 @@
 
                     // alright, let's try to clear dead entries from the left nav.
                     message._tags.map(function(msg_tag, i){
-                        
+
                         var new_tag_idx = data.msg._tags.indexOf(msg_tag);
                         console.log('tag index', new_tag_idx)
+                        // set id to check
+                        var id;
+                        if(typeof msg_tag === 'object'){
+                            id = msg_tag._id;
+                        }
+                        if(typeof msg_tag === 'string'){
+                            id = msg_tag
+                        }
                         
                         if(new_tag_idx === -1){
                             // that tag no longer exists in that message
                             // we now have a tag id that matches something in the nav.
-                            console.log('this no longer exists on this message', msg_tag._id);
+                            console.log('this no longer exists on this message', id);
 
                             // find the nav entry matching the no-longer-there tag.
-                            var match_in_nav = nav_id_list.indexOf(msg_tag._id);
-                            console.log('match in nav - exists?', match_in_nav, msg_tag._id);
+                            var match_in_nav = nav_id_list.indexOf(id);
+                            console.log('match in nav - exists?', match_in_nav, id);
 
                             // in that nav entry, get the messages, and splice out the old message
                             console.log('does the tag have this message in its list still', message._id, $scope.navlist[match_in_nav]._messages);
