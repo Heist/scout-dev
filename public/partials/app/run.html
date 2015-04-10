@@ -250,8 +250,8 @@
 					<textarea class="input" ng-model='message' name="field-input" placeholder="Type notes" ui-keypress="{13:'postMessage(message)'}" />
 					</textarea>
 				</div>
-				<div id="recent-hash-tags">
-					<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}&nbsp; &nbsp;</small>
+				<div id="hash-tag-pool">
+					<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
 				</div>
 
 				
@@ -296,6 +296,8 @@
 
 								<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
 								<textarea class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
+
+								<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}</small>
 							</div>
 		
 							<div class="clear"></div>
@@ -321,8 +323,7 @@
 						
 						<small>Testing with</small>
 						<h2>{{subject.name}}</h2>
-						
-							
+
 					</div>
 
 					<div id="timeline-user-only" style="top:5%;" ng-show="subject.testroom">

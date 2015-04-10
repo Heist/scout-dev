@@ -106,7 +106,7 @@
                 &:focus {}
             }
         }
-        #recent-hash-tags {
+        #hash-tag-pool {
             position: absolute;
             bottom: 0;
             left: 0;
@@ -117,8 +117,12 @@
             border-top: 1px solid $line;
             line-height: 17px;
             overflow: auto;
-            p {
-                margin: 5px 0 0 10px;
+            color: $fg-blue;
+            @include type-light;
+            font-size: 10px;
+            
+            .hashtag {
+                padding: 0 10px;
             }
         }
         /* suppress message-hover during running tests */

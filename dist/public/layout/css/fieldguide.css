@@ -201,10 +201,10 @@ a {
     text-decoration: underline;
     color: #828588; }
   a.alt {
-    color: #0abcd7; }
+    color: #00B5E3; }
     a.alt:hover {
       text-decoration: underline;
-      color: #089eb5; }
+      color: #0099bf; }
 
 .big, big {
   font-size: 18.75px;
@@ -273,7 +273,7 @@ ul.lined ul.tags li {
 
 /* if we want to use tags inline */
 .tag {
-  color: #0abcd7; }
+  color: #00B5E3; }
 
 /*
 FORMS!
@@ -634,7 +634,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
       -webkit-box-shadow: 0 1px 3px transparent;
       box-shadow: 0 1px 3px transparent; }
   .button.blue {
-    background: #0abcd7; }
+    background: #00B5E3; }
   .button.slack {
     color: #42474c;
     background: #fff;
@@ -1370,11 +1370,10 @@ hr {
           #timeline ul .message .message-body small.hashtag {
             display: inline;
             float: left;
-            color: #0abcd7;
+            color: #00B5E3;
             text-transform: lowercase;
-            font-size: 12px;
-            letter-spacing: 0.5px;
-            padding: 5px 3px 0 0; }
+            font-size: 10px;
+            padding: 5px 7px 0 0; }
             #timeline ul .message .message-body small.hashtag.hashtag:before {
               content: "#"; }
   #timeline #firstrun .message-body, #timeline #firstrun .message-details {
@@ -2110,7 +2109,7 @@ hr {
     line-height: 17px;
     margin: 0; }
   #view-new-project .test-type a.more-info {
-    color: #0abcd7;
+    color: #00B5E3;
     font-size: 10px;
     text-decoration: underline; }
   #view-new-project .test-type.selected {
@@ -2213,7 +2212,7 @@ hr {
         #view-editing .tags .tag-pool ul li, #view-editing .tags textarea.custom-tags ul li {
           padding: 0 0 0 15px;
           font-size: 10px;
-          color: #0abcd7;
+          color: #00B5E3;
           display: inline-block; }
           #view-editing .tags .tag-pool ul li:first-child, #view-editing .tags textarea.custom-tags ul li:first-child {
             padding: 0 0 0 10px; }
@@ -2290,7 +2289,7 @@ hr {
   #view-testing.is-onboard {
     height: 85% !important; }
   #view-testing.has-input-outline #session-input {
-    outline: 2px solid #0abcd7 !important; }
+    outline: 2px solid #00B5E3 !important; }
   #view-testing #testing-guide {
     width: 25%;
     height: 100%;
@@ -2362,7 +2361,7 @@ hr {
         height: 67%;
         margin: 0;
         border: none; }
-    #view-testing #testing-input #recent-hash-tags {
+    #view-testing #testing-input #hash-tag-pool {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -2372,9 +2371,14 @@ hr {
       z-index: 9999;
       border-top: 1px solid #dddddd;
       line-height: 17px;
-      overflow: auto; }
-      #view-testing #testing-input #recent-hash-tags p {
-        margin: 5px 0 0 10px; }
+      overflow: auto;
+      color: #00B5E3;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 10px; }
+      #view-testing #testing-input #hash-tag-pool .hashtag {
+        padding: 0 10px; }
   #view-testing #testing-client {
     width: 45%;
     height: 100%;
@@ -2416,7 +2420,7 @@ hr {
     border-radius: 50px; }
     #view-testing #button-newtask .expand-button .expand-button-body {
       color: #fff;
-      background: #0abcd7; }
+      background: #00B5E3; }
     #view-testing #button-newtask .expand-button .expand-button-helper {
       background: #f6f6f6;
       color: #42474c; }
@@ -3066,7 +3070,7 @@ hr {
 .onboard-run-step4 .onboard-avatar {
   margin-top: 21px !important; }
 .onboard-run-step4 .tag {
-  color: #50e1f7; }
+  color: #4adaff; }
 
 /* report */
 #onboard-overview-box {
