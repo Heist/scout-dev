@@ -75,9 +75,9 @@ module.exports = function(app, passport, debug) {
     })
     .delete(function(req,res){
         console.log('delete message', req.params._id);
-        models.Message.remove({'_id' : req.params._id}).exec(function(err,remove){
-            res.json(remove);
-        })
+        fn.messageRemove(req.params._id).then(function(data){
+            res.json(data); // this should be the string '1'
+        });
     });
 };
 })();
