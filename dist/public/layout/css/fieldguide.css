@@ -1449,11 +1449,11 @@ hr {
     list-style: none;
     width: 100%; }
     #tasklist ul .participant-avatar {
-      width: 50px;
-      height: 50px;
-      -moz-border-radius: 25px;
-      -webkit-border-radius: 25px;
-      border-radius: 25px;
+      width: 40px;
+      height: 40px;
+      -moz-border-radius: 20px;
+      -webkit-border-radius: 20px;
+      border-radius: 20px;
       background: #f37960;
       float: left;
       margin: 0 14px 0 0; }
@@ -1462,36 +1462,55 @@ hr {
         text-transform: uppercase;
         text-align: center;
         display: block;
-        margin: 13px auto;
-        font-size: 23px;
+        margin: 8px auto;
+        font-size: 14px;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
         font-weight: 600; }
     #tasklist ul li {
       padding: 13.33333px 20px;
       margin: 0;
       width: 100%; }
       #tasklist ul li.title {
-        margin: 10px 0 20px 0; }
+        margin: 0 0 20px 0; }
         #tasklist ul li.title:hover {
           background: #f6f6f6;
           cursor: default; }
       #tasklist ul li h3 {
-        margin: 0 0 2px 0;
-        padding: 0;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 400; }
+        font-weight: 300;
+        padding: 0;
+        margin: 0; }
+        #tasklist ul li h3.participant-name {
+          margin: 12px 0 2px 0;
+          font-size: 14px; }
+        #tasklist ul li h3.tag-name {
+          text-transform: lowercase;
+          font-size: 16px;
+          margin: 10px 0 20px 0; }
+      #tasklist ul li h5 {
+        margin: 0;
+        text-transform: uppercase;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 10px; }
       #tasklist ul li p {
         margin: 0;
         padding: 0;
         font-size: 12px;
-        line-height: 19.2px; }
-      #tasklist ul li pre.objectives {
-        font-size: 12px;
+        line-height: 19.2px;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 400;
+        font-weight: 300; }
+      #tasklist ul li pre.objectives {
+        font-size: 12px;
         line-height: 19.2px;
-        margin: 20px 0 0 0; }
+        margin: 20px 0 0 0;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 300; }
       #tasklist ul li small {
         text-transform: uppercase;
         margin: 0;
@@ -1502,12 +1521,7 @@ hr {
         cursor: pointer; }
       #tasklist ul li.active {
         position: relative;
-        color: #fff;
-        background: #C6D39E; }
-        #tasklist ul li.active h3 {
-          font-family: "canada-type-gibson",sans-serif;
-          font-style: normal;
-          font-weight: 400; }
+        background: #ececec; }
         #tasklist ul li.active:hover {
           cursor: auto;
           box-shadow: none; }
@@ -2285,11 +2299,6 @@ hr {
     left: 0;
     top: 0;
     overflow: auto; }
-    #view-testing #testing-guide h5 {
-      margin: 0;
-      text-transform: uppercase; }
-    #view-testing #testing-guide p {
-      padding: 20px 0 0 0; }
   #view-testing span.info {
     width: 15px;
     height: 15px;
