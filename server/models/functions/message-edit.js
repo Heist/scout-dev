@@ -39,29 +39,6 @@ module.exports = function(msg, next){
                 return fn.messageNew(returned, returned.created_by_user)
                         .then(function(msg){
                             newMessage = msg;
-                            return models.Tag.findAsync({ '_messages' : {$in: [returned._id]}})
-                        })
-                        .then(function(tags){
-                            // In here, we are looking through pointers to the _old_ message
-                            // and removing them from the tags that have those pointers.
-                            
-                            return Bluebird.map(tags, function(tag){
-                                    var arr = tag._messages;
-                                    // if a tag has been removed, then remove the message from that tag
-                                    arr.splice(arr.indexOf(returned._id), 1);
-
-                                    if (arr.length === 0){
-                                        // if the tag is empty, remove the tag from the db.
-                                        models.Tag.remove({'_id':tag._id}, function(err, next){
-                                            return tag.save();
-                                        }); 
-                                    } else {
-                                        // otherwise, return the tag itself
-                                        return tag.save();
-                                    }
-                                })
-                        })
-                        .then(function(tags){
                             return fn.messageRemove(returned._id);
                         }).then(function(next){
                             return newMessage;
