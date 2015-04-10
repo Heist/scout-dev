@@ -61,6 +61,30 @@ module.exports = function(msg, next){
                                         return tag.save();
                                     }
                                 })
+                        }).then(function(tags){
+                            // remove dual pointer on tasks
+                            return models.Task.findAsync({ '_messages' : {$in: [returned._id]}})
+                        })
+                        .then(function(tasks){
+                            // remove dual pointer on subjects
+                            return Bluebird.map(tasks, function(task){
+                             var arr = task._messages;
+                                // if a tag has been removed, then remove the message from that tag
+                                arr.splice(arr.indexOf(returned._id), 1);
+                                return task.save();
+                            })
+                        }).then(function(tags){
+                            // remove dual pointer on tasks
+                            return models.Subject.findAsync({ '_messages' : {$in: [returned._id]}})
+                        })
+                        .then(function(subjects){
+                            // remove dual pointer on subjects
+                            return Bluebird.map(subjects, function(subj){
+                             var arr = subj._messages;
+                                // if a tag has been removed, then remove the message from that tag
+                                arr.splice(arr.indexOf(returned._id), 1);
+                                return subj.save();
+                            })
                         })
                         .then(function(tags){
                             return fn.messageRemove(returned);
