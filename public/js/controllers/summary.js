@@ -15,28 +15,6 @@
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams._id;
         $scope.showReportLink = false;
 
-        // var navMod = function(info, old){
-        //     var indexCheck = _.pluck($scope.navlist, 'name'); // get a list of existing tags
-            
-        //     _.each(info.tags, function(tag){ // for each tag in the returned data
-        //         var idx = indexCheck.indexOf(tag.name); // figure out if the tag already exists
-
-        //         if(idx === -1){ // if the tag does not exist, make it, and push in new messages
-        //             tag.report_index = $scope.navlist.length;
-        //             $scope.navlist.push(tag);
-        //             $scope.navlist[tag.report_index]._messages.push(info.msg._id);
-        //         } else { // if the tag does exist, push in new messages
-        //             var check = (old) ? $scope.navlist[idx]._messages.indexOf(old._id) : -1 ;
-        //             console.log('check', check);
-        //             if(check === -1){ // if the message is new...
-        //                 $scope.navlist[idx]._messages.push(info.msg._id);
-        //             } else {
-        //                 $scope.navlist[idx]._messages.splice(check, 1, info.msg._id);
-        //             }
-        //         }
-        //     });
-        // };
-
         // synchronous shit is weird. =====================
         $scope.activate = function(obj, selectedIndex) {
             // passes an object from left nav to the global selection variable
@@ -168,7 +146,7 @@
             data.tags.map(function(tag) {
                 var n = navlist_check.indexOf(tag.name);
                 if(n === -1){ // if the tag does not exist, make it, and push in new message
-                    console.log('pushing automatically', tag.name );
+                    console.log('pushing automatically', tag.name, tag._messages );
                     tag.report_index = $scope.navlist.length;
                     $scope.navlist.push(tag);
                     $scope.navlist[tag.report_index]._messages.push(data.msg._id);
@@ -176,6 +154,8 @@
                 } else {
                     if($scope.navlist[n].doctype==='tag'){
                         $scope.navlist[n]._messages = tag._messages;
+                        // console.log('selected push', $scope.navlist[n]._messages);
+                        // this actually doesn't need to be touched like this.
                     }
                 }
             })
@@ -202,25 +182,49 @@
                     // if so, get the index of that tag name in the nav list
                     // splice it out.
 
-                    message._tags.map(function(msg_tags_id, i){
-                        console.log('map', msg_tags_id)
-                        var tag = data.msg._tags.indexOf(msg_tags_id);
-                        console.log('tag index', tag)
+                    // the tag now exists on the nav list
+                    // but it no longer exists in the message
+                    // compare the message to the new message and find which tags are not matched -> -1
+
+                    // if a tag does not exist, check the navlist id list for their id
+                    // if it exists, splice the message from navlist_id_entry
+                    // then check the navlist_id_entry length 
+                    // if the entry length is 0, delete that id from the nav list.
+
+                    var nav_id_list = _.pluck($scope.navlist, '_id');
+                    // var cheat = $scope.navlist.length - 1;
+
+                    // alright, let's try to clear dead entries from the left nav.
+                    message._tags.map(function(msg_tag, i){
                         
-                        if(tag === -1){
+                        var new_tag_idx = data.msg._tags.indexOf(msg_tag);
+                        console.log('tag index', new_tag_idx)
+                        
+                        if(new_tag_idx === -1){
                             // that tag no longer exists in that message
-                            var nav = _.pluck($scope.navlist, '_id');
-                            var tag_index_if_present = nav.indexOf(msg_tags_id);
-                            
-                            console.log(name, nav, tag_index_if_present);
+                            // we now have a tag id that matches something in the nav.
+                            console.log('this no longer exists on this message', msg_tag._id);
 
-                            // var msg = $scope.navlist[tag_index]._messages; // array of message ids
-                            // var msg_idx = msg.indexOf(message._id);
+                            // find the nav entry matching the no-longer-there tag.
+                            var match_in_nav = nav_id_list.indexOf(msg_tag._id);
+                            console.log('match in nav - exists?', match_in_nav, msg_tag._id);
 
-                            // console.log('msg index', msg_idx);
-                            
+                            // in that nav entry, get the messages, and splice out the old message
+                            console.log('does the tag have this message in its list still', message._id, $scope.navlist[match_in_nav]._messages);
+                            function strFilter (value){
+                                return value !== message._id;
+                            }
+                            var match_msg = $scope.navlist[match_in_nav]._messages.filter(strFilter);
+                            console.log('is it dead', match_msg);
 
-                            $scope.navlist.splice(tag_index_if_present, 1);
+                            if(match_msg.length === 0){
+                                console.log('there are no messages left');
+                                $scope.navlist.splice(match_in_nav,1);
+                                
+                                // var pick = $scope.navlist.length;
+                                // $scope.activate($scope.navlist[pick], pick);
+                            }    
+
                         }
                     })
                 });
