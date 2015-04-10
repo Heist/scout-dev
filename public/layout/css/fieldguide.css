@@ -1290,7 +1290,7 @@ hr {
       padding: 0;
       margin: 0; }
     #timeline ul .message-no-highlite {
-      padding: 8px 0 0 12.5px;
+      padding: 8px 0 8px 12.5px;
       line-height: 19.2px;
       margin: 0 0 10px 0;
       border-left: 4px solid #fff;
@@ -1298,7 +1298,8 @@ hr {
       #timeline ul .message-no-highlite pre, #timeline ul .message-no-highlite small {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 300; }
+        font-weight: 300;
+        height: 20px; }
       #timeline ul .message-no-highlite h3 {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
