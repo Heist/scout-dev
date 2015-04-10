@@ -15,6 +15,56 @@
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams._id;
         $scope.showReportLink = false;
 
+         var addTagsToLeftNav = function(data){
+            var navlist_check = _.pluck($scope.navlist, 'name');
+            var msg_tag       = _.pluck(data.msg._tags, 'name');
+
+            data.tags.map(function(tag) {
+                var n = navlist_check.indexOf(tag.name);
+                if(n === -1){ // if the tag does not exist, make it, and push in new message
+                    console.log('pushing automatically', tag.name, tag._messages );
+                    tag.report_index = $scope.navlist.length;
+                    $scope.navlist.push(tag);
+                    $scope.navlist[tag.report_index]._messages.push(data.msg._id);
+                    return;
+                } else {
+                    if($scope.navlist[n].doctype==='tag'){
+                        $scope.navlist[n]._messages = tag._messages;
+                        // console.log('selected push', $scope.navlist[n]._messages);
+                        // this actually doesn't need to be touched like this.
+                    }
+                }
+            })
+        }
+
+        var pullDeadTags = function(data, message, navlist){
+            var nav_id_list = _.pluck(navlist, '_id');
+            // clear dead entries from the left nav when we edit a message.
+
+            message._tags.map(function(msg_tag, i){
+
+                var new_tag_idx = data.msg._tags.indexOf(msg_tag);
+                var id = (typeof msg_tag === 'object') ? msg_tag._id : msg_tag; // set id to check
+                
+                if(new_tag_idx === -1){                         // that tag no longer exists in that message
+                    var match_in_nav = nav_id_list.indexOf(id); // find the nav entry matching the no-longer-there tag.
+
+                    function strFilter (value){
+                        return value !== message._id;           // filter matching nav entry for old messages
+                    }
+
+                    var match_msg = navlist[match_in_nav]._messages.filter(strFilter);
+
+                    if(match_msg.length === 0){                 // no messages left? Kill the tag and select the next one.
+                        navlist.splice(match_in_nav,1);  // Kill tag in the nav
+                        $scope.activate($scope.navlist[match_in_nav], match_in_nav); // select new one.
+                        
+                    }    
+
+                }
+            })
+        }
+
         // synchronous shit is weird. =====================
         $scope.activate = function(obj, selectedIndex) {
             // passes an object from left nav to the global selection variable
@@ -139,55 +189,7 @@
 // the note should disappear from the tag even if it is being edited within that tag
 // it should then appear on any other tag that is on the left nav
 // if it does not have a tag to belong to, it should turn up only on tasks (v 1.0)
-        var addTagsToLeftNav = function(data){
-            var navlist_check = _.pluck($scope.navlist, 'name');
-            var msg_tag       = _.pluck(data.msg._tags, 'name');
-
-            data.tags.map(function(tag) {
-                var n = navlist_check.indexOf(tag.name);
-                if(n === -1){ // if the tag does not exist, make it, and push in new message
-                    console.log('pushing automatically', tag.name, tag._messages );
-                    tag.report_index = $scope.navlist.length;
-                    $scope.navlist.push(tag);
-                    $scope.navlist[tag.report_index]._messages.push(data.msg._id);
-                    return;
-                } else {
-                    if($scope.navlist[n].doctype==='tag'){
-                        $scope.navlist[n]._messages = tag._messages;
-                        // console.log('selected push', $scope.navlist[n]._messages);
-                        // this actually doesn't need to be touched like this.
-                    }
-                }
-            })
-        }
-
-        var pullDeadTags = function(data, message, navlist){
-            var nav_id_list = _.pluck(navlist, '_id');
-            // clear dead entries from the left nav when we edit a message.
-
-            message._tags.map(function(msg_tag, i){
-
-                var new_tag_idx = data.msg._tags.indexOf(msg_tag);
-                var id = (typeof msg_tag === 'object') ? msg_tag._id : msg_tag; // set id to check
-                
-                if(new_tag_idx === -1){                         // that tag no longer exists in that message
-                    var match_in_nav = nav_id_list.indexOf(id); // find the nav entry matching the no-longer-there tag.
-
-                    function strFilter (value){
-                        return value !== message._id;           // filter matching nav entry for old messages
-                    }
-
-                    var match_msg = navlist[match_in_nav]._messages.filter(strFilter);
-
-                    if(match_msg.length === 0){                 // no messages left? Kill the tag and select the next one.
-                        navlist.splice(match_in_nav,1);  // Kill tag in the nav
-                        $scope.activate($scope.navlist[match_in_nav], match_in_nav); // select new one.
-                        
-                    }    
-
-                }
-            })
-        }
+       
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
@@ -249,48 +251,5 @@
                 });
         };
 
-
-
-    // COMMENTING =========================================
-        // $scope.showComments = function(message){
-        //     // if the comment toggle is the same as the current comment toggle
-        //     // hide commenting
-        //     // else show the new message's comments
-
-        //     if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'show'){
-        //         $scope.showCommentToggle = 'hide';
-        //         $scope.commentMessage = '';
-        //         return;
-        //     }
-
-        //     if($scope.commentMessage._id === message._id && $scope.showCommentToggle === 'hide'){
-        //         $scope.showCommentToggle = 'show';
-        //         return;
-        //     }
-
-        //     if ($scope.commentMessage._id !== message._id && $scope.showCommentToggle === 'hide'){
-        //         $scope.showCommentToggle = 'show'; 
-        //         $scope.commentMessage = message;
-        //         return;
-        //     }
-            
-        //     $scope.commentMessage = message;
-        // };
-
-        
-        // $scope.addComment = function(comment){
-        //     if(comment && comment.body.length > 0){
-        //         reportFunctions.postComment(comment, $scope.commentMessage._id)
-        //             .then(function(data){
-        //                 comment.body = '';
-        //                 var arr = _.pluck($scope.messages, '_id');
-        //                 var msg_idx = _.indexOf(arr, $scope.commentMessage._id);
-        //                 $scope.messages[msg_idx] = data;
-        //             });
-        //     }
-        //     else {
-        //         $scope.showCommentToggle = 'hide';
-        //     }
-        // };
     }]);
 })();
