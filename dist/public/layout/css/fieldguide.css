@@ -249,17 +249,17 @@ ul {
       margin: 0 10px 6.66667px 0; }
       ul.tags li span {
         display: inline-block;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
         background: #f2f2f0;
         padding: 6.66667px 10px;
         border: 2px solid #f2f2f0; }
       ul.tags li a {
         display: inline-block;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
         background: #f2f2f0;
         border: 2px solid #f2f2f0;
         padding: 6.66667px 10px; }
@@ -287,9 +287,9 @@ form {
   display: inline-block;
   margin: 0;
   padding: 13.33333px 13.33333px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -368,9 +368,9 @@ form {
   display: inline-block;
   margin: 0;
   padding: 11px 13.33333px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -404,9 +404,9 @@ textarea.input {
 .input-select {
   border: 1px solid #dddddd;
   width: 100%;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
   overflow: hidden;
   background: #fff url("/layout/assets/select-arrow.svg") no-repeat calc(100% - 10px) 50%;
   background-size: auto 18%; }
@@ -805,9 +805,9 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
   -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
   width: 320px;
   margin: 0;
   padding: 20px; }
@@ -883,9 +883,9 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
   width: 100%;
   padding: 10px;
   margin: 0 0 10px 0;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
   text-align: center; }
   .messaging.messaging-problem {
     background: #f37960;
@@ -932,9 +932,9 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
   -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px; }
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px; }
 
 /* horizontal rule */
 hr {
@@ -1538,9 +1538,9 @@ hr {
   #sidebar ul li {
     padding: 10px 30px 10px 10px;
     margin: 0;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
     position: relative;
     line-height: 1.2; }
     #sidebar ul li .task-boop {
@@ -1592,9 +1592,9 @@ hr {
     background: #fff;
     padding: 30px 40px 30px 40px;
     margin: 10% 0 0 0;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); }
@@ -1696,9 +1696,9 @@ hr {
   padding: 20px 20px 15px 20px;
   margin: 0 0 60px 0;
   border: 1px solid #dddddd;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px; }
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px; }
   .upgrade-notice h3 {
     margin: 0; }
 
@@ -1871,9 +1871,9 @@ hr {
     padding: 20px;
     border: 1px solid #dddddd;
     margin: 10px 0;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px; }
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px; }
     #view-register .register-cta p {
       margin: 0; }
       #view-register .register-cta p strong {
@@ -1917,9 +1917,9 @@ hr {
     background: #fff;
     height: 200px;
     overflow: hidden;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
@@ -2100,9 +2100,9 @@ hr {
     font-size: 10px;
     text-decoration: underline; }
   #view-new-project .test-type.selected {
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
     border: 1px solid #C6D39E;
     color: #85ac0f; }
     #view-new-project .test-type.selected .selected-arrow {
@@ -2455,9 +2455,9 @@ hr {
     margin: 40px 0 0 0;
     padding: 20px 20px 0 20px;
     background: rgba(46, 39, 35, 0.7);
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px; }
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px; }
   #view-observer-login p {
     font-size: 12px;
     margin: 0;
@@ -2483,9 +2483,9 @@ hr {
     font-weight: 400; }
   #view-account .pm-app {
     border: 1px solid #dddddd;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
     padding: 13.33333px 20px 13.33333px 60px;
     margin: 0 0 13.33333px 0; }
     #view-account .pm-app.github {
@@ -3071,9 +3071,9 @@ hr {
   margin: 0;
   padding: 20px;
   background: rgba(66, 71, 76, 0.9);
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
   z-index: 99999; }
   #onboard-overview-box .button {
     text-align: center;
