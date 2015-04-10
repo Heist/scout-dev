@@ -550,7 +550,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
   font-size: 14px;
   padding: 11px 32.5px;
   float: left;
-  margin: 0 2px; }
+  margin: 0 0 0 3px; }
   .button:hover {
     background: #7a9e0e;
     color: #fff;
