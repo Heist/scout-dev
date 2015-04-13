@@ -4,21 +4,10 @@ FORMS!
 
 form {
 	padding: 0;
-	margin: 10px 0;
+	margin: 20px 0;
 }
 
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
-
-.input {
-	display: inline-block;
-	margin: 0 0 20px 0;
-	padding: $pad/1.5 $pad/1.5;
-	@include radius;
-	@include type-light;
-	font-size: $type-size-base*0.90;
-	outline: none;
-	border: none;
-}
 
 .button {
 	display: inline-block;
@@ -90,14 +79,25 @@ form {
 	}
 }
 
-
-
 .input {
 	background: $white;
-	border: 1px solid $line; 
+	border: 1px solid $line;
+	display: inline-block;
+	margin: 0;
+	padding: 11px $pad/1.5;
+	@include radius;
+	@include type-light;
+	font-size: $type-size-base*0.90;
+	outline: none;
+	width: 100%;
+
+	&:hover {
+		border: 1px solid $fg-grey;
+	}
 
 	&:focus {
-		//@include insetshadow;
+		box-shadow:  0 0 4px $fg-green;
+		border: 1px solid $fg-grey-light;
 	}
 	
 	&.small {
@@ -118,7 +118,6 @@ form {
 			border: 1px solid $line; 
 		} 
 	}
-	
 }
 
 textarea.input {
@@ -166,7 +165,7 @@ label {
 	font-size: $type-size-base*0.8;
 	opacity: 1;
 	color: $fg-black;
-	font-weight: 400;
+	@include type-light;
 }
 
 

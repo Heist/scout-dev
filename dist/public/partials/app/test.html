@@ -1,194 +1,109 @@
 <!-- Add test -->
 <div id="view-editing" ng-model="test">
-
-	<ng-include src="'partials/app/_header-small.html'"></ng-include>	
+	<ng-include src="'partials/app/_header-small.html'"></ng-include>
 	
 	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
 	
 	<div class="container" >
-
-		<div id="header-min">
-		
-			<h3 class="float-left" ng-hide="test._tasks.length > 0 && test.kind && test._subjects.length > 0">Create a new project</h3>
-			<h3 class="h3-light float-left" ng-show="test._tasks.length > 0 && test.kind && test._subjects.length > 0">Edit your project</h3>
-		
-			<ul class="stepped-nav">
-				<li class="step-left" ng-class="{'step-completed': test.name, 'step-active': anchor === 1 , 'step-inactive': anchor !== 1}">
-					<a href="#">Select Type</a><div class="step-state"></div>
-				</li>
-				
-				<li class="step-middle" ng-class="{'step-completed': test._tasks.length > 0, 'step-active': anchor === 3 ,'step-inactive': anchor !== 3}">
-					<a href="#">Add Tasks</a><div class="step-state"></div>
-				</li>
-
-				<!-- <li class="step-middle step-inactive"><a href="#" ng-click="showAnchor(3)">Create some themes</a><div class="step-state"></div></li> -->
-
-				<li class="step-right" ng-class="{'step-completed' : anchor === 5,'step-active': anchor === 5 ,'step-inactive': anchor !== 5 }">
-					<a>Done!</a><div class="step-state"></div>
-				</li>
-				
-				<div class="clear"></div>
-			</ul>
+		<div class="full test-setup">
 			
-			<div class="clear"></div>
-
-		</div>
-
-		<!-- step 1 - define test info -->
-		<div class="full test-setup" ng-show="anchor === 1">
-		
-			<div class="module fifth tutorial">
-				<h4>1. Select your test type</h4>
-				
-				<h4>2. Set up your test details</h4>
-				<p>Tasks allow you to define certain important steps in your website or app and Talking points are basically notes and ideas you want to ask the person you are testing.</p>
-
-			</div>
+			<div class="module quarter">&nbsp;</div>
 			
 			<div class="module three-fifths">
-			
+				
 				<div class="sheet-holder">
+					
 					<div class="sheet">
-
-						<div class="module half test-type">
-							<h3>Interview</h3>
-							<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
-							<button class="button-inactive med" ng-class='{"select-active": test.kind || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>Select</button>
-							<div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
-						</div>
-						
-						<div class="module half test-type">
-							<h3>Prototype or Website</h3>
-							<p>You'll want to use this type of test if you have a prototype in invision or Marvel and want to test it with your own customers.</p>
-							<button class="button-inactive med" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>Select</button>
-							<div class="selected-arrow"><img src="/layout/assets/select-arrow.png" /></div>
-						</div>
-						
 						<div class="clear"></div>
-
 						<ul class="nobullets">
-							<hr>
-							
-							<form name="prototypeForm" class="prototype-form">
 
-									<li>
-										<label for="field-testname">Test title</label>
-										<input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="My amazing test" ng-blur="updateTest()" />
-									</li>
 
-									<li ng-show="test.kind === 'prototype'">
-										<label for="field-prototypeurl">What is your prototype or website URL?</label>
-										<input class="input" id="field-prototypeurl" ng-model="test.link" value="" placeholder="http://invision.com/JHGYT" type="url" name="url"/ />
-<!-- 										<span ng-show="!prototypeForm.$valid" style="color:red;">This appears to be an invalid URL.<br></span>
-										<small>Using InVision? Make sure you turn off <strong>Force "Add to Home Screen"</strong> in your share settings</small> -->
-									</li>
+							<!-- make below editable -->
 
-									<li>
-										<label for="field-prototypeurl">What are your test objectives?</label>
-										<textarea msd-elastic class="input" id="field-objective" type="text" value="" ng-model="test.desc" placeholder="Validate the colours on my header" />
-										</textarea>	
-									</li>						
-							</form>
-						</ul>
+							<div class="project-details" ng-click="select(test)">
+								<h2>{{test.name}}</h2>
 
-					</div>
-				</div>
-				
-			</div>
-			
-			<div class="module fifth next-button">
-				<button class="button" ng-click="saveAndMove(3)" >Add Tasks</button>
-			</div>
-			
-			<div class="clear"></div>
+								<h3>Objectives</h3>
+									<pre class="test-descriptions">{{test.desc}}</pre>
+							</div>
+
+							<!-- tags section goes here -->
+							<div class="tags">
+								<h3>Tags</h3>
+								<p>Because you're running a {{test.type}} test, we've created a couple of tags for you to use during your tests.</p>
 		
-		
-		</div>
-		<!-- / step 1 -->
-		
-		
-		
-		<!-- step 3 - add tasks -->
-		<div class="full test-tasks" ng-show="anchor === 3">
-			
-			<div class="module fifth tutorial">
-				<h4>Tasks</h4>
-				<p>Tasks are important steps or views in your website or app - things you want to collect notes about.</p>
-				<h4>Talking points</h4>
-				<p>Talking points are the questions and ideas you want to discuss during testing.</p>
-			</div>
-			
-			<div class="module three-fifths">
-			
-				<div class="sheet-holder">
-					<div class="sheet">
+								<div class="tag-pool">
+									<ul>
+										<li>#yolo</li>
+										<li>#swag</li>
+									</ul>
+								</div>
+								<textarea name="custom-tags" class="custom-tags" placeholder="Type your own tags here. ex. #passed, #failed"></textarea>
+							</div>
 						
-						<!-- show me the steps -->
-						<ul id="steps" ng-model="tasks">
-						
-							<li ng-hide="test._tasks.length > 0" class="steps-empty-message">You need to add some tasks to your project before you can test!</li>
-							
-						
+							<h3>Topics</h3>
 							<li ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
-								
-								<div class="step-ordering">
+							
+								<!-- Re-ordering tasks -->
+								<!-- <div class="step-ordering">
 									<div ng-click="moveTask($index, -1)" class="elevator elevator-up">&#9650;</div>
 									<div ng-click="moveTask($index, 1)" class="elevator elevator-down">&#9660;</div>
 								</div>
 								
 								<div class="step-controls">
 									<div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
+								</div> -->
+<!-- ng-if="isActive(task)" -->
+								<div ng-click="select(task)">
+									<div class="task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
+										#{{task.name}}
+									</div>
+
+									<div class="task-descriptions" msd-elastic ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)">
+										<pre class="task-descriptions">{{task.desc}}</pre>
+									</div>
 								</div>
-								
-								<div class="step-contents">
-									<form>
+								<!-- 	<form>
 										<input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
 										<textarea msd-elastic ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
 										</textarea>
-									</form>
-								</div>
-								
-								<div class="clear"></div>       
+									</form> -->
+							
+								<div class="clear"></div>
+
 							</li>
-							
-							
-						</ul>
-						<!-- done showing me the steps -->
 						
-						
-						<!-- add a new task -->
-						<div class="add-task">
-							<form ng-model='newtask'>
-								<input class="input" ng-trim="false" ng-model="newtask.name"placeholder="Task name"><br/>
+							<li>
+								<!-- add a new task -->
+								<div class="add-task">
+									<form ng-model='newtask'>
+										<h4>Topic</h4>
+										<input ng-trim="false" ng-model="newtask.name"placeholder="What do you want to discuss with your participant?"><br/>
+										
+										<h4>Questions</h4>
+										<textarea ng-model="newtask.desc" id="field-textarea" placeholder="List the questions you want answered.">
+										</textarea>
+									</form>
 								
-								<textarea msd-elastic ng-model="newtask.desc" class="input small" id="field-textarea" placeholder="Put talking points or task-specific questions here.">
-								</textarea>						
-							</form>
-							
-							<button class="button med float-right" ng-click="newTask(newtask)">Add a task</a></button>
-							
-							<div class="clear"></div>
-						</div>
-						<!-- / add a new task -->
-					
-					</div>
+									<div class="box clearfix">
+										<button class="button full small" ng-click="newTask(newtask)" tabindex="0">Add task</a></button>
+									</div>
+
+									<div class="clear"></div>
+								</div>
+							<!-- / add a new task -->
+							</li>
+						</ul>
+					</div> <!-- /sheet -->
+				</div> <!-- /sheet holder -->
 				
-				</div>
+			</div> <!-- /module fifths -->
+				
+			<div class="module done-button">
+				<button class="button outline" ng-click="saveAndMove(5)" tabindex="1">Done</button>
 			</div>
-			
-			<div class="module fifth next-button">
-				<button class="button" ng-click="saveAndMove(5)">Done</button>
-				<!-- <button class="button" ng-click="saveAndMove(5)">Done</button> -->
-			</div>
-			
+
 			<div class="clear"></div>
-			
 		</div>
-		<!-- / step 3 -->
-	
-
-
-
 	</div>
-	
 </div>
