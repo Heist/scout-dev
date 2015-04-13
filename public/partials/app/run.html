@@ -178,6 +178,13 @@
 </div>
 <!-- / New task modal -->
 
+<!-- 	<div id="button-newtask">
+		<div class="expand-button">
+			<div class="expand-button-body" ng-click="adding_task = true">+</div>
+			<div class="expand-button-helper">Add a new task</div>
+		</div>
+	</div> -->
+
 	<!-- discussion guide -->
 	<div id="testing-guide" ng-model="tests">
 		
@@ -306,11 +313,14 @@
 					</div>
 
 					<div id="cta">
+						<div class="cta">
+							<a href="#" class="button-cancel" ng-click="changeOnboard(100)">Delete test</a>
 
-						<button class="button outline" id="endtest" ng-click="postTest()">
-							<div class="checkmark"></div>
-							<span>End test</span>
-						</button>
+							<button class="button outline" id="endtest" ng-click="postTest()">
+								<div class="checkmark"></div>
+								<span>End test</span>
+							</button>
+						</div>
 
 <!-- 						<div id="button-canceltest">
 							<div class="expand-button">
@@ -335,8 +345,3 @@
 	
 	
 </div>
-
-
-
-
-
