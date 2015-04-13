@@ -58,7 +58,7 @@
                 });
         };
 
-        $scope.newTest = function(){
+        $scope.newTestModalToggle = function(){
             if($scope.newProject  || $scope.newProject === true  ){
                 $scope.newProject = false; 
                 return;

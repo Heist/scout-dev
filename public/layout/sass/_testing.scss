@@ -98,12 +98,12 @@
             background: $white;
             z-index: 9999;
             border-top: 1px solid $line;
+            @include input-placeholders;
             textarea {
                 width: 100%;
                 height: 70%;
                 margin: 0;
                 border: none;
-                @include input-placeholders;
 
                 &:focus {
                     box-shadow: none;
@@ -139,45 +139,49 @@
         // }
    
     }
-    #testing-client {
-        width: 45%;
-        height: 100%;
-        float: right;
-        padding: 0;
-        margin: 0;
-        overflow-y: auto;
-    }
-    /* buttons what do stuff */
-    #button-endtest {
+
+    #cta {
         position: absolute;
-        right: 15px;
-        top: $pad * 1.5;
-        z-index: 999999;
-        .expand-button {
-            .expand-button-body {
-                color: $white;
-                background: $fg-black;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: $pad / 4;
+        height: 65px;
+        background: $white;
+        z-index: 9999;
+        border-bottom: 1px solid $line;
+
+        .cta {
+            float: right;
+            margin: 7px;
+
+            button#endtest {
+                width: 110px;
+                height: 40px;
+                text-align: center;
+                float: left;
+                padding: 0;
+
                 .checkmark {
                     background: url("../assets/checkmark.svg") no-repeat;
                     width: 15px;
                     height: 15px;
-                    margin: 7px auto;
+                    margin: 9px 15px;
+                    float: left;
+                }
+
+                span {
+                    color: $fg-green;
+                    @include type-light;
+                    font-size: 14px;
+                    display: block;
+                    margin: 9px 0;
+                    float: left;
                 }
             }
         }
     }
-    #button-canceltest {
-        position: absolute;
-        right: 15px;
-        top: $pad * 4;
-        z-index: 999999;
-        .expand-button {
-            .expand-button-body {
-                color: $white;
-                background: $fg-grey-light;
-            }
-        }
-    }
+
     #button-newtask {
         position: absolute;
         right: 75.5%;
@@ -197,6 +201,15 @@
                 color: $fg-slate;
             }
         }
+    }
+
+    #testing-client {
+        width: 45%;
+        height: 100%;
+        float: right;
+        padding: 0;
+        margin: 0;
+        overflow-y: auto;
     }
 }
 

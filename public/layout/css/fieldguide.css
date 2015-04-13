@@ -563,7 +563,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
     background: #fff;
     color: #85ac0f;
     text-decoration: none;
-    border: 1px solid #C6D39E; }
+    border: 1px solid #85ac0f; }
     .button.outline:hover {
       background: #f7f7f7;
       color: #85ac0f;
@@ -1489,7 +1489,7 @@ hr {
         padding: 0;
         margin: 0; }
         #tasklist ul li h3.participant-name {
-          margin: 12px 0 2px 0;
+          margin: 13px 0 2px 0;
           font-size: 14px; }
         #tasklist ul li h3.tag-name {
           text-transform: lowercase;
@@ -2291,8 +2291,7 @@ hr {
   position: relative;
   overflow: hidden;
   /* are we onboard? */
-  /* the chat */
-  /* buttons what do stuff */ }
+  /* the chat */ }
   #view-testing.is-onboard {
     height: 85% !important; }
   #view-testing.has-input-outline #session-input {
@@ -2363,29 +2362,29 @@ hr {
       background: #fff;
       z-index: 9999;
       border-top: 1px solid #dddddd; }
+      #view-testing #testing-input #session-input ::-webkit-input-placeholder {
+        color: #D8DADB;
+        font-size: 12.5px;
+        font-style: italic; }
+      #view-testing #testing-input #session-input :-moz-placeholder {
+        /* Firefox 18- */
+        color: #D8DADB;
+        font-size: 12.5px;
+        font-style: italic; }
+      #view-testing #testing-input #session-input ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: #D8DADB;
+        font-size: 12.5px;
+        font-style: italic; }
+      #view-testing #testing-input #session-input :-ms-input-placeholder {
+        color: #D8DADB;
+        font-size: 12.5px;
+        font-style: italic; }
       #view-testing #testing-input #session-input textarea {
         width: 100%;
         height: 70%;
         margin: 0;
         border: none; }
-        #view-testing #testing-input #session-input textarea ::-webkit-input-placeholder {
-          color: #D8DADB;
-          font-size: 12.5px;
-          font-style: italic; }
-        #view-testing #testing-input #session-input textarea :-moz-placeholder {
-          /* Firefox 18- */
-          color: #D8DADB;
-          font-size: 12.5px;
-          font-style: italic; }
-        #view-testing #testing-input #session-input textarea ::-moz-placeholder {
-          /* Firefox 19+ */
-          color: #D8DADB;
-          font-size: 12.5px;
-          font-style: italic; }
-        #view-testing #testing-input #session-input textarea :-ms-input-placeholder {
-          color: #D8DADB;
-          font-size: 12.5px;
-          font-style: italic; }
         #view-testing #testing-input #session-input textarea:focus {
           box-shadow: none; }
     #view-testing #testing-input #hash-tag-pool {
@@ -2408,34 +2407,40 @@ hr {
       overflow-y: hidden; }
       #view-testing #testing-input #hash-tag-pool .hashtag {
         padding: 0 10px; }
-  #view-testing #testing-client {
-    width: 45%;
-    height: 100%;
-    float: right;
-    padding: 0;
-    margin: 0;
-    overflow-y: auto; }
-  #view-testing #button-endtest {
+  #view-testing #cta {
     position: absolute;
-    right: 15px;
-    top: 30px;
-    z-index: 999999; }
-    #view-testing #button-endtest .expand-button .expand-button-body {
-      color: #fff;
-      background: #323539; }
-      #view-testing #button-endtest .expand-button .expand-button-body .checkmark {
-        background: url("../assets/checkmark.svg") no-repeat;
-        width: 15px;
-        height: 15px;
-        margin: 7px auto; }
-  #view-testing #button-canceltest {
-    position: absolute;
-    right: 15px;
-    top: 80px;
-    z-index: 999999; }
-    #view-testing #button-canceltest .expand-button .expand-button-body {
-      color: #fff;
-      background: #D8DADB; }
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px;
+    height: 65px;
+    background: #fff;
+    z-index: 9999;
+    border-bottom: 1px solid #dddddd; }
+    #view-testing #cta .cta {
+      float: right;
+      margin: 7px; }
+      #view-testing #cta .cta button#endtest {
+        width: 110px;
+        height: 40px;
+        text-align: center;
+        float: left;
+        padding: 0; }
+        #view-testing #cta .cta button#endtest .checkmark {
+          background: url("../assets/checkmark.svg") no-repeat;
+          width: 15px;
+          height: 15px;
+          margin: 9px 15px;
+          float: left; }
+        #view-testing #cta .cta button#endtest span {
+          color: #85ac0f;
+          font-family: "canada-type-gibson",sans-serif;
+          font-style: normal;
+          font-weight: 300;
+          font-size: 14px;
+          display: block;
+          margin: 9px 0;
+          float: left; }
   #view-testing #button-newtask {
     position: absolute;
     right: 75.5%;
@@ -2453,6 +2458,13 @@ hr {
     #view-testing #button-newtask .expand-button .expand-button-helper {
       background: #f6f6f6;
       color: #42474c; }
+  #view-testing #testing-client {
+    width: 45%;
+    height: 100%;
+    float: right;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto; }
 
 /* WHO ARE WE TESTING */
 #view-testing-userentry {

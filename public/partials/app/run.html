@@ -177,35 +177,14 @@
     <div class="clear"></div>
 </div>
 <!-- / New task modal -->
-	
-	
-	
-	
-	<div id="button-endtest">
-		<div class="expand-button">
-			<div class="expand-button-body" ng-click="postTest()">
-				<div class="checkmark"></div>
-			</div>
-			<div class="expand-button-helper">Done</div>
-		</div>
-	</div>
 
-	<div id="button-canceltest">
-		<div class="expand-button">
-			<div class="expand-button-body" ng-click="postTest()">&times;</div>
-			<div class="expand-button-helper" ng-click="changeOnboard(100)">Cancel</div>
-		</div>
-	</div>
-	
 <!-- 	<div id="button-newtask">
 		<div class="expand-button">
 			<div class="expand-button-body" ng-click="adding_task = true">+</div>
 			<div class="expand-button-helper">Add a new task</div>
 		</div>
 	</div> -->
-	
-	
-	
+
 	<!-- discussion guide -->
 	<div id="testing-guide" ng-model="tests">
 		
@@ -236,10 +215,7 @@
 			
 	</div>
 	<!-- / discussion guide -->
-	
-	
-	
-	
+
 	
 	<div class="sheet-holder">
 		<div class="sheet">
@@ -249,7 +225,7 @@
 				
 				<!-- input notes -->
 				<div id="session-input">
-					<textarea class="input" ng-model='message' name="field-input" placeholder="Remeber to give your notes #themes" ui-keypress="{13:'postMessage(message)'}" />
+					<textarea class="input" ng-model='message' name="field-input" placeholder="Remember to give your notes #themes" ui-keypress="{13:'postMessage(message)'}" />
 					</textarea>
 				</div>
 				<div id="hash-tag-pool">
@@ -338,6 +314,26 @@
 						<small>Testing with</small>
 						<h2>{{subject.name}}</h2>
 					</div>
+
+					<div id="cta">
+						<div class="cta">
+							<a href="#" class="button-cancel" ng-click="changeOnboard(100)">Delete test</a>
+
+							<button class="button outline" id="endtest" ng-click="postTest()">
+								<div class="checkmark"></div>
+								<span>End test</span>
+							</button>
+						</div>
+
+<!-- 						<div id="button-canceltest">
+							<div class="expand-button">
+								<div class="expand-button-body" ng-click="postTest()">&times;</div>
+								<div class="expand-button-helper" ng-click="changeOnboard(100)">Cancel</div>
+							</div>
+						</div> -->
+
+					</div>
+
 				</div>
 				
 					
@@ -352,8 +348,3 @@
 	
 	
 </div>
-
-
-
-
-

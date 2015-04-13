@@ -37,8 +37,8 @@
                 .post('/api/test/', test)
                 .success(function(data){
                     $scope.$parent.tests.push(data);
-                    $scope.$parent.newTest();
-                    $location.path('/edit/test/'+data._id);
+                    $scope.$parent.newTestModalToggle();
+                    $location.path('/edit/test/'+ data._id);
                 });
         }
 
