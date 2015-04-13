@@ -244,11 +244,24 @@
 		
 			<!-- note input and display -->
 			<div id="testing-input">
-				
+					
 				<!-- input notes -->
 				<div id="session-input">
-					<textarea class="input" ng-model='message' name="field-input" placeholder="Type notes" ui-keypress="{13:'postMessage(message)'}" />
-					</textarea>
+
+				<div>
+				<script type="text/ng-template" id="customTemplate.html">
+				  <a>
+				      <img ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{match.model.flag}}" width="16">
+				      <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+				  </a>
+				</script>
+
+				    <h4>Static arrays</h4>
+				    <pre>Model: {{typeinput | json}}</pre>
+				    <input type="text" ng-model="typeinput" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
+				</div>
+					<!-- textarea class="input" ng-model='message' name="field-input" placeholder="Type notes" ui-keypress="{13:'postMessage(message)'}"  class="form-control"/>
+					</textarea> -->
 				</div>
 				<div id="recent-hash-tags">
 					<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}&nbsp; &nbsp;</small>
