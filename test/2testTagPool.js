@@ -43,11 +43,22 @@ describe('The Tag Pool', function(){
 			m.msg = msg[0];
 			m.msg2 = msg[1];
 			m.msg3 = msg[2];
-			done();
-		});	
+		}).then(function(next){
+			agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' }).end(function(err, res){
+				loggedIn = agent;
 
-		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' }).end(function(err, res){
-			loggedIn = agent;
+				loggedIn.post('/api/message/')
+				.send({
+					body : 'New message body #puce #blue', 
+					_test : m.t._id,
+					_task : m.tsk._id,
+					_subject : m.s._id
+				})
+				.end(function(err, res){
+					m.puce = res.body.msg;
+					done();
+				})
+			})
 		})
 	})
 
@@ -59,6 +70,7 @@ describe('The Tag Pool', function(){
 				_subject : m.s._id
 			})
 			.end(function(err, res){
+				console.log(res.body);
 				expect(res.body).to.equal('Path `_test` is required.')
 				done();
 			});
@@ -77,7 +89,7 @@ describe('The Tag Pool', function(){
 			});
 	});
 
-	it('Reject note if just a tag', function(done){
+	it.skip('Reject note if just a tag', function(done){
 		loggedIn.post('/api/message/')
 			.send({
 				body : '#purple', 
@@ -91,7 +103,7 @@ describe('The Tag Pool', function(){
 			});
 	})
 
-	it('Accept a full message', function(done){
+	it('should accept a full message', function(done){
 		loggedIn.post('/api/message/')
 			.send({
 				body : 'This is a #blue #note #purple', 
@@ -101,8 +113,9 @@ describe('The Tag Pool', function(){
 			})
 			.end(function(err, res){
 				expect(res.body).to.be.an('object')
-				expect(res.body._tags).to.have.length(3)
-				expect(res.body.body).to.equal('This is a')
+				expect(res.body.msg._tags).to.have.length(3)
+				expect(res.body.msg.body).to.equal('This is a #blue #note #purple')
+				expect(res.body.tags).to.have.length(6)
 				done();
 			});
 	});
@@ -170,11 +183,70 @@ describe('The Tag Pool', function(){
 	it('should return tags by test', function(done){
 			loggedIn.get('/api/tag/'+m.t._id)
 				.end(function(err,res){
-					expect(res.body).to.have.length(6);
+					expect(res.body).to.have.length(7);
 					done();
 				});
 	});
 
+	it('should edit an existing message', function(done){
+		loggedIn.put('/api/message/')
+			.send({
+				_id : m.msg2._id,
+				body: 'New message body #yeah #body'
+			})
+			.end(function(err,res){
+				expect(res.body).to.be.an('object')
+				expect(res.body.msg._tags).to.have.length(2)
+				expect(res.body.msg.body).to.equal('New message body #yeah #body')
+				expect(res.body.tags).to.have.length(9)
+				done();
+			});
+	});
+
+	it('should remove a tag that has no messages', function(done){
+		// Puce is now a message, that should help with things
+		var nest;
+			loggedIn.put('/api/message/')
+				.send({
+					_id : m.puce._id,
+					body : 'Kill puce #yellow'
+				})
+				.end(function(err, res){
+					var nest = res.body;
+					expect(res.body).to.be.an('object')
+					expect(res.body.msg._tags).to.have.length(1)
+					expect(res.body.msg.body).to.equal('Kill puce #yellow')
+					expect(res.body.tags).to.have.length(8)
+
+					loggedIn.put('/api/message/')
+						.send({
+							_id : res.body.msg._id,
+							body : 'Kill puce #news'
+						})
+						.end(function(err, res1){
+							expect(res1.body).to.be.an('object')
+							expect(res1.body.msg._tags).to.have.length(1)
+							// expect(res.body.msg._tags[1]._messages).to.have.length(2)
+							expect(res1.body.msg.body).to.equal('Kill puce #news')
+							expect(res1.body.tags).to.have.length(9)
+
+							loggedIn.put('/api/message/')
+								.send({
+									_id : res1.body.msg._id,
+									body : 'Kill puce #blue #purple'
+								})
+								.end(function(err, res2){
+									expect(res2.body).to.be.an('object')
+									expect(res2.body.msg._tags).to.have.length(2)
+									expect(res2.body.msg._tags[1]._messages).to.have.length(2)
+									expect(res2.body.msg.body).to.equal('Kill puce #blue #purple')
+									expect(res2.body.tags).to.have.length(8)
+
+									done();
+								})
+						})
+				})
+	});
 })
 
 })();

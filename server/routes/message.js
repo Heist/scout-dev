@@ -2,17 +2,17 @@
 (function(){
 'use strict';
 
-module.exports = function(app, passport, debug) {
+module.exports = function(app, passport) {
 
 // Module dependencies ==========================
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
     var async = require('async');
-    var Promise = require('bluebird');
+    var Bluebird = require('bluebird');
 
 // load data storage models =====================
-    var models  = require('../models');
- 
+    var models = Bluebird.promisifyAll(require('../models'));
+
 // load functions  ==============================
     var fn  = require('../models/functions')
 
@@ -22,18 +22,35 @@ module.exports = function(app, passport, debug) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
-        // var messageNew = require('../models/functions/message-new')
+     console.log('find post message route');
         fn.messageNew(req.body, req.user._id).then(function(data){
-            console.log('messsageNew Route', data);
-            res.json(data);
+            if(typeof data === 'object'){
+                models.Tag.findAsync({'_test' : req.body._test})
+                    .then(function(tags){
+                        res.json({msg: data, tags: tags});
+                    })
+            } else {
+                res.json(data);
+            }
         });
     })
     .put(function(req, res){
     // Edit the body of a message and change its tag associations
-        console.log(req.body);
-        fn.messageEdit(req.body, function(err, msg){
-            if(err){console.log(err);}
-            res.json(msg);
+
+        console.log('find put message route');
+        fn.messageEdit(req.body).then(function(data){
+            console.log(data);
+            if(typeof data === 'object'){
+                console.log('data is object');
+                models.Tag.findAsync({'_test' : data._test})
+                    .then(function(tags){
+                        var send = {msg: data, tags: tags};
+                        console.log('returning object', send);
+                        res.json(send);
+                    })
+            } else {
+                res.json(data);
+            }
         });
     });
 
@@ -55,6 +72,12 @@ module.exports = function(app, passport, debug) {
                 if(err){ console.log(err); }
                 res.json(msg);
             });
+    })
+    .delete(function(req,res){
+        console.log('delete message', req.params._id);
+        fn.messageRemove(req.params._id).then(function(data){
+            res.json(data); // this should be the string '1'
+        });
     });
 };
 })();

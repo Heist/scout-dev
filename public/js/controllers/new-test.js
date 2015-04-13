@@ -27,21 +27,18 @@
         };
 
         $scope.addTest = function(test){
-        	console.log(test);
+        	console.log('new test', test);
 
             if($scope.test.name){
                 mixpanel.track('Test name changed', { 'user': $rootScope.user });
             }
 
-            //TODO: remove console logs
             $http
                 .post('/api/test/', test)
                 .success(function(data){
-                    console.log(data);
                     $scope.$parent.tests.push(data);
                     $scope.$parent.newTestModalToggle();
                     $location.path('/edit/test/'+ data._id);
-                    console.log(data._id);
                 });
         }
 

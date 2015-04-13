@@ -141,7 +141,8 @@
 
             $scope.timeline.push({ 
                 title: 'Starting task', 
-                body: $scope.selected.name 
+                body: $scope.selected.name,
+                _id : 123
             });
 
             // get the id of the selected object, 
@@ -212,6 +213,7 @@
 
          // MESSAGE FUNCTIONS ==================================
         $scope.messageEditToggle = '';
+
         $scope.editMessage = function(message){
             // clear this on blur to block weird toggle bug
             $scope.messageEditToggle = message._id;
@@ -219,7 +221,26 @@
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $http.put('/api/message/', message);
+            $http.put('/api/message/', message)
+                .success(function(data){                 
+                    console.log('tags', data.tags);
+
+                 // remove the previous message and insert the new one
+                    $scope.tags = data.tags;
+
+                    var arr = $scope.timeline;
+                    var item;
+
+                   for(var i = 0; i < arr.length; i++){
+                        if(arr[i]._id && arr[i]._id === message._id){
+                            item = i
+                        }
+                    }
+                    
+                    arr.splice(item, 1, data.msg);
+
+                    $scope.timeline = arr;
+                });
         };
 
         $scope.postMessage = function(message){
@@ -228,9 +249,9 @@
             } else {
                 postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
-                        console.log(data);
-                        $scope.timeline.push(data.data.msg);
-                        $scope.tags = data.data.tags;
+                        console.log('okay what', data);
+                        $scope.timeline.push(data.msg);
+                        $scope.tags = data.tags;
                         $scope.message='';
                     });
             }

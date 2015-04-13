@@ -126,15 +126,28 @@
 				<input class="input" type="text" name="testroom" value="" placeholder="Field Guide app Room ID" ng-model="subject.testroom">
 				</input>
 			</li>
+<<<<<<< HEAD
+			
+			<li>
+				<a href="#" class="secondary button cancel med" ng-click="changeOnboard(100)" tabindex="1">Cancel</a>
+=======
 				<div class="clear"></div>
 
 				<div class="cta-margin">
 					<a href="#" class="secondary button-cancel" ng-click="changeOnboard(100)" tabindex="1">Cancel</a>
+>>>>>>> 298-run-test-modal
 
 					<!-- <a class="button dry-run med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a> -->
 			
+<<<<<<< HEAD
+				<button class="button med float-right" type="submit" ng-click="addSubject(subject); changeOnboard(2)" tabindex="0">Start</button>
+				
+			</li>
+		
+=======
 					<button class="button med float-right" type="submit" ng-click="addSubject(subject); changeOnboard(2)" tabindex="0">Start test</button>
 			</div>
+>>>>>>> 298-run-test-modal
 		</ul>
 		
 	</div>
@@ -282,13 +295,19 @@
 							<div class="clear"></div>
 						</li>
 						<li class="message" ng-repeat="message in timeline track by $index" >
-							<!-- <div class="message-details"> -->
-							<!-- show the user's avatar -->
-							<!-- 	<div class="message-details-avatar avatar-header" ng-if="message.title">&bull;</div>
-								<div class="message-details-avatar avatar-message" ng-if="!message.title">&bull;</div>
-							</div> -->
-
 							<div class="message-body" ng-click="editMessage(message)">
+<<<<<<< HEAD
+								<small ng-if="message.title">{{message.title}}</small>
+
+								<!-- non-editable guideline messages -->
+								<pre class="messages" ng-if="message.title === 'Starting task'">
+									{{message.body}}
+								</pre>
+
+								<!-- Editable messages - if a message is not a guideline -->
+								<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
+								<textarea class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
+=======
 								<!-- <small ng-if="message.title">{{message.title}}</small> -->
 								<pre class="messages" ng-if="message.title === 'Starting task'">
 									<h3>#{{message.body}}</h3>
@@ -298,6 +317,7 @@
 								<textarea class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
 
 								<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}</small>
+>>>>>>> 298-run-test-modal
 							</div>
 		
 							<div class="clear"></div>

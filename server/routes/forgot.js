@@ -1,7 +1,7 @@
 // forgot.js
 'use strict';
 
-module.exports = function(app, passport, debug) {
+module.exports = function(app, passport) {
 
 // Module dependencies ==========================
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
@@ -74,7 +74,7 @@ module.exports = function(app, passport, debug) {
             } 
         ], function(err, results) {
             if (err){ return next(err); }
-            console.log('waterfall results email forgot js', results);
+            // console.log('waterfall results email forgot js', results);
             res.send(results);
         });
     });

@@ -1,7 +1,7 @@
 // task.js
 'use strict';
 
-module.exports = function(app, passport, debug) {
+module.exports = function(app, passport) {
 
 // Module dependencies ==========================
     var async    = require('async');
@@ -66,10 +66,10 @@ module.exports = function(app, passport, debug) {
     })
     .put(function(req,res){
     // update a single task
-        console.log('update task', req.body);
+        // console.log('update task', req.body);
         fn.objectUpdate([req.body], function(err, update){
             if(err){console.log(err);}
-            console.log(update);
+            // console.log(update);
             res.json(update);
         });
     })

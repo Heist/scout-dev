@@ -63,7 +63,10 @@
 
         $scope.testname = data.navlist.test;
 
-        $scope.activate(data.navlist.list[0], 0);
+        var test_obj_arr = _.pluck(data.navlist.list, 'doctype');
+        var idx = _.indexOf(test_obj_arr, 'test');
+        
+        $scope.activate(data.navlist.list[idx], 0);
 
     // NAVIGATION =============================================
 

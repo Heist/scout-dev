@@ -41,7 +41,7 @@ module.exports = function(test, next){
     ], 
     function(err, results){
         if(err){ console.log(err); }
-        console.log(results, test);
+        // console.log(results, test);
 
         next(null, test);
     });  

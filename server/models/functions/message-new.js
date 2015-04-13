@@ -12,7 +12,6 @@ module.exports = function(request, user){
     var models = Bluebird.promisifyAll(require('../../models'));
 
 // CREATE A NEW MESSAGE ===================================
-    
     var t = fn.tagPuller(request.body);
     var tags = t.tags || null;
 
@@ -23,6 +22,9 @@ module.exports = function(request, user){
             'body'  : t.msg,
             'created_by_user' : user
         };
+
+    // THIS IS RETURNING ALL TAGS FROM THE TEST WHEN A NEW MESSAGE IS CREATED
+    // TODO: SHOULD RETURN ONLY THE TAGS RELEVANT TO THAT MESSAGE ?
 
     return new models.Message(msg).saveAsync().get(0)
         .then(function(note){
@@ -35,22 +37,13 @@ module.exports = function(request, user){
                     })
             ]).then(function(arr){
                 // create the dual-pointer on the message for tag population
-                console.log('check the array', arr.length);
+                // console.log('check the array', arr.length);
                 return Bluebird.map(arr[2], function(tag){
                     return models.Message.findOneAndUpdate({'_id': note._id }, {$push : {'_tags': tag } }, function(err, obj){});
                 })
             }).then(function(arr){
                 // return the populated message so you can insert it into the timeline
-                console.log('arr checked');
-                return Bluebird.all([ 
-                    models.Message.findById(note._id).populate('_subject _tags').exec(function(err, next){}),
-                    models.Tag.find({'_test' : msg._test}).exec(function(err, next){})
-                    ])
-            }).then(function(arr){
-                console.log(arr);
-                    var sendThis;
-                    sendThis = {msg: arr[0], tags: arr[1]};
-                    return sendThis;
+                return models.Message.findById(note._id).populate('_subject _tags').exec(function(err, next){});
             });
         }).catch(function(err){
             if(err.errors){

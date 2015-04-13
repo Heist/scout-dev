@@ -24,7 +24,7 @@ module.exports = function(message, next){
                 });
             }
             
-            var reply = { msg :  msg_clean, tags: tags_raw }
+            var reply = { msg :  msg_clean, tags: tags_raw}
 
             return reply;
         }

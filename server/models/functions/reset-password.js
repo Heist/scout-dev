@@ -59,7 +59,7 @@ module.exports = function(token, pass, app, next){
         }
     ], function(err, results) {
         if(err){console.log(err);}
-        console.log(results);
+        // console.log(results);
         next(null, results);
     });
 

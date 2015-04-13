@@ -33,7 +33,7 @@ module.exports = function(inviteId, inviter, next){
                 if (err) {
                     return console.log(err);
                 }else{
-                    console.log('Message sent: ' + result.response);
+                    // console.log('Message sent: ' + result.response);
                     next(invite);
                 }
             });

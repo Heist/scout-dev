@@ -1,6 +1,6 @@
 // account_export.js
 'use strict';
-module.exports = function(app, debug){
+module.exports = function(app){
 
     //Module dependencies
     var mongoose = require('mongoose');  // SOMETIMES WE NEED OBJECTIDS
@@ -13,7 +13,7 @@ module.exports = function(app, debug){
 
     app.route('/api/export/account/:_account')
         .get(function(req,res){
-            console.log('account get user', req.user);
+            // console.log('account get user', req.user);
             // get all users who have the same account number as this user
             // get all tests with that account number
             // populate that test with tasks and messages

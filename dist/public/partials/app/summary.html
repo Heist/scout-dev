@@ -153,9 +153,11 @@
 					<button class="button small" ng-click="postMessage(newnote, user[0]._subject)">Add Note</button>
 				</div>
 
-				<!-- message -->
+				<!-- message ng-show="showObjectMessages(message, selected)"
+				ng-show="selected._messages.indexOf(message._id) !== -1"
+				 -->
 				<div ng-repeat="message in user" class="message" 
-				ng-show="showObjectMessages(message, selected)"
+				ng-show="selected._messages.indexOf(message._id) !== -1"
 				ng-class="{selected: commentMessage._id === message._id}">
 				<div ng-click="deleteMessage(message)" class="delete-message">&times;</div>
 									
@@ -166,7 +168,7 @@
 			
 					<div class="message-body" ng-click="editMessage(message, $index)">
 						<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-						<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
+						<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
 						<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 					</div>
 					

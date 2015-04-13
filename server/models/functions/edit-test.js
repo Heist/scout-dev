@@ -12,7 +12,7 @@ module.exports = function(test, next){
 // EDIT A TEST ============================================ 
 
     var tasks = [];
-    console.log('edit this', test);
+    // console.log('edit this', test);
     
     async.waterfall([
         function(callback){

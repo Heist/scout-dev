@@ -6,7 +6,7 @@
 // Messages as related to their subjects into a JSON file.
 
 
-module.exports = function(account, callback, debug){ 
+module.exports = function(account, callback){ 
     //Module dependencies
     var mongoose = require('mongoose');  // SOMETIMES WE NEED OBJECTIDS
     var _ = require('lodash');
@@ -37,7 +37,7 @@ module.exports = function(account, callback, debug){
                         .select('name platform desc updated created created_by_user')
                         .exec(function(err, data){
                             if(err){console.log(err);}
-                            console.log(data.length);
+                            // console.log(data.length);
                             callback(null,data);
                         });
                 },

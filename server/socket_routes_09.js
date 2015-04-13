@@ -1,7 +1,7 @@
 // socket_routes_1.js
 'use strict';
 
-module.exports = function(io, app, passport, debug) {
+module.exports = function(app, passport, io) {
     // MODULES ============================================
     var cookie = require('cookie'),
         cookieParser = require('cookie-parser'),
@@ -35,7 +35,7 @@ module.exports = function(io, app, passport, debug) {
     function onAuthorizeSuccess(data, accept){
         // Passport has heard of them ===========
         
-        console.log('authwin socket connection info', data.query.test);
+        // console.log('authwin socket connection info', data.query.test);
 
         user = data.user;
         name = data.user.name;
@@ -52,8 +52,8 @@ module.exports = function(io, app, passport, debug) {
 
         if(error){ console.log(error);}
         
-        console.log('failed connection to socket.io:', message);
-        console.log('authfail socket connection info', data.query.test, default_room);
+        // console.log('failed connection to socket.io:', message);
+        // console.log('authfail socket connection info', data.query.test, default_room);
         name = userNames.getGuestName();
         default_room = data.query.test;
 
@@ -78,8 +78,8 @@ module.exports = function(io, app, passport, debug) {
 
 // FIRE IT UP =======================================================
     io.sockets.on('connection', function (socket) {
-        console.log('hello user', user._account);
-        console.log('someone connected from somewhere');
+        // console.log('hello user', user._account);
+        // console.log('someone connected from somewhere');
         
         var k = '';
 
@@ -95,7 +95,7 @@ module.exports = function(io, app, passport, debug) {
 
         // subscription is used in the iOS app
         socket.on('subscribe', function(data) { 
-            console.log('subscription arrived', data);
+            // console.log('subscription arrived', data);
 
             var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
             console.log('joining room hash', hash);
@@ -106,7 +106,7 @@ module.exports = function(io, app, passport, debug) {
 
         // channel or join_room are used by the web app
         socket.on('channel', function(data) { 
-            console.log('joining channel', data.room, data.test, data);
+            // console.log('joining channel', data.room, data.test, data);
 
             var promise = Test.findOne({'_id': data.test})
                               .select("name link")

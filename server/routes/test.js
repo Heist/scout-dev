@@ -1,7 +1,7 @@
 // test.js
 'use strict';
 
-module.exports = function(app, passport, debug) {
+module.exports = function(app, passport) {
 
 // Module dependencies ==========================
     var async = require('async');
@@ -24,7 +24,7 @@ module.exports = function(app, passport, debug) {
         });
     })
     .post(function(req,res){
-        console.log('touched New Test', req.user);
+        // console.log('touched New Test', req.user);
     // add a new test
         fn.testNew(req, function(err, test){
             if(err){console.log(err);}
@@ -35,7 +35,7 @@ module.exports = function(app, passport, debug) {
     app.route('/api/dev_tests/')
     .post(function(req, res){
     // This builds a mock for testing reports
-    console.log('add dev tests', req.body);
+    // console.log('add dev tests', req.body);
         fn.devTests(req.user._account, req.user).then(function(test){
             res.json(test);
         });
