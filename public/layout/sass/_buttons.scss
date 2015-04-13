@@ -3,15 +3,34 @@
 .button {
 	@include button-colour($fg-green, $white);
 	cursor: pointer;
-	font-size: $type-size-base*0.935;
-	padding: 16px 30px;
+	font-size: $type-size-base*0.933;
+	border: 2px solid $fg-green;
+	padding: 11px 32.5px;
+	
+	&:hover {
+		background: $fg-green-dark;
+		border: 2px solid $fg-green-dark;
+	}
+	
+	&:focus {
+	    border: 2px solid $fg-green-light;
+	}
 
-	&.med {
-		font-size: $type-size-base*0.835;
-		padding: 11px 20px;
-		// &:focus {
-		//     border: 1px solid red;
-		// }
+	&.outline {
+		@include button-colour($white, $fg-green);
+		border: 1px solid $fg-green-light;
+
+		&:hover {
+			background: $light-green-bg;
+		}
+
+		&:focus {
+			box-shadow:  0 0 6px $fg-green-light;
+		}
+	}
+	
+	&.full {
+		width: 100%;
 	}
 
 	&.small {

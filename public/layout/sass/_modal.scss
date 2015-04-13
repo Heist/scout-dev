@@ -29,6 +29,8 @@
             background: none;
             color: $fg-grey;
             padding: 10px 160px 0 0;
+            border: 0;
+
             &:hover {
                 text-decoration: underline;
                 color: $link-hover;
