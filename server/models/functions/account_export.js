@@ -6,7 +6,7 @@
 // Messages as related to their subjects into a JSON file.
 
 
-module.exports = function(account, callback, debug){ 
+module.exports = function(account, callback){ 
     //Module dependencies
     var mongoose = require('mongoose');  // SOMETIMES WE NEED OBJECTIDS
     var _ = require('lodash');

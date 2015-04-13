@@ -1,7 +1,7 @@
 // routes.js
 'use strict';
 
-module.exports = function(app, passport, debug) {
+module.exports = function(app, passport) {
 // CONFIGURATION =====================================================
 
 // Module dependencies
@@ -293,7 +293,7 @@ module.exports = function(app, passport, debug) {
 
 
 // ACCOUNT ROUTES =========================================
-    require('./routes/account')(app, debug);
+    require('./routes/account')(app);
 
 // ONBOARDING ROUTES ======================================
     require('./routes/user')(app, passport);
@@ -301,27 +301,27 @@ module.exports = function(app, passport, debug) {
 // OBJECT ROUTES ==========================================
 
 // Test Routes
-    require('./routes/test')(app, debug);
+    require('./routes/test')(app);
 
 // Task Routes 
-    require('./routes/task')(app, debug);
+    require('./routes/task')(app);
 
 // Task Routes 
-    require('./routes/message')(app, debug);
+    require('./routes/message')(app);
 
 // Tag Routes
-    require('./routes/tag')(app, debug);
+    require('./routes/tag')(app);
 
 // Subject Routes
-    require('./routes/subject')(app, debug);
+    require('./routes/subject')(app);
 
 
 // LIVE ROUTES ============================================
 
 // Run A Test
-    require('./routes/run')(app, debug);
+    require('./routes/run')(app);
 
 // Do A Summary
-    require('./routes/summary')(app, debug);
+    require('./routes/summary')(app);
 
 };

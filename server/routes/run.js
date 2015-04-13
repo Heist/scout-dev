@@ -2,7 +2,7 @@
 (function(){
 'use strict';
 
-module.exports = function(app, passport, io, debug) {
+module.exports = function(app, passport, io) {
 
 // Module dependencies ====================================
     var async = require('async');

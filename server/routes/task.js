@@ -1,7 +1,7 @@
 // task.js
 'use strict';
 
-module.exports = function(app, passport, debug) {
+module.exports = function(app, passport) {
 
 // Module dependencies ==========================
     var async    = require('async');

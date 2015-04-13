@@ -2,7 +2,7 @@
 (function() {
     'use strict';
 
-    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize', 'youtube-embed', 'field_guide_controls','field_guide_filters']);
+    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ngSanitize', 'youtube-embed', 'field_guide_controls','field_guide_filters', 'siyfion.sfTypeahead']);
 
     // FRONT-END ROUTE CONFIGURATION ==============================================
     field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
