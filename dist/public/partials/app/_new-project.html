@@ -1,7 +1,7 @@
 <!-- Create New Project modal -->
 <div class="module one-third">&nbsp;</div>
 			
-<div id="view-editing" ng-controller="newTest" ng-model="test">
+<div id="view-new-project" ng-controller="newTest" ng-model="test">
 	<div class="module two-fifths modal-interior">
 		
 		<div class="modal-interior-title">
@@ -41,7 +41,7 @@
 			</form>
 			<div class="cta">
 				<a href="#" class="secondary button cancel med" ng-click="$parent.newTest()" tabindex="1">Cancel</a>
-				<button class="button med" ng-click="addTest(test)" tabindex="0">Create project</button>
+				<button class="button med" ng-click="editTest(test)" tabindex="0">Create project</button>
 			</div>
 		</ul>
 	</div>
