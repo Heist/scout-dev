@@ -135,16 +135,12 @@
 
 .message {
 	padding: $pad/1.5 0 $pad/1.5 35px;
-	border-left: 4px solid $white;
-	border-right: 4px solid $white;
 	position: relative;
 	@include animated;
 			
 	&:hover, &.selected {
 		color: $fg-slate;
-		background: #f3f7e7;
-		border-left: 4px solid $fg-green;
-		border-right: 4px solid $fg-green;
+		background: $fg-bg;
 		@include animated;
 					
 		.message-details .message-edit {

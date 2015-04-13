@@ -1291,9 +1291,7 @@ hr {
       margin: 0; }
     #timeline ul .message-no-highlite {
       padding: 8px 30px 8px 30px;
-      line-height: 19.2px;
-      border-left: 4px solid #fff;
-      border-right: 4px solid #fff; }
+      line-height: 19.2px; }
       #timeline ul .message-no-highlite pre, #timeline ul .message-no-highlite small {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
@@ -1307,8 +1305,6 @@ hr {
     #timeline ul .message {
       padding: 8px 30px 8px 30px;
       line-height: 19.2px;
-      border-left: 4px solid #fff;
-      border-right: 4px solid #fff;
       position: relative;
       -webkit-transition-duration: 0.2s;
       -webkit-transition-timing: ease-out;
@@ -1322,9 +1318,7 @@ hr {
       transition-timing: ease-out; }
       #timeline ul .message:hover, #timeline ul .message.selected {
         color: #42474c;
-        background: #f3f7e7;
-        border-left: 4px solid #85ac0f;
-        border-right: 4px solid #85ac0f;
+        background: #f6f6f6;
         -webkit-transition-duration: 0.2s;
         -webkit-transition-timing: ease-out;
         -o-transition-duration: 0.2s;
@@ -2727,8 +2721,6 @@ hr {
 /* individual messages */
 .message {
   padding: 13.33333px 0 13.33333px 35px;
-  border-left: 4px solid #fff;
-  border-right: 4px solid #fff;
   position: relative;
   -webkit-transition-duration: 0.2s;
   -webkit-transition-timing: ease-out;
@@ -2742,9 +2734,7 @@ hr {
   transition-timing: ease-out; }
   .message:hover, .message.selected {
     color: #42474c;
-    background: #f3f7e7;
-    border-left: 4px solid #85ac0f;
-    border-right: 4px solid #85ac0f;
+    background: #f6f6f6;
     -webkit-transition-duration: 0.2s;
     -webkit-transition-timing: ease-out;
     -o-transition-duration: 0.2s;

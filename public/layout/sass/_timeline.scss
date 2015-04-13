@@ -21,8 +21,6 @@
 		.message-no-highlite {
 			padding: $pad/2.5 $pad*1.5 $pad/2.5 $pad*1.5;
 			line-height: $type-line-base*0.8;
-			border-left: 4px solid $white;
-			border-right: 4px solid $white;
 
 			pre, small {
 				@include type-light;
@@ -38,16 +36,12 @@
 		.message {
 			padding: $pad/2.5 $pad*1.5 $pad/2.5 $pad*1.5;
 			line-height: $type-line-base*0.8;
-			border-left: 4px solid $white;
-			border-right: 4px solid $white;
 			position: relative;
 			@include animated;
 					
 			&:hover, &.selected {
 				color: $fg-slate;
-				background: $fg-green-highlight;;
-				border-left: 4px solid $fg-green;
-				border-right: 4px solid $fg-green;
+				background: $fg-bg;
 				@include animated;
 			}
 			
