@@ -27,7 +27,7 @@
         };
 
         $scope.addTest = function(test){
-        	console.log(test);
+        	console.log('new test', test);
 
             if($scope.test.name){
                 mixpanel.track('Test name changed', { 'user': $rootScope.user });
@@ -38,6 +38,7 @@
                 .success(function(data){
                     $scope.$parent.tests.push(data);
                     $scope.$parent.newTest();
+                    $location.path('/edit/test/'+data._id);
                 });
         }
 
