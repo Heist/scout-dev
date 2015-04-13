@@ -33,11 +33,15 @@
                 mixpanel.track('Test name changed', { 'user': $rootScope.user });
             }
 
+            //TODO: remove console logs
             $http
                 .post('/api/test/', test)
                 .success(function(data){
+                    console.log(data);
                     $scope.$parent.tests.push(data);
-                    $scope.$parent.newTest();
+                    $scope.$parent.newTestModalToggle();
+                    $location.path('/edit/test/'+ data._id);
+                    console.log(data._id);
                 });
         }
 

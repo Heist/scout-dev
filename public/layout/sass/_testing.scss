@@ -139,6 +139,65 @@
         // }
    
     }
+
+    #cta {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: $pad / 4;
+        height: 65px;
+        background: $white;
+        z-index: 9999;
+        border-bottom: 1px solid $line;
+
+        #button-endtest {
+            position: absolute;
+            right: 15px;
+            top: $pad * 1.5;
+            z-index: 999999;
+
+                    .checkmark {
+                        background: url("../assets/checkmark.svg") no-repeat;
+                        width: 15px;
+                        height: 15px;
+                        margin: 7px auto;
+                    }
+        }
+        #button-canceltest {
+            position: absolute;
+            right: 15px;
+            top: $pad * 4;
+            z-index: 999999;
+            .expand-button {
+                .expand-button-body {
+                    color: $white;
+                    background: $fg-grey-light;
+                }
+            }
+        }
+        #button-newtask {
+            position: absolute;
+            right: 75.5%;
+            bottom: $pad / 2;
+            z-index: 999999;
+            margin: 0;
+            padding: $pad / 2;
+            background: transparentize($background, 0.2);
+            @include radius(50px);
+            .expand-button {
+                .expand-button-body {
+                    color: $white;
+                    background: $fg-blue;
+                }
+                .expand-button-helper {
+                    background: $background;
+                    color: $fg-slate;
+                }
+            }
+        }
+    }
+
     #testing-client {
         width: 45%;
         height: 100%;
@@ -146,57 +205,6 @@
         padding: 0;
         margin: 0;
         overflow-y: auto;
-    }
-    /* buttons what do stuff */
-    #button-endtest {
-        position: absolute;
-        right: 15px;
-        top: $pad * 1.5;
-        z-index: 999999;
-        .expand-button {
-            .expand-button-body {
-                color: $white;
-                background: $fg-black;
-                .checkmark {
-                    background: url("../assets/checkmark.svg") no-repeat;
-                    width: 15px;
-                    height: 15px;
-                    margin: 7px auto;
-                }
-            }
-        }
-    }
-    #button-canceltest {
-        position: absolute;
-        right: 15px;
-        top: $pad * 4;
-        z-index: 999999;
-        .expand-button {
-            .expand-button-body {
-                color: $white;
-                background: $fg-grey-light;
-            }
-        }
-    }
-    #button-newtask {
-        position: absolute;
-        right: 75.5%;
-        bottom: $pad / 2;
-        z-index: 999999;
-        margin: 0;
-        padding: $pad / 2;
-        background: transparentize($background, 0.2);
-        @include radius(50px);
-        .expand-button {
-            .expand-button-body {
-                color: $white;
-                background: $fg-blue;
-            }
-            .expand-button-helper {
-                background: $background;
-                color: $fg-slate;
-            }
-        }
     }
 }
 
