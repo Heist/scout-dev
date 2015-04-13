@@ -3,17 +3,17 @@
 .button {
 	@include button-colour($fg-green, $white);
 	cursor: pointer;
-	font-size: $type-size-base*0.933;
-	border: 2px solid $fg-green;
+	font-size: 14px;
 	padding: 11px 32.5px;
+	float: left;
+	margin: 0;
 	
 	&:hover {
 		background: $fg-green-dark;
-		border: 2px solid $fg-green-dark;
 	}
 	
 	&:focus {
-	    border: 2px solid $fg-green-light;
+	    box-shadow:  0 0 6px $fg-green;
 	}
 
 	&.outline {
@@ -29,13 +29,17 @@
 		}
 	}
 	
+	&.space {
+		margin: 0 0 0 3px;
+	}
+	
 	&.full {
 		width: 100%;
 	}
 
 	&.small {
 		font-size: $type-size-base*0.8;
-		padding: 2.5px 10px;
+		padding: 3px 10px;
 	}
 	
 	
@@ -92,6 +96,30 @@
 		@include dropshadow;
 		
 	}
+}
+
+.button-cancel {
+    background: none;
+    color: $fg-grey-light;
+    @include type-light;
+    padding: 8px 30px;
+    border: 0;
+    outline: 0;
+    float: left;
+
+    &:hover {
+        text-decoration: underline;
+        color: $link-hover;
+    }
+}
+
+.button-dry-run {
+    @extend .button.cancel;
+    padding: 10px 10px 0 0;
+    &:hover {
+        text-decoration: underline;
+        color: $link-hover;
+    }
 }
 
 .button-inactive {

@@ -1,18 +1,20 @@
 /* new project */
 
 #view-new-project {
+
     ul {
         clear: both;
     }
 
-    .cta {
-        float: right;
-
-        .button.cancel {
-        padding: 10px;
-        }
+    .x {
+        position: absolute;
+        top: -25px;
+        right: -28px;
+        text-decoration: none;
+        color: $fg-grey;
+        @include type-extrabold;
     }
-    
+
     textarea.input {
         line-height: $type-size-base*1.25;
         height: 130px;
@@ -20,7 +22,7 @@
     }
 
     .test-type {
-        padding: 5px 5px 10px 5px;
+        padding: 5px 10px 10px 10px;
         text-align: center;
         position: relative;
         cursor: pointer;
@@ -43,21 +45,25 @@
             display: none;
         }
 
-        p {
-            font-size: 12px;
-            line-height: 17px;
-            margin: 0 0 10px 0;
+        h3 {
+            font-size: 17.5px;
+            @include type-light;
+            color: $fg-black;
         }
 
-        a {
+        p {
+            @include type-light;
+            font-size: 12px;
+            line-height: 17px;
+            margin: 0;
+        }
+
+        a.more-info {
             color: $fg-blue;
-            font-size: 11px;
+            font-size: 10px;
             text-decoration: underline;
         }
 
-        h3 {
-            font-size: 17.5px;
-        }
         &.selected {
             @include radius;
             border: 1px solid $fg-green-light;
@@ -159,7 +165,7 @@
         }
 
         .box {
-            padding: 15px;
+            padding: 12px;
             margin: 0;
             @include light-grey-border;
             border-top: 0;
@@ -173,7 +179,7 @@
             margin: 0 0 10px 0;
         }
         .tag-pool {
-            width: 490px;
+            width: 100%;
             height: 30px;
             background: $light-grey-bg;
             border: 1px solid $fg-grey-light;
