@@ -1,7 +1,7 @@
 // forgot.js
 'use strict';
 
-module.exports = function(app, passport, debug) {
+module.exports = function(app, passport) {
 
 // Module dependencies ==========================
     var mongoose = require('mongoose');  // can't set an ObjectID without this.

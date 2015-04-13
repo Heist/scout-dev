@@ -3,7 +3,7 @@
 
 // ACCOUNT AND Invite ROUTES =========================================
 
-module.exports = function(app, debug){
+module.exports = function(app){
 // Module dependencies ==========================
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');

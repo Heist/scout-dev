@@ -1,7 +1,7 @@
 // socket_routes_1.js
 'use strict';
 
-module.exports = function(io, app, passport, debug) {
+module.exports = function(app, passport, io) {
     // MODULES ============================================
     var cookie = require('cookie'),
         cookieParser = require('cookie-parser'),
