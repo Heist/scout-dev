@@ -18,7 +18,7 @@
 
 	&.outline {
 		@include button-colour($white, $fg-green);
-		border: 1px solid $fg-green-light;
+		border: 1px solid $fg-green;
 
 		&:hover {
 			background: $light-green-bg;
