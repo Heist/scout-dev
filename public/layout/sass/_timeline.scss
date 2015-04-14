@@ -32,6 +32,10 @@
 				text-transform: lowercase;
 				color: $fg-grey-light;
 			}
+
+			p {
+				margin: 0;
+			}
 		}
 
 		.message-highlite {

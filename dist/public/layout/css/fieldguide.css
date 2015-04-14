@@ -1303,6 +1303,8 @@ hr {
         font-weight: 300;
         text-transform: lowercase;
         color: #D8DADB; }
+      #timeline ul .message-no-highlite p {
+        margin: 0; }
     #timeline ul .message-highlite {
       padding: 8px 30px 8px 35px;
       line-height: 19.2px;
