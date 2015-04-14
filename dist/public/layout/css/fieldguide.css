@@ -1309,6 +1309,7 @@ hr {
       padding: 8px 30px 8px 35px;
       line-height: 19.2px;
       position: relative;
+      transition: none;
       -webkit-transition-duration: 0.2s;
       -webkit-transition-timing: ease-out;
       -o-transition-duration: 0.2s;
