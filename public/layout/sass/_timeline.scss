@@ -24,23 +24,27 @@
 
 			pre, small {
 				@include type-light;
-				height: 20px;
+				height: 45px;
 			}
 
 			h3 {
 				@include type-light;
 				text-transform: lowercase;
+				color: $fg-grey-light;
 			}
 		}
+
+		.message-highlite {
+			padding: $pad/2.5 $pad*1.5 $pad/2.5 35px;
+			line-height: $type-line-base*0.8;
+			position: relative;
+			@include animated;
+				&:hover, &.selected {
+					@include animated;
+					background: $fg-bg url("../assets/edit-bg.svg") 12px no-repeat;
+			}
+		}	
 		
-		.edit {
-		    display: none;
-
-		    .edit:hover {
-		    	display: block;
-		    }
-		}
-
 		.message {
 			padding: $pad/2.5 $pad*1.5 $pad/2.5 35px;
 			line-height: $type-line-base*0.8;
@@ -48,9 +52,7 @@
 			@include animated;
 					
 			&:hover, &.selected {
-				color: $fg-slate;
-				@include animated;
-				background: $fg-bg url("../assets/edit-bg.svg") 12px no-repeat;
+
 			}
 			
 			.message-body textarea {

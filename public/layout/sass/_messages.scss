@@ -139,9 +139,6 @@
 	@include animated;
 			
 	&:hover, &.selected {
-		color: $fg-slate;
-		background: $fg-bg;
-		@include animated;
 					
 		.message-details .message-edit {
 			display: block;
@@ -283,6 +280,7 @@
 			@include type-light;
 			font-size: 20px;
 			text-transform: lowercase;
+			color: $fg-grey-light;
 		}
 
 		p {
@@ -293,11 +291,11 @@
 		pre.messages {
 			font-size: 12px;
 			@include type-light;
-			color: $fg-grey;
+			color: $fg-grey-dark;
 			margin: 0;
 
 			&:hover {
-				color: $fg-slate;
+				color: $fg-black;
 			}
 		}
 		
