@@ -105,6 +105,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
         query: 'query',
         position: 'position'
       });
+
       //custom item template
       if (angular.isDefined(attrs.typeaheadTemplateUrl)) {
         popUpEl.attr('template-url', attrs.typeaheadTemplateUrl);
@@ -131,7 +132,6 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
       });
 
       var getMatchesAsync = function(inputValue) {
-
         var locals = {$viewValue: inputValue};
         isLoadingSetter(originalScope, true);
         $q.when(parserResult.source(originalScope, locals)).then(function(matches) {
@@ -178,7 +178,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
       resetMatches();
 
-      //we need to propagate user's query so we can higlight matches
+      //we need to propagate user's query so we can highlight matches
       scope.query = undefined;
 
       //Declare the timeout promise var outside the function scope so that stacked calls can be cancelled later 
@@ -199,6 +199,12 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
       //plug into $parsers pipeline to open a typeahead on view changes initiated from DOM
       //$parsers kick-in on all the changes coming from the view as well as manually triggered by $setViewValue
       modelCtrl.$parsers.unshift(function (inputValue) {
+        // FINDME Maybe in here?
+        console.log('input value for finding matches', inputValue);
+        var hashCatch = new RegExp(/\S*#\S+/gi);        
+        var tester = inputValue.match(hashCatch);
+        
+        console.log('this tester tests', tester);
 
         hasFocus = true;
 
@@ -277,16 +283,11 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
       //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
       element.bind('keydown', function (evt) {
-        console.log(evt);
         //typeahead is open and an "interesting" key was pressed
-        // if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
-        //   return;
-        // }
-
-        // Match a hashtag and open the popup if a hashtag is present
-        // if (evt.which === 35 || HOT_KEYS.indexOf(evt.which) === -1) {
-        //   return;
-        // }
+        if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
+          console.log('these states match the typing', scope.matches); 
+          return;
+        }
 
         // if there's nothing selected (i.e. focusFirst) and enter is hit, don't do anything
         if (scope.activeIdx == -1 && (evt.which === 13 || evt.which === 9)) {
@@ -365,13 +366,9 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
         scope.templateUrl = attrs.templateUrl;
 
         scope.isOpen = function () {
+          // FIND ME
           // this will automatically open the popup if the length is greater than zero
-          // return scope.matches.length > 0;
-
-          // var hashCatch = new RegExp(/\S*#\S+/gi);
-          // // in here, match if there is a hashtag but not a space after the hashtag
-          // console.log(scope.match(hashCatch) );
-          // // return scope.matches.
+          return scope.matches.length > 0;
         };
 
         scope.isActive = function (matchIdx) {
@@ -580,6 +577,7 @@ angular.module('ui.bootstrap.bindHtml', [])
       });
     };
   });
+
 angular.module("template/typeahead/typeahead-match.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/typeahead/typeahead-match.html",
     "<a tabindex=\"-1\" bind-html-unsafe=\"match.label | typeaheadHighlight:query\"></a>");
