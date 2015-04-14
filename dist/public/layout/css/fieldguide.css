@@ -2862,6 +2862,8 @@ hr {
       font-weight: 300;
       color: #949799;
       margin: 0; }
+      .message .message-body pre.messages:hover {
+        color: #42474c; }
     .message .message-body small {
       display: block;
       margin: 0;

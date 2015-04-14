@@ -295,6 +295,10 @@
 			@include type-light;
 			color: $fg-grey;
 			margin: 0;
+
+			&:hover {
+				color: $fg-slate;
+			}
 		}
 		
 		
