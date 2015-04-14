@@ -204,10 +204,10 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
         var hashCatch = new RegExp(/\S*#\S+/gi);        
         var tester = inputValue.match(hashCatch);
         
-        if(tester.length > 0){
-          var idx = tester.length -1;
-                console.log('this tester tests', tester[idx]);
-              }
+        if(tester && tester.length > 0){
+              var idx = tester.length -1;
+              console.log('this tester tests', tester[idx]);
+        }
 
         hasFocus = true;
         // if we have a match on a hashtag
