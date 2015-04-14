@@ -10,9 +10,9 @@
 		width: 100%;
 
 		.participant-avatar {
-			width: 50px;
-			height: 50px;
-			@include radius(25px);
+			width: 40px;
+			height: 40px;
+			@include radius(20px);
 			background: $fg-header-red;
 			float: left;
 			margin: 0 14px 0 0;
@@ -22,9 +22,9 @@
 				text-transform: uppercase;
 				text-align: center;
 				display: block;
-				margin: 13px auto;
-				font-size: 23px;
-				font-weight: 600;
+				margin: 8px auto;
+				font-size: 14px;
+				@include type-extrabold;
 			}
 		}
 		
@@ -34,32 +34,58 @@
 			width: 100%;
 			
 			&.title {
-				margin: 10px 0 20px 0;
+				margin: 0 0 20px 0;
 
 				&:hover {
 					background: $background;
 					cursor: default;
 				}
 			}
+
+			&.no-highlite {
+				&:hover {
+					background: none;
+					cursor: default;
+				}
+			}
 				
 			h3 {
-				margin: 0 0 2px 0; 
+				@include type-light;
 				padding: 0;
-				@include type-regular;
+				margin: 0;
+
+				&.participant-name {
+					margin: 13px 0 2px 0; 
+					font-size: 14px;
+				}
+
+				&.tag-name {
+					text-transform: lowercase;
+					font-size: 16px;
+					margin: 10px 0 20px 0;
+				}
 			}
 			
+			h5 {
+			    margin: 0;
+			    text-transform: uppercase;
+			    @include type-regular;
+			    font-size: 10px;
+			}
+
 			p {
 				margin: 0; 
 				padding: 0;
 				font-size: $type-size-base*0.8;
 				line-height: $type-line-base*0.8;
+				@include type-light;
 			}
 
 			pre.objectives {
 				font-size: 12px;
-				@include type-regular;
 				line-height: 19.2px;
 				margin: 20px 0 0 0;
+				@include type-light;
 			}
 			
 			small {
@@ -78,12 +104,7 @@
 									
 			&.active {
 				position: relative;
-				color: $white;
-				background: $fg-green-light;
-				
-				h3 {
-					@include type-bold;
-				}
+				background: $background-overlay;
 				
 				&:hover {
 					cursor: auto;

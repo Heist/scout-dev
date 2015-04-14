@@ -1,284 +1,280 @@
-
-
 /* SESSION IN PROGRESS */
 
 #view-testing {
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	width: 100%;
-	position: relative;
-	overflow: hidden;
-	
-	/* are we onboard? */
-	
-	&.is-onboard {
-		height: 85% !important;
-	}
-	
-	&.has-input-outline {
-		#session-input {
-			outline: 2px solid $fg-blue !important;	
-		}
-	}
-	
-	#testing-guide {
-		width: 25%;
-		height: 100%;
-		position: absolute;
-		padding: $pad 0 0 0;
-		left: 0;
-		top: 0;
-		overflow: auto;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    /* are we onboard? */
+    &.is-onboard {
+        height: 85% !important;
+    }
+    &.has-input-outline {
+        #session-input {
+            outline: 2px solid $fg-blue !important;
+        }
+    }
+    #testing-guide {
+        width: 25%;
+        height: 100%;
+        position: absolute;
+        padding: $pad 0 0 0;
+        left: 0;
+        top: 0;
+        overflow: auto;
+    }
+    // modal form
+    span.info {
+        width: 15px;
+        height: 15px;
+        background: #949799;
+        border-radius: 50%;
+        display: inline-block;
+	    text-align: center;
+	    float: right;
+	    margin: 3px 0;
+	    position: relative;
 
-		h5 {
-			margin: 0;
-			text-transform: uppercase;
-		}
+        span {
+	        font-size: 12px;
+	        color: $white;
+	        position: absolute;
+	        top: -4px;
+	        right: 4px;
+        }
 
-		p {
-			padding: 20px 0 0 0;
-		}
-	}
-	
-	
-	.sheet-holder {
-		width: 75%;
-		height: 100%;
-		padding: $pad 70px $pad 0;
-		margin: 0;
-		position: absolute;
-		top: 0;
-		right: 0;
-		// overflow: hidden;
-		
-		.sheet {
-			width: 100%;
-			height: 100%;
-			padding: 0;
-			margin: 0;
-		}
-	}
-	
+        &:hover {
 
-	/* the chat */
-	
-	#testing-input {
-		float: left;
-		width: 55%;
-		height: 100%;
-		padding: 0;
-		margin: 0;
-		position: relative;
-		border-right: 1px solid $line;
-		
-		#session-input {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			width: 100%;
-			padding: $pad/4;
-			height: 150px;
-			background: $white;
-			z-index: 9999;
-			border-top: 1px solid $line;
-			
-			textarea {
-				width: 100%;
-				height: 67%;
-				margin: 0;
-				border: none;
+        }
+    }
+    li.half {
+        float: left;
+        width: 49%;
+        &:first-child {
+            margin-right: 2%;
+        }
+    }
+    li.full {
+        float: left;
+        width: 100%;
+        &:first-child {
+            margin-right: 0;
+        }
+    }
+    .sheet-holder {
+        width: 75%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
 
-				&:focus{
+        .sheet {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    }
+    /* the chat */
+    #testing-input {
+        float: left;
+        width: 55%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        position: relative;
+        border-right: 1px solid $line;
+        #session-input {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: $pad / 4;
+            height: 150px;
+            background: $white;
+            z-index: 9999;
+            border-top: 1px solid $line;
+            @include input-placeholders;
+            textarea {
+                width: 100%;
+                height: 70%;
+                margin: 0;
+                border: none;
 
-				}
-			}
-		}
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+        }
+        #hash-tag-pool {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: $pad / 4;
+            height: 43px;
+            z-index: 9999;
+            border-top: 1px solid $line;
+            line-height: 17px;
+            color: $fg-blue;
+            @include type-light;
+            font-size: 10px;
+            text-align: right;
+            overflow-x: auto;
+            overflow-y: hidden;
+            
+            .hashtag {
+                padding: 0 10px;
+            }
+        }
+        /* suppress message-hover during running tests */
+        // .message:hover {
+        // 	background: $white !important;
+        // 	border-left: 4px solid $white !important;
+        // 	border-right: 4px solid $white !important;
+        // }
+   
+    }
 
-		#recent-hash-tags {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			width: 100%;
-			padding: $pad/4;
-			height: 45px;
-			z-index: 9999;
-			border-top: 1px solid $line;
-			line-height: 17px;
-			overflow: auto;
+    #cta {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: $pad / 4;
+        height: 65px;
+        background: $white;
+        z-index: 9999;
+        border-bottom: 1px solid $line;
 
-			p {
-				margin: 5px 0 0 10px;
-			}
+        .cta {
+            float: right;
+            margin: 7px;
 
-		}
-		
-		/* suppress message-hover during running tests */		
-		// .message:hover {
-		// 	background: $white !important;
-		// 	border-left: 4px solid $white !important;
-		// 	border-right: 4px solid $white !important;
-		// }
-		
-	}
-	
-	
-	#testing-client {
-		width: 45%;
-		height: 100%;
-		float: right;
-		padding: 0;
-		margin: 0;
-		overflow-y: auto;
-	}
+            button#endtest {
+                width: 110px;
+                height: 40px;
+                text-align: center;
+                float: left;
+                padding: 0;
 
+                .checkmark {
+                    background: url("../assets/checkmark.svg") no-repeat;
+                    width: 15px;
+                    height: 15px;
+                    margin: 9px 15px;
+                    float: left;
+                }
 
-	/* buttons what do stuff */
-	
-	#button-endtest {
-		position: absolute;
-		right: 15px;
-		top: $pad*1.5;
-		z-index: 999999;
-		
-		.expand-button {
-			.expand-button-body {
-				color: $white;
-				background: $fg-black;
+                span {
+                    color: $fg-green;
+                    @include type-light;
+                    font-size: 14px;
+                    display: block;
+                    margin: 9px 0;
+                    float: left;
+                }
+            }
+        }
+    }
 
-				.checkmark {
-					background: url('../assets/checkmark.svg') no-repeat;
-					width: 15px;
-					height: 15px;
-					margin: 7px auto;
-				}
-			}
-		}
-	}
+    #button-newtask {
+        position: absolute;
+        right: 75.5%;
+        bottom: $pad / 2;
+        z-index: 999999;
+        margin: 0;
+        padding: $pad / 2;
+        background: transparentize($background, 0.2);
+        @include radius(50px);
+        .expand-button {
+            .expand-button-body {
+                color: $white;
+                background: $fg-blue;
+            }
+            .expand-button-helper {
+                background: $background;
+                color: $fg-slate;
+            }
+        }
+    }
 
-	#button-canceltest {
-		position: absolute;
-		right: 15px;
-		top: $pad*4;
-		z-index: 999999;
-		
-		.expand-button {
-			.expand-button-body {
-				color: $white;
-				background: $fg-grey-light;
-			}
-		}
-	}
-	
-	
-	#button-newtask {
-		position: absolute;
-		right: 75.5%;
-		bottom: $pad/2;
-		z-index: 999999;
-		margin: 0;
-		padding: $pad/2;
-		background: transparentize($background, 0.2);
-		@include radius(50px);
-		
-		.expand-button {
-			.expand-button-body {
-				color: $white;
-				background: $fg-blue;
-			}
-			
-			.expand-button-helper {
-				background: $background;
-				color: $fg-slate;	
-			}
-		}
-	}
-	
+    #testing-client {
+        width: 45%;
+        height: 100%;
+        float: right;
+        padding: 0;
+        margin: 0;
+        overflow-y: auto;
+    }
 }
-
-
 
 /* WHO ARE WE TESTING */
 
 #view-testing-userentry {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	background: $modal-bg;
-	z-index: 999999999;
-	color: $white;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	
-	.input, .button {
-		width: 100%;
-	}
-	
-	img {
-		height: 40px;
-		width: auto;
-	}
-	
-	#user-entry {
-		width: 28%;
-		display: block;
-		padding: 15% 0 0 0;
-		margin: 0 auto;
-	}
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: $modal-bg;
+    z-index: 999999999;
+    color: $white;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    .input, .button {
+        width: 100%;
+    }
+    img {
+        height: 40px;
+        width: auto;
+    }
+    #user-entry {
+        width: 28%;
+        display: block;
+        padding: 15% 0 0 0;
+        margin: 0 auto;
+    }
 }
-
-
-
-
 
 /* observer login */
 
-
 #view-observer-login {
-	background: $fg-brown;
-	background-size: cover;
-	color: $white;
-
-	input, button {
-		width: 100%;
-	}
-	
-	#logo {
-		margin: 0 0 $pad 0;
-		img {
-			width: auto;
-			height: 30px;
-		}
-	}
-	
-	form {
-		padding-top: $pad;
-	}
-	
-	#form-observer-login {
-		margin: $pad*2 0 0 0;
-		padding: $pad $pad 0 $pad;
-		background: transparentize($fg-brown, 0.3);
-		@include radius;
-	}
-	
-	p {
-		font-size: $type-size-base*0.8;
-		margin: 0;
-		padding: 0;
-	}
-	
-	h2 {
-		padding: 0;
-		margin: 0;
-	}
+    background: $fg-brown;
+    background-size: cover;
+    color: $white;
+    input, button {
+        width: 100%;
+    }
+    #logo {
+        margin: 0 0 $pad 0;
+        img {
+            width: auto;
+            height: 30px;
+        }
+    }
+    form {
+        padding-top: $pad;
+    }
+    #form-observer-login {
+        margin: ($pad * 2) 0 0 0;
+        padding: $pad $pad 0 $pad;
+        background: transparentize($fg-brown, 0.3);
+        @include radius;
+    }
+    p {
+        font-size: $type-size-base * 0.8;
+        margin: 0;
+        padding: 0;
+    }
+    h2 {
+        padding: 0;
+        margin: 0;
+    }
 }
-
-
-
-
-

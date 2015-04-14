@@ -104,37 +104,37 @@
 
 <div class="modal" ng-model="live" ng-hide="live">
 
-	<div class="module one-third">&nbsp;</div>
+	<div class="module third">&nbsp;</div>
 	
-	<div class="module two-fifths modal-interior">
+	<div class="module third modal-interior">
 		
-		<div class="modal-interior-title">
-			<h2 class="text-center">Run a new test</h2>
+		<div class="modal-interior-title create-new-project">
+			<h2>Run a new test</h2>
 		</div>
 		
 		<ul class="nobullets" ng-model="subject">
-			<li ng-class='{"half": kind === "prototype", "full" : kind !== "prototype"}'>
-				<label>Participant's name</label>
-				<input class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name"/>
+			<li>
+				<input class="input" type="text" name="participantname" value="" placeholder="Participant name" ng-model="subject.name" />
 				<!-- taking out- ui-keypress="{13:'addSubject(subject)'}" - until we can determine how it'll play nice with a two-field form -->
 				</input>
 			</li>
-
-			<li class="half" ng-show="kind === 'prototype'">
+			
+			<li ng-show="kind === 'prototype'">
 				<!-- <label>Room ID from the Field Guide App &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://docs.google.com/forms/d/1MsYcOPq5X1foSuaHfuuhzOmkhijaNFBjB7XJMs3PSA0/viewform" target="_fdbk">Get the iOS Beta App</a></label> -->
-				<label>Room ID</label><span class="info large-tooltip" data-tooltip-large="You’ll find this in the Field Guide iOS app"><span>?</span></span>
-				<input class="input" type="text" name="testroom" value="" placeholder="Field Guide app Room ID" ng-model="subject.testroom">
+				
+				<input class="input" type="text" name="testroom" value="" placeholder="The code on your device, e.g. 71ff3a84" ng-model="subject.testroom">
 				</input>
 			</li>
-				<div class="clear"></div>
-
-				<div class="cta-margin">
-					<a href="#" class="secondary button-cancel" ng-click="changeOnboard(100)" tabindex="1">Cancel</a>
-
-					<!-- <a class="button dry-run med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a> -->
 			
-					<button class="button med float-right" type="submit" ng-click="addSubject(subject); changeOnboard(2)" tabindex="0">Start test</button>
-			</div>
+			<li>
+				<a href="#" class="secondary button cancel med" ng-click="changeOnboard(100)" tabindex="1">Cancel</a>
+
+				<!-- <a class="button dry-run med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a> -->
+			
+				<button class="button med float-right" type="submit" ng-click="addSubject(subject); changeOnboard(2)" tabindex="0">Start</button>
+				
+			</li>
+		
 		</ul>
 		
 	</div>
@@ -177,13 +177,34 @@
     <div class="clear"></div>
 </div>
 <!-- / New task modal -->
+	
+	
+	
+	
+	<div id="button-endtest">
+		<div class="expand-button">
+			<div class="expand-button-body" ng-click="postTest()">
+				<div class="checkmark"></div>
+			</div>
+			<div class="expand-button-helper">Done</div>
+		</div>
+	</div>
 
-<!-- 	<div id="button-newtask">
+	<div id="button-canceltest">
+		<div class="expand-button">
+			<div class="expand-button-body" ng-click="postTest()">&times;</div>
+			<div class="expand-button-helper" ng-click="changeOnboard(100)">Cancel</div>
+		</div>
+	</div>
+	
+	<div id="button-newtask">
 		<div class="expand-button">
 			<div class="expand-button-body" ng-click="adding_task = true">+</div>
 			<div class="expand-button-helper">Add a new task</div>
 		</div>
-	</div> -->
+	</div>
+	
+	
 	
 	<!-- discussion guide -->
 	<div id="testing-guide" ng-model="tests">
@@ -191,21 +212,19 @@
 		<div id="tasklist">
 						
 			<ul>
-				<li class="title"><div class="participant-avatar"><span ng-model="initials">{{subject.initials}}</span></div>
-					<h3 class="participant-name">{{subject.name}}</h3>
+				<li class="title"><div class="participant-avatar"><span ng-model="initials">{{subject.initials}}</span></div><small>Testing with</small>
+					<h3>{{subject.name}}</h3>
 				</li>
 				
-				<li class="no-highlite">
+				<li>
 					<h5>Objectives</h5>
 					<pre class="objectives">{{test.desc}}</pre>
 				</li>
 
-				<li class="no-highlite">
-					<h5>Tasks</h5>
-				</li>
+				<li><h5>Tasks</h5></li>
 				
 				<li ng-repeat="obj in navlist" ng-class="{ 'active': obj._id === selected._id }" ng-click="select($index)">
-					<h3 class="tag-name">#{{obj.name}}</h3>
+					<h3>{{obj.name}}<br /></h3>
 
 					<p ng-bind-html="obj.desc | linebreaker"></p>
 				</li>
@@ -229,7 +248,8 @@
 				<!-- input notes -->
 				<div id="session-input">
 
-				<!-- <script type="text/ng-template" id="customTemplate.html">
+				<div>
+				<script type="text/ng-template" id="customTemplate.html">
 				  <a>
 				      <img ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{match.model.flag}}" width="16">
 				      <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
@@ -238,16 +258,15 @@
 
 				    <h4>Static arrays</h4>
 				    <pre>Model: {{typeinput | json}}</pre>
-					<input type="text" ng-model="typeinput" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
+				    <input type="text" ng-model="typeinput" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
 				</div>
-				</div> -->
-					<textarea class="input" ng-model='message' name="field-input" placeholder="Remember to give your notes #themes" ui-keypress="{13:'postMessage(message)'}" class="form-control"/>
-					</textarea>
-			
-				<div id="hash-tag-pool">
-					<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
+					<!-- textarea class="input" ng-model='message' name="field-input" placeholder="Type notes" ui-keypress="{13:'postMessage(message)'}"  class="form-control"/>
+					</textarea> -->
 				</div>
+				<div id="recent-hash-tags">
+					<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}&nbsp; &nbsp;</small>
 				</div>
+
 				
 				<!-- timeline -->
 				<div id="timeline" scroll-glue="glued">
@@ -267,28 +286,26 @@
 						</li>				
 						<!-- /empty state -->
 						
-						<!-- non-editable guideline messages -->
-						<li class="message-no-highlite">
+						<li class="message">
 							<div class="message-body" ng-click="editMessage(message)">
 								<small>Starting Test</small>
-								<p>{{test.name}}</p>
+								<pre class="messages">{{test.name}}</pre>
 							</div>
 
 							<div class="clear"></div>
 						</li>
-						<li class="message" ng-repeat="message in timeline track by $index" ng-class="{'message-no-highlite' : message.title === 'Starting task', 'message-highlite' : message.title !== 'Starting task'}">
-
+						<li class="message" ng-repeat="message in timeline track by $index" >
 							<div class="message-body" ng-click="editMessage(message)">
+								<small ng-if="message.title">{{message.title}}</small>
 
+								<!-- non-editable guideline messages -->
 								<pre class="messages" ng-if="message.title === 'Starting task'">
-									<h3>#{{message.body}}</h3>
+									{{message.body}}
 								</pre>
 
 								<!-- Editable messages - if a message is not a guideline -->
 								<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
 								<textarea class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
-
-								<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}</small>
 							</div>
 		
 							<div class="clear"></div>
@@ -325,26 +342,6 @@
 						<small>Testing with</small>
 						<h2>{{subject.name}}</h2>
 					</div>
-
-					<div id="cta">
-						<div class="cta">
-							<a href="#" class="button-cancel" ng-click="changeOnboard(100)">Delete test</a>
-
-							<button class="button outline" id="endtest" ng-click="postTest()">
-								<div class="checkmark"></div>
-								<span>End test</span>
-							</button>
-						</div>
-
-<!-- 						<div id="button-canceltest">
-							<div class="expand-button">
-								<div class="expand-button-body" ng-click="postTest()">&times;</div>
-								<div class="expand-button-helper" ng-click="changeOnboard(100)">Cancel</div>
-							</div>
-						</div> -->
-
-					</div>
-
 				</div>
 				
 					

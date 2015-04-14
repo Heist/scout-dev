@@ -2,7 +2,10 @@
 
 /* tooltips */
 
+// small tooltip
+
 [data-tooltip],
+[data-tooltip-large],
 .tooltip {
   position: relative;
   cursor: pointer;
@@ -10,6 +13,8 @@
 
 [data-tooltip]:before,
 [data-tooltip]:after,
+[data-tooltip-large]:before,
+[data-tooltip-large]:after,
 .tooltip:before,
 .tooltip:after {
   position: absolute;
@@ -39,6 +44,10 @@
 [data-tooltip]:hover:after,
 [data-tooltip]:focus:before,
 [data-tooltip]:focus:after,
+[data-tooltip-large]:hover:before,
+[data-tooltip-large]:hover:after,
+[data-tooltip-large]:focus:before,
+[data-tooltip-large]:focus:after,
 .tooltip:hover:before,
 .tooltip:hover:after,
 .tooltip:focus:before,
@@ -51,7 +60,8 @@
 
 // triangle under bubble
 .tooltip:before,
-[data-tooltip]:before {
+[data-tooltip]:before,
+[data-tooltip-large]:before {
   z-index: 1001;
   border: 6px solid transparent;
   background: transparent;
@@ -70,12 +80,30 @@
   color: #fff;
   content: attr(data-tooltip);
   font-size: 12px;
-  line-height: 1;
+  line-height: 15px;
+  text-align: center;
+}
+
+// large tooltip
+.tooltip:after,
+[data-tooltip-large]:after {
+  z-index: 1000;
+  padding: 8px;
+  width: 145px;
+  background-color: $fg-blue-dark;
+  background-color: hsla(195, 50%, 33%, 0.85);
+  border-radius: 3px;
+  color: #fff;
+  content: attr(data-tooltip-large);
+  font-size: 12px;
+  line-height: 15px;
   text-align: center;
 }
 
 [data-tooltip]:before,
 [data-tooltip]:after,
+[data-tooltip-large]:before,
+[data-tooltip-large]:after,
 .tooltip:before,
 .tooltip:after,
 .tooltip-top:before,
@@ -86,6 +114,7 @@
 
 // triangle under bubble
 [data-tooltip]:before,
+[data-tooltip-large]:before,
 .tooltip:before,
 .tooltip-top:before {
   margin-left: -6px;
@@ -101,10 +130,22 @@
   margin-left: -33px;
 }
 
+// large tooltip
+[data-tooltip-large]:after,
+.tooltip:after,
+.tooltip-top:after {
+  margin-left: -75px;
+}
+
 [data-tooltip]:hover:before,
 [data-tooltip]:hover:after,
 [data-tooltip]:focus:before,
 [data-tooltip]:focus:after,
+[data-tooltip-large]:hover:before,
+[data-tooltip-large]:hover:after,
+[data-tooltip-large]:focus:before,
+[data-tooltip-large]:focus:after,
+
 .tooltip:hover:before,
 .tooltip:hover:after,
 .tooltip:focus:before,
