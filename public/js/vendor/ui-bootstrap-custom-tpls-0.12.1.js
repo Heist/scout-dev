@@ -204,11 +204,14 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
         var hashCatch = new RegExp(/\S*#\S+/gi);        
         var tester = inputValue.match(hashCatch);
         
-        console.log('this tester tests', tester);
-
+        console.log('this tester tests', tester[tester.length]);
+        
         hasFocus = true;
+        // if we have a match on a hashtag
+        // and the length of the newest hashtag value is greater than zero
+        // get matches 
 
-        if (inputValue && inputValue.length >= minSearch) {
+        if (tester && inputValue.length >= minSearch) {
           if (waitTime > 0) {
             cancelPreviousTimeout();
             scheduleSearchWithTimeout(inputValue);
@@ -220,6 +223,20 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
           cancelPreviousTimeout();
           resetMatches();
         }
+
+
+        // if (inputValue && inputValue.length >= minSearch) {
+        //   if (waitTime > 0) {
+        //     cancelPreviousTimeout();
+        //     scheduleSearchWithTimeout(inputValue);
+        //   } else {
+        //     getMatchesAsync(inputValue);
+        //   }
+        // } else {
+        //   isLoadingSetter(originalScope, false);
+        //   cancelPreviousTimeout();
+        //   resetMatches();
+        // }
 
         if (isEditable) {
           return inputValue;
