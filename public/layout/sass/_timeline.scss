@@ -19,36 +19,46 @@
 		}
 		
 		.message-no-highlite {
-			padding: $pad/2.5 $pad*1.5 $pad/2.5 $pad*1.5;
+			padding: $pad/2.5 $pad*1.5 $pad/2.5 35px;
 			line-height: $type-line-base*0.8;
-			border-left: 4px solid $white;
-			border-right: 4px solid $white;
 
 			pre, small {
 				@include type-light;
-				height: 20px;
+				height: 45px;
 			}
 
 			h3 {
 				@include type-light;
 				text-transform: lowercase;
+				color: $fg-grey-light;
+			}
+
+			p {
+				margin: 0;
 			}
 		}
 
-		.message {
-			padding: $pad/2.5 $pad*1.5 $pad/2.5 $pad*1.5;
+		.message-highlite {
+			padding: $pad/2.5 $pad*1.5 $pad/2.5 35px;
 			line-height: $type-line-base*0.8;
-			border-left: 4px solid $white;
-			border-right: 4px solid $white;
+			position: relative;
+			transition: none;
+
+			@include animated;
+				&:hover, &.selected {
+					@include animated;
+					background: $fg-bg url("../assets/edit-bg.svg") 12px no-repeat;
+			}
+		}	
+		
+		.message {
+			padding: $pad/2.5 $pad*1.5 $pad/2.5 35px;
+			line-height: $type-line-base*0.8;
 			position: relative;
 			@include animated;
 					
 			&:hover, &.selected {
-				color: $fg-slate;
-				background: $fg-green-highlight;;
-				border-left: 4px solid $fg-green;
-				border-right: 4px solid $fg-green;
-				@include animated;
+
 			}
 			
 			.message-body textarea {

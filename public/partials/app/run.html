@@ -184,7 +184,7 @@
 			<div class="expand-button-helper">Add a new task</div>
 		</div>
 	</div> -->
-
+	
 	<!-- discussion guide -->
 	<div id="testing-guide" ng-model="tests">
 		
@@ -215,23 +215,39 @@
 			
 	</div>
 	<!-- / discussion guide -->
-
+	
+	
+	
+	
 	
 	<div class="sheet-holder">
 		<div class="sheet">
 		
 			<!-- note input and display -->
 			<div id="testing-input">
-				
+					
 				<!-- input notes -->
 				<div id="session-input">
-					<textarea class="input" ng-model='message' name="field-input" placeholder="Remember to give your notes #themes" ui-keypress="{13:'postMessage(message)'}" />
+
+			
+				<!-- <script type="text/ng-template" id="customTemplate.html">
+				  <a>
+				      <img ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{match.model.flag}}" width="16">
+				      <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+				  </a>
+				</script>
+
+				    <h4>Static arrays</h4>
+				    <pre>Model: {{typeinput | json}}</pre>
+				    <input type="text" ui-keypress="{35:'triggerTypeahead()'}" ng-model="typeinput" class="form-control typeInThis">
+				</div> -->
+					<textarea class="input" ng-model='message' name="field-input" placeholder="Remember to give your notes #themes" ui-keypress="{13:'postMessage(message)'}" class="form-control"/>
 					</textarea>
-				</div>
+			
 				<div id="hash-tag-pool">
 					<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
 				</div>
-
+				</div>
 				
 				<!-- timeline -->
 				<div id="timeline" scroll-glue="glued">
@@ -251,34 +267,28 @@
 						</li>				
 						<!-- /empty state -->
 						
+						<!-- non-editable guideline messages -->
 						<li class="message-no-highlite">
 							<div class="message-body" ng-click="editMessage(message)">
 								<small>Starting Test</small>
-								<pre>{{test.name}}</pre>
+								<p>{{test.name}}</p>
 							</div>
 
 							<div class="clear"></div>
 						</li>
-						<li ng-repeat="message in timeline track by $index" ng-class="{'message-no-highlite' : message.title === 'Starting task', 'message' : message.title !== 'Starting task'}">
-							<!-- <div class="message-details"> -->
-							<!-- show the user's avatar -->
-							<!-- 	<div class="message-details-avatar avatar-header" ng-if="message.title">&bull;</div>
-								<div class="message-details-avatar avatar-message" ng-if="!message.title">&bull;</div>
-							</div> -->
+						<li class="message" ng-repeat="message in timeline track by $index" ng-class="{'message-no-highlite' : message.title === 'Starting task', 'message-highlite' : message.title !== 'Starting task'}">
 
-							<div class="message-body" ng-click="editMessage(message)" >
-								<!-- <small ng-if="message.title">{{message.title}}</small> -->
+							<div class="message-body" ng-click="editMessage(message)">
+
 								<pre class="messages" ng-if="message.title === 'Starting task'">
 									<h3>#{{message.body}}</h3>
 								</pre>
 
 								<!-- Editable messages - if a message is not a guideline -->
 								<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-
-								<textarea class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-blur="saveEdit(message)" ui-keypress="{13:'saveEdit(message)'}"></textarea>
+								<textarea class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
 
 								<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}</small>
-
 							</div>
 		
 							<div class="clear"></div>
@@ -304,7 +314,8 @@
 						
 						<small>Testing with</small>
 						<h2>{{subject.name}}</h2>
-
+						
+							
 					</div>
 
 					<div id="timeline-user-only" style="top:5%;" ng-show="subject.testroom">
@@ -348,3 +359,8 @@
 	
 	
 </div>
+
+
+
+
+

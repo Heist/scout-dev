@@ -7,6 +7,16 @@ form {
 	margin: 20px 0;
 }
 
+label {
+	padding: 0;
+	margin: 0;
+	font-size: $type-size-base*0.8;
+	opacity: 1;
+	color: $fg-slate;
+	@include type-light;
+}
+
+
 /* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
 
 .button {
@@ -157,18 +167,6 @@ textarea.input {
     }
     
 }
-
-
-label {
-	padding: 0;
-	margin: 0;
-	font-size: $type-size-base*0.8;
-	opacity: 1;
-	color: $fg-black;
-	@include type-light;
-}
-
-
 
 /* replace radio butts and checkboxes */
 
