@@ -138,12 +138,13 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
         $q.when(parserResult.source(originalScope, locals)).then(function(matches) {
           //it might happen that several async queries were in progress if a user were typing fast
           //but we are interested only in responses that correspond to the current view value
-          var onCurrentRequest = (inputValue === modelCtrl.$viewValue);
-          console.log('what is the haps yo', inputValue, modelCtrl.$viewValue);
+
+          // this doesn't work because it doesn't parse the current view value properly.
+          var onCurrentRequest = modelCtrl.$viewValue.indexOf(inputValue) > -1;
+
           if (onCurrentRequest && hasFocus) {
-            console.log('heycurrent')
             if (matches.length > 0) {
-              console.log('longer than zero', matches.length);
+              
               scope.activeIdx = focusFirst ? 0 : -1;
               scope.matches.length = 0;
 
@@ -156,7 +157,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                   model: matches[i]
                 });
               }
-              console.log('inputValue', inputValue);
+
               scope.query = inputValue;
               //position pop-up with matches - we need to re-calculate its position each time we are opening a window
               //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
@@ -201,16 +202,17 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
       //plug into $parsers pipeline to open a typeahead on view changes initiated from DOM
       //$parsers kick-in on all the changes coming from the view as well as manually triggered by $setViewValue
+
       modelCtrl.$parsers.unshift(function (inputValue) {
-        // FINDME Maybe in here?
-        
-        var hashCatch = new RegExp(/\S*#\S+/gi);        
-        var tester = inputValue.match(hashCatch);
-        var idx, tag_body; 
+        // begin parsing an entry on a hashtag
+        // if you want to do a separate type of input, match on @?
+
+        // TODO: Abstract so there can be preferred variables set above to load different data sets.
+        var tester = inputValue.match(/\S*#\S+/gi);
+        var tag_body; 
 
         if(tester && tester.length > 0){
-              idx = tester.length -1;
-              tag_body = tester[idx].replace(/#/gi,'');
+              tag_body = tester[tester.length -1].replace(/#/gi,'');
         }      
         
         hasFocus = true;
@@ -232,20 +234,6 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
           cancelPreviousTimeout();
           resetMatches();
         }
-
-
-        // if (inputValue && inputValue.length >= minSearch) {
-        //   if (waitTime > 0) {
-        //     cancelPreviousTimeout();
-        //     scheduleSearchWithTimeout(inputValue);
-        //   } else {
-        //     getMatchesAsync(inputValue);
-        //   }
-        // } else {
-        //   isLoadingSetter(originalScope, false);
-        //   cancelPreviousTimeout();
-        //   resetMatches();
-        // }
 
         if (isEditable) {
           return inputValue;
@@ -291,6 +279,11 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
         locals[parserResult.itemName] = item = scope.matches[activeIdx].model;
         model = parserResult.modelMapper(originalScope, locals);
+
+        console.log('select this', activeIdx);
+        console.log('here is the model', model);
+
+
         $setModelValue(originalScope, model);
         modelCtrl.$setValidity('editable', true);
 
@@ -311,31 +304,37 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
       element.bind('keydown', function (evt) {
         //typeahead is open and an "interesting" key was pressed
         if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
-          console.log('these states match the typing', scope.matches); 
+
           return;
         }
 
         // if there's nothing selected (i.e. focusFirst) and enter is hit, don't do anything
-        if (scope.activeIdx == -1 && (evt.which === 13 || evt.which === 9)) {
+        if (scope.activeIdx === -1 && (evt.which === 13 || evt.which === 9)) {
           return;
         }
 
         evt.preventDefault();
 
         if (evt.which === 40) {
+          // down arrow key
+          console.log('down arrow', evt.which)
           scope.activeIdx = (scope.activeIdx + 1) % scope.matches.length;
+          console.log('down arrow selection', (scope.activeIdx + 1) % scope.matches.length);
           scope.$digest();
 
         } else if (evt.which === 38) {
+          console.log('up arrow', evt.which)
           scope.activeIdx = (scope.activeIdx > 0 ? scope.activeIdx : scope.matches.length) - 1;
           scope.$digest();
 
         } else if (evt.which === 13 || evt.which === 9) {
+          console.log('enter or tab', evt.which)
           scope.$apply(function () {
             scope.select(scope.activeIdx);
           });
 
         } else if (evt.which === 27) {
+          console.log('escape', evt.which)
           evt.stopPropagation();
 
           resetMatches();
@@ -402,6 +401,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
         };
 
         scope.selectActive = function (matchIdx) {
+          console.log('selecting active', matchIdx);
           scope.active = matchIdx;
         };
 

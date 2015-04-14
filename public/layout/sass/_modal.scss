@@ -15,37 +15,23 @@
         @include radius;
         @include dropshadowULTRA;
         @include input-placeholders;
-        .input {
-            width: 100%;
+    
+        ul {
             margin: 0;
         }
+
         li {
             padding: ($pad / 2) 0 0 0;
             &:last-child {
                 border: none;
             }
         }
-        .button.cancel {
-            background: none;
-            color: $fg-grey;
-            padding: 10px 160px 0 0;
-            &:hover {
-                text-decoration: underline;
-                color: $link-hover;
-            }
-        }
-        .button.dry-run {
-            @extend .button.cancel;
-            padding: 10px 10px 0 0;
-            &:hover {
-                text-decoration: underline;
-                color: $link-hover;
-            }
-        }
         .modal-interior-title {
             text-align: left;
             margin: 0;
-            padding: 0 0 ($pad / 2) 0;
+            padding: 0 0 30px 0;
+            position: relative;
+
             h2 {
                 @include type-regular;
                 color: $fg-slate;
@@ -61,6 +47,16 @@
                 height: auto;
                 margin: 0 0 ($pad / 4) 0;
             }
+        }
+
+        .cta {
+            margin: 0;
+            float: right;
+        }
+
+        .cta-margin {
+            margin: 20px 0 0 0;
+            float: right;
         }
     }
 }

@@ -7,7 +7,6 @@
 	height: 100%;
 	overflow: auto;
 	margin: 0;
-	// background: url('../assets/timeline-line.gif') repeat-y 24px top;
 		
 	ul {
 		list-style: none;
@@ -20,27 +19,47 @@
 		}
 		
 		.message-no-highlite {
-			padding: $pad/2.5 0 0 $pad/1.6;
+			padding: $pad/2.5 $pad*1.5 $pad/2.5 35px;
 			line-height: $type-line-base*0.8;
-			margin: 0 0 $pad/2 0;
+
+			pre, small {
+				@include type-light;
+				height: 45px;
+			}
+
+			h3 {
+				@include type-light;
+				text-transform: lowercase;
+				color: $fg-grey-light;
+			}
+
+			p {
+				margin: 0;
+			}
 		}
 
-		.message {
-			padding: $pad/2.5 0 $pad/2.5 $pad/1.6;
+		.message-highlite {
+			padding: $pad/2.5 $pad*1.5 $pad/2.5 35px;
 			line-height: $type-line-base*0.8;
-			margin: 0 0 $pad/2 0;
+			position: relative;
+			transition: none;
+			cursor: text;
 
-			border-left: 4px solid $white;
-			border-right: 4px solid $white;
+			@include animated;
+				&:hover, &.selected {
+					@include animated;
+					background: $fg-bg url("../assets/edit-bg.svg") 12px no-repeat;
+			}
+		}	
+		
+		.message {
+			padding: $pad/2.5 $pad*1.5 $pad/2.5 35px;
+			line-height: $type-line-base*0.8;
 			position: relative;
 			@include animated;
 					
 			&:hover, &.selected {
-				color: $fg-slate;
-				background: #f3f7e7;
-				border-left: 4px solid $fg-green-grassy;
-				border-right: 4px solid $fg-green-grassy;
-				@include animated;
+
 			}
 			
 			.message-body textarea {
@@ -80,31 +99,22 @@
 				p {
 					margin-bottom: 0;
 				}
-
-				pre.messages {
-					font-size: 15px;
-					@include type-regular;
-					color: $fg-grey;
-					margin: 0;
-				}
 				
 				small {
 					font-size: $type-size-base*0.6;
 					line-height: $type-line-base*0.6;
-					opacity: 0.5;
 					padding: 0;
 					margin: 0;
 					text-transform: uppercase;
-					letter-spacing: 1px;
 
 					&.hashtag {
 						display: inline;
 						float: left;
 						color: $fg-blue;
 						text-transform: lowercase;
-						font-size: 12px;
-						letter-spacing: 0.5px;
-						padding: 5px 3px 0 0;
+						font-size: 10px;
+						padding: 5px 7px 0 0;
+						@include type-light;
 
 						&.hashtag:before {
 							content:"#";

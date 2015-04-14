@@ -3,20 +3,43 @@
 .button {
 	@include button-colour($fg-green, $white);
 	cursor: pointer;
-	font-size: $type-size-base*0.935;
-	padding: 16px 30px;
+	font-size: 14px;
+	padding: 11px 32.5px;
+	float: left;
+	margin: 0;
+	
+	&:hover {
+		background: $fg-green-dark;
+	}
+	
+	&:focus {
+	    box-shadow:  0 0 6px $fg-green;
+	}
 
-	&.med {
-		font-size: $type-size-base*0.835;
-		padding: 11px 20px;
-		// &:focus {
-		//     border: 1px solid red;
-		// }
+	&.outline {
+		@include button-colour($white, $fg-green);
+		border: 1px solid $fg-green;
+
+		&:hover {
+			background: $light-green-bg;
+		}
+
+		&:focus {
+			box-shadow:  0 0 6px $fg-green-light;
+		}
+	}
+	
+	&.space {
+		margin: 0 0 0 3px;
+	}
+	
+	&.full {
+		width: 100%;
 	}
 
 	&.small {
 		font-size: $type-size-base*0.8;
-		padding: 2.5px 10px;
+		padding: 3px 10px;
 	}
 	
 	
@@ -73,6 +96,30 @@
 		@include dropshadow;
 		
 	}
+}
+
+.button-cancel {
+    background: none;
+    color: $fg-grey-light;
+    @include type-light;
+    padding: 8px 30px;
+    border: 0;
+    outline: 0;
+    float: left;
+
+    &:hover {
+        text-decoration: underline;
+        color: $link-hover;
+    }
+}
+
+.button-dry-run {
+    @extend .button.cancel;
+    padding: 10px 10px 0 0;
+    &:hover {
+        text-decoration: underline;
+        color: $link-hover;
+    }
 }
 
 .button-inactive {

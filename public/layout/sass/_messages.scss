@@ -75,7 +75,7 @@
 
 .overlay-border {
 	width: 90%;
-	border-right: 1px solid $border-grey;
+	border-right: 1px solid $fg-grey-light;
 }
 
 .summary-border {
@@ -135,17 +135,10 @@
 
 .message {
 	padding: $pad/1.5 0 $pad/1.5 35px;
-	border-left: 4px solid $white;
-	border-right: 4px solid $white;
 	position: relative;
 	@include animated;
 			
 	&:hover, &.selected {
-		color: $fg-slate;
-		background: #f3f7e7;
-		border-left: 4px solid $fg-green-grassy;
-		border-right: 4px solid $fg-green-grassy;
-		@include animated;
 					
 		.message-details .message-edit {
 			display: block;
@@ -170,7 +163,7 @@
 		margin: 0 30px 20px 0;
 
 		&:hover {
-			color: $fg-green-grassy;
+			color: $fg-green;
 			cursor: pointer;
 		}
 	}
@@ -283,16 +276,27 @@
 		float: left;
 		width: 90%;	
 
+		h3 {
+			@include type-light;
+			font-size: 20px;
+			text-transform: lowercase;
+			color: $fg-grey-light;
+		}
+
 		p {
 			margin-bottom: 0 !important;
 			color: $fg-grey;
 		}
 
 		pre.messages {
-			font-size: 15px;
-			@include type-regular;
-			color: $fg-grey;
+			font-size: 12px;
+			@include type-light;
+			color: $fg-grey-dark;
 			margin: 0;
+
+			&:hover {
+				color: $fg-black;
+			}
 		}
 		
 		
@@ -300,7 +304,6 @@
 			display: block;
 			margin: 0;
 			padding: 0;
-			opacity: 0.6;
 		}
 		
 		textarea {
