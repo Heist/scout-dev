@@ -134,14 +134,16 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
       var getMatchesAsync = function(inputValue) {
         var locals = {$viewValue: inputValue};
         isLoadingSetter(originalScope, true);
-        $q.when(parserResult.source(originalScope, locals)).then(function(matches) {
 
+        $q.when(parserResult.source(originalScope, locals)).then(function(matches) {
           //it might happen that several async queries were in progress if a user were typing fast
           //but we are interested only in responses that correspond to the current view value
           var onCurrentRequest = (inputValue === modelCtrl.$viewValue);
+          console.log('what is the haps yo', inputValue, modelCtrl.$viewValue);
           if (onCurrentRequest && hasFocus) {
+            console.log('heycurrent')
             if (matches.length > 0) {
-
+              console.log('longer than zero', matches.length);
               scope.activeIdx = focusFirst ? 0 : -1;
               scope.matches.length = 0;
 
@@ -154,11 +156,12 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                   model: matches[i]
                 });
               }
-
+              console.log('inputValue', inputValue);
               scope.query = inputValue;
               //position pop-up with matches - we need to re-calculate its position each time we are opening a window
               //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
               //due to other elements being rendered
+              
               scope.position = appendToBody ? $position.offset(element) : $position.position(element);
               scope.position.top = scope.position.top + element.prop('offsetHeight');
 
@@ -200,26 +203,29 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
       //$parsers kick-in on all the changes coming from the view as well as manually triggered by $setViewValue
       modelCtrl.$parsers.unshift(function (inputValue) {
         // FINDME Maybe in here?
-        console.log('input value for finding matches', inputValue);
+        
         var hashCatch = new RegExp(/\S*#\S+/gi);        
         var tester = inputValue.match(hashCatch);
-        
-        if(tester && tester.length > 0){
-              var idx = tester.length -1;
-              console.log('this tester tests', tester[idx]);
-        }
+        var idx, tag_body; 
 
+        if(tester && tester.length > 0){
+              idx = tester.length -1;
+              tag_body = tester[idx].replace(/#/gi,'');
+        }      
+        
         hasFocus = true;
+
         // if we have a match on a hashtag
         // and the length of the newest hashtag value is greater than zero
         // get matches 
 
-        if (tester && inputValue.length >= minSearch) {
+        if (tag_body && tag_body.length >= minSearch) {
+          // in here check matches on latest message
           if (waitTime > 0) {
             cancelPreviousTimeout();
-            scheduleSearchWithTimeout(inputValue);
+            scheduleSearchWithTimeout(tag_body);
           } else {
-            getMatchesAsync(inputValue);
+            getMatchesAsync(tag_body);
           }
         } else {
           isLoadingSetter(originalScope, false);
