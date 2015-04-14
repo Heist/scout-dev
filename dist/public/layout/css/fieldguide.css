@@ -1310,6 +1310,7 @@ hr {
       line-height: 19.2px;
       position: relative;
       transition: none;
+      cursor: text;
       -webkit-transition-duration: 0.2s;
       -webkit-transition-timing: ease-out;
       -o-transition-duration: 0.2s;
