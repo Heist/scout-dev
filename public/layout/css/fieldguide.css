@@ -1290,7 +1290,7 @@ hr {
       padding: 0;
       margin: 0; }
     #timeline ul .message-no-highlite {
-      padding: 8px 30px 8px 30px;
+      padding: 8px 30px 8px 35px;
       line-height: 19.2px; }
       #timeline ul .message-no-highlite pre, #timeline ul .message-no-highlite small {
         font-family: "canada-type-gibson",sans-serif;
@@ -1302,8 +1302,12 @@ hr {
         font-style: normal;
         font-weight: 300;
         text-transform: lowercase; }
+    #timeline ul .edit {
+      display: none; }
+      #timeline ul .edit .edit:hover {
+        display: block; }
     #timeline ul .message {
-      padding: 8px 30px 8px 30px;
+      padding: 8px 30px 8px 35px;
       line-height: 19.2px;
       position: relative;
       -webkit-transition-duration: 0.2s;
@@ -1318,7 +1322,6 @@ hr {
       transition-timing: ease-out; }
       #timeline ul .message:hover, #timeline ul .message.selected {
         color: #42474c;
-        background: #f6f6f6;
         -webkit-transition-duration: 0.2s;
         -webkit-transition-timing: ease-out;
         -o-transition-duration: 0.2s;
@@ -1328,7 +1331,8 @@ hr {
         -ms-transition-duration: 0.2s;
         -ms-transition-timing: ease-out;
         transition-duration: 0.2s;
-        transition-timing: ease-out; }
+        transition-timing: ease-out;
+        background: #f6f6f6 url("../assets/edit-bg.svg") 12px no-repeat; }
       #timeline ul .message .message-body textarea {
         width: 98%;
         margin: 0; }
@@ -1857,6 +1861,8 @@ hr {
   #view-login input, #view-login #view-editing .add-task textarea, #view-editing .add-task #view-login textarea, #view-login button {
     width: 100%;
     margin-bottom: 4px; }
+    #view-login input:focus, #view-login #view-editing .add-task textarea:focus, #view-editing .add-task #view-login textarea:focus, #view-login button:focus {
+      box-shadow: none; }
   #view-login input[type=checkbox], #view-login #view-editing .add-task textarea[type=checkbox], #view-editing .add-task #view-login textarea[type=checkbox] {
     width: 15px;
     text-align: center; }

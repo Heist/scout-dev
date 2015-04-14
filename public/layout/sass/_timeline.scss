@@ -19,7 +19,7 @@
 		}
 		
 		.message-no-highlite {
-			padding: $pad/2.5 $pad*1.5 $pad/2.5 $pad*1.5;
+			padding: $pad/2.5 $pad*1.5 $pad/2.5 35px;
 			line-height: $type-line-base*0.8;
 
 			pre, small {
@@ -32,17 +32,26 @@
 				text-transform: lowercase;
 			}
 		}
+		
+		.edit {
+		    display: none;
+
+		    .edit:hover {
+		    	display: block;
+		    }
+		}
 
 		.message {
-			padding: $pad/2.5 $pad*1.5 $pad/2.5 $pad*1.5;
+			padding: $pad/2.5 $pad*1.5 $pad/2.5 35px;
 			line-height: $type-line-base*0.8;
 			position: relative;
 			@include animated;
 					
 			&:hover, &.selected {
 				color: $fg-slate;
-				background: $fg-bg;
 				@include animated;
+				background: $fg-bg url("../assets/edit-bg.svg") 12px no-repeat;
+
 			}
 			
 			.message-body textarea {

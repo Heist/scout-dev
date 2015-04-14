@@ -15,6 +15,10 @@
 	input, button {
 		width: 100%;
 		margin-bottom: $pad/5;
+
+		&:focus {
+			box-shadow: none;
+		}
 	}
 
 	input[type=checkbox] {
