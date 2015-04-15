@@ -72,9 +72,10 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
       //INTERNAL VARIABLES
 
-      //model setter executed upon match selection
-      var $setModelValue = $parse(attrs.ngModel).assign;
-
+      // where to insert the new element inside the original type-area
+      var insertionModelVariable = $parse(attrs.ngModel);
+      var insertionIndex;
+      
       //expressions used by typeahead
       var parserResult = typeaheadParser.parse(attrs.typeahead);
 
@@ -200,10 +201,8 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
         }
       };
 
-      //plug into $parsers pipeline to open a typeahead on view changes initiated from DOM
-      //$parsers kick-in on all the changes coming from the view as well as manually triggered by $setViewValue
-
-      modelCtrl.$parsers.unshift(function (inputValue) {
+      // Step through the model and do things with the input value
+      var modelParser = function (inputValue) {
         // begin parsing an entry on a hashtag
         // if you want to do a separate type of input, match on @?
 
@@ -247,9 +246,9 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
             return undefined;
           }
         }
-      });
+      };
 
-      modelCtrl.$formatters.push(function (modelValue) {
+      var modelFormatters = function (modelValue) {
 
         var candidateViewValue, emptyViewValue;
         var locals = {};
@@ -270,6 +269,17 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
           return candidateViewValue!== emptyViewValue ? candidateViewValue : modelValue;
         }
+      };
+      //plug into $parsers pipeline to open a typeahead on view changes initiated from DOM
+      //$parsers kick-in on all the changes coming from the view as well as manually triggered by $setViewValue
+
+      // the function which parses the model
+      modelCtrl.$parsers.unshift(function (inputValue){
+        modelParser(inputValue);
+      });
+
+      modelCtrl.$formatters.push(function (modelValue) {
+        modelFormatters(modelValue);
       });
 
       scope.select = function (activeIdx) {
@@ -282,9 +292,23 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
         console.log('select this', activeIdx);
         console.log('here is the model', model);
+        console.log('this is what setModelValue is replacing', attrs.ngModel);
+        console.log('this is what setModelValue is replacing', originalScope.typeinput);
+        
+
+      //model setter executed upon match selection
+        // var setModelValue = $parse(attrs.ngModel).assign;
 
 
-        $setModelValue(originalScope, model);
+      // TODO:
+      // Filter the model against not the original scope, but an index-matched string
+      // replace the index-matched string with the model.
+      // originalScope.typeinput.indexOf() whatever input thing happened goes here!
+      
+        console.log();
+
+        // setModelValue(originalScope, model);
+
         modelCtrl.$setValidity('editable', true);
 
         onSelectCallback(originalScope, {
@@ -304,7 +328,6 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
       element.bind('keydown', function (evt) {
         //typeahead is open and an "interesting" key was pressed
         if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
-
           return;
         }
 
