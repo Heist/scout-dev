@@ -2931,10 +2931,10 @@ hr {
   #view-findings #findings-nav {
     padding: 20px 0 0 0;
     margin: 0;
-    width: 20%;
+    width: 30%;
     height: 100%;
     position: fixed;
-    left: 15%;
+    left: 12%;
     top: 0;
     -webkit-transition-duration: 0.2s;
     -webkit-transition-timing: ease-out;
@@ -2983,13 +2983,13 @@ hr {
         font-style: normal;
         font-weight: 400; }
   #view-findings .sheet-holder {
-    width: 65%;
+    width: 73%;
     height: 100%;
     padding: 0;
     margin: 0;
     position: absolute;
     top: 0;
-    left: 35%; }
+    left: 27%; }
   #view-findings .findings-header {
     padding: 40px; }
     #view-findings .findings-header h3, #view-findings .findings-header h1 {
