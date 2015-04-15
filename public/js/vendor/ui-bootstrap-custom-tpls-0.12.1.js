@@ -235,12 +235,12 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
         }
 
         if (isEditable) {
-          return inputValue;
+          return tag_body;
         } else {
-          if (!inputValue) {
+          if (!tag_body) {
             // Reset in case user had typed something previously.
             modelCtrl.$setValidity('editable', true);
-            return inputValue;
+            return tag_body;
           } else {
             modelCtrl.$setValidity('editable', false);
             return undefined;
@@ -294,20 +294,17 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
         console.log('here is the model', model);
         console.log('this is what setModelValue is replacing', attrs.ngModel);
         console.log('this is what setModelValue is replacing', originalScope.typeinput);
-        
-
       //model setter executed upon match selection
-        // var setModelValue = $parse(attrs.ngModel).assign;
-
+      console.log('selected', activeIdx);
+        var setModelValue = $parse(attrs.ngModel).assign;
+        setModelValue(originalScope, model);
 
       // TODO:
       // Filter the model against not the original scope, but an index-matched string
       // replace the index-matched string with the model.
       // originalScope.typeinput.indexOf() whatever input thing happened goes here!
       
-        console.log();
-
-        // setModelValue(originalScope, model);
+      
 
         modelCtrl.$setValidity('editable', true);
 
