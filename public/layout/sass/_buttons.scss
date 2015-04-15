@@ -38,8 +38,13 @@
 	}
 
 	&.small {
-		font-size: $type-size-base*0.8;
+		font-size: 12px;
 		padding: 3px 10px;
+	}
+
+	&.extra-small {
+		font-size: 10px;
+		padding: 4.5px 11.5px;
 	}
 	
 	

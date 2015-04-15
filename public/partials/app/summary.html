@@ -33,28 +33,22 @@
 	<!-- findings nav -->
 	<div id="findings-nav">
 		
-		<div id="sidebar" class="summarizing">
+		<div id="sidebar" class="sidebar">
 			
-<!-- 			<div class="test-id">
-				<h3>{{testname}}</h3>
-				<small>Editing</small>
-			</div> -->
-						
-			
-			    <!-- OVERVIEW -->
-			    <div ng-repeat="group in navlist" >
+			    <h4>Overview</h4>
+			    <div ng-repeat="group in navlist">
 
-			    	<span ng-if="group[0].doctype === 'tag'">Tag</span>
-			        <!-- <span ng-if="group[0].doctype === 'test'"><strong>Findings</strong></span> -->
-			        <span ng-if="group[0].doctype === 'task'">Topics</span>
-
+			    	<h4 ng-if="group[0].doctype === 'tag'">Tag</h4>
+			        <h4 ng-if="group[0].doctype === 'task'">Topics</h4>
 					<ul>
 
 						<li ng-repeat="object in group" ng-class="{ 'active': n._id === selected._id }"  ng-click="activate(object)">
-						<span ng-if="object.doctype === 'test'"><strong>Findings</strong></span>
-				        <span ng-if="object.doctype !== 'test'">{{object.name}}</span>
+
+							<span class="findings" ng-if="object.doctype === 'test'">Findings</span>
+					        <span ng-if="object.doctype !== 'test'">{{object.name}}</span>
 				        </li>
 					</ul>
+
 			        <!-- <div class="step-ordering"> -->
 			        <!-- <div class="step-ordering">
 			            <div class="elevator" ng-click="moveTask($index, -1)" >&#9650;</div>
@@ -71,12 +65,22 @@
 			            </a>
 			        </div> -->
 			        <div class="clear"></div>
-			    </div>
+			    </div> <!-- /group in navlist -->
+
+			    <div id="findings-viewmode-controls">		
+			    
+			    	<div id="findings-share-link" ng-if="showReportLink">
+			    		<small>Use this link to share this report:</small>
+			    		<input class="input small tight" ng-model="reportLink"/>
+			    	</div>	
+			    
+			    	<button class="button extra-small" ng-click="reportView()">Share</button> 
+			    </div> 	
 		</div>
 		
 		<!-- findings controls -->
 		
-		<div id="findings-viewmode-controls">		
+<!-- 		<div id="findings-viewmode-controls">		
 		
 			<div id="findings-share-link" ng-if="showReportLink">
 				<small>Use this link to share this report:</small>
@@ -86,7 +90,7 @@
 			<a class="button small disabled">Edit</a>
 			<a class="button small space" ng-click="reportView()">Preview</a>
 			<button class="button small secondary space" ng-click="toggleReportLink()">Share</button> 
-		</div> 	
+		</div> 	 -->
 		
 		
 		
