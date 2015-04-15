@@ -74,41 +74,59 @@
 
 
         // synchronous shit is weird. =====================
-        $scope.activate = function(obj, selectedIndex) {
+        $scope.activate = function(obj) {
             // passes an object from left nav to the global selection variable
             // reset all previous reliant variables, there are a lot!
+            console.log(obj);
+
+            // on click set selected to selected._id
+            // 
+
             if(obj.doctype !== 'test'){
                 console.log(obj._messages);
             }
-            $scope.selected = '';
-            $scope.commentMessage = '';
-            $scope.selectedIndex = '';
-            $scope.inputNote = '';
-            $scope.showCommentToggle = 'hide';
-            $scope.messageEditToggle = '';
 
-            $scope.selectedIndex = selectedIndex;
+            $scope.selected = '';
+
+            // reset all input boxes
+            $scope.inputNote = '';
+            $scope.messageEditToggle = '';
+            $scope.showCommentToggle = 'hide';
+            $scope.commentMessage = '';
+
             $scope.selected = obj || $scope.selected;
             
 
         // Set up what kind of video we're expecting to need here.
-            if(obj.embed){
-                var loadVideo = reportFunctions.videoRender(obj.embed);
-                if(loadVideo.youtube){
-                    $scope.selected.youTubeCode = loadVideo.youtube;
-                } else {
-                    $scope.selected.userTesting = loadVideo.embed;
-                }
-            }  
+            // if(obj.embed){
+            //     var loadVideo = reportFunctions.videoRender(obj.embed);
+            //     if(loadVideo.youtube){
+            //         $scope.selected.youTubeCode = loadVideo.youtube;
+            //     } else {
+            //         $scope.selected.userTesting = loadVideo.embed;
+            //     }
+            // }  
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
-        
-        $scope.navlist = _.sortBy(data.navlist.list, function(obj){
+
+        var orderedNav = _.sortBy(data.navlist.list, function(obj){
                     return obj.report_index;
                 });
         
+        var groupedNav = _.groupBy(orderedNav, function(obj){
+                return obj.doctype;
+        });
+
+        groupedNav = _.toArray(groupedNav).sort();
+        $scope.navlist = groupedNav;
+
+        // var sortedkeys = groupedNav.sort();        
+        // console.log('sortedkeys', sortedkeys);
+        // console.log('groupednav', groupedNav);
+        // $scope.navlist = orderedNav;
+
         $scope.messages = _.groupBy(data.messages, function(z){
                     return z._subject.name ? z._subject.name : 'report comment';
                 });
