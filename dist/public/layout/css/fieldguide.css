@@ -2983,20 +2983,13 @@ hr {
         font-style: normal;
         font-weight: 400; }
   #view-findings .sheet-holder {
+    width: 65%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
     position: absolute;
     top: 0;
-    left: 35%;
-    width: 50%;
-    -webkit-transition-duration: 0.2s;
-    -webkit-transition-timing: ease-out;
-    -o-transition-duration: 0.2s;
-    -o-transition-timing: ease-out;
-    -moz-transition-duration: 0.2s;
-    -moz-transition-timing: ease-out;
-    -ms-transition-duration: 0.2s;
-    -ms-transition-timing: ease-out;
-    transition-duration: 0.2s;
-    transition-timing: ease-out; }
+    left: 35%; }
   #view-findings .findings-header {
     padding: 40px; }
     #view-findings .findings-header h3, #view-findings .findings-header h1 {

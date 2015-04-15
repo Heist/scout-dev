@@ -35,40 +35,43 @@
 		
 		<div id="sidebar" class="summarizing">
 			
-			<div class="test-id">
+<!-- 			<div class="test-id">
 				<h3>{{testname}}</h3>
 				<small>Editing</small>
-			</div>
-			
+			</div> -->
 						
-			<ul>    
+			
 			    <!-- OVERVIEW -->
-			    <li 
-			    ng-repeat="object in navlist" 
-			    ng-class="{ 'active': $index == selectedIndex }" 
-			    ng-click="activate(object, $index)">
-			        
+			    <div ng-repeat="group in navlist" >
+
+			    	<span ng-if="group[0].doctype === 'tag'">Tag</span>
+			        <!-- <span ng-if="group[0].doctype === 'test'"><strong>Findings</strong></span> -->
+			        <span ng-if="group[0].doctype === 'task'">Topics</span>
+
+					<ul>
+
+						<li ng-repeat="object in group" ng-class="{ 'active': n._id === selected._id }"  ng-click="activate(object)">
+						<span ng-if="object.doctype === 'test'"><strong>Findings</strong></span>
+				        <span ng-if="object.doctype !== 'test'">{{object.name}}</span>
+				        </li>
+					</ul>
 			        <!-- <div class="step-ordering"> -->
-			        <div class="step-ordering">
+			        <!-- <div class="step-ordering">
 			            <div class="elevator" ng-click="moveTask($index, -1)" >&#9650;</div>
 			            <div class="elevator" ng-click="moveTask($index, 1)" >&#9660;</div>
-			        </div>
+			        </div> -->
+			                     
 			        
-			        <span ng-show="object.doctype === 'tag'">#</span>
-			        <span ng-show="object.doctype === 'test'"><strong>Summary</strong></span>
-			        <span ng-hide="object.doctype === 'test'">{{object.name}}</span>                    
-			        
-			        <div class="sidebar-visibility small-tooltip" data-tooltip="Include in report">
+			     <!--    <div class="sidebar-visibility small-tooltip" data-tooltip="Include in report">
 			            <a ng-click="toggleVis(object)" ng-show="object.visible">
 			                <img src="/layout/assets/show.svg" />
 			            </a>
 			            <a ng-click="toggleVis(object)" ng-show="!object.visible">
 			                <img src="/layout/assets/hidden.svg" />
 			            </a>
-			        </div>
+			        </div> -->
 			        <div class="clear"></div>
-			    </li>
-			</ul>
+			    </div>
 		</div>
 		
 		<!-- findings controls -->
