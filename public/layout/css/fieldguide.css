@@ -145,7 +145,6 @@ h2 {
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
-  letter-spacing: -1px;
   margin: 0 0 20px 0; }
 
 h3 {
@@ -157,7 +156,7 @@ h3 {
   h3.h3-light {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     opacity: 0.6;
     font-size: 21px; }
 
@@ -2999,37 +2998,47 @@ hr {
     position: absolute;
     top: 0;
     left: 30%; }
-  #view-findings .findings-header {
-    padding: 40px; }
-    #view-findings .findings-header h3, #view-findings .findings-header h1 {
-      padding: 0;
-      margin: 0; }
-  #view-findings .findings-information {
-    border-bottom: 1px solid #dddddd;
-    padding: 0 40px 10px 40px;
-    margin: -30px 0 40px 0;
-    font-size: 12px;
+  #view-findings .findings-content {
+    width: 45%;
+    margin: 0 auto;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 400;
-    opacity: 0.6; }
-  #view-findings .findings-description {
-    padding: 0 40px 10px 40px; }
-    #view-findings .findings-description p {
-      padding: 0 0 10px 0;
-      color: #2B404D; }
-  #view-findings .findings-summary {
-    width: 100%;
-    max-width: 100%;
-    height: 100px;
-    padding: 20px 40px;
-    -moz-border-radius: 0px;
-    -webkit-border-radius: 0px;
-    border-radius: 0px;
-    border: none;
-    border-top: 1px solid #dddddd;
-    border-bottom: 1px solid #dddddd;
-    margin: 0 0 20px 0; }
+    font-weight: 300; }
+    #view-findings .findings-content h1 {
+      margin: 0 0 10px 0;
+      font-size: 24px; }
+    #view-findings .findings-content h2 {
+      font-size: 16px;
+      color: #2B404D;
+      margin: 0 0 15px 0; }
+    #view-findings .findings-content p {
+      font-size: 12px;
+      line-height: 13px;
+      color: #949799; }
+    #view-findings .findings-content .findings-header {
+      padding: 50px 0; }
+      #view-findings .findings-content .findings-header .findings-description {
+        color: #949799;
+        font-size: 12px; }
+    #view-findings .findings-content .findings-information {
+      border-bottom: 1px solid #dddddd;
+      padding: 0 40px 10px 40px;
+      margin: -30px 0 40px 0;
+      font-size: 12px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      opacity: 0.6; }
+    #view-findings .findings-content .findings-summary {
+      width: 100%;
+      max-width: 100%;
+      height: 235px;
+      padding: 10px 15px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      border-radius: 2px;
+      border: 1px solid #dddddd;
+      margin: 0 0 70px 0; }
 
 /* let's embed a video */
 #video-embed {

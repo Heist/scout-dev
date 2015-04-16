@@ -118,45 +118,57 @@
 		left: 30%;
 	}
 	
-	.findings-header {
-		padding: $pad*2;
-		
-		h3, h1 {
-			padding: 0;
-			margin: 0;
+	.findings-content {
+		width: 45%;
+		margin: 0 auto;
+		@include type-light;
+
+		h1 {
+			margin: 0 0 10px 0;
+			font-size: 24px;
 		}
-	}
-	
-	.findings-information {
-		border-bottom: 1px solid $line;
-		padding: 0 $pad*2 $pad/2 $pad*2;
-		margin: -$pad*1.5 0 $pad*2 0;	
-		font-size: $type-size-base*0.8;
-		@include type-bold;
-		opacity: 0.6;
-	}
-	
-	.findings-description {
-		padding: 0 $pad*2 10px $pad*2;
-		
-		p {
-			padding: 0 0 $pad/2 0;
+
+		h2 {
+			font-size: 16px;
 			color: $fg-slate;
+			margin: 0 0 15px 0;
+		}
+
+		p {
+			font-size: 12px;
+			line-height: 13px;
+			color: $fg-grey;
+		}
+
+		.findings-header {
+			padding: $pad*2.5 0;
+
+			.findings-description {
+				color: $fg-grey;
+				font-size: 12px;
+			}
+			
+		}
+		
+		.findings-information {
+			border-bottom: 1px solid $line;
+			padding: 0 $pad*2 $pad/2 $pad*2;
+			margin: -$pad*1.5 0 $pad*2 0;	
+			font-size: $type-size-base*0.8;
+			@include type-bold;
+			opacity: 0.6;
+		}
+		
+		.findings-summary {
+			width: 100%;
+			max-width: 100%;
+			height: 235px;
+			padding: 10px 15px;
+			@include radius(2px);
+			border: 1px solid $line;
+			margin: 0 0 70px 0;
 		}
 	}
-	
-	.findings-summary {
-		width: 100%;
-		max-width: 100%;
-		height: 100px;
-		padding: $pad $pad*2;
-		@include radius(0px);
-		border: none;
-		border-top: 1px solid $line;
-		border-bottom: 1px solid $line;
-		margin: 0 0 $pad 0;
-	}
-	
 }
 
 

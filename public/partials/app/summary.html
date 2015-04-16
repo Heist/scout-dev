@@ -85,46 +85,61 @@
 		
 	<!-- main content -->
 	<div class="sheet-holder">
+
 		<div class="sheet" ng-model="selected">
-			
-			<div class="findings-header">
-				<h3 class="dark float-left"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h3>
-				
-				
-				<!-- task rating widget -->
-				<!-- 				<div class="task-rating" ng-show="selected.pass_fail == false">
-						<small>Rating</small>
-						<div class="task-rating-doot task-rating-plus hollow" ng-click="passFail(selected)">&nbsp;</div>
-						<div class="task-rating-doot task-rating-minus">&nbsp;</div>
+
+			<div class="findings-content">
+				<div class="findings-header">
+					<h1 class="dark float-left"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h1>
+					
+					<div class="clear"></div>
+
+					<div class="findings-description">
+						<span>{{participant.number}} participants</span>
+						<span>Prototype test</span>
+						<span>{{prototype.url}}</span>
+					</div>
+					
+					<!-- task rating widget -->
+					<!-- 				<div class="task-rating" ng-show="selected.pass_fail == false">
+							<small>Rating</small>
+							<div class="task-rating-doot task-rating-plus hollow" ng-click="passFail(selected)">&nbsp;</div>
+							<div class="task-rating-doot task-rating-minus">&nbsp;</div>
+					</div>
+					
+					<div class="task-rating" ng-show="selected.pass_fail == true">
+							<small>Rating</small>
+							<div class="task-rating-doot task-rating-plus">&nbsp;</div>
+							<div class="task-rating-doot task-rating-minus hollow" ng-click="passFail(selected)">&nbsp;</div>
+					</div> -->
+					<!-- task rating -->
+					
+					
+					<div class="clear"></div>
+					
 				</div>
 				
-				<div class="task-rating" ng-show="selected.pass_fail == true">
-						<small>Rating</small>
-						<div class="task-rating-doot task-rating-plus">&nbsp;</div>
-						<div class="task-rating-doot task-rating-minus hollow" ng-click="passFail(selected)">&nbsp;</div>
-				</div> -->
-				<!-- task rating -->
+				<h2>Objectives</h2>
+				<pre>{{objecives}}</pre>
+
+				<h2>Findings</h2>
+				<textarea msd-elastic class="input findings-summary" id="field-textarea" placeholder="Summarize your high level elarning here.
+				This is the page you will be sharing with your organization"  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>
 				
+				<!-- SORT OUT YOUTUBE LINKS -->
 				
-				<div class="clear"></div>
+				<!-- 		<form id="video-embed">
+						<p>Do you have a relevant video for this task or theme? <a ng-click="showEmbed = ! showEmbed">Include it</a> in your report. </p>
+						
+						<div id="video-embed-form" ng-show="showEmbed">
+								<small ng-if="selected.embed.length === 0">For Youtube, paste your video URL, like https://www.youtube.com/watch?v=ABCD1234. For everything else, use the native embed code.</small>
+								<textarea ng-model='selected.embed' class="input" name="field-input" placeholder="Your embed code." ng-blur="saveObject(selected)"></textarea>
+					</div> -->
+					<!--<button ng-click="saveObject(selected)">Add Video</button>-->
+					<!--  </form> -->
 				
-			</div>
-			
-			
-			<textarea msd-elastic class="input findings-summary" id="field-textarea" placeholder="Summarize your learnings and takeaways from this task or tag."  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>
-			
-			<!-- SORT OUT YOUTUBE LINKS -->
-			
-			<!-- 		<form id="video-embed">
-					<p>Do you have a relevant video for this task or theme? <a ng-click="showEmbed = ! showEmbed">Include it</a> in your report. </p>
-					
-					<div id="video-embed-form" ng-show="showEmbed">
-							<small ng-if="selected.embed.length === 0">For Youtube, paste your video URL, like https://www.youtube.com/watch?v=ABCD1234. For everything else, use the native embed code.</small>
-							<textarea ng-model='selected.embed' class="input" name="field-input" placeholder="Your embed code." ng-blur="saveObject(selected)"></textarea>
-				</div> -->
-				<!--<button ng-click="saveObject(selected)">Add Video</button>-->
-				<!--  </form> -->
-				
+				<h2>All your test summaries</h2>
+				<p>Use these to help create your final Findings above. These will not be shown when you share your Findings.</p>
 				<!-- messages -->
 				<div class="message-group" ng-repeat="user in messages" ng-show="selected._messages">
 					
@@ -155,7 +170,7 @@
 						<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
 						<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
 						<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
-					</div>
+						</div>
 					
 					<div class="summary-border">
 						<div class="message-fave" ng-show="selected.doctype === 'task'">
@@ -205,20 +220,17 @@
 				</div> -->
 				<!-- / display comments -->
 				
-				
-				
-				
-			</div>
-			<!-- / message ng repeat -->
+				</div>
+				<!-- / message ng repeat -->
 			
-			<div class="add-note-button" ng-show="selected.doctype === 'task'">
-				<div class="add-note-button-body small" ng-click="toggleNote(user[0]._subject._id)">+</div>
-				<div class="add-note-button-helper small">Add new note?</div>
-				<div class="clear"></div>
+	<!-- 			<div class="add-note-button" ng-show="selected.doctype === 'task'">
+						<div class="add-note-button-body small" ng-click="toggleNote(user[0]._subject._id)">+</div>
+						<div class="add-note-button-helper small">Add new note?</div>
+						<div class="clear"></div>
+					</div> -->
+				</div>
+				<!-- /messages -->
 			</div>
-		</div>
-		<!-- /messages -->
-				
 		</div>
 	</div>
 <!-- / main content -->
