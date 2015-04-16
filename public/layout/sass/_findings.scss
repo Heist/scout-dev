@@ -32,42 +32,21 @@
 
 	
 	#findings-nav {
-		padding: 50px 0 0 0;
+		padding: 20px 0 0 0;
 		margin: 0;
-		width: 30%;
+		width: 20%;
 		height: 100%;
 		position: fixed;
-		left: 12%;
+		left: 10%;
 		top: 0;
 		@include animated;		
 		@include scrollbar;
-				
-		#findings-viewmode-controls {
-			position: absolute;
-			left: 163px;
-			top: 119px;
-		}
-		
-		#findings-share-link {
-			width: 100%;
-			padding: 0;
-			margin: 0 0 $pad/2 0;
-			
-			small {
-				line-height: $type-size-base;
-				display: block;
-			}
-	
-			.input {
-				width: 80%;
-				margin: 0;
-			}
-		}
 		
 		#sidebar {
 			width: 95%;
 			height: 80%;
 			overflow: auto;
+			position: relative;
 			
 			&.sidebar {
 				font-size: 16px;
@@ -75,22 +54,25 @@
 
 				span.findings {
 					color: $fg-slate;
-					margin: 30px 0;
 					display: block;
 					@include type-regular;
 				}
 
-				h4 {
+				h4.group-cat {
+					padding: 10px;
+					margin: 5px 0 0 0;
 					font-size: 10px;
 					color: $fg-grey-light;
 					text-transform: uppercase;
-					margin: 30px 0;
+
+					&:first-child {
+						margin: 20px 0 0 0;
+					}
 				}
 
 				li {
-					margin: 0;
-					padding: 0;
-					margin: 30px 0;
+					padding: 10px;
+					margin: 5px 0 0 0;
 				}
 			}
 
@@ -100,17 +82,40 @@
 					@include type-bold;
 				}
 			}
+
+			#findings-viewmode-controls {
+				position: absolute;
+				left: 80%;
+				top: 63px;
+			}
+			
+			#findings-share-link {
+				width: 100%;
+				padding: 0;
+				margin: 0 0 $pad/2 0;
+				
+				small {
+					line-height: $type-size-base;
+					display: block;
+				}
+			
+				.input {
+					width: 80%;
+					margin: 0;
+				}
+			}
+
 		}
 	}
 
 	.sheet-holder {
-		width: 73%;
+		width: 70%;
 		height: 100%;
 		padding: 0;
 		margin: 0;
 		position: absolute;
 		top: 0;
-		left: 27%;
+		left: 30%;
 	}
 	
 	.findings-header {

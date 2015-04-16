@@ -2723,17 +2723,6 @@ hr {
         right: 30px; }
 
 /* this styles the line on the summary page where all the notes live */
-.overlay-border {
-  width: 90%;
-  border-right: 1px solid #D8DADB; }
-
-.summary-border {
-  position: absolute;
-  right: -47px; }
-
-.sheet {
-  padding: 0; }
-
 /* message user header */
 .message-user {
   padding: 20px 40px 0 20px;
@@ -2932,12 +2921,12 @@ hr {
   #view-findings.show-comments .message-comments {
     display: block; }
   #view-findings #findings-nav {
-    padding: 50px 0 0 0;
+    padding: 20px 0 0 0;
     margin: 0;
-    width: 30%;
+    width: 20%;
     height: 100%;
     position: fixed;
-    left: 12%;
+    left: 10%;
     top: 0;
     -webkit-transition-duration: 0.2s;
     -webkit-transition-timing: ease-out;
@@ -2957,24 +2946,11 @@ hr {
     #view-findings #findings-nav ::-webkit-scrollbar-thumb {
       background: #d7d7d7;
       border-radius: 10px; }
-    #view-findings #findings-nav #findings-viewmode-controls {
-      position: absolute;
-      left: 163px;
-      top: 119px; }
-    #view-findings #findings-nav #findings-share-link {
-      width: 100%;
-      padding: 0;
-      margin: 0 0 10px 0; }
-      #view-findings #findings-nav #findings-share-link small {
-        line-height: 15px;
-        display: block; }
-      #view-findings #findings-nav #findings-share-link .input {
-        width: 80%;
-        margin: 0; }
     #view-findings #findings-nav #sidebar {
       width: 95%;
       height: 80%;
-      overflow: auto; }
+      overflow: auto;
+      position: relative; }
       #view-findings #findings-nav #sidebar.sidebar {
         font-size: 16px;
         font-family: "canada-type-gibson",sans-serif;
@@ -2982,32 +2958,47 @@ hr {
         font-weight: 300; }
         #view-findings #findings-nav #sidebar.sidebar span.findings {
           color: #2B404D;
-          margin: 30px 0;
           display: block;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
           font-weight: 400; }
-        #view-findings #findings-nav #sidebar.sidebar h4 {
+        #view-findings #findings-nav #sidebar.sidebar h4.group-cat {
+          padding: 10px;
+          margin: 5px 0 0 0;
           font-size: 10px;
           color: #D8DADB;
-          text-transform: uppercase;
-          margin: 30px 0; }
+          text-transform: uppercase; }
+          #view-findings #findings-nav #sidebar.sidebar h4.group-cat:first-child {
+            margin: 20px 0 0 0; }
         #view-findings #findings-nav #sidebar.sidebar li {
-          margin: 0;
-          padding: 0;
-          margin: 30px 0; }
+          padding: 10px;
+          margin: 5px 0 0 0; }
       #view-findings #findings-nav #sidebar .test-id h3 {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 400; }
+      #view-findings #findings-nav #sidebar #findings-viewmode-controls {
+        position: absolute;
+        left: 80%;
+        top: 63px; }
+      #view-findings #findings-nav #sidebar #findings-share-link {
+        width: 100%;
+        padding: 0;
+        margin: 0 0 10px 0; }
+        #view-findings #findings-nav #sidebar #findings-share-link small {
+          line-height: 15px;
+          display: block; }
+        #view-findings #findings-nav #sidebar #findings-share-link .input {
+          width: 80%;
+          margin: 0; }
   #view-findings .sheet-holder {
-    width: 73%;
+    width: 70%;
     height: 100%;
     padding: 0;
     margin: 0;
     position: absolute;
     top: 0;
-    left: 27%; }
+    left: 30%; }
   #view-findings .findings-header {
     padding: 40px; }
     #view-findings .findings-header h3, #view-findings .findings-header h1 {
