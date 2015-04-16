@@ -1,5 +1,4 @@
-/* new report & summarizing hawtness up in this piece */
-
+/* summary */
 
 #view-findings {
 	padding: 0;
@@ -56,9 +55,11 @@
 				}
 
 				span.findings {
-					color: $fg-slate;
 					display: block;
-					@include type-regular;
+					
+					&:hover {
+						color: $fg-slate;
+					}
 				}
 
 				h4.group-cat {
@@ -76,13 +77,15 @@
 				li {
 					padding: 10px;
 					margin: 5px 0 0 0;
-				}
-			}
 
-			.test-id {
+					&:hover {
+						color: $fg-slate;
+					}
 
-				h3 {
-					@include type-bold;
+					&:active {
+						color: $fg-slate;
+						@include type-bold;
+					}
 				}
 			}
 

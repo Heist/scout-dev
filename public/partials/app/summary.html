@@ -119,30 +119,33 @@
 					
 				</div>
 				
-				<div class="findings-information">
-					<h2 ng-if="selected.desc" ng-show="selected.doctype === 'test'">Objectives</h2>
-					<p ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></p>
-					
-					<h2>Findings</h2>
-					<textarea msd-elastic class="input findings-summary" id="field-textarea" placeholder="Summarize your high level elarning here.
-					This is the page you will be sharing with your organization"  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>
-				</div>
+				<div class="findings" ng-show="selected.doctype === 'test'">
 
-				<!-- SORT OUT YOUTUBE LINKS -->
-				
-				<!-- 		<form id="video-embed">
-						<p>Do you have a relevant video for this task or theme? <a ng-click="showEmbed = ! showEmbed">Include it</a> in your report. </p>
+					<div class="findings-information">
+						<h2 ng-if="selected.desc">Objectives</h2>
+						<p ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></p>
 						
-						<div id="video-embed-form" ng-show="showEmbed">
-								<small ng-if="selected.embed.length === 0">For Youtube, paste your video URL, like https://www.youtube.com/watch?v=ABCD1234. For everything else, use the native embed code.</small>
-								<textarea ng-model='selected.embed' class="input" name="field-input" placeholder="Your embed code." ng-blur="saveObject(selected)"></textarea>
-					</div> -->
-					<!--<button ng-click="saveObject(selected)">Add Video</button>-->
-					<!--  </form> -->
+						<h2>Findings</h2>
+						<textarea msd-elastic class="input findings-summary" id="field-textarea" placeholder="Summarize your high level elarning here.
+						This is the page you will be sharing with your organization"  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>
+					</div>
+
+					<!-- SORT OUT YOUTUBE LINKS -->
+					
+					<!-- 		<form id="video-embed">
+							<p>Do you have a relevant video for this task or theme? <a ng-click="showEmbed = ! showEmbed">Include it</a> in your report. </p>
+							
+							<div id="video-embed-form" ng-show="showEmbed">
+									<small ng-if="selected.embed.length === 0">For Youtube, paste your video URL, like https://www.youtube.com/watch?v=ABCD1234. For everything else, use the native embed code.</small>
+									<textarea ng-model='selected.embed' class="input" name="field-input" placeholder="Your embed code." ng-blur="saveObject(selected)"></textarea>
+						</div> -->
+						<!--<button ng-click="saveObject(selected)">Add Video</button>-->
+						<!--  </form> -->
+					
+					<h2>All your test summaries</h2>
+					<p>Use these to help create your final Findings above. These will not be shown when you share your Findings.</p>
 				
-				<h2>All your test summaries</h2>
-				<p>Use these to help create your final Findings above. These will not be shown when you share your Findings.</p>
-				
+				</div>
 				<!-- messages -->
 				<div class="message-group" ng-repeat="user in messages" ng-show="selected._messages">
 					

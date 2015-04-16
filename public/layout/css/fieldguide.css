@@ -2907,7 +2907,7 @@ hr {
       width: 100%;
       margin: 0 0 10px 0; }
 
-/* new report & summarizing hawtness up in this piece */
+/* summary */
 #view-findings {
   padding: 0;
   margin: 0;
@@ -2979,11 +2979,9 @@ hr {
         #view-findings #findings-nav #sidebar.sidebar .tag-hash:before {
           content: '#'; }
         #view-findings #findings-nav #sidebar.sidebar span.findings {
-          color: #2B404D;
-          display: block;
-          font-family: "canada-type-gibson",sans-serif;
-          font-style: normal;
-          font-weight: 400; }
+          display: block; }
+          #view-findings #findings-nav #sidebar.sidebar span.findings:hover {
+            color: #2B404D; }
         #view-findings #findings-nav #sidebar.sidebar h4.group-cat {
           padding: 10px;
           margin: 5px 0 0 0;
@@ -2995,10 +2993,13 @@ hr {
         #view-findings #findings-nav #sidebar.sidebar li {
           padding: 10px;
           margin: 5px 0 0 0; }
-      #view-findings #findings-nav #sidebar .test-id h3 {
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 400; }
+          #view-findings #findings-nav #sidebar.sidebar li:hover {
+            color: #2B404D; }
+          #view-findings #findings-nav #sidebar.sidebar li:active {
+            color: #2B404D;
+            font-family: "canada-type-gibson",sans-serif;
+            font-style: normal;
+            font-weight: 400; }
       #view-findings #findings-nav #sidebar #findings-viewmode-controls {
         position: absolute;
         left: 80%;
