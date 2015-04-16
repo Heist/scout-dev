@@ -30,7 +30,6 @@
 		}
 	}
 
-	
 	#findings-nav {
 		padding: 20px 0 0 0;
 		margin: 0;
@@ -120,6 +119,12 @@
 		position: absolute;
 		top: 0;
 		left: 30%;
+
+		&.full {
+			width: 103%;
+			left: -3%;
+			position: relative;
+		}
 	}
 	
 	.findings-content {
@@ -127,8 +132,12 @@
 		margin: 0 auto;
 		@include type-light;
 
+		&.report {
+			width: 35%;
+		}
+
 		h1 {
-			margin: 0 0 10px 0;
+			margin: 0;
 			font-size: 24px;
 		}
 
@@ -146,22 +155,24 @@
 		}
 
 		.findings-header {
-			padding: $pad*2.5 0;
+			padding: 40px 0;
 
 			.findings-description {
 				color: $fg-grey;
 				font-size: 12px;
+				margin: 10px 0;
+
+				span {
+					padding: 0 20px 0 0;
+				}
 			}
 			
 		}
 		
 		.findings-information {
-			border-bottom: 1px solid $line;
-			padding: 0 $pad*2 $pad/2 $pad*2;
-			margin: -$pad*1.5 0 $pad*2 0;	
-			font-size: $type-size-base*0.8;
-			@include type-bold;
-			opacity: 0.6;
+			p {
+				line-height: 20px;
+			}
 		}
 		
 		.findings-summary {

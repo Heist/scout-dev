@@ -59,7 +59,8 @@
 						<input class="input small tight" ng-model="reportLink"/>
 					</div>
 					
-					<button class="button extra-small" ng-click="toggleReportLink()">Share</button>
+					<!-- <button class="button extra-small" ng-click="toggleReportLink()">Share</button> -->
+					<button class="button extra-small" ng-click="reportView()">Preview</button>
 				</div>
 				<div class="clear"></div>
 				</div> <!-- /group in navlist -->
@@ -94,10 +95,9 @@
 					
 					<div class="clear"></div>
 
-					<div class="findings-description">
-						<span>{{participant.number}} participants</span>
-						<span>Prototype test</span>
-						<span>{{prototype.url}}</span>
+					<div class="findings-description" ng-show="selected.doctype === 'test'">
+						<span>{{selected._subjects.length}} participants</span>
+						<span ng-show="selected.kind === 'prototype'"><span>Prototype test</span><a href="{{selected.link}}" target="_">{{selected.link}}</a></span>
 					</div>
 					
 					<!-- task rating widget -->
@@ -119,13 +119,15 @@
 					
 				</div>
 				
-				<h2>Objectives</h2>
-				<pre>{{objecives}}</pre>
+				<div class="findings-information">
+					<h2 ng-if="selected.desc" ng-show="selected.doctype === 'test'">Objectives</h2>
+					<p ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></p>
+					
+					<h2>Findings</h2>
+					<textarea msd-elastic class="input findings-summary" id="field-textarea" placeholder="Summarize your high level elarning here.
+					This is the page you will be sharing with your organization"  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>
+				</div>
 
-				<h2>Findings</h2>
-				<textarea msd-elastic class="input findings-summary" id="field-textarea" placeholder="Summarize your high level elarning here.
-				This is the page you will be sharing with your organization"  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>
-				
 				<!-- SORT OUT YOUTUBE LINKS -->
 				
 				<!-- 		<form id="video-embed">

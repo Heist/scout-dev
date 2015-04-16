@@ -61,8 +61,8 @@ $modal-bg: transparentize($fg-slate, 0.1);
 $light-grey-bg: transparentize($fg-grey, 0.8);
 $light-green-bg: transparentize($fg-green, 0.86);
 
-$link: $fg-green;
-$link-hover: darken($link, 7%);
+$link: $fg-blue;
+$link-hover: $fg-blue;
 
 $link-grey: $fg-grey;
 $link-hover: darken($link-grey, 7%);

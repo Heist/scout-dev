@@ -1,4 +1,4 @@
-<div id="view-findings" 
+<div id="report-summary" 
 	ng-class="{ 'show-comments' : showCommentToggle !== 'hide', 'is-onboard' : user.onboard != 0 }" 
 	ng-model="report"
 	ng-keyup="doKeyUp($event)">
@@ -22,90 +22,31 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	
-	<ng-include src="'partials/app/_header-small.html'"></ng-include>
-	
-	
-	
-	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
-	
-	
-	
-	
-	<!-- findings nav -->
-	<div id="findings-nav">
-		
-		<div id="sidebar">
 
-			<div class="test-id">
-				<h3>{{testname}}</h3>
-				<small>Report</small>
-			</div>
-
-			<ul>
-				<li 
-				ng-repeat="object in navlist" 
-				ng-click="activate(object, $index)" 
-				ng-class="{ 'active': object._id == selected._id }"
-				ng-if="object.visible" >
-					<span ng-show="object.doctype === 'test'"><strong>Overview</strong></span>
-					<span ng-hide="object.doctype === 'test'">{{object.name}}</span>	
-					
-					<div class="task-boop green" ng-show="object.pass_fail == true" ></div>
-					<div class="task-boop red" ng-show="object.pass_fail == false"></div>
-				</li>
-		
-			</ul>
-		</div>
-		
-		<!-- findings controls -->
-		
-		<div id="findings-viewmode-controls">
-			<div id="findings-share-link" ng-if="showReportLink">
-				<small>Use this link to share this report:</small>
-				<input class="input small tight" ng-model="reportLink"/>
-			</div>	
-			
-			<a class="button small" ng-click="summaryView()">Edit</a>
-			<a class="button small disabled space">Preview</a>
-			<button class="button small secondary" ng-click="toggleReportLink()">Share</button> 
-		</div> 		
-		
-	
-		
-	</div>
-	
-				
 	<!-- main content -->
-	<div class="sheet-holder">						
-		<div class="sheet" ng-model="selected">
-			
-			<div class="findings-header">		
-				<h1 ng-show="selected.doctype === 'test'">Overview</h1>
-				<h3 ng-hide="selected.doctype === 'test'" class="dark"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h3>
-			</div>
-			
-			<div class="findings-information" ng-show="selected.doctype === 'test'">
-				<div class="float-left">
-					{{selected._subjects.length}} participants &nbsp; <span ng-show="selected.kind === 'prototype'">Prototype: <a href="{{selected.link}}" target="_">{{selected.link}}</a></span>
-				</div>
+	<div class="sheet-holder-report">
+		<div class="sheet-report" ng-model="selected">
+			<div class="findings-content report">
+				<div class="findings-header">
+						<h1 class="dark float-left"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h1>
+						
+						<div class="clear"></div>
 
-				<div class="float-right">
-					Last run: {{selected.last_run | date:'MMMM d yyyy'}}
+						<div class="findings-description" ng-show="selected.doctype === 'test'">
+							<span>{{selected._subjects.length}} participants</span>
+							<span ng-show="selected.kind === 'prototype'"><span>Prototype test</span><a href="{{selected.link}}" target="_">{{selected.link}}</a></span>
+						</div>
 
+						<div class="clear"></div>
 				</div>
-				<div class="clear"></div>
-			</div>
 			
-			<div class="findings-description">	
-				<p ng-if="selected.summary" ng-bind-html='selected.summary'></p>
-			
-				<small ng-if="selected.desc" ng-show="selected.doctype === 'test'" class="all-caps">Test objectives</small>
-				<small ng-if="selected.desc" ng-hide="selected.doctype === 'test'" class="all-caps">Talking points</small>
-				<p ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></p>
-			</div>
+				<div class="findings-information">
+					<h2 ng-if="selected.desc" ng-show="selected.doctype === 'test'">Objectives</h2>
+					<pre ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></pre>
+
+					<h2>Summary</h2>
+					<pre ng-if="selected.summary" ng-bind-html='selected.summary'></pre>
+				</div>
 		
 		
 		
@@ -171,10 +112,10 @@
 				</div>
 				<!-- / message -->
 			</div>
+
 			</div>
 			<!-- /messages -->
-			
-			
+			</div>
 		</div>
 	</div>
 	<!-- / main content -->
