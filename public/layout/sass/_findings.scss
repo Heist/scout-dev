@@ -52,6 +52,10 @@
 				font-size: 16px;
 				@include type-light;
 
+				.tag-hash:before {
+					content: '#';
+				}
+
 				span.findings {
 					color: $fg-slate;
 					display: block;

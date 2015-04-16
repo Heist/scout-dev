@@ -35,7 +35,7 @@
 				<ul>
 					<li ng-repeat="object in group" ng-class="{ 'active': n._id === selected._id }"  ng-click="activate(object)">
 						<span class="findings" ng-if="object.doctype === 'test'">Findings</span>
-						<span class="objects" ng-if="object.doctype !== 'test'">{{object.name}}</span>
+						<span class="objects" ng-if="object.doctype !== 'test'" ng-class="{'tag-hash': object.doctype === 'tag'}">{{object.name}}</span>
 					</li>
 				</ul>
 				<!-- <div class="step-ordering"> -->
@@ -140,6 +140,7 @@
 				
 				<h2>All your test summaries</h2>
 				<p>Use these to help create your final Findings above. These will not be shown when you share your Findings.</p>
+				
 				<!-- messages -->
 				<div class="message-group" ng-repeat="user in messages" ng-show="selected._messages">
 					

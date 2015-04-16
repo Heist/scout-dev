@@ -2955,6 +2955,8 @@ hr {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300; }
+        #view-findings #findings-nav #sidebar.sidebar .tag-hash:before {
+          content: '#'; }
         #view-findings #findings-nav #sidebar.sidebar span.findings {
           color: #2B404D;
           display: block;
