@@ -1,9 +1,6 @@
 /* message list */
 
-
-
 /* how we style notes within summaries and reports */
-
 
 .message-group {
 	margin: 0;
@@ -71,33 +68,16 @@
 	}
 }
 
-/* this styles the line on the summary page where all the notes live */
-
-// .overlay-border {
-// 	width: 90%;
-// 	border-right: 1px solid $fg-grey-light;
-// }
-
-// .summary-border {
-// 	position: absolute;
-// 	right: -47px;
-// }
-
-// .sheet {
-// 	padding: 0;
-// }
-
-
 /* message user header */
 
 .message-user {
-	padding: $pad $pad*2 0 $pad;
 	color: $fg-slate;
-	font-size: $type-size-base*0.8;
-	@include type-bold;
+	font-size: 16px;
+	@include type-light;
+	margin: 0 0 20px 0;
 	
 	img {
-		width: 13px;
+		width: 20px;
 		height: auto;
 		opacity: 0.2;
 		padding: 0;
@@ -134,7 +114,6 @@
 /* individual messages */
 
 .message {
-	padding: $pad/1.5 0 $pad/1.5 35px;
 	position: relative;
 	@include animated;
 			
@@ -274,7 +253,7 @@
 	
 	.message-body {
 		float: left;
-		width: 90%;	
+		width: 100%;
 
 		h3 {
 			@include type-light;
@@ -290,9 +269,10 @@
 
 		pre.messages {
 			font-size: 12px;
+			line-height: 18px;
 			@include type-light;
 			color: $fg-grey-dark;
-			margin: 0;
+			margin: 0 0 20px 0;
 
 			&:hover {
 				color: $fg-black;

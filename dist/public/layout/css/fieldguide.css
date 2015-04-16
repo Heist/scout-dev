@@ -2721,17 +2721,16 @@ hr {
         font-size: 12px;
         right: 30px; }
 
-/* this styles the line on the summary page where all the notes live */
 /* message user header */
 .message-user {
-  padding: 20px 40px 0 20px;
   color: #2B404D;
-  font-size: 12px;
+  font-size: 16px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 400; }
+  font-weight: 300;
+  margin: 0 0 20px 0; }
   .message-user img {
-    width: 13px;
+    width: 20px;
     height: auto;
     opacity: 0.2;
     padding: 0;
@@ -2753,7 +2752,6 @@ hr {
 
 /* individual messages */
 .message {
-  padding: 13.33333px 0 13.33333px 35px;
   position: relative;
   -webkit-transition-duration: 0.2s;
   -webkit-transition-timing: ease-out;
@@ -2859,7 +2857,7 @@ hr {
         opacity: 0.5; }
   .message .message-body {
     float: left;
-    width: 90%; }
+    width: 100%; }
     .message .message-body h3 {
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
@@ -2872,11 +2870,12 @@ hr {
       color: #949799; }
     .message .message-body pre.messages {
       font-size: 12px;
+      line-height: 18px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 300;
       color: #777777;
-      margin: 0; }
+      margin: 0 0 20px 0; }
       .message .message-body pre.messages:hover {
         color: #323539; }
     .message .message-body small {
@@ -3016,7 +3015,8 @@ hr {
     #view-findings .findings-content p {
       font-size: 12px;
       line-height: 13px;
-      color: #949799; }
+      color: #949799;
+      margin: 0 0 50px 0; }
     #view-findings .findings-content .findings-header {
       padding: 50px 0; }
       #view-findings .findings-content .findings-header .findings-description {

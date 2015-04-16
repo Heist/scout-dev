@@ -150,30 +150,31 @@
 						<div class="clear"></div>
 					</div>
 					<!-- input notes -->
-					<div class="message-input" ng-show="inputNote === user[0]._subject._id">
+<!-- 					<div class="message-input" ng-show="inputNote === user[0]._subject._id">
 						<textarea class="input" ng-model='newnote' name="field-input" placeholder="Your new notes for this participant">
 						</textarea>
 						<button class="button small" ng-click="postMessage(newnote, user[0]._subject)">Add Note</button>
-					</div>
+					</div> -->
 					<!-- message ng-show="showObjectMessages(message, selected)"
 					ng-show="selected._messages.indexOf(message._id) !== -1"
 					-->
 					<div ng-repeat="message in user" class="message"
 						ng-show="selected._messages.indexOf(message._id) !== -1"
 						ng-class="{selected: commentMessage._id === message._id}">
-						<div ng-click="deleteMessage(message)" class="delete-message">&times;</div>
+
+						<!-- <div ng-click="deleteMessage(message)" class="delete-message">&times;</div> -->
 						
 						
 						<!--<div class="message-edit"><img src="/layout/assets/pencil.svg"/></div>-->
 						
 						
 						<div class="message-body" ng-click="editMessage(message, $index)">
-						<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-						<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
+							<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
+							<textarea class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
 						<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 						</div>
 					
-					<div class="summary-border">
+<!-- 					<div class="summary-border">
 						<div class="message-fave" ng-show="selected.doctype === 'task'">
 							<a ng-click="saveFav(message)" ng-if="message.fav_task">
 								<img src="/layout/assets/show.svg" />
@@ -191,7 +192,7 @@
 								<img src="/layout/assets/hidden.svg" />
 							</a>
 						</div>
-					</div>
+					</div> -->
 					
 					<div class="clear"></div>
 					
