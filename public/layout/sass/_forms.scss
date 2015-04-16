@@ -90,6 +90,7 @@ label {
 }
 
 .input {
+	width: 100%;
 	background: $white;
 	border: 1px solid $line;
 	display: inline-block;
@@ -99,7 +100,6 @@ label {
 	@include type-light;
 	font-size: $type-size-base*0.90;
 	outline: none;
-	width: 100%;
 
 	&:hover {
 		border: 1px solid $fg-grey;
@@ -129,6 +129,8 @@ label {
 		} 
 	}
 }
+
+@include input-placeholders;
 
 textarea.input {
 	line-height: $type-size-base*1.5;

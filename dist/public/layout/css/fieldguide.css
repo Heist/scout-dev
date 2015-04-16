@@ -372,6 +372,7 @@ label {
       right: 30px; }
 
 .input {
+  width: 100%;
   background: #fff;
   border: 1px solid #dddddd;
   display: inline-block;
@@ -384,8 +385,7 @@ label {
   font-style: normal;
   font-weight: 300;
   font-size: 13.5px;
-  outline: none;
-  width: 100%; }
+  outline: none; }
   .input:hover {
     border: 1px solid #949799; }
   .input:focus {
@@ -402,6 +402,28 @@ label {
     .input.hollow:focus {
       background: #fff;
       border: 1px solid #dddddd; }
+
+::-webkit-input-placeholder {
+  color: #D8DADB;
+  font-size: 12.5px;
+  font-style: italic; }
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #D8DADB;
+  font-size: 12.5px;
+  font-style: italic; }
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #D8DADB;
+  font-size: 12.5px;
+  font-style: italic; }
+
+:-ms-input-placeholder {
+  color: #D8DADB;
+  font-size: 12.5px;
+  font-style: italic; }
 
 textarea.input {
   line-height: 22.5px; }
@@ -2883,7 +2905,8 @@ hr {
       margin: 0;
       padding: 0; }
     .message .message-body textarea {
-      width: 100%; }
+      width: 100%;
+      margin: 0 0 10px 0; }
 
 /* new report & summarizing hawtness up in this piece */
 #view-findings {
