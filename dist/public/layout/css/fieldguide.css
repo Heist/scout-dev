@@ -3248,12 +3248,15 @@ hr {
 #view-paid {
   display: none; }
 
-/* new report & summarizing hawtness up in this piece */
+/* report public */
 #report-summary {
   padding: 0;
   margin: 0;
   background: #fff;
   /* are we onboard? */ }
+  #report-summary #generated-with-fg img {
+    float: right;
+    margin: 60px; }
   #report-summary.is-onboard #findings-viewmode-controls {
     bottom: 0; }
   #report-summary.show-comments .sheet-holder {

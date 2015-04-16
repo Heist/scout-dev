@@ -1,11 +1,17 @@
-/* new report & summarizing hawtness up in this piece */
-
+/* report public */
 
 #report-summary {
 	padding: 0;
 	margin: 0;
 	background: $white;
 	
+	#generated-with-fg {
+		img {
+			float: right;
+			margin: 60px;
+		}
+	}
+
 	/* are we onboard? */
 	
 	&.is-onboard {
