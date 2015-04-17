@@ -92,13 +92,14 @@ label {
 .input {
 	width: 100%;
 	background: $white;
-	border: 1px solid $line;
+	border: 1px solid $fg-grey-light;
 	display: inline-block;
 	margin: 0;
 	padding: 11px $pad/1.5;
 	@include radius;
 	@include type-light;
-	font-size: $type-size-base*0.90;
+	font-size: 12px;
+	color: $fg-grey-dark;
 	outline: none;
 
 	&:hover {
