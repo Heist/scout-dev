@@ -178,6 +178,9 @@
 		}
 		
 		.findings-information {
+			pre {
+				color: $fg-grey;
+			}
 			p {
 				line-height: 20px;
 			}

@@ -160,7 +160,7 @@
 		pre {
 			margin: 0 0 10px 0;
 		}
-		
+
 		.findings-header {
 			padding: 40px 0;
 
@@ -179,6 +179,10 @@
 		.findings-information {
 			p {
 				line-height: 20px;
+				color: $fg-grey-dark;
+			}
+			textarea {
+				line-height: 15px;
 			}
 		}
 		
