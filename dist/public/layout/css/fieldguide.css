@@ -2158,8 +2158,7 @@ hr {
     margin: 0; }
   #view-new-project .test-type a.more-info {
     color: #00B5E3;
-    font-size: 10px;
-    text-decoration: underline; }
+    font-size: 10px; }
   #view-new-project .test-type.selected {
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
