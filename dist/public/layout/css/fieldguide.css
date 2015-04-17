@@ -2899,7 +2899,7 @@ hr {
       font-style: normal;
       font-weight: 300;
       color: #777777;
-      margin: 0 0 20px 0; }
+      margin: 0; }
       .message .message-body pre.messages:hover {
         color: #323539; }
     .message .message-body small {
@@ -3049,6 +3049,8 @@ hr {
       line-height: 13px;
       color: #949799;
       margin: 0 0 50px 0; }
+    #view-findings .findings-content pre {
+      margin: 0 0 10px 0; }
     #view-findings .findings-content .findings-header {
       padding: 40px 0; }
       #view-findings .findings-content .findings-header .findings-description {
