@@ -2044,7 +2044,10 @@ hr {
       margin: 0;
       text-align: center;
       text-decoration: none;
-      color: #fff; }
+      color: #fff;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400; }
       .overview-test .test-controls a:hover {
         background-color: #7a9e0e;
         -webkit-box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
