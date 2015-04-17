@@ -3075,6 +3075,9 @@ hr {
       border: 1px solid #dddddd;
       margin: 0 0 70px 0; }
 
+#view-summary-modal {
+  color: red; }
+
 /* let's embed a video */
 #video-embed {
   padding: 0 40px 20px 40px; }
