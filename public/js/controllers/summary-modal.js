@@ -3,7 +3,7 @@
 	'use strict';
 
 	angular.module('field_guide_controls')
-	.controller('newTest', 
+	.controller('summaryModal', 
     		['testBuildFunctions','$scope','$http','$stateParams','$state','$location','$rootScope',
     function( testBuildFunctions,  $scope,  $http,  $stateParams,  $state,  $location, $rootScope){
         console.log('loaded new test');
