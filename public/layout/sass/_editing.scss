@@ -193,6 +193,10 @@
                     font-size: 10px;
                     color: $fg-blue;
                     display: inline-block;
+                    
+                    &:before {
+                        content: "#"
+                    }
 
                     &:first-child {
                         padding: 0 0 0 10px;
