@@ -2908,7 +2908,8 @@ hr {
       padding: 0; }
     .message .message-body textarea {
       width: 100%;
-      margin: 0 0 10px 0; }
+      margin: 0 0 10px 0;
+      line-height: 15px; }
 
 /* summary */
 #view-findings {
@@ -3060,7 +3061,7 @@ hr {
         #view-findings .findings-content .findings-header .findings-description span {
           padding: 0 20px 0 0; }
     #view-findings .findings-content .findings-information p {
-      line-height: 20px; }
+      line-height: 18px; }
     #view-findings .findings-content .findings-information textarea {
       line-height: 15px; }
     #view-findings .findings-content .findings-summary {
