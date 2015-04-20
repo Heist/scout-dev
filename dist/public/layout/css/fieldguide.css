@@ -387,7 +387,7 @@ label {
   color: #777777;
   outline: none; }
   .input:hover {
-    border: 1px solid #949799; }
+    border: 1px solid rgba(148, 151, 153, 0.5); }
   .input:focus {
     box-shadow: 0 0 4px #85AC0F;
     border: 1px solid #D8DADB; }
