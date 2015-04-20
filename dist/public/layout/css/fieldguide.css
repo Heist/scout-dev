@@ -2279,8 +2279,8 @@ hr {
     #view-editing .tags .tag-pool, #view-editing .tags textarea.custom-tags {
       width: 100%;
       height: 30px;
-      background: rgba(148, 151, 153, 0.2);
-      border: 1px solid #D8DADB; }
+      background: rgba(216, 218, 219, 0.5);
+      border: 1px solid rgba(216, 218, 219, 0.5); }
       #view-editing .tags .tag-pool ul, #view-editing .tags textarea.custom-tags ul {
         padding: 0; }
         #view-editing .tags .tag-pool ul li, #view-editing .tags textarea.custom-tags ul li {

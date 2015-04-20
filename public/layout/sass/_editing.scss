@@ -183,8 +183,8 @@
         .tag-pool {
             width: 100%;
             height: 30px;
-            background: $light-grey-bg;
-            border: 1px solid $fg-grey-light;
+            background: transparentize($fg-grey-light, 0.5);
+            border: 1px solid transparentize($fg-grey-light, 0.5);
             
             ul {
                 padding: 0;
