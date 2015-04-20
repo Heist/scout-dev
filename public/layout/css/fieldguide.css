@@ -373,7 +373,7 @@ label {
 .input {
   width: 100%;
   background: #fff;
-  border: 1px solid #D8DADB;
+  border: 1px solid rgba(216, 218, 219, 0.5);
   display: inline-block;
   margin: 0;
   padding: 11px 13.33333px;

@@ -92,7 +92,7 @@ label {
 .input {
 	width: 100%;
 	background: $white;
-	border: 1px solid $fg-grey-light;
+	border: 1px solid transparentize($fg-grey-light, 0.5);
 	display: inline-block;
 	margin: 0;
 	padding: 11px $pad/1.5;
