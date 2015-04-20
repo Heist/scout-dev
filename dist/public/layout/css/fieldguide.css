@@ -98,7 +98,7 @@ body {
   line-height: 24px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -597,6 +597,9 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
     margin: 0 0 0 3px; }
   .button.full {
     width: 100%; }
+  .button.large {
+    font-size: 14px;
+    padding: 16px 30px; }
   .button.small {
     font-size: 12px;
     padding: 3px 10px; }
@@ -966,8 +969,10 @@ hr {
   padding: 0 0 20px 0;
   margin: 0 auto;
   display: block;
-  border: none;
-  border-top: 1px solid #dddddd; }
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
 
 /* minimal nav */
 #nav-logo {
@@ -3159,7 +3164,10 @@ hr {
   top: 0;
   padding-top: 100px; }
   .onboard-overview-step2 hr {
-    border-top: 1px solid rgba(255, 255, 255, 0.2); }
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
   .onboard-overview-step2 .appstore-link img {
     height: 40px;
     width: auto; }
