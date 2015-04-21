@@ -306,10 +306,12 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 // not _just_ the scope.query.
                 // TODO: Make this match only the +current+ scope.query
                 var findReplace = '#'+scope.query;
-                modelCtrl.$viewValue = modelCtrl.$viewValue.replace(findReplace, '#'+model);
-                console.log('modelCtrl.$viewValue', modelCtrl.$viewValue);
+                var newValue = modelCtrl.$viewValue.replace(findReplace, '#'+model);
                 
-                    scope.typeinput = modelCtrl.$viewValue;
+                console.log('modelCtrl.$viewValue', newValue);
+                modelCtrl.$setViewValue(newValue);
+                modelCtrl.$render();
+                // scope.typeinput = modelCtrl.$viewValue;
                 
 
 
@@ -319,7 +321,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 // replace the index-matched string with the model.
                 // originalScope.typeinput.indexOf() whatever input thing happened goes here!
 
-                // $parse(attrs.ngModel).assign(originalScope, new2);
+                $parse(attrs.ngModel).assign(scope, newValue);
 
             // END AREA OF NEW WORK =================================
             
