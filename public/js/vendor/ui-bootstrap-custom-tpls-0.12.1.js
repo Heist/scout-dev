@@ -306,7 +306,8 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 // not _just_ the scope.query.
                 // TODO: Make this match only the +current+ scope.query
                 var findReplace = '#'+scope.query;
-                modelCtrl.$viewValue.replace(findReplace, '#'+model).$render();
+                modelCtrl.$viewValue = modelCtrl.$viewValue.replace(findReplace, '#'+model);
+                modelCtrl.$viewValue.$render();
 
                 // This gets the variable model (typeinput) and replaces the whole thing with the model.
                 // TODO:
