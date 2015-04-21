@@ -311,7 +311,7 @@ label {
     background: #fff;
     color: #999999;
     margin: 0;
-    padding: 6px;
+    padding: 5px;
     -moz-border-radius: 40px;
     -webkit-border-radius: 40px;
     border-radius: 40px;
@@ -571,7 +571,10 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
   font-size: 14px;
   padding: 11px 32.5px;
   float: left;
-  margin: 0; }
+  margin: 0;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 400; }
   .button:hover {
     background: #7a9e0e;
     color: #fff;
@@ -3120,127 +3123,99 @@ hr {
   height: 350px;
   background: black; }
 
-/* gimme some sweet, sweet onboard */
-.onboard-content {
+/* onboarding styles */
+#view-onboarding {
   width: 100%;
-  height: 15%;
-  color: #fff;
-  background: rgba(43, 64, 77, 0.9);
-  z-index: 999999999;
-  padding: 30px 0;
-  margin: 0;
-  position: fixed;
-  bottom: 0;
-  left: 0; }
-  .onboard-content .container {
-    padding-top: 0; }
-  .onboard-content h3, .onboard-content p {
-    line-height: 21.6px; }
-  .onboard-content .button {
-    padding: 6.66667px 20px;
-    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
-  .onboard-content a.secondary {
-    color: #fff;
-    text-decoration: underline;
-    opacity: 0.6; }
-  .onboard-content .onboard-avatar {
-    float: left;
-    display: block;
-    padding: 0;
-    margin: 0 15px 0 0; }
-    .onboard-content .onboard-avatar img {
-      width: 45px;
-      height: 45px;
-      -moz-border-radius: 55px;
-      -webkit-border-radius: 55px;
-      border-radius: 55px; }
-  .onboard-content .onboard-bubble {
-    font-size: 12px;
-    float: left;
-    margin: 0 0 1px 0; }
-    .onboard-content .onboard-bubble .onboard-bubble-msg {
-      font-size: 13.5px;
-      background: #fff;
-      color: #2B404D;
-      padding: 8px 20px;
+  text-align: center;
+  overflow: hidden;
+  position: relative; }
+  #view-onboarding.height {
+    height: 800px; }
+  #view-onboarding .onboarding-content {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%); }
+    #view-onboarding .onboarding-content .x {
+      position: absolute;
+      top: -190px;
+      right: 20px;
+      color: white;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 400;
-      -moz-border-radius: 40px;
-      -webkit-border-radius: 40px;
-      border-radius: 40px;
-      position: relative; }
-      .onboard-content .onboard-bubble .onboard-bubble-msg .bubble-msg-spike {
-        position: absolute;
-        left: -8px;
-        top: 17px; }
-        .onboard-content .onboard-bubble .onboard-bubble-msg .bubble-msg-spike img {
-          width: 20px;
-          height: auto; }
-
-/* onboard - steps */
-/* overview */
-.onboard-overview-step2 {
-  height: 100% !important;
-  top: 0;
-  padding-top: 100px; }
-  .onboard-overview-step2 hr {
-    border: 0;
-    height: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
-  .onboard-overview-step2 .appstore-link img {
-    height: 40px;
-    width: auto; }
-  .onboard-overview-step2 .app-demo {
-    text-align: center; }
-    .onboard-overview-step2 .app-demo img {
-      height: auto;
-      width: 60%; }
-
-/* run test */
-.onboard-run-step3 .two-thirds {
-  margin-top: -10px; }
-.onboard-run-step3 .onboard-avatar {
-  margin-top: 21px !important; }
-
-.onboard-run-step4 .two-thirds {
-  margin-top: -10px; }
-.onboard-run-step4 .onboard-avatar {
-  margin-top: 21px !important; }
-.onboard-run-step4 .tag {
-  color: #4adaff; }
-
-/* report */
-#onboard-overview-box {
-  font-size: 13.5px;
-  line-height: 21.6px;
-  color: #fff;
-  position: absolute;
-  right: 20px;
-  top: 160px;
-  width: 200px;
-  margin: 0;
-  padding: 20px;
-  background: rgba(43, 64, 77, 0.9);
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  z-index: 99999; }
-  #onboard-overview-box .button {
-    text-align: center;
-    display: block;
+      font-weight: 600;
+      font-size: 30px;
+      text-decoration: none; }
+    #view-onboarding .onboarding-content h2 {
+      font-size: 40px;
+      color: #fff;
+      margin: 0 0 70px 0; }
+      #view-onboarding .onboarding-content h2.less-margin {
+        margin: 0 0 40px 0; }
+    #view-onboarding .onboarding-content img {
+      width: 1000px;
+      margin: 45px 0 20px 0; }
+    #view-onboarding .onboarding-content img.ranger {
+      width: 180px;
+      margin: 0 0 20px 0; }
+      #view-onboarding .onboarding-content img.ranger.small {
+        width: 60px;
+        float: left;
+        margin: 0 0 0 10px; }
+    #view-onboarding .onboarding-content .button {
+      text-transform: uppercase;
+      float: none; }
+  #view-onboarding .onboarding-content-footer {
     width: 100%;
-    margin-top: 5px; }
-    #onboard-overview-box .button.slack {
-      background-color: rgba(255, 255, 255, 0.1);
-      color: #fff; }
-  #onboard-overview-box .hollow {
-    border-color: #fff;
-    background: none;
-    color: #fff; }
+    text-align: center; }
+    #view-onboarding .onboarding-content-footer .x {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      color: white;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 30px;
+      text-decoration: none; }
+    #view-onboarding .onboarding-content-footer h2 {
+      font-size: 40px;
+      color: #fff;
+      margin: 0 0 70px 0; }
+    #view-onboarding .onboarding-content-footer img {
+      width: 1000px;
+      margin: 45px 0 20px 0; }
+    #view-onboarding .onboarding-content-footer img.ranger {
+      width: 180px;
+      margin: 0 0 20px 0; }
+      #view-onboarding .onboarding-content-footer img.ranger.small {
+        width: 60px;
+        float: left;
+        margin: 0 0 0 10px; }
+    #view-onboarding .onboarding-content-footer .button {
+      text-transform: uppercase;
+      float: none; }
+    #view-onboarding .onboarding-content-footer footer {
+      width: 950px;
+      margin: 0 auto; }
+      #view-onboarding .onboarding-content-footer footer .footer-content {
+        text-align: center; }
+        #view-onboarding .onboarding-content-footer footer .footer-content p {
+          color: #fff;
+          font-size: 26px;
+          float: left;
+          margin: 18px 0 0 20px;
+          text-align: left;
+          width: 75%; }
+          #view-onboarding .onboarding-content-footer footer .footer-content p.two-lines {
+            margin: 9px 0 0 20px; }
+        #view-onboarding .onboarding-content-footer footer .footer-content .button {
+          text-transform: uppercase;
+          float: left;
+          margin: 10px 0 0 44px; }
 
 /* block screens */
 .block-screen {
