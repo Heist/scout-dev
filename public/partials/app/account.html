@@ -242,17 +242,17 @@
 		</div>
 	<!-- / plans view -->
 	
-	
-	
-	
-	
-	
+			<!-- onboarding steps -->
+		<div class="modal" ng-model="onboardingSteps" ng-if="onboardingSteps">
+			<ng-include src="'partials/app/_onboarding.html'"></ng-include>
+		</div>
+
 	<!-- export view -->
 	
 		<div class="module half" ng-show="tab === 3">
 			<h2>Onboarding</h2>
 			<p>Need a refresher in how Field Guide helps you get better interview results?</p>
-			<p class="clearfix"><button ng-click="changeOnboard(1)" class="button large">Step Through A Sample</button></p>
+			<p class="clearfix"><button ng-click="onboardingSteps()" class="button large">Step Through A Sample</button></p>
 			
 			<br>
 			<hr/>
