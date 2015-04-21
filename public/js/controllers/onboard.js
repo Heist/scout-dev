@@ -30,10 +30,12 @@
 
         $scope.changeOnboard = function(num){
             console.log('change on board num', num);
+            $scope.user.onboard = num;
+            
             $rootScope.user.onboard = num;
 
             var url = '/api/user/'+$rootScope.user._id;
-            var dataOut = {onboard : $rootScope.user.onboard};
+            var dataOut = {onboard : $scope.user.onboard};
 
             $http
                 .put(url, dataOut)
