@@ -322,7 +322,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 });
                 console.log('stepthrough2');
                 resetMatches();
-                scope.$digest();
+                // scope.$digest();
                 console.log('stepthrough3');
                 //return focus to the input element if a match was selected via a mouse click event
                 // use timeout to avoid $rootScope:inprog error
