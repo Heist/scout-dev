@@ -112,10 +112,10 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
     // FUNCTIONS LIST ===========================
             var resetMatches = function() {
-                console.log('resetting');
                 scope.matches = [];
                 scope.activeIdx = -1;
                 element.attr('aria-expanded', false);
+                console.log('reset index', scope.activeIdx);
             };
 
             var getMatchId = function(index) {
@@ -264,6 +264,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
             // Indicate that the specified match is the active (pre-selected) item in the list owned by this typeahead.
             // This attribute is added or removed automatically when the `activeIdx` changes.
             scope.$watch('activeIdx', function(index) {
+                console.log('inside watch', index);
                 if (index < 0) {
                     element.removeAttr('aria-activedescendant');
                 } else {
@@ -314,32 +315,32 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
             // END AREA OF NEW WORK =================================
             
                 modelCtrl.$setValidity('editable', true);
-                console.log('stepthrough1');
+                
                 onSelectCallback(originalScope, {
                     $item: item,
                     $model: model,
                     $label: parserResult.viewMapper(originalScope, locals)
                 });
-                console.log('stepthrough2');
+                
                 resetMatches();
-                // scope.$digest();
-                console.log('stepthrough3');
+                console.log('did index reset?', scope.activeIdx);
                 //return focus to the input element if a match was selected via a mouse click event
                 // use timeout to avoid $rootScope:inprog error
                 $timeout(function() { element[0].focus(); }, 0, false);
-                console.log('stepthrough4');
             };
 
             
             element.bind('keydown', function (evt) {
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
+                console.log('check the index', scope.activeIdx);
                 if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
                     return;
                 }
 
                 // if there's nothing selected (i.e. focusFirst) and enter is hit, don't do anything
                 if (scope.activeIdx === -1 && (evt.which === 13 || evt.which === 9)) {
+                    console.log('working as intended');
                     return;
                 }
 
@@ -358,11 +359,9 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     scope.$digest();
 
                 } else if (evt.which === 13 || evt.which === 9) {
+                    console.log('check the index 2', scope.activeIdx);
                     console.log('enter or tab', evt.which)
-                    scope.$apply(function () {
-                        scope.select(scope.activeIdx);
-                    });
-
+                    scope.select(scope.activeIdx);
                 } else if (evt.which === 27) {
                     console.log('escape', evt.which)
                     evt.stopPropagation();
@@ -385,12 +384,12 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 if (appendToBody) {
                     $popup.remove();
                 }
-                // scope.$destroy();
-            });
-
-            originalScope.$on('$destroy', function(){
                 scope.$destroy();
             });
+
+            // originalScope.$on('$destroy', function(){
+            //     scope.$destroy();
+            // });
 
             var $popup = $compile(popUpEl)(scope);
 
@@ -425,7 +424,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 };
 
                 scope.isActive = function (matchIdx) {
-                    return scope.active == matchIdx;
+                    return scope.active === matchIdx;
                 };
 
                 scope.selectActive = function (matchIdx) {
