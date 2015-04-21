@@ -1,15 +1,19 @@
 <!-- Onboarding Step 1 -->
 
-<div id="view-onboarding" class="height" ng-controller="onboard" ng-model="onboard">
-
-		<div class="onboarding-content">
-
-			<a href="#" class="x" ng-click="$parent.newTestModalToggle()">&times;</a>
-			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
-
-			<h2>Welcome to Field Guide</h2>
-
-			<button class="button large" ng-click="$parent.changeOnboard(2)">Get started</button>
-		</div>
+	<div id="view-onboarding" class="height" ng-controller="onboard" ng-model="onboardSteps">
 	
+		<div ng-show="user.onboard === 1">
+
+			<div class="onboarding-content">
+
+				<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+				<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
+
+				<h2>Welcome to Field Guide</h2>
+
+				<button class="button large" ng-click="$parent.changeOnboard(2)">Get started</button>
+			</div>
+		
+	</div>
+
 </div>

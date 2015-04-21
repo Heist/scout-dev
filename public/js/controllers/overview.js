@@ -13,12 +13,15 @@
         // ONBOARDING =========================================
 
         $scope.onboardToggle = function(){
-            console.log("yeah");
+            console.log("yeah", $rootScope.user.onboard);
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+                // TODO: setup as http post
+                $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 return;
             }
-            if(!$scope.onboardSteps || $scope.onboardSteps === false ){  
+            if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+                $rootScope.user.onboard = 1;  
                 $scope.onboardSteps = true; 
                 return;
             }
