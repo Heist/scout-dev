@@ -41,6 +41,18 @@
                 });
         };
 
+        $scope.onboardToggle = function(){
+            console.log("yeah");
+            if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+                $scope.onboardSteps = false; 
+                return;
+            }
+            if(!$scope.onboardSteps || $scope.onboardSteps === false ){  
+                $scope.onboardSteps = true; 
+                return;
+            }
+        };
+        
   //   // STRIPE CHECKOUT ====================================
 
 		// $scope.stripeCheckout = function(){

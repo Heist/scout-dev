@@ -1,6 +1,6 @@
 <!-- Onboarding Step 1 -->
 
-<div id="view-onboarding" class="height" ng-controller="onboarding" ng-model="onboarding">
+<div id="view-onboarding" class="height" ng-controller="onboard" ng-model="onboard">
 
 		<div class="onboarding-content">
 
@@ -9,7 +9,7 @@
 
 			<h2>Welcome to Field Guide</h2>
 
-			<button class="button large">Get started</button>
+			<button class="button large" ng-click="$parent.changeOnboard(2)">Get started</button>
 		</div>
 	
 </div>
