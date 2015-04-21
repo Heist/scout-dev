@@ -112,6 +112,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
     // FUNCTIONS LIST ===========================
             var resetMatches = function() {
+                console.log('resetting');
                 scope.matches = [];
                 scope.activeIdx = -1;
                 element.attr('aria-expanded', false);
@@ -305,39 +306,27 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 // this is rough because it will replace all hashes that match the scope.query, 
                 // not _just_ the scope.query.
                 // TODO: Make this match only the +current+ scope.query
-                var findReplace = '#'+scope.query;
-                var newValue = modelCtrl.$viewValue.replace(findReplace, '#'+model);
-                
-                console.log('modelCtrl.$viewValue', newValue);
+                var newValue = modelCtrl.$viewValue.replace('#'+scope.query, '#'+model);
+
                 modelCtrl.$setViewValue(newValue);
                 modelCtrl.$render();
-                // scope.typeinput = modelCtrl.$viewValue;
-                
-
-
-                // This gets the variable model (typeinput) and replaces the whole thing with the model.
-                // TODO:
-                // Filter the model against not the original scope, but an index-matched string
-                // replace the index-matched string with the model.
-                // originalScope.typeinput.indexOf() whatever input thing happened goes here!
-
-                $parse(attrs.ngModel).assign(scope, newValue);
 
             // END AREA OF NEW WORK =================================
             
                 modelCtrl.$setValidity('editable', true);
-
+                console.log('stepthrough1');
                 onSelectCallback(originalScope, {
                     $item: item,
                     $model: model,
                     $label: parserResult.viewMapper(originalScope, locals)
                 });
-
+                console.log('stepthrough2');
                 resetMatches();
-
+                console.log('stepthrough3');
                 //return focus to the input element if a match was selected via a mouse click event
                 // use timeout to avoid $rootScope:inprog error
                 $timeout(function() { element[0].focus(); }, 0, false);
+                console.log('stepthrough4');
             };
 
             
