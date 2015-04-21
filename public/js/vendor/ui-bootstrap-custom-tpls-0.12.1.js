@@ -322,6 +322,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 });
                 console.log('stepthrough2');
                 resetMatches();
+                scope.$digest();
                 console.log('stepthrough3');
                 //return focus to the input element if a match was selected via a mouse click event
                 // use timeout to avoid $rootScope:inprog error
@@ -384,12 +385,12 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 if (appendToBody) {
                     $popup.remove();
                 }
-                scope.$destroy();
+                // scope.$destroy();
             });
 
-            // originalScope.$on('$destroy', function(){
-            //     scope.$destroy();
-            // });
+            originalScope.$on('$destroy', function(){
+                scope.$destroy();
+            });
 
             var $popup = $compile(popUpEl)(scope);
 
@@ -420,8 +421,6 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 scope.templateUrl = attrs.templateUrl;
 
                 scope.isOpen = function () {
-                    // FIND ME
-                    // this will automatically open the popup if the length is greater than zero
                     return scope.matches.length > 0;
                 };
 
