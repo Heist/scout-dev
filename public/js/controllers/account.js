@@ -27,20 +27,6 @@
 	// ONBOARDING =========================================
     // TODO: Abstract into service for dependency injection
 
-        $scope.changeOnboard = function(num){
-            $rootScope.user.onboard = num;
-
-            var url = '/api/user/'+$rootScope.user._id;
-            var dataOut = {onboard : $rootScope.user.onboard};
-
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    console.log($rootScope.user);
-                    $location.path('/overview');
-                });
-        };
-
         $scope.onboardToggle = function(){
             console.log("yeah");
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
@@ -52,7 +38,7 @@
                 return;
             }
         };
-        
+
   //   // STRIPE CHECKOUT ====================================
 
 		// $scope.stripeCheckout = function(){

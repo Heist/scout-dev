@@ -8,46 +8,20 @@
         
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
-        
-        if($rootScope.user.onboard === 2){}
 
-        if($rootScope.user.onboard === 3 || $rootScope.user.onboard === 4 || $rootScope.user.onboard === 5 ){
-            $location.path('/run/'+$scope.tests[1]._id);
-        }
-
-        if($rootScope.user.onboard === 6 && $scope.tests.length > 0){
-            $location.path('/summary/'+$scope.tests[1]._id);
-        }
-
-        if($rootScope.user.onboard === 7 && $scope.tests.length > 0){
-            $location.path('/report/'+$scope.tests[1]._id);
-        }
 
         // ONBOARDING =========================================
-        // TODO: Abstract into service for dependency injection
 
-        // TODO: check the onboard number
-        // if the onboard number requires a route change, change the route.
-        // check for the name of the appropriate test, as it may no longer exist in the DB
-        // or possibly should have permit locks on it.
-        // Tests do not have actual permit locks on them now, do they.
-        // else just continue as normal.
-        // console.log('onboard', $rootScope.user.onboard);
-
-        $scope.changeOnboard = function(num){
-            $rootScope.user.onboard = num;
-
-            var url = '/api/user/'+$rootScope.user._id;
-            var dataOut = { onboard : $rootScope.user.onboard };
-
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    console.log($rootScope.user);
-                    if($rootScope.user.onboard === 3){
-                        $location.path('/run/'+$scope.tests[1]._id);
-                    }
-                });
+        $scope.onboardToggle = function(){
+            console.log("yeah");
+            if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+                $scope.onboardSteps = false; 
+                return;
+            }
+            if(!$scope.onboardSteps || $scope.onboardSteps === false ){  
+                $scope.onboardSteps = true; 
+                return;
+            }
         };
 
         // TEST ROUTES ========================================
