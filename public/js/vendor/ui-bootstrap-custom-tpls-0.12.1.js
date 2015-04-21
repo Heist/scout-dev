@@ -298,12 +298,6 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 model = parserResult.modelMapper(originalScope, locals);
 
             // START AREA OF CURRENT WORK ===========================
-                console.log('do we have access to the whole model', $parse(attrs.ngModel));
-                
-                console.log('contains message string', modelCtrl.$viewValue);
-                
-                console.log('here is the model', model);
-                console.log('this offers us what to find and replace?', scope.query);
 
                 //model setter executed upon match selection
                 // console.log('selected', activeIdx);
@@ -312,7 +306,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 // not _just_ the scope.query.
                 // TODO: Make this match only the +current+ scope.query
                 var findReplace = '#'+scope.query;
-                var new2 = modelCtrl.$viewValue.replace(findReplace, '#'+model);
+                modelCtrl.$viewValue.replace(findReplace, '#'+model);
 
                 // This gets the variable model (typeinput) and replaces the whole thing with the model.
                 // TODO:
@@ -320,7 +314,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 // replace the index-matched string with the model.
                 // originalScope.typeinput.indexOf() whatever input thing happened goes here!
 
-                $parse(attrs.ngModel).assign(originalScope, new2);
+                // $parse(attrs.ngModel).assign(originalScope, new2);
 
             // END AREA OF NEW WORK =================================
             
