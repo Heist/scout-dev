@@ -29,6 +29,7 @@
        // FUNCTIONS =======================================
 
         $scope.changeOnboard = function(num){
+            console.log('change on board num', num);
             $rootScope.user.onboard = num;
 
             var url = '/api/user/'+$rootScope.user._id;
