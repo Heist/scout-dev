@@ -123,12 +123,14 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
 
             var scheduleSearchWithTimeout = function(inputValue) {
+                console.log('searching without timeout');
                 timeoutPromise = $timeout(function () {
                     getMatchesAsync(inputValue);
                 }, waitTime);
             };
 
             var cancelPreviousTimeout = function() {
+                console.log('prev timeout cancelled');
                 if (timeoutPromise) {
                     $timeout.cancel(timeoutPromise);
                 }
@@ -136,6 +138,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
             var dismissClickHandler = function (evt) {
                 // Keep reference to click handler to unbind it.
+                console.log('clickhandler dismissed');
                 if (element[0] !== evt.target) {
                     resetMatches();
                     scope.$digest();
@@ -300,7 +303,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 modelFormatters(modelValue);
             });
 
-            HOT_KEYS.push(32); // add spacebar to hot keys;
+            // HOT_KEYS.push(32); // add spacebar to hot keys;
             element.bind('keydown', function (evt) {
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
@@ -315,13 +318,13 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     return;
                 }
 
-                if (evt.which === 32) {
-                    // evt.stopPropagation();
-                    evt.isDefaultPrevented();
-                    resetMatches();
-                    scope.$digest();
-                    console.log('touched space', scope.activeIdx);
-                }
+                // if (evt.which === 32) {
+                //     // evt.stopPropagation();
+                //     evt.isDefaultPrevented();
+                //     resetMatches();
+                //     scope.$digest();
+                //     console.log('touched space', scope.activeIdx);
+                // }
 
                 evt.preventDefault();
 
@@ -341,13 +344,17 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     
                     console.log('enter or tab', evt.which)
                     scope.select(scope.activeIdx);
+
+                    evt.stopPropagation();
+                    resetMatches();
+                    scope.$digest();
                     console.log('check the index after pressing enter', scope.activeIdx);
                 } else if (evt.which === 27) {
                     console.log('escape', evt.which)
-                    evt.stopPropagation();
 
+                    evt.stopPropagation();
                     resetMatches();
-                    // scope.$digest();
+                    scope.$digest();
                 } 
                 //  else if (evt.which === 32) {
                 //     evt.stopPropagation();
@@ -364,7 +371,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
             scope.select = function (activeIdx) {
                 // this is how we pick a matched tag and insert it into the message. 
                 // called from within the $digest() cycle
-
+                console.log(activeIdx);
                 var locals = {};
                 var model, item;
 
@@ -389,13 +396,9 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     $label: parserResult.viewMapper(originalScope, locals)
                 });
                 
-                resetMatches();
-                // scope.$apply();
-                console.log('did index reset in scope.select?', scope.activeIdx);
                 //return focus to the input element if a match was selected via a mouse click event
                 // use timeout to avoid $rootScope:inprog error
-                $timeout(function() { element[0].focus(); }, 0, false);
-                
+                $timeout(function() { element[0].focus(); console.log('timeout fired') }, 0, false);
             };
 
             // Dismiss click handlers on the click of a general document click
@@ -452,6 +455,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 };
 
                 scope.selectMatch = function (activeIdx) {
+                    console.log('click select', activeIdx);
                     scope.select({activeIdx:activeIdx});
                 };
             }
@@ -659,7 +663,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
     $templateCache.put("template/typeahead/typeahead-popup.html",
         "<ul class=\"dropdown-menu\" ng-show=\"isOpen()\" ng-style=\"{top: position.top+'px', left: position.left+'px'}\" style=\"display: block;\" role=\"listbox\" aria-hidden=\"{{!isOpen()}}\">\n" +
         "        <li ng-repeat=\"match in matches track by $index\" ng-class=\"{active: isActive($index) }\" ng-mouseenter=\"selectActive($index)\" ng-click=\"selectMatch($index)\" role=\"option\" id=\"{{match.id}}\">\n" +
-        "                <div typeahead-match index=\"$index\" match=\"match\" query=\"query\" template-url=\"templateUrl\"></div>\n" +
+        "                <div typeahead-match index=\"$index\" match=\"match\" query=\"query\" template-url=\"templateUrl\"></div>{{$index}}\n" +
         "        </li>\n" +
         "</ul>\n" +
         "");
