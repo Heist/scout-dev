@@ -1,8 +1,8 @@
 <div id="view-onboarding" ng-controller="onboard">
 	<!-- Onboarding Step 1 -->
 	<div ng-if="user.onboard === 1">
-		<div class="onboarding-content">
-			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+		<div class="onboarding-content animated slideInUp">
 			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
 			<h2>Welcome to Field Guide</h2>
 			<button class="button large" ng-click="changeOnboard(2)">Get started</button>
@@ -10,8 +10,8 @@
 	</div>
 	<!-- Onboarding Step 2 -->
 	<div ng-if="user.onboard === 2">
-		<div class="onboarding-content-footer">
-			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+		<div class="onboarding-content animated slideInLeft">
 			<img src="layout/assets/onboarding/report.png" alt="Field Guide report">
 			<footer>
 				<div class="footer-content">
@@ -24,8 +24,8 @@
 	</div>
 	<!-- Onboarding Step 3 -->
 	<div ng-if="user.onboard === 3">
-		<div class="onboarding-content-footer">
-			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+		<div class="onboarding-content animated slideInLeft">
 			<img src="layout/assets/onboarding/report.png" alt="Field Guide report">
 			<footer>
 				<div class="footer-content">
@@ -38,8 +38,8 @@
 	</div>
 	<!-- Onboarding Step 4 -->
 	<div ng-if="user.onboard === 4">
-		<div class="onboarding-content">
-			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+		<div class="onboarding-content animated slideInLeft">
 			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
 			<h2 class="less-margin">How did we get to that fancy report?<br>
 			Well, let’s take a look at the note taking interface.</h2>
@@ -47,9 +47,9 @@
 		</div>
 	</div>
 	<!-- Onboarding Step 5 -->
-	<div class="onboarding-content-footer">
-		<div ng-if="user.onboard === 5">
-			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+	<div ng-if="user.onboard === 5">
+		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+		<div class="onboarding-content animated slideInLeft">
 			<img src="layout/assets/onboarding/run-test.png" alt="Field Guide report">
 			<footer>
 				<div class="footer-content">
@@ -61,9 +61,9 @@
 		</div>
 	</div>
 	<!-- Onboarding Step 6 -->
-	<div class="onboarding-content-footer">
-		<div ng-if="user.onboard === 6">
-			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+	<div ng-if="user.onboard === 6">
+		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+		<div class="onboarding-content animated slideInLeft">
 			<img src="layout/assets/onboarding/summarize-test.png" alt="Field Guide report">
 			<footer>
 				<div class="footer-content">
@@ -76,8 +76,8 @@
 	</div>
 	<!-- Onboarding Step 7 -->
 	<div ng-if="user.onboard === 7">
-		<div class="onboarding-content">
-			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+		<div class="onboarding-content animated slideInLeft">
 			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
 			<h2 class="less-margin">That should cover the basics, now go forth and
 			<br>make your product even better!</h2>

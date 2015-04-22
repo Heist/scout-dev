@@ -1,21 +1,22 @@
 /* onboarding styles */
 
 #view-onboarding {
-    width: 100%;
-    background: red;
     text-align: center;
+    width: 100%;
+    position: relative;
+
+    .x {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: white;
+        @include type-extrabold;
+        font-size: 30px;
+        text-decoration: none;
+    }
 
     .onboarding-content {
 
-        .x {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: white;
-            @include type-extrabold;
-            font-size: 30px;
-            text-decoration: none;
-        }
         h2 {
             font-size: 40px;
             color: $white;
@@ -44,62 +45,27 @@
         }
     }
 
-    .onboarding-content-footer {
-        width: 100%;
-        text-align: center;
-        .x {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            color: white;
-            @include type-extrabold;
-            font-size: 30px;
-            text-decoration: none;
-        }
-        h2 {
-            font-size: 40px;
-            color: $white;
-            margin: 0 0 70px 0;
-        }
-        img {
-            width: 1000px;
-            margin: 45px 0 20px 0;
-        }
-        img.ranger {
-            width: 180px;
-            margin: 0 0 20px 0;
-            &.small {
-                width: 60px;
+    footer {
+        width: 950px;
+        margin: 0 auto;
+        .footer-content {
+            text-align: center;
+            p {
+                color: $white;
+                font-size: 26px;
                 float: left;
-                margin: 0 0 0 10px;
-            }
-        }
-        .button {
-            text-transform: uppercase;
-            float: none;
-        }
-        footer {
-            width: 950px;
-            margin: 0 auto;
-            .footer-content {
-                text-align: center;
-                p {
-                    color: $white;
-                    font-size: 26px;
-                    float: left;
-                    margin: 18px 0 0 20px;
-                    text-align: left;
-                    width: 75%;
+                margin: 18px 0 0 20px;
+                text-align: left;
+                width: 75%;
 
-                    &.two-lines {
-                        margin: 9px 0 0 20px;
-                    }
+                &.two-lines {
+                    margin: 9px 0 0 20px;
                 }
-                .button {
-                    text-transform: uppercase;
-                    float: left;
-                    margin: 10px 0 0 44px;
-                }
+            }
+            .button {
+                text-transform: uppercase;
+                float: left;
+                margin: 10px 0 0 44px;
             }
         }
     }
