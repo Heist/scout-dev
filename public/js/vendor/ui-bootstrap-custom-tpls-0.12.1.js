@@ -300,14 +300,12 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 modelFormatters(modelValue);
             });
 
-                        // HOT_KEYS.push(32); // add spacebar to hot keys;
+            HOT_KEYS.push(32); // add spacebar to hot keys;
             element.bind('keydown', function (evt) {
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
                 console.log('check the index on keypress', scope.activeIdx, evt.which);
                 if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
-                    resetMatches();
-                    scope.$digest();
                     return;
                 }
 
@@ -315,6 +313,14 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 if (scope.activeIdx === -1 && (evt.which === 13 || evt.which === 9)) {
                     console.log('working as intended');
                     return;
+                }
+
+                if (evt.which === 32) {
+                    // evt.stopPropagation();
+                    evt.isDefaultPrevented();
+                    resetMatches();
+                    scope.$digest();
+                    console.log('touched space', scope.activeIdx);
                 }
 
                 evt.preventDefault();
