@@ -35,6 +35,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
         }
     };
 }])
+
 .factory('postMessage', ['$http', function($http) {
             var postMessage = function(message, task, test, subject_id){
 
@@ -327,11 +328,11 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 modelFormatters(modelValue);
             });
 
-            // HOT_KEYS.push(32); // add spacebar to hot keys;
+            HOT_KEYS.push(32); // add spacebar to hot keys;
             element.bind('keydown', function (evt) {
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
-                console.log('check the index on keypress', scope.activeIdx, evt.which);
+                // console.log('check the index on keypress', scope.activeIdx, evt.which);
 
                 if(scope.activeIdx === -1 && evt.which === 13){
                     console.log('adding some keydown things', modelCtrl.$viewValue);
@@ -349,7 +350,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     return;
                 }
 
-                evt.preventDefault();
+                // evt.preventDefault();
 
                 if (evt.which === 40) {
                     // down arrow key
@@ -369,7 +370,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     scope.$apply(function() {
                         scope.select(scope.activeIdx);
                         resetMatches();
-                        console.log('check the index after pressing enter', scope.activeIdx);
+                        // console.log('check the index after pressing enter', scope.activeIdx);
                     })
                 } else if (evt.which === 27) {
                     console.log('escape', evt.which)
@@ -377,12 +378,20 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     resetMatches();
                     scope.$digest(); // here, this makes esc work.
                 } 
-                //  else if (evt.which === 32) {
-                //     evt.stopPropagation();
-                //     resetMatches();
-                //     scope.$digest();
-                //     console.log('touched space', scope.activeIdx);
-                // }
+                 else if (evt.which === 32) {
+                    // add a space to the model and cancel the dropdown
+                    console.log('touched space 1', scope.activeIdx, modelCtrl.$viewValue);
+                    var newValue = modelCtrl.$viewValue + ' ';
+                    console.log(newValue,'.');
+
+                    modelCtrl.$setViewValue = newValue;
+                    modelCtrl.$render();
+                    
+                    evt.stopPropagation();
+                    resetMatches();
+                    scope.$digest();
+                    console.log('touched space 2', scope.activeIdx);
+                }
             });
 
             element.bind('blur', function (evt) {
