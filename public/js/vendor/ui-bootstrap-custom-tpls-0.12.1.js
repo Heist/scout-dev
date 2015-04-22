@@ -77,10 +77,9 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
             //expressions used by typeahead
             var parserResult = typeaheadParser.parse(attrs.typeahead);
 
-            var hasFocus;
-
             //Declare the timeout promise var outside the function scope so that stacked calls can be cancelled later
-            var timeoutPromise;
+            var hasFocus, timeoutPromise;
+
 
             //create a child scope for the typeahead directive so we are not polluting original scope
             //with typeahead-specific data (matches, query etc.)
@@ -141,7 +140,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 console.log('clickhandler dismissed');
                 if (element[0] !== evt.target) {
                     resetMatches();
-                    scope.$digest();
+                    evt.stopPropagation();
                 }
             };
 
@@ -193,7 +192,6 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                             resetMatches();
                         }
                     }
-
                     if (onCurrentRequest) {
                         isLoadingSetter(originalScope, false);
                     }
@@ -212,9 +210,15 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 // TODO: Abstract so there can be preferred variables set above to load different data sets.
                 var tester = inputValue.match(/\S*#\S+/gi);
                 var tag_body; 
+                
+                console.log('parsing model');
+
+                if(!tester || tester.length === -1){
+                    return;
+                }
 
                 if(tester && tester.length > 0){
-                            tag_body = tester[tester.length -1].replace(/#/gi,'');
+                    tag_body = tester[tester.length -1].replace(/#/gi,'');
                 }            
                 
                 hasFocus = true;
@@ -308,6 +312,11 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
                 console.log('check the index on keypress', scope.activeIdx, evt.which);
+
+                if(scope.activeIdx === -1 && evt.which === 13){
+                    console.log('adding some keydown things');
+                }
+
                 if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
                     return;
                 }
@@ -317,14 +326,6 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     console.log('working as intended');
                     return;
                 }
-
-                // if (evt.which === 32) {
-                //     // evt.stopPropagation();
-                //     evt.isDefaultPrevented();
-                //     resetMatches();
-                //     scope.$digest();
-                //     console.log('touched space', scope.activeIdx);
-                // }
 
                 evt.preventDefault();
 
@@ -343,18 +344,16 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 } else if (evt.which === 13 || evt.which === 9) {
                     
                     console.log('enter or tab', evt.which)
-                    scope.select(scope.activeIdx);
-
-                    evt.stopPropagation();
-                    resetMatches();
-                    scope.$digest();
-                    console.log('check the index after pressing enter', scope.activeIdx);
+                    scope.$apply(function() {
+                        scope.select(scope.activeIdx);
+                        resetMatches();
+                        console.log('check the index after pressing enter', scope.activeIdx);
+                    })
                 } else if (evt.which === 27) {
                     console.log('escape', evt.which)
-
                     evt.stopPropagation();
                     resetMatches();
-                    scope.$digest();
+                    scope.$digest(); // here, this makes esc work.
                 } 
                 //  else if (evt.which === 32) {
                 //     evt.stopPropagation();
