@@ -5,6 +5,7 @@
  * Version: 0.12.1 - 2015-02-20
  * License: MIT
  */
+
  'use strict';
 angular.module("ui.bootstrap", ["ui.bootstrap.tpls","ui.bootstrap.typeahead","ui.bootstrap.position","ui.bootstrap.bindHtml"]);
 angular.module("ui.bootstrap.tpls", ["template/typeahead/typeahead-match.html","template/typeahead/typeahead-popup.html"]);
@@ -84,6 +85,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
             //create a child scope for the typeahead directive so we are not polluting original scope
             //with typeahead-specific data (matches, query etc.)
             var scope = originalScope.$new();
+                scope.activeIdx = -1;
 
             // WAI-ARIA
             var popupId = 'typeahead-' + scope.$id + '-' + Math.floor(Math.random() * 10000);
@@ -111,11 +113,33 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
             }
 
     // FUNCTIONS LIST ===========================
+
             var resetMatches = function() {
                 scope.matches = [];
                 scope.activeIdx = -1;
                 element.attr('aria-expanded', false);
                 console.log('reset index', scope.activeIdx);
+            };
+
+
+            var scheduleSearchWithTimeout = function(inputValue) {
+                timeoutPromise = $timeout(function () {
+                    getMatchesAsync(inputValue);
+                }, waitTime);
+            };
+
+            var cancelPreviousTimeout = function() {
+                if (timeoutPromise) {
+                    $timeout.cancel(timeoutPromise);
+                }
+            };
+
+            var dismissClickHandler = function (evt) {
+                // Keep reference to click handler to unbind it.
+                if (element[0] !== evt.target) {
+                    resetMatches();
+                    scope.$digest();
+                }
             };
 
             var getMatchId = function(index) {
@@ -132,12 +156,12 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     //but we are interested only in responses that correspond to the current view value
 
                     // this doesn't work because it doesn't parse the current view value properly.
+                    console.log( 'checking model.$viewValue.index', modelCtrl.$viewValue.indexOf(inputValue) );
+                    
                     var onCurrentRequest = modelCtrl.$viewValue.indexOf(inputValue) > -1;
 
                     if (onCurrentRequest && hasFocus) {
                         if (matches.length > 0) {
-                            
-                            console.log('is focusFirst fucking this up', focusFirst)
                             scope.activeIdx = focusFirst ? 0 : -1;
                             scope.matches.length = 0;
 
@@ -166,35 +190,16 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                             resetMatches();
                         }
                     }
+
                     if (onCurrentRequest) {
                         isLoadingSetter(originalScope, false);
                     }
+
                 }, function(){
                     resetMatches();
                     isLoadingSetter(originalScope, false);
                 });
             };
-
-            var scheduleSearchWithTimeout = function(inputValue) {
-                timeoutPromise = $timeout(function () {
-                    getMatchesAsync(inputValue);
-                }, waitTime);
-            };
-
-            var cancelPreviousTimeout = function() {
-                if (timeoutPromise) {
-                    $timeout.cancel(timeoutPromise);
-                }
-            };
-
-            var dismissClickHandler = function (evt) {
-                // Keep reference to click handler to unbind it.
-                if (element[0] !== evt.target) {
-                    resetMatches();
-                    scope.$digest();
-                }
-            };
-
             
             var modelParser = function (inputValue) {
                 // Step through the model and do things with the input value
@@ -295,47 +300,14 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 modelFormatters(modelValue);
             });
 
-            scope.select = function (activeIdx) {
-                // this is how we pick a matched tag and insert it into the message. 
-                //called from within the $digest() cycle
-                var locals = {};
-                var model, item;
-
-                locals[parserResult.itemName] = item = scope.matches[activeIdx].model;
-                model = parserResult.modelMapper(originalScope, locals);
-                
-                // TODO: Make this match only the +current+ scope.query
-                // this is rough because it will replace all hashes that match the scope.query, 
-                // not _just_ the scope.query.
-
-                // insert the new tag into the input box
-                var newValue = modelCtrl.$viewValue.replace('#'+scope.query, '#'+model);
-
-                modelCtrl.$setViewValue(newValue);
-                modelCtrl.$render();
-
-                modelCtrl.$setValidity('editable', true);
-                
-                onSelectCallback(originalScope, {
-                    $item: item,
-                    $model: model,
-                    $label: parserResult.viewMapper(originalScope, locals)
-                });
-                
-                resetMatches();
-                console.log('did index reset in scope.select?', scope.activeIdx);
-                //return focus to the input element if a match was selected via a mouse click event
-                // use timeout to avoid $rootScope:inprog error
-                $timeout(function() { element[0].focus(); }, 0, false);
-            };
-
-            // HOT_KEYS.push(32); // add spacebar to hot keys;
-
+                        // HOT_KEYS.push(32); // add spacebar to hot keys;
             element.bind('keydown', function (evt) {
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
                 console.log('check the index on keypress', scope.activeIdx, evt.which);
                 if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
+                    resetMatches();
+                    scope.$digest();
                     return;
                 }
 
@@ -363,13 +335,13 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     
                     console.log('enter or tab', evt.which)
                     scope.select(scope.activeIdx);
-                    console.log('check the index 2', scope.activeIdx);
+                    console.log('check the index after pressing enter', scope.activeIdx);
                 } else if (evt.which === 27) {
                     console.log('escape', evt.which)
                     evt.stopPropagation();
 
                     resetMatches();
-                    scope.$digest();
+                    // scope.$digest();
                 } 
                 //  else if (evt.which === 32) {
                 //     evt.stopPropagation();
@@ -382,6 +354,43 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
             element.bind('blur', function (evt) {
                 hasFocus = false;
             });
+
+            scope.select = function (activeIdx) {
+                // this is how we pick a matched tag and insert it into the message. 
+                // called from within the $digest() cycle
+
+                var locals = {};
+                var model, item;
+
+                locals[parserResult.itemName] = item = scope.matches[activeIdx].model;
+                model = parserResult.modelMapper(originalScope, locals);
+                
+                // TODO: Make this match only the +current+ scope.query
+                // this is rough because it will replace all hashes that match the scope.query, 
+                // not _just_ the scope.query.
+
+                // insert the new tag into the input box
+                var newValue = modelCtrl.$viewValue.replace('#'+scope.query, '#'+model);
+
+                modelCtrl.$setViewValue(newValue);
+                modelCtrl.$render();
+
+                modelCtrl.$setValidity('editable', true);
+                
+                onSelectCallback(originalScope, {
+                    $item: item,
+                    $model: model,
+                    $label: parserResult.viewMapper(originalScope, locals)
+                });
+                
+                resetMatches();
+                // scope.$apply();
+                console.log('did index reset in scope.select?', scope.activeIdx);
+                //return focus to the input element if a match was selected via a mouse click event
+                // use timeout to avoid $rootScope:inprog error
+                $timeout(function() { element[0].focus(); }, 0, false);
+                
+            };
 
             // Dismiss click handlers on the click of a general document click
             // or on the original scope being clicked.
