@@ -232,9 +232,10 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 var tester = inputValue.match(/\S*#\S+/gi);
                 var tag_body; 
                 
-                console.log('parsing model');
+                console.log('parsing model', inputValue);
 
                 if(!tester || tester.length === -1){
+                    console.log('modelParser Break');
                     return;
                 }
 
@@ -364,7 +365,6 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     scope.$digest();
                     console.log('touched space 2', scope.activeIdx);
                 } else {
-
                     evt.preventDefault();
 
                     if (evt.which === 40) {
