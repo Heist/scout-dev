@@ -4181,7 +4181,11 @@ hr {
   width: 100%;
   min-height: 100%;
   background: rgba(43, 64, 77, 0.9);
-  z-index: 99999999; }
+  z-index: 99999999;
+  -webkit-animation-duration: 0.5s;
+  -moz-animation-duration: 0.5s;
+  -o-animation-duration: 0.5s;
+  animation-duration: 0.5s; }
   .modal .modal-interior {
     background: #fff;
     padding: 30px 40px 30px 40px;
@@ -5147,6 +5151,17 @@ hr {
   /* connected app styles */
   /* end connected app styles */
   /* team members */ }
+  #view-account .x {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    text-decoration: none;
+    z-index: 1; }
   #view-account .container {
     padding: 20px 0 0 0; }
   #view-account .plan-picker h3 {
@@ -5657,17 +5672,12 @@ hr {
 #view-onboarding {
   text-align: center;
   width: 100%;
+  height: 900px;
   position: relative; }
-  #view-onboarding .x {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color: white;
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 30px;
-    text-decoration: none; }
+  #view-onboarding .hide {
+    display: none; }
+  #view-onboarding .show {
+    display: block; }
   #view-onboarding .onboarding-content h2 {
     font-size: 40px;
     color: #fff;
@@ -5687,6 +5697,20 @@ hr {
   #view-onboarding .onboarding-content .button {
     text-transform: uppercase;
     float: none; }
+  #view-onboarding .onboarding-content .cta {
+    margin: 40px 0 0 0; }
+    #view-onboarding .onboarding-content .cta span {
+      color: #fff;
+      font-size: 14px; }
+      #view-onboarding .onboarding-content .cta span a {
+        color: #fff; }
+      #view-onboarding .onboarding-content .cta span a:hover {
+        text-decoration: underline; }
+    #view-onboarding .onboarding-content .cta img.slack {
+      width: 28px;
+      padding: 0 0 0 10px;
+      margin: 0;
+      display: inline-block; }
   #view-onboarding footer {
     width: 950px;
     margin: 0 auto; }
