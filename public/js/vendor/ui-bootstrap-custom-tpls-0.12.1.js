@@ -350,35 +350,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     return;
                 }
 
-                // evt.preventDefault();
-
-                if (evt.which === 40) {
-                    // down arrow key
-                    console.log('down arrow', evt.which)
-                    scope.activeIdx = (scope.activeIdx + 1) % scope.matches.length;
-                    console.log('down arrow selection', (scope.activeIdx + 1) % scope.matches.length);
-                    scope.$digest();
-
-                } else if (evt.which === 38) {
-                    console.log('up arrow', evt.which)
-                    scope.activeIdx = (scope.activeIdx > 0 ? scope.activeIdx : scope.matches.length) - 1;
-                    scope.$digest();
-
-                } else if (evt.which === 13 || evt.which === 9) {
-                    
-                    console.log('enter or tab', evt.which)
-                    scope.$apply(function() {
-                        scope.select(scope.activeIdx);
-                        resetMatches();
-                        // console.log('check the index after pressing enter', scope.activeIdx);
-                    })
-                } else if (evt.which === 27) {
-                    console.log('escape', evt.which)
-                    evt.stopPropagation();
-                    resetMatches();
-                    scope.$digest(); // here, this makes esc work.
-                } 
-                 else if (evt.which === 32) {
+                if (evt.which === 32) {
                     // add a space to the model and cancel the dropdown
                     console.log('touched space 1', scope.activeIdx, modelCtrl.$viewValue);
                     var newValue = modelCtrl.$viewValue + ' ';
@@ -386,11 +358,41 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
                     modelCtrl.$setViewValue = newValue;
                     modelCtrl.$render();
-                    
+
                     evt.stopPropagation();
                     resetMatches();
                     scope.$digest();
                     console.log('touched space 2', scope.activeIdx);
+                } else {
+
+                    evt.preventDefault();
+
+                    if (evt.which === 40) {
+                        // down arrow key
+                        console.log('down arrow', evt.which)
+                        scope.activeIdx = (scope.activeIdx + 1) % scope.matches.length;
+                        console.log('down arrow selection', (scope.activeIdx + 1) % scope.matches.length);
+                        scope.$digest();
+
+                    } else if (evt.which === 38) {
+                        console.log('up arrow', evt.which)
+                        scope.activeIdx = (scope.activeIdx > 0 ? scope.activeIdx : scope.matches.length) - 1;
+                        scope.$digest();
+
+                    } else if (evt.which === 13 || evt.which === 9) {
+                        
+                        console.log('enter or tab', evt.which)
+                        scope.$apply(function() {
+                            scope.select(scope.activeIdx);
+                            resetMatches();
+                            // console.log('check the index after pressing enter', scope.activeIdx);
+                        })
+                    } else if (evt.which === 27) {
+                        console.log('escape', evt.which)
+                        evt.stopPropagation();
+                        resetMatches();
+                        scope.$digest(); // here, this makes esc work.
+                    } 
                 }
             });
 
