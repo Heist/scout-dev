@@ -249,8 +249,8 @@
 			<p>Need a refresher in how Field Guide helps you get better interview results?</p>
 			<p class="clearfix"><button ng-click="onboardToggle()" class="button large">Step Through A Sample</button></p>
 			
-			<div class="modal" ng-model="onboardSteps" ng-if="onboardSteps">
-				<ng-include src="'partials/app/onboarding/_onboarding-1.html'"></ng-include>
+			<div class="modal" ng-if="onboardSteps">
+				<ng-include src="'partials/app/_onboard.html'"></ng-include>
 			</div>
 
 			<br>

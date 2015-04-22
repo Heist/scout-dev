@@ -1,20 +1,12 @@
 <!-- Onboarding Step 7 -->
-
-<div ng-show="user.onboard === 7">
-
-	<div id="view-onboarding" class="height" ng-controller="onboard">
-
-			<div class="onboarding-content">
-
-				<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
-				<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
-
-				<h2 class="less-margin">That should cover the basics, now go forth and 
-				<br>make your product even better!</h2>
-
-				<button class="button large" ng-click="$parent.changeOnboard(100)">Done</button>
-			</div>
-		
+<div id="view-onboarding" class="height" ng-controller="onboard">
+	<div ng-if="user.onboard === 7">
+		<div class="onboarding-content">
+			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
+			<h2 class="less-margin">That should cover the basics, now go forth and
+			<br>make your product even better!</h2>
+			<button class="button large" ng-click="$parent.onboardToggle()">Done</button>
+		</div>
 	</div>
-
 </div>

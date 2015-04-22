@@ -28,7 +28,7 @@
     // TODO: Abstract into service for dependency injection
 
         $scope.onboardToggle = function(){
-            console.log("yeah");
+            console.log("this is on account js", $rootScope.user.onboard);
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 $scope.onboardSteps = false; 
                 return;

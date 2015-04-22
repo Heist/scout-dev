@@ -2,26 +2,14 @@
 
 #view-onboarding {
     width: 100%;
+    background: red;
     text-align: center;
-    overflow: hidden;
-    position: relative;
-
-    &.height {
-        height: 800px;
-    }
 
     .onboarding-content {
-        width: 100%;
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-        transform: translateY(-50%);
 
         .x {
             position: absolute;
-            top: -190px;
+            top: 20px;
             right: 20px;
             color: white;
             @include type-extrabold;
@@ -43,7 +31,7 @@
         }
         img.ranger {
             width: 180px;
-            margin: 0 0 20px 0;
+            margin: 15% 0 20px 0;
             &.small {
                 width: 60px;
                 float: left;

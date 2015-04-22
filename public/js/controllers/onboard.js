@@ -11,7 +11,7 @@
         // $scope.user = $rootScope.user;
         $scope.user.onboard = 1;
 
-        console.log($scope.user.onboard);
+        console.log('onboard js', $scope.user.onboard);
        // if($rootScope.user.onboard === 2){}
 
        // if($rootScope.user.onboard === 3 || $rootScope.user.onboard === 4 || $rootScope.user.onboard === 5 ){

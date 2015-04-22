@@ -1,23 +1,16 @@
 <!-- Onboarding Step 5 -->
-
-<div ng-show="user.onboard === 5">
-
-	<div id="view-onboarding" ng-controller="onboard">
-
-			<div class="onboarding-content-footer">
-
-				<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
-				<img src="layout/assets/onboarding/run-test.png" alt="Field Guide report">
-
-				<footer>
-					<div class="footer-content">
-						<img class="ranger small" src="layout/assets/onboarding/ranger.svg" alt="">
-						<p>We'll sort your notes for you with topics and #tags</p>
-						<button class="button large" ng-click="$parent.changeOnboard(6)">Next</button>
-					</div>
-				</footer>
-			</div>
-		
+<div id="view-onboarding" ng-controller="onboard">
+	<div ng-if="user.onboard === 5">
+		<div class="onboarding-content-footer">
+			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+			<img src="layout/assets/onboarding/run-test.png" alt="Field Guide report">
+			<footer>
+				<div class="footer-content">
+					<img class="ranger small" src="layout/assets/onboarding/ranger.svg" alt="">
+					<p>We'll sort your notes for you with topics and #tags</p>
+					<button class="button large" ng-click="changeOnboard(6)">Next</button>
+				</div>
+			</footer>
+		</div>
 	</div>
-
 </div>

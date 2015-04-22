@@ -1,0 +1,87 @@
+<div id="view-onboarding" ng-controller="onboard">
+	<!-- Onboarding Step 1 -->
+	<div ng-if="user.onboard === 1">
+		<div class="onboarding-content">
+			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
+			<h2>Welcome to Field Guide</h2>
+			<button class="button large" ng-click="changeOnboard(2)">Get started</button>
+		</div>
+	</div>
+	<!-- Onboarding Step 2 -->
+	<div ng-if="user.onboard === 2">
+		<div class="onboarding-content-footer">
+			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+			<img src="layout/assets/onboarding/report.png" alt="Field Guide report">
+			<footer>
+				<div class="footer-content">
+					<img class="ranger small" src="layout/assets/onboarding/ranger.svg" alt="">
+					<p>Take a look at the report that you will eventually send to your team</p>
+					<button class="button large" ng-click="changeOnboard(3)">Next</button>
+				</div>
+			</footer>
+		</div>
+	</div>
+	<!-- Onboarding Step 3 -->
+	<div ng-if="user.onboard === 3">
+		<div class="onboarding-content-footer">
+			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+			<img src="layout/assets/onboarding/report.png" alt="Field Guide report">
+			<footer>
+				<div class="footer-content">
+					<img class="ranger small" src="layout/assets/onboarding/ranger.svg" alt="">
+					<p>It's a really simple way to get your high level findings out easily</p>
+					<button class="button large" ng-click="changeOnboard(4)">Next</button>
+				</div>
+			</footer>
+		</div>
+	</div>
+	<!-- Onboarding Step 4 -->
+	<div ng-if="user.onboard === 4">
+		<div class="onboarding-content">
+			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
+			<h2 class="less-margin">How did we get to that fancy report?<br>
+			Well, let’s take a look at the note taking interface.</h2>
+			<button class="button large" ng-click="changeOnboard(5)">Next</button>
+		</div>
+	</div>
+	<!-- Onboarding Step 5 -->
+	<div class="onboarding-content-footer">
+		<div ng-if="user.onboard === 5">
+			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+			<img src="layout/assets/onboarding/run-test.png" alt="Field Guide report">
+			<footer>
+				<div class="footer-content">
+					<img class="ranger small" src="layout/assets/onboarding/ranger.svg" alt="">
+					<p>We'll sort your notes for you with topics and #tags</p>
+					<button class="button large" ng-click="changeOnboard(6)">Next</button>
+				</div>
+			</footer>
+		</div>
+	</div>
+	<!-- Onboarding Step 6 -->
+	<div class="onboarding-content-footer">
+		<div ng-if="user.onboard === 6">
+			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+			<img src="layout/assets/onboarding/summarize-test.png" alt="Field Guide report">
+			<footer>
+				<div class="footer-content">
+					<img class="ranger small" src="layout/assets/onboarding/ranger.svg" alt="">
+					<p class="two-lines">Then at the end of your test we'll give you an opportunity to summarize your test which will make it easier to create your findings</p>
+					<button class="button large" ng-click="changeOnboard(7)">Next</button>
+				</div>
+			</footer>
+		</div>
+	</div>
+	<!-- Onboarding Step 7 -->
+	<div ng-if="user.onboard === 7">
+		<div class="onboarding-content">
+			<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
+			<h2 class="less-margin">That should cover the basics, now go forth and
+			<br>make your product even better!</h2>
+			<button class="button large" ng-click="$parent.onboardToggle()">Done</button>
+		</div>
+	</div>
+</div> <!-- / view-onboarding -->

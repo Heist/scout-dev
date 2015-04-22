@@ -3126,48 +3126,37 @@ hr {
 /* onboarding styles */
 #view-onboarding {
   width: 100%;
-  text-align: center;
-  overflow: hidden;
-  position: relative; }
-  #view-onboarding.height {
-    height: 800px; }
-  #view-onboarding .onboarding-content {
-    width: 100%;
-    text-align: center;
+  background: red;
+  text-align: center; }
+  #view-onboarding .onboarding-content .x {
     position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%); }
-    #view-onboarding .onboarding-content .x {
-      position: absolute;
-      top: -190px;
-      right: 20px;
-      color: white;
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 30px;
-      text-decoration: none; }
-    #view-onboarding .onboarding-content h2 {
-      font-size: 40px;
-      color: #fff;
-      margin: 0 0 70px 0; }
-      #view-onboarding .onboarding-content h2.less-margin {
-        margin: 0 0 40px 0; }
-    #view-onboarding .onboarding-content img {
-      width: 1000px;
-      margin: 45px 0 20px 0; }
-    #view-onboarding .onboarding-content img.ranger {
-      width: 180px;
-      margin: 0 0 20px 0; }
-      #view-onboarding .onboarding-content img.ranger.small {
-        width: 60px;
-        float: left;
-        margin: 0 0 0 10px; }
-    #view-onboarding .onboarding-content .button {
-      text-transform: uppercase;
-      float: none; }
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    text-decoration: none; }
+  #view-onboarding .onboarding-content h2 {
+    font-size: 40px;
+    color: #fff;
+    margin: 0 0 70px 0; }
+    #view-onboarding .onboarding-content h2.less-margin {
+      margin: 0 0 40px 0; }
+  #view-onboarding .onboarding-content img {
+    width: 1000px;
+    margin: 45px 0 20px 0; }
+  #view-onboarding .onboarding-content img.ranger {
+    width: 180px;
+    margin: 15% 0 20px 0; }
+    #view-onboarding .onboarding-content img.ranger.small {
+      width: 60px;
+      float: left;
+      margin: 0 0 0 10px; }
+  #view-onboarding .onboarding-content .button {
+    text-transform: uppercase;
+    float: none; }
   #view-onboarding .onboarding-content-footer {
     width: 100%;
     text-align: center; }
