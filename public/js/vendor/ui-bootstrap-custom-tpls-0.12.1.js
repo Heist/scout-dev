@@ -35,6 +35,26 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
         }
     };
 }])
+.factory('postMessage', ['$http', function($http) {
+            var postMessage = function(message, task, test, subject_id){
+
+                    var note = {};
+                    note.body = message;
+                    note.created = new Date();
+                     
+                    note._task = task;
+                    note._test = test;
+                    note._subject = subject_id;
+
+                    var promise = $http.post('/api/message/', note).then(function(response) {
+                        // console.log('new reply', response);
+                        return response.data;
+                    });
+
+                    return promise;
+                };
+            return postMessage;
+        }])
 
 .directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document', '$position', 'typeaheadParser',
     function ($compile, $parse, $q, $timeout, $document, $position, typeaheadParser) {
@@ -314,7 +334,9 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 console.log('check the index on keypress', scope.activeIdx, evt.which);
 
                 if(scope.activeIdx === -1 && evt.which === 13){
-                    console.log('adding some keydown things');
+                    console.log('adding some keydown things', modelCtrl.$viewValue);
+                    // postMessage(message);
+
                 }
 
                 if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
