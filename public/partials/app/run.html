@@ -1,6 +1,4 @@
 <div id="view-testing" ng-class="{ 'is-onboard': user.onboard != 100, 'has-input-outline': user.onboard === 3 || user.onboard === 4 }">
-	
-
 
 <!-- onboard during test running -->
 <div ng-if="user.onboard != 100" >
@@ -116,12 +114,10 @@
 			<li ng-class='{"half": kind === "prototype", "full" : kind !== "prototype"}'>
 				<label>Participant's name</label>
 				<input class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name"/>
-				<!-- taking out- ui-keypress="{13:'addSubject(subject)'}" - until we can determine how it'll play nice with a two-field form -->
 				</input>
 			</li>
 
 			<li class="half" ng-show="kind === 'prototype'">
-				<!-- <label>Room ID from the Field Guide App &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://docs.google.com/forms/d/1MsYcOPq5X1foSuaHfuuhzOmkhijaNFBjB7XJMs3PSA0/viewform" target="_fdbk">Get the iOS Beta App</a></label> -->
 				<label>Room ID</label><span class="info large-tooltip" data-tooltip-large="You’ll find this in the Field Guide iOS app"><span>?</span></span>
 				<input class="input" type="text" name="testroom" value="" placeholder="Field Guide app Room ID" ng-model="subject.testroom">
 				</input>
@@ -228,19 +224,6 @@
 					
 				<!-- input notes -->
 				<div id="session-input">
-
-			
-				<!-- <script type="text/ng-template" id="customTemplate.html">
-				  <a>
-				      <img ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{match.model.flag}}" width="16">
-				      <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
-				  </a>
-				</script>
-
-				    <h4>Static arrays</h4>
-				    <pre>Model: {{typeinput | json}}</pre>
-				    <input type="text" ui-keypress="{35:'triggerTypeahead()'}" ng-model="typeinput" class="form-control typeInThis">
-				</div> -->
 					<textarea class="input" ng-model='message' name="field-input" placeholder="Remember to give your notes #themes" ui-keypress="{13:'postMessage(message)'}" class="form-control"/>
 					</textarea>
 			
@@ -255,9 +238,6 @@
 						
 						<!-- empty state -->
 						<li class="message-no-highlite" id="firstrun">
-							<!-- <div class="message-details">
-								<div class="message-details-avatar avatar-header">&bull;</div>
-							</div> -->
 							<div class="message-body">
 								<strong>Your test is running!</strong> Remember, it&rsquo;s all about capturing notes &mdash;
 								you&rsquo;ll have an opportunity to <strong>edit and sort</strong> when creating your Report. 
@@ -328,21 +308,11 @@
 
 					<div id="cta">
 						<div class="cta">
-							<a href="#" class="button-cancel" ng-click="changeOnboard(100)">Delete test</a>
-
 							<button class="button outline" id="endtest" ng-click="postTest()">
 								<div class="checkmark"></div>
 								<span>End test</span>
 							</button>
 						</div>
-
-<!-- 						<div id="button-canceltest">
-							<div class="expand-button">
-								<div class="expand-button-body" ng-click="postTest()">&times;</div>
-								<div class="expand-button-helper" ng-click="changeOnboard(100)">Cancel</div>
-							</div>
-						</div> -->
-
 					</div>
 
 				</div>
