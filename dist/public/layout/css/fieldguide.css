@@ -226,7 +226,7 @@ ul {
   padding: 0 0 0 20px;
   margin: 0 0 20px 0; }
   ul li {
-    padding: 3.33333px 0; }
+    padding: 0; }
   ul.nobullets {
     list-style: none;
     padding: 0; }
@@ -369,6 +369,23 @@ label {
       top: 2px;
       font-size: 12px;
       right: 30px; }
+
+.input-no-border {
+  width: 100%;
+  background: #fff;
+  border: 0;
+  display: inline-block;
+  margin: 0;
+  padding: 5px 0;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  color: #777777;
+  outline: none; }
 
 .input {
   width: 100%;
@@ -2129,10 +2146,8 @@ hr {
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 600; }
-#view-new-project textarea.input {
-  line-height: 18.75px;
-  height: 130px;
-  resize: none; }
+#view-new-project .test-objectives {
+  height: 150px; }
 #view-new-project .test-type {
   padding: 5px 10px 10px 10px;
   text-align: center;
@@ -2195,18 +2210,11 @@ hr {
   background: #fff; }
   #view-editing .sheet {
     box-shadow: none; }
-  #view-editing h2 {
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    color: #323539;
-    font-size: 24px;
-    margin: 0 0 40px 0; }
   #view-editing h3 {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
-    color: #323539;
+    color: #2B404D;
     font-size: 16px;
     margin: 20px 0; }
   #view-editing h4 {
@@ -2220,15 +2228,23 @@ hr {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 12px;
-    text-transform: lowercase; }
-  #view-editing pre.test-descriptions, #view-editing pre.task-descriptions {
+    font-size: 12px; }
+  #view-editing .project-name {
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    color: #2B404D;
+    font-size: 24px;
+    margin: 0 0 20px 0; }
+  #view-editing textarea.test-descriptions, #view-editing textarea.task-descriptions {
     font-size: 12px;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
     color: #949799;
-    margin: 0 0 40px 0; }
+    margin: 0;
+    line-height: 20px;
+    resize: 0; }
   #view-editing .add-task ::-webkit-input-placeholder {
     color: #D8DADB;
     font-size: 12px;
@@ -2248,7 +2264,7 @@ hr {
     font-size: 12px;
     font-style: italic; }
   #view-editing .add-task form {
-    border: 1px solid #D8DADB;
+    border: 1px solid rgba(216, 218, 219, 0.5);
     padding: 15px;
     margin: 0; }
   #view-editing .add-task input, #view-editing .add-task textarea {
@@ -2269,7 +2285,7 @@ hr {
   #view-editing .add-task .box {
     padding: 12px;
     margin: 0;
-    border: 1px solid #D8DADB;
+    border: 1px solid rgba(216, 218, 219, 0.5);
     border-top: 0; }
   #view-editing .tags {
     margin: 0 0 40px 0; }
