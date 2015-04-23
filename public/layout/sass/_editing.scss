@@ -103,16 +103,9 @@
         box-shadow: none;
     }
     
-    h2 {
-        @include type-light;
-        color: $fg-black;
-        font-size: 24px;
-        margin: 0 0 40px 0;
-    }
-
     h3 {
         @include type-light;
-        color: $fg-black;
+        color: $fg-slate;
         font-size: 16px;
         margin: 20px 0;
     }
@@ -127,6 +120,13 @@
     .task-title {
         @include type-regular;
         font-size: 12px;
+    }
+    
+    .project-name {
+        @include type-light;
+        color: $fg-slate;
+        font-size: 24px;
+        margin: 0 0 20px 0;
     }
 
     textarea.test-descriptions, textarea.task-descriptions {

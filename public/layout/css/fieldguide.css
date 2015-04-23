@@ -2210,18 +2210,11 @@ hr {
   background: #fff; }
   #view-editing .sheet {
     box-shadow: none; }
-  #view-editing h2 {
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    color: #323539;
-    font-size: 24px;
-    margin: 0 0 40px 0; }
   #view-editing h3 {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
-    color: #323539;
+    color: #2B404D;
     font-size: 16px;
     margin: 20px 0; }
   #view-editing h4 {
@@ -2236,6 +2229,13 @@ hr {
     font-style: normal;
     font-weight: 400;
     font-size: 12px; }
+  #view-editing .project-name {
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    color: #2B404D;
+    font-size: 24px;
+    margin: 0 0 20px 0; }
   #view-editing textarea.test-descriptions, #view-editing textarea.task-descriptions {
     font-size: 12px;
     font-family: "canada-type-gibson",sans-serif;

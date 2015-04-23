@@ -17,13 +17,11 @@
 						<div class="clear"></div>
 						<ul class="nobullets">
 
-
-							<!-- make below editable -->
-
 							<div class="project-details" ng-click="select(test)">
-								<h2>{{test.name}}</h2>
+								<input class="input-no-border project-name" ng-trim="false" ng-model="test.name" ng-focus="editTitle(test)" ng-blur="blurTitle(test)">
+
 								<h3>Objectives</h3>
-									<pre class="test-descriptions">{{test.desc}}</pre>
+									<textarea msd-elastic class="test-descriptions input-no-border" id="field-textarea"  ng-model="test.desc" ng-blur="updateTask(test)"></textarea>
 							</div>
 
 							<!-- tags section goes here -->
