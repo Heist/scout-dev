@@ -1,14 +1,14 @@
 <div id="view-onboarding" ng-controller="onboard">
 	<!-- Onboarding Step 1 -->
 	<div ng-if="user.onboard === 1">
-		<div class="onboarding-content step-1" ng-class="{'hide': trueFalse === 'false', 'show': trueFalse === 'true'}">
+		<div class="onboarding-content animated slideInUp" id="step-1">
 			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
 			<h2>Welcome to Field Guide</h2>
 			<button class="button large" ng-click="changeOnboard(2)">Get started</button>
 		</div>
 	</div>
 	<!-- Onboarding Step 2 -->
-	<div ng-if="user.onboard === 2">
+	<div ng-if="user.onboard === 2" ng-class="{'animated slideInRight': user.onboard === 2 }">
 		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
 		<div class="onboarding-content step-2">
 			<img src="layout/assets/onboarding/report.png" alt="Field Guide report">
@@ -22,7 +22,7 @@
 		</div>
 	</div>
 	<!-- Onboarding Step 3 -->
-	<div ng-if="user.onboard === 3">
+	<div ng-if="user.onboard === 3" ng-class="{'animated slideInRight': user.onboard === 3 }">
 		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
 		<div class="onboarding-content">
 			<img src="layout/assets/onboarding/report.png" alt="Field Guide report">
@@ -36,7 +36,7 @@
 		</div>
 	</div>
 	<!-- Onboarding Step 4 -->
-	<div ng-if="user.onboard === 4">
+	<div ng-if="user.onboard === 4" ng-class="{'animated slideInRight': user.onboard === 4 }">
 		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
 		<div class="onboarding-content">
 			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
@@ -46,7 +46,7 @@
 		</div>
 	</div>
 	<!-- Onboarding Step 5 -->
-	<div ng-if="user.onboard === 5">
+	<div ng-if="user.onboard === 5" ng-class="{'animated slideInRight': user.onboard === 5 }">
 		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
 		<div class="onboarding-content">
 			<img src="layout/assets/onboarding/run-test.png" alt="Field Guide report">
@@ -60,7 +60,7 @@
 		</div>
 	</div>
 	<!-- Onboarding Step 6 -->
-	<div ng-if="user.onboard === 6">
+	<div ng-if="user.onboard === 6" ng-class="{'animated slideInRight': user.onboard === 6 }">
 		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
 		<div class="onboarding-content">
 			<img src="layout/assets/onboarding/summarize-test.png" alt="Field Guide report">
@@ -74,7 +74,7 @@
 		</div>
 	</div>
 	<!-- Onboarding Step 7 -->
-	<div ng-if="user.onboard === 7">
+	<div ng-if="user.onboard === 7" ng-class="{'animated slideInRight': user.onboard === 7 }">
 		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
 		<div class="onboarding-content step-7">
 			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
@@ -92,28 +92,3 @@
 		</div>
 	</div>
 </div> <!-- / view-onboarding -->
-
-<script>
-
-// $(function(){
-
-//     var slideInUp = 'animated slideInUp';
-//     var slideOutDown = 'animated slideOutDown';
-//     var slideOutLeft = 'animated slideOutLeft';
-//     var slideInRight = 'animated slideInRight';
-//     var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-
-// 	$('.modal').addClass(animationUpIn).one(animationEnd, function(){
-// 		$('.step-1').css('display', 'block').addClass(animationUpIn).one(animationEnd, function(){
-// 			$('#button-step1').on('click', function(e){
-// 			e.preventDefault();
-// 			$('.step-1').addClass(animationLeftOut);
-// 			$('#button-step1').attr('ng-click', 'changeOnboard(2)');
-// 			$('.step-2').css('display', 'block').addClass(animationRightIn);
-
-// 			});
-// 		});
-// 	});
-
-
-// </script>

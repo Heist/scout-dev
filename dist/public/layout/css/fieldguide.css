@@ -5724,7 +5724,8 @@ hr {
         text-align: left;
         width: 75%; }
         #view-onboarding footer .footer-content p.two-lines {
-          margin: 9px 0 0 20px; }
+          margin: 0 0 0 20px;
+          line-height: 29px; }
       #view-onboarding footer .footer-content .button {
         text-transform: uppercase;
         float: left;
