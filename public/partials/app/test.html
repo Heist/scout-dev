@@ -57,21 +57,13 @@
 								<div class="step-controls">
 									<div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
 								</div> -->
-<!-- ng-if="isActive(task)" -->
+								<!-- ng-if="isActive(task)" -->
 								<div ng-click="select(task)">
-									<div class="task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
-										#{{task.name}}
-									</div>
-
-									<div class="task-descriptions" msd-elastic ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)">
-										<pre class="task-descriptions">{{task.desc}}</pre>
-									</div>
+									<form>
+										<input class="input-no-border task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
+										<textarea msd-elastic class="task-descriptions input-no-border" id="field-textarea"  ng-model="task.desc" ng-blur="updateTask(task)"></textarea>
+									</form>
 								</div>
-								<!-- 	<form>
-										<input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
-										<textarea msd-elastic ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
-										</textarea>
-									</form> -->
 							
 								<div class="clear"></div>
 

@@ -129,14 +129,14 @@
     .task-title {
         @include type-regular;
         font-size: 12px;
-        text-transform: lowercase;
     }
 
-    pre.test-descriptions, pre.task-descriptions {
+    textarea.test-descriptions, textarea.task-descriptions {
         font-size: 12px;
         @include type-light;
         color: $fg-grey;
-        margin: 0 0 40px 0;
+        margin: 0;
+        line-height: 20px;
     }
 
     .add-task {

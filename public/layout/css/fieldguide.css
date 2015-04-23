@@ -370,6 +370,23 @@ label {
       font-size: 12px;
       right: 30px; }
 
+.input-no-border {
+  width: 100%;
+  background: #fff;
+  border: 0;
+  display: inline-block;
+  margin: 0;
+  padding: 5px 0;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  color: #777777;
+  outline: none; }
+
 .input {
   width: 100%;
   background: #fff;
@@ -2220,15 +2237,15 @@ hr {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 12px;
-    text-transform: lowercase; }
-  #view-editing pre.test-descriptions, #view-editing pre.task-descriptions {
+    font-size: 12px; }
+  #view-editing textarea.test-descriptions, #view-editing textarea.task-descriptions {
     font-size: 12px;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
     color: #949799;
-    margin: 0 0 40px 0; }
+    margin: 0;
+    line-height: 20px; }
   #view-editing .add-task ::-webkit-input-placeholder {
     color: #D8DADB;
     font-size: 12px;
