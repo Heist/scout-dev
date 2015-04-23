@@ -226,7 +226,7 @@ ul {
   padding: 0 0 0 20px;
   margin: 0 0 20px 0; }
   ul li {
-    padding: 3.33333px 0; }
+    padding: 0; }
   ul.nobullets {
     list-style: none;
     padding: 0; }
@@ -2146,10 +2146,8 @@ hr {
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 600; }
-#view-new-project textarea.input {
-  line-height: 18.75px;
-  height: 130px;
-  resize: none; }
+#view-new-project .test-objectives {
+  height: 150px; }
 #view-new-project .test-type {
   padding: 5px 10px 10px 10px;
   text-align: center;
@@ -2265,7 +2263,7 @@ hr {
     font-size: 12px;
     font-style: italic; }
   #view-editing .add-task form {
-    border: 1px solid #D8DADB;
+    border: 1px solid rgba(216, 218, 219, 0.5);
     padding: 15px;
     margin: 0; }
   #view-editing .add-task input, #view-editing .add-task textarea {
@@ -2286,7 +2284,7 @@ hr {
   #view-editing .add-task .box {
     padding: 12px;
     margin: 0;
-    border: 1px solid #D8DADB;
+    border: 1px solid rgba(216, 218, 219, 0.5);
     border-top: 0; }
   #view-editing .tags {
     margin: 0 0 40px 0; }
