@@ -50421,8 +50421,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
             //create a child scope for the typeahead directive so we are not polluting original scope
             //with typeahead-specific data (matches, query etc.)
             var scope = originalScope.$new();
-            console.log('scope, look for match inserts', scope);
-                // scope.activeIdx = -1;
+                scope.testTags = [];
 
             // WAI-ARIA
             var popupId = 'typeahead-' + scope.$id + '-' + Math.floor(Math.random() * 10000);
@@ -50639,13 +50638,13 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
                 // TODO:
                 // insert the tag as a clickable link to dropdown menu of existing options
-
                 var tester = inputValue.match(/\S*#\S+/gi);
-                var tag_body = {}; 
+                var tag_body; 
                 
-                if(tester && tester.length > 0){
-                    console.log(tester);
-                    tag_body.content = tester[tester.length -1].replace(/#/gi,'');
+                // okay, so now we have a list of tags in scope.testTags...
+                if(tester && tester.length > 0 && tester.length > scope.testTags.length){
+                    console.log('tester', tester, scope.testTags);
+                    tag_body = tester[tester.length -1].replace(/#/gi,'');
                 }
 
                 var locals = {$viewValue: inputValue};
@@ -50656,28 +50655,27 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 // and the length of the newest hashtag value is greater than zero
                 // get matches 
 
-                if (tag_body.content && tag_body.content.length >= minSearch) {
+                if (tag_body && tag_body.length >= minSearch) {
                     // in here check matches on latest message
                     if (waitTime > 0) {
                         cancelPreviousTimeout();
-                        scheduleSearchWithTimeout(tag_body.content);
+                        scheduleSearchWithTimeout(tag_body);
                     } else {
-                        getMatchesAsync(tag_body.content);
+                        getMatchesAsync(tag_body);
                     }
                 } else {
                     isLoadingSetter(originalScope, false);
                     cancelPreviousTimeout();
                     resetMatches();
-                    tester = [];
                 }
 
                 if (isEditable) {
-                    return tag_body.content;
+                    return tag_body;
                 } else {
-                    if (!tag_body.content) {
+                    if (!tag_body) {
                         // Reset in case user had typed something previously.
                         modelCtrl.$setValidity('editable', true);
-                        return tag_body.content;
+                        return tag_body;
                     } else {
                         modelCtrl.$setValidity('editable', false);
                         return undefined;
@@ -50714,7 +50712,10 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 modelCtrl.$render();
 
                 modelCtrl.$setValidity('editable', true);
-                
+
+                // add the new tag to scope.testTags...
+                scope.testTags.push('#'+model);
+                console.log('did we select a tag', scope.testTags);
                 // This is to insert a more complex model item into the feed. 
                 // it overwrites the main index field, too.
                 onSelectCallback(originalScope, {
