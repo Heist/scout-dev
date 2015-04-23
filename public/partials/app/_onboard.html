@@ -8,7 +8,7 @@
 		</div>
 	</div>
 	<!-- Onboarding Step 2 -->
-	<div ng-if="user.onboard === 2" ng-class="{'animated slideInRight': user.onboard === 2 }">
+	<div ng-if="user.onboard === 2">
 		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
 		<div class="onboarding-content step-2">
 			<img src="layout/assets/onboarding/report.png" alt="Field Guide report">
@@ -22,7 +22,7 @@
 		</div>
 	</div>
 	<!-- Onboarding Step 3 -->
-	<div ng-if="user.onboard === 3" ng-class="{'animated slideInRight': user.onboard === 3 }">
+	<div ng-if="user.onboard === 3">
 		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
 		<div class="onboarding-content">
 			<img src="layout/assets/onboarding/report.png" alt="Field Guide report">
@@ -36,7 +36,7 @@
 		</div>
 	</div>
 	<!-- Onboarding Step 4 -->
-	<div ng-if="user.onboard === 4" ng-class="{'animated slideInRight': user.onboard === 4 }">
+	<div ng-if="user.onboard === 4">
 		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
 		<div class="onboarding-content">
 			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
@@ -46,7 +46,7 @@
 		</div>
 	</div>
 	<!-- Onboarding Step 5 -->
-	<div ng-if="user.onboard === 5" ng-class="{'animated slideInRight': user.onboard === 5 }">
+	<div ng-if="user.onboard === 5">
 		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
 		<div class="onboarding-content">
 			<img src="layout/assets/onboarding/run-test.png" alt="Field Guide report">
@@ -60,7 +60,7 @@
 		</div>
 	</div>
 	<!-- Onboarding Step 6 -->
-	<div ng-if="user.onboard === 6" ng-class="{'animated slideInRight': user.onboard === 6 }">
+	<div ng-if="user.onboard === 6">
 		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
 		<div class="onboarding-content">
 			<img src="layout/assets/onboarding/summarize-test.png" alt="Field Guide report">
@@ -74,13 +74,13 @@
 		</div>
 	</div>
 	<!-- Onboarding Step 7 -->
-	<div ng-if="user.onboard === 7" ng-class="{'animated slideInRight': user.onboard === 7 }">
+	<div ng-if="user.onboard === 7">
 		<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
-		<div class="onboarding-content step-7">
+		<div class="onboarding-content" id="last-step">
 			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
 			<h2 class="less-margin">That should cover the basics, now go forth and
 			<br>make your product even better!</h2>
-			<button class="button large" id="button-done" ng-click="$parent.onboardToggle()">Done</button>
+			<button class="button large" id="button-done" ng-click="$parent.toggleAnimation()">Done</button>
 
 			<div class="clear"></div>
 			

@@ -39,6 +39,13 @@
             }
         };
 
+        $scope.toggleAnimation = function(){
+        	var lastStep = angular.element(document.querySelector('#last-step, #modal'));
+
+        	// below classes are from animate.css library
+        	lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
+        };
+
   //   // STRIPE CHECKOUT ====================================
 
 		// $scope.stripeCheckout = function(){

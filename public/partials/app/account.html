@@ -249,7 +249,7 @@
 			<p>Need a refresher in how Field Guide helps you get better interview results?</p>
 			<p class="clearfix"><button ng-click="onboardToggle()" class="button large">Step Through A Sample</button></p>
 			
-			<div class="modal animated slideInUp" ng-if="onboardSteps" ng-controller="onboard">
+			<div class="modal animated slideInUp" id="modal" ng-if="onboardSteps" ng-controller="onboard">
 				<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
 				<ng-include src="'partials/app/_onboard.html'"></ng-include>
 			</div>
