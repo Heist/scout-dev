@@ -1,7 +1,7 @@
 <div id="view-onboarding" ng-controller="onboard">
 	<!-- Onboarding Step 1 -->
 	<div ng-if="user.onboard === 1">
-		<div class="onboarding-content step-1 animated slideInUp">
+		<div class="onboarding-content step-1" ng-class="{'hide': trueFalse === 'false', 'show': trueFalse === 'true'}">
 			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
 			<h2>Welcome to Field Guide</h2>
 			<button class="button large" ng-click="changeOnboard(2)">Get started</button>
