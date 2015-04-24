@@ -39,6 +39,7 @@
             h2 {
                 @include type-regular;
                 color: $fg-slate;
+                margin: 0;
             }
             h3 {
                 @include type-light;

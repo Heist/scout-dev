@@ -4277,7 +4277,8 @@ hr {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 400;
-        color: #2B404D; }
+        color: #2B404D;
+        margin: 0; }
       .modal .modal-interior .modal-interior-title h3 {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
