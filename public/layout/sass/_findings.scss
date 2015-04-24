@@ -29,6 +29,35 @@
 		}
 	}
 
+	#findings-share-report {
+		.input {
+			width: 92.5%;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+		
+		span {
+			position: relative;
+		
+			button {
+				position: absolute;
+				padding: 7px;
+				background: none;
+				border: 1px solid $fg-grey-trans;
+				border-left: 0;
+				outline: 0;
+				cursor: pointer;
+			}
+
+			.external-link {
+				width: 20px;
+				height: 20px;
+				display: inline-block;
+				background: url('/layout/assets/external-link.svg') center no-repeat;
+			}
+		}
+	}
+
 	#findings-nav {
 		padding: 20px 0 0 0;
 		margin: 0;

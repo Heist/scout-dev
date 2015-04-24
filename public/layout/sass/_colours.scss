@@ -18,6 +18,7 @@ $fg-brown-dark: #231e1b;
 $fg-grey-dark: #777777;
 $fg-grey: #949799;
 $fg-grey-light: #D8DADB;
+$fg-grey-trans: transparentize($fg-grey-light, 0.5);
 
 $fg-blue: #00B5E3;
 $fg-blue-dark: #2a687d;
