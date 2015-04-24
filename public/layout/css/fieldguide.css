@@ -1920,7 +1920,10 @@ hr {
     color: #fff; }
   #view-login input, #view-login #view-editing .add-task textarea, #view-editing .add-task #view-login textarea, #view-login button {
     width: 100%;
-    margin-bottom: 4px; }
+    margin-bottom: 4px;
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 400; }
     #view-login input:focus, #view-login #view-editing .add-task textarea:focus, #view-editing .add-task #view-login textarea:focus, #view-login button:focus {
       box-shadow: none; }
   #view-login input[type=checkbox], #view-login #view-editing .add-task textarea[type=checkbox], #view-editing .add-task #view-login textarea[type=checkbox] {
@@ -1930,6 +1933,10 @@ hr {
     text-align: center; }
   #view-login a {
     color: #fff; }
+  #view-login p {
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 400; }
   #view-login #logo img {
     width: 70px;
     height: auto; }
