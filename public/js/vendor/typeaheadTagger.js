@@ -51,6 +51,9 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
             //SUPPORTED ATTRIBUTES (OPTIONS)
 
+            // Which key to check for to key off match process?
+            var keyOff = originalScope.$eval(attrs.typeaheadKeyOff) || '#';
+
             //minimal no of characters that needs to be entered before typeahead kicks-in
             var minSearch = originalScope.$eval(attrs.typeaheadMinLength) || 1;
 
