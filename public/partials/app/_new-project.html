@@ -6,20 +6,20 @@
 		
 
 		<div class="modal-interior-title">
-			<a href="#" class="x" ng-click="$parent.newTestModalToggle()">&times;</a>
+			<button class="x-modal" ng-click="$parent.newTestModalToggle()">&times;</button>
 			<h2 class="text-center">New Project</h2>
 		</div>
 
 		<div class="module half test-type" ng-class='{"select-active": test.kind || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>
 			<h3>Interview</h3>
 			<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
-			<a href="#" class="more-info">Tell me more about Interview tests</a>
+			<!-- <a href="#" class="more-info">Tell me more about Interview tests</a> -->
 		</div>
 		
 		<div class="module half test-type" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>
 			<h3>Prototype or Website</h3>
 			<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
-			<a href="#" class="more-info">Tell me more about Prototype testing</a>
+			<!-- <a href="#" class="more-info">Tell me more about Prototype testing</a> -->
 		</div>
 		
 		<ul class="nobullets">
@@ -34,7 +34,7 @@
 				</li>
 				<li>
 					<label for="field-prototypeurl">Test objectives</label>
-					<textarea msd-elastic class="input" id="field-objective" type="text" value="" ng-model="test.desc" placeholder="What questions do you want answered?
+					<textarea msd-elastic class="input test-objectives" id="field-objective" type="text" value="" ng-model="test.desc" placeholder="What questions do you want answered?
 					
 					- Do users understand the header interaction?
 					- Are they comfortable with the cart language?" />
@@ -47,6 +47,6 @@
 			</div>
 		</ul>
 	</div>
-	</div><!--  / view-editing -->
+	</div>
 	
 	<div class="clear"></div>

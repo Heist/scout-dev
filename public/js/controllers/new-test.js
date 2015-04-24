@@ -6,7 +6,6 @@
 	.controller('newTest', 
     		['testBuildFunctions','$scope','$http','$stateParams','$state','$location','$rootScope',
     function( testBuildFunctions,  $scope,  $http,  $stateParams,  $state,  $location, $rootScope){
-        console.log('loaded new test');
     	// SETUP VARIABLES ==========================
         $scope.test = {};
 
@@ -27,7 +26,6 @@
         };
 
         $scope.addTest = function(test){
-        	console.log('new test', test);
 
             if($scope.test.name){
                 mixpanel.track('Test name changed', { 'user': $rootScope.user });

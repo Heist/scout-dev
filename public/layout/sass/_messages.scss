@@ -75,8 +75,11 @@
 	font-size: 16px;
 	@include type-light;
 	margin: 0 0 20px 0;
+	position: relative;
 	
 	img {
+		position: absolute;
+		left: -35px;
 		width: 20px;
 		height: auto;
 		opacity: 0.2;
@@ -289,6 +292,7 @@
 		textarea {
 			width: 100%;
 			margin: 0 0 10px 0;
+			line-height: 15px;
 		}
 		
 	}

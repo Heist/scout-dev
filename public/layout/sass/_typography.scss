@@ -12,7 +12,7 @@ html, body {
 body {
 	font-size: $type-size-base;
 	line-height: $type-line-base;
-	@include type-regular;
+	@include type-light;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
@@ -152,7 +152,7 @@ ul {
 	margin: 0 0 $pad 0;
 	
 	li {
-		padding: $pad/6 0;
+		padding: $pad/6;
 	}
 	
 	&.nobullets {

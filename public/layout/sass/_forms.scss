@@ -4,7 +4,7 @@ FORMS!
 
 form {
 	padding: 0;
-	margin: 20px 0;
+	margin: 0 0 20px 0;
 }
 
 label {
@@ -37,7 +37,7 @@ label {
 		background: $white;
 		color: #999999;
 		margin: 0;
-		padding: 6px;
+		padding: 5px;
 		@include radius($pad*2);
 		height: $pad*2;
 		width: $pad*2;
@@ -89,20 +89,35 @@ label {
 	}
 }
 
+.input-no-border {
+	width: 100%;
+	background: $white;
+	border: 0;
+	display: inline-block;
+	margin: 0;
+	padding: 5px 0;
+	@include radius;
+	@include type-light;
+	font-size: 12px;
+	color: $fg-grey-dark;
+	outline: none;
+}
+
 .input {
 	width: 100%;
 	background: $white;
-	border: 1px solid $line;
+	border: 1px solid transparentize($fg-grey-light, 0.5);
 	display: inline-block;
 	margin: 0;
 	padding: 11px $pad/1.5;
 	@include radius;
 	@include type-light;
-	font-size: $type-size-base*0.90;
+	font-size: 12px;
+	color: $fg-grey-dark;
 	outline: none;
 
 	&:hover {
-		border: 1px solid $fg-grey;
+		border: 1px solid transparentize($fg-grey, 0.5);
 	}
 
 	&:focus {
@@ -114,7 +129,7 @@ label {
 		font-size: $type-size-base*0.8;
 		line-height: 1.5;
 	}
-	
+
 	&.tight {
 		padding: $pad/3 $pad/2;
 	}

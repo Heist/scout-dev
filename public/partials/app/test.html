@@ -17,25 +17,27 @@
 						<div class="clear"></div>
 						<ul class="nobullets">
 
-
-							<!-- make below editable -->
-
 							<div class="project-details" ng-click="select(test)">
-								<h2>{{test.name}}</h2>
+								<input class="input-no-border project-name" ng-trim="false" ng-model="test.name" ng-focus="editTitle(test)" ng-blur="blurTitle(test)">
 
 								<h3>Objectives</h3>
-									<pre class="test-descriptions">{{test.desc}}</pre>
+									<textarea msd-elastic class="test-descriptions input-no-border" id="field-textarea"  ng-model="test.desc" ng-blur="updateTask(test)"></textarea>
 							</div>
 
 							<!-- tags section goes here -->
+							<!-- user enters tag, tag gets store in tag pool-->
+
 							<div class="tags">
 								<h3>Tags</h3>
 								<p>Because you're running a {{test.type}} test, we've created a couple of tags for you to use during your tests.</p>
 		
 								<div class="tag-pool">
 									<ul>
-										<li>#yolo</li>
-										<li>#swag</li>
+										<li>usability</li>
+										<li>quote</li>
+										<li>insight</li>
+										<li>comprehension</li>
+										<li>copy</li>
 									</ul>
 								</div>
 								<textarea name="custom-tags" class="custom-tags" placeholder="Type your own tags here. ex. #passed, #failed"></textarea>
@@ -53,21 +55,13 @@
 								<div class="step-controls">
 									<div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
 								</div> -->
-<!-- ng-if="isActive(task)" -->
+								<!-- ng-if="isActive(task)" -->
 								<div ng-click="select(task)">
-									<div class="task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
-										#{{task.name}}
-									</div>
-
-									<div class="task-descriptions" msd-elastic ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)">
-										<pre class="task-descriptions">{{task.desc}}</pre>
-									</div>
+									<form>
+										<input class="input-no-border task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
+										<textarea msd-elastic class="task-descriptions input-no-border" id="field-textarea"  ng-model="task.desc" ng-blur="updateTask(task)"></textarea>
+									</form>
 								</div>
-								<!-- 	<form>
-										<input class="input tight" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)"><br/>
-										<textarea msd-elastic ng-model="task.desc" class="input small tight" id="field-textarea" ng-blur="updateTask(task)" placeholder="Put talking points or task-specific questions here.">
-										</textarea>
-									</form> -->
 							
 								<div class="clear"></div>
 
