@@ -50987,7 +50987,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     $templateCache.put("typeahead-popup.html",
         "<ul class=\"dropdown-menu\" ng-show=\"isOpen()\" ng-style=\"{top: position.top+'px', left: position.left+'px'}\" style=\"display: block;\" role=\"listbox\" aria-hidden=\"{{!isOpen()}}\">\n" +
         "        <li ng-repeat=\"match in matches track by $index\" ng-class=\"{active: isActive($index) }\" ng-mouseenter=\"selectActive($index)\" ng-click=\"selectMatch($index)\" role=\"option\" id=\"{{match.id}}\">\n" +
-        "                <div typeahead-match index=\"$index\" match=\"match\" query=\"query\" template-url=\"templateUrl\"></div>{{$index}}\n" +
+        "                <div typeahead-match index=\"$index\" match=\"match\" query=\"query\" template-url=\"templateUrl\"></div>\n" +
         "        </li>\n" +
         "</ul>\n" +
         "");
@@ -52094,17 +52094,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 });
 
         };
-
-    //  TYPEAHEAD =========================================
-    // TODO: Make this a wrap so that on hashtag entered in message
-    // it checks the listed states scope
-    $scope.triggerTypeahead = function(){
-        
-         // typeahead="state for state in states | filter:$viewValue | limitTo:8"
-    }
-
-    $scope.typeinput = undefined;
-    $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
     }]);
 })();
 // summary.js
