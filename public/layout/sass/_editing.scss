@@ -139,6 +139,7 @@
     }
 
     .add-task {
+        margin: 50px 0;
         @include input-placeholders;
 
         form {
