@@ -5561,11 +5561,13 @@ hr {
     width: 92.5%;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0; }
+    #view-findings #findings-share-report .input:hover {
+      border: 1px solid rgba(216, 218, 219, 0.5); }
   #view-findings #findings-share-report span {
     position: relative; }
     #view-findings #findings-share-report span button {
       position: absolute;
-      padding: 7px;
+      padding: 6.5px 8px;
       background: none;
       border: 1px solid rgba(216, 218, 219, 0.5);
       border-left: 0;

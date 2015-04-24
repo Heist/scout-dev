@@ -34,6 +34,10 @@
 			width: 92.5%;
 			border-top-right-radius: 0;
 			border-bottom-right-radius: 0;
+
+			&:hover {
+				border: 1px solid $fg-grey-light-trans;
+			}
 		}
 		
 		span {
@@ -41,9 +45,9 @@
 		
 			button {
 				position: absolute;
-				padding: 7px;
+				padding: 6.5px 8px;
 				background: none;
-				border: 1px solid $fg-grey-trans;
+				border: 1px solid $fg-grey-light-trans;
 				border-left: 0;
 				outline: 0;
 				cursor: pointer;
