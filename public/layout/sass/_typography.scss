@@ -152,7 +152,7 @@ ul {
 	margin: 0 0 $pad 0;
 	
 	li {
-		padding: 0;
+		padding: $pad/6;
 	}
 	
 	&.nobullets {
