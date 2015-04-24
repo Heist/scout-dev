@@ -2246,7 +2246,7 @@ hr {
     line-height: 20px;
     resize: none; }
   #view-editing .add-task {
-    margin: 40px 0; }
+    margin: 20px 0; }
     #view-editing .add-task ::-webkit-input-placeholder {
       color: #D8DADB;
       font-size: 12px;
