@@ -50319,9 +50319,9 @@ angular.module('siyfion.sfTypeahead', [])
  */
 
  'use strict';
-angular.module("ui.bootstrap", ["ui.bootstrap.tpls","ui.bootstrap.typeahead","ui.bootstrap.position","bindHtml"]);
-angular.module("ui.bootstrap.tpls", ["typeahead-match.html","typeahead-popup.html"]);
-angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'bindHtml'])
+angular.module("typeaheadTagger", ["typeaheadTpls","typeaheadInputBox","DOMposition","bindHtml"]);
+angular.module("typeaheadTpls", ["typeahead-match.html","typeahead-popup.html"]);
+angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
 /**
  * A helper service that can parse typeahead's syntax (string provided by users)
@@ -50803,9 +50803,16 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'bindHtml'])
         };
     });
 
-angular.module('ui.bootstrap.position', [])
+angular.module('DOMposition', [])
 
-/**
+/* *
+ * angular-ui-bootstrap
+ * http://angular-ui.github.io/bootstrap/
+ * Version: 0.12.1 - 2015-02-20
+ * License: MIT
+ */
+
+/* *
  * A set of utility methods that can be use to retrieve position of DOM elements.
  * It is meant to be used where we need to absolute-position DOM elements in
  * relation to other, existing elements (this is the case for tooltips, popovers,
@@ -50986,7 +50993,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 (function() {
     'use strict';
 
-    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'ui.bootstrap', 'ngSanitize', 'youtube-embed', 'field_guide_controls','field_guide_filters']);
+    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'typeaheadTagger', 'ngSanitize', 'youtube-embed', 'field_guide_controls','field_guide_filters']);
 
     // FRONT-END ROUTE CONFIGURATION ==============================================
     field_guide_app.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", "$locationProvider", function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
