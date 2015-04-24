@@ -6,13 +6,14 @@
         clear: both;
     }
 
-    .x {
+    button.x {
         position: absolute;
         top: -25px;
-        right: -28px;
+        right: -35px;
         text-decoration: none;
         color: $fg-grey;
         @include type-extrabold;
+        font-size: 18px;
     }
     
     .test-objectives {

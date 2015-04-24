@@ -65,9 +65,14 @@
     }
 
     button.x {
-        border: 0;
+        position: absolute;
+        top: -25px;
+        right: -35px;
+        text-decoration: none;
+        color: $fg-grey;
+        @include type-extrabold;
+        font-size: 18px;
         background: none;
-        cursor: pointer;
         outline: 0;
     }
 }

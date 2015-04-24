@@ -567,8 +567,8 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
   float: left;
   height: 100% !important;
   padding: 70px 30px 20px 30px;
-  overtest-x: hidden;
-  overtest-y: auto; }
+  overflow-x: hidden;
+  overflow-y: auto; }
 
 .left-pane, .right-pane {
   width: 33%; }
@@ -4264,9 +4264,16 @@ hr {
       margin: 20px 0 0 0;
       float: right; }
   .modal button.x {
-    border: 0;
+    position: absolute;
+    top: -25px;
+    right: -35px;
+    text-decoration: none;
+    color: #949799;
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
     background: none;
-    cursor: pointer;
     outline: 0; }
 
 /* charging money / skrilla thrilla */
@@ -4686,15 +4693,16 @@ hr {
 /* new project */
 #view-new-project ul {
   clear: both; }
-#view-new-project .x {
+#view-new-project button.x {
   position: absolute;
   top: -25px;
-  right: -28px;
+  right: -35px;
   text-decoration: none;
   color: #949799;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600; }
+  font-weight: 600;
+  font-size: 18px; }
 #view-new-project .test-objectives {
   height: 150px; }
 #view-new-project .test-type {
@@ -5181,7 +5189,7 @@ hr {
   /* connected app styles */
   /* end connected app styles */
   /* team members */ }
-  #view-account .x {
+  #view-account button.x {
     position: absolute;
     top: 20px;
     right: 20px;
