@@ -580,6 +580,37 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
   width: 67%; }
 
 /* Buttons */
+button.x-modal {
+  position: absolute;
+  top: -25px;
+  right: -35px;
+  text-decoration: none;
+  color: #949799;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  outline: 0; }
+
+button.x-onboard {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  text-decoration: none;
+  z-index: 1;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  outline: 0; }
+
 .button {
   background: #85AC0F;
   color: #fff;
@@ -4263,18 +4294,6 @@ hr {
     .modal .modal-interior .cta-margin {
       margin: 20px 0 0 0;
       float: right; }
-  .modal button.x {
-    position: absolute;
-    top: -25px;
-    right: -35px;
-    text-decoration: none;
-    color: #949799;
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
-    background: none;
-    outline: 0; }
 
 /* charging money / skrilla thrilla */
 .plan-type {
@@ -4693,16 +4712,6 @@ hr {
 /* new project */
 #view-new-project ul {
   clear: both; }
-#view-new-project button.x {
-  position: absolute;
-  top: -25px;
-  right: -35px;
-  text-decoration: none;
-  color: #949799;
-  font-family: "canada-type-gibson",sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px; }
 #view-new-project .test-objectives {
   height: 150px; }
 #view-new-project .test-type {
@@ -5189,17 +5198,6 @@ hr {
   /* connected app styles */
   /* end connected app styles */
   /* team members */ }
-  #view-account button.x {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color: white;
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 30px;
-    text-decoration: none;
-    z-index: 1; }
   #view-account .container {
     padding: 20px 0 0 0; }
   #view-account .plan-picker h3 {

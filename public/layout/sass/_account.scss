@@ -3,18 +3,6 @@
 #view-account {
 	margin: 0;
 	padding: 0;
-	
-	// x button to close modals
-	button.x {
-	    position: absolute;
-	    top: 20px;
-	    right: 20px;
-	    color: white;
-	    @include type-extrabold;
-	    font-size: 30px;
-	    text-decoration: none;
-	    z-index: 1;
-	}
 
 	.container {
 		padding: $pad 0 0 0;

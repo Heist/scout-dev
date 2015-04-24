@@ -5,16 +5,6 @@
     ul {
         clear: both;
     }
-
-    button.x {
-        position: absolute;
-        top: -25px;
-        right: -35px;
-        text-decoration: none;
-        color: $fg-grey;
-        @include type-extrabold;
-        font-size: 18px;
-    }
     
     .test-objectives {
         height: 150px;
