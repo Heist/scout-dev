@@ -12,7 +12,7 @@
 		<ul class="nobullets" ng-model="subject">
 			<li>
 				<input class="input" type="text" name="participantname" ng-model="reportLink"/>
-				</input><span><button><a href="{{reportLink}}"><span class="external-link"></span></a></button></span>
+				</input><span><a href="{{reportLink}}" target="_blank" ng-click="reportView()"><span class="external-link"></span></a></span>
 			</li>
 
 			<div class="clear"></div>
