@@ -228,14 +228,13 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
 
-                console.log('keypress checking', evt.which, scope.testTags);
                 if(scope.activeIdx === -1 && evt.which === 13){
                     // YOU ARE WORKING ON THIS
                     //  Send message to postmessage once tags are assembled
                     //  then return the resulting message to the originalScope
                     // and add it to whatever context the message is supposed to live in
                     // on whatever page.
-                    console.log('clear a box');
+                    
                     
                     scope.$emit('message', {msg: modelCtrl.$viewValue});
                     modelCtrl.$setViewValue('');
