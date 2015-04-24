@@ -246,20 +246,20 @@
         $scope.$on('message', function(e, data){
             console.log('emitted data received', data);
             e.stopPropagation();
+            if(data.length <= 0){
+                return ;
+            } else {
+                postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
+                    .then(function(msg){
+                        console.log('okay what', msg);
+                        $scope.timeline.push(msg.msg);
+                        $scope.tags = msg.tags;
+                    });
+            }
         })
 
         $scope.postMessage = function(message){
-            if(message.length <= 0){
-                return ;
-            } else {
-                postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
-                    .then(function(data){
-                        console.log('okay what', data);
-                        $scope.timeline.push(data.msg);
-                        $scope.tags = data.tags;
-                        $scope.message='';
-                    });
-            }
+            
         };
 
         // END TEST =============================

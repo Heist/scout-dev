@@ -50310,20 +50310,24 @@ angular.module('siyfion.sfTypeahead', [])
   });
 
 
-/*
+/* *
+ * typeaheadTagger, based on angular-ui-bootstrap-typeahead
+ * Takes an optional keyoff character to list available entries in a typeahead input box.
+ * http://www.github.com/pretentiousgit/typeaheadTagger
+ *  
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
 
- * Version: 0.12.1 - 2015-02-20
+ * Version: 0.1 - 2015-04-24
  * License: MIT
  */
+'use strict';
 
- 'use strict';
 angular.module("typeaheadTagger", ["typeaheadTpls","typeaheadInputBox","DOMposition","bindHtml"]);
 angular.module("typeaheadTpls", ["typeahead-match.html","typeahead-popup.html"]);
 angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
-/**
+/* *
  * A helper service that can parse typeahead's syntax (string provided by users)
  * Extracted to a separate service for ease of unit testing
  */
@@ -50547,7 +50551,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     // on whatever page.
                     
                     
-                    scope.$emit('message', {msg: modelCtrl.$viewValue});
+                    scope.$emit('message', modelCtrl.$viewValue);
                     modelCtrl.$setViewValue('');
                     modelCtrl.$render();
 
@@ -52062,20 +52066,20 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.$on('message', function(e, data){
             console.log('emitted data received', data);
             e.stopPropagation();
+            if(data.length <= 0){
+                return ;
+            } else {
+                postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
+                    .then(function(msg){
+                        console.log('okay what', msg);
+                        $scope.timeline.push(msg.msg);
+                        $scope.tags = msg.tags;
+                    });
+            }
         })
 
         $scope.postMessage = function(message){
-            if(message.length <= 0){
-                return ;
-            } else {
-                postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
-                    .then(function(data){
-                        console.log('okay what', data);
-                        $scope.timeline.push(data.msg);
-                        $scope.tags = data.tags;
-                        $scope.message='';
-                    });
-            }
+            
         };
 
         // END TEST =============================
