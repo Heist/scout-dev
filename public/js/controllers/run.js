@@ -243,6 +243,11 @@
                 });
         };
 
+        $scope.$on('message', function(e, data){
+            console.log('emitted data received', data);
+            e.stopPropagation();
+        })
+
         $scope.postMessage = function(message){
             if(message.length <= 0){
                 return ;

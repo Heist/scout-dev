@@ -252,10 +252,25 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 //typeahead is open and an "interesting" key was pressed
 
                 if(scope.activeIdx === -1 && evt.which === 13){
+                    // YOU ARE WORKING ON THIS
+                    //  Send message to postmessage once tags are assembled
+                    //  then return the resulting message to the originalScope
+                    // and add it to whatever context the message is supposed to live in
+                    // on whatever page.
+                    
                     console.log('adding some keydown things', modelCtrl.$viewValue);
-                    postMessage(modelCtrl.$viewValue).then(function(data){
+                    scope.$emit('message', {msg: modelCtrl.$viewValue});
+                    evt.stopPropagation();
+                    modelCtrl.$viewValue = '';
+                    resetMatches();
+                    scope.$digest();
+
+                    // postMessage(modelCtrl.$viewValue).then(function(data){
+                    //  // in here, we need to know where we are, since this directive should work
+                    //  // just about anywhere - it needs to send messages upstream to the main scope?
                         
-                    })
+
+                    // })
                 }
 
                 if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
