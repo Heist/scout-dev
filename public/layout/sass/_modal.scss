@@ -1,5 +1,4 @@
 /* modal styles */
-
 .modal {
     position: absolute;
     top: 0;
@@ -8,6 +7,11 @@
     min-height: 100%;
     background: $modal-bg;
     z-index: 99999999;
+    -webkit-animation-duration: 0.5s;
+    -moz-animation-duration: 0.5s;
+    -o-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+
     .modal-interior {
         background: $white;
         padding: ($pad * 1.5) ($pad * 2) ($pad * 1.5) ($pad * 2);
@@ -59,4 +63,12 @@
             float: right;
         }
     }
+
+    button.x {
+        border: 0;
+        background: none;
+        cursor: pointer;
+        outline: 0;
+    }
 }
+

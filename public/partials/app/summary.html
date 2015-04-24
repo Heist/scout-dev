@@ -1,24 +1,5 @@
 <div id="view-findings" ng-model='test'	ng-class="{ 'show-comments' : showCommentToggle !== 'hide', 'is-onboard': user.onboard != 100 }">
-	
-	<!-- /* onboard */ -->
-	
-	<div class="onboard-content onboard-report-step1" ng-if="user.onboard !== 100">
-		<div class="container">
-			<div class="module third">
-				<h3>This is your report,<br>in editing mode.</h3>
-			</div>
-			<div class="module third">
-				<p>All the notes you wrote about while testing are organized and #themed appropriately here.
-					<a href="#" class="secondary" ng-click="changeOnboard(100)"><small >I&rsquo;m okay on my own</small></a> &nbsp;&nbsp;
-				</p>
-				
-			</div>
-			<div class="module third text-right">
-				<a class="button" ng-click="changeOnboard(9)">Next</a>
-			</div>
-		</div>
-	</div>
-	
+
 	<ng-include src="'partials/app/_header-small.html'"></ng-include>
 	
 	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>

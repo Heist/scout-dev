@@ -14,13 +14,11 @@
         color: $fg-grey;
         @include type-extrabold;
     }
-
-    textarea.input {
-        line-height: $type-size-base*1.25;
-        height: 130px;
-        resize: none;
+    
+    .test-objectives {
+        height: 150px;
     }
-
+    
     .test-type {
         padding: 5px 10px 10px 10px;
         text-align: center;
@@ -105,16 +103,9 @@
         box-shadow: none;
     }
     
-    h2 {
-        @include type-light;
-        color: $fg-black;
-        font-size: 24px;
-        margin: 0 0 40px 0;
-    }
-
     h3 {
         @include type-light;
-        color: $fg-black;
+        color: $fg-slate;
         font-size: 16px;
         margin: 20px 0;
     }
@@ -129,21 +120,30 @@
     .task-title {
         @include type-regular;
         font-size: 12px;
-        text-transform: lowercase;
+    }
+    
+    .project-name {
+        @include type-light;
+        color: $fg-slate;
+        font-size: 24px;
+        margin: 0 0 20px 0;
     }
 
-    pre.test-descriptions, pre.task-descriptions {
+    textarea.test-descriptions, textarea.task-descriptions {
         font-size: 12px;
         @include type-light;
         color: $fg-grey;
-        margin: 0 0 40px 0;
+        margin: 0;
+        line-height: 20px;
+        resize: none;
     }
 
     .add-task {
+        margin: 20px 0;
         @include input-placeholders;
 
         form {
-            @include light-grey-border;
+            border: 1px solid transparentize($fg-grey-light, 0.5);
             padding: 15px;
             margin: 0;
         }
@@ -169,7 +169,7 @@
         .box {
             padding: 12px;
             margin: 0;
-            @include light-grey-border;
+            border: 1px solid transparentize($fg-grey-light, 0.5);
             border-top: 0;
         }
     }
@@ -196,6 +196,10 @@
                     font-size: 10px;
                     color: $fg-blue;
                     display: inline-block;
+                    
+                    &:before {
+                        content: "#"
+                    }
 
                     &:first-child {
                         padding: 0 0 0 10px;
