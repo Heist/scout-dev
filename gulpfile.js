@@ -36,7 +36,7 @@ gulp.task('scripts', function () {
         bower
     )
     .pipe(filter('*.js'))
-    .pipe(addsrc.append('public/js/vendor/ui-bootstrap-custom-tpls-0.12.1.js'))
+    .pipe(addsrc.append('public/js/vendor/typeaheadTagger.js'))
     // .pipe(addsrc.append('public/js/vendor/ui-bootstrap-custom-0.12.1.min.js'))
     .pipe(addsrc.append('public/js/app.js'))
     .pipe(addsrc.append('public/js/controllers/*.js'))
