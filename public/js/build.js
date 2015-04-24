@@ -50327,13 +50327,12 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
  * A helper service that can parse typeahead's syntax (string provided by users)
  * Extracted to a separate service for ease of unit testing
  */
+
 .factory('typeaheadParser', ['$parse', function ($parse) {
     var TYPEAHEAD_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w\d]*))\s+in\s+([\s\S]+?)$/;
-    var HASHTAG_REGEXP = /\S*#\S+/;
                 
     return {
         parse:function (input) {
-        var hashtag = input.match(HASHTAG_REGEXP);
         var match = input.match(TYPEAHEAD_REGEXP);
         if (!match) {
             throw new Error(
@@ -50355,13 +50354,16 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 .directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document', '$position', 'typeaheadParser',
     function ($compile, $parse, $q, $timeout, $document, $position, typeaheadParser) {
 
-    var HOT_KEYS = [9, 13, 27, 38, 40];
+    var HOT_KEYS = [9, 13, 27, 32, 38, 40];
 
     return {
         require:'ngModel',
         link:function (originalScope, element, attrs, modelCtrl) {
 
             //SUPPORTED ATTRIBUTES (OPTIONS)
+
+            // Which key to check for to key off match process?
+            var keyOff = originalScope.$eval(attrs.typeaheadKeyOff) || '#';
 
             //minimal no of characters that needs to be entered before typeahead kicks-in
             var minSearch = originalScope.$eval(attrs.typeaheadMinLength) || 1;
@@ -50533,19 +50535,17 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
             scope.query = undefined;
 
         // Bind KEY EVENTS - may have to be KEYDOWN ======================================
-            HOT_KEYS.push(32); // add spacebar to hot keys;
             element.bind('keypress', function (evt) {
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
 
-                console.log('keypress checking', evt.which, scope.testTags);
                 if(scope.activeIdx === -1 && evt.which === 13){
                     // YOU ARE WORKING ON THIS
                     //  Send message to postmessage once tags are assembled
                     //  then return the resulting message to the originalScope
                     // and add it to whatever context the message is supposed to live in
                     // on whatever page.
-                    console.log('clear a box');
+                    
                     
                     scope.$emit('message', {msg: modelCtrl.$viewValue});
                     modelCtrl.$setViewValue('');

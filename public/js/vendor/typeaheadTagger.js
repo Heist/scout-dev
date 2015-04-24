@@ -15,13 +15,12 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
  * A helper service that can parse typeahead's syntax (string provided by users)
  * Extracted to a separate service for ease of unit testing
  */
+
 .factory('typeaheadParser', ['$parse', function ($parse) {
     var TYPEAHEAD_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w\d]*))\s+in\s+([\s\S]+?)$/;
-    var HASHTAG_REGEXP = /\S*#\S+/;
                 
     return {
         parse:function (input) {
-        var hashtag = input.match(HASHTAG_REGEXP);
         var match = input.match(TYPEAHEAD_REGEXP);
         if (!match) {
             throw new Error(
