@@ -1,5 +1,5 @@
 /*
- * HashTypeahead, a typeahead input box that pops a match using optional character key-offs
+ * typeaheadTagger, a typeahead input box that pops a match using optional character key-offs
  * http://www.github.com/pretentiousgit/typeahead 
  *
  * Based on 
@@ -10,9 +10,10 @@
  * License: MIT
  */
 
+ // remove logging statements: console.log\(.*\)\;
  'use strict';
 
-angular.module("ui.bootstrap", ["typeaheadTPL","typeahead","DOMposition","bindHtml"]);
+angular.module("typeaheadTagger", ["typeaheadTPL","typeahead","DOMposition","bindHtml"]);
 angular.module("typeaheadTPL", ["typeahead-match.html","typeahead-popup.html"]);
 angular.module('typeaheadInputCheck', ['DOMposition', 'bindHtml'])
 
@@ -20,6 +21,7 @@ angular.module('typeaheadInputCheck', ['DOMposition', 'bindHtml'])
  * A helper service that can parse typeahead's syntax (string provided by users)
  * Extracted to a separate service for ease of unit testing
  */
+
 .factory('typeaheadParser', ['$parse', function ($parse) {
     var TYPEAHEAD_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w\d]*))\s+in\s+([\s\S]+?)$/;
     var HASHTAG_REGEXP = /\S*#\S+/;
@@ -492,7 +494,7 @@ angular.module('typeaheadInputCheck', ['DOMposition', 'bindHtml'])
         function escapeRegexp(queryToEscape) {
             return queryToEscape.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1');
         }
-
+        
         return function(matchItem, query) {
             return query ? ('' + matchItem).replace(new RegExp(escapeRegexp(query), 'gi'), '<strong>$&</strong>') : matchItem;
         };
