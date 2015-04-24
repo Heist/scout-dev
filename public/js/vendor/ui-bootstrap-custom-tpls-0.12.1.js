@@ -40,29 +40,8 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
     };
 }])
 
-.factory('postMessage', ['$http', function($http) {
-            var postMessage = function(message, task, test, subject_id){
-
-                    var note = {};
-                    note.body = message;
-                    note.created = new Date();
-                     
-                    note._task = task;
-                    note._test = test;
-                    note._subject = subject_id;
-
-                    var promise = $http.post('/api/message/', note).then(function(response) {
-                        // console.log('new reply', response);
-                        return response.data;
-                    });
-
-                    return promise;
-                };
-            return postMessage;
-        }])
-
-.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document', '$position', 'typeaheadParser', 'postMessage',
-    function ($compile, $parse, $q, $timeout, $document, $position, typeaheadParser, postMessage) {
+.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document', '$position', 'typeaheadParser',
+    function ($compile, $parse, $q, $timeout, $document, $position, typeaheadParser) {
 
     var HOT_KEYS = [9, 13, 27, 38, 40];
 
@@ -142,19 +121,17 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 scope.matches = [];
                 scope.activeIdx = -1;
                 element.attr('aria-expanded', false);
-                // console.log('reset index', scope.activeIdx);
+                
             };
 
 
             var scheduleSearchWithTimeout = function(inputValue) {
-                console.log('searching without timeout');
                 timeoutPromise = $timeout(function () {
                     getMatchesAsync(inputValue);
                 }, waitTime);
             };
 
             var cancelPreviousTimeout = function() {
-                console.log('prev timeout cancelled');
                 if (timeoutPromise) {
                     $timeout.cancel(timeoutPromise);
                 }
@@ -162,7 +139,6 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
             var dismissClickHandler = function (evt) {
                 // Keep reference to click handler to unbind it.
-                console.log('clickhandler dismissed');
                 if (element[0] !== evt.target) {
                     resetMatches();
                     evt.stopPropagation();
@@ -183,7 +159,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     //but we are interested only in responses that correspond to the current view value
 
                     // this doesn't work because it doesn't parse the current view value properly.
-                    // console.log( 'checking model.$viewValue.index', modelCtrl.$viewValue.indexOf(inputValue) );
+                    
                     
                     var onCurrentRequest = modelCtrl.$viewValue.indexOf(inputValue) > -1;
 
@@ -192,7 +168,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                             scope.activeIdx = focusFirst ? 0 : -1;
                             scope.matches.length = 0;
 
-                            console.log('focusFirst activeIdx', scope.activeIdx);
+                            
 
                             //transform labels
                             for(var i=0; i<matches.length; i++) {
@@ -231,7 +207,6 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
             // Indicate that the specified match is the active (pre-selected) item in the list owned by this typeahead.
             // This attribute is added or removed automatically when the `activeIdx` changes.
             scope.$watch('activeIdx', function(index) {
-                // console.log('inside watch', index);
                 if (index < 0) {
                     element.removeAttr('aria-activedescendant');
                 } else {
@@ -251,26 +226,22 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
 
+                console.log('keypress checking', evt.which, $scope.testTags);
                 if(scope.activeIdx === -1 && evt.which === 13){
                     // YOU ARE WORKING ON THIS
                     //  Send message to postmessage once tags are assembled
                     //  then return the resulting message to the originalScope
                     // and add it to whatever context the message is supposed to live in
                     // on whatever page.
+                    console.log('clear a box');
                     
-                    console.log('adding some keydown things', modelCtrl.$viewValue);
                     scope.$emit('message', {msg: modelCtrl.$viewValue});
+                    modelCtrl.$setViewValue('');
+                    modelCtrl.$render();
+
                     evt.stopPropagation();
-                    modelCtrl.$viewValue = '';
                     resetMatches();
                     scope.$digest();
-
-                    // postMessage(modelCtrl.$viewValue).then(function(data){
-                    //  // in here, we need to know where we are, since this directive should work
-                    //  // just about anywhere - it needs to send messages upstream to the main scope?
-                        
-
-                    // })
                 }
 
                 if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
@@ -297,26 +268,26 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
                     if (evt.which === 40) {
                         // down arrow key
-                        // console.log('down arrow', evt.which)
+                        
                         scope.activeIdx = (scope.activeIdx + 1) % scope.matches.length;
-                        // console.log('down arrow selection', (scope.activeIdx + 1) % scope.matches.length);
+                        
                         scope.$digest();
 
                     } else if (evt.which === 38) {
-                        // console.log('up arrow', evt.which)
+                        
                         scope.activeIdx = (scope.activeIdx > 0 ? scope.activeIdx : scope.matches.length) - 1;
                         scope.$digest();
 
                     } else if (evt.which === 13 || evt.which === 9) {
                         
-                        // console.log('enter or tab', evt.which)
+                        
                         scope.$apply(function() {
                             scope.select(scope.activeIdx);
                             resetMatches();
-                            // console.log('check the index after pressing enter', scope.activeIdx);
+                            
                         })
                     } else if (evt.which === 27) {
-                        // console.log('escape', evt.which)
+                        
                         evt.stopPropagation();
                         resetMatches();
                         scope.$digest(); // here, this makes esc work.
@@ -348,7 +319,6 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 
                 // okay, so now we have a list of tags in scope.testTags...
                 if(tester && tester.length > 0 && tester.length > scope.testTags.length){
-                    console.log('tester', tester, scope.testTags);
                     tag_body = tester[tester.length -1].replace(/#/gi,'');
                 }
 
@@ -404,8 +374,6 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 locals[parserResult.itemName] = item = scope.matches[activeIdx].model;
                 model = parserResult.modelMapper(originalScope, locals);
                
-                console.log('model inside selection', model);
-                
                 // TODO: Make this match only the +current+ scope.query
                 // this is rough because it will replace all hashes that match the scope.query, 
                 // not _just_ the scope.query.
@@ -420,7 +388,6 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
                 // add the new tag to scope.testTags...
                 scope.testTags.push('#'+model);
-                console.log('did we select a tag', scope.testTags);
                 // This is to insert a more complex model item into the feed. 
                 // it overwrites the main index field, too.
                 onSelectCallback(originalScope, {
@@ -431,7 +398,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 
                 //return focus to the input element if a match was selected via a mouse click event
                 // use timeout to avoid $rootScope:inprog error
-                $timeout(function() { element[0].focus(); console.log('timeout fired') }, 0, false);
+                $timeout(function() { element[0].focus(); }, 0, false);
             };
 
             // Dismiss click handlers on the click of a general document click
@@ -483,12 +450,12 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 };
 
                 scope.selectActive = function (matchIdx) {
-                    // console.log('selecting active', matchIdx);
+                    
                     scope.active = matchIdx;
                 };
 
                 scope.selectMatch = function (activeIdx) {
-                    // console.log('click select', activeIdx);
+                    
                     scope.select({activeIdx:activeIdx});
                 };
             }
