@@ -1,11 +1,11 @@
 <!-- share report modal -->
-<div id="findings-share-report" class="modal" ng-controller="shareReport" ng-model="report">
+<div id="findings-share-report" class="modal">
 	<div class="module one-third">&nbsp;</div>
 	
-	<div class="module fifth modal-interior">
+	<div class="module two-fifths modal-interior">
 		
 		<div class="modal-interior-title">
-			<a href="#" class="x" ng-click="$parent.shareReportModalToggle()">&times;</a>
+			<button class="x-modal" ng-click="shareReportModalToggle()">&times;</button>
 			<h2>Share your findings</h2>
 		</div>
 		
@@ -18,7 +18,7 @@
 			<div class="clear"></div>
 
 			<div class="cta-margin">
-				<button class="button med float-right" type="submit" ng-click="addSubject(subject); changeOnboard(2)" tabindex="0">Done</button>
+				<button class="button med float-right" ng-click="shareReportModalToggle()" tabindex="0">Done</button>
 			</div>
 		</ul>
 		
