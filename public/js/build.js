@@ -50319,9 +50319,9 @@ angular.module('siyfion.sfTypeahead', [])
  */
 
  'use strict';
-angular.module("ui.bootstrap", ["ui.bootstrap.tpls","ui.bootstrap.typeahead","ui.bootstrap.position","ui.bootstrap.bindHtml"]);
+angular.module("ui.bootstrap", ["ui.bootstrap.tpls","ui.bootstrap.typeahead","ui.bootstrap.position","bindHtml"]);
 angular.module("ui.bootstrap.tpls", ["typeahead-match.html","typeahead-popup.html"]);
-angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap.bindHtml'])
+angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'bindHtml'])
 
 /**
  * A helper service that can parse typeahead's syntax (string provided by users)
@@ -50956,7 +50956,7 @@ angular.module('ui.bootstrap.position', [])
         };
     }]);
 
-angular.module('ui.bootstrap.bindHtml', [])
+angular.module('bindHtml', [])
 
     .directive('bindHtmlUnsafe', function () {
         return function (scope, element, attr) {
