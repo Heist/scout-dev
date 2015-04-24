@@ -1,15 +1,20 @@
 /*
+ * HashTypeahead, a typeahead input box that pops a match using optional character key-offs
+ * http://www.github.com/pretentiousgit/typeahead 
+ *
+ * Based on 
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
 
- * Version: 0.12.1 - 2015-02-20
+ * Version: 0.01 - 2015-04-24
  * License: MIT
  */
 
  'use strict';
-angular.module("ui.bootstrap", ["ui.bootstrap.tpls","ui.bootstrap.typeahead","ui.bootstrap.position","ui.bootstrap.bindHtml"]);
-angular.module("ui.bootstrap.tpls", ["template/typeahead/typeahead-match.html","template/typeahead/typeahead-popup.html"]);
-angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap.bindHtml'])
+
+angular.module("ui.bootstrap", ["typeaheadTPL","typeahead","DOMposition","bindHtml"]);
+angular.module("typeaheadTPL", ["typeahead-match.html","typeahead-popup.html"]);
+angular.module('typeaheadInputCheck', ['DOMposition', 'bindHtml'])
 
 /**
  * A helper service that can parse typeahead's syntax (string provided by users)
@@ -40,16 +45,19 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
     };
 }])
 
-.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document', '$position', 'typeaheadParser',
+.directive('typeaheadInputCheck', ['$compile', '$parse', '$q', '$timeout', '$document', '$position', 'typeaheadParser',
     function ($compile, $parse, $q, $timeout, $document, $position, typeaheadParser) {
 
-    var HOT_KEYS = [9, 13, 27, 38, 40];
+    var HOT_KEYS = [9, 13, 27, 38, 40, 32];
 
     return {
         require:'ngModel',
         link:function (originalScope, element, attrs, modelCtrl) {
 
             //SUPPORTED ATTRIBUTES (OPTIONS)
+
+            // Which character should be used to key off the matching process?
+            var keyOff = originalScope.$eval(attrs.typeaheadKeyOff) || '#';
 
             //minimal no of characters that needs to be entered before typeahead kicks-in
             var minSearch = originalScope.$eval(attrs.typeaheadMinLength) || 1;
@@ -221,7 +229,6 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
             scope.query = undefined;
 
         // Bind KEY EVENTS - may have to be KEYDOWN ======================================
-            HOT_KEYS.push(32); // add spacebar to hot keys;
             element.bind('keypress', function (evt) {
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
@@ -437,7 +444,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 select:'&'
             },
             replace:true,
-            templateUrl:'template/typeahead/typeahead-popup.html',
+            templateUrl:'typeahead-popup.html',
             link:function (scope, element, attrs) {
 
                 scope.templateUrl = attrs.templateUrl;
@@ -472,7 +479,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 query:'='
             },
             link:function (scope, element, attrs) {
-                var tplUrl = $parse(attrs.templateUrl)(scope.$parent) || 'template/typeahead/typeahead-match.html';
+                var tplUrl = $parse(attrs.templateUrl)(scope.$parent) || 'typeahead-match.html';
                 $http.get(tplUrl, {cache: $templateCache}).success(function(tplContent){
                      element.replaceWith($compile(tplContent.trim())(scope));
                 });
@@ -491,9 +498,13 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
         };
     });
 
-angular.module('ui.bootstrap.position', [])
+angular.module('DOMposition', [])
 
 /**
+ * angular-ui-bootstrap
+ * http://angular-ui.github.io/bootstrap/
+ * Version: 0.12.1 - 2015-02-20
+ * License: MIT
  * A set of utility methods that can be use to retrieve position of DOM elements.
  * It is meant to be used where we need to absolute-position DOM elements in
  * relation to other, existing elements (this is the case for tooltips, popovers,
@@ -644,8 +655,7 @@ angular.module('ui.bootstrap.position', [])
         };
     }]);
 
-angular.module('ui.bootstrap.bindHtml', [])
-
+angular.module('bindHtml', [])
     .directive('bindHtmlUnsafe', function () {
         return function (scope, element, attr) {
             element.addClass('ng-binding').data('$binding', attr.bindHtmlUnsafe);
@@ -655,13 +665,13 @@ angular.module('ui.bootstrap.bindHtml', [])
         };
     });
 
-angular.module("template/typeahead/typeahead-match.html", []).run(["$templateCache", function($templateCache) {
-    $templateCache.put("template/typeahead/typeahead-match.html",
+angular.module("typeahead-match.html", []).run(["$templateCache", function($templateCache) {
+    $templateCache.put("typeahead-match.html",
         "<a tabindex=\"-1\" bind-html-unsafe=\"match.label | typeaheadHighlight:query\"></a>");
 }]);
 
-angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCache", function($templateCache) {
-    $templateCache.put("template/typeahead/typeahead-popup.html",
+angular.module("typeahead-popup.html", []).run(["$templateCache", function($templateCache) {
+    $templateCache.put("typeahead-popup.html",
         "<ul class=\"dropdown-menu\" ng-show=\"isOpen()\" ng-style=\"{top: position.top+'px', left: position.left+'px'}\" style=\"display: block;\" role=\"listbox\" aria-hidden=\"{{!isOpen()}}\">\n" +
         "        <li ng-repeat=\"match in matches track by $index\" ng-class=\"{active: isActive($index) }\" ng-mouseenter=\"selectActive($index)\" ng-click=\"selectMatch($index)\" role=\"option\" id=\"{{match.id}}\">\n" +
         "                <div typeahead-match index=\"$index\" match=\"match\" query=\"query\" template-url=\"templateUrl\"></div>{{$index}}\n" +
