@@ -28,25 +28,29 @@
     // TODO: Abstract into service for dependency injection
 
         $scope.onboardToggle = function(){
-            console.log("this is on account js", $rootScope.user.onboard);
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+            	$rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 return;
             }
-            if(!$scope.onboardSteps || $scope.onboardSteps === false ){  
+            if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+            	$rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
                 return;
             }
         };
 
-        $scope.toggleAnimation = function(){
-        	var lastStep = angular.element(document.querySelector('#last-step, #modal'));
+        $scope.animationToggle = function(){
+        	var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
+        	var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
 
         	// below classes are from animate.css library
         	lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
+        	otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
+
         };
 
-  //   // STRIPE CHECKOUT ====================================
+	// STRIPE CHECKOUT ====================================
 
 		// $scope.stripeCheckout = function(){
 		// 	var handler = StripeCheckout.configure({
@@ -64,7 +68,6 @@
 		// 		amount: 2000
 		// 	});
 		// };
-    
 
 
 	// HOOK UP TRELLO =====================================

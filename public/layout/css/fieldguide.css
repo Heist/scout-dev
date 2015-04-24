@@ -4246,6 +4246,11 @@ hr {
     .modal .modal-interior .cta-margin {
       margin: 20px 0 0 0;
       float: right; }
+  .modal button.x {
+    border: 0;
+    background: none;
+    cursor: pointer;
+    outline: 0; }
 
 /* charging money / skrilla thrilla */
 .plan-type {

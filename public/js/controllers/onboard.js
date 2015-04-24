@@ -25,12 +25,25 @@
 
         $scope.user.onboard = 1;
 
-        console.log('step', $scope.user.onboard);
+        // console.log('step', $scope.user.onboard);
 
        // FUNCTIONS =======================================
 
+       $scope.onboardToggle = function(){
+           if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+            $rootScope.user.onboard = 100;
+               $scope.onboardSteps = false; 
+               return;
+           }
+           if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+            $rootScope.user.onboard = 1; 
+               $scope.onboardSteps = true; 
+               return;
+           }
+       };
+
         $scope.changeOnboard = function(num){
-            console.log('change on board num', num);
+
             $scope.user.onboard = num;
             $rootScope.user.onboard = num;
 
