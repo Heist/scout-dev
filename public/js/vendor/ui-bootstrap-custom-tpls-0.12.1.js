@@ -239,6 +239,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     modelCtrl.$setViewValue('');
                     modelCtrl.$render();
 
+                    scope.testTags=[];
                     evt.stopPropagation();
                     resetMatches();
                     scope.$digest();

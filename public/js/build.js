@@ -50538,7 +50538,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
 
-                console.log('keypress checking', evt.which, $scope.testTags);
+                console.log('keypress checking', evt.which, scope.testTags);
                 if(scope.activeIdx === -1 && evt.which === 13){
                     // YOU ARE WORKING ON THIS
                     //  Send message to postmessage once tags are assembled
@@ -50551,6 +50551,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
                     modelCtrl.$setViewValue('');
                     modelCtrl.$render();
 
+                    scope.testTags=[];
                     evt.stopPropagation();
                     resetMatches();
                     scope.$digest();
