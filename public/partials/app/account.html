@@ -250,7 +250,7 @@
 			<p class="clearfix"><button ng-click="onboardToggle()" class="button large">Step Through A Sample</button></p>
 			
 			<div class="modal animated slideInUp" id="modal" ng-if="onboardSteps" ng-controller="onboard">
-				<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+				<button class="x" ng-click="$parent.animationToggle()">&times;</button>
 				<ng-include src="'partials/app/_onboard.html'"></ng-include>
 			</div>
 
