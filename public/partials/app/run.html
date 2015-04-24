@@ -215,11 +215,11 @@
 								<div class="checkmark"></div>
 								<span>End test</span>
 							</button>
-
-							<!-- <button class="button outline" id="summarize-test" ng-click="summaryModalToggle()">
+							<!-- this button brings summarize modal up -->
+							<button class="button outline" ng-click="summarizeModalToggle()">
 								<div class="checkmark"></div>
 								<span>End test</span>
-							</button> -->
+							</button>
 						</div>
 					</div>
 
@@ -230,11 +230,15 @@
 			<!-- /username or device -->
 			
 			<div class="clear"></div>
-			
 		
+
 		</div>
 	</div>
 	
+	<!-- summarize at end of test modal -->
+	<div class="modal" ng-model="summarizeTest" ng-if="summarizeTest">
+		<ng-include src="'partials/app/_summarize-modal.html'"></ng-include>
+	</div>
 	
 </div>
 
