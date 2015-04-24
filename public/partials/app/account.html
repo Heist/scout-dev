@@ -242,18 +242,18 @@
 		</div>
 	<!-- / plans view -->
 	
-	
-	
-	
-	
-	
 	<!-- export view -->
 	
 		<div class="module half" ng-show="tab === 3">
 			<h2>Onboarding</h2>
 			<p>Need a refresher in how Field Guide helps you get better interview results?</p>
-			<p class="clearfix"><button ng-click="changeOnboard(1)" class="button large">Step Through A Sample</button></p>
+			<p class="clearfix"><button ng-click="onboardToggle()" class="button large">Step Through A Sample</button></p>
 			
+			<div class="modal animated slideInUp" id="modal" ng-if="onboardSteps" ng-controller="onboard">
+				<a href="#" class="x" ng-click="$parent.onboardToggle()">&times;</a>
+				<ng-include src="'partials/app/_onboard.html'"></ng-include>
+			</div>
+
 			<br>
 			<hr/>
 

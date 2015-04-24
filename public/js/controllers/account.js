@@ -27,18 +27,23 @@
 	// ONBOARDING =========================================
     // TODO: Abstract into service for dependency injection
 
-        $scope.changeOnboard = function(num){
-            $rootScope.user.onboard = num;
+        $scope.onboardToggle = function(){
+            console.log("this is on account js", $rootScope.user.onboard);
+            if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+                $scope.onboardSteps = false; 
+                return;
+            }
+            if(!$scope.onboardSteps || $scope.onboardSteps === false ){  
+                $scope.onboardSteps = true; 
+                return;
+            }
+        };
 
-            var url = '/api/user/'+$rootScope.user._id;
-            var dataOut = {onboard : $rootScope.user.onboard};
+        $scope.toggleAnimation = function(){
+        	var lastStep = angular.element(document.querySelector('#last-step, #modal'));
 
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    console.log($rootScope.user);
-                    $location.path('/overview');
-                });
+        	// below classes are from animate.css library
+        	lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
         };
 
   //   // STRIPE CHECKOUT ====================================
