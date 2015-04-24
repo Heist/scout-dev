@@ -135,11 +135,11 @@
         color: $fg-grey;
         margin: 0;
         line-height: 20px;
-        resize: 0;
+        resize: none;
     }
 
     .add-task {
-        margin: 50px 0;
+        margin: 10px 0;
         @include input-placeholders;
 
         form {
