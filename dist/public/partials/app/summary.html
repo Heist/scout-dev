@@ -41,7 +41,14 @@
 					</div>
 					
 					<!-- <button class="button extra-small" ng-click="toggleReportLink()">Share</button> -->
-					<button class="button extra-small" ng-click="reportView()">Share</button>
+					<!-- <button class="button extra-small" ng-click="reportView()">Share</button> -->
+					
+					<button class="button extra-small" ng-click="shareReportModalToggle()">Share</button>
+
+					<div class="modal" ng-model="shareReport" ng-if="shareReport">
+						<ng-include src="'partials/app/_share-report.html'"></ng-include>
+					</div>
+
 				</div>
 				<div class="clear"></div>
 				</div> <!-- /group in navlist -->
