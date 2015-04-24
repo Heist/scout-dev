@@ -7,9 +7,9 @@
  */
 
  'use strict';
-angular.module("ui.bootstrap", ["ui.bootstrap.tpls","ui.bootstrap.typeahead","ui.bootstrap.position","bindHtml"]);
+angular.module("ui.bootstrap", ["ui.bootstrap.tpls","ui.bootstrap.typeahead","DOMposition","bindHtml"]);
 angular.module("ui.bootstrap.tpls", ["typeahead-match.html","typeahead-popup.html"]);
-angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'bindHtml'])
+angular.module('ui.bootstrap.typeahead', ['DOMposition', 'bindHtml'])
 
 /**
  * A helper service that can parse typeahead's syntax (string provided by users)
@@ -491,7 +491,13 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'bindHtml'])
         };
     });
 
-angular.module('ui.bootstrap.position', [])
+angular.module('DOMposition', [])
+/*
+ * angular-ui-bootstrap
+ * http://angular-ui.github.io/bootstrap/
+ * Version: 0.12.1 - 2015-02-20
+ * License: MIT
+ */
 
 /**
  * A set of utility methods that can be use to retrieve position of DOM elements.
