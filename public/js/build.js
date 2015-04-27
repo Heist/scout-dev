@@ -51604,15 +51604,9 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
        // }
 
         $scope.user.onboard = 1;
-<<<<<<< HEAD
 
         // console.log('step', $scope.user.onboard);
 
-=======
-
-        // console.log('step', $scope.user.onboard);
-
->>>>>>> dev
        // FUNCTIONS =======================================
 
        $scope.onboardToggle = function(){
@@ -52335,28 +52329,11 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.commentMessage = '';
 
             $scope.selected = obj || $scope.selected;
-<<<<<<< HEAD
-            
-
-        // Set up what kind of video we're expecting to need here.
-            // if(obj.embed){
-            //     var loadVideo = reportFunctions.videoRender(obj.embed);
-            //     if(loadVideo.youtube){
-            //         $scope.selected.youTubeCode = loadVideo.youtube;
-            //     } else {
-            //         $scope.selected.userTesting = loadVideo.embed;
-            //     }
-            // }  
-=======
->>>>>>> dev
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
-<<<<<<< HEAD
-=======
         console.log('data from load', data);
->>>>>>> dev
 
         var orderedNav = _.sortBy(data.navlist.list, function(obj){
                     return obj.report_index;
