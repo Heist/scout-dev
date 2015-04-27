@@ -4820,7 +4820,7 @@ hr {
     line-height: 20px;
     resize: none; }
     #view-editing textarea.test-descriptions:hover, #view-editing textarea.test-descriptions:focus, #view-editing textarea.task-descriptions:hover, #view-editing textarea.task-descriptions:focus {
-      color: #777777; }
+      color: #000; }
   #view-editing .add-task {
     margin: 20px 0; }
     #view-editing .add-task ::-webkit-input-placeholder {
