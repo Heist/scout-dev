@@ -243,7 +243,38 @@
 	
 </div>
 
+<script>
+	$('#bulletform').on('keypress',function(e){
+		var t = $(this);
+			console.log(e.which);
+		if(e.shiftKey){
+			console.log('shifted')
+			if(e.which === 13){
+				t.val(t.val()+'\n');
+				return false;
+			}
+		}
 
+		if(!e.shiftKey){
+			if(e.which === 13){
+				t.val(t.val()+'\n• ');
+				return false;
+			}
+		}
+	});
+
+	$('#bulletform').on('focus',function(e){
+		var t = $(this);
+		var l = t.val().length;
+
+		if (l !== 0){
+			return false; 
+		} else {
+			t.val(t.val()+'• ');
+			return false;
+		}
+	});
+</script>
 
 
 

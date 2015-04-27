@@ -1,5 +1,4 @@
 /* new project */
-
 #view-new-project {
 
     ul {
@@ -127,6 +126,10 @@
         margin: 0;
         line-height: 20px;
         resize: none;
+
+        &:hover, &:focus {
+            color: $black;
+        }
     }
 
     .add-task {
@@ -147,6 +150,7 @@
             outline: 0;
             @include type-light;
             font-size: 12px;
+             color: $fg-grey;
         }
         
         textarea {
@@ -155,6 +159,7 @@
             overflow-y: auto;
             resize: none;
             margin: 0;
+             color: $fg-grey;
         }
 
         .box {
