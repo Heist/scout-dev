@@ -52159,7 +52159,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             // find that message and post to it.
             //  loadData.data._tags
             if(message){
-                postMessage(message, summaryTagId, $stateParams._id, $scope.subject._id)
+                postMessage(message+' #Summary', summaryTagId, $stateParams._id, $scope.subject._id)
                         .then(function(msg){
                             console.log('message posted to summary', msg)
                             $location.path('/overview');
@@ -52271,9 +52271,9 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             })
         }
 
-        var strFilter = function(value){
-            return value !== message._id;           // filter matching nav entry for old messages
-        }
+        // var strFilter = function(value){
+        //     return value !== message._id;           // filter matching nav entry for old messages
+        // }
 
         var pullDeadTags = function(data, message, navlist){
             console.log('pull dead tags', data, 'message', message,'navlist', navlist);
@@ -52291,7 +52291,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     var match_in_nav = nav_id_list.indexOf(id); // find the nav entry matching the no-longer-there tag.
                     console.log( 'tag idx -1, match in nav', match_in_nav );
 
-                    var match_msg = navlist[match_in_nav]._messages.filter(strFilter);
+                    var match_msg = navlist[match_in_nav]._messages
+                                    .filter(function(value){
+                                        return value !== message._id;           // filter matching nav entry for old messages
+                                    });
                     var local_msg = _.pluck($scope.messages[message._subject.name]._messages)
                     console.log('match_msg', match_msg, message._id);
 

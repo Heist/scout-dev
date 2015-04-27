@@ -52159,7 +52159,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             // find that message and post to it.
             //  loadData.data._tags
             if(message){
-                postMessage(message, summaryTagId, $stateParams._id, $scope.subject._id)
+                postMessage(message+' #Summary', summaryTagId, $stateParams._id, $scope.subject._id)
                         .then(function(msg){
                             void 0
                             $location.path('/overview');
@@ -52271,9 +52271,9 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             })
         }
 
-        var strFilter = function(value){
-            return value !== message._id;           // filter matching nav entry for old messages
-        }
+        // var strFilter = function(value){
+        //     return value !== message._id;           // filter matching nav entry for old messages
+        // }
 
         var pullDeadTags = function(data, message, navlist){
             void 0;
@@ -52291,7 +52291,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     var match_in_nav = nav_id_list.indexOf(id); // find the nav entry matching the no-longer-there tag.
                     void 0;
 
-                    var match_msg = navlist[match_in_nav]._messages.filter(strFilter);
+                    var match_msg = navlist[match_in_nav]._messages
+                                    .filter(function(value){
+                                        return value !== message._id;           // filter matching nav entry for old messages
+                                    });
                     var local_msg = _.pluck($scope.messages[message._subject.name]._messages)
                     void 0;
 
