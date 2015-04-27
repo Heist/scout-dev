@@ -6,7 +6,7 @@
 		
 
 		<div class="modal-interior-title">
-			<a href="#" class="x" ng-click="$parent.newTest()">&times;</a>
+			<a href="#" class="x" ng-click="$parent.newTestModalToggle()">&times;</a>
 			<h2 class="text-center">New Project</h2>
 		</div>
 
@@ -42,7 +42,7 @@
 				</li>
 			</form>
 			<div class="cta">
-				<a href="#" class="secondary button-cancel" ng-click="$parent.newTest()" tabindex="1">Cancel</a>
+				<a href="#" class="secondary button-cancel" ng-click="$parent.newTestModalToggle()" tabindex="1">Cancel</a>
 				<button class="button med float-right" ng-click="addTest(test)" tabindex="0">Create project</button>
 			</div>
 		</ul>

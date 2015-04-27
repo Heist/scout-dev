@@ -2198,6 +2198,24 @@ hr {
     font-weight: 300;
     color: #949799;
     margin: 0 0 40px 0; }
+  #view-editing .add-task ::-webkit-input-placeholder {
+    color: #D8DADB;
+    font-size: 12.5px;
+    font-style: italic; }
+  #view-editing .add-task :-moz-placeholder {
+    /* Firefox 18- */
+    color: #D8DADB;
+    font-size: 12.5px;
+    font-style: italic; }
+  #view-editing .add-task ::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #D8DADB;
+    font-size: 12.5px;
+    font-style: italic; }
+  #view-editing .add-task :-ms-input-placeholder {
+    color: #D8DADB;
+    font-size: 12.5px;
+    font-style: italic; }
   #view-editing .add-task form {
     border: 1px solid #D8DADB;
     padding: 15px;
@@ -2207,7 +2225,11 @@ hr {
     margin: 0 0 30px 0;
     padding: 0;
     border: 0;
-    outline: 0; }
+    outline: 0;
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px; }
   #view-editing .add-task textarea {
     height: 65px;
     overflow-y: auto;
@@ -2961,20 +2983,13 @@ hr {
         font-style: normal;
         font-weight: 400; }
   #view-findings .sheet-holder {
+    width: 65%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
     position: absolute;
     top: 0;
-    left: 35%;
-    width: 50%;
-    -webkit-transition-duration: 0.2s;
-    -webkit-transition-timing: ease-out;
-    -o-transition-duration: 0.2s;
-    -o-transition-timing: ease-out;
-    -moz-transition-duration: 0.2s;
-    -moz-transition-timing: ease-out;
-    -ms-transition-duration: 0.2s;
-    -ms-transition-timing: ease-out;
-    transition-duration: 0.2s;
-    transition-timing: ease-out; }
+    left: 35%; }
   #view-findings .findings-header {
     padding: 40px; }
     #view-findings .findings-header h3, #view-findings .findings-header h1 {

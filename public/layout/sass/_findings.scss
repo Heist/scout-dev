@@ -86,17 +86,16 @@
 			}
 		}
 	}
-	
-	
-	
+
 	.sheet-holder {
+		width: 65%;
+		height: 100%;
+		padding: 0;
+		margin: 0;
 		position: absolute;
 		top: 0;
 		left: 35%;
-		width: 50%;
-		@include animated;
 	}
-	
 	
 	.findings-header {
 		padding: $pad*2;
