@@ -9,12 +9,17 @@
     .controller('test', 
         ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
         function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
-        
+        var tagSort = function(tags){
+         return _.filter(tags, function(n){
+                return n.name !== 'Summary';
+            });
+        };
+
         var data = loadData.data;
         console.log('data we have', data);
 
         $scope.test = data;
-        $scope.tags = data._tags || [];
+        $scope.tags = tagSort(data._tags) || [];
         $scope.tasks = data._tasks || [];
 
         $scope.showAnchor = function(x) {
@@ -137,10 +142,15 @@
                     _test : $stateParams._id
                 }
             })
-            
+
             $http.post('/api/tag/', dataOut)
                 .success(function(data){
-                    console.log(data);
+                    if(_.isArray(data)){
+                        $scope.tags = $scope.tags.concat(data);
+                    } else {
+                        $scope.tags.push(data);
+                    }
+                    $scope.newtag = '';
                 });
         }
 

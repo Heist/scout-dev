@@ -52704,10 +52704,16 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     _test : $stateParams._id
                 }
             })
-            
+
             $http.post('/api/tag/', dataOut)
                 .success(function(data){
-                    console.log(data);
+                    console.log('data', _.isArray(data), data, $scope.tags);
+                    if(_.isArray(data)){
+                        $scope.tags = $scope.tags.concat(data);
+                    } else {
+                        $scope.tags.push(data);
+                    }
+                    $scope.newtag = '';
                 });
         }
 
