@@ -14,7 +14,9 @@
 module.exports = function(tag){
 	var Bluebird = require('bluebird');
     var models = Bluebird.promisifyAll(require('../../models'));
-    var data;
+    var data = [];
+
+    console.log('touched tagMaker', tag);
 
     var oneTag = function(singleTag){
     	var testStr = singleTag.name.toLowerCase();
@@ -32,7 +34,6 @@ module.exports = function(tag){
     
     	var q = {'nameCheck': testStr, '_test' : singleTag._test };
     	var o = {upsert : true};
-    	var data;
     	// okay let's make this a findOneAndUpdate...
     	var promise = models.Tag.findOneAndUpdate(q, u, o, function(err, obj){});
 
@@ -44,28 +45,33 @@ module.exports = function(tag){
     	oneTag(tag);
     	
 	return promise.then(function(tag){
-		console.log(tag);
-		data = tag;
+		console.log('promise returned', tag);
+		console.log(data);
+		data.push(tag); // Data is now an array. If it's a multiple array, one should work
 
-		return models.Test.findOne({'_id'  : tag._test }).exec();
+		console.log('data', data);
+
+		return models.Test.findOne({'_id'  : data[0]._test }).exec();
 	})
 	.then(function(test){
+		console.log('returned test', test); 
 		// check if that tag already exists on the test
 		// if so, just pass to next
 		// otherwise, add the tag to the test.
-		// console.log(test._tags.length);
+		return Bluebird.map(data, function(tag){
+				if (test._tags.indexOf(tag._id) === -1){
+					return test._tags.push(tag._id);
 
-		if (test._tags.indexOf(data._id) === -1){
-			// console.log('not found')
-			test._tags.push(data._id);
-			return test.save();
-		} else {
-			// console.log('found')
-			return;
-		}
-
+				} else {
+					return;
+				}
+			}).then(function(t){
+				console.log('bluebird t', t, test, test._tags);
+				return test.saveAsync();
+			});
 	})
 	.then(function(test){
+		console.log('did adding tag arrays break everything', test);
 		return data;
 	});
 
