@@ -52579,6 +52579,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         
         var data = loadData.data;
         console.log('data we have', data);
+
         $scope.test = data;
         $scope.tags = data._tags || [];
         $scope.tasks = data._tasks || [];
@@ -52689,8 +52690,29 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
             $scope.updateTest();
         };
+    
+    // Add A New Task or Tasks ============================
 
-    // Edit Task Things =========================
+        $scope.saveTag = function(tags){
+            // send the array to the back end, where each will be pushed appropriately 
+            // /api/tag/
+            console.log(tags);
+            var i = tags.split(' ');
+            var dataOut = _.map(i, function(tag){
+                return {
+                     name : tag,
+                    _test : $stateParams._id
+                }
+            })
+            
+            $http.post('/api/tag/', dataOut)
+                .success(function(data){
+                    console.log(data);
+                });
+        }
+
+
+    // Edit Task Things ===================================
         $scope.editTitle = function (task){
             task.title_edit = true;
             $scope.edited = task;

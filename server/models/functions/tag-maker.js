@@ -15,11 +15,17 @@ module.exports = function(tag){
 	var Bluebird = require('bluebird');
     var models = Bluebird.promisifyAll(require('../../models'));
     var data = [];
+    var _ = require('lodash');
 
     console.log('touched tagMaker', tag);
 
     var oneTag = function(singleTag){
+    	console.log('single new tag', singleTag);
+
+    	singleTag.name = singleTag.name.replace(/#/gi,'');
+
     	var testStr = singleTag.name.toLowerCase();
+
     	var u = {
     		  name: singleTag.name,
     		  _test: singleTag._test,
@@ -35,22 +41,30 @@ module.exports = function(tag){
     	var q = {'nameCheck': testStr, '_test' : singleTag._test };
     	var o = {upsert : true};
     	// okay let's make this a findOneAndUpdate...
-    	var promise = models.Tag.findOneAndUpdate(q, u, o, function(err, obj){});
+    	var promise = models.Tag.findOneAndUpdate(q, u, o, function(err, obj){
+    		console.log('obj', obj);
+    	});
 
     	return promise;
     }
 
-    var promise = (tag.isArray) ? 
-    	Bluebird.map(tag, function(t){ oneTag(t); }) :
+    console.log('is tag an array?', _.isArray(tag));
+
+    var promise = (_.isArray(tag)) ? 
+    	Bluebird.map(tag, function(t){ console.log(t); return oneTag(t); }) :
     	oneTag(tag);
     	
 	return promise.then(function(tag){
 		console.log('promise returned', tag);
 		console.log(data);
-		data.push(tag); // Data is now an array. If it's a multiple array, one should work
+
+		if(_.isArray(tag)){
+			data = tag;
+		} else {
+			data.push(tag); // Data is now an array. If it's a multiple array, one should work
+		}
 
 		console.log('data', data);
-
 		return models.Test.findOne({'_id'  : data[0]._test }).exec();
 	})
 	.then(function(test){

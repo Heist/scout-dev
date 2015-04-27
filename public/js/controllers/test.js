@@ -129,8 +129,16 @@
         $scope.saveTag = function(tags){
             // send the array to the back end, where each will be pushed appropriately 
             // /api/tag/
-
-            $http.post('/api/tag/', tags)
+            console.log(tags);
+            var i = tags.split(' ');
+            var dataOut = _.map(i, function(tag){
+                return {
+                     name : tag,
+                    _test : $stateParams._id
+                }
+            })
+            
+            $http.post('/api/tag/', dataOut)
                 .success(function(data){
                     console.log(data);
                 });

@@ -33,14 +33,10 @@
 		
 								<div class="tag-pool">
 									<ul>
-										<li>usability</li>
-										<li>quote</li>
-										<li>insight</li>
-										<li>comprehension</li>
-										<li>copy</li>
+										<li ng-repeat="tag in tags">{{tag.name}}</li>
 									</ul>
 								</div>
-								<textarea name="custom-tags" class="custom-tags" placeholder="Type your own tags here. ex. #passed, #failed"></textarea>
+								<textarea name="custom-tags" class="custom-tags" placeholder="Type your own tags here. ex. #passed, #failed" ng-model="newtag" ng-blur="saveTag(newtag)"></textarea>
 							</div>
 						
 							<h3>Topics</h3>
