@@ -37,9 +37,9 @@
             })
         }
 
-        var strFilter = function(value){
-            return value !== message._id;           // filter matching nav entry for old messages
-        }
+        // var strFilter = function(value){
+        //     return value !== message._id;           // filter matching nav entry for old messages
+        // }
 
         var pullDeadTags = function(data, message, navlist){
             console.log('pull dead tags', data, 'message', message,'navlist', navlist);
@@ -57,7 +57,10 @@
                     var match_in_nav = nav_id_list.indexOf(id); // find the nav entry matching the no-longer-there tag.
                     console.log( 'tag idx -1, match in nav', match_in_nav );
 
-                    var match_msg = navlist[match_in_nav]._messages.filter(strFilter);
+                    var match_msg = navlist[match_in_nav]._messages
+                                    .filter(function(value){
+                                        return value !== message._id;           // filter matching nav entry for old messages
+                                    });
                     var local_msg = _.pluck($scope.messages[message._subject.name]._messages)
                     console.log('match_msg', match_msg, message._id);
 
@@ -99,34 +102,51 @@
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
-        console.log('data from load', data);
+        // console.log('data from load', data);
+        
+        // remove the Summary tag from the tags
+        var sortProper = _.filter(data.navlist.list, function(n){
+            return n.name !== 'Summary';
+        })
 
-        var orderedNav = _.sortBy(data.navlist.list, function(obj){
+        // Order the left nav by the step index if it has one
+        var orderedNav = _.sortBy(sortProper, function(obj){
                     return obj.report_index;
                 });
         
+        // Find the test in the left nav order
+        var test_obj_arr = _.pluck(orderedNav, 'doctype');
+        var testIdx = _.indexOf(test_obj_arr, 'test');
+
+        // Set the messages from the summary tag to the test object
+        orderedNav[testIdx]._messages = _.filter(data.navlist.list, function(n){
+                        return n.name === 'Summary';
+                    })[0]._messages;
+
+        // Group things by their document type for the headers
         var groupedNav = _.groupBy(orderedNav, function(obj){
                 return obj.doctype;
         });
 
+        // Sort the grouped nav by document type/alpha order
         groupedNav = _.toArray(groupedNav).sort();
+
+        // Set the navlist to the grouped navigation items.
         $scope.navlist = groupedNav;
 
-        // var sortedkeys = groupedNav.sort();        
-        // console.log('sortedkeys', sortedkeys);
-        // console.log('groupednav', groupedNav);
-        // $scope.navlist = orderedNav;
-
+        // Set the messages available for viewing on everything
         $scope.messages = _.groupBy(data.messages, function(z){
                     return z._subject.name ? z._subject.name : 'report comment';
                 });
 
+        // What's the name of the test?
         $scope.testname = data.navlist.test;
-            
-        var test_obj_arr = _.pluck(data.navlist.list, 'doctype');
-        var idx = _.indexOf(test_obj_arr, 'test');
-        
-        $scope.activate(data.navlist.list[idx], 0);
+
+        // post the Summary messages to the Test object itself.
+        // $scope.navlist[testIdx]._messages = 
+
+        // Activate the test object in the nav list.
+        $scope.activate(orderedNav[testIdx]);
 
     // NAVIGATION =========================================
 
