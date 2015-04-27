@@ -1,5 +1,4 @@
-/* new report & summarizing hawtness up in this piece */
-
+/* summary */
 
 #view-findings {
 	padding: 0;
@@ -30,115 +29,210 @@
 		}
 	}
 
-	
+	#findings-share-report {
+		.input {
+			width: 92.5%;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+
+			&:hover {
+				border: 1px solid $fg-grey-light-trans;
+			}
+		}
+		
+		span {
+			position: relative;
+		
+			a {
+				position: absolute;
+				padding: 6px 8px;
+				background: none;
+				border: 1px solid $fg-grey-light-trans;
+				border-left: 0;
+				outline: 0;
+				cursor: pointer;
+			}
+
+			.external-link {
+				width: 20px;
+				height: 20px;
+				display: inline-block;
+				vertical-align: middle;
+				background: url('/layout/assets/external-link.svg') center no-repeat;
+			}
+		}
+	}
+
 	#findings-nav {
-		padding: $pad 0 0 0;
+		padding: 20px 0 0 0;
 		margin: 0;
 		width: 20%;
 		height: 100%;
 		position: fixed;
-		left: 15%;
+		left: 10%;
 		top: 0;
 		@include animated;		
 		@include scrollbar;
-		
-				
-		#findings-viewmode-controls {
-			padding: $pad;
-			width: 95%;
-			position: absolute;
-			left: 0;
-			bottom: 0;
-		}
-		
-		#findings-share-link {
-			width: 100%;
-			padding: 0;
-			margin: 0 0 $pad/2 0;
-			
-			small {
-				line-height: $type-size-base;
-				display: block;
-			}
-	
-			.input {
-				width: 80%;
-				margin: 0;
-			}
-		}
 		
 		#sidebar {
 			width: 95%;
 			height: 80%;
 			overflow: auto;
+			position: relative;
 			
-			li {
-				width: 95%;
-				padding-top: 15px;
-				padding-bottom: 15px;
-			}
+			&.sidebar {
+				font-size: 16px;
+				@include type-light;
 
-			.test-id {
+				.tag-hash:before {
+					content: '#';
+				}
 
-				h3 {
-					@include type-bold;
+				span.findings {
+					display: block;
+					
+					&:hover {
+						color: $fg-slate;
+					}
+				}
+
+				h4.group-cat {
+					padding: 10px;
+					margin: 5px 0 0 0;
+					font-size: 10px;
+					color: $fg-grey-light;
+					text-transform: uppercase;
+
+					&:first-child {
+						margin: 20px 0 0 0;
+					}
+				}
+
+				li {
+					padding: 10px;
+					margin: 5px 0 0 0;
+
+					&:hover {
+						color: $fg-slate;
+					}
+
+					&:active {
+						color: $fg-slate;
+						@include type-bold;
+					}
 				}
 			}
+
+			#findings-viewmode-controls {
+				position: absolute;
+				left: 80%;
+				top: 63px;
+			}
+			
+			#findings-share-link {
+				width: 100%;
+				padding: 0;
+				margin: 0 0 $pad/2 0;
+				
+				small {
+					line-height: $type-size-base;
+					display: block;
+				}
+			
+				.input {
+					width: 80%;
+					margin: 0;
+				}
+			}
+
 		}
 	}
 
 	.sheet-holder {
-		width: 65%;
+		width: 70%;
 		height: 100%;
 		padding: 0;
 		margin: 0;
 		position: absolute;
 		top: 0;
-		left: 35%;
+		left: 30%;
+
+		&.full {
+			width: 103%;
+			left: -3%;
+			position: relative;
+		}
 	}
 	
-	.findings-header {
-		padding: $pad*2;
-		
-		h3, h1 {
-			padding: 0;
+	.findings-content {
+		width: 45%;
+		margin: 0 auto;
+		@include type-light;
+
+		&.report {
+			width: 35%;
+		}
+
+		h1 {
 			margin: 0;
+			font-size: 24px;
 		}
-	}
-	
-	.findings-information {
-		border-bottom: 1px solid $line;
-		padding: 0 $pad*2 $pad/2 $pad*2;
-		margin: -$pad*1.5 0 $pad*2 0;	
-		font-size: $type-size-base*0.8;
-		@include type-bold;
-		opacity: 0.6;
-	}
-	
-	.findings-description {
-		padding: 0 $pad*2 10px $pad*2;
-		
-		p {
-			padding: 0 0 $pad/2 0;
+
+		h2 {
+			font-size: 16px;
 			color: $fg-slate;
+			margin: 0 0 15px 0;
+		}
+
+		p {
+			font-size: 12px;
+			line-height: 13px;
+			color: $fg-grey;
+			margin: 0 0 50px 0;
+		}
+		
+		pre {
+			margin: 0 0 10px 0;
+		}
+
+		.findings-header {
+			padding: 40px 0;
+
+			.findings-description {
+				color: $fg-grey;
+				font-size: 12px;
+				margin: 10px 0;
+
+				span {
+					padding: 0 20px 0 0;
+				}
+			}
+			
+		}
+		
+		.findings-information {
+			p {
+				line-height: 18px;
+			}
+			textarea {
+				line-height: 18px;
+			}
+		}
+		
+		.findings-summary {
+			width: 100%;
+			max-width: 100%;
+			height: 800px;
+			padding: 10px 15px;
+			margin: 0 0 70px 0;
 		}
 	}
-	
-	.findings-summary {
-		width: 100%;
-		max-width: 100%;
-		height: 100px;
-		padding: $pad $pad*2;
-		@include radius(0px);
-		border: none;
-		border-top: 1px solid $line;
-		border-bottom: 1px solid $line;
-		margin: 0 0 $pad 0;
-	}
-	
 }
 
+#view-summary-modal {
+	
 
+}
 
 /* let's embed a video */
 
@@ -174,5 +268,17 @@
 	}
 }
 
+#test-end-summarize {
 
+	.modal-interior-title {
+		padding: 0;
+	}
+
+	.summary-form {
+		textarea {
+			height: 200px;
+			line-height: 18px;
+		}
+	}
+}
 

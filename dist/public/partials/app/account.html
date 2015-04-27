@@ -30,7 +30,7 @@
 		
 						<input class="input" id="newteammember" name="newteammember" placeholder="Your team member&rsquo;s e-mail address" ng-model="team_mail.address"/>
 					</li>
-					<li>				
+					<li>
 						<button class="button" ng-click="inviteTeamMember(team_mail)">Invite</button>
 					</li>
 				</ul>
@@ -131,8 +131,8 @@
 				
 				
 				<!-- add a new member (via modal) -->
-				<li>
-					<button class="button">Invite a new team member</button>
+				<li class="clearfix">
+					<button class="button large">Invite a new team member</button>
 				</li>
 				<!-- / add a new member (via modal) -->
 				
@@ -242,25 +242,25 @@
 		</div>
 	<!-- / plans view -->
 	
-	
-	
-	
-	
-	
 	<!-- export view -->
 	
 		<div class="module half" ng-show="tab === 3">
 			<h2>Onboarding</h2>
 			<p>Need a refresher in how Field Guide helps you get better interview results?</p>
-			<p><button ng-click="changeOnboard(1)" class="button">Step Through A Sample</button></p>
+			<p class="clearfix"><button ng-click="onboardToggle()" class="button large">Step Through A Sample</button></p>
 			
+			<div class="modal animated slideInUp" id="modal" ng-if="onboardSteps" ng-controller="onboard">
+				<button class="x-onboard" ng-click="$parent.animationToggle()">&times;</button>
+				<ng-include src="'partials/app/_onboard.html'"></ng-include>
+			</div>
+
 			<br>
 			<hr/>
 
 			<h2>Export your information</h2>
 			<p>If you ever need to get your data out of Field Guide, it&rsquo;s easy. Just click below to receive your
 			tests and results in a structured JSON format.</p>
-			<p><button ng-click="accountExport()" class="button">Export Your Account Information</button></p>
+			<p class="clearfix"><button ng-click="accountExport()" class="button large">Export Your Account Information</button></p>
 			
 			<br>
 			<hr/>
@@ -270,7 +270,7 @@
 			<p>If you'd like to stop using Field Guide, you can fully remove your account from our system. This will <strong>stop all scheduled
 			payments</strong> and will <strong>remove your tests and reports</strong>. We strongly suggest you use the Export button above to save a backup of your
 			information before deleting your account. <span class="caution">Deletion cannot be undone, it is permanent.</span>
-			<p><button class="button destructive">Delete Account</button></p>
+			<p class="clearfix"><button class="button destructive large">Delete Account</button></p>
 			
 		</div>
 		

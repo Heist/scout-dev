@@ -50,6 +50,19 @@
             }
         };
 
+        $scope.summarizeTest = false;
+
+        $scope.summarizeModalToggle = function(){
+            if($scope.summarizeTest || $scope.summarizeTest === true) {
+                $scope.summarizeTest = false;
+                return;
+            }
+            if($scope.summarizeTest || $scope.summarizeTest === false) {
+                $scope.summarizeTest = true;
+                return;
+            }
+        };
+
 
     // SOCKET ROUTES - 0.9 ============================================== 
     // for 1.0 check socket_routes_1.js in /server/

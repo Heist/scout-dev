@@ -138,6 +138,7 @@
 			text-align: center;
 			text-decoration: none;
 			color: $white;
+			@include type-regular;
 			
 			&:hover {
 				background-color: darken($fg-green, 3%);

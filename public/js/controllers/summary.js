@@ -152,6 +152,16 @@
             $scope.showReportLink = $scope.showReportLink ? false : true;
         };
 
+        $scope.shareReportModalToggle = function(){
+            if($scope.shareReport  || $scope.shareReport === true  ){
+                $scope.shareReport = false; 
+                return;
+            }
+            if(!$scope.shareReport || $scope.shareReport === false ){  
+                $scope.shareReport = true; 
+                return;
+            }
+        };
 
     // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection

@@ -61,8 +61,8 @@
 	float: left;
 	height: 100% !important;
 	padding: $pad*3.5 $pad*1.5 $pad $pad*1.5;
-	overtest-x: hidden;
-	overtest-y: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 .left-pane, .right-pane {
