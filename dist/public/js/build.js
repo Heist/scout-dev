@@ -52578,7 +52578,9 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         
         var data = loadData.data;
+        void 0;
         $scope.test = data;
+        $scope.tags = data._tags || [];
         $scope.tasks = data._tasks || [];
 
         $scope.showAnchor = function(x) {
@@ -52628,11 +52630,9 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.select = function(task) {
             void 0;
             $scope.selectedTask = task;
-            // TODO: Set isActive in here. 
         };
         
         $scope.isActive = function(task) {
-            void 0;
             return $scope.selectedTask === task;
         };
 

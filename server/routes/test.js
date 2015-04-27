@@ -46,6 +46,7 @@ module.exports = function(app, passport) {
     // get one test
         models.Test.findById(req.params._id)
             .populate('_tasks')
+            .populate('_tags')
             .exec(function(err,test){
                 if(err){console.log(err);}
                 res.json(test);

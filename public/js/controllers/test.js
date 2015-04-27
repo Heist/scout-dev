@@ -11,7 +11,10 @@
         function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         
         var data = loadData.data;
+        console.log('data we have', data);
+        
         $scope.test = data;
+        $scope.tags = data._tags || [];
         $scope.tasks = data._tasks || [];
 
         $scope.showAnchor = function(x) {
@@ -61,11 +64,9 @@
         $scope.select = function(task) {
             console.log('select works');
             $scope.selectedTask = task;
-            // TODO: Set isActive in here. 
         };
         
         $scope.isActive = function(task) {
-            console.log('isActive works');
             return $scope.selectedTask === task;
         };
 
