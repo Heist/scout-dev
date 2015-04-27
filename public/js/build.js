@@ -52276,16 +52276,11 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 } else {
                     if($scope.navlist[n].doctype==='tag'){
                         $scope.navlist[n]._messages = tag._messages;
-                        // 
-                        // this actually doesn't need to be touched like this.
+                        
                     }
                 }
             })
         }
-
-        // var strFilter = function(value){
-        //     return value !== message._id;           // filter matching nav entry for old messages
-        // }
 
         var pullDeadTags = function(data, message, navlist){
             
@@ -52576,12 +52571,17 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     .controller('test', 
         ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
         function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
-        
+        var tagSort = function(tags){
+         return _.filter(tags, function(n){
+                return n.name !== 'Summary';
+            });
+        };
+
         var data = loadData.data;
         console.log('data we have', data);
 
         $scope.test = data;
-        $scope.tags = data._tags || [];
+        $scope.tags = tagSort(data._tags) || [];
         $scope.tasks = data._tasks || [];
 
         $scope.showAnchor = function(x) {
@@ -52707,7 +52707,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
             $http.post('/api/tag/', dataOut)
                 .success(function(data){
-                    console.log('data', _.isArray(data), data, $scope.tags);
                     if(_.isArray(data)){
                         $scope.tags = $scope.tags.concat(data);
                     } else {
