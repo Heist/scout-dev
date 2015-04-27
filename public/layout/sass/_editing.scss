@@ -1,5 +1,4 @@
 /* new project */
-
 #view-new-project {
 
     ul {
@@ -136,6 +135,10 @@
         margin: 0;
         line-height: 20px;
         resize: none;
+
+        &:hover, &:focus {
+            color: $fg-grey-dark;
+        }
     }
 
     .add-task {
