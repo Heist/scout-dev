@@ -30,16 +30,11 @@
                 } else {
                     if($scope.navlist[n].doctype==='tag'){
                         $scope.navlist[n]._messages = tag._messages;
-                        // 
-                        // this actually doesn't need to be touched like this.
+                        
                     }
                 }
             })
         }
-
-        // var strFilter = function(value){
-        //     return value !== message._id;           // filter matching nav entry for old messages
-        // }
 
         var pullDeadTags = function(data, message, navlist){
             

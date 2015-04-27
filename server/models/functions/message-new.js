@@ -19,7 +19,7 @@ module.exports = function(request, user){
             '_subject' : request._subject,
             '_test' : request._test,
             '_task' : request._task,
-            'body'  : t.msg,
+            'body'  : t.msg.replace(/ \#Summary/gi, ''),
             'created_by_user' : user
         };
 
