@@ -277,7 +277,7 @@
 			color: $fg-grey-dark;
 			margin: 0;
 
-			&:hover, &:focus {
+			&:hover {
 				color: $black;
 			}
 		}
@@ -293,6 +293,10 @@
 			width: 100%;
 			margin: 0 0 10px 0;
 			line-height: 15px;
+
+			&:hover, &:focus {
+				color: $black;
+			}
 		}
 		
 	}

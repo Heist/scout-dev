@@ -213,9 +213,14 @@
 		.findings-information {
 			p {
 				line-height: 18px;
+				cursor: default;
 			}
 			textarea {
 				line-height: 18px;
+
+				&:hover, &:focus {
+				    color: $black;
+				}
 			}
 		}
 		
