@@ -2,7 +2,7 @@
 'use strict';
 
 // Takes an object containing 
-// a string for name, test._is, and optionally a single message._id
+// a string for name, test._id, and optionally a single message._id
 
 // converts them to lowercase, 
 // checks them against the existing test-indexed tag database
@@ -14,28 +14,37 @@
 module.exports = function(tag){
 	var Bluebird = require('bluebird');
     var models = Bluebird.promisifyAll(require('../../models'));
+    var data;
+
+    var oneTag = function(singleTag){
+    	var testStr = singleTag.name.toLowerCase();
+    	var u = {
+    		  name: singleTag.name,
+    		  _test: singleTag._test,
+    		};
     
-// Check tags against the DB of existing tagnames
-	var testStr = tag.name.toLowerCase();
-	var u = {
-		  name: tag.name,
-		  _test: tag._test,
-		};
+    	// messages are optional when setting up tags
+    	if (singleTag.msg) {
+    	  u.$push = {
+    	    _messages: singleTag.msg
+    	  };
+    	}
+    
+    	var q = {'nameCheck': testStr, '_test' : singleTag._test };
+    	var o = {upsert : true};
+    	var data;
+    	// okay let's make this a findOneAndUpdate...
+    	var promise = models.Tag.findOneAndUpdate(q, u, o, function(err, obj){});
 
-// messages are optional when setting up tags
-	if (tag.msg) {
-	  u.$push = {
-	    _messages: tag.msg
-	  };
-	}
+    	return promise;
+    }
 
-	var q = {'nameCheck': testStr, '_test' : tag._test };
-	var o = {upsert : true};
-	var data;
-// okay let's make this a findOneAndUpdate...
-	var promise = models.Tag.findOneAndUpdate(q, u, o, function(err, obj){});
-
+    var promise = (tag.isArray) ? 
+    	Bluebird.map(tag, function(t){ oneTag(t); }) :
+    	oneTag(tag);
+    	
 	return promise.then(function(tag){
+		console.log(tag);
 		data = tag;
 
 		return models.Test.findOne({'_id'  : tag._test }).exec();

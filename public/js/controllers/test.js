@@ -12,7 +12,7 @@
         
         var data = loadData.data;
         console.log('data we have', data);
-        
+
         $scope.test = data;
         $scope.tags = data._tags || [];
         $scope.tasks = data._tasks || [];
@@ -123,8 +123,21 @@
 
             $scope.updateTest();
         };
+    
+    // Add A New Task or Tasks ============================
 
-    // Edit Task Things =========================
+        $scope.saveTag = function(tags){
+            // send the array to the back end, where each will be pushed appropriately 
+            // /api/tag/
+
+            $http.post('/api/tag/', tags)
+                .success(function(data){
+                    console.log(data);
+                });
+        }
+
+
+    // Edit Task Things ===================================
         $scope.editTitle = function (task){
             task.title_edit = true;
             $scope.edited = task;
