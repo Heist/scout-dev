@@ -13,6 +13,7 @@ Master Sass
 @import "forms";
 @import "grid";
 @import "buttons";
+@import "animate";
 
 
 /* components */ 
@@ -33,8 +34,9 @@ Master Sass
 @import "account";
 @import "messages";
 @import "findings";
-@import "onboarding";
+@import "onboard";
 @import "block-screens";
+@import "report";
 
 
 /* code that is NOT specific to a component or module */

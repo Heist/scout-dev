@@ -12,7 +12,7 @@ html, body {
 body {
 	font-size: $type-size-base;
 	line-height: $type-line-base;
-	@include type-regular;
+	@include type-light;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
@@ -57,7 +57,6 @@ h1 {
 h2 {
 	font-size: $type-size-base*2;
 	@include type-light;
-	letter-spacing: -1px;
 	margin: 0 0 $pad 0;
 }
 
@@ -67,7 +66,7 @@ h3 {
 	margin: 0 0 $pad/2 0;
 	
 	&.h3-light {
-		@include type-regular;
+		@include type-light;
 		opacity: 0.6;
 		font-size: $type-size-base*1.4;
 	}
@@ -106,13 +105,12 @@ strong {
 
 a {
 	color: $link;
-	@include type-bold;
+	@include type-light;
 	text-decoration: none;
 	cursor: pointer;
 	
 	&:hover {
 		text-decoration: underline;
-		color: $link-hover;
 	}
 	
 	
@@ -154,7 +152,7 @@ ul {
 	margin: 0 0 $pad 0;
 	
 	li {
-		padding: $pad/6 0;
+		padding: $pad/6;
 	}
 	
 	&.nobullets {

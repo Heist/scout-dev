@@ -1,4 +1,32 @@
 /* Buttons */
+button.x-modal {
+    position: absolute;
+    top: -25px;
+    right: -35px;
+    text-decoration: none;
+    color: $fg-grey;
+    @include type-extrabold;
+    font-size: 18px;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    outline: 0;
+}
+
+button.x-onboard {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    @include type-extrabold;
+    font-size: 30px;
+    text-decoration: none;
+    z-index: 1;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    outline: 0;
+}
 
 .button {
 	@include button-colour($fg-green, $white);
@@ -7,6 +35,7 @@
 	padding: 11px 32.5px;
 	float: left;
 	margin: 0;
+	@include type-regular;
 	
 	&:hover {
 		background: $fg-green-dark;
@@ -36,10 +65,20 @@
 	&.full {
 		width: 100%;
 	}
+	
+	&.large {
+		font-size: 14px;
+		padding: 16px 30px;
+	}
 
 	&.small {
-		font-size: $type-size-base*0.8;
+		font-size: 12px;
 		padding: 3px 10px;
+	}
+
+	&.extra-small {
+		font-size: 10px;
+		padding: 4.5px 11.5px;
 	}
 	
 	

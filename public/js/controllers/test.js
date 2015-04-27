@@ -129,19 +129,23 @@
             $scope.edited = task;
         };
 
-        $scope.blurTitle = function (task){
+        $scope.blurTitle = function (obj){
             // on losing the focus, save the name of the task
-            task.title_edit = false;
+            obj.title_edit = false;
             $scope.editedtask = null;
 
-            task.name = task.name.trim();
+            obj.name = obj.name.trim();
 
             // deleted the name of the task? Remove it entirely.
-            if (!task.name) {
-                $scope.removeTask(task);
+            if (!obj.name) {
+                $scope.removeTask(obj);
+            }
+            if (obj.doctype === 'test') {
+                $scope.updateTest(obj);
+            } else {
+                $scope.updateTask(obj);
             }
 
-            $scope.updateTask(task);            
         };
 
         $scope.updateTask = function(task){
