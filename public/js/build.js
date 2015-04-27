@@ -52337,8 +52337,11 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
         console.log('data from load', data);
-
-        var orderedNav = _.sortBy(data.navlist.list, function(obj){
+        var sortProper = _.filter(data.navlist.list, function(n){
+            return n.name !== 'Summary';
+        })
+        
+        var orderedNav = _.sortBy(sortProper, function(obj){
                     return obj.report_index;
                 });
         
