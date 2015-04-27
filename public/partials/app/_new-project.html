@@ -34,7 +34,7 @@
 				</li>
 				<li>
 					<label for="field-prototypeurl">Test objectives</label>
-					<textarea msd-elastic class="input test-objectives" id="field-objective" type="text" value="" ng-model="test.desc" placeholder="What questions do you want answered?
+					<textarea msd-elastic class="input test-objectives" id="bulletform" type="text" value="" ng-model="test.desc" placeholder="What questions do you want answered?
 					
 					- Do users understand the header interaction?
 					- Are they comfortable with the cart language?" />
@@ -47,6 +47,40 @@
 			</div>
 		</ul>
 	</div>
-	</div>
-	
+
 	<div class="clear"></div>
+</div>
+	
+
+<script>
+	$('#bulletform').on('keypress',function(e){
+		var t = $(this);
+			console.log(e.which);
+		if(e.shiftKey){
+			console.log('shifted')
+			if(e.which === 13){
+				t.val(t.val()+'\n');
+				return false;
+			}
+		}
+
+		if(!e.shiftKey){
+			if(e.which === 13){
+				t.val(t.val()+'\n• ');
+				return false;
+			}
+		}
+	});
+
+	$('#bulletform').on('focus',function(e){
+		var t = $(this);
+		var l = t.val().length;
+
+		if (l !== 0){
+			return false; 
+		} else {
+			t.val(t.val()+'• ');
+			return false;
+		}
+	});
+</script>
