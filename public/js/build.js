@@ -51877,13 +51877,19 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     // get the starting data from resolve
         var data = loadData.data;
 
+        var tagSort = function(tags){
+         return _.filter(tags, function(n){
+                return n.name !== 'Summary';
+            });
+        }
         console.log('data', data);
 
         $scope.test = data;
         $scope.kind = data.kind;
         $scope.navlist = data._tasks;
 
-        $scope.tags = data._tags;
+        console.log('tags sans summary', tagSort(data._tags));
+        $scope.tags = tagSort(data._tags);
     
     // set up and reset variables to clear cache from state changes.
         $scope.update = [];
@@ -52107,7 +52113,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     console.log('tags', data.tags);
 
                  // remove the previous message and insert the new one
-                    $scope.tags = data.tags;
+                    $scope.tags = tagSort(data.tags);
 
                     var arr = $scope.timeline;
                     var item;
@@ -52131,17 +52137,23 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 return ;
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
-                    .then(function(msg){
-                        console.log('okay what', msg);
-                        $scope.timeline.push(msg.msg);
-                        $scope.tags = msg.tags;
+                    .then(function(data){
+                        console.log('okay what', data);
+                        $scope.timeline.push(data.msg);
+                        $scope.tags = tagSort(data.tags);
                     });
             }
         })
 
-        $scope.postMessage = function(message){
-            
-        };
+        // SUMMARY MESSAGES =====================
+        $scope.addMessageToSummaryTag = function(message){
+            console.log('summary message', message);
+            // on creation of test, there is a tag created called Summary...
+            // var msg = [ data,  $scope.selected._test, $scope.subject._id
+            // ]
+            // postMessage().then(function(msg){
+            // })
+        }
 
         // END TEST =============================
         $scope.postTest = function(){
