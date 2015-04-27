@@ -211,14 +211,17 @@
 
 					<div id="cta">
 						<div class="cta">
-							<button class="button outline" id="endtest" ng-click="postTest()">
+							<!-- old "End test" button -->
+							<!-- <button class="button outline" id="endtest" ng-click="postTest()">
 								<div class="checkmark"></div>
 								<span>End test</span>
-							</button>
-							<!-- this button brings summarize modal up -->
+							</button> -->
+							<!-- this button brings summarize modal up, takes summary input and post it to summary page on "Findings" section under
+							"All your test summaries" -->
+							<!-- the "End test" button above will need to be removed but it's functionality will need to go on this same button below -->
 							<button class="button outline" ng-click="summarizeModalToggle()">
 								<div class="checkmark"></div>
-								<span>Summarize test</span>
+								<span>End test</span>
 							</button>
 						</div>
 					</div>
