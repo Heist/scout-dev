@@ -1,5 +1,104 @@
-<div id="view-testing">
+<div id="view-testing" ng-class="{ 'is-onboard': user.onboard != 100, 'has-input-outline': user.onboard === 3 || user.onboard === 4 }">
+	
 
+
+<!-- onboard during test running -->
+<div ng-if="user.onboard != 100" >
+
+<div class="onboard-content onboard-run-step1" ng-show="user.onboard === 3">
+	<div class="container">
+		<div class="module third">
+			<h3>Looks like we're ready.<br>Let's run a test with Rob.</h3>
+			<a href="#" class="secondary" ng-click="changeOnboard(100)"><small >I&rsquo;m okay on my own</small></a> &nbsp;&nbsp; 
+		</div>
+		<div class="module third">
+			<div class="onboard-avatar"><img src="http://rdjpg.com/60/60"></div>
+			
+			RDJ is the participant you&rsquo;re testing your product with. <strong>Enter his name.</strong>
+		</div>
+		<div class="module third text-right">
+			<a class="button" ng-click="changeOnboard(4)">Next</a>
+		</div>
+	</div>
+</div>	
+
+
+<div class="onboard-content onboard-run-step2" ng-show="user.onboard === 4">
+	<div class="container">
+		<div class="module third">
+			<h3>You&rsquo;re in the driver's seat.</h3>
+		</div>
+		<div class="module third">
+			On the left are the <strong>tasks</strong> you created when you set up this <strong>project.</strong>
+			<a href="#" class="secondary" ng-click="changeOnboard(100)"><small >I&rsquo;m okay on my own</small></a> &nbsp;&nbsp; 
+		</div>
+		<div class="module third text-right">
+			<a class="button" ng-click="changeOnboard(5)">Next</a>
+		</div>
+	</div>
+</div>	
+
+
+<div class="onboard-content onboard-run-step3" ng-show="user.onboard === 5">
+	<div class="container">
+		<div class="module two-thirds">
+			<div class="onboard-avatar"><img src="http://rdjpg.com/60/60"></div>
+				<a href="#" class="secondary" ng-click="changeOnboard(100)"><small >I&rsquo;m okay on my own</small></a> &nbsp;&nbsp; 
+			<div class="onboard-bubble">
+				Take a note about which e-mail client RDJ uses.
+				<div class="onboard-bubble-msg">
+					I don&rsquo;t really use e-mail that often, but when I do, I use Gmail
+					<div class="bubble-msg-spike"><img src="/layout/assets/nib.svg" /></div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="module third text-right">
+			<a class="button" ng-click="changeOnboard(6)">Next</a>
+		</div>
+	</div>
+</div>	
+
+
+<div class="onboard-content onboard-run-step4" ng-show="user.onboard === 6">
+	<div class="container">
+		<div class="module two-thirds">
+			<div class="onboard-avatar"><img src="http://rdjpg.com/60/60"></div>
+			
+			<div class="onboard-bubble">
+				You can use hashtags to organize your notes across common #themes.
+				<div class="onboard-bubble-msg">
+					I really like the colors in Gmail, it makes it easier for me to read
+					<div class="bubble-msg-spike"><img src="/layout/assets/nib.svg" /></div>
+				</div>
+				Give this note a theme, how about <span class="tag">#color</span>?
+			</div>
+			
+		</div>
+		<div class="module third text-right">
+			<a class="button" ng-click="changeOnboard(7)">Next</a>
+		</div>
+	</div>
+</div>	
+
+<div class="onboard-content onboard-run-step5" ng-show="user.onboard === 7">
+	<div class="container">
+		<div class="module third">
+			<h3>Nice job note-taking!</h3>
+		</div>
+		<div class="module third">
+						
+			Try a few more notes and #themes if you&rsquo;d like. When you&rsquo;re ready, let's look at the <a ng-click="changeOnboard(6)">report.</a>
+		</div>
+		<div class="module third text-right">
+			<a ng-click="changeOnboard(8)" class="button">Next</a>
+		</div>
+	</div>
+</div>	
+	
+</div>
+	
+	
 <!-- participant definition modal -->
 
 
@@ -17,10 +116,12 @@
 			<li ng-class='{"half": kind === "prototype", "full" : kind !== "prototype"}'>
 				<label>Participant's name</label>
 				<input class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name"/>
+				<!-- taking out- ui-keypress="{13:'addSubject(subject)'}" - until we can determine how it'll play nice with a two-field form -->
 				</input>
 			</li>
 
 			<li class="half" ng-show="kind === 'prototype'">
+				<!-- <label>Room ID from the Field Guide App &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://docs.google.com/forms/d/1MsYcOPq5X1foSuaHfuuhzOmkhijaNFBjB7XJMs3PSA0/viewform" target="_fdbk">Get the iOS Beta App</a></label> -->
 				<label>Room ID</label><span class="info large-tooltip" data-tooltip-large="You’ll find this in the Field Guide iOS app"><span>?</span></span>
 				<input class="input" type="text" name="testroom" value="" placeholder="Field Guide app Room ID" ng-model="subject.testroom">
 				</input>
@@ -104,7 +205,7 @@
 				</li>
 				
 				<li ng-repeat="obj in navlist" ng-class="{ 'active': obj._id === selected._id }" ng-click="select($index)">
-					<h3 class="tag-name">{{obj.name}}</h3>
+					<h3 class="tag-name">#{{obj.name}}</h3>
 
 					<p ng-bind-html="obj.desc | linebreaker"></p>
 				</li>
@@ -128,10 +229,35 @@
 				<!-- input notes -->
 				<div id="session-input">
 
-					<input type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input">
+<<<<<<< HEAD
+				<div>
+				<script type="text/ng-template" id="customTemplate.html">
+=======
+			
+				<!-- <script type="text/ng-template" id="customTemplate.html">
+>>>>>>> 3197cebd1cd2599b3fe921c569d5ea31a62feb12
+				  <a>
+				      <img ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{match.model.flag}}" width="16">
+				      <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+				  </a>
+				</script>
 
+				    <h4>Static arrays</h4>
+				    <pre>Model: {{typeinput | json}}</pre>
+<<<<<<< HEAD
+				    <input type="text" ng-model="typeinput" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
+				</div>
+					<!-- textarea class="input" ng-model='message' name="field-input" placeholder="Type notes" ui-keypress="{13:'postMessage(message)'}"  class="form-control"/>
+					</textarea> -->
+=======
+				    <input type="text" ui-keypress="{35:'triggerTypeahead()'}" ng-model="typeinput" class="form-control typeInThis">
+				</div> -->
+					<textarea class="input" ng-model='message' name="field-input" placeholder="Remember to give your notes #themes" ui-keypress="{13:'postMessage(message)'}" class="form-control"/>
+					</textarea>
+			
 				<div id="hash-tag-pool">
 					<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
+>>>>>>> 3197cebd1cd2599b3fe921c569d5ea31a62feb12
 				</div>
 				</div>
 				
@@ -141,6 +267,9 @@
 						
 						<!-- empty state -->
 						<li class="message-no-highlite" id="firstrun">
+							<!-- <div class="message-details">
+								<div class="message-details-avatar avatar-header">&bull;</div>
+							</div> -->
 							<div class="message-body">
 								<strong>Your test is running!</strong> Remember, it&rsquo;s all about capturing notes &mdash;
 								you&rsquo;ll have an opportunity to <strong>edit and sort</strong> when creating your Report. 
@@ -169,7 +298,7 @@
 
 								<!-- Editable messages - if a message is not a guideline -->
 								<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-								<textarea msd-elastic class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
+								<textarea class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
 
 								<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}</small>
 							</div>
@@ -211,19 +340,21 @@
 
 					<div id="cta">
 						<div class="cta">
-							<!-- old "End test" button -->
-							<!-- <button class="button outline" id="endtest" ng-click="postTest()">
-								<div class="checkmark"></div>
-								<span>End test</span>
-							</button> -->
-							<!-- this button brings summarize modal up, takes summary input and post it to summary page on "Findings" section under
-							"All your test summaries" -->
-							<!-- the "End test" button above will need to be removed but it's functionality will need to go on this same button below -->
-							<button class="button outline" ng-click="summarizeModalToggle()">
+							<a href="#" class="button-cancel" ng-click="changeOnboard(100)">Delete test</a>
+
+							<button class="button outline" id="endtest" ng-click="postTest()">
 								<div class="checkmark"></div>
 								<span>End test</span>
 							</button>
 						</div>
+
+<!-- 						<div id="button-canceltest">
+							<div class="expand-button">
+								<div class="expand-button-body" ng-click="postTest()">&times;</div>
+								<div class="expand-button-helper" ng-click="changeOnboard(100)">Cancel</div>
+							</div>
+						</div> -->
+
 					</div>
 
 				</div>
@@ -233,15 +364,11 @@
 			<!-- /username or device -->
 			
 			<div class="clear"></div>
+			
 		
-
 		</div>
 	</div>
 	
-	<!-- summarize at end of test modal -->
-	<div class="modal" ng-model="summarizeTest" ng-if="summarizeTest">
-		<ng-include src="'partials/app/_summarize-modal.html'"></ng-include>
-	</div>
 	
 </div>
 
