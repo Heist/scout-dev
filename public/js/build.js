@@ -51909,6 +51909,18 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     // make sure the scroll works
         $scope.glued = true;
 
+    // JS Warning on Back button ==========================
+    $scope.$on('$destroy', function() {
+       window.onbeforeunload = undefined;
+    });
+    
+    $scope.$on('$locationChangeStart', function(event, next, current) {
+       if(!confirm("Are you sure you want to leave this page?")) {
+          event.preventDefault();
+       }
+    });
+
+
     // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
 
@@ -52256,7 +52268,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             data.tags.map(function(tag) {
                 var n = navlist_check.indexOf(tag.name);
                 if(n === -1){ // if the tag does not exist, make it, and push in new message
-                    console.log('pushing automatically', tag.name, tag._messages );
+                    
                     tag.report_index = $scope.navlist.length;
                     $scope.navlist.push(tag);
                     $scope.navlist[tag.report_index]._messages.push(data.msg._id);
@@ -52264,7 +52276,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 } else {
                     if($scope.navlist[n].doctype==='tag'){
                         $scope.navlist[n]._messages = tag._messages;
-                        // console.log('selected push', $scope.navlist[n]._messages);
+                        // 
                         // this actually doesn't need to be touched like this.
                     }
                 }
@@ -52276,7 +52288,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         // }
 
         var pullDeadTags = function(data, message, navlist){
-            console.log('pull dead tags', data, 'message', message,'navlist', navlist);
+            
 
             var nav_id_list = _.pluck(navlist, '_id');
             // clear dead entries from the left nav when we edit a message.
@@ -52289,17 +52301,17 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 
                 if(new_tag_idx === -1){                         // that tag no longer exists in that message
                     var match_in_nav = nav_id_list.indexOf(id); // find the nav entry matching the no-longer-there tag.
-                    console.log( 'tag idx -1, match in nav', match_in_nav );
+                    
 
                     var match_msg = navlist[match_in_nav]._messages
                                     .filter(function(value){
                                         return value !== message._id;           // filter matching nav entry for old messages
                                     });
                     var local_msg = _.pluck($scope.messages[message._subject.name]._messages)
-                    console.log('match_msg', match_msg, message._id);
+                    
 
                     if(match_msg.length === 0){                 // no messages left? Kill the tag and select the next one.
-                        console.log('splice this', match_msg);
+                        
                         navlist.splice(match_in_nav,1);  // Kill tag in the nav
                         $scope.activate($scope.navlist[match_in_nav], match_in_nav); // select new one.
                         
@@ -52314,13 +52326,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.activate = function(obj) {
             // passes an object from left nav to the global selection variable
             // reset all previous reliant variables, there are a lot!
-            console.log(obj);
+            
 
             // on click set selected to selected._id
             // 
 
             if(obj.doctype !== 'test'){
-                console.log(obj._messages);
+                
             }
 
             $scope.selected = '';
@@ -52336,7 +52348,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
-        // console.log('data from load', data);
+        // 
         
         // remove the Summary tag from the tags
         var sortProper = _.filter(data.navlist.list, function(n){
@@ -52419,7 +52431,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log($rootScope.user);
                     $location.path('/report/'+$stateParams._id);
                 });
         };
@@ -52458,18 +52469,16 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.deleteMessage = function(message){
             $http.delete('/api/message/'+message._id)
                 .success(function(data){
-                    console.log('data', data);
                     if(data === '1'){
-                        console.log('pluck');
+                        
                         var idx = _.pluck($scope.messages[message._subject.name], '_id').indexOf(message._id);
                         $scope.messages[message._subject.name].splice(idx,1);
-                        console.log('edit message', message);
 
                         $scope.navlist.map(function(obj, i){
                             if(obj.doctype !== 'test'){
-                                console.log('object messages',obj.name, obj._messages);
+                                
                                 var n = obj._messages.indexOf(message._id);
-                                console.log('index of', n);
+                                
                                 if( n !== -1){
                                     obj._messages.splice(n, 1);
                                 }

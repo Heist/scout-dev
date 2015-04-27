@@ -75,7 +75,7 @@
 										<input ng-trim="false" ng-model="newtask.name"placeholder="What do you want to discuss with your participant?"><br/>
 										
 										<h4>Questions</h4>
-										<textarea ng-model="newtask.desc" id="field-textarea" placeholder="List the questions you want answered.">
+										<textarea ng-model="newtask.desc" id="bulletform" placeholder="List the questions you want answered.">
 										</textarea>
 									</form>
 								
@@ -101,3 +101,36 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	$('#bulletform').on('keypress',function(e){
+		var t = $(this);
+			console.log(e.which);
+		if(e.shiftKey){
+			console.log('shifted')
+			if(e.which === 13){
+				t.val(t.val()+'\n');
+				return false;
+			}
+		}
+
+		if(!e.shiftKey){
+			if(e.which === 13){
+				t.val(t.val()+'\n• ');
+				return false;
+			}
+		}
+	});
+
+	$('#bulletform').on('focus',function(e){
+		var t = $(this);
+		var l = t.val().length;
+
+		if (l !== 0){
+			return false; 
+		} else {
+			t.val(t.val()+'• ');
+			return false;
+		}
+	});
+</script>

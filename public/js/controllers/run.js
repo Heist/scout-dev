@@ -41,6 +41,18 @@
     // make sure the scroll works
         $scope.glued = true;
 
+    // JS Warning on Back button ==========================
+    $scope.$on('$destroy', function() {
+       window.onbeforeunload = undefined;
+    });
+    
+    $scope.$on('$locationChangeStart', function(event, next, current) {
+       if(!confirm("Are you sure you want to leave this page?")) {
+          event.preventDefault();
+       }
+    });
+
+
     // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
 
