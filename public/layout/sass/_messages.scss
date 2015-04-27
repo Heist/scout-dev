@@ -276,6 +276,7 @@
 			@include type-light;
 			color: $fg-grey-dark;
 			margin: 0;
+			cursor: text;
 
 			&:hover {
 				color: $black;
