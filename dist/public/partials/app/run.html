@@ -104,7 +104,7 @@
 				</li>
 				
 				<li ng-repeat="obj in navlist" ng-class="{ 'active': obj._id === selected._id }" ng-click="select($index)">
-					<h3 class="tag-name">#{{obj.name}}</h3>
+					<h3 class="tag-name">{{obj.name}}</h3>
 
 					<p ng-bind-html="obj.desc | linebreaker"></p>
 				</li>
@@ -215,6 +215,11 @@
 								<div class="checkmark"></div>
 								<span>End test</span>
 							</button>
+							<!-- this button brings summarize modal up -->
+							<button class="button outline" ng-click="summarizeModalToggle()">
+								<div class="checkmark"></div>
+								<span>Summarize test</span>
+							</button>
 						</div>
 					</div>
 
@@ -225,11 +230,15 @@
 			<!-- /username or device -->
 			
 			<div class="clear"></div>
-			
 		
+
 		</div>
 	</div>
 	
+	<!-- summarize at end of test modal -->
+	<div class="modal" ng-model="summarizeTest" ng-if="summarizeTest">
+		<ng-include src="'partials/app/_summarize-modal.html'"></ng-include>
+	</div>
 	
 </div>
 

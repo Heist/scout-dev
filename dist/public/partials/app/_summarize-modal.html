@@ -1,0 +1,32 @@
+<!-- Summarize on end of run test modal -->
+<div id="test-end-summarize" class="modal">
+	<div class="module one-third">&nbsp;</div>
+	
+	<div class="module two-fifths modal-interior">
+		
+		<div class="modal-interior-title">
+			<button class="x-modal" ng-click="summarizeModalToggle()">&times;</button>
+			<h2>Summary</h2>
+			<p>It's time to summarize what you learned from this test</p>
+		</div>
+		
+		<ul class="nobullets">
+			<form name="summaryForm" class="summary-form">
+				<li>
+					<textarea class="input" id="field-objective" type="text" value="" placeholder="What were some important findings or insights you gained from this test?
+
+					Think about the gut reaction you had to things your user said, and put them all down here." />
+					</textarea>
+				</li>
+			</form>
+			<div class="cta">
+				<a href="#" class="secondary button-cancel" ng-click="summarizeModalToggle()" tabindex="1">Cancel</a>
+				<button class="button med float-right" ng-click="addSummary(summary)" tabindex="0">Done summarizing</button>
+			</div>
+		</ul>
+		
+	</div>
+	
+	<div class="clear"></div>
+</div>
+<!-- /share report modal -->
