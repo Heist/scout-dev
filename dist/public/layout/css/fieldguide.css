@@ -5545,8 +5545,8 @@ hr {
       font-weight: 300;
       color: #777777;
       margin: 0; }
-      .message .message-body pre.messages:hover {
-        color: #323539; }
+      .message .message-body pre.messages:hover, .message .message-body pre.messages:focus {
+        color: #000; }
     .message .message-body small {
       display: block;
       margin: 0;

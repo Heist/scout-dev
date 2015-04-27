@@ -277,8 +277,8 @@
 			color: $fg-grey-dark;
 			margin: 0;
 
-			&:hover {
-				color: $fg-black;
+			&:hover, &:focus {
+				color: $black;
 			}
 		}
 		
