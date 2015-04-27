@@ -256,19 +256,30 @@
                 });
         };
 
-        $scope.postMessage = function(message){
-            if(message.length <= 0){
+        $scope.$on('message', function(e, data){
+            console.log('emitted data received', data);
+            e.stopPropagation();
+            if(data.length <= 0){
                 return ;
             } else {
-                postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
-                    .then(function(data){
-                        console.log('okay what', data);
-                        $scope.timeline.push(data.msg);
-                        $scope.tags = data.tags;
-                        $scope.message='';
+                postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
+                    .then(function(msg){
+                        console.log('okay what', msg);
+                        $scope.timeline.push(msg.msg);
+                        $scope.tags = msg.tags;
                     });
             }
-        };
+        })
+
+        // SUMMARY MESSAGES =====================
+        $scope.addMessageToSummaryTag = function(message){
+            console.log('summary message', message);
+            // on creation of test, there is a tag created called Summary...
+            // var msg = [ data,  $scope.selected._test, $scope.subject._id
+            // ]
+            // postMessage().then(function(msg){
+            // })
+        }
 
         // END TEST =============================
         $scope.postTest = function(){
@@ -282,9 +293,5 @@
                 });
 
         };
-
-    //  TYPEAHEAD =========================================
-    $scope.typeinput = undefined;
-    $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
     }]);
 })();

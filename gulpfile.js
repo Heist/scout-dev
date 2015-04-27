@@ -36,8 +36,7 @@ gulp.task('scripts', function () {
         bower
     )
     .pipe(filter('*.js'))
-    .pipe(addsrc.append('public/js/vendor/ui-bootstrap-custom-tpls-0.12.1.js'))
-    // .pipe(addsrc.append('public/js/vendor/ui-bootstrap-custom-0.12.1.min.js'))
+    .pipe(addsrc.append('public/js/vendor/typeaheadTagger.js'))
     .pipe(addsrc.append('public/js/app.js'))
     .pipe(addsrc.append('public/js/controllers/*.js'))
     .pipe(addsrc.append('public/js/directives/*.js'))
@@ -45,7 +44,7 @@ gulp.task('scripts', function () {
     .pipe(addsrc.append('public/js/vendor/vendor.js'))
     .pipe(concat('build.js')).on('error', errorHandler)
     .pipe(ngAnnotate())
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest('public/js'))
     .pipe(stripDebug()).on('error', errorHandler)
     .pipe(gulp.dest('dist/public/js'))
