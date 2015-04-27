@@ -268,5 +268,17 @@
 	}
 }
 
+#test-end-summarize {
 
+	.modal-interior-title {
+		padding: 0;
+	}
+
+	.summary-form {
+		textarea {
+			height: 200px;
+			line-height: 18px;
+		}
+	}
+}
 

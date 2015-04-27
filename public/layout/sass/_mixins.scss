@@ -114,21 +114,25 @@
 	::-webkit-input-placeholder {
 		color: $fg-grey-light;
 		font-size: 12px;
+		line-height: 15px;
 		font-style: italic;
 	}
 	:-moz-placeholder { /* Firefox 18- */
 		color: $fg-grey-light;
 		font-size: 12px;
+		line-height: 15px;
 		font-style: italic;
 	}
 	::-moz-placeholder {  /* Firefox 19+ */
 		color: $fg-grey-light;
 		font-size: 12px;
+		line-height: 15px;
 		font-style: italic;
 	}
 	:-ms-input-placeholder {
 		color: $fg-grey-light;
 		font-size: 12px;
+		line-height: 15px;
 		font-style: italic;
 	}
 }

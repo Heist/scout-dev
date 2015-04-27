@@ -53,15 +53,12 @@
         $scope.summarizeTest = false;
 
         $scope.summarizeModalToggle = function(){
-            console.log("summarize this yo 2", $scope.summarizeTest);
             if($scope.summarizeTest || $scope.summarizeTest === true) {
                 $scope.summarizeTest = false;
-                console.log("summarize this yo 1", $scope.summarizeTest);
                 return;
             }
             if($scope.summarizeTest || $scope.summarizeTest === false) {
                 $scope.summarizeTest = true;
-            console.log("summarize this yo", $scope.summarizeTest);
                 return;
             }
         };
