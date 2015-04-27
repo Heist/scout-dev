@@ -9,13 +9,26 @@
     // get the starting data from resolve
         var data = loadData.data;
 
+        var tagSort = function(tags){
+         return _.filter(tags, function(n){
+                return n.name !== 'Summary';
+            });
+        };
+
+        var summaryTagId = function(tags){
+            return _.filter(loadData.data._tags, function(n){
+                return n.name === 'Summary';
+            })[0]._id;
+        };
+
         console.log('data', data);
 
         $scope.test = data;
         $scope.kind = data.kind;
         $scope.navlist = data._tasks;
 
-        $scope.tags = data._tags;
+        console.log('tags sans summary', tagSort(data._tags));
+        $scope.tags = tagSort(data._tags);
     
     // set up and reset variables to clear cache from state changes.
         $scope.update = [];
@@ -239,7 +252,7 @@
                     console.log('tags', data.tags);
 
                  // remove the previous message and insert the new one
-                    $scope.tags = data.tags;
+                    $scope.tags = tagSort(data.tags);
 
                     var arr = $scope.timeline;
                     var item;
@@ -256,19 +269,39 @@
                 });
         };
 
-        $scope.postMessage = function(message){
-            if(message.length <= 0){
+        $scope.$on('message', function(e, data){
+            console.log('emitted data received', data);
+            e.stopPropagation();
+            if(data.length <= 0){
                 return ;
             } else {
-                postMessage(message, $scope.selected._id, $scope.selected._test, $scope.subject._id )
+                postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
                         console.log('okay what', data);
                         $scope.timeline.push(data.msg);
-                        $scope.tags = data.tags;
-                        $scope.message='';
+                        $scope.tags = tagSort(data.tags);
                     });
             }
-        };
+        })
+
+        // SUMMARY MESSAGES =====================
+        $scope.addMessageToSummaryTag = function(message){
+            console.log('summary message', message);
+            // on creation of test, there is a tag created called Summary.
+            // find that message and post to it.
+            //  loadData.data._tags
+            if(message){
+                postMessage(message, summaryTagId, $stateParams._id, $scope.subject._id)
+                        .then(function(msg){
+                            console.log('message posted to summary', msg)
+                            $location.path('/overview');
+                        });
+            } else {
+                console.log('no message');
+                return;
+            }
+
+        }
 
         // END TEST =============================
         $scope.postTest = function(){

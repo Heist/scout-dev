@@ -37,6 +37,10 @@
             })
         }
 
+        var strFilter = function(value){
+            return value !== message._id;           // filter matching nav entry for old messages
+        }
+
         var pullDeadTags = function(data, message, navlist){
             console.log('pull dead tags', data, 'message', message,'navlist', navlist);
 
@@ -52,10 +56,6 @@
                 if(new_tag_idx === -1){                         // that tag no longer exists in that message
                     var match_in_nav = nav_id_list.indexOf(id); // find the nav entry matching the no-longer-there tag.
                     console.log( 'tag idx -1, match in nav', match_in_nav );
-
-                    function strFilter (value){
-                        return value !== message._id;           // filter matching nav entry for old messages
-                    }
 
                     var match_msg = navlist[match_in_nav]._messages.filter(strFilter);
                     var local_msg = _.pluck($scope.messages[message._subject.name]._messages)
@@ -95,21 +95,11 @@
             $scope.commentMessage = '';
 
             $scope.selected = obj || $scope.selected;
-            
-
-        // Set up what kind of video we're expecting to need here.
-            // if(obj.embed){
-            //     var loadVideo = reportFunctions.videoRender(obj.embed);
-            //     if(loadVideo.youtube){
-            //         $scope.selected.youTubeCode = loadVideo.youtube;
-            //     } else {
-            //         $scope.selected.userTesting = loadVideo.embed;
-            //     }
-            // }  
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
+        console.log('data from load', data);
 
         var orderedNav = _.sortBy(data.navlist.list, function(obj){
                     return obj.report_index;

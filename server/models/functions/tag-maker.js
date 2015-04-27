@@ -1,7 +1,8 @@
 // tag-maker.js
 'use strict';
 
-// Takes a string, test, and optionally a message._id
+// Takes an object containing 
+// a string for name, test._is, and optionally a single message._id
 
 // converts them to lowercase, 
 // checks them against the existing test-indexed tag database
@@ -9,12 +10,11 @@
 // lowercase.true inserts the lowercase version as indexed name
 // if optional property message_id exists,
 // pushes message_id to the tag
-// returns the 
+
 module.exports = function(tag){
 	var Bluebird = require('bluebird');
     var models = Bluebird.promisifyAll(require('../../models'));
     
-    // console.log('tagmaker');
 // Check tags against the DB of existing tagnames
 	var testStr = tag.name.toLowerCase();
 	var u = {
