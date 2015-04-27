@@ -4819,6 +4819,8 @@ hr {
     margin: 0;
     line-height: 20px;
     resize: none; }
+    #view-editing textarea.test-descriptions:hover, #view-editing textarea.test-descriptions:focus, #view-editing textarea.task-descriptions:hover, #view-editing textarea.task-descriptions:focus {
+      color: #000; }
   #view-editing .add-task {
     margin: 20px 0; }
     #view-editing .add-task ::-webkit-input-placeholder {
@@ -4856,12 +4858,14 @@ hr {
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 300;
-      font-size: 12px; }
+      font-size: 12px;
+      color: #949799; }
     #view-editing .add-task textarea {
       height: 65px;
       overflow-y: auto;
       resize: none;
-      margin: 0; }
+      margin: 0;
+      color: #949799; }
     #view-editing .add-task .box {
       padding: 12px;
       margin: 0;

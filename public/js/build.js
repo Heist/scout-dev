@@ -51604,9 +51604,15 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
        // }
 
         $scope.user.onboard = 1;
+<<<<<<< HEAD
 
         // console.log('step', $scope.user.onboard);
 
+=======
+
+        // console.log('step', $scope.user.onboard);
+
+>>>>>>> dev
        // FUNCTIONS =======================================
 
        $scope.onboardToggle = function(){
@@ -51877,13 +51883,26 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     // get the starting data from resolve
         var data = loadData.data;
 
+        var tagSort = function(tags){
+         return _.filter(tags, function(n){
+                return n.name !== 'Summary';
+            });
+        };
+
+        var summaryTagId = function(tags){
+            return _.filter(loadData.data._tags, function(n){
+                return n.name === 'Summary';
+            })[0]._id;
+        };
+
         console.log('data', data);
 
         $scope.test = data;
         $scope.kind = data.kind;
         $scope.navlist = data._tasks;
 
-        $scope.tags = data._tags;
+        console.log('tags sans summary', tagSort(data._tags));
+        $scope.tags = tagSort(data._tags);
     
     // set up and reset variables to clear cache from state changes.
         $scope.update = [];
@@ -52107,7 +52126,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     console.log('tags', data.tags);
 
                  // remove the previous message and insert the new one
-                    $scope.tags = data.tags;
+                    $scope.tags = tagSort(data.tags);
 
                     var arr = $scope.timeline;
                     var item;
@@ -52131,17 +52150,32 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 return ;
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
-                    .then(function(msg){
-                        console.log('okay what', msg);
-                        $scope.timeline.push(msg.msg);
-                        $scope.tags = msg.tags;
+                    .then(function(data){
+                        console.log('okay what', data);
+                        $scope.timeline.push(data.msg);
+                        $scope.tags = tagSort(data.tags);
                     });
             }
         })
 
-        $scope.postMessage = function(message){
-            
-        };
+        // SUMMARY MESSAGES =====================
+        $scope.addMessageToSummaryTag = function(message){
+            console.log('summary message', message);
+            // on creation of test, there is a tag created called Summary.
+            // find that message and post to it.
+            //  loadData.data._tags
+            if(message){
+                postMessage(message, summaryTagId, $stateParams._id, $scope.subject._id)
+                        .then(function(msg){
+                            console.log('message posted to summary', msg)
+                            $location.path('/overview');
+                        });
+            } else {
+                console.log('no message');
+                return;
+            }
+
+        }
 
         // END TEST =============================
         $scope.postTest = function(){
@@ -52243,6 +52277,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             })
         }
 
+        var strFilter = function(value){
+            return value !== message._id;           // filter matching nav entry for old messages
+        }
+
         var pullDeadTags = function(data, message, navlist){
             console.log('pull dead tags', data, 'message', message,'navlist', navlist);
 
@@ -52258,10 +52296,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 if(new_tag_idx === -1){                         // that tag no longer exists in that message
                     var match_in_nav = nav_id_list.indexOf(id); // find the nav entry matching the no-longer-there tag.
                     console.log( 'tag idx -1, match in nav', match_in_nav );
-
-                    function strFilter (value){
-                        return value !== message._id;           // filter matching nav entry for old messages
-                    }
 
                     var match_msg = navlist[match_in_nav]._messages.filter(strFilter);
                     var local_msg = _.pluck($scope.messages[message._subject.name]._messages)
@@ -52301,6 +52335,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.commentMessage = '';
 
             $scope.selected = obj || $scope.selected;
+<<<<<<< HEAD
             
 
         // Set up what kind of video we're expecting to need here.
@@ -52312,10 +52347,16 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             //         $scope.selected.userTesting = loadVideo.embed;
             //     }
             // }  
+=======
+>>>>>>> dev
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
+<<<<<<< HEAD
+=======
+        console.log('data from load', data);
+>>>>>>> dev
 
         var orderedNav = _.sortBy(data.navlist.list, function(obj){
                     return obj.report_index;
