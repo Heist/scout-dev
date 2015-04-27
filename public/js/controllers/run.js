@@ -13,7 +13,14 @@
          return _.filter(tags, function(n){
                 return n.name !== 'Summary';
             });
-        }
+        };
+
+        var summaryTagId = function(tags){
+            return _.filter(loadData.data._tags, function(n){
+                return n.name === 'Summary';
+            })[0]._id;
+        };
+
         console.log('data', data);
 
         $scope.test = data;
@@ -280,11 +287,15 @@
         // SUMMARY MESSAGES =====================
         $scope.addMessageToSummaryTag = function(message){
             console.log('summary message', message);
-            // on creation of test, there is a tag created called Summary...
-            // var msg = [ data,  $scope.selected._test, $scope.subject._id
-            // ]
-            // postMessage().then(function(msg){
-            // })
+            // on creation of test, there is a tag created called Summary.
+            // find that message and post to it.
+            //  loadData.data._tags
+            
+            postMessage(data, summaryTagId, $stateParams._id, $scope.subject._id)
+                    .then(function(msg){
+                        console.log('message posted to summary', msg)
+                        $location.path('/overview');
+                    });
         }
 
         // END TEST =============================
