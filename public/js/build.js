@@ -51881,7 +51881,14 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
          return _.filter(tags, function(n){
                 return n.name !== 'Summary';
             });
-        }
+        };
+
+        var summaryTagId = function(tags){
+            return _.filter(loadData.data._tags, function(n){
+                return n.name === 'Summary';
+            })[0]._id;
+        };
+
         console.log('data', data);
 
         $scope.test = data;
@@ -52148,11 +52155,20 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         // SUMMARY MESSAGES =====================
         $scope.addMessageToSummaryTag = function(message){
             console.log('summary message', message);
-            // on creation of test, there is a tag created called Summary...
-            // var msg = [ data,  $scope.selected._test, $scope.subject._id
-            // ]
-            // postMessage().then(function(msg){
-            // })
+            // on creation of test, there is a tag created called Summary.
+            // find that message and post to it.
+            //  loadData.data._tags
+            if(message){
+                postMessage(message, summaryTagId, $stateParams._id, $scope.subject._id)
+                        .then(function(msg){
+                            console.log('message posted to summary', msg)
+                            $location.path('/overview');
+                        });
+            } else {
+                console.log('no message');
+                return;
+            }
+
         }
 
         // END TEST =============================
@@ -52313,21 +52329,11 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.commentMessage = '';
 
             $scope.selected = obj || $scope.selected;
-            
-
-        // Set up what kind of video we're expecting to need here.
-            // if(obj.embed){
-            //     var loadVideo = reportFunctions.videoRender(obj.embed);
-            //     if(loadVideo.youtube){
-            //         $scope.selected.youTubeCode = loadVideo.youtube;
-            //     } else {
-            //         $scope.selected.userTesting = loadVideo.embed;
-            //     }
-            // }  
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
+        console.log('data from load', data);
 
         var orderedNav = _.sortBy(data.navlist.list, function(obj){
                     return obj.report_index;

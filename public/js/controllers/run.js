@@ -290,12 +290,17 @@
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags
-            
-            postMessage(data, summaryTagId, $stateParams._id, $scope.subject._id)
-                    .then(function(msg){
-                        console.log('message posted to summary', msg)
-                        $location.path('/overview');
-                    });
+            if(message){
+                postMessage(message, summaryTagId, $stateParams._id, $scope.subject._id)
+                        .then(function(msg){
+                            console.log('message posted to summary', msg)
+                            $location.path('/overview');
+                        });
+            } else {
+                console.log('no message');
+                return;
+            }
+
         }
 
         // END TEST =============================
