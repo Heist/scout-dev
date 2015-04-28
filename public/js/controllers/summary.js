@@ -106,12 +106,12 @@
 
         $scope.activate();
 
-        // $scope.messages[message._subject.name] \\ what's this?
-
         var deleteMessage = function(message){
             // requires a message with subject name and _id
             // message splicer to remove messages from $scope.messages
-            
+
+            // $scope.messages[message._subject.name] \\ what's this?
+
             var idx = _.pluck($scope.messages[message._subject.name], '_id').indexOf(message._id);
             $scope.messages[message._subject.name].splice(idx,1);
 
@@ -214,7 +214,7 @@
             $http.delete('/api/message/'+message._id)
                 .success(function(data){
                     if(data === '1'){
-
+                        deleteMessage(message);
                     }
                 })
         }
