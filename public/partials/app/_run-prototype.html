@@ -41,20 +41,20 @@
 								<h3>#{{message.body}}</h3>
 							</pre>
 							<!-- Editable messages - if a message is not a guideline -->
-						<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-						<textarea msd-elastic class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
-						<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}</small>
-					</div>
+							<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
+							<textarea msd-elastic class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
+							<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}</small>
+						</div>
 					
-					<div class="clear"></div>
-				</li>
-			</ul>
+						<div class="clear"></div>
+					</li>
+				</ul>
+			</div>
 		</div>
-	</div>
 	<!-- / note input and display -->
 	
 	<!-- username or device -->
-	<div id="testing-client" ng-model='subject'>
+	<div id="testing-client" ng-model="subject">
 		
 		<div id="timeline-user-input"> </div>
 		
@@ -69,9 +69,8 @@
 				
 				<small>Testing with</small>
 				<h2>{{subject.name}}</h2>
-				
-				
 			</div>
+
 			<div id="timeline-user-only" style="top:5%;" ng-show="subject.testroom">
 				<canvas id="feed"></canvas>
 				<img id='ia' style='display:none;'/>
@@ -79,6 +78,7 @@
 				<small>Testing with</small>
 				<h2>{{subject.name}}</h2>
 			</div>
+
 			<div id="cta">
 				<div class="cta">
 					<!-- old "End test" button -->
@@ -95,6 +95,7 @@
 					</button>
 				</div>
 			</div>
+
 		</div>
 		
 		
