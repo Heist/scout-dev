@@ -51073,10 +51073,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }],
-                    loadData: ['$http','$stateParams', function($http, $stateParams) {
+                    loadData:['$http','$stateParams', function($http, $stateParams) {
                         return $http.get('/api/summary/'+$stateParams._id)
                                     .success(function(data) {
-                                        return data;
+                                        // return data;
                                     });
                     }]
                 }
@@ -52265,6 +52265,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var navlist_check = _.pluck($scope.navlist, 'name');
             var msg_tag       = _.pluck(data.msg._tags, 'name');
 
+            void 0;
+            
             data.tags.map(function(tag) {
                 var n = navlist_check.indexOf(tag.name);
                 if(n === -1){ // if the tag does not exist, make it, and push in new message
@@ -52283,12 +52285,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         }
 
         var pullDeadTags = function(data, message, navlist){
-            
-
+            // clear dead entries from the left nav when we edit a message.            
             var nav_id_list = _.pluck(navlist, '_id');
-            // clear dead entries from the left nav when we edit a message.
 
-            // if we have an edited message returned
+            // if we have an edited message returned....
             message._tags.map(function(msg_tag, i){
 
                 var new_tag_idx = data.msg._tags.indexOf(msg_tag); // does the new message have the old tag?
@@ -52316,20 +52316,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             })
         }
 
-
-        // synchronous shit is weird. =====================
+        // Activate a step on the left nav =====================
         $scope.activate = function(obj) {
             // passes an object from left nav to the global selection variable
             // reset all previous reliant variables, there are a lot!
-            
-
-            // on click set selected to selected._id
-            // 
-
-            if(obj.doctype !== 'test'){
-                
-            }
-
             $scope.selected = '';
 
             // reset all input boxes
@@ -52342,50 +52332,27 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
-        var data = loadData.data; // lol who even fucking knows why this can't return directly.
-        // 
+        var makeNavList = function(data){
+            return _.toArray( _.groupBy(data, function(obj){ return obj.doctype; }) ).sort();
+        }
+
+        var makeRawList = function(data){
+            return _.sortBy(_.filter(data, function(n){ return n.name !== 'Summary'; }), function(obj){ return obj.report_index; });
+        }
+
+        void 0;
         
-        // remove the Summary tag from the tags
-        var sortProper = _.filter(data.navlist.list, function(n){
-            return n.name !== 'Summary';
-        })
+        $scope.testname = loadData.data.name;
 
-        // Order the left nav by the step index if it has one
-        var orderedNav = _.sortBy(sortProper, function(obj){
-                    return obj.report_index;
-                });
+        // GROUP NAVLIST BY DOCTYPE
+        $scope.navlist = makeNavList(loadData.data.list);
+
+        // GROUP MESSAGES BY USERS ==================================
+        $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
+
+        $scope.activate();
+
         
-        // Find the test in the left nav order
-        var test_obj_arr = _.pluck(orderedNav, 'doctype');
-        var testIdx = _.indexOf(test_obj_arr, 'test');
-
-        // Set the messages from the summary tag to the test object
-        orderedNav[testIdx]._messages = _.filter(data.navlist.list, function(n){
-                        return n.name === 'Summary';
-                    })[0]._messages;
-
-        // Group things by their document type for the headers
-        var groupedNav = _.groupBy(orderedNav, function(obj){
-                return obj.doctype;
-        });
-
-        // Sort the grouped nav by document type/alpha order
-        groupedNav = _.toArray(groupedNav).sort();
-
-        // Set the navlist to the grouped navigation items.
-        $scope.navlist = groupedNav;
-
-        // Set the messages available for viewing on everything
-        $scope.messages = _.groupBy(data.messages, function(z){
-                    return z._subject.name ? z._subject.name : 'report comment';
-                });
-
-        // What's the name of the test?
-        $scope.testname = data.navlist.test;
-
-        // Activate the test object in the nav list.
-        $scope.activate(orderedNav[testIdx]);
-
     // NAVIGATION =========================================
 
         $scope.reportView = function(){
@@ -52413,6 +52380,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             }
         };
 
+    // MESSAGE ASSIGNMENT AND FILTERING =============================
+        $scope.msgFilter = function(message){
+            void 0;
+            // Display messages that belong to the current selected item.
+            return ($scope.selected._messages.indexOf(message._id) !== -1) ? true : false;
+        };
+
     // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
 
@@ -52431,11 +52405,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
 
         // MOVE STEPS =========================================
-
-        // $scope.msgFilter = function(message){
-        //     // Display messages that belong to the current selected item.
-        //     return (message._id === $scope.selected._id) ? true : false;
-        // };
 
         $scope.moveTask = function(old_index, new_index){   
             $scope.navlist = reportFunctions.moveTask($scope.navlist, old_index, new_index);
@@ -52500,19 +52469,21 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
             $http.put('/api/message/', message)
-                .success(function(data){                 
-                    
-                 // add the new tags to the left nav
+                .success(function(data){
+                    void 0;
+
+                    // add the new tags to the left nav
                     var idx = _.pluck($scope.messages[data.msg._subject.name], '_id').indexOf(message._id);
                     $scope.messages[data.msg._subject.name].splice(idx,1, data.msg);
                     
-                    var task_idx = _.pluck($scope.navlist, '_id').indexOf(message._task);
-                    $scope.navlist[task_idx]._messages.push(data.msg._id);
+                    // var task_idx = _.pluck($scope.navlist, '_id').indexOf(message._task);
+                    // $scope.navlist[task_idx]._messages.push(data.msg._id);
 
                     addTagsToLeftNav(data); // add new left nav tags to new tags
                     pullDeadTags(data, message, $scope.navlist); // did we kill a tag? Kill a tag.
                 });
         };
+        
 
         $scope.postMessage = function(message, subject){
             postMessage(message, $scope.selected._id, $scope.selected._test, subject._id )

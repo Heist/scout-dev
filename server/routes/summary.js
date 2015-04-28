@@ -5,6 +5,7 @@ module.exports = function (app, passport) {
 
 // Module dependencies ==========================
     var async = require('async');
+    var _ = require('lodash');
  
 // load functions  ==============================
     var fn  = require('../models/functions');
@@ -17,7 +18,25 @@ module.exports = function (app, passport) {
         fn.buildSummary(req.params._id, function(err, summary){
             if(err){ console.log(err); }
             
-            res.json(summary);
+            console.log(summary);
+            // organise the returned information to pass back a good set for raw data
+            var rawList = _.sortBy(_.filter(summary.navlist.list, function(n){ return n.name !== 'Summary'; }), function(obj){ return obj.report_index; });
+
+            // Find the test in the left nav order
+            var testIdx = _.indexOf(_.pluck(rawList, 'doctype'), 'test');
+
+            // Set the messages from the summary tag to the test object
+            rawList[testIdx]._messages = _.filter(summary.navlist.list, function(n){
+                            return n.name === 'Summary';
+                        })[0]._messages;
+
+            var output = {
+                name : summary.navlist.test,
+                list : rawList,
+                messages : summary.messages
+            }
+
+            res.json(output);
         });
     })
     .put(function(req, res){

@@ -78,10 +78,10 @@
                     loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }],
-                    loadData: ['$http','$stateParams', function($http, $stateParams) {
+                    loadData:['$http','$stateParams', function($http, $stateParams) {
                         return $http.get('/api/summary/'+$stateParams._id)
                                     .success(function(data) {
-                                        return data;
+                                        // return data;
                                     });
                     }]
                 }
