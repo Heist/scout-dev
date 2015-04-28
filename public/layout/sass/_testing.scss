@@ -89,6 +89,11 @@
         position: relative;
         border-right: 1px solid $line;
 
+        &.interview {
+            width: 100%;
+            border: 0;
+        }
+
         #session-input {
             position: absolute;
             bottom: 0;
@@ -173,6 +178,10 @@
         background: $white;
         z-index: 9999;
         border-bottom: 1px solid $line;
+
+        &.interview {
+            border: 0;
+        }
 
         .cta {
             float: right;

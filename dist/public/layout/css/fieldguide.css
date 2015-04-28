@@ -3896,6 +3896,8 @@ hr {
   overflow: auto;
   margin: 0;
   /* first-run message on timeline */ }
+  #timeline.interview {
+    padding: 50px 0 150px 0; }
   #timeline ul {
     list-style: none;
     padding: 0;
@@ -5052,6 +5054,9 @@ hr {
     position: relative;
     border-right: 1px solid #dddddd;
     /* suppress message-hover during running tests */ }
+    #view-testing #testing-input.interview {
+      width: 100%;
+      border: 0; }
     #view-testing #testing-input #session-input {
       position: absolute;
       bottom: 0;
@@ -5134,6 +5139,8 @@ hr {
     background: #fff;
     z-index: 9999;
     border-bottom: 1px solid #dddddd; }
+    #view-testing #cta.interview {
+      border: 0; }
     #view-testing #cta .cta {
       float: right;
       margin: 7px; }
