@@ -17,10 +17,12 @@ module.exports = function(msg_id) {
 	return models.Message.removeAsync({'_id': msg_id})
 				.then(function(done){
                 // remove dual pointer on tasks
-            	console.log('remove this message', done);
+            	console.log('remove this message', done, msg_id);
+                
             	return models.Tag.findAsync({ '_messages' : {$in: [msg_id]}})
             		.then(function(tags){
-        			console.log('remove notes from these', tags._messages);
+        			
+                        console.log('remove notes from these', tags._messages);
 	                    return Bluebird.map(tags, function(tag){
                             var arr = tag._messages;
                             // if a tag has been removed, then remove the message from that tag

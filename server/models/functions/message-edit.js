@@ -40,6 +40,7 @@ module.exports = function(msg, next){
                 return fn.messageNew(returned, returned.created_by_user)
                         .then(function(msg){
                             newMessage = msg;
+                            console.log('messge id, returned id',msg._id, returned._id );
                             return fn.messageRemove(returned._id);
                         }).then(function(next){
                             return newMessage;

@@ -13,7 +13,7 @@ module.exports = function(request, user){
 
 // CREATE A NEW MESSAGE ===================================
     var t = fn.tagPuller(request.body);
-    var tags = t.tags || null;
+    var tags = _.map(t.tags, function(n){ return { name: n, _test: request._test } }) || null;
 
     var msg = {
             '_subject' : request._subject,
@@ -22,6 +22,7 @@ module.exports = function(request, user){
             'body'  : t.msg.replace(/ \#Summary/gi, ''),
             'created_by_user' : user
         };
+
 
     // THIS IS RETURNING ALL TAGS FROM THE TEST WHEN A NEW MESSAGE IS CREATED
     // TODO: SHOULD RETURN ONLY THE TAGS RELEVANT TO THAT MESSAGE ?
@@ -32,9 +33,7 @@ module.exports = function(request, user){
             return Bluebird.all([
                     models.Task.findOneAndUpdate({'_id': note._task}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
                     models.Subject.findOneAndUpdate({'_id': note._subject}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no subject found')} return obj;}),
-                    Bluebird.map(tags, function(tag){ 
-                        return fn.tagMaker({ 'name' : tag , '_test' : msg._test, msg: note._id})[0];
-                    })
+                    fn.tagMaker(tags)
             ]).then(function(arr){
                 // create the dual-pointer on the message for tag population
                 console.log('check the array for tags', arr[2]);
@@ -53,7 +52,6 @@ module.exports = function(request, user){
                     } else {
                         r = err.errors[k];
                     }
-
                     return r.message;
                 } 
              }

@@ -41,17 +41,15 @@ module.exports = function(tag){
     	var q = {'nameCheck': testStr, '_test' : singleTag._test };
     	var o = {upsert : true};
     	// okay let's make this a findOneAndUpdate...
-    	var promise = models.Tag.findOneAndUpdate(q, u, o, function(err, obj){
+    	return models.Tag.findOneAndUpdate(q, u, o, function(err, obj){
     		console.log('obj', obj);
     	});
-
-    	return promise;
     }
 
-    console.log('is tag an array?', _.isArray(tag));
+    console.log('is tag an array?', _.isArray(tag), tag);
 
     var promise = (_.isArray(tag)) ? 
-    	Bluebird.map(tag, function(t){ console.log(t); return oneTag(t); }) :
+    	Bluebird.map(tag, function(t){ console.log('array of tags inside tag_maker', t); return oneTag(t); }) :
     	oneTag(tag);
     	
 	return promise.then(function(tag){
