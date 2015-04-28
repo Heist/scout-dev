@@ -42,7 +42,7 @@
 	        color: $white;
 	        position: absolute;
 	        top: -4px;
-	        right: 4px;
+	        right: 5px;
         }
 
         &:hover {
@@ -88,6 +88,11 @@
         margin: 0;
         position: relative;
         border-right: 1px solid $line;
+
+        &.interview {
+            width: 100%;
+            border: 0;
+        }
 
         #session-input {
             position: absolute;
@@ -173,6 +178,10 @@
         background: $white;
         z-index: 9999;
         border-bottom: 1px solid $line;
+
+        &.interview {
+            border: 0;
+        }
 
         .cta {
             float: right;
