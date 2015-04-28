@@ -52276,16 +52276,11 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 } else {
                     if($scope.navlist[n].doctype==='tag'){
                         $scope.navlist[n]._messages = tag._messages;
-                        // 
-                        // this actually doesn't need to be touched like this.
+                        
                     }
                 }
             })
         }
-
-        // var strFilter = function(value){
-        //     return value !== message._id;           // filter matching nav entry for old messages
-        // }
 
         var pullDeadTags = function(data, message, navlist){
             
@@ -52388,9 +52383,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         // What's the name of the test?
         $scope.testname = data.navlist.test;
 
-        // post the Summary messages to the Test object itself.
-        // $scope.navlist[testIdx]._messages = 
-
         // Activate the test object in the nav list.
         $scope.activate(orderedNav[testIdx]);
 
@@ -52408,13 +52400,15 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.showReportLink = $scope.showReportLink ? false : true;
         };
 
+        $scope.shareReport = false;
+
         $scope.shareReportModalToggle = function(){
-            if($scope.shareReport  || $scope.shareReport === true  ){
+            if($scope.shareReport || $scope.shareReport === true  ){
                 $scope.shareReport = false; 
                 return;
             }
-            if(!$scope.shareReport || $scope.shareReport === false ){  
-                $scope.shareReport = true; 
+            if(!$scope.shareReport || $scope.shareReport === false ){
+                $scope.shareReport = true;
                 return;
             }
         };
@@ -52576,12 +52570,17 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     .controller('test', 
         ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
         function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
-        
+        var tagSort = function(tags){
+         return _.filter(tags, function(n){
+                return n.name !== 'Summary';
+            });
+        };
+
         var data = loadData.data;
         void 0;
 
         $scope.test = data;
-        $scope.tags = data._tags || [];
+        $scope.tags = tagSort(data._tags) || [];
         $scope.tasks = data._tasks || [];
 
         $scope.showAnchor = function(x) {
@@ -52707,7 +52706,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
             $http.post('/api/tag/', dataOut)
                 .success(function(data){
-                    void 0;
                     if(_.isArray(data)){
                         $scope.tags = $scope.tags.concat(data);
                     } else {

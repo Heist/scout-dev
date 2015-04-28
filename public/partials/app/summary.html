@@ -4,6 +4,11 @@
 	
 	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
 
+	<!-- share report link modal -->
+	<div class="modal" ng-if="shareReport">
+		<ng-include src="'partials/app/_share-report.html'"></ng-include>
+	</div>
+
 	<!-- findings nav -->
 	<div id="findings-nav">
 		
@@ -146,7 +151,7 @@
 					ng-show="selected._messages.indexOf(message._id) !== -1"
 					-->
 					<div ng-repeat="message in user" class="message"
-						ng-show="selected._messages.indexOf(message._id) !== -1"
+						
 						ng-class="{selected: commentMessage._id === message._id}">
 
 						<!-- <div ng-click="deleteMessage(message)" class="delete-message">&times;</div> -->
@@ -223,9 +228,4 @@
 		</div>
 	</div>
 <!-- / main content -->
-
-<!-- share report link modal -->
-	<div class="modal" ng-model="shareReport" ng-if="shareReport">
-		<ng-include src="'partials/app/_share-report.html'"></ng-include>
-	</div>
 </div>

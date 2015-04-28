@@ -15,6 +15,10 @@
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams._id;
         $scope.showReportLink = false;
 
+        var addMsgToTag = function(data){
+
+        }
+
          var addTagsToLeftNav = function(data){
             var navlist_check = _.pluck($scope.navlist, 'name');
             var msg_tag       = _.pluck(data.msg._tags, 'name');
@@ -38,7 +42,6 @@
 
         var pullDeadTags = function(data, message, navlist){
             
-
             var nav_id_list = _.pluck(navlist, '_id');
             // clear dead entries from the left nav when we edit a message.
 
@@ -96,53 +99,54 @@
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
-        var data = loadData.data; // lol who even fucking knows why this can't return directly.
-        // 
+        // Load the initial data set 
+        var pageData = loadData.data; 
+
+        var pageSetup = function(data){
+            // remove the Summary tag from the tags
+            var sortProper = _.filter(pageData.navlist.list, function(n){
+                return n.name !== 'Summary';
+            })
+
+        // GROUP MESSAGES BY USERS ==================================
+            // Set the messages available for viewing on everything
+            $scope.messages = _.groupBy(pageData.messages, function(z){
+                        return z._subject.name ? z._subject.name : 'report comment';
+                    });
+
+        // SET UP THE TEST OBJECT =============================== 
+            // Order the left nav by the step index if it has one
+            var orderedNav = _.sortBy(sortProper, function(obj){
+                        return obj.report_index;
+                    });
+            
+            // Find the test in the left nav order
+            var testIdx = _.indexOf(_.pluck(orderedNav, 'doctype'), 'test');
+
+            // Set the messages from the summary tag to the test object
+            orderedNav[testIdx]._messages = _.filter(pageData.navlist.list, function(n){
+                            return n.name === 'Summary';
+                        })[0]._messages;
+
+        // SET UP TAG/TASK/TEST GROUPS ==============================
+            // Group things by their document type for the headers
+            var groupedNav = _.groupBy(orderedNav, function(obj){
+                    return obj.doctype;
+            });
+
+            // Sort the grouped nav by document type/alpha order
+            groupedNav = _.toArray(groupedNav).sort();
+
+            // Set the navlist to the grouped navigation items.
+            $scope.navlist = groupedNav;
+
+            // What's the name of the test?
+            $scope.testname = pageData.navlist.test;
+
+            // Activate the test object in the nav list.
+            $scope.activate(orderedNav[testIdx]);
+        }
         
-        // remove the Summary tag from the tags
-        var sortProper = _.filter(data.navlist.list, function(n){
-            return n.name !== 'Summary';
-        })
-
-        // Order the left nav by the step index if it has one
-        var orderedNav = _.sortBy(sortProper, function(obj){
-                    return obj.report_index;
-                });
-        
-        // Find the test in the left nav order
-        var test_obj_arr = _.pluck(orderedNav, 'doctype');
-        var testIdx = _.indexOf(test_obj_arr, 'test');
-
-        // Set the messages from the summary tag to the test object
-        orderedNav[testIdx]._messages = _.filter(data.navlist.list, function(n){
-                        return n.name === 'Summary';
-                    })[0]._messages;
-
-        // Group things by their document type for the headers
-        var groupedNav = _.groupBy(orderedNav, function(obj){
-                return obj.doctype;
-        });
-
-        // Sort the grouped nav by document type/alpha order
-        groupedNav = _.toArray(groupedNav).sort();
-
-        // Set the navlist to the grouped navigation items.
-        $scope.navlist = groupedNav;
-
-        // Set the messages available for viewing on everything
-        $scope.messages = _.groupBy(data.messages, function(z){
-                    return z._subject.name ? z._subject.name : 'report comment';
-                });
-
-        // What's the name of the test?
-        $scope.testname = data.navlist.test;
-
-        // post the Summary messages to the Test object itself.
-        // $scope.navlist[testIdx]._messages = 
-
-        // Activate the test object in the nav list.
-        $scope.activate(orderedNav[testIdx]);
-
     // NAVIGATION =========================================
 
         $scope.reportView = function(){
@@ -157,15 +161,24 @@
             $scope.showReportLink = $scope.showReportLink ? false : true;
         };
 
+        $scope.shareReport = false;
+
         $scope.shareReportModalToggle = function(){
-            if($scope.shareReport  || $scope.shareReport === true  ){
+            if($scope.shareReport || $scope.shareReport === true  ){
                 $scope.shareReport = false; 
                 return;
             }
-            if(!$scope.shareReport || $scope.shareReport === false ){  
-                $scope.shareReport = true; 
+            if(!$scope.shareReport || $scope.shareReport === false ){
+                $scope.shareReport = true;
                 return;
             }
+        };
+
+    // Show messages on the appropriate message =====================    
+        $scope.msgFilter = function(message){
+            console.log($scope.selected._messages);
+            // Display messages that belong to the current selected item.
+            return ($scope.selected._messages.indexOf(message._id) !== -1) ? true : false;
         };
 
     // ONBOARDING =========================================
@@ -186,11 +199,6 @@
 
 
         // MOVE STEPS =========================================
-
-        // $scope.msgFilter = function(message){
-        //     // Display messages that belong to the current selected item.
-        //     return (message._id === $scope.selected._id) ? true : false;
-        // };
 
         $scope.moveTask = function(old_index, new_index){   
             $scope.navlist = reportFunctions.moveTask($scope.navlist, old_index, new_index);
