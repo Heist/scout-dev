@@ -26,7 +26,7 @@ module.exports = function(request, user){
 
     // THIS IS RETURNING ALL TAGS FROM THE TEST WHEN A NEW MESSAGE IS CREATED
     // TODO: SHOULD RETURN ONLY THE TAGS RELEVANT TO THAT MESSAGE ?
-    console.log('tags inside nessag_new ', tags);
+    
     return new models.Message(msg).saveAsync().get(0)
         .then(function(note){
             // post the message to the relevant Task and Subjects, add or update its tags.
@@ -34,25 +34,32 @@ module.exports = function(request, user){
                     models.Task.findOneAndUpdate({'_id': note._task}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
                     models.Subject.findOneAndUpdate({'_id': note._subject}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no subject found')} return obj;})
             ]).then(function(arr){
+
                 // create the dual-pointer on the message for tag population
                 // return fn.tagMaker(tags)
-                console.log('tags handed to tagmaker', tags);
+
+                
                 return fn.tagMaker(tags)
             }).then(function(tags){
-                console.log('check the array for tags', tags);
+                
                 if(tags && tags.length > 0){
+                    
                     // If there ARE tags, add them to that message and return it
+
                     return Bluebird.map(tags, function(tag){
                         return models.Message.findOneAndUpdate({'_id': note._id }, {$push : {'_tags': tag._id } }, function(err, obj){});
                     })
                 } else if(!tags || tags.length === 0){
+
                     // If NO tags, remove tags from message and return it
                     // this is important because of edited messages
-                    console.log('no tags');
+
                         return models.Message.findOneAndUpdate({'_id': note._id }, { '_tags': [] }, function(err, obj){});
                 }
             }).then(function(arr){
                 // return the populated message so you can insert it into the timeline of run with its tags
+                // not important for Summaries.
+
                 return models.Message.findById(note._id).populate('_subject _tags').exec(function(err, next){});
             });
         }).catch(function(err){
