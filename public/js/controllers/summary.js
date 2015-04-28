@@ -106,6 +106,33 @@
 
         $scope.activate();
 
+        // $scope.messages[message._subject.name] \\ what's this?
+
+        var deleteMessage = function(message){
+            // requires a message with subject name and _id
+            // message splicer to remove messages from $scope.messages
+            
+            var idx = _.pluck($scope.messages[message._subject.name], '_id').indexOf(message._id);
+            $scope.messages[message._subject.name].splice(idx,1);
+
+            // message splicer to remove message from all navlist entries
+            var newList = function(){
+                    return loadData.data.list.map(function(obj, i){
+                        if(obj.doctype !== 'test'){
+                            var n = obj._messages.indexOf(message._id);
+                            if( n !== -1){
+                                obj._messages.splice(n, 1);
+                            }
+                            if(obj._messages.length === 0){
+                                loadData.data.list.splice(i, 1);
+                            }
+                        }
+                    })
+                };
+
+            $scope.navlist = makeNavList(newList);
+        }
+
         
     // NAVIGATION =========================================
 
@@ -187,7 +214,7 @@
             $http.delete('/api/message/'+message._id)
                 .success(function(data){
                     if(data === '1'){
-                        
+
                     }
                 })
         }
