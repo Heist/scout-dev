@@ -139,14 +139,14 @@
             // what we want is to find the appropriate
 
              // add the new tags to the left nav
-                        // var idx = _.pluck($scope.messages[message._subject.name], '_id').indexOf(original._id);
-                        // $scope.messages[message._subject.name].splice(idx,1, message);
-                        
-                        // // var task_idx = _.pluck($scope.rawList, '_id').indexOf(original._task);
-                        // // $scope.rawList[task_idx]._messages.push(data.msg._id);
+            // var idx = _.pluck($scope.messages[message._subject.name], '_id').indexOf(original._id);
+            // $scope.messages[message._subject.name].splice(idx,1, message);
+            
+            // // var task_idx = _.pluck($scope.rawList, '_id').indexOf(original._task);
+            // // $scope.rawList[task_idx]._messages.push(data.msg._id);
 
-                        // addTagsToLeftNav(data); // add new left nav tags to new tags
-                        // pullDeadTags(data, message, $scope.navlist); // did we kill a tag? Kill a tag.
+            // addTagsToLeftNav(data); // add new left nav tags to new tags
+            // pullDeadTags(data, message, $scope.navlist); // did we kill a tag? Kill a tag.
         }
 
     // NAVIGATION =========================================
@@ -247,13 +247,17 @@
             $scope.inputNote = user;
         };
 
-        $scope.saveEdit = function(message){
+        $scope.saveEdit = function(original){
             $scope.messageEditToggle = '';
-            $http.put('/api/message/', message)
-                .success(function(data){
-                    console.log(data,' (probably data.msg is what we want)');
-
-                    addTagsToLeftNav(data);
+            $http.put('/api/message/', original)
+                .success(function(data, err){
+                    console.log(data,' (probably data.msg is what we want)', err);
+                    
+                    var idx = _.pluck($scope.messages[original._subject.name], '_id').indexOf(original._id);
+                    $scope.messages[original._subject.name].splice(idx,1, data.msg);
+                    
+                    console.log(idx, data.msg)
+                    // addTagsToLeftNav(data);
                     // pullDeadTags;
                 });
         };

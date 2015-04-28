@@ -39,7 +39,7 @@ module.exports = function(app, passport) {
         // console.log('find put message route', req.body);
         console.log('find put message route', req.body);
         fn.messageEdit(req.body).then(function(data){
-            // console.log(data);
+            
             if(typeof data === 'object'){
                 // console.log('data is object');
                 models.Tag.findAsync({'_test' : data._test})
