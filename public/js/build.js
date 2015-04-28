@@ -52288,17 +52288,17 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         $scope.testname = loadData.data.name;
 
-        $scope.rawList = loadData.data.list
+        $scope.rawList = loadData.data.list;
 
         $scope.$watch('rawlist', function() {
             // group navlist by doctype when rawlist changes.
             $scope.navlist = makeNavList($scope.rawList);
         });
-        var a = _.indexOf(_.pluck($scope.rawlist, 'doctype'), 'test');
+        var a = _.indexOf(_.pluck($scope.rawList, 'doctype'), 'test');
         var go = $scope.rawList[a];
-        console.log(go, a);
+        console.log(go, a, $scope.rawList );
 
-        $scope.activate($scope.rawList[_.indexOf(_.pluck($scope.rawlist, 'doctype'), 'test')]);
+        $scope.activate($scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')]);
 
         // GROUP MESSAGES BY USERS ==================================
         $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });

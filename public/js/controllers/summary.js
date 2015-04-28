@@ -48,10 +48,7 @@
             // group navlist by doctype when rawlist changes.
             $scope.navlist = makeNavList($scope.rawList);
         });
-        var a = _.indexOf(_.pluck($scope.rawList, 'doctype'), 'test');
-        var go = $scope.rawList[a];
-        console.log(go, a, $scope.rawList );
-
+        
         $scope.activate($scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')]);
 
         // GROUP MESSAGES BY USERS ==================================
