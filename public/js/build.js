@@ -52261,61 +52261,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.reportLink = $location.protocol()+'://'+$location.host()+'/p/report/'+$stateParams._id;
         $scope.showReportLink = false;
 
-         var addTagsToLeftNav = function(data){
-            var navlist_check = _.pluck($scope.navlist, 'name');
-            var msg_tag       = _.pluck(data.msg._tags, 'name');
-
-            console.log('add tags', navlist_check);
-            
-            data.tags.map(function(tag) {
-                var n = navlist_check.indexOf(tag.name);
-                if(n === -1){ // if the tag does not exist, make it, and push in new message
-                    
-                    tag.report_index = $scope.navlist.length;
-                    $scope.navlist.push(tag);
-                    $scope.navlist[tag.report_index]._messages.push(data.msg._id);
-                    return;
-                } else {
-                    if($scope.navlist[n].doctype==='tag'){
-                        $scope.navlist[n]._messages = tag._messages;
-                        
-                    }
-                }
-            })
-        }
-
-        var pullDeadTags = function(data, message, navlist){
-            // clear dead entries from the left nav when we edit a message.            
-            var nav_id_list = _.pluck(navlist, '_id');
-
-            // if we have an edited message returned....
-            message._tags.map(function(msg_tag, i){
-
-                var new_tag_idx = data.msg._tags.indexOf(msg_tag); // does the new message have the old tag?
-                var id = (typeof msg_tag === 'object') ? msg_tag._id : msg_tag; // set id to check
-                
-                if(new_tag_idx === -1){                         // that tag no longer exists in that message
-                    var match_in_nav = nav_id_list.indexOf(id); // find the nav entry matching the no-longer-there tag.
-                    
-
-                    var match_msg = navlist[match_in_nav]._messages
-                                    .filter(function(value){
-                                        return value !== message._id;           // filter matching nav entry for old messages
-                                    });
-                    var local_msg = _.pluck($scope.messages[message._subject.name]._messages)
-                    
-
-                    if(match_msg.length === 0){                 // no messages left? Kill the tag and select the next one.
-                        
-                        navlist.splice(match_in_nav,1);  // Kill tag in the nav
-                        $scope.activate($scope.navlist[match_in_nav], match_in_nav); // select new one.
-                        
-                    }    
-
-                }
-            })
-        }
-
         // Activate a step on the left nav =====================
         $scope.activate = function(obj) {
             // passes an object from left nav to the global selection variable
@@ -52336,23 +52281,123 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             return _.toArray( _.groupBy(data, function(obj){ return obj.doctype; }) ).sort();
         }
 
-        var makeRawList = function(data){
-            return _.sortBy(_.filter(data, function(n){ return n.name !== 'Summary'; }), function(obj){ return obj.report_index; });
-        }
-
         console.log(loadData.data);
+
+           // Find the test in the left nav order
         
+
         $scope.testname = loadData.data.name;
 
-        // GROUP NAVLIST BY DOCTYPE
-        $scope.navlist = makeNavList(loadData.data.list);
+        $scope.rawList = loadData.data.list
+
+        $scope.$watch('rawlist', function() {
+            // group navlist by doctype when rawlist changes.
+            $scope.navlist = makeNavList($scope.rawList);
+        });
+        var a = _.indexOf(_.pluck($scope.rawlist, 'doctype'), 'test');
+        var go = $scope.rawList[a];
+        console.log(go, a);
+
+        $scope.activate($scope.rawList[_.indexOf(_.pluck($scope.rawlist, 'doctype'), 'test')]);
 
         // GROUP MESSAGES BY USERS ==================================
         $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
 
-        $scope.activate();
+        // $scope.activate($scope.rawList[]);
+
+        var deleteMessage = function(message){
+            // requires a message with subject name and _id
+            // message splicer to remove messages from $scope.messages
+
+            // $scope.messages[message._subject.name] \\ what's this?
+
+            var idx = _.pluck($scope.messages[message._subject.name], '_id').indexOf(message._id);
+            $scope.messages[message._subject.name].splice(idx,1);
+
+            // message splicer to remove message from all navlist entries
+            
+            $scope.rawList.map(function(obj, i){
+                if(obj.doctype !== 'test'){
+                    var n = obj._messages.indexOf(message._id);
+                    if( n !== -1){
+                        obj._messages.splice(n, 1);
+                    }
+                    if(obj._messages.length === 0){
+                        $scope.rawList.splice(i, 1);
+                    }
+                }
+            })
+        }
 
         
+        var addTagsToLeftNav = function(data){
+            var navlist_check = _.pluck($scope.rawList, 'name');
+            var msg_tag       = _.pluck(data.msg._tags, 'name');
+
+            console.log('add tags', navlist_check);
+            
+            data.tags.map(function(tag) {
+                var n = navlist_check.indexOf(tag.name);
+                if(n === -1){ // if the tag does not exist, make it, and push in new message
+                    
+                    tag.report_index = $scope.rawList.length;
+                    $scope.rawList.push(tag);
+                    $scope.rawList[tag.report_index]._messages.push(data.msg._id);
+                    return;
+                } else {
+                    if($scope.rawList[n].doctype==='tag'){
+                        $scope.rawList[n]._messages = tag._messages;
+                        
+                    }
+                }
+            })
+        }
+
+        var pullDeadTags = function(newmessage, original, navlist){
+            // clear dead entries from the left nav when we edit a message.            
+            var nav_id_list = _.pluck(navlist, '_id');
+
+            // if we have an edited message returned....
+            original._tags.map(function(msg_tag, i){
+
+                var new_tag_idx = newmessage.msg._tags.indexOf(msg_tag);        // does the new message have the old tag?
+                var id = (typeof msg_tag === 'object') ? msg_tag._id : msg_tag; // set id to check
+                
+                if(new_tag_idx === -1){                         // that tag no longer exists in that message
+                    var match_in_nav = nav_id_list.indexOf(id); // find the nav entry matching the no-longer-there tag.
+                    
+
+                    var match_msg = navlist[match_in_nav]._messages
+                                    .filter(function(value){
+                                        return value !== original._id;           // filter matching nav entry for old messages
+                                    });
+                    var local_msg = _.pluck($scope.messages[original._subject.name]._messages)
+
+                    if(match_msg.length === 0){          // no messages left? Kill the tag and select the next one.
+                        navlist.splice(match_in_nav,1);  // Kill tag in the nav
+                        $scope.activate($scope.rawlist[match_in_nav]); // select new one.
+                        
+                    }    
+
+                }
+            })
+        }
+        
+        var constructNewListOnMessageEdit = function(message, original){
+            // data.msg._subject.name << the name of the subject to edit, needlessly complex
+            // what we want is to find the appropriate
+
+             // add the new tags to the left nav
+                        // var idx = _.pluck($scope.messages[message._subject.name], '_id').indexOf(original._id);
+                        // $scope.messages[message._subject.name].splice(idx,1, message);
+                        
+                        // // var task_idx = _.pluck($scope.rawList, '_id').indexOf(original._task);
+                        // // $scope.rawList[task_idx]._messages.push(data.msg._id);
+
+                        // addTagsToLeftNav(data); // add new left nav tags to new tags
+                        // pullDeadTags(data, message, $scope.navlist); // did we kill a tag? Kill a tag.
+        }
+
     // NAVIGATION =========================================
 
         $scope.reportView = function(){
@@ -52407,8 +52452,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         // MOVE STEPS =========================================
 
         $scope.moveTask = function(old_index, new_index){   
-            $scope.navlist = reportFunctions.moveTask($scope.navlist, old_index, new_index);
-            $http.put('/api/summary/'+ $stateParams._id, $scope.navlist);           
+            $scope.rawlist = reportFunctions.moveTask($scope.rawlist, old_index, new_index);
+            $http.put('/api/summary/'+ $stateParams._id, $scope.rawlist);           
         };
 
         // OBJECT FUNCTIONS =====================================
@@ -52433,23 +52478,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $http.delete('/api/message/'+message._id)
                 .success(function(data){
                     if(data === '1'){
-                        
-                        var idx = _.pluck($scope.messages[message._subject.name], '_id').indexOf(message._id);
-                        $scope.messages[message._subject.name].splice(idx,1);
-
-                        $scope.navlist.map(function(obj, i){
-                            if(obj.doctype !== 'test'){
-                                
-                                var n = obj._messages.indexOf(message._id);
-                                
-                                if( n !== -1){
-                                    obj._messages.splice(n, 1);
-                                }
-                                if(obj._messages.length === 0){
-                                    $scope.navlist.splice(i, 1);
-                                }
-                            }
-                        })
+                        var newList = deleteMessage(message);
+                        $scope.rawlist = newList;
                     }
                 })
         }
@@ -52470,20 +52500,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.messageEditToggle = '';
             $http.put('/api/message/', message)
                 .success(function(data){
-                    console.log(data);
+                    console.log(data,' (probably data.msg is what we want)');
 
-                    // add the new tags to the left nav
-                    var idx = _.pluck($scope.messages[data.msg._subject.name], '_id').indexOf(message._id);
-                    $scope.messages[data.msg._subject.name].splice(idx,1, data.msg);
+                    addTagsToLeftNav(data);
+                    pullDeadTags;
                     
-                    // var task_idx = _.pluck($scope.navlist, '_id').indexOf(message._task);
-                    // $scope.navlist[task_idx]._messages.push(data.msg._id);
-
-                    addTagsToLeftNav(data); // add new left nav tags to new tags
-                    pullDeadTags(data, message, $scope.navlist); // did we kill a tag? Kill a tag.
                 });
         };
-        
 
         $scope.postMessage = function(message, subject){
             postMessage(message, $scope.selected._id, $scope.selected._test, subject._id )
