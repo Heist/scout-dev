@@ -134,21 +134,6 @@
             })
         }
         
-        var constructNewListOnMessageEdit = function(message, original){
-            // data.msg._subject.name << the name of the subject to edit, needlessly complex
-            // what we want is to find the appropriate
-
-             // add the new tags to the left nav
-            // var idx = _.pluck($scope.messages[message._subject.name], '_id').indexOf(original._id);
-            // $scope.messages[message._subject.name].splice(idx,1, message);
-            
-            // // var task_idx = _.pluck($scope.rawList, '_id').indexOf(original._task);
-            // // $scope.rawList[task_idx]._messages.push(data.msg._id);
-
-            // addTagsToLeftNav(data); // add new left nav tags to new tags
-            // pullDeadTags(data, message, $scope.navlist); // did we kill a tag? Kill a tag.
-        }
-
     // NAVIGATION =========================================
 
         $scope.reportView = function(){
@@ -253,11 +238,12 @@
                 .success(function(data, err){
                     console.log(data,' (probably data.msg is what we want)', err);
                     
+                    // splice the new message over its old self in the messages list
                     var idx = _.pluck($scope.messages[original._subject.name], '_id').indexOf(original._id);
                     $scope.messages[original._subject.name].splice(idx,1, data.msg);
                     
                     console.log(idx, data.msg)
-                    // addTagsToLeftNav(data);
+                    addTagsToLeftNav(data);
                     // pullDeadTags;
                 });
         };
