@@ -32,16 +32,27 @@ module.exports = function(request, user){
             // post the message to the relevant Task and Subjects, add or update its tags.
             return Bluebird.all([
                     models.Task.findOneAndUpdate({'_id': note._task}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
-                    models.Subject.findOneAndUpdate({'_id': note._subject}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no subject found')} return obj;}),
-                    fn.tagMaker(tags)
+                    models.Subject.findOneAndUpdate({'_id': note._subject}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no subject found')} return obj;})
             ]).then(function(arr){
                 // create the dual-pointer on the message for tag population
-                console.log('check the array for tags', arr[2]);
-                return Bluebird.map(arr[2], function(tag){
-                    return models.Message.findOneAndUpdate({'_id': note._id }, {$push : {'_tags': tag } }, function(err, obj){});
-                })
+                // return fn.tagMaker(tags)
+                console.log('tags handed to tagmaker', tags);
+                return fn.tagMaker(tags)
+            }).then(function(tags){
+                console.log('check the array for tags', tags);
+                if(tags && tags.length > 0){
+                    // If there ARE tags, add them to that message and return it
+                    return Bluebird.map(tags, function(tag){
+                        return models.Message.findOneAndUpdate({'_id': note._id }, {$push : {'_tags': tag._id } }, function(err, obj){});
+                    })
+                } else if(!tags || tags.length === 0){
+                    // If NO tags, remove tags from message and return it
+                    // this is important because of edited messages
+                    console.log('no tags');
+                        return models.Message.findOneAndUpdate({'_id': note._id }, { '_tags': [] }, function(err, obj){});
+                }
             }).then(function(arr){
-                // return the populated message so you can insert it into the timeline
+                // return the populated message so you can insert it into the timeline of run with its tags
                 return models.Message.findById(note._id).populate('_subject _tags').exec(function(err, next){});
             });
         }).catch(function(err){

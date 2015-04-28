@@ -17,6 +17,8 @@ module.exports = function(tag){
     var data = [];
     var _ = require('lodash');
 
+    if(tag.length === 0){ return; }
+
     console.log('touched tagMaker', tag);
 
     var oneTag = function(singleTag){
