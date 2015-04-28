@@ -85,7 +85,7 @@
             var navlist_check = _.pluck($scope.rawList, 'name');
             var msg_tag       = _.pluck(data.msg._tags, 'name');
 
-            console.log('add tags', navlist_check);
+            console.log('add tags', navlist_check, msg_tag);
             
             data.tags.map(function(tag) {
                 var n = navlist_check.indexOf(tag.name);
