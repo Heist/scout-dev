@@ -9,11 +9,11 @@ module.exports = function(msg, next){
     var _        = require('lodash');
     var async    = require('async');
     var Bluebird  = require('bluebird');
-    var models   = require('../../models');
+
+    var models   = Bluebird.promisifyAll(require('../../models'));
     var fn       = require('../../models/functions');
 
-    // var tag = fn.tagPuller(msg.body);
-    // var tags = tag.tags;
+    
 
 // EDIT A MESSAGE =========================================
 
@@ -31,9 +31,10 @@ module.exports = function(msg, next){
 
     // FIND A MESSAGE  from a message ID then do the above
 
-    return models.Message.findOneAsync({'_id' : msg._id})
-            .then(function(returned){
-                var newMessage;
+    return models.Message.findOneAsync({'_id' : msg._id}).then(function(returned){
+        // if(err){console.log('message edit error', err);}
+            var newMessage;
+            console.log('returned', returned);
                 returned.body = msg.body; // set new message body
 
                 return fn.messageNew(returned, returned.created_by_user)
@@ -43,8 +44,7 @@ module.exports = function(msg, next){
                         }).then(function(next){
                             return newMessage;
                         });
-            })
-            .catch(function(err){
-                console.log(err);
-            }); 
+        }).catch(function(err){
+                console.log('message edit error', err);
+            });
 };

@@ -85,7 +85,7 @@
             var navlist_check = _.pluck($scope.rawList, 'name');
             var msg_tag       = _.pluck(data.msg._tags, 'name');
 
-            console.log('add tags', navlist_check, msg_tag);
+            console.log('add tags', navlist_check, data);
             
             data.tags.map(function(tag) {
                 var n = navlist_check.indexOf(tag.name);
@@ -254,8 +254,7 @@
                     console.log(data,' (probably data.msg is what we want)');
 
                     addTagsToLeftNav(data);
-                    pullDeadTags;
-                    
+                    // pullDeadTags;
                 });
         };
 

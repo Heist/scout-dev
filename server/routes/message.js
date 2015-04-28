@@ -22,7 +22,7 @@ module.exports = function(app, passport) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
-     console.log('find post message route');
+        console.log('find post message route');
         fn.messageNew(req.body, req.user._id).then(function(data){
             if(typeof data === 'object'){
                 models.Tag.findAsync({'_test' : req.body._test})
@@ -35,13 +35,13 @@ module.exports = function(app, passport) {
         });
     })
     .put(function(req, res){
-    // Edit the body of a message and change its tag associations
-
+        // Edit the body of a message and change its tag associations
+        // console.log('find put message route', req.body);
         console.log('find put message route');
         fn.messageEdit(req.body).then(function(data){
-            console.log(data);
+            // console.log(data);
             if(typeof data === 'object'){
-                console.log('data is object');
+                // console.log('data is object');
                 models.Tag.findAsync({'_test' : data._test})
                     .then(function(tags){
                         var send = {msg: data, tags: tags};

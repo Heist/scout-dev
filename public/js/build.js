@@ -52294,10 +52294,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             // group navlist by doctype when rawlist changes.
             $scope.navlist = makeNavList($scope.rawList);
         });
-        var a = _.indexOf(_.pluck($scope.rawList, 'doctype'), 'test');
-        var go = $scope.rawList[a];
-        console.log(go, a, $scope.rawList );
-
+        
         $scope.activate($scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')]);
 
         // GROUP MESSAGES BY USERS ==================================
@@ -52334,7 +52331,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var navlist_check = _.pluck($scope.rawList, 'name');
             var msg_tag       = _.pluck(data.msg._tags, 'name');
 
-            console.log('add tags', navlist_check);
+            console.log('add tags', navlist_check, data);
             
             data.tags.map(function(tag) {
                 var n = navlist_check.indexOf(tag.name);

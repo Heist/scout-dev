@@ -25,7 +25,7 @@ module.exports = function(request, user){
 
     // THIS IS RETURNING ALL TAGS FROM THE TEST WHEN A NEW MESSAGE IS CREATED
     // TODO: SHOULD RETURN ONLY THE TAGS RELEVANT TO THAT MESSAGE ?
-
+    console.log('tags inside nessag_new ', tags);
     return new models.Message(msg).saveAsync().get(0)
         .then(function(note){
             // post the message to the relevant Task and Subjects, add or update its tags.
@@ -33,11 +33,11 @@ module.exports = function(request, user){
                     models.Task.findOneAndUpdate({'_id': note._task}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
                     models.Subject.findOneAndUpdate({'_id': note._subject}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no subject found')} return obj;}),
                     Bluebird.map(tags, function(tag){ 
-                        return fn.tagMaker({ 'name' : tag , '_test' : msg._test, msg: note._id})
+                        return fn.tagMaker({ 'name' : tag , '_test' : msg._test, msg: note._id})[0];
                     })
             ]).then(function(arr){
                 // create the dual-pointer on the message for tag population
-                // console.log('check the array', arr.length);
+                console.log('check the array for tags', arr[2]);
                 return Bluebird.map(arr[2], function(tag){
                     return models.Message.findOneAndUpdate({'_id': note._id }, {$push : {'_tags': tag } }, function(err, obj){});
                 })
