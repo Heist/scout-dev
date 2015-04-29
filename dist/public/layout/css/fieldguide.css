@@ -4150,11 +4150,11 @@ hr {
         padding: 0;
         opacity: 0.5; }
       #tasklist ul li:hover {
-        background: #ececec;
+        background: #EDEDED;
         cursor: pointer; }
       #tasklist ul li.active {
         position: relative;
-        background: #ececec; }
+        background: #D8DADB; }
         #tasklist ul li.active:hover {
           cursor: auto;
           box-shadow: none; }
