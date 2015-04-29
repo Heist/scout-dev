@@ -215,19 +215,6 @@
                         $scope.selected._messages.splice(0, 1, data.msg._id);
                     }
 
-
-                    // $scope.rawList.map(function(obj, i){
-                    //     var n = obj._messages.indexOf(original._id);
-                    //         if( n !== -1){
-                    //             obj._messages.splice(n, 1, data.msg._id);
-                    //         }
-                    //         if(obj._messages.length === 0){
-                    //             $scope.rawList.splice(i, 1, data.msg._id);
-                    //         }
-                    // })
-
-
-
                     addTagsToLeftNav(data);
                 });
         };
