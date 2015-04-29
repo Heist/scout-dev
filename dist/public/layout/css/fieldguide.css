@@ -5763,7 +5763,8 @@ hr {
           padding: 0 20px 0 0; }
     #view-findings .findings-content .findings-information textarea {
       font-size: 18px;
-      line-height: 24px; }
+      line-height: 24px;
+      height: 400px; }
       #view-findings .findings-content .findings-information textarea:hover, #view-findings .findings-content .findings-information textarea:focus {
         color: #000; }
     #view-findings .findings-content .learnings {
