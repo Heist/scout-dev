@@ -271,11 +271,16 @@
 
 		pre.messages {
 			font-size: 14px;
-			line-height: 18px;
+			line-height: 20px;
 			@include type-light;
 			color: $fg-grey-dark;
 			margin: 0;
 			cursor: text;
+
+			&.summary {
+				font-size: 18px;
+				line-height: 26px;
+			}
 
 			&:hover {
 				color: $black;
