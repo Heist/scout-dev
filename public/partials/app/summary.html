@@ -19,7 +19,7 @@
 				<h4 class="group-cat" ng-if="group[0].doctype === 'tag'">Tag</h4>
 				<h4 class="group-cat" ng-if="group[0].doctype === 'task'">Topics</h4>
 				<ul>
-					<li ng-repeat="object in group" ng-class="{ 'active': n._id === selected._id }"  ng-click="activate(object)">
+					<li ng-repeat="object in group" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
 						<span class="findings" ng-if="object.doctype === 'test'">Findings</span>
 						<span class="objects" ng-if="object.doctype !== 'test'" ng-class="{'tag-hash': object.doctype === 'tag'}">{{object.name}}</span>
 					</li>

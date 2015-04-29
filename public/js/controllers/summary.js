@@ -42,7 +42,7 @@
 
         $scope.testname = loadData.data.name;
 
-        $scope.rawList = loadData.data.list;
+        $scope.rawList = _.filter(loadData.data.list, function(n){ return n._messages.length > 0 });
 
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
@@ -60,13 +60,11 @@
             // requires a message with subject name and _id
             // message splicer to remove messages from $scope.messages
 
-            // $scope.messages[message._subject.name] \\ what's this?
-
+            // take the message out of the messages list entirely
             var idx = _.pluck($scope.messages[message._subject.name], '_id').indexOf(message._id);
             $scope.messages[message._subject.name].splice(idx,1);
 
             // message splicer to remove message from all navlist entries
-            
             $scope.rawList.map(function(obj, i){
                 if(obj.doctype !== 'test'){
                     var n = obj._messages.indexOf(message._id);
