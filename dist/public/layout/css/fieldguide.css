@@ -421,29 +421,29 @@ label {
       border: 1px solid #dddddd; }
 
 ::-webkit-input-placeholder {
-  color: #C5C6C7;
-  font-size: 14px;
-  line-height: 20px;
+  color: #D8DADB;
+  font-size: 12px;
+  line-height: 15px;
   font-style: italic; }
 
 :-moz-placeholder {
   /* Firefox 18- */
-  color: #C5C6C7;
-  font-size: 14px;
-  line-height: 20px;
+  color: #D8DADB;
+  font-size: 12px;
+  line-height: 15px;
   font-style: italic; }
 
 ::-moz-placeholder {
   /* Firefox 19+ */
-  color: #C5C6C7;
-  font-size: 14px;
-  line-height: 20px;
+  color: #D8DADB;
+  font-size: 12px;
+  line-height: 15px;
   font-style: italic; }
 
 :-ms-input-placeholder {
-  color: #C5C6C7;
-  font-size: 14px;
-  line-height: 20px;
+  color: #D8DADB;
+  font-size: 12px;
+  line-height: 15px;
   font-style: italic; }
 
 textarea.input {
@@ -3917,6 +3917,7 @@ hr {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300;
+        text-transform: lowercase;
         color: #D8DADB; }
       #timeline ul .message-no-highlite p {
         margin: 0; }
@@ -4249,26 +4250,26 @@ hr {
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); }
     .modal .modal-interior ::-webkit-input-placeholder {
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
+      color: #D8DADB;
+      font-size: 12px;
+      line-height: 15px;
       font-style: italic; }
     .modal .modal-interior :-moz-placeholder {
       /* Firefox 18- */
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
+      color: #D8DADB;
+      font-size: 12px;
+      line-height: 15px;
       font-style: italic; }
     .modal .modal-interior ::-moz-placeholder {
       /* Firefox 19+ */
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
+      color: #D8DADB;
+      font-size: 12px;
+      line-height: 15px;
       font-style: italic; }
     .modal .modal-interior :-ms-input-placeholder {
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
+      color: #D8DADB;
+      font-size: 12px;
+      line-height: 15px;
       font-style: italic; }
     .modal .modal-interior ul {
       margin: 0; }
@@ -4862,26 +4863,26 @@ hr {
   #view-editing .tags {
     margin: 0 0 40px 0; }
     #view-editing .tags ::-webkit-input-placeholder {
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
+      color: #D8DADB;
+      font-size: 12px;
+      line-height: 15px;
       font-style: italic; }
     #view-editing .tags :-moz-placeholder {
       /* Firefox 18- */
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
+      color: #D8DADB;
+      font-size: 12px;
+      line-height: 15px;
       font-style: italic; }
     #view-editing .tags ::-moz-placeholder {
       /* Firefox 19+ */
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
+      color: #D8DADB;
+      font-size: 12px;
+      line-height: 15px;
       font-style: italic; }
     #view-editing .tags :-ms-input-placeholder {
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
+      color: #D8DADB;
+      font-size: 12px;
+      line-height: 15px;
       font-style: italic; }
     #view-editing .tags p {
       font-size: 10px;
@@ -4930,26 +4931,26 @@ hr {
       #view-editing .test-setup .nobullets .input {
         width: 100%; }
     #view-editing .test-setup ::-webkit-input-placeholder {
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
+      color: #D8DADB;
+      font-size: 12px;
+      line-height: 15px;
       font-style: italic; }
     #view-editing .test-setup :-moz-placeholder {
       /* Firefox 18- */
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
+      color: #D8DADB;
+      font-size: 12px;
+      line-height: 15px;
       font-style: italic; }
     #view-editing .test-setup ::-moz-placeholder {
       /* Firefox 19+ */
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
+      color: #D8DADB;
+      font-size: 12px;
+      line-height: 15px;
       font-style: italic; }
     #view-editing .test-setup :-ms-input-placeholder {
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
+      color: #D8DADB;
+      font-size: 12px;
+      line-height: 15px;
       font-style: italic; }
     #view-editing .test-setup .select-active {
       background: #85AC0F;
@@ -4986,7 +4987,7 @@ hr {
   #view-testing.has-input-outline #session-input {
     outline: 2px solid #00B5E3 !important; }
   #view-testing #testing-guide {
-    width: 30%;
+    width: 25%;
     height: 100%;
     position: absolute;
     padding: 20px 0 0 0;
@@ -5020,7 +5021,7 @@ hr {
     #view-testing li.full:first-child {
       margin-right: 0; }
   #view-testing .sheet-holder {
-    width: 70%;
+    width: 75%;
     height: 100%;
     padding: 0;
     margin: 0;
@@ -5055,30 +5056,29 @@ hr {
       z-index: 9999;
       border-top: 1px solid #dddddd; }
       #view-testing #testing-input #session-input ::-webkit-input-placeholder {
-        color: #C5C6C7;
-        font-size: 14px;
-        line-height: 20px;
+        color: #D8DADB;
+        font-size: 12px;
+        line-height: 15px;
         font-style: italic; }
       #view-testing #testing-input #session-input :-moz-placeholder {
         /* Firefox 18- */
-        color: #C5C6C7;
-        font-size: 14px;
-        line-height: 20px;
+        color: #D8DADB;
+        font-size: 12px;
+        line-height: 15px;
         font-style: italic; }
       #view-testing #testing-input #session-input ::-moz-placeholder {
         /* Firefox 19+ */
-        color: #C5C6C7;
-        font-size: 14px;
-        line-height: 20px;
+        color: #D8DADB;
+        font-size: 12px;
+        line-height: 15px;
         font-style: italic; }
       #view-testing #testing-input #session-input :-ms-input-placeholder {
-        color: #C5C6C7;
-        font-size: 14px;
-        line-height: 20px;
+        color: #D8DADB;
+        font-size: 12px;
+        line-height: 15px;
         font-style: italic; }
       #view-testing #testing-input #session-input input[type=textarea], #view-testing #testing-input #session-input #view-editing .add-task textarea[type=textarea], #view-editing .add-task #view-testing #testing-input #session-input textarea[type=textarea] {
         width: 100%;
-        font-size: 14px;
         margin: 0;
         border: none; }
         #view-testing #testing-input #session-input input[type=textarea]:focus, #view-testing #testing-input #session-input #view-editing .add-task textarea[type=textarea]:focus, #view-editing .add-task #view-testing #testing-input #session-input textarea[type=textarea]:focus {
@@ -5326,248 +5326,6 @@ hr {
           text-decoration: none; }
           #view-account .team-members li:hover .team-member-remove a:hover {
             color: #b5213c; }
-
-/* message list */
-/* how we style notes within summaries and reports */
-.message-group {
-  margin: 0;
-  padding: 0 0 20px 0; }
-  .message-group .add-note-button {
-    margin: 0 40px; }
-    .message-group .add-note-button .add-note-button-body {
-      background: #fff;
-      color: #999999;
-      margin: 0;
-      padding: 6px;
-      -moz-border-radius: 40px;
-      -webkit-border-radius: 40px;
-      border-radius: 40px;
-      height: 40px;
-      width: 40px;
-      cursor: pointer;
-      text-align: center;
-      font-size: 28.5px;
-      line-height: 1;
-      -webkit-transition-duration: 0.2s;
-      -webkit-transition-timing: ease-out;
-      -o-transition-duration: 0.2s;
-      -o-transition-timing: ease-out;
-      -moz-transition-duration: 0.2s;
-      -moz-transition-timing: ease-out;
-      -ms-transition-duration: 0.2s;
-      -ms-transition-timing: ease-out;
-      transition-duration: 0.2s;
-      transition-timing: ease-out;
-      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      float: left; }
-      .message-group .add-note-button .add-note-button-body.small {
-        height: 24px;
-        width: 24px;
-        padding: 0px;
-        font-size: 15px;
-        line-height: 22.5px;
-        border: 1px solid #dddddd; }
-    .message-group .add-note-button:hover .add-note-button-helper {
-      display: block; }
-    .message-group .add-note-button:hover .add-note-button-body {
-      background: #2B404D;
-      color: #fff;
-      -webkit-transition-duration: 0.2s;
-      -webkit-transition-timing: ease-out;
-      -o-transition-duration: 0.2s;
-      -o-transition-timing: ease-out;
-      -moz-transition-duration: 0.2s;
-      -moz-transition-timing: ease-out;
-      -ms-transition-duration: 0.2s;
-      -ms-transition-timing: ease-out;
-      transition-duration: 0.2s;
-      transition-timing: ease-out; }
-    .message-group .add-note-button .add-note-button-helper {
-      float: left;
-      display: none;
-      font-size: 15px;
-      color: #7c7d80;
-      margin: 0 0 0 10px; }
-      .message-group .add-note-button .add-note-button-helper.small {
-        top: 2px;
-        font-size: 12px;
-        right: 30px; }
-
-/* message user header */
-.message-user {
-  color: #2B404D;
-  font-size: 18px;
-  font-family: "canada-type-gibson",sans-serif;
-  font-style: normal;
-  font-weight: 300;
-  margin: 0 0 20px 0;
-  position: relative; }
-  .message-user img {
-    position: absolute;
-    left: -35px;
-    width: 20px;
-    height: auto;
-    opacity: 0.2;
-    padding: 0;
-    margin: 0 4px 0 0;
-    vertical-align: text-bottom; }
-  .message-user .expand-button .expand-button-body {
-    border: none;
-    -moz-box-shadow: 0 0 0 transparent;
-    -webkit-box-shadow: 0 0 0 transparent;
-    box-shadow: 0 0 0 transparent; }
-
-/* add a new note when summarizing */
-.message-input {
-  width: 100%;
-  padding: 20px 40px;
-  margin: 0; }
-  .message-input .input {
-    width: 100%; }
-
-/* individual messages */
-.message {
-  position: relative;
-  -webkit-transition-duration: 0.2s;
-  -webkit-transition-timing: ease-out;
-  -o-transition-duration: 0.2s;
-  -o-transition-timing: ease-out;
-  -moz-transition-duration: 0.2s;
-  -moz-transition-timing: ease-out;
-  -ms-transition-duration: 0.2s;
-  -ms-transition-timing: ease-out;
-  transition-duration: 0.2s;
-  transition-timing: ease-out; }
-  .message:hover .message-details .message-edit, .message.selected .message-details .message-edit {
-    display: block; }
-  .message:hover .message-comment-count, .message.selected .message-comment-count {
-    background: url('../assets/comment-active.svg') no-repeat right top;
-    background-size: contain;
-    color: #fff; }
-    .message:hover .message-comment-count.empty, .message.selected .message-comment-count.empty {
-      background: url('../assets/comment-active.svg') no-repeat right top;
-      background-size: contain;
-      color: #fff; }
-  .message .delete-message {
-    font-size: 12px;
-    float: right;
-    margin: 0 30px 20px 0; }
-    .message .delete-message:hover {
-      color: #85AC0F;
-      cursor: pointer; }
-  .message .message-comment-count {
-    position: absolute;
-    left: 102%;
-    top: 0;
-    padding: 6.66667px 10px 6.66667px 20px;
-    font-size: 11px;
-    line-height: 0.9;
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    color: #bebebe;
-    background: url('../assets/comment-inactive.svg') no-repeat right top;
-    background-size: contain;
-    cursor: pointer; }
-    .message .message-comment-count.empty {
-      background: url('../assets/comment-empty.svg') no-repeat right top;
-      background-size: contain;
-      color: #bebebe;
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 600; }
-  .message .message-fave {
-    float: right; }
-    .message .message-fave img {
-      width: auto;
-      height: 10px; }
-  .message .message-comments {
-    display: none;
-    position: absolute;
-    left: 110%;
-    top: 0;
-    width: 200px;
-    padding: 4px 0 0 0; }
-    .message .message-comments .message-comment {
-      font-size: 12.75px;
-      line-height: 19.2px; }
-    .message .message-comments small {
-      opacity: 0.6;
-      font-size: 10.5px;
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 300; }
-    .message .message-comments .message-comment-submit {
-      padding: 0 0 20px 0; }
-      .message .message-comments .message-comment-submit .input {
-        font-size: 12.75px;
-        -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        height: 60px; }
-      .message .message-comments .message-comment-submit small {
-        display: block;
-        padding: 0;
-        margin: 0;
-        line-height: 12px;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 400; }
-        .message .message-comments .message-comment-submit small a {
-          text-decoration: underline; }
-  .message .message-details {
-    float: left;
-    margin: 2px 0 0 0;
-    width: 25px;
-    height: 16px; }
-    .message .message-details .message-details-avatar img {
-      width: 16px;
-      height: 16px; }
-    .message .message-details .message-edit {
-      display: none; }
-      .message .message-details .message-edit img {
-        width: 12px;
-        height: auto;
-        opacity: 0.5; }
-  .message .message-body {
-    float: left;
-    width: 100%; }
-    .message .message-body h3 {
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 300;
-      font-size: 20px;
-      color: #D8DADB; }
-    .message .message-body p {
-      margin-bottom: 0 !important;
-      color: #949799; }
-    .message .message-body pre.messages {
-      font-size: 14px;
-      line-height: 20px;
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 300;
-      color: #777777;
-      margin: 0;
-      cursor: text; }
-      .message .message-body pre.messages.summary {
-        font-size: 18px;
-        line-height: 24px; }
-      .message .message-body pre.messages:hover {
-        color: #000; }
-    .message .message-body small {
-      display: block;
-      margin: 0;
-      padding: 0; }
-    .message .message-body textarea {
-      width: 100%;
-      margin: 0 0 10px 0;
-      line-height: 15px; }
-      .message .message-body textarea:hover, .message .message-body textarea:focus {
-        color: #000; }
 
 /* summary */
 #view-findings {
@@ -5937,8 +5695,8 @@ hr {
   /* are we onboard? */ }
   #report-summary #generated-with-fg img {
     position: absolute;
-    top: 22px;
-    right: 40px; }
+    bottom: 60px;
+    right: 60px; }
   #report-summary.is-onboard #findings-viewmode-controls {
     bottom: 0; }
   #report-summary.show-comments .sheet-holder {
@@ -6052,18 +5810,8 @@ hr {
       width: 103%;
       left: -3%;
       position: relative; }
-  #report-summary .findings-header {
-    padding: 40px 0; }
-    #report-summary .findings-header h1 {
-      font-size: 24px; }
-    #report-summary .findings-header .findings-description {
-      color: #949799;
-      font-size: 12px;
-      margin: 5px 0; }
-      #report-summary .findings-header .findings-description span {
-        padding: 0 20px 0 0; }
   #report-summary .findings-content {
-    width: 45%;
+    width: 40%;
     margin: 0 auto;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -6085,16 +5833,16 @@ hr {
       line-height: 18px;
       color: #949799;
       margin: 0 0 50px 0; }
-    #report-summary .findings-content .findings-information h2 {
-      font-size: 20;
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 400;
-      margin: 0 0 20px 0; }
+    #report-summary .findings-content .findings-header {
+      padding: 40px 0; }
+      #report-summary .findings-content .findings-header .findings-description {
+        color: #949799;
+        font-size: 12px;
+        margin: 10px 0; }
+        #report-summary .findings-content .findings-header .findings-description span {
+          padding: 0 20px 0 0; }
     #report-summary .findings-content .findings-information pre {
-      color: #949799;
-      font-size: 18px;
-      line-height: 24px; }
+      color: #949799; }
     #report-summary .findings-content .findings-information p {
       line-height: 20px; }
     #report-summary .findings-content .findings-summary {
