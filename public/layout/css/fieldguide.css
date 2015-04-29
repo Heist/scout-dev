@@ -4818,7 +4818,7 @@ hr {
       color: #000; }
   #view-editing textarea.test-descriptions, #view-editing textarea.task-descriptions {
     font-size: 18px;
-    line-height: 26px;
+    line-height: 24px;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
@@ -4846,7 +4846,7 @@ hr {
       font-style: normal;
       font-weight: 300;
       font-size: 18px;
-      line-height: 26px;
+      line-height: 24px;
       color: #949799; }
     #view-editing .add-task textarea {
       height: 65px;
@@ -5554,7 +5554,7 @@ hr {
       cursor: text; }
       .message .message-body pre.messages.summary {
         font-size: 18px;
-        line-height: 26px; }
+        line-height: 24px; }
       .message .message-body pre.messages:hover {
         color: #000; }
     .message .message-body small {
@@ -5733,7 +5733,7 @@ hr {
       margin: 0 0 15px 0; }
     #view-findings .findings-content p {
       font-size: 18px;
-      line-height: 26px;
+      line-height: 24px;
       color: #949799;
       margin: 0 0 50px 0; }
     #view-findings .findings-content pre {
@@ -5748,7 +5748,7 @@ hr {
           padding: 0 20px 0 0; }
     #view-findings .findings-content .findings-information textarea {
       font-size: 18px;
-      line-height: 26px; }
+      line-height: 24px; }
       #view-findings .findings-content .findings-information textarea:hover, #view-findings .findings-content .findings-information textarea:focus {
         color: #000; }
     #view-findings .findings-content .learnings {
@@ -5758,7 +5758,7 @@ hr {
       padding: 10px 15px;
       margin: 0 0 70px 0;
       font-size: 18px;
-      line-height: 26px; }
+      line-height: 24px; }
     #view-findings .findings-content .all-summaries {
       margin: 40px 0 0 0; }
       #view-findings .findings-content .all-summaries .line-hr {
@@ -6082,8 +6082,16 @@ hr {
         margin: 10px 0; }
         #report-summary .findings-content .findings-header .findings-description span {
           padding: 0 20px 0 0; }
+    #report-summary .findings-content .findings-information h2 {
+      font-size: 20;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      margin: 0 0 20px 0; }
     #report-summary .findings-content .findings-information pre {
-      color: #949799; }
+      color: #949799;
+      font-size: 18px;
+      line-height: 24px; }
     #report-summary .findings-content .findings-information p {
       line-height: 20px; }
     #report-summary .findings-content .findings-summary {

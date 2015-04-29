@@ -181,8 +181,17 @@
 		}
 		
 		.findings-information {
+
+			h2 {
+				font-size: 20;
+				@include type-regular;
+				margin: 0 0 20px 0;
+			}
+
 			pre {
 				color: $fg-grey;
+				font-size: 18px;
+				line-height: 24px;
 			}
 			p {
 				line-height: 20px;
