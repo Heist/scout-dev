@@ -82,59 +82,14 @@
 
         
         var addTagsToLeftNav = function(data){
-            var navlist_check = _.pluck($scope.rawList, 'name');
-            var msg_tag       = _.pluck(data.msg._tags, 'name');
+            // when we're returned new data, check the tags for messages and filter ones that have none
+            // set the new list of tags to the bottom of the navlist
 
-            // console.log('add tags', navlist_check, data.tags, msg_tag, data);
-            // TODO: Edit this so that new tags are added and old tags are removed - effectively,
-            // pull all the tag docs from the left nav, replace them with data.tags
-
-            var tagsForConcat = _.filter(data.tags, function(n){
-                    return n._messages.length > 0
-            })
-
-            console.log('tags', data.tags);
-            console.log(tagsForConcat);
-
-            var clear = $scope.rawList.filter(function(r){
-                                return r.doctype !== 'tag'
-                            });
-
-            // console.log('$scope.rawlist cleared of tags', clear);
+            var tagsForConcat = _.filter(data.tags, function(n){ return n._messages.length > 0 })
+            var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
             $scope.rawList = clear.concat(tagsForConcat);
 
-            console.log('after', navlist_check, _.pluck($scope.rawList, 'name'));
-        }
-
-        var pullDeadTags = function(newmessage, original, navlist){
-            // clear dead entries from the left nav when we edit a message.            
-            var nav_id_list = _.pluck(navlist, '_id');
-
-            // if we have an edited message returned....
-            original._tags.map(function(msg_tag, i){
-
-                var new_tag_idx = newmessage.msg._tags.indexOf(msg_tag);        // does the new message have the old tag?
-                var id = (typeof msg_tag === 'object') ? msg_tag._id : msg_tag; // set id to check
-                
-                if(new_tag_idx === -1){                         // that tag no longer exists in that message
-                    var match_in_nav = nav_id_list.indexOf(id); // find the nav entry matching the no-longer-there tag.
-                    
-
-                    var match_msg = navlist[match_in_nav]._messages
-                                    .filter(function(value){
-                                        return value !== original._id;           // filter matching nav entry for old messages
-                                    });
-                    var local_msg = _.pluck($scope.messages[original._subject.name]._messages)
-
-                    if(match_msg.length === 0){          // no messages left? Kill the tag and select the next one.
-                        navlist.splice(match_in_nav,1);  // Kill tag in the nav
-                        $scope.activate($scope.rawList[match_in_nav]); // select new one.
-                        
-                    }    
-
-                }
-            })
         }
         
     // NAVIGATION =========================================
