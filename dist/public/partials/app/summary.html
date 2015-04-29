@@ -19,50 +19,19 @@
 						<span class="objects" ng-if="object.doctype !== 'test'" ng-class="{'tag-hash': object.doctype === 'tag'}">{{object.name}}</span>
 					</li>
 				</ul>
-				<!-- <div class="step-ordering"> -->
-				<!-- <div class="step-ordering">
-					<div class="elevator" ng-click="moveTask($index, -1)" >&#9650;</div>
-					<div class="elevator" ng-click="moveTask($index, 1)" >&#9660;</div>
-				</div> -->
-				
-				
-				<!--    <div class="sidebar-visibility small-tooltip" data-tooltip="Include in report">
-					<a ng-click="toggleVis(object)" ng-show="object.visible">
-						<img src="/layout/assets/show.svg" />
-					</a>
-					<a ng-click="toggleVis(object)" ng-show="!object.visible">
-						<img src="/layout/assets/hidden.svg" />
-					</a>
-				</div> -->
+
 				<div id="findings-viewmode-controls">
 					<div id="findings-share-link" ng-if="showReportLink">
 						<small>Use this link to share this report:</small>
 						<input class="input small tight" ng-model="reportLink"/>
 					</div>
-					
-					<!-- <button class="button extra-small" ng-click="toggleReportLink()">Share</button> -->
-					<!-- <button class="button extra-small" ng-click="reportView()">Share</button> -->
-					
+
 					<button class="button extra-small" ng-click="shareReportModalToggle()">Share</button>
 
 				</div>
 				<div class="clear"></div>
 				</div> <!-- /group in navlist -->
 			</div>
-			
-			<!-- findings controls -->
-			
-			<!-- 		<div id="findings-viewmode-controls">
-				
-				<div id="findings-share-link" ng-if="showReportLink">
-					<small>Use this link to share this report:</small>
-					<input class="input small tight" ng-model="reportLink"/>
-				</div>
-				
-				<a class="button small disabled">Edit</a>
-				<a class="button small space" ng-click="reportView()">Preview</a>
-				<button class="button small secondary space" ng-click="toggleReportLink()">Share</button>
-			</div> 	 -->
 
 	</div>
 		
@@ -82,21 +51,6 @@
 						<span ng-show="selected.kind === 'prototype'"><span>Prototype test</span><a href="{{selected.link}}" target="_">{{selected.link}}</a></span>
 					</div>
 					
-					<!-- task rating widget -->
-					<!-- 				<div class="task-rating" ng-show="selected.pass_fail == false">
-							<small>Rating</small>
-							<div class="task-rating-doot task-rating-plus hollow" ng-click="passFail(selected)">&nbsp;</div>
-							<div class="task-rating-doot task-rating-minus">&nbsp;</div>
-					</div>
-					
-					<div class="task-rating" ng-show="selected.pass_fail == true">
-							<small>Rating</small>
-							<div class="task-rating-doot task-rating-plus">&nbsp;</div>
-							<div class="task-rating-doot task-rating-minus hollow" ng-click="passFail(selected)">&nbsp;</div>
-					</div> -->
-					<!-- task rating -->
-					
-					
 					<div class="clear"></div>
 					
 				</div>
@@ -107,9 +61,9 @@
 						<h2 ng-if="selected.desc">Objectives</h2>
 						<p class="no-cursor" ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></p>
 						
-						<h2>Findings</h2>
-						<textarea msd-elastic class="input findings-summary" id="field-textarea" placeholder="Summarize your high level elarning here.
-						This is the page you will be sharing with your organization"  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>
+						<h2>Learnings</h2>
+						<textarea msd-elastic class="input" id="field-textarea" placeholder="Summarize your high level elarning here.
+						This is the page you will be sharing with your organization."  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>
 					</div>
 
 					<!-- SORT OUT YOUTUBE LINKS -->
@@ -123,9 +77,15 @@
 						</div> -->
 						<!--<button ng-click="saveObject(selected)">Add Video</button>-->
 						<!--  </form> -->
-					
-					<h2>All your test summaries</h2>
-					<p>Use these to help create your final Findings above. These will not be shown when you share your Findings.</p>
+
+					<div class="all-summaries">
+						<div class="line-hr">
+						    <span>These notes below will not be shown when you share your Findings.</span>
+						</div>
+
+						<h2>All your test summaries</h2>
+						<p class="helper-text">Use these to help create your final Findings above. These will not be shown when you share your Findings.</p>
+					</div>
 				
 				</div>
 				<!-- messages -->
@@ -136,29 +96,14 @@
 						<img src="/layout/assets/avatar.svg" /> {{user[0]._subject.name}}
 						<div class="clear"></div>
 					</div>
-					<!-- input notes -->
-<!-- 					<div class="message-input" ng-show="inputNote === user[0]._subject._id">
-						<textarea class="input" ng-model='newnote' name="field-input" placeholder="Your new notes for this participant">
-						</textarea>
-						<button class="button small" ng-click="postMessage(newnote, user[0]._subject)">Add Note</button>
-					</div> -->
-					<!-- message ng-show="showObjectMessages(message, selected)"
-					ng-show="selected._messages.indexOf(message._id) !== -1"
-					-->
+
 					<div ng-repeat="message in user" class="message"
 						ng-show="selected._messages.indexOf(message._id) !== -1"
 						ng-class="{selected: commentMessage._id === message._id}">
-
-						<!-- <div ng-click="deleteMessage(message)" class="delete-message">&times;</div> -->
-						
-						
-						<!--<div class="message-edit"><img src="/layout/assets/pencil.svg"/></div>-->
-						
 						
 						<div class="message-body" ng-click="editMessage(message, $index)">
-							<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
+							<pre class="messages summary" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
 							<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
-						<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
 						</div>
 					
 <!-- 					<div class="summary-border">
@@ -228,4 +173,5 @@
 	<div class="modal" ng-model="shareReport" ng-if="shareReport">
 		<ng-include src="'partials/app/_share-report.html'"></ng-include>
 	</div>
+<!-- / share report link modal -->
 </div>

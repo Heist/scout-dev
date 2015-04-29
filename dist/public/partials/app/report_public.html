@@ -8,24 +8,25 @@
         <div class="sheet-report" ng-model="selected">
 
             <div class="findings-content">
-                <div class="findings-header">
-                        <h1 class="dark float-left"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h1>
-                        
-                        <div class="clear"></div>
 
+                <div class="findings-header">
+                        <h1 class="dark float-left"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}} Report</h1>
+                        <div class="clear"></div>
                         <div class="findings-description" ng-show="selected.doctype === 'test'">
                             <span>{{selected._subjects.length}} participants</span>
                             <span ng-show="selected.kind === 'prototype'"><span>Prototype test</span><a href="{{selected.link}}" target="_">{{selected.link}}</a></span>
                         </div>
-
-                        <div class="clear"></div>
+                        
+                        <div id="generated-with-fg" class="clearfix">
+                            <a href="http://www.fieldguideapp.com"><img src="/layout/assets/generated-with-fg.svg" /></a>
+                        </div>
                 </div>
             
                 <div class="findings-information">
                     <h2 ng-if="selected.desc" ng-show="selected.doctype === 'test'">Objectives</h2>
                     <pre ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></pre>
 
-                    <h2>Summary</h2>
+                    <h2>Learnings</h2>
                     <pre ng-if="selected.summary" ng-bind-html='selected.summary'></pre>
                 </div>
         
@@ -96,10 +97,6 @@
 
             </div>
             <!-- /messages -->
-
-                <div id="generated-with-fg" class="clearfix">
-                    <a href="http://www.fieldguideapp.com"><img src="/layout/assets/generated-with-fg.svg" /></a>
-                </div>
 
             </div>
         </div>
