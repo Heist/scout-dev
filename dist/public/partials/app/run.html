@@ -41,48 +41,6 @@
 	<div class="clear"></div>
 </div>
 <!-- / participant definition modal -->
-
-
-
-<!-- New task modal -->
-<div class="modal" ng-model="new_task" ng-show="adding_task == true">
-    <div class="module third">&nbsp;</div>
-    
-    <div class="module third modal-interior">
-        
-        <div class="modal-interior-title">
-        	<h3 class="float-left">Add a new task</h3>
-        	<h3 class="float-right" ng-click="adding_task = false"><strong>&times;</strong></h3>
-        	<div class="clear"></div>
-        </div>
-        
-        <form>
-			<ul class="nobullets lined">
-				<li>
-					<input class="input" placeholder="Your new task name" ng-trim="false" ng-model="new_task.name">
-				</li>
-				<li>
-					<textarea ng-model="new_task.desc" class="input small" id="field-textarea" placeholder="Put talking points or task-specific questions here.">
-					</textarea>
-				</li>
-				<li class="text-center">
-					<button class="button" type="submit"  ng-Click="addTask(new_task)">Create task</button>
-				</li>
-			</ul>
-		</form>
-
-    </div>
-    
-    <div class="clear"></div>
-</div>
-<!-- / New task modal -->
-
-<!-- 	<div id="button-newtask">
-		<div class="expand-button">
-			<div class="expand-button-body" ng-click="adding_task = true">+</div>
-			<div class="expand-button-helper">Add a new task</div>
-		</div>
-	</div> -->
 	
 	<!-- discussion guide -->
 	<div id="testing-guide" ng-model="tests">
@@ -114,128 +72,49 @@
 			
 	</div>
 	<!-- / discussion guide -->
-	
-	
-	
-	
-	
-	<div class="sheet-holder">
-		<div class="sheet">
+
+	<!-- username or device -->
+	<div id="testing-client" ng-model="subject">
 		
-			<!-- note input and display -->
-			<div id="testing-input">
-					
-				<!-- input notes -->
-				<div id="session-input">
-					<input type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input">
-				<div id="hash-tag-pool">
-					<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
-				</div>
-				</div>
-				
-				<!-- timeline -->
-				<div id="timeline" scroll-glue="glued">
-					<ul>
-						
-						<!-- empty state -->
-						<li class="message-no-highlite" id="firstrun">
-							<div class="message-body">
-								<strong>Your test is running!</strong> Remember, it&rsquo;s all about capturing notes &mdash;
-								you&rsquo;ll have an opportunity to <strong>edit and sort</strong> when creating your Report. 
-								Use <span class="tag">#hashtags</span> to capture themes in your notes.
-							</div>
-							<div class="clear"></div>
-						</li>				
-						<!-- /empty state -->
-						
-						<!-- non-editable guideline messages -->
-						<li class="message-no-highlite">
-							<div class="message-body" ng-click="editMessage(message)">
-								<small>Starting Test</small>
-								<p>{{test.name}}</p>
-							</div>
-
-							<div class="clear"></div>
-						</li>
-						<li class="message" ng-repeat="message in timeline track by $index" ng-class="{'message-no-highlite' : message.title === 'Starting task', 'message-highlite' : message.title !== 'Starting task'}">
-
-							<div class="message-body" ng-click="editMessage(message)">
-
-								<pre class="messages" ng-if="message.title === 'Starting task'">
-									<h3>#{{message.body}}</h3>
-								</pre>
-
-								<!-- Editable messages - if a message is not a guideline -->
-								<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-								<textarea msd-elastic class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
-
-								<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}</small>
-							</div>
+		<div id="timeline-user-input"> </div>
 		
-							<div class="clear"></div>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<!-- / note input and display -->
+		<div id="timeline-user">
 			
-			<!-- username or device -->
-			<div id="testing-client" ng-model='subject'>
+			<div id="timeline-user-only" ng-hide="subject.testroom">
+				<div class="clear"></div>
 				
-				<div id="timeline-user-input"> </div>
-				
-				<div id="timeline-user">
-					
-					<div id="timeline-user-only" ng-hide="subject.testroom">
-						<div class="clear"></div>
-						
-						<div class="timeline-user-avatar">
-							<img src="/layout/assets/avatar-large.png">
-						</div>
-						
-						<small>Testing with</small>
-						<h2>{{subject.name}}</h2>
-						
-							
-					</div>
-
-					<div id="timeline-user-only" style="top:5%;" ng-show="subject.testroom">
-						<canvas id="feed"></canvas>
-						<img id='ia' style='display:none;'/>
-						<div style='clear'></div>
-						<small>Testing with</small>
-						<h2>{{subject.name}}</h2>
-					</div>
-
-					<div id="cta">
-						<div class="cta">
-							<!-- old "End test" button -->
-							<!-- <button class="button outline" id="endtest" ng-click="postTest()">
-								<div class="checkmark"></div>
-								<span>End test</span>
-							</button> -->
-							<!-- this button brings summarize modal up, takes summary input and post it to summary page on "Findings" section under
-							"All your test summaries" -->
-							<!-- the "End test" button above will need to be removed but it's functionality will need to go on this same button below -->
-							<button class="button outline" ng-click="summarizeModalToggle()">
-								<div class="checkmark"></div>
-								<span>End test</span>
-							</button>
-						</div>
-					</div>
-
+				<div class="timeline-user-avatar">
+					<img src="/layout/assets/avatar-large.png">
 				</div>
 				
-					
+				<small>Testing with</small>
+				<h2>{{subject.name}}</h2>
 			</div>
-			<!-- /username or device -->
-			
-			<div class="clear"></div>
-		
+
+			<div id="timeline-user-only" style="top:5%;" ng-show="subject.testroom">
+				<canvas id="feed"></canvas>
+				<img id='ia' style='display:none;'/>
+				<div style='clear'></div>
+				<small>Testing with</small>
+				<h2>{{subject.name}}</h2>
+			</div>
 
 		</div>
+		
+		
 	</div>
-	
+	<!-- /username or device -->
+
+	<!-- toggle on interview or prototype view -->
+	<div ng-if="test.kind === 'interview'">
+		<ng-include src="'partials/app/_run-interview.html'"></ng-include>
+	</div>
+
+	<div ng-if="test.kind === 'prototype'">
+		<ng-include src="'partials/app/_run-prototype.html'"></ng-include>
+	</div>
+	<!-- /toggle on interview or prototype view -->
+
 	<!-- summarize at end of test modal -->
 	<div class="modal" ng-model="summarizeTest" ng-if="summarizeTest">
 		<ng-include src="'partials/app/_summarize-modal.html'"></ng-include>

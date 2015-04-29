@@ -1,6 +1,7 @@
 /* summary */
 
 #view-findings {
+	cursor: default;
 	padding: 0;
 	margin: 0;
 	
@@ -216,6 +217,10 @@
 			}
 			textarea {
 				line-height: 18px;
+
+				&:hover, &:focus {
+				    color: $black;
+				}
 			}
 		}
 		

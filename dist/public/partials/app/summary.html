@@ -19,7 +19,7 @@
 				<h4 class="group-cat" ng-if="group[0].doctype === 'tag'">Tag</h4>
 				<h4 class="group-cat" ng-if="group[0].doctype === 'task'">Topics</h4>
 				<ul>
-					<li ng-repeat="object in group" ng-class="{ 'active': n._id === selected._id }"  ng-click="activate(object)">
+					<li ng-repeat="object in group" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
 						<span class="findings" ng-if="object.doctype === 'test'">Findings</span>
 						<span class="objects" ng-if="object.doctype !== 'test'" ng-class="{'tag-hash': object.doctype === 'tag'}">{{object.name}}</span>
 					</li>
@@ -110,7 +110,7 @@
 
 					<div class="findings-information">
 						<h2 ng-if="selected.desc">Objectives</h2>
-						<p ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></p>
+						<p class="no-cursor" ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></p>
 						
 						<h2>Findings</h2>
 						<textarea msd-elastic class="input findings-summary" id="field-textarea" placeholder="Summarize your high level elarning here.
@@ -151,7 +151,7 @@
 					ng-show="selected._messages.indexOf(message._id) !== -1"
 					-->
 					<div ng-repeat="message in user" class="message"
-						
+						ng-show="selected._messages.indexOf(message._id) !== -1"
 						ng-class="{selected: commentMessage._id === message._id}">
 
 						<!-- <div ng-click="deleteMessage(message)" class="delete-message">&times;</div> -->

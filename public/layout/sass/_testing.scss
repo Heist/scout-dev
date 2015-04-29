@@ -42,7 +42,7 @@
 	        color: $white;
 	        position: absolute;
 	        top: -4px;
-	        right: 4px;
+	        right: 5px;
         }
 
         &:hover {
@@ -88,6 +88,12 @@
         margin: 0;
         position: relative;
         border-right: 1px solid $line;
+
+        &.interview {
+            width: 100%;
+            border: 0;
+        }
+
         #session-input {
             position: absolute;
             bottom: 0;
@@ -99,14 +105,36 @@
             z-index: 9999;
             border-top: 1px solid $line;
             @include input-placeholders;
-            textarea {
+
+            input[type=textarea] {
                 width: 100%;
-                height: 70%;
+                // height: 70%;
                 margin: 0;
                 border: none;
 
                 &:focus {
                     box-shadow: none;
+                }
+            }
+
+            // for typeahead styles
+            ul.dropdown-menu {
+                margin: 0;
+                padding: 0;
+                width: 177px;
+                @include dropshadow($shadow: 0 0 10px, $intensity: rgba(0,0,0,0.1));
+                background: $white;
+
+                li {
+                    list-style: none;
+
+                    &:hover {
+                        background: $fg-blue;
+
+                        a {
+                            color: $white;
+                        }
+                    }
                 }
             }
         }
@@ -150,6 +178,10 @@
         background: $white;
         z-index: 9999;
         border-bottom: 1px solid $line;
+
+        &.interview {
+            border: 0;
+        }
 
         .cta {
             float: right;

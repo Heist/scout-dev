@@ -3896,6 +3896,8 @@ hr {
   overflow: auto;
   margin: 0;
   /* first-run message on timeline */ }
+  #timeline.interview {
+    padding: 50px 0 150px 0; }
   #timeline ul {
     list-style: none;
     padding: 0;
@@ -4898,28 +4900,33 @@ hr {
     #view-editing .tags p {
       font-size: 10px;
       margin: 0 0 10px 0; }
-    #view-editing .tags .tag-pool, #view-editing .tags textarea.custom-tags {
+    #view-editing .tags .tag-pool, #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
       width: 100%;
       height: 30px;
       background: rgba(216, 218, 219, 0.5);
       border: 1px solid rgba(216, 218, 219, 0.5); }
-      #view-editing .tags .tag-pool ul, #view-editing .tags textarea.custom-tags ul {
+      #view-editing .tags .tag-pool ul, #view-editing .tags input.custom-tags ul, #view-editing .tags .add-task textarea.custom-tags ul, #view-editing .add-task .tags textarea.custom-tags ul {
         padding: 0; }
-        #view-editing .tags .tag-pool ul li, #view-editing .tags textarea.custom-tags ul li {
+        #view-editing .tags .tag-pool ul li, #view-editing .tags input.custom-tags ul li, #view-editing .tags .add-task textarea.custom-tags ul li, #view-editing .add-task .tags textarea.custom-tags ul li {
           padding: 0 0 0 15px;
           font-size: 10px;
           color: #00B5E3;
           display: inline-block; }
-          #view-editing .tags .tag-pool ul li:before, #view-editing .tags textarea.custom-tags ul li:before {
+          #view-editing .tags .tag-pool ul li:before, #view-editing .tags input.custom-tags ul li:before, #view-editing .tags .add-task textarea.custom-tags ul li:before, #view-editing .add-task .tags textarea.custom-tags ul li:before {
             content: "#"; }
-          #view-editing .tags .tag-pool ul li:first-child, #view-editing .tags textarea.custom-tags ul li:first-child {
+          #view-editing .tags .tag-pool ul li:first-child, #view-editing .tags input.custom-tags ul li:first-child, #view-editing .tags .add-task textarea.custom-tags ul li:first-child, #view-editing .add-task .tags textarea.custom-tags ul li:first-child {
             padding: 0 0 0 10px; }
-    #view-editing .tags textarea.custom-tags {
+    #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
       background: #fff;
       border-top: 0;
       resize: none;
       padding: 8px;
-      outline: 0; }
+      outline: 0;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 12px;
+      color: #949799; }
   #view-editing .done-button {
     position: absolute;
     right: 30px; }
@@ -5014,7 +5021,7 @@ hr {
       color: #fff;
       position: absolute;
       top: -4px;
-      right: 4px; }
+      right: 5px; }
   #view-testing li.half {
     float: left;
     width: 49%; }
@@ -5047,6 +5054,9 @@ hr {
     position: relative;
     border-right: 1px solid #dddddd;
     /* suppress message-hover during running tests */ }
+    #view-testing #testing-input.interview {
+      width: 100%;
+      border: 0; }
     #view-testing #testing-input #session-input {
       position: absolute;
       bottom: 0;
@@ -5079,13 +5089,26 @@ hr {
         font-size: 12px;
         line-height: 15px;
         font-style: italic; }
-      #view-testing #testing-input #session-input textarea {
+      #view-testing #testing-input #session-input input[type=textarea], #view-testing #testing-input #session-input #view-editing .add-task textarea[type=textarea], #view-editing .add-task #view-testing #testing-input #session-input textarea[type=textarea] {
         width: 100%;
-        height: 70%;
         margin: 0;
         border: none; }
-        #view-testing #testing-input #session-input textarea:focus {
+        #view-testing #testing-input #session-input input[type=textarea]:focus, #view-testing #testing-input #session-input #view-editing .add-task textarea[type=textarea]:focus, #view-editing .add-task #view-testing #testing-input #session-input textarea[type=textarea]:focus {
           box-shadow: none; }
+      #view-testing #testing-input #session-input ul.dropdown-menu {
+        margin: 0;
+        padding: 0;
+        width: 177px;
+        -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background: #fff; }
+        #view-testing #testing-input #session-input ul.dropdown-menu li {
+          list-style: none; }
+          #view-testing #testing-input #session-input ul.dropdown-menu li:hover {
+            background: #00B5E3; }
+            #view-testing #testing-input #session-input ul.dropdown-menu li:hover a {
+              color: #fff; }
     #view-testing #testing-input #hash-tag-pool {
       position: absolute;
       bottom: 0;
@@ -5116,6 +5139,8 @@ hr {
     background: #fff;
     z-index: 9999;
     border-bottom: 1px solid #dddddd; }
+    #view-testing #cta.interview {
+      border: 0; }
     #view-testing #cta .cta {
       float: right;
       margin: 7px; }
@@ -5539,9 +5564,10 @@ hr {
       font-style: normal;
       font-weight: 300;
       color: #777777;
-      margin: 0; }
+      margin: 0;
+      cursor: text; }
       .message .message-body pre.messages:hover {
-        color: #323539; }
+        color: #000; }
     .message .message-body small {
       display: block;
       margin: 0;
@@ -5550,9 +5576,12 @@ hr {
       width: 100%;
       margin: 0 0 10px 0;
       line-height: 15px; }
+      .message .message-body textarea:hover, .message .message-body textarea:focus {
+        color: #000; }
 
 /* summary */
 #view-findings {
+  cursor: default;
   padding: 0;
   margin: 0;
   /* are we onboard? */ }
@@ -5726,6 +5755,8 @@ hr {
       line-height: 18px; }
     #view-findings .findings-content .findings-information textarea {
       line-height: 18px; }
+      #view-findings .findings-content .findings-information textarea:hover, #view-findings .findings-content .findings-information textarea:focus {
+        color: #000; }
     #view-findings .findings-content .findings-summary {
       width: 100%;
       max-width: 100%;

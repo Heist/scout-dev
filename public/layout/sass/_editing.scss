@@ -204,13 +204,16 @@
             }
         }
 
-        textarea.custom-tags {
+        input.custom-tags {
             @extend .tag-pool;
             background: $white;
             border-top: 0;
             resize: none;
             padding: 8px;
             outline: 0;
+            @include type-light;
+            font-size: 12px;
+            color: $fg-grey;
         }
     }
 

@@ -1,0 +1,108 @@
+<div class="sheet-holder">
+	<div class="sheet">
+		
+		<!-- note input and display -->
+		<div id="testing-input">
+			
+			<!-- input notes -->
+			<div id="session-input">
+				<input type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input">
+				<div id="hash-tag-pool">
+					<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
+				</div>
+			</div>
+			
+			<!-- timeline -->
+			<div id="timeline" scroll-glue="glued">
+				<ul>
+					
+					<!-- empty state -->
+					<li class="message-no-highlite" id="firstrun">
+						<div class="message-body">
+							<strong>Your test is running!</strong> Remember, it&rsquo;s all about capturing notes &mdash;
+							you&rsquo;ll have an opportunity to <strong>edit and sort</strong> when creating your Report.
+							Use <span class="tag">#hashtags</span> to capture themes in your notes.
+						</div>
+						<div class="clear"></div>
+					</li>
+					<!-- /empty state -->
+					
+					<!-- non-editable guideline messages -->
+					<li class="message-no-highlite">
+						<div class="message-body" ng-click="editMessage(message)">
+							<small>Starting Test</small>
+							<p>{{test.name}}</p>
+						</div>
+						<div class="clear"></div>
+					</li>
+					<li class="message" ng-repeat="message in timeline track by $index" ng-class="{'message-no-highlite' : message.title === 'Starting task', 'message-highlite' : message.title !== 'Starting task'}">
+						<div class="message-body" ng-click="editMessage(message)">
+							<pre class="messages" ng-if="message.title === 'Starting task'">
+								<h3>#{{message.body}}</h3>
+							</pre>
+							<!-- Editable messages - if a message is not a guideline -->
+							<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
+							<textarea msd-elastic class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
+							<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}</small>
+						</div>
+					
+						<div class="clear"></div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	<!-- / note input and display -->
+	
+	<!-- username or device -->
+	<div id="testing-client" ng-model="subject">
+		
+		<div id="timeline-user-input"> </div>
+		
+		<div id="timeline-user">
+			
+			<div id="timeline-user-only" ng-hide="subject.testroom">
+				<div class="clear"></div>
+				
+				<div class="timeline-user-avatar">
+					<img src="/layout/assets/avatar-large.png">
+				</div>
+				
+				<small>Testing with</small>
+				<h2>{{subject.name}}</h2>
+			</div>
+
+			<div id="timeline-user-only" style="top:5%;" ng-show="subject.testroom">
+				<canvas id="feed"></canvas>
+				<img id='ia' style='display:none;'/>
+				<div style='clear'></div>
+				<small>Testing with</small>
+				<h2>{{subject.name}}</h2>
+			</div>
+
+			<div id="cta">
+				<div class="cta">
+					<!-- old "End test" button -->
+					<!-- <button class="button outline" id="endtest" ng-click="postTest()">
+						<div class="checkmark"></div>
+						<span>End test</span>
+					</button> -->
+					<!-- this button brings summarize modal up, takes summary input and post it to summary page on "Findings" section under
+					"All your test summaries" -->
+					<!-- the "End test" button above will need to be removed but it's functionality will need to go on this same button below -->
+					<button class="button outline" ng-click="summarizeModalToggle()">
+					<div class="checkmark"></div>
+					<span>End test</span>
+					</button>
+				</div>
+			</div>
+
+		</div>
+		
+		
+	</div>
+	<!-- /username or device -->
+	
+	<div class="clear"></div>
+	
+	</div>
+</div>

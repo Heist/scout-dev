@@ -110,7 +110,7 @@
 
 					<div class="findings-information">
 						<h2 ng-if="selected.desc">Objectives</h2>
-						<p ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></p>
+						<p class="no-cursor" ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></p>
 						
 						<h2>Findings</h2>
 						<textarea msd-elastic class="input findings-summary" id="field-textarea" placeholder="Summarize your high level elarning here.
