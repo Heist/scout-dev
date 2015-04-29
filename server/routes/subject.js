@@ -14,15 +14,15 @@ module.exports = function(app, passport) {
         .get(function(req,res){
                 models.Subject.find({})
                     .exec(function(err,subjects){
-                        if(err){console.log(err);}
+                        if(err){}
                         
                         res.json(subjects);
                     });
             })
         .post(function(req,res){
                 fn.addSubject(req.body, function(err, subject){
-                    if(err){ console.log(err); }
-                    // console.log(subject);
+                    if(err){  }
+                    // 
                     res.json(subject);
                 });
             });
@@ -31,7 +31,7 @@ module.exports = function(app, passport) {
         .get(function(req, res){
             models.Subject.findById(req.params._id)
                 .exec(function(err, subject){
-                    if(err){console.log(err);}
+                    if(err){}
                     res.json(subject);
                 });
         });

@@ -13,7 +13,7 @@ var Emailer = (function() {
     function mail(envelope_options, message_variables) {
         this.envelope_options = envelope_options;
         this.message_variables = message_variables;
-        // console.log('envelope_options', envelope_options, 'message_variables', message_variables);
+        // 
     }
     
     mail.prototype.envelope_options =  {};
@@ -48,7 +48,7 @@ var Emailer = (function() {
 
         var transport = this.getTransport();
         return transport.sendMail(messageData, function(err, message){
-            // console.log('sent message to', message);
+            // 
         });
     };
 

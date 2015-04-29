@@ -19,7 +19,7 @@ module.exports = function(app, passport) {
     .get(function(req,res){
         models.Task.find({}, 
             function(err, tasks) {
-                if(err){ console.log(err); }
+                if(err){  }
                 res.json(tasks);
             });
     })
@@ -28,7 +28,7 @@ module.exports = function(app, passport) {
         var arr = _.toArray(req.body);
 
         fn.objectUpdate(arr, function(err, update){
-            if(err){console.log(err);}
+            if(err){}
             res.json(update);
         });
     })
@@ -42,14 +42,14 @@ module.exports = function(app, passport) {
             _test : req.body._test,
             index : req.body.index
         }, function(err, task){
-            if(err){ console.log(err); }
+            if(err){  }
 
             models.Test.findOneAndUpdate(
                 { '_id' : task._test},
                 { $push: { '_tasks' : task._id} },
                 { upsert : false },
                 function(err, test){
-                    if (err) { console.log(err); }
+                    if (err) {  }
                     res.json(task);
                 });
         });
@@ -60,23 +60,23 @@ module.exports = function(app, passport) {
     // get single task
         models.Task.findById(req.params._id)
             .exec(function(err,task){
-                if(err){console.log(err);}
+                if(err){}
                 res.json(task);
             });
     })
     .put(function(req,res){
     // update a single task
-        // console.log('update task', req.body);
+        // 
         fn.objectUpdate([req.body], function(err, update){
-            if(err){console.log(err);}
-            // console.log(update);
+            if(err){}
+            // 
             res.json(update);
         });
     })
     .delete(function(req,res){
     // delete a task
         fn.deleteTask(req.params._id, function(err, task){
-            if(err){console.log(err);}
+            if(err){}
             res.json(task);
         });
     });

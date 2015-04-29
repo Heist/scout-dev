@@ -12,12 +12,12 @@ module.exports = function( id ){
 
     return models.Tag.findAsync()
     		.then(function(tags){
-    			console.log(id);
-    			console.log('all tags', tags);
+    			
+    			
     			return models.Tag.findAsync({ '_messages' : {$in: [id]}})
 	    	})
 	    	.catch(function(err){
-	    		console.log(err);
+	    		
 	    	})
 
 }

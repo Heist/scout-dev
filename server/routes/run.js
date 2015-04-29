@@ -21,14 +21,14 @@ module.exports = function(app, passport, io) {
             // req.body should be an array of objects on DB to be updated.
             
             fn.objectUpdate(req.body, function(err, next){
-                if(err){ console.log(err); }
+                if(err){  }
                 res.json(next);
             });
         });
 
     app.route('/api/run/:_id')
         .get(function(req,res){
-            // console.log('run test');
+            // 
             // Find a test by _id and _account and populate its tasks, then return.
             models.Test.findOne({
                     '_id' : req.params._id, 
@@ -37,8 +37,8 @@ module.exports = function(app, passport, io) {
                 })
                 .populate('_tasks _tags')
                 .exec(function(err, test){
-                    if(err){console.log(err);}
-                    // console.log(test);
+                    if(err){}
+                    // 
                     res.json(test);
                 });
 

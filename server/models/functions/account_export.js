@@ -25,7 +25,7 @@ module.exports = function(account, callback){
             models.User.find({'_account': account })
                 .select('name local.email')
                 .exec(function(err, data){
-                    if(err){console.log(err);}
+                    if(err){}
                     callback(null, data);
                 });
         },
@@ -36,8 +36,8 @@ module.exports = function(account, callback){
                         .populate('created_by_user')
                         .select('name platform desc updated created created_by_user')
                         .exec(function(err, data){
-                            if(err){console.log(err);}
-                            // console.log(data.length);
+                            if(err){}
+                            // 
                             callback(null,data);
                         });
                 },
@@ -53,7 +53,7 @@ module.exports = function(account, callback){
                                     .populate('_test _messages')
                                     .select('_messages created desc name pass_fail index report_index updated visible ')
                                     .exec(function(err, data){
-                                        if(err){console.log(err);}
+                                        if(err){}
                                         // for each task
                                         // find all messages
                                         // for each message
@@ -69,12 +69,12 @@ module.exports = function(account, callback){
                                                         models.Message.findOne({'_id':msg._id})
                                                             .populate('_comments')
                                                             .exec(function(err, data){
-                                                                if(err){console.log(err);}
+                                                                if(err){}
                                                                 callback(null, data);
                                                             });
                                                     },
                                                     function(err, results){
-                                                        if(err){console.log(err);}
+                                                        if(err){}
                                                         // these results are your populated, commented messages.
                                                         obj._messages = '';
                                                         obj._messages = results;
@@ -91,7 +91,7 @@ module.exports = function(account, callback){
                                     models.Tag.find({'_test' : arg._id})
                                         .populate('_test _messages')
                                         .exec(function(err, data){
-                                                if(err){console.log(err);}
+                                                if(err){}
                                                 // for each task
                                                 // find all messages
                                                 // for each message
@@ -107,12 +107,12 @@ module.exports = function(account, callback){
                                                                 models.Message.findOne({'_id':msg._id})
                                                                     .populate('_comments')
                                                                     .exec(function(err, data){
-                                                                        if(err){console.log(err);}
+                                                                        if(err){}
                                                                         callback(null, data);
                                                                     });
                                                             },
                                                             function(err, results){
-                                                                if(err){console.log(err);}
+                                                                if(err){}
                                                                 // these results are your populated, commented messages.
                                                                 obj._messages = '';
                                                                 obj._messages = results;

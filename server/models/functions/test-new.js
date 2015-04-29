@@ -22,7 +22,7 @@ module.exports = function(req, next){
 	models.Test.create(
 		make,
 		function(err, test){
-            if(err){console.log(err);}
+            if(err){}
             fn.tagMaker({name: 'Summary', _test:test._id})
               .then(function(tag){
                     next(null, test);

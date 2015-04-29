@@ -52290,8 +52290,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         $scope.rawList = loadData.data.list;
 
-        $scope.$watch('rawlist', function() {
-            // group navlist by doctype when rawlist changes.
+        $scope.$watch('rawList', function() {
+            // group navlist by doctype when rawList changes.
             $scope.navlist = makeNavList($scope.rawList);
         });
         
@@ -52331,23 +52331,19 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var navlist_check = _.pluck($scope.rawList, 'name');
             var msg_tag       = _.pluck(data.msg._tags, 'name');
 
-            console.log('add tags', navlist_check, data);
+            console.log('add tags', navlist_check, data.tags, msg_tag);
+            // TODO: Edit this so that new tags are added and old tags are removed - effectively,
+            // pull all the tag docs from the left nav, replace them with data.tags
+
+            var clear = $scope.rawList.filter(function(r){
+                                return r.doctype !== 'tag'
+                            });
+
+            console.log('$scope.rawlist cleared of tags', clear);
             
-            data.tags.map(function(tag) {
-                var n = navlist_check.indexOf(tag.name);
-                if(n === -1){ // if the tag does not exist, make it, and push in new message
-                    
-                    tag.report_index = $scope.rawList.length;
-                    $scope.rawList.push(tag);
-                    $scope.rawList[tag.report_index]._messages.push(data.msg._id);
-                    return;
-                } else {
-                    if($scope.rawList[n].doctype==='tag'){
-                        $scope.rawList[n]._messages = tag._messages;
-                        
-                    }
-                }
-            })
+            $scope.rawList = clear.concat(data.tags);
+
+            console.log('after', navlist_check, _.pluck($scope.rawList, 'name'));
         }
 
         var pullDeadTags = function(newmessage, original, navlist){
@@ -52372,7 +52368,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
                     if(match_msg.length === 0){          // no messages left? Kill the tag and select the next one.
                         navlist.splice(match_in_nav,1);  // Kill tag in the nav
-                        $scope.activate($scope.rawlist[match_in_nav]); // select new one.
+                        $scope.activate($scope.rawList[match_in_nav]); // select new one.
                         
                     }    
 
@@ -52380,21 +52376,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             })
         }
         
-        var constructNewListOnMessageEdit = function(message, original){
-            // data.msg._subject.name << the name of the subject to edit, needlessly complex
-            // what we want is to find the appropriate
-
-             // add the new tags to the left nav
-            // var idx = _.pluck($scope.messages[message._subject.name], '_id').indexOf(original._id);
-            // $scope.messages[message._subject.name].splice(idx,1, message);
-            
-            // // var task_idx = _.pluck($scope.rawList, '_id').indexOf(original._task);
-            // // $scope.rawList[task_idx]._messages.push(data.msg._id);
-
-            // addTagsToLeftNav(data); // add new left nav tags to new tags
-            // pullDeadTags(data, message, $scope.navlist); // did we kill a tag? Kill a tag.
-        }
-
     // NAVIGATION =========================================
 
         $scope.reportView = function(){
@@ -52449,8 +52430,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         // MOVE STEPS =========================================
 
         $scope.moveTask = function(old_index, new_index){   
-            $scope.rawlist = reportFunctions.moveTask($scope.rawlist, old_index, new_index);
-            $http.put('/api/summary/'+ $stateParams._id, $scope.rawlist);           
+            $scope.rawList = reportFunctions.moveTask($scope.rawList, old_index, new_index);
+            $http.put('/api/summary/'+ $stateParams._id, $scope.rawList);           
         };
 
         // OBJECT FUNCTIONS =====================================
@@ -52476,7 +52457,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 .success(function(data){
                     if(data === '1'){
                         var newList = deleteMessage(message);
-                        $scope.rawlist = newList;
+                        $scope.rawList = newList;
                     }
                 })
         }
@@ -52499,10 +52480,12 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 .success(function(data, err){
                     console.log(data,' (probably data.msg is what we want)', err);
                     
+                    // splice the new message over its old self in the messages list
                     var idx = _.pluck($scope.messages[original._subject.name], '_id').indexOf(original._id);
                     $scope.messages[original._subject.name].splice(idx,1, data.msg);
                     
-                    // addTagsToLeftNav(data);
+                    console.log(idx, data.msg)
+                    addTagsToLeftNav(data);
                     // pullDeadTags;
                 });
         };

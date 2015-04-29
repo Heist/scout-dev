@@ -35,6 +35,9 @@ TagSchema.pre('save', function(next){
     if(this.name){
         this.nameCheck = this.name;
     }
+    if(this._messages){
+        
+    }
     next();
 });
 

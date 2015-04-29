@@ -19,15 +19,15 @@ module.exports = function(app, passport) {
     // get all of the tests
         models.Test.find({created_by_account:req.user._account})
         .exec(function(err, docs) {
-            if(err){console.log(err);}
+            if(err){}
             res.json(docs);
         });
     })
     .post(function(req,res){
-        // console.log('touched New Test', req.user);
+        // 
     // add a new test
         fn.testNew(req, function(err, test){
-            if(err){console.log(err);}
+            if(err){}
             res.json(test);
         });
     });
@@ -35,7 +35,7 @@ module.exports = function(app, passport) {
     app.route('/api/dev_tests/')
     .post(function(req, res){
     // This builds a mock for testing reports
-    // console.log('add dev tests', req.body);
+    // 
         fn.devTests(req.user._account, req.user).then(function(test){
             res.json(test);
         });
@@ -48,7 +48,7 @@ module.exports = function(app, passport) {
             .populate('_tasks')
             .populate('_tags')
             .exec(function(err,test){
-                if(err){console.log(err);}
+                if(err){}
                 res.json(test);
             });
     })
@@ -61,14 +61,14 @@ module.exports = function(app, passport) {
     .put(function(req,res){
     // update one test with new information
         fn.editTest(req.body, function(err, test){
-            if(err){console.log(err);}
+            if(err){}
             res.json(test);
         });
     })
     .delete(function(req,res){
     // Delete a test and dependencies
         fn.deleteTest(req.params._id, function(err, test){
-            if(err){ console.log(err); }
+            if(err){  }
             res.json(test);
         });
     });

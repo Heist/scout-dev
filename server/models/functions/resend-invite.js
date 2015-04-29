@@ -31,9 +31,9 @@ module.exports = function(inviteId, inviter, next){
 
             mailer.send(function(err, result) {
                 if (err) {
-                    return console.log(err);
+                    return 
                 }else{
-                    // console.log('Message sent: ' + result.response);
+                    // 
                     next(invite);
                 }
             });

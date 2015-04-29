@@ -44,8 +44,8 @@
 
         $scope.rawList = loadData.data.list;
 
-        $scope.$watch('rawlist', function() {
-            // group navlist by doctype when rawlist changes.
+        $scope.$watch('rawList', function() {
+            // group navlist by doctype when rawList changes.
             $scope.navlist = makeNavList($scope.rawList);
         });
         
@@ -85,23 +85,19 @@
             var navlist_check = _.pluck($scope.rawList, 'name');
             var msg_tag       = _.pluck(data.msg._tags, 'name');
 
-            console.log('add tags', navlist_check, data);
+            console.log('add tags', navlist_check, data.tags, msg_tag);
+            // TODO: Edit this so that new tags are added and old tags are removed - effectively,
+            // pull all the tag docs from the left nav, replace them with data.tags
+
+            var clear = $scope.rawList.filter(function(r){
+                                return r.doctype !== 'tag'
+                            });
+
+            console.log('$scope.rawlist cleared of tags', clear);
             
-            data.tags.map(function(tag) {
-                var n = navlist_check.indexOf(tag.name);
-                if(n === -1){ // if the tag does not exist, make it, and push in new message
-                    
-                    tag.report_index = $scope.rawList.length;
-                    $scope.rawList.push(tag);
-                    $scope.rawList[tag.report_index]._messages.push(data.msg._id);
-                    return;
-                } else {
-                    if($scope.rawList[n].doctype==='tag'){
-                        $scope.rawList[n]._messages = tag._messages;
-                        
-                    }
-                }
-            })
+            $scope.rawList = clear.concat(data.tags);
+
+            console.log('after', navlist_check, _.pluck($scope.rawList, 'name'));
         }
 
         var pullDeadTags = function(newmessage, original, navlist){
@@ -126,7 +122,7 @@
 
                     if(match_msg.length === 0){          // no messages left? Kill the tag and select the next one.
                         navlist.splice(match_in_nav,1);  // Kill tag in the nav
-                        $scope.activate($scope.rawlist[match_in_nav]); // select new one.
+                        $scope.activate($scope.rawList[match_in_nav]); // select new one.
                         
                     }    
 
@@ -188,8 +184,8 @@
         // MOVE STEPS =========================================
 
         $scope.moveTask = function(old_index, new_index){   
-            $scope.rawlist = reportFunctions.moveTask($scope.rawlist, old_index, new_index);
-            $http.put('/api/summary/'+ $stateParams._id, $scope.rawlist);           
+            $scope.rawList = reportFunctions.moveTask($scope.rawList, old_index, new_index);
+            $http.put('/api/summary/'+ $stateParams._id, $scope.rawList);           
         };
 
         // OBJECT FUNCTIONS =====================================
@@ -215,7 +211,7 @@
                 .success(function(data){
                     if(data === '1'){
                         var newList = deleteMessage(message);
-                        $scope.rawlist = newList;
+                        $scope.rawList = newList;
                     }
                 })
         }

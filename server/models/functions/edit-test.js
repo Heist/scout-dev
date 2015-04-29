@@ -12,7 +12,7 @@ module.exports = function(test, next){
 // EDIT A TEST ============================================ 
 
     var tasks = [];
-    // console.log('edit this', test);
+    // 
     
     async.waterfall([
         function(callback){
@@ -25,7 +25,7 @@ module.exports = function(test, next){
                             {'_id': task._id},
                             {index : task.index },
                             function(err, doc){
-                                if(err){console.log(err);}
+                                if(err){}
                             });
                     });
     
@@ -50,13 +50,13 @@ module.exports = function(test, next){
             },
             { upsert : true },
             function (err, doc) {
-                if (err){console.log(err);}
+                if (err){}
                 callback(null, doc);
             });
         }
     ], 
     function(err, results){
-        if(err){console.log(err);}
+        if(err){}
         next(null, results);
     });
 };

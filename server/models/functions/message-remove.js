@@ -12,17 +12,17 @@ module.exports = function(msg_id) {
 
 // REMOVE A MESSAGE ? ===================================
 	// retrieve message _id
-	console.log('remove this', msg_id);	
+		
 	// first, remove the message
 	return models.Message.removeAsync({'_id': msg_id})
 				.then(function(done){
                 // remove dual pointer on tasks
-            	console.log('remove this message', done, msg_id);
+            	
                 
             	return models.Tag.findAsync({ '_messages' : {$in: [msg_id]}})
             		.then(function(tags){
         			
-                        console.log('remove notes from these', tags._messages);
+                        
 	                    return Bluebird.map(tags, function(tag){
                             var arr = tag._messages;
                             // if a tag has been removed, then remove the message from that tag
@@ -44,7 +44,7 @@ module.exports = function(msg_id) {
 	            	})
 	                .then(function(tasks){
                     // remove dual pointer on subjects
-                    console.log('remove notes from tasks', tasks._messages);
+                    
 	                    return Bluebird.map(tasks, function(task){
 	                     var arr = task._messages;
 	                        // if a tag has been removed, then remove the message from that tag
@@ -53,12 +53,12 @@ module.exports = function(msg_id) {
 	                    })
 	                }).then(function(tasks){
                     // remove dual pointer on tasks
-                    	console.log('should be clean of first val', msg_id, tasks);
+                    	
 	                    return models.Subject.findAsync({ '_messages' : {$in: [msg_id]}})
 	                })
 	                .then(function(subjects){
                     // remove dual pointer on subjects
-                    console.log('remove notes from subjects', subjects._messages);
+                    
 	                    return Bluebird.map(subjects, function(subj){
 	                     var arr = subj._messages;
 	                        // if a tag has been removed, then remove the message from that tag
@@ -69,5 +69,5 @@ module.exports = function(msg_id) {
 	                	return 1;
 	                })
 		        })
-				.catch(function(err){console.log(err)});
+				.catch(function(err){
 }

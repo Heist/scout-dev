@@ -33,7 +33,7 @@ module.exports = function(emailAddress, app, next){
             });
         },
         function(token, user, done) {
-            // console.log('waterfall', user, token);
+            // 
             if(user !== '0'){
                 var smtpTransport = nodemailer.createTransport({
                     service: 'Mandrill',
@@ -64,7 +64,7 @@ module.exports = function(emailAddress, app, next){
         } 
     ], function(err, results) {
         if (err){ return next(err); }
-        // console.log('waterfall results email forgot-token', results);
+        // 
         next(null, results);
     });  
 };

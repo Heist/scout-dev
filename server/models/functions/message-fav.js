@@ -18,12 +18,12 @@ module.exports = function(message_array, next){
                     'fav_tag'  : msg.fav_tag
                 }, 
                 function(err, data){
-                    if(err){console.log(err);}
+                    if(err){}
                     callback(null, data);
                 });
         }, 
         function(err, results){
-            if(err){console.log(err);}
+            if(err){}
             next(null, results);
         });
 };

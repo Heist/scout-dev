@@ -58,7 +58,7 @@ module.exports = function(app){
         });
 
         // .delete(function(req,res){
-        //     console.log('touched delete user');
+        //     
         //     User.remove({'_id' : req.params._user}, function(err, doc){
         //         if(err) {return res.send (err);}
 
@@ -71,19 +71,19 @@ module.exports = function(app){
         .post(function(req,res){
             // create a new Invite
             fn.createInvite(req.body, req.user, function(err, invite){
-                if(err){console.log(err);}
+                if(err){}
                 res.json(invite);
             });
         });
 
     app.route('/api/invite/:_id')
         .put(function(req,res){
-            // console.log('invite put');
+            // 
         })
         .post(function(req,res){
             // this is to resend an Invite already sent
             fn.resendInvite(req.params._id, req.user, function(err, invite){
-                if(err){console.log(err);}
+                if(err){}
                 res.json(invite);
             });
         })

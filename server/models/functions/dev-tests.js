@@ -14,7 +14,7 @@ module.exports = function(account, user){
     var fn = Bluebird.promisifyAll(require('../../models/functions'));
 
 
-    // console.log('devTests');
+    // 
 
     var createTest = function(acct, usr){
         // this is just straight not working.
@@ -104,19 +104,19 @@ module.exports = function(account, user){
         // console.log('mocking', acct, usr)
         return createTest(acct, usr)
             .then(function(test){
-                // console.log('test');
+                // 
                 t.test = test._id;
                 return createSubject(t.test);
             }).then(function(subject){
-                // console.log('subject');
+                // 
                 return createTasks(t.test, subject._id);
             }).then(function(tasks){
-                // console.log('tasks');
+                // 
                 return Bluebird.map(tasks, function(task){
                     return createMessagesList(task._subjects[0], task._id, t.test, usr);
                 });
             }).then(function(messageList){
-                // console.log('messageList');
+                // 
                 var list = _.flatten(messageList);
                 return Bluebird.map(list, function(msg){
                     return fn.messageNew(msg, msg.user)

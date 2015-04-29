@@ -76,13 +76,13 @@
                     var mailer = new Emailer(envelope_options, message_variables);
 
                     mailer.send(function(err, result) {
-                        if (err) { console.log(err); }
+                        if (err) {  }
                         callback(null, 'Invite sent to '+ invite.invite_email);
                     });
                 }
             ], 
             function(err, results){
-                if(err){console.log(err);}
+                if(err){}
                 res.send(results);
             });
         });

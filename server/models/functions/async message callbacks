@@ -1,7 +1,7 @@
 // return async.parallel({
 //             task: function(callback){
 //                 models.Task.findOneAndUpdate({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, next){
-//                     if(err){console.log(err);}
+//                     if(err){}
 //                     callback(null, next);
 //                 });
 //             },
@@ -11,10 +11,10 @@
 //                 });
 //             },
 //             tags: function(callback){
-//                 console.log('tags', make.tags);
+//                 
 //                 async.map(make.tags,
 //                     function(tag, callback){
-//                         console.log(tag);
+//                         
 //                         tagUpdate(tag, m._test, m._id, function(err, next){
 //                             callback(null, next);    
 //                         });
@@ -25,7 +25,7 @@
 //             }
 //         },
 //         function(err, results){
-//             if(err){console.log(err);}
-//             console.log('waterfall', results.tags);
+//             if(err){}
+//             
 //             next(err, results);
 // });

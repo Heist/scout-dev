@@ -14,7 +14,7 @@ module.exports = function(request, user, next){
             created_by_user: user._id
         },
         function(err, cmt){
-            if(err){ console.log(err); }
+            if(err){  }
         });
 
     promise.then(function(comment){
@@ -23,14 +23,14 @@ module.exports = function(request, user, next){
             {'_id' : request.msg},
             {$push : {_comments: comment._id}},
             function(err, msg){
-                if (err) {console.log(err);}
+                if (err) {}
             });
 
     }).then(function(){
         models.Message.findOne({'_id': request.msg})
            .populate('_comments _subject')
            .exec(function(err, msg){
-                if (err) { console.log(err);}
+                if (err) { }
                 next(null, msg);
             });
     });

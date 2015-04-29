@@ -8,7 +8,7 @@ module.exports = function(request, next){
     var async    = require('async');
     var models = require('../../models');
 
-    // console.log('adding a subject', request);
+    // 
     
 // CREATE A NEW SUBJECT ===================================
     async.waterfall([

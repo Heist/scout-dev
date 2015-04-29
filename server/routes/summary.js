@@ -16,9 +16,9 @@ module.exports = function (app, passport) {
     .get(function(req, res){
     // get the navigation console for the summary.
         fn.buildSummary(req.params._id, function(err, summary){
-            if(err){ console.log(err); }
+            if(err){  }
             
-            console.log(summary);
+            
             // organise the returned information to pass back a good set for raw data
             var rawList = _.sortBy(_.filter(summary.navlist.list, function(n){ return n.name !== 'Summary'; }), function(obj){ return obj.report_index; });
 
@@ -42,7 +42,7 @@ module.exports = function (app, passport) {
     .put(function(req, res){
         // this should be used for updating objects with
         // visibility and summaries
-        // console.log('object update this steeze', req.body);
+        // 
 
         var object_array = req.body.navlist || req.body;
         var message_array = req.body.messages || [];
@@ -51,30 +51,30 @@ module.exports = function (app, passport) {
             function(callback){
                 fn.objectUpdate(object_array,
                 function(err, update){
-                    if(err){console.log(err);}
+                    if(err){}
                     callback(null, update);
                 });
             },
             function(callback){
                 fn.messageFav(message_array,
                     function(err, update){
-                        if(err){console.log(err);}
+                        if(err){}
                         callback(null, update);
                     });
             }
         ],
         function(err,results){
-            if(err){console.log(err);}
+            if(err){}
             res.json(results);
         });
     })
     .post(function(req,res){
         // update an object but not any messages
-        // console.log('solo update', req.body);
+        // 
         
         fn.objectUpdate(req.body,
             function(err, update){
-                if(err){console.log(err);}
+                if(err){}
                 res.json(update);
             });
     });
@@ -84,7 +84,7 @@ module.exports = function (app, passport) {
        .post(function(req, res){
         // Add a comment to a message declared on the request.
         fn.newComment(req.body, req.user, function(err, comment){
-            if(err){console.log(err);}
+            if(err){}
             res.json(comment);
         });
     });

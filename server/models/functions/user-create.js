@@ -15,10 +15,10 @@ module.exports = function(user, next){
         function(callback){
 	            models.Invite.findOne({'invite_email': user.email})
 	                .exec(function(err, invite){
-	                    if (err){ console.log(err); }
+	                    if (err){  }
                         if( !invite ){ callback(null, null); }
                         else {
-                            // console.log('invite found', invite._account);
+                            // 
                         // there was a pending invite with that invite _id, and it's not pending now.
                             invite.pending = false;
                             invite.save(function(err, data){
@@ -35,13 +35,13 @@ module.exports = function(user, next){
                 'local.email' : user.email,
                 'local.password' : pass
             }, function(err, user){ 
-                if (err){ console.log(err); }
+                if (err){  }
                 callback(null, {invite: invite, user : user});
             });
         },
         function(arg, callback){
         	if(arg.invite === null ){
-        		// console.log('make some tests');
+        		// 
                 fn.defaultTests(arg.user._account, arg.user._id, function(err, tests){
                     callback(null, {user: arg.user, tests: true});
                 });
@@ -49,7 +49,7 @@ module.exports = function(user, next){
         		callback(null, {user: arg.user, tests: false});
         	}
         }], function(err, results){
-        	if(err){console.log(err);}
+        	if(err){}
         	next(null, results);
         });
 };

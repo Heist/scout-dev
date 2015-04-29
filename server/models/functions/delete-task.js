@@ -15,40 +15,40 @@ module.exports = function(task, next){
     async.parallel([
         function(callback){
             models.Task.findById(task, function(err, doc){
-                if(err){ console.log(err); }
+                if(err){  }
 
                 models.Test.findOne({'_id': doc._test})
                     .exec(function(err, test){
-                        if(err){ console.log(err); }
+                        if(err){  }
 
                         test._tasks.remove(doc._id);
                         test.save(function(err,data){
-                            if(err){console.log(err);}
+                            if(err){}
                         });
                     });
             })
             .remove(function(err){
-                if(err){console.log(err);}
+                if(err){}
                 callback(null, 'task');
             });
         },
         function(callback){
             models.Message.remove({ '_task' : task }, 
                 function(err, msg){
-                    if(err){console.log(err);}
+                    if(err){}
                     callback(null, 'msg');
                 });
         },
         function(callback){
             models.Tag.remove({_task: task},
                 function(err, msg){
-                    if(err){console.log(err);}
+                    if(err){}
                     callback(null, 'tag');
                 });
         }
     ], 
     function(err, results){
-        if(err){console.log(err);}
+        if(err){}
         next(task);
     });
 };

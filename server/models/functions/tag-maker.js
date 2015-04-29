@@ -19,10 +19,10 @@ module.exports = function(tag){
 
     if(tag.length === 0){ return; }
 
-    console.log('touched tagMaker', tag);
+    
 
     var oneTag = function(singleTag){
-    	console.log('single new tag', singleTag);
+    	
 
     	singleTag.name = singleTag.name.replace(/#/gi,'');
 
@@ -44,19 +44,19 @@ module.exports = function(tag){
     	var o = {upsert : true};
     	// okay let's make this a findOneAndUpdate...
     	return models.Tag.findOneAndUpdate(q, u, o, function(err, obj){
-    		console.log('obj', obj);
+    		
     	});
     }
 
-    console.log('is tag an array?', _.isArray(tag), tag);
+    
 
     var promise = (_.isArray(tag)) ? 
-    	Bluebird.map(tag, function(t){ console.log('array of tags inside tag_maker', t); return oneTag(t); }) :
+    	Bluebird.map(tag, function(t){  }) :
     	oneTag(tag);
     	
 	return promise.then(function(tag){
-		console.log('promise returned', tag);
-		console.log(data);
+		
+		
 
 		if(_.isArray(tag)){
 			data = tag;
@@ -64,11 +64,11 @@ module.exports = function(tag){
 			data.push(tag); // Data is now an array. If it's a multiple array, one should work
 		}
 
-		console.log('data', data);
+		
 		return models.Test.findOne({'_id'  : data[0]._test }).exec();
 	})
 	.then(function(test){
-		console.log('returned test', test); 
+		 
 		// check if that tag already exists on the test
 		// if so, just pass to next
 		// otherwise, add the tag to the test.
@@ -80,12 +80,12 @@ module.exports = function(tag){
 					return;
 				}
 			}).then(function(t){
-				console.log('bluebird t', t, test, test._tags);
+				
 				return test.saveAsync();
 			});
 	})
 	.then(function(test){
-		console.log('did adding tag arrays break everything', test);
+		
 		return data;
 	});
 

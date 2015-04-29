@@ -26,7 +26,7 @@ module.exports = function(app, passport) {
         if (!req.isAuthenticated()) {
             return res.send( 401, "unauthorized request");
         } else {
-            // console.log('login good');
+            // 
             next();
         }
     }
@@ -42,7 +42,7 @@ module.exports = function(app, passport) {
 
     // is someone logged in?
     app.get('/loggedin', function(req, res) {
-            // console.log('check me for things', req.user);
+            // 
             if(req.user){
                 if (req.isAuthenticated()) { 
                     res.json({ 
@@ -94,7 +94,7 @@ module.exports = function(app, passport) {
         }
 
         passport.authenticate('local-signup', function(err, reply) {
-            if (err) { console.log(err); }
+            if (err) {  }
 
             if(reply.user){
                 req.logIn(reply.user, function(err) {
@@ -127,7 +127,7 @@ module.exports = function(app, passport) {
 
     // password reset route
     app.get('/reset/:token', function(req, res) {
-        // console.log('check reset');
+        // 
         models.User.findOne({ 'resetPasswordToken' : req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
             if (!user) { res.send('0'); }
             res.send('1');
@@ -137,7 +137,7 @@ module.exports = function(app, passport) {
     // password reset route
     app.post('/reset/:token', function(req, res) {
         fn.resetPassword(req.params.token, req.body.password, app, function(err, pass){
-            if(err){console.log(err);}
+            if(err){}
             res.send(pass);
         });
     });
@@ -150,7 +150,7 @@ module.exports = function(app, passport) {
             models.Invite.findById(req.params._id)
                 .select('invite_email')
                 .exec(function(err,invite){
-                    if(err) { return console.log(err); }
+                    if(err) { return  }
                     
                     res.json(invite);
                 });
@@ -162,8 +162,8 @@ module.exports = function(app, passport) {
     //         var connectionOne = require('./models/app-connect');
     //         var Msg = connectionOne.model('Message');
     //         Msg.create({body: 'new message test'}, function(err, update){
-    //             if(err){console.log(err);}
-    //             console.log(update);
+    //             if(err){}
+    //             
     //         });
     //     });
 
@@ -171,7 +171,7 @@ module.exports = function(app, passport) {
     // .get(function(req,res){
     //     Test.find()
     //         .exec(function(err, docs) {
-    //             if(err){console.log(err);}
+    //             if(err){}
 
     //             res.json(docs);
     //         });
@@ -181,7 +181,7 @@ module.exports = function(app, passport) {
     // .get(function(req,res){
     //     Comment.find()
     //         .exec(function(err, docs) {
-    //             if(err){console.log(err);}
+    //             if(err){}
 
     //             res.json(docs);
     //         });
@@ -192,7 +192,7 @@ module.exports = function(app, passport) {
     //     Test.find({'_id': req.params._id})
     //         .populate('_tasks')
     //         .exec(function(err, docs) {
-    //             if(err){console.log(err);}
+    //             if(err){}
 
     //             res.json(docs);
     //         });
@@ -202,7 +202,7 @@ module.exports = function(app, passport) {
     // .get(function(req,res){
     //     Task.find()
     //         .exec(function(err, docs) {
-    //             if(err){console.log(err);}
+    //             if(err){}
 
     //             res.json(docs);
     //         });
@@ -213,7 +213,7 @@ module.exports = function(app, passport) {
     //     Message.find()
     //         .populate('_comments')
     //         .exec(function(err, docs) {
-    //             if(err){console.log(err);}
+    //             if(err){}
 
     //             res.json(docs);
     //         });
@@ -222,7 +222,7 @@ module.exports = function(app, passport) {
     // app.route('/debug/tag')
     //     .get(function(req,res){
     //         Tag.find(function(err, docs) {
-    //                 if(err){console.log(err);}
+    //                 if(err){}
 
     //                 res.json(docs);
     //             });
@@ -231,7 +231,7 @@ module.exports = function(app, passport) {
     // app.route('/debug/user')
     //     .get(function(req,res){
     //         User.find(function(err, users) {
-    //                 if(err){console.log(err);}
+    //                 if(err){}
 
     //                 res.json(users);
     //             });
@@ -240,7 +240,7 @@ module.exports = function(app, passport) {
     // app.route('/debug/invite')
     //     .get(function(req,res){
     //         Invite.find(function(err, invites) {
-    //                 if(err){console.log(err);}
+    //                 if(err){}
 
     //                 res.json(invites);
     //             });
@@ -250,7 +250,7 @@ module.exports = function(app, passport) {
     //     .get(function(req,res){
     //         Subject.find()
     //             .exec(function(err, docs) {
-    //                 if(err){console.log(err);}
+    //                 if(err){}
 
     //                 res.json(docs);
     //             });
@@ -264,7 +264,7 @@ module.exports = function(app, passport) {
     app.route('/auth/export/account/')
         .get(function(req,res){
             fn.accountExporter(req.user._account, function(err, account) {
-                if(err){console.log(err);}
+                if(err){}
                 res.json(account);
             });
         });
@@ -277,7 +277,7 @@ module.exports = function(app, passport) {
     app.route('/api/public/report/:_id')
     .get(function(req, res){
         fn.buildSummary(req.params._id, function(err, summary){
-            if(err){console.log(err);}
+            if(err){}
             res.json(summary);
         });
     });
@@ -287,7 +287,7 @@ module.exports = function(app, passport) {
 
     app.use('/api',  isLoggedInAjax, function (req, res, next) {
         // for calls that start with api....
-        // console.log('touched the api tag');
+        // 
         next();
     });
 

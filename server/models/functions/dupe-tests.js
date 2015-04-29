@@ -10,13 +10,13 @@ module.exports = function(test, next){
     var models   = require('../../models');
 
 // Duplicate existing tests through a waterfall callback.
-    // console.log(test);
+    // 
     async.waterfall([
         function(callback) {
             models.Test.findById(test)
                 .populate({path:'_tasks'})
                 .exec(function(err, doc){
-                    if(err){console.log(err);}
+                    if(err){}
 
                     callback(null, doc);
                 });
@@ -35,7 +35,7 @@ module.exports = function(test, next){
                 };
 
             models.Test.create(update, function(err, test){
-                if (err){console.log(err);}
+                if (err){}
 
                 callback(null, {'old' : old, 'test' : test});
             });
@@ -53,12 +53,12 @@ module.exports = function(test, next){
                     };
 
                     models.Task.create(make, function(err, doc){
-                        if (err){ console.log(err); }
+                        if (err){  }
                         callback(null,doc._id);
                     });
 
                 }, function(err, results){
-                    // console.log('callback', results);
+                    // 
                     callback(null, {tasks: results, test: args.test});
                 });
             } else {
@@ -69,13 +69,13 @@ module.exports = function(test, next){
             if(args.tasks){
                 args.test._tasks = args.tasks;
                 args.test.save(function(err,test){
-                    if (err){ console.log(err); }
+                    if (err){  }
                     callback(null, test);
                 });
             }
         }
     ], function (err, result) {
-        if(err){console.log(err);}
+        if(err){}
         next(err, result);
     });
 };

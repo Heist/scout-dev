@@ -8,7 +8,7 @@ module.exports = function(app, passport, io) {
 
     // socket.on('disconnect', function(data)
     // {
-    //     console.log('disconnect');
+    //     
     // });
 
     // socket.disconnect();
@@ -32,9 +32,9 @@ module.exports = function(app, passport, io) {
             if (! data.headers.cookie) {
                 return next(new Error('Missing cookie headers'));
             }
-            console.log('cookie header ( %s )', JSON.stringify(data.headers.cookie));
+            
             var cookies = cookie.parse(data.headers.cookie);
-            console.log('cookies parsed ( %s )', JSON.stringify(cookies));
+            
             if (! cookies[COOKIE_NAME]) {
                 return next(new Error('Missing cookie ' + COOKIE_NAME));
             }
@@ -42,7 +42,7 @@ module.exports = function(app, passport, io) {
             if (! sid) {
                 return next(new Error('Cookie signature is not valid'));
             }
-            console.log('session ID ( %s )', sid);
+            
             data.sid = sid;
             
             app.locals.store.get(sid, function(err, session) {
@@ -63,7 +63,7 @@ module.exports = function(app, passport, io) {
     // this is only good on Socket 1.0+ - we are presently using Socket 0.9
 
     io.use(function(socket, next) {
-        // console.log('socket query', socket.request._query, socket.id);
+        // 
         var query = socket.request._query;
         room = query.test;
 
@@ -72,7 +72,7 @@ module.exports = function(app, passport, io) {
         };
 
         socket.join(room);
-        // console.log('room joined', room);
+        // 
         next();
     });
 
@@ -99,9 +99,9 @@ module.exports = function(app, passport, io) {
     function onAuthorizeFail(data, message, error, accept){
         // Assumed to be a guest user ===========
 
-        if(error){ console.log(error);}
+        if(error){ }
         
-        // console.log('failed connection to socket.io:', message);
+        // 
         name = userNames.getGuestName();
         accept();
         
@@ -158,22 +158,22 @@ function testSession(main, channel){
     var roomList = [];
 
     io.on('connection', function (socket) {
-        // console.log('hello user', user._account);
-        console.log('someone connected from somewhere');
+        // 
+        
         // All of these variables die with the connection.
         // This probably works to kill old rooms and things?
 
         var origin_room = socketData[socket.id].room;
         var testRoom = {};
 
-        // console.log(myNumber, 'connected');
+        // 
 
         // return clients in given room
         var roomClients = io.of('').adapter.rooms[room];
         
         for(var socketId in roomClients){
             if(roomClients.hasOwnProperty(socketId)){
-                console.log(io.of('').connected[socketId].id, 'is in myroom');
+                
             }
         }
 
@@ -198,10 +198,10 @@ function testSession(main, channel){
         
         socket.on('pics', function(data, err){
             // if (sendgrid == undefined) {
-            //     console.log("received email request but could not service");
+            //     
             //     return;
             // }
-            // console.log("pics rec'd");
+            // 
 
             // imgs = data.msg.img_array;
             // email_addr = unescape(data.msg.email);
@@ -231,7 +231,7 @@ function testSession(main, channel){
 
             // sendgrid.send(email, function(err, json) {  
             // if (err) { return console.error(err); }
-            //   console.log(json);
+            //   
             // });
 
 
@@ -239,13 +239,13 @@ function testSession(main, channel){
 
         socket.on('subscribe', function(data) { 
             var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
-            console.log('joining room', hash);
+            
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
             socket.join(hash); 
         });
 
         socket.on('channel', function(data) { 
-            console.log('joining room', data.room.toLowerCase());
+            
             socket.join(data.room); 
         });
 
@@ -263,7 +263,7 @@ function testSession(main, channel){
     // and joins that channel as well as the previous channel.
 
         socket.on('get_room_list', function(data){
-            console.log('get room list', roomList);
+            
             socket.emit('room_list', {rooms: roomList});
         });
 
@@ -271,12 +271,12 @@ function testSession(main, channel){
 // MESSAGING ROUTES =================================================
 
         socket.on('send:note', function(data){
-            console.log('note sent', data);
+            
             socket.to(origin_room).emit('note', data);
         });
 
         socket.on('send:subject_added', function(data){
-            console.log('subject added socket', data.subject);
+            
             
             // Join the subject test
             socket.join(data.subject._id);
@@ -289,14 +289,14 @@ function testSession(main, channel){
             // How will this clean up, since it lives on Server forever? HMM.
             roomList.push({subject: data.subject, room: data.subject._id}); 
 
-            console.log('subject add roomlist', roomList);
+            
 
             // Tell anyone in the origin room we have a new subject somewhere
             socket.to(origin_room).emit('room_list_update', {rooms: roomList});
         });
 
         socket.on('join_subject_test', function(data){
-            console.log('join test touched', data);
+            
             socket.join(data.subject);
             socket.to(origin_room).emit('add_subject', data);
         });
@@ -304,7 +304,7 @@ function testSession(main, channel){
         socket.emit('announce', 'control announcement');
 
         socket.on('disconnect', function () {
-            console.log('goodbye user');
+            
             socket.broadcast.emit('user:left', {
                 name: name
             });
