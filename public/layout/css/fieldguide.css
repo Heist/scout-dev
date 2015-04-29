@@ -5936,7 +5936,7 @@ hr {
   /* are we onboard? */ }
   #report-summary #generated-with-fg img {
     position: absolute;
-    top: 25px;
+    top: 22px;
     right: 40px; }
   #report-summary.is-onboard #findings-viewmode-controls {
     bottom: 0; }
