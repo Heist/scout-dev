@@ -37,13 +37,21 @@
 
         console.log(loadData.data);
 
-           // Find the test in the left nav order
+        // Find the test in the left nav order
+        var testIdx = _.indexOf(_.pluck(loadData.data.list, 'doctype'), 'test');
+        var tagList = _.sortBy(_.filter(loadData.data.list, function(n){ return n.name !== 'Summary'; }), function(obj){ return obj.report_index; });
+
+    
+        // organise the returned information to pass back a good set for raw data
         
+        // Set the messages from the summary tag to the test object
+        loadData.data.list[testIdx]._messages = _.filter(loadData.data.list, function(n){
+                        return n.name === 'Summary';
+                    })[0]._messages;
 
         $scope.testname = loadData.data.name;
-
-        $scope.rawList = _.filter(loadData.data.list, function(n){ return n._messages.length > 0 });
-
+        $scope.rawList = _.filter(loadData.data.list, function(n){ return n._messages.length > 0 }).concat(loadData.data.list[testIdx]);
+        
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
             $scope.navlist = makeNavList($scope.rawList);
@@ -53,8 +61,6 @@
 
         // GROUP MESSAGES BY USERS ==================================
         $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
-
-        // $scope.activate($scope.rawList[]);
 
         var deleteMessage = function(message){
             // requires a message with subject name and _id

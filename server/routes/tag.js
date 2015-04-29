@@ -11,7 +11,7 @@ module.exports = function(app, passport) {
     app.route('/api/tag/')
         .get(function(req,res){
             models.Tag.find(function(err, tags) {
-                    if(err){}
+                    if(err){ console.log(err); }
                     res.json(tags);
                 });
         })
@@ -25,7 +25,7 @@ module.exports = function(app, passport) {
         .get(function(req,res){
             models.Tag.find({'_test':req.params._id})
                 .exec(function(err, tags) {
-                    if(err){}
+                    if(err){ console.log(err); }
                     res.json(tags);
                 });
         })

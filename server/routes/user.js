@@ -15,12 +15,12 @@ app.route('/api/user/:_id')
     .put(function(req,res){
         models.User.findOne({'_id' : req.user._id})
             .exec(function(err, user){
-                if(err){}
+                if(err){ console.log(err); }
                 if(user){
                     // 
                     user.onboard = req.body.onboard;
                     user.save(function(err, data){
-                        if(err){}
+                        if(err){ console.log(err); }
                         // 
                         res.send('saved');
                     });

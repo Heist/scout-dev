@@ -71,7 +71,7 @@ module.exports = function(app){
         .post(function(req,res){
             // create a new Invite
             fn.createInvite(req.body, req.user, function(err, invite){
-                if(err){}
+                if(err){ console.log(err); }
                 res.json(invite);
             });
         });
@@ -83,7 +83,7 @@ module.exports = function(app){
         .post(function(req,res){
             // this is to resend an Invite already sent
             fn.resendInvite(req.params._id, req.user, function(err, invite){
-                if(err){}
+                if(err){ console.log(err); }
                 res.json(invite);
             });
         })

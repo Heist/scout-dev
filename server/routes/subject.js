@@ -14,7 +14,7 @@ module.exports = function(app, passport) {
         .get(function(req,res){
                 models.Subject.find({})
                     .exec(function(err,subjects){
-                        if(err){}
+                        if(err){ console.log(err); }
                         
                         res.json(subjects);
                     });
@@ -31,7 +31,7 @@ module.exports = function(app, passport) {
         .get(function(req, res){
             models.Subject.findById(req.params._id)
                 .exec(function(err, subject){
-                    if(err){}
+                    if(err){ console.log(err); }
                     res.json(subject);
                 });
         });

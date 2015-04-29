@@ -53,7 +53,7 @@ module.exports = function(object_array, next){
                 });
         },
         function(err, results){
-            if(err){}
+            if(err){ console.log(err); }
             next(null, results);
         });
 };

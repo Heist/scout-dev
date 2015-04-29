@@ -137,7 +137,7 @@ module.exports = function(app, passport) {
     // password reset route
     app.post('/reset/:token', function(req, res) {
         fn.resetPassword(req.params.token, req.body.password, app, function(err, pass){
-            if(err){}
+            if(err){ console.log(err); }
             res.send(pass);
         });
     });
@@ -162,7 +162,7 @@ module.exports = function(app, passport) {
     //         var connectionOne = require('./models/app-connect');
     //         var Msg = connectionOne.model('Message');
     //         Msg.create({body: 'new message test'}, function(err, update){
-    //             if(err){}
+    //             if(err){ console.log(err); }
     //             
     //         });
     //     });
@@ -171,7 +171,7 @@ module.exports = function(app, passport) {
     // .get(function(req,res){
     //     Test.find()
     //         .exec(function(err, docs) {
-    //             if(err){}
+    //             if(err){ console.log(err); }
 
     //             res.json(docs);
     //         });
@@ -181,7 +181,7 @@ module.exports = function(app, passport) {
     // .get(function(req,res){
     //     Comment.find()
     //         .exec(function(err, docs) {
-    //             if(err){}
+    //             if(err){ console.log(err); }
 
     //             res.json(docs);
     //         });
@@ -192,7 +192,7 @@ module.exports = function(app, passport) {
     //     Test.find({'_id': req.params._id})
     //         .populate('_tasks')
     //         .exec(function(err, docs) {
-    //             if(err){}
+    //             if(err){ console.log(err); }
 
     //             res.json(docs);
     //         });
@@ -202,7 +202,7 @@ module.exports = function(app, passport) {
     // .get(function(req,res){
     //     Task.find()
     //         .exec(function(err, docs) {
-    //             if(err){}
+    //             if(err){ console.log(err); }
 
     //             res.json(docs);
     //         });
@@ -213,7 +213,7 @@ module.exports = function(app, passport) {
     //     Message.find()
     //         .populate('_comments')
     //         .exec(function(err, docs) {
-    //             if(err){}
+    //             if(err){ console.log(err); }
 
     //             res.json(docs);
     //         });
@@ -222,7 +222,7 @@ module.exports = function(app, passport) {
     // app.route('/debug/tag')
     //     .get(function(req,res){
     //         Tag.find(function(err, docs) {
-    //                 if(err){}
+    //                 if(err){ console.log(err); }
 
     //                 res.json(docs);
     //             });
@@ -231,7 +231,7 @@ module.exports = function(app, passport) {
     // app.route('/debug/user')
     //     .get(function(req,res){
     //         User.find(function(err, users) {
-    //                 if(err){}
+    //                 if(err){ console.log(err); }
 
     //                 res.json(users);
     //             });
@@ -240,7 +240,7 @@ module.exports = function(app, passport) {
     // app.route('/debug/invite')
     //     .get(function(req,res){
     //         Invite.find(function(err, invites) {
-    //                 if(err){}
+    //                 if(err){ console.log(err); }
 
     //                 res.json(invites);
     //             });
@@ -250,7 +250,7 @@ module.exports = function(app, passport) {
     //     .get(function(req,res){
     //         Subject.find()
     //             .exec(function(err, docs) {
-    //                 if(err){}
+    //                 if(err){ console.log(err); }
 
     //                 res.json(docs);
     //             });
@@ -264,7 +264,7 @@ module.exports = function(app, passport) {
     app.route('/auth/export/account/')
         .get(function(req,res){
             fn.accountExporter(req.user._account, function(err, account) {
-                if(err){}
+                if(err){ console.log(err); }
                 res.json(account);
             });
         });
@@ -277,7 +277,7 @@ module.exports = function(app, passport) {
     app.route('/api/public/report/:_id')
     .get(function(req, res){
         fn.buildSummary(req.params._id, function(err, summary){
-            if(err){}
+            if(err){ console.log(err); }
             res.json(summary);
         });
     });

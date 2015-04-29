@@ -82,7 +82,7 @@
                 }
             ], 
             function(err, results){
-                if(err){}
+                if(err){ console.log(err); }
                 res.send(results);
             });
         });

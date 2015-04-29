@@ -23,32 +23,32 @@ module.exports = function(task, next){
 
                         test._tasks.remove(doc._id);
                         test.save(function(err,data){
-                            if(err){}
+                            if(err){ console.log(err); }
                         });
                     });
             })
             .remove(function(err){
-                if(err){}
+                if(err){ console.log(err); }
                 callback(null, 'task');
             });
         },
         function(callback){
             models.Message.remove({ '_task' : task }, 
                 function(err, msg){
-                    if(err){}
+                    if(err){ console.log(err); }
                     callback(null, 'msg');
                 });
         },
         function(callback){
             models.Tag.remove({_task: task},
                 function(err, msg){
-                    if(err){}
+                    if(err){ console.log(err); }
                     callback(null, 'tag');
                 });
         }
     ], 
     function(err, results){
-        if(err){}
+        if(err){ console.log(err); }
         next(task);
     });
 };

@@ -84,7 +84,7 @@ module.exports = function(address, inviter, next){
         }
     ], 
     function(err, results){
-        if(err){}
+        if(err){ console.log(err); }
         next(null, results);
     });
 };

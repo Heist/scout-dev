@@ -28,7 +28,7 @@ module.exports = function(app, passport) {
         var arr = _.toArray(req.body);
 
         fn.objectUpdate(arr, function(err, update){
-            if(err){}
+            if(err){ console.log(err); }
             res.json(update);
         });
     })
@@ -60,7 +60,7 @@ module.exports = function(app, passport) {
     // get single task
         models.Task.findById(req.params._id)
             .exec(function(err,task){
-                if(err){}
+                if(err){ console.log(err); }
                 res.json(task);
             });
     })
@@ -68,7 +68,7 @@ module.exports = function(app, passport) {
     // update a single task
         // 
         fn.objectUpdate([req.body], function(err, update){
-            if(err){}
+            if(err){ console.log(err); }
             // 
             res.json(update);
         });
@@ -76,7 +76,7 @@ module.exports = function(app, passport) {
     .delete(function(req,res){
     // delete a task
         fn.deleteTask(req.params._id, function(err, task){
-            if(err){}
+            if(err){ console.log(err); }
             res.json(task);
         });
     });

@@ -37,7 +37,7 @@ module.exports = function(app, passport, io) {
                 })
                 .populate('_tasks _tags')
                 .exec(function(err, test){
-                    if(err){}
+                    if(err){ console.log(err); }
                     // 
                     res.json(test);
                 });

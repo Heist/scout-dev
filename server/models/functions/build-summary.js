@@ -17,13 +17,13 @@ module.exports = function(report_id, next){
         },
         messages: function(callback){
             fn.messageList(report_id, function(err, list){
-                if(err){}
+                if(err){ console.log(err); }
                 callback(null, list);
             });
         }
     },
     function(err, results){
-        if(err){}
+        if(err){ console.log(err); }
         next(null, results);
     });
 };

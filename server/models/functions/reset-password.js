@@ -58,7 +58,7 @@ module.exports = function(token, pass, app, next){
             }
         }
     ], function(err, results) {
-        if(err){}
+        if(err){ console.log(err); }
         // 
         next(null, results);
     });
