@@ -32,14 +32,13 @@ module.exports = function(msg, next){
     // FIND A MESSAGE  from a message ID then do the above
 
     return models.Message.findOneAsync({'_id' : msg._id}).then(function(returned){
-        // if(err){}
+            console.log('found message', returned._id);
             var newMessage;
             returned.body = msg.body; // set new message body
 
             return fn.messageNew(returned, returned.created_by_user)
                     .then(function(msg){
-                        
-                        
+                        console.log('made new message', msg._id);
                         newMessage = msg;
                         return fn.messageRemove(returned._id);
                     }).then(function(next){

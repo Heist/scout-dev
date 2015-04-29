@@ -14,16 +14,15 @@
 module.exports = function(tag){
 	var Bluebird = require('bluebird');
     var models = Bluebird.promisifyAll(require('../../models'));
-    var data = [];
+    var returnedTags = [];
     var _ = require('lodash');
 
     if(tag.length === 0){ return; }
-
+    console.log('make these tags', tag);
     
 
     var oneTag = function(singleTag){
-    	
-
+    	console.log('make a single tag', singleTag);
     	singleTag.name = singleTag.name.replace(/#/gi,'');
 
     	var testStr = singleTag.name.toLowerCase();
@@ -44,49 +43,44 @@ module.exports = function(tag){
     	var o = {upsert : true};
     	// okay let's make this a findOneAndUpdate...
     	return models.Tag.findOneAndUpdate(q, u, o, function(err, obj){
-    		
     	});
     }
 
-    
-
     var promise = (_.isArray(tag)) ? 
-    	Bluebird.map(tag, function(t){  }) :
+    	Bluebird.map(tag, function(t){ return oneTag(t) }) :
     	oneTag(tag);
     	
 	return promise.then(function(tag){
-		
-		
+	   console.log('did we make a new tag?', tag);
 
 		if(_.isArray(tag)){
-			data = tag;
+			returnedTags = tag;
 		} else {
-			data.push(tag); // Data is now an array. If it's a multiple array, one should work
+			returnedTags.push(tag); // returnedTags is now an array. If it's a multiple array, one should work
 		}
 
-		
-		return models.Test.findOne({'_id'  : data[0]._test }).exec();
-	})
-	.then(function(test){
-		 
-		// check if that tag already exists on the test
-		// if so, just pass to next
-		// otherwise, add the tag to the test.
-		return Bluebird.map(data, function(tag){
-				if (test._tags.indexOf(tag._id) === -1){
-					return test._tags.push(tag._id);
+		return models.Test.findOne({'_id'  : returnedTags[0]._test }).exec()
+        .then(function(test){
+            // check if that tag already exists on the test
+            // if so, just pass to next
+            // otherwise, add the tag to the test.
+            return Bluebird.map(returnedTags, function(tag){
+                    if (test._tags.indexOf(tag._id) === -1){
+                        return test._tags.push(tag._id);
 
-				} else {
-					return;
-				}
-			}).then(function(t){
-				
-				return test.saveAsync();
-			});
-	})
-	.then(function(test){
-		
-		return data;
-	});
+                    } else {
+                        return;
+                    }
+                }).then(function(t){
+                    return test.saveAsync();
+                });
+        })
+        .then(function(test){
+            console.log('this is returned', returnedTags);
+            return returnedTags;
+        });
+	}).catch(function(err){
+        if(err){console.log('error in tagmaker', err)}
+    });
 
 };

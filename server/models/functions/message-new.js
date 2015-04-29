@@ -26,7 +26,7 @@ module.exports = function(request, user){
 
     // THIS IS RETURNING ALL TAGS FROM THE TEST WHEN A NEW MESSAGE IS CREATED
     // TODO: SHOULD RETURN ONLY THE TAGS RELEVANT TO THAT MESSAGE ?
-    
+    console.log('new message', request._id);
     return new models.Message(msg).saveAsync().get(0)
         .then(function(note){
             // post the message to the relevant Task and Subjects, add or update its tags.
@@ -34,11 +34,9 @@ module.exports = function(request, user){
                     models.Task.findOneAndUpdate({'_id': note._task}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
                     models.Subject.findOneAndUpdate({'_id': note._subject}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no subject found')} return obj;})
             ]).then(function(arr){
-
+                console.log('returned an array', arr.length);
                 // create the dual-pointer on the message for tag population
-                // return fn.tagMaker(tags)
-
-                
+                // return fn.tagMaker(tags)                
                 return fn.tagMaker(tags)
             }).then(function(tags){
                 

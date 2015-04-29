@@ -37,14 +37,13 @@ module.exports = function(app, passport) {
     .put(function(req, res){
         // Edit the body of a message and change its tag associations
         // 
-        
+        console.log('touched put', req.body);
         fn.messageEdit(req.body).then(function(data){
-            
+            console.log('returned message', data.length);
             if(typeof data === 'object'){
-                // 
                 models.Tag.findAsync({'_test' : data._test})
                     .then(function(tags){
-
+                        console.log('tags');
                         var send = {msg: data, tags: tags};
                         
                         res.json(send);

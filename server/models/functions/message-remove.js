@@ -2,7 +2,7 @@
 // remove a message and all of its pointers
 'use strict';
 
-module.exports = function(msg_id) {
+module.exports = function(msg_id){
 // Module dependencies ==========================
     var Bluebird = require('bluebird');
     var _ = require('lodash');
@@ -18,7 +18,6 @@ module.exports = function(msg_id) {
 				.then(function(done){
                 // remove dual pointer on tasks
             	
-                
             	return models.Tag.findAsync({ '_messages' : {$in: [msg_id]}})
             		.then(function(tags){
         			
@@ -70,4 +69,6 @@ module.exports = function(msg_id) {
 	                })
 		        })
 				.catch(function(err){
+                    if(err){console.log(err);}
+                });
 }
