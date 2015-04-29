@@ -19,7 +19,9 @@
         $scope.activate = function(obj) {
             // passes an object from left nav to the global selection variable
             // reset all previous reliant variables, there are a lot!
+            console.log($scope.selected._id, obj._id);
             $scope.selected = '';
+
 
             // reset all input boxes
             $scope.inputNote = '';
