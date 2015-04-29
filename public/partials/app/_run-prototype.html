@@ -36,7 +36,7 @@
 						<div class="clear"></div>
 					</li>
 					<li class="message" ng-repeat="message in timeline track by $index" ng-class="{'message-no-highlite' : message.title === 'Starting task', 'message-highlite' : message.title !== 'Starting task'}">
-						<div class="message-body" ng-cl#ick="editMessage(message)">
+						<div class="message-body" ng-click="editMessage(message)">
 							<pre class="messages" ng-if="message.title === 'Starting task'">
 								<h3>{{message.body}}</h3>
 							</pre>
