@@ -36,7 +36,7 @@
 										<li ng-repeat="tag in tags">{{tag.name}}</li>
 									</ul>
 								</div>
-								<textarea name="custom-tags" class="custom-tags" placeholder="Type your own tags here. ex. #passed, #failed" ng-model="newtag" ng-blur="saveTag(newtag)"></textarea>
+								<input name="custom-tags" class="custom-tags" placeholder="Type your own tags here. ex. #passed, #failed" ng-model="newtag" ui-keypress="{13:'saveTag(newtag)'}"></input>
 							</div>
 						
 							<h3>Topics</h3>
