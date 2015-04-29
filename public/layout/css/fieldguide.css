@@ -4911,7 +4911,8 @@ hr {
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 300;
-      font-size: 12px;
+      font-size: 14px;
+      line-height: 20px;
       color: #949799; }
   #view-editing .done-button {
     position: absolute;
