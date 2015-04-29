@@ -12,13 +12,15 @@
     button.test-type {
         width: 48%;
         outline: 0;
-        padding: 5px 10px 10px 10px;
         text-align: center;
         position: relative;
         cursor: pointer;
         border: 0;
         padding: 20px;
         background: transparentize($fg-grey-light, 0.8);
+        color: $fg-grey;
+        margin-bottom: 20px;
+        @include radius;
 
         &.interview {
             margin-right: 2%;
@@ -35,10 +37,12 @@
 
         &.select-active {
             background: $fg-green;
+            color: $white;
         }
 
         &.select-inactive {
             background: transparentize($fg-grey-light, 0.8);
+            color: $fg-grey;
         }
 
         .selected-arrow {

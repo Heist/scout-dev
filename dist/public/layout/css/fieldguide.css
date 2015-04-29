@@ -4727,13 +4727,17 @@ hr {
 #view-new-project button.test-type {
   width: 48%;
   outline: 0;
-  padding: 5px 10px 10px 10px;
   text-align: center;
   position: relative;
   cursor: pointer;
   border: 0;
   padding: 20px;
-  background: rgba(216, 218, 219, 0.2); }
+  background: rgba(216, 218, 219, 0.2);
+  color: #949799;
+  margin-bottom: 20px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px; }
   #view-new-project button.test-type.interview {
     margin-right: 2%; }
   #view-new-project button.test-type.prototype {
@@ -4742,9 +4746,11 @@ hr {
     background: #85AC0F;
     color: #fff; }
   #view-new-project button.test-type.select-active {
-    background: #85AC0F; }
+    background: #85AC0F;
+    color: #fff; }
   #view-new-project button.test-type.select-inactive {
-    background: rgba(216, 218, 219, 0.2); }
+    background: rgba(216, 218, 219, 0.2);
+    color: #949799; }
   #view-new-project button.test-type .selected-arrow {
     display: none; }
   #view-new-project button.test-type h3 {
