@@ -11,6 +11,7 @@
 
                 <div class="findings-header">
                         <h1 class="dark float-left"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}} Report</h1>
+                        <div class="clear"></div>
                         <div class="findings-description" ng-show="selected.doctype === 'test'">
                             <span>{{selected._subjects.length}} participants</span>
                             <span ng-show="selected.kind === 'prototype'"><span>Prototype test</span><a href="{{selected.link}}" target="_">{{selected.link}}</a></span>

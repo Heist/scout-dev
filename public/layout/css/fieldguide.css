@@ -5723,7 +5723,7 @@ hr {
       width: 35%; }
     #view-findings .findings-content h1 {
       margin: 0;
-      font-size: 24px; }
+      font-size: 28px; }
     #view-findings .findings-content h2 {
       font-size: 20px;
       font-family: "canada-type-gibson",sans-serif;
@@ -6058,8 +6058,7 @@ hr {
     #report-summary .findings-header .findings-description {
       color: #949799;
       font-size: 12px;
-      margin: 5px 0;
-      display: inline-block; }
+      margin: 5px 0; }
       #report-summary .findings-header .findings-description span {
         padding: 0 20px 0 0; }
   #report-summary .findings-content {
