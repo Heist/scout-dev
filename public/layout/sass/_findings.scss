@@ -39,6 +39,11 @@
 			&:hover {
 				border: 1px solid $fg-grey-light-trans;
 			}
+
+			&:focus {
+				box-shadow: none;
+				border: 1px solid $fg-grey-light-trans;
+			}
 		}
 		
 		span {
@@ -46,7 +51,7 @@
 		
 			a {
 				position: absolute;
-				padding: 6px 8px;
+				padding: 7px 9px;
 				background: none;
 				border: 1px solid $fg-grey-light-trans;
 				border-left: 0;
