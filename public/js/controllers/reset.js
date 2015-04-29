@@ -8,13 +8,13 @@
                     function($scope, $http, $location, $stateParams, $rootScope){
 
         $scope.sendToken = function(email){
-            var url = '/auth/forgot';
             var dataOut = {email: email};
 
             $http
-                .post(url, dataOut)
-                .success(function(data){
-                    $scope.successMsg = data;
+                .post('/auth/forgot', dataOut)
+                .success(function(data, err){
+                        // console.log(data, err);
+                        $scope.successMsg = data;
                 });
         };
         

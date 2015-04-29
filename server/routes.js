@@ -120,14 +120,15 @@ module.exports = function(app, passport) {
 // PASSWORD RESET ROUTES ==================================
     // forgotten passwords
     app.post('/auth/forgot', function(req, res, next) {
-        fn.forgotPasswordToken( req.body.email, app, function(err, password){
-            res.send(passport);
+        fn.forgotPasswordToken( req.body.email, app, function(err, tokenObject){
+            console.log('tokenObject', tokenObject);
+            res.send(tokenObject);
         });
     });
 
     // password reset route
-    app.get('/reset/:token', function(req, res) {
-        // 
+    app.get('/auth/reset/:token', function(req, res) {
+        console.log(req.body);
         models.User.findOne({ 'resetPasswordToken' : req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
             if (!user) { res.send('0'); }
             res.send('1');
@@ -135,7 +136,7 @@ module.exports = function(app, passport) {
     });
 
     // password reset route
-    app.post('/reset/:token', function(req, res) {
+    app.post('/auth/reset/:token', function(req, res) {
         fn.resetPassword(req.params.token, req.body.password, app, function(err, pass){
             if(err){ console.log(err); }
             res.send(pass);

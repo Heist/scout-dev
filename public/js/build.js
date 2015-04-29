@@ -51413,14 +51413,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     angular.module('field_guide_controls')
        .controller('forgot', ['$scope','$http', '$location', '$stateParams','$rootScope', 
         function($scope, $http, $location, $stateParams, $rootScope){
-            var url = '/reset/'+$stateParams.token;
 
         // Controller Functions ===========================
             $scope.newPass = function(pass){
                 var dataOut = {password: pass};
-
+                console.log('touched newPass');
                 $http
-                    .post(url, dataOut)
+                    .post('/auth/reset/'+$stateParams.token, dataOut)
                     .success(function(data){
                         // do a login here, perhaps
                         console.log('reset', data);
@@ -51850,13 +51849,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     function($scope, $http, $location, $stateParams, $rootScope){
 
         $scope.sendToken = function(email){
-            var url = '/auth/forgot';
             var dataOut = {email: email};
 
             $http
-                .post(url, dataOut)
-                .success(function(data){
-                    $scope.successMsg = data;
+                .post('/auth/forgot', dataOut)
+                .success(function(data, err){
+                        // console.log(data, err);
+                        $scope.successMsg = data;
                 });
         };
         
@@ -52281,7 +52280,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             return _.toArray( _.groupBy(data, function(obj){ return obj.doctype; }) ).sort();
         }
 
-        console.log(loadData.data);
+        
 
         // Find the test in the left nav order
         var testIdx = _.indexOf(_.pluck(loadData.data.list, 'doctype'), 'test');
@@ -52371,7 +52370,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
     // MESSAGE ASSIGNMENT AND FILTERING =============================
         $scope.msgFilter = function(message){
-            console.log($scope.selected._messages);
             // Display messages that belong to the current selected item.
             return ($scope.selected._messages.indexOf(message._id) !== -1) ? true : false;
         };
@@ -52444,35 +52442,18 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.messageEditToggle = '';
             $http.put('/api/message/', original)
                 .success(function(data, err){
-                    console.log(data,' (probably data.msg is what we want)', err);
-                    
                     // splice the new message over its old self in the messages list
                     var idx = _.pluck($scope.messages[original._subject.name], '_id').indexOf(original._id);
                     $scope.messages[original._subject.name].splice(idx,1, data.msg);
                     
                     // now find the original._id on selected item in left nav and replace with new _id
-
-                    // message splicer to remove message from all navlist entries
                     var x = $scope.selected._messages.indexOf(original._id);
-                     if( x !== -1){
+                    if( x !== -1){
                             $scope.selected._messages.splice(x, 1, data.msg._id);
                         }
                     if($scope.selected._messages.length === 0){
                         $scope.selected._messages.splice(0, 1, data.msg._id);
                     }
-
-
-                    // $scope.rawList.map(function(obj, i){
-                    //     var n = obj._messages.indexOf(original._id);
-                    //         if( n !== -1){
-                    //             obj._messages.splice(n, 1, data.msg._id);
-                    //         }
-                    //         if(obj._messages.length === 0){
-                    //             $scope.rawList.splice(i, 1, data.msg._id);
-                    //         }
-                    // })
-
-
 
                     addTagsToLeftNav(data);
                 });

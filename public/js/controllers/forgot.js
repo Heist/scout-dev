@@ -6,14 +6,13 @@
     angular.module('field_guide_controls')
        .controller('forgot', ['$scope','$http', '$location', '$stateParams','$rootScope', 
         function($scope, $http, $location, $stateParams, $rootScope){
-            var url = '/reset/'+$stateParams.token;
 
         // Controller Functions ===========================
             $scope.newPass = function(pass){
                 var dataOut = {password: pass};
-
+                console.log('touched newPass');
                 $http
-                    .post(url, dataOut)
+                    .post('/auth/reset/'+$stateParams.token, dataOut)
                     .success(function(data){
                         // do a login here, perhaps
                         console.log('reset', data);
