@@ -19,9 +19,7 @@
         $scope.activate = function(obj) {
             // passes an object from left nav to the global selection variable
             // reset all previous reliant variables, there are a lot!
-            console.log($scope.selected._id, obj._id);
             $scope.selected = '';
-
 
             // reset all input boxes
             $scope.inputNote = '';
@@ -59,7 +57,7 @@
             $scope.navlist = makeNavList($scope.rawList);
         });
         
-        $scope.activate($scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')]);
+        $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
 
         // GROUP MESSAGES BY USERS ==================================
         $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
@@ -206,9 +204,31 @@
                     var idx = _.pluck($scope.messages[original._subject.name], '_id').indexOf(original._id);
                     $scope.messages[original._subject.name].splice(idx,1, data.msg);
                     
-                    console.log(idx, data.msg)
+                    // now find the original._id on selected item in left nav and replace with new _id
+
+                    // message splicer to remove message from all navlist entries
+                    var x = $scope.selected._messages.indexOf(original._id);
+                     if( x !== -1){
+                            $scope.selected._messages.splice(x, 1, data.msg._id);
+                        }
+                    if($scope.selected._messages.length === 0){
+                        $scope.selected._messages.splice(0, 1, data.msg._id);
+                    }
+
+
+                    // $scope.rawList.map(function(obj, i){
+                    //     var n = obj._messages.indexOf(original._id);
+                    //         if( n !== -1){
+                    //             obj._messages.splice(n, 1, data.msg._id);
+                    //         }
+                    //         if(obj._messages.length === 0){
+                    //             $scope.rawList.splice(i, 1, data.msg._id);
+                    //         }
+                    // })
+
+
+
                     addTagsToLeftNav(data);
-                    // pullDeadTags;
                 });
         };
 
