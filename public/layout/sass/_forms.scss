@@ -10,7 +10,7 @@ form {
 label {
 	padding: 0;
 	margin: 0;
-	font-size: $type-size-base*0.8;
+	font-size: 14px;
 	opacity: 1;
 	color: $fg-slate;
 	@include type-light;
@@ -112,7 +112,7 @@ label {
 	padding: 11px $pad/1.5;
 	@include radius;
 	@include type-light;
-	font-size: 12px;
+	font-size: 14px;
 	color: $fg-grey-dark;
 	outline: none;
 

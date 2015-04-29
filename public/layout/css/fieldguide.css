@@ -283,7 +283,7 @@ form {
 label {
   padding: 0;
   margin: 0;
-  font-size: 12px;
+  font-size: 14px;
   opacity: 1;
   color: #2B404D;
   font-family: "canada-type-gibson",sans-serif;
@@ -400,7 +400,7 @@ label {
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
-  font-size: 12px;
+  font-size: 14px;
   color: #777777;
   outline: none; }
   .input:hover {
@@ -3917,7 +3917,6 @@ hr {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300;
-        text-transform: lowercase;
         color: #D8DADB; }
       #timeline ul .message-no-highlite p {
         margin: 0; }
@@ -5078,6 +5077,7 @@ hr {
         font-style: italic; }
       #view-testing #testing-input #session-input input[type=textarea], #view-testing #testing-input #session-input #view-editing .add-task textarea[type=textarea], #view-editing .add-task #view-testing #testing-input #session-input textarea[type=textarea] {
         width: 100%;
+        font-size: 14px;
         margin: 0;
         border: none; }
         #view-testing #testing-input #session-input input[type=textarea]:focus, #view-testing #testing-input #session-input #view-editing .add-task textarea[type=textarea]:focus, #view-editing .add-task #view-testing #testing-input #session-input textarea[type=textarea]:focus {
@@ -5539,13 +5539,12 @@ hr {
       font-style: normal;
       font-weight: 300;
       font-size: 20px;
-      text-transform: lowercase;
       color: #D8DADB; }
     .message .message-body p {
       margin-bottom: 0 !important;
       color: #949799; }
     .message .message-body pre.messages {
-      font-size: 12px;
+      font-size: 14px;
       line-height: 18px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;

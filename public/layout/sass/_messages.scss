@@ -261,7 +261,6 @@
 		h3 {
 			@include type-light;
 			font-size: 20px;
-			text-transform: lowercase;
 			color: $fg-grey-light;
 		}
 
@@ -271,7 +270,7 @@
 		}
 
 		pre.messages {
-			font-size: 12px;
+			font-size: 14px;
 			line-height: 18px;
 			@include type-light;
 			color: $fg-grey-dark;
