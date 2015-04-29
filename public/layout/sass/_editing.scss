@@ -9,24 +9,36 @@
         height: 150px;
     }
     
-    .test-type {
+    button.test-type {
+        width: 48%;
+        outline: 0;
         padding: 5px 10px 10px 10px;
         text-align: center;
         position: relative;
         cursor: pointer;
-        border-bottom: 4px solid $white;
-        margin: 0 0 20px 0;
+        border: 0;
+        padding: 20px;
+        background: transparentize($fg-grey-light, 0.8);
+
+        &.interview {
+            margin-right: 2%;
+        }
+
+        &.prototype {
+            margin-left: 2%;
+        }
 
         &:hover {
-            border-bottom: 4px solid $fg-green;
+            background: $fg-green;
+            color: $white;
         }
 
         &.select-active {
-            border-bottom: 4px solid $fg-green;
+            background: $fg-green;
         }
 
         &.select-inactive {
-            border-bottom: 0;
+            background: transparentize($fg-grey-light, 0.8);
         }
 
         .selected-arrow {
@@ -34,15 +46,14 @@
         }
 
         h3 {
-            font-size: 17.5px;
+            font-size: 18px;
             @include type-light;
-            color: $fg-black;
         }
 
         p {
             @include type-light;
-            font-size: 12px;
-            line-height: 17px;
+            font-size: 14px;
+            line-height: 18px;
             margin: 0;
         }
 
