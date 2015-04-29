@@ -5936,8 +5936,8 @@ hr {
   /* are we onboard? */ }
   #report-summary #generated-with-fg img {
     position: absolute;
-    bottom: 60px;
-    right: 60px; }
+    top: 25px;
+    right: 40px; }
   #report-summary.is-onboard #findings-viewmode-controls {
     bottom: 0; }
   #report-summary.show-comments .sheet-holder {
@@ -6051,8 +6051,21 @@ hr {
       width: 103%;
       left: -3%;
       position: relative; }
+  #report-summary .findings-header {
+    padding: 20px 0 7px 30px;
+    border-bottom: 1px solid #D8DADB;
+    margin: 0 0 60px 0; }
+    #report-summary .findings-header h1 {
+      font-size: 24px; }
+    #report-summary .findings-header .findings-description {
+      color: #949799;
+      font-size: 12px;
+      margin: 4px 40px;
+      display: inline-block; }
+      #report-summary .findings-header .findings-description span {
+        padding: 0 20px 0 0; }
   #report-summary .findings-content {
-    width: 40%;
+    width: 45%;
     margin: 0 auto;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -6074,14 +6087,6 @@ hr {
       line-height: 18px;
       color: #949799;
       margin: 0 0 50px 0; }
-    #report-summary .findings-content .findings-header {
-      padding: 40px 0; }
-      #report-summary .findings-content .findings-header .findings-description {
-        color: #949799;
-        font-size: 12px;
-        margin: 10px 0; }
-        #report-summary .findings-content .findings-header .findings-description span {
-          padding: 0 20px 0 0; }
     #report-summary .findings-content .findings-information h2 {
       font-size: 20;
       font-family: "canada-type-gibson",sans-serif;
