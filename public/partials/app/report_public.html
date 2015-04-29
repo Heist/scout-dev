@@ -7,19 +7,19 @@
     <div class="sheet-holder-report">
         <div class="sheet-report" ng-model="selected">
 
-            <div class="findings-header">
-                    <h1 class="dark float-left"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}} Report</h1>
-                    <div class="findings-description" ng-show="selected.doctype === 'test'">
-                        <span>{{selected._subjects.length}} participants</span>
-                        <span ng-show="selected.kind === 'prototype'"><span>Prototype test</span><a href="{{selected.link}}" target="_">{{selected.link}}</a></span>
-                    </div>
-                    
-                    <div id="generated-with-fg" class="clearfix">
-                        <a href="http://www.fieldguideapp.com"><img src="/layout/assets/generated-with-fg.svg" /></a>
-                    </div>
-            </div>
-
             <div class="findings-content">
+
+                <div class="findings-header">
+                        <h1 class="dark float-left"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}} Report</h1>
+                        <div class="findings-description" ng-show="selected.doctype === 'test'">
+                            <span>{{selected._subjects.length}} participants</span>
+                            <span ng-show="selected.kind === 'prototype'"><span>Prototype test</span><a href="{{selected.link}}" target="_">{{selected.link}}</a></span>
+                        </div>
+                        
+                        <div id="generated-with-fg" class="clearfix">
+                            <a href="http://www.fieldguideapp.com"><img src="/layout/assets/generated-with-fg.svg" /></a>
+                        </div>
+                </div>
             
                 <div class="findings-information">
                     <h2 ng-if="selected.desc" ng-show="selected.doctype === 'test'">Objectives</h2>

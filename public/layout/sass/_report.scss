@@ -138,9 +138,7 @@
 	}
 	
 	.findings-header {
-		padding: 20px 0 7px 30px;
-		border-bottom: 1px solid $fg-grey-light;
-		margin: 0 0 60px 0;
+		padding: 40px 0;
 
 		h1 {
 			font-size: 24px;
@@ -149,7 +147,7 @@
 		.findings-description {
 			color: $fg-grey;
 			font-size: 12px;
-			margin: 4px 40px;
+			margin: 5px 0;
 			display: inline-block;
 
 			span {
