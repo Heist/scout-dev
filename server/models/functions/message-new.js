@@ -13,7 +13,7 @@ module.exports = function(request, user){
 
 // CREATE A NEW MESSAGE ===================================
     var t = fn.tagPuller(request.body);
-    var tags = _.map(t.tags, function(n){ return { name: n, _test: request._test } }) || null;
+    var tags = t.tags || null;
 
     var msg = {
             '_subject' : request._subject,
@@ -26,7 +26,9 @@ module.exports = function(request, user){
 
     // THIS IS RETURNING ALL TAGS FROM THE TEST WHEN A NEW MESSAGE IS CREATED
     // TODO: SHOULD RETURN ONLY THE TAGS RELEVANT TO THAT MESSAGE ?
-    console.log('new message', request._id);
+
+    // Now NO tags are being attached to messages, this is difficult.....
+    console.log('new message', request._id, tags);
     return new models.Message(msg).saveAsync().get(0)
         .then(function(note){
             // post the message to the relevant Task and Subjects, add or update its tags.
@@ -36,28 +38,30 @@ module.exports = function(request, user){
             ]).then(function(arr){
                 console.log('returned an array', arr.length);
                 // create the dual-pointer on the message for tag population
-                // return fn.tagMaker(tags)                
-                return fn.tagMaker(tags)
-            }).then(function(tags){
-                
-                if(tags && tags.length > 0){
-                    
-                    // If there ARE tags, add them to that message and return it
+                // return fn.tagMaker(tags)          
+                // pass the new message along with the existing tags to tagmaker.
+                var make = _.map(t.tags, function(n){ return { name: n, _test: request._test, msg: note._id } })
+                return fn.tagMaker(make)
+            }).then(function(tagMakerTags){
+                console.log('did tagMaker return tags', tagMakerTags);
 
-                    return Bluebird.map(tags, function(tag){
+                if(tagMakerTags && tagMakerTags.length > 0){
+                    console.log('pushing tags', tagMakerTags);
+                    // If there ARE tags, add them to that message and return it
+                    return Bluebird.map(tagMakerTags, function(tag){
                         return models.Message.findOneAndUpdate({'_id': note._id }, {$push : {'_tags': tag._id } }, function(err, obj){});
                     })
-                } else if(!tags || tags.length === 0){
-
+                } else if(!tagMakerTags || tagMakerTags.length === 0){
+                    console.log('no tags found on message', tags);
                     // If NO tags, remove tags from message and return it
                     // this is important because of edited messages
 
                         return models.Message.findOneAndUpdate({'_id': note._id }, { '_tags': [] }, function(err, obj){});
                 }
             }).then(function(arr){
+                console.log('what does our last step look like in new message', arr);
                 // return the populated message so you can insert it into the timeline of run with its tags
                 // not important for Summaries.
-
                 return models.Message.findById(note._id).populate('_subject _tags').exec(function(err, next){});
             });
         }).catch(function(err){

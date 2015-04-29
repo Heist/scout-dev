@@ -61,6 +61,8 @@ module.exports = function(tag){
 
 		return models.Test.findOne({'_id'  : returnedTags[0]._test }).exec()
         .then(function(test){
+            console.log('tagMaker: did we find a test?', test._id)
+            console.log('tagMaker: did we return tags', returnedTags);
             // check if that tag already exists on the test
             // if so, just pass to next
             // otherwise, add the tag to the test.

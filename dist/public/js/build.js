@@ -52331,17 +52331,24 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var navlist_check = _.pluck($scope.rawList, 'name');
             var msg_tag       = _.pluck(data.msg._tags, 'name');
 
-            void 0;
+            // console.log('add tags', navlist_check, data.tags, msg_tag, data);
             // TODO: Edit this so that new tags are added and old tags are removed - effectively,
             // pull all the tag docs from the left nav, replace them with data.tags
+
+            var tagsForConcat = _.filter(data.tags, function(n){
+                    return n._messages.length > 0
+            })
+
+            void 0;
+            void 0;
 
             var clear = $scope.rawList.filter(function(r){
                                 return r.doctype !== 'tag'
                             });
 
-            void 0;
+            // console.log('$scope.rawlist cleared of tags', clear);
             
-            $scope.rawList = clear.concat(data.tags);
+            $scope.rawList = clear.concat(tagsForConcat);
 
             void 0;
         }

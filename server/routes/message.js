@@ -36,15 +36,19 @@ module.exports = function(app, passport) {
     })
     .put(function(req, res){
         // Edit the body of a message and change its tag associations
-        // 
+        // this is used in all message editing in all parts of the app
         console.log('touched put', req.body);
         fn.messageEdit(req.body).then(function(data){
-            console.log('returned message', data.length);
+            console.log('returned message', data);
             if(typeof data === 'object'){
                 models.Tag.findAsync({'_test' : data._test})
                     .then(function(tags){
-                        console.log('tags');
-                        var send = {msg: data, tags: tags};
+                        console.log('tags', tags);
+
+                        var send = {
+                            msg  : data, 
+                            tags : tags
+                        };
                         
                         res.json(send);
                     })
