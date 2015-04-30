@@ -103,7 +103,8 @@
 									
 			&.active {
 				position: relative;
-				background: $fg-grey-light;
+				background: $fg-green;
+				color: $white;
 				
 				&:hover {
 					cursor: auto;
