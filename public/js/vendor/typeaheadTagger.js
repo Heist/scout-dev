@@ -227,7 +227,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
             scope.query = undefined;
 
         // Bind KEY EVENTS - may have to be KEYDOWN ======================================
-            element.bind('keypress', function (evt) {
+            element.bind('keypress keydown', function (evt) {
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
 
@@ -673,7 +673,7 @@ angular.module("typeahead-match.html", []).run(["$templateCache", function($temp
 
 angular.module("typeahead-popup.html", []).run(["$templateCache", function($templateCache) {
     $templateCache.put("typeahead-popup.html",
-        "<ul class=\"dropdown-menu\" ng-show=\"isOpen()\" ng-style=\"{bottom: position.bottom+'px', left: position.left+'px'}\" style=\"display: block;\" role=\"listbox\" aria-hidden=\"{{!isOpen()}}\">\n" +
+        "<ul class=\"dropdown-menu\" ng-show=\"isOpen()\" ng-style=\"{top: position.top+'px', left: position.left+'px', position:'absolute'}\" style=\"display: block;\" role=\"listbox\" aria-hidden=\"{{!isOpen()}}\">\n" +
         "        <li ng-repeat=\"match in matches track by $index\" ng-class=\"{active: isActive($index) }\" ng-mouseenter=\"selectActive($index)\" ng-click=\"selectMatch($index)\" role=\"option\" id=\"{{match.id}}\">\n" +
         "                <div typeahead-match index=\"$index\" match=\"match\" query=\"query\" template-url=\"templateUrl\"></div>\n" +
         "        </li>\n" +

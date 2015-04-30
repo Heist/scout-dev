@@ -5065,7 +5065,7 @@ hr {
       padding: 5px;
       height: 150px;
       background: #fff;
-      z-index: 9999;
+      z-index: 99999;
       border-top: 1px solid #dddddd; }
       #view-testing #testing-input #session-input ::-webkit-input-placeholder {
         color: #D8DADB;
@@ -5102,7 +5102,8 @@ hr {
         -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        background: #fff; }
+        background: #fff !important;
+        z-index: 9999; }
         #view-testing #testing-input #session-input ul.dropdown-menu li {
           list-style: none; }
           #view-testing #testing-input #session-input ul.dropdown-menu li:hover {
@@ -5116,7 +5117,7 @@ hr {
       width: 100%;
       padding: 5px;
       height: 43px;
-      z-index: 9999;
+      z-index: 99999;
       border-top: 1px solid #dddddd;
       line-height: 17px;
       color: #00B5E3;
@@ -5137,7 +5138,7 @@ hr {
     padding: 5px;
     height: 65px;
     background: #fff;
-    z-index: 9999;
+    z-index: 99999;
     border-bottom: 1px solid #dddddd; }
     #view-testing #cta.interview {
       border: 0; }
