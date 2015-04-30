@@ -51069,7 +51069,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 controller:'summary',
                 templateUrl: 'partials/app/summary.html',
                 resolve: { 
-                    mixpanel : function(){ mixpanel.track('Summary clicked', {}); },
                     loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }],
@@ -51328,8 +51327,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 				dataOut = email,
 				new_url = $location.protocol()+'://'+$location.host()+':8080';
 
-			mixpanel.track('Team member invite', { 'email': email });
-
 			$http
 				.post(url, dataOut)
 				.success(function(invite){
@@ -51452,7 +51449,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         if($stateParams.acct){
             $scope.acct = $stateParams.acct.replace( /\//gi,"");
             $scope.reg_toggle = true;
-            mixpanel.track('registration page touch', { 'account': $stateParams.acct });
+
             
             
             // TODO: get the invitation represented by that id and pre-populate the e-mail field.
@@ -51464,10 +51461,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     $scope.user.email = data.user_email;
                 });
         }
-        
-        $scope.tracker = function(){
-            mixpanel.track('myAccount', { 'account': $stateParams.acct });
-        };
 
         $scope.login = function(user){
             var url = '/auth/login';
@@ -51515,8 +51508,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     $rootScope.user = data._id;
                     $location.path(data.redirect);
 
-                    mixpanel.track('registered new user', { 'name': data.email });
-
                 });
         };
 
@@ -51548,7 +51539,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     	// TEST UPDATE ==============================
     	$scope.selectPrototype = function(kind){
             $scope.test.kind = kind;
-            mixpanel.track('Type of Test', {'test type' : kind });
+
         };
 
         $scope.selectPlatform = function(kind){
@@ -51560,10 +51551,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         };
 
         $scope.addTest = function(test){
-
-            if($scope.test.name){
-                mixpanel.track('Test name changed', { 'user': $rootScope.user });
-            }
 
             $http
                 .post('/api/test/', test)
@@ -51718,12 +51705,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
          
         $scope.runTest = function(test){
             $location.path('/run/'+test._id);
-            mixpanel.track('Run test', { 'user': $rootScope.user });
         };
 
         $scope.summarizeTest = function(test_id){
             $location.path('/summary/'+ test_id);
-            mixpanel.track('Summary clicked', {});
         };
 
         $scope.loadReport = function(test_id){
@@ -51762,10 +51747,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         function( loadData, reportFunctions, $scope, $sce, $http, $location,$stateParams,$state, $sanitize){
    
     // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
-
-    // == mixpanel ==================================
-
-        mixpanel.track('Report Loaded', {});
         
     // ==============================================
 
@@ -52046,8 +52027,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.select = function(index) {
             $scope.selected = $scope.navlist[index];
 
-            mixpanel.track('Task changed', {});
-
             $scope.timeline.push({ 
                 title: 'Starting task', 
                 body: $scope.selected.name,
@@ -52116,7 +52095,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     }
 
                     socket.emit('channel', {room : subject.testroom, test: subject.test});
-                    mixpanel.track('Add Participant Name', {});
                 });
         };
 
@@ -52189,7 +52167,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         // END TEST =============================
         $scope.postTest = function(){
             // Send tasks that have had a subject added to the DB.
-            mixpanel.track('Test completed', {});
 
             $http
                 .post('/api/run/', $scope.update)
@@ -52217,7 +52194,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     	// TEST UPDATE ==============================
     	$scope.selectPrototype = function(kind){
             $scope.test.kind = kind;
-            mixpanel.track('Type of Test', {'test type' : kind });
         };
 
         $scope.selectPlatform = function(kind){
@@ -52230,10 +52206,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         $scope.addTest = function(test){
         	void 0;
-
-            if($scope.test.name){
-                mixpanel.track('Test name changed', { 'user': $rootScope.user });
-            }
 
             $http
                 .post('/api/test/', test)
@@ -52500,8 +52472,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             // post fav'd statuses to relevant messages
             $scope.messages = _.map($scope.messages, function(val, key){ return val; });
 
-            mixpanel.track('Summary complete', {});
-
             $http.put('/api/summary/'+ $stateParams._id, 
                 { navlist  : $scope.navlist, 
                   messages : $scope.messages[0]
@@ -52561,7 +52531,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.anchor = x;
             $scope.explanation = _.findWhere(explanations, {anchor:x});
             if(x === 5){
-                mixpanel.track('Test setup completion page', { 'user': $rootScope.user });
                 $location.path('/overview');
             }
         };
@@ -52590,7 +52559,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     // ACTIONS ============================================
         $scope.selectPrototype = function(kind){
             $scope.test.kind = kind;
-            mixpanel.track('Type of Test', {'test type' : kind });
         };
 
         $scope.selectPlatform = function(kind){
@@ -52704,10 +52672,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.updateTest = function(){
             // reminder: this pushes an update to an already-created test
             var test = $scope.test;
-            
-            if($scope.test.name){
-                mixpanel.track('Test name changed', { 'user': $rootScope.user });
-            }
 
             if($scope.test.desc){
                 test.desc = $scope.test.desc;
@@ -53223,8 +53187,8 @@ function($timeout, $window, config) {
 'use strict';
 (function(){
     angular.module('field_guide_controls')
-        .factory('checkLoggedin', ['$q', '$http', '$location', '$rootScope', 
-            function($q, $http, $location, $rootScope) {
+        .factory('checkLoggedin', ['$q', '$http', '$location', '$rootScope', '$window',
+            function($q, $http, $location, $rootScope, $window) {
 
             var checkLoggedin = function(user){
 
@@ -53232,24 +53196,43 @@ function($timeout, $window, config) {
                     var promise = $http.get('/loggedin')
                         .success(function(user){
                         // Authenticated
-                            if (user !== '0') {
+                        var interBoot = '';
+                            if (user !== '0' && interBoot !== '1') {
+                                void 0;
                                 void 0;
                                 $rootScope.user = user;
-                                // Intercom("boot", {
-                                //     app_id: "YOURAPPID",
-                                //     email: user.email,
-                                //     created_at: AuthService.getCurrentUser().created_at,
-                                //     name: AuthService.getCurrentUser().full_name,
-                                //     user_id: AuthService.getCurrentUser().id,
-                                //     widget: {
-                                //       activator: "#IntercomDefaultWidget"
-                                //     });
+                                interBoot = '1';
+                                $window.Intercom("boot", {
+                                    app_id: "YOURAPPID",
+                                    email: user.email,
+                                    created_at: user.created,
+                                    name: user.name,
+                                    user_id: user._id,
+                                    widget: {
+                                      activator: "#IntercomDefaultWidget"
+                                    }
+                                });
+
+                                deferred.resolve();
+                            } else if (user !== '0' && interBoot !== '1') {
+                                $rootScope.user = user;
+                                $window.Intercom("update", {
+                                    app_id: "YOURAPPID",
+                                    email: user.email,
+                                    created_at: user.created,
+                                    name: user.name,
+                                    user_id: user._id,
+                                    widget: {
+                                      activator: "#IntercomDefaultWidget"
+                                    }
+                                });
                                 deferred.resolve();
                             }
                             // Not Authenticated 
                             else { 
                                 // console.log('welp, that flunked.');
                                 $location.url('/login');
+                                $window.Intercom("shutdown");
                                 deferred.resolve();
                             }
                         }).error(function(err){
@@ -53390,9 +53373,7 @@ angular.module('field_guide_controls')
             function($http, $rootScope) {
                 return {
                     addTask : function(test, task, index){
-                        mixpanel.track('Task added', { 'user': $rootScope.user });
-                        
-                        void 0;
+                        // console.log(task, test);
                         
                         task._test = test;
                         task.index = index;
@@ -53675,12 +53656,6 @@ angular.module('field_guide_controls')
   ga('create', 'UA-56304013-1', 'auto');
   ga('send', 'pageview');
 })();
+// Intercom =================
+(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/hcubsszl';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
 
-(function() {
-// mixpanel =================
-(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
-  for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
-  
-  mixpanel.init("c7752c1767cb7302972c2846d81b78cf");
-  mixpanel.track('view page', { 'url': location.pathname });
-})();
