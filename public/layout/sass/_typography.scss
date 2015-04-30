@@ -22,6 +22,10 @@ body {
 	-moz-font-feature-settings: "kern=1";
 }
 
+br {
+	line-height: 180%;
+}
+
 pre {
 	white-space: pre-wrap;                 /* CSS3 browsers  */
 	white-space: -moz-pre-wrap !important; /* 1999+ Mozilla  */
