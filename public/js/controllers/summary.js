@@ -123,6 +123,7 @@
             }
         };
 
+
     // MESSAGE ASSIGNMENT AND FILTERING =============================
         $scope.msgFilter = function(message){
             // Display messages that belong to the current selected item.
