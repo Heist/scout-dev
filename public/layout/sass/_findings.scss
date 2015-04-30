@@ -77,12 +77,12 @@
 		position: fixed;
 		left: 10%;
 		top: 0;
-		@include animated;		
+		@include animated;
 		@include scrollbar;
 		
 		#sidebar {
 			width: 95%;
-			height: 80%;
+			height: 98%;
 			overflow: auto;
 			position: relative;
 			
