@@ -50996,7 +50996,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 // app.js
 (function() {
     'use strict';
-
     var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'typeaheadTagger', 'ngSanitize', 'youtube-embed', 'field_guide_controls','field_guide_filters']);
 
     // FRONT-END ROUTE CONFIGURATION ==============================================
@@ -51007,6 +51006,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $httpProvider.defaults.timeout = 3000;
         
         $urlRouterProvider.otherwise("/login");
+
 
     // APP ROUTING ====================================================================
         $stateProvider
@@ -53233,8 +53233,17 @@ function($timeout, $window, config) {
                         .success(function(user){
                         // Authenticated
                             if (user !== '0') {
-                                // console.log('user', user);
+                                void 0;
                                 $rootScope.user = user;
+                                // Intercom("boot", {
+                                //     app_id: "YOURAPPID",
+                                //     email: user.email,
+                                //     created_at: AuthService.getCurrentUser().created_at,
+                                //     name: AuthService.getCurrentUser().full_name,
+                                //     user_id: AuthService.getCurrentUser().id,
+                                //     widget: {
+                                //       activator: "#IntercomDefaultWidget"
+                                //     });
                                 deferred.resolve();
                             }
                             // Not Authenticated 
@@ -53250,7 +53259,7 @@ function($timeout, $window, config) {
 
                     return deferred.promise;
                 };
-            void 0;
+            // console.log('checkLoggedin', checkLoggedin());
             return checkLoggedin;
         }]);
 })();

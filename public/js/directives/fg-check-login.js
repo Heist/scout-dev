@@ -14,8 +14,17 @@
                         .success(function(user){
                         // Authenticated
                             if (user !== '0') {
-                                // console.log('user', user);
+                                console.log('user', user);
                                 $rootScope.user = user;
+                                Intercom("boot", {
+                                    app_id: "YOURAPPID",
+                                    email: user.email,
+                                    created_at: user.created,
+                                    name: user.name,
+                                    user_id: user._id,
+                                    widget: {
+                                      activator: "#IntercomDefaultWidget"
+                                    });
                                 deferred.resolve();
                             }
                             // Not Authenticated 
@@ -31,7 +40,7 @@
 
                     return deferred.promise;
                 };
-            console.log('checkLoggedin', checkLoggedin());
+            // console.log('checkLoggedin', checkLoggedin());
             return checkLoggedin;
         }]);
 })();

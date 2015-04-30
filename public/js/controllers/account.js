@@ -133,8 +133,6 @@
 				dataOut = email,
 				new_url = $location.protocol()+'://'+$location.host()+':8080';
 
-			mixpanel.track('Team member invite', { 'email': email });
-
 			$http
 				.post(url, dataOut)
 				.success(function(invite){

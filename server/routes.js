@@ -46,12 +46,13 @@ module.exports = function(app, passport) {
             if(req.user){
                 if (req.isAuthenticated()) { 
                     res.json({ 
-                        _id : req.user._id, 
-                        name: req.user.name, 
+                        _id     : req.user._id, 
+                        name    : req.user.name, 
                         onboard : req.user.onboard,
-                        email: req.user.local.email, 
-                        account:req.user._account, 
-                        trello : req.user.trello.id 
+                        email   : req.user.local.email, 
+                        account : req.user._account, 
+                        created : req.user.created || new Date(),
+                        trello  : req.user.trello.id 
                     });
                 }
             }

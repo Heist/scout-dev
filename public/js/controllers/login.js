@@ -16,7 +16,7 @@
         if($stateParams.acct){
             $scope.acct = $stateParams.acct.replace( /\//gi,"");
             $scope.reg_toggle = true;
-            mixpanel.track('registration page touch', { 'account': $stateParams.acct });
+
             
             
             // TODO: get the invitation represented by that id and pre-populate the e-mail field.
@@ -28,10 +28,6 @@
                     $scope.user.email = data.user_email;
                 });
         }
-        
-        $scope.tracker = function(){
-            mixpanel.track('myAccount', { 'account': $stateParams.acct });
-        };
 
         $scope.login = function(user){
             var url = '/auth/login';
@@ -78,8 +74,6 @@
                     $scope.flashmessage = data.error;
                     $rootScope.user = data._id;
                     $location.path(data.redirect);
-
-                    mixpanel.track('registered new user', { 'name': data.email });
 
                 });
         };

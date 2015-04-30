@@ -75,12 +75,10 @@
          
         $scope.runTest = function(test){
             $location.path('/run/'+test._id);
-            mixpanel.track('Run test', { 'user': $rootScope.user });
         };
 
         $scope.summarizeTest = function(test_id){
             $location.path('/summary/'+ test_id);
-            mixpanel.track('Summary clicked', {});
         };
 
         $scope.loadReport = function(test_id){
