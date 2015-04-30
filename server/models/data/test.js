@@ -26,7 +26,7 @@ var TestSchema = new Schema({
         link    : { type: String, trim: true, default: '' },
         name    : { type: String, trim: true },
         platform: { type: String, trim: true, default: 'mobile' },
-        kind    : { type: String, trim: true, default: '' },
+        kind    : { type: String, trim: true, default: 'interview' },
         embed   : { type: String, default: '' },
 
         index: { type: Number, default: 0 },
