@@ -4797,7 +4797,8 @@ hr {
 #view-editing {
   margin: 0;
   padding: 0;
-  background: #fff; }
+  background: #fff;
+  min-height: 100%; }
   #view-editing .sheet {
     box-shadow: none; }
   #view-editing h3 {
