@@ -1,46 +1,44 @@
 <div id="view-testing">
 
-<!-- participant definition modal -->
+	<!-- participant definition modal -->
+	<div class="modal" ng-model="live" ng-hide="live">
 
-
-<div class="modal" ng-model="live" ng-hide="live">
-
-	<div class="module one-third">&nbsp;</div>
-	
-	<div class="module two-fifths modal-interior">
+		<div class="module one-third">&nbsp;</div>
 		
-		<div class="modal-interior-title">
-			<h2 class="text-center">Run a new test</h2>
+		<div class="module two-fifths modal-interior">
+			
+			<div class="modal-interior-title">
+				<h2 class="text-center">Run a new test</h2>
+			</div>
+			
+			<ul class="nobullets" ng-model="subject">
+				<li ng-class='{"half": kind === "prototype", "full" : kind !== "prototype"}'>
+					<label>Participant's name</label>
+					<input class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name"/>
+					</input>
+				</li>
+
+				<li class="half" ng-show="kind === 'prototype'">
+					<label>Room ID</label><span class="info large-tooltip" data-tooltip-large="You’ll find this in the Field Guide iOS app"><span>?</span></span>
+					<input class="input" type="text" name="testroom" value="" placeholder="Field Guide app Room ID" ng-model="subject.testroom">
+					</input>
+				</li>
+					<div class="clear"></div>
+
+					<div class="cta-margin">
+						<a href="#" class="secondary button-cancel" ng-click="changeOnboard(100)" tabindex="1">Cancel</a>
+
+						<!-- <a class="button dry-run med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a> -->
+				
+						<button class="button med float-right" type="submit" ng-click="addSubject(subject); changeOnboard(2)" tabindex="0">Start test</button>
+				</div>
+			</ul>
+			
 		</div>
 		
-		<ul class="nobullets" ng-model="subject">
-			<li ng-class='{"half": kind === "prototype", "full" : kind !== "prototype"}'>
-				<label>Participant's name</label>
-				<input class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name"/>
-				</input>
-			</li>
-
-			<li class="half" ng-show="kind === 'prototype'">
-				<label>Room ID</label><span class="info large-tooltip" data-tooltip-large="You’ll find this in the Field Guide iOS app"><span>?</span></span>
-				<input class="input" type="text" name="testroom" value="" placeholder="Field Guide app Room ID" ng-model="subject.testroom">
-				</input>
-			</li>
-				<div class="clear"></div>
-
-				<div class="cta-margin">
-					<a href="#" class="secondary button-cancel" ng-click="changeOnboard(100)" tabindex="1">Cancel</a>
-
-					<!-- <a class="button dry-run med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a> -->
-			
-					<button class="button med float-right" type="submit" ng-click="addSubject(subject); changeOnboard(2)" tabindex="0">Start test</button>
-			</div>
-		</ul>
-		
+		<div class="clear"></div>
 	</div>
-	
-	<div class="clear"></div>
-</div>
-<!-- / participant definition modal -->
+	<!-- / participant definition modal -->
 	
 	<!-- discussion guide -->
 	<div id="testing-guide" ng-model="tests">
@@ -100,8 +98,6 @@
 			</div>
 
 		</div>
-		
-		
 	</div>
 	<!-- /username or device -->
 

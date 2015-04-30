@@ -96,14 +96,14 @@
 			
 			
 			&:hover {
-				background: $background-overlay;
+				background: $fg-grey-bg;
 				cursor: pointer;
 				
 			}
 									
 			&.active {
 				position: relative;
-				background: $background-overlay;
+				background: $fg-grey-light;
 				
 				&:hover {
 					cursor: auto;

@@ -7,9 +7,9 @@
 	<div class="container" >
 		<div class="full test-setup">
 			
-			<div class="module quarter">&nbsp;</div>
+			<div class="module fifth">&nbsp;</div>
 			
-			<div class="module three-fifths">
+			<div class="module two-thirds">
 				
 				<div class="sheet-holder">
 					
@@ -36,7 +36,7 @@
 										<li ng-repeat="tag in tags">{{tag.name}}</li>
 									</ul>
 								</div>
-								<textarea name="custom-tags" class="custom-tags" placeholder="Type your own tags here. ex. #passed, #failed" ng-model="newtag" ng-blur="saveTag(newtag)"></textarea>
+								<input name="custom-tags" class="custom-tags" placeholder="Type your own tags here. ex. #passed, #failed" ng-model="newtag" ui-keypress="{13:'saveTag(newtag)'}"></input>
 							</div>
 						
 							<h3>Topics</h3>
