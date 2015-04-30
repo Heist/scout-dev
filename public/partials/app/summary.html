@@ -106,14 +106,10 @@
 						ng-class="{selected: commentMessage._id === message._id}">
 						
 						<div class="message-body" ng-click="editMessage(message, $index)">
-<<<<<<< HEAD
 							<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
 							<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message)"></textarea>
 						<!--<small>{{message.created | date : 'HH:mm' }}</small>-->
-=======
-							<pre class="messages summary" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-							<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ui-keypress="{13:'saveEdit(message)'}"></textarea>
->>>>>>> 9f49cd0d7f746ab3d4e2e4f34f8dfb336eb5a4c7
+
 						</div>
 					
 <!-- 					<div class="summary-border">

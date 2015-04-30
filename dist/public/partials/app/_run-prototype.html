@@ -6,7 +6,7 @@
 			
 			<!-- input notes -->
 			<div id="session-input">
-				<input type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input">
+				<input type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Remember to give your notes #themes">
 				<div id="hash-tag-pool">
 					<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
 				</div>
@@ -38,7 +38,7 @@
 					<li class="message" ng-repeat="message in timeline track by $index" ng-class="{'message-no-highlite' : message.title === 'Starting task', 'message-highlite' : message.title !== 'Starting task'}">
 						<div class="message-body" ng-click="editMessage(message)">
 							<pre class="messages" ng-if="message.title === 'Starting task'">
-								<h3>#{{message.body}}</h3>
+								<h3>{{message.body}}</h3>
 							</pre>
 							<!-- Editable messages - if a message is not a guideline -->
 							<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
@@ -81,15 +81,7 @@
 
 			<div id="cta">
 				<div class="cta">
-					<!-- old "End test" button -->
-					<!-- <button class="button outline" id="endtest" ng-click="postTest()">
-						<div class="checkmark"></div>
-						<span>End test</span>
-					</button> -->
-					<!-- this button brings summarize modal up, takes summary input and post it to summary page on "Findings" section under
-					"All your test summaries" -->
-					<!-- the "End test" button above will need to be removed but it's functionality will need to go on this same button below -->
-					<button class="button outline" ng-click="summarizeModalToggle()">
+					<button class="button outline" ng-click="summarizeModalToggle()" tabindex="-1">
 					<div class="checkmark"></div>
 					<span>End test</span>
 					</button>
