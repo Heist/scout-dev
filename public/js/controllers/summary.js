@@ -49,8 +49,9 @@
                         return n.name === 'Summary';
                     })[0]._messages;
 
+        console.log(loadData.data.list[testIdx]);
         $scope.testname = loadData.data.name;
-        $scope.rawList = _.filter(loadData.data.list, function(n){ return n._messages.length > 0 }).concat(loadData.data.list[testIdx]);
+        $scope.rawList = _.filter(loadData.data.list, function(n){ return n._messages.length > 0 })
         
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
