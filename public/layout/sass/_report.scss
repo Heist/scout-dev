@@ -10,8 +10,8 @@
 	#generated-with-fg {
 		img {
 			position: absolute;
-			bottom: 60px;
-			right: 60px;
+			top: 40px;
+			right: 40px;
 		}
 	}
 
@@ -137,8 +137,27 @@
 		}
 	}
 	
+	.findings-header {
+		padding: 40px 0;
+
+		h1 {
+			font-size: 24px;
+		}
+
+		.findings-description {
+			color: $fg-grey;
+			font-size: 12px;
+			margin: 5px 0;
+
+			span {
+				padding: 0 20px 0 0;
+			}
+		}
+		
+	}
+
 	.findings-content {
-		width: 40%;
+		width: 45%;
 		margin: 0 auto;
 		@include type-light;
 
@@ -164,25 +183,19 @@
 			color: $fg-grey;
 			margin: 0 0 50px 0;
 		}
-
-		.findings-header {
-			padding: 40px 0;
-
-			.findings-description {
-				color: $fg-grey;
-				font-size: 12px;
-				margin: 10px 0;
-
-				span {
-					padding: 0 20px 0 0;
-				}
-			}
-			
-		}
 		
 		.findings-information {
+
+			h2 {
+				font-size: 20;
+				@include type-regular;
+				margin: 0 0 20px 0;
+			}
+
 			pre {
 				color: $fg-grey;
+				font-size: 18px;
+				line-height: 24px;
 			}
 			p {
 				line-height: 20px;

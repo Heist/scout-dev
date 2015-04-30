@@ -4,7 +4,7 @@
 	cursor: default;
 	padding: 0;
 	margin: 0;
-	
+
 	/* are we onboard? */
 	
 	&.is-onboard {
@@ -32,11 +32,16 @@
 
 	#findings-share-report {
 		.input {
-			width: 92.5%;
+			width: 92%;
 			border-top-right-radius: 0;
 			border-bottom-right-radius: 0;
 
 			&:hover {
+				border: 1px solid $fg-grey-light-trans;
+			}
+
+			&:focus {
+				box-shadow: none;
 				border: 1px solid $fg-grey-light-trans;
 			}
 		}
@@ -46,7 +51,7 @@
 		
 			a {
 				position: absolute;
-				padding: 6px 8px;
+				padding: 8px 10px;
 				background: none;
 				border: 1px solid $fg-grey-light-trans;
 				border-left: 0;
@@ -72,12 +77,12 @@
 		position: fixed;
 		left: 10%;
 		top: 0;
-		@include animated;		
+		@include animated;
 		@include scrollbar;
 		
 		#sidebar {
 			width: 95%;
-			height: 80%;
+			height: 98%;
 			overflow: auto;
 			position: relative;
 			
@@ -166,7 +171,7 @@
 	}
 	
 	.findings-content {
-		width: 45%;
+		width: 60%;
 		margin: 0 auto;
 		@include type-light;
 
@@ -176,18 +181,19 @@
 
 		h1 {
 			margin: 0;
-			font-size: 24px;
+			font-size: 28px;
 		}
 
 		h2 {
-			font-size: 16px;
+			font-size: 20px;
+			@include type-regular;
 			color: $fg-slate;
 			margin: 0 0 15px 0;
 		}
 
 		p {
-			font-size: 12px;
-			line-height: 13px;
+			font-size: 18px;
+			line-height: 24px;
 			color: $fg-grey;
 			margin: 0 0 50px 0;
 		}
@@ -198,7 +204,7 @@
 
 		.findings-header {
 			padding: 40px 0;
-
+			
 			.findings-description {
 				color: $fg-grey;
 				font-size: 12px;
@@ -212,11 +218,10 @@
 		}
 		
 		.findings-information {
-			p {
-				line-height: 18px;
-			}
 			textarea {
-				line-height: 18px;
+				font-size: 18px;
+				line-height: 24px;
+				height: 400px;
 
 				&:hover, &:focus {
 				    color: $black;
@@ -224,12 +229,63 @@
 			}
 		}
 		
-		.findings-summary {
+		.learnings {
 			width: 100%;
 			max-width: 100%;
-			height: 800px;
+			height: 400px;
 			padding: 10px 15px;
 			margin: 0 0 70px 0;
+			font-size: 18px;
+			line-height: 24px;
+		}
+
+		.all-summaries {
+			margin: 40px 0 0 0;
+
+			.line-hr {
+			    display: block;
+			    text-align: center;
+			    overflow: hidden;
+			    white-space: nowrap;
+			    margin: 0 0 40px 0;
+			}
+
+			.line-hr > span {
+			    position: relative;
+			    display: inline-block;
+			    @include type-light;
+			    color: $fg-grey;
+			    font-size: 12px;
+			}
+			
+			.line-hr > span:before,
+			.line-hr > span:after {
+			    content: "";
+			    position: absolute;
+			    top: 50%;
+			    width: 9999px;
+			    height: 1px;
+			    background: $fg-grey-light;
+			}
+
+			.line-hr > span:before {
+			    right: 100%;
+			    margin-right: 15px;
+			}
+
+			.line-hr > span:after {
+			    left: 100%;
+			    margin-left: 15px;
+			}
+			
+			h2 {
+				margin: 0 0 5px 0;
+			}
+
+			p {
+				font-size: 12px;
+				color: $fg-grey;
+			}
 		}
 	}
 }

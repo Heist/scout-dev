@@ -283,7 +283,7 @@ form {
 label {
   padding: 0;
   margin: 0;
-  font-size: 12px;
+  font-size: 14px;
   opacity: 1;
   color: #2B404D;
   font-family: "canada-type-gibson",sans-serif;
@@ -400,7 +400,8 @@ label {
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 18px;
   color: #777777;
   outline: none; }
   .input:hover {
@@ -421,29 +422,29 @@ label {
       border: 1px solid #dddddd; }
 
 ::-webkit-input-placeholder {
-  color: #D8DADB;
-  font-size: 12px;
-  line-height: 15px;
+  color: #C5C6C7;
+  font-size: 14px;
+  line-height: 20px;
   font-style: italic; }
 
 :-moz-placeholder {
   /* Firefox 18- */
-  color: #D8DADB;
-  font-size: 12px;
-  line-height: 15px;
+  color: #C5C6C7;
+  font-size: 14px;
+  line-height: 20px;
   font-style: italic; }
 
 ::-moz-placeholder {
   /* Firefox 19+ */
-  color: #D8DADB;
-  font-size: 12px;
-  line-height: 15px;
+  color: #C5C6C7;
+  font-size: 14px;
+  line-height: 20px;
   font-style: italic; }
 
 :-ms-input-placeholder {
-  color: #D8DADB;
-  font-size: 12px;
-  line-height: 15px;
+  color: #C5C6C7;
+  font-size: 14px;
+  line-height: 20px;
   font-style: italic; }
 
 textarea.input {
@@ -3917,7 +3918,6 @@ hr {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300;
-        text-transform: lowercase;
         color: #D8DADB; }
       #timeline ul .message-no-highlite p {
         margin: 0; }
@@ -4132,14 +4132,14 @@ hr {
       #tasklist ul li p {
         margin: 0;
         padding: 0;
-        font-size: 12px;
-        line-height: 19.2px;
+        font-size: 14px;
+        line-height: 18px;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300; }
       #tasklist ul li pre.objectives {
-        font-size: 12px;
-        line-height: 19.2px;
+        font-size: 14px;
+        line-height: 18px;
         margin: 20px 0 0 0;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
@@ -4150,11 +4150,12 @@ hr {
         padding: 0;
         opacity: 0.5; }
       #tasklist ul li:hover {
-        background: #ececec;
+        background: #EFEFEF;
         cursor: pointer; }
       #tasklist ul li.active {
         position: relative;
-        background: #ececec; }
+        background: #85AC0F;
+        color: #fff; }
         #tasklist ul li.active:hover {
           cursor: auto;
           box-shadow: none; }
@@ -4250,26 +4251,26 @@ hr {
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); }
     .modal .modal-interior ::-webkit-input-placeholder {
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
       font-style: italic; }
     .modal .modal-interior :-moz-placeholder {
       /* Firefox 18- */
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
       font-style: italic; }
     .modal .modal-interior ::-moz-placeholder {
       /* Firefox 19+ */
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
       font-style: italic; }
     .modal .modal-interior :-ms-input-placeholder {
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
       font-style: italic; }
     .modal .modal-interior ul {
       margin: 0; }
@@ -4724,44 +4725,57 @@ hr {
   clear: both; }
 #view-new-project .test-objectives {
   height: 150px; }
-#view-new-project .test-type {
-  padding: 5px 10px 10px 10px;
+#view-new-project button.test-type {
+  width: 48%;
+  outline: 0;
   text-align: center;
   position: relative;
   cursor: pointer;
-  border-bottom: 4px solid #fff;
-  margin: 0 0 20px 0; }
-  #view-new-project .test-type:hover {
-    border-bottom: 4px solid #85AC0F; }
-  #view-new-project .test-type.select-active {
-    border-bottom: 4px solid #85AC0F; }
-  #view-new-project .test-type.select-inactive {
-    border-bottom: 0; }
-  #view-new-project .test-type .selected-arrow {
+  border: 0;
+  padding: 20px;
+  background: rgba(216, 218, 219, 0.2);
+  color: #949799;
+  margin-bottom: 20px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px; }
+  #view-new-project button.test-type.interview {
+    margin-right: 2%; }
+  #view-new-project button.test-type.prototype {
+    margin-left: 2%; }
+  #view-new-project button.test-type:hover {
+    background: #85AC0F;
+    color: #fff; }
+  #view-new-project button.test-type.select-active {
+    background: #85AC0F;
+    color: #fff; }
+  #view-new-project button.test-type.select-inactive {
+    background: rgba(216, 218, 219, 0.2);
+    color: #949799; }
+  #view-new-project button.test-type .selected-arrow {
     display: none; }
-  #view-new-project .test-type h3 {
-    font-size: 17.5px;
+  #view-new-project button.test-type h3 {
+    font-size: 18px;
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 300; }
+  #view-new-project button.test-type p {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
-    color: #323539; }
-  #view-new-project .test-type p {
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 12px;
-    line-height: 17px;
+    font-size: 14px;
+    line-height: 18px;
     margin: 0; }
-  #view-new-project .test-type a.more-info {
+  #view-new-project button.test-type a.more-info {
     color: #00B5E3;
     font-size: 10px; }
-  #view-new-project .test-type.selected {
+  #view-new-project button.test-type.selected {
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
     border: 1px solid #C6D39E;
     color: #85AC0F; }
-    #view-new-project .test-type.selected .selected-arrow {
+    #view-new-project button.test-type.selected .selected-arrow {
       position: absolute;
       display: block;
       width: 100%;
@@ -4769,12 +4783,12 @@ hr {
       height: 7px;
       bottom: -7px;
       left: 0; }
-      #view-new-project .test-type.selected .selected-arrow img {
+      #view-new-project button.test-type.selected .selected-arrow img {
         width: 14px;
         height: auto; }
-  #view-new-project .test-type strong {
+  #view-new-project button.test-type strong {
     border-bottom: 1px dashed #dddddd; }
-  #view-new-project .test-type img {
+  #view-new-project button.test-type img {
     width: 100px;
     height: auto;
     padding: 0 0 10px 0; }
@@ -4789,9 +4803,9 @@ hr {
   #view-editing h3 {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 300;
+    font-weight: 400;
     color: #2B404D;
-    font-size: 16px;
+    font-size: 20px;
     margin: 20px 0; }
   #view-editing h4 {
     font-family: "canada-type-gibson",sans-serif;
@@ -4800,53 +4814,39 @@ hr {
     color: #323539;
     font-size: 14px;
     margin: 10px 0; }
-  #view-editing .task-title {
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px; }
   #view-editing .project-name {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
-    color: #2B404D;
-    font-size: 24px;
+    color: #777777;
+    font-size: 28px;
     margin: 0 0 20px 0; }
+    #view-editing .project-name:hover, #view-editing .project-name:focus {
+      color: #000; }
+  #view-editing .task-title {
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 22px;
+    color: #949799; }
+    #view-editing .task-title:hover, #view-editing .task-title:focus {
+      color: #000; }
   #view-editing textarea.test-descriptions, #view-editing textarea.task-descriptions {
-    font-size: 12px;
+    font-size: 18px;
+    line-height: 24px;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
     color: #949799;
     margin: 0;
-    line-height: 20px;
     resize: none; }
     #view-editing textarea.test-descriptions:hover, #view-editing textarea.test-descriptions:focus, #view-editing textarea.task-descriptions:hover, #view-editing textarea.task-descriptions:focus {
       color: #000; }
   #view-editing .add-task {
     margin: 20px 0; }
-    #view-editing .add-task ::-webkit-input-placeholder {
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
-      font-style: italic; }
-    #view-editing .add-task :-moz-placeholder {
-      /* Firefox 18- */
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
-      font-style: italic; }
-    #view-editing .add-task ::-moz-placeholder {
-      /* Firefox 19+ */
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
-      font-style: italic; }
-    #view-editing .add-task :-ms-input-placeholder {
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
-      font-style: italic; }
+    #view-editing .add-task h4 {
+      color: #2B404D;
+      font-size: 18px; }
     #view-editing .add-task form {
       border: 1px solid rgba(216, 218, 219, 0.5);
       padding: 15px;
@@ -4860,7 +4860,8 @@ hr {
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 300;
-      font-size: 12px;
+      font-size: 18px;
+      line-height: 24px;
       color: #949799; }
     #view-editing .add-task textarea {
       height: 65px;
@@ -4876,26 +4877,26 @@ hr {
   #view-editing .tags {
     margin: 0 0 40px 0; }
     #view-editing .tags ::-webkit-input-placeholder {
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
       font-style: italic; }
     #view-editing .tags :-moz-placeholder {
       /* Firefox 18- */
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
       font-style: italic; }
     #view-editing .tags ::-moz-placeholder {
       /* Firefox 19+ */
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
       font-style: italic; }
     #view-editing .tags :-ms-input-placeholder {
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
       font-style: italic; }
     #view-editing .tags p {
       font-size: 10px;
@@ -4908,8 +4909,8 @@ hr {
       #view-editing .tags .tag-pool ul, #view-editing .tags input.custom-tags ul, #view-editing .tags .add-task textarea.custom-tags ul, #view-editing .add-task .tags textarea.custom-tags ul {
         padding: 0; }
         #view-editing .tags .tag-pool ul li, #view-editing .tags input.custom-tags ul li, #view-editing .tags .add-task textarea.custom-tags ul li, #view-editing .add-task .tags textarea.custom-tags ul li {
-          padding: 0 0 0 15px;
-          font-size: 10px;
+          padding: 2px 0 0 15px;
+          font-size: 14px;
           color: #00B5E3;
           display: inline-block; }
           #view-editing .tags .tag-pool ul li:before, #view-editing .tags input.custom-tags ul li:before, #view-editing .tags .add-task textarea.custom-tags ul li:before, #view-editing .add-task .tags textarea.custom-tags ul li:before {
@@ -4925,10 +4926,11 @@ hr {
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 300;
-      font-size: 12px;
+      font-size: 14px;
+      line-height: 20px;
       color: #949799; }
   #view-editing .done-button {
-    position: absolute;
+    position: fixed;
     right: 30px; }
   #view-editing .container {
     padding: 20px 0 0 0; }
@@ -4943,26 +4945,26 @@ hr {
       #view-editing .test-setup .nobullets .input {
         width: 100%; }
     #view-editing .test-setup ::-webkit-input-placeholder {
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
       font-style: italic; }
     #view-editing .test-setup :-moz-placeholder {
       /* Firefox 18- */
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
       font-style: italic; }
     #view-editing .test-setup ::-moz-placeholder {
       /* Firefox 19+ */
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
       font-style: italic; }
     #view-editing .test-setup :-ms-input-placeholder {
-      color: #D8DADB;
-      font-size: 12px;
-      line-height: 15px;
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
       font-style: italic; }
     #view-editing .test-setup .select-active {
       background: #85AC0F;
@@ -4999,7 +5001,7 @@ hr {
   #view-testing.has-input-outline #session-input {
     outline: 2px solid #00B5E3 !important; }
   #view-testing #testing-guide {
-    width: 25%;
+    width: 30%;
     height: 100%;
     position: absolute;
     padding: 20px 0 0 0;
@@ -5033,7 +5035,7 @@ hr {
     #view-testing li.full:first-child {
       margin-right: 0; }
   #view-testing .sheet-holder {
-    width: 75%;
+    width: 70%;
     height: 100%;
     padding: 0;
     margin: 0;
@@ -5068,29 +5070,30 @@ hr {
       z-index: 99999;
       border-top: 1px solid #dddddd; }
       #view-testing #testing-input #session-input ::-webkit-input-placeholder {
-        color: #D8DADB;
-        font-size: 12px;
-        line-height: 15px;
+        color: #C5C6C7;
+        font-size: 14px;
+        line-height: 20px;
         font-style: italic; }
       #view-testing #testing-input #session-input :-moz-placeholder {
         /* Firefox 18- */
-        color: #D8DADB;
-        font-size: 12px;
-        line-height: 15px;
+        color: #C5C6C7;
+        font-size: 14px;
+        line-height: 20px;
         font-style: italic; }
       #view-testing #testing-input #session-input ::-moz-placeholder {
         /* Firefox 19+ */
-        color: #D8DADB;
-        font-size: 12px;
-        line-height: 15px;
+        color: #C5C6C7;
+        font-size: 14px;
+        line-height: 20px;
         font-style: italic; }
       #view-testing #testing-input #session-input :-ms-input-placeholder {
-        color: #D8DADB;
-        font-size: 12px;
-        line-height: 15px;
+        color: #C5C6C7;
+        font-size: 14px;
+        line-height: 20px;
         font-style: italic; }
       #view-testing #testing-input #session-input input[type=textarea], #view-testing #testing-input #session-input #view-editing .add-task textarea[type=textarea], #view-editing .add-task #view-testing #testing-input #session-input textarea[type=textarea] {
         width: 100%;
+        font-size: 14px;
         margin: 0;
         border: none; }
         #view-testing #testing-input #session-input input[type=textarea]:focus, #view-testing #testing-input #session-input #view-editing .add-task textarea[type=textarea]:focus, #view-editing .add-task #view-testing #testing-input #session-input textarea[type=textarea]:focus {
@@ -5106,6 +5109,9 @@ hr {
         z-index: 999999999999; }
         #view-testing #testing-input #session-input ul.dropdown-menu li {
           list-style: none; }
+          #view-testing #testing-input #session-input ul.dropdown-menu li.active {
+            background: #00B5E3;
+            color: #fff; }
           #view-testing #testing-input #session-input ul.dropdown-menu li:hover {
             background: #00B5E3; }
             #view-testing #testing-input #session-input ul.dropdown-menu li:hover a {
@@ -5411,7 +5417,7 @@ hr {
 /* message user header */
 .message-user {
   color: #2B404D;
-  font-size: 16px;
+  font-size: 18px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -5553,20 +5559,22 @@ hr {
       font-style: normal;
       font-weight: 300;
       font-size: 20px;
-      text-transform: lowercase;
       color: #D8DADB; }
     .message .message-body p {
       margin-bottom: 0 !important;
       color: #949799; }
     .message .message-body pre.messages {
-      font-size: 12px;
-      line-height: 18px;
+      font-size: 14px;
+      line-height: 20px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 300;
       color: #777777;
       margin: 0;
       cursor: text; }
+      .message .message-body pre.messages.summary {
+        font-size: 18px;
+        line-height: 24px; }
       .message .message-body pre.messages:hover {
         color: #000; }
     .message .message-body small {
@@ -5615,16 +5623,19 @@ hr {
   #view-findings.show-comments .message-comments {
     display: block; }
   #view-findings #findings-share-report .input {
-    width: 92.5%;
+    width: 92%;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0; }
     #view-findings #findings-share-report .input:hover {
+      border: 1px solid rgba(216, 218, 219, 0.5); }
+    #view-findings #findings-share-report .input:focus {
+      box-shadow: none;
       border: 1px solid rgba(216, 218, 219, 0.5); }
   #view-findings #findings-share-report span {
     position: relative; }
     #view-findings #findings-share-report span a {
       position: absolute;
-      padding: 6px 8px;
+      padding: 8px 10px;
       background: none;
       border: 1px solid rgba(216, 218, 219, 0.5);
       border-left: 0;
@@ -5664,7 +5675,7 @@ hr {
       border-radius: 10px; }
     #view-findings #findings-nav #sidebar {
       width: 95%;
-      height: 80%;
+      height: 98%;
       overflow: auto;
       position: relative; }
       #view-findings #findings-nav #sidebar.sidebar {
@@ -5723,7 +5734,7 @@ hr {
       left: -3%;
       position: relative; }
   #view-findings .findings-content {
-    width: 45%;
+    width: 60%;
     margin: 0 auto;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -5732,14 +5743,17 @@ hr {
       width: 35%; }
     #view-findings .findings-content h1 {
       margin: 0;
-      font-size: 24px; }
+      font-size: 28px; }
     #view-findings .findings-content h2 {
-      font-size: 16px;
+      font-size: 20px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400;
       color: #2B404D;
       margin: 0 0 15px 0; }
     #view-findings .findings-content p {
-      font-size: 12px;
-      line-height: 13px;
+      font-size: 18px;
+      line-height: 24px;
       color: #949799;
       margin: 0 0 50px 0; }
     #view-findings .findings-content pre {
@@ -5752,18 +5766,54 @@ hr {
         margin: 10px 0; }
         #view-findings .findings-content .findings-header .findings-description span {
           padding: 0 20px 0 0; }
-    #view-findings .findings-content .findings-information p {
-      line-height: 18px; }
     #view-findings .findings-content .findings-information textarea {
-      line-height: 18px; }
+      font-size: 18px;
+      line-height: 24px;
+      height: 400px; }
       #view-findings .findings-content .findings-information textarea:hover, #view-findings .findings-content .findings-information textarea:focus {
         color: #000; }
-    #view-findings .findings-content .findings-summary {
+    #view-findings .findings-content .learnings {
       width: 100%;
       max-width: 100%;
-      height: 800px;
+      height: 400px;
       padding: 10px 15px;
-      margin: 0 0 70px 0; }
+      margin: 0 0 70px 0;
+      font-size: 18px;
+      line-height: 24px; }
+    #view-findings .findings-content .all-summaries {
+      margin: 40px 0 0 0; }
+      #view-findings .findings-content .all-summaries .line-hr {
+        display: block;
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
+        margin: 0 0 40px 0; }
+      #view-findings .findings-content .all-summaries .line-hr > span {
+        position: relative;
+        display: inline-block;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 300;
+        color: #949799;
+        font-size: 12px; }
+      #view-findings .findings-content .all-summaries .line-hr > span:before, #view-findings .findings-content .all-summaries .line-hr > span:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 9999px;
+        height: 1px;
+        background: #D8DADB; }
+      #view-findings .findings-content .all-summaries .line-hr > span:before {
+        right: 100%;
+        margin-right: 15px; }
+      #view-findings .findings-content .all-summaries .line-hr > span:after {
+        left: 100%;
+        margin-left: 15px; }
+      #view-findings .findings-content .all-summaries h2 {
+        margin: 0 0 5px 0; }
+      #view-findings .findings-content .all-summaries p {
+        font-size: 12px;
+        color: #949799; }
 
 /* let's embed a video */
 #video-embed {
@@ -5809,7 +5859,7 @@ hr {
     #view-onboarding .onboarding-content h2.less-margin {
       margin: 0 0 40px 0; }
   #view-onboarding .onboarding-content img {
-    width: 1000px;
+    width: 70%;
     margin: 45px 0 20px 0; }
   #view-onboarding .onboarding-content img.ranger {
     width: 180px;
@@ -5907,8 +5957,8 @@ hr {
   /* are we onboard? */ }
   #report-summary #generated-with-fg img {
     position: absolute;
-    bottom: 60px;
-    right: 60px; }
+    top: 40px;
+    right: 40px; }
   #report-summary.is-onboard #findings-viewmode-controls {
     bottom: 0; }
   #report-summary.show-comments .sheet-holder {
@@ -6022,8 +6072,18 @@ hr {
       width: 103%;
       left: -3%;
       position: relative; }
+  #report-summary .findings-header {
+    padding: 40px 0; }
+    #report-summary .findings-header h1 {
+      font-size: 24px; }
+    #report-summary .findings-header .findings-description {
+      color: #949799;
+      font-size: 12px;
+      margin: 5px 0; }
+      #report-summary .findings-header .findings-description span {
+        padding: 0 20px 0 0; }
   #report-summary .findings-content {
-    width: 40%;
+    width: 45%;
     margin: 0 auto;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -6045,16 +6105,16 @@ hr {
       line-height: 18px;
       color: #949799;
       margin: 0 0 50px 0; }
-    #report-summary .findings-content .findings-header {
-      padding: 40px 0; }
-      #report-summary .findings-content .findings-header .findings-description {
-        color: #949799;
-        font-size: 12px;
-        margin: 10px 0; }
-        #report-summary .findings-content .findings-header .findings-description span {
-          padding: 0 20px 0 0; }
+    #report-summary .findings-content .findings-information h2 {
+      font-size: 20;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      margin: 0 0 20px 0; }
     #report-summary .findings-content .findings-information pre {
-      color: #949799; }
+      color: #949799;
+      font-size: 18px;
+      line-height: 24px; }
     #report-summary .findings-content .findings-information p {
       line-height: 20px; }
     #report-summary .findings-content .findings-summary {

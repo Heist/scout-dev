@@ -9,24 +9,40 @@
         height: 150px;
     }
     
-    .test-type {
-        padding: 5px 10px 10px 10px;
+    button.test-type {
+        width: 48%;
+        outline: 0;
         text-align: center;
         position: relative;
         cursor: pointer;
-        border-bottom: 4px solid $white;
-        margin: 0 0 20px 0;
+        border: 0;
+        padding: 20px;
+        background: transparentize($fg-grey-light, 0.8);
+        color: $fg-grey;
+        margin-bottom: 20px;
+        @include radius;
+
+        &.interview {
+            margin-right: 2%;
+        }
+
+        &.prototype {
+            margin-left: 2%;
+        }
 
         &:hover {
-            border-bottom: 4px solid $fg-green;
+            background: $fg-green;
+            color: $white;
         }
 
         &.select-active {
-            border-bottom: 4px solid $fg-green;
+            background: $fg-green;
+            color: $white;
         }
 
         &.select-inactive {
-            border-bottom: 0;
+            background: transparentize($fg-grey-light, 0.8);
+            color: $fg-grey;
         }
 
         .selected-arrow {
@@ -34,15 +50,14 @@
         }
 
         h3 {
-            font-size: 17.5px;
+            font-size: 18px;
             @include type-light;
-            color: $fg-black;
         }
 
         p {
             @include type-light;
-            font-size: 12px;
-            line-height: 17px;
+            font-size: 14px;
+            line-height: 18px;
             margin: 0;
         }
 
@@ -94,9 +109,9 @@
     }
     
     h3 {
-        @include type-light;
+        @include type-regular;
         color: $fg-slate;
-        font-size: 16px;
+        font-size: 20px;
         margin: 20px 0;
     }
 
@@ -107,24 +122,33 @@
         margin: 10px 0;
     }
 
-    .task-title {
-        @include type-regular;
-        font-size: 12px;
-    }
-    
     .project-name {
         @include type-light;
-        color: $fg-slate;
-        font-size: 24px;
+        color: $fg-grey-dark;
+        font-size: 28px;
         margin: 0 0 20px 0;
+
+        &:hover, &:focus {
+            color: $black;
+        }
+    }
+
+    .task-title {
+        @include type-light;
+        font-size: 22px;
+        color: $fg-grey;
+
+        &:hover, &:focus {
+            color: $black;
+        }
     }
 
     textarea.test-descriptions, textarea.task-descriptions {
-        font-size: 12px;
+        font-size: 18px;
+        line-height: 24px;
         @include type-light;
         color: $fg-grey;
         margin: 0;
-        line-height: 20px;
         resize: none;
 
         &:hover, &:focus {
@@ -134,7 +158,11 @@
 
     .add-task {
         margin: 20px 0;
-        @include input-placeholders;
+
+        h4 {
+            color: $fg-slate;
+            font-size: 18px;
+        }
 
         form {
             border: 1px solid transparentize($fg-grey-light, 0.5);
@@ -149,7 +177,8 @@
             border: 0;
             outline: 0;
             @include type-light;
-            font-size: 12px;
+            font-size: 18px;
+            line-height: 24px;
              color: $fg-grey;
         }
         
@@ -188,11 +217,11 @@
             ul {
                 padding: 0;
                 li {
-                    padding: 0 0 0 15px;
-                    font-size: 10px;
+                    padding: 2px 0 0 15px;
+                    font-size: 14px;
                     color: $fg-blue;
                     display: inline-block;
-                    
+
                     &:before {
                         content: "#"
                     }
@@ -212,13 +241,14 @@
             padding: 8px;
             outline: 0;
             @include type-light;
-            font-size: 12px;
+            font-size: 14px;
+            line-height: 20px;
             color: $fg-grey;
         }
     }
 
     .done-button {
-        position: absolute;
+        position: fixed;
         right: 30px;
     }
 

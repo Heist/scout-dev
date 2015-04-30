@@ -75,14 +75,14 @@
 			p {
 				margin: 0; 
 				padding: 0;
-				font-size: $type-size-base*0.8;
-				line-height: $type-line-base*0.8;
+				font-size: 14px;
+				line-height: 18px;
 				@include type-light;
 			}
 
 			pre.objectives {
-				font-size: 12px;
-				line-height: 19.2px;
+				font-size: 14px;
+				line-height: 18px;
 				margin: 20px 0 0 0;
 				@include type-light;
 			}
@@ -96,14 +96,15 @@
 			
 			
 			&:hover {
-				background: $background-overlay;
+				background: $fg-grey-bg;
 				cursor: pointer;
 				
 			}
 									
 			&.active {
 				position: relative;
-				background: $background-overlay;
+				background: $fg-green;
+				color: $white;
 				
 				&:hover {
 					cursor: auto;
