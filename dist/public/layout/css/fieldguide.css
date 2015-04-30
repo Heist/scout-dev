@@ -4132,14 +4132,14 @@ hr {
       #tasklist ul li p {
         margin: 0;
         padding: 0;
-        font-size: 12px;
-        line-height: 19.2px;
+        font-size: 14px;
+        line-height: 18px;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300; }
       #tasklist ul li pre.objectives {
-        font-size: 12px;
-        line-height: 19.2px;
+        font-size: 14px;
+        line-height: 18px;
         margin: 20px 0 0 0;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
