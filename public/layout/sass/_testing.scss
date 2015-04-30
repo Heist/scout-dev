@@ -106,12 +106,18 @@
             border-top: 1px solid $line;
             @include input-placeholders;
 
-            input[type=textarea] {
+            .typeahead-box {
                 width: 100%;
                 font-size: 14px;
                 margin: 0;
-                border: none;
-
+                border: 0;
+                outline: 0;
+                padding: 10px;
+                height: 70%;
+                resize: 0;
+                @include type-light;
+                color: $fg-grey;
+            
                 &:focus {
                     box-shadow: none;
                 }

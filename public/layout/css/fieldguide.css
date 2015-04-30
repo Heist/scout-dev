@@ -5091,12 +5091,20 @@ hr {
         font-size: 14px;
         line-height: 20px;
         font-style: italic; }
-      #view-testing #testing-input #session-input input[type=textarea], #view-testing #testing-input #session-input #view-editing .add-task textarea[type=textarea], #view-editing .add-task #view-testing #testing-input #session-input textarea[type=textarea] {
+      #view-testing #testing-input #session-input .typeahead-box {
         width: 100%;
         font-size: 14px;
         margin: 0;
-        border: none; }
-        #view-testing #testing-input #session-input input[type=textarea]:focus, #view-testing #testing-input #session-input #view-editing .add-task textarea[type=textarea]:focus, #view-editing .add-task #view-testing #testing-input #session-input textarea[type=textarea]:focus {
+        border: 0;
+        outline: 0;
+        padding: 10px;
+        height: 70%;
+        resize: 0;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 300;
+        color: #949799; }
+        #view-testing #testing-input #session-input .typeahead-box:focus {
           box-shadow: none; }
       #view-testing #testing-input #session-input ul.dropdown-menu {
         margin: 0;
