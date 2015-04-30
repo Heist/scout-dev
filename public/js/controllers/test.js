@@ -49,7 +49,6 @@
             $scope.anchor = x;
             $scope.explanation = _.findWhere(explanations, {anchor:x});
             if(x === 5){
-                mixpanel.track('Test setup completion page', { 'user': $rootScope.user });
                 $location.path('/overview');
             }
         };
@@ -78,7 +77,6 @@
     // ACTIONS ============================================
         $scope.selectPrototype = function(kind){
             $scope.test.kind = kind;
-            mixpanel.track('Type of Test', {'test type' : kind });
         };
 
         $scope.selectPlatform = function(kind){
@@ -192,10 +190,6 @@
         $scope.updateTest = function(){
             // reminder: this pushes an update to an already-created test
             var test = $scope.test;
-            
-            if($scope.test.name){
-                mixpanel.track('Test name changed', { 'user': $rootScope.user });
-            }
 
             if($scope.test.desc){
                 test.desc = $scope.test.desc;

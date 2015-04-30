@@ -1,7 +1,6 @@
 // app.js
 (function() {
     'use strict';
-
     var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'typeaheadTagger', 'ngSanitize', 'youtube-embed', 'field_guide_controls','field_guide_filters']);
 
     // FRONT-END ROUTE CONFIGURATION ==============================================
@@ -12,6 +11,7 @@
         $httpProvider.defaults.timeout = 3000;
         
         $urlRouterProvider.otherwise("/login");
+
 
     // APP ROUTING ====================================================================
         $stateProvider
@@ -74,7 +74,6 @@
                 controller:'summary',
                 templateUrl: 'partials/app/summary.html',
                 resolve: { 
-                    mixpanel : function(){ mixpanel.track('Summary clicked', {}); },
                     loggedin: ['checkLoggedin', function(checkLoggedin) {
                             return checkLoggedin();
                         }],

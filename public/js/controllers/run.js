@@ -179,8 +179,6 @@
         $scope.select = function(index) {
             $scope.selected = $scope.navlist[index];
 
-            mixpanel.track('Task changed', {});
-
             $scope.timeline.push({ 
                 title: 'Starting task', 
                 body: $scope.selected.name,
@@ -249,7 +247,6 @@
                     }
 
                     socket.emit('channel', {room : subject.testroom, test: subject.test});
-                    mixpanel.track('Add Participant Name', {});
                 });
         };
 
@@ -322,7 +319,6 @@
         // END TEST =============================
         $scope.postTest = function(){
             // Send tasks that have had a subject added to the DB.
-            mixpanel.track('Test completed', {});
 
             $http
                 .post('/api/run/', $scope.update)

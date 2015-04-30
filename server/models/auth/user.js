@@ -16,7 +16,8 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
     _account: {type: Schema.Types.ObjectId},
     _invite : {type: Schema.Types.ObjectId},
-    
+
+    created : Date,
     onboarding: {type: Boolean , default : true}, 
     name: {type:String, trim:true},
     onboard : {type: Number, default: 1},
@@ -69,6 +70,11 @@ userSchema.pre('save', function(next){
         // if this user is a new user with no account.... 
         this._account = account;
     }
+    var now = new Date();
+    if ( !this.created ) {
+        this.created = now;
+    }
+    next();
     next();
 });
 

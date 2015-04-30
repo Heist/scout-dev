@@ -251,8 +251,6 @@
             // post fav'd statuses to relevant messages
             $scope.messages = _.map($scope.messages, function(val, key){ return val; });
 
-            mixpanel.track('Summary complete', {});
-
             $http.put('/api/summary/'+ $stateParams._id, 
                 { navlist  : $scope.navlist, 
                   messages : $scope.messages[0]

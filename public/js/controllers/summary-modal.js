@@ -15,7 +15,6 @@
     	// TEST UPDATE ==============================
     	$scope.selectPrototype = function(kind){
             $scope.test.kind = kind;
-            mixpanel.track('Type of Test', {'test type' : kind });
         };
 
         $scope.selectPlatform = function(kind){
@@ -28,10 +27,6 @@
 
         $scope.addTest = function(test){
         	console.log('new test', test);
-
-            if($scope.test.name){
-                mixpanel.track('Test name changed', { 'user': $rootScope.user });
-            }
 
             $http
                 .post('/api/test/', test)
