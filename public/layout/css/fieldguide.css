@@ -5108,6 +5108,9 @@ hr {
         background: #fff; }
         #view-testing #testing-input #session-input ul.dropdown-menu li {
           list-style: none; }
+          #view-testing #testing-input #session-input ul.dropdown-menu li.active {
+            background: #00B5E3;
+            color: #fff; }
           #view-testing #testing-input #session-input ul.dropdown-menu li:hover {
             background: #00B5E3; }
             #view-testing #testing-input #session-input ul.dropdown-menu li:hover a {
