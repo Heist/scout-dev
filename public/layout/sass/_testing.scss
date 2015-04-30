@@ -113,11 +113,11 @@
                 border: 0;
                 outline: 0;
                 padding: 10px;
-                height: 70%;
+                height: 45%;
                 resize: 0;
                 @include type-light;
                 color: $fg-grey;
-            
+
                 &:focus {
                     box-shadow: none;
                 }
@@ -129,22 +129,20 @@
                 padding: 0;
                 width: 177px;
                 @include dropshadow($shadow: 0 0 10px, $intensity: rgba(0,0,0,0.1));
-                background: $white !important;
-                z-index:999999999999;
+                background: $white;
+                z-index: 999999;
 
                 li {
                     list-style: none;
 
                     &.active {
                         background: $fg-blue;
-                        color: $white;
-                    }
-
-                    &:hover {
-                        background: $fg-blue;
+                        color: $white !important;
+                        cursor: pointer;
 
                         a {
                             color: $white;
+                            text-decoration: none;
                         }
                     }
                 }

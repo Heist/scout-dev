@@ -5099,7 +5099,7 @@ hr {
         border: 0;
         outline: 0;
         padding: 10px;
-        height: 70%;
+        height: 45%;
         resize: 0;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
@@ -5114,17 +5114,17 @@ hr {
         -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        background: #fff !important;
-        z-index: 999999999999; }
+        background: #fff;
+        z-index: 999999; }
         #view-testing #testing-input #session-input ul.dropdown-menu li {
           list-style: none; }
           #view-testing #testing-input #session-input ul.dropdown-menu li.active {
             background: #00B5E3;
-            color: #fff; }
-          #view-testing #testing-input #session-input ul.dropdown-menu li:hover {
-            background: #00B5E3; }
-            #view-testing #testing-input #session-input ul.dropdown-menu li:hover a {
-              color: #fff; }
+            color: #fff !important;
+            cursor: pointer; }
+            #view-testing #testing-input #session-input ul.dropdown-menu li.active a {
+              color: #fff;
+              text-decoration: none; }
     #view-testing #testing-input #hash-tag-pool {
       position: absolute;
       bottom: 0;
