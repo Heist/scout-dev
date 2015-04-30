@@ -14,12 +14,11 @@
 module.exports = function(tag){
 	var Bluebird = require('bluebird');
     var models = Bluebird.promisifyAll(require('../../models'));
-    var returnedTags = [];
     var _ = require('lodash');
 
     if(tag.length === 0){ return; }
-    console.log('make these tags', tag);
-    
+
+    var tagArray = (_.isArray(tag)) ? tag : [tag];
 
     var oneTag = function(singleTag){
     	console.log('make a single tag', singleTag);
@@ -45,19 +44,9 @@ module.exports = function(tag){
     	return models.Tag.findOneAndUpdate(q, u, o, function(err, obj){
     	});
     }
-
-    var promise = (_.isArray(tag)) ? 
-    	Bluebird.map(tag, function(t){ return oneTag(t) }) :
-    	oneTag(tag);
-    	
-	return promise.then(function(tag){
-	   console.log('did we make a new tag?', tag);
-
-		if(_.isArray(tag)){
-			returnedTags = tag;
-		} else {
-			returnedTags.push(tag); // returnedTags is now an array. If it's a multiple array, one should work
-		}
+       	
+	return Bluebird.map(tagArray, function(t){ return oneTag(t) }).then(function(returnedTags){
+	   console.log('did we make a new tag/set?', returnedTags);
 
 		return models.Test.findOne({'_id'  : returnedTags[0]._test }).exec()
         .then(function(test){
