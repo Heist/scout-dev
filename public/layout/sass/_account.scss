@@ -3,7 +3,15 @@
 #view-account {
 	margin: 0;
 	padding: 0;
+	
+	button a {
+		color: $white;
+		@include type-regular;
 
+		&:hover {
+			text-decoration: none;
+		}
+	}
 	.container {
 		padding: $pad 0 0 0;
 	}

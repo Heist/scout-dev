@@ -5324,6 +5324,13 @@ hr {
   /* connected app styles */
   /* end connected app styles */
   /* team members */ }
+  #view-account button a {
+    color: #fff;
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 400; }
+    #view-account button a:hover {
+      text-decoration: none; }
   #view-account .container {
     padding: 20px 0 0 0; }
   #view-account .plan-picker h3 {
