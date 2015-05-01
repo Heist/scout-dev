@@ -51641,21 +51641,35 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
 
         // ONBOARDING =========================================
+        if($rootScope.user.onboard === 1){
+            $scope.onboardSteps = true;
+        }
 
         $scope.onboardToggle = function(){
-
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 // TODO: setup as http post
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 return;
             }
+
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 $rootScope.user.onboard = 1;  
                 $scope.onboardSteps = true; 
                 return;
             }
         };
+
+        $scope.animationToggle = function(){
+            var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
+            var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
+
+            // below classes are from animate.css library
+            lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
+            otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
+
+        };
+
 
         // TEST ROUTES ========================================
         $scope.devTest = function(){
