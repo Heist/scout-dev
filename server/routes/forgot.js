@@ -7,7 +7,7 @@ module.exports = function(app, passport) {
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
     var async = require('async');
-    var Promise = require('bluebird');
+    var Bluebird = require('bluebird');
     var crypto = require('crypto');
     var nodemailer = require('nodemailer');
 
