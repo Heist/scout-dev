@@ -81,7 +81,7 @@ module.exports = function(app, passport, io) {
 
         socket.on('message', function(msg, err){
             // if there's no channel, emit the message that there's no channel? IDK.
-            console.log('Received message', msg);
+            console.log('Received message');
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
             if (k[1] !== undefined) {
                 var chan = k[1].substring(1, k[1].length);
