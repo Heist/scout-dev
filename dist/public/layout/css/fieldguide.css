@@ -5863,9 +5863,10 @@ hr {
         left: 100%;
         margin-left: 15px; }
       #view-findings .findings-content .all-summaries h2 {
-        margin: 0 0 5px 0; }
+        margin: 0 0 10px 0; }
       #view-findings .findings-content .all-summaries p {
         font-size: 12px;
+        line-height: 18px;
         color: #949799; }
 
 /* let's embed a video */

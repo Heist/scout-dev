@@ -13,14 +13,13 @@
 	<div id="findings-nav">
 		
 		<div id="sidebar" class="sidebar">
-			
-			<h4 class="group-cat">Overview</h4>
+		
 			<div ng-repeat="group in navlist">
 				<h4 class="group-cat" ng-if="group[0].doctype === 'tag'">Tag</h4>
 				<h4 class="group-cat" ng-if="group[0].doctype === 'task'">Topics</h4>
 				<ul>
 					<li ng-repeat="object in group" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
-						<span class="findings" ng-if="object.doctype === 'test'">Findings</span>
+						<span class="findings" ng-if="object.doctype === 'test'">Report</span>
 						<span class="objects" ng-if="object.doctype !== 'test'" ng-class="{'tag-hash': object.doctype === 'tag'}">{{object.name}}</span>
 					</li>
 				</ul>
@@ -84,11 +83,11 @@
 
 					<div class="all-summaries">
 						<div class="line-hr">
-						    <span>These notes below will not be shown when you share your Findings.</span>
+						    <span>The notes below will not be viewable when you share your report.</span>
 						</div>
 
-						<h2>All your test summaries</h2>
-						<p class="helper-text">Use these to help create your final Findings above. These will not be shown when you share your Findings.</p>
+						<h2>Your participant summaries</h2>
+						<p class="helper-text">Use these to help fill out your Learnings and Next Steps above. We find it's helpful to copy/paste relevant findings from below into those fields to get started.</p>
 					</div>
 				
 				</div>
