@@ -75,6 +75,14 @@
             & a {
                 color: $white;
             }
+
+            span.info {
+                background: $fg-green-dark;
+            }
+
+            & a {
+                color: $white;
+            }
         }
 
         &.select-active {

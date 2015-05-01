@@ -4824,6 +4824,10 @@ hr {
     color: #fff; }
     #view-new-project button.test-type:hover a {
       color: #fff; }
+    #view-new-project button.test-type:hover span.info {
+      background: #70910D; }
+    #view-new-project button.test-type:hover a {
+      color: #fff; }
   #view-new-project button.test-type.select-active {
     background: #85AC0F;
     color: #fff; }
