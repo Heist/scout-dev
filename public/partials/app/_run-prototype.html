@@ -28,9 +28,10 @@
 					<!-- empty state -->
 					<li class="message-no-highlite" id="firstrun">
 						<div class="message-body">
-							<strong>Your test is running!</strong> Remember, it&rsquo;s all about capturing notes &mdash;
-							you&rsquo;ll have an opportunity to <strong>edit and sort</strong> when creating your Report.
-							Use <span class="tag">#hashtags</span> to capture themes in your notes.
+							<p>Your session is running!</p>
+							<p>Take notes about what your participant says, the actions they take and the reactions they make. All of this information is valuable. <a href="">Learn more</a></p>
+							<p>Don't worry, you can always edit a note just by clicking on it.</p>
+							<p>Remember to use the #tags below to flag important feedback your get from your participant!</p>
 						</div>
 						<div class="clear"></div>
 					</li>
@@ -38,8 +39,13 @@
 					
 					<!-- non-editable guideline messages -->
 					<li class="message-no-highlite">
+<<<<<<< HEAD
+						<div class="message-body" ng-click="editMessage(message)">
+							<small>Starting session</small>
+=======
 						<div class="message-body" ng-click="$parent.editMessage(message)">
 							<small>Starting Test</small>
+>>>>>>> 54d3780681c4a72538a21f7adaf12c081cf3c461
 							<p>{{test.name}}</p>
 						</div>
 						<div class="clear"></div>
@@ -80,15 +86,21 @@
 				<h2>{{subject.name}}</h2>
 			</div>
 
-			<div id="timeline-user-only" style="top:5%;">
-				
+			<div id="timeline-user-only" style="top:5%;"><!-- 
+				<canvas id="feed"></canvas>
+				<img id='ia'/>
+				<div style='clear'></div>
+				<small>Testing with</small>
+				<h2>{{subject.name}}</h2>
+				<p>Your participant's screen</p> -->
+
 			</div>
 
 			<div id="cta">
 				<div class="cta">
 					<button class="button outline" ng-click="$parent.summarizeModalToggle()" tabindex="-1">
 					<div class="checkmark"></div>
-					<span>End test</span>
+					<span>End session</span>
 					</button>
 				</div>
 			</div>

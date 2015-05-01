@@ -8,9 +8,13 @@
     .test-objectives {
         height: 150px;
     }
+
+    .project-tooltip {
+        @include type-regular;
+    }
     
     button.test-type {
-        width: 48%;
+        width: 48.5%;
         outline: 0;
         text-align: center;
         position: relative;
@@ -23,30 +27,104 @@
         @include radius;
 
         &.interview {
-            margin-right: 2%;
+            position: relative;
+            margin-right: 1.5%;
+
+            span.info {
+                position: absolute;
+                top: 5px;
+                right: 8px;
+                background: $fg-grey;
+
+                & span {
+                    top: 0px;
+                    right: 4.5px;
+                }
+            }
+
+            p {
+                margin: 0 0 10px 0;
+            }
         }
 
         &.prototype {
-            margin-left: 2%;
+            position: relative;
+            margin-left: 1.5%;
+
+            span.info {
+                position: absolute;
+                top: 5px;
+                right: 8px;
+                background: $fg-grey;
+
+                & span {
+                    top: 0px;
+                    right: 4.5px;
+                }
+            }
+
+            p {
+                margin: 0 0 10px 0;
+            }
         }
 
         &:hover {
             background: $fg-green;
             color: $white;
+
+            & a {
+                color: $white;
+            }
+
+            span.info {
+                background: $fg-green-dark;
+            }
+
+            & a {
+                color: $white;
+            }
         }
 
         &.select-active {
             background: $fg-green;
             color: $white;
+
+            span.info {
+                background: $fg-green-dark;
+            }
+
+            & a {
+                color: $white;
+            }
         }
 
         &.select-inactive {
             background: transparentize($fg-grey-light, 0.8);
             color: $fg-grey;
+
+            & a {
+                color: $fg-blue;
+            }
+
+            span.info {
+                position: absolute;
+                top: 5px;
+                right: 8px;
+                background: $fg-grey;
+
+                & span {
+                    top: 0px;
+                    right: 4.5px;
+                }
+            }
         }
 
         .selected-arrow {
             display: none;
+        }
+
+        .no-link {
+            font-size: 9px;
         }
 
         h3 {
@@ -59,11 +137,6 @@
             font-size: 14px;
             line-height: 18px;
             margin: 0;
-        }
-
-        a.more-info {
-            color: $fg-blue;
-            font-size: 10px;
         }
 
         &.selected {
@@ -107,6 +180,11 @@
 
     .sheet {
         box-shadow: none;
+    }
+
+    p {
+        font-size: 12px;
+        line-height: 16px;
     }
     
     h3 {
@@ -203,11 +281,6 @@
     .tags {
         margin: 0 0 40px 0;
         @include input-placeholders;
-        
-        p {
-            font-size: 10px;
-            margin: 0 0 10px 0;
-        }
 
         .tag-pool {
             width: 100%;
