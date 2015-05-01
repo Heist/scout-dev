@@ -3359,7 +3359,7 @@ Copyright (c) 2015 Daniel Eden
 .tooltip:after, [data-tooltip-large]:after {
   z-index: 1000;
   padding: 8px;
-  width: 155px;
+  width: 215px;
   background-color: #2a687d;
   background-color: rgba(42, 105, 126, 0.85);
   border-radius: 2px;
@@ -3403,7 +3403,7 @@ Copyright (c) 2015 Daniel Eden
   margin-left: -33px; }
 
 [data-tooltip-large]:after, .tooltip:after, .tooltip-top:after {
-  margin-left: -75px; }
+  margin-left: -108px; }
 
 [data-tooltip-large-report]:after, .tooltip:after, .tooltip-top:after {
   margin-left: -20px; }
