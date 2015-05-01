@@ -50993,7 +50993,287 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         "");
 }]);
 
+// app.js
+(function() {
+    'use strict';
+    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'typeaheadTagger', 'ngSanitize', 'youtube-embed', 'field_guide_controls','field_guide_filters']);
 
+    // FRONT-END ROUTE CONFIGURATION ==============================================
+    field_guide_app.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", "$locationProvider", function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
+
+        $locationProvider.html5Mode(true);
+
+        $httpProvider.defaults.timeout = 3000;
+        
+        $urlRouterProvider.otherwise("/login");
+
+
+    // APP ROUTING ====================================================================
+        $stateProvider
+        // PUBLIC ROUTES ======================================================
+
+            // BLOCK SCREENS ============================================
+            .state('404', {
+                url: '/404',                
+                templateUrl: 'partials/app/404.html',
+            })
+            .state('upgrade', {
+                url: '/upgrade',                
+                templateUrl: 'partials/app/upgrade.html',
+            })
+
+            // LOGIN AND REGISTRATION PAGES =============================
+            
+            .state('login', {
+                url: '/login{acct:(?:/[^/]+)?}',
+                controller:'login',
+                templateUrl: 'partials/auth/login.html'
+            })
+           
+            .state('register', {
+                url: '/register',
+                templateUrl: 'partials/auth/register.html'
+            })
+
+            .state('reset', {
+                url: '/reset',
+                controller : 'reset',
+                templateUrl: 'partials/auth/reset.html'
+            })
+
+            .state('forgot', {
+                url: '/forgot{token:(?:/[^/]+)?}',
+                controller : 'forgot',
+                templateUrl: 'partials/auth/forgot.html'
+            })
+
+            // PUBLIC REPORTS ===========================================
+            .state('report_public', {
+                url: '/p/report/:_id',
+                controller:'reportPublic',
+                templateUrl: 'partials/app/report_public.html',
+                resolve: { 
+                    loadData: ['$http','$stateParams', function($http, $stateParams) {
+                        return $http.get('/api/public/report/'+$stateParams._id)
+                                    .success(function(data) {
+                                        return data;
+                                    });
+                    }]
+                }
+            })
+
+        // PRIVATE ROUTES ===============================================
+            // SUMMARIZE VIEW =============================
+            .state('summary', {
+                url: '/summary/:_id',
+                controller:'summary',
+                templateUrl: 'partials/app/summary.html',
+                resolve: { 
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
+                            return checkLoggedin();
+                        }],
+                    loadData:['$http','$stateParams', function($http, $stateParams) {
+                        return $http.get('/api/summary/'+$stateParams._id)
+                                    .success(function(data) {
+                                        // return data;
+                                    });
+                    }]
+                }
+            })
+            .state('summary.test', {
+                templateUrl: 'partials/app/summary_test.html'
+            })
+            .state('summary.task', {
+                templateUrl: 'partials/app/summary_task.html'
+            })
+
+            // REPORT PREVIEW =============================
+            .state('report', {
+                url: '/report/:_id',
+                controller:'summary',
+                templateUrl: 'partials/app/report_private.html',
+                resolve: { 
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
+                            return checkLoggedin();
+                        }],
+                    loadData: ['$http','$stateParams', function($http, $stateParams) {
+                        return $http.get('/api/summary/'+$stateParams._id)
+                                    .success(function(data) {
+                                        return data;
+                                    });
+                    }]
+                }
+            })
+
+            // ACCOUNT MANAGEMENT =============================
+            .state('account', {
+                url: '/account',
+                controller: 'account',
+                templateUrl : 'partials/app/account.html',
+                resolve: { 
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
+                            return checkLoggedin();
+                        }]
+                }
+            })
+
+            // OVERVIEW AND test CREATION =====================
+            .state('default', {
+                url: '/',
+                controller: 'overview',
+                templateUrl: 'partials/app/overview.html',
+                resolve: { 
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
+                            return checkLoggedin();
+                        }],
+                    loadData : ['$http', '$stateParams', function($http, $stateParams){
+                            return $http.get('/api/test/', {timeout : 5000, cache:false})
+                                .success(function(data) {
+                                    return data;
+                                });
+                        }]
+                }
+            })
+            .state('overview', {
+                url: '/overview',
+                controller: 'overview',
+                templateUrl: 'partials/app/overview.html',
+                resolve: { 
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
+                            return checkLoggedin();
+                        }],
+                    loadData : ['$http', '$stateParams', function($http, $stateParams){
+                            return $http.get('/api/test/', {timeout : 5000, cache:false})
+                                .success(function(data) {
+                                    return data;
+                                });
+                        }]
+                }
+            })
+            .state('test', {
+                url: '/edit/test/:_id',
+                controller:'test',
+                templateUrl: 'partials/app/test.html',
+                resolve: { 
+                    loadData : ['$http', '$stateParams', function($http, $stateParams){
+                            return $http.get('/api/test/'+$stateParams._id, {timeout : 5000, cache:false})
+                                .success(function(data) {
+                                    return data;
+                                });
+                        }],
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
+                            return checkLoggedin();
+                        }]
+                }
+            })
+
+            // RUN TEST =======================================
+            .state('run', {
+                url: '/run/:_id',
+                controller:'run',
+                templateUrl: 'partials/app/run.html',
+                resolve: { 
+                    loggedin: ['checkLoggedin', function(checkLoggedin) {
+                        return checkLoggedin();
+                    }],
+                    loadData : ['$http','$stateParams', function($http, $stateParams) {
+                        return $http.get('/api/run/'+$stateParams._id).success(function(data){
+                                    return data;
+                                });
+                    }]
+                }
+            });
+    }]);
+
+    // FILTERS ============================================================================
+    angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);
+
+    // CONTROLLERS, DIRECTIVES ============================================================
+    angular.module('field_guide_controls', ['ngSanitize', 'ui','ui.router', 'youtube-embed']);
+
+})();
+// run.js
+(function() {
+    'use strict';
+    // RUN CONTROLLER ===========================================================
+
+    angular.module('field_guide_controls').controller('socketFunctions', 
+    [ '$scope', 'socket', 
+    function($scope, socket){
+    // SOCKET ROUTES - 0.9 ============================================== 
+    // for 1.0 check socket_routes_1.js in /server/
+        
+    // RECIEVE SCREENCAPS FROM THE SOCKET ===============================
+        void 0;
+            var canvas = document.getElementById('feed'),
+                image = document.getElementById('ia'),
+                context = canvas.getContext('2d');
+
+            $scope.connect = {};
+            $scope.connect.text = '71b';
+
+            socket.on('connect_failed', function(data)
+            {
+                // console.log('connect_failed');
+            });
+
+            socket.on('connecting', function(data)
+            {
+                // console.log('connecting');
+            });
+            socket.on('disconnect', function(data)
+            {
+                // console.log('disconnect');
+            });
+
+            socket.on('error', function(reason)
+            {
+                // console.log('error', reason);
+            });
+            socket.on('reconnect_failed', function(data)
+            {
+                // console.log('reconnect_failed');
+            });
+            socket.on('reconnect', function(data)
+            {
+                // console.log('reconnect');
+                // socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
+            });
+            socket.on('reconnecting', function(data)
+            {
+                // console.log('reconnecting');
+            });
+
+            socket.on('announce', function(data){
+                // console.log('announce', data);
+            });
+
+            socket.on('joined_channel', function(data){ 
+                void 0;
+
+            });
+
+            socket.on('note', function(data){
+                // console.log('note', data);
+                $scope.timeline.push(data.note.msg);
+                $scope.$apply();
+            });
+
+            socket.on('subject', function(data){
+                socket.emit('join_subject_test', data);
+            });
+
+            socket.on('message',function(data) {
+                image.src = "data:image/jpg;base64,"+data;
+                canvas.width = 358;
+                canvas.height = 358 * image.height / image.width;
+
+                context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+                void 0;
+                // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+            });
+    }]);
+})();
 // account.js
 (function() {
 	'use strict';
@@ -51129,8 +51409,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 				dataOut = email,
 				new_url = $location.protocol()+'://'+$location.host()+':8080';
 
-			mixpanel.track('Team member invite', { 'email': email });
-
 			$http
 				.post(url, dataOut)
 				.success(function(invite){
@@ -51220,10 +51498,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 var dataOut = {password: pass};
                 void 0;
                 $http
-                    .post('/auth/reset/'+$stateParams.token, dataOut)
+                    .post('/auth/reset'+$stateParams.token, dataOut)
                     .success(function(data){
                         // do a login here, perhaps
                         void 0;
+                        if(data.length === 0){ 
+                            $scope.successMsg = "I'm sorry, that reset token is broken.";
+                        }
                         if(data.length > 0){
                             $scope.successMsg = data;
                         }
@@ -51253,7 +51534,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         if($stateParams.acct){
             $scope.acct = $stateParams.acct.replace( /\//gi,"");
             $scope.reg_toggle = true;
-            mixpanel.track('registration page touch', { 'account': $stateParams.acct });
+
             
             
             // TODO: get the invitation represented by that id and pre-populate the e-mail field.
@@ -51265,10 +51546,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     $scope.user.email = data.user_email;
                 });
         }
-        
-        $scope.tracker = function(){
-            mixpanel.track('myAccount', { 'account': $stateParams.acct });
-        };
 
         $scope.login = function(user){
             var url = '/auth/login';
@@ -51316,8 +51593,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     $rootScope.user = data._id;
                     $location.path(data.redirect);
 
-                    mixpanel.track('registered new user', { 'name': data.email });
-
                 });
         };
 
@@ -51349,7 +51624,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     	// TEST UPDATE ==============================
     	$scope.selectPrototype = function(kind){
             $scope.test.kind = kind;
-            mixpanel.track('Type of Test', {'test type' : kind });
+
         };
 
         $scope.selectPlatform = function(kind){
@@ -51361,10 +51636,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         };
 
         $scope.addTest = function(test){
-
-            if($scope.test.name){
-                mixpanel.track('Test name changed', { 'user': $rootScope.user });
-            }
 
             $http
                 .post('/api/test/', test)
@@ -51455,21 +51726,35 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
 
         // ONBOARDING =========================================
+        if($rootScope.user.onboard === 1){
+            $scope.onboardSteps = true;
+        }
 
         $scope.onboardToggle = function(){
-
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 // TODO: setup as http post
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 return;
             }
+
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 $rootScope.user.onboard = 1;  
                 $scope.onboardSteps = true; 
                 return;
             }
         };
+
+        $scope.animationToggle = function(){
+            var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
+            var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
+
+            // below classes are from animate.css library
+            lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
+            otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
+
+        };
+
 
         // TEST ROUTES ========================================
         $scope.devTest = function(){
@@ -51519,12 +51804,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
          
         $scope.runTest = function(test){
             $location.path('/run/'+test._id);
-            mixpanel.track('Run test', { 'user': $rootScope.user });
         };
 
         $scope.summarizeTest = function(test_id){
             $location.path('/summary/'+ test_id);
-            mixpanel.track('Summary clicked', {});
         };
 
         $scope.loadReport = function(test_id){
@@ -51563,10 +51846,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         function( loadData, reportFunctions, $scope, $sce, $http, $location,$stateParams,$state, $sanitize){
    
     // https://trello.com/docs/api/card/index.html#post-1-cards << HOW 2 POST CARDS TO TRELLO
-
-    // == mixpanel ==================================
-
-        mixpanel.track('Report Loaded', {});
         
     // ==============================================
 
@@ -51756,84 +52035,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             }
         };
 
-
-    // SOCKET ROUTES - 0.9 ============================================== 
-    // for 1.0 check socket_routes_1.js in /server/
-        
-    // RECIEVE SCREENCAPS FROM THE SOCKET ===============================
-
-        if ($scope.test.kind === 'prototype'){
-            
-            var canvas = document.getElementById('feed'),
-                image = document.getElementById('ia'),
-                context = canvas.getContext('2d');
-
-            $scope.connect = {};
-            $scope.connect.text = '71b';
-
-            socket.on('connect_failed', function(data)
-            {
-                // console.log('connect_failed');
-            });
-
-            socket.on('connecting', function(data)
-            {
-                // console.log('connecting');
-            });
-            socket.on('disconnect', function(data)
-            {
-                // console.log('disconnect');
-
-            });
-
-            socket.on('error', function(reason)
-            {
-                // console.log('error', reason);
-            });
-            socket.on('reconnect_failed', function(data)
-            {
-                // console.log('reconnect_failed');
-            });
-            socket.on('reconnect', function(data)
-            {
-                // console.log('reconnect');
-                // socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
-            });
-            socket.on('reconnecting', function(data)
-            {
-                // console.log('reconnecting');
-            });
-
-            socket.on('announce', function(data){
-                // console.log('announce', data);
-            });
-
-            socket.on('joined_channel', function(data){ 
-                // console.log('joined_channel', data);
-            });
-
-            socket.on('note', function(data){
-                // console.log('note', data);
-                $scope.timeline.push(data.note.msg);
-                $scope.$apply();
-            });
-
-            socket.on('subject', function(data){
-                socket.emit('join_subject_test', data);
-            });
-
-            socket.on('message',function(data) {
-                // console.log('message');
-                image.src = "data:image/jpg;base64,"+data;
-                canvas.width = 358;
-                canvas.height = 358 * image.height / image.width;
-
-                context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
-                // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
-            });
-        }
-
-
     // ANGULAR ROUTES ===================================================
         $scope.addTask = function(task){
             $scope.adding_task = $scope.adding_task ? false : $scope.adding_task;
@@ -51846,8 +52047,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         $scope.select = function(index) {
             $scope.selected = $scope.navlist[index];
-
-            mixpanel.track('Task changed', {});
 
             $scope.timeline.push({ 
                 title: 'Starting task', 
@@ -51917,7 +52116,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     }
 
                     socket.emit('channel', {room : subject.testroom, test: subject.test});
-                    mixpanel.track('Add Participant Name', {});
                 });
         };
 
@@ -51990,7 +52188,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         // END TEST =============================
         $scope.postTest = function(){
             // Send tasks that have had a subject added to the DB.
-            mixpanel.track('Test completed', {});
 
             $http
                 .post('/api/run/', $scope.update)
@@ -52018,7 +52215,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     	// TEST UPDATE ==============================
     	$scope.selectPrototype = function(kind){
             $scope.test.kind = kind;
-            mixpanel.track('Type of Test', {'test type' : kind });
         };
 
         $scope.selectPlatform = function(kind){
@@ -52031,10 +52227,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         $scope.addTest = function(test){
         	void 0;
-
-            if($scope.test.name){
-                mixpanel.track('Test name changed', { 'user': $rootScope.user });
-            }
 
             $http
                 .post('/api/test/', test)
@@ -52301,8 +52493,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             // post fav'd statuses to relevant messages
             $scope.messages = _.map($scope.messages, function(val, key){ return val; });
 
-            mixpanel.track('Summary complete', {});
-
             $http.put('/api/summary/'+ $stateParams._id, 
                 { navlist  : $scope.navlist, 
                   messages : $scope.messages[0]
@@ -52362,7 +52552,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.anchor = x;
             $scope.explanation = _.findWhere(explanations, {anchor:x});
             if(x === 5){
-                mixpanel.track('Test setup completion page', { 'user': $rootScope.user });
                 $location.path('/overview');
             }
         };
@@ -52391,7 +52580,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     // ACTIONS ============================================
         $scope.selectPrototype = function(kind){
             $scope.test.kind = kind;
-            mixpanel.track('Type of Test', {'test type' : kind });
         };
 
         $scope.selectPlatform = function(kind){
@@ -52505,10 +52693,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.updateTest = function(){
             // reminder: this pushes an update to an already-created test
             var test = $scope.test;
-            
-            if($scope.test.name){
-                mixpanel.track('Test name changed', { 'user': $rootScope.user });
-            }
 
             if($scope.test.desc){
                 test.desc = $scope.test.desc;
@@ -53035,19 +53219,14 @@ function($timeout, $window, config) {
                         // Authenticated
                         var interBoot = '';
                             if (user !== '0' && interBoot !== '1') {
-                                void 0;
-                                void 0;
                                 $rootScope.user = user;
                                 interBoot = '1';
                                 $window.Intercom("boot", {
-                                    app_id: "YOURAPPID",
+                                    app_id: "z3glk3pq",
                                     email: user.email,
                                     created_at: user.created,
                                     name: user.name,
-                                    user_id: user._id,
-                                    widget: {
-                                      activator: "#IntercomDefaultWidget"
-                                    }
+                                    user_id: user._id
                                 });
 
                                 deferred.resolve();

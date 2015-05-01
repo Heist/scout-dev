@@ -6,7 +6,7 @@ module.exports = function(emailAddress, app, next){
 // Module dependencies ==========================
     var async   = require('async');
     
-    var Bluebird = require('Bluebird');
+    var Bluebird = require('bluebird');
     var generateToken = Bluebird.promisify(require("crypto").randomBytes);
     var nodemailer = require("nodemailer");
     

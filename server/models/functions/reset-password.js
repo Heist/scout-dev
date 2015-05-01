@@ -11,24 +11,27 @@ module.exports = function(token, pass, app, next){
     var models     = require('../../models');
 
 // load functions ===============================
+    function generateHash(password) { return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null); }
 
 // RESET A LOST PASSWORD ==================================
-
+    
     async.waterfall([
         function(done) {
             models.User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-                if (!user) { done(null, null);}
-
-                // TODO: Abstract this shit onto the user model
-                function generateHash(password) { return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null); }
+                console.log('user', user);
                 
-                user.local.password = user.generateHash(pass);
-                user.resetPasswordToken = undefined;
-                user.resetPasswordExpires = undefined;
+                if (user !== null ){ console.log('no user found'); done(null, null); 
+                    // TODO: Abstract this shit onto the user model
+                    user.local.password = user.generateHash(pass);
+                    user.resetPasswordToken = undefined;
+                    user.resetPasswordExpires = undefined;
 
-                user.save(function(err) {
-                    done(err, user);
-                });
+                    user.save(function(err) {
+                        done(err, user);
+                    });
+                } else {
+                    done(null, null);
+                }
             });
         },
         function(user, done) {
@@ -59,7 +62,6 @@ module.exports = function(token, pass, app, next){
         }
     ], function(err, results) {
         if(err){ console.log(err); }
-        // 
         next(null, results);
     });
 

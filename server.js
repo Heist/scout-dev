@@ -85,6 +85,7 @@ app.get('*', function(req, res) {
 // lives after normal routes, is dynamic routes accessed separately
 // has its own auth functions
 var io = require('socket.io').listen(server, {log : false});
+
 // socket 0.9 in use to speak to Field Guide App
 require('./server/socket_routes_09')(app, passport, io);
 

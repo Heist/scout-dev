@@ -51192,6 +51192,88 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     angular.module('field_guide_controls', ['ngSanitize', 'ui','ui.router', 'youtube-embed']);
 
 })();
+// run.js
+(function() {
+    'use strict';
+    // RUN CONTROLLER ===========================================================
+
+    angular.module('field_guide_controls').controller('socketFunctions', 
+    [ '$scope', 'socket', 
+    function($scope, socket){
+    // SOCKET ROUTES - 0.9 ============================================== 
+    // for 1.0 check socket_routes_1.js in /server/
+        
+    // RECIEVE SCREENCAPS FROM THE SOCKET ===============================
+        console.log('sockets should launch');
+            var canvas = document.getElementById('feed'),
+                image = document.getElementById('ia'),
+                context = canvas.getContext('2d');
+
+            $scope.connect = {};
+            $scope.connect.text = '71b';
+
+            socket.on('connect_failed', function(data)
+            {
+                // console.log('connect_failed');
+            });
+
+            socket.on('connecting', function(data)
+            {
+                // console.log('connecting');
+            });
+            socket.on('disconnect', function(data)
+            {
+                // console.log('disconnect');
+            });
+
+            socket.on('error', function(reason)
+            {
+                // console.log('error', reason);
+            });
+            socket.on('reconnect_failed', function(data)
+            {
+                // console.log('reconnect_failed');
+            });
+            socket.on('reconnect', function(data)
+            {
+                // console.log('reconnect');
+                // socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
+            });
+            socket.on('reconnecting', function(data)
+            {
+                // console.log('reconnecting');
+            });
+
+            socket.on('announce', function(data){
+                // console.log('announce', data);
+            });
+
+            socket.on('joined_channel', function(data){ 
+                console.log('joined_channel', data.body);
+
+            });
+
+            socket.on('note', function(data){
+                // console.log('note', data);
+                $scope.timeline.push(data.note.msg);
+                $scope.$apply();
+            });
+
+            socket.on('subject', function(data){
+                socket.emit('join_subject_test', data);
+            });
+
+            socket.on('message',function(data) {
+                image.src = "data:image/jpg;base64,"+data;
+                canvas.width = 358;
+                canvas.height = 358 * image.height / image.width;
+
+                context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+                console.log('message received', context, canvas);
+                // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+            });
+    }]);
+})();
 // account.js
 (function() {
 	'use strict';
@@ -51416,10 +51498,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 var dataOut = {password: pass};
                 console.log('touched newPass');
                 $http
-                    .post('/auth/reset/'+$stateParams.token, dataOut)
+                    .post('/auth/reset'+$stateParams.token, dataOut)
                     .success(function(data){
                         // do a login here, perhaps
                         console.log('reset', data);
+                        if(data.length === 0){ 
+                            $scope.successMsg = "I'm sorry, that reset token is broken.";
+                        }
                         if(data.length > 0){
                             $scope.successMsg = data;
                         }
@@ -51641,21 +51726,35 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
 
         // ONBOARDING =========================================
+        if($rootScope.user.onboard === 1){
+            $scope.onboardSteps = true;
+        }
 
         $scope.onboardToggle = function(){
-
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 // TODO: setup as http post
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 return;
             }
+
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 $rootScope.user.onboard = 1;  
                 $scope.onboardSteps = true; 
                 return;
             }
         };
+
+        $scope.animationToggle = function(){
+            var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
+            var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
+
+            // below classes are from animate.css library
+            lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
+            otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
+
+        };
+
 
         // TEST ROUTES ========================================
         $scope.devTest = function(){
@@ -51935,84 +52034,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 return;
             }
         };
-
-
-    // SOCKET ROUTES - 0.9 ============================================== 
-    // for 1.0 check socket_routes_1.js in /server/
-        
-    // RECIEVE SCREENCAPS FROM THE SOCKET ===============================
-
-        if ($scope.test.kind === 'prototype'){
-            
-            var canvas = document.getElementById('feed'),
-                image = document.getElementById('ia'),
-                context = canvas.getContext('2d');
-
-            $scope.connect = {};
-            $scope.connect.text = '71b';
-
-            socket.on('connect_failed', function(data)
-            {
-                // console.log('connect_failed');
-            });
-
-            socket.on('connecting', function(data)
-            {
-                // console.log('connecting');
-            });
-            socket.on('disconnect', function(data)
-            {
-                // console.log('disconnect');
-
-            });
-
-            socket.on('error', function(reason)
-            {
-                // console.log('error', reason);
-            });
-            socket.on('reconnect_failed', function(data)
-            {
-                // console.log('reconnect_failed');
-            });
-            socket.on('reconnect', function(data)
-            {
-                // console.log('reconnect');
-                // socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
-            });
-            socket.on('reconnecting', function(data)
-            {
-                // console.log('reconnecting');
-            });
-
-            socket.on('announce', function(data){
-                // console.log('announce', data);
-            });
-
-            socket.on('joined_channel', function(data){ 
-                // console.log('joined_channel', data);
-            });
-
-            socket.on('note', function(data){
-                // console.log('note', data);
-                $scope.timeline.push(data.note.msg);
-                $scope.$apply();
-            });
-
-            socket.on('subject', function(data){
-                socket.emit('join_subject_test', data);
-            });
-
-            socket.on('message',function(data) {
-                // console.log('message');
-                image.src = "data:image/jpg;base64,"+data;
-                canvas.width = 358;
-                canvas.height = 358 * image.height / image.width;
-
-                context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
-                // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
-            });
-        }
-
 
     // ANGULAR ROUTES ===================================================
         $scope.addTask = function(task){
@@ -53198,19 +53219,14 @@ function($timeout, $window, config) {
                         // Authenticated
                         var interBoot = '';
                             if (user !== '0' && interBoot !== '1') {
-                                console.log('user', user);
-                                console.log($window.Intercom);
                                 $rootScope.user = user;
                                 interBoot = '1';
                                 $window.Intercom("boot", {
-                                    app_id: "YOURAPPID",
+                                    app_id: "z3glk3pq",
                                     email: user.email,
                                     created_at: user.created,
                                     name: user.name,
-                                    user_id: user._id,
-                                    widget: {
-                                      activator: "#IntercomDefaultWidget"
-                                    }
+                                    user_id: user._id
                                 });
 
                                 deferred.resolve();

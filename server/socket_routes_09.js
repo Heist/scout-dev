@@ -35,7 +35,7 @@ module.exports = function(app, passport, io) {
     function onAuthorizeSuccess(data, accept){
         // Passport has heard of them ===========
         
-        // 
+        console.log('socket authorization success')
 
         user = data.user;
         name = data.user.name;
@@ -50,16 +50,13 @@ module.exports = function(app, passport, io) {
     function onAuthorizeFail(data, message, error, accept){
         // Assumed to be a guest user ===========
 
-        if(error){ }
-        
-        // 
-        // 
+        if(error){ console.log(error); }
+        console.log('socket authorization failure') 
+
         name = userNames.getGuestName();
         default_room = data.query.test;
 
         accept(null, true);
-        
-        // accept();
 
         // If they are not a guest user =========
         // accept(new Error(message));
@@ -78,24 +75,24 @@ module.exports = function(app, passport, io) {
 
 // FIRE IT UP =======================================================
     io.sockets.on('connection', function (socket) {
-        // 
-        // 
-        
+        console.log('someone connected from somewhere')
+
         var k = '';
 
         socket.on('message', function(msg, err){
             // if there's no channel, emit the message that there's no channel? IDK.
-            // 
+            console.log('Received message');
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
             if (k[1] !== undefined) {
                 var chan = k[1].substring(1, k[1].length);
+                console.log(chan);
                 socket.broadcast.to(chan).emit('message', msg);                
             }
         });
 
         // subscription is used in the iOS app
         socket.on('subscribe', function(data) { 
-            // 
+            console.log('channel subscription received', data.room)
 
             var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
             
@@ -106,7 +103,7 @@ module.exports = function(app, passport, io) {
 
         // channel or join_room are used by the web app
         socket.on('channel', function(data) { 
-            // 
+            console.log('someone chose a channel', data.test)
 
             var promise = Test.findOne({'_id': data.test})
                               .select("name link")
@@ -114,22 +111,22 @@ module.exports = function(app, passport, io) {
                               
             promise.then(function(test){
                 // joins the test to the socket from remote device
-                // 
+                console.log('join this test room', test, 'room', data.room);
                 socket.join(data.room);
 
                 // passes the phone the route for getting the appropriate test from the socket
-                io.sockets.in(data.room).emit('joinedChannel', {data: {body: test.link, title:test.name}});
+                io.sockets.in(data.room).emit('joined_channel', {data: {body: test.link, title:test.name}});
             });
         });
 
         socket.on('join_room', function(data) { 
-            
+            console.log('socket joining room', data.room);
             socket.join(data.room);
         });
 
 
         socket.on('testComplete', function(data){
-            
+            console.log('test ending', data.data.body);
             io.sockets.in(data.data.room).emit('endTest', data.data.body);
         });
 

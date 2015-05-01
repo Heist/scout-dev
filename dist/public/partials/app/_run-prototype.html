@@ -1,4 +1,4 @@
-<div class="sheet-holder">
+<div class="sheet-holder" ng-controller="socketFunctions">
 	<div class="sheet">
 		
 		<!-- note input and display -->
@@ -6,7 +6,7 @@
 			
 			<!-- input notes -->
 			<div id="session-input">
-				<input type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Remember to give your notes #themes">
+				<textarea class="typeahead-box" type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Remember to give your notes #themes"></textarea>
 				<div id="hash-tag-pool">
 					<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
 				</div>
@@ -29,20 +29,20 @@
 					
 					<!-- non-editable guideline messages -->
 					<li class="message-no-highlite">
-						<div class="message-body" ng-click="editMessage(message)">
+						<div class="message-body" ng-click="$parent.editMessage(message)">
 							<small>Starting Test</small>
 							<p>{{test.name}}</p>
 						</div>
 						<div class="clear"></div>
 					</li>
 					<li class="message" ng-repeat="message in timeline track by $index" ng-class="{'message-no-highlite' : message.title === 'Starting task', 'message-highlite' : message.title !== 'Starting task'}">
-						<div class="message-body" ng-click="editMessage(message)">
+						<div class="message-body" ng-click="$parent.editMessage(message)">
 							<pre class="messages" ng-if="message.title === 'Starting task'">
 								<h3>{{message.body}}</h3>
 							</pre>
 							<!-- Editable messages - if a message is not a guideline -->
 							<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-							<textarea msd-elastic class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message)"></textarea>
+							<textarea msd-elastic class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="$parent.saveEdit(message)"></textarea>
 							<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}</small>
 						</div>
 					
@@ -71,7 +71,7 @@
 				<h2>{{subject.name}}</h2>
 			</div>
 
-			<div id="timeline-user-only" style="top:5%;" ng-show="subject.testroom">
+			<div id="timeline-user-only" style="top:5%;">
 				<canvas id="feed"></canvas>
 				<img id='ia' style='display:none;'/>
 				<div style='clear'></div>
@@ -81,7 +81,7 @@
 
 			<div id="cta">
 				<div class="cta">
-					<button class="button outline" ng-click="summarizeModalToggle()" tabindex="-1">
+					<button class="button outline" ng-click="$parent.summarizeModalToggle()" tabindex="-1">
 					<div class="checkmark"></div>
 					<span>End test</span>
 					</button>

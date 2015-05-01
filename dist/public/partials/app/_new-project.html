@@ -10,7 +10,7 @@
 			<h2 class="text-center">New Project</h2>
 		</div>
 
-		<div class="module half test-type" ng-class='{"select-active": !test.kind || test === "undefined" || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>
+		<button class="module test-type interview" ng-class='{"select-active": !test.kind || test === "undefined" || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>
 
 			<h3>Interview</h3>
 			<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
