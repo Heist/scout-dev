@@ -5800,13 +5800,13 @@ hr {
             #view-findings #findings-nav #sidebar.sidebar span.report span.info span {
               position: absolute;
               top: 0;
-              right: 2px;
+              right: 2.5px;
               color: #fff;
               font-size: 10px; }
           #view-findings #findings-nav #sidebar.sidebar span.report:hover {
             color: #2B404D; }
         #view-findings #findings-nav #sidebar.sidebar h4.group-cat.hollow {
-          padding: 40px; }
+          padding: 10px; }
         #view-findings #findings-nav #sidebar.sidebar h4.group-cat {
           padding: 10px;
           margin: 5px 0 0 0;
@@ -5844,7 +5844,7 @@ hr {
       #view-findings #findings-nav #sidebar #findings-viewmode-controls {
         position: absolute;
         left: 80%;
-        top: 110px; }
+        top: 53px; }
       #view-findings #findings-nav #sidebar #findings-share-link {
         width: 100%;
         padding: 0;
