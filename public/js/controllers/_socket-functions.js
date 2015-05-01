@@ -70,6 +70,7 @@
                 var canvas = document.getElementById('feed');
                 var image = document.getElementById('ia');
                 var context = canvas.getContext('2d');
+                console.log(image);
                 image.src = "data:image/jpg;base64,"+data;
 
                 canvas.width('358').height(358 * image.height / image.width);
