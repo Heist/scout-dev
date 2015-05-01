@@ -51420,6 +51420,9 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     .success(function(data){
                         // do a login here, perhaps
                         console.log('reset', data);
+                        if(data.length === 0){ 
+                            $scope.successMsg = "I'm sorry, that reset token is broken.";
+                        }
                         if(data.length > 0){
                             $scope.successMsg = data;
                         }

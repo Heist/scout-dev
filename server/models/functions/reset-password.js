@@ -12,7 +12,7 @@ module.exports = function(token, pass, app, next){
 
 // load functions ===============================
     function generateHash(password) { return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null); }
-    
+
 // RESET A LOST PASSWORD ==================================
     
     async.waterfall([
@@ -62,7 +62,6 @@ module.exports = function(token, pass, app, next){
         }
     ], function(err, results) {
         if(err){ console.log(err); }
-        // 
         next(null, results);
     });
 
