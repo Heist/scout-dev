@@ -4803,7 +4803,7 @@ hr {
       background: #949799; }
       #view-new-project button.test-type.interview span.info span {
         top: 0px;
-        right: 4px; }
+        right: 4.5px; }
     #view-new-project button.test-type.interview p {
       margin: 0 0 10px 0; }
   #view-new-project button.test-type.prototype {
@@ -4816,7 +4816,7 @@ hr {
       background: #949799; }
       #view-new-project button.test-type.prototype span.info span {
         top: 0px;
-        right: 4px; }
+        right: 4.5px; }
     #view-new-project button.test-type.prototype p {
       margin: 0 0 10px 0; }
   #view-new-project button.test-type:hover {
@@ -4847,7 +4847,7 @@ hr {
       background: #949799; }
       #view-new-project button.test-type.select-inactive span.info span {
         top: 0px;
-        right: 4px; }
+        right: 4.5px; }
   #view-new-project button.test-type .selected-arrow {
     display: none; }
   #view-new-project button.test-type .no-link {
