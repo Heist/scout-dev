@@ -63,13 +63,7 @@
 		
 		<div id="header-min">
 			<ul class="tabbed-nav" ng-init="tab = 1">
-				<!--<li><a href="#">Account Information</a></li>-->
-				<li ng-class="{active:tab===1}"><a href ng-click="tab = 1">Team</a></li>
-				<li ng-class="{active:tab===2}"><a href ng-click="tab = 2">Plans &amp; Billing</a></li>
-				<!--<li><a href="#">Billing</a></li>
-				<li><a href="#">Notifications</a></li>
-				<li><a href="/account">Connected Apps</a></li>-->
-				<li ng-class="{active:tab===3}"><a href ng-click="tab = 3">Settings</a></li>
+				<li ng-class="{active:tab===3}">Settings</li>
 				
 			</ul>
 		</div>
@@ -77,174 +71,11 @@
 		
 		<div class="module quarter">&nbsp;</div>
 		
-		
-		
-		<!-- team view -->
-		<div class="module half" ng-show="tab === 1">
-			<h2>Team</h2>
-			<p>Invite your team to collaborate on projects and reports.</p>
-			
-			<!-- list of team members -->
-			<ul class="team-members">
-			
-			
-				<li model="live_user">
-					<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
-					<div class="team-member-info">
-						<p ng-show="live_user.name">{{live_user.name}}<br /></p>
-						<small>That's you!</small>
-						<small>{{live_user.local.email}}</small>
-					</div>
-					<!-- <div class="team-member-remove"  ng-click="removeTeamMember(member)" ><a href="#">&times;</a></div>--> <!-- don't allow me to remove myself -->
-					<div class="clear"></div>
-				</li>
+	
 
-				<!-- individual member - confirmed -->
-				<li ng-repeat="member in live_user.team" ng-hide="member.local.email == live_user.email">
-					<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
-					<div class="team-member-info">
-						<p ng-show="member.name">{{member.name}}<br /></p>
-						<small ng-show="member.local.email == live_user.email">That's you!</small>
-						<small>{{member.local.email}}</small>
-					</div>
-					<div class="team-member-remove"  ng-click="removeTeamMember(member)" ng-show=""><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
-					<div class="clear"></div>
-				</li>
-				<!-- / individual member -->
-				
-				
-				<!-- individual member - invited -->
-				<li ng-repeat="invite in live_user.invites">
-					<div class="team-member-avatar"><img src="/layout/assets/avatar-binocs.jpg" /></div>
-					<div class="team-member-info">
-						<label ng-model="user_message" ng-show="user_message" ng-bind-html="user_message"></label>
-						<small>{{invite.user_email}}  
-							<span class="tag">Pending 
-								&mdash;  <a href="#" ng-click="resendInvite(invite)">Resend invite?</a>
-							</span>
-						</small>
-					</div>
-					<div class="team-member-remove" ng-click="deleteInvite(invite)"><a href="#">&times;</a></div> <!-- don't allow me to remove myself -->
-					<div class="clear"></div>
-				</li>
-				<!-- / individual member -->
-				
-				
-				<!-- add a new member (via modal) -->
-				<li class="clearfix">
-					<button class="button large">Invite a new team member</button>
-				</li>
-				<!-- / add a new member (via modal) -->
-				
-				
-				<!-- add a new member -->
-				<!--<li>
-					<form model="team_mail" name="email_input">
-						<label for="newteammember">Invite a new team member</label>
-						<div class="messaging messaging-neutral" ng-model="message" ng-show="message" ng-bind-html="message"></div>
-
-						<input class="input" id="newteammember" name="newteammember" placeholder="Your team member&rsquo;s e-mail address" ng-model="team_mail.address"/>
-
-						<!-- <button class="button disabled" ng-show="!email_input.$valid">Invite</button>
-						<button class="button"
-								ng-show='email_input.$valid'
-								ng-click="inviteTeamMember(team_mail)">
-								Invite
-						</button> -->
-						<!--
-						<button class="button" ng-click="inviteTeamMember(team_mail)">Invite</button>
-					</form>
-				</li>-->
-				<!-- / add a new member -->
-				
-			</ul>
-		</div>
-		
-	
-	<!-- / team view -->
-	
-	
-	
-	
-	
-	<!-- plans view -->
-		<div class="module half" ng-show="tab === 2">
-		
-			<div class="upgrade-notice text-center">
-				<h3 class="caution">You're currently on day 14 of your 30 day trial.</h3>
-				<small><strong>You can upgrade at any time.</strong></small>
-			</div>
-			
-			<!-- actually list the plans -->
-			<!-- plan one -->
-			<div class="module half plan-type">
-				
-				
-				<div class="plan-name text-center">
-					Basic
-				</div>
-				
-				<div class="plan-price-point text-center">
-					<sup>$</sup><big>15</big>/mo<span>/user</span>
-					
-					<small>Everything you need
-					for a small research team</small>
-				</div>
-				
-				<ul>
-					<li>Unlimited projects</li>
-					<li><strong>Basic</strong> team collaboration</li>
-					<li>Ethnographic and Prototype tests</li>
-					<li>Mobile and tablet screencasting</li>
-					<li>Share reports with anyone</li>		
-				</ul>
-				
-				<button class="button" id="stripeCheckout" ng-click="stripeCheckout()">Upgrade Now</button>
-				
-			</div>
-			<!-- / plan one -->
-			
-			<!-- plan two -->
-			<div class="module half plan-type disabled">
-				
-				
-				<div class="plan-name text-center">
-					Pro
-				</div>
-				
-				<div class="plan-price-point text-center">
-					<sup>$</sup><big>45</big>/mo<span>/user</span>
-					
-					<small>For the growing design 
-					and research team</small>
-				</div>
-				
-				<ul>
-					<li>Unlimited projects</li>
-					<li><strong>Pro</strong> team collaboration</li>
-					<li>Ethnographic and Prototype tests</li>
-					<li>Mobile and tablet screencasting</li>
-					<li>Share reports with anyone</li>
-					<li>Export to JIRA, Github,	and Asana</li>		
-				</ul>
-				
-				<button class="button hollow">Coming Soon</button>
-				
-			</div>
-			<!-- / plan two -->
-			
-			<div class="clear"></div>
-			<!-- / plans -->
-			
-	
-			
-			
-		</div>
-	<!-- / plans view -->
-	
 	<!-- export view -->
 	
-		<div class="module half" ng-show="tab === 3">
+		<div class="module half" ng-show="tab === 1">
 			<h2>Onboarding</h2>
 			<p>Need a refresher in how Field Guide helps you get better interview results?</p>
 			<p class="clearfix"><button ng-click="onboardToggle()" class="button large">Step Through A Sample</button></p>
@@ -257,21 +88,18 @@
 			<br>
 			<hr/>
 
-			<h2>Export your information</h2>
-			<p>If you ever need to get your data out of Field Guide, it&rsquo;s easy. Just click below to receive your
-			tests and results in a structured JSON format.</p>
-			<p class="clearfix"><button ng-click="accountExport()" class="button large">Export Your Account Information</button></p>
+			<h2>Update your account information</h2>
+			<p>We will soon have the ability to change your name and email in place. Until then please email us the changes you would like made, and we will do that manually. To change your password, you can use the Forgot Password link on the login page.</p>
+			<p class="clearfix"><button ng-click="accountExport()" class="button large">Update your account information</button></p>
 			
 			<br>
 			<hr/>
 			<br>
 			
 			<h2>Delete your account</h2>
-			<p>If you'd like to stop using Field Guide, you can fully remove your account from our system. This will <strong>stop all scheduled
-			payments</strong> and will <strong>remove your tests and reports</strong>. We strongly suggest you use the Export button above to save a backup of your
-			information before deleting your account. <span class="caution">Deletion cannot be undone, it is permanent.</span>
+			<p>If you'd like to stop using Field Guide, we can fully remove your account from our system. Please <a href="mailto:hello@fieldguideapp.com">email us</a> and we will remove your account and all project inofrmation you have created. <span class="caution"><strong>Deletion cannot be undone, it is permanent.</strong></span>
 			<p class="clearfix"><button class="button destructive large">Delete Account</button></p>
-			
+
 		</div>
 		
 			
