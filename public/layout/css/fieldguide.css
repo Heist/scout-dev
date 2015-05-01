@@ -5671,6 +5671,10 @@ hr {
     transition-timing: ease-out; }
   #view-findings.show-comments .message-comments {
     display: block; }
+  #view-findings #findings-share-report .modal-interior-title {
+    padding: 0; }
+    #view-findings #findings-share-report .modal-interior-title h2 {
+      margin: 0 0 10px 0; }
   #view-findings #findings-share-report .input {
     width: 92%;
     border-top-right-radius: 0;

@@ -31,6 +31,13 @@
 	}
 
 	#findings-share-report {
+		.modal-interior-title{
+			padding: 0;
+
+			h2 {
+				margin: 0 0 10px 0;
+			}
+		}
 		.input {
 			width: 92%;
 			border-top-right-radius: 0;
