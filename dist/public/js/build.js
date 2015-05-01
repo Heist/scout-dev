@@ -51416,7 +51416,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 var dataOut = {password: pass};
                 void 0;
                 $http
-                    .post('/auth/reset/'+$stateParams.token, dataOut)
+                    .post('/auth/reset'+$stateParams.token, dataOut)
                     .success(function(data){
                         // do a login here, perhaps
                         void 0;
