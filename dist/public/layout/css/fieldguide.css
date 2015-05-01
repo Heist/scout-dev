@@ -4067,7 +4067,8 @@ hr {
     padding: 15px 0;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 300; }
+    font-weight: 300;
+    z-index: 9999999; }
     #timeline-user #timeline-user-only .timeline-user-avatar {
       display: block;
       padding: 0;

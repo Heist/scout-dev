@@ -169,6 +169,7 @@
 		text-align: center;
 		padding: $pad*0.75 0;
 		@include type-light;
+		z-index: 9999999;
 		
 		.timeline-user-avatar {
 			display: block;
