@@ -98,7 +98,7 @@
 [data-tooltip-large]:after {
   z-index: 1000;
   padding: 8px;
-  width: 155px;
+  width: 215px;
   background-color: $fg-blue-dark;
   background-color: hsla(195, 50%, 33%, 0.85);
   border-radius: 2px;
@@ -165,7 +165,7 @@
 [data-tooltip-large]:after,
 .tooltip:after,
 .tooltip-top:after {
-  margin-left: -75px;
+  margin-left: -108px;
 }
 
 // large-report tooltip
