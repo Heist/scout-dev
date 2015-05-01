@@ -51198,8 +51198,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     // RUN CONTROLLER ===========================================================
 
     angular.module('field_guide_controls').controller('socketFunctions', 
-    [ 'loadData', 'testBuildFunctions', 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', 
-    function(loadData, testBuildFunctions, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
+    [ '$scope', 'socket', 
+    function($scope, socket){
     // SOCKET ROUTES - 0.9 ============================================== 
     // for 1.0 check socket_routes_1.js in /server/
         
