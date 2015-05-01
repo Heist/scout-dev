@@ -5755,9 +5755,23 @@ hr {
         font-weight: 300; }
         #view-findings #findings-nav #sidebar.sidebar .tag-hash:before {
           content: '#'; }
-        #view-findings #findings-nav #sidebar.sidebar span.findings {
+        #view-findings #findings-nav #sidebar.sidebar span.report {
           display: block; }
-          #view-findings #findings-nav #sidebar.sidebar span.findings:hover {
+          #view-findings #findings-nav #sidebar.sidebar span.report span.info {
+            background: #D8DADB;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            margin: 0 0 0 5px; }
+            #view-findings #findings-nav #sidebar.sidebar span.report span.info span {
+              position: absolute;
+              top: 0;
+              right: 2px;
+              color: #fff;
+              font-size: 10px; }
+          #view-findings #findings-nav #sidebar.sidebar span.report:hover {
             color: #2B404D; }
         #view-findings #findings-nav #sidebar.sidebar h4.group-cat.hollow {
           padding: 40px; }
@@ -5771,11 +5785,18 @@ hr {
           #view-findings #findings-nav #sidebar.sidebar h4.group-cat span.info {
             background: #D8DADB;
             width: 10px;
-            border-radius: 5px;
-            display: inline-block; }
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            top: 2px;
+            margin: 0 0 0 3px; }
             #view-findings #findings-nav #sidebar.sidebar h4.group-cat span.info span {
-              padding: 2.5px;
-              color: #fff; }
+              position: absolute;
+              top: 0;
+              right: 2.5px;
+              color: #fff;
+              font-size: 10px; }
           #view-findings #findings-nav #sidebar.sidebar h4.group-cat:first-child {
             margin: 20px 0 0 0; }
         #view-findings #findings-nav #sidebar.sidebar li {

@@ -20,7 +20,7 @@
 				<h4 class="group-cat" ng-if="group[0].doctype === 'task'">Topics <span class="info" data-tooltip-large-report="All of your notes organized to their specific Topic."><span>?</span></span></h4>
 				<ul>
 					<li ng-repeat="object in group" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
-						<span class="findings" ng-if="object.doctype === 'test'">Report <span class="info" data-tooltip-large-report="Your participant summaries and shareable report"><span>?</span></span>
+						<span class="report" ng-if="object.doctype === 'test'">Report<span class="info" data-tooltip-large-report="Your participant summaries and shareable report"><span>?</span></span>
 						</span>
 
 						<span class="objects" ng-if="object.doctype !== 'test'" ng-class="{'tag-hash': object.doctype === 'tag'}">{{object.name}}</span>

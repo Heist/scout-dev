@@ -101,8 +101,26 @@
 					content: '#';
 				}
 
-				span.findings {
+				span.report {
 					display: block;
+
+					span.info {
+					    background: $fg-grey-light;
+					    width: 10px;
+					    height: 10px;
+					    border-radius: 50%;
+					    display: inline-block;
+					    position: relative;
+					    margin: 0 0 0 5px;
+
+					    & span {
+					    	position: absolute;
+					    	top: 0;
+					    	right: 2px;
+					        color: $white;
+					        font-size: 10px;
+					    }
+					}
 					
 					&:hover {
 						color: $fg-slate;
@@ -124,12 +142,19 @@
 					span.info {
 					    background: $fg-grey-light;
 					    width: 10px;
-					    border-radius: 5px;
+					    height: 10px;
+					    border-radius: 50%;
 					    display: inline-block;
+					    position: relative;
+					    top: 2px;
+					    margin: 0 0 0 3px;
 
 					    & span {
-					        padding: 2.5px;
+					    	position: absolute;
+					    	top: 0;
+					    	right: 2.5px;
 					        color: $white;
+					        font-size: 10px;
 					    }
 					}
 
