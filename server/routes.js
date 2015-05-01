@@ -114,7 +114,6 @@ module.exports = function(app, passport) {
             } else {
                 res.json(reply);
             }
-            
         })(req, res);
     });
 
