@@ -17,8 +17,8 @@ module.exports = function(token, pass, app, next){
     async.waterfall([
         function(done) {
             models.User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-                if (!user) { done(null, null);}
-
+                if (!user) { done(null, null); }
+                console.log(user);
                 // TODO: Abstract this shit onto the user model
                 function generateHash(password) { return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null); }
                 
