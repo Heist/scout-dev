@@ -4248,6 +4248,22 @@ hr {
   -moz-animation-duration: 0.5s;
   -o-animation-duration: 0.5s;
   animation-duration: 0.5s; }
+  .modal span.info {
+    width: 15px;
+    height: 15px;
+    background: #949799;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    float: right;
+    margin: 3px 0;
+    position: relative; }
+    .modal span.info span {
+      font-size: 12px;
+      color: #fff;
+      position: absolute;
+      top: -4px;
+      right: 5px; }
   .modal .modal-interior {
     background: #fff;
     padding: 30px 40px 30px 40px;
@@ -4740,30 +4756,45 @@ hr {
   position: relative;
   cursor: pointer;
   border: 0;
-  padding: 12px;
+  padding: 20px;
   background: rgba(216, 218, 219, 0.2);
   color: #949799;
   margin-bottom: 20px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px; }
-  #view-new-project button.test-type.interview {
-    height: 150px;
+  #view-new-project button.test-type.interview, #view-new-project button.test-type.prototype {
+    position: relative;
     margin-right: 1%; }
-  #view-new-project button.test-type.prototype {
-    height: 150px;
-    margin-left: 1%; }
+    #view-new-project button.test-type.interview span.info, #view-new-project button.test-type.prototype span.info {
+      position: absolute;
+      top: 5px;
+      right: 8px;
+      background: #949799; }
+      #view-new-project button.test-type.interview span.info span, #view-new-project button.test-type.prototype span.info span {
+        top: 0px;
+        right: 4px; }
+    #view-new-project button.test-type.interview p, #view-new-project button.test-type.prototype p {
+      margin: 0 0 10px 0; }
   #view-new-project button.test-type:hover {
     background: #85AC0F;
     color: #fff; }
+    #view-new-project button.test-type:hover a {
+      color: #fff; }
   #view-new-project button.test-type.select-active {
     background: #85AC0F;
     color: #fff; }
+    #view-new-project button.test-type.select-active span.info {
+      background: #70910D; }
+    #view-new-project button.test-type.select-active a {
+      color: #fff; }
   #view-new-project button.test-type.select-inactive {
     background: rgba(216, 218, 219, 0.2);
     color: #949799; }
   #view-new-project button.test-type .selected-arrow {
     display: none; }
+  #view-new-project button.test-type .no-link {
+    font-size: 9px; }
   #view-new-project button.test-type h3 {
     font-size: 18px;
     font-family: "canada-type-gibson",sans-serif;
@@ -4776,9 +4807,6 @@ hr {
     font-size: 14px;
     line-height: 18px;
     margin: 0; }
-  #view-new-project button.test-type a.more-info {
-    color: #00B5E3;
-    font-size: 10px; }
   #view-new-project button.test-type.selected {
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -5019,22 +5047,6 @@ hr {
     left: 0;
     top: 0;
     overflow: auto; }
-  #view-testing span.info {
-    width: 15px;
-    height: 15px;
-    background: #949799;
-    border-radius: 50%;
-    display: inline-block;
-    text-align: center;
-    float: right;
-    margin: 3px 0;
-    position: relative; }
-    #view-testing span.info span {
-      font-size: 12px;
-      color: #fff;
-      position: absolute;
-      top: -4px;
-      right: 5px; }
   #view-testing li.half {
     float: left;
     width: 49%; }

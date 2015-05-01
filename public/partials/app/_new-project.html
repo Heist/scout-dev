@@ -11,18 +11,17 @@
 		</div>
 
 		<button class="module test-type interview" ng-class='{"select-active": !test.kind || test === "undefined" || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>
-
+			<span class="info large-tooltip" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
 			<h3>Interview</h3>
-			<p>Best for conversational or observational research like Ethnography or Customer Validation.</p>
-			<p>Learn more</p>
-			<!-- <a href="#" class="more-info">Tell me more about Interview tests</a> -->
+			<p>Good for Ethography, User Observation or Customer</p>
+			<a href="#">Learn more</a>
 		</button>
 		
 		<button class="module test-type prototype" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>
+			<span class="info large-tooltip" data-tooltip-large="For research where participants need to interact with screen like Prototype Testing or Usability Testing."><span>?</span></span>
 			<h3>Screen-based Research</h3>
-			<p>For research where participants need to interact with screen like Prototype Testing or Usability Testing.</p>
-			<p><a href="#">Download the iOS app</a> or <a href="#">Learn more</a></p>
-			<!-- <a href="#" class="more-info">Tell me more about Prototype testing</a> -->
+			<p>Good for Prototype Testing, Usability Testing or Competitive Research</p>
+			<a href="#">Download the iOS app</a> <span class="no-link">or</span> <a href="#">Learn more</a>
 		</button>
 		
 		<ul class="nobullets">
