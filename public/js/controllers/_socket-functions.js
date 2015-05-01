@@ -70,10 +70,12 @@
                 var canvas = document.getElementById('feed');
                 var image = document.getElementById('ia');
                 var context = canvas.getContext('2d');
+                var h = 358 * image.height / image.width;
 
                 image.src = "data:image/jpg;base64,"+data;
-                canvas.width = 358;
-                canvas.height = 358 * image.height / image.width;
+                canvas.setAttribute("width", 358);
+                canvas.setAttribute("height", h);
+                
 
                 context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
                 console.log('message received', canvas);
