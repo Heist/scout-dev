@@ -3427,6 +3427,11 @@ Copyright (c) 2015 Daniel Eden
   width: 320px;
   margin: 0;
   padding: 20px; }
+  #help-bubble-content a {
+    margin: 0 20px 0 0; }
+  #help-bubble-content img {
+    width: 15px;
+    margin: 0 5px 0 0; }
   #help-bubble-content p {
     font-size: 13.5px;
     line-height: 1.4;

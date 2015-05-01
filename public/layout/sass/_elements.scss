@@ -197,7 +197,16 @@
 	width: 320px;
 	margin: 0;
 	padding: $pad;
-	
+
+	a {
+		margin: 0 20px 0 0;
+	}
+
+	img {
+		width: 15px;
+		margin: 0 5px 0 0;
+	}
+
 	p {
 		font-size: $type-size-base*0.9;
 		line-height: 1.4;
