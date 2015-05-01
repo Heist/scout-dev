@@ -67,7 +67,7 @@
             });
 
             socket.on('message',function(data) {
-                var canvas = document.getElementById('timeline-user-only');
+                var canvas = document.getElementById('feed');
                 var image = document.getElementById('ia');
                 var context = canvas.getContext('2d');
 
