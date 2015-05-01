@@ -75,7 +75,7 @@
                 canvas.height = 358 * image.height / image.width;
 
                 context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
-                console.log('message received', context, canvas);
+                console.log('message received', canvas);
                 // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
             });
     }]);
