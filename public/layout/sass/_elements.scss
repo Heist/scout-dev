@@ -6,6 +6,7 @@
 
 [data-tooltip],
 [data-tooltip-large],
+[data-tooltip-large-report],
 .tooltip {
   position: relative;
   cursor: pointer;
@@ -15,6 +16,8 @@
 [data-tooltip]:after,
 [data-tooltip-large]:before,
 [data-tooltip-large]:after,
+[data-tooltip-large-report]:before,
+[data-tooltip-large-report]:after,
 .tooltip:before,
 .tooltip:after {
   position: absolute;
@@ -48,6 +51,10 @@
 [data-tooltip-large]:hover:after,
 [data-tooltip-large]:focus:before,
 [data-tooltip-large]:focus:after,
+[data-tooltip-large-report]:hover:before,
+[data-tooltip-large-report]:hover:after,
+[data-tooltip-large-report]:focus:before,
+[data-tooltip-large-report]:focus:after,
 .tooltip:hover:before,
 .tooltip:hover:after,
 .tooltip:focus:before,
@@ -61,14 +68,15 @@
 // triangle under bubble
 .tooltip:before,
 [data-tooltip]:before,
-[data-tooltip-large]:before {
+[data-tooltip-large]:before,
+[data-tooltip-large-report]:before {
   z-index: 1001;
   border: 6px solid transparent;
   background: transparent;
   content: "";
 }
 
-// bubble
+// reg tooltip
 .tooltip:after,
 [data-tooltip]:after {
   z-index: 1000;
@@ -76,7 +84,7 @@
   width: 65px;
   background-color: $fg-blue-dark;
   background-color: hsla(195, 50%, 33%, 0.85);
-  border-radius: 3px;
+  border-radius: 2px;
   color: #fff;
   content: attr(data-tooltip);
   font-size: 12px;
@@ -92,7 +100,7 @@
   width: 145px;
   background-color: $fg-blue-dark;
   background-color: hsla(195, 50%, 33%, 0.85);
-  border-radius: 3px;
+  border-radius: 2px;
   color: #fff;
   content: attr(data-tooltip-large);
   font-size: 12px;
@@ -100,10 +108,29 @@
   text-align: center;
 }
 
+// large-report tooltip
+.tooltip:after,
+[data-tooltip-large-report]:after {
+  z-index: 1000;
+  padding: 8px;
+  width: 155px;
+  background-color: $fg-blue-dark;
+  background-color: hsla(195, 50%, 33%, 0.85);
+  border-radius: 2px;
+  color: #fff;
+  content: attr(data-tooltip-large-report);
+  font-size: 12px;
+  line-height: 15px;
+  text-align: left;
+  text-transform: none;
+}
+
 [data-tooltip]:before,
 [data-tooltip]:after,
 [data-tooltip-large]:before,
 [data-tooltip-large]:after,
+[data-tooltip-large-report]:before,
+[data-tooltip-large-report]:after,
 .tooltip:before,
 .tooltip:after,
 .tooltip-top:before,
@@ -115,6 +142,7 @@
 // triangle under bubble
 [data-tooltip]:before,
 [data-tooltip-large]:before,
+[data-tooltip-large-report]:before,
 .tooltip:before,
 .tooltip-top:before {
   margin-left: -6px;
@@ -137,6 +165,14 @@
   margin-left: -75px;
 }
 
+// large-report tooltip
+[data-tooltip-large-report]:after,
+.tooltip:after,
+.tooltip-top:after {
+  margin-left: -20px;
+}
+
+
 [data-tooltip]:hover:before,
 [data-tooltip]:hover:after,
 [data-tooltip]:focus:before,
@@ -145,6 +181,10 @@
 [data-tooltip-large]:hover:after,
 [data-tooltip-large]:focus:before,
 [data-tooltip-large]:focus:after,
+[data-tooltip-large-report]:hover:before,
+[data-tooltip-large-report]:hover:after,
+[data-tooltip-large-report]:focus:before,
+[data-tooltip-large-report]:focus:after,
 
 .tooltip:hover:before,
 .tooltip:hover:after,

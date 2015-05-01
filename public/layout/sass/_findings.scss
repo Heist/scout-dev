@@ -109,12 +109,29 @@
 					}
 				}
 
+				h4.group-cat.hollow {
+					padding: 40px;
+				}
+
 				h4.group-cat {
 					padding: 10px;
 					margin: 5px 0 0 0;
 					font-size: 10px;
 					color: $fg-grey-light;
 					text-transform: uppercase;
+					position: relative;
+
+					span.info {
+					    background: $fg-grey-light;
+					    width: 10px;
+					    border-radius: 5px;
+					    display: inline-block;
+
+					    & span {
+					        padding: 2.5px;
+					        color: $white;
+					    }
+					}
 
 					&:first-child {
 						margin: 20px 0 0 0;
@@ -139,7 +156,7 @@
 			#findings-viewmode-controls {
 				position: absolute;
 				left: 80%;
-				top: 53px;
+				top: 110px;
 			}
 			
 			#findings-share-link {

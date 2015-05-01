@@ -3310,11 +3310,11 @@ Copyright (c) 2015 Daniel Eden
 /* components */
 /* styles for bits */
 /* tooltips */
-[data-tooltip], [data-tooltip-large], .tooltip {
+[data-tooltip], [data-tooltip-large], [data-tooltip-large-report], .tooltip {
   position: relative;
   cursor: pointer; }
 
-[data-tooltip]:before, [data-tooltip]:after, [data-tooltip-large]:before, [data-tooltip-large]:after, .tooltip:before, .tooltip:after {
+[data-tooltip]:before, [data-tooltip]:after, [data-tooltip-large]:before, [data-tooltip-large]:after, [data-tooltip-large-report]:before, [data-tooltip-large-report]:after, .tooltip:before, .tooltip:after {
   position: absolute;
   visibility: hidden;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
@@ -3328,13 +3328,13 @@ Copyright (c) 2015 Daniel Eden
   transform: translate3d(0, 0, 0);
   pointer-events: none; }
 
-[data-tooltip]:hover:before, [data-tooltip]:hover:after, [data-tooltip]:focus:before, [data-tooltip]:focus:after, [data-tooltip-large]:hover:before, [data-tooltip-large]:hover:after, [data-tooltip-large]:focus:before, [data-tooltip-large]:focus:after, .tooltip:hover:before, .tooltip:hover:after, .tooltip:focus:before, .tooltip:focus:after {
+[data-tooltip]:hover:before, [data-tooltip]:hover:after, [data-tooltip]:focus:before, [data-tooltip]:focus:after, [data-tooltip-large]:hover:before, [data-tooltip-large]:hover:after, [data-tooltip-large]:focus:before, [data-tooltip-large]:focus:after, [data-tooltip-large-report]:hover:before, [data-tooltip-large-report]:hover:after, [data-tooltip-large-report]:focus:before, [data-tooltip-large-report]:focus:after, .tooltip:hover:before, .tooltip:hover:after, .tooltip:focus:before, .tooltip:focus:after {
   visibility: visible;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1; }
 
-.tooltip:before, [data-tooltip]:before, [data-tooltip-large]:before {
+.tooltip:before, [data-tooltip]:before, [data-tooltip-large]:before, [data-tooltip-large-report]:before {
   z-index: 1001;
   border: 6px solid transparent;
   background: transparent;
@@ -3346,7 +3346,7 @@ Copyright (c) 2015 Daniel Eden
   width: 65px;
   background-color: #2a687d;
   background-color: rgba(42, 105, 126, 0.85);
-  border-radius: 3px;
+  border-radius: 2px;
   color: #fff;
   content: attr(data-tooltip);
   font-size: 12px;
@@ -3359,18 +3359,32 @@ Copyright (c) 2015 Daniel Eden
   width: 145px;
   background-color: #2a687d;
   background-color: rgba(42, 105, 126, 0.85);
-  border-radius: 3px;
+  border-radius: 2px;
   color: #fff;
   content: attr(data-tooltip-large);
   font-size: 12px;
   line-height: 15px;
   text-align: center; }
 
-[data-tooltip]:before, [data-tooltip]:after, [data-tooltip-large]:before, [data-tooltip-large]:after, .tooltip:before, .tooltip:after, .tooltip-top:before, .tooltip-top:after {
+.tooltip:after, [data-tooltip-large-report]:after {
+  z-index: 1000;
+  padding: 8px;
+  width: 155px;
+  background-color: #2a687d;
+  background-color: rgba(42, 105, 126, 0.85);
+  border-radius: 2px;
+  color: #fff;
+  content: attr(data-tooltip-large-report);
+  font-size: 12px;
+  line-height: 15px;
+  text-align: left;
+  text-transform: none; }
+
+[data-tooltip]:before, [data-tooltip]:after, [data-tooltip-large]:before, [data-tooltip-large]:after, [data-tooltip-large-report]:before, [data-tooltip-large-report]:after, .tooltip:before, .tooltip:after, .tooltip-top:before, .tooltip-top:after {
   bottom: 100%;
   left: 50%; }
 
-[data-tooltip]:before, [data-tooltip-large]:before, .tooltip:before, .tooltip-top:before {
+[data-tooltip]:before, [data-tooltip-large]:before, [data-tooltip-large-report]:before, .tooltip:before, .tooltip-top:before {
   margin-left: -6px;
   margin-bottom: -12px;
   border-top-color: #2a687d;
@@ -3382,7 +3396,10 @@ Copyright (c) 2015 Daniel Eden
 [data-tooltip-large]:after, .tooltip:after, .tooltip-top:after {
   margin-left: -75px; }
 
-[data-tooltip]:hover:before, [data-tooltip]:hover:after, [data-tooltip]:focus:before, [data-tooltip]:focus:after, [data-tooltip-large]:hover:before, [data-tooltip-large]:hover:after, [data-tooltip-large]:focus:before, [data-tooltip-large]:focus:after, .tooltip:hover:before, .tooltip:hover:after, .tooltip:focus:before, .tooltip:focus:after, .tooltip-top:hover:before, .tooltip-top:hover:after, .tooltip-top:focus:before, .tooltip-top:focus:after {
+[data-tooltip-large-report]:after, .tooltip:after, .tooltip-top:after {
+  margin-left: -20px; }
+
+[data-tooltip]:hover:before, [data-tooltip]:hover:after, [data-tooltip]:focus:before, [data-tooltip]:focus:after, [data-tooltip-large]:hover:before, [data-tooltip-large]:hover:after, [data-tooltip-large]:focus:before, [data-tooltip-large]:focus:after, [data-tooltip-large-report]:hover:before, [data-tooltip-large-report]:hover:after, [data-tooltip-large-report]:focus:before, [data-tooltip-large-report]:focus:after, .tooltip:hover:before, .tooltip:hover:after, .tooltip:focus:before, .tooltip:focus:after, .tooltip-top:hover:before, .tooltip-top:hover:after, .tooltip-top:focus:before, .tooltip-top:focus:after {
   -webkit-transform: translateY(-12px);
   -moz-transform: translateY(-12px);
   transform: translateY(-12px); }
@@ -5742,12 +5759,23 @@ hr {
           display: block; }
           #view-findings #findings-nav #sidebar.sidebar span.findings:hover {
             color: #2B404D; }
+        #view-findings #findings-nav #sidebar.sidebar h4.group-cat.hollow {
+          padding: 40px; }
         #view-findings #findings-nav #sidebar.sidebar h4.group-cat {
           padding: 10px;
           margin: 5px 0 0 0;
           font-size: 10px;
           color: #D8DADB;
-          text-transform: uppercase; }
+          text-transform: uppercase;
+          position: relative; }
+          #view-findings #findings-nav #sidebar.sidebar h4.group-cat span.info {
+            background: #D8DADB;
+            width: 10px;
+            border-radius: 5px;
+            display: inline-block; }
+            #view-findings #findings-nav #sidebar.sidebar h4.group-cat span.info span {
+              padding: 2.5px;
+              color: #fff; }
           #view-findings #findings-nav #sidebar.sidebar h4.group-cat:first-child {
             margin: 20px 0 0 0; }
         #view-findings #findings-nav #sidebar.sidebar li {
@@ -5763,7 +5791,7 @@ hr {
       #view-findings #findings-nav #sidebar #findings-viewmode-controls {
         position: absolute;
         left: 80%;
-        top: 53px; }
+        top: 110px; }
       #view-findings #findings-nav #sidebar #findings-share-link {
         width: 100%;
         padding: 0;
