@@ -11,9 +11,6 @@
         
     // RECIEVE SCREENCAPS FROM THE SOCKET ===============================
         console.log('sockets should launch');
-            var canvas = document.getElementById('feed'),
-                image = document.getElementById('ia'),
-                context = canvas.getContext('2d');
 
             $scope.connect = {};
             $scope.connect.text = '71b';
@@ -70,7 +67,10 @@
             });
 
             socket.on('message',function(data) {
-                var canvas = document.getElementById('timeline-user-only')
+                var canvas = document.getElementById('timeline-user-only');
+                var image = document.getElementById('ia');
+                var context = canvas.getContext('2d');
+
                 image.src = "data:image/jpg;base64,"+data;
                 canvas.width = 358;
                 canvas.height = 358 * image.height / image.width;
