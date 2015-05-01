@@ -51264,10 +51264,12 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 var canvas = document.getElementById('feed');
                 var image = document.getElementById('ia');
                 var context = canvas.getContext('2d');
-                console.log(image);
-                image.src = "data:image/jpg;base64,"+data;
+                var h = 358 * image.height / image.width;
 
-                canvas.width('358').height(358 * image.height / image.width);
+                image.src = "data:image/jpg;base64,"+data;
+                canvas.setAttribute("width", 358);
+                canvas.setAttribute("height", h);
+                
 
                 context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
                 console.log('message received', canvas);
