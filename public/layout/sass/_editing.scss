@@ -157,6 +157,11 @@
     .sheet {
         box-shadow: none;
     }
+
+    p {
+        font-size: 12px;
+        line-height: 16px;
+    }
     
     h3 {
         @include type-regular;
@@ -252,11 +257,6 @@
     .tags {
         margin: 0 0 40px 0;
         @include input-placeholders;
-        
-        p {
-            font-size: 10px;
-            margin: 0 0 10px 0;
-        }
 
         .tag-pool {
             width: 100%;

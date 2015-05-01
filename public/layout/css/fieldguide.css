@@ -4854,6 +4854,9 @@ hr {
   min-height: 100%; }
   #view-editing .sheet {
     box-shadow: none; }
+  #view-editing p {
+    font-size: 12px;
+    line-height: 16px; }
   #view-editing h3 {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -4952,9 +4955,6 @@ hr {
       font-size: 14px;
       line-height: 20px;
       font-style: italic; }
-    #view-editing .tags p {
-      font-size: 10px;
-      margin: 0 0 10px 0; }
     #view-editing .tags .tag-pool, #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
       width: 100%;
       height: 30px;
