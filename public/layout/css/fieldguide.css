@@ -5887,6 +5887,11 @@ hr {
 
 #test-end-summarize .modal-interior-title {
   padding: 0; }
+  #test-end-summarize .modal-interior-title h2 {
+    margin: 0 0 10px 0; }
+  #test-end-summarize .modal-interior-title p {
+    margin: 0 0 10px 0;
+    line-height: 18px; }
 #test-end-summarize .summary-form textarea {
   height: 200px;
   line-height: 18px; }
