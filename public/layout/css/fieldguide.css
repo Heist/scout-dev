@@ -5094,6 +5094,8 @@ hr {
     position: relative;
     border-right: 1px solid #dddddd;
     /* suppress message-hover during running tests */ }
+    #view-testing #testing-input p {
+      margin: 0 0 10px 0; }
     #view-testing #testing-input.interview {
       width: 100%;
       border: 0; }

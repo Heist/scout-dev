@@ -65,6 +65,10 @@
         position: relative;
         border-right: 1px solid $line;
 
+        p {
+            margin: 0 0 10px 0;
+        }
+
         &.interview {
             width: 100%;
             border: 0;
