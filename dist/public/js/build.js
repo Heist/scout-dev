@@ -51264,12 +51264,12 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             });
 
             socket.on('message',function(data) {
-                void 0;
                 image.src = "data:image/jpg;base64,"+data;
                 canvas.width = 358;
                 canvas.height = 358 * image.height / image.width;
 
                 context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+                void 0;
                 // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
             });
     }]);
