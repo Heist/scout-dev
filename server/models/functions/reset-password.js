@@ -18,7 +18,8 @@ module.exports = function(token, pass, app, next){
         function(done) {
             models.User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
                 if (!user) { done(null, null); }
-                console.log(user);
+                console.log('user', user);
+                if (user === null ){ console.log('no user found'); }
                 // TODO: Abstract this shit onto the user model
                 function generateHash(password) { return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null); }
                 
