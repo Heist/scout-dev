@@ -4251,7 +4251,7 @@ hr {
   .modal .modal-interior {
     background: #fff;
     padding: 30px 40px 30px 40px;
-    margin: 10% 0 0 0;
+    margin: 5% 0 0 0;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
@@ -4740,7 +4740,7 @@ hr {
   position: relative;
   cursor: pointer;
   border: 0;
-  padding: 20px;
+  padding: 12px;
   background: rgba(216, 218, 219, 0.2);
   color: #949799;
   margin-bottom: 20px;
@@ -4748,9 +4748,11 @@ hr {
   -webkit-border-radius: 2px;
   border-radius: 2px; }
   #view-new-project button.test-type.interview {
-    margin-right: 2%; }
+    height: 150px;
+    margin-right: 1%; }
   #view-new-project button.test-type.prototype {
-    margin-left: 2%; }
+    height: 150px;
+    margin-left: 1%; }
   #view-new-project button.test-type:hover {
     background: #85AC0F;
     color: #fff; }

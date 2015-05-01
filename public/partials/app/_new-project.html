@@ -7,38 +7,37 @@
 
 		<div class="modal-interior-title">
 			<button class="x-modal" ng-click="$parent.newTestModalToggle()">&times;</button>
-			<h2 class="text-center">New Project</h2>
+			<h2 class="text-center">Start a new project</h2>
 		</div>
 
 		<button class="module test-type interview" ng-class='{"select-active": !test.kind || test === "undefined" || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>
 
 			<h3>Interview</h3>
-			<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
+			<p>Best for conversational or observational research like Ethnography or Customer Validation.</p>
+			<p>Learn more</p>
 			<!-- <a href="#" class="more-info">Tell me more about Interview tests</a> -->
 		</button>
 		
 		<button class="module test-type prototype" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>
-			<h3>Prototype or Website</h3>
-			<p>You have a behavioural type of test that doesn't have any visuals associated to it.</p>
+			<h3>Screen-based Research</h3>
+			<p>For research where participants need to interact with screen like Prototype Testing or Usability Testing.</p>
+			<p><a href="#">Download the iOS app</a> or <a href="#">Learn more</a></p>
 			<!-- <a href="#" class="more-info">Tell me more about Prototype testing</a> -->
 		</button>
 		
 		<ul class="nobullets">
 			<form name="prototypeForm" class="prototype-form">
 				<li>
-					<label for="field-testname">Project name</label>
-					<input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="Name of the product you're testing" ng-blur="updateTest()" />
+					<label for="field-testname">Name your project</label>
+					<input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="Name it something distinct based on the project or feature" ng-blur="updateTest()" />
 				</li>
 				<li ng-show="test.kind === 'prototype'">
-					<label for="field-prototypeurl">What is your prototype or website URL?</label>
+					<label for="field-prototypeurl">Your mobile website or prototype link. Make sure your Marvel, Invision or Framer.js settings are correct. <a href="#">Learn how</a></label>
 					<input class="input" id="field-prototypeurl" ng-model="test.link" placeholder="http://invision.com/JHGYT" type="url" name="url" />
 				</li>
 				<li>
-					<label for="field-prototypeurl">Test objectives</label>
-					<textarea class="input test-objectives" id="bulletform" type="text" value="" ng-model="test.desc" placeholder="What questions do you want answered?
-					
-					- Do users understand the header interaction?
-					- Are they comfortable with the cart language?" />
+					<label for="field-prototypeurl">Outline your project objectives. <a href="">Learn how</a></label>
+					<textarea class="input test-objectives" id="bulletform" type="text" value="" ng-model="test.desc" placeholder="Outline the objectives for what you want to learn from this research project. " />
 					</textarea>
 				</li>
 			</form>

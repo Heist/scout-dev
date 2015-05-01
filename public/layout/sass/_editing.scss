@@ -16,18 +16,20 @@
         position: relative;
         cursor: pointer;
         border: 0;
-        padding: 20px;
+        padding: 12px;
         background: transparentize($fg-grey-light, 0.8);
         color: $fg-grey;
         margin-bottom: 20px;
         @include radius;
 
         &.interview {
-            margin-right: 2%;
+            height: 150px;
+            margin-right: 1%;
         }
 
         &.prototype {
-            margin-left: 2%;
+            height: 150px;
+            margin-left: 1%;
         }
 
         &:hover {
