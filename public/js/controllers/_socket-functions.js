@@ -70,7 +70,7 @@
             });
 
             socket.on('message',function(data) {
-                console.log('message received');
+                console.log('message received', context, canvas);
                 image.src = "data:image/jpg;base64,"+data;
                 canvas.width = 358;
                 canvas.height = 358 * image.height / image.width;
