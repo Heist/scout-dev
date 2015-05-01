@@ -4750,7 +4750,7 @@ hr {
 #view-new-project .test-objectives {
   height: 150px; }
 #view-new-project button.test-type {
-  width: 48%;
+  width: 48.5%;
   outline: 0;
   text-align: center;
   position: relative;
@@ -4763,18 +4763,31 @@ hr {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px; }
-  #view-new-project button.test-type.interview, #view-new-project button.test-type.prototype {
+  #view-new-project button.test-type.interview {
     position: relative;
-    margin-right: 1%; }
-    #view-new-project button.test-type.interview span.info, #view-new-project button.test-type.prototype span.info {
+    margin-right: 1.5%; }
+    #view-new-project button.test-type.interview span.info {
       position: absolute;
       top: 5px;
       right: 8px;
       background: #949799; }
-      #view-new-project button.test-type.interview span.info span, #view-new-project button.test-type.prototype span.info span {
+      #view-new-project button.test-type.interview span.info span {
         top: 0px;
         right: 4px; }
-    #view-new-project button.test-type.interview p, #view-new-project button.test-type.prototype p {
+    #view-new-project button.test-type.interview p {
+      margin: 0 0 10px 0; }
+  #view-new-project button.test-type.prototype {
+    position: relative;
+    margin-left: 1.5%; }
+    #view-new-project button.test-type.prototype span.info {
+      position: absolute;
+      top: 5px;
+      right: 8px;
+      background: #949799; }
+      #view-new-project button.test-type.prototype span.info span {
+        top: 0px;
+        right: 4px; }
+    #view-new-project button.test-type.prototype p {
       margin: 0 0 10px 0; }
   #view-new-project button.test-type:hover {
     background: #85AC0F;
@@ -4791,6 +4804,8 @@ hr {
   #view-new-project button.test-type.select-inactive {
     background: rgba(216, 218, 219, 0.2);
     color: #949799; }
+    #view-new-project button.test-type.select-inactive a {
+      color: #00B5E3; }
   #view-new-project button.test-type .selected-arrow {
     display: none; }
   #view-new-project button.test-type .no-link {

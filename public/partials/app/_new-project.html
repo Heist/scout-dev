@@ -31,8 +31,9 @@
 					<input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="Name it something distinct based on the project or feature" ng-blur="updateTest()" />
 				</li>
 				<li ng-show="test.kind === 'prototype'">
-					<label for="field-prototypeurl">Your mobile website or prototype link. Make sure your Marvel, Invision or Framer.js settings are correct. <a href="#">Learn how</a></label>
-					<input class="input" id="field-prototypeurl" ng-model="test.link" placeholder="http://invision.com/JHGYT" type="url" name="url" />
+					<label for="field-prototypeurl">Prototype URL</label>
+					<span class="info large-tooltip prototype-tt" data-tooltip-large="Your mobile website or prototype link. Make sure your Marvel, Invision or Framer.js settings are correct."><span>?</span></span>
+					<input class="input" id="field-prototypeurl" ng-model="test.link" placeholder="Your mobile websire or Marvel, InVision, or Framer.js prototypes" type="url" name="url" />
 				</li>
 				<li>
 					<label for="field-prototypeurl">Outline your project objectives. <a href="">Learn how</a></label>

@@ -10,7 +10,7 @@
     }
     
     button.test-type {
-        width: 48%;
+        width: 48.5%;
         outline: 0;
         text-align: center;
         position: relative;
@@ -22,9 +22,30 @@
         margin-bottom: 20px;
         @include radius;
 
-        &.interview, &.prototype {
+        &.interview {
             position: relative;
-            margin-right: 1%;
+            margin-right: 1.5%;
+
+            span.info {
+                position: absolute;
+                top: 5px;
+                right: 8px;
+                background: $fg-grey;
+
+                & span {
+                    top: 0px;
+                    right: 4px;
+                }
+            }
+
+            p {
+                margin: 0 0 10px 0;
+            }
+        }
+
+        &.prototype {
+            position: relative;
+            margin-left: 1.5%;
 
             span.info {
                 position: absolute;
@@ -68,6 +89,10 @@
         &.select-inactive {
             background: transparentize($fg-grey-light, 0.8);
             color: $fg-grey;
+
+            & a {
+                color: $fg-blue;
+            }
         }
 
         .selected-arrow {
