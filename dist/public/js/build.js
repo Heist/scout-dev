@@ -51958,7 +51958,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     // for 1.0 check socket_routes_1.js in /server/
         
     // RECIEVE SCREENCAPS FROM THE SOCKET ===============================
-
+    void 0;
         if ($scope.test.kind === 'prototype'){
             
             var canvas = document.getElementById('feed'),
@@ -53215,19 +53215,14 @@ function($timeout, $window, config) {
                         // Authenticated
                         var interBoot = '';
                             if (user !== '0' && interBoot !== '1') {
-                                void 0;
-                                void 0;
                                 $rootScope.user = user;
                                 interBoot = '1';
                                 $window.Intercom("boot", {
-                                    app_id: "YOURAPPID",
+                                    app_id: "z3glk3pq",
                                     email: user.email,
                                     created_at: user.created,
                                     name: user.name,
-                                    user_id: user._id,
-                                    widget: {
-                                      activator: "#IntercomDefaultWidget"
-                                    }
+                                    user_id: user._id
                                 });
 
                                 deferred.resolve();

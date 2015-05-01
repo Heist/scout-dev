@@ -21,7 +21,7 @@ module.exports = function(tag){
     var tagArray = (_.isArray(tag)) ? tag : [tag];
 
     var oneTag = function(singleTag){
-    	console.log('make a single tag', singleTag);
+    	// console.log('make a single tag', singleTag);
     	singleTag.name = singleTag.name.replace(/#/gi,'');
 
     	var testStr = singleTag.name.toLowerCase();
@@ -46,12 +46,12 @@ module.exports = function(tag){
     }
        	
 	return Bluebird.map(tagArray, function(t){ return oneTag(t) }).then(function(returnedTags){
-	   console.log('did we make a new tag/set?', returnedTags);
+	   // console.log('did we make a new tag/set?', returnedTags);
 
 		return models.Test.findOne({'_id'  : returnedTags[0]._test }).exec()
         .then(function(test){
-            console.log('tagMaker: did we find a test?', test._id)
-            console.log('tagMaker: did we return tags', returnedTags);
+            // console.log('tagMaker: did we find a test?', test._id)
+            // console.log('tagMaker: did we return tags', returnedTags);
             // check if that tag already exists on the test
             // if so, just pass to next
             // otherwise, add the tag to the test.
@@ -67,7 +67,7 @@ module.exports = function(tag){
                 });
         })
         .then(function(test){
-            console.log('this is returned', returnedTags);
+            // console.log('this is returned', returnedTags);
             return returnedTags;
         });
 	}).catch(function(err){

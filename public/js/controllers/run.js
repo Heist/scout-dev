@@ -93,9 +93,9 @@
     // for 1.0 check socket_routes_1.js in /server/
         
     // RECIEVE SCREENCAPS FROM THE SOCKET ===============================
-
+    console.log($scope.test.kind);
         if ($scope.test.kind === 'prototype'){
-            
+            console.log('sockets should launch');
             var canvas = document.getElementById('feed'),
                 image = document.getElementById('ia'),
                 context = canvas.getContext('2d');
