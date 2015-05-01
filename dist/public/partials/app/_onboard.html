@@ -3,7 +3,8 @@
 	<div ng-if="user.onboard === 1">
 		<div class="onboarding-content animated slideInUp" id="step-1">
 			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
-			<h2>Welcome to Field Guide</h2>
+			<h2>Welcome to Field Guide.</h2>
+			<p>We'll help you run user research quickly and easily.</p>
 			<button class="button large" ng-click="changeOnboard(2)">Get started</button>
 		</div>
 	</div>
@@ -14,7 +15,7 @@
 			<footer>
 				<div class="footer-content">
 					<img class="ranger small" src="layout/assets/onboarding/ranger.svg" alt="">
-					<p>Take a look at the report that you will eventually send to your team</p>
+					<p>This is a Report. It has all of the Learnings and Next Steps you found from speaking to Participants. This is put together after conducting your research! <a href="#" target="_blank">Learn more</a></p>
 					<button class="button large" ng-click="changeOnboard(3)">Next</button>
 				</div>
 			</footer>
@@ -27,7 +28,7 @@
 			<footer>
 				<div class="footer-content">
 					<img class="ranger small" src="layout/assets/onboarding/ranger.svg" alt="">
-					<p>It's a really simple way to get your high level findings out easily</p>
+					<p>A Report is a simple way to help your team understand what you learned from research, and what actions to take in order to improve your product.</p>
 					<button class="button large" ng-click="changeOnboard(4)">Next</button>
 				</div>
 			</footer>
@@ -37,8 +38,7 @@
 	<div ng-if="user.onboard === 4">
 		<div class="onboarding-content">
 			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
-			<h2 class="less-margin">How did we get to that fancy report?<br>
-			Well, let’s take a look at the note taking interface.</h2>
+			<h2 class="less-margin">The way you get a great Report is by taking great notes during research.</h2>
 			<button class="button large" ng-click="changeOnboard(5)">Next</button>
 		</div>
 	</div>
@@ -49,7 +49,7 @@
 			<footer>
 				<div class="footer-content">
 					<img class="ranger small" src="layout/assets/onboarding/ranger.svg" alt="">
-					<p>We'll sort your notes for you with topics and #tags</p>
+					<p>Your notes are sorted according to the Topic you currently have selected. This automatically sorts them for you in your Report.</p>
 					<button class="button large" ng-click="changeOnboard(6)">Next</button>
 				</div>
 			</footer>
@@ -57,12 +57,12 @@
 	</div>
 	<!-- Onboarding Step 6 -->
 	<div ng-if="user.onboard === 6">
-		<div class="onboarding-content" id="otherSteps">
-			<img src="layout/assets/onboarding/summarize-test.png" alt="Field Guide report">
+		<div class="onboarding-content">
+			<img src="layout/assets/onboarding/tags.gif" alt="Field Guide report">
 			<footer>
 				<div class="footer-content">
 					<img class="ranger small" src="layout/assets/onboarding/ranger.svg" alt="">
-					<p class="two-lines">Then at the end of your test we'll give you an opportunity to summarize your test which will make it easier to create your findings</p>
+					<p>Add #Tags to your notes to highlight important information. We'll give you some suggestions on valuable types of feedback to lookout for. <a href="#"  target="_blank">Learn more</a></p>
 					<button class="button large" ng-click="changeOnboard(7)">Next</button>
 				</div>
 			</footer>
@@ -70,10 +70,35 @@
 	</div>
 	<!-- Onboarding Step 7 -->
 	<div ng-if="user.onboard === 7">
+		<div class="onboarding-content" id="otherSteps">
+			<img src="layout/assets/onboarding/summarize.gif" alt="Field Guide report">
+			<footer>
+				<div class="footer-content">
+					<img class="ranger small" src="layout/assets/onboarding/ranger.svg" alt="">
+					<p>When you end a Session write some quick summary notes of the insights and issues you identified. These notes will help you create an overall project report much quicker.</p>
+					<button class="button large" ng-click="changeOnboard(8)">Next</button>
+				</div>
+			</footer>
+		</div>
+	</div>
+	<!-- Onboarding Step 8 -->
+	<div ng-if="user.onboard === 8">
+		<div class="onboarding-content" id="otherSteps">
+			<img src="layout/assets/onboarding/iphone.png" alt="Field Guide report">
+			<footer>
+				<div class="footer-content">
+					<img class="ranger small" src="layout/assets/onboarding/ranger.svg" alt="">
+					<p>If you want to see what's happening on your Participant's screen during a Session, you will need to download the Field Guide iOS app on your testing device or get the Participant to download the app. <a href="https://itunes.apple.com/ca/app/field-guide/id945520842?mt=8" target="_blank">Get it now from the iTunes Store</a></p>
+					<button class="button large" ng-click="changeOnboard(9)">Next</button>
+				</div>
+			</footer>
+		</div>
+	</div>
+	<!-- Onboarding Step 9 -->
+	<div ng-if="user.onboard === 9">
 		<div class="onboarding-content" id="lastStep">
 			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Field Guide ranger">
-			<h2 class="less-margin">That should cover the basics, now go forth and
-			<br>make your product even better!</h2>
+			<h2 class="less-margin">That should cover the basics, now go forth and make your product even better!</h2>
 			<button class="button large" id="button-done" ng-click="$parent.animationToggle()">Done</button>
 
 			<div class="clear"></div>
@@ -82,6 +107,8 @@
 				<span>Still need a little help?</span>
 				<img class="slack" src="layout/assets/onboarding/slack-icon.svg">
 				<span><a href="https://fieldguide.typeform.com/to/qrRHYS">Talk to us on Slack</a></span>
+				<img class="slack" src="layout/assets/email-icon.svg">
+				<span><a href="mailto:hello@fieldguideapp.com">Email us</a></span>
 			</div>
 		</div>
 	</div>

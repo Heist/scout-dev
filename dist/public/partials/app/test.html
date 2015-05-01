@@ -20,7 +20,7 @@
 							<div class="project-details" ng-click="select(test)">
 								<input class="input-no-border project-name" ng-trim="false" ng-model="test.name" ng-focus="editTitle(test)" ng-blur="blurTitle(test)">
 
-								<h3>Objectives</h3>
+								<h3>My project objectives</h3>
 									<textarea msd-elastic class="test-descriptions input-no-border" id="field-textarea"  ng-model="test.desc" ng-blur="updateTask(test)"></textarea>
 							</div>
 
@@ -28,18 +28,20 @@
 							<!-- user enters tag, tag gets store in tag pool-->
 
 							<div class="tags">
-								<h3>Tags</h3>
-								<p>Because you're running a {{test.type}} test, we've created a couple of tags for you to use during your tests.</p>
+								<h3>Tags for notes</h3>
+								<p>Use #Tags to flag important information in the notes you take during a session. Tagging notes makes it easier to find the most valuable and actionable feedback from your participants. We've got a couple suggestions to get you started. <a href="" target="_blank">Learn more</a> </p>
+								<p>You cannot currently edit tags you have created, so please double check your spelling.</p>
 		
 								<div class="tag-pool">
 									<ul>
 										<li ng-repeat="tag in tags">{{tag.name}}</li>
 									</ul>
 								</div>
-								<input name="custom-tags" class="custom-tags" placeholder="Type your own tags here. ex. #passed, #failed" ng-model="newtag" ui-keypress="{13:'saveTag(newtag)'}"></input>
+								<input name="custom-tags" class="custom-tags" placeholder="For Screen-based research, we suggest using #issue #comprehension #preference #effort and #quote" ng-model="newtag" ui-keypress="{13:'saveTag(newtag)'}"></input>
 							</div>
 						
-							<h3>Topics</h3>
+							<h3>Research Topics</h3>
+							<p>Outline the topics or tasks and questions you want to discuss with your participants for this project. These will be visible for you while you run a session with a participant. <a href="" target="_blank">Learn more</a> </p>
 							<li ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
 							
 								<!-- Re-ordering tasks -->
@@ -68,10 +70,10 @@
 								<div class="add-task">
 									<form ng-model='newtask'>
 										<h4>Topic</h4>
-										<input ng-trim="false" ng-model="newtask.name"placeholder="What do you want to discuss with your participant?"><br/>
+										<input ng-trim="false" ng-model="newtask.name"placeholder="Provide a simple description for the subject of this group of questions."><br/>
 										
 										<h4>Questions</h4>
-										<textarea ng-model="newtask.desc" id="bulletform" placeholder="List the questions you want answered.">
+										<textarea ng-model="newtask.desc" id="bulletform" placeholder="List the questions you want participants to answer related to this topic.">
 										</textarea>
 									</form>
 								
