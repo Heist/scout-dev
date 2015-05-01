@@ -85,6 +85,7 @@ module.exports = function(app, passport, io) {
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
             if (k[1] !== undefined) {
                 var chan = k[1].substring(1, k[1].length);
+                console.log(chan);
                 socket.broadcast.to(chan).emit('message', msg);                
             }
         });
