@@ -8,6 +8,10 @@
     .test-objectives {
         height: 150px;
     }
+
+    .project-tooltip {
+        @include type-regular;
+    }
     
     button.test-type {
         width: 48.5%;
@@ -92,6 +96,18 @@
 
             & a {
                 color: $fg-blue;
+            }
+
+            span.info {
+                position: absolute;
+                top: 5px;
+                right: 8px;
+                background: $fg-grey;
+
+                & span {
+                    top: 0px;
+                    right: 4px;
+                }
             }
         }
 

@@ -89,6 +89,7 @@
   content: attr(data-tooltip);
   font-size: 12px;
   line-height: 15px;
+  @include type-regular;
   text-align: center;
 }
 
@@ -97,7 +98,7 @@
 [data-tooltip-large]:after {
   z-index: 1000;
   padding: 8px;
-  width: 145px;
+  width: 155px;
   background-color: $fg-blue-dark;
   background-color: hsla(195, 50%, 33%, 0.85);
   border-radius: 2px;
@@ -105,6 +106,7 @@
   content: attr(data-tooltip-large);
   font-size: 12px;
   line-height: 15px;
+  @include type-regular;
   text-align: center;
 }
 
@@ -121,6 +123,7 @@
   content: attr(data-tooltip-large-report);
   font-size: 12px;
   line-height: 15px;
+  @include type-regular;
   text-align: left;
   text-transform: none;
 }

@@ -3351,12 +3351,15 @@ Copyright (c) 2015 Daniel Eden
   content: attr(data-tooltip);
   font-size: 12px;
   line-height: 15px;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 400;
   text-align: center; }
 
 .tooltip:after, [data-tooltip-large]:after {
   z-index: 1000;
   padding: 8px;
-  width: 145px;
+  width: 155px;
   background-color: #2a687d;
   background-color: rgba(42, 105, 126, 0.85);
   border-radius: 2px;
@@ -3364,6 +3367,9 @@ Copyright (c) 2015 Daniel Eden
   content: attr(data-tooltip-large);
   font-size: 12px;
   line-height: 15px;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 400;
   text-align: center; }
 
 .tooltip:after, [data-tooltip-large-report]:after {
@@ -3377,6 +3383,9 @@ Copyright (c) 2015 Daniel Eden
   content: attr(data-tooltip-large-report);
   font-size: 12px;
   line-height: 15px;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 400;
   text-align: left;
   text-transform: none; }
 
@@ -4766,6 +4775,10 @@ hr {
   clear: both; }
 #view-new-project .test-objectives {
   height: 150px; }
+#view-new-project .project-tooltip {
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 400; }
 #view-new-project button.test-type {
   width: 48.5%;
   outline: 0;
@@ -4823,6 +4836,14 @@ hr {
     color: #949799; }
     #view-new-project button.test-type.select-inactive a {
       color: #00B5E3; }
+    #view-new-project button.test-type.select-inactive span.info {
+      position: absolute;
+      top: 5px;
+      right: 8px;
+      background: #949799; }
+      #view-new-project button.test-type.select-inactive span.info span {
+        top: 0px;
+        right: 4px; }
   #view-new-project button.test-type .selected-arrow {
     display: none; }
   #view-new-project button.test-type .no-link {
