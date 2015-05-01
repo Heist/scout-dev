@@ -51224,7 +51224,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             socket.on('disconnect', function(data)
             {
                 // console.log('disconnect');
-
             });
 
             socket.on('error', function(reason)
@@ -51249,8 +51248,9 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 // console.log('announce', data);
             });
 
-            socket.on('joinedChannel', function(data){ 
+            socket.on('joined_channel', function(data){ 
                 void 0;
+
             });
 
             socket.on('note', function(data){
@@ -51264,7 +51264,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             });
 
             socket.on('message',function(data) {
-                // console.log('message');
+                void 0;
                 image.src = "data:image/jpg;base64,"+data;
                 canvas.width = 358;
                 canvas.height = 358 * image.height / image.width;

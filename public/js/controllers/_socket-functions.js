@@ -54,7 +54,7 @@
                 // console.log('announce', data);
             });
 
-            socket.on('joinedChannel', function(data){ 
+            socket.on('joined_channel', function(data){ 
                 console.log('joined_channel', data.body);
 
             });
