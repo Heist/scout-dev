@@ -1,15 +1,5 @@
 <div class="sheet-holder" ng-controller="socketFunctions">
 	<div class="sheet">
-		
-
-		<canvas id="feed"></canvas>
-		<img id='ia'/>
-		<div style='clear'></div>
-		<small>Testing with</small>
-		<h2>{{subject.name}}</h2>
-
-
-
 		<!-- note input and display -->
 		<div id="testing-input">
 			
@@ -29,7 +19,7 @@
 					<li class="message-no-highlite" id="firstrun">
 						<div class="message-body">
 							<p>Your session is running!</p>
-							<p>Take notes about what your participant says, the actions they take and the reactions they make. All of this information is valuable. <a href="">Learn more</a></p>
+							<p>Take notes about what your participant says, the actions they take and the reactions they make. All of this information is valuable. <a href="https://medium.com/@FieldGuideApp/how-you-can-take-better-notes-during-research-24c67c6de025" target="_blank">Learn more</a></p>
 							<p>Don't worry, you can always edit a note just by clicking on it.</p>
 							<p>Remember to use the #tags below to flag important feedback your get from your participant!</p>
 						</div>
@@ -70,7 +60,7 @@
 		
 		<div id="timeline-user">
 			
-			<div id="timeline-user-only" ng-hide="subject.testroom">
+			<!-- <div id="timeline-user-only" ng-hide="subject.testroom">
 				<div class="clear"></div>
 				
 				<div class="timeline-user-avatar">
@@ -79,16 +69,15 @@
 				
 				<small>Testing with</small>
 				<h2>{{subject.name}}</h2>
-			</div>
+			</div> -->
 
-			<div id="timeline-user-only" style="top:5%;"><!-- 
+			<div id="timeline-user-only" style="top:5%;">
 				<canvas id="feed"></canvas>
 				<img id='ia'/>
 				<div style='clear'></div>
 				<small>Testing with</small>
 				<h2>{{subject.name}}</h2>
-				<p>Your participant's screen</p> -->
-
+				<p>Your participant's screen</p>
 			</div>
 
 			<div id="cta">
