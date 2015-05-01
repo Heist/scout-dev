@@ -70,6 +70,7 @@
             });
 
             socket.on('message',function(data) {
+                var canvas = document.getElementById('timeline-user-only')
                 image.src = "data:image/jpg;base64,"+data;
                 canvas.width = 358;
                 canvas.height = 358 * image.height / image.width;
