@@ -91,7 +91,7 @@ module.exports = function(app, passport, io) {
 
         // subscription is used in the iOS app
         socket.on('subscribe', function(data) { 
-            console.log('channel subscription received')
+            console.log('channel subscription received', data.room)
 
             var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
             
