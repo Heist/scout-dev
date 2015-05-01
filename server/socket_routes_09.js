@@ -81,7 +81,7 @@ module.exports = function(app, passport, io) {
 
         socket.on('message', function(msg, err){
             // if there's no channel, emit the message that there's no channel? IDK.
-            // 
+            console.log('Received message', msg);
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
             if (k[1] !== undefined) {
                 var chan = k[1].substring(1, k[1].length);
@@ -114,7 +114,7 @@ module.exports = function(app, passport, io) {
                 socket.join(data.room);
 
                 // passes the phone the route for getting the appropriate test from the socket
-                io.sockets.in(data.room).emit('joinedChannel', {data: {body: test.link, title:test.name}});
+                io.sockets.in(data.room).emit('joined_channel', {data: {body: test.link, title:test.name}});
             });
         });
 

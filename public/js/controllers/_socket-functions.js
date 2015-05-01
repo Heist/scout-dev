@@ -30,7 +30,6 @@
             socket.on('disconnect', function(data)
             {
                 // console.log('disconnect');
-
             });
 
             socket.on('error', function(reason)
@@ -56,7 +55,8 @@
             });
 
             socket.on('joinedChannel', function(data){ 
-                console.log('joined_channel', data);
+                console.log('joined_channel', data.body);
+
             });
 
             socket.on('note', function(data){
@@ -70,7 +70,7 @@
             });
 
             socket.on('message',function(data) {
-                // console.log('message');
+                console.log('message received');
                 image.src = "data:image/jpg;base64,"+data;
                 canvas.width = 358;
                 canvas.height = 358 * image.height / image.width;
