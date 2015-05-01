@@ -20,6 +20,7 @@ module.exports = function(app, passport) {
 
 // PASSWORD ROUTES ==============================
     app.post('/auth/forgot', function(req, res, next) {        
+        console.log('touched old forgot route');
         async.waterfall([
             function(done) {
                 crypto.randomBytes(20, function(err, buf) {

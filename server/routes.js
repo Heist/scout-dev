@@ -121,6 +121,7 @@ module.exports = function(app, passport) {
 // PASSWORD RESET ROUTES ==================================
     // forgotten passwords
     app.post('/auth/forgot', function(req, res, next) {
+        console.log('touched NEW forgot route');
         fn.forgotPasswordToken( req.body.email, app, function(err, tokenObject){
             console.log('tokenObject', tokenObject);
             res.send(tokenObject);
