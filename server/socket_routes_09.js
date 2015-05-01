@@ -81,6 +81,9 @@ module.exports = function(app, passport, io) {
 
         socket.on('message', function(msg, err){
             // if there's no channel, emit the message that there's no channel? IDK.
+
+            // On message received, send that message to the room
+            // room is identified by the device ID
             console.log('Received message');
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
             if (k[1] !== undefined) {
