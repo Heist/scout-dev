@@ -51249,8 +51249,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 // console.log('announce', data);
             });
 
-            socket.on('joined_channel', function(data){ 
-                // console.log('joined_channel', data);
+            socket.on('joinedChannel', function(data){ 
+                void 0;
             });
 
             socket.on('note', function(data){

@@ -110,7 +110,7 @@ module.exports = function(app, passport, io) {
                               
             promise.then(function(test){
                 // joins the test to the socket from remote device
-                // 
+                console.log('join this test room', test, 'room', data.room);
                 socket.join(data.room);
 
                 // passes the phone the route for getting the appropriate test from the socket
