@@ -8,7 +8,7 @@
 		<div class="module two-fifths modal-interior">
 			
 			<div class="modal-interior-title">
-				<h2 class="text-center">Run a new test</h2>
+				<h2 class="text-center">Run your session</h2>
 			</div>
 			
 			<ul class="nobullets" ng-model="subject">
@@ -19,7 +19,7 @@
 				</li>
 
 				<li class="half" ng-show="kind === 'prototype'">
-					<label>Room ID</label><span class="info large-tooltip" data-tooltip-large="You’ll find this in the Field Guide iOS app"><span>?</span></span>
+					<label>Room ID</label><span class="info large-tooltip" data-tooltip-large="ID code appears in the iOS app"><span>?</span></span>
 					<input class="input" type="text" name="testroom" value="" placeholder="Field Guide app Room ID" ng-model="subject.testroom">
 					</input>
 				</li>
@@ -30,12 +30,10 @@
 
 						<!-- <a class="button dry-run med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a> -->
 				
-						<button class="button med float-right" type="submit" ng-click="addSubject(subject); changeOnboard(2)" tabindex="0">Start test</button>
+					<button class="button med float-right" type="submit" ng-enter="addSubject(subject)" ng-click="addSubject(subject)" tabindex="0">Start session</button>
 				</div>
 			</ul>
 			
-
-					<button class="button med float-right" type="submit" ng-enter="addSubject(subject)" ng-click="addSubject(subject)" tabindex="0">Start test</button>
 			</div>
 		</ul>
 		<div class="clear"></div>
@@ -58,7 +56,7 @@
 				</li>
 
 				<li class="no-highlite">
-					<h5>Tasks</h5>
+					<h5>Topics</h5>
 				</li>
 				
 				<li ng-repeat="obj in navlist" ng-class="{ 'active': obj._id === selected._id }" ng-click="select($index)">

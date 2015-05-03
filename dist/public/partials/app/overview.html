@@ -9,7 +9,7 @@
 	<div class="container">
 		
 		<div id="header-min">
-			<h3 class="h3-light float-left">My projects</h3>
+			<h3 class="h3-light float-left">My Projects</h3>
 			
 			<div class="overview-controls">
 				<div class="expand-button">
@@ -43,14 +43,14 @@
 					<div class="test-info">
 						<h3>{{test.name}}</h3>
 						<small>{{test.kind}} &mdash;
-						<span ng-show="test._subjects.length > 0">Tested {{test._subjects.length}} times</span>
+						<span ng-show="test._subjects.length > 0">Run {{test._subjects.length}} times</span>
 						<span ng-show="test._subjects.length === 0">Never tested</span>
 						</small>
 						
 						<div class="editTest-tooltips">
-							<span ng-show="editTestedit">Edit</span>
-							<span ng-show="editTestdupe">Duplicate</span>
-							<span ng-show="editTestdelete">Delete</span>
+							<span ng-show="editTestedit">Edit Project</span>
+							<span ng-show="editTestdupe">Duplicate Project</span>
+							<span ng-show="editTestdelete">Delete Project</span>
 						</div>
 						
 						<div class="editTest">
@@ -73,11 +73,9 @@
 					
 					<div class="test-controls">
 						
-						<a class="left" ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run Test</a>
-						
-						<a class="right" ng-click="summarizeTest(test._id)" ng-show="!test.summary&& test._subjects.length > 0">Report</a>
-						
-						<a class="right" ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0">Report</a>
+						<a class="left" ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run a Session</a>
+
+						<a class="right" ng-click="summarizeTest(test._id)" ng-show="test.summary && test._subjects.length > 0">Project Report</a>
 						
 						<div class="clear"></div>
 					</div>

@@ -50539,7 +50539,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
             scope.query = undefined;
 
         // Bind KEY EVENTS - may have to be KEYDOWN ======================================
-            element.bind('keypress', function (evt) {
+            element.bind('keypress keydown', function (evt) {
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
 
@@ -50985,7 +50985,7 @@ angular.module("typeahead-match.html", []).run(["$templateCache", function($temp
 
 angular.module("typeahead-popup.html", []).run(["$templateCache", function($templateCache) {
     $templateCache.put("typeahead-popup.html",
-        "<ul class=\"dropdown-menu\" ng-show=\"isOpen()\" ng-style=\"{top: position.top+'px', left: position.left+'px'}\" style=\"display: block;\" role=\"listbox\" aria-hidden=\"{{!isOpen()}}\">\n" +
+        "<ul class=\"dropdown-menu\" ng-show=\"isOpen()\" ng-style=\"{top: position.top+'px', left: position.left+'px', position:'absolute'}\" style=\"display: block;\" role=\"listbox\" aria-hidden=\"{{!isOpen()}}\">\n" +
         "        <li ng-repeat=\"match in matches track by $index\" ng-class=\"{active: isActive($index) }\" ng-mouseenter=\"selectActive($index)\" ng-click=\"selectMatch($index)\" role=\"option\" id=\"{{match.id}}\">\n" +
         "                <div typeahead-match index=\"$index\" match=\"match\" query=\"query\" template-url=\"templateUrl\"></div>\n" +
         "        </li>\n" +
@@ -52480,7 +52480,229 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
     }]);
 })();
+// test.js
+(function() {
+    'use strict';
+    // TEST CONTROLLER ===========================================================
+    angular.module('field_guide_controls')
+    .run(['$anchorScroll', function($anchorScroll) {
+        $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
+    }])
+    .controller('test', 
+        ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
+        function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
+        var tagSort = function(tags){
+         return _.filter(tags, function(n){
+                return n.name !== 'Summary';
+            });
+        };
 
+        var data = loadData.data;
+        void 0;
+
+        $scope.test = data;
+        $scope.tags = tagSort(data._tags) || [];
+        $scope.tasks = data._tasks || [];
+
+        $scope.showAnchor = function(x) {
+
+            var explanations = [
+                {   anchor : 1,
+                    title : 'What is a test?',
+                    body : 'A <strong>Test</strong> is a series of screens,' + 
+                           ' goals, or steps for your customers to interact with.'+
+                           ' For example, you could use a <strong>Test</strong> to'+
+                           ' capture a sign-up process.'
+                },
+                {   anchor : 3,
+                    title : 'What is a task?',
+                    body : '<strong>Tasks</strong> allow you to define important'+
+                           ' steps in your prototype, website, or app. <strong>Talking points</strong>'+
+                           ' are the notes and ideas you want to ask the person you’re testing with.'+
+                           ' You define steps to <strong>sort and organize</strong> your notes and feedback.'
+                },
+                {   anchor : 5,
+                    title : 'Next steps',
+                    body : 'Round up some testers - you&rsquo;re ready to test.'+
+                           ' This would be a good time to schedule in some test participants.'
+                }
+            ];
+
+            $scope.anchor = x;
+            $scope.explanation = _.findWhere(explanations, {anchor:x});
+            if(x === 5){
+                $location.path('/overview');
+            }
+        };
+
+        $scope.showAnchor(1);
+
+    // DIRECTIVES AND FUNCTIONS ===============================
+
+        // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+            $http.put('/api/user/'+$rootScope.user._id, {onboard : $rootScope.user.onboard});
+        };
+        
+        // SELECTION ======================================
+        $scope.select = function(task) {
+            void 0;
+            $scope.selectedTask = task;
+        };
+        
+        $scope.isActive = function(task) {
+            return $scope.selectedTask === task;
+        };
+
+    // ACTIONS ============================================
+        $scope.selectPrototype = function(kind){
+            $scope.test.kind = kind;
+        };
+
+        $scope.selectPlatform = function(kind){
+            $scope.test.platform = kind;
+        };
+
+        $scope.saveAndMove = function(anchor){
+            // Saves the test and changes the step to the next page
+            $scope.updateTest();
+            $scope.showAnchor(anchor);
+        };
+
+    // TASK FUNCTIONS =====================================
+        $scope.newTask = function(task) {
+            // Add a new task
+            testBuildFunctions.addTask($stateParams._id, task, $scope.tasks.length)
+                .success(function(data){
+                    $scope.tasks.push(data);
+                    $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
+                    $scope.newtask = '';
+                });
+        };
+        
+        $scope.removeTask = function(task){
+            // Delete a task
+            task.edit=false;
+            task.title_edit=false;
+
+            var index = $scope.tasks.indexOf(task);
+            var url = '/api/task/'+task._id;
+            
+            $scope.tasks.splice(index, 1);
+
+            $http.delete(url)
+                .success(function(data){
+                    $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
+                });
+        };
+
+        $scope.moveTask = function(old_index, up_down){
+            // set the stored index of the task
+            // Tasks therefore appear in order
+            // TODO: Abstract into a directive
+
+            var new_index = old_index + up_down;
+            $scope.tasks.splice(new_index, 0, $scope.tasks.splice(old_index, 1)[0]);
+
+            $scope.updateTest();
+        };
+    
+    // Add A New Task or Tasks ============================
+
+        $scope.saveTag = function(tags){
+            // send the array to the back end, where each will be pushed appropriately 
+            // /api/tag/
+            void 0;
+            var i = tags.split(' ');
+            var dataOut = _.map(i, function(tag){
+                return {
+                     name : tag,
+                    _test : $stateParams._id
+                }
+            })
+
+            $http.post('/api/tag/', dataOut)
+                .success(function(data){
+                    if(_.isArray(data)){
+                        $scope.tags = $scope.tags.concat(data);
+                    } else {
+                        $scope.tags.push(data);
+                    }
+                    $scope.newtag = '';
+                });
+        }
+
+
+    // Edit Task Things ===================================
+        $scope.editTitle = function (task){
+            task.title_edit = true;
+            $scope.edited = task;
+        };
+
+        $scope.blurTitle = function (obj){
+            // on losing the focus, save the name of the task
+            obj.title_edit = false;
+            $scope.editedtask = null;
+
+            obj.name = obj.name.trim();
+
+            // deleted the name of the task? Remove it entirely.
+            if (!obj.name) {
+                $scope.removeTask(obj);
+            }
+            if (obj.doctype === 'test') {
+                $scope.updateTest(obj);
+            } else {
+                $scope.updateTask(obj);
+            }
+
+        };
+
+        $scope.updateTask = function(task){
+            var url = '/api/task/'+task._id;
+            var data_out = task;
+
+            $http
+                .put(url, data_out);
+        };
+
+    // TEST UPDATE ==============================
+        $scope.updateTest = function(){
+            // reminder: this pushes an update to an already-created test
+            var test = $scope.test;
+
+            if($scope.test.desc){
+                test.desc = $scope.test.desc;
+            }
+
+            var url = '/api/test/'+$stateParams._id;
+            var data_out = test;
+
+            // index the tasks appropriately and make sure they're put away
+            var task_count=0;
+            
+            _.each($scope.tasks, function(task){
+                task.index = task_count;
+                task_count++;
+            });
+            
+            $http.put(url, data_out, {timeout:5000});
+        };
+
+    // RETURN TO MAIN SCREEN ====================
+        $scope.goHome = function(){
+            // fun facts! This might cause a race condition.
+            // TODO: see if THEN will work here.
+            $scope.updateTest()
+                .then(function(){
+                    $location.path('/overview');
+                });
+        };
+
+    }]);
+})();
 // watch.js
 (function() {
     'use strict';
@@ -52965,8 +53187,8 @@ function($timeout, $window, config) {
 'use strict';
 (function(){
     angular.module('field_guide_controls')
-        .factory('checkLoggedin', ['$q', '$http', '$location', '$rootScope', 
-            function($q, $http, $location, $rootScope) {
+        .factory('checkLoggedin', ['$q', '$http', '$location', '$rootScope', '$window',
+            function($q, $http, $location, $rootScope, $window) {
 
             var checkLoggedin = function(user){
 
@@ -52974,15 +53196,43 @@ function($timeout, $window, config) {
                     var promise = $http.get('/loggedin')
                         .success(function(user){
                         // Authenticated
-                            if (user !== '0') {
-                                // console.log('user', user);
+                        var interBoot = '';
+                            if (user !== '0' && interBoot !== '1') {
+                                void 0;
+                                void 0;
                                 $rootScope.user = user;
+                                interBoot = '1';
+                                $window.Intercom("boot", {
+                                    app_id: "YOURAPPID",
+                                    email: user.email,
+                                    created_at: user.created,
+                                    name: user.name,
+                                    user_id: user._id,
+                                    widget: {
+                                      activator: "#IntercomDefaultWidget"
+                                    }
+                                });
+
+                                deferred.resolve();
+                            } else if (user !== '0' && interBoot !== '1') {
+                                $rootScope.user = user;
+                                $window.Intercom("update", {
+                                    app_id: "YOURAPPID",
+                                    email: user.email,
+                                    created_at: user.created,
+                                    name: user.name,
+                                    user_id: user._id,
+                                    widget: {
+                                      activator: "#IntercomDefaultWidget"
+                                    }
+                                });
                                 deferred.resolve();
                             }
                             // Not Authenticated 
                             else { 
                                 // console.log('welp, that flunked.');
                                 $location.url('/login');
+                                $window.Intercom("shutdown");
                                 deferred.resolve();
                             }
                         }).error(function(err){
@@ -52992,7 +53242,7 @@ function($timeout, $window, config) {
 
                     return deferred.promise;
                 };
-            void 0;
+            // console.log('checkLoggedin', checkLoggedin());
             return checkLoggedin;
         }]);
 })();
@@ -53019,6 +53269,25 @@ angular.module('field_guide_controls')
             };
         return postComment;
     }]);
+})();
+// fg-enter.js
+// Use either tab or enter to enter data from an input field
+
+'use strict';
+(function(){
+    angular.module('field_guide_controls')
+        .directive('ngEnter', function () {
+            return function (scope, element, attrs) {
+                element.bind("keydown keypress", function (event) {
+                    if(event.which === 13 || event.which === 9 ) {
+                        scope.$apply(function (){
+                            scope.$eval(attrs.ngEnter);
+                        });
+                        event.preventDefault();
+                    }
+                });
+            };
+        });
 })();
 // fg-post-message.js
 // post a new note to the database.
@@ -53094,7 +53363,29 @@ angular.module('field_guide_controls')
             };
         }]);
 })();
+// test-task-build.js
+// functions required to build out a test
+'use strict';
 
+(function(){
+    angular.module('field_guide_controls')
+        .factory('testBuildFunctions', ['$http', '$rootScope', 
+            function($http, $rootScope) {
+                return {
+                    addTask : function(test, task, index){
+                        // console.log(task, test);
+                        
+                        task._test = test;
+                        task.index = index;
+
+                        var promise = $http.post('/api/task/', task).success(function(data){
+                                return data;
+                            });
+                        return promise;
+                    }
+                };
+            }]);
+})();
 // ngMatch.js
 'use strict';
 
@@ -53365,12 +53656,6 @@ angular.module('field_guide_controls')
   ga('create', 'UA-56304013-1', 'auto');
   ga('send', 'pageview');
 })();
+// Intercom =================
+(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/hcubsszl';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
 
-(function() {
-// mixpanel =================
-(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
-  for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
-  
-  mixpanel.init("c7752c1767cb7302972c2846d81b78cf");
-  mixpanel.track('view page', { 'url': location.pathname });
-})();

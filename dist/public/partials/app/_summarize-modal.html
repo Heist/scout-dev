@@ -6,14 +6,15 @@
 		
 		<div class="modal-interior-title">
 			<button class="x-modal" ng-click="summarizeModalToggle()">&times;</button>
-			<h2>Summary</h2>
-			<p>It's time to summarize what you learned from this test</p>
+			<h2>Summarize your session</h2>
+			<p>Take 5 minutes to write down the key learnings you found this session.</p>
+			<p>This will make writing a project report much simpler for you. Don't worry, you can edit these later.</p>
 		</div>
 		
 		<ul class="nobullets">
 			<form name="summaryForm" class="summary-form">
 				<li>
-					<textarea class="input" id="field-objective" type="text" value="" placeholder="What were some important findings or insights you gained from this test? Think about the gut reaction you had to things your user said, and put them all down here." ng-model="summary" />
+					<textarea class="input" id="field-objective" type="text" value="" placeholder="Outline any insights, usability issues, themes or next steps for your team that you have learned in your sessions." ng-model="summary" />
 					</textarea>
 				</li>
 			</form>

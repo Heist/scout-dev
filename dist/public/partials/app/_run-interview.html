@@ -8,14 +8,14 @@
 			<div class="cta">
 				<button class="button outline" ng-click="summarizeModalToggle()" tabindex="-1">
 				<div class="checkmark"></div>
-				<span>End test</span>
+				<span>End session</span>
 				</button>
 			</div>
 		</div>
 		
 		<!-- input notes -->
 		<div id="session-input">
-			<input type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Remember to give your notes #themes">
+			<textarea class="typeahead-box" type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Enter your notes here - hit enter to submit a note."></textarea>
 			<div id="hash-tag-pool">
 				<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
 			</div>
@@ -27,9 +27,10 @@
 				<!-- empty state -->
 				<li class="message-no-highlite" id="firstrun">
 					<div class="message-body">
-						<strong>Your test is running!</strong> Remember, it&rsquo;s all about capturing notes &mdash;
-						you&rsquo;ll have an opportunity to <strong>edit and sort</strong> when creating your Report.
-						Use <span class="tag">#hashtags</span> to capture themes in your notes.
+						<p>Your session is running!</p>
+						<p>Take notes about what your participant says, the actions they take and the reactions they make. All of this information is valuable. <a href="https://medium.com/@FieldGuideApp/how-you-can-take-better-notes-during-research-24c67c6de025" target="_blank">Learn more</a></p>
+						<p>Don't worry, you can always edit a note just by clicking on it.</p>
+						<p>Remember to use the #tags below to flag important feedback your get from your participant!</p>
 					</div>
 					<div class="clear"></div>
 				</li>
@@ -38,7 +39,7 @@
 				<!-- non-editable guideline messages -->
 				<li class="message-no-highlite">
 					<div class="message-body" ng-click="editMessage(message)">
-						<small>Starting Test</small>
+						<small>Starting session</small>
 						<p>{{test.name}}</p>
 					</div>
 					<div class="clear"></div>
@@ -51,7 +52,7 @@
 						<!-- Editable messages - if a message is not a guideline -->
 						<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
 						<textarea msd-elastic class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message)" ></textarea>
-						<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}</small>
+						<small ng-repeat="tag in message._tags" class="hashtag-pool">{{tag.name}}</small>
 					</div>
 				
 					<div class="clear"></div>
