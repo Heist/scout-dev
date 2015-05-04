@@ -71,56 +71,119 @@
 	</div>
 	<!-- / discussion guide -->
 
-	<!-- username or device -->
-	<div id="testing-client" ng-model="subject">
-		
-		<div id="timeline-user-input"> </div>
-		
-		<div id="timeline-user">
+	<div class="sheet-holder">
+		<div class="sheet">
 			
-			<div id="timeline-user-only" ng-hide="subject.testroom">
-				<div class="clear"></div>
+			<!-- note input and display -->
+			<div id="testing-input">
 				
-				<div class="timeline-user-avatar">
-					<img src="/layout/assets/avatar-large.png">
+				<!-- input notes -->
+				<div id="session-input">
+					<textarea class="typeahead-box" type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Remember to give your notes #themes"></textarea>
+					<div id="hash-tag-pool">
+						<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
+					</div>
 				</div>
 				
-				<small>Testing with</small>
-				<h2>{{subject.name}}</h2>
+				<!-- timeline -->
+				<div id="timeline" scroll-glue="glued">
+					<ul>
+						
+						<!-- empty state -->
+						<li class="message-no-highlite" id="firstrun">
+							<div class="message-body">
+								<p>Your session is running!</p>
+								<p>Take notes about what your participant says, the actions they take and the reactions they make. All of this information is valuable. <a href="https://medium.com/@FieldGuideApp/how-you-can-take-better-notes-during-research-24c67c6de025" target="_blank">Learn more</a></p>
+								<p>Don't worry, you can always edit a note just by clicking on it.</p>
+								<p>Remember to use the #tags below to flag important feedback your get from your participant!</p>
+							</div>
+							<div class="clear"></div>
+						</li>
+						<!-- /empty state -->
+						
+						<!-- non-editable guideline messages -->
+						<li class="message-no-highlite">
+							<div class="message-body" ng-click="editMessage(message)">
+								<small>Starting session</small>
+								<p>{{test.name}}</p>
+							</div>
+							<div class="clear"></div>
+						</li>
+						<li class="message" ng-repeat="message in timeline track by $index" ng-class="{'message-no-highlite' : message.title === 'Starting task', 'message-highlite' : message.title !== 'Starting task'}">
+							<div class="message-body" ng-click="editMessage(message)">
+								<pre class="messages" ng-if="message.title === 'Starting task'">
+									<h3>{{message.body}}</h3>
+								</pre>
+								<!-- Editable messages - if a message is not a guideline -->
+								<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
+								<textarea msd-elastic class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message)"></textarea>
+								<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}</small>
+							</div>
+						
+							<div class="clear"></div>
+						</li>
+					</ul>
+				</div>
 			</div>
-
-			<div id="timeline-user-only-screen" ng-show="subject.testroom">
-				<p>Your participant's screen</p>
-				<canvas id="feed"></canvas>
-				<img id='ia' style='display:none;'/>
-				<div style='clear'></div>
-				<div class="participant-info">
+		<!-- / note input and display -->
+		
+		<!-- username or device -->
+		<div id="testing-client" ng-model="subject">
+			
+			<div id="timeline-user-input"> </div>
+			
+			<div id="timeline-user">
+				
+				<div id="timeline-user-only" ng-hide="subject.testroom">
+					<div class="clear"></div>
+					
+					<div class="timeline-user-avatar">
+						<img src="/layout/assets/avatar-large.png">
+					</div>
+					<div class="clear"></div>
 					<small>Testing with</small>
 					<h2>{{subject.name}}</h2>
 				</div>
-			</div>
 
-			<div id="cta">
-				<div class="cta">
-					<button class="button outline" ng-click="summarizeModalToggle()" tabindex="-1">
-					<div class="checkmark"></div>
-					<span>End session</span>
-					</button>
+				<div id="timeline-user-only-screen" ng-show="subject.testroom">
+					<p>Your participant's screen</p>
+					<canvas id="feed"></canvas>
+					<img id='ia' style='display:none;'/>
+					<div style='clear'></div>
+					<div class="participant-info">
+						<small>Testing with</small>
+						<h2>{{subject.name}}</h2>
+					</div>
+				</div>
+
+				<div id="cta">
+					<div class="cta">
+						<button class="button outline" ng-click="summarizeModalToggle()" tabindex="-1">
+						<div class="checkmark"></div>
+						<span>End session</span>
+						</button>
+					</div>
 				</div>
 			</div>
+			
+			
+		</div>
+		<!-- /username or device -->
 
+		
+		<div class="clear"></div>
+		
 		</div>
 	</div>
-	<!-- /username or device -->
 
 	<!-- toggle on interview or prototype view -->
 	<div ng-if="test.kind === 'interview'">
 		<ng-include src="'partials/app/_run-interview.html'"></ng-include>
 	</div>
 
-	<div ng-if="test.kind === 'prototype'">
+<!-- 	<div ng-if="test.kind === 'prototype'">
 		<ng-include src="'partials/app/_run-prototype.html'"></ng-include>
-	</div>
+	</div> -->
 	<!-- /toggle on interview or prototype view -->
 
 	<!-- summarize at end of test modal -->
