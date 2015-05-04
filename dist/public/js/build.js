@@ -51036,13 +51036,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             })
 
             .state('reset', {
-                url: '/reset',
+                url: '/reset{token:(?:/[^/]+)?}',
                 controller : 'reset',
                 templateUrl: 'partials/auth/reset.html'
             })
 
             .state('forgot', {
-                url: '/forgot{token:(?:/[^/]+)?}',
+                url: '/forgot',
                 controller : 'forgot',
                 templateUrl: 'partials/auth/forgot.html'
             })
@@ -51921,7 +51921,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 var dataOut = {password: pass};
                 void 0;
                 $http
-                    .post('/auth/forgot'+$stateParams.token, dataOut)
+                    .post('/auth/reset'+$stateParams.token, dataOut)
                     .success(function(data){
                         // do a login here, perhaps
                         void 0;

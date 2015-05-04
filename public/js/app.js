@@ -41,13 +41,13 @@
             })
 
             .state('reset', {
-                url: '/reset',
+                url: '/reset{token:(?:/[^/]+)?}',
                 controller : 'reset',
                 templateUrl: 'partials/auth/reset.html'
             })
 
             .state('forgot', {
-                url: '/forgot{token:(?:/[^/]+)?}',
+                url: '/forgot',
                 controller : 'forgot',
                 templateUrl: 'partials/auth/forgot.html'
             })

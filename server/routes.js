@@ -136,6 +136,7 @@ module.exports = function(app, passport) {
         });
     }).post('/auth/reset/:token', function(req, res) {
         // password reset route
+        console.log('reset me', req.body, req.params.token);
         fn.resetPassword(req.params.token, req.body.password, app, function(err, resetUserLogin){
             if(err){ console.log(err); }
             console.log('Successful Password Reset (should be able to automatically log in)', resetUserLogin);
