@@ -4576,7 +4576,7 @@ hr {
 #view-login {
   background: #f37960;
   color: #fff;
-  height: 100%;
+  min-height: 100%;
   padding: 15% 0 0 0; }
   #view-login label {
     color: #fff; }
