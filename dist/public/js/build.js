@@ -51581,15 +51581,12 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     void 0;
                     var msg = data;
 
-                    // 'Please log out before signing up again.'
-                    if(data === '2'){
-                        $scope.flashmessage = 'Please log out before signing up again.';
-                    }
                     if(data === '1' ){
                         msg = 'That email is already taken. <br /><a href="/forgot">Would you like a password reminder?</a>';
                         $scope.flashmessage = $sce.trustAsHtml(msg);
+                    } else if(data === '2'){
+                        $scope.flashmessage = 'Please log out before signing up again.';
                     } else {
-                        // $scope.flashmessage = $sce.trustAsHtml(data);
                         $rootScope.user = data._id;
                         $location.path(data.redirect);
                     }

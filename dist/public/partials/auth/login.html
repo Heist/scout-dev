@@ -60,14 +60,15 @@
 						</li>
 						
 						<li>
-							<input class="input" type="email" name="username" value="" placeholder="Your e-mail address" ng-class="{'error': regForm.username.$error.email && !regForm.username.$pristine}" ng-model="user.email" required /> 
+							<input class="input" type="email" name="usermail" value="" placeholder="Your e-mail address" ng-class="{'error': regForm.username.$error.email && !regForm.username.$pristine}" ng-model="user.email" required /> 
 
-							<span class="small" ng-show="regForm.username.$error.email && !regForm.username.$pristine">&times; Please enter a valid email address.</span>
+							<span class="small" ng-show="regForm.usermail.$error.email && !regForm.usermail.$pristine">&times; Please enter a valid email address.</span>
 						</li>
 
 						<li>
-							<input class="input" type="email" name="username" value="" placeholder="Please confirm your e-mail address" ng-model="user.emailConfirm" ng-class="{'error': regForm.username.$error.email && !regForm.username.$pristine}" ng-match="user.email" required/> 
-							<span class="small" ng-show="regForm.username.$error.email && !regForm.username.$pristine">&times; Email address does not match.</span>
+							<input class="input" type="email" name="usermailConfirm" value="" placeholder="Please confirm your e-mail address" ng-model="user.emailConfirm" ng-class="{'error': regForm.username.$error.email && !regForm.username.$pristine}" ng-match="user.email" required/> 
+							<span class="small" ng-show="regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine">&times; Email address does not match.</span>
+
 						</li>
 						
 						<li>
@@ -80,7 +81,7 @@
 							<span class="small" ng-show="regForm.confirm.$error.match && !regForm.confirm.$pristine" >&times; Passwords do not match.</span>
 						</li>
 						
-						<li class="text-center">
+						<li class="text-center" ng-hide="(regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine)">
 							<button class="button dark" type="submit" ng-click="register(user)">Create account</button> 
 						</li>
 						
