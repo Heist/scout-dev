@@ -51402,7 +51402,35 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 		};
 	}]);
 })();
+// forgot.js
+(function() {
+    'use strict';
 
+    // PASSWORD RESET CONTROLLER ===========================================================
+    angular.module('field_guide_controls')
+       .controller('forgot', ['$scope','$http', '$location', '$stateParams','$rootScope', 
+        function($scope, $http, $location, $stateParams, $rootScope){
+
+        // Controller Functions ===========================
+            $scope.newPass = function(pass){
+                var dataOut = {password: pass};
+                void 0;
+                $http
+                    .post('/auth/reset/'+$stateParams.token, dataOut)
+                    .success(function(data){
+                        // do a login here, perhaps
+                        void 0;
+                        if(data.length > 0){
+                            $scope.successMsg = data;
+                        }
+                    });
+            };
+
+            $scope.goToLogin = function(){
+                $location.path('/login');
+            };
+    }]);
+})();
 // login.js
 (function() {
     'use strict';
@@ -51600,99 +51628,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 	}]);
 
 })();
-// overview.js
-(function() {
-    'use strict';
 
-    // OVERVIEW CONTROLLER ===========================================================
-    angular.module('field_guide_controls')
-        .controller('overview', ['loadData', '$scope','$http', '$location', '$stateParams','$rootScope', function(loadData, $scope, $http, $location, $stateParams, $rootScope){
-        
-        // get all sessions and their tests on first load
-        $scope.tests = loadData.data;
-
-
-        // ONBOARDING =========================================
-
-        $scope.onboardToggle = function(){
-
-            if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-                // TODO: setup as http post
-                $rootScope.user.onboard = 100;
-                $scope.onboardSteps = false; 
-                return;
-            }
-            if(!$scope.onboardSteps || $scope.onboardSteps === false ){
-                $rootScope.user.onboard = 1;  
-                $scope.onboardSteps = true; 
-                return;
-            }
-        };
-
-        // TEST ROUTES ========================================
-        $scope.devTest = function(){
-            $http.post('/api/dev_tests/')
-                .success(function(data){
-                    $scope.tests.push(data);
-                });
-        };
-
-        $scope.newTestModalToggle = function(){
-            if($scope.newProject  || $scope.newProject === true  ){
-                $scope.newProject = false; 
-                return;
-            }
-            if(!$scope.newProject || $scope.newProject === false ){  
-                $scope.newProject = true; 
-                return;
-            }
-        };
-
-        $scope.removeTest = function(test){ 
-            // delete a test from the database
-                var url = '/api/test/'+test._id,
-                index = $scope.tests.indexOf(test);
-                $scope.tests.splice(index, 1);
-                $http.delete(url);
-        };
-
-        $scope.dupeTest = function(test){
-            var url = '/api/test/'+test._id;
-            var data_out = test;
-            
-            $http
-                .post(url, data_out)
-                .success(function(data){
-                    $scope.tests.push(data);
-                });
-        };
-
-        $scope.editTest = function(test){
-            $location.path('/edit/test/'+ test._id);
-        };
-
-        $scope.watchTest = function(test){
-            $location.path('/watch/'+test._id);
-        };
-         
-        $scope.runTest = function(test){
-            $location.path('/run/'+test._id);
-        };
-
-        $scope.summarizeTest = function(test_id){
-            $location.path('/summary/'+ test_id);
-        };
-
-        $scope.loadReport = function(test_id){
-            $location.path('/report/'+ test_id);
-        };
-
-    // TEST OVERLAY =============================
-
-
-
-    }]);
-})();
 // register.js
 (function() {
     'use strict';
@@ -51907,84 +51843,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 return;
             }
         };
-
-
-    // SOCKET ROUTES - 0.9 ============================================== 
-    // for 1.0 check socket_routes_1.js in /server/
-        
-    // RECIEVE SCREENCAPS FROM THE SOCKET ===============================
-
-        if ($scope.test.kind === 'prototype'){
-            
-            var canvas = document.getElementById('feed'),
-                image = document.getElementById('ia'),
-                context = canvas.getContext('2d');
-
-            $scope.connect = {};
-            $scope.connect.text = '71b';
-
-            socket.on('connect_failed', function(data)
-            {
-                // console.log('connect_failed');
-            });
-
-            socket.on('connecting', function(data)
-            {
-                // console.log('connecting');
-            });
-            socket.on('disconnect', function(data)
-            {
-                // console.log('disconnect');
-
-            });
-
-            socket.on('error', function(reason)
-            {
-                // console.log('error', reason);
-            });
-            socket.on('reconnect_failed', function(data)
-            {
-                // console.log('reconnect_failed');
-            });
-            socket.on('reconnect', function(data)
-            {
-                // console.log('reconnect');
-                // socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
-            });
-            socket.on('reconnecting', function(data)
-            {
-                // console.log('reconnecting');
-            });
-
-            socket.on('announce', function(data){
-                // console.log('announce', data);
-            });
-
-            socket.on('joined_channel', function(data){ 
-                // console.log('joined_channel', data);
-            });
-
-            socket.on('note', function(data){
-                // console.log('note', data);
-                $scope.timeline.push(data.note.msg);
-                $scope.$apply();
-            });
-
-            socket.on('subject', function(data){
-                socket.emit('join_subject_test', data);
-            });
-
-            socket.on('message',function(data) {
-                // console.log('message');
-                image.src = "data:image/jpg;base64,"+data;
-                canvas.width = 358;
-                canvas.height = 358 * image.height / image.width;
-
-                context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
-                // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
-            });
-        }
-
 
     // ANGULAR ROUTES ===================================================
         $scope.addTask = function(task){
