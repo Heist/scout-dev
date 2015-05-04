@@ -160,6 +160,7 @@
 #timeline-user {
 	position: relative;
 	height: 100%;
+	overflow: hidden;
 
 	#timeline-user-only-screen {
 		position: absolute;
@@ -167,12 +168,9 @@
 		left: 0;
 		width: 100%;
 		text-align: center;
-		padding: $pad*0.75 0;
 		@include type-light;
 
 		canvas {
-			position: relative;
-			left: 15%;
 			z-index: 999999;
 		}
 		
