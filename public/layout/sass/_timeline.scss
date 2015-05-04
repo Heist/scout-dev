@@ -165,12 +165,18 @@
 	#timeline-user-only-screen {
 		position: absolute;
 		top: 10%;
-		left: 15%;
+		left: 0;
 		width: 100%;
 		text-align: center;
 		padding: $pad*0.75 0;
 		@include type-light;
 		z-index: 999999;
+
+		canvas.screen {
+			position: absolute;
+			top: 110px;
+			left: 20%;
+		}
 
 		.participant-info {
 			position: absolute;

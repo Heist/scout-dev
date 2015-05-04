@@ -51416,10 +51416,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 var dataOut = {password: pass};
                 console.log('touched newPass');
                 $http
-                    .post('/auth/reset/'+$stateParams.token, dataOut)
+                    .post('/auth/reset'+$stateParams.token, dataOut)
                     .success(function(data){
                         // do a login here, perhaps
                         console.log('reset', data);
+                        if(data.length === 0){ 
+                            $scope.successMsg = "I'm sorry, that reset token is broken.";
+                        }
                         if(data.length > 0){
                             $scope.successMsg = data;
                         }

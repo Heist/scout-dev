@@ -4062,7 +4062,7 @@ hr {
   #timeline-user #timeline-user-only-screen {
     position: absolute;
     top: 10%;
-    left: 15%;
+    left: 0;
     width: 100%;
     text-align: center;
     padding: 15px 0;
@@ -4070,6 +4070,10 @@ hr {
     font-style: normal;
     font-weight: 300;
     z-index: 999999; }
+    #timeline-user #timeline-user-only-screen canvas.screen {
+      position: absolute;
+      top: 110px;
+      left: 20%; }
     #timeline-user #timeline-user-only-screen .participant-info {
       position: absolute;
       top: 40px;
