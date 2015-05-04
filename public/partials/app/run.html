@@ -136,7 +136,7 @@
 
 				<div id="timeline-user-only-screen" ng-show="subject.testroom">
 					<p>Your participant's screen</p>
-					<canvas class="screen" id="feed"></canvas>
+					<canvas id="feed"></canvas>
 					<img id='ia' style='display:none;'/>
 					<div style='clear'></div>
 					<div class="participant-info">
@@ -170,9 +170,9 @@
 		<ng-include src="'partials/app/_run-interview.html'"></ng-include>
 	</div>
 
-<!-- 	<div ng-show="test.kind === 'prototype'">
+	<div ng-show="test.kind === 'prototype'">
 		<ng-include src="'partials/app/_run-prototype.html'"></ng-include>
-	</div> -->
+	</div>
 	<!-- /toggle on interview or prototype view -->
 
 	<!-- summarize at end of test modal -->

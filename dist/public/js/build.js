@@ -51402,35 +51402,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 		};
 	}]);
 })();
-// forgot.js
-(function() {
-    'use strict';
 
-    // PASSWORD RESET CONTROLLER ===========================================================
-    angular.module('field_guide_controls')
-       .controller('forgot', ['$scope','$http', '$location', '$stateParams','$rootScope', 
-        function($scope, $http, $location, $stateParams, $rootScope){
-
-        // Controller Functions ===========================
-            $scope.newPass = function(pass){
-                var dataOut = {password: pass};
-                void 0;
-                $http
-                    .post('/auth/reset/'+$stateParams.token, dataOut)
-                    .success(function(data){
-                        // do a login here, perhaps
-                        void 0;
-                        if(data.length > 0){
-                            $scope.successMsg = data;
-                        }
-                    });
-            };
-
-            $scope.goToLogin = function(){
-                $location.path('/login');
-            };
-    }]);
-})();
 // login.js
 (function() {
     'use strict';
@@ -53198,19 +53170,14 @@ function($timeout, $window, config) {
                         // Authenticated
                         var interBoot = '';
                             if (user !== '0' && interBoot !== '1') {
-                                void 0;
-                                void 0;
                                 $rootScope.user = user;
                                 interBoot = '1';
                                 $window.Intercom("boot", {
-                                    app_id: "YOURAPPID",
+                                    app_id: "z3glk3pq",
                                     email: user.email,
                                     created_at: user.created,
                                     name: user.name,
-                                    user_id: user._id,
-                                    widget: {
-                                      activator: "#IntercomDefaultWidget"
-                                    }
+                                    user_id: user._id
                                 });
 
                                 deferred.resolve();
