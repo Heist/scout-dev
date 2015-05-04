@@ -40,27 +40,25 @@ module.exports = function(token, pass, app, next){
         });
     }
 
-    models.User.findOneAsync({name : 'login'}).then(function(user2){
-        models.User.findOneAsync({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } })
-            .then(function(user){
-                if (user === null ){ 
-                    console.log('no user found'); 
-                    return next(null, 0);
-                }
+    
+    models.User.findOneAsync({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } })
+        .then(function(user){
+            if (user === null ){ 
+                console.log('no user found'); 
+                return next(null, 0);
+            }
+            // TODO: Abstract this shit onto the user model
+            user.local.password = generateHash(pass);
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
 
-                // TODO: Abstract this shit onto the user model
-                user.local.password = generateHash(pass);
-                user.resetPasswordToken = undefined;
-                user.resetPasswordExpires = undefined;
+            user.save(function(err, usr){
+                console.log('saved user', usr);
+                if(usr === 0){ return next(null, usr); }
 
-                user.save(function(err, usr){
-                    console.log('saved user', usr);
-                    if(usr === 0){ return next(null, usr); }
-
-                    resetPasswordMail(usr);
-                });
-            })
-    })
+                resetPasswordMail(usr);
+            });
+        })
     .catch(function(err){
         if(err){console.log(err)}
     })
