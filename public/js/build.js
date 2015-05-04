@@ -51550,8 +51550,9 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $http
                 .post(url, dataOut)
                 .success(function(data){
+                    console.log(data);
                     $scope.flashmessage = data.error;
-                    $location.path('/');
+                    // $location.path('/');
                 });
         };
 
@@ -51587,6 +51588,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     } else if(data === '2'){
                         $scope.flashmessage = 'Please log out before signing up again.';
                     } else {
+                        
                         $rootScope.user = data._id;
                         $location.path(data.redirect);
                     }
@@ -51720,6 +51722,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
+        console.log('these are our tests', $scope.tests);
 
 
         // ONBOARDING =========================================

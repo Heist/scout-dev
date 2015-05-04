@@ -36,8 +36,9 @@
             $http
                 .post(url, dataOut)
                 .success(function(data){
+                    console.log(data);
                     $scope.flashmessage = data.error;
-                    $location.path('/');
+                    // $location.path('/');
                 });
         };
 
@@ -73,6 +74,7 @@
                     } else if(data === '2'){
                         $scope.flashmessage = 'Please log out before signing up again.';
                     } else {
+                        
                         $rootScope.user = data._id;
                         $location.path(data.redirect);
                     }
