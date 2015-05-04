@@ -4057,8 +4057,7 @@ hr {
    only relevant when doing testing on device */
 #timeline-user {
   position: relative;
-  height: 100%;
-  overflow: hidden; }
+  height: 100%; }
   #timeline-user #timeline-user-only-screen {
     position: absolute;
     top: 10%;
@@ -4069,16 +4068,10 @@ hr {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300; }
-    #timeline-user #timeline-user-only-screen canvas.screen {
-      position: absolute;
-      top: 110px;
-      left: 20%;
-      z-index: 999999;
-      background: red; }
-    #timeline-user #timeline-user-only-screen .participant-info {
-      position: absolute;
-      top: 40px;
-      left: 45%; }
+    #timeline-user #timeline-user-only-screen canvas {
+      position: relative;
+      left: 15%;
+      z-index: 999999; }
     #timeline-user #timeline-user-only-screen .timeline-user-avatar {
       display: block;
       padding: 0;
