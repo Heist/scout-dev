@@ -31,17 +31,21 @@
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
-        var makeNavList = function(data){
-            return _.toArray( _.groupBy(data, function(obj){ return obj.doctype; }) ).sort();
-        }
+        console.log('loadData', loadData.data);
 
-        
+        var makeNavList = function(data){
+            return _.groupBy(data, function(obj){ return obj.doctype; }) ;
+        }
 
         // Find the test in the left nav order
         var testIdx = _.indexOf(_.pluck(loadData.data.list, 'doctype'), 'test');
-        var tagList = _.sortBy(_.filter(loadData.data.list, function(n){ return n.name !== 'Summary'; }), function(obj){ return obj.report_index; });
+        var hasMsg  = _.filter(loadData.data.list, function(n){ return n._messages.length > 0 })
+        // THIS NOW HAS NO MESSAGES.
 
-    
+        var noSum   = _.filter(hasMsg, function(n){ return n.name !== 'Summary'; });
+        var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
+
+        console.log(hasMsg, noSum);
         // organise the returned information to pass back a good set for raw data
         
         // Set the messages from the summary tag to the test object
@@ -51,11 +55,11 @@
 
         console.log(loadData.data.list[testIdx]);
         $scope.testname = loadData.data.name;
-        $scope.rawList = _.filter(loadData.data.list, function(n){ return n._messages.length > 0 })
+        $scope.rawList = tagList;
         
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
-            $scope.navlist = makeNavList($scope.rawList);
+            $scope.navlist =  makeNavList($scope.rawList);
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
