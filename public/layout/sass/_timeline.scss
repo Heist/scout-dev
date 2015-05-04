@@ -160,6 +160,43 @@
 #timeline-user {
 	position: relative;
 	height: 100%;
+
+	#timeline-user-only-screen {
+		position: absolute;
+		top: 10%;
+		left: 0;
+		width: 100%;
+		text-align: center;
+		padding: $pad*0.75 0;
+		@include type-light;
+
+		canvas {
+			position: relative;
+			left: 15%;
+			z-index: 999999;
+		}
+		
+		.timeline-user-avatar {
+			display: block;
+			padding: 0;
+			margin: 0 auto $pad auto;
+			width: 150px;
+			height: 150px;
+			@include radius(100px);
+			background: $white;
+			
+			img {
+				width: 90%;
+				height: auto;
+				opacity: 0.4;
+			}
+		}
+		
+		small {
+			@include type-regular;
+		}
+		
+	}
 	
 	#timeline-user-only {
 		position: absolute;
@@ -169,7 +206,12 @@
 		text-align: center;
 		padding: $pad*0.75 0;
 		@include type-light;
-		z-index: 9999999;
+
+		canvas {
+			position: relative;
+			left: 15%;
+			z-index: 999999;
+		}
 		
 		.timeline-user-avatar {
 			display: block;
