@@ -161,6 +161,7 @@
 	position: relative;
 	height: 100%;
 	overflow: hidden;
+	z-index: 9999999;
 
 	#timeline-user-only-screen {
 		position: absolute;
@@ -169,10 +170,6 @@
 		width: 100%;
 		text-align: center;
 		@include type-light;
-
-		canvas {
-			z-index: 999999;
-		}
 		
 		.timeline-user-avatar {
 			display: block;
