@@ -71,7 +71,7 @@
 	</div>
 	<!-- / discussion guide -->
 
-	<div class="sheet-holder">
+	<div class="sheet-holder" ng-controller="socketFunctions">
 		<div class="sheet">
 			
 			<!-- note input and display -->
@@ -168,10 +168,6 @@
 	<!-- toggle on interview or prototype view -->
 	<div ng-show="test.kind === 'interview'">
 		<ng-include src="'partials/app/_run-interview.html'"></ng-include>
-	</div>
-
-	<div ng-show="test.kind === 'prototype'">
-		<ng-include src="'partials/app/_run-prototype.html'"></ng-include>
 	</div>
 	<!-- /toggle on interview or prototype view -->
 
