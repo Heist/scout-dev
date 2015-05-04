@@ -7,20 +7,22 @@
        .controller('reset', ['$scope','$http', '$location', '$stateParams','$rootScope', 
                     function($scope, $http, $location, $stateParams, $rootScope){
 
-        $scope.sendToken = function(email){
-            var dataOut = {email: email};
-
-            $http
-                .post('/auth/forgot', dataOut)
-                .success(function(data, err){
-                        // console.log(data, err);
-                        $scope.successMsg = data;
-                });
-        };
-        
-        $scope.goToLogin = function(){
-            $location.path('/login');
-        };
+        $scope.newPass = function(pass){
+                var dataOut = {password: pass};
+                console.log('touched newPass');
+                $http
+                    .post('/auth/forgot'+$stateParams.token, dataOut)
+                    .success(function(data){
+                        // do a login here, perhaps
+                        console.log('reset', data);
+                        if(data.length === 0){ 
+                            $scope.successMsg = "I'm sorry, that reset token is broken.";
+                        }
+                        if(data.length > 0){
+                            $scope.successMsg = data;
+                        }
+                    });
+            }
         
     }]);
 })();
