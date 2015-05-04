@@ -6012,7 +6012,6 @@ hr {
 #view-onboarding {
   text-align: center;
   width: 100%;
-  height: 900px;
   position: relative; }
   #view-onboarding .hide {
     display: none; }
@@ -6030,15 +6029,16 @@ hr {
     font-size: 20px;
     color: rgba(255, 255, 255, 0.4); }
   #view-onboarding .onboarding-content img {
-    width: 900px;
+    width: 967px;
     margin: 45px 0 20px 0; }
   #view-onboarding .onboarding-content img.ranger {
     width: 180px;
     margin: 10% 0 20px 0; }
     #view-onboarding .onboarding-content img.ranger.small {
       width: 60px;
-      float: left;
-      margin: 0 0 0 10px; }
+      margin: 0 20px 0 0;
+      display: inline-block;
+      vertical-align: middle; }
   #view-onboarding .onboarding-content .button {
     margin: 40px 0 0 0;
     text-transform: uppercase;
@@ -6060,24 +6060,26 @@ hr {
       display: inline-block; }
   #view-onboarding footer {
     width: 100%;
-    margin: 0 50px; }
+    position: fixed;
+    bottom: 25px; }
     #view-onboarding footer .footer-content {
       text-align: center; }
       #view-onboarding footer .footer-content p {
         color: #fff;
         font-size: 22px;
         line-height: 28px;
-        float: left;
-        margin: 10px 40px 0 20px;
+        margin: 0;
         text-align: left;
-        width: 75%; }
+        width: 65%;
+        display: inline-block;
+        vertical-align: middle; }
         #view-onboarding footer .footer-content p.two-lines {
           margin: 0 0 0 20px;
           line-height: 29px; }
       #view-onboarding footer .footer-content .button {
         text-transform: uppercase;
-        float: left;
-        margin: 10px 0 0 0; }
+        margin: 0 0 0 20px;
+        display: inline-block; }
 
 /* block screens */
 .block-screen {
