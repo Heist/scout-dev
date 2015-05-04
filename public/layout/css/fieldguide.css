@@ -4068,12 +4068,13 @@ hr {
     padding: 15px 0;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 300;
-    z-index: 999999; }
+    font-weight: 300; }
     #timeline-user #timeline-user-only-screen canvas.screen {
       position: absolute;
       top: 110px;
-      left: 20%; }
+      left: 20%;
+      z-index: 999999;
+      background: red; }
     #timeline-user #timeline-user-only-screen .participant-info {
       position: absolute;
       top: 40px;
