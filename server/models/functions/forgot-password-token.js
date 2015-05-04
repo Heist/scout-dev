@@ -42,17 +42,20 @@ module.exports = function(emailAddress, app, next){
     }
 
     generateToken(20).then(function(token){
-        console.log(token);
+        console.log('we are in forgot-password', token);
         token = token.toString('hex');
         return models.User.findOneAsync({ 'local.email': emailAddress })
         .then(function(user){
             console.log(user);
             if(user !== 'undefined'){
                 user.resetPasswordToken = token;
+                var tomorrow = new Date();
+                user.resetPasswordExpires = tomorrow.setDate(tomorrow.getDate() + 1);
+
                 user.save(function(err, done){
                     return sendToken(done, token, function(err, sent){
                         // TODO here's our return statement, all of this is poor style
-                        console.log('this is what we sent ', sent);
+                        console.log('this is what we sent ', sent, done);
                         next(null, sent);
                     });
                 })

@@ -139,8 +139,13 @@ module.exports = function(app, passport) {
         console.log('reset me', req.body, req.params.token);
         fn.resetPassword(req.params.token, req.body.password, app, function(err, resetUserLogin){
             if(err){ console.log(err); }
-            console.log('Successful Password Reset (should be able to automatically log in)', resetUserLogin);
-            res.send(resetUserLogin);
+            if (resetUserLogin === 0){
+                console.log('no user found #2', resetUserLogin)
+                res.send('0');
+            } else {
+                console.log('Successful Password Reset (should be able to automatically log in)', resetUserLogin);
+                res.send(resetUserLogin);
+            }
         });
     });
 

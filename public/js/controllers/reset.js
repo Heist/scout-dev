@@ -15,14 +15,28 @@
                     .success(function(data){
                         // do a login here, perhaps
                         console.log('reset', data);
-                        if(data.length === 0){ 
-                            $scope.successMsg = "I'm sorry, that reset token is broken.";
-                        }
-                        if(data.length > 0){
-                            $scope.successMsg = data;
+                        $scope.successMsg = {};
+
+                        if(data === '0'){ 
+                            $scope.successMsg.val = 0;
+                            $scope.successMsg.msg = 'That token has already been used.';
+
+                        } else {
+                            $scope.successMsg.val = 1;
+                            $scope.successMsg.msg = data;
                         }
                     });
             }
+
+        $scope.goToLogin = function(){
+            console.log('goToLogin')
+            $location.path('/login');
+        }
+
+        $scope.goToForgot = function(){
+            console.log('goToForgot')
+            $location.path('/forgot');
+        }
         
     }]);
 })();

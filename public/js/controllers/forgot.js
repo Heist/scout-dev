@@ -11,6 +11,9 @@
        $scope.sendToken = function(email){
             var dataOut = {email: email};
             console.log('clicked send pass')
+            
+            $scope.hideMe = 'hide';
+
             $http
                 .post('/auth/forgot', dataOut)
                 .success(function(data, err){

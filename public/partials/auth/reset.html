@@ -33,11 +33,15 @@
                         </li>
                         
                         <li ng-if="successMsg">
-                            {{successMsg}}
+                            {{successMsg.msg}}
                         </li>
 
-                        <li ng-if="successMsg" class="text-center">
+                        <li ng-if="successMsg && successMsg.val === 1" class="text-center">
                             <button class="button dark" type="submit" ng-click="goToLogin()">Log in</button> 
+                            <!--<small><a ng-click="register(user)">Register?</a></small>-->
+                        </li>
+                        <li ng-if="successMsg && successMsg.val === 0" class="text-center">
+                            <button class="button dark" type="submit" ng-click="goToForgot()">Reset Again</button>
                             <!--<small><a ng-click="register(user)">Register?</a></small>-->
                         </li>
 
