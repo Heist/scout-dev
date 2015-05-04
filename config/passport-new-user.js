@@ -18,7 +18,7 @@ module.exports =  function(user, next){
           User.findOne({ 'local.email' : user.email })
             .exec(function(err, doc) {
                 if(err){console.log(err);}
-                var call = (doc !== null ) ? 'That email is already taken.' : null ;
+                var call = (doc !== null ) ? 1 : null ;
                 callback(null, call);
             });
         },

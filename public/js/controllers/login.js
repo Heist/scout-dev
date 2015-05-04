@@ -4,8 +4,8 @@
 
     // LOGIN CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-       .controller('login', [ '$scope','$http', '$location', '$stateParams','$rootScope',
-        function( $scope, $http, $location, $stateParams, $rootScope){
+       .controller('login', [ '$scope','$http', '$location', '$stateParams','$rootScope', '$sce',
+        function( $scope, $http, $location, $stateParams, $rootScope, $sce){
             // TODO: Reinsert ngCheckStrength
 
         // LOGIN FUNCTIONS ====================================
@@ -50,27 +50,35 @@
         };
 
         $scope.register = function(user){
-            var url, 
-                dataOut,
-                invite;
+            var dataOut, invite;
             
+            console.log('clicked register', user)
+
             if($stateParams.acct){
                 invite = $stateParams.acct.replace( /\//gi,"");
-                url = '/auth/signup/';
                 dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
             } else if (!$stateParams.acct) {
-                url = '/auth/signup/';
                 dataOut = {email: user.email, name:user.name, password:  user.password};
             }
             
             $http
-                .post(url, dataOut)
+                .post('/auth/signup/', dataOut)
                 .success(function(data){
+                    console.log(data, data.length);
+                    var msg = data;
 
-                    $scope.flashmessage = data.error;
-                    $rootScope.user = data._id;
-                    $location.path(data.redirect);
-
+                    // 'Please log out before signing up again.'
+                    if(data === '2'){
+                        $scope.flashmessage = 'Please log out before signing up again.';
+                    }
+                    if(data === '1' ){
+                        msg = 'That email is already taken. <br /><a href="/forgot">Would you like a password reminder?</a>';
+                        $scope.flashmessage = $sce.trustAsHtml(msg);
+                    } else {
+                        // $scope.flashmessage = $sce.trustAsHtml(data);
+                        $rootScope.user = data._id;
+                        $location.path(data.redirect);
+                    }
                 });
         };
 

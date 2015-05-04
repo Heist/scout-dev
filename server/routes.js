@@ -91,11 +91,11 @@ module.exports = function(app, passport) {
     // process the signup form
     app.post('/auth/signup', function(req, res) {
         if (!req.body.email || !req.body.password) {
-            return res.json({ error: 'Email and Password required' });
+            return res.send('Email and Password required');
         }
 
         passport.authenticate('local-signup', function(err, reply) {
-            if (err) {  }
+            if (err) { console.log(err) }
 
             if(reply.user){
                 req.logIn(reply.user, function(err) {
@@ -112,6 +112,7 @@ module.exports = function(app, passport) {
                 });
                 
             } else {
+                console.log(reply);
                 res.json(reply);
             }
         })(req, res);

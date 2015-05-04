@@ -80,7 +80,7 @@ module.exports = function(app, passport) {
             passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
         },
         function(req, email, password, done){
-            if (req.user){ return done(null, 'Please log out before signing up again.'); } 
+            if (req.user){ return done(null, 2); } 
             
             var user = {
                 name : req.body.name,
