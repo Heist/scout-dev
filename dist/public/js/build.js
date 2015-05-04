@@ -52297,19 +52297,17 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         // Find the test in the left nav order
         var testIdx = _.indexOf(_.pluck(loadData.data.list, 'doctype'), 'test');
-        var hasMsg  = _.filter(loadData.data.list, function(n){ return n._messages.length > 0 })
-        var noSum   = _.filter(hasMsg, function(n){ return n.name !== 'Summary'; });
-        var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
-
-        void 0;
-        // organise the returned information to pass back a good set for raw data
         
         // Set the messages from the summary tag to the test object
         loadData.data.list[testIdx]._messages = _.filter(loadData.data.list, function(n){
                         return n.name === 'Summary';
                     })[0]._messages;
 
-        void 0;
+        // organise the returned information to pass back a good set for raw data
+        var hasMsg  = _.filter(loadData.data.list, function(n){ return n._messages.length > 0 })
+        var noSum   = _.filter(hasMsg, function(n){ return n.name !== 'Summary'; });
+        var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
+
         $scope.testname = loadData.data.name;
         $scope.rawList = tagList;
         
