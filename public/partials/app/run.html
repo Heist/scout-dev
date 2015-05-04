@@ -89,12 +89,24 @@
 				<h2>{{subject.name}}</h2>
 			</div>
 
-			<div id="timeline-user-only" style="top:5%;" ng-show="subject.testroom">
+			<div id="timeline-user-only-screen" ng-show="subject.testroom">
+				<p>Your participant's screen</p>
 				<canvas id="feed"></canvas>
 				<img id='ia' style='display:none;'/>
 				<div style='clear'></div>
-				<small>Testing with</small>
-				<h2>{{subject.name}}</h2>
+				<div class="participant-info">
+					<small>Testing with</small>
+					<h2>{{subject.name}}</h2>
+				</div>
+			</div>
+
+			<div id="cta">
+				<div class="cta">
+					<button class="button outline" ng-click="summarizeModalToggle()" tabindex="-1">
+					<div class="checkmark"></div>
+					<span>End session</span>
+					</button>
+				</div>
 			</div>
 
 		</div>

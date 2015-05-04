@@ -160,20 +160,22 @@
 #timeline-user {
 	position: relative;
 	height: 100%;
+	overflow: hidden;
 
 	#timeline-user-only-screen {
 		position: absolute;
 		top: 10%;
-		left: 0;
+		left: 15%;
 		width: 100%;
 		text-align: center;
 		padding: $pad*0.75 0;
 		@include type-light;
+		z-index: 999999;
 
-		canvas {
-			position: relative;
-			left: 15%;
-			z-index: 999999;
+		.participant-info {
+			position: absolute;
+			top: 40px;
+			left: 45%;
 		}
 		
 		.timeline-user-avatar {
