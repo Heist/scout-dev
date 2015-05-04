@@ -51487,6 +51487,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 		};
 	}]);
 })();
+<<<<<<< HEAD
 // forgot.js
 (function() {
     'use strict';
@@ -51513,12 +51514,9 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                         }
                     });
             };
+=======
+>>>>>>> sharon-fixes-may-1
 
-            $scope.goToLogin = function(){
-                $location.path('/login');
-            };
-    }]);
-})();
 // login.js
 (function() {
     'use strict';
