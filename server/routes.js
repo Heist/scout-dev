@@ -120,27 +120,26 @@ module.exports = function(app, passport) {
 // PASSWORD RESET ROUTES ==================================
     // forgotten passwords
     app.post('/auth/forgot', function(req, res, next) {
-        console.log('touched NEW forgot route');
+        console.log('touched forgot route');
         fn.forgotPasswordToken( req.body.email, app, function(err, tokenObject){
-            console.log('tokenObject', tokenObject);
+            console.log('Forgotten Password Token (should be a "we sent a token" message)', tokenObject);
             res.send(tokenObject);
         });
     });
 
-    // password reset route
+    // password reset routes
     app.get('/auth/reset/:token', function(req, res) {
-        console.log(req.body);
+        // is there a user with that token?
         models.User.findOne({ 'resetPasswordToken' : req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
             if (!user) { res.send('0'); }
             res.send('1');
         });
-    });
-
-    // password reset route
-    app.post('/auth/reset/:token', function(req, res) {
-        fn.resetPassword(req.params.token, req.body.password, app, function(err, pass){
+    }).post('/auth/reset/:token', function(req, res) {
+        // password reset route
+        fn.resetPassword(req.params.token, req.body.password, app, function(err, resetUserLogin){
             if(err){ console.log(err); }
-            res.send(pass);
+            console.log('Successful Password Reset (should be able to automatically log in)', resetUserLogin);
+            res.send(resetUserLogin);
         });
     });
 

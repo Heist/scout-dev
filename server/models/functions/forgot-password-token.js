@@ -47,11 +47,14 @@ module.exports = function(emailAddress, app, next){
         return models.User.findOneAsync({ 'local.email': emailAddress })
         .then(function(user){
             if(user){
-                return sendToken(user, token, function(err, sent){
-                    // TODO here's our return statement, all of this is poor style
-                    console.log('this is what we sent ', sent);
-                    next(null, sent);
-                });
+                user.resetPasswordToken = token;
+                user.save().then(function(user){
+                    return sendToken(user, token, function(err, sent){
+                        // TODO here's our return statement, all of this is poor style
+                        console.log('this is what we sent ', sent);
+                        next(null, sent);
+                    });
+                })
             } else {
                 next(null, 'No user with that e-mail exists.');
             }

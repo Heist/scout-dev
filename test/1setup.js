@@ -231,4 +231,16 @@ describe("Check Passport", function(){
 			}).done();
 		});
 	});
+
+	describe('POST /auth/forgot', function(){
+		it.skip('should set a new token on request by existing user', function(done){})
+		it.skip('should reset a token if there is a token on that account', function(done){})
+		it.skip('should return a zero if there is no user by that password', function(done){})
+	})
+
+	describe('POST /auth/reset', function(){
+		it.skip('should set a new token on request by existing user', function(done){})
+		it.skip('should reset a token if there is a token on that account', function(done){})
+		it.skip('should return a zero if there is no user by that password', function(done){})
+	})
 });

@@ -49,10 +49,6 @@
             $scope.reg_toggle = true;
         };
 
-        $scope.goToReset = function(){
-            $location.path('/reset');
-        };
-
         $scope.register = function(user){
             var url, 
                 dataOut,

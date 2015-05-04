@@ -35,6 +35,7 @@ module.exports = function(token, pass, app, next){
             });
         },
         function(user, done) {
+            console.log('reset password user', user);
             if(user !== null){
                 var smtpTransport = nodemailer.createTransport({
                         service: 'Mandrill',
@@ -62,6 +63,7 @@ module.exports = function(token, pass, app, next){
         }
     ], function(err, results) {
         if(err){ console.log(err); }
+        console.log(results);
         next(null, results);
     });
 
