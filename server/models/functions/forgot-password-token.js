@@ -46,10 +46,11 @@ module.exports = function(emailAddress, app, next){
         token = token.toString('hex');
         return models.User.findOneAsync({ 'local.email': emailAddress })
         .then(function(user){
-            if(user){
+            console.log(user);
+            if(user !== 'undefined'){
                 user.resetPasswordToken = token;
-                user.save().then(function(user){
-                    return sendToken(user, token, function(err, sent){
+                user.save(function(err, done){
+                    return sendToken(done, token, function(err, sent){
                         // TODO here's our return statement, all of this is poor style
                         console.log('this is what we sent ', sent);
                         next(null, sent);

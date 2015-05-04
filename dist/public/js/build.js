@@ -51497,26 +51497,16 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         function($scope, $http, $location, $stateParams, $rootScope){
 
         // Controller Functions ===========================
-            $scope.newPass = function(pass){
-                var dataOut = {password: pass};
-                void 0;
-                $http
-                    .post('/auth/reset'+$stateParams.token, dataOut)
-                    .success(function(data){
-                        // do a login here, perhaps
-                        void 0;
-                        if(data.length === 0){ 
-                            $scope.successMsg = "I'm sorry, that reset token is broken.";
-                        }
-                        if(data.length > 0){
-                            $scope.successMsg = data;
-                        }
-                    });
-            };
-
-            $scope.goToLogin = function(){
-                $location.path('/login');
-            };
+       $scope.sendToken = function(email){
+            var dataOut = {email: email};
+            void 0
+            $http
+                .post('/auth/forgot', dataOut)
+                .success(function(data, err){
+                        // console.log(data, err);
+                        $scope.successMsg = data;
+                });
+        };
     }]);
 })();
 // login.js
@@ -51568,10 +51558,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         $scope.showReg = function(){
             $scope.reg_toggle = true;
-        };
-
-        $scope.goToReset = function(){
-            $location.path('/reset');
         };
 
         $scope.register = function(user){
@@ -51931,20 +51917,22 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
        .controller('reset', ['$scope','$http', '$location', '$stateParams','$rootScope', 
                     function($scope, $http, $location, $stateParams, $rootScope){
 
-        $scope.sendToken = function(email){
-            var dataOut = {email: email};
-
-            $http
-                .post('/auth/forgot', dataOut)
-                .success(function(data, err){
-                        // console.log(data, err);
-                        $scope.successMsg = data;
-                });
-        };
-        
-        $scope.goToLogin = function(){
-            $location.path('/login');
-        };
+        $scope.newPass = function(pass){
+                var dataOut = {password: pass};
+                void 0;
+                $http
+                    .post('/auth/forgot'+$stateParams.token, dataOut)
+                    .success(function(data){
+                        // do a login here, perhaps
+                        void 0;
+                        if(data.length === 0){ 
+                            $scope.successMsg = "I'm sorry, that reset token is broken.";
+                        }
+                        if(data.length > 0){
+                            $scope.successMsg = data;
+                        }
+                    });
+            }
         
     }]);
 })();

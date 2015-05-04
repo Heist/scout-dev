@@ -10,7 +10,7 @@
         // Controller Functions ===========================
        $scope.sendToken = function(email){
             var dataOut = {email: email};
-
+            console.log('clicked send pass')
             $http
                 .post('/auth/forgot', dataOut)
                 .success(function(data, err){

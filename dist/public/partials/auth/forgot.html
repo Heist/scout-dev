@@ -14,40 +14,34 @@
             <!-- login form -->
             <div id="form-login">
             
-                <form ng-model="user" name="pwChecker">
+                <form ng-model="user" name="resetForm">
                    
                     <ul class="nobullets withlabels">
-                        <li ng-show="!successMsg">
-                        <input  class="input" type="password" name="password" value="" placeholder="Your new password" ng-model="user.password" required/>
-                        <ul class="pwStrong" ng-check-strength="user.password"></ul>
-                        </li >
-                        <li ng-show="!successMsg">
-                            <input class="input" type="password" name="confirm" value="" placeholder="Please confirm your new password" ng-model="passwordConfirm" ng-match="user.password" required/>
-                        </li>
-                        <li ng-show="pwChecker.confirm.$error.match && !pwChecker.confirm.$pristine" 
-                            class="messaging messaging-problem">Sorry, those passwords don't match.
-                        </li>
-                        <li ng-show="!successMsg" class="text-center">
-                            <button class="button dark" type="submit" ng-click="newPass(password)">Reset password</button> 
-                            <!--<small><a ng-click="register(user)">Register?</a></small>-->
-                        </li>
-                        
+                        <li>
                         <li ng-if="successMsg">
                             {{successMsg}}
                         </li>
-
-                        <li ng-if="successMsg" class="text-center">
-                            <button class="button dark" type="submit" ng-click="goToLogin()">Log in</button> 
-                            <!--<small><a ng-click="register(user)">Register?</a></small>-->
+                        <li ng-if="resetForm.email.$error.required && !resetForm.email.$pristine" 
+                            class="messaging messaging-problem">We do need your e-mail to reset your password.
                         </li>
 
+                        <li ng-if="resetForm.email.$error.required && !resetForm.email.$pristine" 
+                            class="messaging messaging-problem">Sorry, your e-mail isn't in our system.
+                        </li>
+
+                        <input class="input" type="text" name="email" value="" placeholder="Your e-mail address" ng-model="email" required ng-hide="successMsg"/>
+                        </li>
                         
+                        <li class="text-center" ng-hide="successMsg">
+                            <button class="button dark" type="submit" ng-click="sendToken(email)">Reset password</button> 
+                            <!--<small><a ng-click="register(user)">Register?</a></small>-->
+                        </li>
                         
                     </ul>
                 </form>
                 
                 <p class="text-center">
-                    <small>Remembered that password? <a ng-click="goToLogin()">Return to login</a>.</small>
+                    <small>Remembered that password? <a href="/login">Return to login</a>.</small>
                     
                 </p>
             
