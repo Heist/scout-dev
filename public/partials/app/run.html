@@ -177,13 +177,13 @@
 	</div>
 
 	<!-- toggle on interview or prototype view -->
-	<div ng-if="test.kind === 'interview'">
+	<div ng-show="test.kind === 'interview'">
 		<ng-include src="'partials/app/_run-interview.html'"></ng-include>
 	</div>
 
-<!-- 	<div ng-if="test.kind === 'prototype'">
+	<div ng-show="test.kind === 'prototype'">
 		<ng-include src="'partials/app/_run-prototype.html'"></ng-include>
-	</div> -->
+	</div>
 	<!-- /toggle on interview or prototype view -->
 
 	<!-- summarize at end of test modal -->

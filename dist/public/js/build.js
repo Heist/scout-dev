@@ -53222,14 +53222,19 @@ function($timeout, $window, config) {
                         // Authenticated
                         var interBoot = '';
                             if (user !== '0' && interBoot !== '1') {
+                                void 0;
+                                void 0;
                                 $rootScope.user = user;
                                 interBoot = '1';
                                 $window.Intercom("boot", {
-                                    app_id: "z3glk3pq",
+                                    app_id: "YOURAPPID",
                                     email: user.email,
                                     created_at: user.created,
                                     name: user.name,
-                                    user_id: user._id
+                                    user_id: user._id,
+                                    widget: {
+                                      activator: "#IntercomDefaultWidget"
+                                    }
                                 });
 
                                 deferred.resolve();
