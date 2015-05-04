@@ -8,15 +8,15 @@
         function($scope, $http, $location, $stateParams, $rootScope){
 
         // Controller Functions ===========================
-            $scope.newPass = function(pass){
-                var dataOut = {password: pass};
-                console.log('touched newPass');
+            $scope.getResetToken = function(email){
+                var dataOut = {email: email};
+
                 $http
-                    .post('/auth/forgot'+$stateParams.token, dataOut)
+                    .post('/auth/forgot', dataOut)
                     .success(function(data){
                         // do a login here, perhaps
-                        console.log('forgotten token sent', data);
-                        
+                        console.log('Requested new password token token sent', data);
+
 
                         // if(data.length === 0){ 
                         //     $scope.successMsg = "I'm sorry, that reset token is broken.";

@@ -233,7 +233,12 @@ describe("Check Passport", function(){
 	});
 
 	describe('POST /auth/forgot', function(){
-		it.skip('should set a new token on request by existing user', function(done){})
+		it.skip('should set a new token on request by existing user', function(done){
+			api.post('/auth/forgot')
+				.send({
+					
+				})
+		})
 		it.skip('should reset a token if there is a token on that account', function(done){})
 		it.skip('should return a zero if there is no user by that password', function(done){})
 	})
