@@ -4058,7 +4058,8 @@ hr {
 #timeline-user {
   position: relative;
   height: 100%;
-  overflow: hidden; }
+  overflow: hidden;
+  z-index: 9999999; }
   #timeline-user #timeline-user-only-screen {
     position: absolute;
     top: 10%;
@@ -4068,8 +4069,6 @@ hr {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300; }
-    #timeline-user #timeline-user-only-screen canvas {
-      z-index: 999999; }
     #timeline-user #timeline-user-only-screen .timeline-user-avatar {
       display: block;
       padding: 0;
