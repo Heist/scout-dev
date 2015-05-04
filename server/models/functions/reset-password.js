@@ -5,34 +5,43 @@
 
 module.exports = function(token, pass, app, next){
 // Module dependencies ==========================
-    var async      = require('async');
+    // var async      = require('async');
     var bcrypt     = require('bcrypt-nodejs');
     var nodemailer = require('nodemailer');
-    var models     = require('../../models');
+    var Bluebird   = require('bluebird')
+    var models     = Bluebird.promisifyAll(require('../../models'));
 
 // load functions ===============================
     function generateHash(password) { return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null); }
 
 // RESET A LOST PASSWORD ==================================
     
+    var findUserAndResetPassword = function(){
+        return models.User.findOneAsync({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } })
+    }
+
+    findUserAndResetPassword.then(function(user){
+        console.log('user', user);
+        if (user !== null ){ console.log('no user found'); return;} 
+
+        // TODO: Abstract this shit onto the user model
+        user.local.password = user.generateHash(pass);
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+
+        user.save(function(err, user){
+            return user;
+        }).then(function(user){
+            
+        });
+    }).catch(function(err){
+        if(err){console.log(err)}
+    })
+
+
     async.waterfall([
         function(done) {
-            models.User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-                console.log('user', user);
-                
-                if (user !== null ){ console.log('no user found'); done(null, null); 
-                    // TODO: Abstract this shit onto the user model
-                    user.local.password = user.generateHash(pass);
-                    user.resetPasswordToken = undefined;
-                    user.resetPasswordExpires = undefined;
-
-                    user.save(function(err) {
-                        done(err, user);
-                    });
-                } else {
-                    done(null, null);
-                }
-            });
+            
         },
         function(user, done) {
             console.log('reset password user', user);
