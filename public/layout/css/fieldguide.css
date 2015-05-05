@@ -4602,8 +4602,6 @@ hr {
   #view-login #logo img {
     width: 70px;
     height: auto; }
-  #view-login .messaging {
-    border: 1px solid rgba(255, 255, 255, 0.25); }
   #view-login .error {
     border: 2px solid red; }
 
