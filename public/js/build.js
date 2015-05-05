@@ -52476,6 +52476,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         $scope.saveEdit = function(original){
             $scope.messageEditToggle = '';
+
             var output = original;
 
             if(output._tags.indexOf(summaryList.summaryTagIdCheck) !== -1){
