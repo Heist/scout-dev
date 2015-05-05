@@ -121,6 +121,7 @@ module.exports = function(app, passport, io) {
                 socket.join(data.room);
 
                 // passes the phone the route for getting the appropriate test from the socket
+                // MUST be an event named joinedChannel for iOS to work
                 io.sockets.in(data.room).emit('joinedChannel', {data: {body: test.link, title:test.name}});
             });
         });
