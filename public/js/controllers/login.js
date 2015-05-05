@@ -43,10 +43,12 @@
         };
 
         $scope.showLogin = function(){
+            $scope.flashmessage = '';
             $scope.reg_toggle = false;
         };
 
         $scope.showReg = function(){
+            $scope.flashmessage = '';
             $scope.reg_toggle = true;
         };
 
