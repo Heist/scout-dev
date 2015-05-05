@@ -84,24 +84,20 @@ module.exports = function(app, passport, io) {
 
             // On message received, send that message to the room
             // room is identified by the device ID
-            console.log('Received message');
+            // console.log('Received message');
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
             if (k[1] !== undefined) {
                 var chan = k[1].substring(1, k[1].length);
-                console.log(chan);
                 socket.broadcast.to(chan).emit('message', msg);                
             }
         });
 
         // subscription is used in the iOS app
         socket.on('subscribe', function(data) { 
-            console.log('channel subscription received', data.room)
-
             var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
-            
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
-            socket.join(hash); 
-
+            console.log('channel subscription received', data.room, hash);
+            socket.join(hash);
         });
 
         // channel or join_room are used by the web app
