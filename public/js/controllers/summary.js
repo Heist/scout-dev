@@ -216,6 +216,7 @@
 
         $scope.saveEdit = function(original){
             $scope.messageEditToggle = '';
+
             var output = original;
 
             if(output._tags.indexOf(summaryList.summaryTagIdCheck) !== -1){

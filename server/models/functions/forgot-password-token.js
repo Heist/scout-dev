@@ -47,7 +47,7 @@ module.exports = function(emailAddress, app, next){
         return models.User.findOneAsync({ 'local.email': emailAddress })
         .then(function(user){
             console.log(user);
-            if(user !== 'undefined'){
+            if(user !== 'undefined' && user !== null){
                 user.resetPasswordToken = token;
                 var tomorrow = new Date();
                 user.resetPasswordExpires = tomorrow.setDate(tomorrow.getDate() + 1);
