@@ -226,10 +226,11 @@
             $http.put('/api/message/', output)
                 .success(function(data, err){
                     console.log(data);
+
                     if($scope.selected.doctype === 'test'){
                         // if this is a test, the message needs to be marked as a Summary message
                         // this is in case of re-editing after an original edit
-                        data._tags.push(tagCheck);
+                        data.msg._tags.push(tagCheck);
                     }
 
                     // splice the new message over its old self in the messages list
