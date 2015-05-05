@@ -52297,16 +52297,33 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             return _.groupBy(data, function(obj){ return obj.doctype; }) ;
         }
 
-        // Find the test in the left nav order
-        var testIdx = _.indexOf(_.pluck(loadData.data.list, 'doctype'), 'test');
-        
         // Set the messages from the summary tag to the test object
-        loadData.data.list[testIdx]._messages = _.filter(loadData.data.list, function(n){
-                        return n.name === 'Summary';
-                    })[0]._messages;
+        var summaryObject = function(data){
+            // Find the test in the left nav order
+            var testIdx = _.indexOf(_.pluck(data, 'doctype'), 'test');
 
+            // get the tag object for #summary
+            var summaryItem = _.filter(loadData.data.list, function(n){ return n.name === 'Summary'; })[0];
+            
+            void 0;
+
+            // set the message list for the test to being those messages, and pass the list generally
+            var summaryMsgList = data[testIdx]._messages = summaryItem._messages;
+            var summaryTagIdCheck = summaryItem._id;
+
+            // loadData.data.list[testIdx]._messages = _.filter(loadData.data.list, function(n){
+            //             return n.name === 'Summary';
+            //         })[0]._messages;
+
+            return { summaryMsgList: summaryMsgList, summaryTagIdCheck: summaryTagIdCheck, freshList : data };
+        }
+
+        var summaryList = summaryObject(loadData.data.list);
+        void 0;
+
+        var tagCheck = summaryList.summaryTagIdCheck;
         // organise the returned information to pass back a good set for raw data
-        var hasMsg  = _.filter(loadData.data.list, function(n){ return n._messages.length > 0 })
+        var hasMsg  = _.filter(summaryList.freshList, function(n){ return n._messages.length > 0 })
         var noSum   = _.filter(hasMsg, function(n){ return n.name !== 'Summary'; });
         var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
 
@@ -52349,11 +52366,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         var addTagsToLeftNav = function(data){
             // when we're returned new data, check the tags for messages and filter ones that have none
             // set the new list of tags to the bottom of the navlist
-
-            var tagsForConcat = _.filter(data.tags, function(n){ return n._messages.length > 0 })
             var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
-            $scope.rawList = clear.concat(tagsForConcat);
+            var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
+            var noSum   = _.filter(hasMsg, function(n){ return n.name !== 'Summary'; });
+            var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
+
+            $scope.rawList = clear.concat(tagList);
 
         }
         
@@ -52457,20 +52476,38 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         $scope.saveEdit = function(original){
             $scope.messageEditToggle = '';
-            $http.put('/api/message/', original)
+
+            var output = original;
+
+            if(output._tags.indexOf(summaryList.summaryTagIdCheck) !== -1){
+                void 0;
+                output.body = output.body + ' #Summary';
+            }
+            
+            $http.put('/api/message/', output)
                 .success(function(data, err){
+                    void 0;
+
+                    if($scope.selected.doctype === 'test'){
+                        // if this is a test, the message needs to be marked as a Summary message
+                        // this is in case of re-editing after an original edit
+                        data.msg._tags.push(tagCheck);
+                    }
+
                     // splice the new message over its old self in the messages list
-                    var idx = _.pluck($scope.messages[original._subject.name], '_id').indexOf(original._id);
-                    $scope.messages[original._subject.name].splice(idx,1, data.msg);
+                    var idx = _.pluck($scope.messages[output._subject.name], '_id').indexOf(output._id);
+                    $scope.messages[output._subject.name].splice(idx,1, data.msg);
                     
                     // now find the original._id on selected item in left nav and replace with new _id
-                    var x = $scope.selected._messages.indexOf(original._id);
+                    var x = $scope.selected._messages.indexOf(output._id);
                     if( x !== -1){
                             $scope.selected._messages.splice(x, 1, data.msg._id);
                         }
                     if($scope.selected._messages.length === 0){
                         $scope.selected._messages.splice(0, 1, data.msg._id);
                     }
+
+
 
                     addTagsToLeftNav(data);
                 });

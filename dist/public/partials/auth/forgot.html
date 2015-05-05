@@ -2,10 +2,10 @@
 
     <div class="container">
     
-        <div class="module third">&nbsp;</div>
+        <div class="module one-third">&nbsp;</div>
         
         
-        <div class="module third">
+        <div class="module two-fifths">
             
             <p id="logo" class="text-center">
                 <img src="/layout/assets/fg-binocs-header.png" />
@@ -18,15 +18,15 @@
                    
                     <ul class="nobullets withlabels">
                         <li>
-                        <li ng-if="successMsg">
+                        <li ng-if="successMsg" class="text-center">
                             {{successMsg}}
                         </li>
                         <li ng-if="resetForm.email.$error.required && !resetForm.email.$pristine" 
-                            class="messaging messaging-problem">We do need your e-mail to reset your password.
+                            class="messaging messaging-problem text-center">We do need your e-mail to reset your password.
                         </li>
 
                         <li ng-if="resetForm.email.$error.required && !resetForm.email.$pristine" 
-                            class="messaging messaging-problem">Sorry, your e-mail isn't in our system.
+                            class="messaging messaging-problem text-center">Sorry, your e-mail isn't in our system.
                         </li>
 
                         <input class="input" type="text" name="email" value="" placeholder="Your e-mail address" ng-model="email" required ng-hide="successMsg"/>

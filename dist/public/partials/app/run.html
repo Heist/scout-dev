@@ -78,7 +78,7 @@
 			<div id="testing-input">
 				
 				<!-- input notes -->
-				<div id="session-input">
+				<div id="session-input" class="prototype">
 					<textarea class="typeahead-box" type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Remember to give your notes #themes"></textarea>
 					<div id="hash-tag-pool">
 						<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
@@ -86,7 +86,7 @@
 				</div>
 				
 				<!-- timeline -->
-				<div id="timeline" scroll-glue="glued">
+				<div id="timeline" class="prototype" scroll-glue="glued">
 					<ul>
 						
 						<!-- empty state -->
@@ -134,6 +134,15 @@
 			
 			<div id="timeline-user">
 
+				<div id="cta">
+					<div class="cta">
+						<button class="button outline" ng-click="summarizeModalToggle()" tabindex="-1">
+						<div class="checkmark"></div>
+						<span>End session</span>
+						</button>
+					</div>
+				</div>
+
 				<div id="timeline-user-only-screen" ng-show="subject.testroom">
 					<p>Your participant's screen</p>
 					<canvas id="feed"></canvas>
@@ -142,15 +151,6 @@
 					<div class="participant-info">
 						<small>Testing with</small>
 						<h2>{{subject.name}}</h2>
-					</div>
-				</div>
-
-				<div id="cta">
-					<div class="cta">
-						<button class="button outline" ng-click="summarizeModalToggle()" tabindex="-1">
-						<div class="checkmark"></div>
-						<span>End session</span>
-						</button>
 					</div>
 				</div>
 			</div>
