@@ -1,10 +1,7 @@
 <div class="sheet-holder" ng-controller="socketFunctions">
 	<div class="sheet">
 	
-	<!-- note input and display -->
-	<div id="testing-input" class="interview">
-
-		<div id="cta" class="interview">
+		<div id="cta-interview">
 			<div class="cta">
 				<button class="button outline" ng-click="summarizeModalToggle()" tabindex="-1">
 				<div class="checkmark"></div>
@@ -12,14 +9,8 @@
 				</button>
 			</div>
 		</div>
-		
-		<!-- input notes -->
-		<div id="session-input">
-			<textarea class="typeahead-box" type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Enter your notes here - hit enter to submit a note."></textarea>
-			<div id="hash-tag-pool">
-				<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
-			</div>
-		</div>
+	<!-- note input and display -->
+	<div id="testing-input" class="interview">
 		
 		<!-- timeline -->
 		<div id="timeline" class="interview" scroll-glue="glued">
@@ -58,6 +49,14 @@
 					<div class="clear"></div>
 				</li>
 			</ul>
+		</div>
+
+		<!-- input notes -->
+		<div id="session-input">
+			<textarea class="typeahead-box" type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Enter your notes here - hit enter to submit a note."></textarea>
+			<div id="hash-tag-pool">
+				<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
+			</div>
 		</div>
 	</div>
 	<!-- / note input and display -->
