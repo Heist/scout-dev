@@ -52320,6 +52320,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         var summaryList = summaryObject(loadData.data.list);
         console.log(summaryList);
+
+        var tagCheck = summaryList.summaryTagIdCheck;
         // organise the returned information to pass back a good set for raw data
         var hasMsg  = _.filter(summaryList.freshList, function(n){ return n._messages.length > 0 })
         var noSum   = _.filter(hasMsg, function(n){ return n.name !== 'Summary'; });
@@ -52483,6 +52485,12 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             
             $http.put('/api/message/', output)
                 .success(function(data, err){
+                    if($scope.selected.doctype === 'test'){
+                        // if this is a test, the message needs to be marked as a Summary message
+                        // this is in case of re-editing after an original edit
+                        data._tags.push(tagCheck);
+                    }
+
                     // splice the new message over its old self in the messages list
                     var idx = _.pluck($scope.messages[output._subject.name], '_id').indexOf(output._id);
                     $scope.messages[output._subject.name].splice(idx,1, data.msg);
@@ -52495,6 +52503,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     if($scope.selected._messages.length === 0){
                         $scope.selected._messages.splice(0, 1, data.msg._id);
                     }
+
+
 
                     addTagsToLeftNav(data);
                 });
