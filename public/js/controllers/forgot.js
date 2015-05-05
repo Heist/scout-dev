@@ -22,7 +22,7 @@
                             $scope.successMsg = data;
                             
                         } else {
-                            var msg = data + '<br>Would you like to try again? <br>';
+                            var msg = data + '<br>Please try again';
                             $scope.successMsg = $sce.trustAsHtml(msg);
                             $scope.hideMe = 'show';
                         }
