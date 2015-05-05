@@ -3932,12 +3932,16 @@ hr {
 #timeline {
   padding: 0 0 150px 0;
   width: 100%;
-  height: 100%;
+  height: 90%;
   overflow: auto;
   margin: 0;
   /* first-run message on timeline */ }
-  #timeline.interview {
-    padding: 50px 0 150px 0; }
+  #timeline.prototype {
+    padding: 0 0 150px 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    margin: 0; }
   #timeline ul {
     list-style: none;
     padding: 0;
@@ -5179,7 +5183,7 @@ hr {
       border: 0; }
     #view-testing #testing-input #session-input {
       position: absolute;
-      bottom: 0;
+      bottom: 65px;
       left: 0;
       width: 100%;
       padding: 5px;
@@ -5209,6 +5213,8 @@ hr {
         font-size: 14px;
         line-height: 20px;
         font-style: italic; }
+      #view-testing #testing-input #session-input.prototype {
+        bottom: 0; }
       #view-testing #testing-input #session-input .typeahead-box {
         width: 100%;
         font-size: 14px;
@@ -5263,6 +5269,36 @@ hr {
       #view-testing #testing-input #hash-tag-pool .hashtag {
         padding: 0 10px;
         font-size: 14px; }
+  #view-testing #cta-interview {
+    width: 100%;
+    padding: 5px;
+    height: 65px;
+    background: #fff;
+    border: 0; }
+    #view-testing #cta-interview .cta {
+      float: right;
+      margin: 7px; }
+      #view-testing #cta-interview .cta button#endtest {
+        width: 110px;
+        height: 40px;
+        text-align: center;
+        float: left;
+        padding: 0; }
+        #view-testing #cta-interview .cta button#endtest .checkmark {
+          background: url("../assets/checkmark.svg") no-repeat;
+          width: 15px;
+          height: 15px;
+          margin: 9px 15px;
+          float: left; }
+        #view-testing #cta-interview .cta button#endtest span {
+          color: #85AC0F;
+          font-family: "canada-type-gibson",sans-serif;
+          font-style: normal;
+          font-weight: 300;
+          font-size: 14px;
+          display: block;
+          margin: 9px 0;
+          float: left; }
   #view-testing #cta {
     position: absolute;
     top: 0;
@@ -5272,8 +5308,6 @@ hr {
     height: 65px;
     background: #fff;
     border-bottom: 1px solid #dddddd; }
-    #view-testing #cta.interview {
-      border: 0; }
     #view-testing #cta .cta {
       float: right;
       margin: 7px; }
