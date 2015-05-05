@@ -38,7 +38,7 @@
                 .success(function(data){
                     console.log(data);
                     $scope.flashmessage = data.error;
-                    // $location.path('/');
+                    $location.path('/');
                 });
         };
 
