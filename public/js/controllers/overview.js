@@ -8,6 +8,7 @@
         
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
+        console.log('these are our tests', $scope.tests);
 
 
         // ONBOARDING =========================================

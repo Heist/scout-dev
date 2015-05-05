@@ -51550,8 +51550,9 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $http
                 .post(url, dataOut)
                 .success(function(data){
+                    console.log(data);
                     $scope.flashmessage = data.error;
-                    $location.path('/');
+                    // $location.path('/');
                 });
         };
 
@@ -51587,6 +51588,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     } else if(data === '2'){
                         $scope.flashmessage = 'Please log out before signing up again.';
                     } else {
+                        
                         $rootScope.user = data._id;
                         $location.path(data.redirect);
                     }
@@ -51720,6 +51722,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
+        console.log('these are our tests', $scope.tests);
 
 
         // ONBOARDING =========================================
@@ -52286,31 +52289,31 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
-        var makeNavList = function(data){
-            return _.toArray( _.groupBy(data, function(obj){ return obj.doctype; }) ).sort();
-        }
+        console.log('loadData', loadData.data);
 
-        
+        var makeNavList = function(data){
+            return _.groupBy(data, function(obj){ return obj.doctype; }) ;
+        }
 
         // Find the test in the left nav order
         var testIdx = _.indexOf(_.pluck(loadData.data.list, 'doctype'), 'test');
-        var tagList = _.sortBy(_.filter(loadData.data.list, function(n){ return n.name !== 'Summary'; }), function(obj){ return obj.report_index; });
-
-    
-        // organise the returned information to pass back a good set for raw data
         
         // Set the messages from the summary tag to the test object
         loadData.data.list[testIdx]._messages = _.filter(loadData.data.list, function(n){
                         return n.name === 'Summary';
                     })[0]._messages;
 
-        console.log(loadData.data.list[testIdx]);
+        // organise the returned information to pass back a good set for raw data
+        var hasMsg  = _.filter(loadData.data.list, function(n){ return n._messages.length > 0 })
+        var noSum   = _.filter(hasMsg, function(n){ return n.name !== 'Summary'; });
+        var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
+
         $scope.testname = loadData.data.name;
-        $scope.rawList = _.filter(loadData.data.list, function(n){ return n._messages.length > 0 })
+        $scope.rawList = tagList;
         
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
-            $scope.navlist = makeNavList($scope.rawList);
+            $scope.navlist =  makeNavList($scope.rawList);
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
