@@ -625,6 +625,7 @@ button.x-onboard {
   text-decoration: none;
   cursor: pointer;
   font-size: 14px;
+  line-height: 16px;
   padding: 11px 32.5px;
   float: left;
   margin: 0;
@@ -6027,9 +6028,9 @@ hr {
     font-size: 20px;
     color: rgba(255, 255, 255, 0.4); }
   #view-onboarding .onboarding-content img {
+    margin: 45px 0 20px 0;
     max-width: 900px;
-    width: 70%;
-    margin: 45px 0 20px 0; }
+    max-height: 70vh; }
   #view-onboarding .onboarding-content img.ranger {
     width: 180px;
     margin: 10% 0 20px 0; }
