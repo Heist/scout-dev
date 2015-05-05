@@ -625,6 +625,7 @@ button.x-onboard {
   text-decoration: none;
   cursor: pointer;
   font-size: 14px;
+  line-height: 16px;
   padding: 11px 32.5px;
   float: left;
   margin: 0;
@@ -659,6 +660,9 @@ button.x-onboard {
   .button.large {
     font-size: 14px;
     padding: 16px 30px; }
+  .button.med {
+    font-size: 13px;
+    padding: 10px 20px; }
   .button.small {
     font-size: 12px;
     padding: 3px 10px; }
@@ -3928,12 +3932,16 @@ hr {
 #timeline {
   padding: 0 0 150px 0;
   width: 100%;
-  height: 100%;
+  height: 90%;
   overflow: auto;
   margin: 0;
   /* first-run message on timeline */ }
-  #timeline.interview {
-    padding: 50px 0 150px 0; }
+  #timeline.prototype {
+    padding: 0 0 150px 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    margin: 0; }
   #timeline ul {
     list-style: none;
     padding: 0;
@@ -5175,7 +5183,7 @@ hr {
       border: 0; }
     #view-testing #testing-input #session-input {
       position: absolute;
-      bottom: 0;
+      bottom: 65px;
       left: 0;
       width: 100%;
       padding: 5px;
@@ -5205,6 +5213,8 @@ hr {
         font-size: 14px;
         line-height: 20px;
         font-style: italic; }
+      #view-testing #testing-input #session-input.prototype {
+        bottom: 0; }
       #view-testing #testing-input #session-input .typeahead-box {
         width: 100%;
         font-size: 14px;
@@ -5259,6 +5269,36 @@ hr {
       #view-testing #testing-input #hash-tag-pool .hashtag {
         padding: 0 10px;
         font-size: 14px; }
+  #view-testing #cta-interview {
+    width: 100%;
+    padding: 5px;
+    height: 65px;
+    background: #fff;
+    border: 0; }
+    #view-testing #cta-interview .cta {
+      float: right;
+      margin: 7px; }
+      #view-testing #cta-interview .cta button#endtest {
+        width: 110px;
+        height: 40px;
+        text-align: center;
+        float: left;
+        padding: 0; }
+        #view-testing #cta-interview .cta button#endtest .checkmark {
+          background: url("../assets/checkmark.svg") no-repeat;
+          width: 15px;
+          height: 15px;
+          margin: 9px 15px;
+          float: left; }
+        #view-testing #cta-interview .cta button#endtest span {
+          color: #85AC0F;
+          font-family: "canada-type-gibson",sans-serif;
+          font-style: normal;
+          font-weight: 300;
+          font-size: 14px;
+          display: block;
+          margin: 9px 0;
+          float: left; }
   #view-testing #cta {
     position: absolute;
     top: 0;
@@ -5268,8 +5308,6 @@ hr {
     height: 65px;
     background: #fff;
     border-bottom: 1px solid #dddddd; }
-    #view-testing #cta.interview {
-      border: 0; }
     #view-testing #cta .cta {
       float: right;
       margin: 7px; }
@@ -6027,9 +6065,9 @@ hr {
     font-size: 20px;
     color: rgba(255, 255, 255, 0.4); }
   #view-onboarding .onboarding-content img {
+    margin: 45px 0 20px 0;
     max-width: 900px;
-    width: 70%;
-    margin: 45px 0 20px 0; }
+    max-height: 70vh; }
   #view-onboarding .onboarding-content img.ranger {
     width: 180px;
     margin: 10% 0 20px 0; }
