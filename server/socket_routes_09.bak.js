@@ -1,7 +1,7 @@
-// socket_routes_09.js
+// socket_routes_1.js
 'use strict';
 
-module.exports = function(io, app, passport, debug) {
+module.exports = function(app, passport, io) {
     // MODULES ============================================
     var cookie = require('cookie'),
         cookieParser = require('cookie-parser'),
@@ -9,7 +9,7 @@ module.exports = function(io, app, passport, debug) {
         passportSocketIo = require('passport.socketio'),
         _ = require('lodash');
 
-   // LOCAL GLOBALS ======================================
+    // LOCAL GLOBALS ======================================
     var user = {},
         socketData = {},
         name = '',
@@ -17,7 +17,7 @@ module.exports = function(io, app, passport, debug) {
 
     // MODELS =============================================
     var Test = require('./models/data/test');
-
+    
     // var secrets = require(path.join(__dirname,'secrets'));
 
     // AUTHENTICATION VIA PASSPORT ========================
@@ -34,39 +34,35 @@ module.exports = function(io, app, passport, debug) {
 
     function onAuthorizeSuccess(data, accept){
         // Passport has heard of them ===========
-
-        console.log('authwin socket connection info', data.query.test);
+        
+        console.log('socket authorization success')
 
         user = data.user;
         name = data.user.name;
         userNames.claim(name);
-
+        
         default_room = data.query.test;
 
         accept(null, true);
 
     }
 
-  function onAuthorizeFail(data, message, error, accept){
+    function onAuthorizeFail(data, message, error, accept){
         // Assumed to be a guest user ===========
 
-        if(error){ console.log(error);}
+        if(error){ console.log(error); }
+        console.log('socket authorization failure') 
 
-        console.log('failed connection to socket.io:', message);
-        console.log('authfail socket connection info', data.query.test, default_room);
         name = userNames.getGuestName();
         default_room = data.query.test;
 
         accept(null, true);
-
-        // accept();
 
         // If they are not a guest user =========
         // accept(new Error(message));
         // this error will be sent to the user as a special error-package
         // see: http://socket.io/docs/client-api/#socket > error-object
     }
-
 
 // CONNECT TO THE SOCKETS ===========================================
 
@@ -79,73 +75,68 @@ module.exports = function(io, app, passport, debug) {
 
 // FIRE IT UP =======================================================
     io.sockets.on('connection', function (socket) {
-        console.log('hello user', user._account);
-        console.log('someone connected from somewhere');
+        console.log('someone connected from somewhere')
 
         var k = '';
 
-
         socket.on('message', function(msg, err){
             // if there's no channel, emit the message that there's no channel? IDK.
-            // console.log('message arrived!', msg, err);
+            // On message received from app, send that message to the room
+            // room is identified by the device ID
+
+            // console.log('Received message');
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
             if (k[1] !== undefined) {
                 var chan = k[1].substring(1, k[1].length);
-                socket.broadcast.to(chan).emit('message', msg);
+                socket.broadcast.to(chan).emit('message', msg);                
             }
         });
 
         // subscription is used in the iOS app
-        socket.on('subscribe', function(data) {
+        socket.on('subscribe', function(data) { 
             // get the app GUID and convert it to a short room key
             // emit that room key to the server and the client
             // join that channel oneself
-            
-            console.log('subscription arrived', data);
 
             var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
-            console.log('joining room hash', hash);
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
+            console.log('channel subscription received', data.room, hash);
             socket.join(hash);
-
         });
 
-
-        // channel or join_room are used by the web app
-        socket.on('channel', function(data) {
+        // channel or join_room are used by the web client
+        socket.on('channel', function(data) { 
             // when someone enters a channel on the web client
             // The web client passes back the name of the test to the channel as data
             // That data is then sent to the app
-            
-            console.log('joining channel', data.room, data.test, data);
+            console.log('someone chose a channel', data.test)
 
             var promise = Test.findOne({'_id': data.test})
                               .select("name link")
                               .exec();
-
+                              
             promise.then(function(test){
                 // joins the test to the socket from remote device
-                // console.log('Test found', test);
+                console.log('join this test room', test, 'room', data.room);
                 socket.join(data.room);
 
                 // passes the phone the route for getting the appropriate test from the socket
-                io.sockets.in(data.room).emit('joinedChannel', {data: {body: test.link, title:test.name}});
+                io.sockets.in(data.room).emit('joined_channel', {data: {body: test.link, title:test.name}});
             });
         });
 
-        socket.on('join_room', function(data) {
-            console.log('joining room', data.room.toLowerCase());
+        socket.on('join_room', function(data) { 
+            console.log('socket joining room', data.room);
             socket.join(data.room);
         });
 
+
         socket.on('testComplete', function(data){
-            console.log('testComplete', data.data.room);
+            console.log('test ending', data.data.body);
             io.sockets.in(data.data.room).emit('endTest', data.data.body);
         });
 
     });
-
-
 
 // Guest name management ============================================
     // Keep track of which names are used so that there are no duplicates
