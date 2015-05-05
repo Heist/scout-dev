@@ -3533,7 +3533,8 @@ Copyright (c) 2015 Daniel Eden
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  text-align: center; }
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.25); }
   .messaging.messaging-problem {
     background: #f37960;
     color: #fff; }
@@ -4602,8 +4603,6 @@ hr {
   #view-login #logo img {
     width: 70px;
     height: auto; }
-  #view-login .messaging {
-    border: 1px solid rgba(255, 255, 255, 0.25); }
   #view-login .error {
     border: 2px solid red; }
 
@@ -6028,7 +6027,8 @@ hr {
     font-size: 20px;
     color: rgba(255, 255, 255, 0.4); }
   #view-onboarding .onboarding-content img {
-    width: 967px;
+    max-width: 900px;
+    width: 70%;
     margin: 45px 0 20px 0; }
   #view-onboarding .onboarding-content img.ranger {
     width: 180px;

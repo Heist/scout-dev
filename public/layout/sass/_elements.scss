@@ -352,6 +352,7 @@
 	margin: 0 0 $pad/2 0;
 	@include radius;
 	text-align: center;
+	border: 1px solid rgba(255, 255, 255, 0.25);
 	
 	&.messaging-problem {
 		background: $fg-header-red;
