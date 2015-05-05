@@ -6,7 +6,11 @@
 	background: $fg-header-red;
 	color: $white;
 	min-height: 100%;
-	padding: 15% 0 0 0;	
+	padding: 15% 0 0 0;
+
+	.line {
+		text-decoration: underline;
+	}
 
 	label {
 		color: $white;
