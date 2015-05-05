@@ -51552,7 +51552,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 .success(function(data){
                     console.log(data);
                     $scope.flashmessage = data.error;
-                    // $location.path('/');
+                    $location.path('/');
                 });
         };
 
