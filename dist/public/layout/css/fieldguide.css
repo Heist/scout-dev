@@ -625,6 +625,7 @@ button.x-onboard {
   text-decoration: none;
   cursor: pointer;
   font-size: 14px;
+  line-height: 16px;
   padding: 11px 32.5px;
   float: left;
   margin: 0;
