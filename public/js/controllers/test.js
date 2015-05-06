@@ -11,6 +11,7 @@
         function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         var tagSort = function(tags){
          return _.filter(tags, function(n){
+                n.name = n.name.toLowerCase();
                 return n.name !== 'Summary';
             });
         };

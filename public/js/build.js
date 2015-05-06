@@ -51983,12 +51983,14 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         var tagSort = function(tags){
          return _.filter(tags, function(n){
+                n.name = n.name.toLowerCase();
                 return n.name !== 'Summary';
             });
         };
 
         var summaryTagId = function(tags){
             return _.filter(loadData.data._tags, function(n){
+                n.name = n.name.toLowerCase();
                 return n.name === 'Summary';
             })[0]._id;
         };
@@ -52583,6 +52585,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         var tagSort = function(tags){
          return _.filter(tags, function(n){
+                n.name = n.name.toLowerCase();
                 return n.name !== 'Summary';
             });
         };
