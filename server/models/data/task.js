@@ -19,7 +19,7 @@ var TaskSchema = new Schema ({
     
     doctype : { type: String, trim: true, default: 'task' },
 
-    name: { type : String, trim : true },
+    name: { type : String, trim : true, default: 'Task name' },
     desc : { type : String, trim : true },
     summary: { type : String, trim : true },
     pass_fail: { type: Boolean, default: true },

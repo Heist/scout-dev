@@ -10,10 +10,7 @@
         ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
         function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         var tagSort = function(tags){
-         return _.filter(tags, function(n){
-                n.name = n.name.toLowerCase();
-                return n.name !== 'Summary';
-            });
+         return _.filter(tags, function(n){ if(n.name){ n.name = n.name.toLowerCase(); return n.name !== 'Summary'; } else { return; }});
         };
 
         var data = loadData.data;
