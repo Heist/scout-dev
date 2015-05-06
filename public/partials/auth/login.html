@@ -61,20 +61,18 @@
 						</li>
 						
 						<li>
-							<input class="input" type="email" name="usermail" value="" placeholder="Your e-mail address" ng-class="{'error': regForm.username.$error.email && !regForm.username.$pristine}" ng-model="user.email" required /> 
+							<input class="input" type="email" name="usermail" value="" placeholder="Your e-mail address" ng-class="{'error': regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine}" ng-model="user.email" required /> 
 
 							<span class="small" ng-show="regForm.usermail.$error.email && !regForm.usermail.$pristine">&times; Please enter a valid email address.</span>
 						</li>
 
 						<li>
-							<input class="input" type="email" name="usermailConfirm" value="" placeholder="Please confirm your e-mail address" ng-model="user.emailConfirm" ng-class="{'error': regForm.username.$error.email && !regForm.username.$pristine}" ng-match="user.email" required/> 
+							<input class="input" type="email" name="usermailConfirm" value="" placeholder="Please confirm your e-mail address" ng-model="user.emailConfirm" ng-class="{'error': regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine}" ng-match="user.email" required/> 
 							<span class="small" ng-show="regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine">&times; Email address does not match.</span>
-
 						</li>
 						
 						<li>
-							<input class="input" type="password" name="password" id="field-password" value="" placeholder="Your password" ng-model="user.password" required/>
-							<!-- <ul class="pwStrong" ng-check-strength="user.password"></ul> -->
+							<input class="input" type="password" name="password" id="field-password" value="" placeholder="Your password" ng-model="user.password" ng-class="{'error': regForm.confirm.$error.match && !regForm.confirm.$pristine}" required/>
                         </li>
 						
 						<li>
