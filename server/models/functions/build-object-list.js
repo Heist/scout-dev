@@ -34,7 +34,7 @@ module.exports = function(report_id, next){
                 test : (arr[2].length > 0) ? arr[2][0].name : 'Test name not found',
                 list: _.flatten(arr)
             };
-
+            // console.log(navlist);
             return navlist;
         }).catch(function(err){
             if(err){ console.log(err); }
