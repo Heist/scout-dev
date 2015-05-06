@@ -51983,15 +51983,23 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         var tagSort = function(tags){
          return _.filter(tags, function(n){
-                n.name = n.name.toLowerCase();
-                return n.name !== 'Summary';
+                if(n.name){
+                    n.name = n.name.toLowerCase();
+                    return n.name !== 'Summary';
+                } else {
+                    return
+                }
             });
         };
 
         var summaryTagId = function(tags){
             return _.filter(loadData.data._tags, function(n){
-                n.name = n.name.toLowerCase();
-                return n.name === 'Summary';
+                if(n.name){
+                    n.name = n.name.toLowerCase();
+                    return n.name !== 'Summary';
+                } else {
+                    return
+                }
             })[0]._id;
         };
 
@@ -52313,8 +52321,12 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
             // get the tag object for #summary
             var summaryItem = _.filter(loadData.data.list, function(n){ 
-                n.name = n.name.toLowerCase();
-                return n.name === 'summary'; 
+                if(n.name){
+                    n.name = n.name.toLowerCase();
+                    return n.name !== 'Summary';
+                } else {
+                    return
+                }
             })[0];
             
             console.log('summary object', summaryItem, data);
@@ -52322,10 +52334,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             // set the message list for the test to being those messages, and pass the list generally
             var summaryMsgList = data[testIdx]._messages = (summaryItem && summaryItem._messages) ? summaryItem._messages : [];
             var summaryTagIdCheck = (summaryItem) ? summaryItem._id : 'undefined';
-
-            // loadData.data.list[testIdx]._messages = _.filter(loadData.data.list, function(n){
-            //             return n.name === 'Summary';
-            //         })[0]._messages;
 
             return { summaryMsgList: summaryMsgList, summaryTagIdCheck: summaryTagIdCheck, freshList : data };
         }
@@ -52336,7 +52344,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         var tagCheck = summaryList.summaryTagIdCheck;
         // organise the returned information to pass back a good set for raw data
         var hasMsg  = _.filter(summaryList.freshList, function(n){ return n._messages.length > 0 })
-        var noSum   = _.filter(hasMsg, function(n){ n.name = n.name.toLowerCase(); return n.name !== 'summary'; });
+        var noSum   = _.filter(hasMsg, function(n){ if(n.name){ n.name = n.name.toLowerCase(); return n.name !== 'Summary'; } else { return; }});
         var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
 
         $scope.testname = loadData.data.name;
@@ -52381,8 +52389,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
             var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
-            var noSum   = _.filter(hasMsg, function(n){ n.name = n.name.toLowerCase(); return n.name !== 'summary'; });
-            var sumMsg  = _.filter(hasMsg, function(n){ n.name = n.name.toLowerCase(); return n.name === 'summary'; });
+            var noSum   = _.filter(hasMsg, function(n){ if(n.name){ n.name = n.name.toLowerCase(); return n.name !== 'Summary'; } else { return; }});
+            var sumMsg  = _.filter(hasMsg, function(n){ if(n.name){ n.name = n.name.toLowerCase(); return n.name !== 'Summary'; } else { return; }});
             var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
             var testIdx  = _.indexOf(_.pluck($scope.rawList, 'doctype'), 'test');
 
@@ -52584,10 +52592,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
         function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         var tagSort = function(tags){
-         return _.filter(tags, function(n){
-                n.name = n.name.toLowerCase();
-                return n.name !== 'Summary';
-            });
+         return _.filter(tags, function(n){ if(n.name){ n.name = n.name.toLowerCase(); return n.name !== 'Summary'; } else { return; }});
         };
 
         var data = loadData.data;
