@@ -44,11 +44,11 @@
 
             // get the tag object for #summary
             var summaryItem = _.filter(loadData.data.list, function(n){ 
-                n.name.toLowerCase()
+                n.name = n.name.toLowerCase();
                 return n.name === 'summary'; 
             })[0];
             
-            console.log('summary object', summaryItem);
+            console.log('summary object', summaryItem, data);
 
             // set the message list for the test to being those messages, and pass the list generally
             var summaryMsgList = data[testIdx]._messages = summaryItem._messages;
@@ -67,7 +67,7 @@
         var tagCheck = summaryList.summaryTagIdCheck;
         // organise the returned information to pass back a good set for raw data
         var hasMsg  = _.filter(summaryList.freshList, function(n){ return n._messages.length > 0 })
-        var noSum   = _.filter(hasMsg, function(n){ return n.name !== 'Summary'; });
+        var noSum   = _.filter(hasMsg, function(n){ n.name = n.name.toLowerCase(); return n.name !== 'summary'; });
         var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
 
         $scope.testname = loadData.data.name;
@@ -112,8 +112,8 @@
             var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
             var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
-            var noSum   = _.filter(hasMsg, function(n){ n.name.toLowerCase(); return n.name !== 'summary'; });
-            var sumMsg  = _.filter(hasMsg, function(n){ n.name.toLowerCase(); return n.name === 'summary'; });
+            var noSum   = _.filter(hasMsg, function(n){ n.name = n.name.toLowerCase(); return n.name !== 'summary'; });
+            var sumMsg  = _.filter(hasMsg, function(n){ n.name = n.name.toLowerCase(); return n.name === 'summary'; });
             var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
             var testIdx  = _.indexOf(_.pluck($scope.rawList, 'doctype'), 'test');
 
@@ -230,7 +230,7 @@
 
             if(output._tags.indexOf(summaryList.summaryTagIdCheck) !== -1){
                 console.log('this is a summary message', output);
-                output.body = output.body + ' #Summary';
+                output.body = output.body + ' #summary';
             }
             
             $http.put('/api/message/', output)

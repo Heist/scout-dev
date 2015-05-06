@@ -52311,7 +52311,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
             // get the tag object for #summary
             var summaryItem = _.filter(loadData.data.list, function(n){ 
-                n.name.toLowerCase()
+                n.name = n.name.toLowerCase();
                 return n.name === 'summary'; 
             })[0];
             
@@ -52334,7 +52334,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         var tagCheck = summaryList.summaryTagIdCheck;
         // organise the returned information to pass back a good set for raw data
         var hasMsg  = _.filter(summaryList.freshList, function(n){ return n._messages.length > 0 })
-        var noSum   = _.filter(hasMsg, function(n){ return n.name !== 'Summary'; });
+        var noSum   = _.filter(hasMsg, function(n){ n.name = n.name.toLowerCase(); return n.name !== 'summary'; });
         var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
 
         $scope.testname = loadData.data.name;
@@ -52379,8 +52379,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
             var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
-            var noSum   = _.filter(hasMsg, function(n){ n.name.toLowerCase(); return n.name !== 'summary'; });
-            var sumMsg  = _.filter(hasMsg, function(n){ n.name.toLowerCase(); return n.name === 'summary'; });
+            var noSum   = _.filter(hasMsg, function(n){ n.name = n.name.toLowerCase(); return n.name !== 'summary'; });
+            var sumMsg  = _.filter(hasMsg, function(n){ n.name = n.name.toLowerCase(); return n.name === 'summary'; });
             var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
             var testIdx  = _.indexOf(_.pluck($scope.rawList, 'doctype'), 'test');
 
@@ -52497,7 +52497,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
             if(output._tags.indexOf(summaryList.summaryTagIdCheck) !== -1){
                 void 0;
-                output.body = output.body + ' #Summary';
+                output.body = output.body + ' #summary';
             }
             
             $http.put('/api/message/', output)
