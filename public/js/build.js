@@ -52320,8 +52320,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             console.log('summary object', summaryItem, data);
 
             // set the message list for the test to being those messages, and pass the list generally
-            var summaryMsgList = data[testIdx]._messages = summaryItem._messages;
-            var summaryTagIdCheck = summaryItem._id;
+            var summaryMsgList = data[testIdx]._messages = (summaryItem && summaryItem._messages) ? summaryItem._messages : [];
+            var summaryTagIdCheck = (summaryItem) ? summaryItem._id : 'undefined';
 
             // loadData.data.list[testIdx]._messages = _.filter(loadData.data.list, function(n){
             //             return n.name === 'Summary';
