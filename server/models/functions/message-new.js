@@ -19,7 +19,7 @@ module.exports = function(request, user){
             '_subject' : request._subject,
             '_test' : request._test,
             '_task' : request._task,
-            'body'  : t.msg.replace(/ \#Summary/gi, ''),
+            'body'  : t.msg.replace(/ \#[sS][uU][mM][mM][aA][rR][yY]/gi, ''),
             'created_by_user' : user
         };
 

@@ -23,7 +23,8 @@ module.exports = function(tag){
     var oneTag = function(singleTag){
     	// console.log('make a single tag', singleTag);
     	singleTag.name = singleTag.name.replace(/#/gi,'');
-
+        // TODO: if a tag is called "summary", match it and toLowerCase it for storage
+        var sumCatch = singleTag.name.match(/\#[sS][uU][mM][mM][aA][rR][yY]/gi);
     	var testStr = singleTag.name.toLowerCase();
 
     	var u = {

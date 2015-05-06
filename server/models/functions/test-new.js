@@ -16,7 +16,7 @@ module.exports = function(req, next){
 	}
 
     var summaryTag = {
-        name : 'Summary',
+        name : 'summary',
     }
 
 	models.Test.create(
@@ -26,7 +26,7 @@ module.exports = function(req, next){
 
             console.log('test made', test._id);
             // An obscure conflict in Mongo prevents us using tagMaker here
-            models.Tag.create({name:'Summary', nameCheck:'summary', _test:test._id}, function(err, next){})
+            models.Tag.create({name:'summary', nameCheck:'summary', _test:test._id}, function(err, next){})
               .then(function(tag){
                 console.log('new test', tag, test);
                     next(null, test);

@@ -12,7 +12,6 @@ module.exports = function(message, next){
             var tags_raw = [];
             var hashCatch = new RegExp(/\S*#\S+/gi);
 
-            // 
             var msg_body = message.replace( hashCatch,'');
             var tagIt = message.match(hashCatch);
             var msg_clean = message.trim();
