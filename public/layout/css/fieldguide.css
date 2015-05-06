@@ -229,7 +229,7 @@ ul {
   padding: 0 0 0 20px;
   margin: 0 0 20px 0; }
   ul li {
-    padding: 3.33333px; }
+    padding: 3.33333px 0; }
   ul.nobullets {
     list-style: none;
     padding: 0; }
@@ -3537,10 +3537,9 @@ Copyright (c) 2015 Daniel Eden
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.25); }
+  text-align: center; }
   .messaging.messaging-problem {
-    background: #f37960;
+    background: #de6850;
     color: #fff; }
   .messaging.messaging-success {
     background: #C6D39E;
@@ -4587,6 +4586,8 @@ hr {
   color: #fff;
   min-height: 100%;
   padding: 15% 0 0 0; }
+  #view-login .line {
+    text-decoration: underline; }
   #view-login label {
     color: #fff; }
   #view-login input, #view-login #view-editing .add-task textarea, #view-editing .add-task #view-login textarea, #view-login button {

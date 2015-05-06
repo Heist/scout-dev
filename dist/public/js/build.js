@@ -51493,8 +51493,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
     // PASSWORD RESET CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-       .controller('forgot', ['$scope','$http', '$location', '$stateParams','$rootScope', 
-        function($scope, $http, $location, $stateParams, $rootScope){
+       .controller('forgot', ['$scope','$http', '$location', '$stateParams','$rootScope', '$sce', 
+        function($scope, $http, $location, $stateParams, $rootScope, $sce){
 
         // Controller Functions ===========================
        $scope.sendToken = function(email){
@@ -51507,7 +51507,14 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 .post('/auth/forgot', dataOut)
                 .success(function(data, err){
                         // console.log(data, err);
-                        $scope.successMsg = data;
+                        if(data.indexOf('No user with that e-mail exists') === -1){
+                            $scope.successMsg = data;
+                            
+                        } else {
+                            var msg = data + '<br>Please try again';
+                            $scope.successMsg = $sce.trustAsHtml(msg);
+                            $scope.hideMe = 'show';
+                        }
                 });
         };
     }]);
@@ -51585,7 +51592,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     var msg = data;
 
                     if(data === '1' ){
-                        msg = 'That email is already taken. <br /><a href="/forgot">Would you like a password reminder?</a>';
+                        msg = 'That email is already taken. <br />Do you want to <a href="/forgot" class="line">reset your password</a>?';
                         $scope.flashmessage = $sce.trustAsHtml(msg);
                     } else if(data === '2'){
                         $scope.flashmessage = 'Please log out before signing up again.';

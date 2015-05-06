@@ -2,10 +2,10 @@
 
     <div class="container">
     
-        <div class="module third">&nbsp;</div>
+        <div class="module one-third">&nbsp;</div>
         
         
-        <div class="module third">
+        <div class="module two-fifths">
             
             <p id="logo" class="text-center">
                 <img src="/layout/assets/fg-binocs-header.png" />
@@ -18,23 +18,15 @@
                    
                     <ul class="nobullets withlabels">
                         <li>
-                        <li ng-if="successMsg">
-                            {{successMsg}}
-                        </li>
-                        <li ng-if="resetForm.email.$error.required && !resetForm.email.$pristine" 
-                            class="messaging messaging-problem">We do need your e-mail to reset your password.
+                        <li ng-if="successMsg" ng-bind-html="successMsg"class="text-center messaging messaging-problem">
                         </li>
 
-                        <li ng-if="resetForm.email.$error.required && !resetForm.email.$pristine" 
-                            class="messaging messaging-problem">Sorry, your e-mail isn't in our system.
-                        </li>
-
-                        <input class="input" type="text" name="email" value="" placeholder="Your e-mail address" ng-model="email" required ng-hide="successMsg"/>
-                        </li>
+                        <input class="input" type="email" name="email" value="" placeholder="Your e-mail address" ng-model="email" required  ng-hide="hideMe === 'hide'"/>
                         
-                        <li class="text-center" ng-hide="successMsg">
-                            <button class="button dark" type="submit" ng-click="sendToken(email)">Reset password</button> 
-                            <!--<small><a ng-click="register(user)">Register?</a></small>-->
+                        <li class="text-center" ng-hide="hideMe === 'hide'">
+                            <button class="button dark" type="submit" ng-click="sendToken(email)" ng-hide="resetForm.email.$pristine || resetForm.email.$error.email || resetForm.email.$error.required">Reset password</button> 
+
+                            <button class="button dark" type="submit" ng-show="resetForm.email.$pristine || resetForm.email.$error.email || resetForm.email.$error.required">Reset password</button>
                         </li>
                         
                     </ul>
