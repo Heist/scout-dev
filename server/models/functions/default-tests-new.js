@@ -13,14 +13,45 @@ module.exports = function(account, id, callback){
 
 
 // Abstract and create tests 
-    var new_test_1 = {
-        created_by_account: account,
-        created_by_user : id,
-        name : "Ex. Customer Interview - Fitness Habits",
-        desc : "1. Understand people's current fitness habits \n"+
-               "2. Understand whether they look for digital tools to help modify their fitness habits\n"+
-               "3. Determine if family, friends or peers play an important role in shaping people's fitness behaviour.",
-        kind : "interview"
+    var one = {
+        'test'  : {
+                    created_by_account: account,
+                    created_by_user : id,
+                    name : "Ex. Customer Interview - Fitness Habits",
+                    desc : "1. Understand people's current fitness habits \n"+
+                           "2. Understand whether they look for digital tools to help modify their fitness habits\n"+
+                           "3. Determine if family, friends or peers play an important role in shaping people's fitness behaviour.",
+                    kind : "interview"
+            },
+        'tags'  : ['need','painpoint','activity','touchpoint','quote'],
+        'tasks' : [
+                    {
+                        name  :"Introduction",
+                        desc  :"Note: This is to set the tone for the interviewee or group. We’ll introduce ourselves and set “ground rules” for the discussion.\n- My name is __________.\n- Thanks for talking to us today, we’ll be about 60 minutes.\n- We’re constantly trying to improve our product, and getting your frank feedback is a really important part of that.\n- This discussion is confidential – your personal information or specific answers won’t be used publicly so don’t hesitate speak your mind.\n- No right or wrong answers - very important to not say what you think I want to hear, but what you are actually thinking/feeling. Feel free to stop us at anytime for clarification, questions, or concerns.\n- We’ll be running through a few questions and scenarios from your day. \n- We’d like you to speak out loud and tell us about everything you’re thinking/feeling/etc.\n- You’ll be recorded, but this information will not be distributed beyond our team.\n- Alright, let's get started!"
+                    }, {
+                        name  : "Background Information",
+                        desc  : "- What is your name and age? \n - Where do you live? \n - What kind of work do you do?\n- For how long have you been doing that?\n- What kinds of activities, hobbies or projects do you like to do when you’re not working?"
+                    },
+                    {
+                        name  : "Current Activities and Habits",
+                        desc  : "- What do you do to take care of yourself? To stay in shape? To stay active? \n - Can you list the sports, exercise, classes you participate in?\n- How many times did you participate in the activities in the last week?\n- Are there any other healthy habits in your day?"
+                    },
+                    {
+                        name  : "Fitness Apps and Tools",
+                        desc  : "- Have you used any apps or websites or other programs to help you with fitness? Which ones?\n- What did you want them to do for you?\n- What was your expected out come from using these apps?\n- What do you like about them?\n- What do you dislike about them?\n- Did you pay for them? Why? Why not?"
+                    },
+                    {
+                        name  : "Friends and Social Activity",
+                        desc  : "- Who (e.g. friends, family, coaches, teachers?) helps keep you active?\n- How do they help you?\n- Who (e.g. friends, family, coaches, teachers?) is a barrier to you being active?\n- How do they prevent you from being active?\n- Do you share info about your workouts or your goals with anyone?\n- When? Why? How?\n- What (if anything) do you do to keep track of what you’re doing?\n- How does that help you?"   
+                    },
+                    {
+                        name  : "Exercise Habits",
+                        desc  : "- How have your exercise habits changed over time?\n- What did you used to do 6 months ago?\n- What did you used to do where at your fittest?\n- Have the software and tools you use changed? Which did you used to use?"
+                    },
+                    {
+                        name  : "Conclusion and Thank You",
+                        desc  : "- Thanks participant for their time\n- Get them to initial sign-in sheet, and hand them their reimbursement\n- Provide assistance with leaving building\n- High fives!"
+                    }]
     };
 
     var new_test_2 = {
@@ -34,6 +65,10 @@ module.exports = function(account, id, callback){
         name : "Ex. Prototype Testing - Email Inbox App"
     };
 
+    var tags1 = 
+    var tags2 = ['issue', 'comprehension', 'preference', 'effort', 'quote'];
+    var tags3 = ['issue', 'comprehension', 'preference', 'effort', 'quote', 'usability'];
+
     var new_test_3 = {
         created_by_account: account,
         created_by_user : id,
@@ -41,11 +76,11 @@ module.exports = function(account, id, callback){
                 "2. Does the dual scrolling interfere with the user's experience?\n"+
                 "3. Does the current temperature need to be displayed at all times?",
         kind : "prototype",
-        link : "http://invis.io/2J1SN6AYV",
+        link : "http://framerjs.com/examples/preview/#weather-app.framer",
         name : "Ex. Usability Testing - Weather App"
     };
 
-    var tasks2 = [
+    var tasks3 = [
         {
             _test : test._id,
             index :0,
@@ -76,24 +111,29 @@ module.exports = function(account, id, callback){
         },{
             _test : test._id,
             index : 3,
-            name  : "• Scenario: You are looking to plan a day in the park with some friends next weekend, either Saturday the 18th or Friday the 19th. Find the information that helps you determine the best day.\n"+
+            name  : "Task 2 - Weekly Weather Navigation",
+            desc  : "• Scenario: You are looking to plan a day in the park with some friends next weekend, either Saturday the 18th or Friday the 19th. Find the information that helps you determine the best day.\n"+
                     "• Pay attention to their scrolling to determine if the vertical scrolling interferes with the horizontal scrolling.\n"+
                     "• What information are you looking for?\n"+
                     "• Was it clear to you right away where that information would be found?\n"+
                     "• Was there some type of information you were looking for specifically that you couldn't find?\n"+
                     "• Did the interaction to find scroll through the dates seem logical for you?"
-            desc  : "desc"
+            
         },{
             _test : test._id,
             index : 4,
             name  : "App Use Context",
-            desc  : "desc"
+            desc  : "• What times of the day do you typically check the forecast?\n"+
+                    "• Where are you typically when you are checking the forecast?\n"+
+                    "• How are you typically holding your phone when checking the weather?"
         },
         {
             _test : test._id,
             index : 5,
             name  : "Conclusion",
-            desc  : "desc"
+            desc  : "• Thank participant for their time\n"+
+                    "• Provide assistance with leaving building\n"+
+                    "• High fives!"
         }
     ]
 
