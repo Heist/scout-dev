@@ -52303,7 +52303,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var testIdx = _.indexOf(_.pluck(data, 'doctype'), 'test');
 
             // get the tag object for #summary
-            var summaryItem = _.filter(loadData.data.list, function(n){ return n.name === 'Summary'; })[0];
+            var summaryItem = _.filter(loadData.data.list, function(n){ 
+                n.name.toLowerCase()
+                return n.name === 'summary'; 
+            })[0];
             
             void 0;
 
@@ -52369,10 +52372,16 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
             var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
-            var noSum   = _.filter(hasMsg, function(n){ return n.name !== 'Summary'; });
+            var noSum   = _.filter(hasMsg, function(n){ n.name.toLowerCase(); return n.name !== 'summary'; });
+            var sumMsg  = _.filter(hasMsg, function(n){ n.name.toLowerCase(); return n.name === 'summary'; });
             var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
+            var testIdx  = _.indexOf(_.pluck($scope.rawList, 'doctype'), 'test');
 
             $scope.rawList = clear.concat(tagList);
+
+            if(sumMsg && sumMsg.length > 0){
+                $scope.rawlist[testIdx]._messages = sumMsg._messages;
+            }
 
         }
         
@@ -52506,8 +52515,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     if($scope.selected._messages.length === 0){
                         $scope.selected._messages.splice(0, 1, data.msg._id);
                     }
-
-
 
                     addTagsToLeftNav(data);
                 });
