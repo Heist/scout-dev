@@ -51984,8 +51984,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         var tagSort = function(tags){
          return _.filter(tags, function(n){
                 if(n.name){
-                    n.name = n.name.toLowerCase();
-                    return n.name !== 'Summary';
+                    var nameCheck = n.name.toLowerCase();
+                    return nameCheck !== 'summary';
                 } else {
                     return
                 }
@@ -51995,8 +51995,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         var summaryTagId = function(tags){
             return _.filter(loadData.data._tags, function(n){
                 if(n.name){
-                    n.name = n.name.toLowerCase();
-                    return n.name !== 'Summary';
+                    var nameCheck = n.name.toLowerCase();
+                    return nameCheck !== 'summary';
                 } else {
                     return
                 }
@@ -52322,8 +52322,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             // get the tag object for #summary
             var summaryItem = _.filter(loadData.data.list, function(n){ 
                 if(n.name){
-                    n.name = n.name.toLowerCase();
-                    return n.name !== 'Summary';
+                    var nameCheck = n.name.toLowerCase();
+                    return nameCheck !== 'summary';
                 } else {
                     return
                 }
@@ -52344,7 +52344,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         var tagCheck = summaryList.summaryTagIdCheck;
         // organise the returned information to pass back a good set for raw data
         var hasMsg  = _.filter(summaryList.freshList, function(n){ return n._messages.length > 0 })
-        var noSum   = _.filter(hasMsg, function(n){ if(n.name){ n.name = n.name.toLowerCase(); return n.name !== 'Summary'; } else { return; }});
+        var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
         var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
 
         $scope.testname = loadData.data.name;
@@ -52389,8 +52389,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
             var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
-            var noSum   = _.filter(hasMsg, function(n){ if(n.name){ n.name = n.name.toLowerCase(); return n.name !== 'Summary'; } else { return; }});
-            var sumMsg  = _.filter(hasMsg, function(n){ if(n.name){ n.name = n.name.toLowerCase(); return n.name !== 'Summary'; } else { return; }});
+            var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
+            var sumMsg  = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
             var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
             var testIdx  = _.indexOf(_.pluck($scope.rawList, 'doctype'), 'test');
 
@@ -52592,7 +52592,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
         function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         var tagSort = function(tags){
-         return _.filter(tags, function(n){ if(n.name){ n.name = n.name.toLowerCase(); return n.name !== 'Summary'; } else { return; }});
+            return _.filter(tags, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
         };
 
         var data = loadData.data;
