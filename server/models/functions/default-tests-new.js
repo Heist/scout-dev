@@ -6,7 +6,6 @@ module.exports = function(account, id, callback){
 
 // Module dependencies
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
-<<<<<<< HEAD
     var _ = require('lodash');
     var async = require('async');
 

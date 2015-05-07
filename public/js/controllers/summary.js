@@ -43,12 +43,12 @@
             var testIdx = _.indexOf(_.pluck(data, 'doctype'), 'test');
 
             // get the tag object for #summary
-            var summaryItem = _.filter(loadData.data.list, function(n){ 
+            var summaryItem = _.filter(loadData.data.list, function(n){
                 if(n.name){
                     var nameCheck = n.name.toLowerCase();
                     return nameCheck !== 'summary';
                 } else {
-                    return
+                    return [];
                 }
             })[0];
             
