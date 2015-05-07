@@ -1,4 +1,4 @@
-// default-tests.js - generates first-time signup tests
+// default-tests-new.js - generates first-time signup tests
 'use strict';
 
 module.exports = function(account, id, callback){
@@ -6,6 +6,7 @@ module.exports = function(account, id, callback){
 
 // Module dependencies
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
+<<<<<<< HEAD
     var _ = require('lodash');
     var async = require('async');
 
@@ -184,7 +185,6 @@ module.exports = function(account, id, callback){
         },
         function(callback){
             models.Test.create(new_test_2 , function(err, test){
-                var tasks = ;
 
                 models.Task.create(tasks, function(err, t0, t1, t2, t3, t4, t5, t6, t7){
                     test._tasks.push(t0._id, t1._id, t2._id, t3._id, t4._id, t5._id, t6._id, t7._id);

@@ -24,6 +24,7 @@ module.exports = function(report_id, next){
     },
     function(err, results){
         if(err){ console.log(err); }
+        console.log('build summary results', results);
         next(null, results);
     });
 };

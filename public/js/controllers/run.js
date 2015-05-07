@@ -11,13 +11,23 @@
 
         var tagSort = function(tags){
          return _.filter(tags, function(n){
-                return n.name !== 'Summary';
+                if(n.name){
+                    var nameCheck = n.name.toLowerCase();
+                    return nameCheck !== 'summary';
+                } else {
+                    return
+                }
             });
         };
 
         var summaryTagId = function(tags){
             return _.filter(loadData.data._tags, function(n){
-                return n.name === 'Summary';
+                if(n.name){
+                    var nameCheck = n.name.toLowerCase();
+                    return nameCheck !== 'summary';
+                } else {
+                    return
+                }
             })[0]._id;
         };
 
