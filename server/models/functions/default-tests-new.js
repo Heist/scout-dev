@@ -8,12 +8,12 @@ module.exports = function(account, id, callback){
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
     var async = require('async');
-
-    var models   = require('../../models');
-
+    var Bluebird = require('bluebird');
+    var models   = Bluebird.promisifyAll(require('../../models'));
 
 // Abstract and create tests 
-    var one = {
+var tests = [
+    {
         'test'  : {
                     created_by_account: account,
                     created_by_user : id,
@@ -52,9 +52,8 @@ module.exports = function(account, id, callback){
                         name  : "Conclusion and Thank You",
                         desc  : "- Thanks participant for their time\n- Get them to initial sign-in sheet, and hand them their reimbursement\n- Provide assistance with leaving building\n- High fives!"
                     }]
-    };
-
-    var two = {
+    },
+    {
         'test'  : {
             created_by_account: account,
             created_by_user : id,
@@ -91,9 +90,8 @@ module.exports = function(account, id, callback){
                     name :"Conclusion and Thank You",
                     desc :"- Thanks participant for their time\n- Get them to initial sign-in sheet, and hand them their payment cheque\n- Provide assistance with leaving building\n- High fives!",
                 }]
-    };
-
-    var three = {
+    },
+    {
         'test' : {
             created_by_account: account,
             created_by_user : id,
@@ -149,59 +147,34 @@ module.exports = function(account, id, callback){
                         "• High fives!"
             }
         ]
-    };
+    }
+];
 
-// in parallel:
+    // in parallel:
 
     // Create a test for each
     // inside the test, create tasks for that test, setting their _test to test._id and index to $index
 
-/*  var model = new models.Test(n.test);
-    .then(function(test){
+    Bluebird.map(tests, function(n){
+        var test =  new models.Test(n.test);
         Bluebird.all([
-            Bluebird.map(n.tags, function(tag, i){
-                models.Tag.create({name:tag, nameCheck:tag, _test:test._id}, function(err, next){})
-            }),
-            Bluebird.map(n.tasks, function(task, i){
-                    task._test = test._id;
-                    task.index = i
-                    var t = new Task(task);
-                    test._tasks.push(t._id);
-                    return task.save();
-                }
+                Bluebird.map(n.tags, function(tag, i){
+                    models.Tag.create({name:tag, nameCheck:tag, _test:test._id}, function(err, next){})
+                }),
+                Bluebird.map(n.tasks, function(task, i){
+                        task._test = test._id;
+                        task.index = i
+                        var t = new models.Task(task);
+                        test._tasks.push(t._id);
+                        return task.save();
+                })
+            ]).then(function(test){
+                return test;        
             })
-        ]);
-    })
-*/
-
-// Parallel function to create tests and track errors
-    async.parallel([
-        function(callback){
-            models.Test.create(one.test, function(err, test){
-
-                models.Task.create(tasks, function(err, t0, t1, t2, t3, t4, t5, t6){
-                    test._tasks.push(t0._id, t1._id, t2._id, t3._id, t4._id, t5._id, t6._id);
-                    test.save(function(err, new_test){
-                        callback(null, new_test);
-                    });
-                });
-            });
-        },
-        function(callback){
-            models.Test.create(new_test_2 , function(err, test){
-
-                models.Task.create(tasks, function(err, t0, t1, t2, t3, t4, t5, t6, t7){
-                    test._tasks.push(t0._id, t1._id, t2._id, t3._id, t4._id, t5._id, t6._id, t7._id);
-                    test.save(function(err, new_test){
-                        callback(null, new_test);
-                    });
-                });
-            });
-        }
-    ],
-    // optional callback
-    function(err, results){
-        models.Test.find({'created_by_user' : id}).populate('_tasks').exec();
-        callback(null, results);
+              
+    }).then(function(testArray){
+    callback(null, testArray);
+    }).catch(function(err){
+        if(err){console.log(err);}
     });
 }
