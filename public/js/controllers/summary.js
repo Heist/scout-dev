@@ -44,8 +44,8 @@
 
             // get the tag object for #summary
             var summaryItem = _.filter(loadData.data.list, function(n){ 
-                n.name.toLowerCase()
-                return n.name === 'summary'; 
+                var nameCheck = n.name.toLowerCase()
+                return nameCheck === 'summary'; 
             })[0];
             
             console.log('summary object', summaryItem);
