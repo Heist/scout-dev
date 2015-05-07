@@ -25,34 +25,91 @@ var tests = [
                     summary : "All of the participants in some way or another incorporate a healthy activity into their daily lives. Most participants spoke of maintaining a healthy diet to supplement their active lifestyle. Matthew makes a point of riding his bike or walking everywhere. He occasionally lifts weights at his local YMCA or plays pick up basketball with his friends. Sarah, a new mother has a newfound love of exercise. She works out each morning at her gym and has developed a group of workout buddies from doing the classes. Lisa also enjoys the social aspect of doing gym class workouts. She feels her friends help motivate her to go to the classes. Aaron likes to work out with a personal trainer and mentioned the social aspect of that too. He expressed some doubt in incorporating digital tools into his workout regime. He said, '... tech and fitness do not blend well. I need a human to help me maintain my health not an app or fancy watch.' Dina also shared a similar disdain to using digital tools saying that, 'Being active and healthy should be fun! I don't need an app sending me notifications guilting me into walking more or eating fewer calories. You only live once so enjoy it!' And Brad, who jogs and practices Muay Thai twice a week has interest in incorporating an app or wearable device into his routine but seems overwhelmed by the number of products to choose from.\n"+"The participants willingness and interest in incorporating digital tools to help modify their fitness habits seemed to depend on their level of tech savviness. Lisa, who works in the tech industry as a PM uses both a FitBit device to track her steps and calories and apps to help supplement the device. Brad on the other hand is not as tech savvy and expressed that he felt overwhelmed by the amount of options in wearable tech. He relies more on his traditional scale to monitor his progress and keep him on track. Although not all participants used digital tools to modify their fitness habits, most of them had an interest in trying them out or had tried them out at one time.\n"+
                               "Besides tech, personal trainers and traditional scales, most participants noted that their family and friends played a role in shaping their fitness behaviour. Lisa spoke about how her workout buddies hold her accountable to showing up to classes and this motivates her to attend. Her boyfriend also plays a major role in maintaining an active lifestyle and healthy diet by encouraging her to go to the gym and making healthy meals with her. Sarah spoke about sharing her FitBit results with her gym class friends. She said that sharing her goals and accomplishments with these friends helped push her to achieve more. Brad and his brother share healthy recipes with each other to encourage healthy eating habits. Matthew, Dina and Aaron all motivates themselves to workout and stay active. Aaron relies on his personal trainer to track his progress but said he didn't need his trainer to encourage him to workout. Dina and Matthew did not see the value in sharing their goals and accomplishments."
             },
+        'subjects' : ['Sarah Costa', 'Matthew Clarke', 'Lisa Dewitt', 'Dina Harmeneh', 'Brad Allen', 'Aaron Chartrand'],
         'tags'  : ['need','painpoint','activity','touchpoint','quote'],
         'tasks' : [
                     {
                         name  :"Introduction",
-                        desc  :"Note: This is to set the tone for the interviewee or group. We’ll introduce ourselves and set “ground rules” for the discussion.\n- My name is __________.\n- Thanks for talking to us today, we’ll be about 60 minutes.\n- We’re constantly trying to improve our product, and getting your frank feedback is a really important part of that.\n- This discussion is confidential – your personal information or specific answers won’t be used publicly so don’t hesitate speak your mind.\n- No right or wrong answers - very important to not say what you think I want to hear, but what you are actually thinking/feeling. Feel free to stop us at anytime for clarification, questions, or concerns.\n- We’ll be running through a few questions and scenarios from your day. \n- We’d like you to speak out loud and tell us about everything you’re thinking/feeling/etc.\n- You’ll be recorded, but this information will not be distributed beyond our team.\n- Alright, let's get started!"
+                        desc  :"Note: This is to set the tone for the interviewee or group. We’ll introduce ourselves and set “ground rules” for the discussion.\n- My name is __________.\n- Thanks for talking to us today, we’ll be about 60 minutes.\n- We’re constantly trying to improve our product, and getting your frank feedback is a really important part of that.\n- This discussion is confidential – your personal information or specific answers won’t be used publicly so don’t hesitate speak your mind.\n- No right or wrong answers - very important to not say what you think I want to hear, but what you are actually thinking/feeling. Feel free to stop us at anytime for clarification, questions, or concerns.\n- We’ll be running through a few questions and scenarios from your day. \n- We’d like you to speak out loud and tell us about everything you’re thinking/feeling/etc.\n- You’ll be recorded, but this information will not be distributed beyond our team.\n- Alright, let's get started!",
+                        _messages : [
+                            {name: 'Aaron Chartrand' , body : ''},
+                            {name: 'Sarah Costa'     , body : ''},
+                            {name: 'Matthew Clarke'  , body : ''},
+                            {name: 'Lisa Dewitt'     , body : ''},
+                            {name: 'Dina Harmeneh'   , body : ''},
+                            {name: 'Brad Allen'      , body : ''}
+                        ]
                     }, {
                         name  : "Background Information",
-                        desc  : "- What is your name and age? \n - Where do you live? \n - What kind of work do you do?\n- For how long have you been doing that?\n- What kinds of activities, hobbies or projects do you like to do when you’re not working?"
+                        desc  : "- What is your name and age? \n - Where do you live? \n - What kind of work do you do?\n- For how long have you been doing that?\n- What kinds of activities, hobbies or projects do you like to do when you’re not working?",
+                       _messages : [
+                            {name: 'Aaron Chartrand' , body : ''},
+                            {name: 'Sarah Costa'     , body : ''},
+                            {name: 'Matthew Clarke'  , body : ''},
+                            {name: 'Lisa Dewitt'     , body : ''},
+                            {name: 'Dina Harmeneh'   , body : ''},
+                            {name: 'Brad Allen'      , body : ''}
+                        ]
                     },
                     {
                         name  : "Current Activities and Habits",
-                        desc  : "- What do you do to take care of yourself? To stay in shape? To stay active? \n - Can you list the sports, exercise, classes you participate in?\n- How many times did you participate in the activities in the last week?\n- Are there any other healthy habits in your day?"
+                        desc  : "- What do you do to take care of yourself? To stay in shape? To stay active? \n - Can you list the sports, exercise, classes you participate in?\n- How many times did you participate in the activities in the last week?\n- Are there any other healthy habits in your day?",
+                         _messages : [
+                            {name: 'Aaron Chartrand' , body : ''},
+                            {name: 'Sarah Costa'     , body : ''},
+                            {name: 'Matthew Clarke'  , body : ''},
+                            {name: 'Lisa Dewitt'     , body : ''},
+                            {name: 'Dina Harmeneh'   , body : ''},
+                            {name: 'Brad Allen'      , body : ''}
+                        ]
                     },
                     {
                         name  : "Fitness Apps and Tools",
-                        desc  : "- Have you used any apps or websites or other programs to help you with fitness? Which ones?\n- What did you want them to do for you?\n- What was your expected out come from using these apps?\n- What do you like about them?\n- What do you dislike about them?\n- Did you pay for them? Why? Why not?"
+                        desc  : "- Have you used any apps or websites or other programs to help you with fitness? Which ones?\n- What did you want them to do for you?\n- What was your expected out come from using these apps?\n- What do you like about them?\n- What do you dislike about them?\n- Did you pay for them? Why? Why not?",
+                        _messages : [
+                            {name: 'Aaron Chartrand' , body : ''},
+                            {name: 'Sarah Costa'     , body : ''},
+                            {name: 'Matthew Clarke'  , body : ''},
+                            {name: 'Lisa Dewitt'     , body : ''},
+                            {name: 'Dina Harmeneh'   , body : ''},
+                            {name: 'Brad Allen'      , body : ''}
+                        ]
                     },
                     {
                         name  : "Friends and Social Activity",
-                        desc  : "- Who (e.g. friends, family, coaches, teachers?) helps keep you active?\n- How do they help you?\n- Who (e.g. friends, family, coaches, teachers?) is a barrier to you being active?\n- How do they prevent you from being active?\n- Do you share info about your workouts or your goals with anyone?\n- When? Why? How?\n- What (if anything) do you do to keep track of what you’re doing?\n- How does that help you?"   
+                        desc  : "- Who (e.g. friends, family, coaches, teachers?) helps keep you active?\n- How do they help you?\n- Who (e.g. friends, family, coaches, teachers?) is a barrier to you being active?\n- How do they prevent you from being active?\n- Do you share info about your workouts or your goals with anyone?\n- When? Why? How?\n- What (if anything) do you do to keep track of what you’re doing?\n- How does that help you?"   ,
+                        _messages : [
+                            {name: 'Aaron Chartrand' , body : ''},
+                            {name: 'Sarah Costa'     , body : ''},
+                            {name: 'Matthew Clarke'  , body : ''},
+                            {name: 'Lisa Dewitt'     , body : ''},
+                            {name: 'Dina Harmeneh'   , body : ''},
+                            {name: 'Brad Allen'      , body : ''}
+                        ]
                     },
                     {
                         name  : "Exercise Habits",
-                        desc  : "- How have your exercise habits changed over time?\n- What did you used to do 6 months ago?\n- What did you used to do where at your fittest?\n- Have the software and tools you use changed? Which did you used to use?"
+                        desc  : "- How have your exercise habits changed over time?\n- What did you used to do 6 months ago?\n- What did you used to do where at your fittest?\n- Have the software and tools you use changed? Which did you used to use?",
+                        _messages : [
+                            {name: 'Aaron Chartrand' , body : ''},
+                            {name: 'Sarah Costa'     , body : ''},
+                            {name: 'Matthew Clarke'  , body : ''},
+                            {name: 'Lisa Dewitt'     , body : ''},
+                            {name: 'Dina Harmeneh'   , body : ''},
+                            {name: 'Brad Allen'      , body : ''}
+                        ]
                     },
                     {
                         name  : "Conclusion and Thank You",
-                        desc  : "- Thanks participant for their time\n- Get them to initial sign-in sheet, and hand them their reimbursement\n- Provide assistance with leaving building\n- High fives!"
+                        desc  : "- Thanks participant for their time\n- Get them to initial sign-in sheet, and hand them their reimbursement\n- Provide assistance with leaving building\n- High fives!",
+                        _messages : [
+                            {name: 'Aaron Chartrand' , body : ''},
+                            {name: 'Sarah Costa'     , body : ''},
+                            {name: 'Matthew Clarke'  , body : ''},
+                            {name: 'Lisa Dewitt'     , body : ''},
+                            {name: 'Dina Harmeneh'   , body : ''},
+                            {name: 'Brad Allen'      , body : ''}
+                        ]
                     }]
     },
     {
@@ -70,28 +127,36 @@ var tests = [
         'tags'  :['issue', 'comprehension', 'preference', 'effort', 'quote'],
         'tasks' : [{
                     name :"Introduction",
-                    desc :"Note: This is to set the tone for the interviewee. We’ll introduce ourselves and set “ground rules” for the discussion.\n- My name is __________.\n- Thanks for talking to us today, we’ll be about 30 minutes.\n- We’re going to talk about a new app we're designing.\n- This discussion is confidential – your personal information or specific answers won’t be used publicly so don’t hesitate speak your mind.\n- No right or wrong answers - very important to not say what you think I want to hear, but what you are actually thinking/feeling. Feel free to stop us at anytime for clarification, questions, or concerns.\n- We’ll have you play around with a few things we’ve been working on. We’d like you to speak out loud and tell us about everything you’re thinking/feeling/etc.\n- You’ll be recorded, but this information will not be distributed."
+                    desc :"Note: This is to set the tone for the interviewee. We’ll introduce ourselves and set “ground rules” for the discussion.\n- My name is __________.\n- Thanks for talking to us today, we’ll be about 30 minutes.\n- We’re going to talk about a new app we're designing.\n- This discussion is confidential – your personal information or specific answers won’t be used publicly so don’t hesitate speak your mind.\n- No right or wrong answers - very important to not say what you think I want to hear, but what you are actually thinking/feeling. Feel free to stop us at anytime for clarification, questions, or concerns.\n- We’ll have you play around with a few things we’ve been working on. We’d like you to speak out loud and tell us about everything you’re thinking/feeling/etc.\n- You’ll be recorded, but this information will not be distributed.",
+                    _messages : []
                 },{
                     name :"Email Habits Background",
-                    desc :"- Which company do you use for your email accounts?\n- Do you have separate providers for your personal and work accounts?\n- As a percentage, how much of your email creation and management do you do on your mobile devices?\n- Which mobile device do you use?\n- Do you use any email apps, other than those that came pre-installed? If so, which ones?\n- Why did you switch email apps from those that are on your phone?"
+                    desc :"- Which company do you use for your email accounts?\n- Do you have separate providers for your personal and work accounts?\n- As a percentage, how much of your email creation and management do you do on your mobile devices?\n- Which mobile device do you use?\n- Do you use any email apps, other than those that came pre-installed? If so, which ones?\n- Why did you switch email apps from those that are on your phone?",
+                    _messages : []
                 },{
                     name :"Task 1 - Landing in your inbox",
-                    desc :"Ok, great, now we've going to get you to play with an email app we are designing. Pick up the phone in front of you and unlock it. I want you to pretend that you we're out shopping, and just remembered that you needed to email a friend to make plans for dinner.\n- What is the first thing you notice when you land in your inbox?\n- Walk me through the elements you see on the screen.\n- Talk me through your thought process when you are confronted with unread emails.\n- After seeing your inbox, what is the first action you want to take?"
+                    desc :"Ok, great, now we've going to get you to play with an email app we are designing. Pick up the phone in front of you and unlock it. I want you to pretend that you we're out shopping, and just remembered that you needed to email a friend to make plans for dinner.\n- What is the first thing you notice when you land in your inbox?\n- Walk me through the elements you see on the screen.\n- Talk me through your thought process when you are confronted with unread emails.\n- After seeing your inbox, what is the first action you want to take?",
+                    _messages : []
                 },{
                     name :"Task 2 - Managing unread email",
-                    desc :"Alright, let's read that email from Billy Kiely. Tap on that item.\n- What is the first thing you notice when you land on this screen?\n- Does the oder that the messages are displayed in make sense to you?\n- If you wanted to reply to Laura, what would you do?\n- If you wanted to reply to Billy, what would you do?\n- If you decided you don't really want to see these people, and wanted to delete these emails, what would you do next? Why?"
+                    desc :"Alright, let's read that email from Billy Kiely. Tap on that item.\n- What is the first thing you notice when you land on this screen?\n- Does the oder that the messages are displayed in make sense to you?\n- If you wanted to reply to Laura, what would you do?\n- If you wanted to reply to Billy, what would you do?\n- If you decided you don't really want to see these people, and wanted to delete these emails, what would you do next? Why?",
+                    _messages : []
                 },{
                     name :"Task 3 - Writing a new email",
-                    desc :"Alright, let's send that recipe to your friend. So let's write a new email.\n- Where would you click in your inbox to start writing a new email?\n- What is the first action you take when you are sending a new email?\n- Do you understand what all of these labels mean?\n- If you want to add someone to the 'To:' field, how would you do that?\n- Why do you think the plus sign turned into a minus sign once you added a recipient to this email?\n- Talk me through how you identify your contacts when you add them to an email?\n- Now type out your email, (email text should appear when they click on Subject or Email Input fields,) and send it.\n- What did you think of that? Was that what you expected? Why or why not?"
+                    desc :"Alright, let's send that recipe to your friend. So let's write a new email.\n- Where would you click in your inbox to start writing a new email?\n- What is the first action you take when you are sending a new email?\n- Do you understand what all of these labels mean?\n- If you want to add someone to the 'To:' field, how would you do that?\n- Why do you think the plus sign turned into a minus sign once you added a recipient to this email?\n- Talk me through how you identify your contacts when you add them to an email?\n- Now type out your email, (email text should appear when they click on Subject or Email Input fields,) and send it.\n- What did you think of that? Was that what you expected? Why or why not?",
+                    _messages : []
                 },{
                     name :"Task 4 - Deleting emails",
-                    desc :"Ok, so your are back in your inbox. Now it is time to clear out unwanted messages. Jon is trying to make dinner plans with you, but you already have plans with Billy. Let's just delete Jon's message without replying.\n- What would you do next? Why?\n- Is there anything else you would do at this point?\n- What additional info would have helped?\n- Is that a familiar action for you based on other apps you use regularly?"
+                    desc :"Ok, so your are back in your inbox. Now it is time to clear out unwanted messages. Jon is trying to make dinner plans with you, but you already have plans with Billy. Let's just delete Jon's message without replying.\n- What would you do next? Why?\n- Is there anything else you would do at this point?\n- What additional info would have helped?\n- Is that a familiar action for you based on other apps you use regularly?",
+                    _messages : []
                 },{
                     name :"Thoughts and Feedback on the Experience",
                     desc :"- Having walked through this experience now, how did it compare to your experiences with other email apps?\n- Is it better or worse? Why?\n- Do you think you would use this email app?\n- What did you feel was missing? \n- What did you find confusing?\n- Do you have any other thoughts or feedback for us?",
+                    _messages : []
                 },{
                     name :"Conclusion and Thank You",
                     desc :"- Thanks participant for their time\n- Get them to initial sign-in sheet, and hand them their payment cheque\n- Provide assistance with leaving building\n- High fives!",
+                    _messages : []
                 }]
     },
     {
