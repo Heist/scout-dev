@@ -205,11 +205,16 @@ var tests = [
                         "• Where are you typically when you are checking the forecast?\n"+
                         "• How are you typically holding your phone when checking the weather?",
                 _messages : [
-                    {_subject:'Janet Santiago'    , body: ""},
-                    {_subject:'Julie Stenson'     , body: ""},
-                    {_subject:'Lisa Truitt'       , body: ""},
-                    {_subject:'Vince Wagenar'     , body: ""},
-                    {_subject:'Beverley Gilreath' , body: ""},
+                    {_subject:'Janet Santiago'    , body: "Her weather app use happens mostly during breakfast in the morning as she is prepping for her day. She needs something that is quick to scan, so she can make some informed decisions for her day. #comprehension"},
+                    {_subject:'Janet Santiago'    , body: "She is usually sitting at the table with her phone in one hand and a spoon in the other."},
+                    {_subject:'Julie Stenson'     , body: "She will typically check the weather when she is still in bed after waking up in the morning."},
+                    {_subject:'Julie Stenson'     , body: "She will be lying on her side, so the phone will be held in landscape, but she will be viewing it in portrait from her perspective. This tends to cause apps to rotate into landscape mode, making using them a pain for her. #preference #usability"},
+                    {_subject:'Lisa Truitt'       , body: "She typically checks right before going to sleep every night so that she can be prepared in the morning when getting ready for work. It is often when she is in front of the TV or lying in bed. So, her orientation when using an app will vary, and her interactions will vary."},
+                    {_subject:'Vince Wagenar'     , body: "He typically checks the forecast twice a day, once before he goes to bed so he can make plans for the following day, and once before he leaves work and his commute home to see if anything has changed in the forecast."},
+                    {_subject:'Vince Wagenar'     , body: "He will look at the weather on his phone while sitting on the couch or sitting at his desk. He is viewing it on his phone in portrait mode. #usability"},
+                    {_subject:'Beverley Gilreath' , body: "She will check the weather multiple times daily during the summer months because she needs to water her gardens twice day unless it rains, so she is reliant on weather forecasts."},
+                    {_subject:'Beverley Gilreath' , body: "She will check the forecast when she is in between destinations - walking between stores, on the streetcar, or waiting in line. This is why she need the visual distinction between the information displayed #usability"},
+                    {_subject:'Beverley Gilreath' , body: "She typically holds the phone in one hand while her other one is busy with something else."},
                 ]
             },
             {
