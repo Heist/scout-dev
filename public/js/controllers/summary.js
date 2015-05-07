@@ -48,6 +48,7 @@
                     var nameCheck = n.name.toLowerCase();
                     return nameCheck !== 'summary';
                 } else {
+                    console.log('summary object does not exist');
                     return [];
                 }
             })[0];
