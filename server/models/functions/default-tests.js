@@ -155,11 +155,21 @@ var tests = [
                         "• Did you understand that information when you found it?\n"+
                         "• What interaction were you expecting to have with today's detailed forecast, if any?",
                 _messages : [
-                    {_subject:'Janet Santiago'    , body: ""},
-                    {_subject:'Julie Stenson'     , body: ""},
-                    {_subject:'Lisa Truitt'       , body: ""},
-                    {_subject:'Vince Wagenar'     , body: ""},
-                    {_subject:'Beverley Gilreath' , body: ""},
+                    {_subject:'Janet Santiago'    , body: "Looking for today's detailed forecast, she was quick to scroll down and identify it. #effort"},
+                    {_subject:'Janet Santiago'    , body: "In looking for the information, she didn't even try to scroll down because she was quick to identify the weather information. So there was no noticeable disruption to the scroll patterns."},
+                    {_subject:'Janet Santiago'    , body: "The rain iconography and the % of precipitation clearly told her everything she needed to go at a glance. Information is being communicated simply enough for her. #effort"},
+                    {_subject:'Julie Stenson'     , body: "When she attempted to scroll vertically, if her thumb pressed on the horizontal hourly weather section, it would interfere with the vertical scroll. This would happen when she was attempting to scroll rapidly to get to the bottom of the page (because she knew what info was there,) but not if she was scrolling slowly/deliberately down the page. #issue #usability"},
+                    {_subject:'Julie Stenson'     , body: "The three pieces of information she wants at a glance are: the current temp, the temperature in the evening, and whether it is going to rain."},
+                    {_subject:'Julie Stenson'     , body: "She was able to find all of that information quickly, except for the the chance of rain, because that is was buried with other information at the bottom of the screen. #usability"},
+                    {_subject:'Julie Stenson'     , body: "She ideally wants to have as little interaction with the forecast as possible. 'Even the act of scrolling is to much effort for what should take me 5 seconds.' #quote #issue"},
+                    {_subject:'Lisa Truitt'       , body: "'I'm looking for storm clouds or lightning bolts to know if there is rain happening tomorrow.' #quote She is looking for scannable tidbits of information that will help her identify this info at a glance. #usability"},
+                    {_subject:'Lisa Truitt'       , body: "Having the little % Precipitation indicator in a different colour really makes it stand out at a glance for her."},
+                    {_subject:'Vince Wagenar'     , body: "He experienced the issue with the horizontal scroll interrupting his attempts to scroll vertically. The horizontal scroll bar sits exactly where his thumb rests while holding the phone, so the landing point for his thumb when attempting to scroll is right on the horizontal scroll bar. #issue #usability"},
+                    {_subject:'Vince Wagenar'     , body: "He looks for a detailed understanding of the weather - he wants to know the current temperature, chance of rain, windiness, humidity and the low temp. Because he commutes into the city for work, he needs to be able to prepare for all fluctuations in the weather for a given day."},
+                    {_subject:'Vince Wagenar'     , body: "'ugh, you're going to force me to read all this to figure out what I need to bring for the day??' #quote He is looking for a set of icons or picture to communicate all of this information #preference"},
+                    {_subject:'Beverley Gilreath' , body: "Information she looks for when viewing the forecast - she is an active gardener, so she is looking for hourly rain information to plan the watering of her gardens. For this, she was clearly able to see the % of precipitation"},
+                    {_subject:'Beverley Gilreath' , body: "She was very deliberate about her interactions with the app, so she did not experience any interruptions to the scrolling."},
+                    
                 ]
             },{
                 name  : "Task 2 - Weekly Weather Navigation",
@@ -171,6 +181,9 @@ var tests = [
                         "• Did the interaction to find scroll through the dates seem logical for you?",
                 _messages : [
                     {_subject:'Janet Santiago'    , body: ""},
+                    {_subject:'Julie Stenson'     , body: "When she attempted to scroll vertically, if her thumb pressed on the horizontal hourly weather section, it would interfere with the vertical scroll. This would happen when she was attempting to scroll rapidly to get to the bottom of the page (because she knew what info was there,) but not if she was scrolling slowly/deliberately down the page. #issue #usability"},
+                    {_subject:'Julie Stenson'     , body: ""},
+                    {_subject:'Julie Stenson'     , body: ""},
                     {_subject:'Julie Stenson'     , body: ""},
                     {_subject:'Lisa Truitt'       , body: ""},
                     {_subject:'Vince Wagenar'     , body: ""},
