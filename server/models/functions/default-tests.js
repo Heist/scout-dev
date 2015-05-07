@@ -154,14 +154,23 @@ var tests = [
 
     // Create a test for each
     // inside the test, create tasks for that test, setting their _test to test._id and index to $index
+    // this works but returns undefined, can't tell why.
 
     Bluebird.map(tests, function(n){
         var test =  new models.Test(n.test);
         console.log(test._id);
         return Bluebird.all([
                Bluebird.map(n.tags, function(tag, i){
-                    console.log('checking default tags', n.tags.length, tag, test._id);
-                    return models.Tag.create({name:tag, nameCheck:tag, _test:test._id}, function(err, next){});
+                    var t = new models.Tag({
+                            name      : tag,
+                            nameCheck : tag.toLowerCase(),
+                            _test     : test._id
+                        });
+                    test._tags.push(t._id);
+
+                    return t.save(function(err, done){
+                        return done;
+                    })
                 }),
                 Bluebird.map(n.tasks, function(task, i){
                         task._test = test._id;
@@ -169,18 +178,19 @@ var tests = [
 
                         var t = new models.Task(task);
                         test._tasks.push(t._id);
-                        t.save(function(err, done){
+
+                        return t.save(function(err, done){
                                 return done;
                             });
                         })
             ]).then(function(array){
-                test.save(function(err, reply){
+                // console.log('is test still set?', test);
+                return test.save(function(err, reply){
                     return reply;
                 })
             })
     }).then(function(testArray){
-        console.log('did we make some tests?', account, id, testArray.length);
-        callback(null, testArray);
+        callback(null, 'true');
     }).catch(function(err){
         if(err){console.log(err);}
     });
