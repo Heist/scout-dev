@@ -52362,7 +52362,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.navlist =  makeNavList($scope.rawList);
         });
         
-        $scope.selected = $scope.rawList[_.indexOf(_.pluck(summaryList.freshList, 'doctype'), 'test')];
+        $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
         console.log($scope.selected);
         // GROUP MESSAGES BY USERS ==================================
         $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
