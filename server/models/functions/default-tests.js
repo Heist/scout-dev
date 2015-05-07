@@ -160,8 +160,6 @@ var modelSave  = function(mongooseModel){
     })
 }
 
-
-Bluebird.promisify(models.Tag.save, models.Tag);
     // Create a test for each
     // inside the test, create tasks for that test, setting their _test to test._id and index to $index
     // this works but returns undefin
@@ -191,10 +189,7 @@ Bluebird.promisify(models.Tag.save, models.Tag);
                 })
             ]).then(function(array){
                 // console.log('is test still set?', test);
-                console.log('this is the array after bluebird' , array);
-                return test.save(function(err, reply){
-                    return reply;
-                })
+                return modelSave(test);
             })
     }).then(function(testArray){
         callback(null, 'true');
