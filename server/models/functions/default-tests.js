@@ -202,6 +202,7 @@ var tests = [
             summary : "Overall, participants had positive feedback on the general experience of the app. A few participants mentioned that they appreciate and rely on the ability to sort their emails into categories. The fact that this app lacks that functionality could deter people from using it. We should discuss the possibility of including similar behaviour in the app. Meghan said, 'You should really consider a sorting feature. Especially since this is an app. People on their phones will be in a hurry no matter what. No one wants to spend 20, 30, 40 minutes tending to emails on their phone! You should focus all your efforts on trying to make the experience as quick and streamlined as possible.' She also mentioned that this app would not work well for someone who receives a large number of emails per day. Having all emails in one inbox stream could be overwhelming (especially on a mobile device).\n\nAnother issue participants had with the experience was that there was no indication of multiple people on one thread in the Inbox view. All of the participants were surprised to see three people on the email thread once they opened the email from Billy. One way we could solve this issue is if we put a number beside the name of the sender to indicate that there are others on the thread. Once they opened the thread they were also confused by the sequence of the emails. The participants all mentioned that the order should be Billy's email (sent first at 8AM), then Matt's (send around 2PM) and finally Laura's (sent 15sec ago).\n\nMost participants understood the Delete, Add Recipient and Reply functions. The experience was similar to what they are used to. Meghan struggled with the Delete and Add Recipient functions because the icons were unfamiliar to her. It took her a few moments to realize that the garbage can icon was the delete button. She also questioned the Add Recipient functionality not knowing what the plus and minus icons would do. Every participant but Meghan understood the iconography used in the app."
         },
         'tags'  :['issue', 'comprehension', 'preference', 'effort', 'quote'],
+        'subjects' : ['Imogen Best','Jeff Smith','Mark Cregan','Meghan Anderson','Molly Kraft','Sasha Arfin'],
         'tasks' : [{
                     name :"Introduction",
                     desc :"Note: This is to set the tone for the interviewee. We’ll introduce ourselves and set “ground rules” for the discussion.\n- My name is __________.\n- Thanks for talking to us today, we’ll be about 30 minutes.\n- We’re going to talk about a new app we're designing.\n- This discussion is confidential – your personal information or specific answers won’t be used publicly so don’t hesitate speak your mind.\n- No right or wrong answers - very important to not say what you think I want to hear, but what you are actually thinking/feeling. Feel free to stop us at anytime for clarification, questions, or concerns.\n- We’ll have you play around with a few things we’ve been working on. We’d like you to speak out loud and tell us about everything you’re thinking/feeling/etc.\n- You’ll be recorded, but this information will not be distributed.",
@@ -209,27 +210,69 @@ var tests = [
                 },{
                     name :"Email Habits Background",
                     desc :"- Which company do you use for your email accounts?\n- Do you have separate providers for your personal and work accounts?\n- As a percentage, how much of your email creation and management do you do on your mobile devices?\n- Which mobile device do you use?\n- Do you use any email apps, other than those that came pre-installed? If so, which ones?\n- Why did you switch email apps from those that are on your phone?",
-                    _messages : []
+                    _messages : [
+                        {name:'Imogen Best'     , body:""},
+                        {name:'Jeff Smith'      , body:""},
+                        {name:'Mark Cregan'     , body:""},
+                        {name:'Meghan Anderson' , body:""},
+                        {name:'Molly Kraft'     , body:""},
+                        {name:'Sasha Arfin'     , body:""}
+                    ]
                 },{
                     name :"Task 1 - Landing in your inbox",
                     desc :"Ok, great, now we've going to get you to play with an email app we are designing. Pick up the phone in front of you and unlock it. I want you to pretend that you we're out shopping, and just remembered that you needed to email a friend to make plans for dinner.\n- What is the first thing you notice when you land in your inbox?\n- Walk me through the elements you see on the screen.\n- Talk me through your thought process when you are confronted with unread emails.\n- After seeing your inbox, what is the first action you want to take?",
-                    _messages : []
+                    _messages : [
+                        {name:'Imogen Best'     , body:""},
+                        {name:'Jeff Smith'      , body:""},
+                        {name:'Mark Cregan'     , body:""},
+                        {name:'Meghan Anderson' , body:""},
+                        {name:'Molly Kraft'     , body:""},
+                        {name:'Sasha Arfin'     , body:""}
+                    ]
                 },{
                     name :"Task 2 - Managing unread email",
                     desc :"Alright, let's read that email from Billy Kiely. Tap on that item.\n- What is the first thing you notice when you land on this screen?\n- Does the oder that the messages are displayed in make sense to you?\n- If you wanted to reply to Laura, what would you do?\n- If you wanted to reply to Billy, what would you do?\n- If you decided you don't really want to see these people, and wanted to delete these emails, what would you do next? Why?",
-                    _messages : []
+                    _messages : [
+                        {name:'Imogen Best'     , body:""},
+                        {name:'Jeff Smith'      , body:""},
+                        {name:'Mark Cregan'     , body:""},
+                        {name:'Meghan Anderson' , body:""},
+                        {name:'Molly Kraft'     , body:""},
+                        {name:'Sasha Arfin'     , body:""}
+                    ]
                 },{
                     name :"Task 3 - Writing a new email",
                     desc :"Alright, let's send that recipe to your friend. So let's write a new email.\n- Where would you click in your inbox to start writing a new email?\n- What is the first action you take when you are sending a new email?\n- Do you understand what all of these labels mean?\n- If you want to add someone to the 'To:' field, how would you do that?\n- Why do you think the plus sign turned into a minus sign once you added a recipient to this email?\n- Talk me through how you identify your contacts when you add them to an email?\n- Now type out your email, (email text should appear when they click on Subject or Email Input fields,) and send it.\n- What did you think of that? Was that what you expected? Why or why not?",
-                    _messages : []
+                    _messages : [
+                        {name:'Imogen Best'     , body:""},
+                        {name:'Jeff Smith'      , body:""},
+                        {name:'Mark Cregan'     , body:""},
+                        {name:'Meghan Anderson' , body:""},
+                        {name:'Molly Kraft'     , body:""},
+                        {name:'Sasha Arfin'     , body:""}
+                    ]
                 },{
                     name :"Task 4 - Deleting emails",
                     desc :"Ok, so your are back in your inbox. Now it is time to clear out unwanted messages. Jon is trying to make dinner plans with you, but you already have plans with Billy. Let's just delete Jon's message without replying.\n- What would you do next? Why?\n- Is there anything else you would do at this point?\n- What additional info would have helped?\n- Is that a familiar action for you based on other apps you use regularly?",
-                    _messages : []
+                    _messages : [
+                        {name:'Imogen Best'     , body:""},
+                        {name:'Jeff Smith'      , body:""},
+                        {name:'Mark Cregan'     , body:""},
+                        {name:'Meghan Anderson' , body:""},
+                        {name:'Molly Kraft'     , body:""},
+                        {name:'Sasha Arfin'     , body:""}
+                    ]
                 },{
                     name :"Thoughts and Feedback on the Experience",
                     desc :"- Having walked through this experience now, how did it compare to your experiences with other email apps?\n- Is it better or worse? Why?\n- Do you think you would use this email app?\n- What did you feel was missing? \n- What did you find confusing?\n- Do you have any other thoughts or feedback for us?",
-                    _messages : []
+                    _messages : [
+                        {name:'Imogen Best'     , body:""},
+                        {name:'Jeff Smith'      , body:""},
+                        {name:'Mark Cregan'     , body:""},
+                        {name:'Meghan Anderson' , body:""},
+                        {name:'Molly Kraft'     , body:""},
+                        {name:'Sasha Arfin'     , body:""}
+                    ]
                 },{
                     name :"Conclusion and Thank You",
                     desc :"- Thanks participant for their time\n- Get them to initial sign-in sheet, and hand them their payment cheque\n- Provide assistance with leaving building\n- High fives!",
