@@ -265,13 +265,13 @@ var tests = [
                         {name:'Molly Kraft'     , body:"She sees a menu icon in the top left corner, the Inbox screen title in the centre of the top bar, a new email button on the right top corner and the list of emails.The emails all show who they are from, a snippet of text from the email and a time stamp. Some of the emails have attachment icons. #comprehension  #summary"},
                         {name:'Molly Kraft'     , body:"She scans the email at the top of the list first to see who it's from, what it's pertaining to and what time it is sent at. Then she does the same for the second email. Based on what she reads from the preview text she decides which email should be responded to first. #preference #comprehension #summary"},
                         {name:'Molly Kraft'     , body:"After reading the snippet of text she would check out Jon's email first to see which place he's suggested and then tell Billy about it because Billy seems to be interested in eating a burger tonight #comprehension #effort #summary"},
-                        {name:'Sasha Arfin'     , body:"She first notices the new email button. The bright green colour attracts her eyes to it #comprehension"},
-                        {name:'Sasha Arfin'     , body:"She sees a menu icon in the top left corner, new email button on the top right, search bar and list of emails. The unread emails are marked with dots and the text is bolded in the name and title. All of the emails have a time stamp. #comprehension"},
+                        {name:'Sasha Arfin'     , body:"She first notices the new email button. The bright green colour attracts her eyes to it #comprehension #summary"},
+                        {name:'Sasha Arfin'     , body:"She sees a menu icon in the top left corner, new email button on the top right, search bar and list of emails. The unread emails are marked with dots and the text is bolded in the name and title. All of the emails have a time stamp. #comprehension #summary"},
                         {name:'Sasha Arfin'     , body:"Since she has to meet her friend for dinner (she assumes that friend is Billy because he's emailing her about dinner plans) she'd open Billy's email first. She would read it and if she felt the need to, she would respond immediately or she would think about her response while she read the other unread email. #preference #effort"},
                         {name:'Sasha Arfin'     , body:"I'm not the type of person who's obsessed with having an inbox of zero. I often read emails and if they're not urgent I'll mark them as unread and answer them when I feel like it. Or if they are newsletter emails or store promos I will often skip over them and just leave them in my inbox. I should really just delete them right away but I can't be bothered! #quote #preference"},
                         {name:'Sasha Arfin'     , body:"She likes how Gmail sorts her emails into different categories. She knows the Social and Promotions often don't have urgent emails waiting in them so she just focuses her attention on the Inbox category. It helps make her feel like she's got her inbox sort of in control. #preference"},
                         {name:'Sasha Arfin'     , body:"She doesn't think she'll be able to do this in this app and that would 'drive her nuts!' #quote #preference #issue"},
-                        {name:'Sasha Arfin'     , body:"The first action she would take is responding to Billy's email #comprehension"}
+                        {name:'Sasha Arfin'     , body:"The first action she would take is responding to Billy's email #comprehension #summary"}
                     ]
                 },{
                     name :"Task 2 - Managing unread email",
@@ -306,9 +306,9 @@ var tests = [
                         {name:'Molly Kraft'     , body:"She would clicked the garbage can icon in the top grey bar to delete the thread and thinks a pop up with appear that asks her if she's sure she wants to delete the whole thread. #comprehension #summary"},
                         {name:'Molly Kraft'     , body:"I like that the icons are the same as my Mail app. I can easily navigate this app thanks to them being so similar #quote #comprehension #summary"},
                         {name:'Sasha Arfin'     , body:"Oh! It's not just Billy on this thread. If Laura responded to this thread 15 seconds ago you'd think the Inbox view would've updated! #quote #issue"},
-                        {name:'Sasha Arfin'     , body:"Yes, the order makes sense #comprehension"},
-                        {name:'Sasha Arfin'     , body:"If she wanted to reply to Billy she would click on the section with his email and name in it #comprehension"},
-                        {name:'Sasha Arfin'     , body:"She would click on the garbage icon in the top bar. This icon is familiar to her. In Gmail that's what she would do if she wanted to delete an email. She assumes it would be the same here. #comprehension"}
+                        {name:'Sasha Arfin'     , body:"Yes, the order makes sense #comprehension #summary"},
+                        {name:'Sasha Arfin'     , body:"If she wanted to reply to Billy she would click on the section with his email and name in it #comprehension #summary"},
+                        {name:'Sasha Arfin'     , body:"She would click on the garbage icon in the top bar. This icon is familiar to her. In Gmail that's what she would do if she wanted to delete an email. She assumes it would be the same here. #comprehension #summary"}
                     ]
                 },{
                     name :"Task 3 - Writing a new email",
@@ -342,12 +342,12 @@ var tests = [
                         {name:'Molly Kraft'     , body:"She would begin typing in the recipients name and assumes some names will be suggested to her"},
                         {name:'Molly Kraft'     , body:"She identifies her contacts by their full name appearing with their email address #comprehension #summary"},
                         {name:'Molly Kraft'     , body:"Yes, it's what she expected. She loves that there's even an image of the person with the name and address #comprehension"},
-                        {name:'Sasha Arfin'     , body:"She would click the green button with the pencil in it #comprehension"},
+                        {name:'Sasha Arfin'     , body:"She would click the green button with the pencil in it #comprehension #summary"},
                         {name:'Sasha Arfin'     , body:"She puts in the email addresses of the people she's sending the email to #effort"},
                         {name:'Sasha Arfin'     , body:"Yes, she understands all of the labels. Says they're pretty standard. #comprehension"},
-                        {name:'Sasha Arfin'     , body:"She would tap on the 'To:' field and then start typing the email address of the recipient #effort #comprehension"},
+                        {name:'Sasha Arfin'     , body:"She would tap on the 'To:' field and then start typing the email address of the recipient #effort #comprehension #summary"},
                         {name:'Sasha Arfin'     , body:"She looks to see if their name pops up as she's typing #preference"},
-                        {name:'Sasha Arfin'     , body:"Yes, it was what she expected. She like the layout. It's very easy for her to read and click on #comprehension #preference"}
+                        {name:'Sasha Arfin'     , body:"Yes, it was what she expected. She like the layout. It's very easy for her to read and click on #comprehension #preference #summary"}
                     ]
                 },{
                     name :"Task 4 - Deleting emails",
@@ -375,7 +375,7 @@ var tests = [
                         {name:'Molly Kraft'     , body:"Molly has a Rackspace email and uses the Apple Mail app to check her email on her iPhone 6. She’s constantly on the go due to the nature of her job so most of her emailing is done on her phone. She understood how to Add a Recipient, Delete a thread and Reply to an email. The iconography was easy for her to comprehend. She really liked that the email address autocomplete included a small profile picture. She was confused by the order of the thread and the fact that there was no indication of multiple people on the thread pertaining to dinner plans. She said if these two things were fixed she would happily download and use the app."},
                         {name:'Sasha Arfin'     , body:"It was similar to the Gmail app but lacked the ability to sort emails into categories. For someone who tends to leave many emails unread she really appreciates that feature #preference"},
                         {name:'Sasha Arfin'     , body:"She thinks it's worse because of the lack of that feature. Her email would be impossible to control and she'd rely heavily on the search function #issue"},
-                        {name:'Sasha Arfin'     , body:"She found it confusing that the names of the other people on the thread were not included on the Inbox view page #comprehension #issue"},
+                        {name:'Sasha Arfin'     , body:"She found it confusing that the names of the other people on the thread were not included on the Inbox view page #comprehension #issue #summary"},
                         {name:'Sasha Arfin'     , body:"Consider adding the sorting feature and she'll download the app!"}
                     ]
                 },{
