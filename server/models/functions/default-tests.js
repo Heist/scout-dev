@@ -352,24 +352,31 @@ var tests = [
                 },{
                     name :"Task 4 - Deleting emails",
                     desc :"Ok, so your are back in your inbox. Now it is time to clear out unwanted messages. Jon is trying to make dinner plans with you, but you already have plans with Billy. Let's just delete Jon's message without replying.\n- What would you do next? Why?\n- Is there anything else you would do at this point?\n- What additional info would have helped?\n- Is that a familiar action for you based on other apps you use regularly?",
-                    _messages : [
-                        {name:'Imogen Best'     , body:""},
-                        {name:'Jeff Smith'      , body:""},
-                        {name:'Mark Cregan'     , body:""},
-                        {name:'Meghan Anderson' , body:""},
-                        {name:'Molly Kraft'     , body:""},
-                        {name:'Sasha Arfin'     , body:""}
-                    ]
+                    _messages : []
                 },{
                     name :"Thoughts and Feedback on the Experience",
                     desc :"- Having walked through this experience now, how did it compare to your experiences with other email apps?\n- Is it better or worse? Why?\n- Do you think you would use this email app?\n- What did you feel was missing? \n- What did you find confusing?\n- Do you have any other thoughts or feedback for us?",
                     _messages : [
-                        {name:'Imogen Best'     , body:""},
-                        {name:'Jeff Smith'      , body:""},
-                        {name:'Mark Cregan'     , body:""},
-                        {name:'Meghan Anderson' , body:""},
-                        {name:'Molly Kraft'     , body:""},
-                        {name:'Sasha Arfin'     , body:""}
+                        {name:'Imogen Best'     , body:"She felt it was very similar to the Mail app. She liked it and would download it! #preference"},
+                        {name:'Imogen Best'     , body:"She found the order of the emails in the thread confusing and thought it was odd that the other people on the thread weren't included on the Inbox page #issue"},
+                        {name:'Jeff Smith'      , body:"It was very similar to the Gmail app. The only thing he'd like to see added is the ability to categorize emails. It's a feature that he's learned to rely on to sort his emails. #preference"},
+                        {name:'Jeff Smith'      , body:"He doesn't feel like it's better or worse #preference"},
+                        {name:'Jeff Smith'      , body:"He found it confusing that the people on the thread weren't displayed on the Inbox page and that their emails were out of order. #issue #comprehension"},
+                        {name:'Jeff Smith'      , body:"Love the colour palette! #preference"},
+                        {name:'Mark Cregan'     , body:"He thought it was very similar to the Gmail app experience. The icons were the same which made things easier, composing a new email, deleting and replying to people is all the same too. He really likes the feature that autopopulates the 'To:' field. #preference #comprehension"},
+                        {name:'Mark Cregan'     , body:"He feels indifferent. Though the order in which the email thread appeared was confusing and there was no indication of multiple people being on that thread. #issue"},
+                        {name:'Mark Cregan'     , body:"He would like to see other people's names in the Inbox view of the email to give him a better understanding of who has responded on the thread."},
+                        {name:'Meghan Anderson' , body:"It was a much simpler experience than the Outlook app. She prefers the structure and interactions of the Outlook app. She gets up to 150 emails a day so having the sorting feature in the app is a life saver #preference"},
+                        {name:'Meghan Anderson' , body:"It's worse. It's far too simple. This app is for someone who gets only a few emails a day. #quote"},
+                        {name:'Meghan Anderson' , body:"You should really consider a sorting feature. Especially since this is an app. People on their phones will be in a hurry no matter what. No one wants to spend 20, 30, 40 minutes tending to emails on their phone! You should focus all your efforts on trying to make the experience as quick and streamlined as possible. #quote"},
+                        {name:'Molly Kraft'     , body:"It was very similar to the Mail app she's used to. However, the Mail app shows the names of all the people on the thread on the Inbox view."},
+                        {name:'Molly Kraft'     , body:"She only found the thread issue confusing but it didn't stop her from being able to understand who wrote what and when they sent it. It wasn't a major issue just more of an annoyance. #issue"},
+                        {name:'Molly Kraft'     , body:"Loves the profile images! #preference"},
+                        {name:'Molly Kraft'     , body:"Molly has a Rackspace email and uses the Apple Mail app to check her email on her iPhone 6. She’s constantly on the go due to the nature of her job so most of her emailing is done on her phone. She understood how to Add a Recipient, Delete a thread and Reply to an email. The iconography was easy for her to comprehend. She really liked that the email address autocomplete included a small profile picture. She was confused by the order of the thread and the fact that there was no indication of multiple people on the thread pertaining to dinner plans. She said if these two things were fixed she would happily download and use the app."},
+                        {name:'Sasha Arfin'     , body:"It was similar to the Gmail app but lacked the ability to sort emails into categories. For someone who tends to leave many emails unread she really appreciates that feature #preference"},
+                        {name:'Sasha Arfin'     , body:"She thinks it's worse because of the lack of that feature. Her email would be impossible to control and she'd rely heavily on the search function #issue"},
+                        {name:'Sasha Arfin'     , body:"She found it confusing that the names of the other people on the thread were not included on the Inbox view page #comprehension #issue"},
+                        {name:'Sasha Arfin'     , body:"Consider adding the sorting feature and she'll download the app!"}
                     ]
                 },{
                     name :"Conclusion and Thank You",
