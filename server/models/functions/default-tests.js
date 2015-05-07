@@ -32,83 +32,107 @@ var tests = [
                         name  :"Introduction",
                         desc  :"Note: This is to set the tone for the interviewee or group. We’ll introduce ourselves and set “ground rules” for the discussion.\n- My name is __________.\n- Thanks for talking to us today, we’ll be about 60 minutes.\n- We’re constantly trying to improve our product, and getting your frank feedback is a really important part of that.\n- This discussion is confidential – your personal information or specific answers won’t be used publicly so don’t hesitate speak your mind.\n- No right or wrong answers - very important to not say what you think I want to hear, but what you are actually thinking/feeling. Feel free to stop us at anytime for clarification, questions, or concerns.\n- We’ll be running through a few questions and scenarios from your day. \n- We’d like you to speak out loud and tell us about everything you’re thinking/feeling/etc.\n- You’ll be recorded, but this information will not be distributed beyond our team.\n- Alright, let's get started!",
                         _messages : [
-                            {name: 'Aaron Chartrand' , body : ''},
-                            {name: 'Sarah Costa'     , body : ''},
-                            {name: 'Matthew Clarke'  , body : ''},
-                            {name: 'Lisa Dewitt'     , body : ''},
-                            {name: 'Dina Harmeneh'   , body : ''},
-                            {name: 'Brad Allen'      , body : ''}
+                            {name: 'Aaron Chartrand' , body : ""},
+                            {name: 'Sarah Costa'     , body : ""},
+                            {name: 'Matthew Clarke'  , body : ""},
+                            {name: 'Lisa Dewitt'     , body : ""},
+                            {name: 'Dina Harmeneh'   , body : ""},
+                            {name: 'Brad Allen'      , body : ""}
                         ]
                     }, {
                         name  : "Background Information",
                         desc  : "- What is your name and age? \n - Where do you live? \n - What kind of work do you do?\n- For how long have you been doing that?\n- What kinds of activities, hobbies or projects do you like to do when you’re not working?",
                        _messages : [
-                            {name: 'Aaron Chartrand' , body : ''},
-                            {name: 'Sarah Costa'     , body : ''},
-                            {name: 'Matthew Clarke'  , body : ''},
-                            {name: 'Lisa Dewitt'     , body : ''},
-                            {name: 'Dina Harmeneh'   , body : ''},
-                            {name: 'Brad Allen'      , body : ''}
+                            {name: 'Aaron Chartrand' , body : ""},
+                            {name: 'Sarah Costa'     , body : ""},
+                            {name: 'Matthew Clarke'  , body : ""},
+                            {name: 'Lisa Dewitt'     , body : ""},
+                            {name: 'Dina Harmeneh'   , body : ""},
+                            {name: 'Brad Allen'      , body : ""}
                         ]
                     },
                     {
                         name  : "Current Activities and Habits",
                         desc  : "- What do you do to take care of yourself? To stay in shape? To stay active? \n - Can you list the sports, exercise, classes you participate in?\n- How many times did you participate in the activities in the last week?\n- Are there any other healthy habits in your day?",
                          _messages : [
-                            {name: 'Aaron Chartrand' , body : ''},
-                            {name: 'Sarah Costa'     , body : ''},
-                            {name: 'Matthew Clarke'  , body : ''},
-                            {name: 'Lisa Dewitt'     , body : ''},
-                            {name: 'Dina Harmeneh'   , body : ''},
-                            {name: 'Brad Allen'      , body : ''}
+                            {name: 'Aaron Chartrand' , body : ""},
+                            {name: 'Sarah Costa'     , body : ""},
+                            {name: 'Matthew Clarke'  , body : ""},
+                            {name: 'Lisa Dewitt'     , body : ""},
+                            {name: 'Dina Harmeneh'   , body : ""},
+                            {name: 'Brad Allen'      , body : ""}
                         ]
                     },
                     {
                         name  : "Fitness Apps and Tools",
                         desc  : "- Have you used any apps or websites or other programs to help you with fitness? Which ones?\n- What did you want them to do for you?\n- What was your expected out come from using these apps?\n- What do you like about them?\n- What do you dislike about them?\n- Did you pay for them? Why? Why not?",
                         _messages : [
-                            {name: 'Aaron Chartrand' , body : ''},
-                            {name: 'Sarah Costa'     , body : ''},
-                            {name: 'Matthew Clarke'  , body : ''},
-                            {name: 'Lisa Dewitt'     , body : ''},
-                            {name: 'Dina Harmeneh'   , body : ''},
-                            {name: 'Brad Allen'      , body : ''}
+                            {name: 'Aaron Chartrand' , body : ""},
+                            {name: 'Sarah Costa'     , body : ""},
+                            {name: 'Matthew Clarke'  , body : ""},
+                            {name: 'Lisa Dewitt'     , body : ""},
+                            {name: 'Dina Harmeneh'   , body : ""},
+                            {name: 'Brad Allen'      , body : ""}
                         ]
                     },
                     {
                         name  : "Friends and Social Activity",
                         desc  : "- Who (e.g. friends, family, coaches, teachers?) helps keep you active?\n- How do they help you?\n- Who (e.g. friends, family, coaches, teachers?) is a barrier to you being active?\n- How do they prevent you from being active?\n- Do you share info about your workouts or your goals with anyone?\n- When? Why? How?\n- What (if anything) do you do to keep track of what you’re doing?\n- How does that help you?"   ,
                         _messages : [
-                            {name: 'Aaron Chartrand' , body : ''},
-                            {name: 'Sarah Costa'     , body : ''},
-                            {name: 'Matthew Clarke'  , body : ''},
-                            {name: 'Lisa Dewitt'     , body : ''},
-                            {name: 'Dina Harmeneh'   , body : ''},
-                            {name: 'Brad Allen'      , body : ''}
+                            {name: 'Aaron Chartrand' , body : ""},
+                            {name: 'Sarah Costa'     , body : ""},
+                            {name: 'Matthew Clarke'  , body : ""},
+                            {name: 'Lisa Dewitt'     , body : ""},
+                            {name: 'Dina Harmeneh'   , body : ""},
+                            {name: 'Brad Allen'      , body : ""}
                         ]
                     },
                     {
                         name  : "Exercise Habits",
                         desc  : "- How have your exercise habits changed over time?\n- What did you used to do 6 months ago?\n- What did you used to do where at your fittest?\n- Have the software and tools you use changed? Which did you used to use?",
                         _messages : [
-                            {name: 'Aaron Chartrand' , body : ''},
-                            {name: 'Sarah Costa'     , body : ''},
-                            {name: 'Matthew Clarke'  , body : ''},
-                            {name: 'Lisa Dewitt'     , body : ''},
-                            {name: 'Dina Harmeneh'   , body : ''},
-                            {name: 'Brad Allen'      , body : ''}
+                            {name: 'Aaron Chartrand' , body : "I've always been an active person. As I get older I notice I have to work a bit harder to maintain my physique but that doesn't bother me. I enjoy working out. #quote"},
+                            {name: 'Aaron Chartrand' , body : "Eating well and working out regularly keeps him fit and happy"},
+                            {name: 'Aaron Chartrand' , body : "He didn't have a trainer 6 months ago so he would use the Nike Fit app and just go jogging to stay active. #touchpoint #activity"},
+                            {name: 'Aaron Chartrand' , body : "He stopped using an app and now works with a trainer. He doesn't think he'll use an app again to track his fitness."},
+                            {name: 'Sarah Costa'     , body : "My fitness habits have changed dramatically since having a child. I was never a morning person before but now it's the best time for me to work out. I also work out more because I've made it a priority in my life. I do it for myself but also for my family! #quote"},
+                            {name: 'Sarah Costa'     , body : "She had just joined the gym 6 months ago so she was just starting to get into the routine. It was hard for her at first but now she's really enjoying it. #touchpoint #activity"},
+                            {name: 'Sarah Costa'     , body : "She ran and trained for marathons"},
+                            {name: 'Sarah Costa'     , body : "Yes, she never used any software or tools before the FitBit. She's really liking it."},
+                            {name: 'Matthew Clarke'  , body : "He used to run but he injured his ankle in a basketball game."},
+                            {name: 'Matthew Clarke'  , body : "6 months ago was when he was injured so he was inactive"},
+                            {name: 'Matthew Clarke'  , body : "He's at his fittest now. He attributes his health to walking a lot and riding his bike everywhere instead of driving or taking the TTC."},
+                            {name: 'Matthew Clarke'  , body : "He doesn't use the MapMyRide app anymore. He got bored of it. #touchpoint"},
+                            {name: 'Matthew Clarke'  , body : "I like the idea of incorporating tech into my life but I'm often disappointed by the offerings of the apps. I always want them to do more than they can. It frustrates me. I'm a very visual person so I need to see my data presented to me in graphics not in numbers. A lot of these apps are just a bunch of numbers. #quote"},
+                            {name: 'Lisa Dewitt'     , body : "Before she joined the gym she currently goes to she didn't really work out. Would run occasionally."},
+                            {name: 'Lisa Dewitt'     , body : "Now she goes to the gym 3 times a week. Her habits changed thanks to the encouragement of her boyfriend #touchpoint"},
+                            {name: 'Lisa Dewitt'     , body : "6 months ago: Didn't work out at all. Gained 15 pounds. Her weight gain and boyfriend both motivated her to join the gym and become more health conscious"},
+                            {name: 'Lisa Dewitt'     , body : "Never used software before to track her fitness."},
+                            {name: 'Lisa Dewitt'     , body : "Wearables have changed the way I perceive myself and my fitness level! I am more aware of how healthy/unhealthy I am and feel like I know my body better thanks to my apps and my FitBit! #quote"},
+                            {name: 'Lisa Dewitt'     , body : "It’s addictive and fun, and if that gets you moving more and generally fitter and leaner it’s better for you than most other computing or mobile devices. #quote"},
+                            {name: 'Dina Harmeneh'   , body : "She stopped using the app because all of the advanced workouts required equipment that she didn't have. #painpoint"},
+                            {name: 'Dina Harmeneh'   , body : "She joined a soccer league, bought a Kinect to go on her XBOX and she uses that now for her workouts and she moved into a new condo that has tennis and basketball courts #activity"},
+                            {name: 'Dina Harmeneh'   , body : "She would workout with the app and take short runs with her dog #activity"},
+                            {name: 'Dina Harmeneh'   , body : "Ate well and worked out regularly"},
+                            {name: 'Dina Harmeneh'   , body : "Yes, she now uses the Kinect and she used to use the FitStar app"},
+                            {name: 'Dina Harmeneh'   , body : "I love using the Kinect to workout. It's like having an instructor come to my house and put on a fun workout class for me. I love that I can do it in my home and I don't have to pay any membership fees or have to worry about opening/closing times. #quote"},
+                            {name: 'Brad Allen'      , body : "He was very athletic in his early 20s. He played soccer competitively, tennis and ran a few marathons. When he turned 30 he got a job that required him to travel a lot and he had to give up his highly active lifestyle. From 30 to about 40 he would work out in hotel gyms and jog when he could find the time. When he was 46 he tore his Achilles tendon while playing tennis with a friend and that caused him to slow down for a few years. Now he's trying to get more active. #touchpoint"},
+                            {name: 'Brad Allen'      , body : "His routine hasn't changed much from 6 months ago #touchpoint"},
+                            {name: 'Brad Allen'      , body : "He was at his fittest when he was in his 20s. He attributes this to his high metabolism and highly active lifestyle. #touchpoint"},
+                            {name: 'Brad Allen'      , body : "He doesn't use any software or tools now. He hasn't tried any because he has a Blackberry and the app store is very limited. #touchpoint #painpoint"},
+                            {name: 'Brad Allen'      , body : "I would love to use an app to track how many calories I burn while doing my Muay Thai workouts. I've heard of a product called Jawbone that I could wear as a bracelet but I'm not sure if I'll need to hook that up with my phone. I feel a bit overwhelmed by all of the wearable tech options to be honest! #quote"}
                         ]
                     },
                     {
                         name  : "Conclusion and Thank You",
                         desc  : "- Thanks participant for their time\n- Get them to initial sign-in sheet, and hand them their reimbursement\n- Provide assistance with leaving building\n- High fives!",
                         _messages : [
-                            {name: 'Aaron Chartrand' , body : ''},
-                            {name: 'Sarah Costa'     , body : ''},
-                            {name: 'Matthew Clarke'  , body : ''},
-                            {name: 'Lisa Dewitt'     , body : ''},
-                            {name: 'Dina Harmeneh'   , body : ''},
-                            {name: 'Brad Allen'      , body : ''}
+                            {name: 'Aaron Chartrand' , body : ""},
+                            {name: 'Sarah Costa'     , body : ""},
+                            {name: 'Matthew Clarke'  , body : ""},
+                            {name: 'Lisa Dewitt'     , body : ""},
+                            {name: 'Dina Harmeneh'   , body : ""},
+                            {name: 'Brad Allen'      , body : ""}
                         ]
                     }]
     },
