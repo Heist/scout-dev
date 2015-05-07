@@ -169,15 +169,17 @@ var tests = [
 
                         var t = new models.Task(task);
                         test._tasks.push(t._id);
-                        t.save();
-                        return t;
+                        t.save(function(err, done){
+                                return done;
+                            });
+                        })
+            ]).then(function(array){
+                test.save(function(err, reply){
+                    return reply;
                 })
-            ]).then(function(test){
-                return test;        
             })
-              
     }).then(function(testArray){
-        console.log('did we make some tests?', account, id, testArray);
+        console.log('did we make some tests?', account, id, testArray.length);
         callback(null, testArray);
     }).catch(function(err){
         if(err){console.log(err);}
