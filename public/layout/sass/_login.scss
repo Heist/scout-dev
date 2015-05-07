@@ -3,13 +3,34 @@
 /* login */
 
 #view-login {
-	background: $fg-header-red;
+	// background: $fg-header-red;
+	background: $white url('/layout/assets/mountains.svg') center 30px no-repeat;
+	background-size: 100%;
 	color: $white;
 	min-height: 100%;
-	padding: 15% 0 0 0;
+	padding: 10% 0 0 0;
+
+	.module-container {
+		max-width: 60%;
+		margin: 0 auto;
+		background: $fg-header-red;
+		padding: 75px 130px 50px 130px;
+		@include radius;
+	}
+
+	.alt-info {
+		p {
+			margin: 0;
+			padding: 0;
+		}
+	}
 
 	.line {
 		text-decoration: underline;
+	}
+
+	.submit {
+		margin: 15px auto;
 	}
 
 	label {
@@ -37,10 +58,6 @@
 	
 	a {
 		color: $white;
-	}
-
-	p {
-		@include type-regular;
 	}
 	
 	#logo {
