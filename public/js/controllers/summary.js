@@ -48,7 +48,7 @@
                     var nameCheck = n.name.toLowerCase();
                     return nameCheck !== 'summary';
                 } else {
-                    console.log('summary object does not exist');
+                    // console.log('summary object does not exist');
                     return [];
                 }
             })[0];
@@ -56,7 +56,7 @@
             console.log('summary object', summaryItem, data);
 
             // set the message list for the test to being those messages, and pass the list generally
-            var summaryMsgList = data[testIdx]._messages = (summaryItem && summaryItem._messages) ? summaryItem._messages : [];
+            var summaryMsgList = data[testIdx]._messages = (summaryItem && summaryItem._messages.length > 0) ? summaryItem._messages : [];
             var summaryTagIdCheck = (summaryItem) ? summaryItem._id : 'undefined';
 
             return { summaryMsgList: summaryMsgList, summaryTagIdCheck: summaryTagIdCheck, freshList : data };
