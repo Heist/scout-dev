@@ -69,10 +69,10 @@
         // organise the returned information to pass back a good set for raw data
         var hasMsg  = _.filter(summaryList.freshList, function(n){ return n._messages.length > 0 })
         var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
-        var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
+        var navList = _.sortBy(noSum, function(obj){ return obj.report_index; });
 
         $scope.testname = loadData.data.name;
-        $scope.rawList = tagList;
+        $scope.rawList = navList;
         
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
@@ -80,7 +80,7 @@
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
-
+        console.log($scope.selected);
         // GROUP MESSAGES BY USERS ==================================
         $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
 
