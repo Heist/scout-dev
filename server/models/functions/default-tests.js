@@ -95,7 +95,8 @@ var tests = [
                 }]
     },
     {
-        'test' : {
+        'test'    : {
+            name : "Ex. Usability Testing - Weather App",
             created_by_account: account,
             created_by_user : id,
             desc :  "1. Are horizontal and vertical scrolls obvious to the user?\n"+
@@ -103,24 +104,52 @@ var tests = [
                     "3. Does the current temperature need to be displayed at all times?",
             kind : "prototype",
             link : "http://framerjs.com/examples/preview/#weather-app.framer",
-            name : "Ex. Usability Testing - Weather App",
             summary : "Sessions with all participants went well, as they were all able to comprehend the app's interaction and content. That said, there were a few recurring themes in the feedback that stood out as ways to improve the experience:\n\n- What's Working -\n\nVisuals and iconography communicate important info quickly - In scenarios where people are looking for at-a-glance information (like checking for rain), the background imagery and icons in the hourly forecast communicate this within a second or two for participants.\n\n90% of info required can be found without scrolling - For most participants, they information they would typically be looking for when using their weather app was found immediately upon opening the app.\n\n\n- What Issues Were Found - \n\nHorizontal scroll interference when scrolling vertically quickly - users who scrolled slowly and deliberately up and down the page didn't have any issue with this. But users who make quick movements up and down the page (representative more of our majority, utility-driven users) would accidentally hit the horizontal interaction while moving up and down the page, which created confusion. \n\nDon't separate Today's Forecast information - It confused a number of participants to have different pieces of this information set located at the top and bottom of the app. Their expectation is that this information would be found all within the same context. \n\nMore visual distinction for numbers on screen - Some participants had an issue distinguishing dates, temperatures, highs and lows, as they are all presented in white text. We need to create some hierarchy for this information to make it distinguishable at a glance.\n\n\n- Next Steps -\n\n1. Explore options to reduce/eliminate the sensitivity of the horizontal scroll to reduce likelihood of vertical scroll interference.\n2. Review organization of Today's Forecast information - sketch concepts for alternate solutions.\n3. Explore visual hierarchy for numbers in the app." 
         },
-        'tags' : ['issue', 'comprehension', 'preference', 'effort', 'quote', 'usability'],
-        'tasks' : [
+        'subjects' : [{ name : 'Vince Wagenar', _messages : [
+                        "",
+                        ""
+                    ] },
+                    {_messages:[] ,name : 'Lisa Truitt'}, 
+                    {_messages:[] ,name : 'Julie Stenson'}, 
+                    {_messages:[] ,name : 'Janet Santiago'}, 
+                    {_messages:[] ,name : 'Beverley Gilreath'}],
+
+                    {body: , _subject:'Beverley Gilreath'  },
+                    {body: , _subject:'Beverley Gilreath'  },
+                    {body: , _subject:  },
+                    {body: , _subject:  },
+                    {body: , _subject:  },
+                    {body: , _subject:  },
+                    {body: , _subject:  },
+                    {body: , _subject:  },
+                    {body: , _subject:  },
+                    {body: , _subject:  },
+                    {body: , _subject:  }
+
+        'tags'     : ['issue', 'comprehension', 'preference', 'effort', 'quote', 'usability'],
+        'tasks'    : [
             {
                 name  :"Introduction",
                 desc  : "• My name is __________. Thanks for talking to us today, we’ll be about 60 minutes.\n"+
                         "• This discussion is confidential – your personal information or specific answers won’t be used publicly so don’t hesitate speak your mind.\n"+
                         "• We’d like you to speak out loud and tell us about everything you’re thinking/feeling/etc. as you walk through the app.\n"+
-                        "• Alright, let's get started"
+                        "• Alright, let's get started",
+                _messages : []
             },
             {
                 name  : "First Impressions",
                 desc  : "• Looking at this app for the first time, what stands out for you?\n"+
                         "• From your perspective, describe how is the information laid out?\n"+
                         "• Does the layout of information here make sense to you?\n"+
-                        "• Is there any information that you feel is missing?"
+                        "• Is there any information that you feel is missing?",
+                _messages : [
+                    {body: "The first thing she noticed is that the city displayed was not New York, and she was looking for a way to change this. Had to explain that this would recognize your location automatically when you opened the app." , _subject:'Beverley Gilreath'  },
+                    {body: "'It looks a bit like a stock ticker' - how she referred to the volume of information on the screen. #quote The amount of info here is a bit overwhelming for her." , _subject:'Beverley Gilreath'  },
+                    {body: "She said she doesn't need all this information at once, so she wasn't sure why she was getting it all displayed for her right off the bat. #comprehension #issue", _subject:'Beverley Gilreath'  },
+                    {body: "She had an issue navigating all of the information - she understood that the large number at the top was current weather, but the rest of the numbers become overwhelming.", _subject:'Beverley Gilreath'  },
+                    {_subject: , body: },
+                ]
             },
             {
                 name  : "Task 1 - Daily Weather Navigation",
@@ -128,7 +157,8 @@ var tests = [
                         "• Pay attention to their scrolling to determine if the horizontal scrolling interferes with the vertical scrolling.\n"+
                         "• What piece of information are you looking for?\n"+
                         "• Did you understand that information when you found it?\n"+
-                        "• What interaction were you expecting to have with today's detailed forecast, if any?"
+                        "• What interaction were you expecting to have with today's detailed forecast, if any?",
+                _messages : []
             },{
                 name  : "Task 2 - Weekly Weather Navigation",
                 desc  : "• Scenario: You are looking to plan a day in the park with some friends next weekend, either Saturday the 18th or Friday the 19th. Find the information that helps you determine the best day.\n"+
@@ -136,25 +166,28 @@ var tests = [
                         "• What information are you looking for?\n"+
                         "• Was it clear to you right away where that information would be found?\n"+
                         "• Was there some type of information you were looking for specifically that you couldn't find?\n"+
-                        "• Did the interaction to find scroll through the dates seem logical for you?"
+                        "• Did the interaction to find scroll through the dates seem logical for you?",
+                _messages : []
                 
             },{
                 name  : "App Use Context",
                 desc  : "• What times of the day do you typically check the forecast?\n"+
                         "• Where are you typically when you are checking the forecast?\n"+
-                        "• How are you typically holding your phone when checking the weather?"
+                        "• How are you typically holding your phone when checking the weather?",
+                _messages : []
             },
             {
                 name  : "Conclusion",
                 desc  : "• Thank participant for their time\n"+
                         "• Provide assistance with leaving building\n"+
-                        "• High fives!"
+                        "• High fives!",
+                _messages : []
             }
         ]
-    }
-];
+    }];
 
     // in parallel:
+
 var modelSave  = function(mongooseModel){
     return new Bluebird(function (resolve, reject) {
         mongooseModel.save(function(err,done) {
