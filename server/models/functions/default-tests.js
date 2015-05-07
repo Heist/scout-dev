@@ -11,6 +11,15 @@ module.exports = function(account, id, callback){
     var Bluebird = require('bluebird');
     var models   = Bluebird.promisifyAll(require('../../models'));
 
+    var modelSave  = function(mongooseModel){
+    return new Bluebird(function (resolve, reject) {
+        mongooseModel.save(function(err,done) {
+          if (!done || done.error) {return reject(done.error);}
+          return resolve(done);
+        })
+    })
+}
+
 // Abstract and create tests 
 var tests = [
     {
@@ -523,15 +532,6 @@ var tests = [
 
     // in parallel:
 
-var modelSave  = function(mongooseModel){
-    return new Bluebird(function (resolve, reject) {
-        mongooseModel.save(function(err,done) {
-          if (!done || done.error) {return reject(done.error);}
-          return resolve(done);
-        })
-    })
-}
-
     // Create a test for each
     // inside the test, create tasks for that test, setting their _test to test._id and index to $index
     // this works but returns undefin
@@ -541,8 +541,15 @@ var modelSave  = function(mongooseModel){
         // TODO: in here, create all of the subjects in the test
         // subjects must be created with a _test 
         // set them to the variable subject
+        return Bluebird.map(n.subjects, function(n){
+                n.name  = n;
+                n._test = test._id;
 
-        return Bluebird.all([
+                var subj = new models.Subject(n);
+                return modelSave(subj);
+        }).then(function(subjects){
+
+            return Bluebird.all([
                Bluebird.map(n.tags, function(tag, i){
                     var t = new models.Tag({
                             name      : tag,
@@ -564,7 +571,13 @@ var modelSave  = function(mongooseModel){
                         // _.filter(subjects, function(n){  return n.name === message.name  })
                         // then create a message-new for every message in the messages array for the task
                         // then return the saved task in the then step
-                        return modelSave(t);
+                        Bluebird.map(n.tasks._messages, function(note){
+
+                            return modelSave(t);
+                        })
+                        
+
+                        
                 })
             ]).then(function(array){
                 // console.log('is test still set?', test);
