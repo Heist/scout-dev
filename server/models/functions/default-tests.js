@@ -33,34 +33,52 @@ var tests = [
                         desc  :"Note: This is to set the tone for the interviewee or group. We’ll introduce ourselves and set “ground rules” for the discussion.\n- My name is __________.\n- Thanks for talking to us today, we’ll be about 60 minutes.\n- We’re constantly trying to improve our product, and getting your frank feedback is a really important part of that.\n- This discussion is confidential – your personal information or specific answers won’t be used publicly so don’t hesitate speak your mind.\n- No right or wrong answers - very important to not say what you think I want to hear, but what you are actually thinking/feeling. Feel free to stop us at anytime for clarification, questions, or concerns.\n- We’ll be running through a few questions and scenarios from your day. \n- We’d like you to speak out loud and tell us about everything you’re thinking/feeling/etc.\n- You’ll be recorded, but this information will not be distributed beyond our team.\n- Alright, let's get started!",
                         _messages : [
                             {name: 'Aaron Chartrand' , body : ""},
-                            {name: 'Sarah Costa'     , body : ""},
-                            {name: 'Matthew Clarke'  , body : ""},
-                            {name: 'Lisa Dewitt'     , body : ""},
+                            {name: 'Brad Allen'      , body : ""},
                             {name: 'Dina Harmeneh'   , body : ""},
-                            {name: 'Brad Allen'      , body : ""}
+                            {name: 'Lisa Dewitt'     , body : ""},
+                            {name: 'Matthew Clarke'  , body : ""},
+                            {name: 'Sarah Costa'     , body : ""},
                         ]
                     }, {
                         name  : "Background Information",
                         desc  : "- What is your name and age? \n - Where do you live? \n - What kind of work do you do?\n- For how long have you been doing that?\n- What kinds of activities, hobbies or projects do you like to do when you’re not working?",
                        _messages : [
                             {name: 'Aaron Chartrand' , body : ""},
-                            {name: 'Sarah Costa'     , body : ""},
-                            {name: 'Matthew Clarke'  , body : ""},
-                            {name: 'Lisa Dewitt'     , body : ""},
+                            {name: 'Brad Allen'      , body : ""},
                             {name: 'Dina Harmeneh'   , body : ""},
-                            {name: 'Brad Allen'      , body : ""}
+                            {name: 'Lisa Dewitt'     , body : ""},
+                            {name: 'Matthew Clarke'  , body : ""},
+                            {name: 'Sarah Costa'     , body : ""},
                         ]
                     },
                     {
                         name  : "Current Activities and Habits",
                         desc  : "- What do you do to take care of yourself? To stay in shape? To stay active? \n - Can you list the sports, exercise, classes you participate in?\n- How many times did you participate in the activities in the last week?\n- Are there any other healthy habits in your day?",
                          _messages : [
-                            {name: 'Aaron Chartrand' , body : ""},
-                            {name: 'Sarah Costa'     , body : ""},
-                            {name: 'Matthew Clarke'  , body : ""},
-                            {name: 'Lisa Dewitt'     , body : ""},
-                            {name: 'Dina Harmeneh'   , body : ""},
-                            {name: 'Brad Allen'      , body : ""}
+                            {name: 'Aaron Chartrand' , body : "Running, Weight Training, Skipping, Bike Riding #activity"},
+                            {name: 'Aaron Chartrand' , body : "Works out 4 times a week. Is part of a boutique gym in the Beaches where he has a personal trainer. Tracks his meals in a food journal. Rides his bike casually to get to and from places. #touchpoint #activity"},
+                            {name: 'Aaron Chartrand' , body : "4 times last week #activity"},
+                            {name: 'Aaron Chartrand' , body : "He watches what he eats. Tries to maintain a clean diet. Records his meals in a food journal to keep track of calories #activity"},
+                            {name: 'Brad Allen'      , body : "He jogged twice last week before he left for work and then went to Muay Thai on Tuesday and Thursday #activity"},
+                            {name: 'Brad Allen'      , body : "He tries to maintain a healthy diet. Eats mostly organic #touchpoint"},
+                            {name: 'Brad Allen'      , body : "He jogs and trains twice a week at a Muay Thai gym in Kensington Market. He golfs occasionally. Mostly for business. #activity #touchpoint"},
+                            {name: 'Dina Harmeneh'   , body : "Works out 5 days a week. Plays soccer with an indoor team, plays tennis, goes jogging, occasionally plays pick up basketball and works out with her XBOX Kinect  #activity #touchpoint"},
+                            {name: 'Dina Harmeneh'   , body : "Soccer, Tennis, Jogging, Basketball and various XBOX Kinect games #activity"},
+                            {name: 'Dina Harmeneh'   , body : "6 days last week #activity"},
+                            {name: 'Dina Harmeneh'   , body : "Not really. She doesn't really watch what she eats. Indulges often in chips and candy"},
+                            {name: 'Lisa Dewitt'     , body : "Boxing gym with her boyfriend and close friends. If the weather is nice she runs outside with her boyfriend  #activity #touchpoint"},
+                            {name: 'Lisa Dewitt'     , body : "Boxing, Jock Yoga, Jogging, Step Class #activity"},
+                            {name: 'Lisa Dewitt'     , body : "2 times (busy schedule and bad weather made her go fewer times than she normally does) #activity"},
+                            {name: 'Lisa Dewitt'     , body : "Portions her meals, eats healthy snacks throughout the day and tracks her activity and food in her FitBit app #activity #touchpoint"},
+                            {name: 'Matthew Clarke'  , body : "Basketball"},
+                            {name: 'Matthew Clarke'  , body : "Rode his bike and walked everyday and played basketball twice #activity"},
+                            {name: 'Matthew Clarke'  , body : "No other healthy habits"},
+                            {name: 'Matthew Clarke'  , body : "He walks a lot, rides his bike everywhere and does some weight training at the YMCA #activity #touchpoint"},
+                            {name: 'Sarah Costa'     , body : "Yoga, Step Class, Weight Training Class, 1.5 Hour Drill Bootcamp #activity"},
+                            {name: 'Sarah Costa'     , body : "She goes to the gym every morning before work (around 6AM). She just bought a tandem attachment for her bike and plans on taking her daughter out for bike rides #activity #touchpoint"},
+                            {name: 'Sarah Costa'     , body : "4 mornings last week #activity"},
+                            {name: 'Sarah Costa'     , body : "Tries to eat well and clean. Buys organic groceries. Her daughter motivates her to remain healthy and active #touchpoint"},
+                            {name: 'Sarah Costa'     , body : "Since she works full-time and has a young daughter, the morning is the prime time for her to work out #need"},
                         ]
                     },
                     {
@@ -68,11 +86,11 @@ var tests = [
                         desc  : "- Have you used any apps or websites or other programs to help you with fitness? Which ones?\n- What did you want them to do for you?\n- What was your expected out come from using these apps?\n- What do you like about them?\n- What do you dislike about them?\n- Did you pay for them? Why? Why not?",
                         _messages : [
                             {name: 'Aaron Chartrand' , body : ""},
-                            {name: 'Sarah Costa'     , body : ""},
-                            {name: 'Matthew Clarke'  , body : ""},
-                            {name: 'Lisa Dewitt'     , body : ""},
+                            {name: 'Brad Allen'      , body : ""},
                             {name: 'Dina Harmeneh'   , body : ""},
-                            {name: 'Brad Allen'      , body : ""}
+                            {name: 'Lisa Dewitt'     , body : ""},
+                            {name: 'Matthew Clarke'  , body : ""},
+                            {name: 'Sarah Costa'     , body : ""},
                         ]
                     },
                     {
@@ -80,11 +98,11 @@ var tests = [
                         desc  : "- Who (e.g. friends, family, coaches, teachers?) helps keep you active?\n- How do they help you?\n- Who (e.g. friends, family, coaches, teachers?) is a barrier to you being active?\n- How do they prevent you from being active?\n- Do you share info about your workouts or your goals with anyone?\n- When? Why? How?\n- What (if anything) do you do to keep track of what you’re doing?\n- How does that help you?"   ,
                         _messages : [
                             {name: 'Aaron Chartrand' , body : ""},
-                            {name: 'Sarah Costa'     , body : ""},
-                            {name: 'Matthew Clarke'  , body : ""},
-                            {name: 'Lisa Dewitt'     , body : ""},
+                            {name: 'Brad Allen'      , body : ""},
                             {name: 'Dina Harmeneh'   , body : ""},
-                            {name: 'Brad Allen'      , body : ""}
+                            {name: 'Lisa Dewitt'     , body : ""},
+                            {name: 'Matthew Clarke'  , body : ""},
+                            {name: 'Sarah Costa'     , body : ""},
                         ]
                     },
                     {
