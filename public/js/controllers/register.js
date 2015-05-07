@@ -13,11 +13,20 @@
         
         if($stateParams.acct){
             $scope.acct = $stateParams.acct.replace( /\//gi,"");
-            $scope.reg_toggle = true;
+
+
+            // TODO: get the invitation represented by that id and pre-populate the e-mail field.
+            $http
+                .get('/auth/invite'+$stateParams.acct)
+                .success(function(data){
+                    
+                    $scope.user = data;
+                    $scope.user.email = data.user_email;
+                });
         }
 
         $scope.register = function(user){
-        	var url = '/auth/register';
+        	var url = '/auth/signup';
             var dataOut, invite;
             
             if($stateParams.acct){
@@ -44,11 +53,6 @@
                         $location.path(data.redirect);
                     }
                 });
-        };
-
-        $scope.showReg = function(){
-            $scope.flashmessage = '';
-            $scope.reg_toggle = true;
         };
 
     }]);
