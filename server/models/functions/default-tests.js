@@ -223,11 +223,9 @@ var tests = [
                         "• Provide assistance with leaving building\n"+
                         "• High fives!",
                 _messages : [
-                    {_subject:'Janet Santiago'    , body: ""},
-                    {_subject:'Julie Stenson'     , body: ""},
-                    {_subject:'Lisa Truitt'       , body: ""},
-                    {_subject:'Vince Wagenar'     , body: ""},
-                    {_subject:'Beverley Gilreath' , body: ""},
+                    {_subject:'Janet Santiago'    , body: "Yea!"},
+                    {_subject:'Vince Wagenar'     , body: "High fives all around."},
+                    {_subject:'Beverley Gilreath' , body: "High five."},
                 ]
             }
         ]
