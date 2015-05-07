@@ -15,7 +15,6 @@
 
         if($stateParams.acct){
             $scope.acct = $stateParams.acct.replace( /\//gi,"");
-            $scope.reg_toggle = true;
 
             
             
@@ -40,11 +39,6 @@
                     $scope.flashmessage = data.error;
                     $location.path('/');
                 });
-        };
-
-        $scope.showLogin = function(){
-            $scope.flashmessage = '';
-            $scope.reg_toggle = false;
         };
 
         $scope.logout = function(){

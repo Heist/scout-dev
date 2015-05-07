@@ -26,8 +26,9 @@
         }
 
         $scope.register = function(user){
-        	var url = '/auth/signup';
             var dataOut, invite;
+            
+            console.log('clicked register', user)
             
             if($stateParams.acct){
                 invite = $stateParams.acct.replace( /\//gi,"");
@@ -37,7 +38,7 @@
             }
             
             $http
-                .post(url, dataOut)
+                .post('/auth/signup/', dataOut)
                 .success(function(data){
                     
                     var msg = data;
