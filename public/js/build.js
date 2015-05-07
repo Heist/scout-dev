@@ -52344,7 +52344,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         var tagCheck = summaryList.summaryTagIdCheck;
         // organise the returned information to pass back a good set for raw data
-        var hasMsg  = _.filter(summaryList.freshList, function(n){ return n._messages.length > 0 })
+        var hasMsg  = _.filter(summaryList.freshList, function(n){ '' 
+                            var reply;
+                            if(n.doctype === 'test'){ return n.doctype === 'test' }
+                            else {
+                                return n._messages.length > 0 
+                            }
+                        })
         var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
         var navList = _.sortBy(noSum, function(obj){ return obj.report_index; });
 
@@ -52356,7 +52362,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.navlist =  makeNavList($scope.rawList);
         });
         
-        $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
+        $scope.selected = $scope.rawList[_.indexOf(_.pluck(summaryList.freshList, 'doctype'), 'test')];
         console.log($scope.selected);
         // GROUP MESSAGES BY USERS ==================================
         $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
