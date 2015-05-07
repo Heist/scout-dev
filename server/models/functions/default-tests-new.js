@@ -7,7 +7,7 @@ module.exports = function(account, id, callback){
 // Module dependencies
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _ = require('lodash');
-    var async = require('async');
+    // var async = require('async');
     var Bluebird = require('bluebird');
     var models   = Bluebird.promisifyAll(require('../../models'));
 
