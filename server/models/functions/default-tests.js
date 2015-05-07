@@ -180,14 +180,23 @@ var tests = [
                         "• Was there some type of information you were looking for specifically that you couldn't find?\n"+
                         "• Did the interaction to find scroll through the dates seem logical for you?",
                 _messages : [
-                    {_subject:'Janet Santiago'    , body: ""},
-                    {_subject:'Julie Stenson'     , body: "When she attempted to scroll vertically, if her thumb pressed on the horizontal hourly weather section, it would interfere with the vertical scroll. This would happen when she was attempting to scroll rapidly to get to the bottom of the page (because she knew what info was there,) but not if she was scrolling slowly/deliberately down the page. #issue #usability"},
-                    {_subject:'Julie Stenson'     , body: ""},
-                    {_subject:'Julie Stenson'     , body: ""},
-                    {_subject:'Julie Stenson'     , body: ""},
-                    {_subject:'Lisa Truitt'       , body: ""},
-                    {_subject:'Vince Wagenar'     , body: ""},
-                    {_subject:'Beverley Gilreath' , body: ""},
+                    {_subject:'Janet Santiago'    , body: "Having the days of the week listed made it easy for her to identify the best day with no effort."},
+                    {_subject:'Janet Santiago'    , body: "The iconography made it quick to find for her. She scrolled a minor amount to expose that information. She knew exactly what she was doing. #usability"},
+                    {_subject:'Julie Stenson'     , body: "Because the horizontal scroll bar is visible on screen when the app loads, she didn't have any issue engaging with it. There was no interference by the vertical scroll."},
+                    {_subject:'Julie Stenson'     , body: "Her first thought was to look for the day of the week, but the app only lists the dates, so she counted the dates until she found what would be next Saturday. #preference"},
+                    {_subject:'Julie Stenson'     , body: "This was clear for her from the moment she landed on the app."},
+                    {_subject:'Julie Stenson'     , body: "All of the information she was expecting to find was there."},
+                    {_subject:'Lisa Truitt'       , body: "She had no issues navigating the dual scrolling functionality, they didn't interfere with each other at any point while using the app."},
+                    {_subject:'Lisa Truitt'       , body: "She was looking for daily information with a aggregate representation of what each day's weather will be like. The iconography of sunshine, storm clouds and rain do all of that for her at a glance. #comprehension"},
+                    {_subject:'Lisa Truitt'       , body: "All of the information she was looking for was available."},
+                    {_subject:'Lisa Truitt'       , body: "The left-right scroll made sense to her once she discovered it, but it wasn't obvious to her as soon as the app opened. #comprehension"},
+                    {_subject:'Vince Wagenar'     , body: "The horizontal scroll wasn't obvious to him at first - even though he had an issue  with it interrupting his vertical scrolling earlier. He mentioned that he has no experience with apps that use vertical and horizontal scrolling on the same screen. #preference"},
+                    {_subject:'Vince Wagenar'     , body: "Once he uncovered the horizontal scroll, he had no issue manipulating it. #usability"},
+                    {_subject:'Vince Wagenar'     , body: "He recognized the dates across the top of that section and was easily able to locate the two dates and forecasts."},
+                    {_subject:'Vince Wagenar'     , body: "All of the information he would need to make plans is present on the screen - again, just not as visual as he would have hoped for #preference"},
+                    {_subject:'Beverley Gilreath' , body: "Looking at the hourly forecast was one of the specific areas she called out as being overwhelming - because the time above the conditions icon and the temperature below it have no visual distinction, it wasn't clear what each indicated. #comprehension #usability"},
+                    {_subject:'Beverley Gilreath' , body: "Providing some sort of distinction between the numbers to indicate what is a date, what is a time and what is a temperature would help in creating some visual variance to the numbers that are shown on the app. #usability"},
+                    {_subject:'Beverley Gilreath' , body: "She had no issues with the horizontal scrolling - in fact this was the first thing she was drawn to when she opened the app."},
                 ]
                 
             },{
