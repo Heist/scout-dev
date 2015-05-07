@@ -31,7 +31,7 @@
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
-        console.log('loadData', loadData.data);
+        
 
         var makeNavList = function(data){
             return _.groupBy(data, function(obj){ return obj.doctype; }) ;
@@ -48,12 +48,12 @@
                     var nameCheck = n.name.toLowerCase();
                     return nameCheck !== 'summary';
                 } else {
-                    // console.log('summary object does not exist');
+                    
                     return [];
                 }
             })[0];
             
-            console.log('summary object', summaryItem, data[testIdx]);
+            
 
             // set the message list for the test to being those messages, and pass the list generally
             var summaryMsgList = data[testIdx]._messages = (summaryItem && summaryItem._messages.length > 0) ? summaryItem._messages : [];
@@ -63,7 +63,7 @@
         }
 
         var summaryList = summaryObject(loadData.data.list);
-        console.log(summaryList);
+        
 
         var tagCheck = summaryList.summaryTagIdCheck;
         // organise the returned information to pass back a good set for raw data
@@ -86,7 +86,7 @@
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
-        console.log($scope.selected);
+        
         // GROUP MESSAGES BY USERS ==================================
         $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
 
@@ -236,13 +236,13 @@
             var output = original;
 
             if(output._tags.indexOf(summaryList.summaryTagIdCheck) !== -1){
-                console.log('this is a summary message', output);
+                
                 output.body = output.body + ' #summary';
             }
             
             $http.put('/api/message/', output)
                 .success(function(data, err){
-                    console.log(data);
+                    
 
                     if($scope.selected.doctype === 'test'){
                         // if this is a test, the message needs to be marked as a Summary message

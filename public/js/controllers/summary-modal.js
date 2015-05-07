@@ -6,7 +6,7 @@
 	.controller('summaryModal', 
     		['testBuildFunctions','$scope','$http','$stateParams','$state','$location','$rootScope',
     function( testBuildFunctions,  $scope,  $http,  $stateParams,  $state,  $location, $rootScope){
-        console.log('loaded new test');
+        
     	// SETUP VARIABLES ==========================
         $scope.test = {};
 
@@ -26,7 +26,7 @@
         };
 
         $scope.addTest = function(test){
-        	console.log('new test', test);
+        	
 
             $http
                 .post('/api/test/', test)

@@ -25,7 +25,7 @@
 
         $scope.user.onboard = 1;
 
-        // console.log('step', $scope.user.onboard);
+        
 
        // FUNCTIONS =======================================
 
@@ -54,7 +54,7 @@
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    console.log($rootScope.user);
+                    
                 });
         };
 

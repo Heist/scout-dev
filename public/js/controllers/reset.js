@@ -9,12 +9,12 @@
 
         $scope.newPass = function(pass){
                 var dataOut = {password: pass};
-                console.log('touched newPass', pass);
+                
                 $http
                     .post('/auth/reset'+$stateParams.token, dataOut)
                     .success(function(data){
                         // do a login here, perhaps
-                        console.log('reset', data);
+                        
                         $scope.successMsg = {};
 
                         if(data === '0'){ 

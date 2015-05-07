@@ -31,13 +31,13 @@
             })[0]._id;
         };
 
-        console.log('data', data);
+        
 
         $scope.test = data;
         $scope.kind = data.kind;
         $scope.navlist = data._tasks;
 
-        console.log('tags sans summary', tagSort(data._tags));
+        
         $scope.tags = tagSort(data._tags);
     
     // set up and reset variables to clear cache from state changes.
@@ -194,7 +194,7 @@
             $scope.messageEditToggle = '';
             $http.put('/api/message/', message)
                 .success(function(data){                 
-                    console.log('tags', data.tags);
+                    
 
                  // remove the previous message and insert the new one
                     $scope.tags = tagSort(data.tags);
@@ -215,14 +215,14 @@
         };
 
         $scope.$on('message', function(e, data){
-            console.log('emitted data received', data);
+            
             e.stopPropagation();
             if(data.length <= 0){
                 return ;
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
-                        console.log('okay what', data);
+                        
                         $scope.timeline.push(data.msg);
                         $scope.tags = tagSort(data.tags);
                     });
@@ -231,7 +231,7 @@
 
         // SUMMARY MESSAGES =====================
         $scope.addMessageToSummaryTag = function(message){
-            console.log('summary message', message);
+            
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags
@@ -242,7 +242,7 @@
                             $location.path('/overview');
                         });
             } else {
-                console.log('no message');
+                
                 return;
             }
 

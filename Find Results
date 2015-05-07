@@ -1,0 +1,908 @@
+Searching 15 files for "console.log"
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/_socket-functions.js:
+   11          
+   12      // RECIEVE SCREENCAPS FROM THE SOCKET ===============================
+   13:         console.log('sockets should launch');
+   14  
+   15              $scope.connect = {};
+   ..
+   18              socket.on('connect_failed', function(data)
+   19              {
+   20:                 // console.log('connect_failed');
+   21              });
+   22  
+   23              socket.on('connecting', function(data)
+   24              {
+   25:                 // console.log('connecting');
+   26              });
+   27              socket.on('disconnect', function(data)
+   28              {
+   29:                 // console.log('disconnect');
+   30              });
+   31  
+   32              socket.on('error', function(reason)
+   33              {
+   34:                 // console.log('error', reason);
+   35              });
+   36              socket.on('reconnect_failed', function(data)
+   37              {
+   38:                 // console.log('reconnect_failed');
+   39              });
+   40              socket.on('reconnect', function(data)
+   41              {
+   42:                 // console.log('reconnect');
+   43                  // socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
+   44              });
+   45              socket.on('reconnecting', function(data)
+   46              {
+   47:                 // console.log('reconnecting');
+   48              });
+   49  
+   50              socket.on('announce', function(data){
+   51:                 // console.log('announce', data);
+   52              });
+   53  
+   54              socket.on('joined_channel', function(data){ 
+   55:                 console.log('joined_channel', data.body);
+   56  
+   57              });
+   58  
+   59              socket.on('note', function(data){
+   60:                 // console.log('note', data);
+   61                  $scope.timeline.push(data.note.msg);
+   62                  $scope.$apply();
+   ..
+   79  
+   80                  context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+   81:                 console.log('message received', canvas);
+   82                  // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+   83              });
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/account.js:
+   13  		$scope.connector = {};
+   14  		
+   15: 		// console.log('account user', $rootScope.user);
+   16  		// https://trello.com/1/members/my/boards?key=substitutewithyourapplicationkey&token=substitutethispartwiththeauthorizationtokenthatyougotfromtheuser
+   17  		// https://trello.com/docs/api/card/index.html#post-1-cards
+   ..
+   20  			.get('/api/account/'+ user_id)
+   21  			.success(function(data){
+   22: 				// // console.log(data);
+   23  				$scope.live_user = data;
+   24  			});
+   ..
+  100  
+  101  		$scope.disconnectTrello = function() {
+  102: 			// // // console.log('touched disconnect');
+  103  
+  104  			$http.delete('/connect/trello')
+  105  				.success(function(err, data){
+  106: 					// // // console.log('Trello disconnected');
+  107  					$scope.live_user.trello=false;
+  108  
+  ...
+  204  				.get('/auth/export/account/')
+  205  				.success(function(data){
+  206: 					// console.log('success', data);
+  207  				});
+  208  		};
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/forgot.js:
+   11         $scope.sendToken = function(email){
+   12              var dataOut = {email: email};
+   13:             console.log('clicked send pass')
+   14              
+   15              $scope.hideMe = 'hide';
+   ..
+   18                  .post('/auth/forgot', dataOut)
+   19                  .success(function(data, err){
+   20:                         // console.log(data, err);
+   21                          if(data.indexOf('No user with that e-mail exists') === -1){
+   22                              $scope.successMsg = data;
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/login.js:
+   24                  .get('/auth/invite'+$stateParams.acct)
+   25                  .success(function(data){
+   26:                     // console.log(data);
+   27                      $scope.user = data;
+   28                      $scope.user.email = data.user_email;
+   ..
+   37                  .post(url, dataOut)
+   38                  .success(function(data){
+   39:                     console.log(data);
+   40                      $scope.flashmessage = data.error;
+   41                      $location.path('/');
+   ..
+   56              var dataOut, invite;
+   57              
+   58:             console.log('clicked register', user)
+   59  
+   60              if($stateParams.acct){
+   ..
+   68                  .post('/auth/signup/', dataOut)
+   69                  .success(function(data){
+   70:                     console.log(data, data.length);
+   71                      var msg = data;
+   72  
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/onboard.js:
+   26          $scope.user.onboard = 1;
+   27  
+   28:         // console.log('step', $scope.user.onboard);
+   29  
+   30         // FUNCTIONS =======================================
+   ..
+   55                  .put(url, dataOut)
+   56                  .success(function(data){
+   57:                     console.log($rootScope.user);
+   58                  });
+   59          };
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/overview.js:
+    9          // get all sessions and their tests on first load
+   10          $scope.tests = loadData.data;
+   11:         console.log('these are our tests', $scope.tests);
+   12  
+   13  
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/reportPublic.js:
+   49      // SET VIEW VARIABLES FROM LOAD DATA ==================
+   50          var data = loadData.data; // lol who even fucking knows why this can't return directly.
+   51:         console.log(data);
+   52          
+   53          $scope.navlist = _.sortBy(data.navlist.list, function(obj){
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/reset.js:
+   10          $scope.newPass = function(pass){
+   11                  var dataOut = {password: pass};
+   12:                 console.log('touched newPass', pass);
+   13                  $http
+   14                      .post('/auth/reset'+$stateParams.token, dataOut)
+   15                      .success(function(data){
+   16                          // do a login here, perhaps
+   17:                         console.log('reset', data);
+   18                          $scope.successMsg = {};
+   19  
+   ..
+   30  
+   31          $scope.goToLogin = function(){
+   32:             console.log('goToLogin')
+   33              $location.path('/login');
+   34          }
+   35  
+   36          $scope.goToForgot = function(){
+   37:             console.log('goToForgot')
+   38              $location.path('/forgot');
+   39          }
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/run.js:
+   32          };
+   33  
+   34:         console.log('data', data);
+   35  
+   36          $scope.test = data;
+   ..
+   38          $scope.navlist = data._tasks;
+   39  
+   40:         console.log('tags sans summary', tagSort(data._tags));
+   41          $scope.tags = tagSort(data._tags);
+   42      
+   ..
+  195              $http.put('/api/message/', message)
+  196                  .success(function(data){                 
+  197:                     console.log('tags', data.tags);
+  198  
+  199                   // remove the previous message and insert the new one
+  ...
+  216  
+  217          $scope.$on('message', function(e, data){
+  218:             console.log('emitted data received', data);
+  219              e.stopPropagation();
+  220              if(data.length <= 0){
+  ...
+  223                  postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
+  224                      .then(function(data){
+  225:                         console.log('okay what', data);
+  226                          $scope.timeline.push(data.msg);
+  227                          $scope.tags = tagSort(data.tags);
+  ...
+  232          // SUMMARY MESSAGES =====================
+  233          $scope.addMessageToSummaryTag = function(message){
+  234:             console.log('summary message', message);
+  235              // on creation of test, there is a tag created called Summary.
+  236              // find that message and post to it.
+  ...
+  239                  postMessage(message+' #Summary', summaryTagId, $stateParams._id, $scope.subject._id)
+  240                          .then(function(msg){
+  241:                             console.log('message posted to summary', msg)
+  242                              $location.path('/overview');
+  243                          });
+  244              } else {
+  245:                 console.log('no message');
+  246                  return;
+  247              }
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/summary-modal.js:
+    7      		['testBuildFunctions','$scope','$http','$stateParams','$state','$location','$rootScope',
+    8      function( testBuildFunctions,  $scope,  $http,  $stateParams,  $state,  $location, $rootScope){
+    9:         console.log('loaded new test');
+   10      	// SETUP VARIABLES ==========================
+   11          $scope.test = {};
+   ..
+   27  
+   28          $scope.addTest = function(test){
+   29:         	console.log('new test', test);
+   30  
+   31              $http
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/summary.js:
+   32  
+   33      // SET VIEW VARIABLES FROM LOAD DATA ==================
+   34:         console.log('loadData', loadData.data);
+   35  
+   36          var makeNavList = function(data){
+   ..
+   49                      return nameCheck !== 'summary';
+   50                  } else {
+   51:                     // console.log('summary object does not exist');
+   52                      return [];
+   53                  }
+   54              })[0];
+   55              
+   56:             console.log('summary object', summaryItem, data[testIdx]);
+   57  
+   58              // set the message list for the test to being those messages, and pass the list generally
+   ..
+   64  
+   65          var summaryList = summaryObject(loadData.data.list);
+   66:         console.log(summaryList);
+   67  
+   68          var tagCheck = summaryList.summaryTagIdCheck;
+   ..
+   87          
+   88          $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
+   89:         console.log($scope.selected);
+   90          // GROUP MESSAGES BY USERS ==================================
+   91          $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
+   ..
+  237  
+  238              if(output._tags.indexOf(summaryList.summaryTagIdCheck) !== -1){
+  239:                 console.log('this is a summary message', output);
+  240                  output.body = output.body + ' #summary';
+  241              }
+  ...
+  243              $http.put('/api/message/', output)
+  244                  .success(function(data, err){
+  245:                     console.log(data);
+  246  
+  247                      if($scope.selected.doctype === 'test'){
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/test.js:
+   15  
+   16          var data = loadData.data;
+   17:         console.log('data we have', data);
+   18  
+   19          $scope.test = data;
+   ..
+   65          // SELECTION ======================================
+   66          $scope.select = function(task) {
+   67:             console.log('select works');
+   68              $scope.selectedTask = task;
+   69          };
+   ..
+  131              // send the array to the back end, where each will be pushed appropriately 
+  132              // /api/tag/
+  133:             console.log(tags);
+  134              var i = tags.split(' ');
+  135              var dataOut = _.map(i, function(tag){
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/watch.js:
+   34          socket.on('connect_failed', function(data)
+   35          {
+   36:             // console.log('connect_failed');
+   37          });
+   38          socket.on('connecting', function(data)
+   39          {
+   40:             // console.log('connecting');
+   41          });
+   42          socket.on('disconnect', function(data)
+   43          {
+   44:             // console.log('disconnect');
+   45              image.src = "/layout/assets/avatar-binocs.jpg";
+   46              canvas.width = 358;
+   ..
+   52          socket.on('error', function(reason)
+   53          {
+   54:             // console.log('error');
+   55          });
+   56          socket.on('reconnect_failed', function(data)
+   57          {
+   58:             // console.log('reconnect_failed');
+   59          });
+   60          socket.on('reconnect', function(data)
+   61          {
+   62:             // console.log('reconnect');
+   63          });
+   64          socket.on('reconnecting', function(data)
+   65          {
+   66:             // console.log('reconnecting');
+   67          });
+   68  
+   69          socket.on('announce', function(data){
+   70:             // console.log('announce', data);
+   71          });
+   72  
+   73          socket.on('note', function(data){
+   74:             // console.log('note', data);
+   75              $scope.timeline.push(data.note.msg);
+   76              $scope.$apply();
+   ..
+   92  
+   93          $scope.subscription = function(chan){
+   94:             // console.log('touched a channel', chan);
+   95              socket.emit('subscribe', { room: chan });
+   96              socket.emit('channel', { room: chan });
+   ..
+  101  
+  102          $scope.joinRoom = function(room){
+  103:             // console.log('I want to join this room', $scope.selectedRoom);
+  104              // socket.emit('join_room', $scope.selectedRoom.room);
+  105              $scope.live = true;
+  ...
+  121  
+  122              $scope.timeline.push(note);
+  123:             // // console.log('message pushing to', $scope.selected._id);
+  124  
+  125              // TODO: this will catch things on both sides of the hash. 
+  ...
+  133                  for (var i=0; i < tagIt.length; ++i) {
+  134                      var msg = tagIt[i].replace(hashPull,'');
+  135:                     // // console.log('tag being pushed', msg)
+  136                      note.tags.push(msg);
+  137                  }
+  138              }
+  139              
+  140:             // // console.log('note tags', note.tags);
+  141  
+  142              var url = '/api/message/';
+  ...
+  149                  })
+  150                  .error(function(data){
+  151:                     // // console.log('Error: ' + data);
+  152                  });
+  153  
+
+66 matches across 13 files
+
+
+Searching 15 files for "console.log\(.*\);"
+
+0 matches
+
+Searching 15 files for "console.log\(.*\);" (regex)
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/_socket-functions.js:
+   11          
+   12      // RECIEVE SCREENCAPS FROM THE SOCKET ===============================
+   13:         console.log('sockets should launch');
+   14  
+   15              $scope.connect = {};
+   ..
+   18              socket.on('connect_failed', function(data)
+   19              {
+   20:                 // console.log('connect_failed');
+   21              });
+   22  
+   23              socket.on('connecting', function(data)
+   24              {
+   25:                 // console.log('connecting');
+   26              });
+   27              socket.on('disconnect', function(data)
+   28              {
+   29:                 // console.log('disconnect');
+   30              });
+   31  
+   32              socket.on('error', function(reason)
+   33              {
+   34:                 // console.log('error', reason);
+   35              });
+   36              socket.on('reconnect_failed', function(data)
+   37              {
+   38:                 // console.log('reconnect_failed');
+   39              });
+   40              socket.on('reconnect', function(data)
+   41              {
+   42:                 // console.log('reconnect');
+   43                  // socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
+   44              });
+   45              socket.on('reconnecting', function(data)
+   46              {
+   47:                 // console.log('reconnecting');
+   48              });
+   49  
+   50              socket.on('announce', function(data){
+   51:                 // console.log('announce', data);
+   52              });
+   53  
+   54              socket.on('joined_channel', function(data){ 
+   55:                 console.log('joined_channel', data.body);
+   56  
+   57              });
+   58  
+   59              socket.on('note', function(data){
+   60:                 // console.log('note', data);
+   61                  $scope.timeline.push(data.note.msg);
+   62                  $scope.$apply();
+   ..
+   79  
+   80                  context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+   81:                 console.log('message received', canvas);
+   82                  // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+   83              });
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/account.js:
+   13  		$scope.connector = {};
+   14  		
+   15: 		// console.log('account user', $rootScope.user);
+   16  		// https://trello.com/1/members/my/boards?key=substitutewithyourapplicationkey&token=substitutethispartwiththeauthorizationtokenthatyougotfromtheuser
+   17  		// https://trello.com/docs/api/card/index.html#post-1-cards
+   ..
+   20  			.get('/api/account/'+ user_id)
+   21  			.success(function(data){
+   22: 				// // console.log(data);
+   23  				$scope.live_user = data;
+   24  			});
+   ..
+  100  
+  101  		$scope.disconnectTrello = function() {
+  102: 			// // // console.log('touched disconnect');
+  103  
+  104  			$http.delete('/connect/trello')
+  105  				.success(function(err, data){
+  106: 					// // // console.log('Trello disconnected');
+  107  					$scope.live_user.trello=false;
+  108  
+  ...
+  204  				.get('/auth/export/account/')
+  205  				.success(function(data){
+  206: 					// console.log('success', data);
+  207  				});
+  208  		};
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/forgot.js:
+   18                  .post('/auth/forgot', dataOut)
+   19                  .success(function(data, err){
+   20:                         // console.log(data, err);
+   21                          if(data.indexOf('No user with that e-mail exists') === -1){
+   22                              $scope.successMsg = data;
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/login.js:
+   24                  .get('/auth/invite'+$stateParams.acct)
+   25                  .success(function(data){
+   26:                     // console.log(data);
+   27                      $scope.user = data;
+   28                      $scope.user.email = data.user_email;
+   ..
+   37                  .post(url, dataOut)
+   38                  .success(function(data){
+   39:                     console.log(data);
+   40                      $scope.flashmessage = data.error;
+   41                      $location.path('/');
+   ..
+   68                  .post('/auth/signup/', dataOut)
+   69                  .success(function(data){
+   70:                     console.log(data, data.length);
+   71                      var msg = data;
+   72  
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/onboard.js:
+   26          $scope.user.onboard = 1;
+   27  
+   28:         // console.log('step', $scope.user.onboard);
+   29  
+   30         // FUNCTIONS =======================================
+   ..
+   55                  .put(url, dataOut)
+   56                  .success(function(data){
+   57:                     console.log($rootScope.user);
+   58                  });
+   59          };
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/overview.js:
+    9          // get all sessions and their tests on first load
+   10          $scope.tests = loadData.data;
+   11:         console.log('these are our tests', $scope.tests);
+   12  
+   13  
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/reportPublic.js:
+   49      // SET VIEW VARIABLES FROM LOAD DATA ==================
+   50          var data = loadData.data; // lol who even fucking knows why this can't return directly.
+   51:         console.log(data);
+   52          
+   53          $scope.navlist = _.sortBy(data.navlist.list, function(obj){
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/reset.js:
+   10          $scope.newPass = function(pass){
+   11                  var dataOut = {password: pass};
+   12:                 console.log('touched newPass', pass);
+   13                  $http
+   14                      .post('/auth/reset'+$stateParams.token, dataOut)
+   15                      .success(function(data){
+   16                          // do a login here, perhaps
+   17:                         console.log('reset', data);
+   18                          $scope.successMsg = {};
+   19  
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/run.js:
+   32          };
+   33  
+   34:         console.log('data', data);
+   35  
+   36          $scope.test = data;
+   ..
+   38          $scope.navlist = data._tasks;
+   39  
+   40:         console.log('tags sans summary', tagSort(data._tags));
+   41          $scope.tags = tagSort(data._tags);
+   42      
+   ..
+  195              $http.put('/api/message/', message)
+  196                  .success(function(data){                 
+  197:                     console.log('tags', data.tags);
+  198  
+  199                   // remove the previous message and insert the new one
+  ...
+  216  
+  217          $scope.$on('message', function(e, data){
+  218:             console.log('emitted data received', data);
+  219              e.stopPropagation();
+  220              if(data.length <= 0){
+  ...
+  223                  postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
+  224                      .then(function(data){
+  225:                         console.log('okay what', data);
+  226                          $scope.timeline.push(data.msg);
+  227                          $scope.tags = tagSort(data.tags);
+  ...
+  232          // SUMMARY MESSAGES =====================
+  233          $scope.addMessageToSummaryTag = function(message){
+  234:             console.log('summary message', message);
+  235              // on creation of test, there is a tag created called Summary.
+  236              // find that message and post to it.
+  ...
+  243                          });
+  244              } else {
+  245:                 console.log('no message');
+  246                  return;
+  247              }
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/summary-modal.js:
+    7      		['testBuildFunctions','$scope','$http','$stateParams','$state','$location','$rootScope',
+    8      function( testBuildFunctions,  $scope,  $http,  $stateParams,  $state,  $location, $rootScope){
+    9:         console.log('loaded new test');
+   10      	// SETUP VARIABLES ==========================
+   11          $scope.test = {};
+   ..
+   27  
+   28          $scope.addTest = function(test){
+   29:         	console.log('new test', test);
+   30  
+   31              $http
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/summary.js:
+   32  
+   33      // SET VIEW VARIABLES FROM LOAD DATA ==================
+   34:         console.log('loadData', loadData.data);
+   35  
+   36          var makeNavList = function(data){
+   ..
+   49                      return nameCheck !== 'summary';
+   50                  } else {
+   51:                     // console.log('summary object does not exist');
+   52                      return [];
+   53                  }
+   54              })[0];
+   55              
+   56:             console.log('summary object', summaryItem, data[testIdx]);
+   57  
+   58              // set the message list for the test to being those messages, and pass the list generally
+   ..
+   64  
+   65          var summaryList = summaryObject(loadData.data.list);
+   66:         console.log(summaryList);
+   67  
+   68          var tagCheck = summaryList.summaryTagIdCheck;
+   ..
+   87          
+   88          $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
+   89:         console.log($scope.selected);
+   90          // GROUP MESSAGES BY USERS ==================================
+   91          $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
+   ..
+  237  
+  238              if(output._tags.indexOf(summaryList.summaryTagIdCheck) !== -1){
+  239:                 console.log('this is a summary message', output);
+  240                  output.body = output.body + ' #summary';
+  241              }
+  ...
+  243              $http.put('/api/message/', output)
+  244                  .success(function(data, err){
+  245:                     console.log(data);
+  246  
+  247                      if($scope.selected.doctype === 'test'){
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/test.js:
+   15  
+   16          var data = loadData.data;
+   17:         console.log('data we have', data);
+   18  
+   19          $scope.test = data;
+   ..
+   65          // SELECTION ======================================
+   66          $scope.select = function(task) {
+   67:             console.log('select works');
+   68              $scope.selectedTask = task;
+   69          };
+   ..
+  131              // send the array to the back end, where each will be pushed appropriately 
+  132              // /api/tag/
+  133:             console.log(tags);
+  134              var i = tags.split(' ');
+  135              var dataOut = _.map(i, function(tag){
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/watch.js:
+   34          socket.on('connect_failed', function(data)
+   35          {
+   36:             // console.log('connect_failed');
+   37          });
+   38          socket.on('connecting', function(data)
+   39          {
+   40:             // console.log('connecting');
+   41          });
+   42          socket.on('disconnect', function(data)
+   43          {
+   44:             // console.log('disconnect');
+   45              image.src = "/layout/assets/avatar-binocs.jpg";
+   46              canvas.width = 358;
+   ..
+   52          socket.on('error', function(reason)
+   53          {
+   54:             // console.log('error');
+   55          });
+   56          socket.on('reconnect_failed', function(data)
+   57          {
+   58:             // console.log('reconnect_failed');
+   59          });
+   60          socket.on('reconnect', function(data)
+   61          {
+   62:             // console.log('reconnect');
+   63          });
+   64          socket.on('reconnecting', function(data)
+   65          {
+   66:             // console.log('reconnecting');
+   67          });
+   68  
+   69          socket.on('announce', function(data){
+   70:             // console.log('announce', data);
+   71          });
+   72  
+   73          socket.on('note', function(data){
+   74:             // console.log('note', data);
+   75              $scope.timeline.push(data.note.msg);
+   76              $scope.$apply();
+   ..
+   92  
+   93          $scope.subscription = function(chan){
+   94:             // console.log('touched a channel', chan);
+   95              socket.emit('subscribe', { room: chan });
+   96              socket.emit('channel', { room: chan });
+   ..
+  101  
+  102          $scope.joinRoom = function(room){
+  103:             // console.log('I want to join this room', $scope.selectedRoom);
+  104              // socket.emit('join_room', $scope.selectedRoom.room);
+  105              $scope.live = true;
+  ...
+  121  
+  122              $scope.timeline.push(note);
+  123:             // // console.log('message pushing to', $scope.selected._id);
+  124  
+  125              // TODO: this will catch things on both sides of the hash. 
+  ...
+  138              }
+  139              
+  140:             // // console.log('note tags', note.tags);
+  141  
+  142              var url = '/api/message/';
+  ...
+  149                  })
+  150                  .error(function(data){
+  151:                     // // console.log('Error: ' + data);
+  152                  });
+  153  
+
+60 matches across 13 files
+
+
+Searching 15 files for "console.log\(.*\);" (regex)
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/_socket-functions.js:
+   11          
+   12      // RECIEVE SCREENCAPS FROM THE SOCKET ===============================
+   13:         console.log('sockets should launch');
+   14  
+   15              $scope.connect = {};
+   ..
+   53  
+   54              socket.on('joined_channel', function(data){ 
+   55:                 console.log('joined_channel', data.body);
+   56  
+   57              });
+   ..
+   79  
+   80                  context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+   81:                 console.log('message received', canvas);
+   82                  // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
+   83              });
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/login.js:
+   37                  .post(url, dataOut)
+   38                  .success(function(data){
+   39:                     console.log(data);
+   40                      $scope.flashmessage = data.error;
+   41                      $location.path('/');
+   ..
+   68                  .post('/auth/signup/', dataOut)
+   69                  .success(function(data){
+   70:                     console.log(data, data.length);
+   71                      var msg = data;
+   72  
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/onboard.js:
+   55                  .put(url, dataOut)
+   56                  .success(function(data){
+   57:                     console.log($rootScope.user);
+   58                  });
+   59          };
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/overview.js:
+    9          // get all sessions and their tests on first load
+   10          $scope.tests = loadData.data;
+   11:         console.log('these are our tests', $scope.tests);
+   12  
+   13  
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/reportPublic.js:
+   49      // SET VIEW VARIABLES FROM LOAD DATA ==================
+   50          var data = loadData.data; // lol who even fucking knows why this can't return directly.
+   51:         console.log(data);
+   52          
+   53          $scope.navlist = _.sortBy(data.navlist.list, function(obj){
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/reset.js:
+   10          $scope.newPass = function(pass){
+   11                  var dataOut = {password: pass};
+   12:                 console.log('touched newPass', pass);
+   13                  $http
+   14                      .post('/auth/reset'+$stateParams.token, dataOut)
+   15                      .success(function(data){
+   16                          // do a login here, perhaps
+   17:                         console.log('reset', data);
+   18                          $scope.successMsg = {};
+   19  
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/run.js:
+   32          };
+   33  
+   34:         console.log('data', data);
+   35  
+   36          $scope.test = data;
+   ..
+   38          $scope.navlist = data._tasks;
+   39  
+   40:         console.log('tags sans summary', tagSort(data._tags));
+   41          $scope.tags = tagSort(data._tags);
+   42      
+   ..
+  195              $http.put('/api/message/', message)
+  196                  .success(function(data){                 
+  197:                     console.log('tags', data.tags);
+  198  
+  199                   // remove the previous message and insert the new one
+  ...
+  216  
+  217          $scope.$on('message', function(e, data){
+  218:             console.log('emitted data received', data);
+  219              e.stopPropagation();
+  220              if(data.length <= 0){
+  ...
+  223                  postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
+  224                      .then(function(data){
+  225:                         console.log('okay what', data);
+  226                          $scope.timeline.push(data.msg);
+  227                          $scope.tags = tagSort(data.tags);
+  ...
+  232          // SUMMARY MESSAGES =====================
+  233          $scope.addMessageToSummaryTag = function(message){
+  234:             console.log('summary message', message);
+  235              // on creation of test, there is a tag created called Summary.
+  236              // find that message and post to it.
+  ...
+  243                          });
+  244              } else {
+  245:                 console.log('no message');
+  246                  return;
+  247              }
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/summary-modal.js:
+    7      		['testBuildFunctions','$scope','$http','$stateParams','$state','$location','$rootScope',
+    8      function( testBuildFunctions,  $scope,  $http,  $stateParams,  $state,  $location, $rootScope){
+    9:         console.log('loaded new test');
+   10      	// SETUP VARIABLES ==========================
+   11          $scope.test = {};
+   ..
+   27  
+   28          $scope.addTest = function(test){
+   29:         	console.log('new test', test);
+   30  
+   31              $http
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/summary.js:
+   32  
+   33      // SET VIEW VARIABLES FROM LOAD DATA ==================
+   34:         console.log('loadData', loadData.data);
+   35  
+   36          var makeNavList = function(data){
+   ..
+   54              })[0];
+   55              
+   56:             console.log('summary object', summaryItem, data[testIdx]);
+   57  
+   58              // set the message list for the test to being those messages, and pass the list generally
+   ..
+   64  
+   65          var summaryList = summaryObject(loadData.data.list);
+   66:         console.log(summaryList);
+   67  
+   68          var tagCheck = summaryList.summaryTagIdCheck;
+   ..
+   87          
+   88          $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
+   89:         console.log($scope.selected);
+   90          // GROUP MESSAGES BY USERS ==================================
+   91          $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
+   ..
+  237  
+  238              if(output._tags.indexOf(summaryList.summaryTagIdCheck) !== -1){
+  239:                 console.log('this is a summary message', output);
+  240                  output.body = output.body + ' #summary';
+  241              }
+  ...
+  243              $http.put('/api/message/', output)
+  244                  .success(function(data, err){
+  245:                     console.log(data);
+  246  
+  247                      if($scope.selected.doctype === 'test'){
+
+/Users/alexleitch/Documents/Heist/scout-dev/public/js/controllers/test.js:
+   15  
+   16          var data = loadData.data;
+   17:         console.log('data we have', data);
+   18  
+   19          $scope.test = data;
+   ..
+   65          // SELECTION ======================================
+   66          $scope.select = function(task) {
+   67:             console.log('select works');
+   68              $scope.selectedTask = task;
+   69          };
+   ..
+  131              // send the array to the back end, where each will be pushed appropriately 
+  132              // /api/tag/
+  133:             console.log(tags);
+  134              var i = tags.split(' ');
+  135              var dataOut = _.map(i, function(tag){
+
+28 matches across 10 files
