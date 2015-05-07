@@ -106,14 +106,7 @@ var tests = [
             link : "http://framerjs.com/examples/preview/#weather-app.framer",
             summary : "Sessions with all participants went well, as they were all able to comprehend the app's interaction and content. That said, there were a few recurring themes in the feedback that stood out as ways to improve the experience:\n\n- What's Working -\n\nVisuals and iconography communicate important info quickly - In scenarios where people are looking for at-a-glance information (like checking for rain), the background imagery and icons in the hourly forecast communicate this within a second or two for participants.\n\n90% of info required can be found without scrolling - For most participants, they information they would typically be looking for when using their weather app was found immediately upon opening the app.\n\n\n- What Issues Were Found - \n\nHorizontal scroll interference when scrolling vertically quickly - users who scrolled slowly and deliberately up and down the page didn't have any issue with this. But users who make quick movements up and down the page (representative more of our majority, utility-driven users) would accidentally hit the horizontal interaction while moving up and down the page, which created confusion. \n\nDon't separate Today's Forecast information - It confused a number of participants to have different pieces of this information set located at the top and bottom of the app. Their expectation is that this information would be found all within the same context. \n\nMore visual distinction for numbers on screen - Some participants had an issue distinguishing dates, temperatures, highs and lows, as they are all presented in white text. We need to create some hierarchy for this information to make it distinguishable at a glance.\n\n\n- Next Steps -\n\n1. Explore options to reduce/eliminate the sensitivity of the horizontal scroll to reduce likelihood of vertical scroll interference.\n2. Review organization of Today's Forecast information - sketch concepts for alternate solutions.\n3. Explore visual hierarchy for numbers in the app." 
         },
-        'subjects' : [{ name : 'Vince Wagenar', _messages : [
-                        "",
-                        ""
-                    ] },
-                    {_messages:[] ,name : 'Lisa Truitt'}, 
-                    // {_messages:[] ,name : 'Julie Stenson'}, 
-                    // {_messages:[] ,name : 'Janet Santiago'}, 
-                    // {_messages:[] ,name : 'Beverley Gilreath'}],
+        'subjects' : ['Vince Wagenar','Lisa Truitt','Julie Stenson','Janet Santiago','Beverley Gilreath'],
 
         'tags'     : ['issue', 'comprehension', 'preference', 'effort', 'quote', 'usability'],
         'tasks'    : [
@@ -149,7 +142,9 @@ var tests = [
                     {_subject:'Julie Stenson' , body: "She is reliant on iconography for an at-a-glance understanding  of the current weather - this helps to set her expectations for whether she needs to dress warmly or bring an umbrella. #preference"},
                     {_subject:'Lisa Truitt' , body: "Her first impression of that app was that today's weather information was scattered around the app. She wants all available information accessible to her at at once. The fact that today's temperature and precipitation and humidity information are found on separate parts of the screen confused her. #issue #preference"},
                     {_subject:'Lisa Truitt' , body: "She describes the layout of the information as a hamburger - 'I've got today's weather info at the top, then the rest of the week in the middle, and more of today's weather info at the bottom.' #quote"},
-
+                    {_subject:'Vince Wagenar' , body: "The imagery stood out as the first thing to catch his eye - he saw the clouds in the background, and he assumed that meant it was cloudy. 'I'm a visual guy, so I'll always look at the pictures before reading any words.' #quote"},
+                    {_subject:'Vince Wagenar' , body: "The iconography of the sunny, partly cloudy, raining, etc. really stuck out for him as well - it gave him a quick indication of what types of weather was coming up. #preference #usability"},
+                    {_subject:'Vince Wagenar' , body: "He described the layout of the information as 'right now, later today, later this week...and right now again for some reason.' Having the current weather info broken up into two chunks was confusing for him. #quote #issue"}
                 ]
             },
             {
