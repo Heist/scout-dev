@@ -151,10 +151,20 @@ var tests = [
 ];
 
     // in parallel:
+var modelSave  = function(mongooseModel){
+    return new Bluebird(function (resolve, reject) {
+        mongooseModel.save(function(err,done) {
+          if (!done || done.error) {return reject(done.error);}
+          return resolve(done);
+        })
+    })
+}
 
+
+Bluebird.promisify(models.Tag.save, models.Tag);
     // Create a test for each
     // inside the test, create tasks for that test, setting their _test to test._id and index to $index
-    // this works but returns undefined, can't tell why.
+    // this works but returns undefin
 
     Bluebird.map(tests, function(n){
         var test =  new models.Test(n.test);
@@ -168,9 +178,7 @@ var tests = [
                         });
                     test._tags.push(t._id);
 
-                    return t.save(function(err, done){
-                        return done;
-                    })
+                    return modelSave(t);
                 }),
                 Bluebird.map(n.tasks, function(task, i){
                         task._test = test._id;
@@ -179,12 +187,11 @@ var tests = [
                         var t = new models.Task(task);
                         test._tasks.push(t._id);
 
-                        return t.save(function(err, done){
-                                return done;
-                            });
-                        })
+                        return modelSave(t);
+                })
             ]).then(function(array){
                 // console.log('is test still set?', test);
+                console.log('this is the array after bluebird' , array);
                 return test.save(function(err, reply){
                     return reply;
                 })
