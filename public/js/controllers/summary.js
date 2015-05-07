@@ -53,7 +53,7 @@
                 }
             })[0];
             
-            console.log('summary object', summaryItem, data);
+            console.log('summary object', summaryItem, data[testIdx]);
 
             // set the message list for the test to being those messages, and pass the list generally
             var summaryMsgList = data[testIdx]._messages = (summaryItem && summaryItem._messages.length > 0) ? summaryItem._messages : [];
