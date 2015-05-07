@@ -538,6 +538,10 @@ var modelSave  = function(mongooseModel){
 
     Bluebird.map(tests, function(n){
         var test =  new models.Test(n.test);
+        // TODO: in here, create all of the subjects in the test
+        // subjects must be created with a _test 
+        // set them to the variable subject
+
         return Bluebird.all([
                Bluebird.map(n.tags, function(tag, i){
                     var t = new models.Tag({
@@ -556,10 +560,15 @@ var modelSave  = function(mongooseModel){
                         var t = new models.Task(task);
                         test._tasks.push(t._id);
 
+                        // TODO: in here, get the subject id from the subjects array
+                        // _.filter(subjects, function(n){  return n.name === message.name  })
+                        // then create a message-new for every message in the messages array for the task
+                        // then return the saved task in the then step
                         return modelSave(t);
                 })
             ]).then(function(array){
                 // console.log('is test still set?', test);
+
                 return modelSave(test);
             })
     }).then(function(testArray){
