@@ -7,24 +7,28 @@ module.exports = function(account, id, callback){
 // Module dependencies
     var mongoose = require('mongoose');  // can't set an ObjectID without this.
     var _        = require('lodash');
-    var Promise = require('bluebird');
+    var Promise  = require('bluebird');
     var models   = Promise.promisifyAll(require('../../models'));
     var fn       = require('../../models/functions');
     var tests    = fn.defaultTestData(account, id);
 
+    console.log('did tests load properly?', tests.length);
+
     var modelSave  = function(mongooseModel){
         return new Promise(function (resolve, reject) {
             mongooseModel.save(function(err,done) {
-              if (!done || done.error) {return reject(done.error);}
+              if (!done || done.error || err) {
+                console.log(err);
+                return reject(done.error);}
               return resolve(done);
             })
         })
     }
 
     var createTests = function(testObject){
-        return Promise.map(tests, function(n){
-            var test = new models.Test(n.test);
-            return modelSave(test);
+        return Promise.map(testObject, function(n){
+            var thing = new models.Test(n.test);
+            return modelSave(thing);
         });
     }
 
@@ -82,9 +86,10 @@ module.exports = function(account, id, callback){
     }
 
 // Create Tests ===========================================
-    createTests.then(function(tests){
+    createTests(tests).then(function(testArray){
         // Here, tests is globally tests.
-        return Promise.map(tests, function(test){
+        console.log('made it to TestArray', testArray.length);
+        return Promise.map(testArray, function(test){
             // now we are in a single test
             return createSubjects(test, test.subjects).then(function(subjects){
                 // Now subjects is available down the chain.
