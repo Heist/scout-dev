@@ -7,25 +7,33 @@
 				<div class="module-container">
 
 					<p id="logo" class="text-center">
-						<img src="/layout/assets/fg-binocs-header.png" />
+						<img src="/layout/assets/fg-binocs-grey.svg" />
 					</p>
 					
-					<h1>Sign into Field Guide</h1>
+					<h1>Sign In to Field Guide</h1>
 					
 					<!-- login form -->
 					<div id="form-login">
 					
 						<form name="form-login" ng-model="user" ng-submit="login(user)">
 							<ul class="nobullets withlabels">
-								<li ng-show="flashmessage" class="messaging messaging-problem">{{flashmessage}}
-								</li>
+								<!-- <li ng-show="flashmessage" class="messaging messaging-problem">{{flashmessage}}
+								</li> -->
 								<li>
 									<input class="input" type="text" name="username" value="" placeholder="Email" ng-model="user.email" required/>
+									<span ng-show="flashmessage" class="error-msg">{{flashmessage}}
+									</span>
+
+									<div class="error-msg" href="#">
+										<span>Tooltip</span>
+									</div>
 								</li>
 								
 								<li>
 									<input class="input" type="password" id="field-password" name="" value="" placeholder="Password"  ng-model="user.password" required/>
+									</span>
 								</li>
+
 								
 								<li class="text-center">
 									<button class="submit button green" type="submit" ng-click="login(user)">Sign in</button> 
