@@ -9,8 +9,8 @@ module.exports = function(account, id, callback){
     var _        = require('lodash');
     var Bluebird = require('bluebird');
     var models   = Bluebird.promisifyAll(require('../../models'));
-    var makeTests    = require('../../models/functions/default-test-object');
-
+    var fn       = require('../../models/functions');
+    var tests    = fn.defaultTestData(account, id);
 
     var modelSave  = function(mongooseModel){
         return new Bluebird(function (resolve, reject) {
@@ -20,8 +20,6 @@ module.exports = function(account, id, callback){
             })
         })
     }
-    
-    var tests = makeTests(account, id);
 
     var createTests = function(testObject){
         return Bluebird.map(tests, function(n){
@@ -72,8 +70,19 @@ module.exports = function(account, id, callback){
             })   
     }
 
-    var createMessages = function(testObject){
-        
+    var createMessages = function(task, taskMessages, subjects){
+        return Bluebird.map(taskMessages, function(msg, i){
+                var sub = _.filter(subjects, function(s){
+                    return s.name === msg.name;
+                })
+
+                var m = new models.Message({
+                    body     : msg.body,
+                    _subject : sub._id,
+                    _test    : task._test,
+                    _task    : task._id
+                });
+        })
     }
 
 // Abstract and create tests 
