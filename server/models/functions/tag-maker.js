@@ -28,12 +28,12 @@ module.exports = function(tag){
 
         // TODO: if a tag is called "summary", match it and toLowerCase it for storage
         var sumCatch = singleTag.name.match(/[sS][uU][mM][mM][aA][rR][yY]/gi);
-        console.log('sumcatch in tagMaker', singleTag, sumCatch);
+        // console.log('sumcatch in tagMaker', singleTag, sumCatch);
         if(sumCatch && sumCatch.length > 0){
             singleTag.name = sumCatch[0].toLowerCase();
-            console.log('inside check for sumCatch', singleTag.name)
+            // console.log('inside check for sumCatch', singleTag.name)
         }
-        console.log('tagMaker after toLowerCase', singleTag.name, sumCatch);
+        // console.log('tagMaker after toLowerCase', singleTag.name, sumCatch);
 
     	var u = {
     		  name: singleTag.name,
@@ -59,8 +59,8 @@ module.exports = function(tag){
 
 		return models.Test.findOne({'_id'  : returnedTags[0]._test }).exec()
         .then(function(test){
-            console.log('tagMaker: did we find a test?', test._id)
-            console.log('tagMaker: did we return tags', returnedTags);
+            // console.log('tagMaker: did we find a test?', test._id)
+            // console.log('tagMaker: did we return tags', returnedTags);
             // check if that tag already exists on the test
             // if so, just pass to next
             // otherwise, add the tag to the test.

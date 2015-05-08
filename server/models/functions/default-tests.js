@@ -54,10 +54,11 @@ module.exports = function(account, id, callback){
 
 
     var createMessages = function(task, taskMessages, subjects){
-        console.log('task', id);
+        // console.log('subjects, one of which is undefined', subjects);
         return Promise.map(taskMessages, function(msg, i){
             
             var sub = _.filter(subjects, function(s){ return s.name === msg._subject; })[0];
+
             return fn.messageNew({
                 body     : msg.body,
                 _subject : sub._id,
@@ -119,7 +120,13 @@ module.exports = function(account, id, callback){
             })
         })
     }).then(function(testsMade){
-        callback(null, testsMade);
+        console.log(testsMade);
+        return Promise.map(testsMade, function(n){
+            return modelSave(n);
+        })
+    }).then(function(testSaved){
+        console.log('did we save tests?', testSaved.length);
+        callback(null, testSaved);
     }).catch(function(err){
         if(err){console.log(err);}
     });
