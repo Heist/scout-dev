@@ -27,17 +27,27 @@ module.exports = function(account, id, callback){
 
     var createTests = function(testObject){
         return Promise.map(testObject, function(n){
-            var thing = new models.Test(n.test);
-            return modelSave(thing);
+            var t = new models.Test({
+                name : n.name,
+                created_by_account: n.created_by_account,
+                created_by_user : n.created_by_user,
+                desc : n.desc,
+                kind : n.kind,
+                link : n.link,
+                summary : n.summary
+            });
+            return modelSave(t);
         });
     }
 
     var createSubjects = function(test, testSubjects){
+        console.log(testSubjects, test._id);
         return Promise.map(testSubjects, function(m){
-            m.name  = m;
-            m._test = test._id;
-
-            var subj = new models.Subject(m);
+            var make = {
+                name  : m,
+                _test : test._id
+            }
+            var subj = new models.Subject(make);
             return modelSave(subj);
         })
     }
@@ -88,14 +98,18 @@ module.exports = function(account, id, callback){
 // Create Tests ===========================================
     createTests(tests).then(function(testArray){
         // Here, tests is globally tests.
-        console.log('made it to TestArray', testArray);
+        console.log('made it to TestArray', testArray.length);
         return Promise.map(testArray, function(test){
             // now we are in a single test
-            return createSubjects(test, test.subjects).then(function(subjects){
+            console.log(test.name);
+            var data = _.filter(tests, function(n){ return n.name === test.name })[0];
+
+            return createSubjects(test, data.subjects).then(function(subjects){
                 // Now subjects is available down the chain.
+                console.log(subjects.length);
                 Promise.all([
-                        createTags(test, test.tags),
-                        createTasks(test, test.tasks, subjects)
+                        createTags(test, data.tags),
+                        createTasks(test, data.tasks, subjects)
                     ])
             })
         })
