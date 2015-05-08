@@ -23,6 +23,7 @@ module.exports = function(request, user){
             'created_by_user' : user
         };
 
+    
 
     // THIS IS RETURNING ALL TAGS FROM THE TEST WHEN A NEW MESSAGE IS CREATED
     // TODO: SHOULD RETURN ONLY THE TAGS RELEVANT TO THAT MESSAGE ?

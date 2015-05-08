@@ -76,7 +76,7 @@ module.exports = function(account, id, callback){
                     return s.name === msg.name;
                 })
 
-                var m = new models.Message({
+                var m = fn.messageNew({
                     body     : msg.body,
                     _subject : sub._id,
                     _test    : task._test,
