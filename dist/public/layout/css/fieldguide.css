@@ -4332,9 +4332,10 @@ hr {
       top: -4px;
       right: 5px; }
   .modal .modal-interior {
+    width: 550px;
     background: #fff;
     padding: 30px 40px 30px 40px;
-    margin: 10% 0 0 0;
+    margin: 10% auto;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
