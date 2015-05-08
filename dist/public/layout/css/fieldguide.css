@@ -4426,9 +4426,10 @@ hr {
       top: -4px;
       right: 5px; }
   .modal-scroll .modal-interior {
+    width: 550px;
     background: #fff;
     padding: 30px 40px 30px 40px;
-    margin: 5% 0 0 0;
+    margin: 5% auto;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
@@ -4916,6 +4917,7 @@ hr {
   font-weight: 400; }
 #view-new-project button.test-type {
   width: 48.5%;
+  height: 146px;
   outline: 0;
   text-align: center;
   position: relative;
