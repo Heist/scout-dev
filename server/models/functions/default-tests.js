@@ -30,6 +30,17 @@ module.exports = function(account, id, callback){
         });
     }
 
+    var createSubjects = function(testObject){
+        return Bluebird.map(testObject, function(n){
+            return Bluebird.map(n.subjects, function(m){
+                m.name  = m;
+                m._test = n.test._id;
+
+                var subj = new models.Subject(m);
+                return modelSave(subj);
+            })
+        })
+    }
 // Abstract and create tests 
 
     // in parallel:
