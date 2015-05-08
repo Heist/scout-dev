@@ -24,14 +24,20 @@
 								</li>
 								
 								<li>
-									<input class="input" type="email" name="usermail" value="" placeholder="Email" ng-class="{'error': regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine}" ng-model="user.email" required /> 
+									<input class="input" type="email" name="usermail" value="" placeholder="Email" ng-class="{'error-outline': regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine}" ng-model="user.email" required /> 
 
-									<span class="small" ng-show="regForm.usermail.$error.email && !regForm.usermail.$pristine">&times; Please enter a valid email address.</span>
+									<div class="error-msg" ng-show="regForm.usermail.$error.email && !regForm.usermail.$pristine">
+										<span>Please enter a valid email.</span>
+									</div>
 								</li>
 
 								<li>
-									<input class="input" type="email" name="usermailConfirm" value="" placeholder="Confirm email" ng-model="user.emailConfirm" ng-class="{'error': regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine}" ng-match="user.email" required/> 
-									<span class="small" ng-show="regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine">&times; Email address does not match.</span>
+									<input class="input" type="email" name="usermailConfirm" value="" placeholder="Confirm email" ng-model="user.emailConfirm" ng-class="{'error-outline': regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine}" ng-match="user.email" required/> 
+
+									<div class="error-msg" ng-show="regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine">
+										<span>Email address does not match.</span>
+									</div>
+
 								</li>
 								
 								<li>
