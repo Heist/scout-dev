@@ -5134,13 +5134,14 @@ hr {
       font-style: italic; }
     #view-editing .tags .tag-pool, #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
       width: 100%;
-      height: 30px;
+      height: 100%;
       background: rgba(216, 218, 219, 0.5);
       border: 1px solid rgba(216, 218, 219, 0.5); }
       #view-editing .tags .tag-pool ul, #view-editing .tags input.custom-tags ul, #view-editing .tags .add-task textarea.custom-tags ul, #view-editing .add-task .tags textarea.custom-tags ul {
-        padding: 0; }
+        padding: 0;
+        margin: 0; }
         #view-editing .tags .tag-pool ul li, #view-editing .tags input.custom-tags ul li, #view-editing .tags .add-task textarea.custom-tags ul li, #view-editing .add-task .tags textarea.custom-tags ul li {
-          padding: 2px 0 0 15px;
+          padding: 0 0 0 10px;
           font-size: 14px;
           color: #00B5E3;
           display: inline-block; }
