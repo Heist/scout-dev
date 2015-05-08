@@ -1,7 +1,7 @@
 // default-tests-new.js - generates first-time signup tests
 'use strict';
 
-module.exports = function(account, id, callback){
+module.exports = function(account, id, user, callback){
 // on first login via signup, create a test for this user.
 
 // Module dependencies
@@ -43,40 +43,45 @@ module.exports = function(account, id, callback){
     var createSubjects = function(test, testSubjects){
         console.log(testSubjects, test._id);
         return Promise.map(testSubjects, function(m){
-            var make = {
-                name  : m,
-                _test : test._id
-            }
-            var subj = new models.Subject(make);
+            var subj = new models.Subject({
+                                name  : m,
+                                _test : test._id
+                            });
+
             return modelSave(subj);
         })
     }
 
 
     var createMessages = function(task, taskMessages, subjects){
+        console.log('task', task.created_by_user);
         return Promise.map(taskMessages, function(msg, i){
-                var sub = _.filter(subjects, function(s){
-                    return s.name === msg.name;
-                })
-
-                return fn.messageNew({
-                    body     : msg.body,
-                    _subject : sub._id,
-                    _test    : task._test,
-                    _task    : task._id
-                });
+            
+            var sub = _.filter(subjects, function(s){ return s.name === msg._subject; })[0];
+            return fn.messageNew({
+                body     : msg.body,
+                _subject : sub._id,
+                _test    : task._test,
+                _task    : task._id
+            }, task.created_by_user);
         })
     }
 
     var createTasks = function(test, testTasks, subjects){
         return Promise.map(testTasks, function(task, i){
-                        task._test = test._id;
-                        task.index = i
+            console.log(test.created_by_user)
+                        var t = new models.Task({
+                            _test : test._id,
+                            index : i,
+                            name  : task.name,
+                            desc  : task.desc,
+                            created_by_user : test.created_by_user
+                        });
 
-                        var t = new models.Task(task);
                         test._tasks.push(t._id);
 
-                        return modelSave(t).then(function(savedTask){
+                        return modelSave(t)
+                        .then(function(savedTask){
                             return createMessages(savedTask, task._messages, subjects);
                         });
                 })
@@ -98,15 +103,15 @@ module.exports = function(account, id, callback){
 // Create Tests ===========================================
     createTests(tests).then(function(testArray){
         // Here, tests is globally tests.
-        console.log('made it to TestArray', testArray.length);
+        
         return Promise.map(testArray, function(test){
             // now we are in a single test
-            console.log(test.name);
+            console.log('do we have a user who owns this?', test.created_by_user);
             var data = _.filter(tests, function(n){ return n.name === test.name })[0];
 
             return createSubjects(test, data.subjects).then(function(subjects){
                 // Now subjects is available down the chain.
-                console.log(subjects.length);
+                
                 Promise.all([
                         createTags(test, data.tags),
                         createTasks(test, data.tasks, subjects)

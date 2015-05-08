@@ -2,7 +2,7 @@
 // create a new message on the DB
 'use strict';
 
-module.exports = function(request, user){
+module.exports = function(request, user_id){
 
 // Module dependencies ==========================
     var Bluebird = require('bluebird');
@@ -20,16 +20,16 @@ module.exports = function(request, user){
             '_test' : request._test,
             '_task' : request._task,
             'body'  : t.msg.replace(/ \#[sS][uU][mM][mM][aA][rR][yY]/gi, ''),
-            'created_by_user' : user
+            'created_by_user' : user_id
         };
 
-    
+
 
     // THIS IS RETURNING ALL TAGS FROM THE TEST WHEN A NEW MESSAGE IS CREATED
     // TODO: SHOULD RETURN ONLY THE TAGS RELEVANT TO THAT MESSAGE ?
 
     // Now NO tags are being attached to messages, this is difficult.....
-    console.log('new message', request._id, tags);
+    console.log('new message', msg, tags);
     return new models.Message(msg).saveAsync().get(0)
         .then(function(note){
             // post the message to the relevant Task and Subjects, add or update its tags.
