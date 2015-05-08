@@ -30,17 +30,52 @@ module.exports = function(account, id, callback){
         });
     }
 
-    var createSubjects = function(testObject){
-        return Bluebird.map(testObject, function(n){
-            return Bluebird.map(n.subjects, function(m){
-                m.name  = m;
-                m._test = n.test._id;
+    var createSubjects = function(test, testSubjects){
+        return Bluebird.map(testSubjects, function(m){
+            m.name  = m;
+            m._test = test._id;
 
-                var subj = new models.Subject(m);
-                return modelSave(subj);
-            })
+            var subj = new models.Subject(m);
+            return modelSave(subj);
         })
     }
+
+    var createTasks = function(test, testTasks){
+        Bluebird.map(testTasks, function(task, i){
+                        task._test = test._id;
+                        task.index = i
+
+                        var t = new models.Task(task);
+                        test._tasks.push(t._id);
+
+                        // TODO: in here, get the subject id from the subjects array
+                        // _.filter(subjects, function(n){  return n.name === message.name  })
+                        // then create a message-new for every message in the messages array for the task
+                        // then return the saved task in the then step
+                        Bluebird.map(n.tasks._messages, function(note){
+
+                            return modelSave(t);
+                        })
+                })
+    }
+
+    var createTags = function(test, testTags){
+       return Bluebird.map(testTags, function(tag, i){
+                var t = new models.Tag({
+                        name      : tag,
+                        nameCheck : tag.toLowerCase(),
+                        _test     : test._id
+                    });
+                test._tags.push(t._id);
+
+                return modelSave(t);
+            })   
+    }
+
+    var createMessages = function(testObject){
+        
+    }
+
 // Abstract and create tests 
 
     // in parallel:
