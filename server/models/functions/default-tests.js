@@ -113,14 +113,14 @@ module.exports = function(account, id, callback){
             return createSubjects(test, data.subjects).then(function(subjects){
                 // Now subjects is available down the chain.
                 
-                Promise.all([
+                return Promise.all([
                         createTags(test, data.tags),
                         createTasks(test, data.tasks, subjects)
                     ])
             })
         })
     }).then(function(testsMade){
-        console.log(testsMade);
+        console.log('tests got made!', testsMade);
         return Promise.map(testsMade, function(n){
             return modelSave(n);
         })
