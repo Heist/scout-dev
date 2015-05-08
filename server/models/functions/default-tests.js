@@ -12,7 +12,7 @@ module.exports = function(account, id, callback){
     var fn       = require('../../models/functions');
     var tests    = fn.defaultTestData(account, id);
 
-    console.log('did tests load properly?', tests.length);
+    // console.log('did tests load properly?', tests.length);
 
     var modelSave  = function(mongooseModel){
         return new Promise(function (resolve, reject) {
@@ -41,7 +41,7 @@ module.exports = function(account, id, callback){
     }
 
     var createSubjects = function(test, testSubjects){
-        console.log(testSubjects, test._id);
+        // console.log(testSubjects, test._id);
         return Promise.map(testSubjects, function(m){
             var subj = new models.Subject({
                                 name  : m,
@@ -54,10 +54,15 @@ module.exports = function(account, id, callback){
 
 
     var createMessages = function(task, taskMessages, subjects){
-        // console.log('subjects, one of which is undefined', subjects);
         return Promise.map(taskMessages, function(msg, i){
             
             var sub = _.filter(subjects, function(s){ return s.name === msg._subject; })[0];
+            var make = {
+                body     : msg.body,
+                _subject : sub._id,
+                _test    : task._test,
+                _task    : task._id
+            }; 
 
             return fn.messageNew({
                 body     : msg.body,
@@ -93,16 +98,19 @@ module.exports = function(account, id, callback){
             })   
     }
 
-    var updateTestWithTagsTasks = function(test_id, tags, tasks){
-        console.log('did we make it in?', test_id)
+    var updateTestWithTagsTasksSubjects = function(test_id, tags, tasks, subjects){
+        // console.log('did we make it in?', test_id)
         return models.Test.findOne({_id : test_id}).exec().then(function(test){
 
-            var tagUpdate  = _.pluck(tags, '_id');
-            var taskUpdate = _.pluck(tasks, '_id');
+            var tagUpdate     = _.pluck(tags, '_id');
+            var taskUpdate    = _.pluck(tasks, '_id');
+            var subjectUpdate = _.pluck(subjects, '_id');
             
-            console.log('tags and tasks inside test save', tagUpdate, taskUpdate);
-            test._tags  = tagUpdate;
-            test._tasks = taskUpdate;
+            // console.log('tags and tasks inside test save', tagUpdate, taskUpdate);
+            test._tags     = tagUpdate;
+            test._tasks    = taskUpdate;
+            test._subjects = subjectUpdate;
+            
             return modelSave(test);
         })
     }
@@ -114,7 +122,7 @@ module.exports = function(account, id, callback){
         
         return Promise.map(testArray, function(test){
             // now we are in a single test
-            console.log('do we have a user who owns this?', test.created_by_user);
+            // console.log('do we have a user who owns this?', test.created_by_user);
             var data = _.filter(tests, function(n){ return n.name === test.name })[0];
             var subj;
             var testTagArray;
@@ -127,12 +135,21 @@ module.exports = function(account, id, callback){
                         createTasks(test, data.tasks, subjects)
                     ])
             }).then(function(array){
+                
                 testTagArray = array;
+
                 return Promise.map(array[1], function(t){
-                    return createMessages(t, t._messages, subj);
+                    // pluck the relevant data object from the overall data, then make those messages
+                    var taskData = _.filter(data.tasks, function(n){
+                                    return t.name === n.name
+                                })[0];
+
+                    // console.log('make this shit', taskData._messages);
+                    return createMessages(t, taskData._messages, subj);
                 })
             }).then(function(savedTask){
-                return updateTestWithTagsTasks(test._id, testTagArray[0], testTagArray[1] );
+                console.log('did we save some shit', savedTask.length);
+                return updateTestWithTagsTasksSubjects(test._id, testTagArray[0], testTagArray[1], subj);
             })
         })
     }).then(function(savedArray){

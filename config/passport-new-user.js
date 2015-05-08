@@ -27,7 +27,7 @@ module.exports =  function(user, next){
             else {
                 userCreate(user, function(err, doc){
                     if(err){console.log(err);}
-                    console.log('passport-new-user user create', doc);
+                    // console.log('passport-new-user user create', doc);
                     callback(null, doc);
                 });
             }

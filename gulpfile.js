@@ -44,7 +44,7 @@ gulp.task('scripts', function () {
     .pipe(addsrc.append('public/js/vendor/vendor.js'))
     .pipe(concat('build.js')).on('error', errorHandler)
     .pipe(ngAnnotate())
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest('public/js'))
     .pipe(stripDebug()).on('error', errorHandler)
     .pipe(gulp.dest('dist/public/js'))
