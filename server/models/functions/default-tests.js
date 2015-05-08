@@ -81,7 +81,7 @@ module.exports = function(account, id, callback){
             })   
     }
 
-// Create tests out of the above objects ==================
+// Create Tests ===========================================
     createTests.then(function(tests){
         // Here, tests is globally tests.
         return Promise.map(tests, function(test){
@@ -94,6 +94,8 @@ module.exports = function(account, id, callback){
                     ])
             })
         })
+    }).then(function(testsMade){
+        callback(null, testsMade);
     }).catch(function(err){
         if(err){console.log(err);}
     });
