@@ -1,7 +1,7 @@
 // default-tests-new.js - generates first-time signup tests
 'use strict';
 
-module.exports = function(account, id, user, callback){
+module.exports = function(account, id, callback){
 // on first login via signup, create a test for this user.
 
 // Module dependencies
@@ -29,8 +29,8 @@ module.exports = function(account, id, user, callback){
         return Promise.map(testObject, function(n){
             var t = new models.Test({
                 name : n.name,
-                created_by_account: n.created_by_account,
-                created_by_user : n.created_by_user,
+                created_by_account: account,
+                created_by_user : id,
                 desc : n.desc,
                 kind : n.kind,
                 link : n.link,
@@ -54,7 +54,7 @@ module.exports = function(account, id, user, callback){
 
 
     var createMessages = function(task, taskMessages, subjects){
-        console.log('task', task.created_by_user);
+        console.log('task', id);
         return Promise.map(taskMessages, function(msg, i){
             
             var sub = _.filter(subjects, function(s){ return s.name === msg._subject; })[0];
@@ -63,7 +63,7 @@ module.exports = function(account, id, user, callback){
                 _subject : sub._id,
                 _test    : task._test,
                 _task    : task._id
-            }, task.created_by_user);
+            }, id);
         })
     }
 
@@ -75,7 +75,7 @@ module.exports = function(account, id, user, callback){
                             index : i,
                             name  : task.name,
                             desc  : task.desc,
-                            created_by_user : test.created_by_user
+                            created_by_user : id
                         });
 
                         test._tasks.push(t._id);
