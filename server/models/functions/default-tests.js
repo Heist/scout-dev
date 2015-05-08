@@ -88,7 +88,7 @@ module.exports = function(account, id, callback){
 // Create Tests ===========================================
     createTests(tests).then(function(testArray){
         // Here, tests is globally tests.
-        console.log('made it to TestArray', testArray.length);
+        console.log('made it to TestArray', testArray);
         return Promise.map(testArray, function(test){
             // now we are in a single test
             return createSubjects(test, test.subjects).then(function(subjects){
