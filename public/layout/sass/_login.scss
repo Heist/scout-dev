@@ -16,59 +16,66 @@
 		background: $fg-header-red;
 		padding: 75px 130px 60px 130px;
 		@include radius;
-	}
-
-	.alt-info {
-		p {
-			margin: 0;
-			padding: 0;
+		
+		h1 {
+			font-size: 20px;
+			@include type-regular;
+			text-align: center;
+			color: $fg-red-dark;
 		}
-	}
 
-	.line {
-		text-decoration: underline;
-	}
-
-	.submit {
-		margin: 15px auto;
-	}
-
-	label {
-		color: $white;
-	}
-	
-	input, button {
-		width: 100%;
-		margin-bottom: $pad/5;
-		@include type-regular;
-
-		&:focus {
-			box-shadow: none;
+		.alt-info {
+			p {
+				margin: 0;
+				padding: 0;
+			}
 		}
-	}
 
-	input[type=checkbox] {
-		width: 15px;
-		text-align: center;
-	}
-
-	li:last-child {
-		text-align: center;
-	}
-	
-	a {
-		color: $white;
-	}
-	
-	#logo {
-		img {
-			width: 70px;
-			height: auto;
+		.line {
+			text-decoration: underline;
 		}
-	}
 
-	.error {
-		border: 2px solid red; 
+		.submit {
+			margin: 15px auto;
+		}
+
+		label {
+			color: $white;
+		}
+		
+		input, button {
+			width: 100%;
+			margin-bottom: $pad/5;
+			@include type-regular;
+
+			&:focus {
+				box-shadow: none;
+			}
+		}
+
+		input[type=checkbox] {
+			width: 15px;
+			text-align: center;
+		}
+
+		li:last-child {
+			text-align: center;
+		}
+		
+		a {
+			color: $white;
+		}
+		
+		#logo {
+			img {
+				width: 70px;
+				height: auto;
+			}
+		}
+
+		.error {
+			border: 2px solid red; 
+		}
 	}
 }
 

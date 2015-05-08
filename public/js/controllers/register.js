@@ -7,6 +7,12 @@
         .controller('register', ['$scope','$http', '$location', '$stateParams','$rootScope', '$sce',
         function($scope, $http, $location, $stateParams, $rootScope, $sce){
         
+        // $scope.user = $rootScope.user;
+        
+        // if($stateParams.acct){
+        //     $scope.acct = $stateParams.acct.replace( /\//gi,"");
+        // }
+        
         if($rootScope.user){
             $scope.user = $rootScope.user;
         }
@@ -26,10 +32,11 @@
         }
 
         $scope.register = function(user){
+        	var url = '/auth/signup';
             var dataOut, invite;
-            
-            console.log('clicked register', user)
-            
+
+            console.log('clicked register', user);
+
             if($stateParams.acct){
                 invite = $stateParams.acct.replace( /\//gi,"");
                 dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
@@ -38,9 +45,9 @@
             }
             
             $http
-                .post('/auth/signup/', dataOut)
+                .post(url, dataOut)
                 .success(function(data){
-                    
+                    console.log(data, data.length);
                     var msg = data;
 
                     if(data === '1' ){

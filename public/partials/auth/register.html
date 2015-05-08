@@ -10,10 +10,11 @@
 						<img src="/layout/assets/fg-binocs-header.png" />
 					</p>
 					
+					<h1>Register for Field Guide</h1>
 					<!-- signup form form -->
 					<div id="form-signup">
 					
-						<form ng-model="user" name="regForm">
+						<form name="regForm" ng-model="user" ng-submit="register(user)">
 							<ul class="nobullets withlabels">
 								<li ng-bind-html="flashmessage" ng-show="flashmessage" class="messaging messaging-problem">
 								</li>

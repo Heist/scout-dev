@@ -4695,35 +4695,42 @@ hr {
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px; }
-  #view-login .alt-info p {
-    margin: 0;
-    padding: 0; }
-  #view-login .line {
-    text-decoration: underline; }
-  #view-login .submit {
-    margin: 15px auto; }
-  #view-login label {
-    color: #fff; }
-  #view-login input, #view-login #view-editing .add-task textarea, #view-editing .add-task #view-login textarea, #view-login button {
-    width: 100%;
-    margin-bottom: 4px;
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 400; }
-    #view-login input:focus, #view-login #view-editing .add-task textarea:focus, #view-editing .add-task #view-login textarea:focus, #view-login button:focus {
-      box-shadow: none; }
-  #view-login input[type=checkbox], #view-login #view-editing .add-task textarea[type=checkbox], #view-editing .add-task #view-login textarea[type=checkbox] {
-    width: 15px;
-    text-align: center; }
-  #view-login li:last-child {
-    text-align: center; }
-  #view-login a {
-    color: #fff; }
-  #view-login #logo img {
-    width: 70px;
-    height: auto; }
-  #view-login .error {
-    border: 2px solid red; }
+    #view-login .module-container h1 {
+      font-size: 20px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      text-align: center;
+      color: #892611; }
+    #view-login .module-container .alt-info p {
+      margin: 0;
+      padding: 0; }
+    #view-login .module-container .line {
+      text-decoration: underline; }
+    #view-login .module-container .submit {
+      margin: 15px auto; }
+    #view-login .module-container label {
+      color: #fff; }
+    #view-login .module-container input, #view-login .module-container #view-editing .add-task textarea, #view-editing .add-task #view-login .module-container textarea, #view-login .module-container button {
+      width: 100%;
+      margin-bottom: 4px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400; }
+      #view-login .module-container input:focus, #view-login .module-container #view-editing .add-task textarea:focus, #view-editing .add-task #view-login .module-container textarea:focus, #view-login .module-container button:focus {
+        box-shadow: none; }
+    #view-login .module-container input[type=checkbox], #view-login .module-container #view-editing .add-task textarea[type=checkbox], #view-editing .add-task #view-login .module-container textarea[type=checkbox] {
+      width: 15px;
+      text-align: center; }
+    #view-login .module-container li:last-child {
+      text-align: center; }
+    #view-login .module-container a {
+      color: #fff; }
+    #view-login .module-container #logo img {
+      width: 70px;
+      height: auto; }
+    #view-login .module-container .error {
+      border: 2px solid red; }
 
 /* register */
 #view-register {
