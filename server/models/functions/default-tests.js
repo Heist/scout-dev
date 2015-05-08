@@ -70,39 +70,46 @@ module.exports = function(account, id, callback){
 
     var createTasks = function(test, testTasks, subjects){
         return Promise.map(testTasks, function(task, i){
-            console.log(test.created_by_user)
-                        var t = new models.Task({
-                            _test : test._id,
-                            index : i,
-                            name  : task.name,
-                            desc  : task.desc,
-                            created_by_user : id
-                        });
+            var t = new models.Task({
+                _test : test._id,
+                index : i,
+                name  : task.name,
+                desc  : task.desc,
+                created_by_user : id
+            });
 
-                        test._tasks.push(t._id);
-
-                        return modelSave(t)
-                        .then(function(savedTask){
-                            return createMessages(savedTask, task._messages, subjects);
-                        });
-                })
+            return modelSave(t)
+        })
     }
 
-    var createTags = function(test, testTags){
+    var createTags = function(test_id, testTags){
        return Promise.map(testTags, function(tag, i){
                 var t = new models.Tag({
                         name      : tag,
                         nameCheck : tag.toLowerCase(),
-                        _test     : test._id
+                        _test     : test_id
                     });
-                test._tags.push(t._id);
-
                 return modelSave(t);
             })   
     }
 
+    var updateTestWithTagsTasks = function(test_id, tags, tasks){
+        console.log('did we make it in?', test_id)
+        return models.Test.findOne({_id : test_id}).exec().then(function(test){
+
+            var tagUpdate  = _.pluck(tags, '_id');
+            var taskUpdate = _.pluck(tasks, '_id');
+            
+            console.log('tags and tasks inside test save', tagUpdate, taskUpdate);
+            test._tags  = tagUpdate;
+            test._tasks = taskUpdate;
+            return modelSave(test);
+        })
+    }
+
 // Create Tests ===========================================
-    createTests(tests).then(function(testArray){
+    createTests(tests)
+    .then(function(testArray){
         // Here, tests is globally tests.
         
         return Promise.map(testArray, function(test){
@@ -114,19 +121,16 @@ module.exports = function(account, id, callback){
                 // Now subjects is available down the chain.
                 
                 return Promise.all([
-                        createTags(test, data.tags),
+                        createTags(test._id, data.tags),
                         createTasks(test, data.tasks, subjects)
                     ])
+            }).then(function(array){
+                return updateTestWithTagsTasks(test._id, array[0], array[1] );
             })
         })
-    }).then(function(testsMade){
-        console.log('tests got made!', testsMade);
-        return Promise.map(testsMade, function(n){
-            return modelSave(n);
-        })
-    }).then(function(testSaved){
-        console.log('did we save tests?', testSaved.length);
-        callback(null, testSaved);
+    }).then(function(savedArray){
+        console.log('did we save tests?', savedArray.length);
+        callback(null, savedArray);
     }).catch(function(err){
         if(err){console.log(err);}
     });
