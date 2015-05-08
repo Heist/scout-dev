@@ -1,7 +1,7 @@
 // default_test_object.js
 'use strict';
 
-module.exports = function(id, account){
+module.exports = function(account, id){
     return [{
         'test'  : {
                     created_by_account: account,

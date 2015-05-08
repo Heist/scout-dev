@@ -9,16 +9,26 @@ module.exports = function(account, id, callback){
     var _        = require('lodash');
     var Bluebird = require('bluebird');
     var models   = Bluebird.promisifyAll(require('../../models'));
-    var tests    = require('../../models/functions/default-test-object');
+    var makeTests    = require('../../models/functions/default-test-object');
+
 
     var modelSave  = function(mongooseModel){
-    return new Bluebird(function (resolve, reject) {
-        mongooseModel.save(function(err,done) {
-          if (!done || done.error) {return reject(done.error);}
-          return resolve(done);
+        return new Bluebird(function (resolve, reject) {
+            mongooseModel.save(function(err,done) {
+              if (!done || done.error) {return reject(done.error);}
+              return resolve(done);
+            })
         })
-    })
-}
+    }
+    
+    var tests = makeTests(account, id);
+
+    var createTests = function(testObject){
+        return Bluebird.map(tests, function(n){
+            var test = new models.Test(n.test);
+            return test;
+        });
+    }
 
 // Abstract and create tests 
 
@@ -30,6 +40,7 @@ module.exports = function(account, id, callback){
 
     Bluebird.map(tests, function(n){
         var test =  new models.Test(n.test);
+        var subjects;
         // TODO: in here, create all of the subjects in the test
         // subjects must be created with a _test 
         // set them to the variable subject
@@ -39,7 +50,8 @@ module.exports = function(account, id, callback){
 
                 var subj = new models.Subject(n);
                 return modelSave(subj);
-        }).then(function(subjects){
+        }).then(function(subjectArray){
+            subjects = subjectArray;
 
             return Bluebird.all([
                Bluebird.map(n.tags, function(tag, i){
@@ -67,9 +79,6 @@ module.exports = function(account, id, callback){
 
                             return modelSave(t);
                         })
-                        
-
-                        
                 })
             ]).then(function(array){
                 // console.log('is test still set?', test);
