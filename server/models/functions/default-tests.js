@@ -116,16 +116,23 @@ module.exports = function(account, id, callback){
             // now we are in a single test
             console.log('do we have a user who owns this?', test.created_by_user);
             var data = _.filter(tests, function(n){ return n.name === test.name })[0];
+            var subj;
+            var testTagArray;
 
             return createSubjects(test, data.subjects).then(function(subjects){
                 // Now subjects is available down the chain.
-                
+                subj = subjects;
                 return Promise.all([
                         createTags(test._id, data.tags),
                         createTasks(test, data.tasks, subjects)
                     ])
             }).then(function(array){
-                return updateTestWithTagsTasks(test._id, array[0], array[1] );
+                testTagArray = array;
+                return Promise.map(array[1], function(t){
+                    return createMessages(t, t._messages, subj);
+                })
+            }).then(function(savedTask){
+                return updateTestWithTagsTasks(test._id, testTagArray[0], testTagArray[1] );
             })
         })
     }).then(function(savedArray){
