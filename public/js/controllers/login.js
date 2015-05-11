@@ -32,11 +32,23 @@
             var url = '/auth/login';
             var dataOut =  {email: user.email, password: user.password};
 
+
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    
-                    $scope.flashmessage = data.error;
+                    console.log(data);
+
+                    if (data.error === "No user found. ") {
+                        $scope.errorPassword = '';
+                        $scope.errorEmail = data.error;
+
+                    } else {
+                        $scope.errorEmail = '';
+                        $scope.errorPassword = data.error;
+                        
+                    }
+
+
                     $location.path('/');
                 });
         };

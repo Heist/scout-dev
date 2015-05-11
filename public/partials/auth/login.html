@@ -24,16 +24,16 @@
 									<li>
 										<input class="input" type="text" name="username" value="" placeholder="Email" ng-model="user.email" required/>
 
-										<div class="error-msg" ng-show="flashmessage">
-											<span>{{flashmessage}}</span>
+										<div class="error-msg" ng-show="errorEmail">
+											<span>{{errorEmail}}</span>
 										</div>
 									</li>
 									
 									<li>
 										<input class="input" type="password" id="field-password" name="" value="" placeholder="Password" ng-model="user.password" required/>
 
-										<div class="error-msg" ng-show="flashmessage">
-											<span>{{flashmessage}}</span>
+										<div class="error-msg" ng-show="errorPassword">
+											<span>{{errorPassword}}</span>
 										</div>
 									</li>
 

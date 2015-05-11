@@ -7,12 +7,6 @@
         .controller('register', ['$scope','$http', '$location', '$stateParams','$rootScope', '$sce',
         function($scope, $http, $location, $stateParams, $rootScope, $sce){
         
-        // $scope.user = $rootScope.user;
-        
-        // if($stateParams.acct){
-        //     $scope.acct = $stateParams.acct.replace( /\//gi,"");
-        // }
-        
         if($rootScope.user){
             $scope.user = $rootScope.user;
         }
@@ -32,7 +26,7 @@
         }
 
         $scope.register = function(user){
-        	var url = '/auth/register';
+        	var url = '/auth/signup';
             var dataOut, invite;
 
             console.log('clicked register', user);

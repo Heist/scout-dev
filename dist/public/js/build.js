@@ -51554,11 +51554,23 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var url = '/auth/login';
             var dataOut =  {email: user.email, password: user.password};
 
+
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    
-                    $scope.flashmessage = data.error;
+                    void 0;
+
+                    if (data.error === "No user found. ") {
+                        $scope.errorPassword = '';
+                        $scope.errorEmail = data.error;
+
+                    } else {
+                        $scope.errorEmail = '';
+                        $scope.errorPassword = data.error;
+                        
+                    }
+
+
                     $location.path('/');
                 });
         };
@@ -51816,12 +51828,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         .controller('register', ['$scope','$http', '$location', '$stateParams','$rootScope', '$sce',
         function($scope, $http, $location, $stateParams, $rootScope, $sce){
         
-        // $scope.user = $rootScope.user;
-        
-        // if($stateParams.acct){
-        //     $scope.acct = $stateParams.acct.replace( /\//gi,"");
-        // }
-        
         if($rootScope.user){
             $scope.user = $rootScope.user;
         }
@@ -51841,7 +51847,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         }
 
         $scope.register = function(user){
-        	var url = '/auth/register';
+        	var url = '/auth/signup';
             var dataOut, invite;
 
             void 0;
