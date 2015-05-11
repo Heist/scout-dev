@@ -51310,6 +51310,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
             	$rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
+                $scope.animationToggle();
                 return;
             }
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
@@ -51536,7 +51537,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         if($stateParams.acct){
             $scope.acct = $stateParams.acct.replace( /\//gi,"");
-            $scope.reg_toggle = true;
 
             
             
@@ -51554,53 +51554,20 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var url = '/auth/login';
             var dataOut =  {email: user.email, password: user.password};
 
+
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    
-                    $scope.flashmessage = data.error;
-                    $location.path('/');
-                });
-        };
 
-        $scope.showLogin = function(){
-            $scope.flashmessage = '';
-            $scope.reg_toggle = false;
-        };
-
-        $scope.showReg = function(){
-            $scope.flashmessage = '';
-            $scope.reg_toggle = true;
-        };
-
-        $scope.register = function(user){
-            var dataOut, invite;
-            
-            console.log('clicked register', user)
-
-            if($stateParams.acct){
-                invite = $stateParams.acct.replace( /\//gi,"");
-                dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
-            } else if (!$stateParams.acct) {
-                dataOut = {email: user.email, name:user.name, password:  user.password};
-            }
-            
-            $http
-                .post('/auth/signup/', dataOut)
-                .success(function(data){
-                    
-                    var msg = data;
-
-                    if(data === '1' ){
-                        msg = 'That email is already taken. <br />Do you want to <a href="/forgot" class="line">reset your password</a>?';
-                        $scope.flashmessage = $sce.trustAsHtml(msg);
-                    } else if(data === '2'){
-                        $scope.flashmessage = 'Please log out before signing up again.';
+                    if (data.error === "No user found. ") {
+                        $scope.errorPassword = '';
+                        $scope.errorEmail = data.error;
                     } else {
-                        
-                        $rootScope.user = data._id;
-                        $location.path(data.redirect);
+                        $scope.errorEmail = '';
+                        $scope.errorPassword = data.error;
                     }
+
+                    $location.path('/');
                 });
         };
 
@@ -51742,14 +51709,17 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.onboardToggle = function(){
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 // TODO: setup as http post
+                $scope.animationToggle();
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
+                $scope.changeOnboard(100);
                 return;
             }
 
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 $rootScope.user.onboard = 1;  
                 $scope.onboardSteps = true; 
+                $scope.changeOnboard(1);
                 return;
             }
         };
@@ -51762,6 +51732,22 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
             otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
 
+        };
+
+        $scope.changeOnboard = function(num){
+
+            $scope.user.onboard = num;
+            $rootScope.user.onboard = num;
+
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $scope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    
+                });
         };
 
 
@@ -51835,14 +51821,56 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
     // REGISTRATION CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-           .controller('register', ['$scope','$http', '$location', '$stateParams','$rootScope', function($scope, $http, $location, $stateParams, $rootScope){
+        .controller('register', ['$scope','$http', '$location', '$stateParams','$rootScope', '$sce',
+        function($scope, $http, $location, $stateParams, $rootScope, $sce){
         
-        $scope.user = $rootScope.user;
+        if($rootScope.user){
+            $scope.user = $rootScope.user;
+        }
         
         if($stateParams.acct){
             $scope.acct = $stateParams.acct.replace( /\//gi,"");
+
+
+            // TODO: get the invitation represented by that id and pre-populate the e-mail field.
+            $http
+                .get('/auth/invite'+$stateParams.acct)
+                .success(function(data){
+                    
+                    $scope.user = data;
+                    $scope.user.email = data.user_email;
+                });
         }
 
+        $scope.register = function(user){
+        	var url = '/auth/signup';
+            var dataOut, invite;
+
+            if($stateParams.acct){
+                invite = $stateParams.acct.replace( /\//gi,"");
+                dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
+            } else if (!$stateParams.acct) {
+                dataOut = {email: user.email, name:user.name, password:  user.password};
+            }
+            
+            $http
+                .post(url, dataOut)
+                .success(function(data){
+                    console.log(data, data.length);
+                    var msg = data;
+
+                    if(data === '1' ){
+                        msg = 'That email is already taken. <br />Do you want to <a href="/forgot" class="line">reset your password</a>?';
+                        $scope.flashmessage = $sce.trustAsHtml(msg);
+                    } else if(data === '2'){
+                        $scope.flashmessage = 'Please log out before signing up again.';
+                    } else {
+                        
+                        $rootScope.user = data._id;
+                        $location.path(data.redirect);
+                    }
+                });
+        };
     }]);
 })();
 // report.js
@@ -52208,7 +52236,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             // find that message and post to it.
             //  loadData.data._tags
             if(message){
-                postMessage(message+' #Summary', summaryTagId, $stateParams._id, $scope.subject._id)
+                postMessage(message+' #summary', summaryTagId, $stateParams._id, $scope.subject._id)
                         .then(function(msg){
                             console.log('message posted to summary', msg)
                             $location.path('/overview');
@@ -52285,6 +52313,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
         function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         
+        console.log('report data from server', loadData.data);
+
         $scope.test = {};
         $scope.timeline = [];
         $scope.commentMessage = '';
@@ -52314,6 +52344,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             return _.groupBy(data, function(obj){ return obj.doctype; }) ;
         }
 
+        var makeMessageGroups = function(data){
+            return _.groupBy(data, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
+        }
+
         // Set the messages from the summary tag to the test object
         var summaryObject = function(data){
             // Find the test in the left nav order
@@ -52323,17 +52357,29 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var summaryItem = _.filter(loadData.data.list, function(n){
                 if(n.name){
                     var nameCheck = n.name.toLowerCase();
-                    return nameCheck !== 'summary';
+                    return nameCheck === 'summary';
                 } else {
                     
                     return [];
                 }
             })[0];
-            
-            
+
+            // to make the summary message list
+            var sumList = _.filter(loadData.data.messages, function(n){
+                // (for each message in loadData, return that message if index of summary._id is not -1)
+                if (n._tags.indexOf(summaryItem._id) !== -1){
+                    return n
+                } else {
+                    return ; 
+                }
+            })
+        
+            // messages for the summary tag should be put on the report page.
+            // so we should do an ng-repeat on the report page for messages
+            // where summary's _id is in the index of tags on that message.
 
             // set the message list for the test to being those messages, and pass the list generally
-            var summaryMsgList = data[testIdx]._messages = (summaryItem && summaryItem._messages.length > 0) ? summaryItem._messages : [];
+            var summaryMsgList = sumList;
             var summaryTagIdCheck = (summaryItem) ? summaryItem._id : 'undefined';
 
             return { summaryMsgList: summaryMsgList, summaryTagIdCheck: summaryTagIdCheck, freshList : data };
@@ -52341,6 +52387,9 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         var summaryList = summaryObject(loadData.data.list);
         
+        // now organize them by user
+        $scope.summaryMessages = makeMessageGroups(summaryList.summaryMsgList);
+        console.log('scope.SummaryM', $scope.summaryMessages, 'sumMesageList', summaryList.summaryMsgList);
 
         var tagCheck = summaryList.summaryTagIdCheck;
         // organise the returned information to pass back a good set for raw data
@@ -52365,7 +52414,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
         
         // GROUP MESSAGES BY USERS ==================================
-        $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
+        $scope.messages = makeMessageGroups(loadData.data.messages);
 
         var deleteMessage = function(message){
             // requires a message with subject name and _id

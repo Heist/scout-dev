@@ -2,45 +2,52 @@
 
     <div class="container">
     
-        <div class="module one-third">&nbsp;</div>
-        
-        
-        <div class="module two-fifths">
+        <div class="module full">
             
-            <p id="logo" class="text-center">
-                <img src="/layout/assets/fg-binocs-header.png" />
-            </p>
-            
-            <!-- login form -->
-            <div id="form-login">
-            
-                <form ng-model="user" name="resetForm">
-                   
-                    <ul class="nobullets withlabels">
-                        <li>
-                        <li ng-if="successMsg" ng-bind-html="successMsg"class="text-center messaging messaging-problem">
-                        </li>
+            <div class="module-container">
 
-                        <input class="input" type="email" name="email" value="" placeholder="Your e-mail address" ng-model="email" required  ng-hide="hideMe === 'hide'"/>
-                        
-                        <li class="text-center" ng-hide="hideMe === 'hide'">
-                            <button class="button dark" type="submit" ng-click="sendToken(email)" ng-hide="resetForm.email.$pristine || resetForm.email.$error.email || resetForm.email.$error.required">Reset password</button> 
+                <div class="module-content">
 
-                            <button class="button dark" type="submit" ng-show="resetForm.email.$pristine || resetForm.email.$error.email || resetForm.email.$error.required">Reset password</button>
-                        </li>
-                        
-                    </ul>
-                </form>
+                    <p id="logo" class="text-center">
+                        <img src="/layout/assets/fg-binocs-grey.svg" />
+                    </p>
                 
-                <p class="text-center">
-                    <small>Remembered that password? <a href="/login">Return to login</a>.</small>
+                   <h1>Reset your password</h1>
+
+                    <!-- login form -->
+                    <div id="form-login">
                     
-                </p>
-            
-            </div>
-            <!-- / login form -->
-        
+                        <form ng-model="user" name="resetForm">
+                           
+                            <ul class="nobullets withlabels">
+
+                                <li  ng-bind-html="successMsg" ng-if="successMsg" class="error-flashmessage">
+                                </li>
+                                
+                                <li>
+                                   <input class="input" type="email" name="email" value="" placeholder="Email" ng-model="email" required  ng-hide="hideMe === 'hide'"/>
+                                </li>
+                                
+                                <li class="text-center" ng-hide="hideMe === 'hide'">
+                                    <button class="submit button green" type="submit" ng-click="sendToken(email)" ng-hide="resetForm.email.$pristine || resetForm.email.$error.email || resetForm.email.$error.required">Reset password</button> 
+
+                                    <button class="submit button green" type="submit" ng-show="resetForm.email.$pristine || resetForm.email.$error.email || resetForm.email.$error.required">Reset password</button>
+                                </li>
+                                
+                            </ul>
+                        </form>
+                    
+                    </div>
+                    <!-- / login form -->
+                </div>
+
+                <div class="module-content footer">
+                    <div class="alt-info text-center">
+                        <p>Remembered that password? <a href="/login">Return to login</a>.</p>
+                    </div>
+                </div>
                 
-    
+            </div>
+        </div>
     </div>
 </div>

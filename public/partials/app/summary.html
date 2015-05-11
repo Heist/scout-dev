@@ -89,7 +89,7 @@
 				
 				</div>
 				<!-- messages -->
-				<div class="message-group" ng-repeat="user in messages" ng-show="selected._messages">
+				<div ng-if="selected.doctype !== 'test' " class="message-group" ng-repeat="user in messages" ng-show="selected._messages">
 					<!-- participant name -->
 					<div class="message-user">
 						<img src="/layout/assets/avatar.svg" /> {{user[0]._subject.name}}
@@ -108,6 +108,32 @@
 				</div>
 				</div>
 				<!-- /messages -->
+
+				<!-- Summary Messages on Report -->
+
+				<div ng-if="selected.doctype === 'test'" class="message-group" ng-repeat="user in summaryMessages">
+
+					<!-- participant name -->
+					<div class="message-user">
+						<img src="/layout/assets/avatar.svg" /> {{user[0]._subject.name}}
+						<div class="clear"></div>
+					</div>
+					<div ng-repeat="message in user" class="message"
+						ng-show="selected._messages.indexOf(message._id) !== -1"
+						ng-class="{selected: commentMessage._id === message._id}">
+						
+						<div class="message-body" ng-click="editMessage(message, $index)">
+							<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
+							<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message)"></textarea>
+						</div>
+					
+					<div class="clear"></div>
+				</div>
+				</div>
+
+				<!-- /Summary Messages on Report -->
+
+				<!--  -->
 			</div>
 		</div>
 	</div>

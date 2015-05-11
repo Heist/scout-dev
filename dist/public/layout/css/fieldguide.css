@@ -228,8 +228,6 @@ p.small {
 ul {
   padding: 0 0 0 20px;
   margin: 0 0 20px 0; }
-  ul li {
-    padding: 3.33333px 0; }
   ul.nobullets {
     list-style: none;
     padding: 0; }
@@ -672,6 +670,14 @@ button.x-onboard {
   .button.disabled {
     cursor: not-allowed;
     opacity: 0.4; }
+  .button.green {
+    background: #85AC0F;
+    color: #fff;
+    text-decoration: none; }
+    .button.green:hover {
+      background: #7a9e0e;
+      color: #fff;
+      text-decoration: none; }
   .button.dark {
     background: #323539;
     color: #fff;
@@ -4678,38 +4684,109 @@ hr {
 /* login & registration forms etc. */
 /* login */
 #view-login {
-  background: #f37960;
+  background: #f6f6f6 url('/layout/assets/mountains.svg') center 30px no-repeat;
+  background-size: 100%;
   color: #fff;
   min-height: 100%;
-  padding: 15% 0 0 0; }
-  #view-login .line {
-    text-decoration: underline; }
-  #view-login label {
-    color: #fff; }
-  #view-login input, #view-login #view-editing .add-task textarea, #view-editing .add-task #view-login textarea, #view-login button {
-    width: 100%;
-    margin-bottom: 4px;
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 400; }
-    #view-login input:focus, #view-login #view-editing .add-task textarea:focus, #view-editing .add-task #view-login textarea:focus, #view-login button:focus {
-      box-shadow: none; }
-  #view-login input[type=checkbox], #view-login #view-editing .add-task textarea[type=checkbox], #view-editing .add-task #view-login textarea[type=checkbox] {
-    width: 15px;
-    text-align: center; }
-  #view-login li:last-child {
-    text-align: center; }
-  #view-login a {
-    color: #fff; }
-  #view-login p {
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 400; }
-  #view-login #logo img {
-    width: 70px;
-    height: auto; }
-  #view-login .error {
-    border: 2px solid red; }
+  padding: 10% 0; }
+  #view-login .module-container {
+    min-width: 550px;
+    width: 550px;
+    margin: 0 auto;
+    background: #fff;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); }
+    #view-login .module-container.footer {
+      background: red; }
+    #view-login .module-container .module-content.footer {
+      background: #f6f6f6; }
+      #view-login .module-container .module-content.footer .alt-info {
+        padding: 20px; }
+        #view-login .module-container .module-content.footer .alt-info p {
+          margin: 0;
+          padding: 0;
+          color: #949799; }
+          #view-login .module-container .module-content.footer .alt-info p a {
+            color: #949799; }
+    #view-login .module-container .module-content h1 {
+      font-size: 28px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      text-align: center;
+      color: #2B404D;
+      margin: 0; }
+    #view-login .module-container .module-content a {
+      color: #949799; }
+    #view-login .module-container .module-content li {
+      width: 100%;
+      position: relative;
+      display: inline-block; }
+      #view-login .module-container .module-content li.error-flashmessage {
+        margin: 0 0 20px 0; }
+    #view-login .module-container .module-content .error-flashmessage {
+      color: #949799; }
+    #view-login .module-container .module-content .error-msg span {
+      position: absolute;
+      width: 150px;
+      color: #fff;
+      background: #D82D09;
+      font-size: 10px;
+      line-height: 33px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      padding: 0 10px;
+      visibility: hidden;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      border-radius: 2px; }
+    #view-login .module-container .module-content .error-msg span:after {
+      content: '';
+      position: absolute;
+      top: 52%;
+      right: 100%;
+      margin-top: -8px;
+      border-right: 8px solid #D82D09;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent; }
+    #view-login .module-container .module-content .error-msg span {
+      visibility: visible;
+      opacity: 1;
+      left: 72%;
+      top: 42%;
+      margin-top: -15px;
+      z-index: 999; }
+    #view-login .module-container .module-content .line {
+      text-decoration: underline; }
+    #view-login .module-container .module-content .submit {
+      margin: 15px auto; }
+    #view-login .module-container .module-content form {
+      margin: 40px 0 20px 0;
+      text-align: center; }
+    #view-login .module-container .module-content label {
+      color: #fff; }
+    #view-login .module-container .module-content input, #view-login .module-container .module-content #view-editing .add-task textarea, #view-editing .add-task #view-login .module-container .module-content textarea, #view-login .module-container .module-content button {
+      width: 246px;
+      margin-bottom: 4px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      float: none; }
+      #view-login .module-container .module-content input:focus, #view-login .module-container .module-content #view-editing .add-task textarea:focus, #view-editing .add-task #view-login .module-container .module-content textarea:focus, #view-login .module-container .module-content button:focus {
+        box-shadow: none; }
+      #view-login .module-container .module-content input.error-outline, #view-login .module-container .module-content #view-editing .add-task textarea.error-outline, #view-editing .add-task #view-login .module-container .module-content textarea.error-outline, #view-login .module-container .module-content button.error-outline {
+        border: 1px solid #D82D09; }
+    #view-login .module-container .module-content #logo {
+      padding: 50px 0 10px 0;
+      margin: 0; }
+      #view-login .module-container .module-content #logo img {
+        width: 70px;
+        height: auto; }
 
 /* register */
 #view-register {
@@ -5601,7 +5678,7 @@ hr {
         #view-account .team-members li:hover .team-member-remove a {
           text-decoration: none; }
           #view-account .team-members li:hover .team-member-remove a:hover {
-            color: #b5213c; }
+            color: #D82D09; }
 
 /* message list */
 /* how we style notes within summaries and reports */

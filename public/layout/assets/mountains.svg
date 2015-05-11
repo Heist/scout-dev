@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1440px" height="823px" viewBox="0 0 1440 823" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.1 (12005) - http://www.bohemiancoding.com/sketch -->
+    <title>Triangle 3 + Rectangle 11 + Triangle 3 + Rectangle 11 Copy 2 + Triangle 3 + Rectangle 11 Copy + Rectangle 496 + Group + iPhone 4 Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="1559" height="878"></rect>
+        <polygon id="path-3" points="352.746875 -7.83689746 705.49375 697.483874 0 697.483874 "></polygon>
+        <polygon id="path-5" points="286.347878 -6.37109523 572.695755 567.027475 0 567.027475 "></polygon>
+        <polygon id="path-7" points="241.887402 -5.35907135 483.774805 476.95735 0 476.95735 "></polygon>
+        <polygon id="path-9" points="143.707969 -3.1838833 287.415938 283.365613 0 283.365613 "></polygon>
+        <polygon id="path-11" points="412.569444 -9.14057147 825.138889 813.510861 0 813.510861 "></polygon>
+    </defs>
+    <g id="Web-App-0.8" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Create" sketch:type="MSArtboardGroup" transform="translate(0.000000, -201.000000)">
+            <g id="Triangle-3-+-Rectangle-11-+-Triangle-3-+-Rectangle-11-Copy-2-+-Triangle-3-+-Rectangle-11-Copy-+-Rectangle-496-+-Group-+-iPhone-4-Copy" sketch:type="MSLayerGroup" transform="translate(-22.000000, 169.000000)">
+                <mask id="mask-2" sketch:name="Mask" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" opacity="0.340000004" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <g id="Triangle-3-+-Rectangle-11-+-Triangle-3-+-Rectangle-11-Copy-2-+-Triangle-3-+-Rectangle-11-Copy" mask="url(#mask-2)">
+                    <g transform="translate(0.000000, 34.000000)">
+                        <g id="Triangle-3-+-Rectangle-11" transform="translate(366.940577, 118.707937)">
+                            <polygon id="Triangle-3" stroke="#F3F3F3" stroke-width="3.0251212" sketch:type="MSShapeGroup" points="352.746875 0 705.49375 705.320772 0 705.320772 "></polygon>
+                            <g id="Rectangle-10" transform="translate(0.000000, 7.836897)">
+                                <mask id="mask-4" sketch:name="Mask" fill="white">
+                                    <use xlink:href="#path-3"></use>
+                                </mask>
+                                <use id="Mask" sketch:type="MSShapeGroup" xlink:href="#path-3"></use>
+                                <path d="M58.7911458,-180.248642 L227.325764,360.497283 L399.779792,231.188475 L452.691823,276.250636 L652.581719,-180.248642 L58.7911458,-180.248642 Z" stroke="#F3F3F3" stroke-width="3.0251212" sketch:type="MSShapeGroup" mask="url(#mask-4)"></path>
+                            </g>
+                        </g>
+                        <g id="Triangle-3-+-Rectangle-11-Copy-2" transform="translate(756.495510, 251.605655)">
+                            <polygon id="Triangle-3" stroke="#F3F3F3" stroke-width="3.0251212" sketch:type="MSShapeGroup" points="286.347878 0 572.695755 572.555338 0 572.555338 "></polygon>
+                            <g id="Rectangle-10" transform="translate(0.000000, 5.902632)">
+                                <mask id="mask-6" sketch:name="Mask" fill="white">
+                                    <use xlink:href="#path-5"></use>
+                                </mask>
+                                <use id="Mask" sketch:type="MSShapeGroup" xlink:href="#path-5"></use>
+                                <path d="M47.7246463,-146.53519 L157.442132,257.748291 L214.514905,212.494776 L234.195171,257.748291 L308.980184,177.078982 L367.479776,224.581107 L529.743574,-146.53519 L47.7246463,-146.53519 Z" stroke="#F3F3F3" stroke-width="3.0251212" sketch:type="MSShapeGroup" mask="url(#mask-6)"></path>
+                            </g>
+                        </g>
+                        <g id="Triangle-3-+-Rectangle-11-Copy-5" transform="translate(176.090078, 342.348679)">
+                            <polygon id="Triangle-3" stroke="#F3F3F3" stroke-width="2.59296103" sketch:type="MSShapeGroup" points="241.887402 0 483.774805 482.316421 0 482.316421 "></polygon>
+                            <g id="Rectangle-10" transform="translate(0.000000, 5.359071)">
+                                <mask id="mask-8" sketch:name="Mask" fill="white">
+                                    <use xlink:href="#path-7"></use>
+                                </mask>
+                                <use id="Mask" sketch:type="MSShapeGroup" xlink:href="#path-7"></use>
+                                <path d="M40.3145671,-123.258641 L155.882993,246.517282 L274.139056,158.092605 L310.422166,188.907265 L447.491694,-123.258641 L40.3145671,-123.258641 Z" stroke="#F3F3F3" stroke-width="2.59296103" sketch:type="MSShapeGroup" mask="url(#mask-8)"></path>
+                            </g>
+                        </g>
+                        <g id="Triangle-3-+-Rectangle-11-Copy-7" transform="translate(0.994292, 539.162791)">
+                            <polygon id="Triangle-3" stroke="#F3F3F3" stroke-width="2.59296103" sketch:type="MSShapeGroup" points="143.707969 0 287.415938 286.549497 0 286.549497 "></polygon>
+                            <g id="Rectangle-10" transform="translate(0.000000, 3.183883)">
+                                <mask id="mask-10" sketch:name="Mask" fill="white">
+                                    <use xlink:href="#path-9"></use>
+                                </mask>
+                                <use id="Mask" sketch:type="MSShapeGroup" xlink:href="#path-9"></use>
+                                <path d="M23.9513282,-73.2293158 L92.6118024,146.458632 L162.869032,93.9245572 L184.425227,112.231886 L265.859743,-73.2293158 L23.9513282,-73.2293158 Z" stroke="#F3F3F3" stroke-width="2.59296103" sketch:type="MSShapeGroup" mask="url(#mask-10)"></path>
+                            </g>
+                        </g>
+                        <g id="Triangle-3-+-Rectangle-11-Copy-6" transform="translate(1000.234674, 1.068293)">
+                            <polygon id="Triangle-3" stroke="#F3F3F3" stroke-width="2.59296103" sketch:type="MSShapeGroup" points="412.569444 0 825.138889 822.651432 0 822.651432 "></polygon>
+                            <g id="Rectangle-10" transform="translate(0.000000, 9.140571)">
+                                <mask id="mask-12" sketch:name="Mask" fill="white">
+                                    <use xlink:href="#path-11"></use>
+                                </mask>
+                                <use id="Mask" sketch:type="MSShapeGroup" xlink:href="#path-11"></use>
+                                <path d="M68.7615741,-210.233144 L265.878086,420.466288 L467.578704,269.646858 L529.46412,322.205144 L763.253472,-210.233144 L68.7615741,-210.233144 Z" stroke="#F3F3F3" stroke-width="2.59296103" sketch:type="MSShapeGroup" mask="url(#mask-12)"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

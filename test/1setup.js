@@ -139,6 +139,7 @@ describe("Check Passport", function(){
 		})
 
 		it('should register a new user on the db', function(done){
+			this.timeout(10000);
 			api.post(url).send({
 				email: 'becky@made.com', 
 				name:'becky',
