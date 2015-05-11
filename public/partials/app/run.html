@@ -117,7 +117,6 @@
 								<!-- Editable messages - if a message is not a guideline -->
 								<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
 								<textarea msd-elastic class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message)"></textarea>
-								<small ng-repeat="tag in message._tags" class="hashtag">{{tag.name}}</small>
 							</div>
 						
 							<div class="clear"></div>

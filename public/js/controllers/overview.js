@@ -8,7 +8,7 @@
         
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
-        console.log('these are our tests', $scope.tests);
+        
 
 
         // ONBOARDING =========================================
@@ -19,14 +19,17 @@
         $scope.onboardToggle = function(){
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 // TODO: setup as http post
+                $scope.animationToggle();
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
+                $scope.changeOnboard(100);
                 return;
             }
 
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 $rootScope.user.onboard = 1;  
                 $scope.onboardSteps = true; 
+                $scope.changeOnboard(1);
                 return;
             }
         };
@@ -39,6 +42,22 @@
             lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
             otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
 
+        };
+
+        $scope.changeOnboard = function(num){
+
+            $scope.user.onboard = num;
+            $rootScope.user.onboard = num;
+
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $scope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    
+                });
         };
 
 

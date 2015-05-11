@@ -17,7 +17,7 @@
             $http
                 .post('/auth/forgot', dataOut)
                 .success(function(data, err){
-                        // console.log(data, err);
+                        
                         if(data.indexOf('No user with that e-mail exists') === -1){
                             $scope.successMsg = data;
                             

@@ -2,7 +2,7 @@
 // create a new message on the DB
 'use strict';
 
-module.exports = function(request, user){
+module.exports = function(request, user_id){
 
 // Module dependencies ==========================
     var Bluebird = require('bluebird');
@@ -20,15 +20,16 @@ module.exports = function(request, user){
             '_test' : request._test,
             '_task' : request._task,
             'body'  : t.msg.replace(/ \#[sS][uU][mM][mM][aA][rR][yY]/gi, ''),
-            'created_by_user' : user
+            'created_by_user' : user_id
         };
+
 
 
     // THIS IS RETURNING ALL TAGS FROM THE TEST WHEN A NEW MESSAGE IS CREATED
     // TODO: SHOULD RETURN ONLY THE TAGS RELEVANT TO THAT MESSAGE ?
 
     // Now NO tags are being attached to messages, this is difficult.....
-    console.log('new message', request._id, tags);
+    console.log('new message', msg, tags);
     return new models.Message(msg).saveAsync().get(0)
         .then(function(note){
             // post the message to the relevant Task and Subjects, add or update its tags.
@@ -36,14 +37,14 @@ module.exports = function(request, user){
                     models.Task.findOneAndUpdate({'_id': note._task}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
                     models.Subject.findOneAndUpdate({'_id': note._subject}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no subject found')} return obj;})
             ]).then(function(arr){
-                console.log('returned an array', arr.length);
+                // console.log('returned an array', arr.length);
                 // create the dual-pointer on the message for tag population
                 // return fn.tagMaker(tags)          
                 // pass the new message along with the existing tags to tagmaker.
                 var make = _.map(t.tags, function(n){ return { name: n, _test: request._test, msg: note._id } })
-                return fn.tagMaker(make)
+                return fn.tagMaker(make);
             }).then(function(tagMakerTags){
-                console.log('did tagMaker return tags', tagMakerTags);
+                // console.log('did tagMaker return tags', tagMakerTags);
 
                 if(tagMakerTags && tagMakerTags.length > 0){
                     console.log('pushing tags', tagMakerTags);

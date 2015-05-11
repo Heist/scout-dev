@@ -8,6 +8,8 @@
             [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
         function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         
+        console.log('report data from server', loadData.data);
+
         $scope.test = {};
         $scope.timeline = [];
         $scope.commentMessage = '';
@@ -31,10 +33,14 @@
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
-        console.log('loadData', loadData.data);
+        
 
         var makeNavList = function(data){
             return _.groupBy(data, function(obj){ return obj.doctype; }) ;
+        }
+
+        var makeMessageGroups = function(data){
+            return _.groupBy(data, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
         }
 
         // Set the messages from the summary tag to the test object
@@ -43,35 +49,57 @@
             var testIdx = _.indexOf(_.pluck(data, 'doctype'), 'test');
 
             // get the tag object for #summary
-            var summaryItem = _.filter(loadData.data.list, function(n){ 
+            var summaryItem = _.filter(loadData.data.list, function(n){
                 if(n.name){
                     var nameCheck = n.name.toLowerCase();
-                    return nameCheck !== 'summary';
+                    return nameCheck === 'summary';
                 } else {
-                    return
+                    
+                    return [];
                 }
             })[0];
-            
-            console.log('summary object', summaryItem, data);
+
+            // to make the summary message list
+            var sumList = _.filter(loadData.data.messages, function(n){
+                // (for each message in loadData, return that message if index of summary._id is not -1)
+                if (n._tags.indexOf(summaryItem._id) !== -1){
+                    return n
+                } else {
+                    return ; 
+                }
+            })
+        
+            // messages for the summary tag should be put on the report page.
+            // so we should do an ng-repeat on the report page for messages
+            // where summary's _id is in the index of tags on that message.
 
             // set the message list for the test to being those messages, and pass the list generally
-            var summaryMsgList = data[testIdx]._messages = (summaryItem && summaryItem._messages) ? summaryItem._messages : [];
+            var summaryMsgList = sumList;
             var summaryTagIdCheck = (summaryItem) ? summaryItem._id : 'undefined';
 
             return { summaryMsgList: summaryMsgList, summaryTagIdCheck: summaryTagIdCheck, freshList : data };
         }
 
         var summaryList = summaryObject(loadData.data.list);
-        console.log(summaryList);
+        
+        // now organize them by user
+        $scope.summaryMessages = makeMessageGroups(summaryList.summaryMsgList);
+        console.log('scope.SummaryM', $scope.summaryMessages, 'sumMesageList', summaryList.summaryMsgList);
 
         var tagCheck = summaryList.summaryTagIdCheck;
         // organise the returned information to pass back a good set for raw data
-        var hasMsg  = _.filter(summaryList.freshList, function(n){ return n._messages.length > 0 })
+        var hasMsg  = _.filter(summaryList.freshList, function(n){ '' 
+                            var reply;
+                            if(n.doctype === 'test'){ return n.doctype === 'test' }
+                            else {
+                                return n._messages.length > 0 
+                            }
+                        })
         var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
-        var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
+        var navList = _.sortBy(noSum, function(obj){ return obj.report_index; });
 
         $scope.testname = loadData.data.name;
-        $scope.rawList = tagList;
+        $scope.rawList = navList;
         
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
@@ -79,9 +107,9 @@
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
-
+        
         // GROUP MESSAGES BY USERS ==================================
-        $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
+        $scope.messages = makeMessageGroups(loadData.data.messages);
 
         var deleteMessage = function(message){
             // requires a message with subject name and _id
@@ -229,13 +257,13 @@
             var output = original;
 
             if(output._tags.indexOf(summaryList.summaryTagIdCheck) !== -1){
-                console.log('this is a summary message', output);
+                
                 output.body = output.body + ' #summary';
             }
             
             $http.put('/api/message/', output)
                 .success(function(data, err){
-                    console.log(data);
+                    
 
                     if($scope.selected.doctype === 'test'){
                         // if this is a test, the message needs to be marked as a Summary message

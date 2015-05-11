@@ -23,7 +23,7 @@
             $http
                 .get('/auth/invite'+$stateParams.acct)
                 .success(function(data){
-                    // console.log(data);
+                    
                     $scope.user = data;
                     $scope.user.email = data.user_email;
                 });
@@ -36,7 +36,7 @@
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    console.log(data);
+                    
                     $scope.flashmessage = data.error;
                     $location.path('/');
                 });
@@ -67,7 +67,7 @@
             $http
                 .post('/auth/signup/', dataOut)
                 .success(function(data){
-                    console.log(data, data.length);
+                    
                     var msg = data;
 
                     if(data === '1' ){

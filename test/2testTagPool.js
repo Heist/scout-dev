@@ -25,44 +25,44 @@ describe('The Tag Pool', function(){
 	var m = {};
 	var loggedIn = {};
 
-	before(function(done){
-		var obj = models.Subject.findOneAsync();
-		obj.then(function(s){
-			m.s = s;
-			return models.Test.findOneAsync({'_subjects': {$in: [m.s._id]}});
-		})
-		.then(function(t){
-			m.t = t;
-			return models.Task.findOneAsync({'_test': m.t._id, '_subjects': {$in: [m.s._id]}});
-		})
-		.then(function(tsk){
-			m.tsk = tsk;
-			return models.Message.findAsync({'_test': m.t._id});
-		})
-		.then(function(msg){
-			m.msg = msg[0];
-			m.msg2 = msg[1];
-			m.msg3 = msg[2];
-		}).then(function(next){
-			agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' }).end(function(err, res){
-				loggedIn = agent;
+	// before(function(done){
+	// 	var obj = models.Subject.findOneAsync();
+	// 	obj.then(function(s){
+	// 		m.s = s;
+	// 		return models.Test.findOneAsync({'_subjects': {$in: [m.s._id]}});
+	// 	})
+	// 	.then(function(t){
+	// 		m.t = t;
+	// 		return models.Task.findOneAsync({'_test': m.t._id, '_subjects': {$in: [m.s._id]}});
+	// 	})
+	// 	.then(function(tsk){
+	// 		m.tsk = tsk;
+	// 		return models.Message.findAsync({'_test': m.t._id});
+	// 	})
+	// 	.then(function(msg){
+	// 		m.msg = msg[0];
+	// 		m.msg2 = msg[1];
+	// 		m.msg3 = msg[2];
+	// 	}).then(function(next){
+	// 		agent.post('/auth/login').send({ email:'login@heistmade.com', password: 'login' }).end(function(err, res){
+	// 			loggedIn = agent;
 
-				loggedIn.post('/api/message/')
-				.send({
-					body : 'New message body #puce #blue', 
-					_test : m.t._id,
-					_task : m.tsk._id,
-					_subject : m.s._id
-				})
-				.end(function(err, res){
-					m.puce = res.body.msg;
-					done();
-				})
-			})
-		})
-	})
+	// 			loggedIn.post('/api/message/')
+	// 			.send({
+	// 				body : 'New message body #puce #blue', 
+	// 				_test : m.t._id,
+	// 				_task : m.tsk._id,
+	// 				_subject : m.s._id
+	// 			})
+	// 			.end(function(err, res){
+	// 				m.puce = res.body.msg;
+	// 				done();
+	// 			})
+	// 		})
+	// 	})
+	// })
 
-	it('does not accept a message without a test', function(done){
+	it.skip('does not accept a message without a test', function(done){
 		loggedIn.post('/api/message/')
 			.send({
 				body : 'This is a #blue #note #purple', 
@@ -76,7 +76,7 @@ describe('The Tag Pool', function(){
 			});
 	});
 
-	it('does not accept a message without a subject', function(done){
+	it.skip('does not accept a message without a subject', function(done){
 		loggedIn.post('/api/message/')
 			.send({
 				body : 'This is a #blue #note #purple', 
@@ -103,7 +103,7 @@ describe('The Tag Pool', function(){
 			});
 	})
 
-	it('should accept a full message', function(done){
+	it.skip('should accept a full message', function(done){
 		loggedIn.post('/api/message/')
 			.send({
 				body : 'This is a #blue #note #purple', 
@@ -120,7 +120,7 @@ describe('The Tag Pool', function(){
 			});
 	});
 
-	it('Accept tag without message', function(done){
+	it.skip('Accept tag without message', function(done){
 		loggedIn.post('/api/tag/')
 			.send({
 				_test : m.t._id,
@@ -134,7 +134,7 @@ describe('The Tag Pool', function(){
 			})
 	});
 
-	it('Accept a tag with message', function(done){
+	it.skip('Accept a tag with message', function(done){
 		loggedIn.post('/api/tag/')
 			.send({
 				_test : m.t._id,
@@ -150,7 +150,7 @@ describe('The Tag Pool', function(){
 			})
 	});	
 
-	it('Update existing tag with new message', function(done){
+	it.skip('Update existing tag with new message', function(done){
 		loggedIn.post('/api/tag/')
 			.send({
 				_test : m.t._id,
@@ -166,7 +166,7 @@ describe('The Tag Pool', function(){
 			})
 	})
 
-	it('Change capitalization on an existing tag name', function(done){
+	it.skip('Change capitalization on an existing tag name', function(done){
 		loggedIn.post('/api/tag/')
 			.send({
 				_test : m.t._id,
@@ -180,7 +180,7 @@ describe('The Tag Pool', function(){
 			})
 	});
 
-	it('should return tags by test', function(done){
+	it.skip('should return tags by test', function(done){
 			loggedIn.get('/api/tag/'+m.t._id)
 				.end(function(err,res){
 					expect(res.body).to.have.length(7);
@@ -188,7 +188,7 @@ describe('The Tag Pool', function(){
 				});
 	});
 
-	it('should edit an existing message', function(done){
+	it.skip('should edit an existing message', function(done){
 		loggedIn.put('/api/message/')
 			.send({
 				_id : m.msg2._id,
@@ -203,7 +203,7 @@ describe('The Tag Pool', function(){
 			});
 	});
 
-	it('should remove a tag that has no messages', function(done){
+	it.skip('should remove a tag that has no messages', function(done){
 		// Puce is now a message, that should help with things
 		var nest;
 			loggedIn.put('/api/message/')

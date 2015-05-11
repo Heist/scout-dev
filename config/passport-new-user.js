@@ -10,7 +10,7 @@ module.exports =  function(user, next){
     var User = require('../server/models/auth/user');
 
 // load required functions
-    var newUser = require('../server/models/functions/user-create');
+    var userCreate = require('../server/models/functions/user-create');
     
 // Check if a user by that e-mail already exists, or create a new user.
     async.waterfall([
@@ -25,8 +25,9 @@ module.exports =  function(user, next){
         function(arg, callback){
             if(arg !== null ){ callback(null, arg); }
             else {
-                newUser(user, function(err, doc){
+                userCreate(user, function(err, doc){
                     if(err){console.log(err);}
+                    // console.log('passport-new-user user create', doc);
                     callback(null, doc);
                 });
             }

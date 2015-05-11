@@ -12,14 +12,14 @@
 		$scope.account = $rootScope.user.account;
 		$scope.connector = {};
 		
-		// console.log('account user', $rootScope.user);
+		
 		// https://trello.com/1/members/my/boards?key=substitutewithyourapplicationkey&token=substitutethispartwiththeauthorizationtokenthatyougotfromtheuser
 		// https://trello.com/docs/api/card/index.html#post-1-cards
 		
 		$http
 			.get('/api/account/'+ user_id)
 			.success(function(data){
-				// // console.log(data);
+				// 
 				$scope.live_user = data;
 			});
 
@@ -31,6 +31,7 @@
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
             	$rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
+                $scope.animationToggle();
                 return;
             }
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
@@ -99,11 +100,11 @@
 		};
 
 		$scope.disconnectTrello = function() {
-			// // // console.log('touched disconnect');
+			// // 
 
 			$http.delete('/connect/trello')
 				.success(function(err, data){
-					// // // console.log('Trello disconnected');
+					// // 
 					$scope.live_user.trello=false;
 
 					$scope.connector.message = "Connect your Trello account.";
@@ -203,7 +204,7 @@
 			$http
 				.get('/auth/export/account/')
 				.success(function(data){
-					// console.log('success', data);
+					
 				});
 		};
 	}]);

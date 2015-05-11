@@ -51204,54 +51204,54 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     // for 1.0 check socket_routes_1.js in /server/
         
     // RECIEVE SCREENCAPS FROM THE SOCKET ===============================
-        void 0;
+        
 
             $scope.connect = {};
             $scope.connect.text = '71b';
 
             socket.on('connect_failed', function(data)
             {
-                // console.log('connect_failed');
+                
             });
 
             socket.on('connecting', function(data)
             {
-                // console.log('connecting');
+                
             });
             socket.on('disconnect', function(data)
             {
-                // console.log('disconnect');
+                
             });
 
             socket.on('error', function(reason)
             {
-                // console.log('error', reason);
+                
             });
             socket.on('reconnect_failed', function(data)
             {
-                // console.log('reconnect_failed');
+                
             });
             socket.on('reconnect', function(data)
             {
-                // console.log('reconnect');
+                
                 // socket.emit('channel', {room : $scope.subject.testroom, test: $stateParams._id});
             });
             socket.on('reconnecting', function(data)
             {
-                // console.log('reconnecting');
+                
             });
 
             socket.on('announce', function(data){
-                // console.log('announce', data);
+                
             });
 
             socket.on('joined_channel', function(data){ 
-                void 0;
+                
 
             });
 
             socket.on('note', function(data){
-                // console.log('note', data);
+                
                 $scope.timeline.push(data.note.msg);
                 $scope.$apply();
             });
@@ -51272,7 +51272,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 
 
                 context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
-                void 0;
+                
                 // context.drawImage(image, 0, 0, 358, 358 * image.height / image.width);
             });
     }]);
@@ -51291,14 +51291,14 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 		$scope.account = $rootScope.user.account;
 		$scope.connector = {};
 		
-		// console.log('account user', $rootScope.user);
+		
 		// https://trello.com/1/members/my/boards?key=substitutewithyourapplicationkey&token=substitutethispartwiththeauthorizationtokenthatyougotfromtheuser
 		// https://trello.com/docs/api/card/index.html#post-1-cards
 		
 		$http
 			.get('/api/account/'+ user_id)
 			.success(function(data){
-				// // console.log(data);
+				// 
 				$scope.live_user = data;
 			});
 
@@ -51310,6 +51310,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
             	$rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
+                $scope.animationToggle();
                 return;
             }
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
@@ -51378,11 +51379,11 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 		};
 
 		$scope.disconnectTrello = function() {
-			// // // console.log('touched disconnect');
+			// // 
 
 			$http.delete('/connect/trello')
 				.success(function(err, data){
-					// // // console.log('Trello disconnected');
+					// // 
 					$scope.live_user.trello=false;
 
 					$scope.connector.message = "Connect your Trello account.";
@@ -51482,7 +51483,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 			$http
 				.get('/auth/export/account/')
 				.success(function(data){
-					// console.log('success', data);
+					
 				});
 		};
 	}]);
@@ -51506,7 +51507,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $http
                 .post('/auth/forgot', dataOut)
                 .success(function(data, err){
-                        // console.log(data, err);
+                        
                         if(data.indexOf('No user with that e-mail exists') === -1){
                             $scope.successMsg = data;
                             
@@ -51544,7 +51545,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $http
                 .get('/auth/invite'+$stateParams.acct)
                 .success(function(data){
-                    // console.log(data);
+                    
                     $scope.user = data;
                     $scope.user.email = data.user_email;
                 });
@@ -51557,7 +51558,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    void 0;
+                    
                     $scope.flashmessage = data.error;
                     $location.path('/');
                 });
@@ -51588,7 +51589,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $http
                 .post('/auth/signup/', dataOut)
                 .success(function(data){
-                    void 0;
+                    
                     var msg = data;
 
                     if(data === '1' ){
@@ -51684,7 +51685,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         $scope.user.onboard = 1;
 
-        // console.log('step', $scope.user.onboard);
+        
 
        // FUNCTIONS =======================================
 
@@ -51713,7 +51714,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $http
                 .put(url, dataOut)
                 .success(function(data){
-                    void 0;
+                    
                 });
         };
 
@@ -51731,7 +51732,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
-        void 0;
+        
 
 
         // ONBOARDING =========================================
@@ -51742,14 +51743,17 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.onboardToggle = function(){
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 // TODO: setup as http post
+                $scope.animationToggle();
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
+                $scope.changeOnboard(100);
                 return;
             }
 
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 $rootScope.user.onboard = 1;  
                 $scope.onboardSteps = true; 
+                $scope.changeOnboard(1);
                 return;
             }
         };
@@ -51762,6 +51766,22 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
             otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
 
+        };
+
+        $scope.changeOnboard = function(num){
+
+            $scope.user.onboard = num;
+            $rootScope.user.onboard = num;
+
+
+            var url = '/api/user/'+$rootScope.user._id;
+            var dataOut = {onboard : $scope.user.onboard};
+
+            $http
+                .put(url, dataOut)
+                .success(function(data){
+                    
+                });
         };
 
 
@@ -51895,7 +51915,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         var data = loadData.data; // lol who even fucking knows why this can't return directly.
-        void 0;
+        
         
         $scope.navlist = _.sortBy(data.navlist.list, function(obj){
                     return obj.report_index;
@@ -51939,12 +51959,12 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         $scope.newPass = function(pass){
                 var dataOut = {password: pass};
-                void 0;
+                
                 $http
                     .post('/auth/reset'+$stateParams.token, dataOut)
                     .success(function(data){
                         // do a login here, perhaps
-                        void 0;
+                        
                         $scope.successMsg = {};
 
                         if(data === '0'){ 
@@ -52003,13 +52023,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             })[0]._id;
         };
 
-        void 0;
+        
 
         $scope.test = data;
         $scope.kind = data.kind;
         $scope.navlist = data._tasks;
 
-        void 0;
+        
         $scope.tags = tagSort(data._tags);
     
     // set up and reset variables to clear cache from state changes.
@@ -52166,7 +52186,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.messageEditToggle = '';
             $http.put('/api/message/', message)
                 .success(function(data){                 
-                    void 0;
+                    
 
                  // remove the previous message and insert the new one
                     $scope.tags = tagSort(data.tags);
@@ -52187,14 +52207,14 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         };
 
         $scope.$on('message', function(e, data){
-            void 0;
+            
             e.stopPropagation();
             if(data.length <= 0){
                 return ;
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
-                        void 0;
+                        
                         $scope.timeline.push(data.msg);
                         $scope.tags = tagSort(data.tags);
                     });
@@ -52203,18 +52223,18 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         // SUMMARY MESSAGES =====================
         $scope.addMessageToSummaryTag = function(message){
-            void 0;
+            
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags
             if(message){
-                postMessage(message+' #Summary', summaryTagId, $stateParams._id, $scope.subject._id)
+                postMessage(message+' #summary', summaryTagId, $stateParams._id, $scope.subject._id)
                         .then(function(msg){
                             void 0
                             $location.path('/overview');
                         });
             } else {
-                void 0;
+                
                 return;
             }
 
@@ -52241,7 +52261,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 	.controller('summaryModal', 
     		['testBuildFunctions','$scope','$http','$stateParams','$state','$location','$rootScope',
     function( testBuildFunctions,  $scope,  $http,  $stateParams,  $state,  $location, $rootScope){
-        void 0;
+        
     	// SETUP VARIABLES ==========================
         $scope.test = {};
 
@@ -52261,7 +52281,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         };
 
         $scope.addTest = function(test){
-        	void 0;
+        	
 
             $http
                 .post('/api/test/', test)
@@ -52285,6 +52305,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
         function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         
+        void 0;
+
         $scope.test = {};
         $scope.timeline = [];
         $scope.commentMessage = '';
@@ -52308,10 +52330,14 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         };
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
-        void 0;
+        
 
         var makeNavList = function(data){
             return _.groupBy(data, function(obj){ return obj.doctype; }) ;
+        }
+
+        var makeMessageGroups = function(data){
+            return _.groupBy(data, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
         }
 
         // Set the messages from the summary tag to the test object
@@ -52320,35 +52346,57 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var testIdx = _.indexOf(_.pluck(data, 'doctype'), 'test');
 
             // get the tag object for #summary
-            var summaryItem = _.filter(loadData.data.list, function(n){ 
+            var summaryItem = _.filter(loadData.data.list, function(n){
                 if(n.name){
                     var nameCheck = n.name.toLowerCase();
-                    return nameCheck !== 'summary';
+                    return nameCheck === 'summary';
                 } else {
-                    return
+                    
+                    return [];
                 }
             })[0];
-            
-            void 0;
+
+            // to make the summary message list
+            var sumList = _.filter(loadData.data.messages, function(n){
+                // (for each message in loadData, return that message if index of summary._id is not -1)
+                if (n._tags.indexOf(summaryItem._id) !== -1){
+                    return n
+                } else {
+                    return ; 
+                }
+            })
+        
+            // messages for the summary tag should be put on the report page.
+            // so we should do an ng-repeat on the report page for messages
+            // where summary's _id is in the index of tags on that message.
 
             // set the message list for the test to being those messages, and pass the list generally
-            var summaryMsgList = data[testIdx]._messages = (summaryItem && summaryItem._messages) ? summaryItem._messages : [];
+            var summaryMsgList = sumList;
             var summaryTagIdCheck = (summaryItem) ? summaryItem._id : 'undefined';
 
             return { summaryMsgList: summaryMsgList, summaryTagIdCheck: summaryTagIdCheck, freshList : data };
         }
 
         var summaryList = summaryObject(loadData.data.list);
+        
+        // now organize them by user
+        $scope.summaryMessages = makeMessageGroups(summaryList.summaryMsgList);
         void 0;
 
         var tagCheck = summaryList.summaryTagIdCheck;
         // organise the returned information to pass back a good set for raw data
-        var hasMsg  = _.filter(summaryList.freshList, function(n){ return n._messages.length > 0 })
+        var hasMsg  = _.filter(summaryList.freshList, function(n){ '' 
+                            var reply;
+                            if(n.doctype === 'test'){ return n.doctype === 'test' }
+                            else {
+                                return n._messages.length > 0 
+                            }
+                        })
         var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
-        var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
+        var navList = _.sortBy(noSum, function(obj){ return obj.report_index; });
 
         $scope.testname = loadData.data.name;
-        $scope.rawList = tagList;
+        $scope.rawList = navList;
         
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
@@ -52356,9 +52404,9 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
-
+        
         // GROUP MESSAGES BY USERS ==================================
-        $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
+        $scope.messages = makeMessageGroups(loadData.data.messages);
 
         var deleteMessage = function(message){
             // requires a message with subject name and _id
@@ -52506,13 +52554,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var output = original;
 
             if(output._tags.indexOf(summaryList.summaryTagIdCheck) !== -1){
-                void 0;
+                
                 output.body = output.body + ' #summary';
             }
             
             $http.put('/api/message/', output)
                 .success(function(data, err){
-                    void 0;
+                    
 
                     if($scope.selected.doctype === 'test'){
                         // if this is a test, the message needs to be marked as a Summary message
@@ -52596,7 +52644,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         };
 
         var data = loadData.data;
-        void 0;
+        
 
         $scope.test = data;
         $scope.tags = tagSort(data._tags) || [];
@@ -52646,7 +52694,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         
         // SELECTION ======================================
         $scope.select = function(task) {
-            void 0;
+            
             $scope.selectedTask = task;
         };
         
@@ -52712,7 +52760,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.saveTag = function(tags){
             // send the array to the back end, where each will be pushed appropriately 
             // /api/tag/
-            void 0;
+            
             var i = tags.split(' ');
             var dataOut = _.map(i, function(tag){
                 return {
@@ -52836,15 +52884,15 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         socket.on('connect_failed', function(data)
         {
-            // console.log('connect_failed');
+            
         });
         socket.on('connecting', function(data)
         {
-            // console.log('connecting');
+            
         });
         socket.on('disconnect', function(data)
         {
-            // console.log('disconnect');
+            
             image.src = "/layout/assets/avatar-binocs.jpg";
             canvas.width = 358;
             canvas.height = 358 * image.height / image.width;
@@ -52854,27 +52902,27 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         });
         socket.on('error', function(reason)
         {
-            // console.log('error');
+            
         });
         socket.on('reconnect_failed', function(data)
         {
-            // console.log('reconnect_failed');
+            
         });
         socket.on('reconnect', function(data)
         {
-            // console.log('reconnect');
+            
         });
         socket.on('reconnecting', function(data)
         {
-            // console.log('reconnecting');
+            
         });
 
         socket.on('announce', function(data){
-            // console.log('announce', data);
+            
         });
 
         socket.on('note', function(data){
-            // console.log('note', data);
+            
             $scope.timeline.push(data.note.msg);
             $scope.$apply();
         });
@@ -52894,7 +52942,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.connect.text = '71b';
 
         $scope.subscription = function(chan){
-            // console.log('touched a channel', chan);
+            
             socket.emit('subscribe', { room: chan });
             socket.emit('channel', { room: chan });
         };
@@ -52903,7 +52951,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.testName = $stateParams._id; 
 
         $scope.joinRoom = function(room){
-            // console.log('I want to join this room', $scope.selectedRoom);
+            
             // socket.emit('join_room', $scope.selectedRoom.room);
             $scope.live = true;
         };
@@ -52923,7 +52971,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             note._subject = $scope.subject._id;
 
             $scope.timeline.push(note);
-            // // console.log('message pushing to', $scope.selected._id);
+            // 
 
             // TODO: this will catch things on both sides of the hash. 
             // if message has # with no space, post that to message.tags
@@ -52940,7 +52988,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 }
             }
             
-            // // console.log('note tags', note.tags);
+            // 
 
             var url = '/api/message/';
             var data_out = note;
@@ -52951,7 +52999,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     // socket.emit('send:note', { note: data });
                 })
                 .error(function(data){
-                    // // console.log('Error: ' + data);
+                    // 
                 });
 
             $scope.message='';

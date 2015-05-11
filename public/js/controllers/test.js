@@ -14,7 +14,7 @@
         };
 
         var data = loadData.data;
-        console.log('data we have', data);
+        
 
         $scope.test = data;
         $scope.tags = tagSort(data._tags) || [];
@@ -64,7 +64,7 @@
         
         // SELECTION ======================================
         $scope.select = function(task) {
-            console.log('select works');
+            
             $scope.selectedTask = task;
         };
         
@@ -130,7 +130,7 @@
         $scope.saveTag = function(tags){
             // send the array to the back end, where each will be pushed appropriately 
             // /api/tag/
-            console.log(tags);
+            
             var i = tags.split(' ');
             var dataOut = _.map(i, function(tag){
                 return {

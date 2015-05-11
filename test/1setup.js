@@ -32,38 +32,38 @@ var environment = require('../config/environment-test');
 
 var account = mongoose.Types.ObjectId();
 
-before(function(done){
-	var agent = request.agent(app);
+// before(function(done){
+// 	var agent = request.agent(app);
 	
-	// if(environment() !== 'test'){
-	// 	throw new Error("Production environment, do not wipe DB.");
-	// }
+// 	// if(environment() !== 'test'){
+// 	// 	throw new Error("Production environment, do not wipe DB.");
+// 	// }
         
-	// make a demo user to use in this block of login checks
-	models.User.create({
-		name : 'login',
-		local : {
-				email : 'login@heistmade.com',
-				password : models.User.schema.methods.genHash('login')
-				},
-		_account : account
-	}, function(err, u){
-		if(err){console.log(err);} 
-		models.Invite.create({
-            _account : u._account,
-            created_by_user : u._id,
-            invite_email : 'sarah@made.com'
-        }, function(err, invite){
-            if(err){ console.log(err); }
+// 	// make a demo user to use in this block of login checks
+// 	models.User.create({
+// 		name : 'login',
+// 		local : {
+// 				email : 'login@heistmade.com',
+// 				password : models.User.schema.methods.genHash('login')
+// 				},
+// 		_account : account
+// 	}, function(err, u){
+// 		if(err){console.log(err);} 
+// 		models.Invite.create({
+//             _account : u._account,
+//             created_by_user : u._id,
+//             invite_email : 'sarah@made.com'
+//         }, function(err, invite){
+//             if(err){ console.log(err); }
 
-            fn.devTests(u._account, u).then(function(tests){
-	        	if(err){console.log(err);}
-	        	console.log('dev tests done');
-				done();
-	        });
-        });
-	});
-});
+//             fn.devTests(u._account, u).then(function(tests){
+// 	        	if(err){console.log(err);}
+// 	        	console.log('dev tests done');
+// 				done();
+// 	        });
+//         });
+// 	});
+// });
 
 after(function(done){
 	// clean the DB =====
@@ -80,30 +80,30 @@ after(function(done){
 	models.Message.remove({}, function(err, doc){});
 	models.Comment.remove({}, function(err, doc){});
 	models.Subject.remove({}, function(err, doc){});
+	done();
+	// models.User.create({
+	// 	name : 'login',
+	// 	local : {
+	// 			email : 'login@heistmade.com',
+	// 			password : models.User.schema.methods.genHash('login')
+	// 			},
+	// 	_account : account
+	// }, function(err, u){
+	// 	if(err){console.log(err);} 
+	// 	models.Invite.create({
+ //            _account : u._account,
+ //            created_by_user : u._id,
+ //            invite_email : 'sarah@made.com'
+ //        }, function(err, invite){
+ //            if(err){ console.log(err); }
 
-	models.User.create({
-		name : 'login',
-		local : {
-				email : 'login@heistmade.com',
-				password : models.User.schema.methods.genHash('login')
-				},
-		_account : account
-	}, function(err, u){
-		if(err){console.log(err);} 
-		models.Invite.create({
-            _account : u._account,
-            created_by_user : u._id,
-            invite_email : 'sarah@made.com'
-        }, function(err, invite){
-            if(err){ console.log(err); }
-
-            fn.devTests(u._account, u).then(function(tests){
-	        	if(err){console.log(err);}
-	        	console.log('dev tests done');
-				done();
-	        });
-        });
-	});
+ //            fn.devTests(u._account, u).then(function(tests){
+	//         	if(err){console.log(err);}
+	//         	console.log('dev tests done');
+	// 			done();
+	//         });
+ //        });
+	// });
 
 });
 
@@ -116,6 +116,7 @@ describe("Check Passport", function(){
 
 	describe('POST /auth/signup', function () {
 		var url = '/auth/signup';
+		
 		it.skip('should fail an empty request', function(done){
 			api.post(url)
 			.send({ user: null, password: null })
@@ -137,12 +138,14 @@ describe("Check Passport", function(){
 
 		})
 
-		it.skip('should register a new user on the db', function(done){
+		it('should register a new user on the db', function(done){
+			this.timeout(10000);
 			api.post(url).send({
 				email: 'becky@made.com', 
 				name:'becky',
 				password:'becky'
 			}).then(function(data){
+				// console.log(data);
 				expect(data.body).to.deep.include({redirect: '/overview', msg:'register user worked' });
 				done();
 			}).catch(function(err){
