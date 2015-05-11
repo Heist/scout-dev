@@ -15,7 +15,7 @@
 						<!-- signup form form -->
 						<div id="form-signup">
 						
-							<form name="regForm" ng-model="user" ng-submit="register(user)">
+							<form name="regForm" ng-model="user">
 								<ul class="nobullets withlabels">
 									<li ng-bind-html="flashmessage" ng-show="flashmessage" class="messaging messaging-problem">
 									</li>
@@ -51,8 +51,9 @@
 									</li>
 									
 									<li>
-										<button class="submit button green" type="submit" ng-click="register(user)" ng-hide="(regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine)">Create account</button>
-										<button class="submit button dark" type="submit" ng-show="(regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine)">Create account</button> 
+										<button class="submit button green" type="submit" ng-click="register(user)" ng-if="!((regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine))"
+										>Create account</button>
+										<button class="submit button dark" ng-if="(regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine)">Create account</button> 
 									</li>
 									
 								</ul>

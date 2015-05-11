@@ -51550,6 +51550,17 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 });
         }
 
+        $scope.errorMessageLoader = function(){
+            void 0;
+            if ($scope.regForm.confirm.$error.match && !$scope.regForm.confirm.$pristine){
+                $scope.errorPassMatch = "&times; Passwords do not match."
+                // ng-show="regForm.confirm.$error.match && !regForm.confirm.$pristine"
+                // regForm.confirm.$error.match && !regForm.confirm.$pristine}" ng-match="user.password
+
+            }
+        }
+
+
         $scope.login = function(user){
             var url = '/auth/login';
             var dataOut =  {email: user.email, password: user.password};
@@ -51569,7 +51580,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                         $scope.errorPassword = data.error;
                         
                     }
-
 
                     $location.path('/');
                 });
