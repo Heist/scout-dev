@@ -29,7 +29,7 @@
 
 				.alt-info {
 					padding: 20px;
-					
+
 					p {
 						margin: 0;
 						padding: 0;
@@ -47,6 +47,7 @@
 				@include type-regular;
 				text-align: center;
 				color: $fg-slate;
+				margin: 0;
 			}
 
 			li {
@@ -120,7 +121,7 @@
 			}
 			
 			#logo {
-				padding: 50px 0 15px 0;
+				padding: 50px 0 10px 0;
 				margin: 0;
 				img {
 					width: 70px;

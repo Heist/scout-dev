@@ -4716,7 +4716,8 @@ hr {
       font-style: normal;
       font-weight: 400;
       text-align: center;
-      color: #2B404D; }
+      color: #2B404D;
+      margin: 0; }
     #view-login .module-container .module-content li {
       width: 100%;
       position: relative;
@@ -4774,7 +4775,7 @@ hr {
       #view-login .module-container .module-content input.error-outline, #view-login .module-container .module-content #view-editing .add-task textarea.error-outline, #view-editing .add-task #view-login .module-container .module-content textarea.error-outline, #view-login .module-container .module-content button.error-outline {
         border: 1px solid #D82D09; }
     #view-login .module-container .module-content #logo {
-      padding: 50px 0 15px 0;
+      padding: 50px 0 10px 0;
       margin: 0; }
       #view-login .module-container .module-content #logo img {
         width: 70px;
