@@ -15,94 +15,115 @@
 		width: 550px;
 		margin: 0 auto;
 		background: $white;
-		padding: 75px 130px 60px 130px;
 		@include radius;
 		@include dropshadowULTRA;
-		
-		h1 {
-			font-size: 28px;
-			@include type-regular;
-			text-align: center;
-			color: $fg-slate;
+
+		&.footer {
+			background: red;
 		}
 
-		.alt-info {
-			p, a {
+		.module-content {
+
+			&.footer {
+				background: $fg-bg;
+
+				.alt-info {
+					p {
+						margin: 0;
+						padding: 20px;
+						color: $fg-grey;
+						
+						a {	
+							color: $fg-grey;
+						}
+					}
+				}
+			}
+
+			h1 {
+				font-size: 28px;
+				@include type-regular;
+				text-align: center;
+				color: $fg-slate;
+			}
+
+			li {
+				width: 100%;
+				position: relative;
+				display: inline-block;
+				color: red;
+			}
+
+			.error-msg span {
+				position: absolute;
+				width: 150px;
+				color: $white;
+				background: $fg-red;
+				font-size: 10px;
+				line-height: 33px;
+				@include type-regular;
+				padding: 0 10px;
+				visibility: hidden;
+				@include radius;
+			}
+			.error-msg span:after {
+				content: '';
+				position: absolute;
+				top: 52%;
+				right: 100%;
+				margin-top: -8px;
+				border-right: 8px solid $fg-red;
+				border-top: 8px solid transparent;
+				border-bottom: 8px solid transparent;
+			}
+			.error-msg span {
+				visibility: visible;
+				opacity: 1;
+				left: 100%;
+				top: 42%;
+				margin-top: -15px;
+				z-index: 999;
+			}
+
+			.line {
+				text-decoration: underline;
+			}
+
+			.submit {
+				margin: 15px auto;
+			}
+			
+			form {
+				margin: 40px 0 20px 0;
+				text-align: center;
+			}
+
+			label {
+				color: $white;
+			}
+			
+			input, button {
+				width: 246px;
+				margin-bottom: $pad/5;
+				@include type-regular;
+				float: none;
+
+				&:focus {
+					box-shadow: none;
+				}
+
+				&.error-outline {
+					border: 1px solid $fg-red;
+				}
+			}
+			
+			#logo {
+				padding: 50px 0 15px 0;
 				margin: 0;
-				padding: 0;
-				color: $fg-grey;
-			}
-		}
-
-
-		li {
-			width: 100%;
-			position: relative;
-			display: inline-block;
-			color: red;
-		}
-
-		.error-msg span {
-			position: absolute;
-			width: 150px;
-			color: $white;
-			background: $fg-red;
-			font-size: 10px;
-			line-height: 33px;
-			@include type-regular;
-			padding: 0 10px;
-			visibility: hidden;
-			@include radius;
-		}
-		.error-msg span:after {
-			content: '';
-			position: absolute;
-			top: 52%;
-			right: 100%;
-			margin-top: -8px;
-			border-right: 8px solid $fg-red;
-			border-top: 8px solid transparent;
-			border-bottom: 8px solid transparent;
-		}
-		.error-msg span {
-			visibility: visible;
-			opacity: 1;
-			left: 100%;
-			top: 42%;
-			margin-top: -15px;
-			z-index: 999;
-		}
-
-		.line {
-			text-decoration: underline;
-		}
-
-		.submit {
-			margin: 15px auto;
-		}
-
-		label {
-			color: $white;
-		}
-		
-		input, button {
-			width: 100%;
-			margin-bottom: $pad/5;
-			@include type-regular;
-
-			&:focus {
-				box-shadow: none;
-			}
-
-			&.error-outline {
-				border: 1px solid $fg-red;
-			}
-		}
-		
-		#logo {
-			img {
-				width: 70px;
-				height: auto;
+				img {
+					width: 70px;
+					height: auto;
+				}
 			}
 		}
 	}

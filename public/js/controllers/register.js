@@ -32,7 +32,7 @@
         }
 
         $scope.register = function(user){
-        	var url = '/auth/signup';
+        	var url = '/auth/register';
             var dataOut, invite;
 
             console.log('clicked register', user);

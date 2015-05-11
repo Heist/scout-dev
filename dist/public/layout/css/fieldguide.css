@@ -4692,30 +4692,35 @@ hr {
     width: 550px;
     margin: 0 auto;
     background: #fff;
-    padding: 75px 130px 60px 130px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); }
-    #view-login .module-container h1 {
+    #view-login .module-container.footer {
+      background: red; }
+    #view-login .module-container .module-content.footer {
+      background: #f6f6f6; }
+      #view-login .module-container .module-content.footer .alt-info p {
+        margin: 0;
+        padding: 20px;
+        color: #949799; }
+        #view-login .module-container .module-content.footer .alt-info p a {
+          color: #949799; }
+    #view-login .module-container .module-content h1 {
       font-size: 28px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
       text-align: center;
       color: #2B404D; }
-    #view-login .module-container .alt-info p, #view-login .module-container .alt-info a {
-      margin: 0;
-      padding: 0;
-      color: #949799; }
-    #view-login .module-container li {
+    #view-login .module-container .module-content li {
       width: 100%;
       position: relative;
       display: inline-block;
       color: red; }
-    #view-login .module-container .error-msg span {
+    #view-login .module-container .module-content .error-msg span {
       position: absolute;
       width: 150px;
       color: #fff;
@@ -4730,7 +4735,7 @@ hr {
       -moz-border-radius: 2px;
       -webkit-border-radius: 2px;
       border-radius: 2px; }
-    #view-login .module-container .error-msg span:after {
+    #view-login .module-container .module-content .error-msg span:after {
       content: '';
       position: absolute;
       top: 52%;
@@ -4739,32 +4744,39 @@ hr {
       border-right: 8px solid #D82D09;
       border-top: 8px solid transparent;
       border-bottom: 8px solid transparent; }
-    #view-login .module-container .error-msg span {
+    #view-login .module-container .module-content .error-msg span {
       visibility: visible;
       opacity: 1;
       left: 100%;
       top: 42%;
       margin-top: -15px;
       z-index: 999; }
-    #view-login .module-container .line {
+    #view-login .module-container .module-content .line {
       text-decoration: underline; }
-    #view-login .module-container .submit {
+    #view-login .module-container .module-content .submit {
       margin: 15px auto; }
-    #view-login .module-container label {
+    #view-login .module-container .module-content form {
+      margin: 40px 0 20px 0;
+      text-align: center; }
+    #view-login .module-container .module-content label {
       color: #fff; }
-    #view-login .module-container input, #view-login .module-container #view-editing .add-task textarea, #view-editing .add-task #view-login .module-container textarea, #view-login .module-container button {
-      width: 100%;
+    #view-login .module-container .module-content input, #view-login .module-container .module-content #view-editing .add-task textarea, #view-editing .add-task #view-login .module-container .module-content textarea, #view-login .module-container .module-content button {
+      width: 246px;
       margin-bottom: 4px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 400; }
-      #view-login .module-container input:focus, #view-login .module-container #view-editing .add-task textarea:focus, #view-editing .add-task #view-login .module-container textarea:focus, #view-login .module-container button:focus {
+      font-weight: 400;
+      float: none; }
+      #view-login .module-container .module-content input:focus, #view-login .module-container .module-content #view-editing .add-task textarea:focus, #view-editing .add-task #view-login .module-container .module-content textarea:focus, #view-login .module-container .module-content button:focus {
         box-shadow: none; }
-      #view-login .module-container input.error-outline, #view-login .module-container #view-editing .add-task textarea.error-outline, #view-editing .add-task #view-login .module-container textarea.error-outline, #view-login .module-container button.error-outline {
+      #view-login .module-container .module-content input.error-outline, #view-login .module-container .module-content #view-editing .add-task textarea.error-outline, #view-editing .add-task #view-login .module-container .module-content textarea.error-outline, #view-login .module-container .module-content button.error-outline {
         border: 1px solid #D82D09; }
-    #view-login .module-container #logo img {
-      width: 70px;
-      height: auto; }
+    #view-login .module-container .module-content #logo {
+      padding: 50px 0 15px 0;
+      margin: 0; }
+      #view-login .module-container .module-content #logo img {
+        width: 70px;
+        height: auto; }
 
 /* register */
 #view-register {
