@@ -42,7 +42,7 @@ module.exports = function(request, user_id){
                 // return fn.tagMaker(tags)          
                 // pass the new message along with the existing tags to tagmaker.
                 var make = _.map(t.tags, function(n){ return { name: n, _test: request._test, msg: note._id } })
-                return fn.tagMaker(make)
+                return fn.tagMaker(make);
             }).then(function(tagMakerTags){
                 // console.log('did tagMaker return tags', tagMakerTags);
 
