@@ -1,51 +1,52 @@
 <!-- Create New Project modal -->
-<div class="module quarter">&nbsp;</div>
-			
-<div id="view-new-project" ng-controller="newTest" ng-model="test">
-	<div class="module half modal-interior">
-		
 
-		<div class="modal-interior-title">
-			<button class="x-modal" ng-click="$parent.newTestModalToggle()">&times;</button>
-			<h2 class="text-center">Start a new project</h2>
+<div id="view-new-project" ng-controller="newTest" ng-model="test">
+	<div class="module full">
+
+		<div class="modal-interior clearfix">
+			<div class="modal-interior-title">
+				<button class="x-modal" ng-click="$parent.newTestModalToggle()">&times;</button>
+				<h2 class="text-center">Start a new project</h2>
+			</div>
+
+			<button class="module test-type interview" ng-class='{"select-active": !test.kind || test === "undefined" || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>
+				<span class="info project-tooltip" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
+				<h3>Interview</h3>
+				<p>Good for Ethography, User Observation or Customer</p>
+				<a href="https://medium.com/@FieldGuideApp/learn-more-about-your-customers-with-ethnographic-research-8be101ed5de8" target="_blank">Learn more</a>
+			</button>
+			
+			<button class="module test-type prototype" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>
+				<span class="info project-tooltip" data-tooltip-large="For research where participants need to interact with screen like Prototype Testing or Usability Testing."><span>?</span></span>
+				<h3>Screen-based Research</h3>
+				<p>Good for Prototype Testing, Usability Testing or Competitive Research</p>
+				<a href="https://itunes.apple.com/ca/app/field-guide/id945520842?mt=8" target="_blank">Download the iOS app</a> <span class="no-link">or</span> <a href="https://medium.com/@FieldGuideApp/learn-more-about-your-products-with-screen-based-testing-df377f4f0de6" target="_blank">Learn more</a>
+			</button>
+			
+			<ul class="nobullets">
+				<form name="prototypeForm" class="prototype-form">
+					<li>
+						<label for="field-testname">Name your project</label>
+						<input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="Name it something distinct based on the project or feature" ng-blur="updateTest()" />
+					</li>
+					<li ng-show="test.kind === 'prototype'">
+						<label for="field-prototypeurl">Prototype URL</label>
+						<span class="info project-tooltip" data-tooltip-large="Your mobile website or prototype link. Make sure your Marvel, Invision or Framer.js settings are correct."><span>?</span></span><a href="https://medium.com/@FieldGuideApp/using-your-prototypes-with-field-guide-643ef517336d" target="_blank">Learn more</a>
+						<input class="input" id="field-prototypeurl" ng-model="test.link" placeholder="Your mobile websire or Marvel, InVision, or Framer.js prototypes" type="url" name="url" />
+					</li>
+					<li>
+						<label for="field-prototypeurl">Outline your project objectives. <a href="https://medium.com/@FieldGuideApp/the-right-learning-objective-to-get-the-most-from-your-user-research-cc972d5caa31" target="_blank">Learn how</a></label>
+						<textarea class="input test-objectives" id="bulletform" type="text" value="" ng-model="test.desc" placeholder="Outline the objectives for what you want to learn from this research project. " />
+						</textarea>
+					</li>
+				</form>
+				<div class="cta">
+					<a href="#" class="secondary button-cancel" ng-click="$parent.newTestModalToggle()" tabindex="1">Cancel</a>
+					<button class="button med float-right" ng-click="addTest(test)" tabindex="0">Create project</button>
+				</div>
+			</ul>
 		</div>
 
-		<button class="module test-type interview" ng-class='{"select-active": !test.kind || test === "undefined" || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>
-			<span class="info project-tooltip" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
-			<h3>Interview</h3>
-			<p>Good for Ethography, User Observation or Customer</p>
-			<a href="https://medium.com/@FieldGuideApp/learn-more-about-your-customers-with-ethnographic-research-8be101ed5de8" target="_blank">Learn more</a>
-		</button>
-		
-		<button class="module test-type prototype" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>
-			<span class="info project-tooltip" data-tooltip-large="For research where participants need to interact with screen like Prototype Testing or Usability Testing."><span>?</span></span>
-			<h3>Screen-based Research</h3>
-			<p>Good for Prototype Testing, Usability Testing or Competitive Research</p>
-			<a href="https://itunes.apple.com/ca/app/field-guide/id945520842?mt=8" target="_blank">Download the iOS app</a> <span class="no-link">or</span> <a href="https://medium.com/@FieldGuideApp/learn-more-about-your-products-with-screen-based-testing-df377f4f0de6" target="_blank">Learn more</a>
-		</button>
-		
-		<ul class="nobullets">
-			<form name="prototypeForm" class="prototype-form">
-				<li>
-					<label for="field-testname">Name your project</label>
-					<input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="Name it something distinct based on the project or feature" ng-blur="updateTest()" />
-				</li>
-				<li ng-show="test.kind === 'prototype'">
-					<label for="field-prototypeurl">Prototype URL</label>
-					<span class="info project-tooltip" data-tooltip-large="Your mobile website or prototype link. Make sure your Marvel, Invision or Framer.js settings are correct."><span>?</span></span><a href="https://medium.com/@FieldGuideApp/using-your-prototypes-with-field-guide-643ef517336d" target="_blank">Learn more</a>
-					<input class="input" id="field-prototypeurl" ng-model="test.link" placeholder="Your mobile websire or Marvel, InVision, or Framer.js prototypes" type="url" name="url" />
-				</li>
-				<li>
-					<label for="field-prototypeurl">Outline your project objectives. <a href="https://medium.com/@FieldGuideApp/the-right-learning-objective-to-get-the-most-from-your-user-research-cc972d5caa31" target="_blank">Learn how</a></label>
-					<textarea class="input test-objectives" id="bulletform" type="text" value="" ng-model="test.desc" placeholder="Outline the objectives for what you want to learn from this research project. " />
-					</textarea>
-				</li>
-			</form>
-			<div class="cta">
-				<a href="#" class="secondary button-cancel" ng-click="$parent.newTestModalToggle()" tabindex="1">Cancel</a>
-				<button class="button med float-right" ng-click="addTest(test)" tabindex="0">Create project</button>
-			</div>
-		</ul>
 	</div>
 
 	<div class="clear"></div>
