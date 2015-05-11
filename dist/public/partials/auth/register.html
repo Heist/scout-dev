@@ -1,48 +1,77 @@
 <div id="view-login">
 
 	<div class="container">
-	
-		<div class="module third">
-			
-			&nbsp;
-			
-		</div>
-		
-		<div class="module third">
-			
-			<p id="logo" class="text-center">
-				<img src="/layout/assets/fg-binocs-header.png" />
-			</p>
-			
-			<!-- forgot password form form -->
-			<div id="form-reset">
-			
-				<form ng-model="user">
-					<ul class="nobullets withlabels">
-						<li ng-show="flashmessage" class="messaging messaging-problem">{{flashmessage}}</li>
-						<li>
-							<input class="input" type="text" name="username" value="" placeholder="Your e-mail address" ng-model="user.email"/>
-						</li>
-			
-						
-						<li class="text-center">
-							<button class="button dark" type="submit" ng-click="">Reset password</button> 
-							<!--<small><a ng-click="register(user)">Register?</a></small>-->
-						</li>
-						
-					</ul>
-				</form>
+
+			<div class="module full">
 				
-				<p class="text-center">
-					<small>Don&rsquo;t have an account yet? <a ng-click="showReg()">Register right now</a>.</small>
-				</p>
-			
-			</div>
-			<!-- / login form -->
-			
+				<div class="module-container">
 					
-			
-		</div>
-	
+					<div class="module-content">
+						<p id="logo" class="text-center">
+							<img src="/layout/assets/fg-binocs-grey.svg" />
+						</p>
+						
+						<h1>Register for Field Guide</h1>
+						<!-- signup form form -->
+						<div id="form-signup">
+						
+							<form name="regForm" ng-model="user" ng-submit="register(user)">
+								<ul class="nobullets withlabels">
+									<li ng-bind-html="flashmessage" ng-show="flashmessage" class="messaging messaging-problem">
+									</li>
+
+									<li>
+										<input class="input" type="text" name="realname" value="" placeholder="Name" ng-model="user.name"/>
+									</li>
+									
+									<li>
+										<input class="input" type="email" name="usermail" value="" placeholder="Email" ng-class="{'error-outline': regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine}" ng-model="user.email" required /> 
+
+										<div class="error-msg" ng-show="regForm.usermail.$error.email && !regForm.usermail.$pristine">
+											<span>Please enter a valid email.</span>
+										</div>
+									</li>
+
+									<li>
+										<input class="input" type="email" name="usermailConfirm" value="" placeholder="Confirm email" ng-model="user.emailConfirm" ng-class="{'error-outline': regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine}" ng-match="user.email" required/> 
+
+										<div class="error-msg" ng-show="regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine">
+											<span>Email address does not match.</span>
+										</div>
+
+									</li>
+									
+									<li>
+										<input class="input" type="password" name="password" id="field-password" value="" placeholder="Password" ng-model="user.password" ng-class="{'error': regForm.confirm.$error.match && !regForm.confirm.$pristine}" required/>
+			                        </li>
+									
+									<li>
+										<input class="input" type="password" name="confirm" id="confirm-password" value="" placeholder="Confirm password" ng-model="user.passwordConfirm" ng-class="{'error': regForm.confirm.$error.match && !regForm.confirm.$pristine}" ng-match="user.password" required/>
+										<span class="small" ng-show="regForm.confirm.$error.match && !regForm.confirm.$pristine" >&times; Passwords do not match.</span>
+									</li>
+									
+									<li>
+										<button class="submit button green" type="submit" ng-click="register(user)" ng-hide="(regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine)">Create account</button>
+										<button class="submit button dark" type="submit" ng-show="(regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine)">Create account</button> 
+									</li>
+									
+								</ul>
+							</form>
+						
+						</div>
+						<!-- / signup form -->
+
+					</div>
+
+					<div class="module-content footer">
+						<div class="alt-info text-center">
+							<p>Already have an account? <a href="/login">Sign in</a>.</p>
+						</div>
+						
+					</div>
+				</div>
+		
+			</div>
+
 	</div>
 </div>

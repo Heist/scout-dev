@@ -23,7 +23,7 @@ var MessageSchema = new Schema ({
     _tags : [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
 
     body : { type: String, trim: true, required: true },
-    created_by_user : { type: Schema.Types.ObjectId, required: true  },
+    created_by_user : { type: Schema.Types.ObjectId, required: true },
     fav_task : { type: Boolean, default: true },
     fav_tag : { type: Boolean, default: true },
     

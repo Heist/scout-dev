@@ -1,103 +1,64 @@
 <div id="view-login">
 
 	<div class="container">
-	
-		<div class="module one-third">&nbsp;</div>
-		
-		
-		<div class="module two-fifths">
-			
-			<p id="logo" class="text-center">
-				<img src="/layout/assets/fg-binocs-header.png" />
-			</p>
-			
-			<!-- login form -->
-			<div id="form-login" ng-hide="reg_toggle == true">
-			
-				<form name="form-login" ng-model="user" ng-submit="login(user)" class="clearfix">
-					<ul class="nobullets withlabels">
-						<li ng-show="flashmessage" class="messaging messaging-problem">{{flashmessage}}
-						</li>
-						<li>
-							<input class="input" type="text" name="username" value="" placeholder="Your e-mail address" ng-model="user.email" required/>
-						</li>
-						
-						<li>
-							<input class="input" type="password" id="field-password" name="" value="" placeholder="Your password"  ng-model="user.password" required/>
-						</li>
-						
-						<li class="text-center">
-							<button id='loginSubmit' class="button dark" type="submit" ng-click="login(user)">Login</button> 
-							<!--<small><a ng-click="register(user)">Register?</a></small>-->
-						</li>
-						
-						<!-- <li>
-							<label><input type="checkbox" /> Remember me</label>
-						</li> -->
-					</ul>
-				</form>
+
+			<div class="module full">
 				
-				<p class="text-center">
-					<small>Don&rsquo;t have an account yet? <a ng-click="showReg()">Register right now</a>.</small>
-					<br />
-					<small>Forgot your password? <a href="/forgot">Click here to reset</a>.</small>
-				</p>
-			
-			</div>
-			<!-- / login form -->
-			
-			
-			
-			<!-- signup form form -->
-			<div id="form-signup" ng-show="reg_toggle == true">
-			
-				<form ng-model="user" name="regForm">
-					<ul class="nobullets withlabels">
-						<li ng-bind-html="flashmessage" ng-show="flashmessage" class="messaging messaging-problem">
-						</li>
+				<div class="module-container">
 
-						<li>
-							<input class="input" type="text" name="realname" value="" placeholder="Your name (e.g. &rsquo;Sandra Jones&lsquo;)" ng-model="user.name"/>
-						</li>
-						
-						<li>
-							<input class="input" type="email" name="usermail" value="" placeholder="Your e-mail address" ng-class="{'error': regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine}" ng-model="user.email" required /> 
+					<div class="module-content">
 
-							<span class="small" ng-show="regForm.usermail.$error.email && !regForm.usermail.$pristine">&times; Please enter a valid email address.</span>
-						</li>
+						<p id="logo" class="text-center">
+							<img src="/layout/assets/fg-binocs-grey.svg" />
+						</p>
+					
+						<h1>Sign In to Field Guide</h1>
+					
+						<!-- login form -->
+						<div id="form-login">
+						
+							<form name="loginForm" ng-model="user" ng-submit="login(user)">
+								<ul class="nobullets withlabels">
+	<!-- 								<li ng-show="flashmessage" class="messaging messaging-problem">{{flashmessage}}
+									</li> -->
+									<li>
+										<input class="input" type="text" name="username" value="" placeholder="Email" ng-model="user.email" required/>
 
-						<li>
-							<input class="input" type="email" name="usermailConfirm" value="" placeholder="Please confirm your e-mail address" ng-model="user.emailConfirm" ng-class="{'error': regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine}" ng-match="user.email" required/> 
-							<span class="small" ng-show="regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine">&times; Email address does not match.</span>
-						</li>
+										<div class="error-msg" ng-show="flashmessage">
+											<span>{{flashmessage}}</span>
+										</div>
+									</li>
+									
+									<li>
+										<input class="input" type="password" id="field-password" name="" value="" placeholder="Password" ng-model="user.password" required/>
+
+										<div class="error-msg" ng-show="flashmessage">
+											<span>{{flashmessage}}</span>
+										</div>
+									</li>
+
+									
+									<li class="text-center">
+										<button class="submit button green" type="submit" ng-click="login(user)">Sign in</button> 
+									</li>
+								</ul>
+							</form>
 						
-						<li>
-							<input class="input" type="password" name="password" id="field-password" value="" placeholder="Your password" ng-model="user.password" ng-class="{'error': regForm.confirm.$error.match && !regForm.confirm.$pristine}" required/>
-                        </li>
-						
-						<li>
-							<input class="input" type="password" name="confirm" id="confirm-password" value="" placeholder="Please confirm your new password" ng-model="user.passwordConfirm" ng-class="{'error': regForm.confirm.$error.match && !regForm.confirm.$pristine}" ng-match="user.password" required/>
-							<span class="small" ng-show="regForm.confirm.$error.match && !regForm.confirm.$pristine" >&times; Passwords do not match.</span>
-						</li>
-						
-						<li>
-							<button class="button dark" type="submit" ng-click="register(user)" ng-hide="(regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine)">Create account</button>
-							<button class="button dark" type="submit" ng-show="(regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine)">Create account</button> 
-						</li>
-						
-					</ul>
-				</form>
-				
-				<p class="text-center">
-					<small>Already signed up? <a ng-click="showLogin()">Login</a>.</small>
-				</p>
-			
-			</div>
-			<!-- / signup form -->
-			
-		</div>
+						</div>
+						<!-- / login form -->
+					
+					</div>
+
+					<div class="module-content footer">
+						<div class="alt-info text-center">
+							<p>Don&rsquo;t have an account? <a href="/register">Register now</a>.</p>
+							<p>Forgot your password? <a href="/forgot">Click here to reset</a>.</p>
+						</div>
+					</div>
+					
+				</div>
 		
-		
-	
+			</div>
+
 	</div>
 </div>

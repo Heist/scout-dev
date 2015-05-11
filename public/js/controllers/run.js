@@ -236,7 +236,7 @@
             // find that message and post to it.
             //  loadData.data._tags
             if(message){
-                postMessage(message+' #Summary', summaryTagId, $stateParams._id, $scope.subject._id)
+                postMessage(message+' #summary', summaryTagId, $stateParams._id, $scope.subject._id)
                         .then(function(msg){
                             console.log('message posted to summary', msg)
                             $location.path('/overview');

@@ -3,7 +3,7 @@
 
 'use strict';
 
-module.exports= {
+module.exports = {
 	addSubject      : require('./add-subject'),
 	// accountExporter : require('./account-export'),
 	buildObjectList : require('./build-object-list'),
@@ -11,6 +11,7 @@ module.exports= {
 	comment         : require('./comment'),
 	createInvite    : require('./create-invite'),
 	defaultTests    : require('./default-tests'),
+	defaultTestData : require('./default-test-object'),
 	deleteTest      : require('./delete-test'),
 	devTests        : require('./dev-tests'),
 	dupeTests       : require('./dupe-tests'),
