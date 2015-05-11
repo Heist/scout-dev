@@ -293,17 +293,13 @@
                 margin: 0;
                 
                 li {
-                    padding: 0 0 0 10px;
+                    padding: 0 5px 0 5px;
                     font-size: 14px;
                     color: $fg-blue;
                     display: inline-block;
-
+                    
                     &:before {
                         content: "#"
-                    }
-
-                    &:first-child {
-                        padding: 0 0 0 10px;
                     }
                 }
             }

@@ -5141,14 +5141,12 @@ hr {
         padding: 0;
         margin: 0; }
         #view-editing .tags .tag-pool ul li, #view-editing .tags input.custom-tags ul li, #view-editing .tags .add-task textarea.custom-tags ul li, #view-editing .add-task .tags textarea.custom-tags ul li {
-          padding: 0 0 0 10px;
+          padding: 0 5px 0 5px;
           font-size: 14px;
           color: #00B5E3;
           display: inline-block; }
           #view-editing .tags .tag-pool ul li:before, #view-editing .tags input.custom-tags ul li:before, #view-editing .tags .add-task textarea.custom-tags ul li:before, #view-editing .add-task .tags textarea.custom-tags ul li:before {
             content: "#"; }
-          #view-editing .tags .tag-pool ul li:first-child, #view-editing .tags input.custom-tags ul li:first-child, #view-editing .tags .add-task textarea.custom-tags ul li:first-child, #view-editing .add-task .tags textarea.custom-tags ul li:first-child {
-            padding: 0 0 0 10px; }
     #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
       background: #fff;
       border-top: 0;
