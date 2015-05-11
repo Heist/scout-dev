@@ -4702,12 +4702,14 @@ hr {
       background: red; }
     #view-login .module-container .module-content.footer {
       background: #f6f6f6; }
-      #view-login .module-container .module-content.footer .alt-info p {
-        margin: 0;
-        padding: 20px;
-        color: #949799; }
-        #view-login .module-container .module-content.footer .alt-info p a {
+      #view-login .module-container .module-content.footer .alt-info {
+        padding: 20px; }
+        #view-login .module-container .module-content.footer .alt-info p {
+          margin: 0;
+          padding: 0;
           color: #949799; }
+          #view-login .module-container .module-content.footer .alt-info p a {
+            color: #949799; }
     #view-login .module-container .module-content h1 {
       font-size: 28px;
       font-family: "canada-type-gibson",sans-serif;
