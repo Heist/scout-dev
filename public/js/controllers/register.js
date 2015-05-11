@@ -29,8 +29,6 @@
         	var url = '/auth/signup';
             var dataOut, invite;
 
-            console.log('clicked register', user);
-
             if($stateParams.acct){
                 invite = $stateParams.acct.replace( /\//gi,"");
                 dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
@@ -56,6 +54,5 @@
                     }
                 });
         };
-
     }]);
 })();

@@ -36,16 +36,13 @@
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    console.log(data);
 
                     if (data.error === "No user found. ") {
                         $scope.errorPassword = '';
                         $scope.errorEmail = data.error;
-
                     } else {
                         $scope.errorEmail = '';
                         $scope.errorPassword = data.error;
-                        
                     }
 
                     $location.path('/');

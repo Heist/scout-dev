@@ -3,7 +3,6 @@
 /* login */
 
 #view-login {
-	// background: $fg-header-red;
 	background: $fg-bg url('/layout/assets/mountains.svg') center 30px no-repeat;
 	background-size: 100%;
 	color: $white;
@@ -50,11 +49,22 @@
 				margin: 0;
 			}
 
+			a {
+				color: $fg-grey;
+			}
+
 			li {
 				width: 100%;
 				position: relative;
 				display: inline-block;
-				color: red;
+
+				&.error-flashmessage {
+					margin: 0 0 20px 0;
+				}
+			}
+			
+			.error-flashmessage {
+				color: $fg-grey;
 			}
 
 			.error-msg span {
@@ -82,7 +92,7 @@
 			.error-msg span {
 				visibility: visible;
 				opacity: 1;
-				left: 100%;
+				left: 72%;
 				top: 42%;
 				margin-top: -15px;
 				z-index: 999;

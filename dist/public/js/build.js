@@ -51550,17 +51550,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 });
         }
 
-        $scope.errorMessageLoader = function(){
-            void 0;
-            if ($scope.regForm.confirm.$error.match && !$scope.regForm.confirm.$pristine){
-                $scope.errorPassMatch = "&times; Passwords do not match."
-                // ng-show="regForm.confirm.$error.match && !regForm.confirm.$pristine"
-                // regForm.confirm.$error.match && !regForm.confirm.$pristine}" ng-match="user.password
-
-            }
-        }
-
-
         $scope.login = function(user){
             var url = '/auth/login';
             var dataOut =  {email: user.email, password: user.password};
@@ -51569,16 +51558,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    void 0;
 
                     if (data.error === "No user found. ") {
                         $scope.errorPassword = '';
                         $scope.errorEmail = data.error;
-
                     } else {
                         $scope.errorEmail = '';
                         $scope.errorPassword = data.error;
-                        
                     }
 
                     $location.path('/');
@@ -51860,8 +51846,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         	var url = '/auth/signup';
             var dataOut, invite;
 
-            void 0;
-
             if($stateParams.acct){
                 invite = $stateParams.acct.replace( /\//gi,"");
                 dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
@@ -51887,7 +51871,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     }
                 });
         };
-
     }]);
 })();
 // report.js

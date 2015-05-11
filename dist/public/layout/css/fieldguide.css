@@ -4718,11 +4718,16 @@ hr {
       text-align: center;
       color: #2B404D;
       margin: 0; }
+    #view-login .module-container .module-content a {
+      color: #949799; }
     #view-login .module-container .module-content li {
       width: 100%;
       position: relative;
-      display: inline-block;
-      color: red; }
+      display: inline-block; }
+      #view-login .module-container .module-content li.error-flashmessage {
+        margin: 0 0 20px 0; }
+    #view-login .module-container .module-content .error-flashmessage {
+      color: #949799; }
     #view-login .module-container .module-content .error-msg span {
       position: absolute;
       width: 150px;
@@ -4750,7 +4755,7 @@ hr {
     #view-login .module-container .module-content .error-msg span {
       visibility: visible;
       opacity: 1;
-      left: 100%;
+      left: 72%;
       top: 42%;
       margin-top: -15px;
       z-index: 999; }

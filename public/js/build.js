@@ -51558,16 +51558,13 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    console.log(data);
 
                     if (data.error === "No user found. ") {
                         $scope.errorPassword = '';
                         $scope.errorEmail = data.error;
-
                     } else {
                         $scope.errorEmail = '';
                         $scope.errorPassword = data.error;
-                        
                     }
 
                     $location.path('/');
@@ -51849,8 +51846,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         	var url = '/auth/signup';
             var dataOut, invite;
 
-            console.log('clicked register', user);
-
             if($stateParams.acct){
                 invite = $stateParams.acct.replace( /\//gi,"");
                 dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
@@ -51876,7 +51871,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     }
                 });
         };
-
     }]);
 })();
 // report.js
