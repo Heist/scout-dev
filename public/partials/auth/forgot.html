@@ -21,10 +21,12 @@
                            
                             <ul class="nobullets withlabels">
 
-                                <li ng-if="successMsg" ng-bind-html="successMsg"class="text-center messaging messaging-problem">
+                                <li  ng-bind-html="successMsg" ng-if="successMsg" class="error-flashmessage">
                                 </li>
-
-                                <input class="input" type="email" name="email" value="" placeholder="Email" ng-model="email" required  ng-hide="hideMe === 'hide'"/>
+                                
+                                <li>
+                                   <input class="input" type="email" name="email" value="" placeholder="Email" ng-model="email" required  ng-hide="hideMe === 'hide'"/>
+                                </li>
                                 
                                 <li class="text-center" ng-hide="hideMe === 'hide'">
                                     <button class="submit button green" type="submit" ng-click="sendToken(email)" ng-hide="resetForm.email.$pristine || resetForm.email.$error.email || resetForm.email.$error.required">Reset password</button> 
