@@ -8,6 +8,8 @@
             [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
         function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         
+        console.log('report data from server', loadData.data);
+
         $scope.test = {};
         $scope.timeline = [];
         $scope.commentMessage = '';
@@ -37,6 +39,10 @@
             return _.groupBy(data, function(obj){ return obj.doctype; }) ;
         }
 
+        var makeMessageGroups = function(data){
+            return _.groupBy(data, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
+        }
+
         // Set the messages from the summary tag to the test object
         var summaryObject = function(data){
             // Find the test in the left nav order
@@ -46,17 +52,29 @@
             var summaryItem = _.filter(loadData.data.list, function(n){
                 if(n.name){
                     var nameCheck = n.name.toLowerCase();
-                    return nameCheck !== 'summary';
+                    return nameCheck === 'summary';
                 } else {
                     
                     return [];
                 }
             })[0];
-            
-            
+
+            // to make the summary message list
+            var sumList = _.filter(loadData.data.messages, function(n){
+                // (for each message in loadData, return that message if index of summary._id is not -1)
+                if (n._tags.indexOf(summaryItem._id) !== -1){
+                    return n
+                } else {
+                    return ; 
+                }
+            })
+        
+            // messages for the summary tag should be put on the report page.
+            // so we should do an ng-repeat on the report page for messages
+            // where summary's _id is in the index of tags on that message.
 
             // set the message list for the test to being those messages, and pass the list generally
-            var summaryMsgList = data[testIdx]._messages = (summaryItem && summaryItem._messages.length > 0) ? summaryItem._messages : [];
+            var summaryMsgList = sumList;
             var summaryTagIdCheck = (summaryItem) ? summaryItem._id : 'undefined';
 
             return { summaryMsgList: summaryMsgList, summaryTagIdCheck: summaryTagIdCheck, freshList : data };
@@ -64,6 +82,9 @@
 
         var summaryList = summaryObject(loadData.data.list);
         
+        // now organize them by user
+        $scope.summaryMessages = makeMessageGroups(summaryList.summaryMsgList);
+        console.log('scope.SummaryM', $scope.summaryMessages, 'sumMesageList', summaryList.summaryMsgList);
 
         var tagCheck = summaryList.summaryTagIdCheck;
         // organise the returned information to pass back a good set for raw data
@@ -88,7 +109,7 @@
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
         
         // GROUP MESSAGES BY USERS ==================================
-        $scope.messages = _.groupBy(loadData.data.messages, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
+        $scope.messages = makeMessageGroups(loadData.data.messages);
 
         var deleteMessage = function(message){
             // requires a message with subject name and _id
