@@ -5,33 +5,39 @@
 	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
 	
 	<div class="container" >
-		<div class="full test-setup">
-			
-			<div class="module fifth">&nbsp;</div>
-			
-			<div class="module two-thirds">
-				
-				<div class="sheet-holder">
-					
-					<div class="sheet">
-						<div class="clear"></div>
-						<ul class="nobullets">
-
-							<div class="project-details" ng-click="select(test)">
-								<input class="input-no-border project-name" ng-trim="false" ng-model="test.name" ng-focus="editTitle(test)" ng-blur="blurTitle(test)">
-
-								<h3>My project objectives</h3>
-									<textarea msd-elastic class="test-descriptions input-no-border" id="field-textarea"  ng-model="test.desc" ng-blur="updateTask(test)"></textarea>
-							</div>
-
-							<!-- tags section goes here -->
-							<!-- user enters tag, tag gets store in tag pool-->
-
-							<div class="tags">
-								<h3>Tags for notes</h3>
-								<p>Use #Tags to flag important information in the notes you take during a session. Tagging notes makes it easier to find the most valuable and actionable feedback from your participants. We've got a couple suggestions to get you started. <a href="https://medium.com/@FieldGuideApp/5-things-to-look-for-during-interviews-and-prototype-research-39819d2d9f98" target="_blank">Learn more</a> </p>
-								<p>You cannot currently edit tags you have created, so please double check your spelling.</p>
+		<!-- <div class="test-setup"> -->
 		
+		<!-- <div class="module tenth">&nbsp;</div> -->
+		
+		<div class="module full">
+			
+			<div class="sheet-holder">
+				
+				<div class="sheet clearfix">
+					<div class="clear"></div>
+					
+					<div class="container-row clearfix" ng-click="select(test)">
+						<div class="container-left"></div>
+						<div class="container-right">
+							<input class="input-no-border project-name" ng-trim="false" ng-model="test.name" ng-focus="editTitle(test)" ng-blur="blurTitle(test)">
+						</div>
+
+						<h3 class="container-left">Objectives</h3>
+						<div class="container-right">
+							<textarea msd-elastic class="objectives input-no-border" id="field-textarea"  ng-model="test.desc" ng-blur="updateTask(test)"></textarea>
+						</div>
+					</div>
+					<!-- tags section goes here -->
+					<!-- user enters tag, tag gets store in tag pool-->
+					<div class="container-row clearfix">
+						<div class="container-left">
+							<h3>Tags
+							<span class="tooltip-icon" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
+							</h3>
+						</div>
+						
+						<div class="container-right padding">
+							<div class="tags">
 								<div class="tag-pool">
 									<ul>
 										<li ng-repeat="tag in tags">{{tag.name}}</li>
@@ -39,96 +45,86 @@
 								</div>
 								<input name="custom-tags" class="custom-tags" placeholder="Type your own tags to use during your sessions" ng-model="newtag" ng-enter="saveTag(newtag)"></input>
 							</div>
-						
-							<h3>Research topics</h3>
-							<p>Outline the topics or tasks and questions you want to discuss with your participants for this project. These will be visible for you while you run a session with a participant. <a href="https://medium.com/@FieldGuideApp/what-makes-a-good-task-b807bb12f21b" target="_blank">Learn more</a> </p>
-							<li ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
-							
-								<!-- Re-ordering tasks -->
-								<!-- <div class="step-ordering">
-									<div ng-click="moveTask($index, -1)" class="elevator elevator-up">&#9650;</div>
-									<div ng-click="moveTask($index, 1)" class="elevator elevator-down">&#9660;</div>
-								</div>
-								
-								<div class="step-controls">
-									<div class="step-delete pointer big" ng-click="removeTask(task)">×</div>
-								</div> -->
-								<!-- ng-if="isActive(task)" -->
+						</div>
+					</div>
+					
+					<div class="container-row clearfix">
+						<div class="container-left">
+							<h3>Topics
+							<span class="tooltip-icon" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
+							</h3>
+						</div>
+						<div class="container-right">
+							<div ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}">
 								<div ng-click="select(task)">
 									<form>
 										<input class="input-no-border task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
 										<textarea msd-elastic class="task-descriptions input-no-border" id="field-textarea"  ng-model="task.desc" ng-blur="updateTask(task)"></textarea>
 									</form>
 								</div>
-							
-								<div class="clear"></div>
-
-							</li>
-						
-							<li>
-								<!-- add a new task -->
-								<div class="add-task">
-									<form ng-model='newtask'>
-										<h4>Topic</h4>
-										<input ng-trim="false" ng-model="newtask.name"placeholder="Provide a simple description for the subject of this group of questions."><br/>
-										
-										<h4>Questions</h4>
-										<textarea ng-model="newtask.desc" id="bulletform" placeholder="List the questions you want participants to answer related to this topic.">
-										</textarea>
-									</form>
 								
-									<div class="box clearfix">
-										<button class="button full med" ng-click="newTask(newtask)" tabindex="0">Add topic</a></button>
-									</div>
-
-									<div class="clear"></div>
-								</div>
-							<!-- / add a new task -->
-							</li>
-						</ul>
-					</div> <!-- /sheet -->
+								<div class="clear"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="container-row clearfix">
+						<div class="container-left"></div>
+						<div class="container-right padding">
+							<!-- add a new task -->
+							<div class="add-task">
+								<form ng-model='newtask'>
+									<input ng-trim="false" ng-model="newtask.name"placeholder="Write a topic title.."><br/>
+									
+									<textarea msd-elastic ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions..">
+									</textarea>
+								</form>
+								
+								<button class="button full" ng-click="newTask(newtask)" tabindex="0">Add topic</a></button>
+							<div class="clear"></div>
+						</div>
+						<!-- / add a new task -->
+					</div>
+				</div>
+				
+				</div> <!-- /sheet -->
 				</div> <!-- /sheet holder -->
 				
-			</div> <!-- /module fifths -->
+				</div> <!-- /module fifths -->
 				
-			<div class="module done-button">
-				<button class="button outline" ng-click="saveAndMove(5)" tabindex="1">Done</button>
+				<div class="module done-button">
+					<button class="button outline" ng-click="saveAndMove(5)" tabindex="1">Done</button>
+				</div>
+				<div class="clear"></div>
+				<!-- </div> -->
 			</div>
-
-			<div class="clear"></div>
 		</div>
-	</div>
-</div>
-
-<script>
-	$('#bulletform').on('keypress',function(e){
-		var t = $(this);
-			console.log(e.which);
-		if(e.shiftKey){
-			console.log('shifted')
-			if(e.which === 13){
-				t.val(t.val()+'\n');
-				return false;
-			}
-		}
-
-		if(!e.shiftKey){
-			if(e.which === 13){
-				t.val(t.val()+'\n• ');
-				return false;
-			}
-		}
-	});
-
-	$('#bulletform').on('focus',function(e){
-		var t = $(this);
-		var l = t.val().length;
-
-		if (l !== 0){
-			return false; 
-		} else {
-			t.val(t.val()+'• ');
-			return false;
-		}
-	});
-</script>
+		<script>
+			$('#bulletform').on('keypress',function(e){
+				var t = $(this);
+					console.log(e.which);
+				if(e.shiftKey){
+					console.log('shifted')
+					if(e.which === 13){
+						t.val(t.val()+'\n');
+						return false;
+					}
+				}
+				if(!e.shiftKey){
+					if(e.which === 13){
+						t.val(t.val()+'\n• ');
+						return false;
+					}
+				}
+			});
+			$('#bulletform').on('focus',function(e){
+				var t = $(this);
+				var l = t.val().length;
+				if (l !== 0){
+					return false;
+				} else {
+					t.val(t.val()+'• ');
+					return false;
+				}
+			});
+		</script>

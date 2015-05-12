@@ -623,8 +623,7 @@ button.x-onboard {
   text-decoration: none;
   cursor: pointer;
   font-size: 14px;
-  line-height: 16px;
-  padding: 11px 32.5px;
+  padding: 12px 32.5px;
   float: left;
   margin: 0;
   font-family: "canada-type-gibson",sans-serif;
@@ -3320,6 +3319,24 @@ Copyright (c) 2015 Daniel Eden
 /* components */
 /* styles for bits */
 /* tooltips */
+span.tooltip-icon {
+  background: #D8DADB;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  margin: 0 0 0 5px;
+  vertical-align: bottom;
+  text-transform: none; }
+  span.tooltip-icon span {
+    position: absolute;
+    top: 0.5px;
+    right: 3px;
+    color: #fff;
+    font-size: 8px;
+    text-transform: none; }
+
 [data-tooltip], [data-tooltip-large], [data-tooltip-large-report], .tooltip {
   position: relative;
   cursor: pointer; }
@@ -5007,12 +5024,11 @@ hr {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px; }
-  #view-new-project button.test-type span.info {
+  #view-new-project button.test-type span.tooltip-icon {
     position: absolute;
     top: 5px;
-    right: 8px;
-    background: #949799; }
-    #view-new-project button.test-type span.info span {
+    right: 8px; }
+    #view-new-project button.test-type span.tooltip-icon span {
       top: 0px;
       right: 3.5px; }
   #view-new-project button.test-type h3 {
@@ -5022,14 +5038,14 @@ hr {
     font-weight: 300;
     display: inline-block; }
     #view-new-project button.test-type h3.interview:before {
-      background: url('../assets/platform-icons/interview-dark.svg') top left no-repeat;
+      background: url('../assets/interview-dark.svg') top left no-repeat;
       content: '';
       width: 10px;
       height: 16px;
       display: inline-block;
       margin: 0 5px 0 0; }
     #view-new-project button.test-type h3.prototype:before {
-      background: url('../assets/platform-icons/prototype-dark.svg') top left no-repeat;
+      background: url('../assets/prototype-dark.svg') top left no-repeat;
       content: '';
       width: 12px;
       height: 17px;
@@ -5053,42 +5069,42 @@ hr {
     color: #fff; }
     #view-new-project button.test-type:hover a {
       color: #fff; }
-    #view-new-project button.test-type:hover span.info {
+    #view-new-project button.test-type:hover span.tooltip-icon {
       background: #70910D; }
     #view-new-project button.test-type:hover a {
       color: #fff; }
     #view-new-project button.test-type:hover h3.interview:before {
-      background: url('../assets/platform-icons/interview-light.svg') top left no-repeat; }
+      background: url('../assets/interview-light.svg') top left no-repeat; }
     #view-new-project button.test-type:hover h3.prototype:before {
-      background: url('../assets/platform-icons/prototype-light.svg') top left no-repeat; }
+      background: url('../assets/prototype-light.svg') top left no-repeat; }
   #view-new-project button.test-type.select-active {
     background: #85AC0F;
     color: #fff; }
-    #view-new-project button.test-type.select-active span.info {
+    #view-new-project button.test-type.select-active span.tooltip-icon {
       background: #70910D; }
     #view-new-project button.test-type.select-active a {
       color: #fff; }
     #view-new-project button.test-type.select-active h3.interview:before {
-      background: url('../assets/platform-icons/interview-light.svg') top left no-repeat; }
+      background: url('../assets/interview-light.svg') top left no-repeat; }
     #view-new-project button.test-type.select-active h3.prototype:before {
-      background: url('../assets/platform-icons/prototype-light.svg') top left no-repeat; }
+      background: url('../assets/prototype-light.svg') top left no-repeat; }
   #view-new-project button.test-type.select-inactive {
     background: rgba(216, 218, 219, 0.2);
     color: #949799; }
     #view-new-project button.test-type.select-inactive a {
       color: #00B5E3; }
-    #view-new-project button.test-type.select-inactive span.info {
+    #view-new-project button.test-type.select-inactive span.tooltip-icon {
       position: absolute;
       top: 5px;
       right: 8px;
-      background: #949799; }
-      #view-new-project button.test-type.select-inactive span.info span {
+      background: #D8DADB; }
+      #view-new-project button.test-type.select-inactive span.tooltip-icon span {
         top: 0px;
         right: 3.5px; }
     #view-new-project button.test-type.select-inactive h3.interview:before {
-      background: url('../assets/platform-icons/interview-dark.svg') top left no-repeat; }
+      background: url('../assets/interview-dark.svg') top left no-repeat; }
     #view-new-project button.test-type.select-inactive h3.prototype:before {
-      background: url('../assets/platform-icons/prototype-dark.svg') top left no-repeat; }
+      background: url('../assets/prototype-dark.svg') top left no-repeat; }
   #view-new-project button.test-type .selected-arrow {
     display: none; }
   #view-new-project button.test-type .no-link {
@@ -5133,8 +5149,10 @@ hr {
     font-style: normal;
     font-weight: 400;
     color: #2B404D;
-    font-size: 20px;
-    margin: 20px 0; }
+    font-size: 10px;
+    text-transform: uppercase;
+    text-align: right;
+    position: relative; }
   #view-editing h4 {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -5146,169 +5164,133 @@ hr {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
-    color: #777777;
-    font-size: 28px;
+    color: #888A8A;
+    font-size: 33px;
     margin: 0 0 20px 0; }
     #view-editing .project-name:hover, #view-editing .project-name:focus {
-      color: #000; }
-  #view-editing .task-title {
+      color: #000;
+      background: url('../assets/fg-edit.svg') 14px 15px no-repeat; }
+  #view-editing input.task-title, #view-editing .add-task textarea.task-title {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
-    font-size: 22px;
-    color: #949799; }
-    #view-editing .task-title:hover, #view-editing .task-title:focus {
-      color: #000; }
-  #view-editing textarea.test-descriptions, #view-editing textarea.task-descriptions {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 18.6px;
+    color: #888A8A;
+    padding: 0px 0px 20px 40px; }
+    #view-editing input.task-title:hover, #view-editing .add-task textarea.task-title:hover, #view-editing input.task-title:focus, #view-editing .add-task textarea.task-title:focus {
+      color: #000;
+      background: url('../assets/fg-edit.svg') 14px 5px no-repeat; }
+  #view-editing input.project-name, #view-editing .add-task textarea.project-name {
+    padding: 0px 0px 0px 40px; }
+  #view-editing textarea.objectives, #view-editing textarea.task-descriptions {
+    font-size: 14px;
+    line-height: 18px;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
-    color: #949799;
+    color: #888A8A;
     margin: 0;
+    padding: 0px 0px 0px 40px;
     resize: none; }
-    #view-editing textarea.test-descriptions:hover, #view-editing textarea.test-descriptions:focus, #view-editing textarea.task-descriptions:hover, #view-editing textarea.task-descriptions:focus {
-      color: #000; }
+    #view-editing textarea.objectives:hover, #view-editing textarea.objectives:focus, #view-editing textarea.task-descriptions:hover, #view-editing textarea.task-descriptions:focus {
+      color: #000;
+      background: url('../assets/fg-edit.svg') 14px 5px no-repeat; }
   #view-editing .add-task {
     margin: 20px 0; }
-    #view-editing .add-task h4 {
-      color: #2B404D;
-      font-size: 18px; }
     #view-editing .add-task form {
-      border: 1px solid rgba(216, 218, 219, 0.5);
-      padding: 15px;
-      margin: 0; }
+      border-top: 1px solid rgba(216, 218, 219, 0.5);
+      border-bottom: 1px solid rgba(216, 218, 219, 0.5);
+      margin: 0 0 15px 0; }
     #view-editing .add-task input, #view-editing .add-task textarea {
       width: 100%;
-      margin: 0 0 30px 0;
-      padding: 0;
+      margin: 0;
+      padding: 15px 0 0 0;
       border: 0;
       outline: 0;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 300;
-      font-size: 18px;
-      line-height: 24px;
+      font-size: 14px;
+      line-height: 18px;
       color: #949799; }
     #view-editing .add-task textarea {
-      height: 65px;
+      height: 135px;
       overflow-y: auto;
       resize: none;
       margin: 0;
-      color: #949799; }
-    #view-editing .add-task .box {
-      padding: 12px;
-      margin: 0;
-      border: 1px solid rgba(216, 218, 219, 0.5);
-      border-top: 0; }
-  #view-editing .tags {
-    margin: 0 0 40px 0; }
-    #view-editing .tags ::-webkit-input-placeholder {
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
-      font-style: italic; }
-    #view-editing .tags :-moz-placeholder {
-      /* Firefox 18- */
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
-      font-style: italic; }
-    #view-editing .tags ::-moz-placeholder {
-      /* Firefox 19+ */
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
-      font-style: italic; }
-    #view-editing .tags :-ms-input-placeholder {
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
-      font-style: italic; }
-    #view-editing .tags .tag-pool, #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
-      width: 100%;
-      height: 100%;
-      background: rgba(216, 218, 219, 0.5);
-      border: 1px solid rgba(216, 218, 219, 0.5); }
-      #view-editing .tags .tag-pool ul, #view-editing .tags input.custom-tags ul, #view-editing .tags .add-task textarea.custom-tags ul, #view-editing .add-task .tags textarea.custom-tags ul {
-        padding: 0;
-        margin: 0; }
-        #view-editing .tags .tag-pool ul li, #view-editing .tags input.custom-tags ul li, #view-editing .tags .add-task textarea.custom-tags ul li, #view-editing .add-task .tags textarea.custom-tags ul li {
-          padding: 0 5px 0 5px;
-          font-size: 14px;
-          color: #00B5E3;
-          display: inline-block; }
-          #view-editing .tags .tag-pool ul li:before, #view-editing .tags input.custom-tags ul li:before, #view-editing .tags .add-task textarea.custom-tags ul li:before, #view-editing .add-task .tags textarea.custom-tags ul li:before {
-            content: "#"; }
-    #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
-      background: #fff;
-      border-top: 0;
-      resize: none;
-      padding: 8px;
-      outline: 0;
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 300;
-      font-size: 14px;
-      line-height: 20px;
-      color: #949799; }
+      color: #888A8A; }
+  #view-editing .tags ::-webkit-input-placeholder {
+    color: #C5C6C7;
+    font-size: 14px;
+    line-height: 20px;
+    font-style: italic; }
+  #view-editing .tags :-moz-placeholder {
+    /* Firefox 18- */
+    color: #C5C6C7;
+    font-size: 14px;
+    line-height: 20px;
+    font-style: italic; }
+  #view-editing .tags ::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #C5C6C7;
+    font-size: 14px;
+    line-height: 20px;
+    font-style: italic; }
+  #view-editing .tags :-ms-input-placeholder {
+    color: #C5C6C7;
+    font-size: 14px;
+    line-height: 20px;
+    font-style: italic; }
+  #view-editing .tags .tag-pool, #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
+    width: 100%;
+    height: 100%; }
+    #view-editing .tags .tag-pool ul, #view-editing .tags input.custom-tags ul, #view-editing .tags .add-task textarea.custom-tags ul, #view-editing .add-task .tags textarea.custom-tags ul {
+      padding: 0 0 10px 0;
+      margin: 0; }
+      #view-editing .tags .tag-pool ul li, #view-editing .tags input.custom-tags ul li, #view-editing .tags .add-task textarea.custom-tags ul li, #view-editing .add-task .tags textarea.custom-tags ul li {
+        padding: 0 5px 0 5px;
+        font-size: 14px;
+        color: #00B5E3;
+        display: inline-block; }
+        #view-editing .tags .tag-pool ul li:before, #view-editing .tags input.custom-tags ul li:before, #view-editing .tags .add-task textarea.custom-tags ul li:before, #view-editing .add-task .tags textarea.custom-tags ul li:before {
+          content: "#"; }
+  #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
+    background: #fff;
+    border-top: 0;
+    resize: none;
+    padding: 5px 8px;
+    outline: 0;
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+    color: #888A8A;
+    border: 1px solid rgba(216, 218, 219, 0.5); }
   #view-editing .done-button {
     position: fixed;
     right: 30px; }
   #view-editing .container {
     padding: 20px 0 0 0; }
-  #view-editing .sheet-holder {
-    padding: 0 0 40px 0; }
-  #view-editing .test-setup {
-    padding: 20px 0 0 0; }
-    #view-editing .test-setup .sheet {
-      padding: 20px; }
-    #view-editing .test-setup .nobullets {
-      width: 100%; }
-      #view-editing .test-setup .nobullets .input {
-        width: 100%; }
-    #view-editing .test-setup ::-webkit-input-placeholder {
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
-      font-style: italic; }
-    #view-editing .test-setup :-moz-placeholder {
-      /* Firefox 18- */
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
-      font-style: italic; }
-    #view-editing .test-setup ::-moz-placeholder {
-      /* Firefox 19+ */
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
-      font-style: italic; }
-    #view-editing .test-setup :-ms-input-placeholder {
-      color: #C5C6C7;
-      font-size: 14px;
-      line-height: 20px;
-      font-style: italic; }
-    #view-editing .test-setup .select-active {
-      background: #85AC0F;
-      color: #fff;
-      text-decoration: none;
-      border: 1px solid #C6D39E;
-      cursor: pointer; }
-      #view-editing .test-setup .select-active:hover {
-        background: #7a9e0e;
-        color: #fff;
-        text-decoration: none; }
-      #view-editing .test-setup .select-active:after {
-        content: 'ed'; }
-    #view-editing .test-setup .select-inactive {
-      background: #fff;
-      color: #949799;
-      border: 1px solid #D8DADB;
-      cursor: pointer; }
-      #view-editing .test-setup .select-inactive:after {
-        content: ''; }
+    #view-editing .container .sheet-holder .sheet {
+      width: 745px;
+      margin: 0 auto; }
+      #view-editing .container .sheet-holder .sheet .container-row {
+        clear: both;
+        padding: 0 0 50px 0; }
+        #view-editing .container .sheet-holder .sheet .container-row:nth-child(4) {
+          padding: 0; }
+        #view-editing .container .sheet-holder .sheet .container-row .container-left {
+          float: left;
+          width: 120px;
+          margin: 8px 0 0 0; }
+          #view-editing .container .sheet-holder .sheet .container-row .container-left .create-project-tooltip {
+            float: left; }
+        #view-editing .container .sheet-holder .sheet .container-row .container-right {
+          float: left;
+          width: 585px; }
+          #view-editing .container .sheet-holder .sheet .container-row .container-right.padding {
+            padding: 0 0 0 40px; }
 
 /* SESSION IN PROGRESS */
 #view-testing {
