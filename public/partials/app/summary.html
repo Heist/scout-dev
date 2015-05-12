@@ -21,7 +21,6 @@
 						<span class="report">Report<span class="info" data-tooltip-large-report="Your participant summaries and shareable report"><span>?</span></span>
 					</li>
 				</ul>
-				
 				<ul ng-if="navlist.tag">
 					<h4 class="group-cat">Tag <span class="info" data-tooltip-large-report="All of the notes you have #tagged as important can be found here."><span>?</span></span></h4>
 					<li ng-repeat="object in  navlist.tag" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
