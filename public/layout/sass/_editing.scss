@@ -291,15 +291,11 @@
     .add-task {
         margin: 20px 0;
 
-        h4 {
-            color: $fg-slate;
-            font-size: 18px;
-        }
-
         form {
-            border: 1px solid transparentize($fg-grey-light, 0.5);
+            border-top: 1px solid transparentize($fg-grey-light, 0.5);
+            border-bottom: 1px solid transparentize($fg-grey-light, 0.5);
             padding: 15px;
-            margin: 0;
+            margin: 0 0 15px 0;
         }
 
         input {
@@ -309,8 +305,8 @@
             border: 0;
             outline: 0;
             @include type-light;
-            font-size: 18px;
-            line-height: 24px;
+            font-size: 14px;
+            line-height: 18px;
              color: $fg-grey;
         }
         
@@ -321,13 +317,6 @@
             resize: none;
             margin: 0;
             color: $fg-grey;
-        }
-
-        .box {
-            padding: 12px;
-            margin: 0;
-            border: 1px solid transparentize($fg-grey-light, 0.5);
-            border-top: 0;
         }
     }
 

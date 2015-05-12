@@ -17,7 +17,7 @@
 					<div class="clear"></div>
 					
 					<div class="container-row clearfix" ng-click="select(test)">
-						<div class="container-left">&nbsp;</div>
+						<div class="container-left"></div>
 						<div class="container-right">
 							<input class="input-no-border project-name" ng-trim="false" ng-model="test.name" ng-focus="editTitle(test)" ng-blur="blurTitle(test)">
 						</div>
@@ -60,22 +60,18 @@
 					</div>
 					
 					<div class="container-row clearfix">
-						<div class="container-left">&nbsp;</div>
+						<div class="container-left"></div>
 						<div class="container-right">
 							<!-- add a new task -->
 							<div class="add-task">
 								<form ng-model='newtask'>
-									<h4>Topic</h4>
-									<input ng-trim="false" ng-model="newtask.name"placeholder="Provide a simple description for the subject of this group of questions."><br/>
+									<input ng-trim="false" ng-model="newtask.name"placeholder="Write a topic title.."><br/>
 									
-									<h4>Questions</h4>
-									<textarea ng-model="newtask.desc" id="bulletform" placeholder="List the questions you want participants to answer related to this topic.">
+									<textarea ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions..">
 									</textarea>
 								</form>
 								
-								<div class="box clearfix">
 								<button class="button full med" ng-click="newTask(newtask)" tabindex="0">Add topic</a></button>
-							</div>
 							<div class="clear"></div>
 						</div>
 						<!-- / add a new task -->
