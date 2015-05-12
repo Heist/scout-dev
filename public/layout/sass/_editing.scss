@@ -15,6 +15,7 @@
     
     button.test-type {
         width: 48.5%;
+        height: 146px;
         outline: 0;
         text-align: center;
         position: relative;
@@ -267,7 +268,7 @@
             overflow-y: auto;
             resize: none;
             margin: 0;
-             color: $fg-grey;
+            color: $fg-grey;
         }
 
         .box {
@@ -284,24 +285,22 @@
 
         .tag-pool {
             width: 100%;
-            height: 30px;
+            height: 100%;
             background: transparentize($fg-grey-light, 0.5);
             border: 1px solid transparentize($fg-grey-light, 0.5);
             
             ul {
                 padding: 0;
+                margin: 0;
+                
                 li {
-                    padding: 2px 0 0 15px;
+                    padding: 0 5px 0 5px;
                     font-size: 14px;
                     color: $fg-blue;
                     display: inline-block;
-
+                    
                     &:before {
                         content: "#"
-                    }
-
-                    &:first-child {
-                        padding: 0 0 0 10px;
                     }
                 }
             }

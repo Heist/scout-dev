@@ -3,55 +3,142 @@
 /* login */
 
 #view-login {
-	background: $fg-header-red;
+	background: $fg-bg url('/layout/assets/mountains.svg') center 30px no-repeat;
+	background-size: 100%;
 	color: $white;
 	min-height: 100%;
-	padding: 15% 0 0 0;
+	padding: 10% 0;
 
-	.line {
-		text-decoration: underline;
-	}
+	.module-container {
+		min-width: 550px;
+		width: 550px;
+		margin: 0 auto;
+		background: $white;
+		@include radius;
+		@include dropshadowULTRA;
 
-	label {
-		color: $white;
-	}
-	
-	input, button {
-		width: 100%;
-		margin-bottom: $pad/5;
-		@include type-regular;
-
-		&:focus {
-			box-shadow: none;
+		&.footer {
+			background: red;
 		}
-	}
 
-	input[type=checkbox] {
-		width: 15px;
-		text-align: center;
-	}
+		.module-content {
 
-	li:last-child {
-		text-align: center;
-	}
-	
-	a {
-		color: $white;
-	}
+			&.footer {
+				background: $fg-bg;
 
-	p {
-		@include type-regular;
-	}
-	
-	#logo {
-		img {
-			width: 70px;
-			height: auto;
+				.alt-info {
+					padding: 20px;
+
+					p {
+						margin: 0;
+						padding: 0;
+						color: $fg-grey;
+						
+						a {	
+							color: $fg-grey;
+						}
+					}
+				}
+			}
+
+			h1 {
+				font-size: 28px;
+				@include type-regular;
+				text-align: center;
+				color: $fg-slate;
+				margin: 0;
+			}
+
+			a {
+				color: $fg-grey;
+			}
+
+			li {
+				width: 100%;
+				position: relative;
+				display: inline-block;
+
+				&.error-flashmessage {
+					margin: 0 0 20px 0;
+				}
+			}
+			
+			.error-flashmessage {
+				color: $fg-grey;
+			}
+
+			.error-msg span {
+				position: absolute;
+				width: 150px;
+				color: $white;
+				background: $fg-red;
+				font-size: 10px;
+				line-height: 33px;
+				@include type-regular;
+				padding: 0 10px;
+				visibility: hidden;
+				@include radius;
+			}
+			.error-msg span:after {
+				content: '';
+				position: absolute;
+				top: 52%;
+				right: 100%;
+				margin-top: -8px;
+				border-right: 8px solid $fg-red;
+				border-top: 8px solid transparent;
+				border-bottom: 8px solid transparent;
+			}
+			.error-msg span {
+				visibility: visible;
+				opacity: 1;
+				left: 72%;
+				top: 42%;
+				margin-top: -15px;
+				z-index: 999;
+			}
+
+			.line {
+				text-decoration: underline;
+			}
+
+			.submit {
+				margin: 15px auto;
+			}
+			
+			form {
+				margin: 40px 0 20px 0;
+				text-align: center;
+			}
+
+			label {
+				color: $white;
+			}
+			
+			input, button {
+				width: 246px;
+				margin-bottom: $pad/5;
+				@include type-regular;
+				float: none;
+
+				&:focus {
+					box-shadow: none;
+				}
+
+				&.error-outline {
+					border: 1px solid $fg-red;
+				}
+			}
+			
+			#logo {
+				padding: 50px 0 10px 0;
+				margin: 0;
+				img {
+					width: 70px;
+					height: auto;
+				}
+			}
 		}
-	}
-
-	.error {
-		border: 2px solid red; 
 	}
 }
 

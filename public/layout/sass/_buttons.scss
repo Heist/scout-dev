@@ -92,6 +92,10 @@ button.x-onboard {
 		cursor: not-allowed;
 		opacity: 0.4;
 	}
+
+	&.green {
+		@include button-colour($fg-green, $white);
+	}
 	
 	&.dark {
 		@include button-colour($fg-black, $white);

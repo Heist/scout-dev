@@ -1,28 +1,30 @@
 <!-- Summarize on end of run test modal -->
-<div id="test-end-summarize" class="modal">
-	<div class="module one-third">&nbsp;</div>
+<div id="test-end-summarize">
 	
-	<div class="module two-fifths modal-interior">
+	<div class="module full">
+		<div class="modal-interior clearfix">
 		
-		<div class="modal-interior-title">
-			<button class="x-modal" ng-click="summarizeModalToggle()">&times;</button>
-			<h2>Summarize your session</h2>
-			<p>Take 5 minutes to write down the key learnings you found this session.</p>
-			<p>This will make writing a project report much simpler for you. Don't worry, you can edit these later.</p>
-		</div>
-		
-		<ul class="nobullets">
-			<form name="summaryForm" class="summary-form">
-				<li>
-					<textarea class="input" id="field-objective" type="text" value="" placeholder="Outline any insights, usability issues, themes or next steps for your team that you have learned in your sessions." ng-model="summary" />
-					</textarea>
-				</li>
-			</form>
-			<div class="cta">
-				<a href="#" class="secondary button-cancel" ng-click="summarizeModalToggle()" tabindex="1">Cancel</a>
-				<button class="button med float-right" ng-click="addMessageToSummaryTag(summary)" tabindex="0">Done summarizing</button>
+			<div class="modal-interior-title">
+				<button class="x-modal" ng-click="summarizeModalToggle()">&times;</button>
+				<h2>Summarize your session</h2>
+				<p>Take 5 minutes to write down the key learnings you found this session.</p>
+				<p>This will make writing a project report much simpler for you. Don't worry, you can edit these later.</p>
 			</div>
-		</ul>
+			
+			<ul class="nobullets">
+				<form name="summaryForm" class="summary-form">
+					<li>
+						<textarea class="input" id="field-objective" type="text" value="" placeholder="Outline any insights, usability issues, themes or next steps for your team that you have learned in your sessions." ng-model="summary" />
+						</textarea>
+					</li>
+				</form>
+				<div class="cta">
+					<a href="#" class="secondary button-cancel" ng-click="summarizeModalToggle()" tabindex="1">Cancel</a>
+					<button class="button med float-right" ng-click="addMessageToSummaryTag(summary)" tabindex="0">Done summarizing</button>
+				</div>
+			</ul>
+
+		</div>
 		
 	</div>
 	

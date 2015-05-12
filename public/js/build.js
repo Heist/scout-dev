@@ -51537,7 +51537,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         if($stateParams.acct){
             $scope.acct = $stateParams.acct.replace( /\//gi,"");
-            $scope.reg_toggle = true;
 
             
             
@@ -51555,53 +51554,20 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var url = '/auth/login';
             var dataOut =  {email: user.email, password: user.password};
 
+
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    
-                    $scope.flashmessage = data.error;
-                    $location.path('/');
-                });
-        };
 
-        $scope.showLogin = function(){
-            $scope.flashmessage = '';
-            $scope.reg_toggle = false;
-        };
-
-        $scope.showReg = function(){
-            $scope.flashmessage = '';
-            $scope.reg_toggle = true;
-        };
-
-        $scope.register = function(user){
-            var dataOut, invite;
-            
-            console.log('clicked register', user)
-
-            if($stateParams.acct){
-                invite = $stateParams.acct.replace( /\//gi,"");
-                dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
-            } else if (!$stateParams.acct) {
-                dataOut = {email: user.email, name:user.name, password:  user.password};
-            }
-            
-            $http
-                .post('/auth/signup/', dataOut)
-                .success(function(data){
-                    
-                    var msg = data;
-
-                    if(data === '1' ){
-                        msg = 'That email is already taken. <br />Do you want to <a href="/forgot" class="line">reset your password</a>?';
-                        $scope.flashmessage = $sce.trustAsHtml(msg);
-                    } else if(data === '2'){
-                        $scope.flashmessage = 'Please log out before signing up again.';
+                    if (data.error === "No user found. ") {
+                        $scope.errorPassword = '';
+                        $scope.errorEmail = data.error;
                     } else {
-                        
-                        $rootScope.user = data._id;
-                        $location.path(data.redirect);
+                        $scope.errorEmail = '';
+                        $scope.errorPassword = data.error;
                     }
+
+                    $location.path('/');
                 });
         };
 
@@ -51855,14 +51821,56 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
     // REGISTRATION CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-           .controller('register', ['$scope','$http', '$location', '$stateParams','$rootScope', function($scope, $http, $location, $stateParams, $rootScope){
+        .controller('register', ['$scope','$http', '$location', '$stateParams','$rootScope', '$sce',
+        function($scope, $http, $location, $stateParams, $rootScope, $sce){
         
-        $scope.user = $rootScope.user;
+        if($rootScope.user){
+            $scope.user = $rootScope.user;
+        }
         
         if($stateParams.acct){
             $scope.acct = $stateParams.acct.replace( /\//gi,"");
+
+
+            // TODO: get the invitation represented by that id and pre-populate the e-mail field.
+            $http
+                .get('/auth/invite'+$stateParams.acct)
+                .success(function(data){
+                    
+                    $scope.user = data;
+                    $scope.user.email = data.user_email;
+                });
         }
 
+        $scope.register = function(user){
+        	var url = '/auth/signup';
+            var dataOut, invite;
+
+            if($stateParams.acct){
+                invite = $stateParams.acct.replace( /\//gi,"");
+                dataOut = {email: user.email, name:user.name, password: user.password, invite: invite};
+            } else if (!$stateParams.acct) {
+                dataOut = {email: user.email, name:user.name, password:  user.password};
+            }
+            
+            $http
+                .post(url, dataOut)
+                .success(function(data){
+                    console.log(data, data.length);
+                    var msg = data;
+
+                    if(data === '1' ){
+                        msg = 'That email is already taken. <br />Do you want to <a href="/forgot" class="line">reset your password</a>?';
+                        $scope.flashmessage = $sce.trustAsHtml(msg);
+                    } else if(data === '2'){
+                        $scope.flashmessage = 'Please log out before signing up again.';
+                    } else {
+                        
+                        $rootScope.user = data._id;
+                        $location.path(data.redirect);
+                    }
+                });
+        };
     }]);
 })();
 // report.js

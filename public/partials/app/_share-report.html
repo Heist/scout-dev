@@ -1,27 +1,30 @@
 <!-- share report modal -->
 <div id="findings-share-report">
-	<div class="module one-third">&nbsp;</div>
 	
-	<div class="module two-fifths modal-interior">
-		
-		<div class="modal-interior-title">
-			<button class="x-modal" ng-click="shareReportModalToggle()">&times;</button>
-			<h2>Summarize your session</h2>
-			<p>Your report will be visable for anyone with this link.</p>
-		</div>
-		
-		<ul class="nobullets" ng-model="subject">
-			<li>
-				<input class="input" type="text" name="participantname" ng-model="reportLink"/>
-				</input><span><a href="{{reportLink}}" target="_blank"><span class="external-link"></span></a></span>
-			</li>
+	<div class="module full">
 
-			<div class="clear"></div>
-
-			<div class="cta-margin">
-				<button class="button med float-right" ng-click="shareReportModalToggle()" tabindex="0">Done</button>
+		<div class="modal-interior clearfix">
+		
+			<div class="modal-interior-title">
+				<button class="x-modal" ng-click="shareReportModalToggle()">&times;</button>
+				<h2>Summarize your session</h2>
+				<p>Your report will be visable for anyone with this link.</p>
 			</div>
-		</ul>
+			
+			<ul class="nobullets" ng-model="subject">
+				<li>
+					<input class="input" type="text" name="participantname" ng-model="reportLink"/>
+					</input><span><a href="{{reportLink}}" target="_blank"><span class="external-link"></span></a></span>
+				</li>
+
+				<div class="clear"></div>
+
+				<div class="cta-margin">
+					<button class="button med float-right" ng-click="shareReportModalToggle()" tabindex="0">Done</button>
+				</div>
+			</ul>
+
+		</div>
 		
 	</div>
 	
