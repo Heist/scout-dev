@@ -67,11 +67,11 @@
 								<form ng-model='newtask'>
 									<input ng-trim="false" ng-model="newtask.name"placeholder="Write a topic title.."><br/>
 									
-									<textarea ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions..">
+									<textarea msd-elastic ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions..">
 									</textarea>
 								</form>
 								
-								<button class="button full med" ng-click="newTask(newtask)" tabindex="0">Add topic</a></button>
+								<button class="button full" ng-click="newTask(newtask)" tabindex="0">Add topic</a></button>
 							<div class="clear"></div>
 						</div>
 						<!-- / add a new task -->
