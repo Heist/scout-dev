@@ -2,6 +2,47 @@
 
 /* tooltips */
 
+// tooltip icon that comes after text
+span.tooltip-icon-text-align {
+    background: $fg-grey-light;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    margin: 0 0 0 5px;
+    vertical-align: bottom;
+
+    & span {
+        position: absolute;
+        top: 0px;
+        right: 3px;
+        color: $white;
+        font-size: 8px;
+    }
+}
+
+// tooltip icon place anywhere
+span.tooltip-icon {
+    background: $fg-grey-light;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    margin: 0 0 0 5px;
+    vertical-align: bottom;
+
+    & span {
+        position: absolute;
+        top: 0px;
+        right: 3px;
+        color: $white;
+        font-size: 8px;
+    }
+}
+
+
 // small tooltip
 
 [data-tooltip],

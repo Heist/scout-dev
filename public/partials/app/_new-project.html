@@ -10,13 +10,13 @@
 			</div>
 
 			<button class="module test-type interview" ng-class='{"select-active": !test.kind || test === "undefined" || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>
-				<span class="info project-tooltip" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
+				<span class="tooltip-icon" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
 				<h3 class="interview">Interview</h3>
 				<p>Good for Ethography, User Observation or Customer</p>
 			</button>
 			
 			<button class="module test-type prototype" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>
-				<span class="info project-tooltip" data-tooltip-large="For research where participants need to interact with screen like Prototype Testing or Usability Testing."><span>?</span></span>
+				<span class="tooltip-icon" data-tooltip-large="For research where participants need to interact with screen like Prototype Testing or Usability Testing."><span>?</span></span>
 				<h3 class="prototype">Screen-based Research</h3>
 				<p>Good for Prototype Testing, Usability Testing or Competitive Research</p>
 			</button>

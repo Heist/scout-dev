@@ -3319,6 +3319,38 @@ Copyright (c) 2015 Daniel Eden
 /* components */
 /* styles for bits */
 /* tooltips */
+span.tooltip-icon-text-align {
+  background: #D8DADB;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  margin: 0 0 0 5px;
+  vertical-align: bottom; }
+  span.tooltip-icon-text-align span {
+    position: absolute;
+    top: 0px;
+    right: 3px;
+    color: #fff;
+    font-size: 8px; }
+
+span.tooltip-icon {
+  background: #D8DADB;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  margin: 0 0 0 5px;
+  vertical-align: bottom; }
+  span.tooltip-icon span {
+    position: absolute;
+    top: 0px;
+    right: 3px;
+    color: #fff;
+    font-size: 8px; }
+
 [data-tooltip], [data-tooltip-large], [data-tooltip-large-report], .tooltip {
   position: relative;
   cursor: pointer; }
@@ -5006,12 +5038,12 @@ hr {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px; }
-  #view-new-project button.test-type span.info {
+  #view-new-project button.test-type span.tooltip-icon {
     position: absolute;
     top: 5px;
     right: 8px;
-    background: #949799; }
-    #view-new-project button.test-type span.info span {
+    background: #D8DADB; }
+    #view-new-project button.test-type span.tooltip-icon span {
       top: 0px;
       right: 3.5px; }
   #view-new-project button.test-type h3 {
@@ -5052,7 +5084,7 @@ hr {
     color: #fff; }
     #view-new-project button.test-type:hover a {
       color: #fff; }
-    #view-new-project button.test-type:hover span.info {
+    #view-new-project button.test-type:hover span.tooltip-icon {
       background: #70910D; }
     #view-new-project button.test-type:hover a {
       color: #fff; }
@@ -5063,7 +5095,7 @@ hr {
   #view-new-project button.test-type.select-active {
     background: #85AC0F;
     color: #fff; }
-    #view-new-project button.test-type.select-active span.info {
+    #view-new-project button.test-type.select-active span.tooltip-icon {
       background: #70910D; }
     #view-new-project button.test-type.select-active a {
       color: #fff; }
@@ -5076,12 +5108,12 @@ hr {
     color: #949799; }
     #view-new-project button.test-type.select-inactive a {
       color: #00B5E3; }
-    #view-new-project button.test-type.select-inactive span.info {
+    #view-new-project button.test-type.select-inactive span.tooltip-icon {
       position: absolute;
       top: 5px;
       right: 8px;
-      background: #949799; }
-      #view-new-project button.test-type.select-inactive span.info span {
+      background: #D8DADB; }
+      #view-new-project button.test-type.select-inactive span.tooltip-icon span {
         top: 0px;
         right: 3.5px; }
     #view-new-project button.test-type.select-inactive h3.interview:before {
@@ -5135,7 +5167,8 @@ hr {
     font-size: 10px;
     margin: 20px 0;
     text-transform: uppercase;
-    text-align: right; }
+    text-align: right;
+    position: relative; }
   #view-editing h4 {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -5262,6 +5295,8 @@ hr {
           float: left;
           width: 120px;
           margin: 8px 40px 0 0; }
+          #view-editing .container .sheet-holder .sheet .container-row .container-left .create-project-tooltip {
+            float: left; }
         #view-editing .container .sheet-holder .sheet .container-row .container-right {
           float: left;
           width: 585px; }

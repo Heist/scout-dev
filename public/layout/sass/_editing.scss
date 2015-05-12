@@ -26,11 +26,11 @@
         margin-bottom: 20px;
         @include radius;
 
-        span.info {
+        span.tooltip-icon {
             position: absolute;
             top: 5px;
             right: 8px;
-            background: $fg-grey;
+            background: $fg-grey-light;
 
             & span {
                 top: 0px;
@@ -95,7 +95,7 @@
                 color: $white;
             }
 
-            span.info {
+            span.tooltip-icon {
                 background: $fg-green-dark;
             }
 
@@ -121,7 +121,7 @@
             background: $fg-green;
             color: $white;
 
-            span.info {
+            span.tooltip-icon {
                 background: $fg-green-dark;
             }
 
@@ -151,11 +151,11 @@
                 color: $fg-blue;
             }
 
-            span.info {
+            span.tooltip-icon {
                 position: absolute;
                 top: 5px;
                 right: 8px;
-                background: $fg-grey;
+                background: $fg-grey-light;
 
                 & span {
                     top: 0px;
@@ -240,6 +240,7 @@
         margin: 20px 0;
         text-transform: uppercase;
         text-align: right;
+        position: relative;
     }
 
     h4 {
@@ -380,6 +381,10 @@
                         float: left;
                         width: 120px;
                         margin: 8px 40px 0 0;
+
+                        .create-project-tooltip {
+                            float: left;
+                        }
                     }
 
                     .container-right {
