@@ -46,7 +46,7 @@
             &.interview {
 
                 &:before {
-                    background: url('../assets/platform-icons/interview-dark.svg') top left no-repeat;
+                    background: url('../assets/interview-dark.svg') top left no-repeat;
                     content: '';
                     width: 10px;
                     height: 16px;
@@ -58,7 +58,7 @@
             &.prototype {
                 
                 &:before {
-                    background: url('../assets/platform-icons/prototype-dark.svg') top left no-repeat;
+                    background: url('../assets/prototype-dark.svg') top left no-repeat;
                     content: '';
                     width: 12px;
                     height: 17px;
@@ -106,12 +106,12 @@
             h3 {
                 &.interview {
                     &:before {
-                        background: url('../assets/platform-icons/interview-light.svg') top left no-repeat;
+                        background: url('../assets/interview-light.svg') top left no-repeat;
                     }
                 }
                 &.prototype {
                     &:before {
-                        background: url('../assets/platform-icons/prototype-light.svg') top left no-repeat;
+                        background: url('../assets/prototype-light.svg') top left no-repeat;
                     }
                 }
             }
@@ -132,12 +132,12 @@
             h3 {
                 &.interview {
                     &:before {
-                        background: url('../assets/platform-icons/interview-light.svg') top left no-repeat;
+                        background: url('../assets/interview-light.svg') top left no-repeat;
                     }
                 }
                 &.prototype {
                     &:before {
-                        background: url('../assets/platform-icons/prototype-light.svg') top left no-repeat;
+                        background: url('../assets/prototype-light.svg') top left no-repeat;
                     }
                 }
             }
@@ -166,12 +166,12 @@
             h3 {
                 &.interview {
                     &:before {
-                        background: url('../assets/platform-icons/interview-dark.svg') top left no-repeat;
+                        background: url('../assets/interview-dark.svg') top left no-repeat;
                     }
                 }
                 &.prototype {
                     &:before {
-                        background: url('../assets/platform-icons/prototype-dark.svg') top left no-repeat;
+                        background: url('../assets/prototype-dark.svg') top left no-repeat;
                     }
                 }
             }

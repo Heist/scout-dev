@@ -5021,14 +5021,14 @@ hr {
     font-weight: 300;
     display: inline-block; }
     #view-new-project button.test-type h3.interview:before {
-      background: url('../assets/platform-icons/interview-dark.svg') top left no-repeat;
+      background: url('../assets/interview-dark.svg') top left no-repeat;
       content: '';
       width: 10px;
       height: 16px;
       display: inline-block;
       margin: 0 5px 0 0; }
     #view-new-project button.test-type h3.prototype:before {
-      background: url('../assets/platform-icons/prototype-dark.svg') top left no-repeat;
+      background: url('../assets/prototype-dark.svg') top left no-repeat;
       content: '';
       width: 12px;
       height: 17px;
@@ -5057,9 +5057,9 @@ hr {
     #view-new-project button.test-type:hover a {
       color: #fff; }
     #view-new-project button.test-type:hover h3.interview:before {
-      background: url('../assets/platform-icons/interview-light.svg') top left no-repeat; }
+      background: url('../assets/interview-light.svg') top left no-repeat; }
     #view-new-project button.test-type:hover h3.prototype:before {
-      background: url('../assets/platform-icons/prototype-light.svg') top left no-repeat; }
+      background: url('../assets/prototype-light.svg') top left no-repeat; }
   #view-new-project button.test-type.select-active {
     background: #85AC0F;
     color: #fff; }
@@ -5068,9 +5068,9 @@ hr {
     #view-new-project button.test-type.select-active a {
       color: #fff; }
     #view-new-project button.test-type.select-active h3.interview:before {
-      background: url('../assets/platform-icons/interview-light.svg') top left no-repeat; }
+      background: url('../assets/interview-light.svg') top left no-repeat; }
     #view-new-project button.test-type.select-active h3.prototype:before {
-      background: url('../assets/platform-icons/prototype-light.svg') top left no-repeat; }
+      background: url('../assets/prototype-light.svg') top left no-repeat; }
   #view-new-project button.test-type.select-inactive {
     background: rgba(216, 218, 219, 0.2);
     color: #949799; }
@@ -5085,9 +5085,9 @@ hr {
         top: 0px;
         right: 3.5px; }
     #view-new-project button.test-type.select-inactive h3.interview:before {
-      background: url('../assets/platform-icons/interview-dark.svg') top left no-repeat; }
+      background: url('../assets/interview-dark.svg') top left no-repeat; }
     #view-new-project button.test-type.select-inactive h3.prototype:before {
-      background: url('../assets/platform-icons/prototype-dark.svg') top left no-repeat; }
+      background: url('../assets/prototype-dark.svg') top left no-repeat; }
   #view-new-project button.test-type .selected-arrow {
     display: none; }
   #view-new-project button.test-type .no-link {
