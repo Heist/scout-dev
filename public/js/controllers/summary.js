@@ -251,7 +251,7 @@
 
                     // now find the original._id on raw list item replace with new _id
                     var objList    = _.filter($scope.rawList, function(n){ return n.doctype !== 'test'; })
-                    var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; })[0];
+                    var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; });
                     var nonTestObj = _.map(objList, function(n){
                         console.log(n);
                         var x = n._messages.indexOf(output._id);
