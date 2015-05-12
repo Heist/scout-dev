@@ -43,6 +43,7 @@
 							<h3>Research topics</h3>
 							<p>Outline the topics or tasks and questions you want to discuss with your participants for this project. These will be visible for you while you run a session with a participant. <a href="https://medium.com/@FieldGuideApp/what-makes-a-good-task-b807bb12f21b" target="_blank">Learn more</a> </p>
 							<li ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
+							<span ng-click="deleteObject(task)">&times;</span>
 								<div ng-click="select(task)">
 									<form>
 										<input class="input-no-border task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
@@ -59,17 +60,20 @@
 								<div class="add-task">
 									<form ng-model='newtask'>
 										<h4>Topic</h4>
-										<input ng-trim="false" ng-model="newtask.name"placeholder="Provide a simple description for the subject of this group of questions."><br/>
+										<input ng-trim="false" ng-model="newtask.name" placeholder="Provide a simple description for the subject of this group of questions." required><br/>
 										
 										<h4>Questions</h4>
 										<textarea ng-model="newtask.desc" id="bulletform" placeholder="List the questions you want participants to answer related to this topic.">
 										</textarea>
-									</form>
-								
-									<div class="box clearfix">
-										<button class="button full med" ng-click="newTask(newtask)" tabindex="0">Add topic</a></button>
+									
+									<br />
+									<br />
+									<hr />
+									<div class="clearfix">
+										<button ng-if="!newtask.name" class="button full med dark" tabindex="0">Add topic</a></button>
+										<button ng-if="newtask.name" type="submit" class="button full med" ng-click="newTask(newtask)" tabindex="0">Add topic</a></button>
 									</div>
-
+									</form>
 									<div class="clear"></div>
 								</div>
 							<!-- / add a new task -->
