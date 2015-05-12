@@ -3341,7 +3341,7 @@ span.tooltip-icon {
   height: 10px;
   border-radius: 50%;
   display: inline-block;
-  position: relative;
+  position: absolute;
   margin: 0 0 0 5px;
   vertical-align: bottom; }
   span.tooltip-icon span {
@@ -3350,6 +3350,15 @@ span.tooltip-icon {
     right: 3px;
     color: #fff;
     font-size: 8px; }
+
+span.tooltip-icon {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  background: #D8DADB; }
+  span.tooltip-icon span {
+    top: 0px;
+    right: 3.5px; }
 
 [data-tooltip], [data-tooltip-large], [data-tooltip-large-report], .tooltip {
   position: relative;
@@ -5041,8 +5050,7 @@ hr {
   #view-new-project button.test-type span.tooltip-icon {
     position: absolute;
     top: 5px;
-    right: 8px;
-    background: #D8DADB; }
+    right: 8px; }
     #view-new-project button.test-type span.tooltip-icon span {
       top: 0px;
       right: 3.5px; }

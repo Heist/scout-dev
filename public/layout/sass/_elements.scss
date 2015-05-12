@@ -29,7 +29,7 @@ span.tooltip-icon {
     height: 10px;
     border-radius: 50%;
     display: inline-block;
-    position: relative;
+    position: absolute;
     margin: 0 0 0 5px;
     vertical-align: bottom;
 
@@ -41,6 +41,18 @@ span.tooltip-icon {
         font-size: 8px;
     }
 }
+
+        span.tooltip-icon {
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            background: $fg-grey-light;
+
+            & span {
+                top: 0px;
+                right: 3.5px;
+            }
+        }
 
 
 // small tooltip
