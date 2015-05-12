@@ -270,12 +270,17 @@
         }
     }
 
+    input {
+        padding: 0;
+    }
+
     textarea.test-descriptions, textarea.task-descriptions {
         font-size: 14px;
         line-height: 18px;
         @include type-light;
         color: $fg-grey;
         margin: 0;
+        padding: 0;
         resize: none;
 
         &:hover, &:focus {
@@ -327,17 +332,13 @@
     }
 
     .tags {
-        margin: 0 0 40px 0;
         @include input-placeholders;
 
         .tag-pool {
             width: 100%;
             height: 100%;
-            // background: transparentize($fg-grey-light, 0.5);
-            border: 1px solid transparentize($fg-grey-light, 0.5);
-            
             ul {
-                padding: 0;
+                padding: 0 0 10px 0;
                 margin: 0;
                 
                 li {
@@ -364,6 +365,7 @@
             font-size: 14px;
             line-height: 20px;
             color: $fg-grey;
+            border: 1px solid transparentize($fg-grey-light, 0.5);
         }
     }
 
@@ -374,71 +376,62 @@
 
     .container {
         padding: $pad 0 0 0;
-    }
-        .container-row {
-            clear:both;
 
-            .container-title {
-                float: left;
-                width: 120px;
-                margin: 0 40px 0 0;
+        .sheet-holder {
 
-                &:nth-child(1) {
-                    margin: 80px 40px 0 0;
+            .sheet {
+                width: 745px;
+                margin: 0 auto;
+
+                .container-row {
+                    clear: both;
+                    padding: 0 0 50px 0;
+
+                    .container-left {
+                        float: left;
+                        width: 120px;
+                        margin: 5px 40px 0 0;
+                    }
+
+                    .container-right {
+                        float: left;
+                        width: 585px;
+                    }
                 }
-
-                &:nth-child(1) {
-                    margin: 80px 40px 0 0;
-                }
-
-
-            }
-            .container-content {
-                float: left;
-                width: 585px;
-                margin: 0 0 50px 0;
-            }
-        }
-
-
-
-    .sheet-holder {
-        padding: 40px 0;
-
-        .sheet {
-            width: 745px;
-            margin: 0 auto;
-        }
-    }
-
-    .test-setup {
-        padding: $pad 0 0 0;
-
-        .nobullets {
-            width: 100%;
-            .input {
-                width: 100%;
-            }
-        }
-
-        @include input-placeholders;
-
-        .select-active {
-            @include button-colour($fg-green, $white);
-            border: 1px solid $fg-green-light;
-            cursor: pointer;
-            &:after {
-                content: 'ed';
-            }
-        }
-        .select-inactive {
-            background: $white;
-            color: $fg-grey;
-            border: 1px solid $fg-grey-light;
-            cursor: pointer;
-            &:after {
-                content: '';
             }
         }
     }
+
+    // .test-setup {
+    //     padding: $pad 0 0 0;
+
+    //     .nobullets {
+    //         width: 100%;
+    //         .input {
+    //             width: 100%;
+    //         }
+    //     }
+
+    //     @include input-placeholders;
+
+    //     .select-active {
+    //         @include button-colour($fg-green, $white);
+    //         border: 1px solid $fg-green-light;
+    //         cursor: pointer;
+    //         &:after {
+    //             content: 'ed';
+    //         }
+    //     }
+    //     .select-inactive {
+    //         background: $white;
+    //         color: $fg-grey;
+    //         border: 1px solid $fg-grey-light;
+    //         cursor: pointer;
+    //         &:after {
+    //             content: '';
+    //         }
+    //     }
+    // }
+
+
 }
