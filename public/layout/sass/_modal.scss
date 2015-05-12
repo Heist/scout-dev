@@ -134,7 +134,7 @@
         width: 550px;
         background: $white;
         padding: ($pad * 1.5) ($pad * 2) ($pad * 1.5) ($pad * 2);
-        margin: 5% auto;
+        margin: 10% auto;
         @include radius;
         @include dropshadowULTRA;
         @include input-placeholders;
