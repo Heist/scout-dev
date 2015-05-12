@@ -269,6 +269,11 @@
                         }
                     })
 
+                    if(data._tags.indexOf($scope.summaryItem._id) !== -1){
+                        // if it's a summary message, add it back into the message filter list
+                        $scope.summaryItem._messages.splice($scope.summaryItem._messages.indexOf(original._id), 1, data.msg._id);
+                    }
+
                     console.log(test);
 
                     $scope.rawList = test.concat(nonTestObj);
