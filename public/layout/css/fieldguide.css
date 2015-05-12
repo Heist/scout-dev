@@ -3319,7 +3319,7 @@ Copyright (c) 2015 Daniel Eden
 /* components */
 /* styles for bits */
 /* tooltips */
-span.tooltip-icon-text-align {
+span.tooltip-icon {
   background: #D8DADB;
   width: 10px;
   height: 10px;
@@ -3327,38 +3327,15 @@ span.tooltip-icon-text-align {
   display: inline-block;
   position: relative;
   margin: 0 0 0 5px;
-  vertical-align: bottom; }
-  span.tooltip-icon-text-align span {
-    position: absolute;
-    top: 0px;
-    right: 3px;
-    color: #fff;
-    font-size: 8px; }
-
-span.tooltip-icon {
-  background: #D8DADB;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  margin: 0 0 0 5px;
-  vertical-align: bottom; }
+  vertical-align: bottom;
+  text-transform: none; }
   span.tooltip-icon span {
     position: absolute;
     top: 0px;
     right: 3px;
     color: #fff;
-    font-size: 8px; }
-
-span.tooltip-icon {
-  position: absolute;
-  top: 5px;
-  right: 8px;
-  background: #D8DADB; }
-  span.tooltip-icon span {
-    top: 0px;
-    right: 3.5px; }
+    font-size: 8px;
+    text-transform: none; }
 
 [data-tooltip], [data-tooltip-large], [data-tooltip-large-report], .tooltip {
   position: relative;

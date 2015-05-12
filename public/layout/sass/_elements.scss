@@ -3,7 +3,7 @@
 /* tooltips */
 
 // tooltip icon that comes after text
-span.tooltip-icon-text-align {
+span.tooltip-icon {
     background: $fg-grey-light;
     width: 10px;
     height: 10px;
@@ -12,6 +12,7 @@ span.tooltip-icon-text-align {
     position: relative;
     margin: 0 0 0 5px;
     vertical-align: bottom;
+    text-transform: none;
 
     & span {
         position: absolute;
@@ -19,40 +20,9 @@ span.tooltip-icon-text-align {
         right: 3px;
         color: $white;
         font-size: 8px;
+        text-transform: none;
     }
 }
-
-// tooltip icon place anywhere
-span.tooltip-icon {
-    background: $fg-grey-light;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
-    margin: 0 0 0 5px;
-    vertical-align: bottom;
-
-    & span {
-        position: absolute;
-        top: 0px;
-        right: 3px;
-        color: $white;
-        font-size: 8px;
-    }
-}
-
-        span.tooltip-icon {
-            position: absolute;
-            top: 5px;
-            right: 8px;
-            background: $fg-grey-light;
-
-            & span {
-                top: 0px;
-                right: 3.5px;
-            }
-        }
 
 
 // small tooltip
