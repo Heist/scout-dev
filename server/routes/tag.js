@@ -32,5 +32,9 @@ module.exports = function(app, passport) {
         .post(function(req,res){
             // console.log('tag post touched')
             res.json('tag post touched');
+        })
+        .delete(function(req, res){
+            
         });
+
 };

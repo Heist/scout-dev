@@ -38,13 +38,6 @@ module.exports = function(task, next){
                     if(err){ console.log(err); }
                     callback(null, 'msg');
                 });
-        },
-        function(callback){
-            models.Tag.remove({_task: task},
-                function(err, msg){
-                    if(err){ console.log(err); }
-                    callback(null, 'tag');
-                });
         }
     ], 
     function(err, results){
