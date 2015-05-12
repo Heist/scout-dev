@@ -5181,7 +5181,13 @@ hr {
       color: #000;
       background: url('../assets/fg-edit.svg') 14px 5px no-repeat; }
   #view-editing input.project-name, #view-editing .add-task textarea.project-name {
-    padding: 0px 0px 0px 40px; }
+    padding: 0px 0px 0px 40px;
+    margin: 0; }
+  #view-editing .test-info {
+    padding: 5px 0 30px 40px; }
+    #view-editing .test-info img {
+      width: 11px;
+      margin: 0 3px 0 0; }
   #view-editing textarea.objectives, #view-editing textarea.task-descriptions {
     font-size: 14px;
     line-height: 18px;

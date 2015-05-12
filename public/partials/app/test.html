@@ -1,7 +1,6 @@
 <!-- Add test -->
 <div id="view-editing" ng-model="test">
 	<ng-include src="'partials/app/_header-small.html'"></ng-include>
-	
 	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
 	
 	<div class="container" >
@@ -20,6 +19,23 @@
 						<div class="container-left"></div>
 						<div class="container-right">
 							<input class="input-no-border project-name" ng-trim="false" ng-model="test.name" ng-focus="editTitle(test)" ng-blur="blurTitle(test)">
+							
+							<div class="test-info" ng-if="test.kind === 'interview'" ng-model="report">
+								<img src="layout/assets/interview-dark.svg" alt="Interview icon"> Interview
+
+								<div ng-model="selected">
+									<a href="{{selected.link}}" target="_">{{selected.link}}</a>
+								</div>
+							</div>
+
+							<div class="test-info" ng-if="test.kind === 'prototype'">
+								<img src="layout/assets/prototype-dark.svg" alt="Interview icon"> Prototype
+
+								<div ng-model="selected">
+									<a href="{{selected.link}}" target="_">{{selected.link}}</a>
+								</div>
+							</div>
+
 						</div>
 
 						<h3 class="container-left">Objectives</h3>
