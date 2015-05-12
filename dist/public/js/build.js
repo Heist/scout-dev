@@ -52555,21 +52555,26 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     
 
                     // now find the original._id on raw list item replace with new _id
-                    var objList    = _.filter($scope.rawList, function(n){ return n.doctype !== 'test'; })
-                    var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; })[0];
+                    var objList    = _.filter($scope.rawList, function(n){ if(n.doctype === 'tag' || n.doctype === 'tag' ) {return n;} else {return;}})
+                    var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; });
+                    
                     var nonTestObj = _.map(objList, function(n){
                         void 0;
                         var x = n._messages.indexOf(output._id);
 
                         if( x !== -1){
-                          return  n._messages.splice(x, 1, data.msg._id);
+                            n._messages.splice(x, 1, data.msg._id);
+                          return n;
                         }
                         if(n._messages.length === 0){
-                          return n._messages.splice(0, 1, data.msg._id);
+                            n._messages.splice(0, 1, data.msg._id);
+                          return n;
                         } else {
-                            return n._messages;
+                            return n;
                         }
                     })
+
+                    void 0;
 
                     $scope.rawList = test.concat(nonTestObj);
 
