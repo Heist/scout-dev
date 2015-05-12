@@ -25,6 +25,7 @@ module.exports = {
 	messageList     : require('./message-list'),
 	messageNew      : require('./message-new'),
 	messageRemove 	: require('./message-remove'),
+	modelSave		: require('./modelSave'),
 	objectUpdate    : require('./object-update'),
 	resendInvite    : require('./resend-invite'),
 	resetPassword   : require('./reset-password'),

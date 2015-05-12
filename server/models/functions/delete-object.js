@@ -2,18 +2,17 @@
 // delete-object.js
 
 'use strict';
-module.exports = function(objectKey, next){
+module.exports = function(objectKey, type, next){
 
 // Module dependencies ==========================
-    var async = require('async');
-    var models   = require('../../models');
     var Promise = require('bluebird');
+    var models  = Promise.promisifyAll(require('../../models'));
 
 // delete an object
     // find an object
     // remove it from its test
     // NO LONGER: remove all related messages and tags 
-    var obj = object.doctype;
+    
 
     async.parallel([
         function(callback){
