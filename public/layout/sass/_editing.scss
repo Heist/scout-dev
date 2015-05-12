@@ -1,4 +1,4 @@
-/* new project */
+/* new project modal */
 #view-new-project {
 
     ul {
@@ -12,61 +12,79 @@
     .project-tooltip {
         @include type-regular;
     }
-    
+
     button.test-type {
         width: 48.5%;
-        height: 146px;
         outline: 0;
         text-align: center;
         position: relative;
         cursor: pointer;
         border: 0;
-        padding: 20px;
+        padding: 20px 15px;
         background: transparentize($fg-grey-light, 0.8);
         color: $fg-grey;
         margin-bottom: 20px;
         @include radius;
 
-        &.interview {
-            position: relative;
-            margin-right: 1.5%;
+        span.info {
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            background: $fg-grey;
 
-            span.info {
-                position: absolute;
-                top: 5px;
-                right: 8px;
-                background: $fg-grey;
+            & span {
+                top: 0px;
+                right: 3.5px;
+            }
+        }
 
-                & span {
-                    top: 0px;
-                    right: 4.5px;
+        h3 {
+            font-size: 18px;
+            @include type-light;
+            display: inline-block;
+
+            &.interview {
+
+                &:before {
+                    background: url('../assets/platform-icons/interview-dark.svg') top left no-repeat;
+                    content: '';
+                    width: 10px;
+                    height: 16px;
+                    display: inline-block;
+                    margin: 0 5px 0 0;
                 }
             }
 
-            p {
-                margin: 0 0 10px 0;
+            &.prototype {
+                
+                &:before {
+                    background: url('../assets/platform-icons/prototype-dark.svg') top left no-repeat;
+                    content: '';
+                    width: 12px;
+                    height: 17px;
+                    display: inline-block;
+                    margin: 0 5px 0 0;
+                }
             }
+
+        }
+
+
+        p {
+            @include type-light;
+            font-size: 12px;
+            margin: 0;
+            clear: both;
+        }
+
+        &.interview {
+            position: relative;
+            margin-right: 1.5%;
         }
 
         &.prototype {
             position: relative;
             margin-left: 1.5%;
-
-            span.info {
-                position: absolute;
-                top: 5px;
-                right: 8px;
-                background: $fg-grey;
-
-                & span {
-                    top: 0px;
-                    right: 4.5px;
-                }
-            }
-
-            p {
-                margin: 0 0 10px 0;
-            }
         }
 
         &:hover {
@@ -84,6 +102,19 @@
             & a {
                 color: $white;
             }
+
+            h3 {
+                &.interview {
+                    &:before {
+                        background: url('../assets/platform-icons/interview-light.svg') top left no-repeat;
+                    }
+                }
+                &.prototype {
+                    &:before {
+                        background: url('../assets/platform-icons/prototype-light.svg') top left no-repeat;
+                    }
+                }
+            }
         }
 
         &.select-active {
@@ -96,6 +127,19 @@
 
             & a {
                 color: $white;
+            }
+
+            h3 {
+                &.interview {
+                    &:before {
+                        background: url('../assets/platform-icons/interview-light.svg') top left no-repeat;
+                    }
+                }
+                &.prototype {
+                    &:before {
+                        background: url('../assets/platform-icons/prototype-light.svg') top left no-repeat;
+                    }
+                }
             }
         }
 
@@ -115,7 +159,20 @@
 
                 & span {
                     top: 0px;
-                    right: 4.5px;
+                    right: 3.5px;
+                }
+            }
+
+            h3 {
+                &.interview {
+                    &:before {
+                        background: url('../assets/platform-icons/interview-dark.svg') top left no-repeat;
+                    }
+                }
+                &.prototype {
+                    &:before {
+                        background: url('../assets/platform-icons/prototype-dark.svg') top left no-repeat;
+                    }
                 }
             }
         }
@@ -126,18 +183,6 @@
 
         .no-link {
             font-size: 9px;
-        }
-
-        h3 {
-            font-size: 18px;
-            @include type-light;
-        }
-
-        p {
-            @include type-light;
-            font-size: 14px;
-            line-height: 18px;
-            margin: 0;
         }
 
         &.selected {
