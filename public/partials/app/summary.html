@@ -120,7 +120,6 @@
 					<div ng-repeat="message in user" class="message"
 						ng-show="summaryItem._messages.indexOf(message._id) !== -1"
 						ng-class="{selected: commentMessage._id === message._id}">
-						{{summaryItem}}
 						<div class="message-body" ng-click="editMessage(message, $index)">
 							<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
 							<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)"></textarea>

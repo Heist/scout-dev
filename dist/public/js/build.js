@@ -52370,7 +52370,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         var tagCheck = $scope.summaryItem._id;
         
         // organise the returned information to pass back a good set for raw data
-        var hasMsg  = _.filter(loadData.data.messages, function(n){ '' 
+        var hasMsg  = _.filter(loadData.data.list, function(n){ '' 
                             var reply;
                             if(n.doctype === 'test'){ return n.doctype === 'test' }
                             else {
