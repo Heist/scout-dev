@@ -18,7 +18,7 @@ module.exports = function(account, id, callback){
         return new Promise(function (resolve, reject) {
             mongooseModel.save(function(err,done) {
               if (!done || done.error || err) {
-                console.log(err);
+                console.error(err);
                 return reject(done.error);}
               return resolve(done);
             })
@@ -156,6 +156,6 @@ module.exports = function(account, id, callback){
         console.log('did we save tests?', savedArray.length);
         callback(null, savedArray);
     }).catch(function(err){
-        if(err){console.log(err);}
+        if(err){console.error(err);}
     });
 }

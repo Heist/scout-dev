@@ -63,7 +63,7 @@ module.exports = function(app, passport) {
     // post fav to a message or array of messages
         var message_array = [req.body];
         fn.messageFav(message_array, function(err, messages){
-            if(err){ console.log(err); }
+            if(err){ console.error(err); }
             res.json(messages);
         });
     });
@@ -73,7 +73,7 @@ module.exports = function(app, passport) {
         //get one specific message
         models.Message.findById(req.params._id)
             .exec(function(err,msg){
-                if(err){  }
+                if(err){ console.error(err); }
                 res.json(msg);
             });
     })

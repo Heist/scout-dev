@@ -24,7 +24,7 @@ module.exports = function(object_array, next){
             Model.findOne({'_id' : obj._id})
                  .exec(function(err, model){
                     // todo: if there's a new subject, pass a subject in and update the subjects list.
-                    if(err){  }
+                    if(err){ console.error(err); }
                     if(!model){ callback(null, null); }
 
                     model.report     = true;
@@ -53,7 +53,7 @@ module.exports = function(object_array, next){
                 });
         },
         function(err, results){
-            if(err){ console.log(err); }
+            if(err){ console.error(err); }
             next(null, results);
         });
 };

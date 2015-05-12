@@ -49,7 +49,7 @@ module.exports = function(user, next){
         		callback(null, {user: arg.user, tests: false});
         	}
         }], function(err, results){
-        	if(err){ console.log(err); }
+        	if(err){ console.error(err); }
         	next(null, results);
         });
 };

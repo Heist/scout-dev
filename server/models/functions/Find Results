@@ -1,0 +1,581 @@
+Searching 62 files for "if(err){"
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/account_export.js:
+   26                  .select('name local.email')
+   27                  .exec(function(err, data){
+   28:                     if(err){ console.error(err); }
+   29                      callback(null, data);
+   30                  });
+   ..
+   37                          .select('name platform desc updated created created_by_user')
+   38                          .exec(function(err, data){
+   39:                             if(err){ console.error(err); }
+   40                              // 
+   41                              callback(null,data);
+   ..
+   54                                      .select('_messages created desc name pass_fail index report_index updated visible ')
+   55                                      .exec(function(err, data){
+   56:                                         if(err){ console.error(err); }
+   57                                          // for each task
+   58                                          // find all messages
+   ..
+   70                                                              .populate('_comments')
+   71                                                              .exec(function(err, data){
+   72:                                                                 if(err){ console.error(err); }
+   73                                                                  callback(null, data);
+   74                                                              });
+   75                                                      },
+   76                                                      function(err, results){
+   77:                                                         if(err){ console.error(err); }
+   78                                                          // these results are your populated, commented messages.
+   79                                                          obj._messages = '';
+   ..
+   92                                          .populate('_test _messages')
+   93                                          .exec(function(err, data){
+   94:                                                 if(err){ console.error(err); }
+   95                                                  // for each task
+   96                                                  // find all messages
+   ..
+  108                                                                      .populate('_comments')
+  109                                                                      .exec(function(err, data){
+  110:                                                                         if(err){ console.error(err); }
+  111                                                                          callback(null, data);
+  112                                                                      });
+  113                                                              },
+  114                                                              function(err, results){
+  115:                                                                 if(err){ console.error(err); }
+  116                                                                  // these results are your populated, commented messages.
+  117                                                                  obj._messages = '';
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/async message callbacks:
+    2  //             task: function(callback){
+    3  //                 models.Task.findOneAndUpdate({'_id': m._task}, { $push: { _messages: m._id } },{upsert : false }, function(err, next){
+    4: //                     if(err){ console.error(err); }
+    5  //                     callback(null, next);
+    6  //                 });
+    .
+   26  //         },
+   27  //         function(err, results){
+   28: //             if(err){ console.error(err); }
+   29  //             
+   30  //             next(err, results);
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/build-object-list.js:
+   38              return navlist;
+   39          }).catch(function(err){
+   40:             if(err){ console.error(err); }
+   41          })
+   42  
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/build-summary.js:
+   18          messages: function(callback){
+   19              fn.messageList(report_id, function(err, list){
+   20:                 if(err){ console.error(err); }
+   21                  callback(null, list);
+   22              });
+   ..
+   24      },
+   25      function(err, results){
+   26:         if(err){ console.error(err); }
+   27          console.log('build summary results', results);
+   28          next(null, results);
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/comment.js:
+   15          },
+   16          function(err, cmt){
+   17:             if(err){ console.error(err); }
+   18          });
+   19  
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/create-invite.js:
+   65                  invite_email : address
+   66              }, function(err, invite){
+   67:                 if(err){ console.error(err); }
+   68  
+   69                  var mailer = new Emailer(
+   ..
+   85      ], 
+   86      function(err, results){
+   87:         if(err){ console.error(err); }
+   88          next(null, results);
+   89      });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/default-tests.js:
+  157          callback(null, savedArray);
+  158      }).catch(function(err){
+  159:         if(err){console.error(err);}
+  160      });
+  161  }
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/delete-object.js:
+   19          function(callback){
+   20              models.Task.findById(task, function(err, doc){
+   21:                 if(err){ console.error(err) }
+   22  
+   23                  models.Test.findOne({'_id': doc._test})
+   24                      .exec(function(err, test){
+   25:                         if(err){ console.error(err) }
+   26  
+   27                          test._tasks.remove(doc._id);
+   28                          test.save(function(err,data){
+   29:                             if(err){ console.error(err); }
+   30                          });
+   31                      });
+   32              })
+   33              .remove(function(err){
+   34:                 if(err){ console.error(err); }
+   35                  callback(null, 'task');
+   36              });
+   ..
+   38      ], 
+   39      function(err, results){
+   40:         if(err){ console.error(err); }
+   41          next(task);
+   42      });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/delete-task.js:
+   16          function(callback){
+   17              models.Task.findById(task, function(err, doc){
+   18:                 if(err){ console.error(err) }
+   19  
+   20                  models.Test.findOne({'_id': doc._test})
+   21                      .exec(function(err, test){
+   22:                         if(err){ console.error(err) }
+   23  
+   24                          test._tasks.remove(doc._id);
+   25                          test.save(function(err,data){
+   26:                             if(err){ console.error(err); }
+   27                          });
+   28                      });
+   29              })
+   30              .remove(function(err){
+   31:                 if(err){ console.error(err); }
+   32                  callback(null, 'task');
+   33              });
+   ..
+   35      ], 
+   36      function(err, results){
+   37:         if(err){ console.error(err); }
+   38          next(task);
+   39      });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/delete-test.js:
+   14              models.Test.remove({ '_id' : test}, 
+   15                  function(err, doc){
+   16:                     if(err){ console.error(err); }
+   17                      callback(null, 'test');
+   18                  });
+   ..
+   21              models.Task.remove({ '_test' : test },
+   22                  function(err, doc){
+   23:                     if(err){ console.error(err); }
+   24                      callback(null, 'task');
+   25                  });
+   ..
+   28              models.Message.remove({ '_test' : test }, 
+   29                  function(err, doc){
+   30:                     if(err){ console.error(err); }
+   31                      callback(null, 'messages');
+   32                  });
+   ..
+   35              models.Tag.remove({ '_test' : test },
+   36                   function(err, doc){
+   37:                         if(err){ console.error(err); }
+   38                          callback(null, 'tags');
+   39                      });
+   ..
+   41      ], 
+   42      function(err, results){
+   43:         if(err){ console.error(err); }
+   44          // 
+   45  
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/dev-tests.js:
+   67              var rt = {};
+   68              return  models.Task.create(task, function(err, t){ 
+   69:                 // if(err){console.log('task make err', err) }
+   70                      })
+   71                      .then(function(t){
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/dupe-tests.js:
+   17                  .populate({path:'_tasks'})
+   18                  .exec(function(err, doc){
+   19:                     if(err){ console.error(err); }
+   20  
+   21                      callback(null, doc);
+   ..
+   76          }
+   77      ], function (err, result) {
+   78:         if(err){ console.error(err); }
+   79          next(err, result);
+   80      });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/edit-test.js:
+   26                              {index : task.index },
+   27                              function(err, doc){
+   28:                                 if(err){ console.error(err); }
+   29                              });
+   30                      });
+   ..
+   57      ], 
+   58      function(err, results){
+   59:         if(err){ console.error(err); }
+   60          next(null, results);
+   61      });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/forgot-password-token.js:
+   65          })
+   66      }).catch(function(err){
+   67:         if(err){console.error(err);}
+   68      })
+   69  };
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/message-fav.js:
+   19                  }, 
+   20                  function(err, data){
+   21:                     if(err){ console.error(err); }
+   22                      callback(null, data);
+   23                  });
+   24          }, 
+   25          function(err, results){
+   26:             if(err){ console.error(err); }
+   27              next(null, results);
+   28          });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/message-list.js:
+   12         .populate({path:'_comments', select: 'name body created _tags'})
+   13         .exec(function(err, docs){
+   14:             if(err){ console.error(err); }
+   15              next(null, docs);
+   16          });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/message-new.js:
+   35              // post the message to the relevant Task and Subjects, add or update its tags.
+   36              return Bluebird.all([
+   37:                     models.Task.findOneAndUpdate({'_id': note._task}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no task found')} return obj;}),
+   38:                     models.Subject.findOneAndUpdate({'_id': note._subject}, { $push: { _messages: note._id } },{upsert : false }, function(err, obj){if(err){console.log('task update', err)} if(!obj){console.log('no subject found')} return obj;})
+   39              ]).then(function(arr){
+   40                  // console.log('returned an array', arr.length);
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/message-remove.js:
+   70  		        })
+   71  				.catch(function(err){
+   72:                     if(err){console.error(err);}
+   73                  });
+   74  }
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/object-update.js:
+   25                   .exec(function(err, model){
+   26                      // todo: if there's a new subject, pass a subject in and update the subjects list.
+   27:                     if(err){ console.error(err); }
+   28                      if(!model){ callback(null, null); }
+   29  
+   ..
+   48  
+   49                      model.save(function(err, mdl){
+   50:                         if(err){ }
+   51                          callback(null, mdl);
+   52                      });
+   ..
+   54          },
+   55          function(err, results){
+   56:             if(err){ console.error(err); }
+   57              next(null, results);
+   58          });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/reset-password.js:
+   61          })
+   62      .catch(function(err){
+   63:         if(err){console.log(err)}
+   64      })
+   65  };
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/tag-maker.js:
+   81          });
+   82  	}).catch(function(err){
+   83:         if(err){console.log('error in tagmaker', err)}
+   84      });
+   85  
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/test-new.js:
+   23  		make,
+   24  		function(err, test){
+   25:             if(err){ console.error(err); }
+   26  
+   27              console.log('test made', test._id);
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/models/functions/user-create.js:
+   50          	}
+   51          }], function(err, results){
+   52:         	if(err){ console.error(err); }
+   53          	next(null, results);
+   54          });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/routes.js:
+  140          console.log('reset me', req.body, req.params.token);
+  141          fn.resetPassword(req.params.token, req.body.password, app, function(err, resetUserLogin){
+  142:             if(err){ console.error(err); }
+  143              if (resetUserLogin === 0){
+  144                  console.log('no user found #2', resetUserLogin)
+  ...
+  171      //         var Msg = connectionOne.model('Message');
+  172      //         Msg.create({body: 'new message test'}, function(err, update){
+  173:     //             if(err){ console.error(err); }
+  174      //             
+  175      //         });
+  ...
+  180      //     Test.find()
+  181      //         .exec(function(err, docs) {
+  182:     //             if(err){ console.error(err); }
+  183  
+  184      //             res.json(docs);
+  ...
+  190      //     Comment.find()
+  191      //         .exec(function(err, docs) {
+  192:     //             if(err){ console.error(err); }
+  193  
+  194      //             res.json(docs);
+  ...
+  201      //         .populate('_tasks')
+  202      //         .exec(function(err, docs) {
+  203:     //             if(err){ console.error(err); }
+  204  
+  205      //             res.json(docs);
+  ...
+  211      //     Task.find()
+  212      //         .exec(function(err, docs) {
+  213:     //             if(err){ console.error(err); }
+  214  
+  215      //             res.json(docs);
+  ...
+  222      //         .populate('_comments')
+  223      //         .exec(function(err, docs) {
+  224:     //             if(err){ console.error(err); }
+  225  
+  226      //             res.json(docs);
+  ...
+  231      //     .get(function(req,res){
+  232      //         Tag.find(function(err, docs) {
+  233:     //                 if(err){ console.error(err); }
+  234  
+  235      //                 res.json(docs);
+  ...
+  240      //     .get(function(req,res){
+  241      //         User.find(function(err, users) {
+  242:     //                 if(err){ console.error(err); }
+  243  
+  244      //                 res.json(users);
+  ...
+  249      //     .get(function(req,res){
+  250      //         Invite.find(function(err, invites) {
+  251:     //                 if(err){ console.error(err); }
+  252  
+  253      //                 res.json(invites);
+  ...
+  259      //         Subject.find()
+  260      //             .exec(function(err, docs) {
+  261:     //                 if(err){ console.error(err); }
+  262  
+  263      //                 res.json(docs);
+  ...
+  273          .get(function(req,res){
+  274              fn.accountExporter(req.user._account, function(err, account) {
+  275:                 if(err){ console.error(err); }
+  276                  res.json(account);
+  277              });
+  ...
+  286      .get(function(req, res){
+  287          fn.buildSummary(req.params._id, function(err, summary){
+  288:             if(err){ console.error(err); }
+  289              res.json(summary);
+  290          });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/routes/account.js:
+   72              // create a new Invite
+   73              fn.createInvite(req.body, req.user, function(err, invite){
+   74:                 if(err){ console.error(err); }
+   75                  res.json(invite);
+   76              });
+   ..
+   84              // this is to resend an Invite already sent
+   85              fn.resendInvite(req.params._id, req.user, function(err, invite){
+   86:                 if(err){ console.error(err); }
+   87                  res.json(invite);
+   88              });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/routes/message.js:
+   64          var message_array = [req.body];
+   65          fn.messageFav(message_array, function(err, messages){
+   66:             if(err){ console.error(err); }
+   67              res.json(messages);
+   68          });
+   ..
+   74          models.Message.findById(req.params._id)
+   75              .exec(function(err,msg){
+   76:                 if(err){ console.error(err); }
+   77                  res.json(msg);
+   78              });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/routes/run.js:
+   22              
+   23              fn.objectUpdate(req.body, function(err, next){
+   24:                 if(err){ console.error(err); }
+   25                  res.json(next);
+   26              });
+   ..
+   38                  .populate('_tasks _tags')
+   39                  .exec(function(err, test){
+   40:                     if(err){ console.error(err); }
+   41                      // 
+   42                      res.json(test);
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/routes/subject.js:
+   15                  models.Subject.find({})
+   16                      .exec(function(err,subjects){
+   17:                         if(err){ console.error(err); }
+   18                          
+   19                          res.json(subjects);
+   ..
+   22          .post(function(req,res){
+   23                  fn.addSubject(req.body, function(err, subject){
+   24:                     if(err){ console.error(err); }
+   25                      // 
+   26                      res.json(subject);
+   ..
+   32              models.Subject.findById(req.params._id)
+   33                  .exec(function(err, subject){
+   34:                     if(err){ console.error(err); }
+   35                      res.json(subject);
+   36                  });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/routes/summary.js:
+   17      // get the navigation console for the summary.
+   18          fn.buildSummary(req.params._id, function(err, summary){
+   19:             if(err){ console.error(err); }
+   20              
+   21              var output = {
+   ..
+   40                  fn.objectUpdate(object_array,
+   41                  function(err, update){
+   42:                     if(err){ console.error(err); }
+   43                      callback(null, update);
+   44                  });
+   ..
+   47                  fn.messageFav(message_array,
+   48                      function(err, update){
+   49:                         if(err){ console.error(err); }
+   50                          callback(null, update);
+   51                      });
+   ..
+   53          ],
+   54          function(err,results){
+   55:             if(err){ console.error(err); }
+   56              res.json(results);
+   57          });
+   ..
+   63          fn.objectUpdate(req.body,
+   64              function(err, update){
+   65:                 if(err){ console.error(err); }
+   66                  res.json(update);
+   67              });
+   ..
+   73          // Add a comment to a message declared on the request.
+   74          fn.newComment(req.body, req.user, function(err, comment){
+   75:             if(err){ console.error(err); }
+   76              res.json(comment);
+   77          });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/routes/tag.js:
+   12          .get(function(req,res){
+   13              models.Tag.find(function(err, tags) {
+   14:                     if(err){ console.error(err); }
+   15                      res.json(tags);
+   16                  });
+   ..
+   26              models.Tag.find({'_test':req.params._id})
+   27                  .exec(function(err, tags) {
+   28:                     if(err){ console.error(err); }
+   29                      res.json(tags);
+   30                  });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/routes/task.js:
+   20          models.Task.find({}, 
+   21              function(err, tasks) {
+   22:                 if(err){ console.error(err); }
+   23                  res.json(tasks);
+   24              });
+   ..
+   29  
+   30          fn.objectUpdate(arr, function(err, update){
+   31:             if(err){ console.error(err); }
+   32              res.json(update);
+   33          });
+   ..
+   43              index : req.body.index
+   44          }, function(err, task){
+   45:             if(err){ console.error(err); }
+   46  
+   47              models.Test.findOneAndUpdate(
+   ..
+   61          models.Task.findById(req.params._id)
+   62              .exec(function(err,task){
+   63:                 if(err){ console.error(err); }
+   64                  res.json(task);
+   65              });
+   ..
+   69          // 
+   70          fn.objectUpdate([req.body], function(err, update){
+   71:             if(err){ console.error(err); }
+   72              // 
+   73              res.json(update);
+   ..
+   77      // delete a task
+   78          fn.deleteTask(req.params._id, function(err, task){
+   79:             if(err){ console.error(err); }
+   80              res.json(task);
+   81          });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/routes/test.js:
+   20          models.Test.find({created_by_account:req.user._account})
+   21          .exec(function(err, docs) {
+   22:             if(err){ console.error(err); }
+   23              res.json(docs);
+   24          });
+   ..
+   28      // add a new test
+   29          fn.testNew(req, function(err, test){
+   30:             if(err){ console.error(err); }
+   31              res.json(test);
+   32          });
+   ..
+   49              .populate('_tags')
+   50              .exec(function(err,test){
+   51:                 if(err){ console.error(err); }
+   52                  res.json(test);
+   53              });
+   ..
+   62      // update one test with new information
+   63          fn.editTest(req.body, function(err, test){
+   64:             if(err){ console.error(err); }
+   65              res.json(test);
+   66          });
+   ..
+   69      // Delete a test and dependencies
+   70          fn.deleteTest(req.params._id, function(err, test){
+   71:             if(err){ console.error(err); }
+   72              res.json(test);
+   73          });
+
+/Users/alexleitch/Documents/Heist/scout-dev/server/routes/user.js:
+   16          models.User.findOne({'_id' : req.user._id})
+   17              .exec(function(err, user){
+   18:                 if(err){ console.error(err); }
+   19                  if(user){
+   20                      // 
+   21                      user.onboard = req.body.onboard;
+   22                      user.save(function(err, data){
+   23:                         if(err){ console.error(err); }
+   24                          // 
+   25                          res.send('saved');
+
+94 matches across 33 files

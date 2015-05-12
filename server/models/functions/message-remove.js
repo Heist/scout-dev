@@ -69,6 +69,6 @@ module.exports = function(msg_id){
 	                })
 		        })
 				.catch(function(err){
-                    if(err){console.log(err);}
+                    if(err){console.error(err);}
                 });
 }

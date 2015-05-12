@@ -16,7 +16,7 @@ module.exports = function(test, next){
             models.Test.findById(test)
                 .populate({path:'_tasks'})
                 .exec(function(err, doc){
-                    if(err){ console.log(err); }
+                    if(err){ console.error(err); }
 
                     callback(null, doc);
                 });
@@ -75,7 +75,7 @@ module.exports = function(test, next){
             }
         }
     ], function (err, result) {
-        if(err){ console.log(err); }
+        if(err){ console.error(err); }
         next(err, result);
     });
 };

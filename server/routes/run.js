@@ -21,7 +21,7 @@ module.exports = function(app, passport, io) {
             // req.body should be an array of objects on DB to be updated.
             
             fn.objectUpdate(req.body, function(err, next){
-                if(err){  }
+                if(err){ console.error(err); }
                 res.json(next);
             });
         });
@@ -37,7 +37,7 @@ module.exports = function(app, passport, io) {
                 })
                 .populate('_tasks _tags')
                 .exec(function(err, test){
-                    if(err){ console.log(err); }
+                    if(err){ console.error(err); }
                     // 
                     res.json(test);
                 });

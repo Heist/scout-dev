@@ -1,16 +1,19 @@
-// delete-task.js
-'use strict';
+// delete task or tag - removes misc. objects from tests.
+// delete-object.js
 
-module.exports = function(task, next){
+'use strict';
+module.exports = function(objectKey, next){
 
 // Module dependencies ==========================
     var async = require('async');
     var models   = require('../../models');
+    var Promise = require('bluebird');
 
-// delete a task
-    // find a task
+// delete an object
+    // find an object
     // remove it from its test
-    // remove all related messages and tags 
+    // NO LONGER: remove all related messages and tags 
+    var obj = object.doctype;
 
     async.parallel([
         function(callback){

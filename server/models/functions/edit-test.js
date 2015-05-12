@@ -25,7 +25,7 @@ module.exports = function(test, next){
                             {'_id': task._id},
                             {index : task.index },
                             function(err, doc){
-                                if(err){ console.log(err); }
+                                if(err){ console.error(err); }
                             });
                     });
     
@@ -56,7 +56,7 @@ module.exports = function(test, next){
         }
     ], 
     function(err, results){
-        if(err){ console.log(err); }
+        if(err){ console.error(err); }
         next(null, results);
     });
 };
