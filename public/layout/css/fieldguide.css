@@ -5133,8 +5133,10 @@ hr {
     font-style: normal;
     font-weight: 400;
     color: #2B404D;
-    font-size: 20px;
-    margin: 20px 0; }
+    font-size: 10px;
+    margin: 20px 0;
+    text-transform: uppercase;
+    text-align: right; }
   #view-editing h4 {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -5147,7 +5149,7 @@ hr {
     font-style: normal;
     font-weight: 300;
     color: #777777;
-    font-size: 28px;
+    font-size: 33px;
     margin: 0 0 20px 0; }
     #view-editing .project-name:hover, #view-editing .project-name:focus {
       color: #000; }
@@ -5160,8 +5162,8 @@ hr {
     #view-editing .task-title:hover, #view-editing .task-title:focus {
       color: #000; }
   #view-editing textarea.test-descriptions, #view-editing textarea.task-descriptions {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 18px;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
@@ -5229,7 +5231,6 @@ hr {
     #view-editing .tags .tag-pool, #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
       width: 100%;
       height: 100%;
-      background: rgba(216, 218, 219, 0.5);
       border: 1px solid rgba(216, 218, 219, 0.5); }
       #view-editing .tags .tag-pool ul, #view-editing .tags input.custom-tags ul, #view-editing .tags .add-task textarea.custom-tags ul, #view-editing .add-task .tags textarea.custom-tags ul {
         padding: 0;
@@ -5258,12 +5259,27 @@ hr {
     right: 30px; }
   #view-editing .container {
     padding: 20px 0 0 0; }
+  #view-editing .container-row {
+    clear: both; }
+    #view-editing .container-row .container-title {
+      float: left;
+      width: 120px;
+      margin: 0 40px 0 0; }
+      #view-editing .container-row .container-title:nth-child(1) {
+        margin: 80px 40px 0 0; }
+      #view-editing .container-row .container-title:nth-child(1) {
+        margin: 80px 40px 0 0; }
+    #view-editing .container-row .container-content {
+      float: left;
+      width: 585px;
+      margin: 0 0 50px 0; }
   #view-editing .sheet-holder {
-    padding: 0 0 40px 0; }
+    padding: 40px 0; }
+    #view-editing .sheet-holder .sheet {
+      width: 745px;
+      margin: 0 auto; }
   #view-editing .test-setup {
     padding: 20px 0 0 0; }
-    #view-editing .test-setup .sheet {
-      padding: 20px; }
     #view-editing .test-setup .nobullets {
       width: 100%; }
       #view-editing .test-setup .nobullets .input {

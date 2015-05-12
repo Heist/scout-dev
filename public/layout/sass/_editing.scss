@@ -236,8 +236,10 @@
     h3 {
         @include type-regular;
         color: $fg-slate;
-        font-size: 20px;
+        font-size: 10px;
         margin: 20px 0;
+        text-transform: uppercase;
+        text-align: right;
     }
 
     h4 {
@@ -250,7 +252,7 @@
     .project-name {
         @include type-light;
         color: $fg-grey-dark;
-        font-size: 28px;
+        font-size: 33px;
         margin: 0 0 20px 0;
 
         &:hover, &:focus {
@@ -269,8 +271,8 @@
     }
 
     textarea.test-descriptions, textarea.task-descriptions {
-        font-size: 18px;
-        line-height: 24px;
+        font-size: 14px;
+        line-height: 18px;
         @include type-light;
         color: $fg-grey;
         margin: 0;
@@ -331,7 +333,7 @@
         .tag-pool {
             width: 100%;
             height: 100%;
-            background: transparentize($fg-grey-light, 0.5);
+            // background: transparentize($fg-grey-light, 0.5);
             border: 1px solid transparentize($fg-grey-light, 0.5);
             
             ul {
@@ -373,16 +375,44 @@
     .container {
         padding: $pad 0 0 0;
     }
+        .container-row {
+            clear:both;
+
+            .container-title {
+                float: left;
+                width: 120px;
+                margin: 0 40px 0 0;
+
+                &:nth-child(1) {
+                    margin: 80px 40px 0 0;
+                }
+
+                &:nth-child(1) {
+                    margin: 80px 40px 0 0;
+                }
+
+
+            }
+            .container-content {
+                float: left;
+                width: 585px;
+                margin: 0 0 50px 0;
+            }
+        }
+
+
+
     .sheet-holder {
-        padding: 0 0 ($pad * 2) 0;
+        padding: 40px 0;
+
+        .sheet {
+            width: 745px;
+            margin: 0 auto;
+        }
     }
 
     .test-setup {
         padding: $pad 0 0 0;
-
-        .sheet {
-            padding: $pad;
-        }
 
         .nobullets {
             width: 100%;
