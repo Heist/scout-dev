@@ -34,7 +34,12 @@ module.exports = function(app, passport) {
             res.json('tag post touched');
         })
         .delete(function(req, res){
-            
+            console.log('delete this tag', req.params._id);
+            fn.deleteObject(req.params._id, 'tag',function(err, obj){
+                if(err){ console.error(err); }
+                res.json(obj);
+            });
+
         });
 
 };

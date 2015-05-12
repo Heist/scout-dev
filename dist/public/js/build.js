@@ -50996,7 +50996,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 // app.js
 (function() {
     'use strict';
-    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'typeaheadTagger', 'ngSanitize', 'youtube-embed', 'field_guide_controls','field_guide_filters']);
+    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'typeaheadTagger', 'ngSanitize', 'btford.markdown', 'field_guide_controls','field_guide_filters']);
 
     // FRONT-END ROUTE CONFIGURATION ==============================================
     field_guide_app.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", "$locationProvider", function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
@@ -51189,7 +51189,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);
 
     // CONTROLLERS, DIRECTIVES ============================================================
-    angular.module('field_guide_controls', ['ngSanitize', 'ui','ui.router', 'youtube-embed']);
+    angular.module('field_guide_controls', ['ngSanitize', 'ui','ui.router']);
 
 })();
 // run.js
@@ -52764,6 +52764,15 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         };
     
     // Add A New Task or Tasks ============================
+        $scope.removeTag = function(tag){
+            var index = $scope.tags.indexOf(tag);            
+            $scope.tags.splice(index, 1);
+
+            $http.delete('/api/tag/'+tag._id)
+                .success(function(data){
+                    void 0;
+                });
+        }
 
         $scope.saveTag = function(tags){
             // send the array to the back end, where each will be pushed appropriately 
