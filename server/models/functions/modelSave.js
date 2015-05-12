@@ -2,13 +2,12 @@
 'use strict';
 
 module.exports = function(mongooseModel){
-        return new Promise(function (resolve, reject) {
-            mongooseModel.save(function(err,done) {
-              if (!done || done.error || err) {
-                console.error(err);
-                return reject(done.error);}
-              return resolve(done);
-            })
+    return new Promise(function (resolve, reject) {
+        mongooseModel.save(function(err,done) {
+          if (!done || done.error || err) {
+            console.error(err);
+            return reject(done.error);}
+          return resolve(done);
         })
-    }
+    })
 }
