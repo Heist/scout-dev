@@ -236,7 +236,6 @@
         @include type-regular;
         color: $fg-slate;
         font-size: 10px;
-        margin: 20px 0;
         text-transform: uppercase;
         text-align: right;
         position: relative;
@@ -260,32 +259,33 @@
         }
     }
 
-    .task-title {
+    input.task-title {
         @include type-light;
         font-size: 18.6px;
         color: $fg-grey-text;
-        padding: 0 0 20px 0;
+          padding: 0px 0px 20px 40px;
 
         &:hover, &:focus {
             color: $black;
         }
     }
 
-    input {
-        padding: 0;
+    input.project-name {
+          padding: 0px 0px 0px 40px;
     }
 
-    textarea.test-descriptions, textarea.task-descriptions {
+    textarea.objectives, textarea.task-descriptions {
         font-size: 14px;
         line-height: 18px;
         @include type-light;
         color: $fg-grey-text;
         margin: 0;
-        padding: 0;
+        padding: 0px 0px 0px 40px;
         resize: none;
 
         &:hover, &:focus {
             color: $black;
+            background: url('../assets/fg-edit.svg') 12px 5px no-repeat;
         }
     }
 
@@ -376,10 +376,14 @@
                     clear: both;
                     padding: 0 0 50px 0;
 
+                    &:nth-child(4) {
+                        padding: 0;
+                    }
+
                     .container-left {
                         float: left;
                         width: 120px;
-                        margin: 8px 40px 0 0;
+                        margin: 8px 0 0 0;
 
                         .create-project-tooltip {
                             float: left;
@@ -389,42 +393,14 @@
                     .container-right {
                         float: left;
                         width: 585px;
+
+                        &.padding {
+                            padding: 0 0 0 40px;
+                        }
                     }
                 }
             }
         }
     }
-
-    // .test-setup {
-    //     padding: $pad 0 0 0;
-
-    //     .nobullets {
-    //         width: 100%;
-    //         .input {
-    //             width: 100%;
-    //         }
-    //     }
-
-    //     @include input-placeholders;
-
-    //     .select-active {
-    //         @include button-colour($fg-green, $white);
-    //         border: 1px solid $fg-green-light;
-    //         cursor: pointer;
-    //         &:after {
-    //             content: 'ed';
-    //         }
-    //     }
-    //     .select-inactive {
-    //         background: $white;
-    //         color: $fg-grey;
-    //         border: 1px solid $fg-grey-light;
-    //         cursor: pointer;
-    //         &:after {
-    //             content: '';
-    //         }
-    //     }
-    // }
-
 
 }

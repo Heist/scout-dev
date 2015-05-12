@@ -24,7 +24,7 @@
 
 						<h3 class="container-left">Objectives</h3>
 						<div class="container-right">
-							<textarea msd-elastic class="test-descriptions input-no-border" id="field-textarea"  ng-model="test.desc" ng-blur="updateTask(test)"></textarea>
+							<textarea msd-elastic class="objectives input-no-border" id="field-textarea"  ng-model="test.desc" ng-blur="updateTask(test)"></textarea>
 						</div>
 					</div>
 					<!-- tags section goes here -->
@@ -36,7 +36,7 @@
 							</h3>
 						</div>
 						
-						<div class="container-right">
+						<div class="container-right padding">
 							<div class="tags">
 								<div class="tag-pool">
 									<ul>
@@ -55,8 +55,8 @@
 							</h3>
 						</div>
 						<div class="container-right">
-							<div ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
-								<div class="container-right" ng-click="select(task)">
+							<div ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}">
+								<div ng-click="select(task)">
 									<form>
 										<input class="input-no-border task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
 										<textarea msd-elastic class="task-descriptions input-no-border" id="field-textarea"  ng-model="task.desc" ng-blur="updateTask(task)"></textarea>

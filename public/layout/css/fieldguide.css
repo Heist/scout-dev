@@ -3331,7 +3331,7 @@ span.tooltip-icon {
   text-transform: none; }
   span.tooltip-icon span {
     position: absolute;
-    top: 0px;
+    top: 0.5px;
     right: 3px;
     color: #fff;
     font-size: 8px;
@@ -5150,7 +5150,6 @@ hr {
     font-weight: 400;
     color: #2B404D;
     font-size: 10px;
-    margin: 20px 0;
     text-transform: uppercase;
     text-align: right;
     position: relative; }
@@ -5170,18 +5169,18 @@ hr {
     margin: 0 0 20px 0; }
     #view-editing .project-name:hover, #view-editing .project-name:focus {
       color: #000; }
-  #view-editing .task-title {
+  #view-editing input.task-title, #view-editing .add-task textarea.task-title {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 18.6px;
     color: #888A8A;
-    padding: 0 0 20px 0; }
-    #view-editing .task-title:hover, #view-editing .task-title:focus {
+    padding: 0px 0px 20px 40px; }
+    #view-editing input.task-title:hover, #view-editing .add-task textarea.task-title:hover, #view-editing input.task-title:focus, #view-editing .add-task textarea.task-title:focus {
       color: #000; }
-  #view-editing input, #view-editing .add-task textarea {
-    padding: 0; }
-  #view-editing textarea.test-descriptions, #view-editing textarea.task-descriptions {
+  #view-editing input.project-name, #view-editing .add-task textarea.project-name {
+    padding: 0px 0px 0px 40px; }
+  #view-editing textarea.objectives, #view-editing textarea.task-descriptions {
     font-size: 14px;
     line-height: 18px;
     font-family: "canada-type-gibson",sans-serif;
@@ -5189,10 +5188,11 @@ hr {
     font-weight: 300;
     color: #888A8A;
     margin: 0;
-    padding: 0;
+    padding: 0px 0px 0px 40px;
     resize: none; }
-    #view-editing textarea.test-descriptions:hover, #view-editing textarea.test-descriptions:focus, #view-editing textarea.task-descriptions:hover, #view-editing textarea.task-descriptions:focus {
-      color: #000; }
+    #view-editing textarea.objectives:hover, #view-editing textarea.objectives:focus, #view-editing textarea.task-descriptions:hover, #view-editing textarea.task-descriptions:focus {
+      color: #000;
+      background: url('../assets/fg-edit.svg') 12px 5px no-repeat; }
   #view-editing .add-task {
     margin: 20px 0; }
     #view-editing .add-task form {
@@ -5276,15 +5276,19 @@ hr {
       #view-editing .container .sheet-holder .sheet .container-row {
         clear: both;
         padding: 0 0 50px 0; }
+        #view-editing .container .sheet-holder .sheet .container-row:nth-child(4) {
+          padding: 0; }
         #view-editing .container .sheet-holder .sheet .container-row .container-left {
           float: left;
           width: 120px;
-          margin: 8px 40px 0 0; }
+          margin: 8px 0 0 0; }
           #view-editing .container .sheet-holder .sheet .container-row .container-left .create-project-tooltip {
             float: left; }
         #view-editing .container .sheet-holder .sheet .container-row .container-right {
           float: left;
           width: 585px; }
+          #view-editing .container .sheet-holder .sheet .container-row .container-right.padding {
+            padding: 0 0 0 40px; }
 
 /* SESSION IN PROGRESS */
 #view-testing {
