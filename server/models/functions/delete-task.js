@@ -31,13 +31,6 @@ module.exports = function(task, next){
                 if(err){ console.log(err); }
                 callback(null, 'task');
             });
-        },
-        function(callback){
-            models.Message.remove({ '_task' : task }, 
-                function(err, msg){
-                    if(err){ console.log(err); }
-                    callback(null, 'msg');
-                });
         }
     ], 
     function(err, results){
