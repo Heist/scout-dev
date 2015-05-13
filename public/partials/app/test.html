@@ -54,18 +54,13 @@
 						
 						<div class="container-right padding">
 							<div class="tags">
+
 								<div class="tag-pool">
 									<ul>
-										<li ng-repeat="tag in tags">{{tag.name}}</li>
+										<li ng-repeat="tag in tags">
+										 #{{tag.name}} <span ng-click="removeTag(tag)">&times;</span>
+										 </li>
 									</ul>
-								</div>
-
-
-
-
-								<div class="tag-pool">
-									<span ng-repeat="tag in tags" style="padding-left:5px;">
-									<span ng-click="removeTag(tag)" style="background:gray; color:black;">&times;</span>  {{tag.name}}</span>
 								</div>
 
 

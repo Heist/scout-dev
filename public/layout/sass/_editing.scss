@@ -363,8 +363,17 @@
                     color: $fg-blue;
                     display: inline-block;
                     
-                    &:before {
-                        content: "#"
+                    &:hover {
+                        cursor: default;
+                    }
+
+                    span {
+                        color: $fg-grey;
+                        font-size: 10px;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
                     }
                 }
             }
