@@ -1,7 +1,7 @@
 // app.js
 (function() {
     'use strict';
-    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'typeaheadTagger', 'ngSanitize', 'btford.markdown', 'field_guide_controls','field_guide_filters']);
+    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'typeaheadTagger', 'ngSanitize', 'field_guide_controls','field_guide_filters']);
 
     // FRONT-END ROUTE CONFIGURATION ==============================================
     field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
