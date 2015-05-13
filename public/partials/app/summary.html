@@ -29,7 +29,7 @@
 				</ul>
 				<ul ng-if="navlist.task">
 					<h4 class="group-cat">Topics <span class="info" data-tooltip-large-report="All of your notes organized to their specific Topic."><span>?</span></span></h4>
-					<li ng-repeat="object in navlist.task | orderBy:'created'" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
+					<li ng-repeat="object in navlist.task | orderBy:'index'" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
 						<span class="objects">{{object.name}} {{created}}</span>
 					</li>
 				</ul>

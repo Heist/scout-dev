@@ -52386,6 +52386,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
             $scope.navlist =  makeNavList($scope.rawList);
+            console.log($scope.navlist);
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
