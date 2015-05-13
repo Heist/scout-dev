@@ -5360,7 +5360,8 @@ hr {
     border: 1px solid rgba(216, 218, 219, 0.5); }
   #view-editing .done-button {
     position: fixed;
-    right: 10px; }
+    top: 40px;
+    right: 30px; }
   #view-editing .padding {
     padding: 0 0 0 40px; }
   #view-editing .container {
@@ -5386,6 +5387,7 @@ hr {
           width: 585px;
           position: relative; }
           #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete {
+            width: 0;
             position: relative;
             left: 575px;
             top: 25px;
