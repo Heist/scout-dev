@@ -65,16 +65,21 @@
 					</div>
 					
 					<div class="container-row clearfix">
-						<div class="container-left">
+						<div class="container-left topics">
 							<h3>Topics
 							<span class="tooltip-icon" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
 							</h3>
 						</div>
 						<div class="container-right">
 							<div ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}">
+
+							<div class="topic-delete icon-delete">
+								
+							</div>
+
 								<div ng-click="select(task)">
 									<form>
-										<input class="input-no-border task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
+										<input class="input-no-border topic-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
 										<textarea msd-elastic class="task-descriptions input-no-border" id="field-textarea"  ng-model="task.desc" ng-blur="updateTask(task)"></textarea>
 									</form>
 								</div>
@@ -97,9 +102,10 @@
 								</form>
 								
 								<button class="button full" ng-click="newTask(newtask)" tabindex="0">Add topic</a></button>
-							<div class="clear"></div>
+								<div class="clear"></div>
+							</div>
+							<!-- / add a new task -->
 						</div>
-						<!-- / add a new task -->
 					</div>
 				</div>
 				
