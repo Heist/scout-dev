@@ -254,7 +254,6 @@
                     var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; });
                     
                     var nonTestObj = _.map(objList, function(n){
-                        console.log('nontestobjects', n);
                         var x = n._messages.indexOf(output._id);
 
                         if( x !== -1){
@@ -269,7 +268,8 @@
                         }
                     })
 
-                    if(data._tags.indexOf($scope.summaryItem._id) !== -1){
+                    console.log('data, tags are returning undefined', data);
+                    if(data.msg._tags.indexOf($scope.summaryItem._id) !== -1){
                         // if it's a summary message, add it back into the message filter list
                         $scope.summaryItem._messages.splice($scope.summaryItem._messages.indexOf(original._id), 1, data.msg._id);
                     }

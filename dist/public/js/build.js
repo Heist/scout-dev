@@ -52559,7 +52559,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; });
                     
                     var nonTestObj = _.map(objList, function(n){
-                        void 0;
                         var x = n._messages.indexOf(output._id);
 
                         if( x !== -1){
@@ -52574,6 +52573,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                         }
                     })
 
+                    void 0;
                     if(data._tags.indexOf($scope.summaryItem._id) !== -1){
                         // if it's a summary message, add it back into the message filter list
                         $scope.summaryItem._messages.splice($scope.summaryItem._messages.indexOf(original._id), 1, data.msg._id);
