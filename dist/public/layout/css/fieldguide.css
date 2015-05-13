@@ -5374,6 +5374,8 @@ hr {
         padding: 0 0 40px 0; }
         #view-editing .container .sheet-holder .sheet .container-row.tags {
           padding: 0 0 30px 0; }
+        #view-editing .container .sheet-holder .sheet .container-row.topics {
+          padding: 0; }
         #view-editing .container .sheet-holder .sheet .container-row .container-left {
           float: left;
           width: 120px;
