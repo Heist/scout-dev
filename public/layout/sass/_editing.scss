@@ -400,7 +400,8 @@
 
     .done-button {
         position: fixed;
-        right: 10px;
+        top: 40px;
+        right: 30px;
     }
     
     .padding {
@@ -444,6 +445,7 @@
                         position: relative;
 
                         .topic-delete {
+                            width: 0;
                             position: relative;
                             left: 575px;
                             top: 25px;
