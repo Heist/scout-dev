@@ -256,11 +256,11 @@
 
         &:hover, &:focus {
             color: $black;
-            background: url('../assets/fg-edit.svg') 14px 15px no-repeat;
+            background: url('../assets/fg-edit.svg') 20px 21px no-repeat;
         }
     }
 
-    input.task-title {
+    input.topic-title {
         @include type-light;
         font-size: 18.6px;
         color: $fg-grey-text;
@@ -268,7 +268,7 @@
 
         &:hover, &:focus {
             color: $black;
-            background: url('../assets/fg-edit.svg') 14px 5px no-repeat;
+            background: url('../assets/fg-edit.svg') 20px 7px no-repeat;
         }
     }
 
@@ -297,7 +297,7 @@
 
         &:hover, &:focus {
             color: $black;
-            background: url('../assets/fg-edit.svg') 14px 5px no-repeat;
+            background: url('../assets/fg-edit.svg') 20px 3px no-repeat;
         }
     }
 

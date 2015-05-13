@@ -5169,17 +5169,17 @@ hr {
     margin: 0 0 20px 0; }
     #view-editing .project-name:hover, #view-editing .project-name:focus {
       color: #000;
-      background: url('../assets/fg-edit.svg') 14px 15px no-repeat; }
-  #view-editing input.task-title, #view-editing .add-task textarea.task-title {
+      background: url('../assets/fg-edit.svg') 20px 21px no-repeat; }
+  #view-editing input.topic-title, #view-editing .add-task textarea.topic-title {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 18.6px;
     color: #888A8A;
     padding: 0px 0px 20px 40px; }
-    #view-editing input.task-title:hover, #view-editing .add-task textarea.task-title:hover, #view-editing input.task-title:focus, #view-editing .add-task textarea.task-title:focus {
+    #view-editing input.topic-title:hover, #view-editing .add-task textarea.topic-title:hover, #view-editing input.topic-title:focus, #view-editing .add-task textarea.topic-title:focus {
       color: #000;
-      background: url('../assets/fg-edit.svg') 14px 5px no-repeat; }
+      background: url('../assets/fg-edit.svg') 20px 7px no-repeat; }
   #view-editing input.project-name, #view-editing .add-task textarea.project-name {
     padding: 0px 0px 0px 40px;
     margin: 0; }
@@ -5200,7 +5200,7 @@ hr {
     resize: none; }
     #view-editing textarea.objectives:hover, #view-editing textarea.objectives:focus, #view-editing textarea.task-descriptions:hover, #view-editing textarea.task-descriptions:focus {
       color: #000;
-      background: url('../assets/fg-edit.svg') 14px 5px no-repeat; }
+      background: url('../assets/fg-edit.svg') 20px 3px no-repeat; }
   #view-editing .add-task {
     margin: 20px 0; }
     #view-editing .add-task form {
