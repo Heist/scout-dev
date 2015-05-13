@@ -60,7 +60,7 @@
 								</div>
 								<input name="custom-tags" class="custom-tags" placeholder="Type your own tags to use during your sessions" ng-model="newtag" ng-enter="saveTag(newtag)"></input>
 							</div>
-						
+
 							<h3>Research topics</h3>
 							<p>Outline the topics or tasks and questions you want to discuss with your participants for this project. These will be visible for you while you run a session with a participant. <a href="https://medium.com/@FieldGuideApp/what-makes-a-good-task-b807bb12f21b" target="_blank">Learn more</a> </p>
 							<li ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}" >
@@ -68,7 +68,7 @@
 
 								<div ng-click="select(task)">
 									<form>
-										<input class="input-no-border task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
+										<input class="input-no-border topic-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
 										<textarea msd-elastic class="task-descriptions input-no-border" id="field-textarea"  ng-model="task.desc" ng-blur="updateTask(task)"></textarea>
 									</form>
 								</div>
@@ -87,7 +87,7 @@
 										<h4>Questions</h4>
 										<textarea ng-model="newtask.desc" id="bulletform" placeholder="List the questions you want participants to answer related to this topic.">
 										</textarea>
-									
+
 									<br />
 									<br />
 									<hr />
