@@ -4409,15 +4409,15 @@ hr {
   .modal span.info {
     width: 10px;
     height: 10px;
-    background: #949799;
+    background: #D8DADB;
     border-radius: 50%;
     display: inline-block;
     text-align: center;
     float: right;
-    margin: 3px 0;
+    margin: 7px 0;
     position: relative; }
     .modal span.info span {
-      font-size: 8px;
+      font-size: 9px;
       color: #fff;
       position: absolute;
       top: -7px;
@@ -4504,15 +4504,15 @@ hr {
   .modal-scroll span.info {
     width: 10px;
     height: 10px;
-    background: #949799;
+    background: #D8DADB;
     border-radius: 50%;
     display: inline-block;
     text-align: center;
     float: right;
-    margin: 3px 0;
+    margin: 7px 0;
     position: relative; }
     .modal-scroll span.info span {
-      font-size: 8px;
+      font-size: 9px;
       color: #fff;
       position: absolute;
       top: -7px;
@@ -5096,7 +5096,7 @@ hr {
   #view-new-project button.test-type span.tooltip-icon {
     position: absolute;
     top: 5px;
-    right: 8px; }
+    right: 5px; }
     #view-new-project button.test-type span.tooltip-icon span {
       top: 0px;
       right: 3.5px; }
@@ -5165,7 +5165,7 @@ hr {
     #view-new-project button.test-type.select-inactive span.tooltip-icon {
       position: absolute;
       top: 5px;
-      right: 8px;
+      right: 5px;
       background: #D8DADB; }
       #view-new-project button.test-type.select-inactive span.tooltip-icon span {
         top: 0px;
@@ -6136,7 +6136,7 @@ hr {
               top: 0;
               right: 2.5px;
               color: #fff;
-              font-size: 10px; }
+              font-size: 9px; }
           #view-findings #findings-nav #sidebar.sidebar span.report:hover {
             color: #2B404D; }
         #view-findings #findings-nav #sidebar.sidebar h4.group-cat.hollow {
@@ -6162,7 +6162,7 @@ hr {
               top: 0;
               right: 2.5px;
               color: #fff;
-              font-size: 10px; }
+              font-size: 9px; }
           #view-findings #findings-nav #sidebar.sidebar h4.group-cat:first-child {
             margin: 20px 0 0 0; }
         #view-findings #findings-nav #sidebar.sidebar li {
