@@ -16,24 +16,20 @@
     span.info {
         width: 10px;
         height: 10px;
-        background: #949799;
+        background: $fg-grey-light;
         border-radius: 50%;
         display: inline-block;
         text-align: center;
         float: right;
-        margin: 3px 0;
+        margin: 7px 0;
         position: relative;
 
         span {
-            font-size: 8px;
+            font-size: 9px;
             color: $white;
             position: absolute;
-            top: -4px;
-            right: 5px;
-        }
-
-        &:hover {
-
+            top: -7px;
+            right: 3.5px;
         }
     }
 
@@ -109,20 +105,20 @@
     span.info {
         width: 10px;
         height: 10px;
-        background: #949799;
+        background: $fg-grey-light;
         border-radius: 50%;
         display: inline-block;
         text-align: center;
         float: right;
-        margin: 3px 0;
+        margin: 7px 0;
         position: relative;
 
         span {
-            font-size: 8px;
+            font-size: 9px;
             color: $white;
             position: absolute;
-            top: -4px;
-            right: 5px;
+            top: -7px;
+            right: 3.5px;
         }
 
         &:hover {
