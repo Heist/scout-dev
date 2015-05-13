@@ -4917,13 +4917,15 @@ hr {
   position: relative;
   height: 100%; }
   #view-overview .container {
-    padding: 20px 0 0 0; }
+    padding: 20px 0 50px 0; }
     #view-overview .container #header-min {
       padding: 20px 0 40px; }
       #view-overview .container #header-min h3 {
         margin: 10px 0; }
-  #view-overview .overview-controls {
-    float: right; }
+      #view-overview .container #header-min .overview-controls {
+        position: fixed;
+        top: 30px;
+        right: 30px; }
 
 /* overview test block */
 .overview-test {
