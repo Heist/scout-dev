@@ -265,7 +265,20 @@
         }
     }
 
-    input.topic-title {
+    .test-info {
+        padding: 5px 0 30px 40px;
+
+        img {
+            width: 11px;
+            margin: 0 3px 0 0;
+        }
+    }
+    
+    form.task-info {
+        margin: 0;
+    }
+
+    input.task-title {
         @include type-light;
         font-size: 18.6px;
         color: $fg-grey-text;
@@ -285,15 +298,6 @@
     input.project-name {
           padding: 0 0 0 40px;
           margin: 0;
-    }
-
-    .test-info {
-        padding: 5px 0 30px 40px;
-
-        img {
-            width: 11px;
-            margin: 0 3px 0 0;
-        }
     }
 
     textarea.objectives, textarea.task-descriptions {
@@ -398,6 +402,10 @@
         position: fixed;
         right: 10px;
     }
+    
+    .padding {
+        padding: 0 0 0 40px;
+    }
 
     .container {
         padding: $pad 0 0 0;
@@ -410,9 +418,9 @@
 
                 .container-row {
                     clear: both;
-                    padding: 0 0 50px 0;
-
-                    &:nth-child(4) {
+                    padding: 0 0 40px 0;
+                    
+                    &:nth-child(3) {
                         padding: 0;
                     }
 
@@ -434,10 +442,6 @@
                         float: left;
                         width: 585px;
                         position: relative;
-
-                        &.padding {
-                            padding: 0 0 0 40px;
-                        }
 
                         .topic-delete {
                             position: relative;

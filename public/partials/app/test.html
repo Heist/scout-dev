@@ -65,10 +65,10 @@
 						<div class="container-right">
 							<div ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}">
 								
-								<span class="topic-delete icon-delete" ng-click="removeTask(task)">&times;</span>
+								<span class="topic-delete icon-delete" ng-click="removeTask(task)"></span>
 								<div ng-click="select(task)">
-									<form>
-										<input class="input-no-border topic-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
+									<form class="task-info">
+										<input class="input-no-border task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
 										<textarea msd-elastic class="task-descriptions input-no-border" id="field-textarea"  ng-model="task.desc" ng-blur="updateTask(task)"></textarea>
 									</form>
 								</div>
@@ -84,14 +84,14 @@
 							<!-- add a new task -->
 							<div class="add-task">
 								<form ng-model='newtask'>
-									<input ng-trim="false" ng-model="newtask.name"placeholder="Write a topic title.."><br/>
+									<input ng-trim="false" ng-model="newtask.name"placeholder="Write a topic title.." required><br/>
 									
-									<textarea msd-elastic ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions..">
+									<textarea msd-elastic ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions.." required>
 									</textarea>
 								</form>
 								
-							<button ng-if="!newtask.name" class="button full med dark" tabindex="0">Add topic</a></button>
-							<button ng-if="newtask.name" type="submit" class="button full med" ng-click="newTask(newtask)" tabindex="0">Add topic</a></button>
+							<!-- <button ng-if="!newtask.name" class="button full med dark" tabindex="0">Add topic</a></button> -->
+							<button type="submit" class="button full med" ng-click="newTask(newtask)" tabindex="0">Add topic</a></button>
 
 							</div>
 							<!-- / add a new task -->
