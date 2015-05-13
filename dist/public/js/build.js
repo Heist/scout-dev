@@ -52574,7 +52574,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     })
 
                     void 0;
-                    if(data._tags.indexOf($scope.summaryItem._id) !== -1){
+                    if(data.msg._tags.indexOf($scope.summaryItem._id) !== -1){
                         // if it's a summary message, add it back into the message filter list
                         $scope.summaryItem._messages.splice($scope.summaryItem._messages.indexOf(original._id), 1, data.msg._id);
                     }
