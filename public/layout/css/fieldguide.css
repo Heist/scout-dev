@@ -5301,7 +5301,16 @@ hr {
           #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete {
             position: absolute;
             right: 0;
-            top: 0; }
+            top: 7px;
+            width: 9px;
+            height: 11.25px;
+            background: #fff url('../assets/fg-trashcan.svg') no-repeat;
+            z-index: 1; }
+            #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete:hover {
+              cursor: pointer;
+              width: 9px;
+              height: 12.38px;
+              background: #fff url('../assets/fg-trashcan-hover.svg') no-repeat; }
 
 /* SESSION IN PROGRESS */
 #view-testing {
