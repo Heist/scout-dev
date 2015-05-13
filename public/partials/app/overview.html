@@ -15,26 +15,15 @@
 			<div class="overview-controls">
 				<div class="expand-button">
 					<div class="expand-button-body" ng-click="newTestModalToggle()">+</div>
-					
 					<div class="expand-button-helper">Add new project</div>
 				</div>
-				<!-- <div class="expand-button">
-								<div class="expand-button-body" ng-click="devTest()">+</div>
-							
-								<div class="expand-button-helper">Add mock</div>
-				</div> -->
-				
 			</div>
-			
-			<div class="clear"></div>
-			
 		</div>
+
 		<!-- create new project modal -->
-		
 		<div class="modal-scroll" ng-model="newProject" ng-if="newProject">
 			<ng-include src="'partials/app/_new-project.html'"></ng-include>
 		</div>
-
 		<!-- / create new project modal -->
 
 			<!-- test -->

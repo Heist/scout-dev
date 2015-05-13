@@ -359,7 +359,6 @@ label {
   font-style: normal;
   font-weight: 300; }
 
-/* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
 .button {
   display: inline-block;
   margin: 0;
@@ -377,10 +376,10 @@ label {
 .expand-button {
   position: relative; }
   .expand-button .expand-button-body {
-    background: #fff;
-    color: #999999;
+    background: #2B404D;
+    color: #fff;
     margin: 0;
-    padding: 5px;
+    padding: 6px;
     -moz-border-radius: 40px;
     -webkit-border-radius: 40px;
     border-radius: 40px;
@@ -3759,13 +3758,6 @@ hr {
     line-height: 54px; }
 
 /* floating header for new design style */
-#header-min {
-  padding: 12px 10px 30px 10px;
-  margin: 0; }
-  #header-min .expand-button .expand-button-body {
-    color: #fff;
-    background: #323539; }
-
 /* header-specific styles */
 /*
 
