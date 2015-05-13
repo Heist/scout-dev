@@ -10,8 +10,7 @@
 			<div class="sheet-holder">
 				
 				<div class="sheet clearfix">
-					<div class="clear"></div>
-					
+
 					<div class="container-row clearfix" ng-click="select(test)">
 						<div class="container-left"></div>
 						<div class="container-right">
@@ -19,29 +18,23 @@
 							
 							<div class="test-info" ng-if="test.kind === 'interview'" ng-model="report">
 								<img src="layout/assets/interview-dark.svg" alt="Interview icon"> Interview
-
 								<div ng-model="selected">
 									<a href="{{selected.link}}" target="_">{{selected.link}}</a>
 								</div>
 							</div>
-
 							<div class="test-info" ng-if="test.kind === 'prototype'">
 								<img src="layout/assets/prototype-dark.svg" alt="Interview icon"> Prototype
-
 								<div ng-model="selected">
 									<a href="{{selected.link}}" target="_">{{selected.link}}</a>
 								</div>
 							</div>
-
 						</div>
-
 						<h3 class="container-left">Objectives</h3>
 						<div class="container-right">
 							<textarea msd-elastic class="objectives input-no-border" id="field-textarea"  ng-model="test.desc" ng-blur="updateTask(test)"></textarea>
 						</div>
 					</div>
-					<!-- tags section goes here -->
-					<!-- user enters tag, tag gets store in tag pool-->
+
 					<div class="container-row clearfix">
 						<div class="container-left">
 							<h3>Tags
@@ -51,15 +44,13 @@
 						
 						<div class="container-right padding">
 							<div class="tags">
-
 								<div class="tag-pool">
 									<ul>
 										<li ng-repeat="tag in tags">
-										 #{{tag.name}} <span ng-click="removeTag(tag)">&times;</span>
-										 </li>
+											#{{tag.name}} <span ng-click="removeTag(tag)">&times;</span>
+										</li>
 									</ul>
 								</div>
-
 								<input name="custom-tags" class="custom-tags" placeholder="Type your own tags to use during your sessions" ng-model="newtag" ng-enter="saveTag(newtag)"></input>
 							</div>
 						</div>
@@ -73,14 +64,8 @@
 						</div>
 						<div class="container-right">
 							<div ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}">
-							
-							<span ng-click="removeTask(task)">&times;</span>
-
-
-							<div class="topic-delete icon-delete">
 								
-							</div>
-
+								<span class="topic-delete icon-delete" ng-click="removeTask(task)">&times;</span>
 								<div ng-click="select(task)">
 									<form>
 										<input class="input-no-border topic-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
@@ -105,60 +90,54 @@
 									</textarea>
 								</form>
 								
+							<button ng-if="!newtask.name" class="button full med dark" tabindex="0">Add topic</a></button>
+							<button ng-if="newtask.name" type="submit" class="button full med" ng-click="newTask(newtask)" tabindex="0">Add topic</a></button>
 
-
-								<button ng-if="!newtask.name" class="button full med dark" tabindex="0">Add topic</a></button>
-								<button ng-if="newtask.name" type="submit" class="button full med" ng-click="newTask(newtask)" tabindex="0">Add topic</a></button>
-
-
-
-
-
-								<div class="clear"></div>
 							</div>
 							<!-- / add a new task -->
 						</div>
+						<div class="clear"></div>
 					</div>
-				</div>
-				
+
 				</div> <!-- /sheet -->
-				</div> <!-- /sheet holder -->
-				
-				</div> <!-- /module fifths -->
-				
-				<div class="module done-button">
-					<button class="button outline" ng-click="saveAndMove(5)" tabindex="1">Done</button>
-				</div>
-				<div class="clear"></div>
-				<!-- </div> -->
-			</div>
+
+			</div> <!-- /sheet holder -->
+		</div> <!-- /module -->
+		
+		<div class="module done-button">
+			<button class="button outline" ng-click="saveAndMove(5)" tabindex="1">Done</button>
 		</div>
-		<script>
-			$('#bulletform').on('keypress',function(e){
-				var t = $(this);
-					console.log(e.which);
-				if(e.shiftKey){
-					console.log('shifted')
-					if(e.which === 13){
-						t.val(t.val()+'\n');
-						return false;
-					}
-				}
-				if(!e.shiftKey){
-					if(e.which === 13){
-						t.val(t.val()+'\n• ');
-						return false;
-					}
-				}
-			});
-			$('#bulletform').on('focus',function(e){
-				var t = $(this);
-				var l = t.val().length;
-				if (l !== 0){
-					return false;
-				} else {
-					t.val(t.val()+'• ');
-					return false;
-				}
-			});
-		</script>
+	</div> <!-- /container -->
+	
+
+</div>
+
+<script>
+	$('#bulletform').on('keypress',function(e){
+		var t = $(this);
+			console.log(e.which);
+		if(e.shiftKey){
+			console.log('shifted')
+			if(e.which === 13){
+				t.val(t.val()+'\n');
+				return false;
+			}
+		}
+		if(!e.shiftKey){
+			if(e.which === 13){
+				t.val(t.val()+'\n• ');
+				return false;
+			}
+		}
+	});
+	$('#bulletform').on('focus',function(e){
+		var t = $(this);
+		var l = t.val().length;
+		if (l !== 0){
+			return false;
+		} else {
+			t.val(t.val()+'• ');
+			return false;
+		}
+	});
+</script>

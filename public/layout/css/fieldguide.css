@@ -5358,7 +5358,7 @@ hr {
     border: 1px solid rgba(216, 218, 219, 0.5); }
   #view-editing .done-button {
     position: fixed;
-    right: 30px; }
+    right: 10px; }
   #view-editing .container {
     padding: 20px 0 0 0; }
     #view-editing .container .sheet-holder .sheet {
