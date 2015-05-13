@@ -5242,27 +5242,29 @@ hr {
     #view-editing .project-name:focus {
       color: #000;
       background: url('../assets/fg-edit-hover.svg') 20px 21px no-repeat; }
-  #view-editing input.topic-title, #view-editing .add-task textarea.topic-title {
+  #view-editing .test-info {
+    padding: 5px 0 30px 40px; }
+    #view-editing .test-info img {
+      width: 11px;
+      margin: 0 3px 0 0; }
+  #view-editing form.task-info {
+    margin: 0; }
+  #view-editing input.task-title, #view-editing .add-task textarea.task-title {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 18.6px;
     color: #888A8A;
     padding: 0 0 20px 40px; }
-    #view-editing input.topic-title:hover, #view-editing .add-task textarea.topic-title:hover {
+    #view-editing input.task-title:hover, #view-editing .add-task textarea.task-title:hover {
       color: #000;
       background: url('../assets/fg-edit.svg') 20px 7px no-repeat; }
-    #view-editing input.topic-title:focus, #view-editing .add-task textarea.topic-title:focus {
+    #view-editing input.task-title:focus, #view-editing .add-task textarea.task-title:focus {
       color: #000;
       background: url('../assets/fg-edit-hover.svg') 20px 7px no-repeat; }
   #view-editing input.project-name, #view-editing .add-task textarea.project-name {
     padding: 0 0 0 40px;
     margin: 0; }
-  #view-editing .test-info {
-    padding: 5px 0 30px 40px; }
-    #view-editing .test-info img {
-      width: 11px;
-      margin: 0 3px 0 0; }
   #view-editing textarea.objectives, #view-editing textarea.task-descriptions {
     font-size: 14px;
     line-height: 18px;
@@ -5359,6 +5361,8 @@ hr {
   #view-editing .done-button {
     position: fixed;
     right: 10px; }
+  #view-editing .padding {
+    padding: 0 0 0 40px; }
   #view-editing .container {
     padding: 20px 0 0 0; }
     #view-editing .container .sheet-holder .sheet {
@@ -5366,8 +5370,8 @@ hr {
       margin: 0 auto; }
       #view-editing .container .sheet-holder .sheet .container-row {
         clear: both;
-        padding: 0 0 50px 0; }
-        #view-editing .container .sheet-holder .sheet .container-row:nth-child(4) {
+        padding: 0 0 40px 0; }
+        #view-editing .container .sheet-holder .sheet .container-row:nth-child(3) {
           padding: 0; }
         #view-editing .container .sheet-holder .sheet .container-row .container-left {
           float: left;
@@ -5381,8 +5385,6 @@ hr {
           float: left;
           width: 585px;
           position: relative; }
-          #view-editing .container .sheet-holder .sheet .container-row .container-right.padding {
-            padding: 0 0 0 40px; }
           #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete {
             position: relative;
             left: 575px;
