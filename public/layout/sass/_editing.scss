@@ -254,9 +254,14 @@
         font-size: 33px;
         margin: 0 0 20px 0;
 
-        &:hover, &:focus {
+        &:hover {
             color: $black;
             background: url('../assets/fg-edit.svg') 20px 21px no-repeat;
+        }
+
+        &:focus {
+            color: $black;
+            background: url('../assets/fg-edit-hover.svg') 20px 21px no-repeat;
         }
     }
 
@@ -266,9 +271,14 @@
         color: $fg-grey-text;
           padding: 0px 0px 20px 40px;
 
-        &:hover, &:focus {
+        &:hover{
             color: $black;
             background: url('../assets/fg-edit.svg') 20px 7px no-repeat;
+        }
+
+        &:focus {
+            color: $black;
+            background: url('../assets/fg-edit-hover.svg') 20px 7px no-repeat;
         }
     }
 
@@ -295,9 +305,14 @@
         padding: 0px 0px 0px 40px;
         resize: none;
 
-        &:hover, &:focus {
+        &:hover {
             color: $black;
             background: url('../assets/fg-edit.svg') 20px 3px no-repeat;
+        }
+
+        &:focus {
+            color: $black;
+            background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat;
         }
     }
 
@@ -402,7 +417,7 @@
                         }
 
                         &.topics {
-                            margin: 19px 0 0 0;
+                            margin: 32px 0 0 0;
                         }
                     }
 
@@ -418,17 +433,19 @@
                         .topic-delete {
                             position: relative;
                             left: 575px;
-                            top: 16px;
-                            width: 9px;
-                            height: 11.25px;
-                            background: $white url('../assets/fg-trashcan.svg') no-repeat;
+                            top: 25px;
+                            color: $fg-grey-placeholder;
+                            // width: 9px;
+                            // height: 11.25px;
+                            // background: $white url('../assets/fg-trashcan.svg') no-repeat;
 
 
                             &:hover {
                                 cursor: pointer;
-                                width: 9px;
-                                height: 12.38px;
-                                background: $white url('../assets/fg-trashcan-hover.svg') no-repeat;
+                                color: $fg-red;
+                                // width: 9px;
+                                // height: 12.38px;
+                                // background: $white url('../assets/fg-trashcan-hover.svg') no-repeat;
                             }
                         }
                     }

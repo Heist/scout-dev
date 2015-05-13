@@ -26,6 +26,74 @@ custom fonts
 ========================
 */
 /* gibson */
+@font-face {
+  font-family: "fg-font";
+  src: url("../fonts/fg-font/fg-font.eot");
+  src: url("../fonts/fg-font/fg-font.eot?#iefix") format("embedded-opentype"), url("../fonts/fg-font/fg-font.woff") format("woff"), url("../fonts/fg-font/fg-font.ttf") format("truetype"), url("../fonts/fg-font/fg-font.svg#fg-font") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+[data-icon]:before {
+  font-family: "fg-font" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  font-size: 12px;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "fg-font" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  font-size: 12px;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-avatar:before {
+  content: "a"; }
+
+.icon-avatarcircle:before {
+  content: "b"; }
+
+.icon-delete:before {
+  content: "c"; }
+
+.icon-deletehover:before {
+  content: "d"; }
+
+.icon-deleteopen:before {
+  content: "e"; }
+
+.icon-duplicate:before {
+  content: "f"; }
+
+.icon-edit:before {
+  content: "g"; }
+
+.icon-edit-filled:before {
+  content: "h"; }
+
+.icon-email:before {
+  content: "i"; }
+
+.icon-interview:before {
+  content: "j"; }
+
+.icon-prototype:before {
+  content: "k"; }
+
+.icon-share:before {
+  content: "l"; }
+
 /* Mixins */
 /*
 helpers
@@ -5167,9 +5235,12 @@ hr {
     color: #888A8A;
     font-size: 33px;
     margin: 0 0 20px 0; }
-    #view-editing .project-name:hover, #view-editing .project-name:focus {
+    #view-editing .project-name:hover {
       color: #000;
       background: url('../assets/fg-edit.svg') 20px 21px no-repeat; }
+    #view-editing .project-name:focus {
+      color: #000;
+      background: url('../assets/fg-edit-hover.svg') 20px 21px no-repeat; }
   #view-editing input.topic-title, #view-editing .add-task textarea.topic-title {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -5177,9 +5248,12 @@ hr {
     font-size: 18.6px;
     color: #888A8A;
     padding: 0px 0px 20px 40px; }
-    #view-editing input.topic-title:hover, #view-editing .add-task textarea.topic-title:hover, #view-editing input.topic-title:focus, #view-editing .add-task textarea.topic-title:focus {
+    #view-editing input.topic-title:hover, #view-editing .add-task textarea.topic-title:hover {
       color: #000;
       background: url('../assets/fg-edit.svg') 20px 7px no-repeat; }
+    #view-editing input.topic-title:focus, #view-editing .add-task textarea.topic-title:focus {
+      color: #000;
+      background: url('../assets/fg-edit-hover.svg') 20px 7px no-repeat; }
   #view-editing input.project-name, #view-editing .add-task textarea.project-name {
     padding: 0px 0px 0px 40px;
     margin: 0; }
@@ -5198,9 +5272,12 @@ hr {
     margin: 0;
     padding: 0px 0px 0px 40px;
     resize: none; }
-    #view-editing textarea.objectives:hover, #view-editing textarea.objectives:focus, #view-editing textarea.task-descriptions:hover, #view-editing textarea.task-descriptions:focus {
+    #view-editing textarea.objectives:hover, #view-editing textarea.task-descriptions:hover {
       color: #000;
       background: url('../assets/fg-edit.svg') 20px 3px no-repeat; }
+    #view-editing textarea.objectives:focus, #view-editing textarea.task-descriptions:focus {
+      color: #000;
+      background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat; }
   #view-editing .add-task {
     margin: 20px 0; }
     #view-editing .add-task form {
@@ -5293,7 +5370,7 @@ hr {
           #view-editing .container .sheet-holder .sheet .container-row .container-left .create-project-tooltip {
             float: left; }
           #view-editing .container .sheet-holder .sheet .container-row .container-left.topics {
-            margin: 19px 0 0 0; }
+            margin: 32px 0 0 0; }
         #view-editing .container .sheet-holder .sheet .container-row .container-right {
           float: left;
           width: 585px;
@@ -5303,15 +5380,11 @@ hr {
           #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete {
             position: relative;
             left: 575px;
-            top: 16px;
-            width: 9px;
-            height: 11.25px;
-            background: #fff url('../assets/fg-trashcan.svg') no-repeat; }
+            top: 25px;
+            color: #C5C6C7; }
             #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete:hover {
               cursor: pointer;
-              width: 9px;
-              height: 12.38px;
-              background: #fff url('../assets/fg-trashcan-hover.svg') no-repeat; }
+              color: #D82D09; }
 
 /* SESSION IN PROGRESS */
 #view-testing {
