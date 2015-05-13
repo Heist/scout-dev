@@ -3438,7 +3438,7 @@ span.tooltip-icon {
 .tooltip:after, [data-tooltip]:after {
   z-index: 1000;
   padding: 8px;
-  width: 65px;
+  width: 80px;
   background-color: #2a687d;
   background-color: rgba(42, 105, 126, 0.85);
   border-radius: 2px;
@@ -3486,19 +3486,19 @@ span.tooltip-icon {
 
 [data-tooltip]:before, [data-tooltip]:after, [data-tooltip-large]:before, [data-tooltip-large]:after, [data-tooltip-large-report]:before, [data-tooltip-large-report]:after, .tooltip:before, .tooltip:after, .tooltip-top:before, .tooltip-top:after {
   bottom: 100%;
-  left: 50%; }
+  left: 0; }
 
 [data-tooltip]:before, [data-tooltip-large]:before, [data-tooltip-large-report]:before, .tooltip:before, .tooltip-top:before {
-  margin-left: -6px;
+  margin-left: -1px;
   margin-bottom: -12px;
   border-top-color: #2a687d;
   border-top-color: rgba(42, 105, 126, 0.85); }
 
 [data-tooltip]:after, .tooltip:after, .tooltip-top:after {
-  margin-left: -33px; }
+  margin-left: -35px; }
 
 [data-tooltip-large]:after, .tooltip:after, .tooltip-top:after {
-  margin-left: -108px; }
+  margin-left: -103px; }
 
 [data-tooltip-large-report]:after, .tooltip:after, .tooltip-top:after {
   margin-left: -20px; }
@@ -4409,19 +4409,19 @@ hr {
   .modal span.info {
     width: 10px;
     height: 10px;
-    background: #949799;
+    background: #D8DADB;
     border-radius: 50%;
     display: inline-block;
     text-align: center;
     float: right;
-    margin: 3px 0;
+    margin: 7px 0;
     position: relative; }
     .modal span.info span {
-      font-size: 8px;
+      font-size: 9px;
       color: #fff;
       position: absolute;
-      top: -4px;
-      right: 5px; }
+      top: -7px;
+      right: 3.5px; }
   .modal .modal-interior {
     width: 550px;
     background: #fff;
@@ -4504,19 +4504,19 @@ hr {
   .modal-scroll span.info {
     width: 10px;
     height: 10px;
-    background: #949799;
+    background: #D8DADB;
     border-radius: 50%;
     display: inline-block;
     text-align: center;
     float: right;
-    margin: 3px 0;
+    margin: 7px 0;
     position: relative; }
     .modal-scroll span.info span {
-      font-size: 8px;
+      font-size: 9px;
       color: #fff;
       position: absolute;
-      top: -4px;
-      right: 5px; }
+      top: -7px;
+      right: 3.5px; }
   .modal-scroll .modal-interior {
     width: 550px;
     background: #fff;
@@ -5094,7 +5094,7 @@ hr {
   #view-new-project button.test-type span.tooltip-icon {
     position: absolute;
     top: 5px;
-    right: 8px; }
+    right: 5px; }
     #view-new-project button.test-type span.tooltip-icon span {
       top: 0px;
       right: 3.5px; }
@@ -5163,7 +5163,7 @@ hr {
     #view-new-project button.test-type.select-inactive span.tooltip-icon {
       position: absolute;
       top: 5px;
-      right: 8px;
+      right: 5px;
       background: #D8DADB; }
       #view-new-project button.test-type.select-inactive span.tooltip-icon span {
         top: 0px;
@@ -5246,7 +5246,7 @@ hr {
       width: 11px;
       margin: 0 3px 0 0; }
   #view-editing form.task-info {
-    margin: 0; }
+    margin: 0 0 20px 0; }
   #view-editing input.task-title, #view-editing .add-task textarea.task-title {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -5358,7 +5358,8 @@ hr {
     border: 1px solid rgba(216, 218, 219, 0.5); }
   #view-editing .done-button {
     position: fixed;
-    right: 10px; }
+    top: 40px;
+    right: 30px; }
   #view-editing .padding {
     padding: 0 0 0 40px; }
   #view-editing .container {
@@ -5369,12 +5370,14 @@ hr {
       #view-editing .container .sheet-holder .sheet .container-row {
         clear: both;
         padding: 0 0 40px 0; }
-        #view-editing .container .sheet-holder .sheet .container-row:nth-child(3) {
+        #view-editing .container .sheet-holder .sheet .container-row.tags {
+          padding: 0 0 30px 0; }
+        #view-editing .container .sheet-holder .sheet .container-row.topics {
           padding: 0; }
         #view-editing .container .sheet-holder .sheet .container-row .container-left {
           float: left;
           width: 120px;
-          margin: 7px 0 0 0; }
+          margin: 6px 0 0 0; }
           #view-editing .container .sheet-holder .sheet .container-row .container-left .create-project-tooltip {
             float: left; }
           #view-editing .container .sheet-holder .sheet .container-row .container-left.topics {
@@ -5384,6 +5387,7 @@ hr {
           width: 585px;
           position: relative; }
           #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete {
+            width: 0;
             position: relative;
             left: 575px;
             top: 25px;
@@ -6134,7 +6138,7 @@ hr {
               top: 0;
               right: 2.5px;
               color: #fff;
-              font-size: 10px; }
+              font-size: 9px; }
           #view-findings #findings-nav #sidebar.sidebar span.report:hover {
             color: #2B404D; }
         #view-findings #findings-nav #sidebar.sidebar h4.group-cat.hollow {
@@ -6160,7 +6164,7 @@ hr {
               top: 0;
               right: 2.5px;
               color: #fff;
-              font-size: 10px; }
+              font-size: 9px; }
           #view-findings #findings-nav #sidebar.sidebar h4.group-cat:first-child {
             margin: 20px 0 0 0; }
         #view-findings #findings-nav #sidebar.sidebar li {

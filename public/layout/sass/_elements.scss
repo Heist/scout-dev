@@ -104,7 +104,7 @@ span.tooltip-icon {
 [data-tooltip]:after {
   z-index: 1000;
   padding: 8px;
-  width: 65px;
+  width: 80px;
   background-color: $fg-blue-dark;
   background-color: hsla(195, 50%, 33%, 0.85);
   border-radius: 2px;
@@ -162,7 +162,7 @@ span.tooltip-icon {
 .tooltip-top:before,
 .tooltip-top:after {
   bottom: 100%;
-  left: 50%;
+  left: 0;
 }
 
 // triangle under bubble
@@ -171,7 +171,7 @@ span.tooltip-icon {
 [data-tooltip-large-report]:before,
 .tooltip:before,
 .tooltip-top:before {
-  margin-left: -6px;
+  margin-left: -1px;
   margin-bottom: -12px;
   border-top-color: $fg-blue-dark;
   border-top-color: hsla(195, 50%, 33%, 0.85);
@@ -181,14 +181,14 @@ span.tooltip-icon {
 [data-tooltip]:after,
 .tooltip:after,
 .tooltip-top:after {
-  margin-left: -33px;
+  margin-left: -35px;
 }
 
 // large tooltip
 [data-tooltip-large]:after,
 .tooltip:after,
 .tooltip-top:after {
-  margin-left: -108px;
+  margin-left: -103px;
 }
 
 // large-report tooltip
