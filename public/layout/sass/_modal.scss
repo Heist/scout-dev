@@ -14,8 +14,8 @@
 
     // modal form
     span.info {
-        width: 15px;
-        height: 15px;
+        width: 10px;
+        height: 10px;
         background: #949799;
         border-radius: 50%;
         display: inline-block;
@@ -25,7 +25,7 @@
         position: relative;
 
         span {
-            font-size: 12px;
+            font-size: 8px;
             color: $white;
             position: absolute;
             top: -4px;
@@ -107,8 +107,8 @@
 
     // modal form
     span.info {
-        width: 15px;
-        height: 15px;
+        width: 10px;
+        height: 10px;
         background: #949799;
         border-radius: 50%;
         display: inline-block;
@@ -118,7 +118,7 @@
         position: relative;
 
         span {
-            font-size: 12px;
+            font-size: 8px;
             color: $white;
             position: absolute;
             top: -4px;
@@ -134,7 +134,7 @@
         width: 550px;
         background: $white;
         padding: ($pad * 1.5) ($pad * 2) ($pad * 1.5) ($pad * 2);
-        margin: 5% auto;
+        margin: 10% auto;
         @include radius;
         @include dropshadowULTRA;
         @include input-placeholders;

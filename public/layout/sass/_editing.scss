@@ -1,4 +1,4 @@
-/* new project */
+/* new project modal */
 #view-new-project {
 
     ul {
@@ -12,61 +12,78 @@
     .project-tooltip {
         @include type-regular;
     }
-    
+
     button.test-type {
         width: 48.5%;
-        height: 146px;
         outline: 0;
         text-align: center;
         position: relative;
         cursor: pointer;
         border: 0;
-        padding: 20px;
+        padding: 20px 15px;
         background: transparentize($fg-grey-light, 0.8);
         color: $fg-grey;
         margin-bottom: 20px;
         @include radius;
 
-        &.interview {
-            position: relative;
-            margin-right: 1.5%;
+        span.tooltip-icon {
+            position: absolute;
+            top: 5px;
+            right: 8px;
 
-            span.info {
-                position: absolute;
-                top: 5px;
-                right: 8px;
-                background: $fg-grey;
+            & span {
+                top: 0px;
+                right: 3.5px;
+            }
+        }
 
-                & span {
-                    top: 0px;
-                    right: 4.5px;
+        h3 {
+            font-size: 18px;
+            @include type-light;
+            display: inline-block;
+
+            &.interview {
+
+                &:before {
+                    background: url('../assets/interview-dark.svg') top left no-repeat;
+                    content: '';
+                    width: 10px;
+                    height: 16px;
+                    display: inline-block;
+                    margin: 0 5px 0 0;
                 }
             }
 
-            p {
-                margin: 0 0 10px 0;
+            &.prototype {
+                
+                &:before {
+                    background: url('../assets/prototype-dark.svg') top left no-repeat;
+                    content: '';
+                    width: 12px;
+                    height: 17px;
+                    display: inline-block;
+                    margin: 0 5px 0 0;
+                }
             }
+
+        }
+
+
+        p {
+            @include type-light;
+            font-size: 12px;
+            margin: 0;
+            clear: both;
+        }
+
+        &.interview {
+            position: relative;
+            margin-right: 1.5%;
         }
 
         &.prototype {
             position: relative;
             margin-left: 1.5%;
-
-            span.info {
-                position: absolute;
-                top: 5px;
-                right: 8px;
-                background: $fg-grey;
-
-                & span {
-                    top: 0px;
-                    right: 4.5px;
-                }
-            }
-
-            p {
-                margin: 0 0 10px 0;
-            }
         }
 
         &:hover {
@@ -77,12 +94,25 @@
                 color: $white;
             }
 
-            span.info {
+            span.tooltip-icon {
                 background: $fg-green-dark;
             }
 
             & a {
                 color: $white;
+            }
+
+            h3 {
+                &.interview {
+                    &:before {
+                        background: url('../assets/interview-light.svg') top left no-repeat;
+                    }
+                }
+                &.prototype {
+                    &:before {
+                        background: url('../assets/prototype-light.svg') top left no-repeat;
+                    }
+                }
             }
         }
 
@@ -90,12 +120,25 @@
             background: $fg-green;
             color: $white;
 
-            span.info {
+            span.tooltip-icon {
                 background: $fg-green-dark;
             }
 
             & a {
                 color: $white;
+            }
+
+            h3 {
+                &.interview {
+                    &:before {
+                        background: url('../assets/interview-light.svg') top left no-repeat;
+                    }
+                }
+                &.prototype {
+                    &:before {
+                        background: url('../assets/prototype-light.svg') top left no-repeat;
+                    }
+                }
             }
         }
 
@@ -107,15 +150,28 @@
                 color: $fg-blue;
             }
 
-            span.info {
+            span.tooltip-icon {
                 position: absolute;
                 top: 5px;
                 right: 8px;
-                background: $fg-grey;
+                background: $fg-grey-light;
 
                 & span {
                     top: 0px;
-                    right: 4.5px;
+                    right: 3.5px;
+                }
+            }
+
+            h3 {
+                &.interview {
+                    &:before {
+                        background: url('../assets/interview-dark.svg') top left no-repeat;
+                    }
+                }
+                &.prototype {
+                    &:before {
+                        background: url('../assets/prototype-dark.svg') top left no-repeat;
+                    }
                 }
             }
         }
@@ -126,18 +182,6 @@
 
         .no-link {
             font-size: 9px;
-        }
-
-        h3 {
-            font-size: 18px;
-            @include type-light;
-        }
-
-        p {
-            @include type-light;
-            font-size: 14px;
-            line-height: 18px;
-            margin: 0;
         }
 
         &.selected {
@@ -191,8 +235,10 @@
     h3 {
         @include type-regular;
         color: $fg-slate;
-        font-size: 20px;
-        margin: 20px 0;
+        font-size: 10px;
+        text-transform: uppercase;
+        text-align: right;
+        position: relative;
     }
 
     h4 {
@@ -204,93 +250,115 @@
 
     .project-name {
         @include type-light;
-        color: $fg-grey-dark;
-        font-size: 28px;
+        color: $fg-grey-text;
+        font-size: 33px;
         margin: 0 0 20px 0;
 
-        &:hover, &:focus {
+        &:hover {
             color: $black;
+            background: url('../assets/fg-edit.svg') 20px 21px no-repeat;
+        }
+
+        &:focus {
+            color: $black;
+            background: url('../assets/fg-edit-hover.svg') 20px 21px no-repeat;
         }
     }
 
-    .task-title {
-        @include type-light;
-        font-size: 22px;
-        color: $fg-grey;
+    .test-info {
+        padding: 5px 0 30px 40px;
 
-        &:hover, &:focus {
-            color: $black;
+        img {
+            width: 11px;
+            margin: 0 3px 0 0;
         }
     }
-
-    textarea.test-descriptions, textarea.task-descriptions {
-        font-size: 18px;
-        line-height: 24px;
-        @include type-light;
-        color: $fg-grey;
+    
+    form.task-info {
         margin: 0;
+    }
+
+    input.task-title {
+        @include type-light;
+        font-size: 18.6px;
+        color: $fg-grey-text;
+          padding: 0 0 20px 40px;
+
+        &:hover{
+            color: $black;
+            background: url('../assets/fg-edit.svg') 20px 7px no-repeat;
+        }
+
+        &:focus {
+            color: $black;
+            background: url('../assets/fg-edit-hover.svg') 20px 7px no-repeat;
+        }
+    }
+
+    input.project-name {
+          padding: 0 0 0 40px;
+          margin: 0;
+    }
+
+    textarea.objectives, textarea.task-descriptions {
+        font-size: 14px;
+        line-height: 18px;
+        @include type-light;
+        color: $fg-grey-text;
+        margin: 0;
+        padding: 0 0 0 40px;
         resize: none;
 
-        &:hover, &:focus {
+        &:hover {
             color: $black;
+            background: url('../assets/fg-edit.svg') 20px 3px no-repeat;
+        }
+
+        &:focus {
+            color: $black;
+            background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat;
         }
     }
 
     .add-task {
         margin: 20px 0;
 
-        h4 {
-            color: $fg-slate;
-            font-size: 18px;
-        }
-
         form {
-            border: 1px solid transparentize($fg-grey-light, 0.5);
-            padding: 15px;
-            margin: 0;
+            border-top: 1px solid transparentize($fg-grey-light, 0.5);
+            border-bottom: 1px solid transparentize($fg-grey-light, 0.5);
+            margin: 0 0 15px 0;
         }
 
         input {
             width: 100%;
-            margin: 0 0 30px 0;
-            padding: 0;
+            margin: 0;
+            padding: 15px 0 0 0;
             border: 0;
             outline: 0;
             @include type-light;
-            font-size: 18px;
-            line-height: 24px;
-             color: $fg-grey;
+            font-size: 14px;
+            line-height: 18px;
+            color: $fg-grey;
         }
         
         textarea {
             @extend input;
-            height: 65px;
+            height: 135px;
             overflow-y: auto;
             resize: none;
             margin: 0;
-            color: $fg-grey;
-        }
-
-        .box {
-            padding: 12px;
-            margin: 0;
-            border: 1px solid transparentize($fg-grey-light, 0.5);
-            border-top: 0;
+            color: $fg-grey-text;
         }
     }
 
     .tags {
-        margin: 0 0 40px 0;
         @include input-placeholders;
 
         .tag-pool {
             width: 100%;
             height: 100%;
-            background: transparentize($fg-grey-light, 0.5);
-            border: 1px solid transparentize($fg-grey-light, 0.5);
-            
             ul {
-                padding: 0;
+                padding: 0 0 10px 0;
                 margin: 0;
                 
                 li {
@@ -299,8 +367,17 @@
                     color: $fg-blue;
                     display: inline-block;
                     
-                    &:before {
-                        content: "#"
+                    &:hover {
+                        cursor: default;
+                    }
+
+                    span {
+                        color: $fg-grey;
+                        font-size: 10px;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
                     }
                 }
             }
@@ -311,59 +388,83 @@
             background: $white;
             border-top: 0;
             resize: none;
-            padding: 8px;
+            padding: 5px 8px;
             outline: 0;
             @include type-light;
             font-size: 14px;
             line-height: 20px;
-            color: $fg-grey;
+            color: $fg-grey-text;
+            border: 1px solid transparentize($fg-grey-light, 0.5);
         }
     }
 
     .done-button {
         position: fixed;
-        right: 30px;
+        right: 10px;
+    }
+    
+    .padding {
+        padding: 0 0 0 40px;
     }
 
     .container {
         padding: $pad 0 0 0;
-    }
-    .sheet-holder {
-        padding: 0 0 ($pad * 2) 0;
-    }
 
-    .test-setup {
-        padding: $pad 0 0 0;
+        .sheet-holder {
 
-        .sheet {
-            padding: $pad;
-        }
+            .sheet {
+                width: 745px;
+                margin: 0 auto;
 
-        .nobullets {
-            width: 100%;
-            .input {
-                width: 100%;
+                .container-row {
+                    clear: both;
+                    padding: 0 0 40px 0;
+                    
+                    &:nth-child(3) {
+                        padding: 0;
+                    }
+
+                    .container-left {
+                        float: left;
+                        width: 120px;
+                        margin: 7px 0 0 0;
+
+                        .create-project-tooltip {
+                            float: left;
+                        }
+
+                        &.topics {
+                            margin: 32px 0 0 0;
+                        }
+                    }
+
+                    .container-right {
+                        float: left;
+                        width: 585px;
+                        position: relative;
+
+                        .topic-delete {
+                            position: relative;
+                            left: 575px;
+                            top: 25px;
+                            color: $fg-grey-placeholder;
+                            // width: 9px;
+                            // height: 11.25px;
+                            // background: $white url('../assets/fg-trashcan.svg') no-repeat;
+
+
+                            &:hover {
+                                cursor: pointer;
+                                color: $fg-red;
+                                // width: 9px;
+                                // height: 12.38px;
+                                // background: $white url('../assets/fg-trashcan-hover.svg') no-repeat;
+                            }
+                        }
+                    }
+                }
             }
         }
-
-        @include input-placeholders;
-
-        .select-active {
-            @include button-colour($fg-green, $white);
-            border: 1px solid $fg-green-light;
-            cursor: pointer;
-            &:after {
-                content: 'ed';
-            }
-        }
-        .select-inactive {
-            background: $white;
-            color: $fg-grey;
-            border: 1px solid $fg-grey-light;
-            cursor: pointer;
-            &:after {
-                content: '';
-            }
-        }
     }
+
 }
