@@ -405,9 +405,16 @@
                     .container-right {
                         float: left;
                         width: 585px;
+                        position: relative;
 
                         &.padding {
                             padding: 0 0 0 40px;
+                        }
+
+                        .topic-delete {
+                            position: absolute;
+                            right: 0;
+                            top: 0;
                         }
                     }
                 }

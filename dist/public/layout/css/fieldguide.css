@@ -5294,9 +5294,14 @@ hr {
             float: left; }
         #view-editing .container .sheet-holder .sheet .container-row .container-right {
           float: left;
-          width: 585px; }
+          width: 585px;
+          position: relative; }
           #view-editing .container .sheet-holder .sheet .container-row .container-right.padding {
             padding: 0 0 0 40px; }
+          #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete {
+            position: absolute;
+            right: 0;
+            top: 0; }
 
 /* SESSION IN PROGRESS */
 #view-testing {
