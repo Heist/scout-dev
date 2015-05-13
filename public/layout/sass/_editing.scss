@@ -269,7 +269,7 @@
         @include type-light;
         font-size: 18.6px;
         color: $fg-grey-text;
-          padding: 0px 0px 20px 40px;
+          padding: 0 0 20px 40px;
 
         &:hover{
             color: $black;
@@ -283,7 +283,7 @@
     }
 
     input.project-name {
-          padding: 0px 0px 0px 40px;
+          padding: 0 0 0 40px;
           margin: 0;
     }
 
@@ -302,7 +302,7 @@
         @include type-light;
         color: $fg-grey-text;
         margin: 0;
-        padding: 0px 0px 0px 40px;
+        padding: 0 0 0 40px;
         resize: none;
 
         &:hover {

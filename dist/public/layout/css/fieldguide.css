@@ -5248,7 +5248,7 @@ hr {
     font-weight: 300;
     font-size: 18.6px;
     color: #888A8A;
-    padding: 0px 0px 20px 40px; }
+    padding: 0 0 20px 40px; }
     #view-editing input.topic-title:hover, #view-editing .add-task textarea.topic-title:hover {
       color: #000;
       background: url('../assets/fg-edit.svg') 20px 7px no-repeat; }
@@ -5256,7 +5256,7 @@ hr {
       color: #000;
       background: url('../assets/fg-edit-hover.svg') 20px 7px no-repeat; }
   #view-editing input.project-name, #view-editing .add-task textarea.project-name {
-    padding: 0px 0px 0px 40px;
+    padding: 0 0 0 40px;
     margin: 0; }
   #view-editing .test-info {
     padding: 5px 0 30px 40px; }
@@ -5271,7 +5271,7 @@ hr {
     font-weight: 300;
     color: #888A8A;
     margin: 0;
-    padding: 0px 0px 0px 40px;
+    padding: 0 0 0 40px;
     resize: none; }
     #view-editing textarea.objectives:hover, #view-editing textarea.task-descriptions:hover {
       color: #000;
