@@ -11,7 +11,7 @@ module.exports = function(report_id, next){
        .populate({path:'_subject', select: 'name' })
        .populate({path:'_comments', select: 'name body created _tags'})
        .exec(function(err, docs){
-            if(err){ console.log(err); }
+            if(err){ console.error(err); }
             next(null, docs);
         });
 };

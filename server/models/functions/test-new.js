@@ -22,7 +22,7 @@ module.exports = function(req, next){
 	models.Test.create(
 		make,
 		function(err, test){
-            if(err){ console.log(err); }
+            if(err){ console.error(err); }
 
             console.log('test made', test._id);
             // An obscure conflict in Mongo prevents us using tagMaker here

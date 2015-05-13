@@ -19,7 +19,7 @@ module.exports = function(app, passport) {
     // get all of the tests
         models.Test.find({created_by_account:req.user._account})
         .exec(function(err, docs) {
-            if(err){ console.log(err); }
+            if(err){ console.error(err); }
             res.json(docs);
         });
     })
@@ -27,7 +27,7 @@ module.exports = function(app, passport) {
         // 
     // add a new test
         fn.testNew(req, function(err, test){
-            if(err){ console.log(err); }
+            if(err){ console.error(err); }
             res.json(test);
         });
     });
@@ -48,7 +48,7 @@ module.exports = function(app, passport) {
             .populate('_tasks')
             .populate('_tags')
             .exec(function(err,test){
-                if(err){ console.log(err); }
+                if(err){ console.error(err); }
                 res.json(test);
             });
     })
@@ -61,14 +61,14 @@ module.exports = function(app, passport) {
     .put(function(req,res){
     // update one test with new information
         fn.editTest(req.body, function(err, test){
-            if(err){ console.log(err); }
+            if(err){ console.error(err); }
             res.json(test);
         });
     })
     .delete(function(req,res){
     // Delete a test and dependencies
         fn.deleteTest(req.params._id, function(err, test){
-            if(err){  }
+            if(err){ console.error(err); }
             res.json(test);
         });
     });

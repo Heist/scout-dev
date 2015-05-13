@@ -126,6 +126,15 @@
         };
     
     // Add A New Task or Tasks ============================
+        $scope.removeTag = function(tag){
+            var index = $scope.tags.indexOf(tag);            
+            $scope.tags.splice(index, 1);
+
+            $http.delete('/api/tag/'+tag._id)
+                .success(function(data){
+                    console.log(data);
+                });
+        }
 
         $scope.saveTag = function(tags){
             // send the array to the back end, where each will be pushed appropriately 

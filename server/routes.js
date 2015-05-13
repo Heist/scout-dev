@@ -139,7 +139,7 @@ module.exports = function(app, passport) {
         // password reset route
         console.log('reset me', req.body, req.params.token);
         fn.resetPassword(req.params.token, req.body.password, app, function(err, resetUserLogin){
-            if(err){ console.log(err); }
+            if(err){ console.error(err); }
             if (resetUserLogin === 0){
                 console.log('no user found #2', resetUserLogin)
                 res.send('0');
@@ -170,7 +170,7 @@ module.exports = function(app, passport) {
     //         var connectionOne = require('./models/app-connect');
     //         var Msg = connectionOne.model('Message');
     //         Msg.create({body: 'new message test'}, function(err, update){
-    //             if(err){ console.log(err); }
+    //             if(err){ console.error(err); }
     //             
     //         });
     //     });
@@ -179,7 +179,7 @@ module.exports = function(app, passport) {
     // .get(function(req,res){
     //     Test.find()
     //         .exec(function(err, docs) {
-    //             if(err){ console.log(err); }
+    //             if(err){ console.error(err); }
 
     //             res.json(docs);
     //         });
@@ -189,7 +189,7 @@ module.exports = function(app, passport) {
     // .get(function(req,res){
     //     Comment.find()
     //         .exec(function(err, docs) {
-    //             if(err){ console.log(err); }
+    //             if(err){ console.error(err); }
 
     //             res.json(docs);
     //         });
@@ -200,7 +200,7 @@ module.exports = function(app, passport) {
     //     Test.find({'_id': req.params._id})
     //         .populate('_tasks')
     //         .exec(function(err, docs) {
-    //             if(err){ console.log(err); }
+    //             if(err){ console.error(err); }
 
     //             res.json(docs);
     //         });
@@ -210,7 +210,7 @@ module.exports = function(app, passport) {
     // .get(function(req,res){
     //     Task.find()
     //         .exec(function(err, docs) {
-    //             if(err){ console.log(err); }
+    //             if(err){ console.error(err); }
 
     //             res.json(docs);
     //         });
@@ -221,7 +221,7 @@ module.exports = function(app, passport) {
     //     Message.find()
     //         .populate('_comments')
     //         .exec(function(err, docs) {
-    //             if(err){ console.log(err); }
+    //             if(err){ console.error(err); }
 
     //             res.json(docs);
     //         });
@@ -230,7 +230,7 @@ module.exports = function(app, passport) {
     // app.route('/debug/tag')
     //     .get(function(req,res){
     //         Tag.find(function(err, docs) {
-    //                 if(err){ console.log(err); }
+    //                 if(err){ console.error(err); }
 
     //                 res.json(docs);
     //             });
@@ -239,7 +239,7 @@ module.exports = function(app, passport) {
     // app.route('/debug/user')
     //     .get(function(req,res){
     //         User.find(function(err, users) {
-    //                 if(err){ console.log(err); }
+    //                 if(err){ console.error(err); }
 
     //                 res.json(users);
     //             });
@@ -248,7 +248,7 @@ module.exports = function(app, passport) {
     // app.route('/debug/invite')
     //     .get(function(req,res){
     //         Invite.find(function(err, invites) {
-    //                 if(err){ console.log(err); }
+    //                 if(err){ console.error(err); }
 
     //                 res.json(invites);
     //             });
@@ -258,7 +258,7 @@ module.exports = function(app, passport) {
     //     .get(function(req,res){
     //         Subject.find()
     //             .exec(function(err, docs) {
-    //                 if(err){ console.log(err); }
+    //                 if(err){ console.error(err); }
 
     //                 res.json(docs);
     //             });
@@ -272,7 +272,7 @@ module.exports = function(app, passport) {
     app.route('/auth/export/account/')
         .get(function(req,res){
             fn.accountExporter(req.user._account, function(err, account) {
-                if(err){ console.log(err); }
+                if(err){ console.error(err); }
                 res.json(account);
             });
         });
@@ -285,7 +285,7 @@ module.exports = function(app, passport) {
     app.route('/api/public/report/:_id')
     .get(function(req, res){
         fn.buildSummary(req.params._id, function(err, summary){
-            if(err){ console.log(err); }
+            if(err){ console.error(err); }
             res.json(summary);
         });
     });

@@ -64,7 +64,7 @@ module.exports = function(address, inviter, next){
                 created_by_user : inviter._id,
                 invite_email : address
             }, function(err, invite){
-                if(err){  }
+                if(err){ console.error(err); }
 
                 var mailer = new Emailer(
                     { to: { email: invite.invite_email, },
@@ -84,7 +84,7 @@ module.exports = function(address, inviter, next){
         }
     ], 
     function(err, results){
-        if(err){ console.log(err); }
+        if(err){ console.error(err); }
         next(null, results);
     });
 };

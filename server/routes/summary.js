@@ -16,7 +16,7 @@ module.exports = function (app, passport) {
     .get(function(req, res){
     // get the navigation console for the summary.
         fn.buildSummary(req.params._id, function(err, summary){
-            if(err){ console.log(err); }
+            if(err){ console.error(err); }
             
             var output = {
                 name : summary.navlist.test,
@@ -39,20 +39,20 @@ module.exports = function (app, passport) {
             function(callback){
                 fn.objectUpdate(object_array,
                 function(err, update){
-                    if(err){ console.log(err); }
+                    if(err){ console.error(err); }
                     callback(null, update);
                 });
             },
             function(callback){
                 fn.messageFav(message_array,
                     function(err, update){
-                        if(err){ console.log(err); }
+                        if(err){ console.error(err); }
                         callback(null, update);
                     });
             }
         ],
         function(err,results){
-            if(err){ console.log(err); }
+            if(err){ console.error(err); }
             res.json(results);
         });
     })
@@ -62,7 +62,7 @@ module.exports = function (app, passport) {
         
         fn.objectUpdate(req.body,
             function(err, update){
-                if(err){ console.log(err); }
+                if(err){ console.error(err); }
                 res.json(update);
             });
     });
@@ -72,7 +72,7 @@ module.exports = function (app, passport) {
        .post(function(req, res){
         // Add a comment to a message declared on the request.
         fn.newComment(req.body, req.user, function(err, comment){
-            if(err){ console.log(err); }
+            if(err){ console.error(err); }
             res.json(comment);
         });
     });
