@@ -57,15 +57,22 @@
 					</div>
 					
 					<div class="container-row clearfix">
-						<div class="container-left topics">
+						<div class="container-left">
 							<h3>Topics
 							<span class="tooltip-icon" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
 							</h3>
 						</div>
 						<div class="container-right">
 							<div ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}">
-								
-								<span class="topic-delete icon-delete" ng-click="removeTask(task)"></span>
+
+
+								<div class="topic-delete" data-tooltip="Delete Topic"ng-click="removeTask(task)"><span class="icon-delete"></span></div>
+
+
+
+
+
+
 								<div ng-click="select(task)">
 									<form class="task-info">
 										<input class="input-no-border task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">

@@ -3438,7 +3438,7 @@ span.tooltip-icon {
 .tooltip:after, [data-tooltip]:after {
   z-index: 1000;
   padding: 8px;
-  width: 65px;
+  width: 80px;
   background-color: #2a687d;
   background-color: rgba(42, 105, 126, 0.85);
   border-radius: 2px;
@@ -3495,7 +3495,7 @@ span.tooltip-icon {
   border-top-color: rgba(42, 105, 126, 0.85); }
 
 [data-tooltip]:after, .tooltip:after, .tooltip-top:after {
-  margin-left: -33px; }
+  margin-left: -40px; }
 
 [data-tooltip-large]:after, .tooltip:after, .tooltip-top:after {
   margin-left: -108px; }
@@ -5248,7 +5248,7 @@ hr {
       width: 11px;
       margin: 0 3px 0 0; }
   #view-editing form.task-info {
-    margin: 0; }
+    margin: 0 0 30px 0; }
   #view-editing input.task-title, #view-editing .add-task textarea.task-title {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -5305,59 +5305,61 @@ hr {
       resize: none;
       margin: 0;
       color: #888A8A; }
-  #view-editing .tags ::-webkit-input-placeholder {
-    color: #C5C6C7;
-    font-size: 14px;
-    line-height: 20px;
-    font-style: italic; }
-  #view-editing .tags :-moz-placeholder {
-    /* Firefox 18- */
-    color: #C5C6C7;
-    font-size: 14px;
-    line-height: 20px;
-    font-style: italic; }
-  #view-editing .tags ::-moz-placeholder {
-    /* Firefox 19+ */
-    color: #C5C6C7;
-    font-size: 14px;
-    line-height: 20px;
-    font-style: italic; }
-  #view-editing .tags :-ms-input-placeholder {
-    color: #C5C6C7;
-    font-size: 14px;
-    line-height: 20px;
-    font-style: italic; }
-  #view-editing .tags .tag-pool, #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
-    width: 100%;
-    height: 100%; }
-    #view-editing .tags .tag-pool ul, #view-editing .tags input.custom-tags ul, #view-editing .tags .add-task textarea.custom-tags ul, #view-editing .add-task .tags textarea.custom-tags ul {
-      padding: 0 0 10px 0;
-      margin: 0; }
-      #view-editing .tags .tag-pool ul li, #view-editing .tags input.custom-tags ul li, #view-editing .tags .add-task textarea.custom-tags ul li, #view-editing .add-task .tags textarea.custom-tags ul li {
-        padding: 0 5px 0 5px;
-        font-size: 14px;
-        color: #00B5E3;
-        display: inline-block; }
-        #view-editing .tags .tag-pool ul li:hover, #view-editing .tags input.custom-tags ul li:hover, #view-editing .tags .add-task textarea.custom-tags ul li:hover, #view-editing .add-task .tags textarea.custom-tags ul li:hover {
-          cursor: default; }
-        #view-editing .tags .tag-pool ul li span, #view-editing .tags input.custom-tags ul li span, #view-editing .tags .add-task textarea.custom-tags ul li span, #view-editing .add-task .tags textarea.custom-tags ul li span {
-          color: #949799;
-          font-size: 10px; }
-          #view-editing .tags .tag-pool ul li span:hover, #view-editing .tags input.custom-tags ul li span:hover, #view-editing .tags .add-task textarea.custom-tags ul li span:hover, #view-editing .add-task .tags textarea.custom-tags ul li span:hover {
-            cursor: pointer; }
-  #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
-    background: #fff;
-    border-top: 0;
-    resize: none;
-    padding: 5px 8px;
-    outline: 0;
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 20px;
-    color: #888A8A;
-    border: 1px solid rgba(216, 218, 219, 0.5); }
+  #view-editing .tags {
+    margin: 0 0 10px 0; }
+    #view-editing .tags ::-webkit-input-placeholder {
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
+      font-style: italic; }
+    #view-editing .tags :-moz-placeholder {
+      /* Firefox 18- */
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
+      font-style: italic; }
+    #view-editing .tags ::-moz-placeholder {
+      /* Firefox 19+ */
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
+      font-style: italic; }
+    #view-editing .tags :-ms-input-placeholder {
+      color: #C5C6C7;
+      font-size: 14px;
+      line-height: 20px;
+      font-style: italic; }
+    #view-editing .tags .tag-pool, #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
+      width: 100%;
+      height: 100%; }
+      #view-editing .tags .tag-pool ul, #view-editing .tags input.custom-tags ul, #view-editing .tags .add-task textarea.custom-tags ul, #view-editing .add-task .tags textarea.custom-tags ul {
+        padding: 0 0 10px 0;
+        margin: 0; }
+        #view-editing .tags .tag-pool ul li, #view-editing .tags input.custom-tags ul li, #view-editing .tags .add-task textarea.custom-tags ul li, #view-editing .add-task .tags textarea.custom-tags ul li {
+          padding: 0 5px 0 5px;
+          font-size: 14px;
+          color: #00B5E3;
+          display: inline-block; }
+          #view-editing .tags .tag-pool ul li:hover, #view-editing .tags input.custom-tags ul li:hover, #view-editing .tags .add-task textarea.custom-tags ul li:hover, #view-editing .add-task .tags textarea.custom-tags ul li:hover {
+            cursor: default; }
+          #view-editing .tags .tag-pool ul li span, #view-editing .tags input.custom-tags ul li span, #view-editing .tags .add-task textarea.custom-tags ul li span, #view-editing .add-task .tags textarea.custom-tags ul li span {
+            color: #949799;
+            font-size: 10px; }
+            #view-editing .tags .tag-pool ul li span:hover, #view-editing .tags input.custom-tags ul li span:hover, #view-editing .tags .add-task textarea.custom-tags ul li span:hover, #view-editing .add-task .tags textarea.custom-tags ul li span:hover {
+              cursor: pointer; }
+    #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
+      background: #fff;
+      border-top: 0;
+      resize: none;
+      padding: 5px 8px;
+      outline: 0;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 20px;
+      color: #888A8A;
+      border: 1px solid rgba(216, 218, 219, 0.5); }
   #view-editing .done-button {
     position: fixed;
     right: 10px; }
@@ -5376,19 +5378,17 @@ hr {
         #view-editing .container .sheet-holder .sheet .container-row .container-left {
           float: left;
           width: 120px;
-          margin: 7px 0 0 0; }
+          margin: 6px 0 0 0; }
           #view-editing .container .sheet-holder .sheet .container-row .container-left .create-project-tooltip {
             float: left; }
-          #view-editing .container .sheet-holder .sheet .container-row .container-left.topics {
-            margin: 32px 0 0 0; }
         #view-editing .container .sheet-holder .sheet .container-row .container-right {
           float: left;
           width: 585px;
           position: relative; }
           #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete {
-            position: relative;
+            position: absolute;
             left: 575px;
-            top: 25px;
+            top: 0;
             color: #C5C6C7; }
             #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete:hover {
               cursor: pointer;

@@ -104,7 +104,7 @@ span.tooltip-icon {
 [data-tooltip]:after {
   z-index: 1000;
   padding: 8px;
-  width: 65px;
+  width: 80px;
   background-color: $fg-blue-dark;
   background-color: hsla(195, 50%, 33%, 0.85);
   border-radius: 2px;
@@ -181,7 +181,7 @@ span.tooltip-icon {
 [data-tooltip]:after,
 .tooltip:after,
 .tooltip-top:after {
-  margin-left: -33px;
+  margin-left: -40px;
 }
 
 // large tooltip
