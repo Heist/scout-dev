@@ -14,7 +14,7 @@ module.exports = function(request, user, next){
             created_by_user: user._id
         },
         function(err, cmt){
-            if(err){  }
+            if(err){ console.error(err); }
         });
 
     promise.then(function(comment){

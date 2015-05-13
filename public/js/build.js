@@ -50996,7 +50996,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 // app.js
 (function() {
     'use strict';
-    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'typeaheadTagger', 'ngSanitize', 'youtube-embed', 'field_guide_controls','field_guide_filters']);
+    var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'typeaheadTagger', 'ngSanitize', 'field_guide_controls','field_guide_filters']);
 
     // FRONT-END ROUTE CONFIGURATION ==============================================
     field_guide_app.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", "$locationProvider", function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
@@ -51189,7 +51189,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);
 
     // CONTROLLERS, DIRECTIVES ============================================================
-    angular.module('field_guide_controls', ['ngSanitize', 'ui','ui.router', 'youtube-embed']);
+    angular.module('field_guide_controls', ['ngSanitize', 'ui','ui.router']);
 
 })();
 // run.js
@@ -52348,52 +52348,29 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             return _.groupBy(data, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
         }
 
-        // Set the messages from the summary tag to the test object
-        var summaryObject = function(data){
-            // Find the test in the left nav order
-            var testIdx = _.indexOf(_.pluck(data, 'doctype'), 'test');
-
-            // get the tag object for #summary
-            var summaryItem = _.filter(loadData.data.list, function(n){
+        $scope.summaryItem =  _.filter(loadData.data.list, function(n){
                 if(n.name){
                     var nameCheck = n.name.toLowerCase();
                     return nameCheck === 'summary';
                 } else {
-                    
                     return [];
                 }
             })[0];
 
-            // to make the summary message list
-            var sumList = _.filter(loadData.data.messages, function(n){
+        // Set the messages from the summary tag to the test object
+        $scope.summaryList = _.filter(loadData.data.messages, function(n){
                 // (for each message in loadData, return that message if index of summary._id is not -1)
-                if (n._tags.indexOf(summaryItem._id) !== -1){
+                if (n._tags.indexOf($scope.summaryItem._id) !== -1){
                     return n
                 } else {
                     return ; 
                 }
-            })
+            });
+
+        var tagCheck = $scope.summaryItem._id;
         
-            // messages for the summary tag should be put on the report page.
-            // so we should do an ng-repeat on the report page for messages
-            // where summary's _id is in the index of tags on that message.
-
-            // set the message list for the test to being those messages, and pass the list generally
-            var summaryMsgList = sumList;
-            var summaryTagIdCheck = (summaryItem) ? summaryItem._id : 'undefined';
-
-            return { summaryMsgList: summaryMsgList, summaryTagIdCheck: summaryTagIdCheck, freshList : data };
-        }
-
-        var summaryList = summaryObject(loadData.data.list);
-        
-        // now organize them by user
-        $scope.summaryMessages = makeMessageGroups(summaryList.summaryMsgList);
-        console.log('scope.SummaryM', $scope.summaryMessages, 'sumMesageList', summaryList.summaryMsgList);
-
-        var tagCheck = summaryList.summaryTagIdCheck;
         // organise the returned information to pass back a good set for raw data
-        var hasMsg  = _.filter(summaryList.freshList, function(n){ '' 
+        var hasMsg  = _.filter(loadData.data.list, function(n){ '' 
                             var reply;
                             if(n.doctype === 'test'){ return n.doctype === 'test' }
                             else {
@@ -52412,10 +52389,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
+        $scope.messages = makeMessageGroups(loadData.data.messages);        
         
-        // GROUP MESSAGES BY USERS ==================================
-        $scope.messages = makeMessageGroups(loadData.data.messages);
 
+        // GROUP MESSAGES BY USERS ==================================
         var deleteMessage = function(message){
             // requires a message with subject name and _id
             // message splicer to remove messages from $scope.messages
@@ -52442,6 +52419,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         var addTagsToLeftNav = function(data){
             // when we're returned new data, check the tags for messages and filter ones that have none
             // set the new list of tags to the bottom of the navlist
+            console.log(data);
             var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
             var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
@@ -52451,10 +52429,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             var testIdx  = _.indexOf(_.pluck($scope.rawList, 'doctype'), 'test');
 
             $scope.rawList = clear.concat(tagList);
-
-            if(sumMsg && sumMsg.length > 0){
-                $scope.rawlist[testIdx]._messages = sumMsg._messages;
-            }
 
         }
         
@@ -52556,13 +52530,12 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.inputNote = user;
         };
 
-        $scope.saveEdit = function(original){
+        $scope.saveEdit = function(original, list){
             $scope.messageEditToggle = '';
 
             var output = original;
 
-            if(output._tags.indexOf(summaryList.summaryTagIdCheck) !== -1){
-                
+            if(output._tags.indexOf($scope.summaryItem._id !== -1)){
                 output.body = output.body + ' #summary';
             }
             
@@ -52580,15 +52553,40 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     var idx = _.pluck($scope.messages[output._subject.name], '_id').indexOf(output._id);
                     $scope.messages[output._subject.name].splice(idx,1, data.msg);
                     
-                    // now find the original._id on selected item in left nav and replace with new _id
-                    var x = $scope.selected._messages.indexOf(output._id);
-                    if( x !== -1){
-                            $scope.selected._messages.splice(x, 1, data.msg._id);
+
+                    // now find the original._id on raw list item replace with new _id
+                    var objList    = _.filter($scope.rawList, function(n){ if(n.doctype === 'tag' || n.doctype === 'tag' ) {return n;} else {return;}})
+                    var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; });
+                    
+                    var nonTestObj = _.map(objList, function(n){
+                        console.log('nontestobjects', n);
+                        var x = n._messages.indexOf(output._id);
+
+                        if( x !== -1){
+                            n._messages.splice(x, 1, data.msg._id);
+                          return n;
                         }
-                    if($scope.selected._messages.length === 0){
-                        $scope.selected._messages.splice(0, 1, data.msg._id);
+                        if(n._messages.length === 0){
+                            n._messages.splice(0, 1, data.msg._id);
+                          return n;
+                        } else {
+                            return n;
+                        }
+                    })
+
+                    if(data._tags.indexOf($scope.summaryItem._id) !== -1){
+                        // if it's a summary message, add it back into the message filter list
+                        $scope.summaryItem._messages.splice($scope.summaryItem._messages.indexOf(original._id), 1, data.msg._id);
                     }
 
+                    console.log(test);
+
+                    $scope.rawList = test.concat(nonTestObj);
+
+                    // Summary messages is a list of messages that match the summary._id
+                    
+
+                    console.log(nonTestObj);
                     addTagsToLeftNav(data);
                 });
         };
@@ -52764,6 +52762,15 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         };
     
     // Add A New Task or Tasks ============================
+        $scope.removeTag = function(tag){
+            var index = $scope.tags.indexOf(tag);            
+            $scope.tags.splice(index, 1);
+
+            $http.delete('/api/tag/'+tag._id)
+                .success(function(data){
+                    console.log(data);
+                });
+        }
 
         $scope.saveTag = function(tags){
             // send the array to the back end, where each will be pushed appropriately 

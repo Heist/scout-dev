@@ -21,16 +21,16 @@
 						<span class="report">Report<span class="info" data-tooltip-large-report="Your participant summaries and shareable report"><span>?</span></span>
 					</li>
 				</ul>
-				<ul ng-if="navlist.task">
-					<h4 class="group-cat">Topics <span class="info" data-tooltip-large-report="All of your notes organized to their specific Topic."><span>?</span></span></h4>
-					<li ng-repeat="object in navlist.task" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
-						<span class="objects">{{object.name}}</span>
-					</li>
-				</ul>
 				<ul ng-if="navlist.tag">
 					<h4 class="group-cat">Tag <span class="info" data-tooltip-large-report="All of the notes you have #tagged as important can be found here."><span>?</span></span></h4>
 					<li ng-repeat="object in  navlist.tag" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
 						<span class="objects tag-hash">{{object.name}}</span>
+					</li>
+				</ul>
+				<ul ng-if="navlist.task">
+					<h4 class="group-cat">Topics <span class="info" data-tooltip-large-report="All of your notes organized to their specific Topic."><span>?</span></span></h4>
+					<li ng-repeat="object in navlist.task" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
+						<span class="objects">{{object.name}}</span>
 					</li>
 				</ul>
 
@@ -101,7 +101,7 @@
 						
 						<div class="message-body" ng-click="editMessage(message, $index)">
 							<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-							<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message)"></textarea>
+							<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)"></textarea>
 						</div>
 					
 					<div class="clear"></div>
@@ -111,20 +111,18 @@
 
 				<!-- Summary Messages on Report -->
 
-				<div ng-if="selected.doctype === 'test'" class="message-group" ng-repeat="user in summaryMessages">
-
+				<div ng-if="selected.doctype === 'test'" class="message-group" ng-repeat="user in messages">
 					<!-- participant name -->
 					<div class="message-user">
 						<img src="/layout/assets/avatar.svg" /> {{user[0]._subject.name}}
 						<div class="clear"></div>
 					</div>
 					<div ng-repeat="message in user" class="message"
-						ng-show="selected._messages.indexOf(message._id) !== -1"
+						ng-show="summaryItem._messages.indexOf(message._id) !== -1"
 						ng-class="{selected: commentMessage._id === message._id}">
-						
 						<div class="message-body" ng-click="editMessage(message, $index)">
 							<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-							<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message)"></textarea>
+							<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)"></textarea>
 						</div>
 					
 					<div class="clear"></div>

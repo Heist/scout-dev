@@ -64,6 +64,6 @@ module.exports = function(emailAddress, app, next){
             }
         })
     }).catch(function(err){
-        if(err){console.log(err);}
+        if(err){console.error(err);}
     })
 };

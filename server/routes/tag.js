@@ -11,7 +11,7 @@ module.exports = function(app, passport) {
     app.route('/api/tag/')
         .get(function(req,res){
             models.Tag.find(function(err, tags) {
-                    if(err){ console.log(err); }
+                    if(err){ console.error(err); }
                     res.json(tags);
                 });
         })
@@ -25,12 +25,21 @@ module.exports = function(app, passport) {
         .get(function(req,res){
             models.Tag.find({'_test':req.params._id})
                 .exec(function(err, tags) {
-                    if(err){ console.log(err); }
+                    if(err){ console.error(err); }
                     res.json(tags);
                 });
         })
         .post(function(req,res){
             // console.log('tag post touched')
             res.json('tag post touched');
+        })
+        .delete(function(req, res){
+            console.log('delete this tag', req.params._id);
+            fn.deleteObject(req.params._id, 'tag',function(err, obj){
+                if(err){ console.error(err); }
+                res.json(obj);
+            });
+
         });
+
 };

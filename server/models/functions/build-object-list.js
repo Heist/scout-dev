@@ -37,7 +37,7 @@ module.exports = function(report_id, next){
             // console.log(navlist);
             return navlist;
         }).catch(function(err){
-            if(err){ console.log(err); }
+            if(err){ console.error(err); }
         })
 
 };
