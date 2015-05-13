@@ -47,6 +47,10 @@
 			position: absolute;
 			left: 15px;
 			top: 10px;
+
+			img {
+				margin: 0 3px 0 0;
+			}
 		}
 		
 		h3 {
@@ -88,7 +92,7 @@
 		
 		
 		.editTest {
-			font-size: $type-size-base*0.8;
+			font-size: 14px;
 			position: absolute;
 			text-align: right;
 			width: 100%;

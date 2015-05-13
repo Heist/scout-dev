@@ -4943,6 +4943,8 @@ hr {
       position: absolute;
       left: 15px;
       top: 10px; }
+      .overview-test .test-info .test-kind img {
+        margin: 0 3px 0 0; }
     .overview-test .test-info h3 {
       font-size: 24.8px;
       line-height: 28px;
@@ -4966,7 +4968,7 @@ hr {
         padding: 0 5px 0 0;
         margin: 0; }
     .overview-test .test-info .editTest {
-      font-size: 11.2px;
+      font-size: 14px;
       position: absolute;
       text-align: right;
       width: 100%;
