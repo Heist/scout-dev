@@ -12,8 +12,6 @@
 	<div class="container">
 		
 		<div id="header-min">
-			<h3 class="h3-light float-left">My Projects</h3>
-			
 			<div class="overview-controls">
 				<div class="expand-button">
 					<div class="expand-button-body" ng-click="newTestModalToggle()">+</div>
@@ -44,10 +42,20 @@
 				<div class="overview-test-container">
 					
 					<div class="test-info">
+					<small class="test-kind" ng-if="test.kind === 'interview'">
+						<img src="layout/assets/interview-dark.svg" alt="Interview icon">
+						{{test.kind}}
+					</small>
+
+					<small class="test-kind" ng-if="test.kind === 'prototype'">
+						<img src="layout/assets/prototype-dark.svg" alt="Prototype icon">
+						{{test.kind}}
+					</small>
+
 						<h3>{{test.name}}</h3>
-						<small>{{test.kind}} &mdash;
+
 						<span ng-show="test._subjects.length > 0">Run {{test._subjects.length}} times</span>
-						<span ng-show="test._subjects.length === 0">Never tested</span>
+						<span ng-show="test._subjects.length === 0">Never run</span>
 						</small>
 						
 						<div class="editTest-tooltips">
@@ -76,9 +84,9 @@
 					
 					<div class="test-controls">
 						
-						<a class="left" ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run a Session</a>
+						<a class="left" ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run session</a>
 
-						<a class="right" ng-click="summarizeTest(test._id)" ng-show="test._subjects.length > 0">Project Report</a>
+						<a class="right" ng-click="summarizeTest(test._id)" ng-show="test._subjects.length > 0">Create report</a>
 						
 						<div class="clear"></div>
 					</div>
