@@ -5289,9 +5289,11 @@ hr {
         #view-editing .container .sheet-holder .sheet .container-row .container-left {
           float: left;
           width: 120px;
-          margin: 8px 0 0 0; }
+          margin: 7px 0 0 0; }
           #view-editing .container .sheet-holder .sheet .container-row .container-left .create-project-tooltip {
             float: left; }
+          #view-editing .container .sheet-holder .sheet .container-row .container-left.topics {
+            margin: 19px 0 0 0; }
         #view-editing .container .sheet-holder .sheet .container-row .container-right {
           float: left;
           width: 585px;
@@ -5299,13 +5301,12 @@ hr {
           #view-editing .container .sheet-holder .sheet .container-row .container-right.padding {
             padding: 0 0 0 40px; }
           #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete {
-            position: absolute;
-            right: 0;
-            top: 7px;
+            position: relative;
+            left: 575px;
+            top: 16px;
             width: 9px;
             height: 11.25px;
-            background: #fff url('../assets/fg-trashcan.svg') no-repeat;
-            z-index: 1; }
+            background: #fff url('../assets/fg-trashcan.svg') no-repeat; }
             #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete:hover {
               cursor: pointer;
               width: 9px;

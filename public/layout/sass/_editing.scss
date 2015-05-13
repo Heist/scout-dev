@@ -395,10 +395,14 @@
                     .container-left {
                         float: left;
                         width: 120px;
-                        margin: 8px 0 0 0;
+                        margin: 7px 0 0 0;
 
                         .create-project-tooltip {
                             float: left;
+                        }
+
+                        &.topics {
+                            margin: 19px 0 0 0;
                         }
                     }
 
@@ -412,13 +416,13 @@
                         }
 
                         .topic-delete {
-                            position: absolute;
-                            right: 0;
-                            top: 7px;
+                            position: relative;
+                            left: 575px;
+                            top: 16px;
                             width: 9px;
                             height: 11.25px;
                             background: $white url('../assets/fg-trashcan.svg') no-repeat;
-                            z-index: 1;
+
 
                             &:hover {
                                 cursor: pointer;
