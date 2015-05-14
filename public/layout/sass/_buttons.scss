@@ -34,8 +34,16 @@ button.x-onboard {
 	font-size: 14px;
 	padding: 12px 32.5px;
 	float: left;
-	margin: 0;
+	margin: 0 5px;
 	@include type-regular;
+
+	&:first-child {
+		margin: 0 5px 0 0;
+	}
+
+	&:last-child {
+		margin: 0 0 0 5px;
+	}
 	
 	&:hover {
 		background: $fg-green-dark;
@@ -72,8 +80,8 @@ button.x-onboard {
 	}
 
 	&.med {
-		font-size: 13px;
-		padding: 10px 20px;
+		font-size: 14px;
+		padding: 12.5px 20px;
 	}
 
 	&.small {
@@ -105,7 +113,7 @@ button.x-onboard {
 	}
 	
 	&.secondary {
-		@include button-colour($text, $white);
+		@include button-colour($fg-grey-placeholder, $white);
 	}
 	
 	&.header {

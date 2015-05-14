@@ -693,7 +693,7 @@ button.x-onboard {
   font-size: 14px;
   padding: 12px 32.5px;
   float: left;
-  margin: 0;
+  margin: 0 5px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 400; }
@@ -701,6 +701,10 @@ button.x-onboard {
     background: #7a9e0e;
     color: #fff;
     text-decoration: none; }
+  .button:first-child {
+    margin: 0 5px 0 0; }
+  .button:last-child {
+    margin: 0 0 0 5px; }
   .button:hover {
     background: #70910D; }
   .button:focus {
@@ -726,8 +730,8 @@ button.x-onboard {
     font-size: 14px;
     padding: 16px 30px; }
   .button.med {
-    font-size: 13px;
-    padding: 10px 20px; }
+    font-size: 14px;
+    padding: 12.5px 20px; }
   .button.small {
     font-size: 12px;
     padding: 3px 10px; }
@@ -762,11 +766,11 @@ button.x-onboard {
       color: #fff;
       text-decoration: none; }
   .button.secondary {
-    background: #7c7d80;
+    background: #C5C6C7;
     color: #fff;
     text-decoration: none; }
     .button.secondary:hover {
-      background: #747578;
+      background: #bdbebf;
       color: #fff;
       text-decoration: none; }
   .button.header {
