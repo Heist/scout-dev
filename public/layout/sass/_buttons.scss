@@ -34,15 +34,23 @@ button.x-onboard {
 	font-size: 14px;
 	padding: 12px 32.5px;
 	float: left;
-	margin: 0;
+	margin: 0 5px;
 	@include type-regular;
+
+	&:first-child {
+		margin: 0 5px 0 0;
+	}
+
+	&:last-child {
+		margin: 0 0 0 5px;
+	}
 	
 	&:hover {
 		background: $fg-green-dark;
 	}
 	
 	&:focus {
-	    box-shadow:  0 0 6px $fg-green;
+	    box-shadow:  0 0 5px $fg-green;
 	}
 
 	&.outline {
@@ -54,7 +62,7 @@ button.x-onboard {
 		}
 
 		&:focus {
-			box-shadow:  0 0 6px $fg-green-light;
+			box-shadow:  0 0 5px $fg-green-light;
 		}
 	}
 	
@@ -72,8 +80,8 @@ button.x-onboard {
 	}
 
 	&.med {
-		font-size: 13px;
-		padding: 10px 20px;
+		font-size: 14px;
+		padding: 12.5px 20px;
 	}
 
 	&.small {
@@ -101,11 +109,27 @@ button.x-onboard {
 	}
 	
 	&.destructive {
-		@include button-colour($fg-header-red, $white);
+		@include button-colour($fg-red, $white);
+
+		&:hover {
+			background: $fg-red-dark;
+		}
+		
+		&:focus {
+		    box-shadow:  0 0 5px $fg-red-dark;
+		}
 	}
 	
 	&.secondary {
-		@include button-colour($text, $white);
+		@include button-colour($fg-grey-placeholder, $white);
+
+		&:hover {
+			background: $fg-grey;
+		}
+		
+		&:focus {
+		    box-shadow:  0 0 5px $fg-grey;
+		}
 	}
 	
 	&.header {
