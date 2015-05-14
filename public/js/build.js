@@ -52349,24 +52349,27 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         }
 
 
-        $scope.hideUser = function(selected, user){
+        $scope.hideUser = function(selected, messages){
             // if the selected _.messages has none of the messages in a given user in it
             // hide the user
 
             // messages has a _tags set on each
             // check the _tag against _selected's _id?
-            var cycle = _.filter(user._messages, function(n){
-                    return n._id !== -1
-            });
+            return _.map(messages, function(t){
+                var cycle = _.filter(t._messages, function(n){
+                        return n._id !== -1
+                });
 
-            if(cycle.length !== 0){
-                return user;
-            } else { 
-                return ;
-            }
+                if(cycle.length !== 0){
+                    return t;
+                } else { 
+                    return ;
+                }
+            })
         }
 
-        console.log('users hidden without messages', $scope.hideUser);
+
+        console.log('users hidden without messages', $scope.hideUser($scope.selected, $scope.messages));
 
         $scope.summaryItem =  _.filter(loadData.data.list, function(n){
                 if(n.name){
