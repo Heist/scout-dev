@@ -43,6 +43,26 @@
             return _.groupBy(data, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
         }
 
+
+        $scope.hideUser = function(selected, user){
+            // if the selected _.messages has none of the messages in a given user in it
+            // hide the user
+
+            // messages has a _tags set on each
+            // check the _tag against _selected's _id?
+            var cycle = _.filter(user._messages, function(n){
+                    return n._id !== -1
+            });
+
+            if(cycle.length !== 0){
+                return user;
+            } else { 
+                return ;
+            }
+        }
+
+        console.log('users hidden without messages', $scope.hideUser);
+
         $scope.summaryItem =  _.filter(loadData.data.list, function(n){
                 if(n.name){
                     var nameCheck = n.name.toLowerCase();
@@ -72,6 +92,7 @@
                                 return n._messages.length > 0 
                             }
                         })
+
         var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
         var navList = _.sortBy(noSum, function(obj){ return obj.report_index; });
 

@@ -89,7 +89,7 @@
 				
 				</div>
 				<!-- messages -->
-				<div ng-if="selected.doctype !== 'test' " class="message-group" ng-repeat="user in messages" ng-show="selected._messages">
+				<div ng-if="selected.doctype !== 'test' " class="message-group" ng-repeat="user in messages" ng-show="selected._messages && ">
 					<!-- participant name -->
 					<div class="message-user">
 						<img src="/layout/assets/avatar.svg" /> {{user[0]._subject.name}}
