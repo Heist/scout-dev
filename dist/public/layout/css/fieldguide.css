@@ -4563,7 +4563,7 @@ hr {
     .modal-scroll .modal-interior .modal-interior-title {
       text-align: left;
       margin: 0;
-      padding: 0 0 30px 0;
+      padding: 0;
       position: relative; }
       .modal-scroll .modal-interior .modal-interior-title h2 {
         font-family: "canada-type-gibson",sans-serif;
@@ -4586,11 +4586,9 @@ hr {
         height: auto;
         margin: 0 0 5px 0; }
     .modal-scroll .modal-interior .cta {
-      margin: 0;
-      float: right; }
+      margin: 0; }
     .modal-scroll .modal-interior .cta-margin {
-      margin: 20px 0 0 0;
-      float: right; }
+      margin: 20px 0 0 0; }
 
 /* charging money / skrilla thrilla */
 .plan-type {
@@ -5079,6 +5077,8 @@ hr {
         border-radius: 60px; }
 
 /* new project modal */
+#view-new-project .modal-interior-title {
+  padding: 0 0 30px 0; }
 #view-new-project ul {
   clear: both; }
 #view-new-project .test-objectives {
