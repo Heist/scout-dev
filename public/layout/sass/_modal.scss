@@ -55,20 +55,28 @@
         .modal-interior-title {
             text-align: left;
             margin: 0;
-            padding: 0 0 30px 0;
+            padding: 0;
             position: relative;
 
             h2 {
                 @include type-regular;
                 color: $fg-slate;
-                margin: 0;
+                margin: 0 0 10px 0;
             }
+
+            p {
+                font-size: 14px;
+                line-height: 16px;
+                color: $fg-grey;
+            }
+
             h3 {
                 @include type-light;
                 &.float-right {
                     cursor: pointer;
                 }
             }
+
             img {
                 width: 30px;
                 height: auto;
@@ -78,12 +86,10 @@
 
         .cta {
             margin: 0;
-            float: right;
         }
 
         .cta-margin {
             margin: 20px 0 0 0;
-            float: right;
         }
     }
 }
@@ -148,14 +154,21 @@
         .modal-interior-title {
             text-align: left;
             margin: 0;
-            padding: 0 0 30px 0;
+            padding: 0;
             position: relative;
 
             h2 {
                 @include type-regular;
                 color: $fg-slate;
-                margin: 0;
+                margin: 0 0 10px 0;
             }
+
+            p {
+                font-size: 14px;
+                line-height: 16px;
+                color: $fg-grey;
+            }
+
             h3 {
                 @include type-light;
                 &.float-right {
@@ -171,12 +184,10 @@
 
         .cta {
             margin: 0;
-            float: right;
         }
 
         .cta-margin {
             margin: 20px 0 0 0;
-            float: right;
         }
     }
 }

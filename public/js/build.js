@@ -52724,6 +52724,19 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.showAnchor(anchor);
         };
 
+        $scope.deleteTopicModalToggle = function(task){
+
+            if($scope.deleteTopic || $scope.deleteTopic === task  ){
+                $scope.deleteTopic = ''; 
+                return;
+            }
+            if(!$scope.deleteTopic || $scope.deleteTopic !== task ){
+                $scope.deleteTopic = task;
+                return;
+            }
+
+        };
+
     // TASK FUNCTIONS =====================================
         $scope.newTask = function(task) {
             // Add a new task
@@ -52748,6 +52761,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $http.delete(url)
                 .success(function(data){
                     $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
+
+                    $scope.deleteTopicModalToggle();
                 });
         };
 
