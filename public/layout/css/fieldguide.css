@@ -4952,6 +4952,8 @@ hr {
       text-decoration: underline; }
     .overview-test .test-info:hover .editTest {
       display: block; }
+    .overview-test .test-info .dropdown {
+      background: red; }
     .overview-test .test-info .editTest-tooltips {
       position: absolute;
       left: 10px;
