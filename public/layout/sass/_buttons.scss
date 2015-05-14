@@ -109,7 +109,7 @@ button.x-onboard {
 	}
 	
 	&.destructive {
-		@include button-colour($fg-header-red, $white);
+		@include button-colour($fg-red, $white);
 	}
 	
 	&.secondary {

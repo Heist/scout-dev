@@ -1,20 +1,47 @@
 <!-- Create New Project modal -->
-
-<div id="view-delete-topic" ng-controller="newTest" ng-model="test">
+a
+<div id="view-new-project" ng-controller="newTest" ng-model="test">
 	<div class="module full">
 
 		<div class="modal-interior clearfix">
 			<div class="modal-interior-title">
-				<button class="x-modal" ng-click="$parent.deleteTopicModalToggle()">&times;</button>
-				<h2>Delete {{topic.name}}?</h2>
-				<p>You must have a Title for your topic, removing it will remove the Topic and Question.</p>
-			</div>
-			
-			<div class="cta float-left">
-				<button class="button secondary med" ng-click="$parent.deleteTopicModalToggle()" tabindex="1">Cancel</button>
-				<button class="button med" ng-click="removeTask(task)" tabindex="0">Delete Topic</button>
+				<button class="x-modal" ng-click="$parent.newTestModalToggle()">&times;</button>
+				<h2>Start a new project</h2>
 			</div>
 
+			<button class="module test-type interview" ng-class='{"select-active": !test.kind || test === "undefined" || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>
+				<span class="tooltip-icon" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
+				<h3 class="interview">Interview</h3>
+				<p>Good for Ethography, User Observation or Customer</p>
+			</button>
+			
+			<button class="module test-type prototype" ng-class='{"select-active": test.kind || test.kind === "prototype", "select-inactive": test.kind ==="interview"}' ng-click='selectPrototype("prototype")'>
+				<span class="tooltip-icon" data-tooltip-large="For research where participants need to interact with screen like Prototype Testing or Usability Testing."><span>?</span></span>
+				<h3 class="prototype">Screen-based Research</h3>
+				<p>Good for Prototype Testing, Usability Testing or Competitive Research</p>
+			</button>
+			
+			<ul class="nobullets">
+				<form name="prototypeForm" class="prototype-form">
+					<li>
+						<label for="field-testname">Name your project</label>
+						<input class="input" id="field-testname" ng-model="test.name" type="text" value="" placeholder="Name it something distinct based on the project or feature" ng-blur="updateTest()" />
+					</li>
+					<li ng-show="test.kind === 'prototype'">
+						<label for="field-prototypeurl">Prototype URL</label>
+						<input class="input" id="field-prototypeurl" ng-model="test.link" placeholder="Your mobile websire or Marvel, InVision, or Framer.js prototypes" type="url" name="url" />
+					</li>
+					<li>
+						<label for="field-prototypeurl">Outline your project objectives.</label>
+						<textarea class="input test-objectives" id="bulletform" type="text" value="" ng-model="test.desc" placeholder="Outline the objectives for what you want to learn from this research project. " />
+						</textarea>
+					</li>
+				</form>
+				<div class="cta float-right">
+					<a href="#" class="secondary button-cancel" ng-click="$parent.newTestModalToggle()" tabindex="1">Cancel</a>
+					<button class="button med float-right" ng-click="addTest(test)" tabindex="0">Create project</button>
+				</div>
+			</ul>
 		</div>
 
 	</div>

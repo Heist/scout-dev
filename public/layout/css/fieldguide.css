@@ -758,11 +758,11 @@ button.x-onboard {
       color: #fff;
       text-decoration: none; }
   .button.destructive {
-    background: #f37960;
+    background: #D82D09;
     color: #fff;
     text-decoration: none; }
     .button.destructive:hover {
-      background: #f26d52;
+      background: #c92a08;
       color: #fff;
       text-decoration: none; }
   .button.secondary {
@@ -4491,11 +4491,9 @@ hr {
         height: auto;
         margin: 0 0 5px 0; }
     .modal .modal-interior .cta {
-      margin: 0;
-      float: right; }
+      margin: 0; }
     .modal .modal-interior .cta-margin {
-      margin: 20px 0 0 0;
-      float: right; }
+      margin: 20px 0 0 0; }
 
 .modal-scroll {
   position: absolute;

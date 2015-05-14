@@ -52724,6 +52724,17 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.showAnchor(anchor);
         };
 
+        $scope.deleteTopicModalToggle = function(){
+            if($scope.deleteTopic || $scope.deleteTopic === true  ){
+                $scope.deleteTopic = false; 
+                return;
+            }
+            if(!$scope.deleteTopic || $scope.deleteTopic === false ){
+                $scope.deleteTopic = true;
+                return;
+            }
+        };
+
     // TASK FUNCTIONS =====================================
         $scope.newTask = function(task) {
             // Add a new task

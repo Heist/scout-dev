@@ -2,6 +2,11 @@
 <div id="view-editing" ng-model="test">
 	<ng-include src="'partials/app/_header-small.html'"></ng-include>
 	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
+
+	<!-- delete topic modal -->
+	<div class="modal" ng-if="deleteTopic">
+		<ng-include src="'partials/app/_delete-topic.html'"></ng-include>
+	</div>
 	
 	<div class="container" >
 		
@@ -65,7 +70,7 @@
 						<div class="container-right">
 							<div ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}">
 
-								<div class="topic-delete" data-tooltip="Delete Topic" ng-click="removeTask(task)"><span class="icon-delete"></span></div>
+								<div class="topic-delete" data-tooltip="Delete Topic" ng-click="deleteTopicModalToggle()"><span class="icon-delete"></span></div>
 
 								<div ng-click="select(task)">
 									<form class="task-info">
@@ -109,14 +114,6 @@
 			<button class="button" ng-click="saveAndMove(5)" tabindex="1">Done</button>
 		</div>
 	</div> <!-- /container -->
-	
-	<!-- create new project modal -->
-	
-	<div class="modal" ng-model="deleteTopic" ng-if="deleteTopic">
-		<ng-include src="'partials/app/_delete-topic.html'"></ng-include>
-	</div>
-
-	<!-- / create new project modal -->
 
 </div>
 
