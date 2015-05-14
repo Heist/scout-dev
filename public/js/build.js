@@ -52335,7 +52335,29 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.commentMessage = '';
 
             $scope.selected = obj || $scope.selected;
+
+
+            // if the selected _.messages has none of the messages in a given user in it
+            // hide the user
+
+
+            // messages has a _tags set on each
+            // check the _tag against _selected's _id?
+            
         };
+
+        $scope.messageFilter = function(selected, user){
+                var cycle = _.filter(user, function(n){
+                    if(selected._messages.indexOf(n._id) !== -1){
+                        return  n
+                    }
+                });
+                if(cycle.length !== 0){
+                    return true;
+                } else { 
+                    return false;
+                }
+        }
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         
@@ -52347,26 +52369,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         var makeMessageGroups = function(data){
             return _.groupBy(data, function(z){ return z._subject.name ? z._subject.name : 'report comment'; });
         }
-
-
-        $scope.hideUser = function(selected, user){
-            // if the selected _.messages has none of the messages in a given user in it
-            // hide the user
-
-            // messages has a _tags set on each
-            // check the _tag against _selected's _id?
-            var cycle = _.filter(user._messages, function(n){
-                    return n._id !== -1
-            });
-
-            if(cycle.length !== 0){
-                return user;
-            } else { 
-                return ;
-            }
-        }
-
-        console.log('users hidden without messages', $scope.hideUser);
 
         $scope.summaryItem =  _.filter(loadData.data.list, function(n){
                 if(n.name){

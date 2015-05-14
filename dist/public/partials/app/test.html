@@ -2,6 +2,11 @@
 <div id="view-editing" ng-model="test">
 	<ng-include src="'partials/app/_header-small.html'"></ng-include>
 	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
+
+	<!-- delete topic modal -->
+<!-- 	<div class="modal" ng-if="deleteTopic">
+		<ng-include src="'partials/app/_delete-topic.html'"></ng-include>
+	</div> -->
 	
 	<div class="container" >
 		
@@ -35,7 +40,7 @@
 						</div>
 					</div>
 
-					<div class="container-row clearfix">
+					<div class="container-row  tags clearfix">
 						<div class="container-left">
 							<h3>Tags
 							<span class="tooltip-icon" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
@@ -56,16 +61,42 @@
 						</div>
 					</div>
 					
-					<div class="container-row clearfix">
+					<div class="container-row topics clearfix">
 						<div class="container-left topics">
 							<h3>Topics
 							<span class="tooltip-icon" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
 							</h3>
 						</div>
+
 						<div class="container-right">
 							<div ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}">
-								
-								<span class="topic-delete icon-delete" ng-click="removeTask(task)"></span>
+
+								<div class="topic-delete" data-tooltip="Delete Topic" ng-click="deleteTopicModalToggle(task)"><span class="icon-delete"></span></div>
+
+								<!-- Delete Topic modal -->
+								<div class="modal" ng-if="deleteTopic === task">
+									<div id="view-delete-topic">
+										<div class="module full">
+
+											<div class="modal-interior clearfix">
+												<div class="modal-interior-title">
+													<button class="x-modal" ng-click="deleteTopicModalToggle(task)">&times;</button>
+													<h2>Delete {{task.name}}?</h2>
+													<p>You must have a Title for your topic, removing it will remove the Topic and Question.</p>
+												</div>
+												
+												<div class="cta float-right">
+													<button class="button med secondary" ng-click="deleteTopicModalToggle(task)" tabindex="1">Cancel</button>
+													<button class="button med destructive" ng-click="removeTask(task)" tabindex="0">Delete Topic</button>
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+								</div>
+								<!-- /Delete Topic modal -->
+
 								<div ng-click="select(task)">
 									<form class="task-info">
 										<input class="input-no-border task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
@@ -105,10 +136,9 @@
 		</div> <!-- /module -->
 		
 		<div class="module done-button">
-			<button class="button outline" ng-click="saveAndMove(5)" tabindex="1">Done</button>
+			<button class="button" ng-click="saveAndMove(5)" tabindex="1">Done</button>
 		</div>
 	</div> <!-- /container -->
-	
 
 </div>
 
