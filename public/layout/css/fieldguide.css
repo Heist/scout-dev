@@ -4464,14 +4464,18 @@ hr {
     .modal .modal-interior .modal-interior-title {
       text-align: left;
       margin: 0;
-      padding: 0 0 30px 0;
+      padding: 0;
       position: relative; }
       .modal .modal-interior .modal-interior-title h2 {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 400;
         color: #2B404D;
-        margin: 0; }
+        margin: 0 0 10px 0; }
+      .modal .modal-interior .modal-interior-title p {
+        font-size: 14px;
+        line-height: 16px;
+        color: #949799; }
       .modal .modal-interior .modal-interior-title h3 {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
@@ -4566,7 +4570,11 @@ hr {
         font-style: normal;
         font-weight: 400;
         color: #2B404D;
-        margin: 0; }
+        margin: 0 0 10px 0; }
+      .modal-scroll .modal-interior .modal-interior-title p {
+        font-size: 14px;
+        line-height: 16px;
+        color: #949799; }
       .modal-scroll .modal-interior .modal-interior-title h3 {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
@@ -6058,12 +6066,8 @@ hr {
     transition-timing: ease-out; }
   #view-findings.show-comments .message-comments {
     display: block; }
-  #view-findings #findings-share-report .modal-interior-title {
-    padding: 0; }
-    #view-findings #findings-share-report .modal-interior-title h2 {
-      margin: 0 0 10px 0; }
   #view-findings #findings-share-report .input {
-    width: 92%;
+    width: 91%;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0; }
     #view-findings #findings-share-report .input:hover {
@@ -6309,13 +6313,6 @@ hr {
   height: 350px;
   background: black; }
 
-#test-end-summarize .modal-interior-title {
-  padding: 0; }
-  #test-end-summarize .modal-interior-title h2 {
-    margin: 0 0 10px 0; }
-  #test-end-summarize .modal-interior-title p {
-    margin: 0 0 10px 0;
-    line-height: 18px; }
 #test-end-summarize .summary-form textarea {
   height: 200px;
   line-height: 18px; }
