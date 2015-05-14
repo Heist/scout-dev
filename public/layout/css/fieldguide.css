@@ -4941,6 +4941,7 @@ hr {
   /* empty test-container */ }
   .overview-test .overview-test-container {
     background: #fff;
+    width: 235px;
     height: 296px;
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
@@ -4965,8 +4966,6 @@ hr {
       font-size: 14px; }
     .overview-test .test-info a {
       text-decoration: underline; }
-    .overview-test .test-info:hover .editTest {
-      display: block; }
     .overview-test .test-info .dropdown {
       background: red; }
     .overview-test .test-info .editTest-tooltips {
@@ -5003,9 +5002,14 @@ hr {
       width: 100%;
       top: 5px;
       left: 0px;
-      text-decoration: none;
       display: block;
       padding: 5px 13.33333px; }
+      .overview-test .test-info .editTest a {
+        text-decoration: none;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        color: #C5C6C7; }
       .overview-test .test-info .editTest img {
         height: 16px;
         width: auto; }

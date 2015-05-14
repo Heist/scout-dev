@@ -34,6 +34,7 @@
 	
 	.overview-test-container {
 		background: $white;
+		width: 235px;
 		height: 296px;
 		// overflow: hidden;
 		@include dropshadowULTRA;
@@ -70,12 +71,6 @@
 		a {
 			text-decoration: underline;
 		}
-
-		&:hover {
-			.editTest {
-				display: block;
-			}
-		}
 		
 		.dropdown {
 			background: red;
@@ -90,6 +85,7 @@
 			top: -41px;
 			z-index: 1;
 			@include dropshadow;
+			// display: none;
 			
 			ul {
 				padding: 0;
@@ -125,10 +121,15 @@
 			width: 100%;
 			top: 5px;
 			left: 0px;
-			text-decoration: none;
 			display: block;
 			padding: $pad/4 $pad/1.5;
-			
+
+			a {
+				text-decoration: none;
+				@include type-bold;
+				color: $fg-grey-placeholder;
+				
+			}
 			
 			img {
 				height: 16px;

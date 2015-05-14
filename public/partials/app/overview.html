@@ -53,9 +53,8 @@
 							<span ng-show="editTestdelete">Delete Project</span>
 						</div> -->
 						
-						<div class="editTest-tooltips">
+						<div class="editTest-tooltips" ng-show="editTestTooltips" ng-mouseleave="editTestTooltips=false">
 							<ul>
-								
 								<li ng-click="dupeTest(test)">
 								<span class="icon-duplicate">&nbsp; Duplicate</span>
 								</li>
@@ -71,7 +70,7 @@
 
 						
 						<div class="editTest">
-							<div class="ellipsis">&#8942;</div>
+							<a ng-mouseover="editTestTooltips=true" class="ellipsis">&#8942;</a>
 							<!-- <a ng-mouseover="editTestedit=true" ng-mouseleave="editTestedit=false" ng-click="editTest(test)" ng-show="test._subjects.length === 0"> -->
 <!-- 
 							<img src="/layout/assets/edit.svg"  ng-show="test._subjects.length === 0"/></a> &nbsp; -->
