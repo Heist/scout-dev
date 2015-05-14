@@ -82,24 +82,31 @@
 		}
 
 		.editTest-tooltips {
-			width: 83px;
-			background: red;
+			width: 90px;
+			height: 50px;
+			background: $white;
 			position: absolute;
 			right: -63px;
 			top: -41px;
 			z-index: 1;
+			@include dropshadow;
 			
 			ul {
 				padding: 0;
-				
+
 				li {
+					padding: 0 9px;
 					list-style-type: none;
+
+					&:hover {
+						background: $fg-blue;
+						color: $white;
+					}
 
 					img {
 						width: 9px;
 						display: inline-block;
 					}
-
 					span {
 					font-size: 12px;
 					padding: 0 5px 0 0;
@@ -107,9 +114,7 @@
 					display: inline-block;
 					}
 				}
-				
 			}
-			
 		}
 		
 		

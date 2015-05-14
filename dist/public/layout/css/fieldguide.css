@@ -4970,16 +4970,24 @@ hr {
     .overview-test .test-info .dropdown {
       background: red; }
     .overview-test .test-info .editTest-tooltips {
-      width: 83px;
-      background: red;
+      width: 90px;
+      height: 50px;
+      background: #fff;
       position: absolute;
       right: -63px;
       top: -41px;
-      z-index: 1; }
+      z-index: 1;
+      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
       .overview-test .test-info .editTest-tooltips ul {
         padding: 0; }
         .overview-test .test-info .editTest-tooltips ul li {
+          padding: 0 9px;
           list-style-type: none; }
+          .overview-test .test-info .editTest-tooltips ul li:hover {
+            background: #00B5E3;
+            color: #fff; }
           .overview-test .test-info .editTest-tooltips ul li img {
             width: 9px;
             display: inline-block; }
