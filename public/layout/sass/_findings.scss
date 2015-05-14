@@ -31,15 +31,9 @@
 	}
 
 	#findings-share-report {
-		.modal-interior-title{
-			padding: 0;
 
-			h2 {
-				margin: 0 0 10px 0;
-			}
-		}
 		.input {
-			width: 92%;
+			width: 91%;
 			border-top-right-radius: 0;
 			border-bottom-right-radius: 0;
 
@@ -340,11 +334,6 @@
 	}
 }
 
-#view-summary-modal {
-	
-
-}
-
 /* let's embed a video */
 
 #video-embed {
@@ -380,19 +369,6 @@
 }
 
 #test-end-summarize {
-
-	.modal-interior-title {
-		padding: 0;
-
-		h2 {
-			margin: 0 0 10px 0;
-		}
-
-		p {
-			margin: 0 0 10px 0;
-			line-height: 18px;
-		}
-	}
 
 	.summary-form {
 		textarea {

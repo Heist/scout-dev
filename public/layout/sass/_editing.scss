@@ -1,6 +1,10 @@
 /* new project modal */
 #view-new-project {
 
+    .modal-interior-title {
+        padding: 0 0 20px 0; 
+    }
+
     ul {
         clear: both;
     }
@@ -228,7 +232,7 @@
     }
 
     p {
-        font-size: 12px;
+        font-size: 14px;
         line-height: 16px;
     }
     

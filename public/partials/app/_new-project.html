@@ -1,12 +1,12 @@
 <!-- Create New Project modal -->
-
+a
 <div id="view-new-project" ng-controller="newTest" ng-model="test">
 	<div class="module full">
 
 		<div class="modal-interior clearfix">
 			<div class="modal-interior-title">
 				<button class="x-modal" ng-click="$parent.newTestModalToggle()">&times;</button>
-				<h2 class="text-center">Start a new project</h2>
+				<h2>Start a new project</h2>
 			</div>
 
 			<button class="module test-type interview" ng-class='{"select-active": !test.kind || test === "undefined" || test.kind === "interview", "select-inactive": test.kind ==="prototype"}' ng-click='selectPrototype("interview")'>
@@ -37,7 +37,7 @@
 						</textarea>
 					</li>
 				</form>
-				<div class="cta">
+				<div class="cta float-right">
 					<a href="#" class="secondary button-cancel" ng-click="$parent.newTestModalToggle()" tabindex="1">Cancel</a>
 					<button class="button med float-right" ng-click="addTest(test)" tabindex="0">Create project</button>
 				</div>
