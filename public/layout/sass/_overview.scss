@@ -35,7 +35,7 @@
 	.overview-test-container {
 		background: $white;
 		height: 296px;
-		overflow: hidden;
+		// overflow: hidden;
 		@include dropshadowULTRA;
 		position: relative;
 	}
@@ -82,16 +82,34 @@
 		}
 
 		.editTest-tooltips {
+			width: 83px;
+			background: red;
 			position: absolute;
-			left: 10px;
-			top: 5px;
+			right: -63px;
+			top: -41px;
+			z-index: 1;
 			
-			span {
-				font-size: $type-size-base*0.8;
-				display: inline-block;
-				padding: 0 5px 0 0;
-				margin: 0;
+			ul {
+				padding: 0;
+				
+				li {
+					list-style-type: none;
+
+					img {
+						width: 9px;
+						display: inline-block;
+					}
+
+					span {
+					font-size: 12px;
+					padding: 0 5px 0 0;
+					margin: 0;
+					display: inline-block;
+					}
+				}
+				
 			}
+			
 		}
 		
 		
@@ -103,7 +121,7 @@
 			top: 5px;
 			left: 0px;
 			text-decoration: none;
-			display: none;
+			display: block;
 			padding: $pad/4 $pad/1.5;
 			
 			
