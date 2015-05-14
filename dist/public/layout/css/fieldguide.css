@@ -4941,7 +4941,7 @@ hr {
   /* empty test-container */ }
   .overview-test .overview-test-container {
     background: #fff;
-    width: 235px;
+    width: 237px;
     height: 296px;
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
@@ -4970,7 +4970,6 @@ hr {
       background: red; }
     .overview-test .test-info .editTest-tooltips {
       width: 90px;
-      height: 50px;
       background: #fff;
       position: absolute;
       right: -63px;
@@ -4980,7 +4979,8 @@ hr {
       -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
       .overview-test .test-info .editTest-tooltips ul {
-        padding: 0; }
+        padding: 0;
+        margin: 0; }
         .overview-test .test-info .editTest-tooltips ul li {
           padding: 0 9px;
           list-style-type: none; }

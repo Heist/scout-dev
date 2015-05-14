@@ -34,9 +34,8 @@
 	
 	.overview-test-container {
 		background: $white;
-		width: 235px;
+		width: 237px;
 		height: 296px;
-		// overflow: hidden;
 		@include dropshadowULTRA;
 		position: relative;
 	}
@@ -78,17 +77,16 @@
 
 		.editTest-tooltips {
 			width: 90px;
-			height: 50px;
 			background: $white;
 			position: absolute;
 			right: -63px;
 			top: -41px;
 			z-index: 1;
 			@include dropshadow;
-			// display: none;
 			
 			ul {
 				padding: 0;
+				margin: 0;
 
 				li {
 					padding: 0 9px;
