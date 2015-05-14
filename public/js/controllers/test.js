@@ -88,7 +88,7 @@
         };
 
         $scope.deleteTopicModalToggle = function(task){
-            console.log(task);
+
             if($scope.deleteTopic || $scope.deleteTopic === task  ){
                 $scope.deleteTopic = ''; 
                 return;
@@ -115,8 +115,6 @@
             // Delete a task
             task.edit=false;
             task.title_edit=false;
-
-            console.log("remove task clicked");
 
             var index = $scope.tasks.indexOf(task);
             var url = '/api/task/'+task._id;

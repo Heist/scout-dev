@@ -52745,7 +52745,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         };
 
         $scope.deleteTopicModalToggle = function(task){
-            void 0;
+
             if($scope.deleteTopic || $scope.deleteTopic === task  ){
                 $scope.deleteTopic = ''; 
                 return;
@@ -52772,8 +52772,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             // Delete a task
             task.edit=false;
             task.title_edit=false;
-
-            void 0;
 
             var index = $scope.tasks.indexOf(task);
             var url = '/api/task/'+task._id;
