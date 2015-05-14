@@ -52349,7 +52349,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         }
 
 
-        var hideUser = function(selected, user){
+        $scope.hideUser = function(selected, user){
             // if the selected _.messages has none of the messages in a given user in it
             // hide the user
 
@@ -52366,6 +52366,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             }
         }
 
+        void 0;
 
         $scope.summaryItem =  _.filter(loadData.data.list, function(n){
                 if(n.name){

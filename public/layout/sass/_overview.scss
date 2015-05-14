@@ -8,21 +8,22 @@
 	height: 100%;
 	
 	.container {
-		padding: $pad 0 0 0;
+		padding: 20px 0 50px 0;
 
 		#header-min{
 			padding: $pad 0 $pad*2;
 
-			h3{
+			h3 {
 				margin:$pad/2 0;
+			}
+
+			.overview-controls {
+				position: fixed;
+				top: 30px;
+				right: 30px;
 			}
 		}
 	}
-	
-	.overview-controls {
-		float: right;
-	}
-	
 }
 
 
@@ -33,55 +34,100 @@
 	
 	.overview-test-container {
 		background: $white;
-		height: 200px;
-		overflow: hidden;
-		@include radius;
+		width: 237px;
+		height: 296px;
 		@include dropshadowULTRA;
 		position: relative;
 	}
 	
 		
 	.test-info {
-		padding: $pad*3 $pad*0.5 0 $pad*0.5;
-		text-align: center;
-			
-		small {
-			text-transform: uppercase;
-			opacity: 0.6;
-		}
+		padding: 80px 15px 0 15px;
 
-		&:hover {
-			.editTest {
-				display: block;
+		.test-kind {
+			position: absolute;
+			left: 15px;
+			top: 10px;
+
+			img {
+				margin: 0 3px 0 0;
 			}
 		}
 		
+		h3 {
+			font-size: 24.8px;
+			line-height: 28px;
+			letter-spacing: -0.5px;
+			color: $fg-grey-dark;
+		}
+
+		small {
+			opacity: 0.6;
+			text-transform: capitalize;
+			font-size: 14px;
+		}
+
+		a {
+			text-decoration: underline;
+		}
 		
+		.dropdown {
+			background: red;
+		}
+
 		.editTest-tooltips {
+			width: 90px;
+			background: $white;
 			position: absolute;
-			left: 10px;
-			top: 5px;
+			right: -63px;
+			top: -41px;
+			z-index: 1;
+			@include dropshadow;
 			
-			span {
-				font-size: $type-size-base*0.8;
-				display: inline-block;
-				padding: 0 5px 0 0;
+			ul {
+				padding: 0;
 				margin: 0;
+
+				li {
+					padding: 0 9px;
+					list-style-type: none;
+
+					&:hover {
+						background: $fg-blue;
+						color: $white;
+					}
+
+					img {
+						width: 9px;
+						display: inline-block;
+					}
+					span {
+					font-size: 12px;
+					padding: 0 5px 0 0;
+					margin: 0;
+					display: inline-block;
+					}
+				}
 			}
 		}
 		
 		
 		.editTest {
-			font-size: $type-size-base*0.8;
+			font-size: 14px;
 			position: absolute;
 			text-align: right;
 			width: 100%;
 			top: 5px;
 			left: 0px;
-			text-decoration: none;
-			display: none;
+			display: block;
 			padding: $pad/4 $pad/1.5;
-			
+
+			a {
+				text-decoration: none;
+				@include type-bold;
+				color: $fg-grey-placeholder;
+				
+			}
 			
 			img {
 				height: 16px;
@@ -95,14 +141,6 @@
 			}
 		}
 		
-		a {
-			text-decoration: underline;
-		}	
-		
-		h3 {
-			color: $fg-slate;
-			margin: 0;
-		}	
 	}
 	
 	
@@ -120,38 +158,28 @@
 	}
 	
 	.test-controls {
-		background: $fg-green;
+		background: $white;
 		padding: 0;
 		margin: 0;
 		width: 100%;
-		border-radius: 0 0 2px 2px;
 		position: absolute;
 		bottom: 0;
 		left: 0;
 		
 		a {
-			font-size: $type-size-base*0.9;
-			padding: $pad*0.8 0;
+			font-size: 14px;
+			padding: 12px 0;
 			float: left;
 			width: 50%;
 			margin: 0;
 			text-align: center;
 			text-decoration: none;
-			color: $white;
+			color: $fg-grey-placeholder;
 			@include type-regular;
 			
 			&:hover {
-				background-color: darken($fg-green, 3%);
-				@include insetshadow();
-
-				&.left {
-					border-radius: 0 0 0 2px;
-				}
-
-				&.right {
-					border-radius: 0 0 2px 0;
-				}
-
+				background: $fg-green;
+				color: $white;
 			}
 			
 		}
