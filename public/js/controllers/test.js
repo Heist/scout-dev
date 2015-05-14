@@ -87,15 +87,17 @@
             $scope.showAnchor(anchor);
         };
 
-        $scope.deleteTopicModalToggle = function(){
-            if($scope.deleteTopic || $scope.deleteTopic === true  ){
-                $scope.deleteTopic = false; 
+        $scope.deleteTopicModalToggle = function(task){
+            console.log(task);
+            if($scope.deleteTopic || $scope.deleteTopic === task  ){
+                $scope.deleteTopic = ''; 
                 return;
             }
-            if(!$scope.deleteTopic || $scope.deleteTopic === false ){
-                $scope.deleteTopic = true;
+            if(!$scope.deleteTopic || $scope.deleteTopic !== task ){
+                $scope.deleteTopic = task;
                 return;
             }
+
         };
 
     // TASK FUNCTIONS =====================================
@@ -114,6 +116,8 @@
             task.edit=false;
             task.title_edit=false;
 
+            console.log("remove task clicked");
+
             var index = $scope.tasks.indexOf(task);
             var url = '/api/task/'+task._id;
             
@@ -122,6 +126,8 @@
             $http.delete(url)
                 .success(function(data){
                     $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
+
+                    $scope.deleteTopicModalToggle();
                 });
         };
 

@@ -708,7 +708,7 @@ button.x-onboard {
   .button:hover {
     background: #70910D; }
   .button:focus {
-    box-shadow: 0 0 6px #85AC0F; }
+    box-shadow: 0 0 5px #85AC0F; }
   .button.outline {
     background: #fff;
     color: #85AC0F;
@@ -721,7 +721,7 @@ button.x-onboard {
     .button.outline:hover {
       background: rgba(133, 172, 15, 0.14); }
     .button.outline:focus {
-      box-shadow: 0 0 6px #C6D39E; }
+      box-shadow: 0 0 5px #C6D39E; }
   .button.space {
     margin: 0 0 0 3px; }
   .button.full {
@@ -765,6 +765,10 @@ button.x-onboard {
       background: #c92a08;
       color: #fff;
       text-decoration: none; }
+    .button.destructive:hover {
+      background: #892611; }
+    .button.destructive:focus {
+      box-shadow: 0 0 5px #892611; }
   .button.secondary {
     background: #C5C6C7;
     color: #fff;
@@ -773,6 +777,10 @@ button.x-onboard {
       background: #bdbebf;
       color: #fff;
       text-decoration: none; }
+    .button.secondary:hover {
+      background: #949799; }
+    .button.secondary:focus {
+      box-shadow: 0 0 5px #949799; }
   .button.header {
     background: #fff;
     color: #f37960;
@@ -5080,7 +5088,7 @@ hr {
 
 /* new project modal */
 #view-new-project .modal-interior-title {
-  padding: 0 0 30px 0; }
+  padding: 0 0 20px 0; }
 #view-new-project ul {
   clear: both; }
 #view-new-project .test-objectives {
@@ -5221,7 +5229,7 @@ hr {
   #view-editing .sheet {
     box-shadow: none; }
   #view-editing p {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 16px; }
   #view-editing h3 {
     font-family: "canada-type-gibson",sans-serif;

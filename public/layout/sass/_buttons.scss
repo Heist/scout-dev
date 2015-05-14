@@ -50,7 +50,7 @@ button.x-onboard {
 	}
 	
 	&:focus {
-	    box-shadow:  0 0 6px $fg-green;
+	    box-shadow:  0 0 5px $fg-green;
 	}
 
 	&.outline {
@@ -62,7 +62,7 @@ button.x-onboard {
 		}
 
 		&:focus {
-			box-shadow:  0 0 6px $fg-green-light;
+			box-shadow:  0 0 5px $fg-green-light;
 		}
 	}
 	
@@ -110,10 +110,26 @@ button.x-onboard {
 	
 	&.destructive {
 		@include button-colour($fg-red, $white);
+
+		&:hover {
+			background: $fg-red-dark;
+		}
+		
+		&:focus {
+		    box-shadow:  0 0 5px $fg-red-dark;
+		}
 	}
 	
 	&.secondary {
 		@include button-colour($fg-grey-placeholder, $white);
+
+		&:hover {
+			background: $fg-grey;
+		}
+		
+		&:focus {
+		    box-shadow:  0 0 5px $fg-grey;
+		}
 	}
 	
 	&.header {
