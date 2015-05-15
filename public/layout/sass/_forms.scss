@@ -34,16 +34,17 @@ label {
 		background: $fg-slate;
 		color: $white;
 		margin: 0;
-		padding: 6px;
+		padding: 10px;
 		@include radius($pad*2);
-		height: $pad*2;
-		width: $pad*2;
+		height: 55px;
+		width: 55px;
 		cursor: pointer;
 		text-align: center;
-		font-size: $type-size-base*1.9;
+		font-size: 34px;
 		line-height: 1;
 		@include animated;
 		@include dropshadow;
+		@include type-regular;
 
 		&.small {
 		 	height: $pad*1.2;
