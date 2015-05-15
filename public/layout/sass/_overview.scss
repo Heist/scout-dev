@@ -38,6 +38,10 @@
 		height: 296px;
 		@include dropshadowULTRA;
 		position: relative;
+
+		&:hover {
+			border: 1px solid $fg-green;
+		}
 	}
 	
 		
