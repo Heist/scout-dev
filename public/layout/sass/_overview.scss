@@ -33,6 +33,7 @@
 	margin-bottom: $pad;
 	
 	.overview-test-container {
+		cursor: pointer;
 		background: $white;
 		width: 237px;
 		height: 296px;
@@ -46,8 +47,7 @@
 	
 		
 	.test-info {
-		padding: 80px 15px 0 15px;
-		height: 240px;
+		height: 40px;
 
 		.test-kind {
 			position: absolute;
@@ -57,13 +57,6 @@
 			img {
 				margin: 0 3px 0 0;
 			}
-		}
-		
-		h3 {
-			font-size: 24.8px;
-			line-height: 28px;
-			letter-spacing: -0.5px;
-			color: $fg-grey-dark;
 		}
 
 		small {
@@ -146,6 +139,18 @@
 			}
 		}
 		
+	}
+
+	.test-edit {
+		padding: 45px 15px 0 15px;
+		height: 200px;
+
+		h3 {
+			font-size: 24.8px;
+			line-height: 28px;
+			letter-spacing: -0.5px;
+			color: $fg-grey-dark;
+		}
 	}
 	
 	

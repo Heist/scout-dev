@@ -4942,6 +4942,7 @@ hr {
   margin-bottom: 20px;
   /* empty test-container */ }
   .overview-test .overview-test-container {
+    cursor: pointer;
     background: #fff;
     width: 237px;
     height: 296px;
@@ -4952,19 +4953,13 @@ hr {
     .overview-test .overview-test-container:hover {
       border: 1px solid #85AC0F; }
   .overview-test .test-info {
-    padding: 80px 15px 0 15px;
-    height: 240px; }
+    height: 40px; }
     .overview-test .test-info .test-kind {
       position: absolute;
       left: 15px;
       top: 10px; }
       .overview-test .test-info .test-kind img {
         margin: 0 3px 0 0; }
-    .overview-test .test-info h3 {
-      font-size: 24.8px;
-      line-height: 28px;
-      letter-spacing: -0.5px;
-      color: #777777; }
     .overview-test .test-info small {
       opacity: 0.6;
       text-transform: capitalize;
@@ -5020,6 +5015,14 @@ hr {
         width: auto; }
       .overview-test .test-info .editTest .dangerous:hover {
         color: #f37960; }
+  .overview-test .test-edit {
+    padding: 45px 15px 0 15px;
+    height: 200px; }
+    .overview-test .test-edit h3 {
+      font-size: 24.8px;
+      line-height: 28px;
+      letter-spacing: -0.5px;
+      color: #777777; }
   .overview-test .test-controls-empty {
     position: absolute;
     left: 0;
