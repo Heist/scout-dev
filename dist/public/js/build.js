@@ -52004,8 +52004,8 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     // RUN CONTROLLER ===========================================================
 
     angular.module('field_guide_controls').controller('run', 
-    [ 'loadData', 'testBuildFunctions', 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', 
-    function(loadData, testBuildFunctions, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
+    [ 'loadData', 'testBuildFunctions', 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', '$timeout',
+    function(loadData, testBuildFunctions, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket, $timeout){
     // get the starting data from resolve
         var data = loadData.data;
 
@@ -52190,8 +52190,33 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.messageEditToggle = message._id;
         };
 
+        $scope.turnBlue = function() {
+            angular.element('session-input').css('background:blue;')
+        }
+
+        $scope.setSelectionRange = function(input, selectionStart, selectionEnd) {
+            void 0
+          if (input.setSelectionRange) {
+            input.focus();
+            input.setSelectionRange(selectionStart, selectionEnd);
+          }
+          else if (input.createTextRange) {
+            var range = input.createTextRange();
+            range.collapse(true);
+            range.moveEnd('character', selectionEnd);
+            range.moveStart('character', selectionStart);
+            range.select();
+          }
+        }
+
+        $scope.setCaretToPos = function(input, pos) {
+            void 0
+          $scope.setSelectionRange(input, pos, pos);
+        }
+
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
+            $scope.setCaretToPos(document.getElementById("messageInput"),4);
             $http.put('/api/message/', message)
                 .success(function(data){                 
                     
@@ -53483,6 +53508,39 @@ angular.module('field_guide_controls')
                 });
             };
         });
+})();
+// fg-focus.js
+// a directive to provide imperative focus within Angular
+'use strict';
+(function(){
+    angular.module('field_guide_controls')
+.factory('focus', ["$timeout", function($timeout) {
+    return function(id) {
+      // timeout makes sure that it is invoked after any other event has been triggered.
+      // e.g. click events that need to run before the focus or
+      // inputs elements that are in a disabled state but are enabled when those events
+      // are triggered.
+      $timeout(function() {
+        var element = document.getElementById(id);
+        if(element){
+            element.focus();
+        }
+      });
+    };
+  }])
+.directive('eventFocus', ["focus", function(focus) {
+    return function(scope, elem, attr) {
+      elem.on(attr.eventFocus, function() {
+        focus(attr.eventFocusId);
+      });
+
+      // Removes bound events in the element itself
+      // when the scope is destroyed
+      scope.$on('$destroy', function() {
+        elem.off(attr.eventFocus);
+      });
+    };
+  }]);
 })();
 // fg-post-message.js
 // post a new note to the database.

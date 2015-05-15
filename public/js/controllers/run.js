@@ -4,8 +4,8 @@
     // RUN CONTROLLER ===========================================================
 
     angular.module('field_guide_controls').controller('run', 
-    [ 'loadData', 'testBuildFunctions', 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', 
-    function(loadData, testBuildFunctions, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket){
+    [ 'loadData', 'testBuildFunctions', 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', '$timeout',
+    function(loadData, testBuildFunctions, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket, $timeout){
     // get the starting data from resolve
         var data = loadData.data;
 
@@ -190,8 +190,33 @@
             $scope.messageEditToggle = message._id;
         };
 
+        $scope.turnBlue = function() {
+            angular.element('session-input').css('background:blue;')
+        }
+
+        $scope.setSelectionRange = function(input, selectionStart, selectionEnd) {
+            console.log('rangeSet')
+          if (input.setSelectionRange) {
+            input.focus();
+            input.setSelectionRange(selectionStart, selectionEnd);
+          }
+          else if (input.createTextRange) {
+            var range = input.createTextRange();
+            range.collapse(true);
+            range.moveEnd('character', selectionEnd);
+            range.moveStart('character', selectionStart);
+            range.select();
+          }
+        }
+
+        $scope.setCaretToPos = function(input, pos) {
+            console.log('rangereturn')
+          $scope.setSelectionRange(input, pos, pos);
+        }
+
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
+            $scope.setCaretToPos(document.getElementById("messageInput"),4);
             $http.put('/api/message/', message)
                 .success(function(data){                 
                     
