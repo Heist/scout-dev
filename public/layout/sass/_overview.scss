@@ -120,16 +120,11 @@
 			display: block;
 			padding: $pad/4 $pad/1.5;
 
-			a {
+			span {
 				text-decoration: none;
-				@include type-bold;
+				@include type-extrabold;
 				color: $fg-grey-placeholder;
 				
-			}
-			
-			img {
-				height: 16px;
-				width:auto;
 			}
 
 			.dangerous {

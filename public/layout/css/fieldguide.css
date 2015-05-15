@@ -3748,7 +3748,9 @@ hr {
   left: 30px;
   bottom: 20px;
   z-index: 999999;
-  text-align: center; }
+  text-align: center;
+  display: block;
+  cursor: pointer; }
   #nav-mgmt a {
     color: #7c7d80;
     font-size: 9.8px; }
@@ -5004,15 +5006,12 @@ hr {
       left: 0px;
       display: block;
       padding: 5px 13.33333px; }
-      .overview-test .test-info .editTest a {
+      .overview-test .test-info .editTest span {
         text-decoration: none;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 400;
+        font-weight: 600;
         color: #C5C6C7; }
-      .overview-test .test-info .editTest img {
-        height: 16px;
-        width: auto; }
       .overview-test .test-info .editTest .dangerous:hover {
         color: #f37960; }
   .overview-test .test-edit {
