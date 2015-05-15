@@ -28,7 +28,7 @@
 
 			<!-- test -->
 			<div class="overview-test module quarter" ng-repeat="test in tests | orderBy:'created'">
-				<div class="overview-test-container" ng-click="editTest(test)">
+				<div class="overview-test-container" ng-click="editTest(test)" ng-mouseleave="editTestTooltips=false">
 					
 					<div class="test-info">
 					<small class="test-kind" ng-if="test.kind === 'interview'">
@@ -53,9 +53,6 @@
 
 						<div class="editTest-tooltips" ng-show="editTestTooltips" ng-mouseleave="editTestTooltips=false">
 							<ul>
-<!-- 								<li ng-click="editTest(test)" ng-show="test._subjects.length === 0">
-								<span class="icon-edit">&nbsp; Edit</span>
-								</li> -->
 
 								<li ng-click="dupeTest(test)">
 								<span class="icon-duplicate">&nbsp; Duplicate</span>
