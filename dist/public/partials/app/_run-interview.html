@@ -51,8 +51,8 @@
 		</div>
 
 		<!-- input notes -->
-		<div id="session-input">
-			<textarea class="typeahead-box" type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Enter your notes here - hit enter to submit a note."></textarea>
+		<div id="session-input" ng-focus="console.log('got focus')">
+			<textarea id="messageInput" class="typeahead-box" type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Enter your notes here - hit enter to submit a note."></textarea>
 			<div id="hash-tag-pool">
 				<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
 			</div>

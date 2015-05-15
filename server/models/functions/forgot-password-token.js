@@ -24,6 +24,8 @@ module.exports = function(emailAddress, app, next){
                 host: "smtp.mandrillapp.com",
                 port: 587
             });
+        
+        console.log(user.local.email);
 
         var mailOptions = {
                 to: user.local.email,
@@ -36,7 +38,7 @@ module.exports = function(emailAddress, app, next){
             };
 
         smtpTransport.sendMail(mailOptions, function(err, sent){
-            // console.log('this is what we sent', sent);
+            console.log('this is what we sent', sent);
             done(null, "Thanks! We've sent you a reset link.");
         });
     }
