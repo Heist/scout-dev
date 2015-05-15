@@ -59,5 +59,11 @@
                     $rootScope.user = '';
                 });
         };
+
+        $scope.accountRedirect = function(){
+            $location.path('/account');
+        };
+
+
     }]);
 })();

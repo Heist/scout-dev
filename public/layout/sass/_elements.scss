@@ -515,12 +515,6 @@ hr {
 	text-align: center;
 	display: block;
 	cursor: pointer;
-
-	a {
-		color: $text;
-		font-size: $type-size-base*0.7;
-	}
-	
 }
 
 #nav-account {
@@ -547,20 +541,31 @@ hr {
 				padding: 0 9px;
 				list-style-type: none;
 
+				a {
+					color: $text;
+					text-decoration: none;
+
+					&:hover {
+						background: $fg-blue;
+						color: $white;
+					}
+				}
+
 				&:hover {
 					background: $fg-blue;
 					color: $white;
 				}
 
-				img {
-					width: 9px;
-					display: inline-block;
-				}
 				span {
 				font-size: 12px;
 				padding: 0 5px 0 0;
 				margin: 0;
 				display: inline-block;
+
+					&:hover {
+						background: $fg-blue;
+						color: $white;
+					}
 				}
 			}
 		}

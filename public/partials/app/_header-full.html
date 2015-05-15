@@ -13,7 +13,7 @@
 			<div class="account-settings" ng-show="accountSettings" ng-mouseleave="accountSettings=false">
 				<ul>
 					<li>
-						<a href="/account"><span class="icon-duplicate">&nbsp; Account</span></a>
+						<span class="icon-duplicate" ng-click="accountRedirect()">&nbsp; Account</span>
 					</li>
 
 					<li id="logout" ng-click="logout()">
