@@ -51486,6 +51486,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 					
 				});
 		};
+
 	}]);
 })();
 // forgot.js
@@ -51581,6 +51582,12 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     $rootScope.user = '';
                 });
         };
+
+        $scope.accountRedirect = function(){
+            $location.path('/account');
+        };
+
+
     }]);
 })();
 // new-test.js
