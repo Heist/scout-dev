@@ -725,7 +725,8 @@ button.x-onboard {
   .button.space {
     margin: 0 0 0 3px; }
   .button.full {
-    width: 100%; }
+    width: 100%;
+    margin: 0; }
   .button.large {
     font-size: 14px;
     padding: 16px 30px; }
