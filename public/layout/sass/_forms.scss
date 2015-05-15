@@ -16,9 +16,6 @@ label {
 	@include type-light;
 }
 
-
-/* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
-
 .button {
 	display: inline-block;
 	margin: 0;
@@ -34,10 +31,10 @@ label {
 	position: relative;
 
 	.expand-button-body {
-		background: $white;
-		color: #999999;
+		background: $fg-slate;
+		color: $white;
 		margin: 0;
-		padding: 5px;
+		padding: 6px;
 		@include radius($pad*2);
 		height: $pad*2;
 		width: $pad*2;
@@ -101,6 +98,7 @@ label {
 	font-size: 12px;
 	color: $fg-grey-dark;
 	outline: none;
+	resize: none;
 }
 
 .input {

@@ -19,7 +19,7 @@
 					<div class="container-row clearfix" ng-click="select(test)">
 						<div class="container-left"></div>
 						<div class="container-right">
-							<input class="input-no-border project-name" ng-trim="false" ng-model="test.name" ng-focus="editTitle(test)" ng-blur="blurTitle(test)">
+							<textarea msd-elastic class="input-no-border project-name" ng-trim="false" ng-model="test.name" ng-focus="editTitle(test)" ng-blur="blurTitle(test)"></textarea>
 							
 							<div class="test-info" ng-if="test.kind === 'interview'" ng-model="report">
 								<img src="layout/assets/interview-dark.svg" alt="Interview icon"> Interview

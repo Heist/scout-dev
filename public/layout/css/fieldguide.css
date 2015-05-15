@@ -359,7 +359,6 @@ label {
   font-style: normal;
   font-weight: 300; }
 
-/* we're classing these out rather than using the tags directly so they can be applied to more things more uniformly */
 .button {
   display: inline-block;
   margin: 0;
@@ -377,10 +376,10 @@ label {
 .expand-button {
   position: relative; }
   .expand-button .expand-button-body {
-    background: #fff;
-    color: #999999;
+    background: #2B404D;
+    color: #fff;
     margin: 0;
-    padding: 5px;
+    padding: 6px;
     -moz-border-radius: 40px;
     -webkit-border-radius: 40px;
     border-radius: 40px;
@@ -454,7 +453,8 @@ label {
   font-weight: 300;
   font-size: 12px;
   color: #777777;
-  outline: none; }
+  outline: none;
+  resize: none; }
 
 .input {
   width: 100%;
@@ -725,7 +725,8 @@ button.x-onboard {
   .button.space {
     margin: 0 0 0 3px; }
   .button.full {
-    width: 100%; }
+    width: 100%;
+    margin: 0; }
   .button.large {
     font-size: 14px;
     padding: 16px 30px; }
@@ -3771,13 +3772,6 @@ hr {
     line-height: 54px; }
 
 /* floating header for new design style */
-#header-min {
-  padding: 12px 10px 30px 10px;
-  margin: 0; }
-  #header-min .expand-button .expand-button-body {
-    color: #fff;
-    background: #323539; }
-
 /* header-specific styles */
 /*
 
@@ -4933,105 +4927,137 @@ hr {
   position: relative;
   height: 100%; }
   #view-overview .container {
-    padding: 20px 0 0 0; }
+    padding: 20px 0 50px 0; }
     #view-overview .container #header-min {
       padding: 20px 0 40px; }
       #view-overview .container #header-min h3 {
         margin: 10px 0; }
-  #view-overview .overview-controls {
-    float: right; }
+      #view-overview .container #header-min .overview-controls {
+        position: fixed;
+        top: 30px;
+        right: 30px; }
 
 /* overview test block */
 .overview-test {
   margin-bottom: 20px;
   /* empty test-container */ }
   .overview-test .overview-test-container {
+    cursor: pointer;
     background: #fff;
-    height: 200px;
-    overflow: hidden;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
+    width: 237px;
+    height: 296px;
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     position: relative; }
+    .overview-test .overview-test-container:hover {
+      border: 1px solid #85AC0F; }
   .overview-test .test-info {
-    padding: 60px 10px 0 10px;
-    text-align: center; }
-    .overview-test .test-info small {
-      text-transform: uppercase;
-      opacity: 0.6; }
-    .overview-test .test-info:hover .editTest {
-      display: block; }
-    .overview-test .test-info .editTest-tooltips {
+    height: 40px; }
+    .overview-test .test-info .test-kind {
       position: absolute;
-      left: 10px;
-      top: 5px; }
-      .overview-test .test-info .editTest-tooltips span {
-        font-size: 11.2px;
-        display: inline-block;
-        padding: 0 5px 0 0;
+      left: 15px;
+      top: 10px; }
+      .overview-test .test-info .test-kind img {
+        margin: 0 3px 0 0; }
+    .overview-test .test-info small {
+      opacity: 0.6;
+      text-transform: capitalize;
+      font-size: 14px; }
+    .overview-test .test-info a {
+      text-decoration: underline; }
+    .overview-test .test-info .dropdown {
+      background: red; }
+    .overview-test .test-info .editTest-tooltips {
+      width: 90px;
+      background: #fff;
+      position: absolute;
+      right: -63px;
+      top: -41px;
+      z-index: 1;
+      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+      .overview-test .test-info .editTest-tooltips ul {
+        padding: 0;
         margin: 0; }
+        .overview-test .test-info .editTest-tooltips ul li {
+          padding: 0 9px;
+          list-style-type: none; }
+          .overview-test .test-info .editTest-tooltips ul li:hover {
+            background: #00B5E3;
+            color: #fff; }
+          .overview-test .test-info .editTest-tooltips ul li img {
+            width: 9px;
+            display: inline-block; }
+          .overview-test .test-info .editTest-tooltips ul li span {
+            font-size: 12px;
+            padding: 0 5px 0 0;
+            margin: 0;
+            display: inline-block; }
     .overview-test .test-info .editTest {
-      font-size: 11.2px;
+      font-size: 14px;
       position: absolute;
       text-align: right;
       width: 100%;
       top: 5px;
       left: 0px;
-      text-decoration: none;
-      display: none;
+      display: block;
       padding: 5px 13.33333px; }
+      .overview-test .test-info .editTest a {
+        text-decoration: none;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        color: #C5C6C7; }
       .overview-test .test-info .editTest img {
         height: 16px;
         width: auto; }
       .overview-test .test-info .editTest .dangerous:hover {
         color: #f37960; }
-    .overview-test .test-info a {
-      text-decoration: underline; }
-    .overview-test .test-info h3 {
-      color: #2B404D;
-      margin: 0; }
+  .overview-test .test-edit {
+    padding: 45px 15px 0 15px;
+    height: 200px; }
+    .overview-test .test-edit h3 {
+      font-size: 24.8px;
+      line-height: 28px;
+      letter-spacing: -0.5px;
+      color: #777777; }
   .overview-test .test-controls-empty {
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 100%;
+    width: 96.5%;
     text-align: center;
-    padding: 0 0 16px 0; }
+    border: 1px solid #D82D09;
+    padding: 12px 0;
+    margin: 4px; }
     .overview-test .test-controls-empty a {
-      text-decoration: underline; }
+      font-size: 14px;
+      color: #D82D09; }
   .overview-test .test-controls {
-    background: #85AC0F;
+    background: #fff;
     padding: 0;
-    margin: 0;
-    width: 100%;
-    border-radius: 0 0 2px 2px;
+    margin: 4px;
+    width: 96.5%;
     position: absolute;
     bottom: 0;
     left: 0; }
     .overview-test .test-controls a {
-      font-size: 12.6px;
-      padding: 16px 0;
+      font-size: 14px;
+      padding: 12px 0;
       float: left;
       width: 50%;
       margin: 0;
       text-align: center;
       text-decoration: none;
-      color: #fff;
+      color: #C5C6C7;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400; }
       .overview-test .test-controls a:hover {
-        background-color: #7a9e0e;
-        -webkit-box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-        -moz-box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-        box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.1); }
-        .overview-test .test-controls a:hover.left {
-          border-radius: 0 0 0 2px; }
-        .overview-test .test-controls a:hover.right {
-          border-radius: 0 0 2px 0; }
+        background: #85AC0F;
+        color: #fff; }
   .overview-test.overview-test-empty {
     cursor: pointer;
     opacity: 0.7;
@@ -5253,7 +5279,9 @@ hr {
     font-weight: 300;
     color: #888A8A;
     font-size: 33px;
-    margin: 0 0 20px 0; }
+    margin: 0;
+    padding: 0 0 0 40px;
+    height: 35px; }
     #view-editing .project-name:hover {
       color: #000;
       background: url('../assets/fg-edit.svg') 20px 21px no-repeat; }
@@ -5261,7 +5289,7 @@ hr {
       color: #000;
       background: url('../assets/fg-edit-hover.svg') 20px 21px no-repeat; }
   #view-editing .test-info {
-    padding: 5px 0 30px 40px; }
+    padding: 0 0 30px 40px; }
     #view-editing .test-info img {
       width: 11px;
       margin: 0 3px 0 0; }
@@ -6623,6 +6651,20 @@ hr {
       border-radius: 2px;
       border: 1px solid #dddddd;
       margin: 0 0 70px 0; }
+
+/* responsive styles for report page public*/
+@media (max-width: 1000px) {
+  #report-summary .findings-content {
+    width: 60%; } }
+
+@media (max-width: 700px) {
+  #report-summary #generated-with-fg img {
+    position: absolute;
+    top: 25px;
+    right: 25px; }
+  #report-summary .findings-content {
+    width: 85%;
+    padding: 50px 0; } }
 
 /* code that is NOT specific to a component or module */
 *, *:before, *:after {
