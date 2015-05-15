@@ -28,9 +28,9 @@
 
 			<!-- test -->
 			<div class="overview-test module quarter" ng-repeat="test in tests | orderBy:'created'">
-				<div class="overview-test-container" ng-click="editTest(test)" ng-mouseleave="editTestTooltips=false">
+				<div class="overview-test-container" ng-mouseleave="editTestTooltips=false" ng-class="{'hover-border: '}">
 					
-					<div class="test-info">
+					<div class="test-info" ng-click="editTest(test)">
 					<small class="test-kind" ng-if="test.kind === 'interview'">
 						<img src="layout/assets/interview-dark.svg" alt="Interview icon">
 						{{test.kind}}

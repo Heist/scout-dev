@@ -4952,7 +4952,8 @@ hr {
     .overview-test .overview-test-container:hover {
       border: 1px solid #85AC0F; }
   .overview-test .test-info {
-    padding: 80px 15px 0 15px; }
+    padding: 80px 15px 0 15px;
+    height: 247px; }
     .overview-test .test-info .test-kind {
       position: absolute;
       left: 15px;
