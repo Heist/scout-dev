@@ -30,21 +30,15 @@
 			<div class="overview-test module quarter" ng-repeat="test in tests | orderBy:'created'">
 				<div class="overview-test-container" ng-mouseleave="editTestTooltips=false">
 					
-					<div class="test-info" ng-click="editTest(test)">
-					<small class="test-kind" ng-if="test.kind === 'interview'">
-						<img src="layout/assets/interview-dark.svg" alt="Interview icon">
-						{{test.kind}}
-					</small>
+					<div class="test-info">
+						<small class="test-kind" ng-if="test.kind === 'interview'">
+							<img src="layout/assets/interview-dark.svg" alt="Interview icon">
+							{{test.kind}}
+						</small>
 
-					<small class="test-kind" ng-if="test.kind === 'prototype'">
-						<img src="layout/assets/prototype-dark.svg" alt="Prototype icon">
-						{{test.kind}}
-					</small>
-
-						<h3>{{test.name}}</h3>
-
-						<span ng-show="test._subjects.length > 0">Run {{test._subjects.length}} times</span>
-						<span ng-show="test._subjects.length === 0">Never run</span>
+						<small class="test-kind" ng-if="test.kind === 'prototype'">
+							<img src="layout/assets/prototype-dark.svg" alt="Prototype icon">
+							{{test.kind}}
 						</small>
 						
 						<div class="editTest">
@@ -69,6 +63,13 @@
 
 					</div>
 					
+					<div class="test-edit" ng-click="editTest(test)">
+						<h3>{{test.name}}</h3>
+
+						<span ng-show="test._subjects.length > 0">Run {{test._subjects.length}} times</span>
+						<span ng-show="test._subjects.length === 0">Never run</span>
+						</small>
+					</div>
 					
 					<div class="test-controls-empty" ng-show="test._tasks.length === 0">
 						<small><a ng-click="editTest(test)">You need to add some tasks.</a></small>
