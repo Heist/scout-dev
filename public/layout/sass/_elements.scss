@@ -476,6 +476,8 @@ hr {
 	overflow: hidden;
 	background: url('../assets/fg-logo.svg') center no-repeat;
 	background-size: contain;
+	width: 75px;
+	height: 75px;
 
 	a {
 		display: block;
@@ -484,6 +486,7 @@ hr {
 
 		&:hover {
 			background: url('../assets/fg-logo-hover.svg') center no-repeat;
+			background-size: contain;
 		}
 	}
 }

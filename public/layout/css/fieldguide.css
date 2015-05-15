@@ -379,15 +379,15 @@ label {
     background: #2B404D;
     color: #fff;
     margin: 0;
-    padding: 6px;
+    padding: 10px;
     -moz-border-radius: 40px;
     -webkit-border-radius: 40px;
     border-radius: 40px;
-    height: 40px;
-    width: 40px;
+    height: 55px;
+    width: 55px;
     cursor: pointer;
     text-align: center;
-    font-size: 26.6px;
+    font-size: 34px;
     line-height: 1;
     -webkit-transition-duration: 0.2s;
     -webkit-transition-timing: ease-out;
@@ -401,7 +401,10 @@ label {
     transition-timing: ease-out;
     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 400; }
     .expand-button .expand-button-body.small {
       height: 24px;
       width: 24px;
@@ -3714,13 +3717,16 @@ hr {
   z-index: 999999;
   overflow: hidden;
   background: url('../assets/fg-logo.svg') center no-repeat;
-  background-size: contain; }
+  background-size: contain;
+  width: 75px;
+  height: 75px; }
   #nav-logo a {
     display: block;
     width: 75px;
     height: 75px; }
     #nav-logo a:hover {
-      background: url('../assets/fg-logo-hover.svg') center no-repeat; }
+      background: url('../assets/fg-logo-hover.svg') center no-repeat;
+      background-size: contain; }
 
 #nav-acct-status {
   width: 50px;
