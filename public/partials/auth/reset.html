@@ -1,60 +1,47 @@
 <div id="view-login">
-
     <div class="container">
-    
-        <div class="module third">&nbsp;</div>
-        
-        
-        <div class="module third">
+        <div class="module full">
             
-            <p id="logo" class="text-center">
-                <img src="/layout/assets/fg-binocs-header.png" />
-            </p>
-            
-            <!-- login form -->
-            <div id="form-login">
-            
-                <form ng-model="user" name="pwChecker">
-                   
-                    <ul class="nobullets withlabels">
-                        <li ng-show="!successMsg">
-                        <input  class="input" type="password" name="password" value="" placeholder="Your new password" ng-model="user.password" required/>
-                        <ul class="pwStrong" ng-check-strength="user.password"></ul>
-                        </li >
-                        <li ng-show="!successMsg">
-                            <input class="input" type="password" name="confirm" value="" placeholder="Please confirm your new password" ng-model="passwordConfirm" ng-match="user.password" required/>
-                        </li>
-                        <li ng-show="pwChecker.confirm.$error.match && !pwChecker.confirm.$pristine" 
-                            class="messaging messaging-problem">Sorry, those passwords don't match.
-                        </li>
-                        <li ng-show="!successMsg" class="text-center">
-                            <button class="button dark" type="submit" ng-click="newPass(user.password)">Reset password</button> 
-                            <!--<small><a ng-click="register(user)">Register?</a></small>-->
-                        </li>
+            <div class="module-container">
+                <div class="module-content">
+                    <p id="logo" class="text-center">
+                        <img src="/layout/assets/fg-binocs-grey.svg" />
+                    </p>
+                    
+                    <h1>Change password</h1>
+                    
+                    <!-- login form -->
+                    <div id="form-login">
                         
-                        <li ng-if="successMsg">
-                            {{successMsg.msg}}
-                        </li>
-
-                        <li ng-if="successMsg && successMsg.val === 1" class="text-center">
-                            <button class="button dark" type="submit" ng-click="goToLogin()">Log in</button> 
-                            <!--<small><a ng-click="register(user)">Register?</a></small>-->
-                        </li>
-                        <li ng-if="successMsg && successMsg.val === 0" class="text-center">
-                            <button class="button dark" type="submit" ng-click="goToForgot()">Reset Again</button>
-                            <!--<small><a ng-click="register(user)">Register?</a></small>-->
-                        </li>
-                    </ul>
-                </form>
+                        <form ng-model="user" name="pwChecker">
+                            
+                            <ul class="nobullets withlabels">
+                                <li ng-show="!successMsg">
+                                    <input  class="input" type="password" name="password" value="" placeholder="New password" ng-model="user.password" required/>
+                                    <!-- <ul class="pwStrong" ng-check-strength="user.password"></ul> -->
+                                </li >
+                                <li ng-show="!successMsg">
+                                    <input class="input" type="password" name="confirm" value="" placeholder="Confirm new password" ng-model="passwordConfirm" ng-match="user.password" required/>
+                                    <div class="error-msg" ng-show="pwChecker.confirm.$error.match && !pwChecker.confirm.$pristine">
+                                        <span>Your passwords do not match.</span>
+                                    </div>
+                                </li>
+                                <li ng-show="!successMsg" class="text-center">
+                                    <button id="change-pw" class="submit button green" type="submit" ng-click="newPass(user.password)">Reset password</button>
+                                </li>
+                                
+                                <li ng-if="successMsg">
+                                    {{successMsg.msg}}
+                                </li>
+                            </ul>
+                        </form>
+                        
+                    </div>
+                    <!-- / login form -->
+                </div>
                 
-                <p class="text-center">
-                    <small>Remembered that password? <a href="/login">Return to login</a>.</small>
-                </p>
-            
             </div>
-            <!-- / login form -->
-        
-                
-    
+            
+        </div>
     </div>
 </div>

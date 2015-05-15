@@ -4883,6 +4883,8 @@ hr {
       #view-login .module-container .module-content #logo img {
         width: 70px;
         height: auto; }
+    #view-login .module-container .module-content #change-pw {
+      margin: 15px 0 50px 0; }
 
 /* register */
 #view-register {
