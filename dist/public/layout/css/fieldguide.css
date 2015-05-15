@@ -4953,7 +4953,7 @@ hr {
       border: 1px solid #85AC0F; }
   .overview-test .test-info {
     padding: 80px 15px 0 15px;
-    height: 247px; }
+    height: 240px; }
     .overview-test .test-info .test-kind {
       position: absolute;
       left: 15px;
@@ -5024,16 +5024,19 @@ hr {
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 100%;
+    width: 96.5%;
     text-align: center;
-    padding: 0 0 16px 0; }
+    border: 1px solid #D82D09;
+    padding: 12px 0;
+    margin: 4px; }
     .overview-test .test-controls-empty a {
-      text-decoration: underline; }
+      font-size: 14px;
+      color: #D82D09; }
   .overview-test .test-controls {
     background: #fff;
     padding: 0;
-    margin: 0;
-    width: 100%;
+    margin: 4px;
+    width: 96.5%;
     position: absolute;
     bottom: 0;
     left: 0; }
