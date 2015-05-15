@@ -39,7 +39,6 @@ custom fonts
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
-  font-size: 12px;
   text-transform: none !important;
   speak: none;
   line-height: 1;
@@ -51,7 +50,6 @@ custom fonts
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
-  font-size: 12px;
   text-transform: none !important;
   speak: none;
   line-height: 1;
@@ -93,6 +91,12 @@ custom fonts
 
 .icon-share:before {
   content: "l"; }
+
+.icon-password:before {
+  content: "m"; }
+
+.icon-logout-1:before {
+  content: "o"; }
 
 /* Mixins */
 /*
@@ -3553,7 +3557,7 @@ span.tooltip-icon {
 #help-bubble-content {
   position: fixed;
   right: 25px;
-  bottom: 95px;
+  bottom: 25px;
   z-index: 99999;
   background: #fff;
   -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);

@@ -256,7 +256,7 @@ span.tooltip-icon {
 #help-bubble-content {
 	position: fixed;
 	right: 25px;
-	bottom: 95px;
+	bottom: 25px;
 	z-index: 99999;
 	background: $white;
 	@include dropshadowULTRA;
