@@ -6652,6 +6652,20 @@ hr {
       border: 1px solid #dddddd;
       margin: 0 0 70px 0; }
 
+/* responsive styles for report page public*/
+@media (max-width: 1000px) {
+  #report-summary .findings-content {
+    width: 60%; } }
+
+@media (max-width: 700px) {
+  #report-summary #generated-with-fg img {
+    position: absolute;
+    top: 25px;
+    right: 25px; }
+  #report-summary .findings-content {
+    width: 85%;
+    padding: 50px 0; } }
+
 /* code that is NOT specific to a component or module */
 *, *:before, *:after {
   -webkit-box-sizing: border-box;
