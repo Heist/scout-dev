@@ -3529,7 +3529,8 @@ span.tooltip-icon {
   position: fixed;
   right: 30px;
   bottom: 25px;
-  z-index: 99998; }
+  z-index: 99998;
+  cursor: pointer; }
   #help-bubble .help-bubble-open {
     background: #dddddd;
     color: #2B404D;
@@ -3748,7 +3749,8 @@ hr {
   bottom: 20px;
   z-index: 999999;
   text-align: center;
-  display: block; }
+  display: block;
+  cursor: pointer; }
   #nav-mgmt a {
     color: #7c7d80;
     font-size: 9.8px; }
