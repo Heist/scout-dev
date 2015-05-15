@@ -470,24 +470,21 @@ hr {
 	top: $pad*1.5;
 	background: $fg-header-red;
 	color: $fg-header-red-dark;
-	@include radius($pad*4);
 	padding: 0;
 	margin: 0;
 	z-index: 999999;
 	overflow: hidden;
-	@include dropshadow;
-	
+	background: url('../assets/fg-logo.svg') center no-repeat;
+	background-size: contain;
+
 	a {
 		display: block;
-		width: $pad*2.5;
-		height: $pad*2.5;
-		text-align: center;
-		line-height: $pad*2.7;
-	}
-	
-	img {
-		height: 13px;
-		width: auto;
+		width: 75px;
+		height: 75px;
+
+		&:hover {
+			background: url('../assets/fg-logo-hover.svg') center no-repeat;
+		}
 	}
 }
 
@@ -512,7 +509,8 @@ hr {
 	bottom: $pad;
 	z-index: 999999;
 	text-align: center;
-	
+	display: block;
+
 	a {
 		color: $text;
 		font-size: $type-size-base*0.7;
@@ -520,23 +518,47 @@ hr {
 	
 }
 
-
 #nav-account {
-	width: $pad*2.5;
-	height: $pad*2.5;
-	background: $background-overlay url('/layout/assets/avatar-sq-grey.svg') no-repeat center center;
-	color: $fg-black;
-	@include radius($pad*4);
+	width: 35px;
+	height: 34px;
+	background: $fg-bg url('/layout/assets/fg-avatar.svg') no-repeat center center;
 	padding: 0;
-	margin: 0 0 $pad/2 0;
-	overflow: hidden;
-	
-	a {
-		display: block;
-		width: $pad*2.5;
-		height: $pad*2.5;
-		text-align: center;
-		line-height: $pad*2.7;
+	margin: 0 0 10px 0;
+	display: block;
+	position: relative;
+
+	.account-settings {
+		background: $white;
+		position: absolute;
+		right: -85px;
+		top: -7px;
+		@include dropshadow;
+		
+		ul {
+			padding: 0;
+			margin: 0;
+
+			li {
+				padding: 0 9px;
+				list-style-type: none;
+
+				&:hover {
+					background: $fg-blue;
+					color: $white;
+				}
+
+				img {
+					width: 9px;
+					display: inline-block;
+				}
+				span {
+				font-size: 12px;
+				padding: 0 5px 0 0;
+				margin: 0;
+				display: inline-block;
+				}
+			}
+		}
 	}
 	
 }

@@ -1,19 +1,31 @@
 <div ng-controller="login">
 
 	<div id="nav-logo">
-		<a href="/overview"><img src="/layout/assets/fg-binocs-header.png" /></a>
+		<a href="/overview"></a>
 	</div>
 	
 <!-- 	<div id="nav-acct-status">
 		<span>14 days</span> left in your trial
 	</div> -->
 	
-	<div id="nav-mgmt">
+	<div id="nav-mgmt" ng-mouseover="accountSettings=true">
 		<div id="nav-account">
-			<a href="/account" ng-click="tracker()">&nbsp;</a>
+			<div class="account-settings" ng-show="accountSettings" ng-mouseleave="accountSettings=false">
+				<ul>
+					<li>
+						<span class="icon-duplicate">&nbsp; Account</span>
+					</li>
+
+					<li id="logout" ng-click="logout()">
+						<span class="icon-delete">&nbsp; Log Out</span>
+					</li>
+				</ul>
+			</div>
 		</div>
 		
-		<a id="logout" ng-click="logout()">Log Out</a>
 	</div>
 
 </div>
+
+
+

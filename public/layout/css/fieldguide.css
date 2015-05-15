@@ -3709,25 +3709,18 @@ hr {
   top: 30px;
   background: #f37960;
   color: #872717;
-  -moz-border-radius: 80px;
-  -webkit-border-radius: 80px;
-  border-radius: 80px;
   padding: 0;
   margin: 0;
   z-index: 999999;
   overflow: hidden;
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+  background: url('../assets/fg-logo.svg') center no-repeat;
+  background-size: contain; }
   #nav-logo a {
     display: block;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    line-height: 54px; }
-  #nav-logo img {
-    height: 13px;
-    width: auto; }
+    width: 75px;
+    height: 75px; }
+    #nav-logo a:hover {
+      background: url('../assets/fg-logo-hover.svg') center no-repeat; }
 
 #nav-acct-status {
   width: 50px;
@@ -3748,28 +3741,45 @@ hr {
   left: 30px;
   bottom: 20px;
   z-index: 999999;
-  text-align: center; }
+  text-align: center;
+  display: block; }
   #nav-mgmt a {
     color: #7c7d80;
     font-size: 9.8px; }
 
 #nav-account {
-  width: 50px;
-  height: 50px;
-  background: #ececec url('/layout/assets/avatar-sq-grey.svg') no-repeat center center;
-  color: #323539;
-  -moz-border-radius: 80px;
-  -webkit-border-radius: 80px;
-  border-radius: 80px;
+  width: 35px;
+  height: 34px;
+  background: #f6f6f6 url('/layout/assets/fg-avatar.svg') no-repeat center center;
   padding: 0;
   margin: 0 0 10px 0;
-  overflow: hidden; }
-  #nav-account a {
-    display: block;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    line-height: 54px; }
+  display: block;
+  position: relative; }
+  #nav-account .account-settings {
+    background: #fff;
+    position: absolute;
+    right: -85px;
+    top: -7px;
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+    #nav-account .account-settings ul {
+      padding: 0;
+      margin: 0; }
+      #nav-account .account-settings ul li {
+        padding: 0 9px;
+        list-style-type: none; }
+        #nav-account .account-settings ul li:hover {
+          background: #00B5E3;
+          color: #fff; }
+        #nav-account .account-settings ul li img {
+          width: 9px;
+          display: inline-block; }
+        #nav-account .account-settings ul li span {
+          font-size: 12px;
+          padding: 0 5px 0 0;
+          margin: 0;
+          display: inline-block; }
 
 /* floating header for new design style */
 /* header-specific styles */
@@ -4969,7 +4979,6 @@ hr {
     .overview-test .test-info .dropdown {
       background: red; }
     .overview-test .test-info .editTest-tooltips {
-      width: 90px;
       background: #fff;
       position: absolute;
       right: -63px;
