@@ -512,6 +512,8 @@ hr {
 	bottom: $pad;
 	z-index: 999999;
 	text-align: center;
+	display: block;
+	cursor: pointer;
 	
 	a {
 		color: $text;
