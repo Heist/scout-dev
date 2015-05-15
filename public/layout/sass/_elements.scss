@@ -229,8 +229,8 @@ span.tooltip-icon {
 
 #help-bubble {
 	position: fixed;
-	right: $pad*1.5;
-	bottom: $pad*1.5;
+	right: 30px;
+	bottom: 25px;
 	z-index: 99998;
 	
 	.help-bubble-open {
@@ -254,8 +254,8 @@ span.tooltip-icon {
 
 #help-bubble-content {
 	position: fixed;
-	right: $pad;
-	bottom: $pad;
+	right: 25px;
+	bottom: 95px;
 	z-index: 99999;
 	background: $white;
 	@include dropshadowULTRA;

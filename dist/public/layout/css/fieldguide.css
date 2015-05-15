@@ -3528,7 +3528,7 @@ span.tooltip-icon {
 #help-bubble {
   position: fixed;
   right: 30px;
-  bottom: 30px;
+  bottom: 25px;
   z-index: 99998; }
   #help-bubble .help-bubble-open {
     background: #dddddd;
@@ -3551,8 +3551,8 @@ span.tooltip-icon {
 
 #help-bubble-content {
   position: fixed;
-  right: 20px;
-  bottom: 20px;
+  right: 25px;
+  bottom: 95px;
   z-index: 99999;
   background: #fff;
   -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
