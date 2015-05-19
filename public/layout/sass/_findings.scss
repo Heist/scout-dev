@@ -77,7 +77,7 @@
 		height: 100%;
 		position: fixed;
 		left: 2%;
-		top: 5%;
+		top: 0;
 		@include animated;
 		@include scrollbar;
 		border-right: 1px solid $fg-grey-light;
@@ -188,17 +188,128 @@
 
 		.summaries-content {
 			width: 100%;
-			padding: 40px 50px;
+			padding: 40px 0;
 
 			h2 {
 				font-size: 24.8px;
 				color: $fg-slate;
 				margin: 0;
+				padding: 0 50px;
 			}
 
 			p {
 				font-size: 12px;
 				color: $fg-grey-placeholder;
+				padding: 0 50px;
+			}
+
+
+			.summary-group {
+				margin: 0;
+				padding: 0 0 20px 0;
+
+			}
+
+			.summary-user {
+				color: $fg-slate;
+				font-size: 18.6px;
+				@include type-light;
+				margin: 0 0 10px 0;
+				position: relative;
+				padding: 0 50px;
+				
+				img {
+					position: absolute;
+					left: -35px;
+					width: 20px;
+					height: auto;
+					opacity: 0.2;
+					padding: 0;
+					margin: 0 $pad/5 0 0;
+					vertical-align: text-bottom;
+				}
+				
+				.expand-button {
+
+					.expand-button-body {
+						border: none;
+						@include dropshadow(0 0 0, rgba(0,0,0,0));
+					}
+
+				}
+			}
+
+			.summary {
+				position: relative;
+				@include animated;
+						
+				&:hover, &.selected {
+								
+					.message-details .message-edit {
+						display: block;
+					}
+					
+
+				}
+				
+				.summary-body {
+					float: left;
+					width: 100%;
+
+					h3 {
+						@include type-light;
+						font-size: 20px;
+						color: $fg-grey-light;
+					}
+
+					p {
+						margin-bottom: 0 !important;
+						color: $fg-grey;
+					}
+
+					pre.summaries, textarea {
+						font-size: 14px;
+						line-height: 20px;
+						@include type-light;
+						color: $fg-grey-dark;
+						padding: 0 50px;
+						cursor: text;
+						border: 0;
+						box-shadow: none;
+
+						&.summary {
+							font-size: 18px;
+							line-height: 24px;
+						}
+
+						&:hover {
+						    color: $black;
+						    background: url('../assets/fg-edit.svg') 30px 2px no-repeat;
+						}
+
+						&:focus {
+						    color: $black;
+						    background: url('../assets/fg-edit-hover.svg') 30px 2px no-repeat;
+						}
+					}
+					
+					
+					small {
+						display: block;
+						margin: 0;
+						padding: 0;
+					}
+					
+					textarea {
+						width: 100%;
+						margin: 0 0 10px 0;
+						line-height: 15px;
+
+						&:hover, &:focus {
+							color: $black;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -276,23 +387,17 @@
 			textarea {
 				font-size: 14px;
 				line-height: 18px;
-				height: 400px;
+				height: 300px;
+				border: 0;
+				padding: 0;
+				margin: 0 0 40px 0;
 
-				&:hover, &:focus {
-				    color: $black;
+				&:focus {
+					box-shadow: none;
 				}
 			}
 		}
 		
-		.learnings {
-			width: 100%;
-			max-width: 100%;
-			height: 400px;
-			padding: 10px 15px;
-			margin: 0 0 70px 0;
-			font-size: 14px;
-			line-height: 18px;
-		}
 
 		.all-summaries {
 			margin: 40px 0 0 0;

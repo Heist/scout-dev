@@ -465,7 +465,7 @@ label {
 
 .input {
   width: 100%;
-  background: #fff;
+  background: transparent;
   border: 1px solid rgba(216, 218, 219, 0.5);
   display: inline-block;
   margin: 0;
@@ -5853,7 +5853,6 @@ hr {
             color: #D82D09; }
 
 /* message list */
-/* how we style notes within summaries and reports */
 .message-group {
   margin: 0;
   padding: 0 0 20px 0; }
@@ -5923,11 +5922,11 @@ hr {
 /* message user header */
 .message-user {
   color: #2B404D;
-  font-size: 18px;
+  font-size: 18.6px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
   position: relative; }
   .message-user img {
     position: absolute;
@@ -6160,7 +6159,7 @@ hr {
     height: 100%;
     position: fixed;
     left: 2%;
-    top: 5%;
+    top: 0;
     -webkit-transition-duration: 0.2s;
     -webkit-transition-timing: ease-out;
     -o-transition-duration: 0.2s;
@@ -6258,14 +6257,98 @@ hr {
     overflow: auto; }
     #view-findings .summaries-holder .summaries-content {
       width: 100%;
-      padding: 40px 50px; }
+      padding: 40px 0; }
       #view-findings .summaries-holder .summaries-content h2 {
         font-size: 24.8px;
         color: #2B404D;
-        margin: 0; }
+        margin: 0;
+        padding: 0 50px; }
       #view-findings .summaries-holder .summaries-content p {
         font-size: 12px;
-        color: #C5C6C7; }
+        color: #C5C6C7;
+        padding: 0 50px; }
+      #view-findings .summaries-holder .summaries-content .summary-group {
+        margin: 0;
+        padding: 0 0 20px 0; }
+      #view-findings .summaries-holder .summaries-content .summary-user {
+        color: #2B404D;
+        font-size: 18.6px;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 300;
+        margin: 0 0 10px 0;
+        position: relative;
+        padding: 0 50px; }
+        #view-findings .summaries-holder .summaries-content .summary-user img {
+          position: absolute;
+          left: -35px;
+          width: 20px;
+          height: auto;
+          opacity: 0.2;
+          padding: 0;
+          margin: 0 4px 0 0;
+          vertical-align: text-bottom; }
+        #view-findings .summaries-holder .summaries-content .summary-user .expand-button .expand-button-body {
+          border: none;
+          -moz-box-shadow: 0 0 0 transparent;
+          -webkit-box-shadow: 0 0 0 transparent;
+          box-shadow: 0 0 0 transparent; }
+      #view-findings .summaries-holder .summaries-content .summary {
+        position: relative;
+        -webkit-transition-duration: 0.2s;
+        -webkit-transition-timing: ease-out;
+        -o-transition-duration: 0.2s;
+        -o-transition-timing: ease-out;
+        -moz-transition-duration: 0.2s;
+        -moz-transition-timing: ease-out;
+        -ms-transition-duration: 0.2s;
+        -ms-transition-timing: ease-out;
+        transition-duration: 0.2s;
+        transition-timing: ease-out; }
+        #view-findings .summaries-holder .summaries-content .summary:hover .message-details .message-edit, #view-findings .summaries-holder .summaries-content .summary.selected .message-details .message-edit {
+          display: block; }
+        #view-findings .summaries-holder .summaries-content .summary .summary-body {
+          float: left;
+          width: 100%; }
+          #view-findings .summaries-holder .summaries-content .summary .summary-body h3 {
+            font-family: "canada-type-gibson",sans-serif;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 20px;
+            color: #D8DADB; }
+          #view-findings .summaries-holder .summaries-content .summary .summary-body p {
+            margin-bottom: 0 !important;
+            color: #949799; }
+          #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea {
+            font-size: 14px;
+            line-height: 20px;
+            font-family: "canada-type-gibson",sans-serif;
+            font-style: normal;
+            font-weight: 300;
+            color: #777777;
+            padding: 0 50px;
+            cursor: text;
+            border: 0;
+            box-shadow: none; }
+            #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries.summary, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea.summary {
+              font-size: 18px;
+              line-height: 24px; }
+            #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries:hover, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea:hover {
+              color: #000;
+              background: url('../assets/fg-edit.svg') 30px 2px no-repeat; }
+            #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries:focus, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea:focus {
+              color: #000;
+              background: url('../assets/fg-edit-hover.svg') 30px 2px no-repeat; }
+          #view-findings .summaries-holder .summaries-content .summary .summary-body small {
+            display: block;
+            margin: 0;
+            padding: 0; }
+          #view-findings .summaries-holder .summaries-content .summary .summary-body textarea {
+            width: 100%;
+            margin: 0 0 10px 0;
+            line-height: 15px; }
+            #view-findings .summaries-holder .summaries-content .summary .summary-body textarea:hover, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea:focus {
+              color: #000; }
   #view-findings .sheet-holder {
     width: 47%;
     height: 100%;
@@ -6318,17 +6401,12 @@ hr {
     #view-findings .findings-content .findings-information textarea {
       font-size: 14px;
       line-height: 18px;
-      height: 400px; }
-      #view-findings .findings-content .findings-information textarea:hover, #view-findings .findings-content .findings-information textarea:focus {
-        color: #000; }
-    #view-findings .findings-content .learnings {
-      width: 100%;
-      max-width: 100%;
-      height: 400px;
-      padding: 10px 15px;
-      margin: 0 0 70px 0;
-      font-size: 14px;
-      line-height: 18px; }
+      height: 300px;
+      border: 0;
+      padding: 0;
+      margin: 0 0 40px 0; }
+      #view-findings .findings-content .findings-information textarea:focus {
+        box-shadow: none; }
     #view-findings .findings-content .all-summaries {
       margin: 40px 0 0 0; }
       #view-findings .findings-content .all-summaries .line-hr {
