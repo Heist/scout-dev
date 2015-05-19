@@ -27,7 +27,7 @@
 
 			<!-- test -->
 			<div class="overview-test module quarter" ng-repeat="test in tests | orderBy:'created'">
-				<div class="overview-test-container" ng-mouseleave="editTestTooltips=false">
+				<div class="overview-test-container" ng-class="'overview-test-container-hover' : test._subjects.length === 0" ng-mouseleave="editTestTooltips=false">
 					
 					<div class="test-info">
 						<small class="test-kind" ng-if="test.kind === 'interview'">
