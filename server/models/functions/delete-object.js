@@ -13,6 +13,7 @@ module.exports = function(objectKey, type, next){
     // find an object
     // remove it from its test
     // NO LONGER: remove all related messages and tags 
+    console.log(objectKey, type);
     
     var Model = (type === 'tag') ? models.Tag : 
                 (type === 'task') ? models.Task : 
