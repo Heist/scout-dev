@@ -91,7 +91,7 @@
 			&.sidebar {
 				font-size: 14px;
 				@include type-light;
-				margin: 60px 0 0 0;
+				margin: 65px 0 0 0;
 
 				.tag-hash:before {
 					content: '#';
@@ -121,10 +121,6 @@
 					&:hover {
 						color: $fg-slate;
 					}
-				}
-
-				h4.group-cat.hollow {
-					padding: 10px;
 				}
 
 				h4.group-cat {
@@ -158,18 +154,22 @@
 						margin: 20px 0 0 0;
 					}
 				}
+				
+				ul:first-child {
+					margin: 60px 0 0 0;
 
-				li {
-					padding: 10px;
-					margin: 5px 0 0 0;
+					li {
+						padding: 10px;
+						margin: 5px 0 0 0;
 
-					&:hover {
-						color: $fg-slate;
-					}
+						&:hover {
+							color: $fg-slate;
+						}
 
-					&:active {
-						color: $fg-slate;
-						@include type-bold;
+						&:active {
+							color: $fg-slate;
+							@include type-bold;
+						}
 					}
 				}
 			}
@@ -184,7 +184,23 @@
 		position: absolute;
 		top: 1.8%;
 		left: 14.5%;
-		background: red;
+		overflow: auto;
+
+		.summaries-content {
+			width: 100%;
+			padding: 40px 50px;
+
+			h2 {
+				font-size: 24.8px;
+				color: $fg-slate;
+				margin: 0;
+			}
+
+			p {
+				font-size: 12px;
+				color: $fg-grey-placeholder;
+			}
+		}
 	}
 
 
