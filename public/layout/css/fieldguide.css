@@ -4505,7 +4505,7 @@ hr {
         margin: 0 0 10px 0; }
       .modal .modal-interior .modal-interior-title p {
         font-size: 14px;
-        line-height: 16px;
+        line-height: 18px;
         color: #949799; }
       .modal .modal-interior .modal-interior-title h3 {
         font-family: "canada-type-gibson",sans-serif;
@@ -4602,7 +4602,7 @@ hr {
         margin: 0 0 10px 0; }
       .modal-scroll .modal-interior .modal-interior-title p {
         font-size: 14px;
-        line-height: 16px;
+        line-height: 18px;
         color: #949799; }
       .modal-scroll .modal-interior .modal-interior-title h3 {
         font-family: "canada-type-gibson",sans-serif;
@@ -5279,7 +5279,7 @@ hr {
     box-shadow: none; }
   #view-editing p {
     font-size: 14px;
-    line-height: 16px; }
+    line-height: 18px; }
   #view-editing h3 {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -5322,7 +5322,7 @@ hr {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
-    font-size: 18.6px;
+    font-size: 18px;
     color: #888A8A;
     padding: 0 0 20px 40px; }
     #view-editing input.task-title:hover, #view-editing .add-task textarea.task-title:hover {
@@ -5405,6 +5405,7 @@ hr {
       #view-editing .tags .tag-pool ul li, #view-editing .tags input.custom-tags ul li, #view-editing .tags .add-task textarea.custom-tags ul li, #view-editing .add-task .tags textarea.custom-tags ul li {
         padding: 0 5px 0 5px;
         font-size: 14px;
+        line-height: 18px;
         color: #00B5E3;
         display: inline-block; }
         #view-editing .tags .tag-pool ul li:hover, #view-editing .tags input.custom-tags ul li:hover, #view-editing .tags .add-task textarea.custom-tags ul li:hover, #view-editing .add-task .tags textarea.custom-tags ul li:hover {
@@ -6155,11 +6156,11 @@ hr {
   #view-findings #findings-nav {
     padding: 20px 0 0 0;
     margin: 0;
-    width: 20%;
+    width: 209px;
     height: 100%;
     position: fixed;
-    left: 10%;
-    top: 0;
+    left: 2%;
+    top: 7%;
     -webkit-transition-duration: 0.2s;
     -webkit-transition-timing: ease-out;
     -o-transition-duration: 0.2s;
@@ -6169,7 +6170,8 @@ hr {
     -ms-transition-duration: 0.2s;
     -ms-transition-timing: ease-out;
     transition-duration: 0.2s;
-    transition-timing: ease-out; }
+    transition-timing: ease-out;
+    border-right: 1px solid #D8DADB; }
     #view-findings #findings-nav ::-webkit-scrollbar {
       width: 6.66667px; }
     #view-findings #findings-nav ::-webkit-scrollbar-track {
@@ -6184,10 +6186,11 @@ hr {
       overflow: auto;
       position: relative; }
       #view-findings #findings-nav #sidebar.sidebar {
-        font-size: 16px;
+        font-size: 14px;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 300; }
+        font-weight: 300;
+        margin: 50px 0 0 0; }
         #view-findings #findings-nav #sidebar.sidebar .tag-hash:before {
           content: '#'; }
         #view-findings #findings-nav #sidebar.sidebar span.report {
@@ -6259,13 +6262,13 @@ hr {
           width: 80%;
           margin: 0; }
   #view-findings .sheet-holder {
-    width: 70%;
+    width: 709px;
     height: 100%;
     padding: 0;
     margin: 0;
     position: absolute;
-    top: 0;
-    left: 30%; }
+    top: 2%;
+    left: 50%; }
     #view-findings .sheet-holder.full {
       width: 103%;
       left: -3%;
@@ -6282,15 +6285,15 @@ hr {
       margin: 0;
       font-size: 28px; }
     #view-findings .findings-content h2 {
-      font-size: 20px;
+      font-size: 18.6px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
       color: #2B404D;
       margin: 0 0 15px 0; }
     #view-findings .findings-content p {
-      font-size: 18px;
-      line-height: 24px;
+      font-size: 14px;
+      line-height: 18px;
       color: #949799;
       margin: 0 0 50px 0; }
     #view-findings .findings-content pre {
@@ -6304,8 +6307,8 @@ hr {
         #view-findings .findings-content .findings-header .findings-description span {
           padding: 0 20px 0 0; }
     #view-findings .findings-content .findings-information textarea {
-      font-size: 18px;
-      line-height: 24px;
+      font-size: 14px;
+      line-height: 18px;
       height: 400px; }
       #view-findings .findings-content .findings-information textarea:hover, #view-findings .findings-content .findings-information textarea:focus {
         color: #000; }
@@ -6315,8 +6318,8 @@ hr {
       height: 400px;
       padding: 10px 15px;
       margin: 0 0 70px 0;
-      font-size: 18px;
-      line-height: 24px; }
+      font-size: 14px;
+      line-height: 18px; }
     #view-findings .findings-content .all-summaries {
       margin: 40px 0 0 0; }
       #view-findings .findings-content .all-summaries .line-hr {

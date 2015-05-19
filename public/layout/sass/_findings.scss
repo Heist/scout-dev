@@ -73,13 +73,14 @@
 	#findings-nav {
 		padding: 20px 0 0 0;
 		margin: 0;
-		width: 20%;
+		width: 209px;
 		height: 100%;
 		position: fixed;
-		left: 10%;
-		top: 0;
+		left: 2%;
+		top: 7%;
 		@include animated;
 		@include scrollbar;
+		border-right: 1px solid $fg-grey-light;
 		
 		#sidebar {
 			width: 95%;
@@ -88,8 +89,9 @@
 			position: relative;
 			
 			&.sidebar {
-				font-size: 16px;
+				font-size: 14px;
 				@include type-light;
+				margin: 50px 0 0 0;
 
 				.tag-hash:before {
 					content: '#';
@@ -198,13 +200,13 @@
 	}
 
 	.sheet-holder {
-		width: 70%;
+		width: 709px;
 		height: 100%;
 		padding: 0;
 		margin: 0;
 		position: absolute;
-		top: 0;
-		left: 30%;
+		top: 2%;
+		left: 50%;
 
 		&.full {
 			width: 103%;
@@ -228,15 +230,15 @@
 		}
 
 		h2 {
-			font-size: 20px;
+			font-size: 18.6px;
 			@include type-regular;
 			color: $fg-slate;
 			margin: 0 0 15px 0;
 		}
 
 		p {
-			font-size: 18px;
-			line-height: 24px;
+			font-size: 14px;
+			line-height: 18px;
 			color: $fg-grey;
 			margin: 0 0 50px 0;
 		}
@@ -262,8 +264,8 @@
 		
 		.findings-information {
 			textarea {
-				font-size: 18px;
-				line-height: 24px;
+				font-size: 14px;
+				line-height: 18px;
 				height: 400px;
 
 				&:hover, &:focus {
@@ -278,8 +280,8 @@
 			height: 400px;
 			padding: 10px 15px;
 			margin: 0 0 70px 0;
-			font-size: 18px;
-			line-height: 24px;
+			font-size: 14px;
+			line-height: 18px;
 		}
 
 		.all-summaries {

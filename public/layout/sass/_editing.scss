@@ -233,7 +233,7 @@
 
     p {
         font-size: 14px;
-        line-height: 16px;
+        line-height: 18px;
     }
     
     h3 {
@@ -286,7 +286,7 @@
 
     input.task-title {
         @include type-light;
-        font-size: 18.6px;
+        font-size: 18px;
         color: $fg-grey-text;
           padding: 0 0 20px 40px;
 
@@ -370,6 +370,7 @@
                 li {
                     padding: 0 5px 0 5px;
                     font-size: 14px;
+                    line-height: 18px;
                     color: $fg-blue;
                     display: inline-block;
                     
