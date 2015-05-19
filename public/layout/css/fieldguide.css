@@ -663,14 +663,14 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
 /* Buttons */
 button.x-modal {
   position: absolute;
-  top: -25px;
+  top: -35px;
   right: -35px;
   text-decoration: none;
   color: #949799;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 15px;
   cursor: pointer;
   background: none;
   border: 0;
@@ -4447,7 +4447,7 @@ hr {
   left: 0;
   width: 100%;
   min-height: 100%;
-  background: rgba(43, 64, 77, 0.9);
+  background: rgba(0, 0, 0, 0.7);
   z-index: 99999999;
   -webkit-animation-duration: 0.5s;
   -moz-animation-duration: 0.5s;
@@ -4472,7 +4472,7 @@ hr {
   .modal .modal-interior {
     width: 550px;
     background: #fff;
-    padding: 30px 40px 30px 40px;
+    padding: 40px;
     margin: 10% auto;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -4544,7 +4544,7 @@ hr {
   left: 0;
   width: 100%;
   min-height: 100%;
-  background: rgba(43, 64, 77, 0.9);
+  background: rgba(0, 0, 0, 0.7);
   z-index: 99999999;
   -webkit-animation-duration: 0.5s;
   -moz-animation-duration: 0.5s;
@@ -5727,7 +5727,7 @@ hr {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: rgba(43, 64, 77, 0.9);
+  background: rgba(0, 0, 0, 0.7);
   z-index: 999999999;
   color: #fff;
   margin: 0;

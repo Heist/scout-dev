@@ -36,7 +36,7 @@
     .modal-interior {
         width: 550px;
         background: $white;
-        padding: ($pad * 1.5) ($pad * 2) ($pad * 1.5) ($pad * 2);
+        padding: 40px;
         margin: 10% auto;
         @include radius;
         @include dropshadowULTRA;

@@ -1,12 +1,12 @@
 /* Buttons */
 button.x-modal {
     position: absolute;
-    top: -25px;
+    top: -35px;
     right: -35px;
     text-decoration: none;
     color: $fg-grey;
     @include type-extrabold;
-    font-size: 18px;
+    font-size: 15px;
     cursor: pointer;
     background: none;
     border: 0;
