@@ -52,7 +52,7 @@
 								<div class="tag-pool">
 									<ul>
 										<li ng-repeat="tag in tags">
-											#{{tag.name}} <span ng-click="removeTag(tag)">&times;</span>
+											#{{tag.name}} <span ng-if="test._subjects.length === 0" ng-click="removeTag(tag)">&times;</span>
 										</li>
 									</ul>
 								</div>
@@ -71,7 +71,7 @@
 						<div class="container-right">
 							<div ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}">
 
-								<div class="topic-delete" data-tooltip="Delete Topic" ng-click="deleteTopicModalToggle(task)"><span class="icon-delete"></span></div>
+								<div class="topic-delete" data-tooltip="Delete Topic"  ng-if="test._subjects.length === 0"><span class="icon-delete" ng-click="deleteTopicModalToggle(task)"></span></div>
 
 								<!-- Delete Topic modal -->
 								<div class="modal" ng-if="deleteTopic === task">
