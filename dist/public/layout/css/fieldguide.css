@@ -4977,8 +4977,8 @@ hr {
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     position: relative; }
-    .overview-test .overview-test-container:hover {
-      border: 1px solid #85AC0F; }
+  .overview-test .overview-test-container-hover:hover {
+    border: 1px solid #85AC0F; }
   .overview-test .test-info {
     height: 40px; }
     .overview-test .test-info .test-kind {

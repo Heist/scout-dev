@@ -39,7 +39,9 @@
 		height: 296px;
 		@include dropshadowULTRA;
 		position: relative;
+	}
 
+	.overview-test-container-hover {
 		&:hover {
 			border: 1px solid $fg-green;
 		}
