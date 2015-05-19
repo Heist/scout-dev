@@ -52422,7 +52422,12 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
-        $scope.messages = makeMessageGroups(loadData.data.messages);        
+        $scope.messages = makeMessageGroups(loadData.data.messages);
+
+        // provides the variable to display the report from the test object on the right hand side of the screen
+        $scope.displayReport = _.filter(loadData.data.list, function(n){
+            return n.doctype === 'test';
+        })[0];
         
 
         // GROUP MESSAGES BY USERS ==================================

@@ -37,6 +37,7 @@ module.exports = function(object_array, next){
                     model.desc       = obj.desc || model.desc;
                     model.embed      = obj.embed || model.embed || '';
                     model.summary    = obj.summary || model.summarized || '';
+                    model.next_steps = obj.next_steps || model.next_steps || '';
                 
                     model.report_index  = obj.report_index || model.report_index;
                     
