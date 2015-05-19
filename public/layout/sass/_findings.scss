@@ -71,20 +71,20 @@
 	}
 
 	#findings-nav {
-		padding: 20px 0 0 0;
+		padding: 20px 0;
 		margin: 0;
 		width: 13%;
 		height: 100%;
 		position: fixed;
 		left: 2%;
-		top: 0;
+		top: 12px;
 		@include animated;
 		@include scrollbar;
 		border-right: 1px solid $fg-grey-light;
 		
 		#sidebar {
-			width: 95%;
-			height: 98%;
+			width: 97%;
+			height: 92%;
 			overflow: auto;
 			position: relative;
 			
@@ -332,27 +332,11 @@
 			width: 35%;
 		}
 
-		h1 {
-			margin: 0;
-			font-size: 28px;
-		}
-
 		h2 {
 			font-size: 18.6px;
 			@include type-regular;
 			color: $fg-slate;
 			margin: 0 0 15px 0;
-		}
-
-		.findings-share-link {
-			float: left;
-			display: block;
-			margin: 6px 0 0 20px;
-
-			a {
-				height: 20px;
-				width: 20px;
-			}
 		}
 
 		p {
@@ -368,6 +352,11 @@
 
 		.findings-header {
 			padding: 40px 0;
+
+			h1 {
+				font-size: 33px;
+				margin: 0;
+			}
 			
 			.findings-description {
 				color: $fg-grey;
@@ -376,6 +365,17 @@
 
 				span {
 					padding: 0 20px 0 0;
+				}
+
+				.findings-share-link {
+					display: inline-block;
+					margin: 0;
+					position: absolute;
+
+					a {
+						height: 20px;
+						width: 20px;
+					}
 				}
 			}
 		}

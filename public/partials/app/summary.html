@@ -98,17 +98,8 @@
 
 			<div class="findings-content">
 				<div class="findings-header">
-					<h1 class="dark float-left" ng-show="displayReport.doctype === 'test'">{{displayReport.name}}</h1>
-					<div class="findings-share-link ">
-						<button class="button extra-small right-radius" ng-click="shareReportModalToggle()">Share</button><a href="{{reportLink}}" class="button tiny-square left-radius" ng-model="reportLink" target="_blank"><span class="icon-share"></span></a>
-					</div>
+					<h1 class="float-left" ng-show="displayReport.doctype === 'test'">{{displayReport.name}}</h1>
 					
-
-		
-
-
-
-
 					<div class="clear"></div>
 
 					<div class="findings-description" ng-show="displayReport.doctype === 'test'">
@@ -124,6 +115,10 @@
 						
 
 						<span>{{displayReport._subjects.length}} participants</span>
+
+						<div class="findings-share-link ">
+							<button class="button extra-small right-radius" ng-click="shareReportModalToggle()">Share</button><a href="{{reportLink}}" class="button tiny-square left-radius" ng-model="reportLink" target="_blank"><span class="icon-share"></span></a>
+						</div>
 
 					</div>
 
