@@ -37,6 +37,7 @@ module.exports = function(app, passport) {
             console.log('delete this tag', req.params._id);
             fn.deleteObject(req.params._id, 'tag',function(err, obj){
                 if(err){ console.error(err); }
+                console.log(obj)
                 res.json(obj);
             });
 
