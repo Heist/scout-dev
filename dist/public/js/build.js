@@ -50550,7 +50550,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     // and add it to whatever context the message is supposed to live in
                     // on whatever page.
                     
-                    
+                    evt.preventDefault();
                     scope.$emit('message', modelCtrl.$viewValue);
                     modelCtrl.$setViewValue('');
                     modelCtrl.$render();
@@ -52197,33 +52197,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.messageEditToggle = message._id;
         };
 
-        $scope.turnBlue = function() {
-            angular.element('session-input').css('background:blue;')
-        }
-
-        $scope.setSelectionRange = function(input, selectionStart, selectionEnd) {
-            void 0
-          if (input.setSelectionRange) {
-            input.focus();
-            input.setSelectionRange(selectionStart, selectionEnd);
-          }
-          else if (input.createTextRange) {
-            var range = input.createTextRange();
-            range.collapse(true);
-            range.moveEnd('character', selectionEnd);
-            range.moveStart('character', selectionStart);
-            range.select();
-          }
-        }
-
-        $scope.setCaretToPos = function(input, pos) {
-            void 0
-          $scope.setSelectionRange(input, pos, pos);
-        }
-
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $scope.setCaretToPos(document.getElementById("messageInput"),4);
+            $timeout(function() {$('textarea#messageInput').focus() }, 200);
+            // $scope.setCaretToPos(document.getElementById("messageInput"),4);
             $http.put('/api/message/', message)
                 .success(function(data){                 
                     
@@ -52246,39 +52223,20 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 });
         };
 
+        // this is a detection from the message emitter directive.
         $scope.$on('message', function(e, data){
-            
             e.stopPropagation();
             if(data.length <= 0){
                 return ;
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
-                        
                         $scope.timeline.push(data.msg);
                         $scope.tags = tagSort(data.tags);
                     });
             }
         })
 
-        // SUMMARY MESSAGES =====================
-        $scope.addMessageToSummaryTag = function(message){
-            
-            // on creation of test, there is a tag created called Summary.
-            // find that message and post to it.
-            //  loadData.data._tags
-            if(message){
-                postMessage(message+' #summary', summaryTagId, $stateParams._id, $scope.subject._id)
-                        .then(function(msg){
-                            void 0
-                            $location.path('/overview');
-                        });
-            } else {
-                
-                return;
-            }
-
-        }
 
         // END TEST =============================
         $scope.postTest = function(){

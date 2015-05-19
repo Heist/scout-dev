@@ -238,7 +238,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     // and add it to whatever context the message is supposed to live in
                     // on whatever page.
                     
-                    
+                    evt.preventDefault();
                     scope.$emit('message', modelCtrl.$viewValue);
                     modelCtrl.$setViewValue('');
                     modelCtrl.$render();
