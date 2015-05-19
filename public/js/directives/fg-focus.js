@@ -14,7 +14,7 @@
         if(element){
             element.focus();
         }
-      });
+      }, 500);
     };
   })
 .directive('eventFocus', function(focus) {
