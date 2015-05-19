@@ -51947,12 +51947,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         
         $scope.activate(data.navlist.list[idx], 0);
 
-        // provides the variable to display the report from the test object on the right hand side of the screen
-        $scope.displayReport = _.filter(loadData.data.navlist.list, function(n){
-            return n.doctype === 'test';
-        })[0];
-
-
     // NAVIGATION =============================================
 
         $scope.showObjectMessages = function(msg, obj){
