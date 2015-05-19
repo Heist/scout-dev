@@ -53532,6 +53532,8 @@ angular.module('field_guide_controls')
   };
 }]);
 })();
+// fg-modal.js
+// a directive to insert a modal on any given page
 // fg-post-message.js
 // post a new note to the database.
 'use strict';
