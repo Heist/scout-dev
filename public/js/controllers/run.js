@@ -231,6 +231,24 @@
             }
         })
 
+        // SUMMARY MESSAGES =====================
+        $scope.addMessageToSummaryTag = function(message){
+            
+            // on creation of test, there is a tag created called Summary.
+            // find that message and post to it.
+            //  loadData.data._tags
+            if(message){
+                postMessage(message+' #Summary', summaryTagId, $stateParams._id, $scope.subject._id)
+                        .then(function(msg){
+                            console.log('message posted to summary', msg)
+                            $location.path('/overview');
+                        });
+            } else {
+                
+                return;
+            }
+
+        }
 
         // END TEST =============================
         $scope.postTest = function(){
