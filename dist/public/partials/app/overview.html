@@ -15,7 +15,6 @@
 			<div class="overview-controls">
 				<div class="expand-button">
 					<div class="expand-button-body" ng-click="newTestModalToggle()">+</div>
-					<div class="expand-button-helper">Add new project</div>
 				</div>
 			</div>
 		</div>
@@ -42,7 +41,7 @@
 						</small>
 						
 						<div class="editTest">
-							<a ng-mouseover="editTestTooltips=true" class="ellipsis">&#8942;</a>
+							<span ng-mouseover="editTestTooltips=true">&#8942;</span>
 						</div>
 
 						<div class="editTest-tooltips" ng-show="editTestTooltips" ng-mouseleave="editTestTooltips=false">

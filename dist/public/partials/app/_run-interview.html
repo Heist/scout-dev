@@ -42,7 +42,7 @@
 						</pre>
 						<!-- Editable messages - if a message is not a guideline -->
 						<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-						<textarea msd-elastic class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message)" ></textarea>
+						<textarea msd-elastic class="input" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" id="editMessage" ng-enter="saveEdit(message)" ></textarea>
 					</div>
 				
 					<div class="clear"></div>
