@@ -92,7 +92,31 @@ button.x-onboard {
 
 	&.extra-small {
 		font-size: 10px;
-		padding: 4.5px 11.5px;
+		padding: 4.5px 7.5px;
+		margin: 0;
+
+		&.right-radius {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+	}
+
+	&.tiny-square {
+		margin: 0;
+		padding: 2px 4.5px;
+		position: relative;
+
+		span.icon-share {
+			font-size: 9px;
+			position: absolute;
+			top: -1px;
+			left: 5.5px;
+		}
+
+		&.left-radius {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
 	}
 	
 	

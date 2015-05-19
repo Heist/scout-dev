@@ -745,7 +745,23 @@ button.x-onboard {
     padding: 3px 10px; }
   .button.extra-small {
     font-size: 10px;
-    padding: 4.5px 11.5px; }
+    padding: 4.5px 7.5px;
+    margin: 0; }
+    .button.extra-small.right-radius {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0; }
+  .button.tiny-square {
+    margin: 0;
+    padding: 2px 4.5px;
+    position: relative; }
+    .button.tiny-square span.icon-share {
+      font-size: 9px;
+      position: absolute;
+      top: -1px;
+      left: 5.5px; }
+    .button.tiny-square.left-radius {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0; }
   .button.disabled {
     cursor: not-allowed;
     opacity: 0.4; }
@@ -6329,7 +6345,9 @@ hr {
             padding: 0 50px;
             cursor: text;
             border: 0;
-            box-shadow: none; }
+            box-shadow: none;
+            margin: 0 0 30px 0;
+            resize: none; }
             #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries.summary, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea.summary {
               font-size: 18px;
               line-height: 24px; }
@@ -6343,12 +6361,6 @@ hr {
             display: block;
             margin: 0;
             padding: 0; }
-          #view-findings .summaries-holder .summaries-content .summary .summary-body textarea {
-            width: 100%;
-            margin: 0 0 10px 0;
-            line-height: 15px; }
-            #view-findings .summaries-holder .summaries-content .summary .summary-body textarea:hover, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea:focus {
-              color: #000; }
   #view-findings .sheet-holder {
     width: 47%;
     height: 100%;
@@ -6382,7 +6394,10 @@ hr {
     #view-findings .findings-content .findings-share-link {
       float: left;
       display: block;
-      margin: 6px 0 0 10px; }
+      margin: 6px 0 0 20px; }
+      #view-findings .findings-content .findings-share-link a {
+        height: 20px;
+        width: 20px; }
     #view-findings .findings-content p {
       font-size: 14px;
       line-height: 18px;
@@ -6404,7 +6419,8 @@ hr {
       height: 300px;
       border: 0;
       padding: 0;
-      margin: 0 0 40px 0; }
+      margin: 0 0 40px 0;
+      resize: none; }
       #view-findings .findings-content .findings-information textarea:focus {
         box-shadow: none; }
     #view-findings .findings-content .all-summaries {
