@@ -1,7 +1,5 @@
 /* message list */
 
-/* how we style notes within summaries and reports */
-
 .message-group {
 	margin: 0;
 	padding: 0 0 20px 0;
@@ -72,9 +70,9 @@
 
 .message-user {
 	color: $fg-slate;
-	font-size: 18px;
+	font-size: 18.6px;
 	@include type-light;
-	margin: 0 0 20px 0;
+	margin: 0 0 10px 0;
 	position: relative;
 	
 	img {

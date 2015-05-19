@@ -141,7 +141,8 @@
 		padding: 40px 0;
 
 		h1 {
-			font-size: 24px;
+			margin: 0;
+			font-size: 33px;
 		}
 
 		.findings-description {
@@ -165,13 +166,8 @@
 			width: 35%;
 		}
 
-		h1 {
-			margin: 0;
-			font-size: 24px;
-		}
-
 		h2 {
-			font-size: 16px;
+			font-size: 18.6px;
 			color: $fg-slate;
 			margin: 0 0 15px 0;
 		}
@@ -194,8 +190,8 @@
 
 			pre {
 				color: $fg-grey;
-				font-size: 18px;
-				line-height: 24px;
+				font-size: 14px;
+				line-height: 18px;
 			}
 			p {
 				line-height: 20px;

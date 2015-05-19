@@ -138,7 +138,7 @@ span.tooltip-icon {
 [data-tooltip-large-report]:after {
   z-index: 1000;
   padding: 8px;
-  width: 155px;
+  width: 105px;
   background-color: $fg-blue-dark;
   background-color: hsla(195, 50%, 33%, 0.85);
   border-radius: 2px;
@@ -195,7 +195,7 @@ span.tooltip-icon {
 [data-tooltip-large-report]:after,
 .tooltip:after,
 .tooltip-top:after {
-  margin-left: -20px;
+    margin-left: -25px;
 }
 
 
@@ -473,7 +473,7 @@ hr {
 	color: $fg-header-red-dark;
 	padding: 0;
 	margin: 0;
-	z-index: 999999;
+	z-index: 50;
 	overflow: hidden;
 	background: url('../assets/fg-logo.svg') center no-repeat;
 	background-size: contain;

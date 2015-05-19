@@ -64,7 +64,7 @@ $background: $fg-bg;
 $background-overlay: darken($background, 4%);
 $background-dark: darken($background, 12%);
 
-$modal-bg: transparentize($fg-slate, 0.1);
+$modal-bg: transparentize(#000, 0.3);
 $light-grey-bg: transparentize($fg-grey, 0.8);
 $light-green-bg: transparentize($fg-green, 0.86);
 
