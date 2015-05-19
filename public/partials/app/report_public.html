@@ -6,16 +6,16 @@
     
     <!-- main content -->
     <div class="sheet-holder-report">
-        <div class="sheet-report" ng-model="selected">
+        <div class="sheet-report" ng-model="displayReport">
 
             <div class="findings-content">
 
                 <div class="findings-header">
-                        <h1 class="dark float-left"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}} Report</h1>
+                        <h1 class="float-left" ng-show="displayReport.doctype === 'test'">{{displayReport.name}} Report</h1>
                         <div class="clear"></div>
-                        <div class="findings-description" ng-show="selected.doctype === 'test'">
-                            <span>{{selected._subjects.length}} participants</span>
-                            <span ng-show="selected.kind === 'prototype'"><span>Prototype test</span><a href="{{selected.link}}" target="_">{{selected.link}}</a></span>
+                        <div class="findings-description" ng-show="displayReport.doctype === 'test'">
+                            <span>{{displayReport._subjects.length}} participants</span>
+                            <span ng-show="displayReport.kind === 'prototype'"><span>Prototype test</span><a href="{{displayReport.link}}" target="_">{{displayReport.link}}</a></span>
                         </div>
                         
                         <div id="generated-with-fg" class="clearfix">
@@ -24,14 +24,14 @@
                 </div>
             
                 <div class="findings-information">
-                    <h2 ng-if="selected.desc" ng-show="selected.doctype === 'test'">Objectives</h2>
-                    <pre ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></pre>
+                    <h2 ng-if="displayReport.desc" ng-show="displayReport.doctype === 'test'">Objectives</h2>
+                    <pre ng-if="displayReport.desc" ng-bind-html="displayReport.desc | linebreaker"></pre>
 
                     <h2>Findings</h2>
-                    <pre ng-if="selected.summary" ng-bind-html='selected.summary'></pre>
+                    <pre ng-if="displayReport.summary" ng-bind-html='displayReport.summary'></pre>
 
                     <h2>Next Steps</h2>
-                    <pre ng-if="selected.nextSteps" ng-bind-html='selected.nextSteps'></pre>
+                    <pre ng-if="displayReport.next_steps" ng-bind-html='displayReport.next_steps'></pre>
                 </div>
 
             

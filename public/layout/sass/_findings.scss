@@ -390,6 +390,10 @@
 				margin: 0 0 40px 0;
 				resize: none;
 
+				&:hover {
+					color: $black;
+				}
+
 				&:focus {
 					box-shadow: none;
 				}

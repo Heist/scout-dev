@@ -6421,6 +6421,8 @@ hr {
       padding: 0;
       margin: 0 0 40px 0;
       resize: none; }
+      #view-findings .findings-content .findings-information textarea:hover {
+        color: #000; }
       #view-findings .findings-content .findings-information textarea:focus {
         box-shadow: none; }
     #view-findings .findings-content .all-summaries {
