@@ -52151,7 +52151,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);
-
+                    $timeout(function() {$('textarea#messageInput').focus() }, 10);
                     // Avatar initials
                     // TODO: refactor into service or add to check in process
                     // This might be a good refactored into a directive,
@@ -52195,11 +52195,12 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.editMessage = function(message){
             // clear this on blur to block weird toggle bug
             $scope.messageEditToggle = message._id;
+            $timeout(function() {$('textarea#editMessage').focus() }, 10);
         };
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $timeout(function() {$('textarea#messageInput').focus() }, 200);
+            $timeout(function() {$('textarea#messageInput').focus() }, 10);
             // $scope.setCaretToPos(document.getElementById("messageInput"),4);
             $http.put('/api/message/', message)
                 .success(function(data){                 
@@ -53485,28 +53486,31 @@ angular.module('field_guide_controls')
       // e.g. click events that need to run before the focus or
       // inputs elements that are in a disabled state but are enabled when those events
       // are triggered.
-      $timeout(function() {
+      $timeout(function(){
         var element = document.getElementById(id);
         if(element){
             element.focus();
         }
-      });
+      }, 500);
     };
   }])
-.directive('eventFocus', ["focus", function(focus) {
-    return function(scope, elem, attr) {
-      elem.on(attr.eventFocus, function() {
-        focus(attr.eventFocusId);
+.directive('focusMe', ["$timeout", function($timeout) {
+  return {
+    scope: { trigger: '@focusMe' },
+    link: function(scope, element) {
+      scope.$watch('trigger', function(value) {
+        if(value === "true") { 
+          $timeout(function() {
+            element[0].focus(); 
+          }, 200);
+        }
       });
-
-      // Removes bound events in the element itself
-      // when the scope is destroyed
-      scope.$on('$destroy', function() {
-        elem.off(attr.eventFocus);
-      });
-    };
-  }]);
+    }
+  };
+}]);
 })();
+// fg-modal.js
+// a directive to insert a modal on any given page
 // fg-post-message.js
 // post a new note to the database.
 'use strict';

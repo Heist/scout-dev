@@ -144,7 +144,7 @@
                     $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);
-
+                    $timeout(function() {$('textarea#messageInput').focus() }, 10);
                     // Avatar initials
                     // TODO: refactor into service or add to check in process
                     // This might be a good refactored into a directive,
@@ -188,11 +188,12 @@
         $scope.editMessage = function(message){
             // clear this on blur to block weird toggle bug
             $scope.messageEditToggle = message._id;
+            $timeout(function() {$('textarea#editMessage').focus() }, 10);
         };
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $timeout(function() {$('textarea#messageInput').focus() }, 200);
+            $timeout(function() {$('textarea#messageInput').focus() }, 10);
             // $scope.setCaretToPos(document.getElementById("messageInput"),4);
             $http.put('/api/message/', message)
                 .success(function(data){                 
