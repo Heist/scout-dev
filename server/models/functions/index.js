@@ -14,7 +14,7 @@ module.exports = {
 	defaultTestData : require('./default-test-object'),
 	deleteTask      : require('./delete-task'),
 	deleteTest      : require('./delete-test'),
-	deleteObj       : require('./delete-object'),
+	deleteObject    : require('./delete-object'),
 	devTests        : require('./dev-tests'),
 	dupeTests       : require('./dupe-tests'),
 	editTest        : require('./edit-test'),
