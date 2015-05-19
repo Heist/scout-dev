@@ -6728,7 +6728,8 @@ hr {
   #report-summary .findings-header {
     padding: 40px 0; }
     #report-summary .findings-header h1 {
-      font-size: 24px; }
+      margin: 0;
+      font-size: 33px; }
     #report-summary .findings-header .findings-description {
       color: #949799;
       font-size: 12px;
@@ -6743,11 +6744,8 @@ hr {
     font-weight: 300; }
     #report-summary .findings-content.report {
       width: 35%; }
-    #report-summary .findings-content h1 {
-      margin: 0;
-      font-size: 24px; }
     #report-summary .findings-content h2 {
-      font-size: 16px;
+      font-size: 18.6px;
       color: #2B404D;
       margin: 0 0 15px 0; }
     #report-summary .findings-content pre {

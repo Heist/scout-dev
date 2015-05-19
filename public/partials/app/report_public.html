@@ -27,8 +27,11 @@
                     <h2 ng-if="selected.desc" ng-show="selected.doctype === 'test'">Objectives</h2>
                     <pre ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></pre>
 
-                    <h2>Learnings</h2>
+                    <h2>Findings</h2>
                     <pre ng-if="selected.summary" ng-bind-html='selected.summary'></pre>
+
+                    <h2>Next Steps</h2>
+                    <pre ng-if="selected.nextSteps" ng-bind-html='selected.nextSteps'></pre>
                 </div>
 
             
