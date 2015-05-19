@@ -24,8 +24,8 @@ module.exports = function(emailAddress, app, next){
                 host: "smtp.mandrillapp.com",
                 port: 587
             });
-        
-        console.log(user.local.email);
+
+        console.log('this is the local email', user.local.email);
 
         var mailOptions = {
                 to: user.local.email,

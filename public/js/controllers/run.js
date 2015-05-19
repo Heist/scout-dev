@@ -144,7 +144,7 @@
                     $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);
-
+                    $timeout(function() {$('textarea#messageInput').focus() }, 10);
                     // Avatar initials
                     // TODO: refactor into service or add to check in process
                     // This might be a good refactored into a directive,
@@ -188,35 +188,13 @@
         $scope.editMessage = function(message){
             // clear this on blur to block weird toggle bug
             $scope.messageEditToggle = message._id;
+            $timeout(function() {$('textarea#editMessage').focus() }, 10);
         };
-
-        $scope.turnBlue = function() {
-            angular.element('session-input').css('background:blue;')
-        }
-
-        $scope.setSelectionRange = function(input, selectionStart, selectionEnd) {
-            console.log('rangeSet')
-          if (input.setSelectionRange) {
-            input.focus();
-            input.setSelectionRange(selectionStart, selectionEnd);
-          }
-          else if (input.createTextRange) {
-            var range = input.createTextRange();
-            range.collapse(true);
-            range.moveEnd('character', selectionEnd);
-            range.moveStart('character', selectionStart);
-            range.select();
-          }
-        }
-
-        $scope.setCaretToPos = function(input, pos) {
-            console.log('rangereturn')
-          $scope.setSelectionRange(input, pos, pos);
-        }
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $scope.setCaretToPos(document.getElementById("messageInput"),4);
+            $timeout(function() {$('textarea#messageInput').focus() }, 10);
+            // $scope.setCaretToPos(document.getElementById("messageInput"),4);
             $http.put('/api/message/', message)
                 .success(function(data){                 
                     
@@ -239,39 +217,20 @@
                 });
         };
 
+        // this is a detection from the message emitter directive.
         $scope.$on('message', function(e, data){
-            
             e.stopPropagation();
             if(data.length <= 0){
                 return ;
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
-                        
                         $scope.timeline.push(data.msg);
                         $scope.tags = tagSort(data.tags);
                     });
             }
         })
 
-        // SUMMARY MESSAGES =====================
-        $scope.addMessageToSummaryTag = function(message){
-            
-            // on creation of test, there is a tag created called Summary.
-            // find that message and post to it.
-            //  loadData.data._tags
-            if(message){
-                postMessage(message+' #summary', summaryTagId, $stateParams._id, $scope.subject._id)
-                        .then(function(msg){
-                            console.log('message posted to summary', msg)
-                            $location.path('/overview');
-                        });
-            } else {
-                
-                return;
-            }
-
-        }
 
         // END TEST =============================
         $scope.postTest = function(){

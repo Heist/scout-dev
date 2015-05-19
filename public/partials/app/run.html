@@ -1,7 +1,7 @@
 <div id="view-testing">
 
 	<!-- participant definition modal -->
-	<div class="modal" ng-model="live" ng-hide="live">
+	<div class="modal" ng-model="live" ng-hide="live" >
 		
 		<div class="module full">
 
@@ -14,7 +14,7 @@
 				<ul class="nobullets" ng-model="subject">
 					<li ng-class='{"half": kind === "prototype", "full" : kind !== "prototype"}'>
 						<label>Participant's name</label>
-						<input class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name"/>
+						<input class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name" focus-me="{{!live}}"/>
 						</input>
 					</li>
 
@@ -118,7 +118,7 @@
 								</pre>
 								<!-- Editable messages - if a message is not a guideline -->
 								<pre class="messages" ng-if="message.title !== 'Starting task'" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-								<textarea msd-elastic class="input" id="messageInput" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message)"></textarea>
+								<textarea msd-elastic class="input" id="messageInput" ng-if="message.title !== 'Starting task'" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message)" id="editMessage"></textarea>
 							</div>
 						
 							<div class="clear"></div>
