@@ -1,7 +1,6 @@
 <div id="view-findings" ng-model='test'	ng-class="{ 'show-comments' : showCommentToggle !== 'hide', 'is-onboard': user.onboard != 100 }">
 
 	<ng-include src="'partials/app/_header-small.html'"></ng-include>
-	
 	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
 
 	<!-- share report link modal -->
@@ -14,124 +13,131 @@
 		
 		<div id="sidebar" class="sidebar">
 			
-			<h4 class="group-cat hollow"></h4>
+			<!-- <h4 class="group-cat hollow"></h4> -->
 			<div>
 				<ul>
 					<li ng-model="navlist.test[0]" ng-class="{ 'active': navlist.test[0]._id === selected._id }" ng-click="activate(navlist.test[0])">
-						<span class="report">Report<span class="info" data-tooltip-large-report="Your participant summaries and shareable report"><span>?</span></span>
+						<span class="report">Summary<span class="info" data-tooltip-large-report="Your participant summaries and shareable report"><span>?</span></span>
 					</li>
 				</ul>
 				<ul ng-if="navlist.tag">
-					<h4 class="group-cat">Tag <span class="info" data-tooltip-large-report="All of the notes you have #tagged as important can be found here."><span>?</span></span></h4>
+					<h4 class="group-cat">Tag<span class="info" data-tooltip-large-report="All of the notes you have #tagged as important can be found here."><span>?</span></span></h4>
 					<li ng-repeat="object in  navlist.tag | orderBy:'name'" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
 						<span class="objects tag-hash">{{object.name}}</span>
 					</li>
 				</ul>
 				<ul ng-if="navlist.task">
-					<h4 class="group-cat">Topics <span class="info" data-tooltip-large-report="All of your notes organized to their specific Topic."><span>?</span></span></h4>
+					<h4 class="group-cat">Topics<span class="info" data-tooltip-large-report="All of your notes organized to their specific Topic."><span>?</span></span></h4>
 					<li ng-repeat="object in navlist.task | orderBy:'index'" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
 						<span class="objects">{{object.name}} {{created}}</span>
 					</li>
 				</ul>
-
-				<div id="findings-viewmode-controls">
-					<div id="findings-share-link" ng-if="showReportLink">
-						<small>Use this link to share this report:</small>
-						<input class="input small tight" ng-model="reportLink"/>
-					</div>
-
-					<button class="button extra-small" ng-click="shareReportModalToggle()">Share</button>
-
-				</div>
 				<div class="clear"></div>
 				</div> <!-- /group in navlist -->
 			</div>
 
 	</div>
+
+	<!-- summaries -->
+	
+	<div class="summaries-holder">
+		<div class="summaries-content" ng-model="selected">
+			<h2>Summary</h2>
+			<p>Use these to help create your final Findings.</p>
+			
+			<!-- messages -->
+			<div ng-if="selected.doctype !== 'test' " ng-show="messageFilter(selected, user)" class="summary-group" ng-repeat="user in messages" >
+				<!-- participant name -->
+				<div class="summary-user">
+					<!-- <img src="/layout/assets/avatar.svg" /> --> {{user[0]._subject.name}}
+					<div class="clear"></div>
+				</div>
+				<div ng-repeat="message in user" class="summary"
+					ng-show="selected._messages.indexOf(message._id) !== -1"
+					ng-class="{selected: commentMessage._id === message._id}">
+					
+					<div class="summary-body" ng-click="editMessage(message, $index)">
+						<pre class="summaries" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
+						<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)"></textarea>
+					</div>
+				
+				<div class="clear"></div>
+			</div>
+			</div>
+			<!-- /messages -->
+
+			<!-- Summary Messages on Report -->
+
+			<div ng-if="selected.doctype === 'test'" class="summary-group" ng-repeat="user in messages">
+				<!-- participant name -->
+				<div class="summary-user">
+					<!-- <img src="/layout/assets/avatar.svg" />  -->{{user[0]._subject.name}}
+					<div class="clear"></div>
+				</div>
+				<div ng-repeat="message in user" class="summary"
+					ng-show="summaryItem._messages.indexOf(message._id) !== -1"
+					ng-class="{selected: commentMessage._id === message._id}">
+					<div class="summary-body" ng-click="editMessage(message, $index)">
+						<pre class="summaries" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
+						<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)"></textarea>
+					</div>
+				
+					<div class="clear"></div>
+				</div>
+			</div>
+			<!-- /Summary Messages on Report -->
+
+		</div>
+	</div>
+
 		
 	<!-- main content -->
 	<div class="sheet-holder">
 
-		<div class="sheet" ng-model="selected">
+		<div class="sheet">
 
 			<div class="findings-content">
 				<div class="findings-header">
-					<h1 class="dark float-left"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h1>
+					<h1 class="dark float-left" ng-show="displayReport.doctype === 'test'">{{displayReport.name}}</h1>
+					<div class="findings-share-link ">
+						<button class="button extra-small" ng-click="shareReportModalToggle()">Share</button>
+					</div>
 					
 					<div class="clear"></div>
 
-					<div class="findings-description" ng-show="selected.doctype === 'test'">
-						<span>{{selected._subjects.length}} participants</span>
-						<span ng-show="selected.kind === 'prototype'"><span>Prototype test</span><a href="{{selected.link}}" target="_">{{selected.link}}</a></span>
+					<div class="findings-description" ng-show="displayReport.doctype === 'test'">
+
+						<span ng-show="displayReport.kind === 'interview'">
+							<img src="layout/assets/interview-dark.svg" alt="Interview icon">&nbsp;&nbsp;Interview
+						</span>
+
+						<span ng-show="displayReport.kind === 'prototype'">
+							<img src="layout/assets/prototype-dark.svg" alt="Prototype icon">&nbsp;&nbsp;Prototype
+						</span>
+						
+						<a href="{{displayReport.link}}" target="_">{{displayReport.link}}</a>
+
+						<span>{{displayReport._subjects.length}} participants</span>
+
 					</div>
-					
+
 					<div class="clear"></div>
 					
 				</div>
 				
-				<div class="findings" ng-show="selected.doctype === 'test'">
-
+				<div class="findings" ng-show="displayReport.doctype === 'test'">
 					<div class="findings-information">
-						<h2 ng-if="selected.desc">Objectives</h2>
-						<p class="no-cursor" ng-if="selected.desc" ng-bind-html="selected.desc | linebreaker"></p>
+						<h2 ng-if="displayReport.desc">Objectives</h2>
+						<p class="no-cursor" ng-if="displayReport.desc" ng-bind-html="displayReport.desc | linebreaker"></p>
 						
-						<h2>Learnings</h2>
-						<textarea msd-elastic class="input" id="field-textarea" placeholder="Summarize your high level learning here. This is the page you will be sharing with your organization."  ng-model="selected.summary" ng-blur="saveObject(selected)"></textarea>
-					</div>
-					<div class="all-summaries">
-						<div class="line-hr">
-						    <span>The notes below will not be viewable when you share your report.</span>
-						</div>
+						<h2>Findings</h2>
+						<textarea msd-elastic class="input" id="field-textarea" placeholder="Summarize your high level learning here. This is the page you will be sharing with your organization."  ng-model="displayReport.summary" ng-blur="saveObject(displayReport)"></textarea>
 
-						<h2>Your participant summaries can be found under the hashtag "#summary"</h2>
-						<p class="helper-text">Use these to help fill out your Learnings and Next Steps above. </p>
+						<h2>Next Steps</h2>
+						<textarea msd-elastic class="input" id="field-textarea" placeholder="Summarize your high level learning here. This is the page you will be sharing with your organization."  ng-model="displayReport.nextSteps" ng-blur="saveObject(displayReport)"></textarea>
 					</div>
 				
 				</div>
-				<!-- messages -->
-				<div ng-if="selected.doctype !== 'test' " ng-show="messageFilter(selected, user)" class="message-group" ng-repeat="user in messages" >
-					<!-- participant name -->
-					<div class="message-user">
-						<img src="/layout/assets/avatar.svg" /> {{user[0]._subject.name}}
-						<div class="clear"></div>
-					</div>
-					<div ng-repeat="message in user" class="message"
-						ng-show="selected._messages.indexOf(message._id) !== -1"
-						ng-class="{selected: commentMessage._id === message._id}">
-						
-						<div class="message-body" ng-click="editMessage(message, $index)">
-							<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-							<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)"></textarea>
-						</div>
-					
-					<div class="clear"></div>
-				</div>
-				</div>
-				<!-- /messages -->
-
-				<!-- Summary Messages on Report -->
-
-				<div ng-if="selected.doctype === 'test'" class="message-group" ng-repeat="user in messages">
-					<!-- participant name -->
-					<div class="message-user">
-						<img src="/layout/assets/avatar.svg" /> {{user[0]._subject.name}}
-						<div class="clear"></div>
-					</div>
-					<div ng-repeat="message in user" class="message"
-						ng-show="summaryItem._messages.indexOf(message._id) !== -1"
-						ng-class="{selected: commentMessage._id === message._id}">
-						<div class="message-body" ng-click="editMessage(message, $index)">
-							<pre class="messages" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-							<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)"></textarea>
-						</div>
-					
-					<div class="clear"></div>
-				</div>
-				</div>
-
-				<!-- /Summary Messages on Report -->
-
-				<!--  -->
 			</div>
 		</div>
 	</div>
