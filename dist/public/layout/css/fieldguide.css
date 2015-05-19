@@ -577,7 +577,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
 */
 .container {
   width: 75%;
-  max-width: 1020px;
+  max-width: 1035px;
   margin: 0 auto; }
   .container:after {
     content: "";
