@@ -37,8 +37,9 @@ var TestSchema = new Schema({
         created: Date,
         updated: Date,
         runcount : Number,
-        summary: String
-        
+        summary: { type: String, trim: true, default: '' },
+        next_steps : { type: String, trim: true, default: '' }
+
     });
 
 TestSchema.pre('save', function(next){
