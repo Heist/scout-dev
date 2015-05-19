@@ -17,7 +17,7 @@
 			<div>
 				<ul>
 					<li ng-model="navlist.test[0]" ng-class="{ 'active': navlist.test[0]._id === selected._id }" ng-click="activate(navlist.test[0])">
-						<span class="report">Report<span class="info" data-tooltip-large-report="Your participant summaries and shareable report"><span>?</span></span>
+						<span class="report">Summary<span class="info" data-tooltip-large-report="Your participant summaries and shareable report"><span>?</span></span>
 					</li>
 				</ul>
 				<ul ng-if="navlist.tag">
@@ -32,21 +32,19 @@
 						<span class="objects">{{object.name}} {{created}}</span>
 					</li>
 				</ul>
-
-				<div id="findings-viewmode-controls">
-					<div id="findings-share-link" ng-if="showReportLink">
-						<small>Use this link to share this report:</small>
-						<input class="input small tight" ng-model="reportLink"/>
-					</div>
-
-					<button class="button extra-small" ng-click="shareReportModalToggle()">Share</button>
-
-				</div>
 				<div class="clear"></div>
 				</div> <!-- /group in navlist -->
 			</div>
 
 	</div>
+
+	<!-- summaries -->
+	
+	<div class="summaries-holder">
+		dsadasdasdsad
+		dasd
+	</div>
+
 		
 	<!-- main content -->
 	<div class="sheet-holder">
@@ -56,14 +54,28 @@
 			<div class="findings-content">
 				<div class="findings-header">
 					<h1 class="dark float-left"><span ng-show="selected.doctype === 'tag'">#</span>{{selected.name}}</h1>
+					<div class="findings-share-link ">
+						<button class="button extra-small" ng-click="shareReportModalToggle()">Share</button>
+					</div>
 					
 					<div class="clear"></div>
 
 					<div class="findings-description" ng-show="selected.doctype === 'test'">
+
+						<span ng-show="selected.kind === 'interview'">
+							<img src="layout/assets/interview-dark.svg" alt="Interview icon">&nbsp;&nbsp;Interview
+						</span>
+
+						<span ng-show="selected.kind === 'prototype'">
+							<img src="layout/assets/prototype-dark.svg" alt="Prototype icon">&nbsp;&nbsp;Prototype
+						</span>
+						
+						<span><a href="{{selected.link}}" target="_">{{selected.link}}</a></span>
+						
 						<span>{{selected._subjects.length}} participants</span>
-						<span ng-show="selected.kind === 'prototype'"><span>Prototype test</span><a href="{{selected.link}}" target="_">{{selected.link}}</a></span>
+
 					</div>
-					
+
 					<div class="clear"></div>
 					
 				</div>

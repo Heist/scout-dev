@@ -6156,11 +6156,11 @@ hr {
   #view-findings #findings-nav {
     padding: 20px 0 0 0;
     margin: 0;
-    width: 209px;
+    width: 12%;
     height: 100%;
     position: fixed;
     left: 2%;
-    top: 7%;
+    top: 5%;
     -webkit-transition-duration: 0.2s;
     -webkit-transition-timing: ease-out;
     -o-transition-duration: 0.2s;
@@ -6190,7 +6190,7 @@ hr {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300;
-        margin: 50px 0 0 0; }
+        margin: 60px 0 0 0; }
         #view-findings #findings-nav #sidebar.sidebar .tag-hash:before {
           content: '#'; }
         #view-findings #findings-nav #sidebar.sidebar span.report {
@@ -6247,34 +6247,29 @@ hr {
             font-family: "canada-type-gibson",sans-serif;
             font-style: normal;
             font-weight: 400; }
-      #view-findings #findings-nav #sidebar #findings-viewmode-controls {
-        position: absolute;
-        left: 80%;
-        top: 53px; }
-      #view-findings #findings-nav #sidebar #findings-share-link {
-        width: 100%;
-        padding: 0;
-        margin: 0 0 10px 0; }
-        #view-findings #findings-nav #sidebar #findings-share-link small {
-          line-height: 14px;
-          display: block; }
-        #view-findings #findings-nav #sidebar #findings-share-link .input {
-          width: 80%;
-          margin: 0; }
-  #view-findings .sheet-holder {
-    width: 709px;
+  #view-findings .summaries-holder {
+    width: 37%;
     height: 100%;
     padding: 0;
     margin: 0;
     position: absolute;
-    top: 2%;
-    left: 50%; }
+    top: 1.8%;
+    left: 14.5%;
+    background: red; }
+  #view-findings .sheet-holder {
+    width: 47%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 1.8%;
+    left: 52.1%; }
     #view-findings .sheet-holder.full {
       width: 103%;
       left: -3%;
       position: relative; }
   #view-findings .findings-content {
-    width: 60%;
+    width: 75%;
     margin: 0 auto;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -6291,6 +6286,10 @@ hr {
       font-weight: 400;
       color: #2B404D;
       margin: 0 0 15px 0; }
+    #view-findings .findings-content .findings-share-link {
+      float: left;
+      display: block;
+      margin: 6px 0 0 10px; }
     #view-findings .findings-content p {
       font-size: 14px;
       line-height: 18px;
@@ -6302,7 +6301,7 @@ hr {
       padding: 40px 0; }
       #view-findings .findings-content .findings-header .findings-description {
         color: #949799;
-        font-size: 12px;
+        font-size: 14px;
         margin: 10px 0; }
         #view-findings .findings-content .findings-header .findings-description span {
           padding: 0 20px 0 0; }

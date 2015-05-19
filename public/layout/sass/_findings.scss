@@ -73,11 +73,11 @@
 	#findings-nav {
 		padding: 20px 0 0 0;
 		margin: 0;
-		width: 209px;
+		width: 12%;
 		height: 100%;
 		position: fixed;
 		left: 2%;
-		top: 7%;
+		top: 5%;
 		@include animated;
 		@include scrollbar;
 		border-right: 1px solid $fg-grey-light;
@@ -91,7 +91,7 @@
 			&.sidebar {
 				font-size: 14px;
 				@include type-light;
-				margin: 50px 0 0 0;
+				margin: 60px 0 0 0;
 
 				.tag-hash:before {
 					content: '#';
@@ -173,40 +173,29 @@
 					}
 				}
 			}
-
-			#findings-viewmode-controls {
-				position: absolute;
-				left: 80%;
-				top: 53px;
-			}
-			
-			#findings-share-link {
-				width: 100%;
-				padding: 0;
-				margin: 0 0 $pad/2 0;
-				
-				small {
-					line-height: $type-size-base;
-					display: block;
-				}
-			
-				.input {
-					width: 80%;
-					margin: 0;
-				}
-			}
-
 		}
 	}
 
-	.sheet-holder {
-		width: 709px;
+	.summaries-holder {
+		width: 37%;
 		height: 100%;
 		padding: 0;
 		margin: 0;
 		position: absolute;
-		top: 2%;
-		left: 50%;
+		top: 1.8%;
+		left: 14.5%;
+		background: red;
+	}
+
+
+	.sheet-holder {
+		width: 47%;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+		position: absolute;
+		top: 1.8%;
+		left: 52.1%;
 
 		&.full {
 			width: 103%;
@@ -216,7 +205,7 @@
 	}
 	
 	.findings-content {
-		width: 60%;
+		width: 75%;
 		margin: 0 auto;
 		@include type-light;
 
@@ -236,6 +225,12 @@
 			margin: 0 0 15px 0;
 		}
 
+		.findings-share-link {
+			float: left;
+			display: block;
+			margin: 6px 0 0 10px;
+		}
+
 		p {
 			font-size: 14px;
 			line-height: 18px;
@@ -252,14 +247,13 @@
 			
 			.findings-description {
 				color: $fg-grey;
-				font-size: 12px;
+				font-size: 14px;
 				margin: 10px 0;
 
 				span {
 					padding: 0 20px 0 0;
 				}
 			}
-			
 		}
 		
 		.findings-information {
