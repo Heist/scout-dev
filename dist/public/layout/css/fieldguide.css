@@ -168,6 +168,7 @@ html, body {
 body {
   font-size: 14px;
   line-height: 18px;
+  color: #888A8A;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -3428,12 +3429,11 @@ span.tooltip-icon {
   border-radius: 50%;
   display: inline-block;
   position: relative;
-  margin: 0 0 0 5px;
-  vertical-align: bottom;
+  margin: 0 0 0 3px;
   text-transform: none; }
   span.tooltip-icon span {
     position: absolute;
-    top: 0.5px;
+    top: -7.5px;
     right: 3px;
     color: #fff;
     font-size: 8px;
@@ -5258,9 +5258,6 @@ hr {
   min-height: 100%; }
   #view-editing .sheet {
     box-shadow: none; }
-  #view-editing p {
-    font-size: 14px;
-    line-height: 18px; }
   #view-editing h3 {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -5268,8 +5265,7 @@ hr {
     color: #2B404D;
     font-size: 10px;
     text-transform: uppercase;
-    text-align: right;
-    position: relative; }
+    text-align: right; }
   #view-editing h4 {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -5315,12 +5311,12 @@ hr {
     padding: 0 0 0 40px;
     margin: 0; }
   #view-editing textarea.objectives, #view-editing textarea.task-descriptions {
+    color: #888A8A;
     font-size: 14px;
     line-height: 18px;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
-    color: #888A8A;
     margin: 0;
     padding: 0 0 0 40px;
     resize: none; }
@@ -5330,6 +5326,8 @@ hr {
     #view-editing textarea.objectives:focus, #view-editing textarea.task-descriptions:focus {
       color: #000;
       background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat; }
+  #view-editing textarea.task-descriptions {
+    margin: 0 0 30px 0; }
   #view-editing .add-task {
     margin: 20px 0; }
     #view-editing .add-task form {
@@ -5383,7 +5381,7 @@ hr {
       padding: 0 0 10px 0;
       margin: 0; }
       #view-editing .tags .tag-pool ul li, #view-editing .tags input.custom-tags ul li, #view-editing .tags .add-task textarea.custom-tags ul li, #view-editing .add-task .tags textarea.custom-tags ul li {
-        padding: 0 5px 0 5px;
+        padding: 2px 5px;
         font-size: 14px;
         line-height: 18px;
         color: #00B5E3;
@@ -5422,18 +5420,13 @@ hr {
       #view-editing .container .sheet-holder .sheet .container-row {
         clear: both;
         padding: 0 0 40px 0; }
-        #view-editing .container .sheet-holder .sheet .container-row.tags {
-          padding: 0 0 30px 0; }
         #view-editing .container .sheet-holder .sheet .container-row.topics {
           padding: 0; }
         #view-editing .container .sheet-holder .sheet .container-row .container-left {
           float: left;
-          width: 120px;
-          margin: 6px 0 0 0; }
+          width: 120px; }
           #view-editing .container .sheet-holder .sheet .container-row .container-left .create-project-tooltip {
             float: left; }
-          #view-editing .container .sheet-holder .sheet .container-row .container-left.topics {
-            margin: 32px 0 0 0; }
         #view-editing .container .sheet-holder .sheet .container-row .container-right {
           float: left;
           width: 585px;
@@ -6775,6 +6768,5 @@ html {
 
 body {
   background: #f6f6f6;
-  color: #7c7d80;
   margin: 0;
   padding: 0; }

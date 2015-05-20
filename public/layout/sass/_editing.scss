@@ -236,11 +236,6 @@
     .sheet {
         box-shadow: none;
     }
-
-    p {
-        font-size: 14px;
-        line-height: 18px;
-    }
     
     h3 {
         @include type-regular;
@@ -248,7 +243,6 @@
         font-size: 10px;
         text-transform: uppercase;
         text-align: right;
-        position: relative;
     }
 
     h4 {
@@ -311,11 +305,9 @@
           margin: 0;
     }
 
-    textarea.objectives, textarea.task-descriptions {
-        font-size: 14px;
-        line-height: 18px;
+    textarea.objectives {
+        @include type-p($fg-grey-text);
         @include type-light;
-        color: $fg-grey-text;
         margin: 0;
         padding: 0 0 0 40px;
         resize: none;
@@ -329,6 +321,11 @@
             color: $black;
             background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat;
         }
+    }
+
+    textarea.task-descriptions {
+        @extend textarea.objectives;
+        margin: 0 0 30px 0;
     }
 
     .add-task {
@@ -373,7 +370,7 @@
                 margin: 0;
                 
                 li {
-                    padding: 0 5px 0 5px;
+                    padding: 2px 5px;
                     font-size: 14px;
                     line-height: 18px;
                     color: $fg-blue;
@@ -432,10 +429,6 @@
                 .container-row {
                     clear: both;
                     padding: 0 0 40px 0;
-                    
-                    &.tags {
-                        padding: 0 0 30px 0;
-                    }
 
                     &.topics {
                         padding: 0;
@@ -444,14 +437,9 @@
                     .container-left {
                         float: left;
                         width: 120px;
-                        margin: 6px 0 0 0;
 
                         .create-project-tooltip {
                             float: left;
-                        }
-
-                        &.topics {
-                            margin: 32px 0 0 0;
                         }
                     }
 
