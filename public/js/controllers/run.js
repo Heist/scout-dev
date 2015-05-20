@@ -7,9 +7,10 @@
     [ 'loadData', 'testBuildFunctions', 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', '$timeout',
     function(loadData, testBuildFunctions, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket, $timeout){
     // get the starting data from resolve
-        var data = loadData.data;
-
-        var tagSort = function(tags){
+        var data     = loadData.data;
+        var startTest = '';
+        
+        var tagSort  = function(tags){
          return _.filter(tags, function(n){
                 if(n.name){
                     var nameCheck = n.name.toLowerCase();
@@ -138,6 +139,19 @@
             subject.testroom = subject.testroom || '';
             subject.test     = $stateParams._id;
 
+            startTest = new Date();
+
+            var intercom = {
+                event_name : 'started-test',
+                created_at : startTest,
+                email      : $rootScope.user.email,
+                metadata   : {
+                    test_kind : $scope.test.kind
+                }
+            } ;
+            
+            Intercom('trackEvent', intercom );
+
             $http
                 .post('api/subject/', subject)
                 .success(function(data){
@@ -233,7 +247,32 @@
 
         // SUMMARY MESSAGES =====================
         $scope.addMessageToSummaryTag = function(message){
+            var duration = new Date();
+            if (duration < startTest) {
+                duration.setDate(duration.getDate() + 1);
+            }
+
+            var diff = duration - startTest;
+
+            var msec = diff;
+            var hh = Math.floor(msec / 1000 / 60 / 60);
+            msec -= hh * 1000 * 60 * 60;
+            var mm = Math.floor(msec / 1000 / 60);
+            msec -= mm * 1000 * 60;
+            var ss = Math.floor(msec / 1000);
+            msec -= ss * 1000;
+
+             var intercom = {
+                event_name : 'ended-test',
+                created_at : new Date(),
+                email      : $rootScope.user.email,
+                metadata   : {
+                    test_kind : $scope.test.kind,
+                    duration  : mm
+                }
+            } ;
             
+            Intercom('trackEvent', intercom );
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags
