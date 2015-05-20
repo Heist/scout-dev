@@ -14,8 +14,16 @@
                         <h1 class="float-left" ng-show="displayReport.doctype === 'test'">{{displayReport.name}} Report</h1>
                         <div class="clear"></div>
                         <div class="findings-description" ng-show="displayReport.doctype === 'test'">
+                           <span ng-show="displayReport.kind === 'interview'">
+                                <img src="layout/assets/interview-dark.svg" alt="Interview icon">&nbsp;&nbsp;Interview
+                            </span>
+
+                            <span ng-show="displayReport.kind === 'prototype'">
+                                <img src="layout/assets/prototype-dark.svg" alt="Prototype icon">&nbsp;&nbsp;Prototype
+                                &nbsp;&nbsp;<a href="{{displayReport.link}}" target="_">{{displayReport.link}}</a>
+                            </span>
+                            
                             <span>{{displayReport._subjects.length}} participants</span>
-                            <span ng-show="displayReport.kind === 'prototype'"><span>Prototype test</span><a href="{{displayReport.link}}" target="_">{{displayReport.link}}</a></span>
                         </div>
                         
                         <div id="generated-with-fg" class="clearfix">
@@ -24,13 +32,13 @@
                 </div>
             
                 <div class="findings-information">
-                    <h2 ng-if="displayReport.desc" ng-show="displayReport.doctype === 'test'">Objectives</h2>
+                    <h3 ng-if="displayReport.desc" ng-show="displayReport.doctype === 'test'">Objectives</h3>
                     <pre ng-if="displayReport.desc" ng-bind-html="displayReport.desc | linebreaker"></pre>
 
-                    <h2>Findings</h2>
+                    <h3>Findings</h3>
                     <pre ng-if="displayReport.summary" ng-bind-html='displayReport.summary'></pre>
 
-                    <h2>Next Steps</h2>
+                    <h3>Next Steps</h3>
                     <pre ng-if="displayReport.next_steps" ng-bind-html='displayReport.next_steps'></pre>
                 </div>
 
