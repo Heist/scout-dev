@@ -137,6 +137,31 @@
 	}
 }
 
+
+@mixin type-h1($fg-grey-text) {
+	color: $fg-grey-text;
+	font-size: $type-h1-size;
+	line-height: $type-h1-line;
+}
+
+@mixin type-h2($fg-grey-text) {
+	color: $fg-grey-text;
+	font-size: $type-h2-size;
+	line-height: $type-h2-line;
+}
+
+@mixin type-h3($fg-grey-text) {
+	color: $fg-grey-text;
+	font-size: $type-h3-size;
+	line-height: $type-h3-line;
+}
+
+@mixin type-p($fg-grey-text) {
+	color: $fg-grey-text;
+	font-size: $type-p-size;
+	line-height: $type-p-line;
+}
+
 /*
 helpers
 ========================

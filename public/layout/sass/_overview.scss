@@ -141,11 +141,10 @@
 		padding: 45px 15px 0 15px;
 		height: 200px;
 
-		h3 {
-			font-size: 24.8px;
-			line-height: 28px;
+		h2 {
+			@include type-h2($fg-grey-dark);
 			letter-spacing: -0.5px;
-			color: $fg-grey-dark;
+			font-weight: 400;
 		}
 	}
 	

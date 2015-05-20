@@ -167,7 +167,7 @@ html, body {
 
 body {
   font-size: 14px;
-  line-height: 24px;
+  line-height: 18px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -208,7 +208,9 @@ h1, h2, h3, h4, h5, h6 {
       border-bottom: 3px solid #dddddd; }
 
 h1 {
-  font-size: 28px;
+  color: #888A8A;
+  font-size: 33.1px;
+  line-height: 37px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -216,41 +218,37 @@ h1 {
   margin: 0 0 20px 0; }
 
 h2 {
-  font-size: 28px;
+  color: #888A8A;
+  font-size: 24.8px;
+  line-height: 30px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
   margin: 0 0 20px 0; }
 
 h3 {
-  font-size: 17.5px;
+  color: #888A8A;
+  font-size: 18.6px;
+  line-height: 24px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   margin: 0 0 10px 0; }
-  h3.h3-light {
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    opacity: 0.6;
-    font-size: 19.6px; }
 
 h4 {
   font-size: 14px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   margin: 0 0 5px 0; }
-
-h5 {
-  font-family: "canada-type-gibson",sans-serif;
-  font-style: normal;
-  font-weight: 600; }
 
 /* copy */
 p, pre {
   padding: 0;
-  margin: 0 0 10px 0; }
+  margin: 0 0 10px 0;
+  color: #888A8A;
+  font-size: 14px;
+  line-height: 18px; }
 
 strong {
   font-family: "canada-type-gibson",sans-serif;
@@ -284,7 +282,7 @@ a {
   line-height: inherit; }
 
 p.big {
-  line-height: 30px; }
+  line-height: 22.5px; }
 
 .caution {
   color: #f37960; }
@@ -294,7 +292,7 @@ p.big {
   line-height: inherit; }
 
 p.small {
-  line-height: 19.2px; }
+  line-height: 14.4px; }
 
 /* lists */
 ul {
@@ -669,7 +667,7 @@ button.x-modal {
   color: #949799;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 15px;
   cursor: pointer;
   background: none;
@@ -683,7 +681,7 @@ button.x-onboard {
   color: white;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 30px;
   text-decoration: none;
   z-index: 1;
@@ -3556,7 +3554,7 @@ span.tooltip-icon {
     color: #2B404D;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     display: block;
     width: 50px;
     height: 50px;
@@ -3621,7 +3619,7 @@ span.tooltip-icon {
   font-size: 8.4px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0;
   color: #fff;
@@ -3772,7 +3770,7 @@ hr {
   #nav-acct-status span {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     color: #872717; }
 
 #nav-mgmt {
@@ -4100,7 +4098,7 @@ hr {
       margin: 0; }
     #timeline ul .message-no-highlite {
       padding: 8px 30px 8px 35px;
-      line-height: 19.2px; }
+      line-height: 14.4px; }
       #timeline ul .message-no-highlite pre, #timeline ul .message-no-highlite small {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
@@ -4115,7 +4113,7 @@ hr {
         margin: 0; }
     #timeline ul .message-highlite {
       padding: 8px 30px 8px 35px;
-      line-height: 19.2px;
+      line-height: 14.4px;
       position: relative;
       transition: none;
       cursor: text;
@@ -4143,7 +4141,7 @@ hr {
         background: #f6f6f6 url("../assets/edit-bg.svg") 12px no-repeat; }
     #timeline ul .message {
       padding: 8px 30px 8px 35px;
-      line-height: 19.2px;
+      line-height: 14.4px;
       position: relative;
       -webkit-transition-duration: 0.2s;
       -webkit-transition-timing: ease-out;
@@ -4170,7 +4168,7 @@ hr {
           line-height: 10px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
-          font-weight: 400;
+          font-weight: 600;
           background: #fff; }
           #timeline ul .message .message-details .message-details-avatar.avatar-header {
             color: #bfed34; }
@@ -4184,7 +4182,7 @@ hr {
           margin-bottom: 0; }
         #timeline ul .message .message-body small {
           font-size: 8.4px;
-          line-height: 14.4px;
+          line-height: 10.8px;
           padding: 0;
           margin: 0;
           text-transform: lowercase; }
@@ -4206,7 +4204,7 @@ hr {
   #timeline #firstrun .message-body {
     color: #7c7d80;
     font-size: 14px;
-    line-height: 24px; }
+    line-height: 18px; }
     #timeline #firstrun .message-body .tag {
       padding: 0 5px; }
 
@@ -4322,7 +4320,7 @@ hr {
         font-size: 14px;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 600; }
+        font-weight: 700; }
     #tasklist ul li {
       padding: 13.33333px 20px;
       margin: 0;
@@ -4439,7 +4437,7 @@ hr {
       color: #2B404D;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 400; }
+      font-weight: 600; }
       #sidebar ul li.active:hover {
         cursor: auto; }
     #sidebar ul li .sidebar-visibility {
@@ -4688,7 +4686,7 @@ hr {
   letter-spacing: 4px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 400; }
+  font-weight: 600; }
 
 .upgrade-notice {
   padding: 20px 20px 15px 20px;
@@ -4782,13 +4780,13 @@ hr {
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
-      line-height: 14.4px; }
+      line-height: 10.8px; }
       .stepped-nav li a:hover {
         opacity: 1.0; }
     .stepped-nav li.step-active a {
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 400; }
+      font-weight: 600; }
     .stepped-nav li .step-state {
       display: block;
       height: 20px;
@@ -5062,18 +5060,19 @@ hr {
         text-decoration: none;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 600;
+        font-weight: 700;
         color: #C5C6C7; }
       .overview-test .test-info .editTest .dangerous:hover {
         color: #f37960; }
   .overview-test .test-edit {
     padding: 45px 15px 0 15px;
     height: 200px; }
-    .overview-test .test-edit h3 {
+    .overview-test .test-edit h2 {
+      color: #777777;
       font-size: 24.8px;
-      line-height: 28px;
+      line-height: 30px;
       letter-spacing: -0.5px;
-      color: #777777; }
+      font-weight: 400; }
   .overview-test .test-controls-empty {
     position: absolute;
     left: 0;
@@ -5798,7 +5797,7 @@ hr {
   #view-account .plan-picker .button {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 400; }
+    font-weight: 600; }
   #view-account .pm-app {
     border: 1px solid #dddddd;
     -moz-border-radius: 2px;
@@ -6017,7 +6016,7 @@ hr {
     line-height: 0.9;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     color: #bebebe;
     background: url('../assets/comment-inactive.svg') no-repeat right top;
     background-size: contain;
@@ -6028,7 +6027,7 @@ hr {
       color: #bebebe;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 600; }
+      font-weight: 700; }
   .message .message-fave {
     float: right; }
     .message .message-fave img {
@@ -6043,7 +6042,7 @@ hr {
     padding: 4px 0 0 0; }
     .message .message-comments .message-comment {
       font-size: 11.9px;
-      line-height: 19.2px; }
+      line-height: 14.4px; }
     .message .message-comments small {
       opacity: 0.6;
       font-size: 9.8px;
@@ -6066,7 +6065,7 @@ hr {
         line-height: 11.2px;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 400; }
+        font-weight: 600; }
         .message .message-comments .message-comment-submit small a {
           text-decoration: underline; }
   .message .message-details {
@@ -6272,7 +6271,7 @@ hr {
               color: #2B404D;
               font-family: "canada-type-gibson",sans-serif;
               font-style: normal;
-              font-weight: 400; }
+              font-weight: 600; }
   #view-findings .summaries-holder {
     width: 37%;
     height: 100%;
@@ -6711,7 +6710,7 @@ hr {
       #report-summary #findings-nav #sidebar .test-id h3 {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 400; }
+        font-weight: 600; }
       #report-summary #findings-nav #sidebar #findings-viewmode-controls {
         position: absolute;
         left: 80%;
