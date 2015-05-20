@@ -6704,6 +6704,11 @@ hr {
     width: 85%;
     padding: 50px 0; } }
 
+@media (max-width: 450px) {
+  #report-summary .findings-content .findings-header .findings-description .participants {
+    display: block;
+    margin: 5px 0; } }
+
 /* code that is NOT specific to a component or module */
 *, *:before, *:after {
   -webkit-box-sizing: border-box;

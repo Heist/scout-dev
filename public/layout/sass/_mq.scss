@@ -25,3 +25,20 @@
 		}
 	}
 }
+
+@media (max-width: 450px) {
+	#report-summary {
+		.findings-content {
+			.findings-header {
+				.findings-description {
+
+					.participants {
+						display: block;
+						margin: 5px 0;
+					}
+
+				}
+			}
+		}
+	}
+}
