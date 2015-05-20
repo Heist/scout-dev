@@ -4992,8 +4992,7 @@ hr {
 
 /* overview test block */
 .overview-test {
-  margin-bottom: 20px;
-  /* empty test-container */ }
+  margin-bottom: 20px; }
   .overview-test .overview-test-container {
     cursor: pointer;
     background: #fff;
@@ -5108,59 +5107,6 @@ hr {
       .overview-test .test-controls a:hover {
         background: #85AC0F;
         color: #fff; }
-  .overview-test.overview-test-empty {
-    cursor: pointer;
-    opacity: 0.7;
-    -webkit-transition-duration: 0.2s;
-    -webkit-transition-timing: ease-out;
-    -o-transition-duration: 0.2s;
-    -o-transition-timing: ease-out;
-    -moz-transition-duration: 0.2s;
-    -moz-transition-timing: ease-out;
-    -ms-transition-duration: 0.2s;
-    -ms-transition-timing: ease-out;
-    transition-duration: 0.2s;
-    transition-timing: ease-out; }
-    .overview-test.overview-test-empty:hover {
-      opacity: 1.0;
-      -webkit-transition-duration: 0.2s;
-      -webkit-transition-timing: ease-out;
-      -o-transition-duration: 0.2s;
-      -o-transition-timing: ease-out;
-      -moz-transition-duration: 0.2s;
-      -moz-transition-timing: ease-out;
-      -ms-transition-duration: 0.2s;
-      -ms-transition-timing: ease-out;
-      transition-duration: 0.2s;
-      transition-timing: ease-out; }
-    .overview-test.overview-test-empty .overview-test-container {
-      border: 2px dashed #dddddd;
-      background: none;
-      -moz-border-radius: 6px;
-      -webkit-border-radius: 6px;
-      border-radius: 6px;
-      -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-      -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05); }
-      .overview-test.overview-test-empty .overview-test-container .test-info h3 {
-        color: #7c7d80;
-        font-size: 14px; }
-      .overview-test.overview-test-empty .overview-test-container .test-info .overview-test-add {
-        color: #7c7d80;
-        border: 1px solid #7c7d80;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 300;
-        font-size: 28px;
-        line-height: 40px;
-        display: inline-block;
-        padding: 0;
-        height: 40px;
-        width: 40px;
-        margin: 0 0 10px 0;
-        -moz-border-radius: 60px;
-        -webkit-border-radius: 60px;
-        border-radius: 60px; }
 
 /* new project modal */
 #view-new-project .modal-interior-title {
@@ -5195,7 +5141,10 @@ hr {
       top: 0px;
       right: 3.5px; }
   #view-new-project button.test-type h3 {
-    display: inline-block; }
+    display: inline-block;
+    color: #C5C6C7;
+    font-size: 18.6px;
+    line-height: 24px; }
     #view-new-project button.test-type h3.interview:before {
       background: url('../assets/interview-dark.svg') top left no-repeat;
       content: '';
@@ -5210,10 +5159,6 @@ hr {
       height: 17px;
       display: inline-block;
       margin: 0 5px 0 0; }
-  #view-new-project button.test-type h3 {
-    color: #C5C6C7;
-    font-size: 18.6px;
-    line-height: 24px; }
   #view-new-project button.test-type p {
     color: #C5C6C7;
     font-size: 12px;
