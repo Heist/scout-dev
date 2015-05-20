@@ -1,4 +1,5 @@
 // onboard.js
+// Onboarding controller for modal partial
 (function() {
 	'use strict';
 
@@ -24,21 +25,54 @@
        // }
 
         $scope.user.onboard = 1;
-
+        var startOnboard = '';
         
 
        // FUNCTIONS =======================================
 
        $scope.onboardToggle = function(){
            if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+            var duration = new Date();
+              if (duration < startOnboard) {
+                  duration.setDate(duration.getDate() + 1);
+              }
+
+              var diff = duration - startOnboard;
+
+              var msec = diff;
+              var mm = Math.floor(msec / 1000 / 60);
+              msec -= mm * 1000 * 60;
+              
+              var intercom = {
+                    event_name : 'opened-onboarding',
+                    created_at : new Date(),
+                    email      : $rootScope.user.email,
+                    metadata   : {
+                        duration : mm
+                    }
+
+                };
+                
+              Intercom('trackEvent', intercom );
+
             $rootScope.user.onboard = 100;
                $scope.onboardSteps = false; 
                return;
            }
            if(!$scope.onboardSteps || $scope.onboardSteps === false ){
-            $rootScope.user.onboard = 1; 
-               $scope.onboardSteps = true; 
-               return;
+              startOnboard = new Date();
+
+              var intercom = {
+                    event_name : 'opened-onboarding',
+                    created_at : new Date(),
+                    email      : $rootScope.user.email
+                };
+                
+                Intercom('trackEvent', intercom );
+
+              $rootScope.user.onboard = 1;
+              $scope.onboardSteps = true; 
+              return;
            }
        };
 

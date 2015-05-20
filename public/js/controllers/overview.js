@@ -10,7 +10,7 @@
         $scope.tests = loadData.data;
         
 
-
+        console.log('user ',$rootScope.user);
         // ONBOARDING =========================================
         if($rootScope.user.onboard === 1){
             $scope.onboardSteps = true;
