@@ -1,4 +1,5 @@
 // onboard.js
+// Onboarding controller for modal partial
 (function() {
 	'use strict';
 
