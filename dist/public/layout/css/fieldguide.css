@@ -83,9 +83,6 @@ custom fonts
 .icon-email:before {
   content: "i"; }
 
-.icon-interview:before {
-  content: "j"; }
-
 .icon-prototype:before {
   content: "k"; }
 
@@ -97,6 +94,9 @@ custom fonts
 
 .icon-logout-1:before {
   content: "o"; }
+
+.icon-interview:before {
+  content: "j"; }
 
 /* Mixins */
 /*
@@ -4569,7 +4569,7 @@ hr {
   .modal-scroll .modal-interior {
     width: 550px;
     background: #fff;
-    padding: 30px 40px 30px 40px;
+    padding: 40px;
     margin: 10% auto;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -5192,8 +5192,8 @@ hr {
     #view-new-project button.test-type h3.interview:before {
       background: url('../assets/interview-dark.svg') top left no-repeat;
       content: '';
-      width: 10px;
-      height: 16px;
+      width: 14px;
+      height: 12px;
       display: inline-block;
       margin: 0 5px 0 0; }
     #view-new-project button.test-type h3.prototype:before {
