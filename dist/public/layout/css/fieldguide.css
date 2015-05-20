@@ -236,10 +236,11 @@ h3 {
   margin: 0 0 10px 0; }
 
 h4 {
-  font-size: 14px;
+  font-size: 10px;
+  line-height: 11px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 300;
   margin: 0 0 5px 0; }
 
 h5 {
@@ -765,7 +766,7 @@ button.x-onboard {
     .button.tiny-square span.icon-share {
       font-size: 9px;
       position: absolute;
-      top: -1px;
+      top: 2px;
       left: 5.5px; }
     .button.tiny-square.left-radius {
       border-top-left-radius: 0;
@@ -4426,7 +4427,7 @@ hr {
       color: #2B404D;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 600; }
+      font-weight: 400; }
       #sidebar ul li.active:hover {
         cursor: auto; }
     #sidebar ul li .sidebar-visibility {
@@ -6154,16 +6155,19 @@ hr {
             #view-findings #findings-nav #sidebar.sidebar span.report span.info span {
               position: absolute;
               top: 0;
-              right: 3.5px;
+              right: 2.5px;
               color: #fff;
-              font-size: 9px; }
+              font-size: 9px;
+              font-family: "canada-type-gibson",sans-serif;
+              font-style: normal;
+              font-weight: 400; }
           #view-findings #findings-nav #sidebar.sidebar span.report:hover {
             color: #2B404D; }
         #view-findings #findings-nav #sidebar.sidebar h4.group-cat {
           padding: 10px;
           margin: 5px 0 0 0;
           font-size: 10px;
-          color: #D8DADB;
+          line-height: 11px;
           text-transform: uppercase;
           position: relative; }
           #view-findings #findings-nav #sidebar.sidebar h4.group-cat span.info {
@@ -6177,24 +6181,39 @@ hr {
             margin: 0 0 0 3px; }
             #view-findings #findings-nav #sidebar.sidebar h4.group-cat span.info span {
               position: absolute;
-              top: 0;
-              right: 2.5px;
+              top: -1px;
+              right: 3px;
               color: #fff;
-              font-size: 9px; }
+              font-size: 9px;
+              font-family: "canada-type-gibson",sans-serif;
+              font-style: normal;
+              font-weight: 400; }
           #view-findings #findings-nav #sidebar.sidebar h4.group-cat:first-child {
             margin: 20px 0 0 0; }
+          #view-findings #findings-nav #sidebar.sidebar h4.group-cat li:hover {
+            font-family: "canada-type-gibson",sans-serif;
+            font-style: normal;
+            font-weight: 400; }
+          #view-findings #findings-nav #sidebar.sidebar h4.group-cat li:active {
+            color: #2B404D;
+            font-family: "canada-type-gibson",sans-serif;
+            font-style: normal;
+            font-weight: 400; }
         #view-findings #findings-nav #sidebar.sidebar ul:first-child {
           margin: 60px 0 0 0; }
           #view-findings #findings-nav #sidebar.sidebar ul:first-child li {
             padding: 10px;
             margin: 5px 0 0 0; }
             #view-findings #findings-nav #sidebar.sidebar ul:first-child li:hover {
-              color: #2B404D; }
+              color: #2B404D;
+              font-family: "canada-type-gibson",sans-serif;
+              font-style: normal;
+              font-weight: 400; }
             #view-findings #findings-nav #sidebar.sidebar ul:first-child li:active {
               color: #2B404D;
               font-family: "canada-type-gibson",sans-serif;
               font-style: normal;
-              font-weight: 600; }
+              font-weight: 400; }
   #view-findings .summaries-holder {
     width: 37%;
     height: 100%;
@@ -6208,23 +6227,24 @@ hr {
       width: 100%;
       padding: 40px 0; }
       #view-findings .summaries-holder .summaries-content h2 {
-        font-size: 24.8px;
         color: #2B404D;
+        font-size: 24.8px;
+        line-height: 30px;
         margin: 0;
         padding: 0 50px; }
       #view-findings .summaries-holder .summaries-content p {
-        font-size: 12px;
         color: #C5C6C7;
-        padding: 0 50px; }
+        font-size: 12px;
+        line-height: 15px;
+        padding: 0 50px;
+        margin: 5px 0 30px 0; }
       #view-findings .summaries-holder .summaries-content .summary-group {
         margin: 0;
         padding: 0 0 20px 0; }
       #view-findings .summaries-holder .summaries-content .summary-user {
         color: #2B404D;
         font-size: 18.6px;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 300;
+        line-height: 24px;
         margin: 0 0 10px 0;
         position: relative;
         padding: 0 50px; }
@@ -6260,36 +6280,28 @@ hr {
           float: left;
           width: 100%; }
           #view-findings .summaries-holder .summaries-content .summary .summary-body h3 {
-            font-family: "canada-type-gibson",sans-serif;
-            font-style: normal;
-            font-weight: 300;
-            font-size: 20px;
-            color: #D8DADB; }
+            color: #D8DADB;
+            font-size: 18.6px;
+            line-height: 24px; }
           #view-findings .summaries-holder .summaries-content .summary .summary-body p {
             margin-bottom: 0 !important;
             color: #949799; }
           #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea {
-            font-size: 14px;
-            line-height: 18.6px;
-            font-family: "canada-type-gibson",sans-serif;
-            font-style: normal;
-            font-weight: 300;
             color: #777777;
+            font-size: 14px;
+            line-height: 18px;
             padding: 0 50px;
             cursor: text;
             border: 0;
             box-shadow: none;
             margin: 0 0 30px 0;
             resize: none; }
-            #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries.summary, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea.summary {
-              font-size: 18px;
-              line-height: 24px; }
             #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries:hover, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea:hover {
               color: #000;
-              background: url('../assets/fg-edit.svg') 30px 2px no-repeat; }
+              background: url('../assets/fg-edit.svg') 30px 4px no-repeat; }
             #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries:focus, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea:focus {
               color: #000;
-              background: url('../assets/fg-edit-hover.svg') 30px 2px no-repeat; }
+              background: url('../assets/fg-edit-hover.svg') 30px 4px no-repeat; }
           #view-findings .summaries-holder .summaries-content .summary .summary-body small {
             display: block;
             margin: 0;
@@ -6314,28 +6326,23 @@ hr {
     font-weight: 300; }
     #view-findings .findings-content.report {
       width: 35%; }
-    #view-findings .findings-content h2 {
-      font-size: 18.6px;
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 400;
+    #view-findings .findings-content h3 {
       color: #2B404D;
+      font-size: 18.6px;
+      line-height: 24px;
       margin: 0 0 15px 0; }
     #view-findings .findings-content p {
-      font-size: 14px;
-      line-height: 18px;
-      color: #949799;
       margin: 0 0 50px 0; }
     #view-findings .findings-content pre {
       margin: 0 0 10px 0; }
     #view-findings .findings-content .findings-header {
       padding: 40px 0; }
       #view-findings .findings-content .findings-header h1 {
-        font-size: 33px;
         margin: 0; }
       #view-findings .findings-content .findings-header .findings-description {
-        color: #949799;
+        color: #888A8A;
         font-size: 14px;
+        line-height: 18px;
         margin: 10px 0; }
         #view-findings .findings-content .findings-header .findings-description span {
           padding: 0 20px 0 0; }
@@ -6347,6 +6354,7 @@ hr {
             height: 20px;
             width: 20px; }
     #view-findings .findings-content .findings-information textarea {
+      color: #888A8A;
       font-size: 14px;
       line-height: 18px;
       height: 300px;
@@ -6358,41 +6366,6 @@ hr {
         color: #000; }
       #view-findings .findings-content .findings-information textarea:focus {
         box-shadow: none; }
-    #view-findings .findings-content .all-summaries {
-      margin: 40px 0 0 0; }
-      #view-findings .findings-content .all-summaries .line-hr {
-        display: block;
-        text-align: center;
-        overflow: hidden;
-        white-space: nowrap;
-        margin: 0 0 40px 0; }
-      #view-findings .findings-content .all-summaries .line-hr > span {
-        position: relative;
-        display: inline-block;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 300;
-        color: #949799;
-        font-size: 12px; }
-      #view-findings .findings-content .all-summaries .line-hr > span:before, #view-findings .findings-content .all-summaries .line-hr > span:after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        width: 9999px;
-        height: 1px;
-        background: #D8DADB; }
-      #view-findings .findings-content .all-summaries .line-hr > span:before {
-        right: 100%;
-        margin-right: 15px; }
-      #view-findings .findings-content .all-summaries .line-hr > span:after {
-        left: 100%;
-        margin-left: 15px; }
-      #view-findings .findings-content .all-summaries h2 {
-        margin: 0 0 10px 0; }
-      #view-findings .findings-content .all-summaries p {
-        font-size: 12px;
-        line-height: 18px;
-        color: #949799; }
 
 /* let's embed a video */
 #video-embed {

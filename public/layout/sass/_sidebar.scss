@@ -67,7 +67,7 @@
 			&.active {
 				position: relative;
 				color: $fg-slate;
-				@include type-bold;
+				@include type-regular;
 				
 				&:hover {
 					cursor: auto;

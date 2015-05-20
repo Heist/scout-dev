@@ -21,7 +21,7 @@
 					</li>
 				</ul>
 				<ul ng-if="navlist.tag">
-					<h4 class="group-cat">Tag<span class="info" data-tooltip-large-report="All of the notes you have #tagged as important can be found here."><span>?</span></span></h4>
+					<h4 class="group-cat">Tags<span class="info" data-tooltip-large-report="All of the notes you have #tagged as important can be found here."><span>?</span></span></h4>
 					<li ng-repeat="object in  navlist.tag | orderBy:'name'" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
 						<span class="objects tag-hash">{{object.name}}</span>
 					</li>
@@ -42,7 +42,7 @@
 	
 	<div class="summaries-holder">
 		<div class="summaries-content" ng-model="selected">
-			<h2>Summary</h2>
+			<h2>Summaries</h2>
 			<p>Use these to help create your final Findings.</p>
 			
 			<!-- messages -->
@@ -128,13 +128,13 @@
 				
 				<div class="findings" ng-show="displayReport.doctype === 'test'">
 					<div class="findings-information">
-						<h2 ng-if="displayReport.desc">Objectives</h2>
+						<h3 ng-if="displayReport.desc">Objectives</h3>
 						<p class="no-cursor" ng-if="displayReport.desc" ng-bind-html="displayReport.desc | linebreaker"></p>
 						
-						<h2>Findings</h2>
+						<h3>Findings</h3>
 						<textarea msd-elastic class="input" id="field-textarea" placeholder="Summarize your high level learning here. This is the page you will be sharing with your organization."  ng-model="displayReport.summary" ng-blur="saveObject(displayReport)"></textarea>
 
-						<h2>Next Steps</h2>
+						<h3>Next Steps</h3>
 						<textarea msd-elastic class="input" id="field-textarea" placeholder="Summarize your high level learning here. This is the page you will be sharing with your organization."  ng-model="displayReport.next_steps" ng-blur="saveObject(displayReport)"></textarea>
 					</div>
 				
