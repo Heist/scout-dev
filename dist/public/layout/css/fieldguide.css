@@ -242,12 +242,23 @@ h4 {
   font-weight: 600;
   margin: 0 0 5px 0; }
 
+h5 {
+  color: #888A8A;
+  font-size: 10px;
+  line-height: 11px;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 400; }
+
 /* copy */
 p, pre {
   padding: 0;
   margin: 0 0 10px 0;
   font-size: 14px;
-  line-height: 18px; }
+  line-height: 18px;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 300; }
 
 strong {
   font-family: "canada-type-gibson",sans-serif;
@@ -695,7 +706,7 @@ button.x-onboard {
   text-decoration: none;
   cursor: pointer;
   font-size: 14px;
-  padding: 12px 32.5px;
+  padding: 12px 25px;
   float: left;
   margin: 0 5px;
   font-family: "canada-type-gibson",sans-serif;
@@ -4331,32 +4342,20 @@ hr {
         padding: 0;
         margin: 0; }
         #tasklist ul li h3.participant-name {
-          margin: 8px 0 2px 0;
-          font-size: 14px; }
+          margin: 10px 0 0 0;
+          color: #888A8A;
+          font-size: 14px;
+          line-height: 18px; }
         #tasklist ul li h3.tag-name {
           margin: 10px 0 20px 0; }
       #tasklist ul li h5 {
         margin: 0;
-        text-transform: uppercase;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 10px; }
-      #tasklist ul li p {
-        margin: 0;
-        padding: 0;
-        font-size: 14px;
-        line-height: 18px;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 300; }
+        text-transform: uppercase; }
       #tasklist ul li pre.objectives {
+        color: #888A8A;
         font-size: 14px;
         line-height: 18px;
-        margin: 20px 0 0 0;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 300; }
+        margin: 20px 0 0 0; }
       #tasklist ul li small {
         text-transform: uppercase;
         margin: 0;
@@ -5520,7 +5519,7 @@ hr {
         margin: 0;
         border: 0;
         outline: 0;
-        padding: 10px;
+        padding: 10px 30px;
         height: 45%;
         resize: 0;
         font-family: "canada-type-gibson",sans-serif;

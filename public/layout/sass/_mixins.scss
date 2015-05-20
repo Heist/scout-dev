@@ -178,6 +178,14 @@
 	line-height: $type-sm-line;
 }
 
+
+@mixin type-xsm($fg-grey-text) {
+	color: $fg-grey-text;
+	font-size: $type-xsm-size;
+	line-height: $type-xsm-line;
+}
+
+
 /*
 helpers
 ========================

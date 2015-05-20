@@ -55,8 +55,8 @@
 				margin: 0;
 
 				&.participant-name {
-					margin: 8px 0 2px 0; 
-					font-size: 14px;
+					margin: 10px 0 0 0;
+					@include type-p($fg-grey-text);
 				}
 
 				&.tag-name {
@@ -67,23 +67,11 @@
 			h5 {
 			    margin: 0;
 			    text-transform: uppercase;
-			    @include type-regular;
-			    font-size: 10px;
-			}
-
-			p {
-				margin: 0; 
-				padding: 0;
-				font-size: 14px;
-				line-height: 18px;
-				@include type-light;
 			}
 
 			pre.objectives {
-				font-size: 14px;
-				line-height: 18px;
+				@include type-p($fg-grey-text);
 				margin: 20px 0 0 0;
-				@include type-light;
 			}
 			
 			small {

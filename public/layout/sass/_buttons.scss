@@ -32,7 +32,7 @@ button.x-onboard {
 	@include button-colour($fg-green, $white);
 	cursor: pointer;
 	font-size: 14px;
-	padding: 12px 32.5px;
+	padding: 12px 25px;
 	float: left;
 	margin: 0 5px;
 	@include type-regular;
