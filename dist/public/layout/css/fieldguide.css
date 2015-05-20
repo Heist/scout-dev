@@ -5798,6 +5798,10 @@ hr {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 600; }
+  #view-account p {
+    margin: 0 0 20px 0; }
+  #view-account .button {
+    margin: 0; }
   #view-account .pm-app {
     border: 1px solid #dddddd;
     -moz-border-radius: 2px;
