@@ -199,20 +199,11 @@ button.x-onboard {
     background: none;
     color: $fg-grey-light;
     @include type-light;
-    padding: 8px 30px;
+    padding: 12px 30px;
     border: 0;
     outline: 0;
     float: left;
 
-    &:hover {
-        text-decoration: underline;
-        color: $link-hover;
-    }
-}
-
-.button-dry-run {
-    @extend .button.cancel;
-    padding: 10px 10px 0 0;
     &:hover {
         text-decoration: underline;
         color: $link-hover;

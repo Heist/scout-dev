@@ -228,7 +228,6 @@ h2 {
   margin: 0 0 20px 0; }
 
 h3 {
-  color: #888A8A;
   font-size: 18.6px;
   line-height: 24px;
   font-family: "canada-type-gibson",sans-serif;
@@ -247,7 +246,6 @@ h4 {
 p, pre {
   padding: 0;
   margin: 0 0 10px 0;
-  color: #888A8A;
   font-size: 14px;
   line-height: 18px; }
 
@@ -852,17 +850,11 @@ button.x-onboard {
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
-  padding: 8px 30px;
+  padding: 12px 30px;
   border: 0;
   outline: 0;
   float: left; }
   .button-cancel:hover {
-    text-decoration: underline;
-    color: #828588; }
-
-.button-dry-run {
-  padding: 10px 10px 0 0; }
-  .button-dry-run:hover {
     text-decoration: underline;
     color: #828588; }
 
@@ -4316,11 +4308,11 @@ hr {
         text-transform: uppercase;
         text-align: center;
         display: block;
-        margin: 8px auto;
+        margin: 11px auto;
         font-size: 14px;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 700; }
+        font-weight: 600; }
     #tasklist ul li {
       padding: 13.33333px 20px;
       margin: 0;
@@ -4334,16 +4326,14 @@ hr {
         background: none;
         cursor: default; }
       #tasklist ul li h3 {
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 300;
+        font-size: 18.6px;
+        line-height: 24px;
         padding: 0;
         margin: 0; }
         #tasklist ul li h3.participant-name {
-          margin: 13px 0 2px 0;
+          margin: 8px 0 2px 0;
           font-size: 14px; }
         #tasklist ul li h3.tag-name {
-          font-size: 16px;
           margin: 10px 0 20px 0; }
       #tasklist ul li h5 {
         margin: 0;
@@ -4477,7 +4467,7 @@ hr {
       font-size: 9px;
       color: #fff;
       position: absolute;
-      top: -7px;
+      top: -4px;
       right: 3.5px; }
   .modal .modal-interior {
     width: 550px;
@@ -5266,13 +5256,6 @@ hr {
     font-size: 10px;
     text-transform: uppercase;
     text-align: right; }
-  #view-editing h4 {
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    color: #323539;
-    font-size: 14px;
-    margin: 10px 0; }
   #view-editing .project-name {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -5295,11 +5278,9 @@ hr {
   #view-editing form.task-info {
     margin: 0 0 20px 0; }
   #view-editing input.task-title, #view-editing .add-task textarea.task-title {
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 18px;
     color: #888A8A;
+    font-size: 18.6px;
+    line-height: 24px;
     padding: 0 0 20px 40px; }
     #view-editing input.task-title:hover, #view-editing .add-task textarea.task-title:hover {
       color: #000;
@@ -5493,8 +5474,7 @@ hr {
     padding: 0;
     margin: 0;
     position: relative;
-    border-right: 1px solid #dddddd;
-    /* suppress message-hover during running tests */ }
+    border-right: 1px solid #dddddd; }
     #view-testing #testing-input p {
       margin: 0 0 10px 0; }
     #view-testing #testing-input.interview {
@@ -5900,9 +5880,7 @@ hr {
 .message-user {
   color: #2B404D;
   font-size: 18.6px;
-  font-family: "canada-type-gibson",sans-serif;
-  font-style: normal;
-  font-weight: 300;
+  line-height: 24px;
   margin: 0 0 10px 0;
   position: relative; }
   .message-user img {
@@ -6037,21 +6015,16 @@ hr {
     float: left;
     width: 100%; }
     .message .message-body h3 {
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 300;
-      font-size: 20px;
-      color: #D8DADB; }
+      color: #D8DADB;
+      font-size: 18.6px;
+      line-height: 24px; }
     .message .message-body p {
       margin-bottom: 0 !important;
       color: #949799; }
     .message .message-body pre.messages {
-      font-size: 14px;
-      line-height: 20px;
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 300;
       color: #777777;
+      font-size: 14px;
+      line-height: 18px;
       margin: 0;
       cursor: text; }
       .message .message-body pre.messages.summary {

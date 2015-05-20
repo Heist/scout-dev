@@ -156,8 +156,18 @@
 	line-height: $type-h3-line;
 }
 
+@mixin type-h3-no-colour {
+	font-size: $type-h3-size;
+	line-height: $type-h3-line;
+}
+
 @mixin type-p($fg-grey-text) {
 	color: $fg-grey-text;
+	font-size: $type-p-size;
+	line-height: $type-p-line;
+}
+
+@mixin type-p-no-colour {
 	font-size: $type-p-size;
 	line-height: $type-p-line;
 }

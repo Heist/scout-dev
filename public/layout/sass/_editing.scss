@@ -245,13 +245,6 @@
         text-align: right;
     }
 
-    h4 {
-        @include type-light;
-        color: $fg-black;
-        font-size: 14px;
-        margin: 10px 0;
-    }
-
     .project-name {
         @include type-light;
         color: $fg-grey-text;
@@ -284,10 +277,8 @@
     }
 
     input.task-title {
-        @include type-light;
-        font-size: 18px;
-        color: $fg-grey-text;
-          padding: 0 0 20px 40px;
+        @include type-h3($fg-grey-text);
+        padding: 0 0 20px 40px;
 
         &:hover{
             color: $black;
