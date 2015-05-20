@@ -51618,10 +51618,17 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         };
 
         $scope.addTest = function(test){
+            var intercom = {
+                event_name : 'created-project',
+                created_at : new Date(),
+                email    : $rootScope.user
+            } ;
 
             $http
                 .post('/api/test/', test)
                 .success(function(data){
+                    Intercom('trackEvent', intercom );
+
                     $scope.$parent.tests.push(data);
                     $scope.$parent.newTestModalToggle();
                     $location.path('/edit/test/'+ data._id);
@@ -51707,7 +51714,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.tests = loadData.data;
         
 
-
+        void 0;
         // ONBOARDING =========================================
         if($rootScope.user.onboard === 1){
             $scope.onboardSteps = true;
