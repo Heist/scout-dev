@@ -264,13 +264,25 @@ span.tooltip-icon {
 	margin: 0;
 	padding: $pad;
 
-	a {
-		margin: 0 20px 0 0;
+	h2 {
+		@include type-h2($fg-grey-placeholder);
+		margin: 0;
+	}
+
+	h3 {
+		@include type-h3($fg-grey-placeholder);
+	}
+
+	.cta {
+		a {
+			margin: 0 20px 0 0;
+		}
 	}
 
 	ol {
-		padding: 0 25px;
-		margin: 10px 0 50px 0;
+		padding: 0 0 0 25px;
+		margin: 10px 0 40px 0;
+		color: $fg-grey-placeholder;
 
 		li:before {
 			content: '';
@@ -289,12 +301,6 @@ span.tooltip-icon {
 	img.icons {
 		width: 15px;
 		margin: 0 5px 0 0;
-	}
-
-	p {
-		font-size: $type-size-base*0.9;
-		line-height: 1.4;
-		margin-bottom: $pad/2;
 	}
 	
 	.button {

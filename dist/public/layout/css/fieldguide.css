@@ -3587,11 +3587,21 @@ span.tooltip-icon {
   width: 320px;
   margin: 0;
   padding: 20px; }
-  #help-bubble-content a {
+  #help-bubble-content h2 {
+    color: #C5C6C7;
+    font-size: 24.8px;
+    line-height: 30px;
+    margin: 0; }
+  #help-bubble-content h3 {
+    color: #C5C6C7;
+    font-size: 18.6px;
+    line-height: 24px; }
+  #help-bubble-content .cta a {
     margin: 0 20px 0 0; }
   #help-bubble-content ol {
-    padding: 0 25px;
-    margin: 10px 0 50px 0; }
+    padding: 0 0 0 25px;
+    margin: 10px 0 40px 0;
+    color: #C5C6C7; }
     #help-bubble-content ol li:before {
       content: '';
       display: inline-block;
@@ -3604,10 +3614,6 @@ span.tooltip-icon {
   #help-bubble-content img.icons {
     width: 15px;
     margin: 0 5px 0 0; }
-  #help-bubble-content p {
-    font-size: 12.6px;
-    line-height: 1.4;
-    margin-bottom: 10px; }
   #help-bubble-content .button {
     margin-top: 5px;
     background-color: transparent;
