@@ -14,14 +14,6 @@
 			right: 40px;
 		}
 	}
-
-	/* are we onboard? */
-	
-	&.is-onboard {
-		#findings-viewmode-controls {
-			bottom: 0;
-		}
-	}
 	
 	&.show-comments {
 		
@@ -141,14 +133,13 @@
 		padding: 40px 0;
 
 		h1 {
+			@include type-h1($fg-slate);
 			margin: 0;
-			font-size: 33px;
 		}
 
 		.findings-description {
-			color: $fg-grey;
-			font-size: 12px;
-			margin: 5px 0;
+			@include type-p($fg-grey-text);
+			margin: 10px 0;
 
 			span {
 				padding: 0 20px 0 0;
@@ -166,9 +157,8 @@
 			width: 35%;
 		}
 
-		h2 {
-			font-size: 18.6px;
-			color: $fg-slate;
+		h3 {
+			@include type-h3($fg-slate);
 			margin: 0 0 15px 0;
 		}
 
@@ -189,12 +179,10 @@
 			}
 
 			pre {
-				color: $fg-grey;
-				font-size: 14px;
-				line-height: 18px;
+				@include type-p($fg-grey-text);
 			}
 			p {
-				line-height: 20px;
+				@include type-p($fg-grey-text);
 			}
 		}
 		

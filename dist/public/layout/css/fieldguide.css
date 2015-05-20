@@ -6090,7 +6090,7 @@ hr {
     position: relative; }
     #view-findings #findings-share-report span a {
       position: absolute;
-      padding: 8px 10px;
+      padding: 9.5px 10px;
       background: none;
       border: 1px solid rgba(216, 218, 219, 0.5);
       border-left: 0;
@@ -6514,14 +6514,11 @@ hr {
   margin: 0;
   min-height: 100%;
   background: #fff;
-  position: relative;
-  /* are we onboard? */ }
+  position: relative; }
   #report-summary #generated-with-fg img {
     position: absolute;
     top: 40px;
     right: 40px; }
-  #report-summary.is-onboard #findings-viewmode-controls {
-    bottom: 0; }
   #report-summary.show-comments .sheet-holder {
     left: 25%;
     -webkit-transition-duration: 0.2s;
@@ -6636,12 +6633,15 @@ hr {
   #report-summary .findings-header {
     padding: 40px 0; }
     #report-summary .findings-header h1 {
-      margin: 0;
-      font-size: 33px; }
+      color: #2B404D;
+      font-size: 33.1px;
+      line-height: 37px;
+      margin: 0; }
     #report-summary .findings-header .findings-description {
-      color: #949799;
-      font-size: 12px;
-      margin: 5px 0; }
+      color: #888A8A;
+      font-size: 14px;
+      line-height: 18px;
+      margin: 10px 0; }
       #report-summary .findings-header .findings-description span {
         padding: 0 20px 0 0; }
   #report-summary .findings-content {
@@ -6652,9 +6652,10 @@ hr {
     font-weight: 300; }
     #report-summary .findings-content.report {
       width: 35%; }
-    #report-summary .findings-content h2 {
-      font-size: 18.6px;
+    #report-summary .findings-content h3 {
       color: #2B404D;
+      font-size: 18.6px;
+      line-height: 24px;
       margin: 0 0 15px 0; }
     #report-summary .findings-content pre {
       font-family: "canada-type-gibson",sans-serif;
@@ -6671,11 +6672,13 @@ hr {
       font-weight: 400;
       margin: 0 0 20px 0; }
     #report-summary .findings-content .findings-information pre {
-      color: #949799;
+      color: #888A8A;
       font-size: 14px;
       line-height: 18px; }
     #report-summary .findings-content .findings-information p {
-      line-height: 20px; }
+      color: #888A8A;
+      font-size: 14px;
+      line-height: 18px; }
     #report-summary .findings-content .findings-summary {
       width: 100%;
       max-width: 100%;
