@@ -167,7 +167,8 @@ html, body {
 
 body {
   font-size: 14px;
-  line-height: 24px;
+  line-height: 18px;
+  color: #888A8A;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -208,7 +209,9 @@ h1, h2, h3, h4, h5, h6 {
       border-bottom: 3px solid #dddddd; }
 
 h1 {
-  font-size: 28px;
+  color: #888A8A;
+  font-size: 33.1px;
+  line-height: 37px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -216,41 +219,47 @@ h1 {
   margin: 0 0 20px 0; }
 
 h2 {
-  font-size: 28px;
+  color: #888A8A;
+  font-size: 24.8px;
+  line-height: 30px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
   margin: 0 0 20px 0; }
 
 h3 {
-  font-size: 17.5px;
+  font-size: 18.6px;
+  line-height: 24px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   margin: 0 0 10px 0; }
-  h3.h3-light {
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    opacity: 0.6;
-    font-size: 19.6px; }
 
 h4 {
-  font-size: 14px;
+  font-size: 10px;
+  line-height: 11px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   margin: 0 0 5px 0; }
 
 h5 {
+  color: #888A8A;
+  font-size: 10px;
+  line-height: 11px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600; }
+  font-weight: 400; }
 
 /* copy */
 p, pre {
   padding: 0;
-  margin: 0 0 20px 0; }
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  line-height: 18px;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 300; }
 
 strong {
   font-family: "canada-type-gibson",sans-serif;
@@ -284,7 +293,7 @@ a {
   line-height: inherit; }
 
 p.big {
-  line-height: 30px; }
+  line-height: 22.5px; }
 
 .caution {
   color: #f37960; }
@@ -294,7 +303,7 @@ p.big {
   line-height: inherit; }
 
 p.small {
-  line-height: 19.2px; }
+  line-height: 14.4px; }
 
 /* lists */
 ul {
@@ -355,7 +364,7 @@ form {
 
 label {
   padding: 0;
-  margin: 0;
+  margin: 0 0 5px 0;
   font-size: 14px;
   opacity: 1;
   color: #2B404D;
@@ -663,13 +672,13 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
 /* Buttons */
 button.x-modal {
   position: absolute;
-  top: -35px;
+  top: -32px;
   right: -35px;
   text-decoration: none;
   color: #949799;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 15px;
   cursor: pointer;
   background: none;
@@ -683,7 +692,7 @@ button.x-onboard {
   color: white;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 30px;
   text-decoration: none;
   z-index: 1;
@@ -698,7 +707,7 @@ button.x-onboard {
   text-decoration: none;
   cursor: pointer;
   font-size: 14px;
-  padding: 12px 32.5px;
+  padding: 12px 25px;
   float: left;
   margin: 0 5px;
   font-family: "canada-type-gibson",sans-serif;
@@ -757,7 +766,7 @@ button.x-onboard {
     .button.tiny-square span.icon-share {
       font-size: 9px;
       position: absolute;
-      top: -1px;
+      top: 2px;
       left: 5.5px; }
     .button.tiny-square.left-radius {
       border-top-left-radius: 0;
@@ -853,17 +862,11 @@ button.x-onboard {
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
-  padding: 8px 30px;
+  padding: 12px 30px;
   border: 0;
   outline: 0;
   float: left; }
   .button-cancel:hover {
-    text-decoration: underline;
-    color: #828588; }
-
-.button-dry-run {
-  padding: 10px 10px 0 0; }
-  .button-dry-run:hover {
     text-decoration: underline;
     color: #828588; }
 
@@ -3430,12 +3433,11 @@ span.tooltip-icon {
   border-radius: 50%;
   display: inline-block;
   position: relative;
-  margin: 0 0 0 5px;
-  vertical-align: bottom;
+  margin: 0 0 0 3px;
   text-transform: none; }
   span.tooltip-icon span {
     position: absolute;
-    top: 0.5px;
+    top: -7.5px;
     right: 3px;
     color: #fff;
     font-size: 8px;
@@ -3556,7 +3558,7 @@ span.tooltip-icon {
     color: #2B404D;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     display: block;
     width: 50px;
     height: 50px;
@@ -3587,7 +3589,19 @@ span.tooltip-icon {
   padding: 20px; }
   #help-bubble-content a {
     margin: 0 20px 0 0; }
-  #help-bubble-content img {
+  #help-bubble-content ol {
+    padding: 0 25px;
+    margin: 10px 0 50px 0; }
+    #help-bubble-content ol li:before {
+      content: '';
+      display: inline-block;
+      height: 30px;
+      width: 5px; }
+  #help-bubble-content img.fieldy {
+    position: absolute;
+    top: -30px;
+    left: 135px; }
+  #help-bubble-content img.icons {
     width: 15px;
     margin: 0 5px 0 0; }
   #help-bubble-content p {
@@ -3609,7 +3623,7 @@ span.tooltip-icon {
   font-size: 8.4px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0;
   color: #fff;
@@ -3760,7 +3774,7 @@ hr {
   #nav-acct-status span {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     color: #872717; }
 
 #nav-mgmt {
@@ -3792,7 +3806,7 @@ hr {
       padding: 0;
       margin: 0; }
       #nav-account .account-settings ul li {
-        padding: 0 9px;
+        padding: 4px 10px;
         list-style-type: none; }
         #nav-account .account-settings ul li a {
           color: #7c7d80;
@@ -4088,7 +4102,7 @@ hr {
       margin: 0; }
     #timeline ul .message-no-highlite {
       padding: 8px 30px 8px 35px;
-      line-height: 19.2px; }
+      line-height: 14.4px; }
       #timeline ul .message-no-highlite pre, #timeline ul .message-no-highlite small {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
@@ -4103,7 +4117,7 @@ hr {
         margin: 0; }
     #timeline ul .message-highlite {
       padding: 8px 30px 8px 35px;
-      line-height: 19.2px;
+      line-height: 14.4px;
       position: relative;
       transition: none;
       cursor: text;
@@ -4131,7 +4145,7 @@ hr {
         background: #f6f6f6 url("../assets/edit-bg.svg") 12px no-repeat; }
     #timeline ul .message {
       padding: 8px 30px 8px 35px;
-      line-height: 19.2px;
+      line-height: 14.4px;
       position: relative;
       -webkit-transition-duration: 0.2s;
       -webkit-transition-timing: ease-out;
@@ -4158,7 +4172,7 @@ hr {
           line-height: 10px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
-          font-weight: 400;
+          font-weight: 600;
           background: #fff; }
           #timeline ul .message .message-details .message-details-avatar.avatar-header {
             color: #bfed34; }
@@ -4172,7 +4186,7 @@ hr {
           margin-bottom: 0; }
         #timeline ul .message .message-body small {
           font-size: 8.4px;
-          line-height: 14.4px;
+          line-height: 10.8px;
           padding: 0;
           margin: 0;
           text-transform: lowercase; }
@@ -4194,7 +4208,7 @@ hr {
   #timeline #firstrun .message-body {
     color: #7c7d80;
     font-size: 14px;
-    line-height: 24px; }
+    line-height: 18px; }
     #timeline #firstrun .message-body .tag {
       padding: 0 5px; }
 
@@ -4306,7 +4320,7 @@ hr {
         text-transform: uppercase;
         text-align: center;
         display: block;
-        margin: 8px auto;
+        margin: 11px auto;
         font-size: 14px;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
@@ -4324,39 +4338,25 @@ hr {
         background: none;
         cursor: default; }
       #tasklist ul li h3 {
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 300;
+        font-size: 18.6px;
+        line-height: 24px;
         padding: 0;
         margin: 0; }
         #tasklist ul li h3.participant-name {
-          margin: 13px 0 2px 0;
-          font-size: 14px; }
+          margin: 10px 0 0 0;
+          color: #888A8A;
+          font-size: 14px;
+          line-height: 18px; }
         #tasklist ul li h3.tag-name {
-          font-size: 16px;
           margin: 10px 0 20px 0; }
       #tasklist ul li h5 {
         margin: 0;
-        text-transform: uppercase;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 10px; }
-      #tasklist ul li p {
-        margin: 0;
-        padding: 0;
-        font-size: 14px;
-        line-height: 18px;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 300; }
+        text-transform: uppercase; }
       #tasklist ul li pre.objectives {
+        color: #888A8A;
         font-size: 14px;
         line-height: 18px;
-        margin: 20px 0 0 0;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 300; }
+        margin: 20px 0 0 0; }
       #tasklist ul li small {
         text-transform: uppercase;
         margin: 0;
@@ -4467,7 +4467,7 @@ hr {
       font-size: 9px;
       color: #fff;
       position: absolute;
-      top: -7px;
+      top: -4px;
       right: 3.5px; }
   .modal .modal-interior {
     width: 550px;
@@ -4676,7 +4676,7 @@ hr {
   letter-spacing: 4px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 400; }
+  font-weight: 600; }
 
 .upgrade-notice {
   padding: 20px 20px 15px 20px;
@@ -4770,13 +4770,13 @@ hr {
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
-      line-height: 14.4px; }
+      line-height: 10.8px; }
       .stepped-nav li a:hover {
         opacity: 1.0; }
     .stepped-nav li.step-active a {
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 400; }
+      font-weight: 600; }
     .stepped-nav li .step-state {
       display: block;
       height: 20px;
@@ -4982,8 +4982,7 @@ hr {
 
 /* overview test block */
 .overview-test {
-  margin-bottom: 20px;
-  /* empty test-container */ }
+  margin-bottom: 20px; }
   .overview-test .overview-test-container {
     cursor: pointer;
     background: #fff;
@@ -5024,7 +5023,7 @@ hr {
         padding: 0;
         margin: 0; }
         .overview-test .test-info .editTest-tooltips ul li {
-          padding: 0 9px;
+          padding: 0 10px;
           list-style-type: none; }
           .overview-test .test-info .editTest-tooltips ul li:hover {
             background: #00B5E3;
@@ -5034,7 +5033,7 @@ hr {
             display: inline-block; }
           .overview-test .test-info .editTest-tooltips ul li span {
             font-size: 12px;
-            padding: 0 5px 0 0;
+            padding: 5px 0;
             margin: 0;
             display: inline-block; }
     .overview-test .test-info .editTest {
@@ -5050,18 +5049,19 @@ hr {
         text-decoration: none;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 600;
+        font-weight: 700;
         color: #C5C6C7; }
       .overview-test .test-info .editTest .dangerous:hover {
         color: #f37960; }
   .overview-test .test-edit {
     padding: 45px 15px 0 15px;
     height: 200px; }
-    .overview-test .test-edit h3 {
+    .overview-test .test-edit h2 {
+      color: #777777;
       font-size: 24.8px;
-      line-height: 28px;
+      line-height: 30px;
       letter-spacing: -0.5px;
-      color: #777777; }
+      font-weight: 400; }
   .overview-test .test-controls-empty {
     position: absolute;
     left: 0;
@@ -5097,59 +5097,6 @@ hr {
       .overview-test .test-controls a:hover {
         background: #85AC0F;
         color: #fff; }
-  .overview-test.overview-test-empty {
-    cursor: pointer;
-    opacity: 0.7;
-    -webkit-transition-duration: 0.2s;
-    -webkit-transition-timing: ease-out;
-    -o-transition-duration: 0.2s;
-    -o-transition-timing: ease-out;
-    -moz-transition-duration: 0.2s;
-    -moz-transition-timing: ease-out;
-    -ms-transition-duration: 0.2s;
-    -ms-transition-timing: ease-out;
-    transition-duration: 0.2s;
-    transition-timing: ease-out; }
-    .overview-test.overview-test-empty:hover {
-      opacity: 1.0;
-      -webkit-transition-duration: 0.2s;
-      -webkit-transition-timing: ease-out;
-      -o-transition-duration: 0.2s;
-      -o-transition-timing: ease-out;
-      -moz-transition-duration: 0.2s;
-      -moz-transition-timing: ease-out;
-      -ms-transition-duration: 0.2s;
-      -ms-transition-timing: ease-out;
-      transition-duration: 0.2s;
-      transition-timing: ease-out; }
-    .overview-test.overview-test-empty .overview-test-container {
-      border: 2px dashed #dddddd;
-      background: none;
-      -moz-border-radius: 6px;
-      -webkit-border-radius: 6px;
-      border-radius: 6px;
-      -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-      -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05); }
-      .overview-test.overview-test-empty .overview-test-container .test-info h3 {
-        color: #7c7d80;
-        font-size: 14px; }
-      .overview-test.overview-test-empty .overview-test-container .test-info .overview-test-add {
-        color: #7c7d80;
-        border: 1px solid #7c7d80;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 300;
-        font-size: 28px;
-        line-height: 40px;
-        display: inline-block;
-        padding: 0;
-        height: 40px;
-        width: 40px;
-        margin: 0 0 10px 0;
-        -moz-border-radius: 60px;
-        -webkit-border-radius: 60px;
-        border-radius: 60px; }
 
 /* new project modal */
 #view-new-project .modal-interior-title {
@@ -5169,7 +5116,7 @@ hr {
   position: relative;
   cursor: pointer;
   border: 0;
-  padding: 20px 15px;
+  padding: 20px 10px;
   background: rgba(216, 218, 219, 0.2);
   color: #949799;
   margin-bottom: 20px;
@@ -5184,11 +5131,10 @@ hr {
       top: 0px;
       right: 3.5px; }
   #view-new-project button.test-type h3 {
-    font-size: 18px;
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    display: inline-block; }
+    display: inline-block;
+    color: #C5C6C7;
+    font-size: 18.6px;
+    line-height: 24px; }
     #view-new-project button.test-type h3.interview:before {
       background: url('../assets/interview-dark.svg') top left no-repeat;
       content: '';
@@ -5204,12 +5150,9 @@ hr {
       display: inline-block;
       margin: 0 5px 0 0; }
   #view-new-project button.test-type p {
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 300;
+    color: #C5C6C7;
     font-size: 12px;
-    margin: 0;
-    clear: both; }
+    line-height: 15px; }
   #view-new-project button.test-type.interview {
     position: relative;
     margin-right: 1.5%; }
@@ -5225,26 +5168,32 @@ hr {
       background: #70910D; }
     #view-new-project button.test-type:hover a {
       color: #fff; }
-    #view-new-project button.test-type:hover h3.interview:before {
-      background: url('../assets/interview-light.svg') top left no-repeat; }
-    #view-new-project button.test-type:hover h3.prototype:before {
-      background: url('../assets/prototype-light.svg') top left no-repeat; }
+    #view-new-project button.test-type:hover p {
+      color: #fff; }
+    #view-new-project button.test-type:hover h3 {
+      color: #fff; }
+      #view-new-project button.test-type:hover h3.interview:before {
+        background: url('../assets/interview-light.svg') top left no-repeat; }
+      #view-new-project button.test-type:hover h3.prototype:before {
+        background: url('../assets/prototype-light.svg') top left no-repeat; }
   #view-new-project button.test-type.select-active {
-    background: #85AC0F;
-    color: #fff; }
+    background: #85AC0F; }
     #view-new-project button.test-type.select-active span.tooltip-icon {
       background: #70910D; }
     #view-new-project button.test-type.select-active a {
       color: #fff; }
-    #view-new-project button.test-type.select-active h3.interview:before {
-      background: url('../assets/interview-light.svg') top left no-repeat; }
-    #view-new-project button.test-type.select-active h3.prototype:before {
-      background: url('../assets/prototype-light.svg') top left no-repeat; }
+    #view-new-project button.test-type.select-active h3 {
+      color: #fff; }
+      #view-new-project button.test-type.select-active h3.interview:before {
+        background: url('../assets/interview-light.svg') top left no-repeat; }
+      #view-new-project button.test-type.select-active h3.prototype:before {
+        background: url('../assets/prototype-light.svg') top left no-repeat; }
+    #view-new-project button.test-type.select-active p {
+      color: #fff;
+      font-size: 12px;
+      line-height: 15px; }
   #view-new-project button.test-type.select-inactive {
-    background: rgba(216, 218, 219, 0.2);
-    color: #949799; }
-    #view-new-project button.test-type.select-inactive a {
-      color: #00B5E3; }
+    background: rgba(216, 218, 219, 0.2); }
     #view-new-project button.test-type.select-inactive span.tooltip-icon {
       position: absolute;
       top: 5px;
@@ -5253,10 +5202,16 @@ hr {
       #view-new-project button.test-type.select-inactive span.tooltip-icon span {
         top: 0px;
         right: 3.5px; }
-    #view-new-project button.test-type.select-inactive h3.interview:before {
-      background: url('../assets/interview-dark.svg') top left no-repeat; }
-    #view-new-project button.test-type.select-inactive h3.prototype:before {
-      background: url('../assets/prototype-dark.svg') top left no-repeat; }
+    #view-new-project button.test-type.select-inactive h3 {
+      color: #C5C6C7; }
+      #view-new-project button.test-type.select-inactive h3.interview:before {
+        background: url('../assets/interview-dark.svg') top left no-repeat; }
+      #view-new-project button.test-type.select-inactive h3.prototype:before {
+        background: url('../assets/prototype-dark.svg') top left no-repeat; }
+    #view-new-project button.test-type.select-inactive p {
+      color: #C5C6C7;
+      font-size: 12px;
+      line-height: 15px; }
   #view-new-project button.test-type .selected-arrow {
     display: none; }
   #view-new-project button.test-type .no-link {
@@ -5293,9 +5248,6 @@ hr {
   min-height: 100%; }
   #view-editing .sheet {
     box-shadow: none; }
-  #view-editing p {
-    font-size: 14px;
-    line-height: 18px; }
   #view-editing h3 {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -5303,15 +5255,7 @@ hr {
     color: #2B404D;
     font-size: 10px;
     text-transform: uppercase;
-    text-align: right;
-    position: relative; }
-  #view-editing h4 {
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    color: #323539;
-    font-size: 14px;
-    margin: 10px 0; }
+    text-align: right; }
   #view-editing .project-name {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -5330,16 +5274,13 @@ hr {
   #view-editing .test-info {
     padding: 0 0 30px 40px; }
     #view-editing .test-info img {
-      width: 11px;
       margin: 0 3px 0 0; }
   #view-editing form.task-info {
     margin: 0 0 20px 0; }
   #view-editing input.task-title, #view-editing .add-task textarea.task-title {
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 18px;
     color: #888A8A;
+    font-size: 18.6px;
+    line-height: 24px;
     padding: 0 0 20px 40px; }
     #view-editing input.task-title:hover, #view-editing .add-task textarea.task-title:hover {
       color: #000;
@@ -5351,12 +5292,12 @@ hr {
     padding: 0 0 0 40px;
     margin: 0; }
   #view-editing textarea.objectives, #view-editing textarea.task-descriptions {
+    color: #888A8A;
     font-size: 14px;
     line-height: 18px;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 300;
-    color: #888A8A;
     margin: 0;
     padding: 0 0 0 40px;
     resize: none; }
@@ -5366,6 +5307,8 @@ hr {
     #view-editing textarea.objectives:focus, #view-editing textarea.task-descriptions:focus {
       color: #000;
       background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat; }
+  #view-editing textarea.task-descriptions {
+    margin: 0 0 30px 0; }
   #view-editing .add-task {
     margin: 20px 0; }
     #view-editing .add-task form {
@@ -5419,7 +5362,7 @@ hr {
       padding: 0 0 10px 0;
       margin: 0; }
       #view-editing .tags .tag-pool ul li, #view-editing .tags input.custom-tags ul li, #view-editing .tags .add-task textarea.custom-tags ul li, #view-editing .add-task .tags textarea.custom-tags ul li {
-        padding: 0 5px 0 5px;
+        padding: 2px 5px;
         font-size: 14px;
         line-height: 18px;
         color: #00B5E3;
@@ -5458,18 +5401,13 @@ hr {
       #view-editing .container .sheet-holder .sheet .container-row {
         clear: both;
         padding: 0 0 40px 0; }
-        #view-editing .container .sheet-holder .sheet .container-row.tags {
-          padding: 0 0 30px 0; }
         #view-editing .container .sheet-holder .sheet .container-row.topics {
           padding: 0; }
         #view-editing .container .sheet-holder .sheet .container-row .container-left {
           float: left;
-          width: 120px;
-          margin: 6px 0 0 0; }
+          width: 120px; }
           #view-editing .container .sheet-holder .sheet .container-row .container-left .create-project-tooltip {
             float: left; }
-          #view-editing .container .sheet-holder .sheet .container-row .container-left.topics {
-            margin: 32px 0 0 0; }
         #view-editing .container .sheet-holder .sheet .container-row .container-right {
           float: left;
           width: 585px;
@@ -5536,8 +5474,7 @@ hr {
     padding: 0;
     margin: 0;
     position: relative;
-    border-right: 1px solid #dddddd;
-    /* suppress message-hover during running tests */ }
+    border-right: 1px solid #dddddd; }
     #view-testing #testing-input p {
       margin: 0 0 10px 0; }
     #view-testing #testing-input.interview {
@@ -5583,7 +5520,7 @@ hr {
         margin: 0;
         border: 0;
         outline: 0;
-        padding: 10px;
+        padding: 10px 30px;
         height: 45%;
         resize: 0;
         font-family: "canada-type-gibson",sans-serif;
@@ -5787,7 +5724,11 @@ hr {
   #view-account .plan-picker .button {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 400; }
+    font-weight: 600; }
+  #view-account p {
+    margin: 0 0 20px 0; }
+  #view-account .button {
+    margin: 0; }
   #view-account .pm-app {
     border: 1px solid #dddddd;
     -moz-border-radius: 2px;
@@ -5939,9 +5880,7 @@ hr {
 .message-user {
   color: #2B404D;
   font-size: 18.6px;
-  font-family: "canada-type-gibson",sans-serif;
-  font-style: normal;
-  font-weight: 300;
+  line-height: 24px;
   margin: 0 0 10px 0;
   position: relative; }
   .message-user img {
@@ -6006,7 +5945,7 @@ hr {
     line-height: 0.9;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     color: #bebebe;
     background: url('../assets/comment-inactive.svg') no-repeat right top;
     background-size: contain;
@@ -6017,7 +5956,7 @@ hr {
       color: #bebebe;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 600; }
+      font-weight: 700; }
   .message .message-fave {
     float: right; }
     .message .message-fave img {
@@ -6032,7 +5971,7 @@ hr {
     padding: 4px 0 0 0; }
     .message .message-comments .message-comment {
       font-size: 11.9px;
-      line-height: 19.2px; }
+      line-height: 14.4px; }
     .message .message-comments small {
       opacity: 0.6;
       font-size: 9.8px;
@@ -6055,7 +5994,7 @@ hr {
         line-height: 11.2px;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 400; }
+        font-weight: 600; }
         .message .message-comments .message-comment-submit small a {
           text-decoration: underline; }
   .message .message-details {
@@ -6076,21 +6015,16 @@ hr {
     float: left;
     width: 100%; }
     .message .message-body h3 {
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 300;
-      font-size: 20px;
-      color: #D8DADB; }
+      color: #D8DADB;
+      font-size: 18.6px;
+      line-height: 24px; }
     .message .message-body p {
       margin-bottom: 0 !important;
       color: #949799; }
     .message .message-body pre.messages {
-      font-size: 14px;
-      line-height: 20px;
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 300;
       color: #777777;
+      font-size: 14px;
+      line-height: 18px;
       margin: 0;
       cursor: text; }
       .message .message-body pre.messages.summary {
@@ -6156,7 +6090,7 @@ hr {
     position: relative; }
     #view-findings #findings-share-report span a {
       position: absolute;
-      padding: 8px 10px;
+      padding: 9.5px 10px;
       background: none;
       border: 1px solid rgba(216, 218, 219, 0.5);
       border-left: 0;
@@ -6221,16 +6155,19 @@ hr {
             #view-findings #findings-nav #sidebar.sidebar span.report span.info span {
               position: absolute;
               top: 0;
-              right: 3.5px;
+              right: 2.5px;
               color: #fff;
-              font-size: 9px; }
+              font-size: 9px;
+              font-family: "canada-type-gibson",sans-serif;
+              font-style: normal;
+              font-weight: 400; }
           #view-findings #findings-nav #sidebar.sidebar span.report:hover {
             color: #2B404D; }
         #view-findings #findings-nav #sidebar.sidebar h4.group-cat {
           padding: 10px;
           margin: 5px 0 0 0;
           font-size: 10px;
-          color: #D8DADB;
+          line-height: 11px;
           text-transform: uppercase;
           position: relative; }
           #view-findings #findings-nav #sidebar.sidebar h4.group-cat span.info {
@@ -6244,19 +6181,34 @@ hr {
             margin: 0 0 0 3px; }
             #view-findings #findings-nav #sidebar.sidebar h4.group-cat span.info span {
               position: absolute;
-              top: 0;
-              right: 2.5px;
+              top: -1px;
+              right: 3px;
               color: #fff;
-              font-size: 9px; }
+              font-size: 9px;
+              font-family: "canada-type-gibson",sans-serif;
+              font-style: normal;
+              font-weight: 400; }
           #view-findings #findings-nav #sidebar.sidebar h4.group-cat:first-child {
             margin: 20px 0 0 0; }
+          #view-findings #findings-nav #sidebar.sidebar h4.group-cat li:hover {
+            font-family: "canada-type-gibson",sans-serif;
+            font-style: normal;
+            font-weight: 400; }
+          #view-findings #findings-nav #sidebar.sidebar h4.group-cat li:active {
+            color: #2B404D;
+            font-family: "canada-type-gibson",sans-serif;
+            font-style: normal;
+            font-weight: 400; }
         #view-findings #findings-nav #sidebar.sidebar ul:first-child {
           margin: 60px 0 0 0; }
           #view-findings #findings-nav #sidebar.sidebar ul:first-child li {
             padding: 10px;
             margin: 5px 0 0 0; }
             #view-findings #findings-nav #sidebar.sidebar ul:first-child li:hover {
-              color: #2B404D; }
+              color: #2B404D;
+              font-family: "canada-type-gibson",sans-serif;
+              font-style: normal;
+              font-weight: 400; }
             #view-findings #findings-nav #sidebar.sidebar ul:first-child li:active {
               color: #2B404D;
               font-family: "canada-type-gibson",sans-serif;
@@ -6275,23 +6227,24 @@ hr {
       width: 100%;
       padding: 40px 0; }
       #view-findings .summaries-holder .summaries-content h2 {
-        font-size: 24.8px;
         color: #2B404D;
+        font-size: 24.8px;
+        line-height: 30px;
         margin: 0;
         padding: 0 50px; }
       #view-findings .summaries-holder .summaries-content p {
-        font-size: 12px;
         color: #C5C6C7;
-        padding: 0 50px; }
+        font-size: 12px;
+        line-height: 15px;
+        padding: 0 50px;
+        margin: 5px 0 30px 0; }
       #view-findings .summaries-holder .summaries-content .summary-group {
         margin: 0;
         padding: 0 0 20px 0; }
       #view-findings .summaries-holder .summaries-content .summary-user {
         color: #2B404D;
         font-size: 18.6px;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 300;
+        line-height: 24px;
         margin: 0 0 10px 0;
         position: relative;
         padding: 0 50px; }
@@ -6327,36 +6280,28 @@ hr {
           float: left;
           width: 100%; }
           #view-findings .summaries-holder .summaries-content .summary .summary-body h3 {
-            font-family: "canada-type-gibson",sans-serif;
-            font-style: normal;
-            font-weight: 300;
-            font-size: 20px;
-            color: #D8DADB; }
+            color: #D8DADB;
+            font-size: 18.6px;
+            line-height: 24px; }
           #view-findings .summaries-holder .summaries-content .summary .summary-body p {
             margin-bottom: 0 !important;
             color: #949799; }
           #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea {
-            font-size: 14px;
-            line-height: 18.6px;
-            font-family: "canada-type-gibson",sans-serif;
-            font-style: normal;
-            font-weight: 300;
             color: #777777;
+            font-size: 14px;
+            line-height: 18px;
             padding: 0 50px;
             cursor: text;
             border: 0;
             box-shadow: none;
             margin: 0 0 30px 0;
             resize: none; }
-            #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries.summary, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea.summary {
-              font-size: 18px;
-              line-height: 24px; }
             #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries:hover, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea:hover {
               color: #000;
-              background: url('../assets/fg-edit.svg') 30px 2px no-repeat; }
+              background: url('../assets/fg-edit.svg') 30px 4px no-repeat; }
             #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries:focus, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea:focus {
               color: #000;
-              background: url('../assets/fg-edit-hover.svg') 30px 2px no-repeat; }
+              background: url('../assets/fg-edit-hover.svg') 30px 4px no-repeat; }
           #view-findings .summaries-holder .summaries-content .summary .summary-body small {
             display: block;
             margin: 0;
@@ -6381,28 +6326,23 @@ hr {
     font-weight: 300; }
     #view-findings .findings-content.report {
       width: 35%; }
-    #view-findings .findings-content h2 {
-      font-size: 18.6px;
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 400;
+    #view-findings .findings-content h3 {
       color: #2B404D;
+      font-size: 18.6px;
+      line-height: 24px;
       margin: 0 0 15px 0; }
     #view-findings .findings-content p {
-      font-size: 14px;
-      line-height: 18px;
-      color: #949799;
       margin: 0 0 50px 0; }
     #view-findings .findings-content pre {
       margin: 0 0 10px 0; }
     #view-findings .findings-content .findings-header {
       padding: 40px 0; }
       #view-findings .findings-content .findings-header h1 {
-        font-size: 33px;
         margin: 0; }
       #view-findings .findings-content .findings-header .findings-description {
-        color: #949799;
+        color: #888A8A;
         font-size: 14px;
+        line-height: 18px;
         margin: 10px 0; }
         #view-findings .findings-content .findings-header .findings-description span {
           padding: 0 20px 0 0; }
@@ -6414,6 +6354,7 @@ hr {
             height: 20px;
             width: 20px; }
     #view-findings .findings-content .findings-information textarea {
+      color: #888A8A;
       font-size: 14px;
       line-height: 18px;
       height: 300px;
@@ -6425,41 +6366,6 @@ hr {
         color: #000; }
       #view-findings .findings-content .findings-information textarea:focus {
         box-shadow: none; }
-    #view-findings .findings-content .all-summaries {
-      margin: 40px 0 0 0; }
-      #view-findings .findings-content .all-summaries .line-hr {
-        display: block;
-        text-align: center;
-        overflow: hidden;
-        white-space: nowrap;
-        margin: 0 0 40px 0; }
-      #view-findings .findings-content .all-summaries .line-hr > span {
-        position: relative;
-        display: inline-block;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 300;
-        color: #949799;
-        font-size: 12px; }
-      #view-findings .findings-content .all-summaries .line-hr > span:before, #view-findings .findings-content .all-summaries .line-hr > span:after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        width: 9999px;
-        height: 1px;
-        background: #D8DADB; }
-      #view-findings .findings-content .all-summaries .line-hr > span:before {
-        right: 100%;
-        margin-right: 15px; }
-      #view-findings .findings-content .all-summaries .line-hr > span:after {
-        left: 100%;
-        margin-left: 15px; }
-      #view-findings .findings-content .all-summaries h2 {
-        margin: 0 0 10px 0; }
-      #view-findings .findings-content .all-summaries p {
-        font-size: 12px;
-        line-height: 18px;
-        color: #949799; }
 
 /* let's embed a video */
 #video-embed {
@@ -6608,14 +6514,11 @@ hr {
   margin: 0;
   min-height: 100%;
   background: #fff;
-  position: relative;
-  /* are we onboard? */ }
+  position: relative; }
   #report-summary #generated-with-fg img {
     position: absolute;
     top: 40px;
     right: 40px; }
-  #report-summary.is-onboard #findings-viewmode-controls {
-    bottom: 0; }
   #report-summary.show-comments .sheet-holder {
     left: 25%;
     -webkit-transition-duration: 0.2s;
@@ -6700,7 +6603,7 @@ hr {
       #report-summary #findings-nav #sidebar .test-id h3 {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
-        font-weight: 400; }
+        font-weight: 600; }
       #report-summary #findings-nav #sidebar #findings-viewmode-controls {
         position: absolute;
         left: 80%;
@@ -6730,12 +6633,15 @@ hr {
   #report-summary .findings-header {
     padding: 40px 0; }
     #report-summary .findings-header h1 {
-      margin: 0;
-      font-size: 33px; }
+      color: #2B404D;
+      font-size: 33.1px;
+      line-height: 37px;
+      margin: 0; }
     #report-summary .findings-header .findings-description {
-      color: #949799;
-      font-size: 12px;
-      margin: 5px 0; }
+      color: #888A8A;
+      font-size: 14px;
+      line-height: 18px;
+      margin: 10px 0; }
       #report-summary .findings-header .findings-description span {
         padding: 0 20px 0 0; }
   #report-summary .findings-content {
@@ -6746,9 +6652,10 @@ hr {
     font-weight: 300; }
     #report-summary .findings-content.report {
       width: 35%; }
-    #report-summary .findings-content h2 {
-      font-size: 18.6px;
+    #report-summary .findings-content h3 {
       color: #2B404D;
+      font-size: 18.6px;
+      line-height: 24px;
       margin: 0 0 15px 0; }
     #report-summary .findings-content pre {
       font-family: "canada-type-gibson",sans-serif;
@@ -6765,11 +6672,13 @@ hr {
       font-weight: 400;
       margin: 0 0 20px 0; }
     #report-summary .findings-content .findings-information pre {
-      color: #949799;
+      color: #888A8A;
       font-size: 14px;
       line-height: 18px; }
     #report-summary .findings-content .findings-information p {
-      line-height: 20px; }
+      color: #888A8A;
+      font-size: 14px;
+      line-height: 18px; }
     #report-summary .findings-content .findings-summary {
       width: 100%;
       max-width: 100%;
@@ -6807,6 +6716,5 @@ html {
 
 body {
   background: #f6f6f6;
-  color: #7c7d80;
   margin: 0;
   padding: 0; }

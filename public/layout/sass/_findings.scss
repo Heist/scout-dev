@@ -52,7 +52,7 @@
 		
 			a {
 				position: absolute;
-				padding: 8px 10px;
+				padding: 9.5px 10px;
 				background: none;
 				border: 1px solid $fg-grey-light-trans;
 				border-left: 0;
@@ -112,9 +112,10 @@
 					    & span {
 					    	position: absolute;
 					    	top: 0;
-					    	right: 3.5px;
+					    	right: 2.5px;
 					        color: $white;
 					        font-size: 9px;
+					        @include type-regular;
 					    }
 					}
 					
@@ -126,8 +127,7 @@
 				h4.group-cat {
 					padding: 10px;
 					margin: 5px 0 0 0;
-					font-size: 10px;
-					color: $fg-grey-light;
+					@include type-h4($fg-grey-placeholder);
 					text-transform: uppercase;
 					position: relative;
 
@@ -143,15 +143,27 @@
 
 					    & span {
 					    	position: absolute;
-					    	top: 0;
-					    	right: 2.5px;
+					    	top: -1px;
+					    	right: 3px;
 					        color: $white;
 					        font-size: 9px;
+					        @include type-regular;
 					    }
 					}
 
 					&:first-child {
 						margin: 20px 0 0 0;
+					}
+					
+					li {
+						&:hover {
+							@include type-regular;
+						}
+
+						&:active {
+							color: $fg-slate;
+							@include type-regular;
+						}
 					}
 				}
 				
@@ -164,11 +176,12 @@
 
 						&:hover {
 							color: $fg-slate;
+							@include type-regular;
 						}
 
 						&:active {
 							color: $fg-slate;
-							@include type-bold;
+							@include type-regular;
 						}
 					}
 				}
@@ -191,16 +204,15 @@
 			padding: 40px 0;
 
 			h2 {
-				font-size: 24.8px;
-				color: $fg-slate;
+				@include type-h2($fg-slate);
 				margin: 0;
 				padding: 0 50px;
 			}
 
 			p {
-				font-size: 12px;
-				color: $fg-grey-placeholder;
+				@include type-sm($fg-grey-placeholder);
 				padding: 0 50px;
+				margin: 5px 0 30px 0;
 			}
 
 
@@ -211,9 +223,7 @@
 			}
 
 			.summary-user {
-				color: $fg-slate;
-				font-size: 18.6px;
-				@include type-light;
+				@include type-h3($fg-slate);
 				margin: 0 0 10px 0;
 				position: relative;
 				padding: 0 50px;
@@ -257,9 +267,7 @@
 					width: 100%;
 
 					h3 {
-						@include type-light;
-						font-size: 20px;
-						color: $fg-grey-light;
+						@include type-h3($fg-grey-light);
 					}
 
 					p {
@@ -268,10 +276,7 @@
 					}
 
 					pre.summaries, textarea {
-						font-size: 14px;
-						line-height: 18.6px;
-						@include type-light;
-						color: $fg-grey-dark;
+						@include type-p($fg-grey-dark);
 						padding: 0 50px;
 						cursor: text;
 						border: 0;
@@ -279,19 +284,14 @@
 						margin: 0 0 30px 0;
 						resize: none;
 
-						&.summary {
-							font-size: 18px;
-							line-height: 24px;
-						}
-
 						&:hover {
 						    color: $black;
-						    background: url('../assets/fg-edit.svg') 30px 2px no-repeat;
+						    background: url('../assets/fg-edit.svg') 30px 4px no-repeat;
 						}
 
 						&:focus {
 						    color: $black;
-						    background: url('../assets/fg-edit-hover.svg') 30px 2px no-repeat;
+						    background: url('../assets/fg-edit-hover.svg') 30px 4px no-repeat;
 						}
 					}
 					
@@ -332,17 +332,12 @@
 			width: 35%;
 		}
 
-		h2 {
-			font-size: 18.6px;
-			@include type-regular;
-			color: $fg-slate;
+		h3 {
+			@include type-h3($fg-slate);
 			margin: 0 0 15px 0;
 		}
 
 		p {
-			font-size: 14px;
-			line-height: 18px;
-			color: $fg-grey;
 			margin: 0 0 50px 0;
 		}
 		
@@ -354,13 +349,11 @@
 			padding: 40px 0;
 
 			h1 {
-				font-size: 33px;
 				margin: 0;
 			}
 			
 			.findings-description {
-				color: $fg-grey;
-				font-size: 14px;
+				@include type-p($fg-grey-text);
 				margin: 10px 0;
 
 				span {
@@ -382,8 +375,7 @@
 		
 		.findings-information {
 			textarea {
-				font-size: 14px;
-				line-height: 18px;
+				@include type-p($fg-grey-text);
 				height: 300px;
 				border: 0;
 				padding: 0;
@@ -397,57 +389,6 @@
 				&:focus {
 					box-shadow: none;
 				}
-			}
-		}
-		
-
-		.all-summaries {
-			margin: 40px 0 0 0;
-
-			.line-hr {
-			    display: block;
-			    text-align: center;
-			    overflow: hidden;
-			    white-space: nowrap;
-			    margin: 0 0 40px 0;
-			}
-
-			.line-hr > span {
-			    position: relative;
-			    display: inline-block;
-			    @include type-light;
-			    color: $fg-grey;
-			    font-size: 12px;
-			}
-			
-			.line-hr > span:before,
-			.line-hr > span:after {
-			    content: "";
-			    position: absolute;
-			    top: 50%;
-			    width: 9999px;
-			    height: 1px;
-			    background: $fg-grey-light;
-			}
-
-			.line-hr > span:before {
-			    right: 100%;
-			    margin-right: 15px;
-			}
-
-			.line-hr > span:after {
-			    left: 100%;
-			    margin-left: 15px;
-			}
-			
-			h2 {
-				margin: 0 0 10px 0;
-			}
-
-			p {
-				font-size: 12px;
-				line-height: 18px;
-				color: $fg-grey;
 			}
 		}
 	}

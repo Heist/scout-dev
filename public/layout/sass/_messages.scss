@@ -69,9 +69,7 @@
 /* message user header */
 
 .message-user {
-	color: $fg-slate;
-	font-size: 18.6px;
-	@include type-light;
+	@include type-h3($fg-slate);
 	margin: 0 0 10px 0;
 	position: relative;
 	
@@ -257,9 +255,7 @@
 		width: 100%;
 
 		h3 {
-			@include type-light;
-			font-size: 20px;
-			color: $fg-grey-light;
+			@include type-h3($fg-grey-light);
 		}
 
 		p {
@@ -268,10 +264,7 @@
 		}
 
 		pre.messages {
-			font-size: 14px;
-			line-height: 20px;
-			@include type-light;
-			color: $fg-grey-dark;
+			@include type-p($fg-grey-dark);
 			margin: 0;
 			cursor: text;
 

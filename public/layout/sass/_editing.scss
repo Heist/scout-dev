@@ -24,7 +24,7 @@
         position: relative;
         cursor: pointer;
         border: 0;
-        padding: 20px 15px;
+        padding: 20px 10px;
         background: transparentize($fg-grey-light, 0.8);
         color: $fg-grey;
         margin-bottom: 20px;
@@ -42,9 +42,8 @@
         }
 
         h3 {
-            font-size: 18px;
-            @include type-light;
             display: inline-block;
+            @include type-h3($fg-grey-placeholder);
 
             &.interview {
 
@@ -72,12 +71,8 @@
 
         }
 
-
         p {
-            @include type-light;
-            font-size: 12px;
-            margin: 0;
-            clear: both;
+            @include type-sm($fg-grey-placeholder);
         }
 
         &.interview {
@@ -106,7 +101,13 @@
                 color: $white;
             }
 
+            p {
+                color: $white;
+            }
+
             h3 {
+                color: $white;
+
                 &.interview {
                     &:before {
                         background: url('../assets/interview-light.svg') top left no-repeat;
@@ -122,7 +123,6 @@
 
         &.select-active {
             background: $fg-green;
-            color: $white;
 
             span.tooltip-icon {
                 background: $fg-green-dark;
@@ -133,6 +133,7 @@
             }
 
             h3 {
+                color: $white;
                 &.interview {
                     &:before {
                         background: url('../assets/interview-light.svg') top left no-repeat;
@@ -144,15 +145,15 @@
                     }
                 }
             }
+
+            p {
+                @include type-sm($white);
+            }
         }
 
         &.select-inactive {
             background: transparentize($fg-grey-light, 0.8);
-            color: $fg-grey;
 
-            & a {
-                color: $fg-blue;
-            }
 
             span.tooltip-icon {
                 position: absolute;
@@ -167,6 +168,7 @@
             }
 
             h3 {
+                color: $fg-grey-placeholder;
                 &.interview {
                     &:before {
                         background: url('../assets/interview-dark.svg') top left no-repeat;
@@ -177,6 +179,10 @@
                         background: url('../assets/prototype-dark.svg') top left no-repeat;
                     }
                 }
+            }
+
+            p {
+                @include type-sm($fg-grey-placeholder);
             }
         }
 
@@ -230,11 +236,6 @@
     .sheet {
         box-shadow: none;
     }
-
-    p {
-        font-size: 14px;
-        line-height: 18px;
-    }
     
     h3 {
         @include type-regular;
@@ -242,14 +243,6 @@
         font-size: 10px;
         text-transform: uppercase;
         text-align: right;
-        position: relative;
-    }
-
-    h4 {
-        @include type-light;
-        color: $fg-black;
-        font-size: 14px;
-        margin: 10px 0;
     }
 
     .project-name {
@@ -275,7 +268,6 @@
           padding: 0 0 30px 40px;
 
         img {
-            width: 11px;
             margin: 0 3px 0 0;
         }
     }
@@ -285,10 +277,8 @@
     }
 
     input.task-title {
-        @include type-light;
-        font-size: 18px;
-        color: $fg-grey-text;
-          padding: 0 0 20px 40px;
+        @include type-h3($fg-grey-text);
+        padding: 0 0 20px 40px;
 
         &:hover{
             color: $black;
@@ -306,11 +296,9 @@
           margin: 0;
     }
 
-    textarea.objectives, textarea.task-descriptions {
-        font-size: 14px;
-        line-height: 18px;
+    textarea.objectives {
+        @include type-p($fg-grey-text);
         @include type-light;
-        color: $fg-grey-text;
         margin: 0;
         padding: 0 0 0 40px;
         resize: none;
@@ -324,6 +312,11 @@
             color: $black;
             background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat;
         }
+    }
+
+    textarea.task-descriptions {
+        @extend textarea.objectives;
+        margin: 0 0 30px 0;
     }
 
     .add-task {
@@ -368,7 +361,7 @@
                 margin: 0;
                 
                 li {
-                    padding: 0 5px 0 5px;
+                    padding: 2px 5px;
                     font-size: 14px;
                     line-height: 18px;
                     color: $fg-blue;
@@ -427,10 +420,6 @@
                 .container-row {
                     clear: both;
                     padding: 0 0 40px 0;
-                    
-                    &.tags {
-                        padding: 0 0 30px 0;
-                    }
 
                     &.topics {
                         padding: 0;
@@ -439,14 +428,9 @@
                     .container-left {
                         float: left;
                         width: 120px;
-                        margin: 6px 0 0 0;
 
                         .create-project-tooltip {
                             float: left;
-                        }
-
-                        &.topics {
-                            margin: 32px 0 0 0;
                         }
                     }
 
