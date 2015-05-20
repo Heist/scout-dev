@@ -5180,7 +5180,7 @@ hr {
   position: relative;
   cursor: pointer;
   border: 0;
-  padding: 20px 15px;
+  padding: 20px 10px;
   background: rgba(216, 218, 219, 0.2);
   color: #949799;
   margin-bottom: 20px;
@@ -5195,10 +5195,6 @@ hr {
       top: 0px;
       right: 3.5px; }
   #view-new-project button.test-type h3 {
-    font-size: 18px;
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 300;
     display: inline-block; }
     #view-new-project button.test-type h3.interview:before {
       background: url('../assets/interview-dark.svg') top left no-repeat;
@@ -5214,13 +5210,14 @@ hr {
       height: 17px;
       display: inline-block;
       margin: 0 5px 0 0; }
+  #view-new-project button.test-type h3 {
+    color: #C5C6C7;
+    font-size: 18.6px;
+    line-height: 24px; }
   #view-new-project button.test-type p {
-    font-family: "canada-type-gibson",sans-serif;
-    font-style: normal;
-    font-weight: 300;
+    color: #C5C6C7;
     font-size: 12px;
-    margin: 0;
-    clear: both; }
+    line-height: 15px; }
   #view-new-project button.test-type.interview {
     position: relative;
     margin-right: 1.5%; }
@@ -5236,26 +5233,32 @@ hr {
       background: #70910D; }
     #view-new-project button.test-type:hover a {
       color: #fff; }
-    #view-new-project button.test-type:hover h3.interview:before {
-      background: url('../assets/interview-light.svg') top left no-repeat; }
-    #view-new-project button.test-type:hover h3.prototype:before {
-      background: url('../assets/prototype-light.svg') top left no-repeat; }
+    #view-new-project button.test-type:hover p {
+      color: #fff; }
+    #view-new-project button.test-type:hover h3 {
+      color: #fff; }
+      #view-new-project button.test-type:hover h3.interview:before {
+        background: url('../assets/interview-light.svg') top left no-repeat; }
+      #view-new-project button.test-type:hover h3.prototype:before {
+        background: url('../assets/prototype-light.svg') top left no-repeat; }
   #view-new-project button.test-type.select-active {
-    background: #85AC0F;
-    color: #fff; }
+    background: #85AC0F; }
     #view-new-project button.test-type.select-active span.tooltip-icon {
       background: #70910D; }
     #view-new-project button.test-type.select-active a {
       color: #fff; }
-    #view-new-project button.test-type.select-active h3.interview:before {
-      background: url('../assets/interview-light.svg') top left no-repeat; }
-    #view-new-project button.test-type.select-active h3.prototype:before {
-      background: url('../assets/prototype-light.svg') top left no-repeat; }
+    #view-new-project button.test-type.select-active h3 {
+      color: #fff; }
+      #view-new-project button.test-type.select-active h3.interview:before {
+        background: url('../assets/interview-light.svg') top left no-repeat; }
+      #view-new-project button.test-type.select-active h3.prototype:before {
+        background: url('../assets/prototype-light.svg') top left no-repeat; }
+    #view-new-project button.test-type.select-active p {
+      color: #fff;
+      font-size: 12px;
+      line-height: 15px; }
   #view-new-project button.test-type.select-inactive {
-    background: rgba(216, 218, 219, 0.2);
-    color: #949799; }
-    #view-new-project button.test-type.select-inactive a {
-      color: #00B5E3; }
+    background: rgba(216, 218, 219, 0.2); }
     #view-new-project button.test-type.select-inactive span.tooltip-icon {
       position: absolute;
       top: 5px;
@@ -5264,10 +5267,16 @@ hr {
       #view-new-project button.test-type.select-inactive span.tooltip-icon span {
         top: 0px;
         right: 3.5px; }
-    #view-new-project button.test-type.select-inactive h3.interview:before {
-      background: url('../assets/interview-dark.svg') top left no-repeat; }
-    #view-new-project button.test-type.select-inactive h3.prototype:before {
-      background: url('../assets/prototype-dark.svg') top left no-repeat; }
+    #view-new-project button.test-type.select-inactive h3 {
+      color: #C5C6C7; }
+      #view-new-project button.test-type.select-inactive h3.interview:before {
+        background: url('../assets/interview-dark.svg') top left no-repeat; }
+      #view-new-project button.test-type.select-inactive h3.prototype:before {
+        background: url('../assets/prototype-dark.svg') top left no-repeat; }
+    #view-new-project button.test-type.select-inactive p {
+      color: #C5C6C7;
+      font-size: 12px;
+      line-height: 15px; }
   #view-new-project button.test-type .selected-arrow {
     display: none; }
   #view-new-project button.test-type .no-link {
