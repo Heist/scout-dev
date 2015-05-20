@@ -353,7 +353,7 @@ form {
 
 label {
   padding: 0;
-  margin: 0;
+  margin: 0 0 5px 0;
   font-size: 14px;
   opacity: 1;
   color: #2B404D;
@@ -667,7 +667,7 @@ button.x-modal {
   color: #949799;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   font-size: 15px;
   cursor: pointer;
   background: none;
@@ -681,7 +681,7 @@ button.x-onboard {
   color: white;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   font-size: 30px;
   text-decoration: none;
   z-index: 1;

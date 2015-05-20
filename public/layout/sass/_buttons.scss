@@ -5,7 +5,7 @@ button.x-modal {
     right: -35px;
     text-decoration: none;
     color: $fg-grey;
-    @include type-extrabold;
+    @include type-regular;
     font-size: 15px;
     cursor: pointer;
     background: none;
@@ -18,7 +18,7 @@ button.x-onboard {
     top: 20px;
     right: 20px;
     color: white;
-    @include type-extrabold;
+    @include type-regular;
     font-size: 30px;
     text-decoration: none;
     z-index: 1;
