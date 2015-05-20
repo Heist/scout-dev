@@ -269,7 +269,25 @@ span.tooltip-icon {
 		margin: 0 20px 0 0;
 	}
 
-	img {
+	ol {
+		padding: 0 25px;
+		margin: 10px 0 50px 0;
+
+		li:before {
+			content: '';
+			display: inline-block;
+			height: 30px;
+			width: 5px;
+		}
+	}
+
+	img.fieldy {
+		position: absolute;
+		top: -30px;
+		left: 135px;
+	}
+
+	img.icons {
 		width: 15px;
 		margin: 0 5px 0 0;
 	}

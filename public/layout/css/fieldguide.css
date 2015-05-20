@@ -250,7 +250,7 @@ h5 {
 /* copy */
 p, pre {
   padding: 0;
-  margin: 0 0 20px 0; }
+  margin: 0 0 10px 0; }
 
 strong {
   font-family: "canada-type-gibson",sans-serif;
@@ -663,7 +663,7 @@ button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, #view-editing .
 /* Buttons */
 button.x-modal {
   position: absolute;
-  top: -35px;
+  top: -32px;
   right: -35px;
   text-decoration: none;
   color: #949799;
@@ -3587,7 +3587,19 @@ span.tooltip-icon {
   padding: 20px; }
   #help-bubble-content a {
     margin: 0 20px 0 0; }
-  #help-bubble-content img {
+  #help-bubble-content ol {
+    padding: 0 25px;
+    margin: 10px 0 50px 0; }
+    #help-bubble-content ol li:before {
+      content: '';
+      display: inline-block;
+      height: 30px;
+      width: 5px; }
+  #help-bubble-content img.fieldy {
+    position: absolute;
+    top: -30px;
+    left: 135px; }
+  #help-bubble-content img.icons {
     width: 15px;
     margin: 0 5px 0 0; }
   #help-bubble-content p {
@@ -5330,7 +5342,6 @@ hr {
   #view-editing .test-info {
     padding: 0 0 30px 40px; }
     #view-editing .test-info img {
-      width: 11px;
       margin: 0 3px 0 0; }
   #view-editing form.task-info {
     margin: 0 0 20px 0; }
