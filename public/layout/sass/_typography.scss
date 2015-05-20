@@ -12,6 +12,7 @@ html, body {
 body {
 	font-size: $type-size-base;
 	line-height: $type-line-base;
+	color: $fg-grey-text;
 	@include type-light;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -52,50 +53,46 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-	font-size: $type-size-base*2;
+	@include type-h1($fg-grey-text);
 	@include type-light;
 	letter-spacing: -1px;
 	margin: 0 0 $pad 0;
 }
 
 h2 {
-	font-size: $type-size-base*2;
+	@include type-h2($fg-grey-text);
 	@include type-light;
 	margin: 0 0 $pad 0;
 }
 
 h3 {
-	font-size: $type-size-base*1.25;
-	@include type-bold;
+	@include type-h3-no-colour;
+	@include type-light;
 	margin: 0 0 $pad/2 0;
-	
-	&.h3-light {
-		@include type-light;
-		opacity: 0.6;
-		font-size: $type-size-base*1.4;
-	}
 }
 
 h4 {
-	font-size: $type-size-base;
-	@include type-bold;
+	@include type-h4($fg-grey-text);
+	@include type-light;
 	margin: 0 0 $pad/4 0;
 }
 
 h5 {
-	@include type-extrabold;
+	@include type-xsm($fg-grey-text);
+	@include type-regular;
 }
 
 /* copy */
 
-
 p, pre {
 	padding: 0;
-	margin: 0 0 $pad 0;
+	margin: 0 0 10px 0;
+	@include type-p-no-colour;
+	@include type-light;
 }
 
 strong {
-	@include type-bold;
+	@include type-regular;
 }
 
 .dark {

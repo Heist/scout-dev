@@ -137,6 +137,60 @@
 	}
 }
 
+
+@mixin type-h1($fg-grey-text) {
+	color: $fg-grey-text;
+	font-size: $type-h1-size;
+	line-height: $type-h1-line;
+}
+
+@mixin type-h2($fg-grey-text) {
+	color: $fg-grey-text;
+	font-size: $type-h2-size;
+	line-height: $type-h2-line;
+}
+
+@mixin type-h3($fg-grey-text) {
+	color: $fg-grey-text;
+	font-size: $type-h3-size;
+	line-height: $type-h3-line;
+}
+
+@mixin type-h3-no-colour {
+	font-size: $type-h3-size;
+	line-height: $type-h3-line;
+}
+
+@mixin type-h4($fg-grey-text) {
+	font-size: $type-h4-size;
+	line-height: $type-h4-line;
+}
+
+@mixin type-p($fg-grey-text) {
+	color: $fg-grey-text;
+	font-size: $type-p-size;
+	line-height: $type-p-line;
+}
+
+@mixin type-p-no-colour {
+	font-size: $type-p-size;
+	line-height: $type-p-line;
+}
+
+@mixin type-sm($fg-grey-text) {
+	color: $fg-grey-text;
+	font-size: $type-sm-size;
+	line-height: $type-sm-line;
+}
+
+
+@mixin type-xsm($fg-grey-text) {
+	color: $fg-grey-text;
+	font-size: $type-xsm-size;
+	line-height: $type-xsm-line;
+}
+
+
 /*
 helpers
 ========================

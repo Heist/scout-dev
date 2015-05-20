@@ -1,11 +1,11 @@
 /* Buttons */
 button.x-modal {
     position: absolute;
-    top: -35px;
+    top: -32px;
     right: -35px;
     text-decoration: none;
     color: $fg-grey;
-    @include type-extrabold;
+    @include type-regular;
     font-size: 15px;
     cursor: pointer;
     background: none;
@@ -18,7 +18,7 @@ button.x-onboard {
     top: 20px;
     right: 20px;
     color: white;
-    @include type-extrabold;
+    @include type-regular;
     font-size: 30px;
     text-decoration: none;
     z-index: 1;
@@ -32,7 +32,7 @@ button.x-onboard {
 	@include button-colour($fg-green, $white);
 	cursor: pointer;
 	font-size: 14px;
-	padding: 12px 32.5px;
+	padding: 12px 25px;
 	float: left;
 	margin: 0 5px;
 	@include type-regular;
@@ -109,7 +109,7 @@ button.x-onboard {
 		span.icon-share {
 			font-size: 9px;
 			position: absolute;
-			top: -1px;
+			top: 2px;
 			left: 5.5px;
 		}
 
@@ -199,20 +199,11 @@ button.x-onboard {
     background: none;
     color: $fg-grey-light;
     @include type-light;
-    padding: 8px 30px;
+    padding: 12px 30px;
     border: 0;
     outline: 0;
     float: left;
 
-    &:hover {
-        text-decoration: underline;
-        color: $link-hover;
-    }
-}
-
-.button-dry-run {
-    @extend .button.cancel;
-    padding: 10px 10px 0 0;
     &:hover {
         text-decoration: underline;
         color: $link-hover;

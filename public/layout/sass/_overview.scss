@@ -88,7 +88,7 @@
 				margin: 0;
 
 				li {
-					padding: 0 9px;
+					padding: 0 10px;
 					list-style-type: none;
 
 					&:hover {
@@ -102,7 +102,7 @@
 					}
 					span {
 					font-size: 12px;
-					padding: 0 5px 0 0;
+					padding: 5px 0;
 					margin: 0;
 					display: inline-block;
 					}
@@ -141,11 +141,10 @@
 		padding: 45px 15px 0 15px;
 		height: 200px;
 
-		h3 {
-			font-size: 24.8px;
-			line-height: 28px;
+		h2 {
+			@include type-h2($fg-grey-dark);
 			letter-spacing: -0.5px;
-			color: $fg-grey-dark;
+			font-weight: 400;
 		}
 	}
 	
@@ -193,48 +192,4 @@
 			
 		}
 	}
-	
-	/* empty test-container */ 
-	&.overview-test-empty {
-		cursor: pointer;
-		opacity: 0.7;
-		@include animated;
-		
-		&:hover {
-			opacity: 1.0;
-			@include animated;
-		}
-			
-		.overview-test-container {
-			border: 2px dashed $line;
-			background: none;
-			@include radius(6px);
-			@include dropshadow(0 0 20px, rgba(0,0,0,0.05));
-						
-			.test-info {
-				h3 {
-					color: $text;
-					font-size: $type-size-base;
-				}
-				
-				.overview-test-add {
-					color: $text;
-					border: 1px solid $text;
-					@include type-light;
-					font-size: $type-size-base*2;
-					line-height: $pad*2;
-					display: inline-block;
-					padding: 0;
-					height: $pad*2;
-					width: $pad*2;
-					margin: 0 0 $pad/2 0;
-					@include radius($pad*3);
-				}
-			}	
-			
-		}
-	}
-	
-
-	
 }
