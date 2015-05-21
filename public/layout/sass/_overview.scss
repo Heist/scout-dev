@@ -21,6 +21,14 @@
 				position: fixed;
 				top: 30px;
 				right: 30px;
+				transition: all .1s ease-in-out;
+				
+				&:hover {
+					transform: scale(1.04);
+					filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12,OffY=12, Color='#444')";
+					-webkit-filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+					filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+				}
 			}
 		}
 	}
@@ -37,8 +45,14 @@
 		background: $white;
 		width: 237px;
 		height: 296px;
-		@include dropshadowULTRA;
+		@include dropshadowULTRA($shadow: 0 1px 10px, $intensity: rgba(0,0,0,0.1));
 		position: relative;
+		transition: all .1s ease-in-out;
+
+		&:hover {
+			transform: scale(1.04);
+			@include dropshadowULTRA($shadow: 0 1px 10px, $intensity: rgba(0,0,0,0.2));
+		}
 	}
 
 	.overview-test-container-hover {

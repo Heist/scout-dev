@@ -232,6 +232,14 @@ span.tooltip-icon {
 	bottom: 25px;
 	z-index: 99998;
 	cursor: pointer;
+	transition: all .1s ease-in-out;
+	
+	&:hover {
+		transform: scale(1.04);
+		filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12,OffY=12, Color='#444')";
+		-webkit-filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+		filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+	}
 	
 	.help-bubble-open {
 		background: $line;
@@ -491,20 +499,24 @@ hr {
 	padding: 0;
 	margin: 0;
 	z-index: 50;
-	overflow: hidden;
 	background: url('../assets/fg-logo.svg') center no-repeat;
 	background-size: contain;
 	width: 75px;
 	height: 75px;
+	transition: all .1s ease-in-out;
 
 	a {
 		display: block;
-		width: 75px;
-		height: 75px;
+		width: 78px;
+		height: 78px;
 
 		&:hover {
 			background: url('../assets/fg-logo-hover.svg') center no-repeat;
 			background-size: contain;
+			transform: scale(1.04);
+			filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12,OffY=12, Color='#444')";
+			-webkit-filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+			filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
 		}
 	}
 }

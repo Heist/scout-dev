@@ -62,7 +62,7 @@ h1 {
 h2 {
 	@include type-h2($fg-grey-text);
 	@include type-light;
-	margin: 0 0 $pad 0;
+	margin: 0 0 10px 0;
 }
 
 h3 {
