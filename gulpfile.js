@@ -42,7 +42,7 @@ gulp.task('scripts', function () {
     .pipe(addsrc.append('public/js/filters/*.js'))
     .pipe(addsrc.append('public/js/vendor/vendor.js'))
     .pipe(concat('build.js')).on('error', errorHandler)
-    .pipe(ngAnnotate())
+    // .pipe(ngAnnotate())
     // .pipe(uglify())
     .pipe(gulp.dest('public/js'))
     .pipe(stripDebug()).on('error', errorHandler)

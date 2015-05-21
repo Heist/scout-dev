@@ -38478,7 +38478,7 @@ angular.mock.animate = angular.module('ngAnimateMock', ['ng'])
       };
     });
 
-    $provide.decorator('$animate', ["$delegate", "$$asyncCallback", function($delegate, $$asyncCallback) {
+    $provide.decorator('$animate', function($delegate, $$asyncCallback) {
       var animate = {
         queue : [],
         enabled : $delegate.enabled,
@@ -38506,7 +38506,7 @@ angular.mock.animate = angular.module('ngAnimateMock', ['ng'])
       });
 
       return animate;
-    }]);
+    });
 
   }]);
 
@@ -50316,7 +50316,7 @@ angular.module('siyfion.sfTypeahead', [])
     var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'typeaheadTagger', 'ngSanitize', 'field_guide_controls','field_guide_filters']);
 
     // FRONT-END ROUTE CONFIGURATION ==============================================
-    field_guide_app.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", "$locationProvider", function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
+    field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
 
         $locationProvider.html5Mode(true);
 
@@ -50500,7 +50500,7 @@ angular.module('siyfion.sfTypeahead', [])
                     }]
                 }
             });
-    }]);
+    });
 
     // FILTERS ============================================================================
     angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);
@@ -52960,7 +52960,7 @@ angular.module('field_guide_controls')
 'use strict';
 (function(){
     angular.module('field_guide_controls')
-.factory('focus', ["$timeout", function($timeout) {
+.factory('focus', function($timeout) {
     return function(id) {
       // timeout makes sure that it is invoked after any other event has been triggered.
       // e.g. click events that need to run before the focus or
@@ -52973,8 +52973,8 @@ angular.module('field_guide_controls')
         }
       }, 500);
     };
-  }])
-.directive('focusMe', ["$timeout", function($timeout) {
+  })
+.directive('focusMe', function($timeout) {
   return {
     scope: { trigger: '@focusMe' },
     link: function(scope, element) {
@@ -52987,7 +52987,7 @@ angular.module('field_guide_controls')
       });
     }
   };
-}]);
+});
 })();
 /* *
  * typeaheadTagger, based on angular-ui-bootstrap-typeahead
@@ -53905,7 +53905,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 (function(){
 
     angular.module('field_guide_controls')
-    .factory('socket', ["$rootScope", "$location", function ($rootScope, $location) {
+    .factory('socket', function ($rootScope, $location) {
         // for live... $location.protocol()+'://'+$location.host()+':8080/'
         var socket = io.connect();
         
@@ -53937,7 +53937,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 }); 
             }
         };
-    }]);
+    });
 
 })();
 // youtube-embed.js
@@ -53945,7 +53945,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
 (function(){
     angular.module('field_guide_controls')
-    .directive('youtube', ["$window", function($window) {
+    .directive('youtube', function($window) {
         return {
             restrict: "E",
 
@@ -53984,7 +53984,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 };
             },  
         };
-    }]);
+    });
 })();
 // filters.js
 (function() {
