@@ -174,8 +174,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                             scope.activeIdx = focusFirst ? 0 : -1;
                             scope.matches.length = 0;
 
-                            
-
                             //transform labels
                             for(var i=0; i<matches.length; i++) {
                                 locals[parserResult.itemName] = matches[i];
@@ -235,8 +233,8 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     // YOU ARE WORKING ON THIS
                     //  Send message to postmessage once tags are assembled
                     //  then return the resulting message to the originalScope
-                    // and add it to whatever context the message is supposed to live in
-                    // on whatever page.
+                    //  and add it to whatever context the message is supposed to live in
+                    //  on whatever page.
                     
                     evt.preventDefault();
                     scope.$emit('message', modelCtrl.$viewValue);
@@ -260,10 +258,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 if (evt.which === 32) {
                     // add a space to the model and cancel the dropdown
-                    
-                    // var newValue = modelCtrl.$viewValue + ' ';
-                    // modelCtrl.$viewValue doesn't work here.
-
                     evt.stopPropagation();
                     resetMatches();
                     scope.$digest();
@@ -284,13 +278,12 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                         scope.$digest();
 
                     } else if (evt.which === 13 || evt.which === 9) {
-                        
-                        
+                        console.log(scope.testTags);
                         scope.$apply(function() {
                             scope.select(scope.activeIdx);
                             resetMatches();
-                            
                         })
+
                     } else if (evt.which === 27) {
                         
                         evt.stopPropagation();
