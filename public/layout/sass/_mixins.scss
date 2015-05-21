@@ -114,25 +114,52 @@
 	::-webkit-input-placeholder {
 		color: $fg-grey-placeholder;
 		font-size: 14px;
-		line-height: 20px;
+		line-height: 18px;
 		font-style: italic;
 	}
 	:-moz-placeholder { /* Firefox 18- */
 		color: $fg-grey-placeholder;
 		font-size: 14px;
-		line-height: 20px;
+		line-height: 18px;
 		font-style: italic;
 	}
 	::-moz-placeholder {  /* Firefox 19+ */
 		color: $fg-grey-placeholder;
 		font-size: 14px;
-		line-height: 20px;
+		line-height: 18px;
 		font-style: italic;
 	}
 	:-ms-input-placeholder {
 		color: $fg-grey-placeholder;
 		font-size: 14px;
-		line-height: 20px;
+		line-height: 18px;
+		font-style: italic;
+	}
+}
+
+@mixin input-placeholders-large {
+	::-webkit-input-placeholder {
+		color: $fg-grey-placeholder;
+		font-size: 18.6px;
+		line-height: 21px;
+		font-style: italic;
+	}
+	:-moz-placeholder { /* Firefox 18- */
+		color: $fg-grey-placeholder;
+		font-size: 18.6px;
+		line-height: 21px;
+		font-style: italic;
+	}
+	::-moz-placeholder {  /* Firefox 19+ */
+		color: $fg-grey-placeholder;
+		font-size: 18.6px;
+		line-height: 21px;
+		font-style: italic;
+	}
+	:-ms-input-placeholder {
+		color: $fg-grey-placeholder;
+		font-size: 18.6px;
+		line-height: 21px;
 		font-style: italic;
 	}
 }
@@ -229,6 +256,9 @@ helpers
 	margin: 0;
 }
 
+.overflow-hidden {
+	overflow: hidden;
+}
 
 /* text helpers */
 

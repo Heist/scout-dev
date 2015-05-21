@@ -51917,6 +51917,10 @@ angular.module('siyfion.sfTypeahead', [])
             $scope.showReportLink = $scope.showReportLink ? false : true;
         };
 
+        // this removes the body scroll on summary page
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.addClass('overflow-hidden');
+
         $scope.shareReport = false;
 
         $scope.shareReportModalToggle = function(){
