@@ -312,10 +312,25 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 // TODO:
                 // insert the tag as a clickable link to dropdown menu of existing options
-                var tester = inputValue.match(/\S*#\S+/gi);
+                var tester = inputValue.match(/\S*#[^\.\,\!\?\s]+/gi);
                 var tag_body; 
                 
+                // the tag should be the whole word after the #
+                // and the model should be watched for new instances of #
+                // when an instance of # is open, it's in a sub-scope
+
                 // okay, so now we have a list of tags in scope.testTags...
+
+                // WHAT WE HAVE
+                // if we have a match on a hashtag
+                // the length of the matched hashtag values is greater than zero
+                // and greater than the number of tags already posted to the test
+                // make a new tag, and then open up the replacement schema.
+
+                // WHAT WE WANT
+                // when a hashtag is opened, open the typeahead menu and match on it
+                // when a hashtag is closed by a space being entered, close the match
+
                 if(tester && tester.length > 0 && tester.length > scope.testTags.length){
                     tag_body = tester[tester.length -1].replace(/#/gi,'');
                 }
@@ -384,8 +399,11 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 modelCtrl.$setValidity('editable', true);
 
-                // add the new tag to scope.testTags...
-                scope.testTags.push('#'+model);
+                // if the tag isn't already in scope.testTags, add new tag
+                if(scope.testTags.indexOf('#'+model) === -1){
+                    scope.testTags.push('#'+model);
+                }
+
                 // This is to insert a more complex model item into the feed. 
                 // it overwrites the main index field, too.
                 onSelectCallback(originalScope, {
