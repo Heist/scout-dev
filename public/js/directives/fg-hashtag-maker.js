@@ -219,13 +219,12 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // if you want to do a separate type of input, match on any-character other than punctuation?
 
                 var tester = matchTags(inputValue);
-                var dualPoint = inputValue.match(/#[^\.\,\!\?\s]*\s/gi);
+                var accepted_tags = inputValue.match(/#[^\.\,\!\?\s]*\s/gi);
                 var tag_body; 
 
                 scope.testTags = inputValue.match(/#[^\.\,\!\?\s]*\s/gi);
 
-                console.log('list of tags in input', tester);
-                console.log('list of tags with spaces', dualPoint);
+                console.log('list of tags in input', tester, accepted_tags);
 
 
                 // WHAT WE HAVE
@@ -244,6 +243,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // if a hashtag is deleted or altered, re-count the number of tags
                 // enter all updated tags into scope.testTags
 
+                // in here, we need to test if the new tag already exists in the list or has replaced something else 
                 if(tester && tester.length > 0 && tester.length > scope.testTags.length){
                     tag_body = tester[tester.length -1].replace(/#/gi,'');
                 }
@@ -327,7 +327,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     // SPACE keypress =========
                     // add a space to the model and cancel the dropdown
                     // post the tag to the scope-tags for comparision
-                    console.log('list of testTags', scope.testTags);
+                    
                     evt.stopPropagation();
                     resetMatches();
                     scope.$digest();
@@ -358,7 +358,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                     } else if (evt.which === 13 || evt.which === 9) {
                         // ENTER or TAB keypress =========
-                        console.log(scope.testTags);
+                        console.log(scope.activeIdx, scope.testTags);
                         scope.$apply(function() {
                             scope.select(scope.activeIdx);
                             resetMatches();
@@ -398,6 +398,10 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // not _just_ the scope.query.
 
                 // insert the new tag into the input box
+
+                // TODO: INSERT THE NEW TAG INTO THE CORRECT VARIANT OF THE MODEL;
+                console.log('check that this is the correct tag!', scope.query);
+
                 var newValue = modelCtrl.$viewValue.replace('#'+scope.query, '#'+model);
 
                 modelCtrl.$setViewValue(newValue);
