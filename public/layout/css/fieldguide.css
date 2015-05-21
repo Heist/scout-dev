@@ -6304,7 +6304,7 @@ hr {
       left: -3%;
       position: relative; }
   #view-findings .findings-content {
-    width: 75%;
+    width: 85%;
     margin: 0 auto;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
@@ -6321,7 +6321,7 @@ hr {
     #view-findings .findings-content pre {
       margin: 0 0 10px 0; }
     #view-findings .findings-content .findings-header {
-      padding: 40px 0; }
+      padding: 40px 0 40px 40px; }
       #view-findings .findings-content .findings-header h1 {
         margin: 0; }
       #view-findings .findings-content .findings-header .findings-description {
@@ -6338,18 +6338,23 @@ hr {
           #view-findings .findings-content .findings-header .findings-description .findings-share-link a {
             height: 20px;
             width: 20px; }
+    #view-findings .findings-content .findings-information h3, #view-findings .findings-content .findings-information p {
+      padding: 0 0 0 40px; }
     #view-findings .findings-content .findings-information textarea {
       color: #888A8A;
       font-size: 14px;
       line-height: 18px;
       height: 300px;
       border: 0;
-      padding: 0;
+      padding: 0 0 0 40px;
       margin: 0 0 40px 0;
       resize: none; }
       #view-findings .findings-content .findings-information textarea:hover {
-        color: #000; }
+        color: #000;
+        background: url('../assets/fg-edit.svg') 20px 3px no-repeat; }
       #view-findings .findings-content .findings-information textarea:focus {
+        color: #000;
+        background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat;
         box-shadow: none; }
 
 /* let's embed a video */

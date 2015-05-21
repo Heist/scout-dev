@@ -326,7 +326,7 @@
 	}
 	
 	.findings-content {
-		width: 75%;
+		width: 85%;
 		margin: 0 auto;
 		@include type-light;
 
@@ -348,7 +348,7 @@
 		}
 
 		.findings-header {
-			padding: 40px 0;
+			padding: 40px 0 40px 40px;
 
 			h1 {
 				margin: 0;
@@ -376,20 +376,28 @@
 		}
 		
 		.findings-information {
+
+			h3, p {
+				padding: 0 0 0 40px;
+			}
+
 			textarea {
 				@include type-p($fg-grey-text);
 				height: 300px;
 				border: 0;
-				padding: 0;
+				padding: 0 0 0 40px;
 				margin: 0 0 40px 0;
 				resize: none;
 
 				&:hover {
-					color: $black;
+				    color: $black;
+				    background: url('../assets/fg-edit.svg') 20px 3px no-repeat;
 				}
 
 				&:focus {
-					box-shadow: none;
+				    color: $black;
+				    background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat;
+				    box-shadow: none;
 				}
 			}
 		}
