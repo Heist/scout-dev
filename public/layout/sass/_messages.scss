@@ -290,8 +290,13 @@
 			margin: 0 0 10px 0;
 			line-height: 15px;
 
-			&:hover, &:focus {
+			&:hover {
 				color: $black;
+			}
+
+			&:focus {
+				color: $black;
+				box-shadow: none;
 			}
 		}
 		

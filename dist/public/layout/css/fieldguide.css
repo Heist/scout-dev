@@ -6033,8 +6033,11 @@ hr {
       width: 100%;
       margin: 0 0 10px 0;
       line-height: 15px; }
-      .message .message-body textarea:hover, .message .message-body textarea:focus {
+      .message .message-body textarea:hover {
         color: #000; }
+      .message .message-body textarea:focus {
+        color: #000;
+        box-shadow: none; }
 
 /* summary */
 #view-findings {
