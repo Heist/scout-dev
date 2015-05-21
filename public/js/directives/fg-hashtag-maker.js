@@ -221,8 +221,9 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 var tester = matchTags(inputValue);
                 var tag_body; 
 
+                scope.testTags = inputValue.match(/#[^\.\,\!\?\s]*\s/gi);
+
                 console.log('list of tags in input', tester);
-                console.log('list of testTags', scope.testTags);
 
 
                 // WHAT WE HAVE
@@ -324,10 +325,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     // SPACE keypress =========
                     // add a space to the model and cancel the dropdown
                     // post the tag to the scope-tags for comparision
-
-                    scope.testTags = matchTags(scope.inputValue);
-                    console.log('spacebar tag match value', scope.testTags, scope.inputValue);
-
+                    console.log('list of testTags', scope.testTags);
                     evt.stopPropagation();
                     resetMatches();
                     scope.$digest();
@@ -381,10 +379,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
             //$parsers kick-in on all the changes coming from the view as well as manually triggered by $setViewValue
             modelCtrl.$parsers.unshift(function (inputValue){
                 modelParser(inputValue);
-
-                // here we surface the input value for use when we press space
-                // which should copy the existing tags on input value for global comparison
-                scope.inputValue = inputValue;
             });
 
 
@@ -411,7 +405,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 // if the tag isn't already in scope.testTags, add new tag
                 // if(scope.testTags.indexOf('#'+model) === -1){
-                    scope.testTags.push('#'+model);
+                    // scope.testTags.push('#'+model);
                 // }
 
                 // This is to insert a more complex model item into the feed. 
