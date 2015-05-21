@@ -4138,7 +4138,8 @@ hr {
           font-style: normal;
           font-weight: 400; }
       #timeline ul .message-no-highlite .test-intro-interview {
-        width: 65%; }
+        width: 65%;
+        margin: 0 auto; }
         #timeline ul .message-no-highlite .test-intro-interview img {
           position: absolute;
           top: -11px;
