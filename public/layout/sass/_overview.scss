@@ -45,13 +45,13 @@
 		background: $white;
 		width: 237px;
 		height: 296px;
-		@include dropshadowULTRA($shadow: 0 1px 10px, $intensity: rgba(0,0,0,0.1));
+		@include dropshadowULTRA($shadow: 0 3px 10px, $intensity: rgba(0,0,0,0.1));
 		position: relative;
 		transition: all .1s ease-in-out;
 
 		&:hover {
 			transform: scale(1.04);
-			@include dropshadowULTRA($shadow: 0 1px 10px, $intensity: rgba(0,0,0,0.2));
+			@include dropshadowULTRA($shadow: 0 3px 10px, $intensity: rgba(0,0,0,0.2));
 		}
 	}
 
