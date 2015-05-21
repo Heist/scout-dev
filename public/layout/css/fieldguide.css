@@ -4123,29 +4123,9 @@ hr {
       line-height: 14.4px;
       position: relative;
       transition: none;
-      cursor: text;
-      -webkit-transition-duration: 0.2s;
-      -webkit-transition-timing: ease-out;
-      -o-transition-duration: 0.2s;
-      -o-transition-timing: ease-out;
-      -moz-transition-duration: 0.2s;
-      -moz-transition-timing: ease-out;
-      -ms-transition-duration: 0.2s;
-      -ms-transition-timing: ease-out;
-      transition-duration: 0.2s;
-      transition-timing: ease-out; }
-      #timeline ul .message-highlite:hover, #timeline ul .message-highlite.selected {
-        -webkit-transition-duration: 0.2s;
-        -webkit-transition-timing: ease-out;
-        -o-transition-duration: 0.2s;
-        -o-transition-timing: ease-out;
-        -moz-transition-duration: 0.2s;
-        -moz-transition-timing: ease-out;
-        -ms-transition-duration: 0.2s;
-        -ms-transition-timing: ease-out;
-        transition-duration: 0.2s;
-        transition-timing: ease-out;
-        background: #f6f6f6 url("../assets/edit-bg.svg") 12px no-repeat; }
+      cursor: text; }
+      #timeline ul .message-highlite:hover {
+        background: #f6f6f6 url("../assets/fg-edit-hover.svg") 15px no-repeat; }
     #timeline ul .message {
       padding: 8px 30px 8px 35px;
       line-height: 14.4px;

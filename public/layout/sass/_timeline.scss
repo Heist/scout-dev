@@ -52,10 +52,8 @@
 			transition: none;
 			cursor: text;
 
-			@include animated;
-				&:hover, &.selected {
-					@include animated;
-					background: $fg-bg url("../assets/edit-bg.svg") 12px no-repeat;
+			&:hover {
+				background: $fg-bg url("../assets/fg-edit-hover.svg") 15px no-repeat;
 			}
 		}	
 		
