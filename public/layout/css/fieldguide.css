@@ -4104,48 +4104,60 @@ hr {
       padding: 0;
       margin: 0; }
     #timeline ul .message-no-highlite {
-      padding: 8px 30px 8px 35px;
+      padding: 15px 40px;
       line-height: 14.4px; }
+      #timeline ul .message-no-highlite.interview-padding {
+        padding: 0 40px; }
       #timeline ul .message-no-highlite pre, #timeline ul .message-no-highlite small {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300;
         height: 45px; }
       #timeline ul .message-no-highlite h3 {
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 300;
-        color: #D8DADB; }
+        color: #D8DADB;
+        font-size: 18.6px;
+        line-height: 24px; }
       #timeline ul .message-no-highlite p {
         margin: 0; }
+      #timeline ul .message-no-highlite .test-intro-prototype, #timeline ul .message-no-highlite .test-intro-interview {
+        width: 100%;
+        padding: 20px 40px;
+        position: relative;
+        -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        #timeline ul .message-no-highlite .test-intro-prototype img, #timeline ul .message-no-highlite .test-intro-interview img {
+          position: absolute;
+          top: -11px;
+          left: -24px; }
+        #timeline ul .message-no-highlite .test-intro-prototype h3, #timeline ul .message-no-highlite .test-intro-interview h3 {
+          color: #888A8A;
+          font-size: 18.6px;
+          line-height: 24px;
+          font-family: "canada-type-gibson",sans-serif;
+          font-style: normal;
+          font-weight: 400; }
+      #timeline ul .message-no-highlite .test-intro-interview {
+        width: 65%; }
+        #timeline ul .message-no-highlite .test-intro-interview img {
+          position: absolute;
+          top: -11px;
+          left: -24px; }
+        #timeline ul .message-no-highlite .test-intro-interview h3 {
+          color: #888A8A;
+          font-size: 18.6px;
+          line-height: 24px;
+          font-family: "canada-type-gibson",sans-serif;
+          font-style: normal;
+          font-weight: 400; }
     #timeline ul .message-highlite {
       padding: 8px 30px 8px 35px;
       line-height: 14.4px;
       position: relative;
       transition: none;
-      cursor: text;
-      -webkit-transition-duration: 0.2s;
-      -webkit-transition-timing: ease-out;
-      -o-transition-duration: 0.2s;
-      -o-transition-timing: ease-out;
-      -moz-transition-duration: 0.2s;
-      -moz-transition-timing: ease-out;
-      -ms-transition-duration: 0.2s;
-      -ms-transition-timing: ease-out;
-      transition-duration: 0.2s;
-      transition-timing: ease-out; }
-      #timeline ul .message-highlite:hover, #timeline ul .message-highlite.selected {
-        -webkit-transition-duration: 0.2s;
-        -webkit-transition-timing: ease-out;
-        -o-transition-duration: 0.2s;
-        -o-transition-timing: ease-out;
-        -moz-transition-duration: 0.2s;
-        -moz-transition-timing: ease-out;
-        -ms-transition-duration: 0.2s;
-        -ms-transition-timing: ease-out;
-        transition-duration: 0.2s;
-        transition-timing: ease-out;
-        background: #f6f6f6 url("../assets/edit-bg.svg") 12px no-repeat; }
+      cursor: text; }
+      #timeline ul .message-highlite:hover {
+        background: #f6f6f6 url("../assets/fg-edit-hover.svg") 15px no-repeat; }
     #timeline ul .message {
       padding: 8px 30px 8px 35px;
       line-height: 14.4px;
@@ -6021,8 +6033,11 @@ hr {
       width: 100%;
       margin: 0 0 10px 0;
       line-height: 15px; }
-      .message .message-body textarea:hover, .message .message-body textarea:focus {
+      .message .message-body textarea:hover {
         color: #000; }
+      .message .message-body textarea:focus {
+        color: #000;
+        box-shadow: none; }
 
 /* summary */
 #view-findings {
