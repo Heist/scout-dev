@@ -95,6 +95,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
             //with typeahead-specific data (matches, query etc.)
             var scope = originalScope.$new();
                 scope.testTags = [];
+                scope.inputValue = '';
 
             // WAI-ARIA
             var popupId = 'typeahead-' + scope.$id + '-' + Math.floor(Math.random() * 10000);
@@ -206,96 +207,10 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     isLoadingSetter(originalScope, false);
                 });
             };
-       
-        // ACTUAL FUNCTION ======================
-            // Indicate that the specified match is the active (pre-selected) item in the list owned by this typeahead.
-            // This attribute is added or removed automatically when the `activeIdx` changes.
-            scope.$watch('activeIdx', function(index) {
-                if (index < 0) {
-                    element.removeAttr('aria-activedescendant');
-                } else {
-                    element.attr('aria-activedescendant', getMatchId(index));
-                }
-            });
 
-            // As we get started, clear the match index.
-            resetMatches();
-
-            //we need to propagate user's query so we can highlight matches.
-            scope.query = undefined;
-
-        // Bind KEY EVENTS - may have to be KEYDOWN ======================================
-            element.bind('keypress keydown', function (evt) {
-                //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
-                //typeahead is open and an "interesting" key was pressed
-
-                if(scope.activeIdx === -1 && evt.which === 13){
-                    // EMIT COMPLETED MESSAGE =============================
-                    //  Send message to postmessage once tags are assembled
-                    //  then return the resulting message to the originalScope
-                    //  send the message back to the parent context of the directive
-                    
-                    evt.preventDefault();
-                    scope.$emit('message', modelCtrl.$viewValue);
-                    modelCtrl.$setViewValue('');
-                    modelCtrl.$render();
-
-                    scope.testTags=[];
-                    evt.stopPropagation();
-                    resetMatches();
-                    scope.$digest();
-                }
-
-                if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
-                    return;
-                }
-
-                // if there's nothing selected (i.e. focusFirst) and enter is hit, don't do anything
-                if (scope.activeIdx === -1 && (evt.which === 13 || evt.which === 9)) {
-                    return;
-                }
-
-                if (evt.which === 32) {
-                    // add a space to the model and cancel the dropdown
-                    evt.stopPropagation();
-                    resetMatches();
-                    scope.$digest();
-                    
-                } else {
-                    evt.preventDefault();
-
-                    if (evt.which === 40) {
-                        // down arrow key
-                        
-                        scope.activeIdx = (scope.activeIdx + 1) % scope.matches.length;
-                        
-                        scope.$digest();
-
-                    } else if (evt.which === 38) {
-                        
-                        scope.activeIdx = (scope.activeIdx > 0 ? scope.activeIdx : scope.matches.length) - 1;
-                        scope.$digest();
-
-                    } else if (evt.which === 13 || evt.which === 9) {
-                        console.log(scope.testTags);
-                        scope.$apply(function() {
-                            scope.select(scope.activeIdx);
-                            resetMatches();
-                        })
-
-                    } else if (evt.which === 27) {
-                        
-                        evt.stopPropagation();
-                        resetMatches();
-                        scope.$digest(); // here, this makes esc work.
-                    } 
-                }
-            });
-
-            element.bind('blur', function (evt) {
-                hasFocus = false;
-            });
-
+            var matchTags = function(stringValue){
+                return stringValue.match(/\S*#[^\.\,\!\?\s]+/gi);
+            }
 
             var modelParser = function (inputValue) {
 
@@ -303,7 +218,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // begin parsing an entry on a hashtag
                 // if you want to do a separate type of input, match on any-character other than punctuation?
 
-                var tester = inputValue.match(/\S*#[^\.\,\!\?\s]+/gi);
+                var tester = matchTags(inputValue);
                 var tag_body; 
 
                 console.log('list of tags in input', tester);
@@ -365,11 +280,110 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     }
                 }
             };
+       
+        // ACTUAL FUNCTION ======================
+            // Indicate that the specified match is the active (pre-selected) item in the list owned by this typeahead.
+            // This attribute is added or removed automatically when the `activeIdx` changes.
+            scope.$watch('activeIdx', function(index) {
+                if (index < 0) {
+                    element.removeAttr('aria-activedescendant');
+                } else {
+                    element.attr('aria-activedescendant', getMatchId(index));
+                }
+            });
+
+            // As we get started, clear the match index.
+            resetMatches();
+
+            //we need to propagate user's query so we can highlight matches.
+            scope.query = undefined;
+
+        // Bind KEY EVENTS - may have to be KEYDOWN ======================================
+            element.bind('keypress keydown', function (evt) {
+                //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
+                //typeahead is open and an "interesting" key was pressed
+
+                if(scope.activeIdx === -1 && evt.which === 13){
+                    // EMIT COMPLETED MESSAGE =============================
+                    //  Send message to postmessage once tags are assembled
+                    //  then return the resulting message to the originalScope
+                    //  send the message back to the parent context of the directive
+                    
+                    evt.preventDefault();
+                    scope.$emit('message', modelCtrl.$viewValue);
+                    modelCtrl.$setViewValue('');
+                    modelCtrl.$render();
+
+                    scope.testTags=[];
+                    evt.stopPropagation();
+                    resetMatches();
+                    scope.$digest();
+                }
+
+                if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
+                    return;
+                }
+
+                // if there's nothing selected (i.e. focusFirst) and enter is hit, don't do anything
+                if (scope.activeIdx === -1 && (evt.which === 13 || evt.which === 9)) {
+                    return;
+                }
+
+                if (evt.which === 32) {
+                    // SPACE keypress =========
+                    // add a space to the model and cancel the dropdown
+                    // post the tag to the scope-tags for comparision
+                    scope.testTags = matchTags(scope.inputValue);
+                    console.log('spacebar tag match value', scope.testTags);
+                    
+                    evt.stopPropagation();
+                    resetMatches();
+                    scope.$digest();
+                    
+                } else {
+                    evt.preventDefault();
+
+                    if (evt.which === 40) {
+                        // DOWN keypress =========
+                        
+                        scope.activeIdx = (scope.activeIdx + 1) % scope.matches.length;
+                        
+                        scope.$digest();
+
+                    } else if (evt.which === 38) {
+                        // UP keypress =========
+                        scope.activeIdx = (scope.activeIdx > 0 ? scope.activeIdx : scope.matches.length) - 1;
+                        scope.$digest();
+
+                    } else if (evt.which === 13 || evt.which === 9) {
+                        // ENTER or TAB keypress =========
+                        console.log(scope.testTags);
+                        scope.$apply(function() {
+                            scope.select(scope.activeIdx);
+                            resetMatches();
+                        })
+
+                    } else if (evt.which === 27) {
+                        // ESC keypress =========
+                        evt.stopPropagation();
+                        resetMatches();
+                        scope.$digest(); // here, this makes esc work.
+                    } 
+                }
+            });
+
+            element.bind('blur', function (evt) {
+                hasFocus = false;
+            });
 
             //plug into $parsers pipeline to open a typeahead on view changes initiated from DOM
             //$parsers kick-in on all the changes coming from the view as well as manually triggered by $setViewValue
             modelCtrl.$parsers.unshift(function (inputValue){
                 modelParser(inputValue);
+
+                // here we surface the input value for use when we press space
+                // which should copy the existing tags on input value for global comparison
+                scope.inputValue = inputValue;
             });
 
 
@@ -395,9 +409,9 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 modelCtrl.$setValidity('editable', true);
 
                 // if the tag isn't already in scope.testTags, add new tag
-                if(scope.testTags.indexOf('#'+model) === -1){
+                // if(scope.testTags.indexOf('#'+model) === -1){
                     scope.testTags.push('#'+model);
-                }
+                // }
 
                 // This is to insert a more complex model item into the feed. 
                 // it overwrites the main index field, too.
