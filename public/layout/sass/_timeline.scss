@@ -27,8 +27,12 @@
 		}
 		
 		.message-no-highlite {
-			padding: 8px 40px;
+			padding: 15px 40px;
 			line-height: $type-line-base*0.8;
+
+			&.interview-padding {
+				padding: 0 40px;
+			}
 
 			pre, small {
 				@include type-light;
@@ -63,7 +67,7 @@
 
 			.test-intro-interview {
 				@extend .test-intro-prototype;
-				width: 60%;
+				width: 65%;
 
 				img {
 					position: absolute;

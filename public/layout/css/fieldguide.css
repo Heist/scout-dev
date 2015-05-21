@@ -4104,8 +4104,10 @@ hr {
       padding: 0;
       margin: 0; }
     #timeline ul .message-no-highlite {
-      padding: 8px 40px;
+      padding: 15px 40px;
       line-height: 14.4px; }
+      #timeline ul .message-no-highlite.interview-padding {
+        padding: 0 40px; }
       #timeline ul .message-no-highlite pre, #timeline ul .message-no-highlite small {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
@@ -4136,7 +4138,7 @@ hr {
           font-style: normal;
           font-weight: 400; }
       #timeline ul .message-no-highlite .test-intro-interview {
-        width: 60%; }
+        width: 65%; }
         #timeline ul .message-no-highlite .test-intro-interview img {
           position: absolute;
           top: -11px;
