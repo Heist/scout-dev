@@ -53041,7 +53041,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 .directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document', '$position', 'typeaheadParser',
     function ($compile, $parse, $q, $timeout, $document, $position, typeaheadParser) {
 
-    var HOT_KEYS = [9, 13, 27, 32, 38, 40];
+    var HOT_KEYS = [9, 13, 27, 32, 38, 40, 46];
 
     return {
         require:'ngModel',
@@ -53225,11 +53225,10 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 //typeahead is open and an "interesting" key was pressed
 
                 if(scope.activeIdx === -1 && evt.which === 13){
-                    // YOU ARE WORKING ON THIS
+                    // EMIT COMPLETED MESSAGE =============================
                     //  Send message to postmessage once tags are assembled
                     //  then return the resulting message to the originalScope
-                    //  and add it to whatever context the message is supposed to live in
-                    //  on whatever page.
+                    //  send the message back to the parent context of the directive
                     
                     evt.preventDefault();
                     scope.$emit('message', modelCtrl.$viewValue);
@@ -53294,6 +53293,8 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
 
             var modelParser = function (inputValue) {
+
+                void 0;
                 // Step through the model and do things with the input value
                 // begin parsing an entry on a hashtag
                 // if you want to do a separate type of input, match on @?
@@ -53307,10 +53308,29 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 // TODO:
                 // insert the tag as a clickable link to dropdown menu of existing options
-                var tester = inputValue.match(/\S*#\S+/gi);
+                var tester = inputValue.match(/\S*#[^\.\,\!\?\s]+/gi);
                 var tag_body; 
                 
+                // the tag should be the whole word after the #
+                // and the model should be watched for new instances of #
+                // when an instance of # is open, it's in a sub-scope
+
                 // okay, so now we have a list of tags in scope.testTags...
+
+                // WHAT WE HAVE
+                // if we have a match on a hashtag
+                // the length of the matched hashtag values is greater than zero
+                // and greater than the number of tags already posted to the test
+                // make a new tag, and then open up the replacement schema.
+
+                // WHAT WE WANT
+                // when a hashtag is opened, open the typeahead menu and match on it
+                // if the tag is altered by deletions, keep the match open
+                // when a space is entered, close the match
+
+                // if a hashtag is deleted or altered, re-count the number of tags
+                // enter all updated tags into scope.testTags
+
                 if(tester && tester.length > 0 && tester.length > scope.testTags.length){
                     tag_body = tester[tester.length -1].replace(/#/gi,'');
                 }
@@ -53379,8 +53399,11 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 modelCtrl.$setValidity('editable', true);
 
-                // add the new tag to scope.testTags...
-                scope.testTags.push('#'+model);
+                // if the tag isn't already in scope.testTags, add new tag
+                if(scope.testTags.indexOf('#'+model) === -1){
+                    scope.testTags.push('#'+model);
+                }
+
                 // This is to insert a more complex model item into the feed. 
                 // it overwrites the main index field, too.
                 onSelectCallback(originalScope, {

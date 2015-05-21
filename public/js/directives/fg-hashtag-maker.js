@@ -46,7 +46,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 .directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document', '$position', 'typeaheadParser',
     function ($compile, $parse, $q, $timeout, $document, $position, typeaheadParser) {
 
-    var HOT_KEYS = [9, 13, 27, 32, 38, 40];
+    var HOT_KEYS = [9, 13, 27, 32, 38, 40, 46];
 
     return {
         require:'ngModel',
@@ -230,11 +230,10 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 //typeahead is open and an "interesting" key was pressed
 
                 if(scope.activeIdx === -1 && evt.which === 13){
-                    // YOU ARE WORKING ON THIS
+                    // EMIT COMPLETED MESSAGE =============================
                     //  Send message to postmessage once tags are assembled
                     //  then return the resulting message to the originalScope
-                    //  and add it to whatever context the message is supposed to live in
-                    //  on whatever page.
+                    //  send the message back to the parent context of the directive
                     
                     evt.preventDefault();
                     scope.$emit('message', modelCtrl.$viewValue);
@@ -299,6 +298,8 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
 
             var modelParser = function (inputValue) {
+
+                console.log('we can probably do more with this inputValue', inputValue);
                 // Step through the model and do things with the input value
                 // begin parsing an entry on a hashtag
                 // if you want to do a separate type of input, match on @?
@@ -329,7 +330,11 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 // WHAT WE WANT
                 // when a hashtag is opened, open the typeahead menu and match on it
-                // when a hashtag is closed by a space being entered, close the match
+                // if the tag is altered by deletions, keep the match open
+                // when a space is entered, close the match
+
+                // if a hashtag is deleted or altered, re-count the number of tags
+                // enter all updated tags into scope.testTags
 
                 if(tester && tester.length > 0 && tester.length > scope.testTags.length){
                     tag_body = tester[tester.length -1].replace(/#/gi,'');
