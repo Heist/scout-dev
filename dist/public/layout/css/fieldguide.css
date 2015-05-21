@@ -129,6 +129,9 @@ helpers
 .margin-none {
   margin: 0; }
 
+.overflow-hidden {
+  overflow: hidden; }
+
 /* text helpers */
 .text-center {
   text-align: center; }
@@ -6313,7 +6316,8 @@ hr {
     margin: 0;
     position: absolute;
     top: 1.8%;
-    left: 52.1%; }
+    left: 52.1%;
+    overflow-y: scroll; }
     #view-findings .sheet-holder.full {
       width: 103%;
       left: -3%;
