@@ -53310,7 +53310,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // insert the tag as a clickable link to dropdown menu of existing options
                 var tester = inputValue.match(/\S*#[^\.\,\!\?\s]+/gi);
                 var tag_body; 
-                
+                console.log('have we got some hashtags to work from', tester);
                 // the tag should be the whole word after the #
                 // and the model should be watched for new instances of #
                 // when an instance of # is open, it's in a sub-scope
