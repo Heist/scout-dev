@@ -6,6 +6,12 @@
 	.controller('newTest', 
     		['testBuildFunctions','$scope','$http','$stateParams','$state','$location','$rootScope',
     function( testBuildFunctions,  $scope,  $http,  $stateParams,  $state,  $location, $rootScope){
+
+        // removes the body scroll overflow hidden
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.removeClass('overflow-hidden');
+
+        
     	// SETUP VARIABLES ==========================
         $scope.test = {};
 

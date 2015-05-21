@@ -20,6 +20,10 @@
         $scope.tags = tagSort(data._tags) || [];
         $scope.tasks = data._tasks || [];
 
+        // removes the body scroll overflow hidden
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.removeClass('overflow-hidden');
+
         $scope.showAnchor = function(x) {
 
             var explanations = [
