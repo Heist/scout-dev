@@ -299,28 +299,16 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
             var modelParser = function (inputValue) {
 
-                console.log('we can probably do more with this inputValue', inputValue);
                 // Step through the model and do things with the input value
                 // begin parsing an entry on a hashtag
-                // if you want to do a separate type of input, match on @?
+                // if you want to do a separate type of input, match on any-character other than punctuation?
 
-                // TODO: Abstract so there can be preferred variables set above to load different data sets.
-                // in input value, when hashtag is clicked,
-                // then when the tag is set, disable this
-                // then when tag is clicked, fire parser again.
-
-                // When a matching tag is selected, mark the appropriate tag as used
-
-                // TODO:
-                // insert the tag as a clickable link to dropdown menu of existing options
                 var tester = inputValue.match(/\S*#[^\.\,\!\?\s]+/gi);
                 var tag_body; 
-                console.log('have we got some hashtags to work from', tester);
-                // the tag should be the whole word after the #
-                // and the model should be watched for new instances of #
-                // when an instance of # is open, it's in a sub-scope
 
-                // okay, so now we have a list of tags in scope.testTags...
+                console.log('list of tags in input', tester);
+                console.log('list of testTags', scope.testTags);
+
 
                 // WHAT WE HAVE
                 // if we have a match on a hashtag
@@ -329,8 +317,10 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // make a new tag, and then open up the replacement schema.
 
                 // WHAT WE WANT
+                // we have a list of all tags in the input
+                // we need a separate scope that watches "accepted" tags
                 // when a hashtag is opened, open the typeahead menu and match on it
-                // if the tag is altered by deletions, keep the match open
+                // if the tag is altered, reopen the menu on the altered tag
                 // when a space is entered, close the match
 
                 // if a hashtag is deleted or altered, re-count the number of tags
