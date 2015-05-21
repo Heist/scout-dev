@@ -5133,6 +5133,10 @@ hr {
       .overview-test .test-controls a:hover {
         background: #85AC0F;
         color: #fff; }
+      .overview-test .test-controls a.in-active {
+        color: #C5C6C7; }
+        .overview-test .test-controls a.in-active:hover {
+          background: none; }
 
 /* new project modal */
 #view-new-project .modal-interior-title {

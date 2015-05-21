@@ -203,6 +203,14 @@
 				background: $fg-green;
 				color: $white;
 			}
+
+			&.in-active {
+				color: $fg-grey-placeholder;
+
+				&:hover {
+					background: none;
+				}
+			}
 			
 		}
 	}
