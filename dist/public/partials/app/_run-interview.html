@@ -3,7 +3,7 @@
 	
 		<div id="cta-interview">
 			<div class="cta">
-				<button class="button outline" ng-click="summarizeModalToggle()" tabindex="-1">
+				<button class="button" ng-click="summarizeModalToggle()" tabindex="-1">
 				<div class="checkmark"></div>
 				<span>End session</span>
 				</button>
@@ -16,25 +16,22 @@
 		<div id="timeline" class="interview" scroll-glue="glued">
 			<ul>
 				<!-- empty state -->
-				<li class="message-no-highlite" id="firstrun">
+				<li class="message-no-highlite interview-padding" id="firstrun">
 					<div class="message-body">
-						<p>Your session is running!</p>
-						<p>Take notes about what your participant says, the actions they take and the reactions they make. All of this information is valuable. <a href="https://medium.com/@FieldGuideApp/how-you-can-take-better-notes-during-research-24c67c6de025" target="_blank">Learn more</a></p>
-						<p>Don't worry, you can always edit a note just by clicking on it.</p>
-						<p>Remember to use the #tags below to flag important feedback your get from your participant!</p>
+						<div class="test-intro-interview">
+							<img src="layout/assets/fieldy.svg" alt="Fieldy">
+
+							<h3>Your session is running!</h3>
+							<p>Take notes about what your participant says, the actions they take and the reactions they make. All of this information is valuable. <a href="https://medium.com/@FieldGuideApp/how-you-can-take-better-notes-during-research-24c67c6de025" target="_blank">Learn more about note taking</a></p>
+							<p>Don't worry, you can always edit a note just by clicking on it.</p>
+							<p>Remember to use the #tags below to flag important feedback your get from your participant!</p>
+						</div>
 					</div>
 					<div class="clear"></div>
 				</li>
 				<!-- /empty state -->
 				
 				<!-- non-editable guideline messages -->
-				<li class="message-no-highlite">
-					<div class="message-body" ng-click="editMessage(message)">
-						<small>Starting session</small>
-						<p>{{test.name}}</p>
-					</div>
-					<div class="clear"></div>
-				</li>
 				<li class="message" ng-repeat="message in timeline track by $index" ng-class="{'message-no-highlite' : message.title === 'Starting task', 'message-highlite' : message.title !== 'Starting task'}">
 					<div class="message-body" ng-click="editMessage(message)">
 						<pre class="messages" ng-if="message.title === 'Starting task'">
