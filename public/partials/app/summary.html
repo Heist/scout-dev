@@ -1,7 +1,8 @@
+<ng-include src="'partials/app/_header-small.html'"></ng-include>
+<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
+
 <div id="view-findings" ng-model='test'	ng-class="{ 'show-comments' : showCommentToggle !== 'hide', 'is-onboard': user.onboard != 100 }">
 
-	<ng-include src="'partials/app/_header-small.html'"></ng-include>
-	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
 
 	<!-- share report link modal -->
 	<div class="modal" ng-if="shareReport">
