@@ -175,8 +175,6 @@ body {
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-feature-settings: "kern";
   -webkit-font-feature-settings: "kern";

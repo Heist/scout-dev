@@ -14,8 +14,6 @@ body {
 	line-height: $type-line-base;
 	color: $fg-grey-text;
 	@include type-light;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
 	font-feature-settings: "kern";
 	-webkit-font-feature-settings: "kern";
