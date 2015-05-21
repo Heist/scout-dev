@@ -219,11 +219,13 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // if you want to do a separate type of input, match on any-character other than punctuation?
 
                 var tester = matchTags(inputValue);
+                var dualPoint = inputValue.match(/#[^\.\,\!\?\s]*\s/gi);
                 var tag_body; 
 
                 scope.testTags = inputValue.match(/#[^\.\,\!\?\s]*\s/gi);
 
                 console.log('list of tags in input', tester);
+                console.log('list of tags with spaces', dualPoint);
 
 
                 // WHAT WE HAVE
