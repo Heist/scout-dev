@@ -320,15 +320,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     scope.$digest();
                 }
 
-                if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
-                    return;
-                }
-
-                // if there's nothing selected (i.e. focusFirst) and enter is hit, don't do anything
-                if (scope.activeIdx === -1 && (evt.which === 13 || evt.which === 9)) {
-                    return;
-                }
-
                 if (evt.which === 32) {
                     // SPACE keypress =========
                     // add a space to the model and cancel the dropdown
@@ -340,6 +331,15 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     resetMatches();
                     scope.$digest();
                     
+                } 
+
+                if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
+                    return;
+                }
+
+                // if there's nothing selected (i.e. focusFirst) and enter is hit, don't do anything
+                if (scope.activeIdx === -1 && (evt.which === 13 || evt.which === 9)) {
+                    return;
                 } else {
                     evt.preventDefault();
 
