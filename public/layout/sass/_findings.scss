@@ -316,6 +316,7 @@
 		top: 1.8%;
 		left: 52.1%;
 		overflow-y: scroll;
+		@include dropshadowULTRA($shadow: 0 3px 10px, $intensity: rgba(0,0,0,0.1));
 
 		&.full {
 			width: 103%;

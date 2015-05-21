@@ -6295,7 +6295,10 @@ hr {
     position: absolute;
     top: 1.8%;
     left: 52.1%;
-    overflow-y: scroll; }
+    overflow-y: scroll;
+    -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); }
     #view-findings .sheet-holder.full {
       width: 103%;
       left: -3%;
