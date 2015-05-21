@@ -170,6 +170,10 @@
             $scope.showReportLink = $scope.showReportLink ? false : true;
         };
 
+        // this removes the body scroll on summary page
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.addClass('overflow-hidden');
+
         $scope.shareReport = false;
 
         $scope.shareReportModalToggle = function(){
@@ -179,6 +183,15 @@
             }
             if(!$scope.shareReport || $scope.shareReport === false ){
                 $scope.shareReport = true;
+                
+                var intercom = {
+                    event_name : 'shared-report-button-clicked',
+                    created_at : new Date(),
+                    email      : $rootScope.user.email
+                };
+                
+                Intercom('trackEvent', intercom );
+            
                 return;
             }
         };
@@ -217,6 +230,21 @@
         // OBJECT FUNCTIONS =====================================
 
         $scope.saveObject = function(obj){
+             
+            if(obj.doctype === 'test'){
+                var intercom = {
+                    event_name : 'saved-test-report',
+                    created_at : new Date(),
+                    email      : $rootScope.user.email,
+                    metadata   : {
+                        summary    : (obj.summary)    ? 'true' : 'false',
+                        next_steps : (obj.next_steps) ? 'true' : 'false'
+                    }
+                };
+
+                Intercom('trackEvent', intercom );
+            }
+
             $http.post('/api/summary/object/', [obj]);
         };
 

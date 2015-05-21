@@ -51489,6 +51489,35 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
 	}]);
 })();
+// education.js
+// controller for the education pop-up window
+
+(function() {
+	'use strict';
+
+	angular.module('field_guide_controls')
+	.controller('education', 
+    		['$scope','$http','$stateParams','$state','$location','$rootScope','$element',
+    function( $scope , $http,  $stateParams , $state , $location , $rootScope , $element){
+
+    $scope.tracker = function(step){
+        // Intercom tracker ===============================
+            var intercom = {
+                        event_name : 'opened-education',
+                        created_at : new Date(),
+                        email      : $rootScope.user.email,
+                        metadata   : {
+                            'education-page' : step
+                        }
+                    };
+                    
+            Intercom('trackEvent', intercom );
+    
+    }
+
+	}]);
+
+})();
 // forgot.js
 (function() {
     'use strict';
@@ -51618,10 +51647,18 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         };
 
         $scope.addTest = function(test){
+            
+            var intercom = {
+                event_name : 'created-project',
+                created_at : new Date(),
+                email      : $rootScope.user.email
+            } ;
 
             $http
                 .post('/api/test/', test)
                 .success(function(data){
+                    Intercom('trackEvent', intercom );
+
                     $scope.$parent.tests.push(data);
                     $scope.$parent.newTestModalToggle();
                     $location.path('/edit/test/'+ data._id);
@@ -51632,6 +51669,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
 })();
 // onboard.js
+// Onboarding controller for modal partial
 (function() {
 	'use strict';
 
@@ -51657,21 +51695,54 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
        // }
 
         $scope.user.onboard = 1;
-
+        var startOnboard = '';
         
 
        // FUNCTIONS =======================================
 
        $scope.onboardToggle = function(){
            if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+            var duration = new Date();
+              if (duration < startOnboard) {
+                  duration.setDate(duration.getDate() + 1);
+              }
+
+              var diff = duration - startOnboard;
+
+              var msec = diff;
+              var mm = Math.floor(msec / 1000 / 60);
+              msec -= mm * 1000 * 60;
+              
+              var intercom = {
+                    event_name : 'opened-onboarding',
+                    created_at : new Date(),
+                    email      : $rootScope.user.email,
+                    metadata   : {
+                        duration : mm
+                    }
+
+                };
+                
+              Intercom('trackEvent', intercom );
+
             $rootScope.user.onboard = 100;
                $scope.onboardSteps = false; 
                return;
            }
            if(!$scope.onboardSteps || $scope.onboardSteps === false ){
-            $rootScope.user.onboard = 1; 
-               $scope.onboardSteps = true; 
-               return;
+              startOnboard = new Date();
+
+              var intercom = {
+                    event_name : 'opened-onboarding',
+                    created_at : new Date(),
+                    email      : $rootScope.user.email
+                };
+                
+                Intercom('trackEvent', intercom );
+
+              $rootScope.user.onboard = 1;
+              $scope.onboardSteps = true; 
+              return;
            }
        };
 
@@ -51707,7 +51778,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.tests = loadData.data;
         
 
-
+        void 0;
         // ONBOARDING =========================================
         if($rootScope.user.onboard === 1){
             $scope.onboardSteps = true;
@@ -52020,9 +52091,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     [ 'loadData', 'testBuildFunctions', 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', '$timeout',
     function(loadData, testBuildFunctions, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket, $timeout){
     // get the starting data from resolve
-        var data = loadData.data;
-
-        var tagSort = function(tags){
+        var data     = loadData.data;
+        var startTest = '';
+        
+        var tagSort  = function(tags){
          return _.filter(tags, function(n){
                 if(n.name){
                     var nameCheck = n.name.toLowerCase();
@@ -52151,6 +52223,19 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             subject.testroom = subject.testroom || '';
             subject.test     = $stateParams._id;
 
+            startTest = new Date();
+
+            var intercom = {
+                event_name : 'started-test',
+                created_at : startTest,
+                email      : $rootScope.user.email,
+                metadata   : {
+                    test_kind : $scope.test.kind
+                }
+            } ;
+            
+            Intercom('trackEvent', intercom );
+
             $http
                 .post('api/subject/', subject)
                 .success(function(data){
@@ -52246,7 +52331,32 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
         // SUMMARY MESSAGES =====================
         $scope.addMessageToSummaryTag = function(message){
+            var duration = new Date();
+            if (duration < startTest) {
+                duration.setDate(duration.getDate() + 1);
+            }
+
+            var diff = duration - startTest;
+
+            var msec = diff;
+            var hh = Math.floor(msec / 1000 / 60 / 60);
+            msec -= hh * 1000 * 60 * 60;
+            var mm = Math.floor(msec / 1000 / 60);
+            msec -= mm * 1000 * 60;
+            var ss = Math.floor(msec / 1000);
+            msec -= ss * 1000;
+
+             var intercom = {
+                event_name : 'ended-test',
+                created_at : new Date(),
+                email      : $rootScope.user.email,
+                metadata   : {
+                    test_kind : $scope.test.kind,
+                    duration  : mm
+                }
+            } ;
             
+            Intercom('trackEvent', intercom );
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags
@@ -52490,6 +52600,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.showReportLink = $scope.showReportLink ? false : true;
         };
 
+        // this removes the body scroll on summary page
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.addClass('overflow-hidden');
+
         $scope.shareReport = false;
 
         $scope.shareReportModalToggle = function(){
@@ -52499,6 +52613,15 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             }
             if(!$scope.shareReport || $scope.shareReport === false ){
                 $scope.shareReport = true;
+                
+                var intercom = {
+                    event_name : 'shared-report-button-clicked',
+                    created_at : new Date(),
+                    email      : $rootScope.user.email
+                };
+                
+                Intercom('trackEvent', intercom );
+            
                 return;
             }
         };
@@ -52537,6 +52660,21 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         // OBJECT FUNCTIONS =====================================
 
         $scope.saveObject = function(obj){
+             
+            if(obj.doctype === 'test'){
+                var intercom = {
+                    event_name : 'saved-test-report',
+                    created_at : new Date(),
+                    email      : $rootScope.user.email,
+                    metadata   : {
+                        summary    : (obj.summary)    ? 'true' : 'false',
+                        next_steps : (obj.next_steps) ? 'true' : 'false'
+                    }
+                };
+
+                Intercom('trackEvent', intercom );
+            }
+
             $http.post('/api/summary/object/', [obj]);
         };
 

@@ -129,6 +129,9 @@ helpers
 .margin-none {
   margin: 0; }
 
+.overflow-hidden {
+  overflow: hidden; }
+
 /* text helpers */
 .text-center {
   text-align: center; }
@@ -509,27 +512,27 @@ label {
 ::-webkit-input-placeholder {
   color: #C5C6C7;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 18px;
   font-style: italic; }
 
 :-moz-placeholder {
   /* Firefox 18- */
   color: #C5C6C7;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 18px;
   font-style: italic; }
 
 ::-moz-placeholder {
   /* Firefox 19+ */
   color: #C5C6C7;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 18px;
   font-style: italic; }
 
 :-ms-input-placeholder {
   color: #C5C6C7;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 18px;
   font-style: italic; }
 
 textarea.input {
@@ -4489,24 +4492,24 @@ hr {
     .modal .modal-interior ::-webkit-input-placeholder {
       color: #C5C6C7;
       font-size: 14px;
-      line-height: 20px;
+      line-height: 18px;
       font-style: italic; }
     .modal .modal-interior :-moz-placeholder {
       /* Firefox 18- */
       color: #C5C6C7;
       font-size: 14px;
-      line-height: 20px;
+      line-height: 18px;
       font-style: italic; }
     .modal .modal-interior ::-moz-placeholder {
       /* Firefox 19+ */
       color: #C5C6C7;
       font-size: 14px;
-      line-height: 20px;
+      line-height: 18px;
       font-style: italic; }
     .modal .modal-interior :-ms-input-placeholder {
       color: #C5C6C7;
       font-size: 14px;
-      line-height: 20px;
+      line-height: 18px;
       font-style: italic; }
     .modal .modal-interior ul {
       margin: 0; }
@@ -4586,24 +4589,24 @@ hr {
     .modal-scroll .modal-interior ::-webkit-input-placeholder {
       color: #C5C6C7;
       font-size: 14px;
-      line-height: 20px;
+      line-height: 18px;
       font-style: italic; }
     .modal-scroll .modal-interior :-moz-placeholder {
       /* Firefox 18- */
       color: #C5C6C7;
       font-size: 14px;
-      line-height: 20px;
+      line-height: 18px;
       font-style: italic; }
     .modal-scroll .modal-interior ::-moz-placeholder {
       /* Firefox 19+ */
       color: #C5C6C7;
       font-size: 14px;
-      line-height: 20px;
+      line-height: 18px;
       font-style: italic; }
     .modal-scroll .modal-interior :-ms-input-placeholder {
       color: #C5C6C7;
       font-size: 14px;
-      line-height: 20px;
+      line-height: 18px;
       font-style: italic; }
     .modal-scroll .modal-interior ul {
       margin: 0; }
@@ -5339,28 +5342,6 @@ hr {
       resize: none;
       margin: 0;
       color: #888A8A; }
-  #view-editing .tags ::-webkit-input-placeholder {
-    color: #C5C6C7;
-    font-size: 14px;
-    line-height: 20px;
-    font-style: italic; }
-  #view-editing .tags :-moz-placeholder {
-    /* Firefox 18- */
-    color: #C5C6C7;
-    font-size: 14px;
-    line-height: 20px;
-    font-style: italic; }
-  #view-editing .tags ::-moz-placeholder {
-    /* Firefox 19+ */
-    color: #C5C6C7;
-    font-size: 14px;
-    line-height: 20px;
-    font-style: italic; }
-  #view-editing .tags :-ms-input-placeholder {
-    color: #C5C6C7;
-    font-size: 14px;
-    line-height: 20px;
-    font-style: italic; }
   #view-editing .tags .tag-pool, #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
     width: 100%;
     height: 100%; }
@@ -5499,24 +5480,24 @@ hr {
       #view-testing #testing-input #session-input ::-webkit-input-placeholder {
         color: #C5C6C7;
         font-size: 14px;
-        line-height: 20px;
+        line-height: 18px;
         font-style: italic; }
       #view-testing #testing-input #session-input :-moz-placeholder {
         /* Firefox 18- */
         color: #C5C6C7;
         font-size: 14px;
-        line-height: 20px;
+        line-height: 18px;
         font-style: italic; }
       #view-testing #testing-input #session-input ::-moz-placeholder {
         /* Firefox 19+ */
         color: #C5C6C7;
         font-size: 14px;
-        line-height: 20px;
+        line-height: 18px;
         font-style: italic; }
       #view-testing #testing-input #session-input :-ms-input-placeholder {
         color: #C5C6C7;
         font-size: 14px;
-        line-height: 20px;
+        line-height: 18px;
         font-style: italic; }
       #view-testing #testing-input #session-input.prototype {
         bottom: 0; }
@@ -6319,7 +6300,8 @@ hr {
     margin: 0;
     position: absolute;
     top: 1.8%;
-    left: 52.1%; }
+    left: 52.1%;
+    overflow-y: scroll; }
     #view-findings .sheet-holder.full {
       width: 103%;
       left: -3%;
@@ -6709,6 +6691,11 @@ hr {
   #report-summary .findings-content {
     width: 85%;
     padding: 50px 0; } }
+
+@media (max-width: 450px) {
+  #report-summary .findings-content .findings-header .findings-description .participants {
+    display: block;
+    margin: 5px 0; } }
 
 /* code that is NOT specific to a component or module */
 *, *:before, *:after {
