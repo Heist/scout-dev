@@ -5,12 +5,15 @@
     // OVERVIEW CONTROLLER ===========================================================
     angular.module('field_guide_controls')
         .controller('overview', ['loadData', '$scope','$http', '$location', '$stateParams','$rootScope', function(loadData, $scope, $http, $location, $stateParams, $rootScope){
+
+        // removes the body scroll overflow hidden
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.removeClass('overflow-hidden');
+
         
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
         
-
-        console.log('user ',$rootScope.user);
         // ONBOARDING =========================================
         if($rootScope.user.onboard === 1){
             $scope.onboardSteps = true;

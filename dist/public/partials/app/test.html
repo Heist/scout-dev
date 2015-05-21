@@ -17,7 +17,7 @@
 				<div class="sheet clearfix">
 
 					<div class="container-row clearfix" ng-click="select(test)">
-						<div class="container-left"></div>
+						<div class="container-left">&nbsp;</div>
 						<div class="container-right">
 							<textarea msd-elastic class="input-no-border project-name" ng-trim="false" ng-model="test.name" ng-focus="editTitle(test)" ng-blur="blurTitle(test)"></textarea>
 							
@@ -34,7 +34,9 @@
 								</div>
 							</div>
 						</div>
-						<h3 class="container-left">Objectives</h3>
+						<div class="container-left">
+						<h3>Objectives</h3>
+						</div>
 						<div class="container-right">
 							<textarea msd-elastic class="objectives input-no-border" id="field-textarea"  ng-model="test.desc" ng-blur="updateTask(test)"></textarea>
 						</div>
@@ -110,14 +112,14 @@
 					</div>
 					
 					<div class="container-row clearfix">
-						<div class="container-left"></div>
+						<div class="container-left">&nbsp;</div>
 						<div class="container-right padding">
 							<!-- add a new task -->
 							<div class="add-task">
 								<form ng-model='newtask'>
-									<input ng-trim="false" ng-model="newtask.name"placeholder="Write a topic title.." required><br/>
+									<input class="topic-name" ng-trim="false" ng-model="newtask.name" placeholder="Write a topic title.." required><br/>
 									
-									<textarea msd-elastic ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions.." required>
+									<textarea msd-elastic class="topic-questions" ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions.." required>
 									</textarea>
 								</form>
 								
