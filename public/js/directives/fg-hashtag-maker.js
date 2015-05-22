@@ -290,7 +290,8 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // enter all updated tags into scope.testTags
 
                 // in here, we need to test if the new tag already exists in the list or has replaced something else 
-                if(tester && tester.length > 0 && tester.length > accepted_tags.length){
+
+                if(tester && tester.length > 0 && (!accepted_tags || tester.length > accepted_tags.length)){
                     tag_body = tester[tester.length -1].replace(/#/gi,'');
                 }
 

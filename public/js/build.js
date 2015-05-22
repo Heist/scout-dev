@@ -53162,8 +53162,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     //but we are interested only in responses that correspond to the current view value
 
                     // this doesn't work because it doesn't parse the current view value properly.
-                    
-                    
                     var onCurrentRequest = modelCtrl.$viewValue.indexOf(inputValue) > -1;
 
                     if (onCurrentRequest && hasFocus) {
@@ -53182,7 +53180,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                             }
 
                             scope.query = inputValue;
-
+                            console.log(inputValue);
                             //position pop-up with matches - we need to re-calculate its position each time we are opening a window
                             //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
                             //due to other elements being rendered
@@ -53270,10 +53268,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     // console.log('should be the new tags',clean_test, clean_accepted, difference);
                 }
 
-                // _.difference([1, 2, 3], [4, 2]);
-                // // → [1, 3] 
-                
-
                 // WHAT WE HAVE
                 // if we have a match on a hashtag
                 // the length of the matched hashtag values is greater than zero
@@ -53291,7 +53285,8 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // enter all updated tags into scope.testTags
 
                 // in here, we need to test if the new tag already exists in the list or has replaced something else 
-                if(tester && tester.length > 0 && tester.length > scope.testTags.length){
+
+                if(tester && tester.length > 0 && (!accepted_tags || tester.length > accepted_tags.length)){
                     tag_body = tester[tester.length -1].replace(/#/gi,'');
                 }
 
