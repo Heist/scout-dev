@@ -223,7 +223,7 @@
 			}
 
 			.summary-user {
-				@include type-h3($fg-slate);
+				@include type-p($fg-black);
 				margin: 0 0 10px 0;
 				position: relative;
 				padding: 0 50px;
