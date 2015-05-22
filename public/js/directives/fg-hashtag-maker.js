@@ -275,10 +275,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     // console.log('should be the new tags',clean_test, clean_accepted, difference);
                 }
 
-                // _.difference([1, 2, 3], [4, 2]);
-                // // → [1, 3] 
-                
-
                 // WHAT WE HAVE
                 // if we have a match on a hashtag
                 // the length of the matched hashtag values is greater than zero
@@ -296,7 +292,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // enter all updated tags into scope.testTags
 
                 // in here, we need to test if the new tag already exists in the list or has replaced something else 
-                if(tester && tester.length > 0 && tester.length > scope.testTags.length){
+                if(tester && tester.length > 0 && tester.length > accepted_tags.length){
                     tag_body = tester[tester.length -1].replace(/#/gi,'');
                 }
 
@@ -463,7 +459,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // console.log('indexOf the scope query', modelCtrl.$viewValue.indexOf(scope.query));
 
                 // Find the most recent hashtag from the current caret position
-                var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#'+scope.query, scope.caret.get)
+                var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get)
 
                 console.log('index of most recent hashtag', '#'+scope.query, mostRecentHash, scope.caret.get);
 

@@ -53458,7 +53458,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // console.log('indexOf the scope query', modelCtrl.$viewValue.indexOf(scope.query));
 
                 // Find the most recent hashtag from the current caret position
-                var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#'+scope.query, scope.caret.get)
+                var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get)
 
                 void 0;
 
