@@ -3901,7 +3901,7 @@ span.tooltip-icon {
 
 [data-tooltip]:before, [data-tooltip-large]:before, [data-tooltip-report]:before, [data-tooltip-overview]:before, .tooltip:before, .tooltip-top:before {
   margin-left: -1px;
-  margin-bottom: -12px;
+  margin-bottom: -11px;
   border-top-color: #1B5273; }
 
 [data-tooltip]:after, .tooltip:after, .tooltip-top:after {
