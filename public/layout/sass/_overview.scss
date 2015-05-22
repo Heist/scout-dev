@@ -48,10 +48,11 @@
 		@include dropshadowULTRA($shadow: 0 3px 10px, $intensity: rgba(0,0,0,0.1));
 		position: relative;
 		transition: all .1s ease-in-out;
-
+		
 		&:hover {
 			transform: scale(1.04);
 			@include dropshadowULTRA($shadow: 0 3px 10px, $intensity: rgba(0,0,0,0.2));
+			z-index: 5;
 		}
 	}
 
@@ -94,7 +95,6 @@
 			position: absolute;
 			right: -63px;
 			top: -41px;
-			z-index: 1;
 			@include dropshadow;
 			
 			ul {

@@ -5027,7 +5027,8 @@ hr {
       transform: scale(1.04);
       -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
       -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); }
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      z-index: 5; }
   .overview-test .overview-test-container-hover:hover {
     border: 1px solid #85AC0F; }
   .overview-test .test-info {
@@ -5051,7 +5052,6 @@ hr {
       position: absolute;
       right: -63px;
       top: -41px;
-      z-index: 1;
       -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
