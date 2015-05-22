@@ -209,6 +209,10 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 });
             };
 
+            function spliceSlice(str, index, count, add) {
+              return str.slice(0, index) + (add || "") + str.slice(index + count);
+            }
+
             function getPos(element) {
                 if ('selectionStart' in element) {
                   return element.selectionStart;
@@ -461,9 +465,9 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // Find the most recent hashtag from the current caret position
                 var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#'+scope.query, scope.caret.get)
 
-                console.log('index of most recent hashtag', mostRecentHash);
+                console.log('index of most recent hashtag', mostRecentHash, scope.caret.get);
 
-                var newValue = modelCtrl.$viewValue.replace('#'+scope.query, '#'+model);
+                var newValue  = spliceSlice(modelCtrl.$viewValue, mostRecentHash, scope.caret.get-mostRecentHash, '#'+model);
 
                 modelCtrl.$setViewValue(newValue);
                 modelCtrl.$render();

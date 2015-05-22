@@ -53204,6 +53204,10 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 });
             };
 
+            function spliceSlice(str, index, count, add) {
+              return str.slice(0, index) + (add || "") + str.slice(index + count);
+            }
+
             function getPos(element) {
                 if ('selectionStart' in element) {
                   return element.selectionStart;
@@ -53448,10 +53452,17 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 // insert the new tag into the input box
                 console.log('cursor position', scope.caret.get);
+
                 // TODO: INSERT THE NEW TAG INTO THE CORRECT VARIANT OF THE MODEL;
-                console.log('check that this is the correct tag!', scope.query);
-                console.log('indexOf the scope query', modelCtrl.$viewValue.indexOf(scope.query));
-                var newValue = modelCtrl.$viewValue.replace('#'+scope.query, '#'+model);
+                // console.log('check that this is the correct tag!', scope.query);
+                // console.log('indexOf the scope query', modelCtrl.$viewValue.indexOf(scope.query));
+
+                // Find the most recent hashtag from the current caret position
+                var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#'+scope.query, scope.caret.get)
+
+                console.log('index of most recent hashtag', mostRecentHash, scope.caret.get);
+
+                var newValue  = spliceSlice(modelCtrl.$viewValue, mostRecentHash, scope.caret.get-mostRecentHash, '#'+model);
 
                 modelCtrl.$setViewValue(newValue);
                 modelCtrl.$render();
