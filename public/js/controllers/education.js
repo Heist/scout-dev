@@ -24,6 +24,18 @@
     
     }
 
+    console.log('this is the state', $state);
+    console.log('this is the stateParams', $stateParams);
+    console.log('this is a path', $location.path());
+
+    var locationPath = $location.path();
+
+    $scope.educationPopup = '';
+    
+    if(locationPath.indexOf('/edit/test') !== -1) {
+
+    }
+
 	}]);
 
 })();
