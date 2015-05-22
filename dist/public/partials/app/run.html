@@ -10,6 +10,7 @@
 				<div class="modal-interior-title">
 					<h2>Run your session</h2>
 				</div>
+
 				<form name="subjectForm" ng-submit="addSubject(subject)" >
 					<ul class="nobullets" ng-model="subject">
 						<li ng-class='{"half": kind === "prototype", "full" : kind !== "prototype"}'>
@@ -28,8 +29,6 @@
 							<div class="cta-margin float-right">
 								<a href="#" class="secondary button-cancel" ng-click="changeOnboard(100)" tabindex="1">Cancel</a>
 
-								<!-- <a class="button dry-run med" type="submit" ng-click="addSubject(subject); changeOnboard(2)">Dry Run</a> -->
-						
 							<button class="button med float-right" type="submit" tabindex="0">Start session</button>
 						</div>
 					</ul>

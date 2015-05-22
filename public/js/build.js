@@ -53172,6 +53172,39 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     evt.stopPropagation();
                 }
             };
+            
+            function spliceSlice(str, index, count, add) {
+              return str.slice(0, index) + (add || "") + str.slice(index + count);
+            }
+
+            function getPos(element) {
+                if ('selectionStart' in element) {
+                  return element.selectionStart;
+                } else if (document.selection) {
+                  element.focus();
+                  var sel = document.selection.createRange();
+                  var selLen = document.selection.createRange().text.length;
+                  sel.moveStart('character', -element.value.length);
+                  return sel.text.length - selLen;
+                }
+              }
+
+            function setPos(element, caretPos) {
+                if (element.createTextRange) {
+                  var range = element.createTextRange();
+                  range.move('character', caretPos);
+                  range.select();
+                } else {
+                  element.focus();
+                  if (element.selectionStart !== undefined) {
+                    element.setSelectionRange(caretPos, caretPos);
+                  }
+                }
+              }
+
+            var matchTags = function(stringValue){
+                return stringValue.match(/\S*#[^\.\,\!\?\s]+/gi);
+            }
 
             var getMatchId = function(index) {
                 return popupId + '-option-' + index;
@@ -53188,6 +53221,11 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                     // this doesn't work because it doesn't parse the current view value properly.
                     var onCurrentRequest = modelCtrl.$viewValue.indexOf(inputValue) > -1;
+
+                    var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get);
+                    var searchTerm     = modelCtrl.$viewValue.substr(mostRecentHash, scope.caret.get);
+
+                    console.log('getMatchesAsync searchTerm', searchTerm);
 
                     if (onCurrentRequest && hasFocus) {
                         if (matches.length > 0) {
@@ -53226,39 +53264,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     isLoadingSetter(originalScope, false);
                 });
             };
-
-            function spliceSlice(str, index, count, add) {
-              return str.slice(0, index) + (add || "") + str.slice(index + count);
-            }
-
-            function getPos(element) {
-                if ('selectionStart' in element) {
-                  return element.selectionStart;
-                } else if (document.selection) {
-                  element.focus();
-                  var sel = document.selection.createRange();
-                  var selLen = document.selection.createRange().text.length;
-                  sel.moveStart('character', -element.value.length);
-                  return sel.text.length - selLen;
-                }
-              }
-
-            function setPos(element, caretPos) {
-                if (element.createTextRange) {
-                  var range = element.createTextRange();
-                  range.move('character', caretPos);
-                  range.select();
-                } else {
-                  element.focus();
-                  if (element.selectionStart !== undefined) {
-                    element.setSelectionRange(caretPos, caretPos);
-                  }
-                }
-              }
-
-            var matchTags = function(stringValue){
-                return stringValue.match(/\S*#[^\.\,\!\?\s]+/gi);
-            }
 
             var modelParser = function (inputValue) {
 
