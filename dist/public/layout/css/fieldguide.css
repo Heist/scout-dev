@@ -5129,19 +5129,22 @@ span.tooltip-icon {
       left: 0px;
       display: block;
       padding: 5px 13.33333px; }
-      .overview-test .test-info .editTest span {
+      .overview-test .test-info .editTest span.ellipsis {
         text-decoration: none;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 700;
-        color: #C5C6C7; }
+        color: #C5C6C7;
+        width: 20px;
+        display: block;
+        float: right; }
       .overview-test .test-info .editTest .dangerous:hover {
         color: #f37960; }
   .overview-test .test-edit {
     padding: 45px 15px 0 15px;
     height: 200px; }
     .overview-test .test-edit h2 {
-      color: #777777;
+      color: #575757;
       font-size: 24.8px;
       line-height: 30px;
       letter-spacing: -0.5px;
