@@ -453,9 +453,16 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 // insert the new tag into the input box
                 console.log('cursor position', scope.caret.get);
+
                 // TODO: INSERT THE NEW TAG INTO THE CORRECT VARIANT OF THE MODEL;
-                console.log('check that this is the correct tag!', scope.query);
-                console.log('indexOf the scope query', modelCtrl.$viewValue.indexOf(scope.query));
+                // console.log('check that this is the correct tag!', scope.query);
+                // console.log('indexOf the scope query', modelCtrl.$viewValue.indexOf(scope.query));
+
+                // Find the most recent hashtag from the current caret position
+                var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#'+scope.query, scope.caret.get)
+
+                console.log('index of most recent hashtag', mostRecentHash);
+
                 var newValue = modelCtrl.$viewValue.replace('#'+scope.query, '#'+model);
 
                 modelCtrl.$setViewValue(newValue);
