@@ -268,7 +268,7 @@ strong {
   font-weight: 400; }
 
 .dark {
-  color: #2B404D; }
+  color: #1B5273; }
 
 .all-caps {
   text-transform: uppercase;
@@ -374,7 +374,7 @@ ul.lined ul.tags li {
 .expand-button {
   position: relative; }
   .expand-button .expand-button-body {
-    background: #2B404D;
+    background: #1B5273;
     color: #fff;
     margin: 0;
     padding: 10px;
@@ -413,7 +413,7 @@ ul.lined ul.tags li {
   .expand-button:hover .expand-button-helper {
     display: block; }
   .expand-button:hover .expand-button-body {
-    background: #2B404D;
+    background: #1B5273;
     color: #fff;
     -webkit-transition-duration: 0.2s;
     -webkit-transition-timing: ease-out;
@@ -448,7 +448,7 @@ label {
   margin: 0 0 5px 0;
   font-size: 14px;
   opacity: 1;
-  color: #2B404D;
+  color: #1B5273;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300; }
@@ -843,7 +843,7 @@ button.x-onboard {
   .button.blue {
     background: #00B5E3; }
   .button.slack {
-    color: #2B404D;
+    color: #1B5273;
     background: #fff;
     background-image: url('/layout/assets/slack-sticker.png');
     background-position-x: 10px;
@@ -3439,7 +3439,7 @@ Copyright (c) 2015 Daniel Eden
     filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2)); }
   #help-bubble .help-bubble-open {
     background: #dddddd;
-    color: #2B404D;
+    color: #1B5273;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -3772,7 +3772,7 @@ span.tooltip-icon {
   z-index: 1000;
   padding: 7px;
   width: 80px;
-  background-color: #2B404D;
+  background-color: #1B5273;
   border-radius: 2px;
   color: #fff;
   content: attr(data-tooltip);
@@ -3789,7 +3789,7 @@ span.tooltip-icon {
   z-index: 1000;
   padding: 7px;
   width: 130px;
-  background-color: #2B404D;
+  background-color: #1B5273;
   border-radius: 2px;
   color: #fff;
   content: attr(data-tooltip-large);
@@ -3806,7 +3806,7 @@ span.tooltip-icon {
   z-index: 1000;
   padding: 7px;
   width: 90px;
-  background-color: #2B404D;
+  background-color: #1B5273;
   border-radius: 2px;
   color: #fff;
   content: attr(data-tooltip-report);
@@ -3823,7 +3823,7 @@ span.tooltip-icon {
   z-index: 1000;
   padding: 7px;
   width: 93px;
-  background-color: #2B404D;
+  background-color: #1B5273;
   border-radius: 2px;
   color: #fff;
   content: attr(data-tooltip-overview);
@@ -3847,7 +3847,7 @@ span.tooltip-icon {
 [data-tooltip]:before, [data-tooltip-large]:before, [data-tooltip-report]:before, [data-tooltip-overview]:before, .tooltip:before, .tooltip-top:before {
   margin-left: -1px;
   margin-bottom: -12px;
-  border-top-color: #2B404D; }
+  border-top-color: #1B5273; }
 
 [data-tooltip]:after, .tooltip:after, .tooltip-top:after {
   margin-left: -35px; }
@@ -4477,7 +4477,7 @@ span.tooltip-icon {
       cursor: pointer; }
     #sidebar ul li.active {
       position: relative;
-      color: #2B404D;
+      color: #1B5273;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400; }
@@ -4570,7 +4570,7 @@ span.tooltip-icon {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 400;
-        color: #2B404D;
+        color: #1B5273;
         margin: 0 0 10px 0; }
       .modal .modal-interior .modal-interior-title p {
         font-size: 14px;
@@ -4667,7 +4667,7 @@ span.tooltip-icon {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 400;
-        color: #2B404D;
+        color: #1B5273;
         margin: 0 0 10px 0; }
       .modal-scroll .modal-interior .modal-interior-title p {
         font-size: 14px;
@@ -4908,7 +4908,7 @@ span.tooltip-icon {
       font-style: normal;
       font-weight: 400;
       text-align: center;
-      color: #2B404D;
+      color: #1B5273;
       margin: 0; }
     #view-login .module-container .module-content a {
       color: #949799; }
@@ -5318,7 +5318,7 @@ span.tooltip-icon {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 400;
-    color: #2B404D;
+    color: #1B5273;
     font-size: 10px;
     text-transform: uppercase;
     text-align: right; }
@@ -5691,7 +5691,7 @@ span.tooltip-icon {
       background: #00B5E3; }
     #view-testing #button-newtask .expand-button .expand-button-helper {
       background: #f6f6f6;
-      color: #2B404D; }
+      color: #1B5273; }
   #view-testing #testing-client {
     width: 45%;
     height: 100%;
@@ -5897,7 +5897,7 @@ span.tooltip-icon {
     .message-group .add-note-button:hover .add-note-button-helper {
       display: block; }
     .message-group .add-note-button:hover .add-note-button-body {
-      background: #2B404D;
+      background: #1B5273;
       color: #fff;
       -webkit-transition-duration: 0.2s;
       -webkit-transition-timing: ease-out;
@@ -5922,7 +5922,7 @@ span.tooltip-icon {
 
 /* message user header */
 .message-user {
-  color: #2B404D;
+  color: #1B5273;
   font-size: 18.6px;
   line-height: 24px;
   margin: 0 0 10px 0;
@@ -6209,7 +6209,7 @@ span.tooltip-icon {
               font-style: normal;
               font-weight: 400; }
           #view-findings #findings-nav #sidebar.sidebar span.report:hover {
-            color: #2B404D; }
+            color: #1B5273; }
         #view-findings #findings-nav #sidebar.sidebar h4.group-cat {
           padding: 10px;
           margin: 5px 0 0 0;
@@ -6242,7 +6242,7 @@ span.tooltip-icon {
             font-style: normal;
             font-weight: 400; }
           #view-findings #findings-nav #sidebar.sidebar h4.group-cat li:active {
-            color: #2B404D;
+            color: #1B5273;
             font-family: "canada-type-gibson",sans-serif;
             font-style: normal;
             font-weight: 400; }
@@ -6252,12 +6252,12 @@ span.tooltip-icon {
             padding: 10px;
             margin: 5px 0 0 0; }
             #view-findings #findings-nav #sidebar.sidebar ul:first-child li:hover {
-              color: #2B404D;
+              color: #1B5273;
               font-family: "canada-type-gibson",sans-serif;
               font-style: normal;
               font-weight: 400; }
             #view-findings #findings-nav #sidebar.sidebar ul:first-child li:active {
-              color: #2B404D;
+              color: #1B5273;
               font-family: "canada-type-gibson",sans-serif;
               font-style: normal;
               font-weight: 400; }
@@ -6274,7 +6274,7 @@ span.tooltip-icon {
       width: 100%;
       padding: 40px 0; }
       #view-findings .summaries-holder .summaries-content h2 {
-        color: #2B404D;
+        color: #1B5273;
         font-size: 24.8px;
         line-height: 30px;
         margin: 0;
@@ -6289,7 +6289,7 @@ span.tooltip-icon {
         margin: 0;
         padding: 0 0 20px 0; }
       #view-findings .summaries-holder .summaries-content .summary-user {
-        color: #2B404D;
+        color: #1B5273;
         font-size: 18.6px;
         line-height: 24px;
         margin: 0 0 10px 0;
@@ -6378,7 +6378,7 @@ span.tooltip-icon {
     #view-findings .findings-content.report {
       width: 35%; }
     #view-findings .findings-content h3 {
-      color: #2B404D;
+      color: #1B5273;
       font-size: 18.6px;
       line-height: 24px;
       margin: 0 0 15px 0; }
@@ -6429,7 +6429,7 @@ span.tooltip-icon {
   #video-embed .input {
     width: 100%; }
   #video-embed p {
-    color: #2B404D;
+    color: #1B5273;
     padding: 0;
     margin: 0 0 -5px 0; }
   #video-embed small {
@@ -6538,7 +6538,7 @@ span.tooltip-icon {
     margin-bottom: 5px;
     line-height: 1.3; }
     .block-screen h3 strong {
-      color: #2B404D; }
+      color: #1B5273; }
   .block-screen h1 {
     font-size: 42px; }
   .block-screen .block-screen-img {
@@ -6640,7 +6640,7 @@ span.tooltip-icon {
         #report-summary #findings-nav #sidebar.sidebar .tag-hash:before {
           content: '#'; }
         #report-summary #findings-nav #sidebar.sidebar span.findings {
-          color: #2B404D;
+          color: #1B5273;
           display: block;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
@@ -6689,7 +6689,7 @@ span.tooltip-icon {
   #report-summary .findings-header {
     padding: 40px 0; }
     #report-summary .findings-header h1 {
-      color: #2B404D;
+      color: #1B5273;
       font-size: 33.1px;
       line-height: 37px;
       margin: 0; }
@@ -6709,7 +6709,7 @@ span.tooltip-icon {
     #report-summary .findings-content.report {
       width: 35%; }
     #report-summary .findings-content h3 {
-      color: #2B404D;
+      color: #1B5273;
       font-size: 18.6px;
       line-height: 24px;
       margin: 0 0 15px 0; }
