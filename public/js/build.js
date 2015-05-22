@@ -53212,7 +53212,13 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
             var getMatchesAsync = function(inputValue) {
                 var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get);
-                var searchTerm     = modelCtrl.$viewValue.substr(mostRecentHash+1, scope.caret.get);
+                var nextSpace      = modelCtrl.$viewValue.indexOf(' ', mostRecentHash);
+
+                var searchClose    = (nextSpace && nextSpace > -1) ? Math.min(nextSpace, scope.caret.get) : scope.caret.get;
+                
+                console.log('caret position', scope.caret.get, 'searchClose', searchClose, 'nextSpace', nextSpace);
+
+                var searchTerm     = modelCtrl.$viewValue.substr(mostRecentHash+1, searchClose-mostRecentHash);
                     
                 var locals = {$viewValue: searchTerm};
                 isLoadingSetter(originalScope, true);
@@ -53223,7 +53229,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                     var onCurrentRequest = modelCtrl.$viewValue.indexOf(searchTerm) > -1;
                     
-                    console.log('getMatchesAsync searchTerm', searchTerm, onCurrentRequest);
+                    console.log('getMatchesAsync searchTerm',mostRecentHash+1, searchClose, searchTerm, onCurrentRequest);
 
                     if (onCurrentRequest && hasFocus) {
                         if (matches.length > 0) {
