@@ -223,31 +223,21 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 var tag_body, clean_accepted = [],clean_test = [], difference; 
 
                 scope.testTags = inputValue.match(/#[^\.\,\!\?\s]*\s/gi);
-
-                console.log('list of tags in input', tester, accepted_tags);
                 
                 if(accepted_tags){
-                    console.log('accepted_tags', accepted_tags)
                     _.map(accepted_tags, function(n){
-                            console.log('accepted each', n);
                             n = n.replace(/#/gi, '');
-                            
                             n = n.replace(/\s/gi,  '');
-
                             return clean_accepted.push(n);
                     })
-                    console.log('clean_accepted', clean_accepted)
                 }
 
                 if(tester){
-                    console.log('tester', tester)
                     _.map(tester, function(n){
-                        console.log('test each', n);
                         n = n.replace(/#/gi,  '');
                         n = n.replace(/\s/gi,  '');
                         return clean_test.push(n);
                     })
-                    console.log('clean_test', clean_test)
                 }
 
                 if(accepted_tags && tester){
@@ -433,7 +423,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 // TODO: INSERT THE NEW TAG INTO THE CORRECT VARIANT OF THE MODEL;
                 console.log('check that this is the correct tag!', scope.query);
-
+                console.log(modelCtrl.$viewValue.indexOf(scope.query));
                 var newValue = modelCtrl.$viewValue.replace('#'+scope.query, '#'+model);
 
                 modelCtrl.$setViewValue(newValue);
