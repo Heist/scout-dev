@@ -448,7 +448,7 @@ label {
   margin: 0 0 5px 0;
   font-size: 14px;
   opacity: 1;
-  color: #1B5273;
+  color: #575757;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300; }
@@ -782,11 +782,11 @@ button.x-onboard {
       color: #fff;
       text-decoration: none; }
   .button.dark {
-    background: #323539;
+    background: #575757;
     color: #fff;
     text-decoration: none; }
     .button.dark:hover {
-      background: #2b2d31;
+      background: #4f4f4f;
       color: #fff;
       text-decoration: none; }
   .button.destructive {
@@ -3502,7 +3502,7 @@ Copyright (c) 2015 Daniel Eden
     margin-top: 5px;
     background-color: transparent;
     border: 1px solid #dddddd;
-    color: #323539; }
+    color: #575757; }
 
 /* task rating output */
 .task-score {
@@ -4234,7 +4234,7 @@ span.tooltip-icon {
       #timeline ul .message .message-body {
         float: left;
         width: 100%;
-        color: #323539; }
+        color: #575757; }
         #timeline ul .message .message-body p {
           margin-bottom: 0; }
         #timeline ul .message .message-body small {
@@ -4500,7 +4500,7 @@ span.tooltip-icon {
   left: 0;
   width: 100%;
   min-height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.85);
   z-index: 99999999;
   -webkit-animation-duration: 0.5s;
   -moz-animation-duration: 0.5s;
@@ -4597,7 +4597,7 @@ span.tooltip-icon {
   left: 0;
   width: 100%;
   min-height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.85);
   z-index: 99999999;
   -webkit-animation-duration: 0.5s;
   -moz-animation-duration: 0.5s;
@@ -4703,7 +4703,7 @@ span.tooltip-icon {
   margin: 0 0 30px 0;
   padding: 20px 0 0 0;
   font-size: 21px;
-  color: #323539; }
+  color: #575757; }
   .plan-price-point big {
     font-size: 42px;
     font-family: "canada-type-gibson",sans-serif;
@@ -4983,7 +4983,7 @@ span.tooltip-icon {
   #view-register form .input, #view-register form .button {
     width: 100%; }
   #view-register a {
-    color: #323539; }
+    color: #575757; }
   #view-register .register-cta {
     font-size: 11.9px;
     line-height: 1.4;
@@ -5708,7 +5708,7 @@ span.tooltip-icon {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.85);
   z-index: 999999999;
   color: #fff;
   margin: 0;
@@ -5835,7 +5835,7 @@ span.tooltip-icon {
       #view-account .team-members li .team-member-info {
         float: left; }
         #view-account .team-members li .team-member-info p {
-          color: #323539;
+          color: #575757;
           font-size: 16.8px;
           margin: 0;
           padding: 1px 0 0 0; }
@@ -6553,7 +6553,7 @@ span.tooltip-icon {
     width: 50%;
     font-size: 11.2px;
     padding: 0 20px 0 0;
-    color: #323539; }
+    color: #575757; }
 
 /* view-specific styles */
 #view-404 .block-screen-img img {
