@@ -1,10 +1,11 @@
-<div id="help-bubble" ng-init="help = false" ng-controller="education">
-	<img src="layout/assets/fieldy.svg" alt="Fieldy" ng-click="help = true">
-</div>
+<div ng-controller="education">
+	
+	<div id="help-bubble" ng-init="help = false">
+		<img src="layout/assets/fieldy.svg" alt="Fieldy" ng-click="help = true">
+	</div>
 
 
-<!-- <div ng-if="user is on overview page"> -->
-	<div id="help-bubble-content" ng-show="help === true">
+	<div id="help-bubble-content" ng-show="help === true && educationPopup === 1">
 		<img class="fieldy" src="layout/assets/fieldy.svg" alt="Fieldy">
 		<h3 class="float-right pointer" ng-click="help = false">&times;</h3><div class="clear"></div>
 		<h2 class="text-center">Start your first project</h2>
@@ -21,10 +22,9 @@
 			<img class="icons" src="layout/assets/email-icon.svg" alt="Email"><a href="mailto:help@fieldguideapp.com">E-mail us</a>
 		</div>
 	</div>
-<!-- </div> -->
 
-<!-- <div ng-if="user is on test creation page"> -->
-<!-- 	<div id="help-bubble-content" ng-show="help === true">
+
+	<div id="help-bubble-content" ng-show="help === true  && educationPopup === 2">
 		<img class="fieldy" src="layout/assets/fieldy.svg" alt="Fieldy">
 		<h3 class="float-right pointer" ng-click="help = false">&times;</h3><div class="clear"></div>
 		<h2 class="text-center">What can I help you with?</h2>
@@ -40,15 +40,14 @@
 			<img class="icons" src="layout/assets/slack-sticker.svg" alt="Slack"><a href="https://fieldguide.typeform.com/to/qrRHYS" target="_">Talk to us on Slack</a>
 			<img class="icons" src="layout/assets/email-icon.svg" alt="Email"><a href="mailto:help@fieldguideapp.com">E-mail us</a>
 		</div>
-	</div> -->
-<!-- </div> -->
+	</div>
 
 
-<!-- <div ng-if="user is on report page"> -->
-<!-- 	<div id="help-bubble-content" ng-show="help === true">
+
+	<div id="help-bubble-content" ng-show="help === true  && educationPopup === 3">
 		<img class="fieldy" src="layout/assets/fieldy.svg" alt="Fieldy">
 		<h3 class="float-right pointer" ng-click="help = false">&times;</h3><div class="clear"></div>
-		<h2 class="text-center">What can I help you with?</h2>
+		<h2 class="text-center">Report Help</h2>
 		<ol>
 			<li><a href="">How to write great topics</a></li>
 			<li><a href="">What kind of questions to ask  participants</a></li>
@@ -61,5 +60,7 @@
 			<img class="icons" src="layout/assets/slack-sticker.svg" alt="Slack"><a href="https://fieldguide.typeform.com/to/qrRHYS" target="_">Talk to us on Slack</a>
 			<img class="icons" src="layout/assets/email-icon.svg" alt="Email"><a href="mailto:help@fieldguideapp.com">E-mail us</a>
 		</div>
-	</div> -->
-<!-- </div> -->
+	</div>
+
+
+</div>

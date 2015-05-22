@@ -50837,9 +50837,22 @@ angular.module('siyfion.sfTypeahead', [])
     
     }
 
-    void 0;
-    void 0;
-    void 0;
+    var locationPath = $location.path();
+
+    if(locationPath.indexOf('/overview') !== -1) {
+        $scope.educationPopup = 1;
+    } else if (locationPath.indexOf('/edit/test') !== -1) {
+        $scope.educationPopup = 2;
+    } else if (locationPath.indexOf('/summary') !== -1) {
+        $scope.educationPopup = 3;
+    } else {
+        $scope.educationPopup = 1;
+    }
+
+    // $scope.resetPopup = function(){
+    //     $scope.help = false;
+    //     $scope.educationPopup = 0;
+    // }
 
 	}]);
 
