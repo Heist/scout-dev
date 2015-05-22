@@ -53215,12 +53215,44 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 var tester = matchTags(inputValue);
                 var accepted_tags = inputValue.match(/#[^\.\,\!\?\s]*\s/gi);
-                var tag_body; 
+                var tag_body, clean_accepted = [],clean_test = [], difference; 
 
                 scope.testTags = inputValue.match(/#[^\.\,\!\?\s]*\s/gi);
 
                 console.log('list of tags in input', tester, accepted_tags);
+                
+                if(accepted_tags){
+                    console.log('accepted_tags', accepted_tags)
+                    _.map(accepted_tags, function(n){
+                            console.log('accepted each', n);
+                            n = n.replace(/#/gi, '');
+                            
+                            n = n.replace(/\s/gi,  '');
 
+                            return clean_accepted.push(n);
+                    })
+                    console.log('clean_accepted', clean_accepted)
+                }
+
+                if(tester){
+                    console.log('tester', tester)
+                    _.map(tester, function(n){
+                        console.log('test each', n);
+                        n = n.replace(/#/gi,  '');
+                        n = n.replace(/\s/gi,  '');
+                        return clean_test.push(n);
+                    })
+                    console.log('clean_test', clean_test)
+                }
+
+                if(accepted_tags && tester){
+                    difference = _.difference(clean_test, clean_accepted);
+                    console.log('should be the new tags',clean_test, clean_accepted, difference);
+                }
+
+                // _.difference([1, 2, 3], [4, 2]);
+                // // → [1, 3] 
+                
 
                 // WHAT WE HAVE
                 // if we have a match on a hashtag
