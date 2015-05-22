@@ -53091,6 +53091,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
             var scope = originalScope.$new();
                 scope.testTags = [];
                 scope.inputValue = '';
+                scope.caret = {};
 
             // WAI-ARIA
             var popupId = 'typeahead-' + scope.$id + '-' + Math.floor(Math.random() * 10000);
@@ -53203,6 +53204,31 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 });
             };
 
+            function getPos(element) {
+                if ('selectionStart' in element) {
+                  return element.selectionStart;
+                } else if (document.selection) {
+                  element.focus();
+                  var sel = document.selection.createRange();
+                  var selLen = document.selection.createRange().text.length;
+                  sel.moveStart('character', -element.value.length);
+                  return sel.text.length - selLen;
+                }
+              }
+
+            function setPos(element, caretPos) {
+                if (element.createTextRange) {
+                  var range = element.createTextRange();
+                  range.move('character', caretPos);
+                  range.select();
+                } else {
+                  element.focus();
+                  if (element.selectionStart !== undefined) {
+                    element.setSelectionRange(caretPos, caretPos);
+                  }
+                }
+              }
+
             var matchTags = function(stringValue){
                 return stringValue.match(/\S*#[^\.\,\!\?\s]+/gi);
             }
@@ -53218,36 +53244,26 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 var tag_body, clean_accepted = [],clean_test = [], difference; 
 
                 scope.testTags = inputValue.match(/#[^\.\,\!\?\s]*\s/gi);
-
-                console.log('list of tags in input', tester, accepted_tags);
                 
                 if(accepted_tags){
-                    console.log('accepted_tags', accepted_tags)
                     _.map(accepted_tags, function(n){
-                            console.log('accepted each', n);
                             n = n.replace(/#/gi, '');
-                            
                             n = n.replace(/\s/gi,  '');
-
                             return clean_accepted.push(n);
                     })
-                    console.log('clean_accepted', clean_accepted)
                 }
 
                 if(tester){
-                    console.log('tester', tester)
                     _.map(tester, function(n){
-                        console.log('test each', n);
                         n = n.replace(/#/gi,  '');
                         n = n.replace(/\s/gi,  '');
                         return clean_test.push(n);
                     })
-                    console.log('clean_test', clean_test)
                 }
 
                 if(accepted_tags && tester){
                     difference = _.difference(clean_test, clean_accepted);
-                    console.log('should be the new tags',clean_test, clean_accepted, difference);
+                    // console.log('should be the new tags',clean_test, clean_accepted, difference);
                 }
 
                 // _.difference([1, 2, 3], [4, 2]);
@@ -53332,6 +53348,12 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
             element.bind('keypress keydown', function (evt) {
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
+
+                // Set the caret position so we can effectively hunt hashtags
+                scope.$apply(function() {
+                  scope.caret.get = getPos(element[0]);
+                });
+
 
                 if(scope.activeIdx === -1 && evt.which === 13){
                     // EMIT COMPLETED MESSAGE =============================
@@ -53425,10 +53447,10 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // not _just_ the scope.query.
 
                 // insert the new tag into the input box
-
+                console.log('cursor position', scope.caret.get);
                 // TODO: INSERT THE NEW TAG INTO THE CORRECT VARIANT OF THE MODEL;
                 console.log('check that this is the correct tag!', scope.query);
-
+                console.log('indexOf the scope query', modelCtrl.$viewValue.indexOf(scope.query));
                 var newValue = modelCtrl.$viewValue.replace('#'+scope.query, '#'+model);
 
                 modelCtrl.$setViewValue(newValue);
