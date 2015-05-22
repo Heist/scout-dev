@@ -4859,9 +4859,6 @@ hr {
     #view-login .module-container .module-content input, #view-login .module-container .module-content #view-editing .add-task textarea, #view-editing .add-task #view-login .module-container .module-content textarea, #view-login .module-container .module-content button {
       width: 246px;
       margin-bottom: 4px;
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 400;
       float: none; }
       #view-login .module-container .module-content input:focus, #view-login .module-container .module-content #view-editing .add-task textarea:focus, #view-editing .add-task #view-login .module-container .module-content textarea:focus, #view-login .module-container .module-content button:focus {
         box-shadow: none; }

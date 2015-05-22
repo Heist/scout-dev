@@ -119,7 +119,6 @@
 			input, button {
 				width: 246px;
 				margin-bottom: $pad/5;
-				@include type-regular;
 				float: none;
 
 				&:focus {
