@@ -53211,21 +53211,19 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
             };
 
             var getMatchesAsync = function(inputValue) {
-
-                var locals = {$viewValue: inputValue};
+                var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get);
+                var searchTerm     = modelCtrl.$viewValue.substr(mostRecentHash+1, scope.caret.get);
+                    
+                var locals = {$viewValue: searchTerm};
                 isLoadingSetter(originalScope, true);
 
                 $q.when(parserResult.source(originalScope, locals)).then(function(matches) {
                     //it might happen that several async queries were in progress if a user were typing fast
                     //but we are interested only in responses that correspond to the current view value
 
-                    // this doesn't work because it doesn't parse the current view value properly.
-                    var onCurrentRequest = modelCtrl.$viewValue.indexOf(inputValue) > -1;
-
-                    var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get);
-                    var searchTerm     = modelCtrl.$viewValue.substr(mostRecentHash, scope.caret.get);
-
-                    console.log('getMatchesAsync searchTerm', searchTerm);
+                    var onCurrentRequest = modelCtrl.$viewValue.indexOf(searchTerm) > -1;
+                    
+                    console.log('getMatchesAsync searchTerm', searchTerm, onCurrentRequest);
 
                     if (onCurrentRequest && hasFocus) {
                         if (matches.length > 0) {
@@ -53242,8 +53240,8 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                                 });
                             }
 
-                            scope.query = inputValue;
-                            console.log(inputValue);
+                            scope.query = searchTerm;
+                            // console.log(inputValue);
                             //position pop-up with matches - we need to re-calculate its position each time we are opening a window
                             //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
                             //due to other elements being rendered
