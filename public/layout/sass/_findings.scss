@@ -128,6 +128,7 @@
 					padding: 10px;
 					margin: 5px 0 0 0;
 					@include type-h4($fg-grey-placeholder);
+					@include type-regular;
 					text-transform: uppercase;
 					position: relative;
 

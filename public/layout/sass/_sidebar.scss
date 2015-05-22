@@ -29,7 +29,7 @@
 		padding: 0;
 		margin: 0;
 		list-style: none;
-		color: lighten($text, 10%);
+		color: $fg-grey-text;
 		
 				
 		li {
@@ -60,7 +60,8 @@
 			
 					
 			&:hover {
-				background: $background-overlay;
+				background: $fg-slate;
+				color: $white;
 				cursor: pointer;
 			}
 									

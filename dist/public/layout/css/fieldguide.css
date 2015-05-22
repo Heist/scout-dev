@@ -4503,7 +4503,7 @@ span.tooltip-icon {
   padding: 0;
   margin: 0;
   list-style: none;
-  color: #969799; }
+  color: #7a7a7a; }
   #sidebar ul li {
     padding: 10px 30px 10px 10px;
     margin: 0;
@@ -4528,7 +4528,8 @@ span.tooltip-icon {
       #sidebar ul li .task-boop.green {
         background: #85AC0F; }
     #sidebar ul li:hover {
-      background: #f0f0f0;
+      background: #1B5273;
+      color: #fff;
       cursor: pointer; }
     #sidebar ul li.active {
       position: relative;
@@ -6240,6 +6241,9 @@ span.tooltip-icon {
           margin: 5px 0 0 0;
           font-size: 10px;
           line-height: 11px;
+          font-family: "canada-type-gibson",sans-serif;
+          font-style: normal;
+          font-weight: 400;
           text-transform: uppercase;
           position: relative; }
           #view-findings #findings-nav #sidebar.sidebar h4.group-cat span.info {
