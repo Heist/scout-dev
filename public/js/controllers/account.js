@@ -23,7 +23,12 @@
 				$scope.live_user = data;
 			});
 
-		
+	
+	// removes the body scroll overflow hidden
+	var bodyScroll = angular.element(document.querySelector('body'));
+	bodyScroll.removeClass('overflow-hidden');
+
+
 	// ONBOARDING =========================================
     // TODO: Abstract into service for dependency injection
 

@@ -27,8 +27,12 @@
 		}
 		
 		.message-no-highlite {
-			padding: $pad/2.5 $pad*1.5 $pad/2.5 35px;
+			padding: 15px 40px;
 			line-height: $type-line-base*0.8;
+
+			&.interview-padding {
+				padding: 0 40px;
+			}
 
 			pre, small {
 				@include type-light;
@@ -36,12 +40,46 @@
 			}
 
 			h3 {
-				@include type-light;
-				color: $fg-grey-light;
+				@include type-h3($fg-grey-light);
 			}
 
 			p {
 				margin: 0;
+			}
+
+			.test-intro-prototype {
+				width: 100%;
+				padding: 20px 40px;
+				position: relative;
+				@include dropshadowULTRA($shadow: 0 0 10px, $intensity: rgba(0,0,0,0.1));
+
+				img {
+					position: absolute;
+					top: -11px;
+					left: -24px;
+				}
+
+				h3 {
+					@include type-h3($fg-grey-text);
+					@include type-regular;
+				}
+			}
+
+			.test-intro-interview {
+				@extend .test-intro-prototype;
+				width: 65%;
+				margin: 0 auto;
+
+				img {
+					position: absolute;
+					top: -11px;
+					left: -24px;
+				}
+
+				h3 {
+					@include type-h3($fg-grey-text);
+					@include type-regular;
+				}
 			}
 		}
 
@@ -52,10 +90,8 @@
 			transition: none;
 			cursor: text;
 
-			@include animated;
-				&:hover, &.selected {
-					@include animated;
-					background: $fg-bg url("../assets/edit-bg.svg") 12px no-repeat;
+			&:hover {
+				background: $fg-bg url("../assets/fg-edit-hover.svg") 15px no-repeat;
 			}
 		}	
 		
@@ -64,10 +100,6 @@
 			line-height: $type-line-base*0.8;
 			position: relative;
 			@include animated;
-					
-			&:hover, &.selected {
-
-			}
 			
 			.message-body textarea {
 				width: 98%;
@@ -102,7 +134,7 @@
 				float: left;
 				width: 100%;
 				color: $fg-black;
-								
+
 				p {
 					margin-bottom: 0;
 				}

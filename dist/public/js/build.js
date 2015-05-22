@@ -50619,7 +50619,12 @@ angular.module('siyfion.sfTypeahead', [])
 				$scope.live_user = data;
 			});
 
-		
+	
+	// removes the body scroll overflow hidden
+	var bodyScroll = angular.element(document.querySelector('body'));
+	bodyScroll.removeClass('overflow-hidden');
+
+
 	// ONBOARDING =========================================
     // TODO: Abstract into service for dependency injection
 
@@ -50832,6 +50837,23 @@ angular.module('siyfion.sfTypeahead', [])
     
     }
 
+    var locationPath = $location.path();
+
+    if(locationPath.indexOf('/overview') !== -1) {
+        $scope.educationPopup = 1;
+    } else if (locationPath.indexOf('/edit/test') !== -1) {
+        $scope.educationPopup = 2;
+    } else if (locationPath.indexOf('/summary') !== -1) {
+        $scope.educationPopup = 3;
+    } else {
+        $scope.educationPopup = 1;
+    }
+
+    // $scope.resetPopup = function(){
+    //     $scope.help = false;
+    //     $scope.educationPopup = 0;
+    // }
+
 	}]);
 
 })();
@@ -50944,6 +50966,12 @@ angular.module('siyfion.sfTypeahead', [])
 	.controller('newTest', 
     		['testBuildFunctions','$scope','$http','$stateParams','$state','$location','$rootScope',
     function( testBuildFunctions,  $scope,  $http,  $stateParams,  $state,  $location, $rootScope){
+
+        // removes the body scroll overflow hidden
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.removeClass('overflow-hidden');
+
+        
     	// SETUP VARIABLES ==========================
         $scope.test = {};
 
@@ -50995,21 +51023,11 @@ angular.module('siyfion.sfTypeahead', [])
     		['testBuildFunctions','$scope','$http','$stateParams','$state','$location','$rootScope', '$element',
     function( testBuildFunctions,  $scope,  $http,  $stateParams,  $state,  $location, $rootScope, $element){
     	
+       // removes the body scroll overflow hidden
+       var bodyScroll = angular.element(document.querySelector('body'));
+       bodyScroll.removeClass('overflow-hidden');
+
         // SETUP VARIABLES ================================
-        // $scope.user = $rootScope.user;
-       // if($rootScope.user.onboard === 2){}
-
-       // if($rootScope.user.onboard === 3 || $rootScope.user.onboard === 4 || $rootScope.user.onboard === 5 ){
-       //     $location.path('/run/'+$scope.tests[1]._id);
-       // }
-
-       // if($rootScope.user.onboard === 6 && $scope.tests.length > 0){
-       //     $location.path('/summary/'+$scope.tests[1]._id);
-       // }
-
-       // if($rootScope.user.onboard === 7 && $scope.tests.length > 0){
-       //     $location.path('/report/'+$scope.tests[1]._id);
-       // }
 
         $scope.user.onboard = 1;
         var startOnboard = '';
@@ -51090,12 +51108,15 @@ angular.module('siyfion.sfTypeahead', [])
     // OVERVIEW CONTROLLER ===========================================================
     angular.module('field_guide_controls')
         .controller('overview', ['loadData', '$scope','$http', '$location', '$stateParams','$rootScope', function(loadData, $scope, $http, $location, $stateParams, $rootScope){
+
+        // removes the body scroll overflow hidden
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.removeClass('overflow-hidden');
+
         
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
         
-
-        void 0;
         // ONBOARDING =========================================
         if($rootScope.user.onboard === 1){
             $scope.onboardSteps = true;
@@ -51917,7 +51938,7 @@ angular.module('siyfion.sfTypeahead', [])
             $scope.showReportLink = $scope.showReportLink ? false : true;
         };
 
-        // this removes the body scroll on summary page
+        // removes the body scroll on summary page
         var bodyScroll = angular.element(document.querySelector('body'));
         bodyScroll.addClass('overflow-hidden');
 
@@ -52154,6 +52175,10 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.test = data;
         $scope.tags = tagSort(data._tags) || [];
         $scope.tasks = data._tasks || [];
+
+        // removes the body scroll overflow hidden
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.removeClass('overflow-hidden');
 
         $scope.showAnchor = function(x) {
 

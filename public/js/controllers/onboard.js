@@ -8,21 +8,11 @@
     		['testBuildFunctions','$scope','$http','$stateParams','$state','$location','$rootScope', '$element',
     function( testBuildFunctions,  $scope,  $http,  $stateParams,  $state,  $location, $rootScope, $element){
     	
+       // removes the body scroll overflow hidden
+       var bodyScroll = angular.element(document.querySelector('body'));
+       bodyScroll.removeClass('overflow-hidden');
+
         // SETUP VARIABLES ================================
-        // $scope.user = $rootScope.user;
-       // if($rootScope.user.onboard === 2){}
-
-       // if($rootScope.user.onboard === 3 || $rootScope.user.onboard === 4 || $rootScope.user.onboard === 5 ){
-       //     $location.path('/run/'+$scope.tests[1]._id);
-       // }
-
-       // if($rootScope.user.onboard === 6 && $scope.tests.length > 0){
-       //     $location.path('/summary/'+$scope.tests[1]._id);
-       // }
-
-       // if($rootScope.user.onboard === 7 && $scope.tests.length > 0){
-       //     $location.path('/report/'+$scope.tests[1]._id);
-       // }
 
         $scope.user.onboard = 1;
         var startOnboard = '';
