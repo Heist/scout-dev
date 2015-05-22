@@ -39,7 +39,7 @@ $fg-butter: lighten(#fee49b, 10%);
 $fg-butter-brown: #c88649;
 $fg-butter-text: #624429;
 
-$fg-black: #323539;
+$fg-black: #575757;
 
 $fg-red: #D82D09;
 $fg-red-light: #d62747;
@@ -64,7 +64,7 @@ $background: $fg-bg;
 $background-overlay: darken($background, 4%);
 $background-dark: darken($background, 12%);
 
-$modal-bg: transparentize(#000, 0.3);
+$modal-bg: transparentize(#000, 0.15);
 $light-grey-bg: transparentize($fg-grey, 0.8);
 $light-green-bg: transparentize($fg-green, 0.86);
 
