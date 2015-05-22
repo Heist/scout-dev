@@ -14,8 +14,6 @@ body {
 	line-height: $type-line-base;
 	color: $fg-grey-text;
 	@include type-light;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
 	font-feature-settings: "kern";
 	-webkit-font-feature-settings: "kern";
@@ -62,7 +60,7 @@ h1 {
 h2 {
 	@include type-h2($fg-grey-text);
 	@include type-light;
-	margin: 0 0 $pad 0;
+	margin: 0 0 10px 0;
 }
 
 h3 {

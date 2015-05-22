@@ -170,7 +170,7 @@
             $scope.showReportLink = $scope.showReportLink ? false : true;
         };
 
-        // this removes the body scroll on summary page
+        // removes the body scroll on summary page
         var bodyScroll = angular.element(document.querySelector('body'));
         bodyScroll.addClass('overflow-hidden');
 

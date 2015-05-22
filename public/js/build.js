@@ -38478,7 +38478,7 @@ angular.mock.animate = angular.module('ngAnimateMock', ['ng'])
       };
     });
 
-    $provide.decorator('$animate', ["$delegate", "$$asyncCallback", function($delegate, $$asyncCallback) {
+    $provide.decorator('$animate', function($delegate, $$asyncCallback) {
       var animate = {
         queue : [],
         enabled : $delegate.enabled,
@@ -38506,7 +38506,7 @@ angular.mock.animate = angular.module('ngAnimateMock', ['ng'])
       });
 
       return animate;
-    }]);
+    });
 
   }]);
 
@@ -50999,7 +50999,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     var field_guide_app = angular.module('field_guide_app',['ui','ui.router', 'typeaheadTagger', 'ngSanitize', 'field_guide_controls','field_guide_filters']);
 
     // FRONT-END ROUTE CONFIGURATION ==============================================
-    field_guide_app.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", "$locationProvider", function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
+    field_guide_app.config(function($stateProvider,$urlRouterProvider,$httpProvider,$locationProvider) {
 
         $locationProvider.html5Mode(true);
 
@@ -51183,7 +51183,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                     }]
                 }
             });
-    }]);
+    });
 
     // FILTERS ============================================================================
     angular.module('field_guide_filters', ['ngSanitize', 'ui','ui.router']);
@@ -51302,7 +51302,12 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 				$scope.live_user = data;
 			});
 
-		
+	
+	// removes the body scroll overflow hidden
+	var bodyScroll = angular.element(document.querySelector('body'));
+	bodyScroll.removeClass('overflow-hidden');
+
+
 	// ONBOARDING =========================================
     // TODO: Abstract into service for dependency injection
 
@@ -51627,6 +51632,12 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 	.controller('newTest', 
     		['testBuildFunctions','$scope','$http','$stateParams','$state','$location','$rootScope',
     function( testBuildFunctions,  $scope,  $http,  $stateParams,  $state,  $location, $rootScope){
+
+        // removes the body scroll overflow hidden
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.removeClass('overflow-hidden');
+
+        
     	// SETUP VARIABLES ==========================
         $scope.test = {};
 
@@ -51678,21 +51689,11 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     		['testBuildFunctions','$scope','$http','$stateParams','$state','$location','$rootScope', '$element',
     function( testBuildFunctions,  $scope,  $http,  $stateParams,  $state,  $location, $rootScope, $element){
     	
+       // removes the body scroll overflow hidden
+       var bodyScroll = angular.element(document.querySelector('body'));
+       bodyScroll.removeClass('overflow-hidden');
+
         // SETUP VARIABLES ================================
-        // $scope.user = $rootScope.user;
-       // if($rootScope.user.onboard === 2){}
-
-       // if($rootScope.user.onboard === 3 || $rootScope.user.onboard === 4 || $rootScope.user.onboard === 5 ){
-       //     $location.path('/run/'+$scope.tests[1]._id);
-       // }
-
-       // if($rootScope.user.onboard === 6 && $scope.tests.length > 0){
-       //     $location.path('/summary/'+$scope.tests[1]._id);
-       // }
-
-       // if($rootScope.user.onboard === 7 && $scope.tests.length > 0){
-       //     $location.path('/report/'+$scope.tests[1]._id);
-       // }
 
         $scope.user.onboard = 1;
         var startOnboard = '';
@@ -51773,12 +51774,15 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
     // OVERVIEW CONTROLLER ===========================================================
     angular.module('field_guide_controls')
         .controller('overview', ['loadData', '$scope','$http', '$location', '$stateParams','$rootScope', function(loadData, $scope, $http, $location, $stateParams, $rootScope){
+
+        // removes the body scroll overflow hidden
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.removeClass('overflow-hidden');
+
         
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
         
-
-        console.log('user ',$rootScope.user);
         // ONBOARDING =========================================
         if($rootScope.user.onboard === 1){
             $scope.onboardSteps = true;
@@ -52600,7 +52604,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
             $scope.showReportLink = $scope.showReportLink ? false : true;
         };
 
-        // this removes the body scroll on summary page
+        // removes the body scroll on summary page
         var bodyScroll = angular.element(document.querySelector('body'));
         bodyScroll.addClass('overflow-hidden');
 
@@ -52837,6 +52841,10 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         $scope.test = data;
         $scope.tags = tagSort(data._tags) || [];
         $scope.tasks = data._tasks || [];
+
+        // removes the body scroll overflow hidden
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.removeClass('overflow-hidden');
 
         $scope.showAnchor = function(x) {
 
@@ -53647,7 +53655,7 @@ angular.module('field_guide_controls')
 'use strict';
 (function(){
     angular.module('field_guide_controls')
-.factory('focus', ["$timeout", function($timeout) {
+.factory('focus', function($timeout) {
     return function(id) {
       // timeout makes sure that it is invoked after any other event has been triggered.
       // e.g. click events that need to run before the focus or
@@ -53660,8 +53668,8 @@ angular.module('field_guide_controls')
         }
       }, 500);
     };
-  }])
-.directive('focusMe', ["$timeout", function($timeout) {
+  })
+.directive('focusMe', function($timeout) {
   return {
     scope: { trigger: '@focusMe' },
     link: function(scope, element) {
@@ -53674,7 +53682,7 @@ angular.module('field_guide_controls')
       });
     }
   };
-}]);
+});
 })();
 /* *
  * typeaheadTagger, based on angular-ui-bootstrap-typeahead
@@ -54592,7 +54600,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 (function(){
 
     angular.module('field_guide_controls')
-    .factory('socket', ["$rootScope", "$location", function ($rootScope, $location) {
+    .factory('socket', function ($rootScope, $location) {
         // for live... $location.protocol()+'://'+$location.host()+':8080/'
         var socket = io.connect();
         
@@ -54624,7 +54632,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 }); 
             }
         };
-    }]);
+    });
 
 })();
 // youtube-embed.js
@@ -54632,7 +54640,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
 
 (function(){
     angular.module('field_guide_controls')
-    .directive('youtube', ["$window", function($window) {
+    .directive('youtube', function($window) {
         return {
             restrict: "E",
 
@@ -54671,7 +54679,7 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
                 };
             },  
         };
-    }]);
+    });
 })();
 // filters.js
 (function() {
