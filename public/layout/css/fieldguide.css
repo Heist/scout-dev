@@ -3562,6 +3562,43 @@ Copyright (c) 2015 Daniel Eden
       background: #fff; }
 
 /* error messaging */
+.error-flashmessage {
+  color: #949799; }
+
+.error-msg span {
+  position: absolute;
+  width: 150px;
+  color: #fff;
+  background: #D82D09;
+  font-size: 10px;
+  line-height: 33px;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  padding: 0 10px;
+  visibility: hidden;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px; }
+
+.error-msg span:after {
+  content: '';
+  position: absolute;
+  top: 52%;
+  right: 100%;
+  margin-top: -8px;
+  border-right: 8px solid #D82D09;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent; }
+
+.error-msg span {
+  visibility: visible;
+  opacity: 1;
+  left: 72%;
+  top: 42%;
+  margin-top: -15px;
+  z-index: 999; }
+
 .messaging {
   width: 100%;
   padding: 10px;
@@ -4918,39 +4955,6 @@ span.tooltip-icon {
       display: inline-block; }
       #view-login .module-container .module-content li.error-flashmessage {
         margin: 0 0 20px 0; }
-    #view-login .module-container .module-content .error-flashmessage {
-      color: #949799; }
-    #view-login .module-container .module-content .error-msg span {
-      position: absolute;
-      width: 150px;
-      color: #fff;
-      background: #D82D09;
-      font-size: 10px;
-      line-height: 33px;
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 400;
-      padding: 0 10px;
-      visibility: hidden;
-      -moz-border-radius: 2px;
-      -webkit-border-radius: 2px;
-      border-radius: 2px; }
-    #view-login .module-container .module-content .error-msg span:after {
-      content: '';
-      position: absolute;
-      top: 52%;
-      right: 100%;
-      margin-top: -8px;
-      border-right: 8px solid #D82D09;
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent; }
-    #view-login .module-container .module-content .error-msg span {
-      visibility: visible;
-      opacity: 1;
-      left: 72%;
-      top: 42%;
-      margin-top: -15px;
-      z-index: 999; }
     #view-login .module-container .module-content .line {
       text-decoration: underline; }
     #view-login .module-container .module-content .submit {
