@@ -4533,7 +4533,8 @@ span.tooltip-icon {
       cursor: pointer; }
     #sidebar ul li.active {
       position: relative;
-      color: #1B5273;
+      background: #1B5273;
+      color: #fff;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400; }
@@ -6284,7 +6285,7 @@ span.tooltip-icon {
               font-style: normal;
               font-weight: 400; }
             #view-findings #findings-nav #sidebar.sidebar ul:first-child li:active {
-              color: #1B5273;
+              color: #fff;
               font-family: "canada-type-gibson",sans-serif;
               font-style: normal;
               font-weight: 400; }
@@ -6417,6 +6418,10 @@ span.tooltip-icon {
         color: #575757;
         font-size: 33.1px;
         line-height: 37px;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        letter-spacing: 0.5px;
         margin: 0; }
       #view-findings .findings-content .findings-header .findings-description {
         color: #7a7a7a;

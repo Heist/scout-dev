@@ -177,7 +177,7 @@
 						}
 
 						&:active {
-							color: $fg-slate;
+							color: $white;
 							@include type-regular;
 						}
 					}
@@ -347,6 +347,8 @@
 
 			h1 {
 				@include type-h1($fg-grey-dark);
+				@include type-regular;
+				letter-spacing: 0.5px;
 				margin: 0;
 			}
 			

@@ -67,7 +67,8 @@
 									
 			&.active {
 				position: relative;
-				color: $fg-slate;
+				background: $fg-slate;
+				color: $white;
 				@include type-regular;
 				
 				&:hover {
