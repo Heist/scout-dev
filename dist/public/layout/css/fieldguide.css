@@ -5700,7 +5700,7 @@ span.tooltip-icon {
         z-index: 999999; }
         #view-testing #testing-input #session-input ul.dropdown-menu li {
           list-style: none;
-          padding: 5px 8px;
+          padding: 10px 20px;
           font-size: 14px; }
           #view-testing #testing-input #session-input ul.dropdown-menu li.active {
             background: #00B5E3;
@@ -5714,7 +5714,7 @@ span.tooltip-icon {
       bottom: 0;
       left: 0;
       width: 100%;
-      padding: 5px;
+      padding: 5px 5px 5px 25px;
       height: 43px;
       z-index: 99999;
       border-top: 1px solid #e1e1e1;
