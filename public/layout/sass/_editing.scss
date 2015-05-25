@@ -327,8 +327,7 @@
 
         form {
             border-top: 1px solid transparentize($fg-grey-light, 0.5);
-            border-bottom: 1px solid transparentize($fg-grey-light, 0.5);
-            margin: 0 0 15px 0;
+            margin: 0;
         }
 
         input {
@@ -346,9 +345,10 @@
             height: 135px;
             overflow-y: auto;
             resize: none;
-            margin: 0;
+            margin: 0 0 10px 0;
             @include type-p($fg-grey-text);
             @include type-light;
+            border-bottom: 1px solid rgba(216, 218, 219, 0.5);
         }
     }
 

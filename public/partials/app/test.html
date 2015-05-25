@@ -111,17 +111,17 @@
 					<div class="container-row clearfix">
 						<div class="container-left">&nbsp;</div>
 						<div class="container-right padding">
+
 							<!-- add a new task -->
 							<div class="add-task">
-								<form ng-model='newtask'>
-									<input class="topic-name" ng-trim="false" ng-model="newtask.name" placeholder="Write a topic title.." required>
+								<form name="addTaskForm" ng-model='newtask' ng-submit="newTask(newtask)">
+									<input class="topic-name" name="topic" ng-trim="false" ng-model="newtask.name" placeholder="Write a topic title.." required>
 									
-									<textarea msd-elastic class="topic-questions" ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions.." required>
+									<textarea msd-elastic name="questions" class="topic-questions" ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions.." required>
 									</textarea>
+										
+									<button type="submit" class="button full med" tabindex="0">Add topic</a></button>
 								</form>
-								
-							<!-- <button ng-if="!newtask.name" class="button full med dark" tabindex="0">Add topic</a></button> -->
-							<button type="submit" class="button full med" ng-click="newTask(newtask)" tabindex="0">Add topic</a></button>
 
 							</div>
 							<!-- / add a new task -->
