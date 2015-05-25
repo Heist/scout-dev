@@ -5534,7 +5534,7 @@ span.tooltip-icon {
             #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete {
               width: 0;
               position: relative;
-              left: 575px;
+              left: 97.5%;
               top: 25px;
               color: #C5C6C7; }
               #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete:hover {
@@ -5724,7 +5724,7 @@ span.tooltip-icon {
       font-style: normal;
       font-weight: 300;
       font-size: 10px;
-      text-align: center;
+      text-align: right;
       overflow-x: auto;
       overflow-y: hidden; }
       #view-testing #testing-input #hash-tag-pool .hashtag {
