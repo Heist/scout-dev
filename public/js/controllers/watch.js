@@ -6,8 +6,8 @@
         
     angular.module('field_guide_controls')
     .controller('watch', 
-               ['$scope','$http','$location','$stateParams','$state','$sanitize','VideoStream',
-        function($scope,  $http,  $location,  $stateParams,  $state,  $sanitize,  VideoStream){
+               ['$scope','$http','$location','$stateParams','$state','$sanitize','$sce','VideoStream',
+        function($scope,  $http,  $location,  $stateParams,  $state,  $sanitize,  $sce,  VideoStream){
 
         // Do we have WebRTC?
         function hasGetUserMedia() {
@@ -25,37 +25,42 @@
         VideoStream.get()
             .then(function (s) {
                 stream = s;
-                Room.init(stream);
+                // Room.init(stream);
                 stream = URL.createObjectURL(stream);
-                
-                if (!$routeParams.roomId) {
-                    Room.createRoom().then(function (roomId) {
-                        $location.path('/room/' + roomId);
-                    });
-                } else {
-                    Room.joinRoom($routeParams.roomId);
-                }
+
+                window.stream = stream; // stream available to console
+                var video = document.querySelector("video");
+                video.src = window.URL.createObjectURL(stream);
+                video.play();
+
+                // if (!$routeParams.roomId) {
+                //     Room.createRoom().then(function (roomId) {
+                //         $location.path('/room/' + roomId);
+                //     });
+                // } else {
+                //     Room.joinRoom($routeParams.roomId);
+                // }
             }, function () {
                 $scope.error = 'No audio/video permissions. Please refresh your browser and allow the audio/video capturing.';
             });
 
-            $scope.peers = [];
+            // $scope.peers = [];
     
-            Room.on('peer.stream', function (peer) {
-                console.log('Client connected, adding new stream');
-                    $scope.peers.push({
-                    id: peer.id,
-                    stream: URL.createObjectURL(peer.stream)
-                });
-            });
+            // Room.on('peer.stream', function (peer) {
+            //     console.log('Client connected, adding new stream');
+            //         $scope.peers.push({
+            //         id: peer.id,
+            //         stream: URL.createObjectURL(peer.stream)
+            //     });
+            // });
     
-            Room.on('peer.disconnected', function (peer) {
-                console.log('Client disconnected, removing stream');
+            // Room.on('peer.disconnected', function (peer) {
+            //     console.log('Client disconnected, removing stream');
 
-                $scope.peers = $scope.peers.filter(function (p) {
-                    return p.id !== peer.id;
-                });
-            });
+            //     $scope.peers = $scope.peers.filter(function (p) {
+            //         return p.id !== peer.id;
+            //     });
+            // });
 
         $scope.getLocalVideo = function () {
           return $sce.trustAsResourceUrl(stream);
