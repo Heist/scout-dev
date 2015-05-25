@@ -28,7 +28,6 @@
 		
 		.message-no-highlite {
 			padding: 15px 40px;
-			line-height: $type-line-base*0.8;
 
 			&.interview-padding {
 				padding: 0 40px;
@@ -40,7 +39,7 @@
 			}
 
 			h3 {
-				@include type-h3($fg-grey-light);
+				@include type-h3($fg-grey-placeholder);
 			}
 
 			p {

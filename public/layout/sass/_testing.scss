@@ -118,7 +118,7 @@
             @include input-placeholders;
 
             &.prototype {
-                bottom: 0;
+                bottom: 62px;
             }
 
             .typeahead-box {
@@ -176,7 +176,7 @@
             color: $fg-blue;
             @include type-light;
             font-size: 10px;
-            text-align: right;
+            text-align: center;
             overflow-x: auto;
             overflow-y: hidden;
             
