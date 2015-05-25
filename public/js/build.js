@@ -50825,15 +50825,12 @@ angular.module('siyfion.sfTypeahead', [])
     $scope.tracker = function(step){
         // Intercom tracker ===============================
             var intercom = {
-                        event_name : 'opened-education',
                         created_at : new Date(),
                         email      : $rootScope.user.email,
-                        metadata   : {
-                            'education-page' : step
-                        }
+                        education_page : step
                     };
                     
-            Intercom('trackEvent', intercom );
+            Intercom('trackEvent', 'opened-education', intercom );
     
     }
 
@@ -50994,15 +50991,14 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.addTest = function(test){
             
             var intercom = {
-                event_name : 'created-project',
                 created_at : new Date(),
                 email      : $rootScope.user.email
-            } ;
+            };
 
             $http
                 .post('/api/test/', test)
                 .success(function(data){
-                    Intercom('trackEvent', intercom );
+                    Intercom('trackEvent', 'created-project', intercom );
 
                     $scope.$parent.tests.push(data);
                     $scope.$parent.newTestModalToggle();
@@ -51049,16 +51045,12 @@ angular.module('siyfion.sfTypeahead', [])
               msec -= mm * 1000 * 60;
               
               var intercom = {
-                    event_name : 'opened-onboarding',
                     created_at : new Date(),
                     email      : $rootScope.user.email,
-                    metadata   : {
-                        duration : mm
-                    }
-
+                    duration : mm
                 };
                 
-              Intercom('trackEvent', intercom );
+              Intercom('trackEvent', 'closed-onboarding', intercom );
 
             $rootScope.user.onboard = 100;
                $scope.onboardSteps = false; 
@@ -51068,12 +51060,11 @@ angular.module('siyfion.sfTypeahead', [])
               startOnboard = new Date();
 
               var intercom = {
-                    event_name : 'opened-onboarding',
                     created_at : new Date(),
                     email      : $rootScope.user.email
                 };
                 
-                Intercom('trackEvent', intercom );
+                Intercom('trackEvent', 'opened-onboarding', intercom );
 
               $rootScope.user.onboard = 1;
               $scope.onboardSteps = true; 
@@ -51564,15 +51555,12 @@ angular.module('siyfion.sfTypeahead', [])
             startTest = new Date();
 
             var intercom = {
-                event_name : 'started-test',
                 created_at : startTest,
                 email      : $rootScope.user.email,
-                metadata   : {
-                    test_kind : $scope.test.kind
-                }
+                test_kind : $scope.test.kind
             } ;
             
-            Intercom('trackEvent', intercom );
+            Intercom('trackEvent', 'started-test', intercom );
 
             $http
                 .post('api/subject/', subject)
@@ -51685,16 +51673,13 @@ angular.module('siyfion.sfTypeahead', [])
             msec -= ss * 1000;
 
              var intercom = {
-                event_name : 'ended-test',
                 created_at : new Date(),
                 email      : $rootScope.user.email,
-                metadata   : {
-                    test_kind : $scope.test.kind,
-                    duration  : mm
-                }
+                test_kind : $scope.test.kind,
+                duration  : mm
             } ;
             
-            Intercom('trackEvent', intercom );
+            Intercom('trackEvent', 'ended-test', intercom );
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags
@@ -51953,12 +51938,11 @@ angular.module('siyfion.sfTypeahead', [])
                 $scope.shareReport = true;
                 
                 var intercom = {
-                    event_name : 'shared-report-button-clicked',
                     created_at : new Date(),
                     email      : $rootScope.user.email
                 };
                 
-                Intercom('trackEvent', intercom );
+                Intercom('trackEvent', 'shared-report-button-clicked', intercom );
             
                 return;
             }
@@ -52001,16 +51985,13 @@ angular.module('siyfion.sfTypeahead', [])
              
             if(obj.doctype === 'test'){
                 var intercom = {
-                    event_name : 'saved-test-report',
                     created_at : new Date(),
                     email      : $rootScope.user.email,
-                    metadata   : {
-                        summary    : (obj.summary)    ? 'true' : 'false',
-                        next_steps : (obj.next_steps) ? 'true' : 'false'
-                    }
+                    summary    : (obj.summary)    ? 'true' : 'false',
+                    next_steps : (obj.next_steps) ? 'true' : 'false'
                 };
 
-                Intercom('trackEvent', intercom );
+                Intercom('trackEvent', 'saved-test-report', intercom );
             }
 
             $http.post('/api/summary/object/', [obj]);

@@ -185,12 +185,11 @@
                 $scope.shareReport = true;
                 
                 var intercom = {
-                    event_name : 'shared-report-button-clicked',
                     created_at : new Date(),
                     email      : $rootScope.user.email
                 };
                 
-                Intercom('trackEvent', intercom );
+                Intercom('trackEvent', 'shared-report-button-clicked', intercom );
             
                 return;
             }
@@ -233,16 +232,13 @@
              
             if(obj.doctype === 'test'){
                 var intercom = {
-                    event_name : 'saved-test-report',
                     created_at : new Date(),
                     email      : $rootScope.user.email,
-                    metadata   : {
-                        summary    : (obj.summary)    ? 'true' : 'false',
-                        next_steps : (obj.next_steps) ? 'true' : 'false'
-                    }
+                    summary    : (obj.summary)    ? 'true' : 'false',
+                    next_steps : (obj.next_steps) ? 'true' : 'false'
                 };
 
-                Intercom('trackEvent', intercom );
+                Intercom('trackEvent', 'saved-test-report', intercom );
             }
 
             $http.post('/api/summary/object/', [obj]);
