@@ -41,16 +41,22 @@
 		<div class="clear"></div>
 	</div>
 	<!-- / participant definition modal -->
-	
+
+
+
+
+
+
+
 	<!-- discussion guide -->
 	<div id="testing-guide" ng-model="tests">
 		
 		<div id="tasklist">
 						
 			<ul>
-				<li class="title"><div class="participant-avatar"><span ng-model="initials">{{subject.initials}}</span></div>
+				<!-- <li class="title"><div class="participant-avatar"><span ng-model="initials">{{subject.initials}}</span></div>
 					<h3 class="participant-name">{{subject.name}}</h3>
-				</li>
+				</li> -->
 				
 				<li class="no-highlite">
 					<h5>Objectives</h5>
@@ -64,7 +70,7 @@
 				<li ng-repeat="obj in navlist" ng-class="{ 'active': obj._id === selected._id }" ng-click="select($index)">
 					<h3 class="tag-name">{{obj.name}}</h3>
 
-					<p ng-bind-html="obj.desc | linebreaker" ng-if="obj._id === selected._id"></p>
+					<p class="questions" ng-bind-html="obj.desc | linebreaker" ng-if="obj._id === selected._id"></p>
 				</li>
 			</ul>
 			
@@ -74,6 +80,21 @@
 	<!-- / discussion guide -->
 
 	<div class="sheet-holder" ng-controller="socketFunctions" ng-show="test.kind === 'prototype'">
+
+	<div id="cta-prototype" ng-model="tests">
+		<div class="participant-info clearfix">
+			<div class="participant-avatar"><span ng-model="initials">{{subject.initials}}</span></div>
+			<h3 class="participant-name">{{subject.name}}</h3>
+		</div>
+
+		<div class="cta">
+			<button class="button" ng-click="summarizeModalToggle()" tabindex="-1">
+			<div class="checkmark"></div>
+			<span>End session</span>
+			</button>
+		</div>
+	</div>
+
 		<div class="sheet">
 			
 			<!-- note input and display -->
@@ -85,12 +106,11 @@
 					<div id="hash-tag-pool">
 						<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
 					</div>
-				</div>
-				
+				</div
+
 				<!-- timeline -->
 				<div id="timeline" class="prototype" scroll-glue="glued">
 					<ul>
-						
 						<!-- empty state -->
 						<li class="message-no-highlite" id="firstrun">
 							<div class="message-body">
@@ -133,14 +153,14 @@
 			
 			<div id="timeline-user">
 
-				<div id="cta">
+<!-- 				<div id="cta">
 					<div class="cta">
 						<button class="button" ng-click="summarizeModalToggle()" tabindex="-1">
 						<div class="checkmark"></div>
 						<span>End session</span>
 						</button>
 					</div>
-				</div>
+				</div> -->
 
 				<div id="timeline-user-only-screen" ng-show="subject.testroom">
 					<p>Your participant's screen</p>

@@ -4253,7 +4253,7 @@ span.tooltip-icon {
           font-weight: 400; }
       #timeline ul .message-no-highlite .test-intro-interview {
         width: 65%;
-        margin: 0 auto; }
+        margin: 20px auto 0 auto; }
         #timeline ul .message-no-highlite .test-intro-interview img {
           position: absolute;
           top: -11px;
@@ -4436,25 +4436,6 @@ span.tooltip-icon {
     margin: 0;
     list-style: none;
     width: 100%; }
-    #tasklist ul .participant-avatar {
-      width: 40px;
-      height: 40px;
-      -moz-border-radius: 20px;
-      -webkit-border-radius: 20px;
-      border-radius: 20px;
-      background: #f37960;
-      float: left;
-      margin: 0 14px 0 0; }
-      #tasklist ul .participant-avatar span {
-        color: #fff;
-        text-transform: uppercase;
-        text-align: center;
-        display: block;
-        margin: 11px auto;
-        font-size: 14px;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 600; }
     #tasklist ul li {
       padding: 13.33333px 20px;
       margin: 0;
@@ -4472,21 +4453,24 @@ span.tooltip-icon {
         line-height: 24px;
         padding: 0;
         margin: 0; }
-        #tasklist ul li h3.participant-name {
-          margin: 10px 0 0 0;
-          color: #7a7a7a;
-          font-size: 14px;
-          line-height: 21px; }
         #tasklist ul li h3.tag-name {
           margin: 10px 0 20px 0; }
       #tasklist ul li h5 {
         margin: 0;
-        text-transform: uppercase; }
+        text-transform: uppercase;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        color: #7a7a7a; }
       #tasklist ul li pre.objectives {
         color: #7a7a7a;
         font-size: 14px;
         line-height: 21px;
-        margin: 20px 0 0 0; }
+        margin: 20px 0 0 0;
+        padding: 0 20px; }
+      #tasklist ul li p.questions {
+        padding: 0 20px; }
       #tasklist ul li small {
         text-transform: uppercase;
         margin: 0;
@@ -4497,7 +4481,7 @@ span.tooltip-icon {
         cursor: pointer; }
       #tasklist ul li.active {
         position: relative;
-        background: #85AC0F;
+        background: #679DC0;
         color: #fff; }
         #tasklist ul li.active:hover {
           cursor: auto;
@@ -5572,6 +5556,35 @@ span.tooltip-icon {
     height: 85% !important; }
   #view-testing.has-input-outline #session-input {
     outline: 2px solid #00B5E3 !important; }
+  #view-testing .participant-avatar {
+    width: 40px;
+    height: 40px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    background: #f37960;
+    float: left;
+    margin: 0 10px 0 0; }
+    #view-testing .participant-avatar span {
+      color: #fff;
+      text-transform: uppercase;
+      text-align: center;
+      display: block;
+      margin: 11px auto;
+      font-size: 14px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 600; }
+  #view-testing h3 {
+    font-size: 18.6px;
+    line-height: 24px;
+    padding: 0;
+    margin: 0; }
+    #view-testing h3.participant-name {
+      padding: 10px 0;
+      color: #7a7a7a;
+      font-size: 14px;
+      line-height: 21px; }
   #view-testing #testing-guide {
     width: 30%;
     height: 100%;
@@ -5717,14 +5730,15 @@ span.tooltip-icon {
         padding: 0 10px;
         font-size: 14px; }
   #view-testing #cta-interview {
-    width: 100%;
-    padding: 5px;
-    height: 65px;
+    padding: 10px;
     background: #fff;
-    border: 0; }
+    border: 0;
+    position: relative;
+    border-bottom: 1px solid #D8DADB; }
     #view-testing #cta-interview .cta {
-      float: right;
-      margin: 7px; }
+      position: absolute;
+      top: 10px;
+      right: 10px; }
       #view-testing #cta-interview .cta button#endtest {
         width: 110px;
         height: 40px;
@@ -5746,31 +5760,29 @@ span.tooltip-icon {
           display: block;
           margin: 9px 0;
           float: left; }
-  #view-testing #cta {
-    position: absolute;
-    top: 0;
-    left: 0;
+  #view-testing #cta-prototype {
     width: 100%;
-    padding: 5px;
-    height: 65px;
+    padding: 10px;
     background: #fff;
-    border-bottom: 1px solid #e1e1e1; }
-    #view-testing #cta .cta {
-      float: right;
-      margin: 7px; }
-      #view-testing #cta .cta button#endtest {
+    border-bottom: 1px solid #e1e1e1;
+    position: relative; }
+    #view-testing #cta-prototype .cta {
+      position: absolute;
+      top: 10px;
+      right: 10px; }
+      #view-testing #cta-prototype .cta button#endtest {
         width: 110px;
         height: 40px;
         text-align: center;
         float: left;
         padding: 0; }
-        #view-testing #cta .cta button#endtest .checkmark {
+        #view-testing #cta-prototype .cta button#endtest .checkmark {
           background: url("../assets/checkmark.svg") no-repeat;
           width: 15px;
           height: 15px;
           margin: 9px 15px;
           float: left; }
-        #view-testing #cta .cta button#endtest span {
+        #view-testing #cta-prototype .cta button#endtest span {
           color: #85AC0F;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
