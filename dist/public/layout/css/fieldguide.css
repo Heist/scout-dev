@@ -3803,7 +3803,10 @@ span.tooltip-icon {
     right: 3px;
     color: #fff;
     font-size: 8px;
-    text-transform: none; }
+    text-transform: none;
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 300; }
 
 [data-tooltip], [data-tooltip-large], [data-tooltip-large-report], [data-tooltip-overview], .tooltip {
   position: relative;
@@ -5259,7 +5262,10 @@ span.tooltip-icon {
     right: 5px; }
     #view-new-project button.test-type span.tooltip-icon span {
       top: 0px;
-      right: 3.5px; }
+      right: 3.5px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300; }
   #view-new-project button.test-type h3 {
     display: inline-block;
     color: #C5C6C7;
@@ -5331,7 +5337,10 @@ span.tooltip-icon {
       background: #D8DADB; }
       #view-new-project button.test-type.select-inactive span.tooltip-icon span {
         top: 0px;
-        right: 3.5px; }
+        right: 3.5px;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 300; }
     #view-new-project button.test-type.select-inactive h3 {
       color: #C5C6C7; }
       #view-new-project button.test-type.select-inactive h3.interview:before {
