@@ -45,6 +45,7 @@
 		background: $white;
 		width: 237px;
 		height: 296px;
+		outline: 1px solid transparent;
 		@include dropshadowULTRA($shadow: 0 3px 10px, $intensity: rgba(0,0,0,0.1));
 		position: relative;
 		transition: all .1s ease-in-out;
@@ -58,7 +59,7 @@
 
 	.overview-test-container-hover {
 		&:hover {
-			border: 1px solid $fg-green;
+			outline: 1px solid $fg-green;
 		}
 	}
 	

@@ -5108,6 +5108,7 @@ span.tooltip-icon {
     background: #fff;
     width: 237px;
     height: 296px;
+    outline: 1px solid transparent;
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
@@ -5120,7 +5121,7 @@ span.tooltip-icon {
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
       z-index: 5; }
   .overview-test .overview-test-container-hover:hover {
-    border: 1px solid #85AC0F; }
+    outline: 1px solid #85AC0F; }
   .overview-test .test-info {
     height: 40px; }
     .overview-test .test-info .test-kind {
