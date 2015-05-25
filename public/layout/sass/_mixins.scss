@@ -115,24 +115,28 @@
 		color: $fg-grey-placeholder;
 		font-size: 14px;
 		line-height: 18px;
+		@include type-light;
 		font-style: italic;
 	}
 	:-moz-placeholder { /* Firefox 18- */
 		color: $fg-grey-placeholder;
 		font-size: 14px;
 		line-height: 18px;
+		@include type-light;
 		font-style: italic;
 	}
 	::-moz-placeholder {  /* Firefox 19+ */
 		color: $fg-grey-placeholder;
 		font-size: 14px;
 		line-height: 18px;
+		@include type-light;
 		font-style: italic;
 	}
 	:-ms-input-placeholder {
 		color: $fg-grey-placeholder;
 		font-size: 14px;
 		line-height: 18px;
+		@include type-light;
 		font-style: italic;
 	}
 }
@@ -142,24 +146,28 @@
 		color: $fg-grey-placeholder;
 		font-size: 18.6px;
 		line-height: 21px;
+		@include type-light;
 		font-style: italic;
 	}
 	:-moz-placeholder { /* Firefox 18- */
 		color: $fg-grey-placeholder;
 		font-size: 18.6px;
 		line-height: 21px;
+		@include type-light;
 		font-style: italic;
 	}
 	::-moz-placeholder {  /* Firefox 19+ */
 		color: $fg-grey-placeholder;
 		font-size: 18.6px;
 		line-height: 21px;
+		@include type-light;
 		font-style: italic;
 	}
 	:-ms-input-placeholder {
 		color: $fg-grey-placeholder;
 		font-size: 18.6px;
 		line-height: 21px;
+		@include type-light;
 		font-style: italic;
 	}
 }
@@ -230,6 +238,14 @@ helpers
 	weight: 0;
 	float: none;
 	clear: both;	
+}
+
+.line-clamp {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
 }
 
 .set-block {
