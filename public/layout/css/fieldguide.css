@@ -509,6 +509,9 @@ label {
   color: #C5C6C7;
   font-size: 14px;
   line-height: 18px;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 300;
   font-style: italic; }
 
 :-moz-placeholder {
@@ -516,6 +519,9 @@ label {
   color: #C5C6C7;
   font-size: 14px;
   line-height: 18px;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 300;
   font-style: italic; }
 
 ::-moz-placeholder {
@@ -523,12 +529,18 @@ label {
   color: #C5C6C7;
   font-size: 14px;
   line-height: 18px;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 300;
   font-style: italic; }
 
 :-ms-input-placeholder {
   color: #C5C6C7;
   font-size: 14px;
   line-height: 18px;
+  font-family: "canada-type-gibson",sans-serif;
+  font-style: normal;
+  font-weight: 300;
   font-style: italic; }
 
 textarea.input {
@@ -4595,23 +4607,35 @@ span.tooltip-icon {
       color: #C5C6C7;
       font-size: 14px;
       line-height: 18px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
       font-style: italic; }
     .modal .modal-interior :-moz-placeholder {
       /* Firefox 18- */
       color: #C5C6C7;
       font-size: 14px;
       line-height: 18px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
       font-style: italic; }
     .modal .modal-interior ::-moz-placeholder {
       /* Firefox 19+ */
       color: #C5C6C7;
       font-size: 14px;
       line-height: 18px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
       font-style: italic; }
     .modal .modal-interior :-ms-input-placeholder {
       color: #C5C6C7;
       font-size: 14px;
       line-height: 18px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
       font-style: italic; }
     .modal .modal-interior ul {
       margin: 0; }
@@ -4692,23 +4716,35 @@ span.tooltip-icon {
       color: #C5C6C7;
       font-size: 14px;
       line-height: 18px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
       font-style: italic; }
     .modal-scroll .modal-interior :-moz-placeholder {
       /* Firefox 18- */
       color: #C5C6C7;
       font-size: 14px;
       line-height: 18px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
       font-style: italic; }
     .modal-scroll .modal-interior ::-moz-placeholder {
       /* Firefox 19+ */
       color: #C5C6C7;
       font-size: 14px;
       line-height: 18px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
       font-style: italic; }
     .modal-scroll .modal-interior :-ms-input-placeholder {
       color: #C5C6C7;
       font-size: 14px;
       line-height: 18px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
       font-style: italic; }
     .modal-scroll .modal-interior ul {
       margin: 0; }
@@ -5345,17 +5381,19 @@ span.tooltip-icon {
   #view-editing h3 {
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     color: #1B5273;
     font-size: 10px;
     text-transform: uppercase;
     text-align: right; }
   #view-editing .project-name {
+    color: #575757;
+    font-size: 33.1px;
+    line-height: 37px;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
-    font-weight: 300;
-    color: #7a7a7a;
-    font-size: 33px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
     margin: 0;
     padding: 0 0 0 40px;
     height: 40px; }
@@ -5415,18 +5453,23 @@ span.tooltip-icon {
       padding: 15px 0 0 0;
       border: 0;
       outline: 0;
+      color: #7a7a7a;
+      font-size: 18.6px;
+      line-height: 24px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 300;
-      font-size: 14px;
-      line-height: 18px;
-      color: #888A8A; }
+      font-weight: 300; }
     #view-editing .add-task textarea {
       height: 135px;
       overflow-y: auto;
       resize: none;
       margin: 0;
-      color: #7a7a7a; }
+      color: #7a7a7a;
+      font-size: 14px;
+      line-height: 21px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300; }
   #view-editing .tags .tag-pool, #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
     width: 100%;
     height: 100%; }
@@ -5467,32 +5510,34 @@ span.tooltip-icon {
     padding: 0 0 0 40px; }
   #view-editing .container {
     padding: 20px 0 0 0; }
-    #view-editing .container .sheet-holder .sheet {
-      width: 745px;
-      margin: 0 auto; }
-      #view-editing .container .sheet-holder .sheet .container-row {
-        clear: both;
-        padding: 0 0 40px 0; }
-        #view-editing .container .sheet-holder .sheet .container-row.topics {
-          padding: 0; }
-        #view-editing .container .sheet-holder .sheet .container-row .container-left {
-          float: left;
-          width: 120px; }
-          #view-editing .container .sheet-holder .sheet .container-row .container-left .create-project-tooltip {
-            float: left; }
-        #view-editing .container .sheet-holder .sheet .container-row .container-right {
-          float: left;
-          width: 585px;
-          position: relative; }
-          #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete {
-            width: 0;
-            position: relative;
-            left: 575px;
-            top: 25px;
-            color: #C5C6C7; }
-            #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete:hover {
-              cursor: pointer;
-              color: #D82D09; }
+    #view-editing .container .sheet-holder {
+      margin-left: -50px; }
+      #view-editing .container .sheet-holder .sheet {
+        width: 75%;
+        margin: 0 auto; }
+        #view-editing .container .sheet-holder .sheet .container-row {
+          clear: both;
+          padding: 0 0 40px 0; }
+          #view-editing .container .sheet-holder .sheet .container-row.topics {
+            padding: 0; }
+          #view-editing .container .sheet-holder .sheet .container-row .container-left {
+            float: left;
+            width: 10%; }
+            #view-editing .container .sheet-holder .sheet .container-row .container-left .create-project-tooltip {
+              float: left; }
+          #view-editing .container .sheet-holder .sheet .container-row .container-right {
+            float: left;
+            width: 90%;
+            position: relative; }
+            #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete {
+              width: 0;
+              position: relative;
+              left: 575px;
+              top: 25px;
+              color: #C5C6C7; }
+              #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete:hover {
+                cursor: pointer;
+                color: #D82D09; }
 
 /* SESSION IN PROGRESS */
 #view-testing {
@@ -5566,23 +5611,35 @@ span.tooltip-icon {
         color: #C5C6C7;
         font-size: 14px;
         line-height: 18px;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 300;
         font-style: italic; }
       #view-testing #testing-input #session-input :-moz-placeholder {
         /* Firefox 18- */
         color: #C5C6C7;
         font-size: 14px;
         line-height: 18px;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 300;
         font-style: italic; }
       #view-testing #testing-input #session-input ::-moz-placeholder {
         /* Firefox 19+ */
         color: #C5C6C7;
         font-size: 14px;
         line-height: 18px;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 300;
         font-style: italic; }
       #view-testing #testing-input #session-input :-ms-input-placeholder {
         color: #C5C6C7;
         font-size: 14px;
         line-height: 18px;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 300;
         font-style: italic; }
       #view-testing #testing-input #session-input.prototype {
         bottom: 0; }

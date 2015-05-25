@@ -238,7 +238,7 @@
     }
     
     h3 {
-        @include type-regular;
+        @include type-bold;
         color: $fg-slate;
         font-size: 10px;
         text-transform: uppercase;
@@ -246,9 +246,9 @@
     }
 
     .project-name {
-        @include type-light;
-        color: $fg-grey-text;
-        font-size: 33px;
+        @include type-h1($fg-grey-dark);
+        @include type-regular;
+        letter-spacing: 0.5px;
         margin: 0;
         padding: 0 0 0 40px;
         height: 40px;
@@ -334,10 +334,8 @@
             padding: 15px 0 0 0;
             border: 0;
             outline: 0;
+            @include type-h3($fg-grey-text);
             @include type-light;
-            font-size: 14px;
-            line-height: 18px;
-            color: $fg-grey;
         }
         
         textarea {
@@ -346,12 +344,12 @@
             overflow-y: auto;
             resize: none;
             margin: 0;
-            color: $fg-grey-text;
+            @include type-p($fg-grey-text);
+            @include type-light;
         }
     }
 
     .tags {
-        // @include input-placeholders;
 
         .tag-pool {
             width: 100%;
@@ -412,9 +410,10 @@
         padding: $pad 0 0 0;
 
         .sheet-holder {
+            margin-left: -50px;
 
             .sheet {
-                width: 745px;
+                width: 75%;
                 margin: 0 auto;
 
                 .container-row {
@@ -427,7 +426,7 @@
 
                     .container-left {
                         float: left;
-                        width: 120px;
+                        width: 10%;
 
                         .create-project-tooltip {
                             float: left;
@@ -436,7 +435,7 @@
 
                     .container-right {
                         float: left;
-                        width: 585px;
+                        width: 90%;
                         position: relative;
 
                         .topic-delete {
