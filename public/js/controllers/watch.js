@@ -34,6 +34,21 @@
 
         function error(err) { endCall(); }
 
+
+        var offer = getOfferFromFriend();
+        navigator.getUserMedia({video: true}, function(stream) {
+          pc.onaddstream({stream: stream});
+          pc.addStream(stream);
+
+          pc.setRemoteDescription(new RTCSessionDescription(offer), function() {
+            pc.createAnswer(function(answer) {
+              pc.setLocalDescription(new RTCSessionDescription(answer), function() {
+                // send the answer to a server to be forwarded back to the caller (you)
+              }, error);
+            }, error);
+          }, error);
+        });
+
      // =========================================
 
         var constraints = {video: true, audio: true};
@@ -45,7 +60,7 @@
           vid.srcObject = obj.stream;
         }
 
-        
+
 
         navigator.getUserMedia(constraints, 
             function (s) {
