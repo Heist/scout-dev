@@ -52404,8 +52404,8 @@ angular.module('siyfion.sfTypeahead', [])
         
     angular.module('field_guide_controls')
     .controller('watch', 
-               ['$scope','$http','$location','$stateParams','$state','$sanitize','$sce','$window','VideoStream',
-        function($scope,  $http,  $location,  $stateParams,  $state,  $sanitize,  $sce,  $window,  VideoStream){
+               ['$scope','$http','$location','$stateParams','$state','$sanitize','$sce','$window',
+        function($scope,  $http,  $location,  $stateParams,  $state,  $sanitize,  $sce,  $window){
 
         // Do we have WebRTC?
         // function hasGetUserMedia() {
@@ -52419,51 +52419,50 @@ angular.module('siyfion.sfTypeahead', [])
         // }
 
         var stream;
+        // function VideoStream(){
+        //         var stream;
+        //         return {
+        //         get: function () {
+        //             if (stream) {
+        //                 return $q.when(stream);
+        //             } else {
+        //                 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        //                 var constraints = {video: true, audio: true};
+        //                 var d = $q.defer();
 
-        VideoStream.get()
-            .then(function (s) {
+        //                 navigator.getUserMedia({
+        //                     video: true,
+        //                     audio: true
+        //                 }, function (s) {
+        //                     stream = s;
+        //                     d.resolve(stream);
+        //                 }, function (e) {
+        //                     d.reject(e);
+        //                     console.log("navigator.getUserMedia error: ", e);
+        //                 });
+        //                 return d.promise;
+        //             }
+        //         }
+        // };
+
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        var constraints = {video: true, audio: true};
+
+         navigator.getUserMedia(constraints, 
+            function (s) {
                 stream = s;
-                // Room.init(stream);
-                stream = URL.createObjectURL(stream);
-
                 $window.stream = stream; // stream available to console
                 var video = document.querySelector("video");
                 video.src = $window.URL.createObjectURL(stream);
                 video.play();
 
-                // if (!$routeParams.roomId) {
-                //     Room.createRoom().then(function (roomId) {
-                //         $location.path('/room/' + roomId);
-                //     });
-                // } else {
-                //     Room.joinRoom($routeParams.roomId);
-                // }
-            }, function () {
-                $scope.error = 'No audio/video permissions. Please refresh your browser and allow the audio/video capturing.';
+                $scope.getLocalVideo = function () {
+                  return $sce.trustAsResourceUrl(stream);
+                };
+
+            }, function (e) {
+                void 0;
             });
-
-            // $scope.peers = [];
-    
-            // Room.on('peer.stream', function (peer) {
-            //     console.log('Client connected, adding new stream');
-            //         $scope.peers.push({
-            //         id: peer.id,
-            //         stream: URL.createObjectURL(peer.stream)
-            //     });
-            // });
-    
-            // Room.on('peer.disconnected', function (peer) {
-            //     console.log('Client disconnected, removing stream');
-
-            //     $scope.peers = $scope.peers.filter(function (p) {
-            //         return p.id !== peer.id;
-            //     });
-            // });
-
-        $scope.getLocalVideo = function () {
-          return $sce.trustAsResourceUrl(stream);
-        };
-
     }]);
 })();
 

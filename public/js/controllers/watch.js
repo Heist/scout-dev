@@ -7,7 +7,7 @@
     angular.module('field_guide_controls')
     .controller('watch', 
                ['$scope','$http','$location','$stateParams','$state','$sanitize','$sce','$window',
-        function($scope,  $http,  $location,  $stateParams,  $state,  $sanitize,  $sce,  $window, ){
+        function($scope,  $http,  $location,  $stateParams,  $state,  $sanitize,  $sce,  $window){
 
         // Do we have WebRTC?
         // function hasGetUserMedia() {
