@@ -191,7 +191,7 @@
 
             // VIDEO STREAM ====================================
             .state('watch', {
-                url         : '/watch/:_session',
+                url         : '/watch',
                 controller  : 'watch',
                 templateUrl : 'partials/app/watch.html',
                 resolve: { 

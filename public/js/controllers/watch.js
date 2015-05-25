@@ -6,8 +6,8 @@
         
     angular.module('field_guide_controls')
     .controller('watch', 
-               ['$scope','$http','$location','$stateParams','$state','$sanitize','$sce','VideoStream',
-        function($scope,  $http,  $location,  $stateParams,  $state,  $sanitize,  $sce,  VideoStream){
+               ['$scope','$http','$location','$stateParams','$state','$sanitize','$sce','$window','VideoStream',
+        function($scope,  $http,  $location,  $stateParams,  $state,  $sanitize,  $sce,  $window,  VideoStream){
 
         // Do we have WebRTC?
         function hasGetUserMedia() {
@@ -28,9 +28,9 @@
                 // Room.init(stream);
                 stream = URL.createObjectURL(stream);
 
-                window.stream = stream; // stream available to console
+                $window.stream = stream; // stream available to console
                 var video = document.querySelector("video");
-                video.src = window.URL.createObjectURL(stream);
+                video.src = $window.URL.createObjectURL(stream);
                 video.play();
 
                 // if (!$routeParams.roomId) {

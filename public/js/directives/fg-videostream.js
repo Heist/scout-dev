@@ -15,13 +15,6 @@ angular.module('field_guide_controls')
           navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
           var constraints = {video: true, audio: true};
           var d = $q.defer();
-          
-          function successCallback(localMediaStream) {
-              window.stream = localMediaStream; // stream available to console
-              var video = document.querySelector("video");
-              video.src = window.URL.createObjectURL(localMediaStream);
-              video.play();
-          }
 
           navigator.getUserMedia({
             video: true,
@@ -30,7 +23,7 @@ angular.module('field_guide_controls')
             stream = s;
             d.resolve(stream);
 
-            
+
           }, function (e) {
             d.reject(e);
             console.log("navigator.getUserMedia error: ", e);
