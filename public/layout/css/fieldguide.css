@@ -5724,7 +5724,7 @@ span.tooltip-icon {
       font-style: normal;
       font-weight: 300;
       font-size: 10px;
-      text-align: center;
+      text-align: right;
       overflow-x: auto;
       overflow-y: hidden; }
       #view-testing #testing-input #hash-tag-pool .hashtag {
