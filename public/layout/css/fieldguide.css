@@ -5699,7 +5699,9 @@ span.tooltip-icon {
         background: #fff;
         z-index: 999999; }
         #view-testing #testing-input #session-input ul.dropdown-menu li {
-          list-style: none; }
+          list-style: none;
+          padding: 5px 8px;
+          font-size: 14px; }
           #view-testing #testing-input #session-input ul.dropdown-menu li.active {
             background: #00B5E3;
             color: #fff !important;
