@@ -4538,7 +4538,8 @@ span.tooltip-icon {
       font-style: normal;
       font-weight: 400; }
       #sidebar ul li.active:hover {
-        cursor: auto; }
+        cursor: auto;
+        color: #fff; }
     #sidebar ul li .sidebar-visibility {
       position: absolute;
       top: 9px;
@@ -6234,8 +6235,6 @@ span.tooltip-icon {
               font-family: "canada-type-gibson",sans-serif;
               font-style: normal;
               font-weight: 400; }
-          #view-findings #findings-nav #sidebar.sidebar span.report:hover {
-            color: #1B5273; }
         #view-findings #findings-nav #sidebar.sidebar h4.group-cat {
           padding: 10px;
           margin: 5px 0 0 0;
@@ -6281,7 +6280,7 @@ span.tooltip-icon {
             padding: 10px;
             margin: 5px 0 0 0; }
             #view-findings #findings-nav #sidebar.sidebar ul:first-child li:hover {
-              color: #1B5273;
+              color: #fff;
               font-family: "canada-type-gibson",sans-serif;
               font-style: normal;
               font-weight: 400; }
