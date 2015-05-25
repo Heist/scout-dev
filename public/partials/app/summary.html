@@ -44,18 +44,18 @@
 	<div class="summaries-holder">
 		<div class="summaries-content" ng-model="selected">
 
-			<div class="heading" ng-if="selected.doctype === 'test'">
+			<div class="selected-heading" ng-if="selected.doctype === 'test'">
 				<h2>Summaries</h2>
 				<p>Use these to help create your final Findings.</p>
 			</div>
 
-			<div class="heading" ng-if="selected.doctype === 'tag'">
-				<h2>Tags</h2>
+			<div class="selected-heading" ng-if="selected.doctype === 'tag'">
+				<h2>#{{selected.name}}</h2>
 				<p>Use these to help create your final Findings.</p>
 			</div>
 
-			<div class="heading" ng-if="selected.doctype === 'task'">
-				<h2>Topics</h2>
+			<div class="selected-heading" ng-if="selected.doctype === 'task'">
+				<h2>{{selected.name}}</h2>
 				<p>Use these to help create your final Findings.</p>
 			</div>
 			
