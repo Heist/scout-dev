@@ -195,8 +195,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 var nextSpace      = modelCtrl.$viewValue.indexOf(' ', mostRecentHash);
 
                 var searchClose    = (nextSpace && nextSpace > -1) ? Math.min(nextSpace, scope.caret.get) : scope.caret.get;
-                
-                console.log('caret position', scope.caret.get, 'searchClose', searchClose, 'nextSpace', nextSpace);
+            
 
                 var searchTerm     = modelCtrl.$viewValue.substr(mostRecentHash+1, searchClose-mostRecentHash);
                     
@@ -208,8 +207,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     //but we are interested only in responses that correspond to the current view value
 
                     var onCurrentRequest = modelCtrl.$viewValue.indexOf(searchTerm) > -1;
-                    
-                    console.log('getMatchesAsync searchTerm',mostRecentHash+1, searchClose, searchTerm, onCurrentRequest);
 
                     if (onCurrentRequest && hasFocus) {
                         if (matches.length > 0) {
@@ -227,7 +224,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                             }
 
                             scope.query = searchTerm;
-                            // console.log(inputValue);
                             //position pop-up with matches - we need to re-calculate its position each time we are opening a window
                             //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
                             //due to other elements being rendered
@@ -279,7 +275,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 if(accepted_tags && tester){
                     difference = _.difference(clean_test, clean_accepted);
-                    // console.log('should be the new tags',clean_test, clean_accepted, difference);
                 }
 
                 // WHAT WE HAVE
@@ -420,7 +415,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                     } else if (evt.which === 13 || evt.which === 9) {
                         // ENTER or TAB keypress =========
-                        console.log(scope.activeIdx, scope.testTags);
                         scope.$apply(function() {
                             scope.select(scope.activeIdx);
                             resetMatches();
@@ -460,7 +454,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // not _just_ the scope.query.
 
                 // insert the new tag into the input box
-                console.log('cursor position', scope.caret.get);
+                
 
                 // TODO: INSERT THE NEW TAG INTO THE CORRECT VARIANT OF THE MODEL;
                 // console.log('check that this is the correct tag!', scope.query);
@@ -469,7 +463,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // Find the most recent hashtag from the current caret position
                 var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get)
 
-                console.log('index of most recent hashtag', '#'+scope.query, mostRecentHash, scope.caret.get);
+                
 
                 var newValue  = spliceSlice(modelCtrl.$viewValue, mostRecentHash, scope.caret.get-mostRecentHash, '#'+model);
 
