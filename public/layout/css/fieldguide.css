@@ -6183,7 +6183,6 @@ span.tooltip-icon {
     height: 100%;
     position: fixed;
     left: 2%;
-    top: 12px;
     -webkit-transition-duration: 0.2s;
     -webkit-transition-timing: ease-out;
     -o-transition-duration: 0.2s;
@@ -6205,7 +6204,7 @@ span.tooltip-icon {
       border-radius: 10px; }
     #view-findings #findings-nav #sidebar {
       width: 97%;
-      height: 92%;
+      height: 90%;
       overflow: auto;
       position: relative; }
       #view-findings #findings-nav #sidebar.sidebar {
@@ -6213,7 +6212,7 @@ span.tooltip-icon {
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300;
-        margin: 65px 0 0 0; }
+        margin: 85px 0 0 0; }
         #view-findings #findings-nav #sidebar.sidebar .tag-hash:before {
           content: '#'; }
         #view-findings #findings-nav #sidebar.sidebar span.report {
@@ -6295,7 +6294,6 @@ span.tooltip-icon {
     padding: 0;
     margin: 0;
     position: absolute;
-    top: 1.8%;
     left: 15%;
     overflow: auto; }
     #view-findings .summaries-holder .summaries-content {
@@ -6305,6 +6303,9 @@ span.tooltip-icon {
         color: #1B5273;
         font-size: 24.8px;
         line-height: 30px;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 400;
         margin: 0;
         padding: 0 50px; }
       #view-findings .summaries-holder .summaries-content p {
@@ -6318,8 +6319,8 @@ span.tooltip-icon {
         padding: 0 0 20px 0; }
       #view-findings .summaries-holder .summaries-content .summary-user {
         color: #575757;
-        font-size: 14px;
-        line-height: 21px;
+        font-size: 18.6px;
+        line-height: 24px;
         margin: 0 0 10px 0;
         position: relative;
         padding: 0 50px; }
@@ -6362,7 +6363,7 @@ span.tooltip-icon {
             margin-bottom: 0 !important;
             color: #888A8A; }
           #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea {
-            color: #575757;
+            color: #7a7a7a;
             font-size: 14px;
             line-height: 21px;
             padding: 0 50px;
@@ -6382,13 +6383,12 @@ span.tooltip-icon {
             margin: 0;
             padding: 0; }
   #view-findings .sheet-holder {
-    width: 47%;
+    width: 48%;
     height: 100%;
     padding: 0;
     margin: 0;
     position: absolute;
-    top: 1.8%;
-    left: 52.1%;
+    left: 52%;
     overflow-y: scroll;
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
@@ -6406,9 +6406,6 @@ span.tooltip-icon {
     #view-findings .findings-content.report {
       width: 35%; }
     #view-findings .findings-content h3 {
-      color: #1B5273;
-      font-size: 18.6px;
-      line-height: 24px;
       margin: 0 0 15px 0; }
     #view-findings .findings-content p {
       margin: 0 0 50px 0; }
@@ -6417,6 +6414,9 @@ span.tooltip-icon {
     #view-findings .findings-content .findings-header {
       padding: 40px 0 40px 40px; }
       #view-findings .findings-content .findings-header h1 {
+        color: #575757;
+        font-size: 33.1px;
+        line-height: 37px;
         margin: 0; }
       #view-findings .findings-content .findings-header .findings-description {
         color: #7a7a7a;
@@ -6433,9 +6433,10 @@ span.tooltip-icon {
             height: 20px;
             width: 20px; }
     #view-findings .findings-content .findings-information h3, #view-findings .findings-content .findings-information p {
+      color: #575757;
       padding: 0 0 0 40px; }
     #view-findings .findings-content .findings-information textarea {
-      color: #7a7a7a;
+      color: #575757;
       font-size: 14px;
       line-height: 21px;
       height: 300px;
