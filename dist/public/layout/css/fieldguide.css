@@ -111,6 +111,13 @@ helpers
   float: none;
   clear: both; }
 
+.line-clamp {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; }
+
 .set-block {
   display: block; }
 
@@ -5190,6 +5197,7 @@ span.tooltip-icon {
       color: #575757;
       font-size: 24.8px;
       line-height: 30px;
+      word-break: break-word;
       letter-spacing: -0.5px;
       font-weight: 400; }
   .overview-test .test-controls-empty {
