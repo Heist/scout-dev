@@ -18,23 +18,7 @@
 
         var constraints           = {video: true, audio: true};
 
-         getUserMedia(constraints, 
-            function (s) {
-                stream = s;
-                $window.stream = stream; // stream available to console
-                var video = document.querySelector("video");
-                video.src = $window.URL.createObjectURL(stream);
-                video.play();
-
-                $scope.getLocalVideo = function () {
-                  return $sce.trustAsResourceUrl(stream);
-                };
-
-            }, function (e) {
-                console.log("navigator.getUserMedia error: ", e);
-            });
-
-         var localStream, localPeerConnection, remotePeerConnection;
+        var localStream, localPeerConnection, remotePeerConnection;
 
         var localVideo = document.getElementById("localVideo");
         var remoteVideo = document.getElementById("remoteVideo");
@@ -44,7 +28,7 @@
         var hangupButton = document.getElementById("hangupButton");
 
         function trace(text) {
-          console.log((performance.now() / 1000).toFixed(3) + ": " + text);
+          console.log(text);
         }
 
         function gotStream(stream){
@@ -135,12 +119,33 @@
           localPeerConnection.createOffer(gotLocalDescription,handleError);
         }
 
-        startButton.disabled = false;
-        callButton.disabled = true;
-        hangupButton.disabled = true;
-        startButton.onclick = start;
-        callButton.onclick = call;
-        hangupButton.onclick = hangup;
+        getUserMedia(constraints, 
+            function (s) {
+                stream = s;
+                $window.stream = stream; // stream available to console
+                var video = document.querySelector("video");
+                video.src = $window.URL.createObjectURL(stream);
+                video.play();
+
+
+                startButton.disabled = false;
+                callButton.disabled = true;
+                hangupButton.disabled = true;
+                startButton.onclick = start();
+                callButton.onclick = call();
+                hangupButton.onclick = hangup();
+
+                // $scope.getLocalVideo = function () {
+                //   return $sce.trustAsResourceUrl(stream);
+                // };
+
+            }, function (e) {
+                console.log("navigator.getUserMedia error: ", e);
+            });
+
+        
+
+        
 
     }]);
 })();

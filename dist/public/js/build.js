@@ -52409,10 +52409,14 @@ angular.module('siyfion.sfTypeahead', [])
 
         var stream;
 
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-        var constraints = {video: true, audio: true};
+        var RTCPeerConnection     = window.mozRTCPeerConnection     || window.webkitRTCPeerConnection;
+        var RTCIceCandidate       = window.mozRTCIceCandidate       || window.RTCIceCandidate;
+        var RTCSessionDescription = window.mozRTCSessionDescription || window.RTCSessionDescription;
+        var getUserMedia          = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-         navigator.getUserMedia(constraints, 
+        var constraints           = {video: true, audio: true};
+
+         getUserMedia(constraints, 
             function (s) {
                 stream = s;
                 $window.stream = stream; // stream available to console
@@ -52436,12 +52440,6 @@ angular.module('siyfion.sfTypeahead', [])
         var startButton = document.getElementById("startButton");
         var callButton = document.getElementById("callButton");
         var hangupButton = document.getElementById("hangupButton");
-        startButton.disabled = false;
-        callButton.disabled = true;
-        hangupButton.disabled = true;
-        startButton.onclick = start;
-        callButton.onclick = call;
-        hangupButton.onclick = hangup;
 
         function trace(text) {
           void 0;
@@ -52474,6 +52472,17 @@ angular.module('siyfion.sfTypeahead', [])
           if (localStream.getAudioTracks().length > 0) {
             trace('Using audio device: ' + localStream.getAudioTracks()[0].label);
           }
+        }
+
+        function hangup() {
+          trace("Ending call");
+          localPeerConnection.close();
+          remotePeerConnection.close();
+          localPeerConnection = null;
+          remotePeerConnection = null;
+          hangupButton.disabled = true;
+          callButton.disabled = false;
+        }
 
         function gotLocalDescription(description){
           localPeerConnection.setLocalDescription(description);
@@ -52486,16 +52495,6 @@ angular.module('siyfion.sfTypeahead', [])
           remotePeerConnection.setLocalDescription(description);
           trace("Answer from remotePeerConnection: \n" + description.sdp);
           localPeerConnection.setRemoteDescription(description);
-        }
-
-        function hangup() {
-          trace("Ending call");
-          localPeerConnection.close();
-          remotePeerConnection.close();
-          localPeerConnection = null;
-          remotePeerConnection = null;
-          hangupButton.disabled = true;
-          callButton.disabled = false;
         }
 
         function gotRemoteStream(event){
@@ -52517,7 +52516,7 @@ angular.module('siyfion.sfTypeahead', [])
           }
         }
 
-        function handleError(){}
+        function handleError(){
           var servers = null;
 
           localPeerConnection = new RTCPeerConnection(servers);
@@ -52534,6 +52533,12 @@ angular.module('siyfion.sfTypeahead', [])
           localPeerConnection.createOffer(gotLocalDescription,handleError);
         }
 
+        startButton.disabled = false;
+        callButton.disabled = true;
+        hangupButton.disabled = true;
+        startButton.onclick = start;
+        callButton.onclick = call;
+        hangupButton.onclick = hangup;
 
     }]);
 })();
