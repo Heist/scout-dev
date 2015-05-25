@@ -127,9 +127,9 @@
                 margin: 0;
                 border: 0;
                 outline: 0;
-                padding: 10px 30px;
-                height: 45%;
-                resize: 0;
+                padding: 10px 10px 10px 30px;
+                height: 70%;
+                resize: none;
                 @include type-light;
                 color: $fg-grey;
 
