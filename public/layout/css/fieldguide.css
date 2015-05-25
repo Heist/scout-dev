@@ -5385,7 +5385,8 @@ span.tooltip-icon {
     color: #1B5273;
     font-size: 10px;
     text-transform: uppercase;
-    text-align: right; }
+    text-align: right;
+    letter-spacing: 0.5px; }
   #view-editing .project-name {
     color: #575757;
     font-size: 33.1px;
