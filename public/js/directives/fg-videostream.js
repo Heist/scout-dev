@@ -12,7 +12,10 @@ angular.module('field_guide_controls')
         if (stream) {
           return $q.when(stream);
         } else {
+          navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+          var constraints = {video: true, audio: true};
           var d = $q.defer();
+          
           navigator.getUserMedia({
             video: true,
             audio: true
