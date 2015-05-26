@@ -30,15 +30,6 @@
             $scope.commentMessage = '';
 
             $scope.selected = obj || $scope.selected;
-
-
-            // if the selected _.messages has none of the messages in a given user in it
-            // hide the user
-
-
-            // messages has a _tags set on each
-            // check the _tag against _selected's _id?
-            
         };
 
         $scope.messageFilter = function(selected, user){
@@ -56,7 +47,6 @@
 
     // SET VIEW VARIABLES FROM LOAD DATA ==================
         
-
         var makeNavList = function(data){
             return _.groupBy(data, function(obj){ return obj.doctype; }) ;
         }
@@ -116,7 +106,7 @@
         })[0];
         
 
-        // GROUP MESSAGES BY USERS ==================================
+    // GROUP MESSAGES BY USERS ==================================
         var deleteMessage = function(message){
             // requires a message with subject name and _id
             // message splicer to remove messages from $scope.messages
@@ -139,23 +129,6 @@
             })
         }
 
-        
-        // var addTagsToLeftNav = function(data){
-        //     // when we're returned new data, check the tags for messages and filter ones that have none
-        //     // set the new list of tags to the bottom of the navlist
-        //     console.log(data);
-        //     var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
-            
-        //     var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
-        //     var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
-        //     var sumMsg  = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
-        //     var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
-        //     var testIdx  = _.indexOf(_.pluck($scope.rawList, 'doctype'), 'test');
-
-        //     $scope.rawList = clear.concat(tagList);
-
-        // }
-        
     // NAVIGATION =========================================
 
         $scope.reportView = function(){
@@ -204,7 +177,6 @@
 
     // ONBOARDING =========================================
         // TODO: Abstract into service for dependency injection
-
         $scope.changeOnboard = function(num){
             $rootScope.user.onboard = num;
 
@@ -216,14 +188,6 @@
                 .success(function(data){
                     $location.path('/report/'+$stateParams._id);
                 });
-        };
-
-
-        // MOVE STEPS =========================================
-
-        $scope.moveTask = function(old_index, new_index){   
-            $scope.rawList = reportFunctions.moveTask($scope.rawList, old_index, new_index);
-            $http.put('/api/summary/'+ $stateParams._id, $scope.rawList);           
         };
 
         // OBJECT FUNCTIONS =====================================
@@ -243,17 +207,6 @@
 
             $http.post('/api/summary/object/', [obj]);
         };
-
-        $scope.passFail = function(obj){
-            obj.pass_fail = obj.pass_fail ? false : true;
-            $scope.saveObject(obj);
-        };
-
-        $scope.toggleVis = function(obj){
-            obj.visible = obj.visible ? false : true;
-            $scope.saveObject(obj);
-        };
-
 
     // MESSAGE FUNCTIONS ==================================
         $scope.deleteMessage = function(message){
@@ -326,44 +279,9 @@
                         $scope.summaryItem._messages.splice($scope.summaryItem._messages.indexOf(original._id), 1, data.msg._id);
                     }
 
-                    // console.log(test);
-
                     $scope.rawList = test.concat(nonTestObj);
-
-                    // Summary messages is a list of messages that match the summary._id
-                    // console.log(nonTestObj);
-                    // addTagsToLeftNav(data);
                 });
         };
-
-        // $scope.postMessage = function(message, subject){
-        //     postMessage(message, $scope.selected._id, $scope.selected._test, subject._id )
-        //         .then(function(data){
-
-        //             $scope.newnote = '';
-
-        //             $scope.toggleNote(subject._id);
-        //             $scope.toggleNote();
-                    
-        //             $scope.messages[data.msg._subject.name].push(data.msg);
-        //             $scope.selected._messages.push(data.msg._id);
-
-        //             addTagsToLeftNav(data);
-        //         });
-        // };
-
-        $scope.saveFav = function(message){
-            if($scope.selected.doctype === 'task'){
-                message.fav_task = ( message.fav_task === true ) ? false : true ;
-            }
-
-            if($scope.selected.doctype === 'tag'){
-                message.fav_tag = (message.fav_task === true ) ? false : true ;
-            }
-
-            $http.put('/api/message/fav', message);
-        };
-
 
     // SAVE SUMMARY ==========================================
         $scope.saveSummary = function(){
