@@ -37,6 +37,9 @@ module.exports = function(app, passport) {
         } 
 
         console.log('this is the new message', newMsg);
+
+        if(newMsg.length === 0){ return; }
+
         fn.messageNew(newMsg, req.user._id).then(function(data){
             console.log('data out of new message', data);
             if(typeof data === 'object'){
