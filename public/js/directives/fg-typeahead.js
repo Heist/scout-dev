@@ -454,29 +454,16 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 locals[parserResult.itemName] = item = scope.matches[activeIdx].model;
                 model = parserResult.modelMapper(originalScope, locals);
-               
-                // TODO: Make this match only the +current+ scope.query
-                // this is rough because it will replace all hashes that match the scope.query, 
-                // not _just_ the scope.query.
-
-                // insert the new tag into the input box
-                console.log('cursor position', scope.caret.get);
-
-                // TODO: INSERT THE NEW TAG INTO THE CORRECT VARIANT OF THE MODEL;
-                // console.log('check that this is the correct tag!', scope.query);
-                // console.log('indexOf the scope query', modelCtrl.$viewValue.indexOf(scope.query));
 
                 // Find the most recent hashtag from the current caret position
                 var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get)
-
-                console.log('index of most recent hashtag', '#'+scope.query, mostRecentHash, scope.caret.get);
-
                 var newValue  = spliceSlice(modelCtrl.$viewValue, mostRecentHash, scope.caret.get-mostRecentHash, '#'+model);
 
                 modelCtrl.$setViewValue(newValue);
                 modelCtrl.$render();
-
+                resetMatches();
                 modelCtrl.$setValidity('editable', true);
+                
 
                 // if the tag isn't already in scope.testTags, add new tag
                 // if(scope.testTags.indexOf('#'+model) === -1){

@@ -72,7 +72,7 @@ module.exports = function(app, passport) {
             if(typeof data === 'object'){
                 models.Tag.findAsync({'_test' : data._test})
                     .then(function(tags){
-                        console.log('tags', tags.length);
+                        console.log('tags', tags);
 
                         var send = {
                             msg  : data, 

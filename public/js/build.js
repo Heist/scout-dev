@@ -52027,7 +52027,7 @@ angular.module('siyfion.sfTypeahead', [])
             [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
         function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         
-        console.log('report data from server', loadData.data);
+        // console.log('report data from server', loadData.data);
 
         $scope.test = {};
         $scope.timeline = [];
@@ -52123,7 +52123,7 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
             $scope.navlist =  makeNavList($scope.rawList);
-            console.log($scope.navlist);
+            // console.log($scope.navlist);
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
@@ -52162,10 +52162,10 @@ angular.module('siyfion.sfTypeahead', [])
         var addTagsToLeftNav = function(data){
             // when we're returned new data, check the tags for messages and filter ones that have none
             // set the new list of tags to the bottom of the navlist
-            console.log(data);
+            // console.log(data);
             var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
-            console.log('left nav list to concatenate to', clear);
+            // console.log('left nav list to concatenate to', clear);
 
             var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
             var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
@@ -52306,7 +52306,7 @@ angular.module('siyfion.sfTypeahead', [])
 
             $http.put('/api/message/', dataOut)
                 .success(function(data, err){
-                    console.log('data received', data);
+                    // console.log('data received', data);
                     if($scope.selected.doctype === 'test'){
                         // if this is a test, the message needs to be marked as a Summary message
                         // this is in case of re-editing after an original edit
@@ -52318,13 +52318,13 @@ angular.module('siyfion.sfTypeahead', [])
                     $scope.messages[original._subject.name].splice(idx,1, data.msg);
 
                     // now find the original._id on raw list item replace with new _id
-                    console.log($scope.rawList);
+                    // console.log($scope.rawList);
 
                     var objList    = _.filter($scope.rawList, function(n){ if(n.doctype === 'tag' || n.doctype === 'task' ) {return n;} else {return;}})
                     var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; });
                     
                     var nonTestObj = _.map(objList, function(n){
-                        // console.log(n.doctype);
+                        // // console.log(n.doctype);
                         var x = n._messages.indexOf(original._id);
                         // map each test item and then return
                         if( x !== -1){
@@ -52341,18 +52341,18 @@ angular.module('siyfion.sfTypeahead', [])
                         }
                     })
 
-                    // console.log('data, tags are returning undefined', data);
+                    // // console.log('data, tags are returning undefined', data);
                     if(data.msg._tags.indexOf($scope.summaryItem._id) !== -1){
                         // if it's a summary message, add it back into the summary message filter list
                         $scope.summaryItem._messages.splice($scope.summaryItem._messages.indexOf(original._id), 1, data.msg._id);
                     }
 
-                    // console.log(test);
+                    // // console.log(test);
 
                     $scope.rawList = test.concat(nonTestObj);
 
                     // Summary messages is a list of messages that match the summary._id
-                    // console.log(nonTestObj);
+                    // // console.log(nonTestObj);
                     addTagsToLeftNav(data);
                 });
         };
@@ -53000,6 +53000,105 @@ angular.module('field_guide_controls')
   };
 });
 })();
+// fg-modal.js
+// a directive to insert a modal on any given page
+// fg-post-message.js
+// post a new note to the database.
+'use strict';
+(function(){
+    angular.module('field_guide_controls')
+        .factory('postMessage', ['$http', function($http) {
+            var postMessage = function(message, task, test, subject_id){
+
+                    var note = {};
+                    note.body = message;
+                    note.created = new Date();
+                     
+                    note._task = task;
+                    note._test = test;
+                    note._subject = subject_id;
+
+                    var promise = $http.post('/api/message/', note).then(function(response) {
+                        // console.log('new reply', response);
+                        return response.data;
+                    });
+
+                    return promise;
+                };
+            return postMessage;
+        }]);
+})();
+// fg-report-functions.js
+//  simple functions used in all three report views.
+
+(function() {
+    'use strict';
+
+// This module builds out the left navigation used in report and summary controllers.
+// It does not require login in order to load information, because it is required for public routes.
+    angular.module('field_guide_controls')
+        .factory('reportFunctions', ['$http', '$sce', function($http, $sce) {
+            return {
+                videoRender : function(embed){
+                    var utest = /usabilitytestresults/i;
+                    var ut = utest.test(embed);
+
+                    if(ut){
+                        var w1 = /width='\d+'/i;
+                        var h1 = /height='\d+'/i;
+                        var w2 = /"width":"\d+"/i;
+                        var h2 = /"height":"\d+"/i;
+                        
+                        var res = embed.replace(w1, "width='574'");
+                        res = res.replace(w2, '"width":"574"');
+                        res = res.replace(h1, "height='380'");
+                        res = res.replace(h2, '"height":"380"');
+
+                        return {embed : $sce.trustAsHtml(res)};
+                    } else {
+                        return {youtube: embed};
+                    }
+                },
+                moveTask : function(list, old_index, new_index){
+                    new_index = old_index + new_index;
+                    list.splice(new_index, 0, list.splice(old_index, 1)[0]);
+                    
+                    (function(){
+                        var obj_count=0;
+                        // set the stored index of the task properly
+                        _.each(list, function(obj){
+                            obj.report_index = obj_count;
+                            obj_count++;
+                        });
+                    })();
+                    return list;
+                }
+            };
+        }]);
+})();
+// test-task-build.js
+// functions required to build out a test
+'use strict';
+
+(function(){
+    angular.module('field_guide_controls')
+        .factory('testBuildFunctions', ['$http', '$rootScope', 
+            function($http, $rootScope) {
+                return {
+                    addTask : function(test, task, index){
+                        // console.log(task, test);
+                        
+                        task._test = test;
+                        task.index = index;
+
+                        var promise = $http.post('/api/task/', task).success(function(data){
+                                return data;
+                            });
+                        return promise;
+                    }
+                };
+            }]);
+})();
 /* *
  * typeaheadTagger, based on angular-ui-bootstrap-typeahead
  * Takes an optional keyoff character to list available entries in a typeahead input box.
@@ -53456,29 +53555,16 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 locals[parserResult.itemName] = item = scope.matches[activeIdx].model;
                 model = parserResult.modelMapper(originalScope, locals);
-               
-                // TODO: Make this match only the +current+ scope.query
-                // this is rough because it will replace all hashes that match the scope.query, 
-                // not _just_ the scope.query.
-
-                // insert the new tag into the input box
-                console.log('cursor position', scope.caret.get);
-
-                // TODO: INSERT THE NEW TAG INTO THE CORRECT VARIANT OF THE MODEL;
-                // console.log('check that this is the correct tag!', scope.query);
-                // console.log('indexOf the scope query', modelCtrl.$viewValue.indexOf(scope.query));
 
                 // Find the most recent hashtag from the current caret position
                 var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get)
-
-                console.log('index of most recent hashtag', '#'+scope.query, mostRecentHash, scope.caret.get);
-
                 var newValue  = spliceSlice(modelCtrl.$viewValue, mostRecentHash, scope.caret.get-mostRecentHash, '#'+model);
 
                 modelCtrl.$setViewValue(newValue);
                 modelCtrl.$render();
-
+                resetMatches();
                 modelCtrl.$setValidity('editable', true);
+                
 
                 // if the tag isn't already in scope.testTags, add new tag
                 // if(scope.testTags.indexOf('#'+model) === -1){
@@ -53773,105 +53859,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         "");
 }]);
 
-// fg-modal.js
-// a directive to insert a modal on any given page
-// fg-post-message.js
-// post a new note to the database.
-'use strict';
-(function(){
-    angular.module('field_guide_controls')
-        .factory('postMessage', ['$http', function($http) {
-            var postMessage = function(message, task, test, subject_id){
-
-                    var note = {};
-                    note.body = message;
-                    note.created = new Date();
-                     
-                    note._task = task;
-                    note._test = test;
-                    note._subject = subject_id;
-
-                    var promise = $http.post('/api/message/', note).then(function(response) {
-                        // console.log('new reply', response);
-                        return response.data;
-                    });
-
-                    return promise;
-                };
-            return postMessage;
-        }]);
-})();
-// fg-report-functions.js
-//  simple functions used in all three report views.
-
-(function() {
-    'use strict';
-
-// This module builds out the left navigation used in report and summary controllers.
-// It does not require login in order to load information, because it is required for public routes.
-    angular.module('field_guide_controls')
-        .factory('reportFunctions', ['$http', '$sce', function($http, $sce) {
-            return {
-                videoRender : function(embed){
-                    var utest = /usabilitytestresults/i;
-                    var ut = utest.test(embed);
-
-                    if(ut){
-                        var w1 = /width='\d+'/i;
-                        var h1 = /height='\d+'/i;
-                        var w2 = /"width":"\d+"/i;
-                        var h2 = /"height":"\d+"/i;
-                        
-                        var res = embed.replace(w1, "width='574'");
-                        res = res.replace(w2, '"width":"574"');
-                        res = res.replace(h1, "height='380'");
-                        res = res.replace(h2, '"height":"380"');
-
-                        return {embed : $sce.trustAsHtml(res)};
-                    } else {
-                        return {youtube: embed};
-                    }
-                },
-                moveTask : function(list, old_index, new_index){
-                    new_index = old_index + new_index;
-                    list.splice(new_index, 0, list.splice(old_index, 1)[0]);
-                    
-                    (function(){
-                        var obj_count=0;
-                        // set the stored index of the task properly
-                        _.each(list, function(obj){
-                            obj.report_index = obj_count;
-                            obj_count++;
-                        });
-                    })();
-                    return list;
-                }
-            };
-        }]);
-})();
-// test-task-build.js
-// functions required to build out a test
-'use strict';
-
-(function(){
-    angular.module('field_guide_controls')
-        .factory('testBuildFunctions', ['$http', '$rootScope', 
-            function($http, $rootScope) {
-                return {
-                    addTask : function(test, task, index){
-                        // console.log(task, test);
-                        
-                        task._test = test;
-                        task.index = index;
-
-                        var promise = $http.post('/api/task/', task).success(function(data){
-                                return data;
-                            });
-                        return promise;
-                    }
-                };
-            }]);
-})();
 // ngMatch.js
 'use strict';
 
