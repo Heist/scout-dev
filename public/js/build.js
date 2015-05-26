@@ -51915,6 +51915,7 @@ angular.module('siyfion.sfTypeahead', [])
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
+                        console.log(data);
                         $scope.timeline.push(data.msg);
                         $scope.tags = tagSort(data.tags);
                     });
@@ -53009,7 +53010,7 @@ angular.module('field_guide_controls')
     angular.module('field_guide_controls')
         .factory('postMessage', ['$http', function($http) {
             var postMessage = function(message, task, test, subject_id){
-
+                    
                     var note = {};
                     note.body = message;
                     note.created = new Date();
@@ -53521,13 +53522,14 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                         scope.$digest();
 
                     } else if (evt.which === 13 || evt.which === 9) {
-                        enterCount++
+                        
                         console.log(enterCount);
                         // ENTER or TAB keypress =========
-                        if(enterCount === 1){
+                        if(enterCount === 0){
                             scope.$apply(function() {
                                 scope.select(scope.activeIdx);
                                 resetMatches();
+                                enterCount++
                             })
                         } else {
                             enterCount = 0;

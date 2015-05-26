@@ -22,11 +22,11 @@ module.exports = function(app, passport) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
-        console.log(req.body);
+        console.log('new message', req.body);
 
         // we expect it to be an object, with _tags etc.
         var newMsg = {};
-        if(req.body._tags){
+        if(req.body._test){
             newMsg = req.body;
         }
         else if(req.body.hasSummary){
@@ -58,7 +58,7 @@ module.exports = function(app, passport) {
         console.log('touched put', req.body);
         // we expect it to be an object, with _tags etc.
         var newMsg = {};
-        if(req.body._tags){
+        if(req.body._test){
             newMsg = req.body;
         }
         else if(req.body.hasSummary){

@@ -420,13 +420,14 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                         scope.$digest();
 
                     } else if (evt.which === 13 || evt.which === 9) {
-                        enterCount++
+                        
                         console.log(enterCount);
                         // ENTER or TAB keypress =========
-                        if(enterCount === 1){
+                        if(enterCount === 0){
                             scope.$apply(function() {
                                 scope.select(scope.activeIdx);
                                 resetMatches();
+                                enterCount++
                             })
                         } else {
                             enterCount = 0;
