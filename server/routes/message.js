@@ -37,6 +37,7 @@ module.exports = function(app, passport) {
         } 
 
         fn.messageNew(newMsg, req.user._id).then(function(data){
+            console.log('data out of new message', data);
             if(typeof data === 'object'){
                 models.Tag.findAsync({'_test' : req.body._test, '_messages' :{$not: {$size : 0}} })
                     .then(function(tags){
