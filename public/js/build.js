@@ -52330,27 +52330,30 @@ angular.module('siyfion.sfTypeahead', [])
 
 
     // Edit Task Things ===================================
-        $scope.editTitle = function (task){
-            task.title_edit = true;
-            $scope.edited = task;
+        $scope.editTitle = function (obj){
+            obj.title_edit = true;
+            obj.old_name   = obj.name;
+            $scope.edited  = obj;
         };
 
         $scope.blurTitle = function (obj){
             // on losing the focus, save the name of the task
-            obj.title_edit = false;
-            $scope.editedtask = null;
+                obj.title_edit = false;
 
-            obj.name = obj.name.trim();
+                $scope.editedtask = null;
 
-            // deleted the name of the task? Remove it entirely.
-            if (!obj.name) {
-                $scope.removeTask(obj);
-            }
-            if (obj.doctype === 'test') {
-                $scope.updateTest(obj);
-            } else {
-                $scope.updateTask(obj);
-            }
+                obj.name = obj.name.trim();
+
+                // deleted the name of the task? Remove it entirely.
+                if (!obj.name || obj.name.length === 0) {
+                    obj.name = obj.old_name;
+                    return;
+                }
+                if (obj.doctype === 'test') {
+                    $scope.updateTest(obj);
+                } else {
+                    $scope.updateTask(obj);
+                }
 
         };
 
