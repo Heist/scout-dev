@@ -5680,9 +5680,9 @@ span.tooltip-icon {
         margin: 0;
         border: 0;
         outline: 0;
-        padding: 10px 30px;
-        height: 45%;
-        resize: 0;
+        padding: 10px 10px 10px 30px;
+        height: 70%;
+        resize: none;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300;
@@ -5700,7 +5700,7 @@ span.tooltip-icon {
         z-index: 999999; }
         #view-testing #testing-input #session-input ul.dropdown-menu li {
           list-style: none;
-          padding: 5px 8px;
+          padding: 10px 20px;
           font-size: 14px; }
           #view-testing #testing-input #session-input ul.dropdown-menu li.active {
             background: #00B5E3;
