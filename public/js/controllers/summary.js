@@ -140,21 +140,21 @@
         }
 
         
-        var addTagsToLeftNav = function(data){
-            // when we're returned new data, check the tags for messages and filter ones that have none
-            // set the new list of tags to the bottom of the navlist
-            console.log(data);
-            var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
+        // var addTagsToLeftNav = function(data){
+        //     // when we're returned new data, check the tags for messages and filter ones that have none
+        //     // set the new list of tags to the bottom of the navlist
+        //     console.log(data);
+        //     var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
-            var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
-            var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
-            var sumMsg  = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
-            var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
-            var testIdx  = _.indexOf(_.pluck($scope.rawList, 'doctype'), 'test');
+        //     var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
+        //     var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
+        //     var sumMsg  = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
+        //     var tagList = _.sortBy(noSum, function(obj){ return obj.report_index; });
+        //     var testIdx  = _.indexOf(_.pluck($scope.rawList, 'doctype'), 'test');
 
-            $scope.rawList = clear.concat(tagList);
+        //     $scope.rawList = clear.concat(tagList);
 
-        }
+        // }
         
     // NAVIGATION =========================================
 
@@ -303,7 +303,7 @@
                     var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; });
                     
                     var nonTestObj = _.map(objList, function(n){
-                        console.log(n.doctype);
+                        // console.log(n.doctype);
                         var x = n._messages.indexOf(original._id);
                         // map each test item and then return
                         if( x !== -1){
@@ -320,39 +320,37 @@
                         }
                     })
 
-                    console.log('data, tags are returning undefined', data);
+                    // console.log('data, tags are returning undefined', data);
                     if(data.msg._tags.indexOf($scope.summaryItem._id) !== -1){
-                        // if it's a summary message, add it back into the message filter list
+                        // if it's a summary message, add it back into the summary message filter list
                         $scope.summaryItem._messages.splice($scope.summaryItem._messages.indexOf(original._id), 1, data.msg._id);
                     }
 
-                    console.log(test);
+                    // console.log(test);
 
                     $scope.rawList = test.concat(nonTestObj);
 
                     // Summary messages is a list of messages that match the summary._id
-                    
-
-                    console.log(nonTestObj);
-                    addTagsToLeftNav(data);
+                    // console.log(nonTestObj);
+                    // addTagsToLeftNav(data);
                 });
         };
 
-        $scope.postMessage = function(message, subject){
-            postMessage(message, $scope.selected._id, $scope.selected._test, subject._id )
-                .then(function(data){
+        // $scope.postMessage = function(message, subject){
+        //     postMessage(message, $scope.selected._id, $scope.selected._test, subject._id )
+        //         .then(function(data){
 
-                    $scope.newnote = '';
+        //             $scope.newnote = '';
 
-                    $scope.toggleNote(subject._id);
-                    $scope.toggleNote();
+        //             $scope.toggleNote(subject._id);
+        //             $scope.toggleNote();
                     
-                    $scope.messages[data.msg._subject.name].push(data.msg);
-                    $scope.selected._messages.push(data.msg._id);
+        //             $scope.messages[data.msg._subject.name].push(data.msg);
+        //             $scope.selected._messages.push(data.msg._id);
 
-                    addTagsToLeftNav(data);
-                });
-        };
+        //             addTagsToLeftNav(data);
+        //         });
+        // };
 
         $scope.saveFav = function(message){
             if($scope.selected.doctype === 'task'){
