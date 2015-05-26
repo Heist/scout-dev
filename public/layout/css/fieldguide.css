@@ -5534,7 +5534,7 @@ span.tooltip-icon {
             #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete {
               width: 0;
               position: relative;
-              left: 575px;
+              left: 97.5%;
               top: 25px;
               color: #C5C6C7; }
               #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete:hover {
@@ -6389,21 +6389,23 @@ span.tooltip-icon {
     #view-findings .summaries-holder .summaries-content {
       width: 100%;
       padding: 40px 0; }
-      #view-findings .summaries-holder .summaries-content h2 {
-        color: #1B5273;
-        font-size: 24.8px;
-        line-height: 30px;
-        font-family: "canada-type-gibson",sans-serif;
-        font-style: normal;
-        font-weight: 400;
-        margin: 0;
-        padding: 0 50px; }
-      #view-findings .summaries-holder .summaries-content p {
-        color: #C5C6C7;
-        font-size: 12px;
-        line-height: 15px;
-        padding: 0 50px;
-        margin: 5px 0 30px 0; }
+      #view-findings .summaries-holder .summaries-content .selected-heading {
+        padding: 0 0 30px 0; }
+        #view-findings .summaries-holder .summaries-content .selected-heading h2 {
+          color: #1B5273;
+          font-size: 24.8px;
+          line-height: 30px;
+          font-family: "canada-type-gibson",sans-serif;
+          font-style: normal;
+          font-weight: 400;
+          margin: 0;
+          padding: 0 50px; }
+        #view-findings .summaries-holder .summaries-content .selected-heading p {
+          color: #C5C6C7;
+          font-size: 12px;
+          line-height: 15px;
+          padding: 0 50px;
+          margin: 5px 0; }
       #view-findings .summaries-holder .summaries-content .summary-group {
         margin: 0;
         padding: 0 0 20px 0; }

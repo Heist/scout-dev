@@ -199,18 +199,23 @@
 			width: 100%;
 			padding: 40px 0;
 
-			h2 {
-				@include type-h2($fg-slate);
-				@include type-regular;
-				margin: 0;
-				padding: 0 50px;
+			.selected-heading {
+				padding: 0 0 30px 0;
+
+				h2 {
+					@include type-h2($fg-slate);
+					@include type-regular;
+					margin: 0;
+					padding: 0 50px;
+				}
+
+				p {
+					@include type-sm($fg-grey-placeholder);
+					padding: 0 50px;
+					margin: 5px 0;
+				}
 			}
 
-			p {
-				@include type-sm($fg-grey-placeholder);
-				padding: 0 50px;
-				margin: 5px 0 30px 0;
-			}
 
 
 			.summary-group {
