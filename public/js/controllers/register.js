@@ -36,6 +36,10 @@
                 dataOut = {email: user.email, name:user.name, password:  user.password};
             }
             
+            // TODO:
+            // on register, we should assume the fresh-test data works and change the route to overview.
+            // Then, on overview, we should show a "baking your data" thing until we have the test data.
+            
             $http
                 .post(url, dataOut)
                 .success(function(data){
