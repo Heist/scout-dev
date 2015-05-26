@@ -51833,7 +51833,12 @@ angular.module('siyfion.sfTypeahead', [])
                     $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);
-                    $timeout(function() {$('textarea#messageInput').focus() }, 10);
+
+                    if($scope.test.kind === "prototype"){
+                        $timeout(function() {$('textarea#prototypeInput').focus() }, 150);
+                    } else {
+                        $timeout(function() {$('textarea#messageInput').focus() }, 150);
+                    }
 
                     // Avatar initials
                     // TODO: refactor into service or add to check in process
@@ -51878,13 +51883,17 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.editMessage = function(message){
             // clear this on blur to block weird toggle bug
             $scope.messageEditToggle = message._id;
-            $timeout(function() {$('textarea#editMessage').focus() }, 10);
+            $timeout(function() {$('textarea#editMessage').focus() }, 150);
         };
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $timeout(function() {void 0; $('textarea#messageInput').focus()}, 200);
-            // $scope.setCaretToPos(document.getElementById("messageInput"),4);
+            if($scope.test.kind === "prototype"){
+                $timeout(function() {$('textarea#prototypeInput').focus() }, 150);
+            } else {
+                $timeout(function() {$('textarea#messageInput').focus() }, 150);
+            }
+            
             $http.put('/api/message/', message)
                 .success(function(data){                 
                     
@@ -52983,7 +52992,7 @@ angular.module('field_guide_controls')
         if(element){
             element.focus();
         }
-      }, 500);
+      }, 150);
     };
   })
 .directive('focusMe', function($timeout) {
@@ -52994,7 +53003,7 @@ angular.module('field_guide_controls')
         if(value === "true") { 
           $timeout(function() {
             element[0].focus(); 
-          }, 200);
+          }, 150);
         }
       });
     }

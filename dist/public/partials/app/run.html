@@ -15,7 +15,7 @@
 					<ul class="nobullets" ng-model="subject">
 						<li ng-class='{"half": kind === "prototype", "full" : kind !== "prototype"}'>
 							<label>Participant's name</label>
-							<input class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name" required />
+							<input class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name" focus-me="{{!live}}" required />
 							</input>
 						</li>
 
@@ -99,7 +99,7 @@
 				
 				<!-- input notes -->
 				<div id="session-input" class="prototype">
-					<textarea class="typeahead-box" type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Enter your notes here - hit enter to submit a note."></textarea>
+					<textarea id="prototypeInput" focus-me="{{live}}" class="typeahead-box" type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Enter your notes here - hit enter to submit a note."></textarea>
 					<div id="hash-tag-pool">
 						<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
 					</div>
