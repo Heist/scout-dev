@@ -1,4 +1,4 @@
-// test.js
+// edit-test.js
 (function() {
     'use strict';
     // TEST CONTROLLER ===========================================================
@@ -6,7 +6,7 @@
     .run(['$anchorScroll', function($anchorScroll) {
         $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
     }])
-    .controller('test', 
+    .controller('editTest', 
         ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
         function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         var tagSort = function(tags){

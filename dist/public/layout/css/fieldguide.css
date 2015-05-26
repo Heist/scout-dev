@@ -5406,11 +5406,23 @@ span.tooltip-icon {
       color: #000;
       background: url('../assets/fg-edit-hover.svg') 20px 21px no-repeat; }
   #view-editing .test-info {
-    padding: 0 0 30px 40px; }
+    padding: 0 0 40px 40px; }
     #view-editing .test-info img {
       margin: 0 3px 0 0; }
   #view-editing form {
     margin: 0; }
+  #view-editing input.prototype-link, #view-editing .add-task textarea.prototype-link {
+    width: 300px;
+    padding: 0 0 0 30px;
+    color: #00B5E3;
+    font-size: 14px;
+    line-height: 21px; }
+    #view-editing input.prototype-link:hover, #view-editing .add-task textarea.prototype-link:hover {
+      color: #000;
+      background: url('../assets/fg-edit.svg') 14px 4px no-repeat; }
+    #view-editing input.prototype-link:focus, #view-editing .add-task textarea.prototype-link:focus {
+      color: #000;
+      background: url('../assets/fg-edit-hover.svg') 14px 4px no-repeat; }
   #view-editing input.task-title, #view-editing .add-task textarea.task-title {
     color: #7a7a7a;
     font-size: 18.6px;
@@ -5525,7 +5537,7 @@ span.tooltip-icon {
             float: left;
             width: 10%; }
             #view-editing .container .sheet-holder .sheet .container-row .container-left h3.topics {
-              margin: 21px 0 0 0; }
+              margin: 20px 0 0 0; }
             #view-editing .container .sheet-holder .sheet .container-row .container-left .create-project-tooltip {
               float: left; }
           #view-editing .container .sheet-holder .sheet .container-row .container-right {

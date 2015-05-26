@@ -268,7 +268,7 @@
     }
 
     .test-info {
-          padding: 0 0 30px 40px;
+          padding: 0 0 40px 40px;
 
         img {
             margin: 0 3px 0 0;
@@ -277,6 +277,22 @@
 
     form {
         margin: 0;
+    }
+
+    input.prototype-link {
+        width: 300px;
+        padding: 0 0 0 30px;
+        @include type-p($fg-blue);
+
+        &:hover{
+            color: $black;
+            background: url('../assets/fg-edit.svg') 14px 4px no-repeat;
+        }
+
+        &:focus {
+            color: $black;
+            background: url('../assets/fg-edit-hover.svg') 14px 4px no-repeat;
+        }
     }
 
     input.task-title {
@@ -430,7 +446,7 @@
                         width: 10%;
 
                         h3.topics {
-                            margin: 21px 0 0 0;
+                            margin: 20px 0 0 0;
                         }
 
                         .create-project-tooltip {
