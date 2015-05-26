@@ -51833,7 +51833,12 @@ angular.module('siyfion.sfTypeahead', [])
                     $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);
-                    $timeout(function() {$('textarea#messageInput').focus() }, 10);
+
+                    if($scope.test.kind === "prototype"){
+                        $timeout(function() {$('textarea#prototypeInput').focus() }, 150);
+                    } else {
+                        $timeout(function() {$('textarea#messageInput').focus() }, 150);
+                    }
 
                     // Avatar initials
                     // TODO: refactor into service or add to check in process
@@ -51878,13 +51883,17 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.editMessage = function(message){
             // clear this on blur to block weird toggle bug
             $scope.messageEditToggle = message._id;
-            $timeout(function() {$('textarea#editMessage').focus() }, 10);
+            $timeout(function() {$('textarea#editMessage').focus() }, 150);
         };
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $timeout(function() {$('textarea#messageInput').focus() }, 10);
-            // $scope.setCaretToPos(document.getElementById("messageInput"),4);
+            if($scope.test.kind === "prototype"){
+                $timeout(function() {$('textarea#prototypeInput').focus() }, 150);
+            } else {
+                $timeout(function() {$('textarea#messageInput').focus() }, 150);
+            }
+            
             $http.put('/api/message/', message)
                 .success(function(data){                 
                     
@@ -52983,7 +52992,7 @@ angular.module('field_guide_controls')
         if(element){
             element.focus();
         }
-      }, 500);
+      }, 150);
     };
   })
 .directive('focusMe', function($timeout) {
@@ -52994,7 +53003,7 @@ angular.module('field_guide_controls')
         if(value === "true") { 
           $timeout(function() {
             element[0].focus(); 
-          }, 200);
+          }, 150);
         }
       });
     }
@@ -53296,9 +53305,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 var nextSpace      = modelCtrl.$viewValue.indexOf(' ', mostRecentHash);
 
                 var searchClose    = (nextSpace && nextSpace > -1) ? Math.min(nextSpace, scope.caret.get) : scope.caret.get;
-                
-                // console.log('caret position', scope.caret.get, 'searchClose', searchClose, 'nextSpace', nextSpace);
-
                 var searchTerm     = modelCtrl.$viewValue.substr(mostRecentHash+1, searchClose-mostRecentHash);
                     
                 var locals = {$viewValue: searchTerm};
@@ -53309,8 +53315,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     //but we are interested only in responses that correspond to the current view value
 
                     var onCurrentRequest = modelCtrl.$viewValue.indexOf(searchTerm) > -1;
-                    
-                    // console.log('getMatchesAsync searchTerm',mostRecentHash+1, searchClose, searchTerm, onCurrentRequest);
 
                     if (onCurrentRequest && hasFocus) {
                         if (matches.length > 0) {
@@ -53328,7 +53332,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                             }
 
                             scope.query = searchTerm;
-                            // console.log(inputValue);
                             //position pop-up with matches - we need to re-calculate its position each time we are opening a window
                             //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
                             //due to other elements being rendered
@@ -53380,7 +53383,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 if(accepted_tags && tester){
                     difference = _.difference(clean_test, clean_accepted);
-                    // console.log('should be the new tags',clean_test, clean_accepted, difference);
                 }
 
                 // WHAT WE HAVE
@@ -53525,6 +53527,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                         
                         void 0;
                         // ENTER or TAB keypress =========
+
                         if(enterCount === 0){
                             scope.$apply(function() {
                                 scope.select(scope.activeIdx);
@@ -53566,7 +53569,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 locals[parserResult.itemName] = item = scope.matches[activeIdx].model;
                 model = parserResult.modelMapper(originalScope, locals);
-
                 // Find the most recent hashtag from the current caret position
                 var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get)
                 var newValue  = spliceSlice(modelCtrl.$viewValue, mostRecentHash, scope.caret.get-mostRecentHash, '#'+model);
