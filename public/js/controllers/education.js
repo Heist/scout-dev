@@ -33,10 +33,11 @@
         $scope.educationPopup = 1;
     }
 
-    // $scope.resetPopup = function(){
-    //     $scope.help = false;
-    //     $scope.educationPopup = 0;
-    // }
+    $scope.showIntercom = function(){
+        Intercom('show');
+
+    }
+
 
 	}]);
 

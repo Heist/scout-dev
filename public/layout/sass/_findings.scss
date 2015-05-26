@@ -77,21 +77,20 @@
 		height: 100%;
 		position: fixed;
 		left: 2%;
-		top: 12px;
 		@include animated;
 		@include scrollbar;
 		border-right: 1px solid $fg-grey-light;
 		
 		#sidebar {
 			width: 97%;
-			height: 92%;
+			height: 90%;
 			overflow: auto;
 			position: relative;
 			
 			&.sidebar {
 				font-size: 14px;
 				@include type-light;
-				margin: 65px 0 0 0;
+				margin: 85px 0 0 0;
 
 				.tag-hash:before {
 					content: '#';
@@ -119,15 +118,13 @@
 					    }
 					}
 					
-					&:hover {
-						color: $fg-slate;
-					}
 				}
 
 				h4.group-cat {
 					padding: 10px;
 					margin: 5px 0 0 0;
 					@include type-h4($fg-grey-placeholder);
+					@include type-regular;
 					text-transform: uppercase;
 					position: relative;
 
@@ -175,12 +172,12 @@
 						margin: 5px 0 0 0;
 
 						&:hover {
-							color: $fg-slate;
+							color: $white;
 							@include type-regular;
 						}
 
 						&:active {
-							color: $fg-slate;
+							color: $white;
 							@include type-regular;
 						}
 					}
@@ -195,7 +192,6 @@
 		padding: 0;
 		margin: 0;
 		position: absolute;
-		top: 1.8%;
 		left: 15%;
 		overflow: auto;
 
@@ -203,17 +199,23 @@
 			width: 100%;
 			padding: 40px 0;
 
-			h2 {
-				@include type-h2($fg-slate);
-				margin: 0;
-				padding: 0 50px;
+			.selected-heading {
+				padding: 0 0 30px 0;
+
+				h2 {
+					@include type-h2($fg-slate);
+					@include type-regular;
+					margin: 0;
+					padding: 0 50px;
+				}
+
+				p {
+					@include type-sm($fg-grey-placeholder);
+					padding: 0 50px;
+					margin: 5px 0;
+				}
 			}
 
-			p {
-				@include type-sm($fg-grey-placeholder);
-				padding: 0 50px;
-				margin: 5px 0 30px 0;
-			}
 
 
 			.summary-group {
@@ -223,7 +225,7 @@
 			}
 
 			.summary-user {
-				@include type-h3($fg-slate);
+				@include type-h3($fg-black);
 				margin: 0 0 10px 0;
 				position: relative;
 				padding: 0 50px;
@@ -276,7 +278,7 @@
 					}
 
 					pre.summaries, textarea {
-						@include type-p($fg-grey-dark);
+						@include type-p($fg-grey-text);
 						padding: 0 50px;
 						cursor: text;
 						border: 0;
@@ -308,13 +310,12 @@
 
 
 	.sheet-holder {
-		width: 47%;
+		width: 48%;
 		height: 100%;
 		padding: 0;
 		margin: 0;
 		position: absolute;
-		top: 1.8%;
-		left: 52.1%;
+		left: 52%;
 		overflow-y: scroll;
 		@include dropshadowULTRA($shadow: 0 3px 10px, $intensity: rgba(0,0,0,0.1));
 
@@ -335,7 +336,6 @@
 		}
 
 		h3 {
-			@include type-h3($fg-slate);
 			margin: 0 0 15px 0;
 		}
 
@@ -351,6 +351,9 @@
 			padding: 40px 0 40px 40px;
 
 			h1 {
+				@include type-h1($fg-grey-dark);
+				@include type-regular;
+				letter-spacing: 0.5px;
 				margin: 0;
 			}
 			
@@ -378,11 +381,12 @@
 		.findings-information {
 
 			h3, p {
+				color: $fg-grey-dark;
 				padding: 0 0 0 40px;
 			}
 
 			textarea {
-				@include type-p($fg-grey-text);
+				@include type-p($fg-grey-dark);
 				height: 300px;
 				border: 0;
 				padding: 0 0 0 40px;
