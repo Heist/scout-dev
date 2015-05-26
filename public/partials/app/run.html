@@ -15,13 +15,13 @@
 					<ul class="nobullets" ng-model="subject">
 						<li ng-class='{"half": kind === "prototype", "full" : kind !== "prototype"}'>
 							<label>Participant's name</label>
-							<input required class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name" focus-me="{{!live}}"/>
+							<input class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name" focus-me="{{!live}}"required />
 							</input>
 						</li>
 
 						<li class="half" ng-show="kind === 'prototype'">
 							<label>Room ID</label><span class="info large-tooltip" data-tooltip-large="ID code appears in the iOS app"><span>?</span></span>
-							<input class="input" type="text" name="testroom" value="" placeholder="Field Guide app Room ID" ng-model="subject.testroom">
+							<input class="input" type="text" name="testroom" value="" placeholder="Field Guide app Room ID" ng-model="subject.testroom" required />
 							</input>
 						</li>
 							<div class="clear"></div>
