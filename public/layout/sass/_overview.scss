@@ -45,6 +45,7 @@
 		background: $white;
 		width: 237px;
 		height: 296px;
+		outline: 1px solid transparent;
 		@include dropshadowULTRA($shadow: 0 3px 10px, $intensity: rgba(0,0,0,0.1));
 		position: relative;
 		transition: all .1s ease-in-out;
@@ -58,7 +59,7 @@
 
 	.overview-test-container-hover {
 		&:hover {
-			border: 1px solid $fg-green;
+			outline: 1px solid $fg-green;
 		}
 	}
 	
@@ -135,11 +136,13 @@
 			display: block;
 			padding: $pad/4 $pad/1.5;
 
-			span {
+			span.ellipsis {
 				text-decoration: none;
 				@include type-extrabold;
 				color: $fg-grey-placeholder;
-				
+				width: 20px;
+				display: block;
+				float: right;
 			}
 
 			.dangerous {
@@ -156,7 +159,8 @@
 		height: 200px;
 
 		h2 {
-			@include type-h2($fg-grey-dark);
+			@include type-h2($fg-black);
+			word-break: break-word;
 			letter-spacing: -0.5px;
 			font-weight: 400;
 		}

@@ -15,13 +15,13 @@
 					<ul class="nobullets" ng-model="subject">
 						<li ng-class='{"half": kind === "prototype", "full" : kind !== "prototype"}'>
 							<label>Participant's name</label>
-							<input required class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name" focus-me="{{!live}}"/>
+							<input class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name" focus-me="{{!live}}"required />
 							</input>
 						</li>
 
 						<li class="half" ng-show="kind === 'prototype'">
 							<label>Room ID</label><span class="info large-tooltip" data-tooltip-large="ID code appears in the iOS app"><span>?</span></span>
-							<input class="input" type="text" name="testroom" value="" placeholder="Field Guide app Room ID" ng-model="subject.testroom">
+							<input class="input" type="text" name="testroom" value="" placeholder="Field Guide app Room ID" ng-model="subject.testroom" required />
 							</input>
 						</li>
 							<div class="clear"></div>
@@ -41,16 +41,19 @@
 		<div class="clear"></div>
 	</div>
 	<!-- / participant definition modal -->
-	
+
+
+
+
+
+
+
 	<!-- discussion guide -->
 	<div id="testing-guide" ng-model="tests">
 		
 		<div id="tasklist">
 						
 			<ul>
-				<li class="title"><div class="participant-avatar"><span ng-model="initials">{{subject.initials}}</span></div>
-					<h3 class="participant-name">{{subject.name}}</h3>
-				</li>
 				
 				<li class="no-highlite">
 					<h5>Objectives</h5>
@@ -64,7 +67,7 @@
 				<li ng-repeat="obj in navlist" ng-class="{ 'active': obj._id === selected._id }" ng-click="select($index)">
 					<h3 class="tag-name">{{obj.name}}</h3>
 
-					<p ng-bind-html="obj.desc | linebreaker" ng-if="obj._id === selected._id"></p>
+					<p class="questions" ng-bind-html="obj.desc | linebreaker" ng-if="obj._id === selected._id"></p>
 				</li>
 			</ul>
 			
@@ -74,6 +77,21 @@
 	<!-- / discussion guide -->
 
 	<div class="sheet-holder" ng-controller="socketFunctions" ng-show="test.kind === 'prototype'">
+
+	<div id="cta-prototype" ng-model="tests">
+		<div class="participant-info clearfix">
+			<div class="participant-avatar"><span ng-model="initials">{{subject.initials}}</span></div>
+			<h3 class="participant-name">{{subject.name}}</h3>
+		</div>
+
+		<div class="cta">
+			<button class="button" ng-click="summarizeModalToggle()" tabindex="-1">
+			<div class="checkmark"></div>
+			<span>End session</span>
+			</button>
+		</div>
+	</div>
+
 		<div class="sheet">
 			
 			<!-- note input and display -->
@@ -81,16 +99,15 @@
 				
 				<!-- input notes -->
 				<div id="session-input" class="prototype">
-					<textarea class="typeahead-box" type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Remember to give your notes #themes"></textarea>
+					<textarea class="typeahead-box" type="textarea" ng-model="typeinput" typeahead="tag.name for tag in tags | filter:$viewValue | limitTo:8" class="input form-control" name="field-input" placeholder="Enter your notes here - hit enter to submit a note."></textarea>
 					<div id="hash-tag-pool">
 						<small ng-repeat="tag in tags" class="hashtag">#{{tag.name}}</small>
 					</div>
-				</div>
-				
+				</div
+
 				<!-- timeline -->
 				<div id="timeline" class="prototype" scroll-glue="glued">
 					<ul>
-						
 						<!-- empty state -->
 						<li class="message-no-highlite" id="firstrun">
 							<div class="message-body">
@@ -132,15 +149,6 @@
 			<div id="timeline-user-input"> </div>
 			
 			<div id="timeline-user">
-
-				<div id="cta">
-					<div class="cta">
-						<button class="button" ng-click="summarizeModalToggle()" tabindex="-1">
-						<div class="checkmark"></div>
-						<span>End session</span>
-						</button>
-					</div>
-				</div>
 
 				<div id="timeline-user-only-screen" ng-show="subject.testroom">
 					<p>Your participant's screen</p>

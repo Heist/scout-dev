@@ -12,15 +12,12 @@
     $scope.tracker = function(step){
         // Intercom tracker ===============================
             var intercom = {
-                        event_name : 'opened-education',
                         created_at : new Date(),
                         email      : $rootScope.user.email,
-                        metadata   : {
-                            'education-page' : step
-                        }
+                        education_page : step
                     };
                     
-            Intercom('trackEvent', intercom );
+            Intercom('trackEvent', 'opened-education', intercom );
     
     }
 
@@ -36,10 +33,11 @@
         $scope.educationPopup = 1;
     }
 
-    // $scope.resetPopup = function(){
-    //     $scope.help = false;
-    //     $scope.educationPopup = 0;
-    // }
+    $scope.showIntercom = function(){
+        Intercom('show');
+
+    }
+
 
 	}]);
 

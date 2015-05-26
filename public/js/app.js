@@ -187,7 +187,20 @@
                                 });
                     }]
                 }
-            });
+            })
+
+            // VIDEO STREAM ====================================
+            // .state('watch', {
+            //     url         : '/watch/:_session',
+            //     controller  : 'watch',
+            //     templateUrl : 'partials/app/watch.html',
+            //     resolve: { 
+            //         loggedin: ['checkLoggedin', function(checkLoggedin) {
+            //             return checkLoggedin();
+            //         }]
+            //     }
+            // })
+            ;
     });
 
     // FILTERS ============================================================================

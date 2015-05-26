@@ -1,13 +1,19 @@
 <div class="sheet-holder" ng-controller="socketFunctions">
 	<div class="sheet">
 	
-		<div id="cta-interview">
+		<div id="cta-interview" ng-model="tests">
+			<div class="participant-info clearfix">
+				<div class="participant-avatar"><span ng-model="initials">{{subject.initials}}</span></div>
+				<h3 class="participant-name">{{subject.name}}</h3>
+			</div>
+
 			<div class="cta">
 				<button class="button" ng-click="summarizeModalToggle()" tabindex="-1">
 				<div class="checkmark"></div>
 				<span>End session</span>
 				</button>
 			</div>
+
 		</div>
 	<!-- note input and display -->
 	<div id="testing-input" class="interview">

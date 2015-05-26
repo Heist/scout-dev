@@ -34,16 +34,12 @@
               msec -= mm * 1000 * 60;
               
               var intercom = {
-                    event_name : 'opened-onboarding',
                     created_at : new Date(),
                     email      : $rootScope.user.email,
-                    metadata   : {
-                        duration : mm
-                    }
-
+                    duration : mm
                 };
                 
-              Intercom('trackEvent', intercom );
+              Intercom('trackEvent', 'closed-onboarding', intercom );
 
             $rootScope.user.onboard = 100;
                $scope.onboardSteps = false; 
@@ -53,12 +49,11 @@
               startOnboard = new Date();
 
               var intercom = {
-                    event_name : 'opened-onboarding',
                     created_at : new Date(),
                     email      : $rootScope.user.email
                 };
                 
-                Intercom('trackEvent', intercom );
+                Intercom('trackEvent', 'opened-onboarding', intercom );
 
               $rootScope.user.onboard = 1;
               $scope.onboardSteps = true; 
