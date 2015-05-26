@@ -8,7 +8,7 @@
             [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
         function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         
-        console.log('report data from server', loadData.data);
+        // console.log('report data from server', loadData.data);
 
         $scope.test = {};
         $scope.timeline = [];
@@ -104,7 +104,7 @@
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
             $scope.navlist =  makeNavList($scope.rawList);
-            console.log($scope.navlist);
+            // console.log($scope.navlist);
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
@@ -143,9 +143,11 @@
         var addTagsToLeftNav = function(data){
             // when we're returned new data, check the tags for messages and filter ones that have none
             // set the new list of tags to the bottom of the navlist
-            console.log(data);
+            // console.log(data);
             var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
+            // console.log('left nav list to concatenate to', clear);
+
             var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
             var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
             var sumMsg  = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
@@ -185,12 +187,11 @@
                 $scope.shareReport = true;
                 
                 var intercom = {
-                    event_name : 'shared-report-button-clicked',
                     created_at : new Date(),
                     email      : $rootScope.user.email
                 };
                 
-                Intercom('trackEvent', intercom );
+                Intercom('trackEvent', 'shared-report-button-clicked', intercom );
             
                 return;
             }
@@ -233,16 +234,13 @@
              
             if(obj.doctype === 'test'){
                 var intercom = {
-                    event_name : 'saved-test-report',
                     created_at : new Date(),
                     email      : $rootScope.user.email,
-                    metadata   : {
-                        summary    : (obj.summary)    ? 'true' : 'false',
-                        next_steps : (obj.next_steps) ? 'true' : 'false'
-                    }
+                    summary    : (obj.summary)    ? 'true' : 'false',
+                    next_steps : (obj.next_steps) ? 'true' : 'false'
                 };
 
-                Intercom('trackEvent', intercom );
+                Intercom('trackEvent', 'saved-test-report', intercom );
             }
 
             $http.post('/api/summary/object/', [obj]);
@@ -283,18 +281,13 @@
         };
 
         $scope.saveEdit = function(original, list){
-            $scope.messageEditToggle = '';
-
-            var output = original;
-
-            if(output._tags.indexOf($scope.summaryItem._id !== -1)){
-                output.body = output.body + ' #summary';
-            }
             
-            $http.put('/api/message/', output)
-                .success(function(data, err){
-                    
+            $scope.messageEditToggle = '';
+            var dataOut = {msg: original, hasSummary: $scope.summaryItem._id}
 
+            $http.put('/api/message/', dataOut)
+                .success(function(data, err){
+                    // console.log('data received', data);
                     if($scope.selected.doctype === 'test'){
                         // if this is a test, the message needs to be marked as a Summary message
                         // this is in case of re-editing after an original edit
@@ -302,22 +295,26 @@
                     }
 
                     // splice the new message over its old self in the messages list
-                    var idx = _.pluck($scope.messages[output._subject.name], '_id').indexOf(output._id);
-                    $scope.messages[output._subject.name].splice(idx,1, data.msg);
-                    
+                    var idx = _.pluck($scope.messages[original._subject.name], '_id').indexOf(original._id);
+                    $scope.messages[original._subject.name].splice(idx,1, data.msg);
 
                     // now find the original._id on raw list item replace with new _id
-                    var objList    = _.filter($scope.rawList, function(n){ if(n.doctype === 'tag' || n.doctype === 'tag' ) {return n;} else {return;}})
+                    // console.log($scope.rawList);
+
+                    var objList    = _.filter($scope.rawList, function(n){ if(n.doctype === 'tag' || n.doctype === 'task' ) {return n;} else {return;}})
                     var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; });
                     
                     var nonTestObj = _.map(objList, function(n){
-                        var x = n._messages.indexOf(output._id);
-
+                        // // console.log(n.doctype);
+                        var x = n._messages.indexOf(original._id);
+                        // map each test item and then return
                         if( x !== -1){
+                            // if that message exists on the original object, add it
                             n._messages.splice(x, 1, data.msg._id);
                           return n;
                         }
                         if(n._messages.length === 0){
+                            // if that message does not exist on the original object, add it
                             n._messages.splice(0, 1, data.msg._id);
                           return n;
                         } else {
@@ -325,39 +322,22 @@
                         }
                     })
 
-                    console.log('data, tags are returning undefined', data);
+                    // // console.log('data, tags are returning undefined', data);
                     if(data.msg._tags.indexOf($scope.summaryItem._id) !== -1){
-                        // if it's a summary message, add it back into the message filter list
+                        // if it's a summary message, add it back into the summary message filter list
                         $scope.summaryItem._messages.splice($scope.summaryItem._messages.indexOf(original._id), 1, data.msg._id);
                     }
 
-                    console.log(test);
+                    // // console.log(test);
 
                     $scope.rawList = test.concat(nonTestObj);
 
                     // Summary messages is a list of messages that match the summary._id
-                    
-
-                    console.log(nonTestObj);
+                    // // console.log(nonTestObj);
                     addTagsToLeftNav(data);
                 });
         };
 
-        $scope.postMessage = function(message, subject){
-            postMessage(message, $scope.selected._id, $scope.selected._test, subject._id )
-                .then(function(data){
-
-                    $scope.newnote = '';
-
-                    $scope.toggleNote(subject._id);
-                    $scope.toggleNote();
-                    
-                    $scope.messages[data.msg._subject.name].push(data.msg);
-                    $scope.selected._messages.push(data.msg._id);
-
-                    addTagsToLeftNav(data);
-                });
-        };
 
         $scope.saveFav = function(message){
             if($scope.selected.doctype === 'task'){

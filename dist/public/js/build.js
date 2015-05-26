@@ -50499,7 +50499,20 @@ angular.module('siyfion.sfTypeahead', [])
                                 });
                     }]
                 }
-            });
+            })
+
+            // VIDEO STREAM ====================================
+            // .state('watch', {
+            //     url         : '/watch/:_session',
+            //     controller  : 'watch',
+            //     templateUrl : 'partials/app/watch.html',
+            //     resolve: { 
+            //         loggedin: ['checkLoggedin', function(checkLoggedin) {
+            //             return checkLoggedin();
+            //         }]
+            //     }
+            // })
+            ;
     });
 
     // FILTERS ============================================================================
@@ -50993,17 +51006,17 @@ angular.module('siyfion.sfTypeahead', [])
 
 
     // Edit Task Things ===================================
-        $scope.editTitle = function (task){
-            task.title_edit = true;
-            $scope.edited = task;
+        $scope.editTitle = function (obj){
+            obj.title_edit = true;
+            obj.old_name   = obj.name;
+            $scope.edited  = obj;
         };
 
         $scope.blurTitle = function (obj){
             // on losing the focus, save the name of the task
-            obj.title_edit = false;
-            $scope.editedtask = null;
+                obj.title_edit = false;
 
-            obj.name = obj.name.trim();
+                $scope.editedtask = null;
 
             // deleted the name of the task? Remove it entirely.
             if (!obj.name) {
@@ -51075,15 +51088,12 @@ angular.module('siyfion.sfTypeahead', [])
     $scope.tracker = function(step){
         // Intercom tracker ===============================
             var intercom = {
-                        event_name : 'opened-education',
                         created_at : new Date(),
                         email      : $rootScope.user.email,
-                        metadata   : {
-                            'education-page' : step
-                        }
+                        education_page : step
                     };
                     
-            Intercom('trackEvent', intercom );
+            Intercom('trackEvent', 'opened-education', intercom );
     
     }
 
@@ -51245,15 +51255,14 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.addTest = function(test){
             
             var intercom = {
-                event_name : 'created-project',
                 created_at : new Date(),
                 email      : $rootScope.user.email
-            } ;
+            };
 
             $http
                 .post('/api/test/', test)
                 .success(function(data){
-                    Intercom('trackEvent', intercom );
+                    Intercom('trackEvent', 'created-project', intercom );
 
                     $scope.$parent.tests.push(data);
                     $scope.$parent.newTestModalToggle();
@@ -51300,16 +51309,12 @@ angular.module('siyfion.sfTypeahead', [])
               msec -= mm * 1000 * 60;
               
               var intercom = {
-                    event_name : 'opened-onboarding',
                     created_at : new Date(),
                     email      : $rootScope.user.email,
-                    metadata   : {
-                        duration : mm
-                    }
-
+                    duration : mm
                 };
                 
-              Intercom('trackEvent', intercom );
+              Intercom('trackEvent', 'closed-onboarding', intercom );
 
             $rootScope.user.onboard = 100;
                $scope.onboardSteps = false; 
@@ -51319,12 +51324,11 @@ angular.module('siyfion.sfTypeahead', [])
               startOnboard = new Date();
 
               var intercom = {
-                    event_name : 'opened-onboarding',
                     created_at : new Date(),
                     email      : $rootScope.user.email
                 };
                 
-                Intercom('trackEvent', intercom );
+                Intercom('trackEvent', 'opened-onboarding', intercom );
 
               $rootScope.user.onboard = 1;
               $scope.onboardSteps = true; 
@@ -51816,15 +51820,12 @@ angular.module('siyfion.sfTypeahead', [])
             startTest = new Date();
 
             var intercom = {
-                event_name : 'started-test',
                 created_at : startTest,
                 email      : $rootScope.user.email,
-                metadata   : {
-                    test_kind : $scope.test.kind
-                }
+                test_kind : $scope.test.kind
             } ;
             
-            Intercom('trackEvent', intercom );
+            Intercom('trackEvent', 'started-test', intercom );
 
             $http
                 .post('api/subject/', subject)
@@ -51914,6 +51915,7 @@ angular.module('siyfion.sfTypeahead', [])
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
+                        void 0;
                         $scope.timeline.push(data.msg);
                         $scope.tags = tagSort(data.tags);
                     });
@@ -51938,16 +51940,13 @@ angular.module('siyfion.sfTypeahead', [])
             msec -= ss * 1000;
 
              var intercom = {
-                event_name : 'ended-test',
                 created_at : new Date(),
                 email      : $rootScope.user.email,
-                metadata   : {
-                    test_kind : $scope.test.kind,
-                    duration  : mm
-                }
+                test_kind : $scope.test.kind,
+                duration  : mm
             } ;
             
-            Intercom('trackEvent', intercom );
+            Intercom('trackEvent', 'ended-test', intercom );
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags
@@ -52029,7 +52028,7 @@ angular.module('siyfion.sfTypeahead', [])
             [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
         function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         
-        void 0;
+        // console.log('report data from server', loadData.data);
 
         $scope.test = {};
         $scope.timeline = [];
@@ -52125,7 +52124,7 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
             $scope.navlist =  makeNavList($scope.rawList);
-            void 0;
+            // console.log($scope.navlist);
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
@@ -52164,9 +52163,11 @@ angular.module('siyfion.sfTypeahead', [])
         var addTagsToLeftNav = function(data){
             // when we're returned new data, check the tags for messages and filter ones that have none
             // set the new list of tags to the bottom of the navlist
-            void 0;
+            // console.log(data);
             var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
+            // console.log('left nav list to concatenate to', clear);
+
             var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
             var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
             var sumMsg  = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
@@ -52206,12 +52207,11 @@ angular.module('siyfion.sfTypeahead', [])
                 $scope.shareReport = true;
                 
                 var intercom = {
-                    event_name : 'shared-report-button-clicked',
                     created_at : new Date(),
                     email      : $rootScope.user.email
                 };
                 
-                Intercom('trackEvent', intercom );
+                Intercom('trackEvent', 'shared-report-button-clicked', intercom );
             
                 return;
             }
@@ -52254,16 +52254,13 @@ angular.module('siyfion.sfTypeahead', [])
              
             if(obj.doctype === 'test'){
                 var intercom = {
-                    event_name : 'saved-test-report',
                     created_at : new Date(),
                     email      : $rootScope.user.email,
-                    metadata   : {
-                        summary    : (obj.summary)    ? 'true' : 'false',
-                        next_steps : (obj.next_steps) ? 'true' : 'false'
-                    }
+                    summary    : (obj.summary)    ? 'true' : 'false',
+                    next_steps : (obj.next_steps) ? 'true' : 'false'
                 };
 
-                Intercom('trackEvent', intercom );
+                Intercom('trackEvent', 'saved-test-report', intercom );
             }
 
             $http.post('/api/summary/object/', [obj]);
@@ -52304,18 +52301,13 @@ angular.module('siyfion.sfTypeahead', [])
         };
 
         $scope.saveEdit = function(original, list){
-            $scope.messageEditToggle = '';
-
-            var output = original;
-
-            if(output._tags.indexOf($scope.summaryItem._id !== -1)){
-                output.body = output.body + ' #summary';
-            }
             
-            $http.put('/api/message/', output)
-                .success(function(data, err){
-                    
+            $scope.messageEditToggle = '';
+            var dataOut = {msg: original, hasSummary: $scope.summaryItem._id}
 
+            $http.put('/api/message/', dataOut)
+                .success(function(data, err){
+                    // console.log('data received', data);
                     if($scope.selected.doctype === 'test'){
                         // if this is a test, the message needs to be marked as a Summary message
                         // this is in case of re-editing after an original edit
@@ -52323,22 +52315,26 @@ angular.module('siyfion.sfTypeahead', [])
                     }
 
                     // splice the new message over its old self in the messages list
-                    var idx = _.pluck($scope.messages[output._subject.name], '_id').indexOf(output._id);
-                    $scope.messages[output._subject.name].splice(idx,1, data.msg);
-                    
+                    var idx = _.pluck($scope.messages[original._subject.name], '_id').indexOf(original._id);
+                    $scope.messages[original._subject.name].splice(idx,1, data.msg);
 
                     // now find the original._id on raw list item replace with new _id
-                    var objList    = _.filter($scope.rawList, function(n){ if(n.doctype === 'tag' || n.doctype === 'tag' ) {return n;} else {return;}})
+                    // console.log($scope.rawList);
+
+                    var objList    = _.filter($scope.rawList, function(n){ if(n.doctype === 'tag' || n.doctype === 'task' ) {return n;} else {return;}})
                     var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; });
                     
                     var nonTestObj = _.map(objList, function(n){
-                        var x = n._messages.indexOf(output._id);
-
+                        // // console.log(n.doctype);
+                        var x = n._messages.indexOf(original._id);
+                        // map each test item and then return
                         if( x !== -1){
+                            // if that message exists on the original object, add it
                             n._messages.splice(x, 1, data.msg._id);
                           return n;
                         }
                         if(n._messages.length === 0){
+                            // if that message does not exist on the original object, add it
                             n._messages.splice(0, 1, data.msg._id);
                           return n;
                         } else {
@@ -52346,39 +52342,22 @@ angular.module('siyfion.sfTypeahead', [])
                         }
                     })
 
-                    void 0;
+                    // // console.log('data, tags are returning undefined', data);
                     if(data.msg._tags.indexOf($scope.summaryItem._id) !== -1){
-                        // if it's a summary message, add it back into the message filter list
+                        // if it's a summary message, add it back into the summary message filter list
                         $scope.summaryItem._messages.splice($scope.summaryItem._messages.indexOf(original._id), 1, data.msg._id);
                     }
 
-                    void 0;
+                    // // console.log(test);
 
                     $scope.rawList = test.concat(nonTestObj);
 
                     // Summary messages is a list of messages that match the summary._id
-                    
-
-                    void 0;
+                    // // console.log(nonTestObj);
                     addTagsToLeftNav(data);
                 });
         };
 
-        $scope.postMessage = function(message, subject){
-            postMessage(message, $scope.selected._id, $scope.selected._test, subject._id )
-                .then(function(data){
-
-                    $scope.newnote = '';
-
-                    $scope.toggleNote(subject._id);
-                    $scope.toggleNote();
-                    
-                    $scope.messages[data.msg._subject.name].push(data.msg);
-                    $scope.selected._messages.push(data.msg._id);
-
-                    addTagsToLeftNav(data);
-                });
-        };
 
         $scope.saveFav = function(message){
             if($scope.selected.doctype === 'task'){
@@ -53022,6 +53001,105 @@ angular.module('field_guide_controls')
   };
 });
 })();
+// fg-modal.js
+// a directive to insert a modal on any given page
+// fg-post-message.js
+// post a new note to the database.
+'use strict';
+(function(){
+    angular.module('field_guide_controls')
+        .factory('postMessage', ['$http', function($http) {
+            var postMessage = function(message, task, test, subject_id){
+                    
+                    var note = {};
+                    note.body = message;
+                    note.created = new Date();
+                     
+                    note._task = task;
+                    note._test = test;
+                    note._subject = subject_id;
+
+                    var promise = $http.post('/api/message/', note).then(function(response) {
+                        // console.log('new reply', response);
+                        return response.data;
+                    });
+
+                    return promise;
+                };
+            return postMessage;
+        }]);
+})();
+// fg-report-functions.js
+//  simple functions used in all three report views.
+
+(function() {
+    'use strict';
+
+// This module builds out the left navigation used in report and summary controllers.
+// It does not require login in order to load information, because it is required for public routes.
+    angular.module('field_guide_controls')
+        .factory('reportFunctions', ['$http', '$sce', function($http, $sce) {
+            return {
+                videoRender : function(embed){
+                    var utest = /usabilitytestresults/i;
+                    var ut = utest.test(embed);
+
+                    if(ut){
+                        var w1 = /width='\d+'/i;
+                        var h1 = /height='\d+'/i;
+                        var w2 = /"width":"\d+"/i;
+                        var h2 = /"height":"\d+"/i;
+                        
+                        var res = embed.replace(w1, "width='574'");
+                        res = res.replace(w2, '"width":"574"');
+                        res = res.replace(h1, "height='380'");
+                        res = res.replace(h2, '"height":"380"');
+
+                        return {embed : $sce.trustAsHtml(res)};
+                    } else {
+                        return {youtube: embed};
+                    }
+                },
+                moveTask : function(list, old_index, new_index){
+                    new_index = old_index + new_index;
+                    list.splice(new_index, 0, list.splice(old_index, 1)[0]);
+                    
+                    (function(){
+                        var obj_count=0;
+                        // set the stored index of the task properly
+                        _.each(list, function(obj){
+                            obj.report_index = obj_count;
+                            obj_count++;
+                        });
+                    })();
+                    return list;
+                }
+            };
+        }]);
+})();
+// test-task-build.js
+// functions required to build out a test
+'use strict';
+
+(function(){
+    angular.module('field_guide_controls')
+        .factory('testBuildFunctions', ['$http', '$rootScope', 
+            function($http, $rootScope) {
+                return {
+                    addTask : function(test, task, index){
+                        // console.log(task, test);
+                        
+                        task._test = test;
+                        task.index = index;
+
+                        var promise = $http.post('/api/task/', task).success(function(data){
+                                return data;
+                            });
+                        return promise;
+                    }
+                };
+            }]);
+})();
 /* *
  * typeaheadTagger, based on angular-ui-bootstrap-typeahead
  * Takes an optional keyoff character to list available entries in a typeahead input box.
@@ -53070,7 +53148,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 .directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document', '$position', 'typeaheadParser',
     function ($compile, $parse, $q, $timeout, $document, $position, typeaheadParser) {
 
-    var HOT_KEYS = [9, 13, 27, 32, 38, 40];
+    var HOT_KEYS = [9, 13, 27, 32, 38, 40, 46];
 
     return {
         require:'ngModel',
@@ -53094,7 +53172,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
             var isLoadingSetter = $parse(attrs.typeaheadLoading).assign || angular.noop;
 
             //a callback executed when a match is selected
-            var onSelectCallback = $parse(attrs.typeaheadOnSelect);
+            // var onSelectCallback = $parse(attrs.typeaheadOnSelect);
 
             // var inputFormatter = attrs.typeaheadInputFormatter ? $parse(attrs.typeaheadInputFormatter) : undefined;
 
@@ -53119,6 +53197,8 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
             //with typeahead-specific data (matches, query etc.)
             var scope = originalScope.$new();
                 scope.testTags = [];
+                scope.inputValue = '';
+                scope.caret = {};
 
             // WAI-ARIA
             var popupId = 'typeahead-' + scope.$id + '-' + Math.floor(Math.random() * 10000);
@@ -53151,7 +53231,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 scope.matches = [];
                 scope.activeIdx = -1;
                 element.attr('aria-expanded', false);
-                
             };
 
 
@@ -53174,31 +53253,69 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     evt.stopPropagation();
                 }
             };
+            
+            function spliceSlice(str, index, count, add) {
+              return str.slice(0, index) + (add || "") + str.slice(index + count);
+            }
+
+            function getPos(element) {
+                if ('selectionStart' in element) {
+                  return element.selectionStart;
+                } else if (document.selection) {
+                  element.focus();
+                  var sel = document.selection.createRange();
+                  var selLen = document.selection.createRange().text.length;
+                  sel.moveStart('character', -element.value.length);
+                  return sel.text.length - selLen;
+                }
+              }
+
+            function setPos(element, caretPos) {
+                if (element.createTextRange) {
+                  var range = element.createTextRange();
+                  range.move('character', caretPos);
+                  range.select();
+                } else {
+                  element.focus();
+                  if (element.selectionStart !== undefined) {
+                    element.setSelectionRange(caretPos, caretPos);
+                  }
+                }
+              }
+
+            var matchTags = function(stringValue){
+                return stringValue.match(/\S*#[^\.\,\!\?\s]+/gi);
+            }
 
             var getMatchId = function(index) {
                 return popupId + '-option-' + index;
             };
 
             var getMatchesAsync = function(inputValue) {
+                var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get);
+                var nextSpace      = modelCtrl.$viewValue.indexOf(' ', mostRecentHash);
 
-                var locals = {$viewValue: inputValue};
+                var searchClose    = (nextSpace && nextSpace > -1) ? Math.min(nextSpace, scope.caret.get) : scope.caret.get;
+                
+                // console.log('caret position', scope.caret.get, 'searchClose', searchClose, 'nextSpace', nextSpace);
+
+                var searchTerm     = modelCtrl.$viewValue.substr(mostRecentHash+1, searchClose-mostRecentHash);
+                    
+                var locals = {$viewValue: searchTerm};
                 isLoadingSetter(originalScope, true);
 
                 $q.when(parserResult.source(originalScope, locals)).then(function(matches) {
                     //it might happen that several async queries were in progress if a user were typing fast
                     //but we are interested only in responses that correspond to the current view value
 
-                    // this doesn't work because it doesn't parse the current view value properly.
+                    var onCurrentRequest = modelCtrl.$viewValue.indexOf(searchTerm) > -1;
                     
-                    
-                    var onCurrentRequest = modelCtrl.$viewValue.indexOf(inputValue) > -1;
+                    // console.log('getMatchesAsync searchTerm',mostRecentHash+1, searchClose, searchTerm, onCurrentRequest);
 
                     if (onCurrentRequest && hasFocus) {
                         if (matches.length > 0) {
                             scope.activeIdx = focusFirst ? 0 : -1;
                             scope.matches.length = 0;
-
-                            
 
                             //transform labels
                             for(var i=0; i<matches.length; i++) {
@@ -53210,8 +53327,8 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                                 });
                             }
 
-                            scope.query = inputValue;
-
+                            scope.query = searchTerm;
+                            // console.log(inputValue);
                             //position pop-up with matches - we need to re-calculate its position each time we are opening a window
                             //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
                             //due to other elements being rendered
@@ -53232,122 +53349,59 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     isLoadingSetter(originalScope, false);
                 });
             };
-       
-        // ACTUAL FUNCTION ======================
-            // Indicate that the specified match is the active (pre-selected) item in the list owned by this typeahead.
-            // This attribute is added or removed automatically when the `activeIdx` changes.
-            scope.$watch('activeIdx', function(index) {
-                if (index < 0) {
-                    element.removeAttr('aria-activedescendant');
-                } else {
-                    element.attr('aria-activedescendant', getMatchId(index));
-                }
-            });
-
-            // As we get started, clear the match index.
-            resetMatches();
-
-            //we need to propagate user's query so we can highlight matches.
-            scope.query = undefined;
-
-        // Bind KEY EVENTS - may have to be KEYDOWN ======================================
-            element.bind('keypress keydown', function (evt) {
-                //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
-                //typeahead is open and an "interesting" key was pressed
-
-                if(scope.activeIdx === -1 && evt.which === 13){
-                    // YOU ARE WORKING ON THIS
-                    //  Send message to postmessage once tags are assembled
-                    //  then return the resulting message to the originalScope
-                    // and add it to whatever context the message is supposed to live in
-                    // on whatever page.
-                    
-                    evt.preventDefault();
-                    scope.$emit('message', modelCtrl.$viewValue);
-                    modelCtrl.$setViewValue('');
-                    modelCtrl.$render();
-
-                    scope.testTags=[];
-                    evt.stopPropagation();
-                    resetMatches();
-                    scope.$digest();
-                }
-
-                if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
-                    return;
-                }
-
-                // if there's nothing selected (i.e. focusFirst) and enter is hit, don't do anything
-                if (scope.activeIdx === -1 && (evt.which === 13 || evt.which === 9)) {
-                    return;
-                }
-
-                if (evt.which === 32) {
-                    // add a space to the model and cancel the dropdown
-                    
-                    // var newValue = modelCtrl.$viewValue + ' ';
-                    // modelCtrl.$viewValue doesn't work here.
-
-                    evt.stopPropagation();
-                    resetMatches();
-                    scope.$digest();
-                    
-                } else {
-                    evt.preventDefault();
-
-                    if (evt.which === 40) {
-                        // down arrow key
-                        
-                        scope.activeIdx = (scope.activeIdx + 1) % scope.matches.length;
-                        
-                        scope.$digest();
-
-                    } else if (evt.which === 38) {
-                        
-                        scope.activeIdx = (scope.activeIdx > 0 ? scope.activeIdx : scope.matches.length) - 1;
-                        scope.$digest();
-
-                    } else if (evt.which === 13 || evt.which === 9) {
-                        
-                        
-                        scope.$apply(function() {
-                            scope.select(scope.activeIdx);
-                            resetMatches();
-                            
-                        })
-                    } else if (evt.which === 27) {
-                        
-                        evt.stopPropagation();
-                        resetMatches();
-                        scope.$digest(); // here, this makes esc work.
-                    } 
-                }
-            });
-
-            element.bind('blur', function (evt) {
-                hasFocus = false;
-            });
-
 
             var modelParser = function (inputValue) {
+
                 // Step through the model and do things with the input value
                 // begin parsing an entry on a hashtag
-                // if you want to do a separate type of input, match on @?
+                // if you want to do a separate type of input, match on any-character other than punctuation?
 
-                // TODO: Abstract so there can be preferred variables set above to load different data sets.
-                // in input value, when hashtag is clicked,
-                // then when the tag is set, disable this
-                // then when tag is clicked, fire parser again.
+                var tester = matchTags(inputValue);
+                var accepted_tags = inputValue.match(/#[^\.\,\!\?\s]*\s/gi);
+                var tag_body, clean_accepted = [],clean_test = [], difference; 
 
-                // When a matching tag is selected, mark the appropriate tag as used
-
-                // TODO:
-                // insert the tag as a clickable link to dropdown menu of existing options
-                var tester = inputValue.match(/\S*#\S+/gi);
-                var tag_body; 
+                scope.testTags = inputValue.match(/#[^\.\,\!\?\s]*\s/gi);
                 
-                // okay, so now we have a list of tags in scope.testTags...
-                if(tester && tester.length > 0 && tester.length > scope.testTags.length){
+                if(accepted_tags){
+                    _.map(accepted_tags, function(n){
+                            n = n.replace(/#/gi, '');
+                            n = n.replace(/\s/gi,  '');
+                            return clean_accepted.push(n);
+                    })
+                }
+
+                if(tester){
+                    _.map(tester, function(n){
+                        n = n.replace(/#/gi,  '');
+                        n = n.replace(/\s/gi,  '');
+                        return clean_test.push(n);
+                    })
+                }
+
+                if(accepted_tags && tester){
+                    difference = _.difference(clean_test, clean_accepted);
+                    // console.log('should be the new tags',clean_test, clean_accepted, difference);
+                }
+
+                // WHAT WE HAVE
+                // if we have a match on a hashtag
+                // the length of the matched hashtag values is greater than zero
+                // and greater than the number of tags already posted to the test
+                // make a new tag, and then open up the replacement schema.
+
+                // WHAT WE WANT
+                // we have a list of all tags in the input
+                // we need a separate scope that watches "accepted" tags
+                // when a hashtag is opened, open the typeahead menu and match on it
+                // if the tag is altered, reopen the menu on the altered tag
+                // when a space is entered, close the match
+
+                // if a hashtag is deleted or altered, re-count the number of tags
+                // enter all updated tags into scope.testTags
+
+                // in here, we need to test if the new tag already exists in the list or has replaced something else 
+
+                if(tester && tester.length > 0 && (!accepted_tags || tester.length > accepted_tags.length)){
                     tag_body = tester[tester.length -1].replace(/#/gi,'');
                 }
 
@@ -53386,6 +53440,116 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     }
                 }
             };
+       
+        // ACTUAL FUNCTION ======================
+            // Indicate that the specified match is the active (pre-selected) item in the list owned by this typeahead.
+            // This attribute is added or removed automatically when the `activeIdx` changes.
+            scope.$watch('activeIdx', function(index) {
+                if (index < 0) {
+                    element.removeAttr('aria-activedescendant');
+                } else {
+                    element.attr('aria-activedescendant', getMatchId(index));
+                }
+            });
+
+            // As we get started, clear the match index.
+            resetMatches();
+
+            //we need to propagate user's query so we can highlight matches.
+            scope.query = undefined;
+
+        // Bind KEY EVENTS - may have to be KEYDOWN ======================================
+
+            var enterCount = 0; // can't seem to get enter to work properly, hack hack hack
+
+            element.bind('keypress keydown', function (evt) {
+                //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
+                //typeahead is open and an "interesting" key was pressed
+
+                // Set the caret position so we can effectively hunt hashtags
+                scope.$apply(function() { scope.caret.get = getPos(element[0]); });
+
+                void 0;
+
+                if(scope.activeIdx === -1 && evt.which === 13){
+                    // EMIT COMPLETED MESSAGE =============================
+                    //  Send message to postmessage once tags are assembled
+                    //  then return the resulting message to the originalScope
+                    //  send the message back to the parent context of the directive
+                    
+                    evt.preventDefault();
+                    scope.$emit('message', modelCtrl.$viewValue);
+                    modelCtrl.$setViewValue('');
+                    modelCtrl.$render();
+
+                    scope.testTags=[];
+                    evt.stopPropagation();
+                    resetMatches();
+                    scope.$digest();
+                }
+
+                if (evt.which === 32) {
+                    // SPACE keypress =========
+                    // add a space to the model and cancel the dropdown
+                    // post the tag to the scope-tags for comparision
+                    evt.stopPropagation();
+                    resetMatches();
+                    scope.$digest();
+                } 
+
+                if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
+                    return;
+                }
+
+                // if there's nothing selected (i.e. focusFirst) and enter is hit, don't do anything
+                if (scope.activeIdx === -1 && (evt.which === 13 || evt.which === 9)) {
+                    resetMatches();
+                    scope.$digest();
+                    return;
+                } else {
+                    evt.preventDefault();
+
+                    if (evt.which === 40) {
+                        // DOWN keypress =========
+                        
+                        scope.activeIdx = (scope.activeIdx + 1) % scope.matches.length;
+                        
+                        scope.$digest();
+
+                    } else if (evt.which === 38) {
+                        // UP keypress =========
+                        scope.activeIdx = (scope.activeIdx > 0 ? scope.activeIdx : scope.matches.length) - 1;
+                        scope.$digest();
+
+                    } else if (evt.which === 13 || evt.which === 9) {
+                        
+                        void 0;
+                        // ENTER or TAB keypress =========
+                        if(enterCount === 0){
+                            scope.$apply(function() {
+                                scope.select(scope.activeIdx);
+                                resetMatches();
+                                enterCount++
+                            })
+                        } else {
+                            enterCount = 0;
+                            evt.stopPropagation();
+                            resetMatches();
+                            scope.$digest();   
+                        }
+
+                    } else if (evt.which === 27) {
+                        // ESC keypress =========
+                        evt.stopPropagation();
+                        resetMatches();
+                        scope.$digest(); // here, this makes esc work.
+                    } 
+                }
+            });
+
+            element.bind('blur', function (evt) {
+                hasFocus = false;
+            });
 
             //plug into $parsers pipeline to open a typeahead on view changes initiated from DOM
             //$parsers kick-in on all the changes coming from the view as well as manually triggered by $setViewValue
@@ -53402,28 +53566,24 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 locals[parserResult.itemName] = item = scope.matches[activeIdx].model;
                 model = parserResult.modelMapper(originalScope, locals);
-               
-                // TODO: Make this match only the +current+ scope.query
-                // this is rough because it will replace all hashes that match the scope.query, 
-                // not _just_ the scope.query.
 
-                // insert the new tag into the input box
-                var newValue = modelCtrl.$viewValue.replace('#'+scope.query, '#'+model);
+                // Find the most recent hashtag from the current caret position
+                var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get)
+                var newValue  = spliceSlice(modelCtrl.$viewValue, mostRecentHash, scope.caret.get-mostRecentHash, '#'+model);
 
                 modelCtrl.$setViewValue(newValue);
+
                 modelCtrl.$render();
 
                 modelCtrl.$setValidity('editable', true);
 
-                // add the new tag to scope.testTags...
-                scope.testTags.push('#'+model);
                 // This is to insert a more complex model item into the feed. 
                 // it overwrites the main index field, too.
-                onSelectCallback(originalScope, {
-                    $item: item,
-                    $model: model,
-                    $label: parserResult.viewMapper(originalScope, locals)
-                });
+                // onSelectCallback(originalScope, {
+                //     $item: item,
+                //     $model: model,
+                //     $label: parserResult.viewMapper(originalScope, locals)
+                // });
                 
                 //return focus to the input element if a match was selected via a mouse click event
                 // use timeout to avoid $rootScope:inprog error
@@ -53705,105 +53865,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         "");
 }]);
 
-// fg-modal.js
-// a directive to insert a modal on any given page
-// fg-post-message.js
-// post a new note to the database.
-'use strict';
-(function(){
-    angular.module('field_guide_controls')
-        .factory('postMessage', ['$http', function($http) {
-            var postMessage = function(message, task, test, subject_id){
-
-                    var note = {};
-                    note.body = message;
-                    note.created = new Date();
-                     
-                    note._task = task;
-                    note._test = test;
-                    note._subject = subject_id;
-
-                    var promise = $http.post('/api/message/', note).then(function(response) {
-                        // console.log('new reply', response);
-                        return response.data;
-                    });
-
-                    return promise;
-                };
-            return postMessage;
-        }]);
-})();
-// fg-report-functions.js
-//  simple functions used in all three report views.
-
-(function() {
-    'use strict';
-
-// This module builds out the left navigation used in report and summary controllers.
-// It does not require login in order to load information, because it is required for public routes.
-    angular.module('field_guide_controls')
-        .factory('reportFunctions', ['$http', '$sce', function($http, $sce) {
-            return {
-                videoRender : function(embed){
-                    var utest = /usabilitytestresults/i;
-                    var ut = utest.test(embed);
-
-                    if(ut){
-                        var w1 = /width='\d+'/i;
-                        var h1 = /height='\d+'/i;
-                        var w2 = /"width":"\d+"/i;
-                        var h2 = /"height":"\d+"/i;
-                        
-                        var res = embed.replace(w1, "width='574'");
-                        res = res.replace(w2, '"width":"574"');
-                        res = res.replace(h1, "height='380'");
-                        res = res.replace(h2, '"height":"380"');
-
-                        return {embed : $sce.trustAsHtml(res)};
-                    } else {
-                        return {youtube: embed};
-                    }
-                },
-                moveTask : function(list, old_index, new_index){
-                    new_index = old_index + new_index;
-                    list.splice(new_index, 0, list.splice(old_index, 1)[0]);
-                    
-                    (function(){
-                        var obj_count=0;
-                        // set the stored index of the task properly
-                        _.each(list, function(obj){
-                            obj.report_index = obj_count;
-                            obj_count++;
-                        });
-                    })();
-                    return list;
-                }
-            };
-        }]);
-})();
-// test-task-build.js
-// functions required to build out a test
-'use strict';
-
-(function(){
-    angular.module('field_guide_controls')
-        .factory('testBuildFunctions', ['$http', '$rootScope', 
-            function($http, $rootScope) {
-                return {
-                    addTask : function(test, task, index){
-                        // console.log(task, test);
-                        
-                        task._test = test;
-                        task.index = index;
-
-                        var promise = $http.post('/api/task/', task).success(function(data){
-                                return data;
-                            });
-                        return promise;
-                    }
-                };
-            }]);
-})();
 // ngMatch.js
 'use strict';
 

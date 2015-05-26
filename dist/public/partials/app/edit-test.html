@@ -1,12 +1,8 @@
+<ng-include src="'partials/app/_header-small.html'"></ng-include>
+<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
+
 <!-- Add test -->
 <div id="view-editing" ng-model="test">
-	<ng-include src="'partials/app/_header-small.html'"></ng-include>
-	<ng-include src="'partials/app/_help-bubble.html'"></ng-include>
-
-	<!-- delete topic modal -->
-<!-- 	<div class="modal" ng-if="deleteTopic">
-		<ng-include src="'partials/app/_delete-topic.html'"></ng-include>
-	</div> -->
 	
 	<div class="container" >
 		
@@ -23,17 +19,15 @@
 							
 							<div class="test-info" ng-if="test.kind === 'interview'" ng-model="report">
 								<img src="layout/assets/interview-dark.svg" alt="Interview icon"> Interview
-								<div ng-model="selected">
-									<a href="{{selected.link}}" target="_">{{selected.link}}</a>
-								</div>
 							</div>
 							<div class="test-info" ng-if="test.kind === 'prototype'">
 								<img src="layout/assets/prototype-dark.svg" alt="Interview icon"> Prototype
-								<div ng-model="selected">
-									<a href="{{selected.link}}" target="_">{{selected.link}}</a>
-								</div>
+
+								<input class="input-no-border prototype-link" ng-model="test.link" ng-blur="updateTest()">
+								
 							</div>
 						</div>
+						<div class="clear"></div>
 						<div class="container-left">
 						<h3>Objectives</h3>
 						</div>
@@ -64,8 +58,8 @@
 					</div>
 					
 					<div class="container-row topics clearfix">
-						<div class="container-left topics">
-							<h3>Topics
+						<div class="container-left">
+							<h3 class="topics">Topics
 							<span class="tooltip-icon" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
 							</h3>
 						</div>
@@ -116,15 +110,16 @@
 						<div class="container-right padding">
 							<!-- add a new task -->
 							<div class="add-task">
-								<form ng-model='newtask'>
-									<input class="topic-name" ng-trim="false" ng-model="newtask.name" placeholder="Write a topic title.." required><br/>
+								<form ng-model='newtask' ng-submit="newTask(newtask)">
+									<input class="topic-name" ng-trim="false" ng-model="newtask.name" placeholder="Write a topic title.." required>
 									
 									<textarea msd-elastic class="topic-questions" ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions.." required>
 									</textarea>
+									
+									<button type="submit" class="button full med" tabindex="0">Add topic</a></button>
 								</form>
 								
-							<!-- <button ng-if="!newtask.name" class="button full med dark" tabindex="0">Add topic</a></button> -->
-							<button type="submit" class="button full med" ng-click="newTask(newtask)" tabindex="0">Add topic</a></button>
+
 
 							</div>
 							<!-- / add a new task -->
