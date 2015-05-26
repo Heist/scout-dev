@@ -70,7 +70,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
             var isLoadingSetter = $parse(attrs.typeaheadLoading).assign || angular.noop;
 
             //a callback executed when a match is selected
-            var onSelectCallback = $parse(attrs.typeaheadOnSelect);
+            // var onSelectCallback = $parse(attrs.typeaheadOnSelect);
 
             // var inputFormatter = attrs.typeaheadInputFormatter ? $parse(attrs.typeaheadInputFormatter) : undefined;
 
@@ -129,7 +129,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 scope.matches = [];
                 scope.activeIdx = -1;
                 element.attr('aria-expanded', false);
-                
             };
 
 
@@ -195,8 +194,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 var nextSpace      = modelCtrl.$viewValue.indexOf(' ', mostRecentHash);
 
                 var searchClose    = (nextSpace && nextSpace > -1) ? Math.min(nextSpace, scope.caret.get) : scope.caret.get;
-            
-
                 var searchTerm     = modelCtrl.$viewValue.substr(mostRecentHash+1, searchClose-mostRecentHash);
                     
                 var locals = {$viewValue: searchTerm};
@@ -353,15 +350,17 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
             scope.query = undefined;
 
         // Bind KEY EVENTS - may have to be KEYDOWN ======================================
+
+            var enterCount = 0; // can't seem to get enter to work properly, hack hack hack
+
             element.bind('keypress keydown', function (evt) {
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
 
                 // Set the caret position so we can effectively hunt hashtags
-                scope.$apply(function() {
-                  scope.caret.get = getPos(element[0]);
-                });
+                scope.$apply(function() { scope.caret.get = getPos(element[0]); });
 
+                console.log('keypress', evt.which, scope.activeIdx);
 
                 if(scope.activeIdx === -1 && evt.which === 13){
                     // EMIT COMPLETED MESSAGE =============================
@@ -384,11 +383,9 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     // SPACE keypress =========
                     // add a space to the model and cancel the dropdown
                     // post the tag to the scope-tags for comparision
-                    
                     evt.stopPropagation();
                     resetMatches();
                     scope.$digest();
-                    
                 } 
 
                 if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
@@ -397,6 +394,8 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 // if there's nothing selected (i.e. focusFirst) and enter is hit, don't do anything
                 if (scope.activeIdx === -1 && (evt.which === 13 || evt.which === 9)) {
+                    resetMatches();
+                    scope.$digest();
                     return;
                 } else {
                     evt.preventDefault();
@@ -414,11 +413,22 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                         scope.$digest();
 
                     } else if (evt.which === 13 || evt.which === 9) {
+                        
+                        console.log(enterCount);
                         // ENTER or TAB keypress =========
-                        scope.$apply(function() {
-                            scope.select(scope.activeIdx);
+
+                        if(enterCount === 0){
+                            scope.$apply(function() {
+                                scope.select(scope.activeIdx);
+                                resetMatches();
+                                enterCount++
+                            })
+                        } else {
+                            enterCount = 0;
+                            evt.stopPropagation();
                             resetMatches();
-                        })
+                            scope.$digest();   
+                        }
 
                     } else if (evt.which === 27) {
                         // ESC keypress =========
@@ -448,42 +458,23 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 locals[parserResult.itemName] = item = scope.matches[activeIdx].model;
                 model = parserResult.modelMapper(originalScope, locals);
-               
-                // TODO: Make this match only the +current+ scope.query
-                // this is rough because it will replace all hashes that match the scope.query, 
-                // not _just_ the scope.query.
-
-                // insert the new tag into the input box
-                
-
-                // TODO: INSERT THE NEW TAG INTO THE CORRECT VARIANT OF THE MODEL;
-                // console.log('check that this is the correct tag!', scope.query);
-                // console.log('indexOf the scope query', modelCtrl.$viewValue.indexOf(scope.query));
-
                 // Find the most recent hashtag from the current caret position
                 var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get)
-
-                
-
                 var newValue  = spliceSlice(modelCtrl.$viewValue, mostRecentHash, scope.caret.get-mostRecentHash, '#'+model);
 
                 modelCtrl.$setViewValue(newValue);
+
                 modelCtrl.$render();
 
                 modelCtrl.$setValidity('editable', true);
 
-                // if the tag isn't already in scope.testTags, add new tag
-                // if(scope.testTags.indexOf('#'+model) === -1){
-                    // scope.testTags.push('#'+model);
-                // }
-
                 // This is to insert a more complex model item into the feed. 
                 // it overwrites the main index field, too.
-                onSelectCallback(originalScope, {
-                    $item: item,
-                    $model: model,
-                    $label: parserResult.viewMapper(originalScope, locals)
-                });
+                // onSelectCallback(originalScope, {
+                //     $item: item,
+                //     $model: model,
+                //     $label: parserResult.viewMapper(originalScope, locals)
+                // });
                 
                 //return focus to the input element if a match was selected via a mouse click event
                 // use timeout to avoid $rootScope:inprog error

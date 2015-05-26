@@ -135,6 +135,7 @@
 
 
         $scope.addSubject = function(subject){
+
             subject.name     = subject.name;
             subject.testroom = subject.testroom || '';
             subject.test     = $stateParams._id;
@@ -156,6 +157,7 @@
                     $scope.live = true;
                     $scope.select(0,0);
                     $timeout(function() {$('textarea#messageInput').focus() }, 10);
+
                     // Avatar initials
                     // TODO: refactor into service or add to check in process
                     // This might be a good refactored into a directive,
@@ -236,6 +238,7 @@
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
+                        console.log(data);
                         $scope.timeline.push(data.msg);
                         $scope.tags = tagSort(data.tags);
                     });

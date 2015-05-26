@@ -78,12 +78,14 @@
         position: absolute;
         top: 0;
         right: 0;
+        @include dropshadowULTRA;
 
         .sheet {
             width: 100%;
             height: 100%;
             padding: 0;
             margin: 0;
+            box-shadow: none;
         }
     }
     /* the chat */

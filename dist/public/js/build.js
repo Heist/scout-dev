@@ -50469,8 +50469,8 @@ angular.module('siyfion.sfTypeahead', [])
             })
             .state('test', {
                 url: '/edit/test/:_id',
-                controller:'test',
-                templateUrl: 'partials/app/test.html',
+                controller:'editTest',
+                templateUrl: 'partials/app/edit-test.html',
                 resolve: { 
                     loadData : ['$http', '$stateParams', function($http, $stateParams){
                             return $http.get('/api/test/'+$stateParams._id, {timeout : 5000, cache:false})
@@ -50823,6 +50823,256 @@ angular.module('siyfion.sfTypeahead', [])
 		};
 
 	}]);
+})();
+// edit-test.js
+(function() {
+    'use strict';
+    // TEST CONTROLLER ===========================================================
+    angular.module('field_guide_controls')
+    .run(['$anchorScroll', function($anchorScroll) {
+        $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
+    }])
+    .controller('editTest', 
+        ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
+        function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
+        var tagSort = function(tags){
+            return _.filter(tags, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
+        };
+
+        var data = loadData.data;
+        
+
+        $scope.test = data;
+        $scope.tags = tagSort(data._tags) || [];
+        $scope.tasks = data._tasks || [];
+
+        // removes the body scroll overflow hidden
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.removeClass('overflow-hidden');
+
+        $scope.showAnchor = function(x) {
+
+            var explanations = [
+                {   anchor : 1,
+                    title : 'What is a test?',
+                    body : 'A <strong>Test</strong> is a series of screens,' + 
+                           ' goals, or steps for your customers to interact with.'+
+                           ' For example, you could use a <strong>Test</strong> to'+
+                           ' capture a sign-up process.'
+                },
+                {   anchor : 3,
+                    title : 'What is a task?',
+                    body : '<strong>Tasks</strong> allow you to define important'+
+                           ' steps in your prototype, website, or app. <strong>Talking points</strong>'+
+                           ' are the notes and ideas you want to ask the person you’re testing with.'+
+                           ' You define steps to <strong>sort and organize</strong> your notes and feedback.'
+                },
+                {   anchor : 5,
+                    title : 'Next steps',
+                    body : 'Round up some testers - you&rsquo;re ready to test.'+
+                           ' This would be a good time to schedule in some test participants.'
+                }
+            ];
+
+            $scope.anchor = x;
+            $scope.explanation = _.findWhere(explanations, {anchor:x});
+            if(x === 5){
+                $location.path('/overview');
+            }
+        };
+
+        $scope.showAnchor(1);
+
+    // DIRECTIVES AND FUNCTIONS ===============================
+
+        // ONBOARDING =========================================
+        // TODO: Abstract into service for dependency injection
+        $scope.changeOnboard = function(num){
+            $rootScope.user.onboard = num;
+            $http.put('/api/user/'+$rootScope.user._id, {onboard : $rootScope.user.onboard});
+        };
+        
+        // SELECTION ======================================
+        $scope.select = function(task) {
+            
+            $scope.selectedTask = task;
+        };
+        
+        $scope.isActive = function(task) {
+            return $scope.selectedTask === task;
+        };
+
+    // ACTIONS ============================================
+        $scope.selectPrototype = function(kind){
+            $scope.test.kind = kind;
+        };
+
+        $scope.selectPlatform = function(kind){
+            $scope.test.platform = kind;
+        };
+
+        $scope.saveAndMove = function(anchor){
+            // Saves the test and changes the step to the next page
+            $scope.updateTest();
+            $scope.showAnchor(anchor);
+        };
+
+        $scope.deleteTopicModalToggle = function(task){
+
+            if($scope.deleteTopic || $scope.deleteTopic === task  ){
+                $scope.deleteTopic = ''; 
+                return;
+            }
+            if(!$scope.deleteTopic || $scope.deleteTopic !== task ){
+                $scope.deleteTopic = task;
+                return;
+            }
+
+        };
+
+    // TASK FUNCTIONS =====================================
+        $scope.newTask = function(task) {
+            // Add a new task
+            testBuildFunctions.addTask($stateParams._id, task, $scope.tasks.length)
+                .success(function(data){
+                    $scope.tasks.push(data);
+                    $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
+                    $scope.newtask = '';
+                });
+        };
+        
+        $scope.removeTask = function(task){
+            // Delete a task
+            task.edit=false;
+            task.title_edit=false;
+
+            var index = $scope.tasks.indexOf(task);
+            var url = '/api/task/'+task._id;
+            
+            $scope.tasks.splice(index, 1);
+
+            $http.delete(url)
+                .success(function(data){
+                    $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
+
+                    $scope.deleteTopicModalToggle();
+                });
+        };
+
+        $scope.moveTask = function(old_index, up_down){
+            // set the stored index of the task
+            // Tasks therefore appear in order
+            // TODO: Abstract into a directive
+
+            var new_index = old_index + up_down;
+            $scope.tasks.splice(new_index, 0, $scope.tasks.splice(old_index, 1)[0]);
+
+            $scope.updateTest();
+        };
+    
+    // Add A New Task or Tasks ============================
+        $scope.removeTag = function(tag){
+            var index = $scope.tags.indexOf(tag);            
+            $scope.tags.splice(index, 1);
+
+            $http.delete('/api/tag/'+tag._id)
+                .success(function(data){
+                    void 0;
+                });
+        }
+
+        $scope.saveTag = function(tags){
+            // send the array to the back end, where each will be pushed appropriately 
+            // /api/tag/
+            
+            var i = tags.split(' ');
+            var dataOut = _.map(i, function(tag){
+                return {
+                     name : tag,
+                    _test : $stateParams._id
+                }
+            })
+
+            $http.post('/api/tag/', dataOut)
+                .success(function(data){
+                    if(_.isArray(data)){
+                        $scope.tags = $scope.tags.concat(data);
+                    } else {
+                        $scope.tags.push(data);
+                    }
+                    $scope.newtag = '';
+                });
+        }
+
+
+    // Edit Task Things ===================================
+        $scope.editTitle = function (obj){
+            obj.title_edit = true;
+            obj.old_name   = obj.name;
+            $scope.edited  = obj;
+        };
+
+        $scope.blurTitle = function (obj){
+            // on losing the focus, save the name of the task
+                obj.title_edit = false;
+
+                $scope.editedtask = null;
+
+            // deleted the name of the task? Remove it entirely.
+            if (!obj.name) {
+                $scope.removeTask(obj);
+            }
+            if (obj.doctype === 'test') {
+                $scope.updateTest();
+            } else {
+                $scope.updateTask(obj);
+            }
+
+        };
+
+        $scope.updateTask = function(task){
+            var url = '/api/task/'+task._id;
+            var data_out = task;
+
+            $http
+                .put(url, data_out);
+        };
+
+    // TEST UPDATE ==============================
+        $scope.updateTest = function(){
+            // reminder: this pushes an update to an already-created test
+
+            var test = $scope.test;
+
+            if($scope.test.desc){
+                test.desc = $scope.test.desc;
+            }
+
+            var url = '/api/test/'+$stateParams._id;
+            var data_out = test;
+
+            // index the tasks appropriately and make sure they're put away
+            var task_count=0;
+            
+            _.each($scope.tasks, function(task){
+                task.index = task_count;
+                task_count++;
+            });
+            
+            $http.put(url, data_out, {timeout:5000});
+        };
+
+    // RETURN TO MAIN SCREEN ====================
+        $scope.goHome = function(){
+            // fun facts! This might cause a race condition.
+            // TODO: see if THEN will work here.
+            $scope.updateTest()
+                .then(function(){
+                    $location.path('/overview');
+                });
+        };
+
+    }]);
 })();
 // education.js
 // controller for the education pop-up window
@@ -51562,6 +51812,7 @@ angular.module('siyfion.sfTypeahead', [])
 
 
         $scope.addSubject = function(subject){
+
             subject.name     = subject.name;
             subject.testroom = subject.testroom || '';
             subject.test     = $stateParams._id;
@@ -51583,6 +51834,7 @@ angular.module('siyfion.sfTypeahead', [])
                     $scope.live = true;
                     $scope.select(0,0);
                     $timeout(function() {$('textarea#messageInput').focus() }, 10);
+
                     // Avatar initials
                     // TODO: refactor into service or add to check in process
                     // This might be a good refactored into a directive,
@@ -51663,6 +51915,7 @@ angular.module('siyfion.sfTypeahead', [])
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
+                        void 0;
                         $scope.timeline.push(data.msg);
                         $scope.tags = tagSort(data.tags);
                     });
@@ -51775,7 +52028,7 @@ angular.module('siyfion.sfTypeahead', [])
             [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
         function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         
-        void 0;
+        // console.log('report data from server', loadData.data);
 
         $scope.test = {};
         $scope.timeline = [];
@@ -51871,7 +52124,7 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
             $scope.navlist =  makeNavList($scope.rawList);
-            void 0;
+            // console.log($scope.navlist);
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
@@ -51910,9 +52163,11 @@ angular.module('siyfion.sfTypeahead', [])
         var addTagsToLeftNav = function(data){
             // when we're returned new data, check the tags for messages and filter ones that have none
             // set the new list of tags to the bottom of the navlist
-            void 0;
+            // console.log(data);
             var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
+            // console.log('left nav list to concatenate to', clear);
+
             var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
             var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
             var sumMsg  = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
@@ -52046,18 +52301,13 @@ angular.module('siyfion.sfTypeahead', [])
         };
 
         $scope.saveEdit = function(original, list){
-            $scope.messageEditToggle = '';
-
-            var output = original;
-
-            if(output._tags.indexOf($scope.summaryItem._id !== -1)){
-                output.body = output.body + ' #summary';
-            }
             
-            $http.put('/api/message/', output)
-                .success(function(data, err){
-                    
+            $scope.messageEditToggle = '';
+            var dataOut = {msg: original, hasSummary: $scope.summaryItem._id}
 
+            $http.put('/api/message/', dataOut)
+                .success(function(data, err){
+                    // console.log('data received', data);
                     if($scope.selected.doctype === 'test'){
                         // if this is a test, the message needs to be marked as a Summary message
                         // this is in case of re-editing after an original edit
@@ -52065,22 +52315,26 @@ angular.module('siyfion.sfTypeahead', [])
                     }
 
                     // splice the new message over its old self in the messages list
-                    var idx = _.pluck($scope.messages[output._subject.name], '_id').indexOf(output._id);
-                    $scope.messages[output._subject.name].splice(idx,1, data.msg);
-                    
+                    var idx = _.pluck($scope.messages[original._subject.name], '_id').indexOf(original._id);
+                    $scope.messages[original._subject.name].splice(idx,1, data.msg);
 
                     // now find the original._id on raw list item replace with new _id
-                    var objList    = _.filter($scope.rawList, function(n){ if(n.doctype === 'tag' || n.doctype === 'tag' ) {return n;} else {return;}})
+                    // console.log($scope.rawList);
+
+                    var objList    = _.filter($scope.rawList, function(n){ if(n.doctype === 'tag' || n.doctype === 'task' ) {return n;} else {return;}})
                     var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; });
                     
                     var nonTestObj = _.map(objList, function(n){
-                        var x = n._messages.indexOf(output._id);
-
+                        // // console.log(n.doctype);
+                        var x = n._messages.indexOf(original._id);
+                        // map each test item and then return
                         if( x !== -1){
+                            // if that message exists on the original object, add it
                             n._messages.splice(x, 1, data.msg._id);
                           return n;
                         }
                         if(n._messages.length === 0){
+                            // if that message does not exist on the original object, add it
                             n._messages.splice(0, 1, data.msg._id);
                           return n;
                         } else {
@@ -52088,39 +52342,22 @@ angular.module('siyfion.sfTypeahead', [])
                         }
                     })
 
-                    void 0;
+                    // // console.log('data, tags are returning undefined', data);
                     if(data.msg._tags.indexOf($scope.summaryItem._id) !== -1){
-                        // if it's a summary message, add it back into the message filter list
+                        // if it's a summary message, add it back into the summary message filter list
                         $scope.summaryItem._messages.splice($scope.summaryItem._messages.indexOf(original._id), 1, data.msg._id);
                     }
 
-                    void 0;
+                    // // console.log(test);
 
                     $scope.rawList = test.concat(nonTestObj);
 
                     // Summary messages is a list of messages that match the summary._id
-                    
-
-                    void 0;
+                    // // console.log(nonTestObj);
                     addTagsToLeftNav(data);
                 });
         };
 
-        $scope.postMessage = function(message, subject){
-            postMessage(message, $scope.selected._id, $scope.selected._test, subject._id )
-                .then(function(data){
-
-                    $scope.newnote = '';
-
-                    $scope.toggleNote(subject._id);
-                    $scope.toggleNote();
-                    
-                    $scope.messages[data.msg._subject.name].push(data.msg);
-                    $scope.selected._messages.push(data.msg._id);
-
-                    addTagsToLeftNav(data);
-                });
-        };
 
         $scope.saveFav = function(message){
             if($scope.selected.doctype === 'task'){
@@ -52144,258 +52381,6 @@ angular.module('siyfion.sfTypeahead', [])
             $http.put('/api/summary/'+ $stateParams._id, 
                 { navlist  : $scope.navlist, 
                   messages : $scope.messages[0]
-                });
-        };
-
-    }]);
-})();
-// test.js
-(function() {
-    'use strict';
-    // TEST CONTROLLER ===========================================================
-    angular.module('field_guide_controls')
-    .run(['$anchorScroll', function($anchorScroll) {
-        $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
-    }])
-    .controller('test', 
-        ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
-        function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
-        var tagSort = function(tags){
-            return _.filter(tags, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
-        };
-
-        var data = loadData.data;
-        
-
-        $scope.test = data;
-        $scope.tags = tagSort(data._tags) || [];
-        $scope.tasks = data._tasks || [];
-
-        // removes the body scroll overflow hidden
-        var bodyScroll = angular.element(document.querySelector('body'));
-        bodyScroll.removeClass('overflow-hidden');
-
-        $scope.showAnchor = function(x) {
-
-            var explanations = [
-                {   anchor : 1,
-                    title : 'What is a test?',
-                    body : 'A <strong>Test</strong> is a series of screens,' + 
-                           ' goals, or steps for your customers to interact with.'+
-                           ' For example, you could use a <strong>Test</strong> to'+
-                           ' capture a sign-up process.'
-                },
-                {   anchor : 3,
-                    title : 'What is a task?',
-                    body : '<strong>Tasks</strong> allow you to define important'+
-                           ' steps in your prototype, website, or app. <strong>Talking points</strong>'+
-                           ' are the notes and ideas you want to ask the person you’re testing with.'+
-                           ' You define steps to <strong>sort and organize</strong> your notes and feedback.'
-                },
-                {   anchor : 5,
-                    title : 'Next steps',
-                    body : 'Round up some testers - you&rsquo;re ready to test.'+
-                           ' This would be a good time to schedule in some test participants.'
-                }
-            ];
-
-            $scope.anchor = x;
-            $scope.explanation = _.findWhere(explanations, {anchor:x});
-            if(x === 5){
-                $location.path('/overview');
-            }
-        };
-
-        $scope.showAnchor(1);
-
-    // DIRECTIVES AND FUNCTIONS ===============================
-
-        // ONBOARDING =========================================
-        // TODO: Abstract into service for dependency injection
-        $scope.changeOnboard = function(num){
-            $rootScope.user.onboard = num;
-            $http.put('/api/user/'+$rootScope.user._id, {onboard : $rootScope.user.onboard});
-        };
-        
-        // SELECTION ======================================
-        $scope.select = function(task) {
-            
-            $scope.selectedTask = task;
-        };
-        
-        $scope.isActive = function(task) {
-            return $scope.selectedTask === task;
-        };
-
-    // ACTIONS ============================================
-        $scope.selectPrototype = function(kind){
-            $scope.test.kind = kind;
-        };
-
-        $scope.selectPlatform = function(kind){
-            $scope.test.platform = kind;
-        };
-
-        $scope.saveAndMove = function(anchor){
-            // Saves the test and changes the step to the next page
-            $scope.updateTest();
-            $scope.showAnchor(anchor);
-        };
-
-        $scope.deleteTopicModalToggle = function(task){
-
-            if($scope.deleteTopic || $scope.deleteTopic === task  ){
-                $scope.deleteTopic = ''; 
-                return;
-            }
-            if(!$scope.deleteTopic || $scope.deleteTopic !== task ){
-                $scope.deleteTopic = task;
-                return;
-            }
-
-        };
-
-    // TASK FUNCTIONS =====================================
-        $scope.newTask = function(task) {
-            // Add a new task
-            testBuildFunctions.addTask($stateParams._id, task, $scope.tasks.length)
-                .success(function(data){
-                    $scope.tasks.push(data);
-                    $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
-                    $scope.newtask = '';
-                });
-        };
-        
-        $scope.removeTask = function(task){
-            // Delete a task
-            task.edit=false;
-            task.title_edit=false;
-
-            var index = $scope.tasks.indexOf(task);
-            var url = '/api/task/'+task._id;
-            
-            $scope.tasks.splice(index, 1);
-
-            $http.delete(url)
-                .success(function(data){
-                    $scope.selectedTask = $scope.tasks[$scope.tasks.length-1];
-
-                    $scope.deleteTopicModalToggle();
-                });
-        };
-
-        $scope.moveTask = function(old_index, up_down){
-            // set the stored index of the task
-            // Tasks therefore appear in order
-            // TODO: Abstract into a directive
-
-            var new_index = old_index + up_down;
-            $scope.tasks.splice(new_index, 0, $scope.tasks.splice(old_index, 1)[0]);
-
-            $scope.updateTest();
-        };
-    
-    // Add A New Task or Tasks ============================
-        $scope.removeTag = function(tag){
-            var index = $scope.tags.indexOf(tag);            
-            $scope.tags.splice(index, 1);
-
-            $http.delete('/api/tag/'+tag._id)
-                .success(function(data){
-                    void 0;
-                });
-        }
-
-        $scope.saveTag = function(tags){
-            // send the array to the back end, where each will be pushed appropriately 
-            // /api/tag/
-            
-            var i = tags.split(' ');
-            var dataOut = _.map(i, function(tag){
-                return {
-                     name : tag,
-                    _test : $stateParams._id
-                }
-            })
-
-            $http.post('/api/tag/', dataOut)
-                .success(function(data){
-                    if(_.isArray(data)){
-                        $scope.tags = $scope.tags.concat(data);
-                    } else {
-                        $scope.tags.push(data);
-                    }
-                    $scope.newtag = '';
-                });
-        }
-
-
-    // Edit Task Things ===================================
-        $scope.editTitle = function (obj){
-            obj.title_edit = true;
-            obj.old_name   = obj.name;
-            $scope.edited  = obj;
-        };
-
-        $scope.blurTitle = function (obj){
-            // on losing the focus, save the name of the task
-                obj.title_edit = false;
-
-                $scope.editedtask = null;
-
-                obj.name = obj.name.trim();
-
-                // deleted the name of the task? Remove it entirely.
-                if (!obj.name || obj.name.length === 0) {
-                    obj.name = obj.old_name;
-                    return;
-                }
-                if (obj.doctype === 'test') {
-                    $scope.updateTest(obj);
-                } else {
-                    $scope.updateTask(obj);
-                }
-
-        };
-
-        $scope.updateTask = function(task){
-            var url = '/api/task/'+task._id;
-            var data_out = task;
-
-            $http
-                .put(url, data_out);
-        };
-
-    // TEST UPDATE ==============================
-        $scope.updateTest = function(){
-            // reminder: this pushes an update to an already-created test
-            var test = $scope.test;
-
-            if($scope.test.desc){
-                test.desc = $scope.test.desc;
-            }
-
-            var url = '/api/test/'+$stateParams._id;
-            var data_out = test;
-
-            // index the tasks appropriately and make sure they're put away
-            var task_count=0;
-            
-            _.each($scope.tasks, function(task){
-                task.index = task_count;
-                task_count++;
-            });
-            
-            $http.put(url, data_out, {timeout:5000});
-        };
-
-    // RETURN TO MAIN SCREEN ====================
-        $scope.goHome = function(){
-            // fun facts! This might cause a race condition.
-            // TODO: see if THEN will work here.
-            $scope.updateTest()
-                .then(function(){
-                    $location.path('/overview');
                 });
         };
 
@@ -53016,6 +53001,105 @@ angular.module('field_guide_controls')
   };
 });
 })();
+// fg-modal.js
+// a directive to insert a modal on any given page
+// fg-post-message.js
+// post a new note to the database.
+'use strict';
+(function(){
+    angular.module('field_guide_controls')
+        .factory('postMessage', ['$http', function($http) {
+            var postMessage = function(message, task, test, subject_id){
+                    
+                    var note = {};
+                    note.body = message;
+                    note.created = new Date();
+                     
+                    note._task = task;
+                    note._test = test;
+                    note._subject = subject_id;
+
+                    var promise = $http.post('/api/message/', note).then(function(response) {
+                        // console.log('new reply', response);
+                        return response.data;
+                    });
+
+                    return promise;
+                };
+            return postMessage;
+        }]);
+})();
+// fg-report-functions.js
+//  simple functions used in all three report views.
+
+(function() {
+    'use strict';
+
+// This module builds out the left navigation used in report and summary controllers.
+// It does not require login in order to load information, because it is required for public routes.
+    angular.module('field_guide_controls')
+        .factory('reportFunctions', ['$http', '$sce', function($http, $sce) {
+            return {
+                videoRender : function(embed){
+                    var utest = /usabilitytestresults/i;
+                    var ut = utest.test(embed);
+
+                    if(ut){
+                        var w1 = /width='\d+'/i;
+                        var h1 = /height='\d+'/i;
+                        var w2 = /"width":"\d+"/i;
+                        var h2 = /"height":"\d+"/i;
+                        
+                        var res = embed.replace(w1, "width='574'");
+                        res = res.replace(w2, '"width":"574"');
+                        res = res.replace(h1, "height='380'");
+                        res = res.replace(h2, '"height":"380"');
+
+                        return {embed : $sce.trustAsHtml(res)};
+                    } else {
+                        return {youtube: embed};
+                    }
+                },
+                moveTask : function(list, old_index, new_index){
+                    new_index = old_index + new_index;
+                    list.splice(new_index, 0, list.splice(old_index, 1)[0]);
+                    
+                    (function(){
+                        var obj_count=0;
+                        // set the stored index of the task properly
+                        _.each(list, function(obj){
+                            obj.report_index = obj_count;
+                            obj_count++;
+                        });
+                    })();
+                    return list;
+                }
+            };
+        }]);
+})();
+// test-task-build.js
+// functions required to build out a test
+'use strict';
+
+(function(){
+    angular.module('field_guide_controls')
+        .factory('testBuildFunctions', ['$http', '$rootScope', 
+            function($http, $rootScope) {
+                return {
+                    addTask : function(test, task, index){
+                        // console.log(task, test);
+                        
+                        task._test = test;
+                        task.index = index;
+
+                        var promise = $http.post('/api/task/', task).success(function(data){
+                                return data;
+                            });
+                        return promise;
+                    }
+                };
+            }]);
+})();
 /* *
  * typeaheadTagger, based on angular-ui-bootstrap-typeahead
  * Takes an optional keyoff character to list available entries in a typeahead input box.
@@ -53088,7 +53172,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
             var isLoadingSetter = $parse(attrs.typeaheadLoading).assign || angular.noop;
 
             //a callback executed when a match is selected
-            var onSelectCallback = $parse(attrs.typeaheadOnSelect);
+            // var onSelectCallback = $parse(attrs.typeaheadOnSelect);
 
             // var inputFormatter = attrs.typeaheadInputFormatter ? $parse(attrs.typeaheadInputFormatter) : undefined;
 
@@ -53147,7 +53231,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 scope.matches = [];
                 scope.activeIdx = -1;
                 element.attr('aria-expanded', false);
-                
             };
 
 
@@ -53214,7 +53297,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 var searchClose    = (nextSpace && nextSpace > -1) ? Math.min(nextSpace, scope.caret.get) : scope.caret.get;
                 
-                void 0;
+                // console.log('caret position', scope.caret.get, 'searchClose', searchClose, 'nextSpace', nextSpace);
 
                 var searchTerm     = modelCtrl.$viewValue.substr(mostRecentHash+1, searchClose-mostRecentHash);
                     
@@ -53227,7 +53310,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                     var onCurrentRequest = modelCtrl.$viewValue.indexOf(searchTerm) > -1;
                     
-                    void 0;
+                    // console.log('getMatchesAsync searchTerm',mostRecentHash+1, searchClose, searchTerm, onCurrentRequest);
 
                     if (onCurrentRequest && hasFocus) {
                         if (matches.length > 0) {
@@ -53376,15 +53459,17 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
             scope.query = undefined;
 
         // Bind KEY EVENTS - may have to be KEYDOWN ======================================
+
+            var enterCount = 0; // can't seem to get enter to work properly, hack hack hack
+
             element.bind('keypress keydown', function (evt) {
                 //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                 //typeahead is open and an "interesting" key was pressed
 
                 // Set the caret position so we can effectively hunt hashtags
-                scope.$apply(function() {
-                  scope.caret.get = getPos(element[0]);
-                });
+                scope.$apply(function() { scope.caret.get = getPos(element[0]); });
 
+                void 0;
 
                 if(scope.activeIdx === -1 && evt.which === 13){
                     // EMIT COMPLETED MESSAGE =============================
@@ -53407,11 +53492,9 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     // SPACE keypress =========
                     // add a space to the model and cancel the dropdown
                     // post the tag to the scope-tags for comparision
-                    
                     evt.stopPropagation();
                     resetMatches();
                     scope.$digest();
-                    
                 } 
 
                 if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
@@ -53420,6 +53503,8 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 // if there's nothing selected (i.e. focusFirst) and enter is hit, don't do anything
                 if (scope.activeIdx === -1 && (evt.which === 13 || evt.which === 9)) {
+                    resetMatches();
+                    scope.$digest();
                     return;
                 } else {
                     evt.preventDefault();
@@ -53437,12 +53522,21 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                         scope.$digest();
 
                     } else if (evt.which === 13 || evt.which === 9) {
-                        // ENTER or TAB keypress =========
+                        
                         void 0;
-                        scope.$apply(function() {
-                            scope.select(scope.activeIdx);
+                        // ENTER or TAB keypress =========
+                        if(enterCount === 0){
+                            scope.$apply(function() {
+                                scope.select(scope.activeIdx);
+                                resetMatches();
+                                enterCount++
+                            })
+                        } else {
+                            enterCount = 0;
+                            evt.stopPropagation();
                             resetMatches();
-                        })
+                            scope.$digest();   
+                        }
 
                     } else if (evt.which === 27) {
                         // ESC keypress =========
@@ -53472,42 +53566,24 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 locals[parserResult.itemName] = item = scope.matches[activeIdx].model;
                 model = parserResult.modelMapper(originalScope, locals);
-               
-                // TODO: Make this match only the +current+ scope.query
-                // this is rough because it will replace all hashes that match the scope.query, 
-                // not _just_ the scope.query.
-
-                // insert the new tag into the input box
-                void 0;
-
-                // TODO: INSERT THE NEW TAG INTO THE CORRECT VARIANT OF THE MODEL;
-                // console.log('check that this is the correct tag!', scope.query);
-                // console.log('indexOf the scope query', modelCtrl.$viewValue.indexOf(scope.query));
 
                 // Find the most recent hashtag from the current caret position
                 var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get)
-
-                void 0;
-
                 var newValue  = spliceSlice(modelCtrl.$viewValue, mostRecentHash, scope.caret.get-mostRecentHash, '#'+model);
 
                 modelCtrl.$setViewValue(newValue);
+
                 modelCtrl.$render();
 
                 modelCtrl.$setValidity('editable', true);
 
-                // if the tag isn't already in scope.testTags, add new tag
-                // if(scope.testTags.indexOf('#'+model) === -1){
-                    // scope.testTags.push('#'+model);
-                // }
-
                 // This is to insert a more complex model item into the feed. 
                 // it overwrites the main index field, too.
-                onSelectCallback(originalScope, {
-                    $item: item,
-                    $model: model,
-                    $label: parserResult.viewMapper(originalScope, locals)
-                });
+                // onSelectCallback(originalScope, {
+                //     $item: item,
+                //     $model: model,
+                //     $label: parserResult.viewMapper(originalScope, locals)
+                // });
                 
                 //return focus to the input element if a match was selected via a mouse click event
                 // use timeout to avoid $rootScope:inprog error
@@ -53789,105 +53865,6 @@ angular.module("typeahead-popup.html", []).run(["$templateCache", function($temp
         "");
 }]);
 
-// fg-modal.js
-// a directive to insert a modal on any given page
-// fg-post-message.js
-// post a new note to the database.
-'use strict';
-(function(){
-    angular.module('field_guide_controls')
-        .factory('postMessage', ['$http', function($http) {
-            var postMessage = function(message, task, test, subject_id){
-
-                    var note = {};
-                    note.body = message;
-                    note.created = new Date();
-                     
-                    note._task = task;
-                    note._test = test;
-                    note._subject = subject_id;
-
-                    var promise = $http.post('/api/message/', note).then(function(response) {
-                        // console.log('new reply', response);
-                        return response.data;
-                    });
-
-                    return promise;
-                };
-            return postMessage;
-        }]);
-})();
-// fg-report-functions.js
-//  simple functions used in all three report views.
-
-(function() {
-    'use strict';
-
-// This module builds out the left navigation used in report and summary controllers.
-// It does not require login in order to load information, because it is required for public routes.
-    angular.module('field_guide_controls')
-        .factory('reportFunctions', ['$http', '$sce', function($http, $sce) {
-            return {
-                videoRender : function(embed){
-                    var utest = /usabilitytestresults/i;
-                    var ut = utest.test(embed);
-
-                    if(ut){
-                        var w1 = /width='\d+'/i;
-                        var h1 = /height='\d+'/i;
-                        var w2 = /"width":"\d+"/i;
-                        var h2 = /"height":"\d+"/i;
-                        
-                        var res = embed.replace(w1, "width='574'");
-                        res = res.replace(w2, '"width":"574"');
-                        res = res.replace(h1, "height='380'");
-                        res = res.replace(h2, '"height":"380"');
-
-                        return {embed : $sce.trustAsHtml(res)};
-                    } else {
-                        return {youtube: embed};
-                    }
-                },
-                moveTask : function(list, old_index, new_index){
-                    new_index = old_index + new_index;
-                    list.splice(new_index, 0, list.splice(old_index, 1)[0]);
-                    
-                    (function(){
-                        var obj_count=0;
-                        // set the stored index of the task properly
-                        _.each(list, function(obj){
-                            obj.report_index = obj_count;
-                            obj_count++;
-                        });
-                    })();
-                    return list;
-                }
-            };
-        }]);
-})();
-// test-task-build.js
-// functions required to build out a test
-'use strict';
-
-(function(){
-    angular.module('field_guide_controls')
-        .factory('testBuildFunctions', ['$http', '$rootScope', 
-            function($http, $rootScope) {
-                return {
-                    addTask : function(test, task, index){
-                        // console.log(task, test);
-                        
-                        task._test = test;
-                        task.index = index;
-
-                        var promise = $http.post('/api/task/', task).success(function(data){
-                                return data;
-                            });
-                        return promise;
-                    }
-                };
-            }]);
-})();
 // ngMatch.js
 'use strict';
 
