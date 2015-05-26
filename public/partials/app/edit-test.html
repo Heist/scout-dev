@@ -23,7 +23,7 @@
 							<div class="test-info" ng-if="test.kind === 'prototype'">
 								<img src="layout/assets/prototype-dark.svg" alt="Interview icon"> Prototype
 
-								<input class="input-no-border prototype-link" ng-model="test.link">
+								<input class="input-no-border prototype-link" ng-model="test.link" ng-blur="updateTest()">
 								
 							</div>
 						</div>

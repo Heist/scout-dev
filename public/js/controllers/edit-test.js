@@ -197,7 +197,7 @@
                 $scope.removeTask(obj);
             }
             if (obj.doctype === 'test') {
-                $scope.updateTest(obj);
+                $scope.updateTest();
             } else {
                 $scope.updateTask(obj);
             }
@@ -215,6 +215,7 @@
     // TEST UPDATE ==============================
         $scope.updateTest = function(){
             // reminder: this pushes an update to an already-created test
+
             var test = $scope.test;
 
             if($scope.test.desc){

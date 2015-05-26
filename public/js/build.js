@@ -51010,7 +51010,7 @@ angular.module('siyfion.sfTypeahead', [])
                 $scope.removeTask(obj);
             }
             if (obj.doctype === 'test') {
-                $scope.updateTest(obj);
+                $scope.updateTest();
             } else {
                 $scope.updateTask(obj);
             }
@@ -51028,6 +51028,7 @@ angular.module('siyfion.sfTypeahead', [])
     // TEST UPDATE ==============================
         $scope.updateTest = function(){
             // reminder: this pushes an update to an already-created test
+
             var test = $scope.test;
 
             if($scope.test.desc){
@@ -51807,6 +51808,7 @@ angular.module('siyfion.sfTypeahead', [])
 
 
         $scope.addSubject = function(subject){
+
             subject.name     = subject.name;
             subject.testroom = subject.testroom || '';
             subject.test     = $stateParams._id;
@@ -51831,6 +51833,7 @@ angular.module('siyfion.sfTypeahead', [])
                     $scope.live = true;
                     $scope.select(0,0);
                     $timeout(function() {$('textarea#messageInput').focus() }, 10);
+
                     // Avatar initials
                     // TODO: refactor into service or add to check in process
                     // This might be a good refactored into a directive,
