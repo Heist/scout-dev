@@ -6524,10 +6524,28 @@ span.tooltip-icon {
     #view-findings .findings-content.report {
       width: 35%; }
     #view-findings .findings-content h3 {
+      color: #575757;
+      font-size: 18.6px;
+      line-height: 24px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400;
       margin: 0 0 15px 0; }
     #view-findings .findings-content p {
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      color: #575757;
+      font-size: 14px;
+      line-height: 21px;
       margin: 0 0 50px 0; }
     #view-findings .findings-content pre {
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      color: #575757;
+      font-size: 14px;
+      line-height: 21px;
       margin: 0 0 10px 0; }
     #view-findings .findings-content .findings-header {
       padding: 40px 0 40px 40px; }
@@ -6555,7 +6573,6 @@ span.tooltip-icon {
             height: 20px;
             width: 20px; }
     #view-findings .findings-content .findings-information h3, #view-findings .findings-content .findings-information p {
-      color: #575757;
       padding: 0 0 0 40px; }
     #view-findings .findings-content .findings-information textarea {
       color: #575757;
@@ -6768,6 +6785,9 @@ span.tooltip-icon {
       color: #575757;
       font-size: 18.6px;
       line-height: 24px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400;
       margin: 0 0 15px 0; }
     #report-summary .findings-content pre {
       font-family: "canada-type-gibson",sans-serif;

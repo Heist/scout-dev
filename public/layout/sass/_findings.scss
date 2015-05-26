@@ -337,14 +337,20 @@
 		}
 
 		h3 {
+			@include type-h3($fg-grey-dark);
+			@include type-regular;
 			margin: 0 0 15px 0;
 		}
 
 		p {
+			@include type-light;
+			@include type-p($fg-grey-dark);
 			margin: 0 0 50px 0;
 		}
 		
 		pre {
+			@include type-light;
+			@include type-p($fg-grey-dark);
 			margin: 0 0 10px 0;
 		}
 
@@ -382,7 +388,6 @@
 		.findings-information {
 
 			h3, p {
-				color: $fg-grey-dark;
 				padding: 0 0 0 40px;
 			}
 
