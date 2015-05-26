@@ -274,7 +274,11 @@
             margin: 0 3px 0 0;
         }
     }
-    
+
+    form {
+        margin: 0;
+    }
+
     input.task-title {
         @include type-h3($fg-grey-text);
         padding: 0 0 20px 40px;
@@ -317,6 +321,7 @@
         @extend textarea.objectives;
         margin: 0 0 30px 0;
     }
+    
 
     .add-task {
         margin: 20px 0;
@@ -345,6 +350,7 @@
             @include type-p($fg-grey-text);
             @include type-light;
             border-bottom: 1px solid transparentize($fg-grey-light, 0.5);
+            padding: 5px 0;
         }
     }
 
@@ -419,13 +425,13 @@
                     clear: both;
                     padding: 0 0 40px 0;
 
-                    &.topics {
-                        padding: 0;
-                    }
-
                     .container-left {
                         float: left;
                         width: 10%;
+
+                        h3.topics {
+                            margin: 21px 0 0 0;
+                        }
 
                         .create-project-tooltip {
                             float: left;
@@ -441,7 +447,7 @@
                             width: 0;
                             position: relative;
                             left: 97.5%;
-                            top: 25px;
+                            top: 23px;
                             color: $fg-grey-placeholder;
 
                             &:hover {
