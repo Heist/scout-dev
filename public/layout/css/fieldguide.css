@@ -5409,20 +5409,23 @@ span.tooltip-icon {
     padding: 0 0 40px 40px; }
     #view-editing .test-info img {
       margin: 0 3px 0 0; }
+    #view-editing .test-info input.prototype-link, #view-editing .test-info .add-task textarea.prototype-link, #view-editing .add-task .test-info textarea.prototype-link {
+      width: 190px;
+      padding: 0 0 0 30px;
+      color: #00B5E3;
+      font-size: 14px;
+      line-height: 21px; }
+      #view-editing .test-info input.prototype-link:hover, #view-editing .test-info .add-task textarea.prototype-link:hover, #view-editing .add-task .test-info textarea.prototype-link:hover {
+        color: #000;
+        background: url('../assets/fg-edit.svg') 14px 4px no-repeat; }
+      #view-editing .test-info input.prototype-link:focus, #view-editing .test-info .add-task textarea.prototype-link:focus, #view-editing .add-task .test-info textarea.prototype-link:focus {
+        color: #000;
+        background: url('../assets/fg-edit-hover.svg') 14px 4px no-repeat; }
+    #view-editing .test-info a.prototype-url {
+      font-size: 10px;
+      color: #7a7a7a; }
   #view-editing form {
     margin: 0; }
-  #view-editing input.prototype-link, #view-editing .add-task textarea.prototype-link {
-    width: 300px;
-    padding: 0 0 0 30px;
-    color: #00B5E3;
-    font-size: 14px;
-    line-height: 21px; }
-    #view-editing input.prototype-link:hover, #view-editing .add-task textarea.prototype-link:hover {
-      color: #000;
-      background: url('../assets/fg-edit.svg') 14px 4px no-repeat; }
-    #view-editing input.prototype-link:focus, #view-editing .add-task textarea.prototype-link:focus {
-      color: #000;
-      background: url('../assets/fg-edit-hover.svg') 14px 4px no-repeat; }
   #view-editing input.task-title, #view-editing .add-task textarea.task-title {
     color: #7a7a7a;
     font-size: 18.6px;
@@ -6396,7 +6399,7 @@ span.tooltip-icon {
               font-style: normal;
               font-weight: 400; }
   #view-findings .summaries-holder {
-    width: 32%;
+    width: 35%;
     height: 100%;
     padding: 0;
     margin: 0;
@@ -6492,12 +6495,12 @@ span.tooltip-icon {
             margin: 0;
             padding: 0; }
   #view-findings .sheet-holder {
-    width: 53%;
+    width: 50%;
     height: 100%;
     padding: 0;
     margin: 0;
     position: absolute;
-    left: 47%;
+    left: 50%;
     overflow-y: scroll;
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
