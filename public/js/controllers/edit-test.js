@@ -1,4 +1,4 @@
-// test.js
+// edit-test.js
 (function() {
     'use strict';
     // TEST CONTROLLER ===========================================================
@@ -6,7 +6,7 @@
     .run(['$anchorScroll', function($anchorScroll) {
         $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
     }])
-    .controller('test', 
+    .controller('editTest', 
         ['loadData', 'testBuildFunctions', '$scope','$compile','$http','$stateParams','$state','$location','$window','$rootScope','$anchorScroll',
         function(loadData, testBuildFunctions, $scope, $compile,  $http,  $stateParams,  $state,  $location,  $window,  $rootScope,  $anchorScroll){
         var tagSort = function(tags){
@@ -192,18 +192,15 @@
 
                 $scope.editedtask = null;
 
-                obj.name = obj.name.trim();
-
-                // deleted the name of the task? Remove it entirely.
-                if (!obj.name || obj.name.length === 0) {
-                    obj.name = obj.old_name;
-                    return;
-                }
-                if (obj.doctype === 'test') {
-                    $scope.updateTest(obj);
-                } else {
-                    $scope.updateTask(obj);
-                }
+            // deleted the name of the task? Remove it entirely.
+            if (!obj.name) {
+                $scope.removeTask(obj);
+            }
+            if (obj.doctype === 'test') {
+                $scope.updateTest();
+            } else {
+                $scope.updateTask(obj);
+            }
 
         };
 
@@ -218,6 +215,7 @@
     // TEST UPDATE ==============================
         $scope.updateTest = function(){
             // reminder: this pushes an update to an already-created test
+
             var test = $scope.test;
 
             if($scope.test.desc){
