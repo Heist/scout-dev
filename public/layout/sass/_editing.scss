@@ -258,12 +258,12 @@
 
         &:hover {
             color: $black;
-            background: url('../assets/fg-edit.svg') 20px 21px no-repeat;
+            background: url('../assets/fg-edit-filled.svg') 20px 19px no-repeat;
         }
 
         &:focus {
             color: $black;
-            background: url('../assets/fg-edit-hover.svg') 20px 21px no-repeat;
+            background: url('../assets/fg-edit-filled-hover.svg') 20px 19px no-repeat;
         }
     }
 
@@ -281,12 +281,12 @@
 
             &:hover{
                 color: $black;
-                background: url('../assets/fg-edit.svg') 14px 4px no-repeat;
+                background: url('../assets/fg-edit-filled.svg') 14px 4px no-repeat;
             }
 
             &:focus {
                 color: $black;
-                background: url('../assets/fg-edit-hover.svg') 14px 4px no-repeat;
+                background: url('../assets/fg-edit-filled-hover.svg') 14px 4px no-repeat;
             }
         }
 
@@ -306,12 +306,12 @@
 
         &:hover{
             color: $black;
-            background: url('../assets/fg-edit.svg') 20px 7px no-repeat;
+            background: url('../assets/fg-edit-filled.svg') 20px 7px no-repeat;
         }
 
         &:focus {
             color: $black;
-            background: url('../assets/fg-edit-hover.svg') 20px 7px no-repeat;
+            background: url('../assets/fg-edit-filled-hover.svg') 20px 7px no-repeat;
         }
     }
 
@@ -329,12 +329,12 @@
 
         &:hover {
             color: $black;
-            background: url('../assets/fg-edit.svg') 20px 3px no-repeat;
+            background: url('../assets/fg-edit-filled.svg') 20px 3px no-repeat;
         }
 
         &:focus {
             color: $black;
-            background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat;
+            background: url('../assets/fg-edit-filled-hover.svg') 20px 3px no-repeat;
         }
     }
 

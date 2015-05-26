@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="11px" height="12px" viewBox="0 0 11 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>edit-filled</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="edit-filled" sketch:type="MSLayerGroup" fill="#C5C7C7">
+            <g id="Styleguide-1.0" sketch:type="MSShapeGroup">
+                <g id="Edit-Filled" transform="translate(0.000000, 0.241873)">
+                    <path d="M0.427166667,11.0861667 L7.986,11.0861667 L7.986,11.6972778 L0.427166667,11.6972778 L0.427166667,11.0861667 L0.427166667,11.0861667 Z" id="Fill-1"></path>
+                    <path d="M10.4182222,3.19427778 L8.19072222,0.518833333 L0.933166667,6.5615 L0.356888889,9.70383333 L1.08961111,9.70444444 L3.33055556,9.70627778 L3.55238889,9.70627778 L3.72227778,9.5645 L10.8093333,3.66361111 L10.4182222,3.19427778 L10.4182222,3.19427778 Z M8.94544444,4.42016667 L7.10905556,2.21405556 L8.11188889,1.37927778 L9.94827778,3.58477778 L8.94544444,4.42016667 L8.94544444,4.42016667 Z" id="Fill-2"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

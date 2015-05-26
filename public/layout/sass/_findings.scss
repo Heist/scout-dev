@@ -225,7 +225,8 @@
 			}
 
 			.summary-user {
-				@include type-h3($fg-black);
+				@include type-p($fg-black);
+				@include type-regular;
 				margin: 0 0 10px 0;
 				position: relative;
 				padding: 0 50px;
@@ -288,12 +289,12 @@
 
 						&:hover {
 						    color: $black;
-						    background: url('../assets/fg-edit.svg') 30px 4px no-repeat;
+						    background: url('../assets/fg-edit-filled.svg') 30px 4px no-repeat;
 						}
 
 						&:focus {
 						    color: $black;
-						    background: url('../assets/fg-edit-hover.svg') 30px 4px no-repeat;
+						    background: url('../assets/fg-edit-filled-hover.svg') 30px 4px no-repeat;
 						}
 					}
 					
@@ -395,12 +396,12 @@
 
 				&:hover {
 				    color: $black;
-				    background: url('../assets/fg-edit.svg') 20px 3px no-repeat;
+				    background: url('../assets/fg-edit-filled.svg') 20px 3px no-repeat;
 				}
 
 				&:focus {
 				    color: $black;
-				    background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat;
+				    background: url('../assets/fg-edit-filled-hover.svg') 20px 3px no-repeat;
 				    box-shadow: none;
 				}
 			}

@@ -63,7 +63,7 @@
 			<div ng-if="selected.doctype !== 'test' " ng-show="messageFilter(selected, user)" class="summary-group" ng-repeat="user in messages" >
 				<!-- participant name -->
 				<div class="summary-user">
-					<h3>{{user[0]._subject.name}}</h3>
+					{{user[0]._subject.name}}
 					<div class="clear"></div>
 				</div>
 				<div ng-repeat="message in user" class="summary"
