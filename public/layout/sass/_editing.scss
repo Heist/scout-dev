@@ -273,26 +273,31 @@
         img {
             margin: 0 3px 0 0;
         }
+
+        input.prototype-link {
+            width: 190px;
+            padding: 0 0 0 30px;
+            @include type-p($fg-blue);
+
+            &:hover{
+                color: $black;
+                background: url('../assets/fg-edit.svg') 14px 4px no-repeat;
+            }
+
+            &:focus {
+                color: $black;
+                background: url('../assets/fg-edit-hover.svg') 14px 4px no-repeat;
+            }
+        }
+
+        a.prototype-url {
+            font-size: 10px;
+            color: $fg-grey-text;
+        }
     }
 
     form {
         margin: 0;
-    }
-
-    input.prototype-link {
-        width: 300px;
-        padding: 0 0 0 30px;
-        @include type-p($fg-blue);
-
-        &:hover{
-            color: $black;
-            background: url('../assets/fg-edit.svg') 14px 4px no-repeat;
-        }
-
-        &:focus {
-            color: $black;
-            background: url('../assets/fg-edit-hover.svg') 14px 4px no-repeat;
-        }
     }
 
     input.task-title {
