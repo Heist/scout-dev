@@ -279,15 +279,12 @@
         };
 
         $scope.saveEdit = function(original, list){
+            
             $scope.messageEditToggle = '';
+            var dataOut = {msg: original, hasSummary: $scope.summaryItem._id}
 
-            var output = original;
-            
-            var dataOut = {msg: output, hasSummary: $scope.summaryItem._id}
-            
             $http.put('/api/message/', dataOut)
                 .success(function(data, err){
-                    
 
                     if($scope.selected.doctype === 'test'){
                         // if this is a test, the message needs to be marked as a Summary message
@@ -296,8 +293,8 @@
                     }
 
                     // splice the new message over its old self in the messages list
-                    var idx = _.pluck($scope.messages[output._subject.name], '_id').indexOf(output._id);
-                    $scope.messages[output._subject.name].splice(idx,1, data.msg);
+                    var idx = _.pluck($scope.messages[original._subject.name], '_id').indexOf(original._id);
+                    $scope.messages[original._subject.name].splice(idx,1, data.msg);
                     
 
                     // now find the original._id on raw list item replace with new _id
@@ -305,7 +302,7 @@
                     var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; });
                     
                     var nonTestObj = _.map(objList, function(n){
-                        var x = n._messages.indexOf(output._id);
+                        var x = n._messages.indexOf(original._id);
 
                         if( x !== -1){
                             n._messages.splice(x, 1, data.msg._id);
