@@ -206,7 +206,7 @@
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $timeout(function() {$('textarea#messageInput').focus() }, 10);
+            $timeout(function() {console.log('focused'); $('textarea#messageInput').focus()}, 200);
             // $scope.setCaretToPos(document.getElementById("messageInput"),4);
             $http.put('/api/message/', message)
                 .success(function(data){                 
