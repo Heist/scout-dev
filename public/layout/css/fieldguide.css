@@ -4198,16 +4198,16 @@ span.tooltip-icon {
 */
 /* errythang for the timeline/chat */
 #timeline {
-  padding: 0 0 150px 0;
+  padding: 0;
   width: 100%;
-  height: 90%;
+  height: 75%;
   overflow: auto;
   margin: 0;
   /* first-run message on timeline */ }
   #timeline.prototype {
-    padding: 0 0 150px 0;
+    padding: 0;
     width: 100%;
-    height: 100%;
+    height: 75%;
     overflow: auto;
     margin: 0; }
   #timeline ul {
@@ -5693,7 +5693,7 @@ span.tooltip-icon {
         font-weight: 300;
         font-style: italic; }
       #view-testing #testing-input #session-input.prototype {
-        bottom: 62px; }
+        bottom: 63px; }
       #view-testing #testing-input #session-input .typeahead-box {
         width: 100%;
         font-size: 14px;
