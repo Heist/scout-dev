@@ -50854,10 +50854,6 @@ angular.module('siyfion.sfTypeahead', [])
 
     }
 
-    // $scope.resetPopup = function(){
-    //     $scope.help = false;
-    //     $scope.educationPopup = 0;
-    // }
 
 	}]);
 
