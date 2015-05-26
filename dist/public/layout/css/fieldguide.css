@@ -5409,8 +5409,6 @@ span.tooltip-icon {
     padding: 0 0 30px 40px; }
     #view-editing .test-info img {
       margin: 0 3px 0 0; }
-  #view-editing form.task-info {
-    margin: 0 0 20px 0; }
   #view-editing input.task-title, #view-editing .add-task textarea.task-title {
     color: #7a7a7a;
     font-size: 18.6px;
@@ -5447,7 +5445,6 @@ span.tooltip-icon {
     margin: 20px 0; }
     #view-editing .add-task form {
       border-top: 1px solid rgba(216, 218, 219, 0.5);
-      border-bottom: 1px solid rgba(216, 218, 219, 0.5);
       margin: 0 0 15px 0; }
     #view-editing .add-task input, #view-editing .add-task textarea {
       width: 100%;
@@ -5465,13 +5462,14 @@ span.tooltip-icon {
       height: 135px;
       overflow-y: auto;
       resize: none;
-      margin: 0;
+      margin: 0 0 10px 0;
       color: #7a7a7a;
       font-size: 14px;
       line-height: 21px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
-      font-weight: 300; }
+      font-weight: 300;
+      border-bottom: 1px solid rgba(216, 218, 219, 0.5); }
   #view-editing .tags .tag-pool, #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
     width: 100%;
     height: 100%; }
