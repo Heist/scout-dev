@@ -192,7 +192,6 @@
 
                 $scope.editedtask = null;
 
-<<<<<<< HEAD:public/js/controllers/edit-test.js
             // deleted the name of the task? Remove it entirely.
             if (!obj.name) {
                 $scope.removeTask(obj);
@@ -202,20 +201,6 @@
             } else {
                 $scope.updateTask(obj);
             }
-=======
-                obj.name = obj.name.trim();
-
-                // deleted the name of the task? Remove it entirely.
-                if (!obj.name || obj.name.length === 0) {
-                    obj.name = obj.old_name;
-                    return;
-                }
-                if (obj.doctype === 'test') {
-                    $scope.updateTest(obj);
-                } else {
-                    $scope.updateTask(obj);
-                }
->>>>>>> 670e1a76dcd6caea159697e027866df1453a6798:public/js/controllers/test.js
 
         };
 

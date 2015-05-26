@@ -31341,7 +31341,7 @@ var styleDirective = valueFn({
 
   if (window.angular.bootstrap) {
     //AngularJS is already loaded, so we can return here...
-    console.log('WARNING: Tried to load angular more than once.');
+    void 0;
     return;
   }
 
@@ -47356,7 +47356,7 @@ angular.module('youtube-embed', ['ng'])
             // and we want '93LvTKF_jW0'
             id = id.split('#')[0];
         }
-        console.log('youTubeId 2', id);
+        void 0;
         return id;
     };
 
@@ -47449,7 +47449,7 @@ angular.module('youtube-embed', ['ng'])
         link: function (scope, element, attrs) {
             // allows us to $watch `ready`
             scope.utils = youtubeEmbedUtils;
-            console.log('youtube id', scope, element, attrs);
+            void 0;
             // player-id attr > id attr > directive-generated ID
             var playerId = attrs.playerId || element[0].id || 'unique-youtube-embed-id-' + uniqId++;
             element[0].id = playerId;
@@ -47494,7 +47494,7 @@ angular.module('youtube-embed', ['ng'])
                         onStateChange: onPlayerStateChange
                     }
                 });
-                console.log('createPlayer', player);
+                void 0;
                 player.id = playerId;
                 return player;
             }
@@ -50977,7 +50977,7 @@ angular.module('siyfion.sfTypeahead', [])
 
             $http.delete('/api/tag/'+tag._id)
                 .success(function(data){
-                    console.log(data);
+                    void 0;
                 });
         }
 
@@ -51130,7 +51130,7 @@ angular.module('siyfion.sfTypeahead', [])
         // Controller Functions ===========================
        $scope.sendToken = function(email){
             var dataOut = {email: email};
-            console.log('clicked send pass')
+            void 0
             
             $scope.hideMe = 'hide';
 
@@ -51527,7 +51527,7 @@ angular.module('siyfion.sfTypeahead', [])
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    console.log(data, data.length);
+                    void 0;
                     var msg = data;
 
                     if(data === '1' ){
@@ -51664,12 +51664,12 @@ angular.module('siyfion.sfTypeahead', [])
             }
 
         $scope.goToLogin = function(){
-            console.log('goToLogin')
+            void 0
             $location.path('/login');
         }
 
         $scope.goToForgot = function(){
-            console.log('goToForgot')
+            void 0
             $location.path('/forgot');
         }
         
@@ -51952,7 +51952,7 @@ angular.module('siyfion.sfTypeahead', [])
             if(message){
                 postMessage(message+' #Summary', summaryTagId, $stateParams._id, $scope.subject._id)
                         .then(function(msg){
-                            console.log('message posted to summary', msg)
+                            void 0
                             $location.path('/overview');
                         });
             } else {
@@ -52027,7 +52027,7 @@ angular.module('siyfion.sfTypeahead', [])
             [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
         function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
         
-        console.log('report data from server', loadData.data);
+        void 0;
 
         $scope.test = {};
         $scope.timeline = [];
@@ -52123,7 +52123,7 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
             $scope.navlist =  makeNavList($scope.rawList);
-            console.log($scope.navlist);
+            void 0;
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
@@ -52162,7 +52162,7 @@ angular.module('siyfion.sfTypeahead', [])
         var addTagsToLeftNav = function(data){
             // when we're returned new data, check the tags for messages and filter ones that have none
             // set the new list of tags to the bottom of the navlist
-            console.log(data);
+            void 0;
             var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
             var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
@@ -52340,20 +52340,20 @@ angular.module('siyfion.sfTypeahead', [])
                         }
                     })
 
-                    console.log('data, tags are returning undefined', data);
+                    void 0;
                     if(data.msg._tags.indexOf($scope.summaryItem._id) !== -1){
                         // if it's a summary message, add it back into the message filter list
                         $scope.summaryItem._messages.splice($scope.summaryItem._messages.indexOf(original._id), 1, data.msg._id);
                     }
 
-                    console.log(test);
+                    void 0;
 
                     $scope.rawList = test.concat(nonTestObj);
 
                     // Summary messages is a list of messages that match the summary._id
                     
 
-                    console.log(nonTestObj);
+                    void 0;
                     addTagsToLeftNav(data);
                 });
         };
@@ -53214,7 +53214,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 var searchClose    = (nextSpace && nextSpace > -1) ? Math.min(nextSpace, scope.caret.get) : scope.caret.get;
                 
-                console.log('caret position', scope.caret.get, 'searchClose', searchClose, 'nextSpace', nextSpace);
+                void 0;
 
                 var searchTerm     = modelCtrl.$viewValue.substr(mostRecentHash+1, searchClose-mostRecentHash);
                     
@@ -53227,7 +53227,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                     var onCurrentRequest = modelCtrl.$viewValue.indexOf(searchTerm) > -1;
                     
-                    console.log('getMatchesAsync searchTerm',mostRecentHash+1, searchClose, searchTerm, onCurrentRequest);
+                    void 0;
 
                     if (onCurrentRequest && hasFocus) {
                         if (matches.length > 0) {
@@ -53438,7 +53438,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                     } else if (evt.which === 13 || evt.which === 9) {
                         // ENTER or TAB keypress =========
-                        console.log(scope.activeIdx, scope.testTags);
+                        void 0;
                         scope.$apply(function() {
                             scope.select(scope.activeIdx);
                             resetMatches();
@@ -53478,7 +53478,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // not _just_ the scope.query.
 
                 // insert the new tag into the input box
-                console.log('cursor position', scope.caret.get);
+                void 0;
 
                 // TODO: INSERT THE NEW TAG INTO THE CORRECT VARIANT OF THE MODEL;
                 // console.log('check that this is the correct tag!', scope.query);
@@ -53487,7 +53487,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // Find the most recent hashtag from the current caret position
                 var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get)
 
-                console.log('index of most recent hashtag', '#'+scope.query, mostRecentHash, scope.caret.get);
+                void 0;
 
                 var newValue  = spliceSlice(modelCtrl.$viewValue, mostRecentHash, scope.caret.get-mostRecentHash, '#'+model);
 
