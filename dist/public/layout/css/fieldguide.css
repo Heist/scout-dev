@@ -6396,7 +6396,7 @@ span.tooltip-icon {
               font-style: normal;
               font-weight: 400; }
   #view-findings .summaries-holder {
-    width: 37%;
+    width: 32%;
     height: 100%;
     padding: 0;
     margin: 0;
@@ -6492,12 +6492,12 @@ span.tooltip-icon {
             margin: 0;
             padding: 0; }
   #view-findings .sheet-holder {
-    width: 48%;
+    width: 53%;
     height: 100%;
     padding: 0;
     margin: 0;
     position: absolute;
-    left: 52%;
+    left: 47%;
     overflow-y: scroll;
     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);

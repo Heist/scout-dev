@@ -187,7 +187,7 @@
 	}
 
 	.summaries-holder {
-		width: 37%;
+		width: 35%;
 		height: 100%;
 		padding: 0;
 		margin: 0;
@@ -310,12 +310,12 @@
 
 
 	.sheet-holder {
-		width: 48%;
+		width: 50%;
 		height: 100%;
 		padding: 0;
 		margin: 0;
 		position: absolute;
-		left: 52%;
+		left: 50%;
 		overflow-y: scroll;
 		@include dropshadowULTRA($shadow: 0 3px 10px, $intensity: rgba(0,0,0,0.1));
 
