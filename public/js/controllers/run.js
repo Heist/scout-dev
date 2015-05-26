@@ -143,15 +143,12 @@
             startTest = new Date();
 
             var intercom = {
-                event_name : 'started-test',
                 created_at : startTest,
                 email      : $rootScope.user.email,
-                metadata   : {
-                    test_kind : $scope.test.kind
-                }
+                test_kind : $scope.test.kind
             } ;
             
-            Intercom('trackEvent', intercom );
+            Intercom('trackEvent', 'started-test', intercom );
 
             $http
                 .post('api/subject/', subject)
@@ -265,16 +262,13 @@
             msec -= ss * 1000;
 
              var intercom = {
-                event_name : 'ended-test',
                 created_at : new Date(),
                 email      : $rootScope.user.email,
-                metadata   : {
-                    test_kind : $scope.test.kind,
-                    duration  : mm
-                }
+                test_kind : $scope.test.kind,
+                duration  : mm
             } ;
             
-            Intercom('trackEvent', intercom );
+            Intercom('trackEvent', 'ended-test', intercom );
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags
