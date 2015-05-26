@@ -5714,7 +5714,7 @@ span.tooltip-icon {
       bottom: 0;
       left: 0;
       width: 100%;
-      padding: 5px 5px 5px 25px;
+      padding: 5px;
       height: 43px;
       z-index: 99999;
       border-top: 1px solid #e1e1e1;
