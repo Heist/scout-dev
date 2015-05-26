@@ -19,15 +19,12 @@
 							
 							<div class="test-info" ng-if="test.kind === 'interview'" ng-model="report">
 								<img src="layout/assets/interview-dark.svg" alt="Interview icon"> Interview
-								<div ng-model="selected">
-									<a href="{{selected.link}}" target="_">{{selected.link}}</a>
-								</div>
 							</div>
 							<div class="test-info" ng-if="test.kind === 'prototype'">
 								<img src="layout/assets/prototype-dark.svg" alt="Interview icon"> Prototype
-								<div ng-model="selected">
-									<a href="{{selected.link}}" target="_">{{selected.link}}</a>
-								</div>
+
+								<input class="input-no-border prototype-link" ng-model="test.link" ng-blur="updateTest()">
+								
 							</div>
 						</div>
 						<div class="clear"></div>
@@ -61,8 +58,8 @@
 					</div>
 					
 					<div class="container-row topics clearfix">
-						<div class="container-left topics">
-							<h3>Topics
+						<div class="container-left">
+							<h3 class="topics">Topics
 							<span class="tooltip-icon" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
 							</h3>
 						</div>

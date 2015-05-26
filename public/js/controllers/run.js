@@ -135,6 +135,7 @@
 
 
         $scope.addSubject = function(subject){
+
             subject.name     = subject.name;
             subject.testroom = subject.testroom || '';
             subject.test     = $stateParams._id;
@@ -159,6 +160,7 @@
                     $scope.live = true;
                     $scope.select(0,0);
                     $timeout(function() {$('textarea#messageInput').focus() }, 10);
+
                     // Avatar initials
                     // TODO: refactor into service or add to check in process
                     // This might be a good refactored into a directive,
