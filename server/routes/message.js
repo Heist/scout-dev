@@ -65,14 +65,14 @@ module.exports = function(app, passport) {
             }
         } 
         
-        console.log('this is the new message', newMsg);
+        console.log('this is the message for editing', newMsg);
 
         fn.messageEdit(newMsg).then(function(data){
             console.log('returned message', data);
             if(typeof data === 'object'){
                 models.Tag.findAsync({'_test' : data._test})
                     .then(function(tags){
-                        console.log('tags', tags);
+                        console.log('tags', tags.length);
 
                         var send = {
                             msg  : data, 

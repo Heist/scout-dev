@@ -52304,7 +52304,7 @@ angular.module('siyfion.sfTypeahead', [])
 
             $http.put('/api/message/', dataOut)
                 .success(function(data, err){
-
+                    void 0;
                     if($scope.selected.doctype === 'test'){
                         // if this is a test, the message needs to be marked as a Summary message
                         // this is in case of re-editing after an original edit
@@ -52314,20 +52314,24 @@ angular.module('siyfion.sfTypeahead', [])
                     // splice the new message over its old self in the messages list
                     var idx = _.pluck($scope.messages[original._subject.name], '_id').indexOf(original._id);
                     $scope.messages[original._subject.name].splice(idx,1, data.msg);
-                    
 
                     // now find the original._id on raw list item replace with new _id
-                    var objList    = _.filter($scope.rawList, function(n){ if(n.doctype === 'tag' || n.doctype === 'tag' ) {return n;} else {return;}})
+                    void 0;
+
+                    var objList    = _.filter($scope.rawList, function(n){ if(n.doctype === 'tag' || n.doctype === 'task' ) {return n;} else {return;}})
                     var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; });
                     
                     var nonTestObj = _.map(objList, function(n){
+                        void 0;
                         var x = n._messages.indexOf(original._id);
-
+                        // map each test item and then return
                         if( x !== -1){
+                            // if that message exists on the original object, add it
                             n._messages.splice(x, 1, data.msg._id);
                           return n;
                         }
                         if(n._messages.length === 0){
+                            // if that message does not exist on the original object, add it
                             n._messages.splice(0, 1, data.msg._id);
                           return n;
                         } else {
