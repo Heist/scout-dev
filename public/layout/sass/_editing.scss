@@ -302,6 +302,7 @@
 
     input.task-title {
         @include type-h3($fg-grey-text);
+        @include type-regular;
         padding: 0 0 20px 40px;
 
         &:hover{
