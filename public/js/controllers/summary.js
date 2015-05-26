@@ -282,12 +282,10 @@
             $scope.messageEditToggle = '';
 
             var output = original;
-
-            if(output._tags.indexOf($scope.summaryItem._id !== -1)){
-                output.body = output.body + ' #summary';
-            }
             
-            $http.put('/api/message/', output)
+            var dataOut = {msg: output, hasSummary: $scope.summaryItem._id}
+            
+            $http.put('/api/message/', dataOut)
                 .success(function(data, err){
                     
 

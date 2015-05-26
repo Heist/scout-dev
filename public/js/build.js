@@ -52049,8 +52049,9 @@ angular.module('siyfion.sfTypeahead', [])
             $scope.messageEditToggle = '';
 
             var output = original;
-
-            if(output._tags.indexOf($scope.summaryItem._id !== -1)){
+            console.log($scope.summaryItem._id, output._tags);
+            if(output._tags.indexOf($scope.summaryItem._id) !== -1){
+                console.log('really? summary?')
                 output.body = output.body + ' #summary';
             }
             
