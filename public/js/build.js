@@ -50640,15 +50640,43 @@ angular.module('siyfion.sfTypeahead', [])
 
 	// ONBOARDING =========================================
     // TODO: Abstract into service for dependency injection
+    	var startOnboard;
 
         $scope.onboardToggle = function(){
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+            	var duration = new Date();
+
+                if (duration < startOnboard) {
+                  duration.setDate(duration.getDate() + 1);
+                }
+
+                var diff = duration - startOnboard;
+                var msec = diff;
+                var mm = Math.floor(msec / 1000 / 60);
+                msec -= mm * 1000 * 60;
+
+                var intercom = {
+                    duration : mm+"min"
+                };
+
+                Intercom('trackEvent', 'closed-onboarding', intercom );
+            	
             	$rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 $scope.animationToggle();
                 return;
             }
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+            	startOnboard = new Date();
+                var hh = startOnboard.getHours();
+                var m = startOnboard.getMinutes();
+
+                var out = {
+                    created_at : hh+':'+m,
+                };
+                
+                Intercom('trackEvent', 'opened-onboarding', out );
+
             	$rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
                 return;
@@ -51020,7 +51048,7 @@ angular.module('siyfion.sfTypeahead', [])
 
             // deleted the name of the task? Remove it entirely.
             if (!obj.name) {
-                $scope.removeTask(obj);
+                obj.name = obj.old_name;
             }
             if (obj.doctype === 'test') {
                 $scope.updateTest();
@@ -51085,17 +51113,6 @@ angular.module('siyfion.sfTypeahead', [])
     		['$scope','$http','$stateParams','$state','$location','$rootScope','$element',
     function( $scope , $http,  $stateParams , $state , $location , $rootScope , $element){
 
-    $scope.tracker = function(step){
-        // Intercom tracker ===============================
-            var intercom = {
-                        created_at : new Date(),
-                        email      : $rootScope.user.email,
-                        education_page : step
-                    };
-                    
-            Intercom('trackEvent', 'opened-education', intercom );
-    
-    }
 
     var locationPath = $location.path();
 
@@ -51108,10 +51125,15 @@ angular.module('siyfion.sfTypeahead', [])
     } else {
         $scope.educationPopup = 1;
     }
+    var intercom = {
+                        education_page : $scope.educationPopup
+                    };
+                    
+            
 
     $scope.showIntercom = function(){
         Intercom('show');
-
+        Intercom('trackEvent', 'opened-education', intercom );
     }
 
 
@@ -51253,10 +51275,10 @@ angular.module('siyfion.sfTypeahead', [])
         };
 
         $scope.addTest = function(test){
+            var date = new Date();
             
             var intercom = {
-                created_at : new Date(),
-                email      : $rootScope.user.email
+                created_at : date.getHours()+':'+date.getMinutes(),
             };
 
             $http
@@ -51296,42 +51318,14 @@ angular.module('siyfion.sfTypeahead', [])
        // FUNCTIONS =======================================
 
        $scope.onboardToggle = function(){
-           if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-            var duration = new Date();
-              if (duration < startOnboard) {
-                  duration.setDate(duration.getDate() + 1);
-              }
-
-              var diff = duration - startOnboard;
-
-              var msec = diff;
-              var mm = Math.floor(msec / 1000 / 60);
-              msec -= mm * 1000 * 60;
-              
-              var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email,
-                    duration : mm
-                };
-                
-              Intercom('trackEvent', 'closed-onboarding', intercom );
-
-            $rootScope.user.onboard = 100;
-               $scope.onboardSteps = false; 
-               return;
-           }
-           if(!$scope.onboardSteps || $scope.onboardSteps === false ){
-              startOnboard = new Date();
-
-              var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email
-                };
-                
-                Intercom('trackEvent', 'opened-onboarding', intercom );
-
+          if(!$scope.onboardSteps || $scope.onboardSteps === false ){
               $rootScope.user.onboard = 1;
               $scope.onboardSteps = true; 
+              return;
+           }
+           if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+              $rootScope.user.onboard = 100;
+              $scope.onboardSteps = false; 
               return;
            }
        };
@@ -51377,9 +51371,27 @@ angular.module('siyfion.sfTypeahead', [])
             $scope.onboardSteps = true;
         }
 
+        var startOnboard;
         $scope.onboardToggle = function(){
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 // TODO: setup as http post
+                var duration = new Date();
+
+                if (duration < startOnboard) {
+                  duration.setDate(duration.getDate() + 1);
+                }
+
+                var diff = duration - startOnboard;
+                var msec = diff;
+                var mm = Math.floor(msec / 1000 / 60);
+                msec -= mm * 1000 * 60;
+
+                var intercom = {
+                    duration : mm+"min"
+                };
+
+                Intercom('trackEvent', 'closed-onboarding', intercom );
+
                 $scope.animationToggle();
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
@@ -51388,6 +51400,16 @@ angular.module('siyfion.sfTypeahead', [])
             }
 
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+                startOnboard = new Date();
+                var hh = startOnboard.getHours();
+                var m = startOnboard.getMinutes();
+
+                var out = {
+                    created_at : hh+':'+m,
+                };
+                
+                Intercom('trackEvent', 'opened-onboarding', out );
+
                 $rootScope.user.onboard = 1;  
                 $scope.onboardSteps = true; 
                 $scope.changeOnboard(1);
@@ -51513,6 +51535,9 @@ angular.module('siyfion.sfTypeahead', [])
                 });
         }
 
+        // used to show/hide the registration form and loading spinner ==================
+        $scope.results = false;
+
         $scope.register = function(user){
         	var url = '/auth/signup';
             var dataOut, invite;
@@ -51524,6 +51549,10 @@ angular.module('siyfion.sfTypeahead', [])
                 dataOut = {email: user.email, name:user.name, password:  user.password};
             }
             
+            // TODO:
+            // on register, we should assume the fresh-test data works and change the route to overview.
+            // Then, on overview, we should show a "baking your data" thing until we have the test data.
+
             $http
                 .post(url, dataOut)
                 .success(function(data){
@@ -51535,10 +51564,19 @@ angular.module('siyfion.sfTypeahead', [])
                         $scope.flashmessage = $sce.trustAsHtml(msg);
                     } else if(data === '2'){
                         $scope.flashmessage = 'Please log out before signing up again.';
-                    } else {
-                        
+                    } else if (data._id){
                         $rootScope.user = data._id;
-                        $location.path(data.redirect);
+                        // make a call to register your tests here.
+                        console.log('successful registration, now callng tests....');
+
+                        // ADD LOADING SPINNER HERE TO COVER FOR THE TESTS BEING MADE
+                        $scope.results = true;
+                        $http.post('/api/newtests/'+data._id).success(function(tests){
+                            console.log('data', tests);
+                            $location.path(data.redirect);
+                        })
+                    } else {
+                        console.log(data);
                     }
                 });
         };
@@ -51820,8 +51858,7 @@ angular.module('siyfion.sfTypeahead', [])
             startTest = new Date();
 
             var intercom = {
-                created_at : startTest,
-                email      : $rootScope.user.email,
+                created_at : startTest.getHours()+':'+startTest.getMinutes(),
                 test_kind : $scope.test.kind
             } ;
             
@@ -51833,7 +51870,12 @@ angular.module('siyfion.sfTypeahead', [])
                     $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);
-                    $timeout(function() {$('textarea#messageInput').focus() }, 10);
+
+                    if($scope.test.kind === "prototype"){
+                        $timeout(function() {$('textarea#prototypeInput').focus() }, 150);
+                    } else {
+                        $timeout(function() {$('textarea#messageInput').focus() }, 150);
+                    }
 
                     // Avatar initials
                     // TODO: refactor into service or add to check in process
@@ -51878,13 +51920,17 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.editMessage = function(message){
             // clear this on blur to block weird toggle bug
             $scope.messageEditToggle = message._id;
-            $timeout(function() {$('textarea#editMessage').focus() }, 10);
+            $timeout(function() {$('textarea#editMessage').focus() }, 150);
         };
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $timeout(function() {$('textarea#messageInput').focus() }, 10);
-            // $scope.setCaretToPos(document.getElementById("messageInput"),4);
+            if($scope.test.kind === "prototype"){
+                $timeout(function() {$('textarea#prototypeInput').focus() }, 150);
+            } else {
+                $timeout(function() {$('textarea#messageInput').focus() }, 150);
+            }
+            
             $http.put('/api/message/', message)
                 .success(function(data){                 
                     
@@ -51940,10 +51986,9 @@ angular.module('siyfion.sfTypeahead', [])
             msec -= ss * 1000;
 
              var intercom = {
-                created_at : new Date(),
-                email      : $rootScope.user.email,
                 test_kind : $scope.test.kind,
-                duration  : mm
+                created_at : startTest.getHours()+':'+startTest.getMinutes(),
+                duration  : mm+"min"
             } ;
             
             Intercom('trackEvent', 'ended-test', intercom );
@@ -52205,10 +52250,10 @@ angular.module('siyfion.sfTypeahead', [])
             }
             if(!$scope.shareReport || $scope.shareReport === false ){
                 $scope.shareReport = true;
-                
+                var date = new Date();
+            
                 var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email
+                    created_at : date.getHours()+':'+date.getMinutes()
                 };
                 
                 Intercom('trackEvent', 'shared-report-button-clicked', intercom );
@@ -52253,9 +52298,10 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.saveObject = function(obj){
              
             if(obj.doctype === 'test'){
+                var date = new Date();
+
                 var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email,
+                    created_at : date.getHours()+':'+date.getMinutes(),
                     summary    : (obj.summary)    ? 'true' : 'false',
                     next_steps : (obj.next_steps) ? 'true' : 'false'
                 };
@@ -52984,7 +53030,7 @@ angular.module('field_guide_controls')
         if(element){
             element.focus();
         }
-      }, 500);
+      }, 150);
     };
   })
 .directive('focusMe', function($timeout) {
@@ -52995,12 +53041,30 @@ angular.module('field_guide_controls')
         if(value === "true") { 
           $timeout(function() {
             element[0].focus(); 
-          }, 200);
+          }, 150);
         }
       });
     }
   };
 });
+})();
+// fg-load-spinner.js
+// provide a loading spinner as an HTTP interceptor
+
+'use strict';
+(function(){
+    angular.module('field_guide_app')
+        .factory('loadInterceptor', function ($q, $window) {
+          return function (promise) {
+            return promise.then(function (response) {
+              $("#spinner").hide();
+              return response;
+            }, function (response) {
+              $("#spinner").hide();
+              return $q.reject(response);
+            });
+          };
+        });
 })();
 // fg-modal.js
 // a directive to insert a modal on any given page
@@ -53297,9 +53361,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 var nextSpace      = modelCtrl.$viewValue.indexOf(' ', mostRecentHash);
 
                 var searchClose    = (nextSpace && nextSpace > -1) ? Math.min(nextSpace, scope.caret.get) : scope.caret.get;
-                
-                // console.log('caret position', scope.caret.get, 'searchClose', searchClose, 'nextSpace', nextSpace);
-
                 var searchTerm     = modelCtrl.$viewValue.substr(mostRecentHash+1, searchClose-mostRecentHash);
                     
                 var locals = {$viewValue: searchTerm};
@@ -53310,8 +53371,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     //but we are interested only in responses that correspond to the current view value
 
                     var onCurrentRequest = modelCtrl.$viewValue.indexOf(searchTerm) > -1;
-                    
-                    // console.log('getMatchesAsync searchTerm',mostRecentHash+1, searchClose, searchTerm, onCurrentRequest);
 
                     if (onCurrentRequest && hasFocus) {
                         if (matches.length > 0) {
@@ -53329,7 +53388,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                             }
 
                             scope.query = searchTerm;
-                            // console.log(inputValue);
                             //position pop-up with matches - we need to re-calculate its position each time we are opening a window
                             //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
                             //due to other elements being rendered
@@ -53381,7 +53439,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 if(accepted_tags && tester){
                     difference = _.difference(clean_test, clean_accepted);
-                    // console.log('should be the new tags',clean_test, clean_accepted, difference);
                 }
 
                 // WHAT WE HAVE
@@ -53526,6 +53583,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                         
                         console.log(enterCount);
                         // ENTER or TAB keypress =========
+
                         if(enterCount === 0){
                             scope.$apply(function() {
                                 scope.select(scope.activeIdx);
@@ -53567,7 +53625,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 locals[parserResult.itemName] = item = scope.matches[activeIdx].model;
                 model = parserResult.modelMapper(originalScope, locals);
-
                 // Find the most recent hashtag from the current caret position
                 var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get)
                 var newValue  = spliceSlice(modelCtrl.$viewValue, mostRecentHash, scope.caret.get-mostRecentHash, '#'+model);

@@ -14,8 +14,10 @@
 						<h1>Register for Field Guide</h1>
 						<!-- signup form form -->
 						<div id="form-signup">
-						
-							<form name="regForm" ng-model="user" ng-submit="register(user)">
+
+							<img src="layout/assets/loading.gif" ng-if="results">
+							<form name="regForm" ng-model="user" ng-hide="results" ng-submit="register(user)">
+
 								<ul class="nobullets withlabels">
 									<li ng-bind-html="flashmessage" ng-if="flashmessage" class="error-flashmessage">
 									</li>
@@ -25,7 +27,7 @@
 									</li>
 									
 									<li>
-										<input class="input" type="email" name="usermail" value="" placeholder="Email" ng-class="{'error-outline': regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine}" ng-model="user.email" required /> 
+										<input class="input" type="email" name="usermail" value="" placeholder="Email"ng-model="user.email" required /> 
 									</li>
 
 									<li>
@@ -42,7 +44,7 @@
 			                        </li>
 									
 									<li>
-										<input class="input" type="password" name="confirm" id="confirm-password" value="" placeholder="Confirm password" ng-model="user.passwordConfirm" ng-class="{'error': regForm.confirm.$error.match && !regForm.confirm.$pristine}" ng-match="user.password" required/>
+										<input class="input" type="password" name="confirm" id="confirm-password" value="" placeholder="Confirm password" ng-model="user.passwordConfirm" ng-class="{'error-outline': regForm.confirm.$error.match && !regForm.confirm.$pristine}" ng-match="user.password" required/>
 
 										<div class="error-msg" ng-show="regForm.confirm.$error.match && !regForm.confirm.$pristine">
 											<span>Passwords do not match.</span>

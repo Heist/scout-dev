@@ -24,6 +24,8 @@
 								<img src="layout/assets/prototype-dark.svg" alt="Interview icon"> Prototype
 
 								<input class="input-no-border prototype-link" ng-model="test.link" ng-blur="updateTest()">
+
+								<a href="{{test.link}}" target="_blank" class="icon-share prototype-url"></a>
 								
 							</div>
 						</div>
@@ -67,8 +69,6 @@
 						<div class="container-right">
 							<div ng-repeat="task in tasks" ng-class="{selected: isActive(task)}" ng-click="select(task)" ng-blur="" id="{{$index}}">
 
-								<div class="topic-delete" data-tooltip="Delete Topic"  ng-if="test._subjects.length === 0"><span class="icon-delete" ng-click="deleteTopicModalToggle(task)"></span></div>
-
 								<!-- Delete Topic modal -->
 								<div class="modal" ng-if="deleteTopic === task">
 									<div id="view-delete-topic">
@@ -96,6 +96,9 @@
 								<div ng-click="select(task)">
 									<form class="task-info">
 										<input class="input-no-border task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
+
+										<div class="task-delete" data-tooltip="Delete Topic" ng-if="test._subjects.length === 0"><span class="icon-delete" ng-click="deleteTopicModalToggle(task)"></span></div>
+
 										<textarea msd-elastic class="task-descriptions input-no-border" id="field-textarea"  ng-model="task.desc" ng-blur="updateTask(task)"></textarea>
 									</form>
 								</div>

@@ -143,8 +143,7 @@
             startTest = new Date();
 
             var intercom = {
-                created_at : startTest,
-                email      : $rootScope.user.email,
+                created_at : startTest.getHours()+':'+startTest.getMinutes(),
                 test_kind : $scope.test.kind
             } ;
             
@@ -156,7 +155,12 @@
                     $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);
-                    $timeout(function() {$('textarea#messageInput').focus() }, 10);
+
+                    if($scope.test.kind === "prototype"){
+                        $timeout(function() {$('textarea#prototypeInput').focus() }, 150);
+                    } else {
+                        $timeout(function() {$('textarea#messageInput').focus() }, 150);
+                    }
 
                     // Avatar initials
                     // TODO: refactor into service or add to check in process
@@ -201,13 +205,17 @@
         $scope.editMessage = function(message){
             // clear this on blur to block weird toggle bug
             $scope.messageEditToggle = message._id;
-            $timeout(function() {$('textarea#editMessage').focus() }, 10);
+            $timeout(function() {$('textarea#editMessage').focus() }, 150);
         };
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $timeout(function() {$('textarea#messageInput').focus() }, 10);
-            // $scope.setCaretToPos(document.getElementById("messageInput"),4);
+            if($scope.test.kind === "prototype"){
+                $timeout(function() {$('textarea#prototypeInput').focus() }, 150);
+            } else {
+                $timeout(function() {$('textarea#messageInput').focus() }, 150);
+            }
+            
             $http.put('/api/message/', message)
                 .success(function(data){                 
                     
@@ -263,10 +271,9 @@
             msec -= ss * 1000;
 
              var intercom = {
-                created_at : new Date(),
-                email      : $rootScope.user.email,
                 test_kind : $scope.test.kind,
-                duration  : mm
+                created_at : startTest.getHours()+':'+startTest.getMinutes(),
+                duration  : mm+"min"
             } ;
             
             Intercom('trackEvent', 'ended-test', intercom );

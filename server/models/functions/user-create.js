@@ -35,16 +35,13 @@ module.exports = function(user, next){
                 'local.email' : user.email,
                 'local.password' : pass
             }, function(err, user){ 
-                if (err){  }
+                if (err){ console.error('error in user creation', err); }
                 callback(null, {invite: invite, user : user});
             });
         },
         function(arg, callback){
         	if(arg.invite === null ){
-                fn.defaultTests(arg.user._account, arg.user._id, function(err, tests){
-                    console.log('did we generate a user in user-create.js', tests.length);
-                    callback(null, {user: arg.user, tests: tests});
-                });
+                callback(null, {user: arg.user, tests: false});
         	} else {
         		callback(null, {user: arg.user, tests: false});
         	}
