@@ -101,6 +101,7 @@ module.exports = function(app, passport) {
                 req.logIn(reply.user, function(err) {
                     if (err) { return res.json(err); }
                     res.json({
+                        '_id'      : reply.user._id,
                         'user'     : reply.user._id,
                         '_account' : reply.user._account,
                         'email'    : reply.user.local.email, 
@@ -118,21 +119,6 @@ module.exports = function(app, passport) {
             }
         })(req, res);
     });
-    
-    app.post('/auth/newtests/:_id', function(req, res){
-        
-        models.User.findOne({'_id': req.params._id }, function(err, user){
-            if (err) { console.error(err); }
-            if(!user) { res.json({error: 'No user found.'})}
-            else {
-                fn.defaultTests(user._account, user._id, function(err, tests){
-                    if (err) { console.error(err); }
-                    res.json({redirect: '/overview'})
-                });
-            }
-
-        });
-    })
 
 // PASSWORD RESET ROUTES ==================================
     // forgotten passwords
@@ -306,15 +292,27 @@ module.exports = function(app, passport) {
         });
     });
 
-// MIDDLEWARE TO BLOCK NON-AUTHORIZED USERS ===============
+// MIDDLEWARE TO BLOCK NON-AUTHORIZED USERS =============================================
 // this effectively prevents unlogged users from getting data
 
     app.use('/api',  isLoggedInAjax, function (req, res, next) {
-        // for calls that start with api....
-        // 
+        // for calls that start with api, make sure shit's logged in.
         next();
     });
 
+    // Make default tests for new users before logging them in ==========================
+    app.post('/api/newtests/:_id', function(req, res){
+        console.log('received newtests request', req.user._id, req.user._account);
+
+        if(req.user){
+            fn.defaultTests(req.user._account, req.user._id, function(err, tests){
+                if (err) { console.error(err); }
+                res.json({redirect: '/overview'});
+            });
+        } else {
+            res.json({error: 'No user found.'})
+        }
+    })
 
 // ACCOUNT ROUTES =========================================
     require('./routes/account')(app);

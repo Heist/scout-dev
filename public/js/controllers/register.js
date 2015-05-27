@@ -25,6 +25,9 @@
                 });
         }
 
+        // used to show/hide the registration form and loading spinner ==================
+        $scope.results = false;
+
         $scope.register = function(user){
         	var url = '/auth/signup';
             var dataOut, invite;
@@ -51,13 +54,19 @@
                         $scope.flashmessage = $sce.trustAsHtml(msg);
                     } else if(data === '2'){
                         $scope.flashmessage = 'Please log out before signing up again.';
-                    } else {
+                    } else if (data._id){
                         $rootScope.user = data._id;
-
                         // make a call to register your tests here.
-                        $http.post('/auth/newtests/'+data._id).success(function(data){
-                            $location.path('/overview');    
+                        console.log('successful registration, now callng tests....');
+
+                        // ADD LOADING SPINNER HERE TO COVER FOR THE TESTS BEING MADE
+                        $scope.results = true;
+                        $http.post('/api/newtests/'+data._id).success(function(tests){
+                            console.log('data', tests);
+                            $location.path(data.redirect);
                         })
+                    } else {
+                        console.log(data);
                     }
                 });
         };

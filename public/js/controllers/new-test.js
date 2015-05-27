@@ -32,6 +32,10 @@
         };
 
         $scope.addTest = function(test){
+            var date = new Date();
+            var hh = date.getHours();
+            var mm = date.getMinutes();
+            var out = hh.concat(':'+mm);
             
             var intercom = {
                 created_at : new Date(),

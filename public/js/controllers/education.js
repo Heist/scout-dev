@@ -12,8 +12,6 @@
     $scope.tracker = function(step){
         // Intercom tracker ===============================
             var intercom = {
-                        created_at : new Date(),
-                        email      : $rootScope.user.email,
                         education_page : step
                     };
                     

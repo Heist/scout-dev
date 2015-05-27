@@ -51088,8 +51088,6 @@ angular.module('siyfion.sfTypeahead', [])
     $scope.tracker = function(step){
         // Intercom tracker ===============================
             var intercom = {
-                        created_at : new Date(),
-                        email      : $rootScope.user.email,
                         education_page : step
                     };
                     
@@ -51253,6 +51251,10 @@ angular.module('siyfion.sfTypeahead', [])
         };
 
         $scope.addTest = function(test){
+            var date = new Date();
+            var hh = date.getHours();
+            var mm = date.getMinutes();
+            var out = hh.concat(':'+mm);
             
             var intercom = {
                 created_at : new Date(),
@@ -51513,6 +51515,9 @@ angular.module('siyfion.sfTypeahead', [])
                 });
         }
 
+        // used to show/hide the registration form and loading spinner ==================
+        $scope.results = false;
+
         $scope.register = function(user){
         	var url = '/auth/signup';
             var dataOut, invite;
@@ -51524,6 +51529,10 @@ angular.module('siyfion.sfTypeahead', [])
                 dataOut = {email: user.email, name:user.name, password:  user.password};
             }
             
+            // TODO:
+            // on register, we should assume the fresh-test data works and change the route to overview.
+            // Then, on overview, we should show a "baking your data" thing until we have the test data.
+
             $http
                 .post(url, dataOut)
                 .success(function(data){
@@ -51535,10 +51544,19 @@ angular.module('siyfion.sfTypeahead', [])
                         $scope.flashmessage = $sce.trustAsHtml(msg);
                     } else if(data === '2'){
                         $scope.flashmessage = 'Please log out before signing up again.';
-                    } else {
-                        
+                    } else if (data._id){
                         $rootScope.user = data._id;
-                        $location.path(data.redirect);
+                        // make a call to register your tests here.
+                        void 0;
+
+                        // ADD LOADING SPINNER HERE TO COVER FOR THE TESTS BEING MADE
+                        $scope.results = true;
+                        $http.post('/api/newtests/'+data._id).success(function(tests){
+                            void 0;
+                            $location.path(data.redirect);
+                        })
+                    } else {
+                        void 0;
                     }
                 });
         };
@@ -53009,6 +53027,24 @@ angular.module('field_guide_controls')
     }
   };
 });
+})();
+// fg-load-spinner.js
+// provide a loading spinner as an HTTP interceptor
+
+'use strict';
+(function(){
+    angular.module('field_guide_app')
+        .factory('loadInterceptor', function ($q, $window) {
+          return function (promise) {
+            return promise.then(function (response) {
+              $("#spinner").hide();
+              return response;
+            }, function (response) {
+              $("#spinner").hide();
+              return $q.reject(response);
+            });
+          };
+        });
 })();
 // fg-modal.js
 // a directive to insert a modal on any given page
