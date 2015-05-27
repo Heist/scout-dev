@@ -71,7 +71,7 @@
 					
 					<div class="summary-body" ng-click="editMessage(message, $index)">
 						<pre class="summaries" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-						<textarea msd-elastic class="input" id="messageInput" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)" ></textarea>
+						<textarea msd-elastic class="input-no-border" id="messageInput" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)" ></textarea>
 					</div>
 				
 				<div class="clear"></div>
@@ -92,7 +92,7 @@
 					ng-class="{selected: commentMessage._id === message._id}">
 					<div class="summary-body" ng-click="editMessage(message, $index)">
 						<pre class="summaries" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-						<textarea msd-elastic class="input" id="messageInput" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)"></textarea>
+						<textarea msd-elastic class="input-no-border" id="messageInput" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)"></textarea>
 					</div>
 				
 					<div class="clear"></div>
