@@ -95,28 +95,44 @@ module.exports = function(app, passport) {
         }
 
         passport.authenticate('local-signup', function(err, reply) {
-            if (err) { console.log(err) }
+            if (err) { console.error(err) }
 
             if(reply.user){
                 req.logIn(reply.user, function(err) {
                     if (err) { return res.json(err); }
-                    res.json({ 
-                        'user' : reply.user._id,
+                    res.json({
+                        'user'     : reply.user._id,
                         '_account' : reply.user._account,
-                        'email': reply.user.local.email, 
-                        'name' : reply.user.name,
-                        'msg'  : 'register user worked',
-                        'redirect'   : '/overview',
-                        'onboarding' : reply.user.onboarding 
+                        'email'    : reply.user.local.email, 
+                        'name'     : reply.user.name,
+                        'msg'      : 'register user worked',
+                        'redirect' : '/overview',
+                        'onboarding' : reply.user.onboarding
                     });
                 });
-                
+
             } else {
+                // there was probably an error somewhere in the chain, we need to find it.
                 console.log(reply);
                 res.json(reply);
             }
         })(req, res);
     });
+    
+    app.post('/auth/newtests/:_id', function(req, res){
+        
+        models.User.findOne({'_id': req.params._id }, function(err, user){
+            if (err) { console.error(err); }
+            if(!user) { res.json({error: 'No user found.'})}
+            else {
+                fn.defaultTests(user._account, user._id, function(err, tests){
+                    if (err) { console.error(err); }
+                    res.json({redirect: '/overview'})
+                });
+            }
+
+        });
+    })
 
 // PASSWORD RESET ROUTES ==================================
     // forgotten passwords

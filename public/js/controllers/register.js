@@ -39,7 +39,7 @@
             // TODO:
             // on register, we should assume the fresh-test data works and change the route to overview.
             // Then, on overview, we should show a "baking your data" thing until we have the test data.
-            
+
             $http
                 .post(url, dataOut)
                 .success(function(data){
@@ -52,9 +52,12 @@
                     } else if(data === '2'){
                         $scope.flashmessage = 'Please log out before signing up again.';
                     } else {
-                        
                         $rootScope.user = data._id;
-                        $location.path(data.redirect);
+
+                        // make a call to register your tests here.
+                        $http.post('/auth/newtests/'+data._id).success(function(data){
+                            $location.path('/overview');    
+                        })
                     }
                 });
         };
