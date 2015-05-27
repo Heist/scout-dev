@@ -246,6 +246,10 @@
         text-transform: uppercase;
         text-align: right;
         letter-spacing: 0.5px;
+
+        &.topics {
+            margin: 3px 0;
+        }
     }
 
     .project-name {
@@ -295,13 +299,13 @@
             color: $fg-grey-text;
         }
     }
-
-    form {
-        margin: 0;
-    }
+    
 
     input.task-title {
+        float: left;
+        width: 98%;
         @include type-h3($fg-grey-text);
+        @include type-regular;
         padding: 0 0 20px 40px;
 
         &:hover{
@@ -312,6 +316,18 @@
         &:focus {
             color: $black;
             background: url('../assets/fg-edit-filled-hover.svg') 20px 7px no-repeat;
+        }
+    }
+
+    .task-delete {
+        opacity: 0.9;
+        margin: 5px 0;
+        float: left;
+        color: $fg-grey-placeholder;
+
+        &:hover {
+            cursor: pointer;
+            color: $fg-red;
         }
     }
 
@@ -369,9 +385,10 @@
             resize: none;
             margin: 0 0 10px 0;
             @include type-p($fg-grey-text);
+            line-height: auto;
             @include type-light;
             border-bottom: 1px solid transparentize($fg-grey-light, 0.5);
-            padding: 5px 0;
+            padding: 15px 0;
         }
     }
 
@@ -446,13 +463,17 @@
                     clear: both;
                     padding: 0 0 40px 0;
 
+                    &.tags {
+                        padding: 0 0 60px 0;
+                    }
+
+                    &.topics {
+                        padding: 0;
+                    }
+
                     .container-left {
                         float: left;
                         width: 10%;
-
-                        h3.topics {
-                            margin: 20px 0 0 0;
-                        }
 
                         .create-project-tooltip {
                             float: left;
@@ -463,19 +484,6 @@
                         float: left;
                         width: 90%;
                         position: relative;
-
-                        .topic-delete {
-                            width: 0;
-                            position: relative;
-                            left: 97.5%;
-                            top: 23px;
-                            color: $fg-grey-placeholder;
-
-                            &:hover {
-                                cursor: pointer;
-                                color: $fg-red;
-                            }
-                        }
                     }
                 }
             }
