@@ -14,9 +14,9 @@
 						<h1>Register for Field Guide</h1>
 						<!-- signup form form -->
 						<div id="form-signup">
-
-							<img src="layout/assets/loading.gif" ng-if="results">
-							<form name="regForm" ng-model="user" ng-hide="results" ng-submit="register(user)">
+<!-- 
+							<img src="layout/assets/loading.gif" ng-if="results"> -->
+							<form name="regForm" ng-model="user" ng-submit="register(user)">
 
 								<ul class="nobullets withlabels">
 									<li ng-bind-html="flashmessage" ng-if="flashmessage" class="error-flashmessage">
@@ -53,9 +53,11 @@
 									
 									<li>
 										<button class="submit button green" type="submit" ng-if="!((regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine))"
-										>Create account</button>
+										ng-hide="results">Create account</button>
 
-										<div class="submit button green" ng-if="(regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine)">Create account</div>
+										<div class="submit button green" ng-if="(regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine)" ng-hide="results">Create account</div>
+										
+										<div class="submit button loading" ng-if="results">Creating your account..</div>
 
 									</li>
 									

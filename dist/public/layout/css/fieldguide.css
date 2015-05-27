@@ -5012,6 +5012,8 @@ span.tooltip-icon {
       margin: 15px auto;
       float: none;
       width: 246px; }
+    #view-login .module-container .module-content .loading {
+      background: #70910D url('../assets/loading.gif') 218px 13px no-repeat; }
     #view-login .module-container .module-content form {
       margin: 40px 0 20px 0;
       text-align: center; }

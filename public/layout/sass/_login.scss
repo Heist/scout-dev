@@ -74,6 +74,10 @@
 				width: 246px;
 			}
 			
+			.loading {
+				background: $fg-green-dark url('../assets/loading.gif') 218px 13px no-repeat;
+			}
+
 			form {
 				margin: 40px 0 20px 0;
 				text-align: center;
