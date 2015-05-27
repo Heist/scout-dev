@@ -32,12 +32,9 @@
             })[0]._id;
         };
 
-        
-
         $scope.test = data;
         $scope.kind = data.kind;
         $scope.navlist = data._tasks;
-
         
         $scope.tags = tagSort(data._tags);
     
@@ -130,6 +127,12 @@
                     '_subject' : $scope.subject._id,
                     'doctype' : 'task',
                 });
+            }
+
+            if($scope.test.kind === "prototype"){
+                $timeout(function() {$('textarea#prototypeInput').focus() }, 150);
+            } else {
+                $timeout(function() {$('textarea#messageInput').focus() }, 150);
             }
         };
 
