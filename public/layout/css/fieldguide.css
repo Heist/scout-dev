@@ -5388,6 +5388,8 @@ span.tooltip-icon {
     text-transform: uppercase;
     text-align: right;
     letter-spacing: 0.5px; }
+    #view-editing h3.topics {
+      margin: 3px 0; }
   #view-editing .project-name {
     color: #575757;
     font-size: 33.1px;
@@ -5424,9 +5426,9 @@ span.tooltip-icon {
     #view-editing .test-info a.prototype-url {
       font-size: 10px;
       color: #7a7a7a; }
-  #view-editing form {
-    margin: 0; }
   #view-editing input.task-title, #view-editing .add-task textarea.task-title {
+    float: left;
+    width: 98%;
     color: #7a7a7a;
     font-size: 18.6px;
     line-height: 24px;
@@ -5440,6 +5442,14 @@ span.tooltip-icon {
     #view-editing input.task-title:focus, #view-editing .add-task textarea.task-title:focus {
       color: #000;
       background: url('../assets/fg-edit-filled-hover.svg') 20px 7px no-repeat; }
+  #view-editing .task-delete {
+    opacity: 0.9;
+    margin: 5px 0;
+    float: left;
+    color: #C5C6C7; }
+    #view-editing .task-delete:hover {
+      cursor: pointer;
+      color: #D82D09; }
   #view-editing input.project-name, #view-editing .add-task textarea.project-name {
     padding: 0 0 0 40px;
     margin: 0; }
@@ -5486,11 +5496,12 @@ span.tooltip-icon {
       color: #7a7a7a;
       font-size: 14px;
       line-height: 21px;
+      line-height: auto;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 300;
       border-bottom: 1px solid rgba(216, 218, 219, 0.5);
-      padding: 5px 0; }
+      padding: 15px 0; }
   #view-editing .tags .tag-pool, #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
     width: 100%;
     height: 100%; }
@@ -5539,26 +5550,19 @@ span.tooltip-icon {
         #view-editing .container .sheet-holder .sheet .container-row {
           clear: both;
           padding: 0 0 40px 0; }
+          #view-editing .container .sheet-holder .sheet .container-row.tags {
+            padding: 0 0 60px 0; }
+          #view-editing .container .sheet-holder .sheet .container-row.topics {
+            padding: 0; }
           #view-editing .container .sheet-holder .sheet .container-row .container-left {
             float: left;
             width: 10%; }
-            #view-editing .container .sheet-holder .sheet .container-row .container-left h3.topics {
-              margin: 20px 0 0 0; }
             #view-editing .container .sheet-holder .sheet .container-row .container-left .create-project-tooltip {
               float: left; }
           #view-editing .container .sheet-holder .sheet .container-row .container-right {
             float: left;
             width: 90%;
             position: relative; }
-            #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete {
-              width: 0;
-              position: relative;
-              left: 97.5%;
-              top: 23px;
-              color: #C5C6C7; }
-              #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete:hover {
-                cursor: pointer;
-                color: #D82D09; }
 
 /* SESSION IN PROGRESS */
 #view-testing {
