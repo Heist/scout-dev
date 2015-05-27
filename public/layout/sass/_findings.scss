@@ -124,7 +124,7 @@
 					padding: 10px;
 					margin: 5px 0 0 0;
 					@include type-h4($fg-grey-placeholder);
-					@include type-regular;
+					@include type-bold;
 					text-transform: uppercase;
 					position: relative;
 
@@ -225,7 +225,8 @@
 			}
 
 			.summary-user {
-				@include type-h3($fg-black);
+				@include type-p($fg-black);
+				@include type-regular;
 				margin: 0 0 10px 0;
 				position: relative;
 				padding: 0 50px;
@@ -288,12 +289,12 @@
 
 						&:hover {
 						    color: $black;
-						    background: url('../assets/fg-edit.svg') 30px 4px no-repeat;
+						    background: url('../assets/fg-edit-filled.svg') 30px 4px no-repeat;
 						}
 
 						&:focus {
 						    color: $black;
-						    background: url('../assets/fg-edit-hover.svg') 30px 4px no-repeat;
+						    background: url('../assets/fg-edit-filled-hover.svg') 30px 4px no-repeat;
 						}
 					}
 					
@@ -336,14 +337,20 @@
 		}
 
 		h3 {
+			@include type-h3($fg-grey-dark);
+			@include type-regular;
 			margin: 0 0 15px 0;
 		}
 
 		p {
+			@include type-light;
+			@include type-p($fg-grey-dark);
 			margin: 0 0 50px 0;
 		}
 		
 		pre {
+			@include type-light;
+			@include type-p($fg-grey-dark);
 			margin: 0 0 10px 0;
 		}
 
@@ -381,7 +388,6 @@
 		.findings-information {
 
 			h3, p {
-				color: $fg-grey-dark;
 				padding: 0 0 0 40px;
 			}
 
@@ -395,12 +401,12 @@
 
 				&:hover {
 				    color: $black;
-				    background: url('../assets/fg-edit.svg') 20px 3px no-repeat;
+				    background: url('../assets/fg-edit-filled.svg') 20px 3px no-repeat;
 				}
 
 				&:focus {
 				    color: $black;
-				    background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat;
+				    background: url('../assets/fg-edit-filled-hover.svg') 20px 3px no-repeat;
 				    box-shadow: none;
 				}
 			}

@@ -64,10 +64,10 @@
 					<h5>Topics</h5>
 				</li>
 				
-				<li ng-repeat="obj in navlist" ng-class="{ 'active': obj._id === selected._id }" ng-click="select($index)">
+				<li ng-repeat="obj in navlist" ng-class="{ 'active': obj._id === selected._id }" ng-mouseover="taskQuestions = true" ng-click="select($index)" ng-mouseleave="taskQuestions = false">
 					<h3 class="tag-name">{{obj.name}}</h3>
 
-					<p class="questions" ng-bind-html="obj.desc | linebreaker" ng-if="obj._id === selected._id"></p>
+					<p class="questions" ng-bind-html="obj.desc | linebreaker" ng-if="taskQuestions || obj._id === selected._id"></p>
 				</li>
 			</ul>
 			
