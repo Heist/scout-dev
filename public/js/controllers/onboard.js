@@ -21,42 +21,14 @@
        // FUNCTIONS =======================================
 
        $scope.onboardToggle = function(){
-           if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-            var duration = new Date();
-              if (duration < startOnboard) {
-                  duration.setDate(duration.getDate() + 1);
-              }
-
-              var diff = duration - startOnboard;
-
-              var msec = diff;
-              var mm = Math.floor(msec / 1000 / 60);
-              msec -= mm * 1000 * 60;
-              
-              var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email,
-                    duration : mm
-                };
-                
-              Intercom('trackEvent', 'closed-onboarding', intercom );
-
-            $rootScope.user.onboard = 100;
-               $scope.onboardSteps = false; 
-               return;
-           }
-           if(!$scope.onboardSteps || $scope.onboardSteps === false ){
-              startOnboard = new Date();
-
-              var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email
-                };
-                
-                Intercom('trackEvent', 'opened-onboarding', intercom );
-
+          if(!$scope.onboardSteps || $scope.onboardSteps === false ){
               $rootScope.user.onboard = 1;
               $scope.onboardSteps = true; 
+              return;
+           }
+           if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+              $rootScope.user.onboard = 100;
+              $scope.onboardSteps = false; 
               return;
            }
        };

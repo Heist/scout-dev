@@ -50640,15 +50640,43 @@ angular.module('siyfion.sfTypeahead', [])
 
 	// ONBOARDING =========================================
     // TODO: Abstract into service for dependency injection
+    	var startOnboard;
 
         $scope.onboardToggle = function(){
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+            	var duration = new Date();
+
+                if (duration < startOnboard) {
+                  duration.setDate(duration.getDate() + 1);
+                }
+
+                var diff = duration - startOnboard;
+                var msec = diff;
+                var mm = Math.floor(msec / 1000 / 60);
+                msec -= mm * 1000 * 60;
+
+                var intercom = {
+                    duration : mm+"min"
+                };
+
+                Intercom('trackEvent', 'closed-onboarding', intercom );
+            	
             	$rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 $scope.animationToggle();
                 return;
             }
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+            	startOnboard = new Date();
+                var hh = startOnboard.getHours();
+                var m = startOnboard.getMinutes();
+
+                var out = {
+                    created_at : hh+':'+m,
+                };
+                
+                Intercom('trackEvent', 'opened-onboarding', out );
+
             	$rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
                 return;
@@ -51085,17 +51113,6 @@ angular.module('siyfion.sfTypeahead', [])
     		['$scope','$http','$stateParams','$state','$location','$rootScope','$element',
     function( $scope , $http,  $stateParams , $state , $location , $rootScope , $element){
 
-    $scope.tracker = function(step){
-        // Intercom tracker ===============================
-            var intercom = {
-                        created_at : new Date(),
-                        email      : $rootScope.user.email,
-                        education_page : step
-                    };
-                    
-            Intercom('trackEvent', 'opened-education', intercom );
-    
-    }
 
     var locationPath = $location.path();
 
@@ -51108,10 +51125,15 @@ angular.module('siyfion.sfTypeahead', [])
     } else {
         $scope.educationPopup = 1;
     }
+    var intercom = {
+                        education_page : $scope.educationPopup
+                    };
+                    
+            
 
     $scope.showIntercom = function(){
         Intercom('show');
-
+        Intercom('trackEvent', 'opened-education', intercom );
     }
 
 
@@ -51253,10 +51275,10 @@ angular.module('siyfion.sfTypeahead', [])
         };
 
         $scope.addTest = function(test){
+            var date = new Date();
             
             var intercom = {
-                created_at : new Date(),
-                email      : $rootScope.user.email
+                created_at : date.getHours()+':'+date.getMinutes(),
             };
 
             $http
@@ -51296,42 +51318,14 @@ angular.module('siyfion.sfTypeahead', [])
        // FUNCTIONS =======================================
 
        $scope.onboardToggle = function(){
-           if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-            var duration = new Date();
-              if (duration < startOnboard) {
-                  duration.setDate(duration.getDate() + 1);
-              }
-
-              var diff = duration - startOnboard;
-
-              var msec = diff;
-              var mm = Math.floor(msec / 1000 / 60);
-              msec -= mm * 1000 * 60;
-              
-              var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email,
-                    duration : mm
-                };
-                
-              Intercom('trackEvent', 'closed-onboarding', intercom );
-
-            $rootScope.user.onboard = 100;
-               $scope.onboardSteps = false; 
-               return;
-           }
-           if(!$scope.onboardSteps || $scope.onboardSteps === false ){
-              startOnboard = new Date();
-
-              var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email
-                };
-                
-                Intercom('trackEvent', 'opened-onboarding', intercom );
-
+          if(!$scope.onboardSteps || $scope.onboardSteps === false ){
               $rootScope.user.onboard = 1;
               $scope.onboardSteps = true; 
+              return;
+           }
+           if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+              $rootScope.user.onboard = 100;
+              $scope.onboardSteps = false; 
               return;
            }
        };
@@ -51377,9 +51371,27 @@ angular.module('siyfion.sfTypeahead', [])
             $scope.onboardSteps = true;
         }
 
+        var startOnboard;
         $scope.onboardToggle = function(){
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 // TODO: setup as http post
+                var duration = new Date();
+
+                if (duration < startOnboard) {
+                  duration.setDate(duration.getDate() + 1);
+                }
+
+                var diff = duration - startOnboard;
+                var msec = diff;
+                var mm = Math.floor(msec / 1000 / 60);
+                msec -= mm * 1000 * 60;
+
+                var intercom = {
+                    duration : mm+"min"
+                };
+
+                Intercom('trackEvent', 'closed-onboarding', intercom );
+
                 $scope.animationToggle();
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
@@ -51388,6 +51400,16 @@ angular.module('siyfion.sfTypeahead', [])
             }
 
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+                startOnboard = new Date();
+                var hh = startOnboard.getHours();
+                var m = startOnboard.getMinutes();
+
+                var out = {
+                    created_at : hh+':'+m,
+                };
+                
+                Intercom('trackEvent', 'opened-onboarding', out );
+
                 $rootScope.user.onboard = 1;  
                 $scope.onboardSteps = true; 
                 $scope.changeOnboard(1);
@@ -51513,6 +51535,9 @@ angular.module('siyfion.sfTypeahead', [])
                 });
         }
 
+        // used to show/hide the registration form and loading spinner ==================
+        $scope.results = false;
+
         $scope.register = function(user){
         	var url = '/auth/signup';
             var dataOut, invite;
@@ -51524,6 +51549,10 @@ angular.module('siyfion.sfTypeahead', [])
                 dataOut = {email: user.email, name:user.name, password:  user.password};
             }
             
+            // TODO:
+            // on register, we should assume the fresh-test data works and change the route to overview.
+            // Then, on overview, we should show a "baking your data" thing until we have the test data.
+
             $http
                 .post(url, dataOut)
                 .success(function(data){
@@ -51535,10 +51564,19 @@ angular.module('siyfion.sfTypeahead', [])
                         $scope.flashmessage = $sce.trustAsHtml(msg);
                     } else if(data === '2'){
                         $scope.flashmessage = 'Please log out before signing up again.';
-                    } else {
-                        
+                    } else if (data._id){
                         $rootScope.user = data._id;
-                        $location.path(data.redirect);
+                        // make a call to register your tests here.
+                        console.log('successful registration, now callng tests....');
+
+                        // ADD LOADING SPINNER HERE TO COVER FOR THE TESTS BEING MADE
+                        $scope.results = true;
+                        $http.post('/api/newtests/'+data._id).success(function(tests){
+                            console.log('data', tests);
+                            $location.path(data.redirect);
+                        })
+                    } else {
+                        console.log(data);
                     }
                 });
         };
@@ -51820,8 +51858,7 @@ angular.module('siyfion.sfTypeahead', [])
             startTest = new Date();
 
             var intercom = {
-                created_at : startTest,
-                email      : $rootScope.user.email,
+                created_at : startTest.getHours()+':'+startTest.getMinutes(),
                 test_kind : $scope.test.kind
             } ;
             
@@ -51949,10 +51986,9 @@ angular.module('siyfion.sfTypeahead', [])
             msec -= ss * 1000;
 
              var intercom = {
-                created_at : new Date(),
-                email      : $rootScope.user.email,
                 test_kind : $scope.test.kind,
-                duration  : mm
+                created_at : startTest.getHours()+':'+startTest.getMinutes(),
+                duration  : mm+"min"
             } ;
             
             Intercom('trackEvent', 'ended-test', intercom );
@@ -52034,8 +52070,8 @@ angular.module('siyfion.sfTypeahead', [])
     // SUMMARY CONTROLLER ===========================================================
     angular.module('field_guide_controls')
         .controller('summary', 
-            [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
-        function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
+            [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q', '$timeout',
+        function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q, $timeout){
         
         // console.log('report data from server', loadData.data);
 
@@ -52214,10 +52250,10 @@ angular.module('siyfion.sfTypeahead', [])
             }
             if(!$scope.shareReport || $scope.shareReport === false ){
                 $scope.shareReport = true;
-                
+                var date = new Date();
+            
                 var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email
+                    created_at : date.getHours()+':'+date.getMinutes()
                 };
                 
                 Intercom('trackEvent', 'shared-report-button-clicked', intercom );
@@ -52262,9 +52298,10 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.saveObject = function(obj){
              
             if(obj.doctype === 'test'){
+                var date = new Date();
+
                 var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email,
+                    created_at : date.getHours()+':'+date.getMinutes(),
                     summary    : (obj.summary)    ? 'true' : 'false',
                     next_steps : (obj.next_steps) ? 'true' : 'false'
                 };
@@ -52301,6 +52338,7 @@ angular.module('siyfion.sfTypeahead', [])
             // clear this on blur to block weird toggle bug
             $scope.inputNote = '';
             $scope.messageEditToggle = message._id;
+            $timeout(function() {$('textarea#messageInput').focus() }, 10);
         };
 
         $scope.toggleNote = function(user){
@@ -53009,6 +53047,24 @@ angular.module('field_guide_controls')
     }
   };
 });
+})();
+// fg-load-spinner.js
+// provide a loading spinner as an HTTP interceptor
+
+'use strict';
+(function(){
+    angular.module('field_guide_app')
+        .factory('loadInterceptor', function ($q, $window) {
+          return function (promise) {
+            return promise.then(function (response) {
+              $("#spinner").hide();
+              return response;
+            }, function (response) {
+              $("#spinner").hide();
+              return $q.reject(response);
+            });
+          };
+        });
 })();
 // fg-modal.js
 // a directive to insert a modal on any given page

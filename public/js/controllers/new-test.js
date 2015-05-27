@@ -32,10 +32,10 @@
         };
 
         $scope.addTest = function(test){
+            var date = new Date();
             
             var intercom = {
-                created_at : new Date(),
-                email      : $rootScope.user.email
+                created_at : date.getHours()+':'+date.getMinutes(),
             };
 
             $http

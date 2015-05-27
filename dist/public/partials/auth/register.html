@@ -14,8 +14,8 @@
 						<h1>Register for Field Guide</h1>
 						<!-- signup form form -->
 						<div id="form-signup">
-						
-							<form name="regForm" ng-model="user">
+							<img src="layout/assets/loading.gif" ng-if="results">
+							<form name="regForm" ng-model="user" ng-hide="results">
 								<ul class="nobullets withlabels">
 									<li ng-bind-html="flashmessage" ng-if="flashmessage" class="error-flashmessage">
 									</li>

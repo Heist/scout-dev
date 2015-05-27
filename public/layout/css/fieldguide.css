@@ -462,19 +462,20 @@ label {
 
 .input-no-border {
   width: 100%;
-  background: #fff;
+  background: transparent;
   border: 0;
   display: inline-block;
   margin: 0;
-  padding: 5px 0;
+  padding: 5px 8px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
+  color: #575757;
+  font-size: 14px;
+  line-height: 21px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
-  font-size: 12px;
-  color: #575757;
   outline: none;
   resize: none; }
 
@@ -484,16 +485,16 @@ label {
   border: 1px solid rgba(216, 218, 219, 0.5);
   display: inline-block;
   margin: 0;
-  padding: 11px 13.33333px;
+  padding: 5px 8px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
+  color: #575757;
+  font-size: 14px;
+  line-height: 21px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
-  font-size: 14px;
-  line-height: 18px;
-  color: #575757;
   outline: none; }
   .input:hover {
     border: 1px solid rgba(136, 138, 138, 0.5); }
@@ -4271,7 +4272,7 @@ span.tooltip-icon {
       transition: none;
       cursor: text; }
       #timeline ul .message-highlite:hover {
-        background: #fafafa url("../assets/fg-edit-hover.svg") 15px no-repeat; }
+        background: #fafafa url("../assets/fg-edit-filled-hover.svg") 15px no-repeat; }
     #timeline ul .message {
       padding: 8px 30px 8px 35px;
       line-height: 14.4px;
@@ -4453,7 +4454,7 @@ span.tooltip-icon {
         padding: 0;
         margin: 0; }
         #tasklist ul li h3.tag-name {
-          margin: 10px 0 20px 0; }
+          margin: 20px 0; }
       #tasklist ul li h5 {
         margin: 0;
         text-transform: uppercase;
@@ -5267,7 +5268,7 @@ span.tooltip-icon {
       background: url('../assets/interview-dark.svg') top left no-repeat;
       content: '';
       width: 14px;
-      height: 12px;
+      height: 14px;
       display: inline-block;
       margin: 0 5px 0 0; }
     #view-new-project button.test-type h3.prototype:before {
@@ -5388,6 +5389,8 @@ span.tooltip-icon {
     text-transform: uppercase;
     text-align: right;
     letter-spacing: 0.5px; }
+    #view-editing h3.topics {
+      margin: 3px 0; }
   #view-editing .project-name {
     color: #575757;
     font-size: 33.1px;
@@ -5401,10 +5404,10 @@ span.tooltip-icon {
     height: 40px; }
     #view-editing .project-name:hover {
       color: #000;
-      background: url('../assets/fg-edit.svg') 20px 21px no-repeat; }
+      background: url('../assets/fg-edit-filled.svg') 20px 19px no-repeat; }
     #view-editing .project-name:focus {
       color: #000;
-      background: url('../assets/fg-edit-hover.svg') 20px 21px no-repeat; }
+      background: url('../assets/fg-edit-filled-hover.svg') 20px 19px no-repeat; }
   #view-editing .test-info {
     padding: 0 0 40px 40px; }
     #view-editing .test-info img {
@@ -5417,26 +5420,37 @@ span.tooltip-icon {
       line-height: 21px; }
       #view-editing .test-info input.prototype-link:hover, #view-editing .test-info .add-task textarea.prototype-link:hover, #view-editing .add-task .test-info textarea.prototype-link:hover {
         color: #000;
-        background: url('../assets/fg-edit.svg') 14px 4px no-repeat; }
+        background: url('../assets/fg-edit-filled.svg') 14px 4px no-repeat; }
       #view-editing .test-info input.prototype-link:focus, #view-editing .test-info .add-task textarea.prototype-link:focus, #view-editing .add-task .test-info textarea.prototype-link:focus {
         color: #000;
-        background: url('../assets/fg-edit-hover.svg') 14px 4px no-repeat; }
+        background: url('../assets/fg-edit-filled-hover.svg') 14px 4px no-repeat; }
     #view-editing .test-info a.prototype-url {
       font-size: 10px;
       color: #7a7a7a; }
-  #view-editing form {
-    margin: 0; }
   #view-editing input.task-title, #view-editing .add-task textarea.task-title {
+    float: left;
+    width: 98%;
     color: #7a7a7a;
     font-size: 18.6px;
     line-height: 24px;
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 400;
     padding: 0 0 20px 40px; }
     #view-editing input.task-title:hover, #view-editing .add-task textarea.task-title:hover {
       color: #000;
-      background: url('../assets/fg-edit.svg') 20px 7px no-repeat; }
+      background: url('../assets/fg-edit-filled.svg') 20px 7px no-repeat; }
     #view-editing input.task-title:focus, #view-editing .add-task textarea.task-title:focus {
       color: #000;
-      background: url('../assets/fg-edit-hover.svg') 20px 7px no-repeat; }
+      background: url('../assets/fg-edit-filled-hover.svg') 20px 7px no-repeat; }
+  #view-editing .task-delete {
+    opacity: 0.9;
+    margin: 5px 0;
+    float: left;
+    color: #C5C6C7; }
+    #view-editing .task-delete:hover {
+      cursor: pointer;
+      color: #D82D09; }
   #view-editing input.project-name, #view-editing .add-task textarea.project-name {
     padding: 0 0 0 40px;
     margin: 0; }
@@ -5452,10 +5466,10 @@ span.tooltip-icon {
     resize: none; }
     #view-editing textarea.objectives:hover, #view-editing textarea.task-descriptions:hover {
       color: #000;
-      background: url('../assets/fg-edit.svg') 20px 3px no-repeat; }
+      background: url('../assets/fg-edit-filled.svg') 20px 3px no-repeat; }
     #view-editing textarea.objectives:focus, #view-editing textarea.task-descriptions:focus {
       color: #000;
-      background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat; }
+      background: url('../assets/fg-edit-filled-hover.svg') 20px 3px no-repeat; }
   #view-editing textarea.task-descriptions {
     margin: 0 0 30px 0; }
   #view-editing .add-task {
@@ -5483,11 +5497,12 @@ span.tooltip-icon {
       color: #7a7a7a;
       font-size: 14px;
       line-height: 21px;
+      line-height: auto;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 300;
       border-bottom: 1px solid rgba(216, 218, 219, 0.5);
-      padding: 5px 0; }
+      padding: 15px 0; }
   #view-editing .tags .tag-pool, #view-editing .tags input.custom-tags, #view-editing .tags .add-task textarea.custom-tags, #view-editing .add-task .tags textarea.custom-tags {
     width: 100%;
     height: 100%; }
@@ -5536,26 +5551,19 @@ span.tooltip-icon {
         #view-editing .container .sheet-holder .sheet .container-row {
           clear: both;
           padding: 0 0 40px 0; }
+          #view-editing .container .sheet-holder .sheet .container-row.tags {
+            padding: 0 0 60px 0; }
+          #view-editing .container .sheet-holder .sheet .container-row.topics {
+            padding: 0; }
           #view-editing .container .sheet-holder .sheet .container-row .container-left {
             float: left;
             width: 10%; }
-            #view-editing .container .sheet-holder .sheet .container-row .container-left h3.topics {
-              margin: 20px 0 0 0; }
             #view-editing .container .sheet-holder .sheet .container-row .container-left .create-project-tooltip {
               float: left; }
           #view-editing .container .sheet-holder .sheet .container-row .container-right {
             float: left;
             width: 90%;
             position: relative; }
-            #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete {
-              width: 0;
-              position: relative;
-              left: 97.5%;
-              top: 23px;
-              color: #C5C6C7; }
-              #view-editing .container .sheet-holder .sheet .container-row .container-right .topic-delete:hover {
-                cursor: pointer;
-                color: #D82D09; }
 
 /* SESSION IN PROGRESS */
 #view-testing {
@@ -6351,7 +6359,7 @@ span.tooltip-icon {
           line-height: 11px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
-          font-weight: 400;
+          font-weight: 600;
           text-transform: uppercase;
           position: relative; }
           #view-findings #findings-nav #sidebar.sidebar h4.group-cat span.info {
@@ -6431,8 +6439,11 @@ span.tooltip-icon {
         padding: 0 0 20px 0; }
       #view-findings .summaries-holder .summaries-content .summary-user {
         color: #575757;
-        font-size: 18.6px;
-        line-height: 24px;
+        font-size: 14px;
+        line-height: 21px;
+        font-family: "canada-type-gibson",sans-serif;
+        font-style: normal;
+        font-weight: 400;
         margin: 0 0 10px 0;
         position: relative;
         padding: 0 50px; }
@@ -6480,16 +6491,15 @@ span.tooltip-icon {
             line-height: 21px;
             padding: 0 50px;
             cursor: text;
-            border: 0;
             box-shadow: none;
             margin: 0 0 30px 0;
             resize: none; }
             #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries:hover, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea:hover {
               color: #000;
-              background: url('../assets/fg-edit.svg') 30px 4px no-repeat; }
+              background: url('../assets/fg-edit-filled.svg') 30px 4px no-repeat; }
             #view-findings .summaries-holder .summaries-content .summary .summary-body pre.summaries:focus, #view-findings .summaries-holder .summaries-content .summary .summary-body textarea:focus {
               color: #000;
-              background: url('../assets/fg-edit-hover.svg') 30px 4px no-repeat; }
+              background: url('../assets/fg-edit-filled-hover.svg') 30px 4px no-repeat; }
           #view-findings .summaries-holder .summaries-content .summary .summary-body small {
             display: block;
             margin: 0;
@@ -6518,10 +6528,28 @@ span.tooltip-icon {
     #view-findings .findings-content.report {
       width: 35%; }
     #view-findings .findings-content h3 {
+      color: #575757;
+      font-size: 18.6px;
+      line-height: 24px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400;
       margin: 0 0 15px 0; }
     #view-findings .findings-content p {
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      color: #575757;
+      font-size: 14px;
+      line-height: 21px;
       margin: 0 0 50px 0; }
     #view-findings .findings-content pre {
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      color: #575757;
+      font-size: 14px;
+      line-height: 21px;
       margin: 0 0 10px 0; }
     #view-findings .findings-content .findings-header {
       padding: 40px 0 40px 40px; }
@@ -6549,7 +6577,6 @@ span.tooltip-icon {
             height: 20px;
             width: 20px; }
     #view-findings .findings-content .findings-information h3, #view-findings .findings-content .findings-information p {
-      color: #575757;
       padding: 0 0 0 40px; }
     #view-findings .findings-content .findings-information textarea {
       color: #575757;
@@ -6562,10 +6589,10 @@ span.tooltip-icon {
       resize: none; }
       #view-findings .findings-content .findings-information textarea:hover {
         color: #000;
-        background: url('../assets/fg-edit.svg') 20px 3px no-repeat; }
+        background: url('../assets/fg-edit-filled.svg') 20px 3px no-repeat; }
       #view-findings .findings-content .findings-information textarea:focus {
         color: #000;
-        background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat;
+        background: url('../assets/fg-edit-filled-hover.svg') 20px 3px no-repeat;
         box-shadow: none; }
 
 /* let's embed a video */
@@ -6762,6 +6789,9 @@ span.tooltip-icon {
       color: #575757;
       font-size: 18.6px;
       line-height: 24px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400;
       margin: 0 0 15px 0; }
     #report-summary .findings-content pre {
       font-family: "canada-type-gibson",sans-serif;

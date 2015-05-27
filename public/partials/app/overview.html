@@ -24,8 +24,13 @@
 			<ng-include src="'partials/app/_new-project.html'"></ng-include>
 		</div>
 		<!-- / create new project modal -->
+			<!-- Loading Tests Spinner -->
+			<div>
+				<img src="layout/assets/loading.gif" id="spinner" style="display:none;"/>
+			</div>
 
 			<!-- test -->
+
 			<div class="overview-test module" ng-repeat="test in tests | orderBy:'created'">
 				<div class="overview-test-container overview-test-container-hover" ng-mouseleave="editTestTooltips=false">
 					

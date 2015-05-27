@@ -19,9 +19,27 @@
             $scope.onboardSteps = true;
         }
 
+        var startOnboard;
         $scope.onboardToggle = function(){
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 // TODO: setup as http post
+                var duration = new Date();
+
+                if (duration < startOnboard) {
+                  duration.setDate(duration.getDate() + 1);
+                }
+
+                var diff = duration - startOnboard;
+                var msec = diff;
+                var mm = Math.floor(msec / 1000 / 60);
+                msec -= mm * 1000 * 60;
+
+                var intercom = {
+                    duration : mm+"min"
+                };
+
+                Intercom('trackEvent', 'closed-onboarding', intercom );
+
                 $scope.animationToggle();
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
@@ -30,6 +48,16 @@
             }
 
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+                startOnboard = new Date();
+                var hh = startOnboard.getHours();
+                var m = startOnboard.getMinutes();
+
+                var out = {
+                    created_at : hh+':'+m,
+                };
+                
+                Intercom('trackEvent', 'opened-onboarding', out );
+
                 $rootScope.user.onboard = 1;  
                 $scope.onboardSteps = true; 
                 $scope.changeOnboard(1);
