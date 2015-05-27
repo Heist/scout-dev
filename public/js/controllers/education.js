@@ -9,15 +9,6 @@
     		['$scope','$http','$stateParams','$state','$location','$rootScope','$element',
     function( $scope , $http,  $stateParams , $state , $location , $rootScope , $element){
 
-    $scope.tracker = function(step){
-        // Intercom tracker ===============================
-            var intercom = {
-                        education_page : step
-                    };
-                    
-            Intercom('trackEvent', 'opened-education', intercom );
-    
-    }
 
     var locationPath = $location.path();
 
@@ -30,10 +21,15 @@
     } else {
         $scope.educationPopup = 1;
     }
+    var intercom = {
+                        education_page : $scope.educationPopup
+                    };
+                    
+            
 
     $scope.showIntercom = function(){
         Intercom('show');
-
+        Intercom('trackEvent', 'opened-education', intercom );
     }
 
 

@@ -51085,15 +51085,6 @@ angular.module('siyfion.sfTypeahead', [])
     		['$scope','$http','$stateParams','$state','$location','$rootScope','$element',
     function( $scope , $http,  $stateParams , $state , $location , $rootScope , $element){
 
-    $scope.tracker = function(step){
-        // Intercom tracker ===============================
-            var intercom = {
-                        education_page : step
-                    };
-                    
-            Intercom('trackEvent', 'opened-education', intercom );
-    
-    }
 
     var locationPath = $location.path();
 
@@ -51106,10 +51097,15 @@ angular.module('siyfion.sfTypeahead', [])
     } else {
         $scope.educationPopup = 1;
     }
+    var intercom = {
+                        education_page : $scope.educationPopup
+                    };
+                    
+            
 
     $scope.showIntercom = function(){
         Intercom('show');
-
+        Intercom('trackEvent', 'opened-education', intercom );
     }
 
 
@@ -51298,42 +51294,14 @@ angular.module('siyfion.sfTypeahead', [])
        // FUNCTIONS =======================================
 
        $scope.onboardToggle = function(){
-           if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-            var duration = new Date();
-              if (duration < startOnboard) {
-                  duration.setDate(duration.getDate() + 1);
-              }
-
-              var diff = duration - startOnboard;
-
-              var msec = diff;
-              var mm = Math.floor(msec / 1000 / 60);
-              msec -= mm * 1000 * 60;
-              
-              var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email,
-                    duration : mm
-                };
-                
-              Intercom('trackEvent', 'closed-onboarding', intercom );
-
-            $rootScope.user.onboard = 100;
-               $scope.onboardSteps = false; 
-               return;
-           }
-           if(!$scope.onboardSteps || $scope.onboardSteps === false ){
-              startOnboard = new Date();
-
-              var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email
-                };
-                
-                Intercom('trackEvent', 'opened-onboarding', intercom );
-
+          if(!$scope.onboardSteps || $scope.onboardSteps === false ){
               $rootScope.user.onboard = 1;
               $scope.onboardSteps = true; 
+              return;
+           }
+           if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+              $rootScope.user.onboard = 100;
+              $scope.onboardSteps = false; 
               return;
            }
        };
@@ -51379,9 +51347,28 @@ angular.module('siyfion.sfTypeahead', [])
             $scope.onboardSteps = true;
         }
 
+        var startOnboard;
         $scope.onboardToggle = function(){
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 // TODO: setup as http post
+                var duration = new Date();
+
+                if (duration < startOnboard) {
+                  duration.setDate(duration.getDate() + 1);
+                }
+
+                var diff = duration - startOnboard;
+                var msec = diff;
+                var mm = Math.floor(msec / 1000 / 60);
+                msec -= mm * 1000 * 60;
+
+                var intercom = {
+                    email      : $rootScope.user.email,
+                    duration : mm
+                };
+
+                Intercom('trackEvent', 'closed-onboarding', intercom );
+
                 $scope.animationToggle();
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
@@ -51390,6 +51377,17 @@ angular.module('siyfion.sfTypeahead', [])
             }
 
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+                startOnboard = new Date();
+                var hh = startOnboard.getHours();
+                var m = startOnboard.getMinutes();
+
+                var out = {
+                    created_at : hh+':'+m,
+                    email      : $rootScope.user.email
+                };
+                
+                Intercom('trackEvent', 'opened-onboarding', out );
+
                 $rootScope.user.onboard = 1;  
                 $scope.onboardSteps = true; 
                 $scope.changeOnboard(1);

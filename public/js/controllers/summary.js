@@ -185,10 +185,10 @@
             }
             if(!$scope.shareReport || $scope.shareReport === false ){
                 $scope.shareReport = true;
-                
+                var date = new Date();
+            
                 var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email
+                    created_at : date.getHours()+':'+date.getMinutes()
                 };
                 
                 Intercom('trackEvent', 'shared-report-button-clicked', intercom );
@@ -233,9 +233,10 @@
         $scope.saveObject = function(obj){
              
             if(obj.doctype === 'test'){
+                var date = new Date();
+
                 var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email,
+                    created_at : date.getHours()+':'+date.getMinutes(),
                     summary    : (obj.summary)    ? 'true' : 'false',
                     next_steps : (obj.next_steps) ? 'true' : 'false'
                 };

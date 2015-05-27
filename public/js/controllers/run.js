@@ -143,8 +143,7 @@
             startTest = new Date();
 
             var intercom = {
-                created_at : startTest,
-                email      : $rootScope.user.email,
+                created_at : startTest.getHours()+':'+startTest.getMinutes(),
                 test_kind : $scope.test.kind
             } ;
             
@@ -272,10 +271,9 @@
             msec -= ss * 1000;
 
              var intercom = {
-                created_at : new Date(),
-                email      : $rootScope.user.email,
                 test_kind : $scope.test.kind,
-                duration  : mm
+                created_at : startTest.getHours()+':'+startTest.getMinutes(),
+                duration  : mm+"min"
             } ;
             
             Intercom('trackEvent', 'ended-test', intercom );
