@@ -54,7 +54,9 @@
 									<li>
 										<button class="submit button green" type="submit" ng-if="!((regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine))"
 										>Create account</button>
-										<div class="submit button dark" ng-if="(regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine)">Create account</div> 
+
+										<div class="submit button green" ng-if="(regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine)">Create account</div>
+
 									</li>
 									
 								</ul>
