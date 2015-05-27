@@ -194,7 +194,7 @@
 
             // deleted the name of the task? Remove it entirely.
             if (!obj.name) {
-                $scope.removeTask(obj);
+                obj.name = obj.old_name;
             }
             if (obj.doctype === 'test') {
                 $scope.updateTest();
