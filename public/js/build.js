@@ -53584,9 +53584,8 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                     } else if (evt.which === 13 || evt.which === 9) {
                         
-                        console.log(enterCount);
+                        console.log(enterCount, scope.activeIdx);
                         // ENTER or TAB keypress =========
-
                         if(enterCount === 0){
                             scope.$apply(function() {
                                 scope.select(scope.activeIdx);
@@ -53597,7 +53596,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                             enterCount = 0;
                             evt.stopPropagation();
                             resetMatches();
-                            scope.$digest();   
+                            scope.$digest();
                         }
 
                     } else if (evt.which === 27) {
