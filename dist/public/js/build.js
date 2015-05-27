@@ -52025,8 +52025,8 @@ angular.module('siyfion.sfTypeahead', [])
     // SUMMARY CONTROLLER ===========================================================
     angular.module('field_guide_controls')
         .controller('summary', 
-            [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q',
-        function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q){
+            [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q', '$timeout',
+        function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q, $timeout){
         
         // console.log('report data from server', loadData.data);
 
@@ -52292,6 +52292,7 @@ angular.module('siyfion.sfTypeahead', [])
             // clear this on blur to block weird toggle bug
             $scope.inputNote = '';
             $scope.messageEditToggle = message._id;
+            $timeout(function() {$('textarea#messageInput').focus() }, 10);
         };
 
         $scope.toggleNote = function(user){
