@@ -51248,13 +51248,9 @@ angular.module('siyfion.sfTypeahead', [])
 
         $scope.addTest = function(test){
             var date = new Date();
-            var hh = date.getHours();
-            var mm = date.getMinutes();
-            var out = hh.concat(':'+mm);
             
             var intercom = {
-                created_at : new Date(),
-                email      : $rootScope.user.email
+                created_at : date.getHours()+':'+date.getMinutes(),
             };
 
             $http
@@ -51363,8 +51359,7 @@ angular.module('siyfion.sfTypeahead', [])
                 msec -= mm * 1000 * 60;
 
                 var intercom = {
-                    email      : $rootScope.user.email,
-                    duration : mm
+                    duration : mm+"min"
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
@@ -51383,7 +51378,6 @@ angular.module('siyfion.sfTypeahead', [])
 
                 var out = {
                     created_at : hh+':'+m,
-                    email      : $rootScope.user.email
                 };
                 
                 Intercom('trackEvent', 'opened-onboarding', out );
@@ -51836,8 +51830,7 @@ angular.module('siyfion.sfTypeahead', [])
             startTest = new Date();
 
             var intercom = {
-                created_at : startTest,
-                email      : $rootScope.user.email,
+                created_at : startTest.getHours()+':'+startTest.getMinutes(),
                 test_kind : $scope.test.kind
             } ;
             
@@ -51965,10 +51958,9 @@ angular.module('siyfion.sfTypeahead', [])
             msec -= ss * 1000;
 
              var intercom = {
-                created_at : new Date(),
-                email      : $rootScope.user.email,
                 test_kind : $scope.test.kind,
-                duration  : mm
+                created_at : startTest.getHours()+':'+startTest.getMinutes(),
+                duration  : mm+"min"
             } ;
             
             Intercom('trackEvent', 'ended-test', intercom );
@@ -52230,10 +52222,10 @@ angular.module('siyfion.sfTypeahead', [])
             }
             if(!$scope.shareReport || $scope.shareReport === false ){
                 $scope.shareReport = true;
-                
+                var date = new Date();
+            
                 var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email
+                    created_at : date.getHours()+':'+date.getMinutes()
                 };
                 
                 Intercom('trackEvent', 'shared-report-button-clicked', intercom );
@@ -52278,9 +52270,10 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.saveObject = function(obj){
              
             if(obj.doctype === 'test'){
+                var date = new Date();
+
                 var intercom = {
-                    created_at : new Date(),
-                    email      : $rootScope.user.email,
+                    created_at : date.getHours()+':'+date.getMinutes(),
                     summary    : (obj.summary)    ? 'true' : 'false',
                     next_steps : (obj.next_steps) ? 'true' : 'false'
                 };
