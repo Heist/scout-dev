@@ -50640,15 +50640,43 @@ angular.module('siyfion.sfTypeahead', [])
 
 	// ONBOARDING =========================================
     // TODO: Abstract into service for dependency injection
+    	var startOnboard;
 
         $scope.onboardToggle = function(){
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+            	var duration = new Date();
+
+                if (duration < startOnboard) {
+                  duration.setDate(duration.getDate() + 1);
+                }
+
+                var diff = duration - startOnboard;
+                var msec = diff;
+                var mm = Math.floor(msec / 1000 / 60);
+                msec -= mm * 1000 * 60;
+
+                var intercom = {
+                    duration : mm+"min"
+                };
+
+                Intercom('trackEvent', 'closed-onboarding', intercom );
+            	
             	$rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 $scope.animationToggle();
                 return;
             }
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+            	startOnboard = new Date();
+                var hh = startOnboard.getHours();
+                var m = startOnboard.getMinutes();
+
+                var out = {
+                    created_at : hh+':'+m,
+                };
+                
+                Intercom('trackEvent', 'opened-onboarding', out );
+
             	$rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
                 return;
