@@ -63,6 +63,7 @@
 
 		h3 {
 			@include type-h3($fg-grey-dark);
+			@include type-regular;
 			margin: 0 0 15px 0;
 		}
 
