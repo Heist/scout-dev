@@ -112,13 +112,15 @@
 						<li class="message-no-highlite" id="firstrun">
 							<div class="message-body">
 
-								<div class="test-intro-prototype">
-									<img src="layout/assets/fieldy.svg" alt="Fieldy">
-
+								<div class="test-intro-prototype clearfix">
+								
 									<h3>Your session is running!</h3>
-									<p>Take notes about what your participant says, the actions they take and the reactions they make. All of this information is valuable. <a href="https://medium.com/@FieldGuideApp/how-you-can-take-better-notes-during-research-24c67c6de025" target="_blank">Learn more about note taking</a></p>
-									<p>Don't worry, you can always edit a note just by clicking on it.</p>
-									<p>Remember to use the #tags below to flag important feedback your get from your participant!</p>
+									<img src="layout/assets/fieldy.svg" alt="Fieldy">
+									<div class="intro-details">
+										<p>Take notes about what your participant says, the actions they take and the reactions they make. All of this information is valuable. <a href="https://medium.com/@FieldGuideApp/how-you-can-take-better-notes-during-research-24c67c6de025" target="_blank">Learn more about note taking</a></p>
+										<p>Don't worry, you can always edit a note just by clicking on it.</p>
+										<p>Remember to use the #tags below to flag important feedback your get from your participant!</p>
+									</div>
 								</div>
 							</div>
 							<div class="clear"></div>
@@ -179,7 +181,7 @@
 	<!-- /toggle on interview or prototype view -->
 
 	<!-- summarize at end of test modal -->
-	<div class="modal" ng-model="summarizeTest" ng-if="summarizeTest">
+	<div class="modal-scroll" ng-model="summarizeTest" ng-if="summarizeTest">
 		<ng-include src="'partials/app/_summarize-modal.html'"></ng-include>
 	</div>
 	

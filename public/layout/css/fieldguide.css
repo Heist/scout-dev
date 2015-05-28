@@ -4201,16 +4201,18 @@ span.tooltip-icon {
 #timeline {
   padding: 0;
   width: 100%;
-  height: 75%;
+  height: 100%;
   overflow: auto;
   margin: 0;
+  padding-bottom: 220px;
   /* first-run message on timeline */ }
   #timeline.prototype {
     padding: 0;
     width: 100%;
-    height: 75%;
+    height: 100%;
     overflow: auto;
-    margin: 0; }
+    margin: 0;
+    padding-bottom: 220px; }
   #timeline ul {
     list-style: none;
     padding: 0;
@@ -4233,38 +4235,44 @@ span.tooltip-icon {
         line-height: 24px; }
       #timeline ul .message-no-highlite p {
         margin: 0; }
-      #timeline ul .message-no-highlite .test-intro-prototype, #timeline ul .message-no-highlite .test-intro-interview {
+      #timeline ul .message-no-highlite .test-intro-prototype {
         width: 100%;
-        padding: 20px 40px;
-        position: relative;
-        -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
-        #timeline ul .message-no-highlite .test-intro-prototype img, #timeline ul .message-no-highlite .test-intro-interview img {
-          position: absolute;
-          top: -11px;
-          left: -24px; }
-        #timeline ul .message-no-highlite .test-intro-prototype h3, #timeline ul .message-no-highlite .test-intro-interview h3 {
+        position: relative; }
+        #timeline ul .message-no-highlite .test-intro-prototype h3 {
           color: #7a7a7a;
           font-size: 18.6px;
           line-height: 24px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
-          font-weight: 400; }
-      #timeline ul .message-no-highlite .test-intro-interview {
-        width: 65%;
-        margin: 20px auto 0 auto; }
-        #timeline ul .message-no-highlite .test-intro-interview img {
+          font-weight: 400;
+          margin: 0 0 15px 0; }
+        #timeline ul .message-no-highlite .test-intro-prototype img {
+          width: 33px;
           position: absolute;
-          top: -11px;
-          left: -24px; }
+          top: 40px;
+          left: 0; }
+        #timeline ul .message-no-highlite .test-intro-prototype .intro-details {
+          margin: 0 0 0 50px; }
+      #timeline ul .message-no-highlite .test-intro-interview {
+        width: 85%;
+        margin: 10px 0 0 0;
+        position: relative; }
         #timeline ul .message-no-highlite .test-intro-interview h3 {
           color: #7a7a7a;
           font-size: 18.6px;
           line-height: 24px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
-          font-weight: 400; }
+          font-weight: 400;
+          margin: 0 0 15px 0; }
+        #timeline ul .message-no-highlite .test-intro-interview img {
+          width: 33px;
+          position: absolute;
+          top: 40px;
+          left: 0; }
+        #timeline ul .message-no-highlite .test-intro-interview .intro-details {
+          margin: 0 0 0 50px;
+          width: 100%; }
     #timeline ul .message-highlite {
       padding: 8px 30px 8px 35px;
       line-height: 14.4px;
@@ -4333,8 +4341,7 @@ span.tooltip-icon {
             #timeline ul .message .message-body small.hashtag-pool:before {
               content: "#"; }
   #timeline #firstrun .message-body, #timeline #firstrun .message-details {
-    padding-top: 20px;
-    padding-bottom: 20px; }
+    padding: 15px 0 0 0; }
   #timeline #firstrun .message-body {
     color: #7c7d80;
     font-size: 14px;
@@ -5079,7 +5086,7 @@ span.tooltip-icon {
   position: relative;
   height: 100%; }
   #view-overview .container {
-    padding: 20px 0 50px 0; }
+    padding: 20px 0; }
     #view-overview .container #header-min {
       padding: 20px 0 40px; }
       #view-overview .container #header-min h3 {
@@ -5229,152 +5236,154 @@ span.tooltip-icon {
           background: none; }
 
 /* new project modal */
-#view-new-project .modal-interior-title {
-  padding: 0 0 20px 0; }
-#view-new-project ul {
-  clear: both; }
-#view-new-project .test-objectives {
-  height: 150px; }
-#view-new-project .project-tooltip {
-  font-family: "canada-type-gibson",sans-serif;
-  font-style: normal;
-  font-weight: 400; }
-#view-new-project button.test-type {
-  width: 48.5%;
-  outline: 0;
-  text-align: center;
-  position: relative;
-  cursor: pointer;
-  border: 0;
-  padding: 20px 10px;
-  background: rgba(216, 218, 219, 0.2);
-  color: #888A8A;
-  margin-bottom: 20px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px; }
-  #view-new-project button.test-type span.tooltip-icon {
-    position: absolute;
-    top: 5px;
-    right: 5px; }
-    #view-new-project button.test-type span.tooltip-icon span {
-      top: 0px;
-      right: 3.5px;
-      font-family: "canada-type-gibson",sans-serif;
-      font-style: normal;
-      font-weight: 300; }
-  #view-new-project button.test-type h3 {
-    display: inline-block;
-    color: #C5C6C7;
-    font-size: 18.6px;
-    line-height: 24px; }
-    #view-new-project button.test-type h3.interview:before {
-      background: url('../assets/interview-dark.svg') top left no-repeat;
-      content: '';
-      width: 14px;
-      height: 14px;
-      display: inline-block;
-      margin: 0 5px 0 0; }
-    #view-new-project button.test-type h3.prototype:before {
-      background: url('../assets/prototype-dark.svg') top left no-repeat;
-      content: '';
-      width: 12px;
-      height: 17px;
-      display: inline-block;
-      margin: 0 5px 0 0; }
-  #view-new-project button.test-type p {
-    color: #C5C6C7;
-    font-size: 12px;
-    line-height: 15px; }
-  #view-new-project button.test-type.interview {
+#view-new-project {
+  min-height: 100%; }
+  #view-new-project .modal-interior-title {
+    padding: 0 0 20px 0; }
+  #view-new-project ul {
+    clear: both; }
+  #view-new-project .test-objectives {
+    height: 150px; }
+  #view-new-project .project-tooltip {
+    font-family: "canada-type-gibson",sans-serif;
+    font-style: normal;
+    font-weight: 400; }
+  #view-new-project button.test-type {
+    width: 48.5%;
+    outline: 0;
+    text-align: center;
     position: relative;
-    margin-right: 1.5%; }
-  #view-new-project button.test-type.prototype {
-    position: relative;
-    margin-left: 1.5%; }
-  #view-new-project button.test-type:hover {
-    background: #85AC0F;
-    color: #fff; }
-    #view-new-project button.test-type:hover a {
-      color: #fff; }
-    #view-new-project button.test-type:hover span.tooltip-icon {
-      background: #70910D; }
-    #view-new-project button.test-type:hover a {
-      color: #fff; }
-    #view-new-project button.test-type:hover p {
-      color: #fff; }
-    #view-new-project button.test-type:hover h3 {
-      color: #fff; }
-      #view-new-project button.test-type:hover h3.interview:before {
-        background: url('../assets/interview-light.svg') top left no-repeat; }
-      #view-new-project button.test-type:hover h3.prototype:before {
-        background: url('../assets/prototype-light.svg') top left no-repeat; }
-  #view-new-project button.test-type.select-active {
-    background: #85AC0F; }
-    #view-new-project button.test-type.select-active span.tooltip-icon {
-      background: #70910D; }
-    #view-new-project button.test-type.select-active a {
-      color: #fff; }
-    #view-new-project button.test-type.select-active h3 {
-      color: #fff; }
-      #view-new-project button.test-type.select-active h3.interview:before {
-        background: url('../assets/interview-light.svg') top left no-repeat; }
-      #view-new-project button.test-type.select-active h3.prototype:before {
-        background: url('../assets/prototype-light.svg') top left no-repeat; }
-    #view-new-project button.test-type.select-active p {
-      color: #fff;
-      font-size: 12px;
-      line-height: 15px; }
-  #view-new-project button.test-type.select-inactive {
-    background: rgba(216, 218, 219, 0.2); }
-    #view-new-project button.test-type.select-inactive span.tooltip-icon {
+    cursor: pointer;
+    border: 0;
+    padding: 20px 10px;
+    background: rgba(216, 218, 219, 0.2);
+    color: #888A8A;
+    margin-bottom: 20px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px; }
+    #view-new-project button.test-type span.tooltip-icon {
       position: absolute;
       top: 5px;
-      right: 5px;
-      background: #D8DADB; }
-      #view-new-project button.test-type.select-inactive span.tooltip-icon span {
+      right: 5px; }
+      #view-new-project button.test-type span.tooltip-icon span {
         top: 0px;
         right: 3.5px;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 300; }
-    #view-new-project button.test-type.select-inactive h3 {
-      color: #C5C6C7; }
-      #view-new-project button.test-type.select-inactive h3.interview:before {
-        background: url('../assets/interview-dark.svg') top left no-repeat; }
-      #view-new-project button.test-type.select-inactive h3.prototype:before {
-        background: url('../assets/prototype-dark.svg') top left no-repeat; }
-    #view-new-project button.test-type.select-inactive p {
+    #view-new-project button.test-type h3 {
+      display: inline-block;
+      color: #C5C6C7;
+      font-size: 18.6px;
+      line-height: 24px; }
+      #view-new-project button.test-type h3.interview:before {
+        background: url('../assets/interview-dark.svg') top left no-repeat;
+        content: '';
+        width: 14px;
+        height: 14px;
+        display: inline-block;
+        margin: 0 5px 0 0; }
+      #view-new-project button.test-type h3.prototype:before {
+        background: url('../assets/prototype-dark.svg') top left no-repeat;
+        content: '';
+        width: 12px;
+        height: 17px;
+        display: inline-block;
+        margin: 0 5px 0 0; }
+    #view-new-project button.test-type p {
       color: #C5C6C7;
       font-size: 12px;
       line-height: 15px; }
-  #view-new-project button.test-type .selected-arrow {
-    display: none; }
-  #view-new-project button.test-type .no-link {
-    font-size: 9px; }
-  #view-new-project button.test-type.selected {
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    border: 1px solid #C6D39E;
-    color: #85AC0F; }
-    #view-new-project button.test-type.selected .selected-arrow {
-      position: absolute;
-      display: block;
-      width: 100%;
-      text-align: center;
-      height: 7px;
-      bottom: -7px;
-      left: 0; }
-      #view-new-project button.test-type.selected .selected-arrow img {
-        width: 14px;
-        height: auto; }
-  #view-new-project button.test-type strong {
-    border-bottom: 1px dashed #e1e1e1; }
-  #view-new-project button.test-type img {
-    width: 100px;
-    height: auto;
-    padding: 0 0 10px 0; }
+    #view-new-project button.test-type.interview {
+      position: relative;
+      margin-right: 1.5%; }
+    #view-new-project button.test-type.prototype {
+      position: relative;
+      margin-left: 1.5%; }
+    #view-new-project button.test-type:hover {
+      background: #85AC0F;
+      color: #fff; }
+      #view-new-project button.test-type:hover a {
+        color: #fff; }
+      #view-new-project button.test-type:hover span.tooltip-icon {
+        background: #70910D; }
+      #view-new-project button.test-type:hover a {
+        color: #fff; }
+      #view-new-project button.test-type:hover p {
+        color: #fff; }
+      #view-new-project button.test-type:hover h3 {
+        color: #fff; }
+        #view-new-project button.test-type:hover h3.interview:before {
+          background: url('../assets/interview-light.svg') top left no-repeat; }
+        #view-new-project button.test-type:hover h3.prototype:before {
+          background: url('../assets/prototype-light.svg') top left no-repeat; }
+    #view-new-project button.test-type.select-active {
+      background: #85AC0F; }
+      #view-new-project button.test-type.select-active span.tooltip-icon {
+        background: #70910D; }
+      #view-new-project button.test-type.select-active a {
+        color: #fff; }
+      #view-new-project button.test-type.select-active h3 {
+        color: #fff; }
+        #view-new-project button.test-type.select-active h3.interview:before {
+          background: url('../assets/interview-light.svg') top left no-repeat; }
+        #view-new-project button.test-type.select-active h3.prototype:before {
+          background: url('../assets/prototype-light.svg') top left no-repeat; }
+      #view-new-project button.test-type.select-active p {
+        color: #fff;
+        font-size: 12px;
+        line-height: 15px; }
+    #view-new-project button.test-type.select-inactive {
+      background: rgba(216, 218, 219, 0.2); }
+      #view-new-project button.test-type.select-inactive span.tooltip-icon {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: #D8DADB; }
+        #view-new-project button.test-type.select-inactive span.tooltip-icon span {
+          top: 0px;
+          right: 3.5px;
+          font-family: "canada-type-gibson",sans-serif;
+          font-style: normal;
+          font-weight: 300; }
+      #view-new-project button.test-type.select-inactive h3 {
+        color: #C5C6C7; }
+        #view-new-project button.test-type.select-inactive h3.interview:before {
+          background: url('../assets/interview-dark.svg') top left no-repeat; }
+        #view-new-project button.test-type.select-inactive h3.prototype:before {
+          background: url('../assets/prototype-dark.svg') top left no-repeat; }
+      #view-new-project button.test-type.select-inactive p {
+        color: #C5C6C7;
+        font-size: 12px;
+        line-height: 15px; }
+    #view-new-project button.test-type .selected-arrow {
+      display: none; }
+    #view-new-project button.test-type .no-link {
+      font-size: 9px; }
+    #view-new-project button.test-type.selected {
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      border-radius: 2px;
+      border: 1px solid #C6D39E;
+      color: #85AC0F; }
+      #view-new-project button.test-type.selected .selected-arrow {
+        position: absolute;
+        display: block;
+        width: 100%;
+        text-align: center;
+        height: 7px;
+        bottom: -7px;
+        left: 0; }
+        #view-new-project button.test-type.selected .selected-arrow img {
+          width: 14px;
+          height: auto; }
+    #view-new-project button.test-type strong {
+      border-bottom: 1px dashed #e1e1e1; }
+    #view-new-project button.test-type img {
+      width: 100px;
+      height: auto;
+      padding: 0 0 10px 0; }
 
 /* editing tests/tasks */
 #view-editing {
@@ -5589,7 +5598,7 @@ span.tooltip-icon {
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
     border-radius: 20px;
-    background: #f37960;
+    background: #3CD4B2;
     float: left;
     margin: 0 10px 0 0; }
     #view-testing .participant-avatar span {
@@ -5662,7 +5671,7 @@ span.tooltip-icon {
       border: 0; }
     #view-testing #testing-input #session-input {
       position: absolute;
-      bottom: 65px;
+      bottom: 62px;
       left: 0;
       width: 100%;
       padding: 5px;
@@ -5705,7 +5714,7 @@ span.tooltip-icon {
         font-weight: 300;
         font-style: italic; }
       #view-testing #testing-input #session-input.prototype {
-        bottom: 63px; }
+        bottom: 62px; }
       #view-testing #testing-input #session-input .typeahead-box {
         width: 100%;
         font-size: 14px;
@@ -5763,7 +5772,7 @@ span.tooltip-icon {
         padding: 0 10px;
         font-size: 14px; }
   #view-testing #cta-interview {
-    padding: 10px;
+    padding: 10px 20px;
     background: #fff;
     border: 0;
     position: relative;
@@ -5795,7 +5804,7 @@ span.tooltip-icon {
           float: left; }
   #view-testing #cta-prototype {
     width: 100%;
-    padding: 10px;
+    padding: 10px 20px;
     background: #fff;
     border-bottom: 1px solid #e1e1e1;
     position: relative; }
@@ -6623,6 +6632,8 @@ span.tooltip-icon {
 #test-end-summarize .summary-form textarea {
   height: 200px;
   line-height: 18px; }
+#test-end-summarize .summary-form .cta {
+  margin: 20px 0 0 0; }
 
 /* onboarding styles */
 #view-onboarding {
