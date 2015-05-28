@@ -96,6 +96,7 @@
 								<div ng-click="select(task)">
 									<form class="task-info">
 										<input class="input-no-border task-title" ng-trim="false" ng-model="task.name" ng-focus="editTitle(task)" ng-blur="blurTitle(task)">
+										<markdown>this is some #markdown</markdown>
 
 										<div class="task-delete" data-tooltip="Delete Topic" ng-if="test._subjects.length === 0"><span class="icon-delete" ng-click="deleteTopicModalToggle(task)"></span></div>
 

@@ -5,6 +5,7 @@
 (function(){
     angular.module('field_guide_controls')
     .directive('markdown', function() {
+        // var converter = new showdown.converter();
         var converter = new Showdown.converter();
         return {
             restrict: 'E',
