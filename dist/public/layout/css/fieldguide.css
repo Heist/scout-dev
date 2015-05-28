@@ -4235,38 +4235,44 @@ span.tooltip-icon {
         line-height: 24px; }
       #timeline ul .message-no-highlite p {
         margin: 0; }
-      #timeline ul .message-no-highlite .test-intro-prototype, #timeline ul .message-no-highlite .test-intro-interview {
+      #timeline ul .message-no-highlite .test-intro-prototype {
         width: 100%;
-        padding: 20px 40px;
-        position: relative;
-        -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
-        #timeline ul .message-no-highlite .test-intro-prototype img, #timeline ul .message-no-highlite .test-intro-interview img {
-          position: absolute;
-          top: -11px;
-          left: -24px; }
-        #timeline ul .message-no-highlite .test-intro-prototype h3, #timeline ul .message-no-highlite .test-intro-interview h3 {
+        position: relative; }
+        #timeline ul .message-no-highlite .test-intro-prototype h3 {
           color: #7a7a7a;
           font-size: 18.6px;
           line-height: 24px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
-          font-weight: 400; }
-      #timeline ul .message-no-highlite .test-intro-interview {
-        width: 65%;
-        margin: 20px auto 0 auto; }
-        #timeline ul .message-no-highlite .test-intro-interview img {
+          font-weight: 400;
+          margin: 0 0 15px 0; }
+        #timeline ul .message-no-highlite .test-intro-prototype img {
+          width: 33px;
           position: absolute;
-          top: -11px;
-          left: -24px; }
+          top: 40px;
+          left: 0; }
+        #timeline ul .message-no-highlite .test-intro-prototype .intro-details {
+          margin: 0 0 0 50px; }
+      #timeline ul .message-no-highlite .test-intro-interview {
+        width: 85%;
+        margin: 10px 0 0 0;
+        position: relative; }
         #timeline ul .message-no-highlite .test-intro-interview h3 {
           color: #7a7a7a;
           font-size: 18.6px;
           line-height: 24px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
-          font-weight: 400; }
+          font-weight: 400;
+          margin: 0 0 15px 0; }
+        #timeline ul .message-no-highlite .test-intro-interview img {
+          width: 33px;
+          position: absolute;
+          top: 40px;
+          left: 0; }
+        #timeline ul .message-no-highlite .test-intro-interview .intro-details {
+          margin: 0 0 0 50px;
+          width: 100%; }
     #timeline ul .message-highlite {
       padding: 8px 30px 8px 35px;
       line-height: 14.4px;
@@ -4335,8 +4341,7 @@ span.tooltip-icon {
             #timeline ul .message .message-body small.hashtag-pool:before {
               content: "#"; }
   #timeline #firstrun .message-body, #timeline #firstrun .message-details {
-    padding-top: 20px;
-    padding-bottom: 20px; }
+    padding: 15px 0 0 0; }
   #timeline #firstrun .message-body {
     color: #7c7d80;
     font-size: 14px;
@@ -5593,7 +5598,7 @@ span.tooltip-icon {
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
     border-radius: 20px;
-    background: #f37960;
+    background: #3CD4B2;
     float: left;
     margin: 0 10px 0 0; }
     #view-testing .participant-avatar span {
@@ -5767,7 +5772,7 @@ span.tooltip-icon {
         padding: 0 10px;
         font-size: 14px; }
   #view-testing #cta-interview {
-    padding: 10px;
+    padding: 10px 20px;
     background: #fff;
     border: 0;
     position: relative;
@@ -5799,7 +5804,7 @@ span.tooltip-icon {
           float: left; }
   #view-testing #cta-prototype {
     width: 100%;
-    padding: 10px;
+    padding: 10px 20px;
     background: #fff;
     border-bottom: 1px solid #e1e1e1;
     position: relative; }

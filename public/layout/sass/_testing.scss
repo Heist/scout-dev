@@ -21,7 +21,7 @@
         width: 40px;
         height: 40px;
         @include radius(20px);
-        background: $fg-header-red;
+        background: $fg-teal;
         float: left;
         margin: 0 10px 0 0;
 
@@ -193,7 +193,7 @@
     }
 
     #cta-interview {
-        padding: 10px;
+        padding: 10px 20px;
         background: $white;
         border: 0;
         position: relative;
@@ -233,7 +233,7 @@
 
     #cta-prototype {
         width: 100%;
-        padding: 10px;
+        padding: 10px 20px;
         background: $white;
         border-bottom: 1px solid $line;
         position: relative;
