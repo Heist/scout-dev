@@ -50,42 +50,36 @@
 
 			.test-intro-prototype {
 				width: 100%;
-				position: relative;
+				color: $fg-grey-placeholder;
 
 				h3 {
-					@include type-h3($fg-grey-text);
+					@include type-h3($fg-grey-placeholder);
 					@include type-regular;
 					margin: 0 0 15px 0;
 				}
 				img {
-					width: 33px;
-					position: absolute;
-					top: 40px;
-					left: 0;
-				}
-				.intro-details {
-					margin: 0 0 0 50px;
+					width: 26px;
+					float: left;
+					margin: 0 10px 0 0;
 				}
 			}
 
 			.test-intro-interview {
 				width: 85%;
 				margin: 10px 0 0 0;
-				position: relative;
+				color: $fg-grey-placeholder;
 
 				h3 {
-					@include type-h3($fg-grey-text);
+					@include type-h3($fg-grey-placeholder);
 					@include type-regular;
 					margin: 0 0 15px 0;
 				}
 				img {
-					width: 33px;
-					position: absolute;
-					top: 40px;
-					left: 0;
+					width: 26px;
+					float: left;
+					margin: 0 10px 0 0;
 				}
 				.intro-details {
-					margin: 0 0 0 50px;
 					width: 100%;
 				}
 				

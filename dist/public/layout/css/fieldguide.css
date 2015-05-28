@@ -4237,9 +4237,9 @@ span.tooltip-icon {
         margin: 0; }
       #timeline ul .message-no-highlite .test-intro-prototype {
         width: 100%;
-        position: relative; }
+        color: #C5C6C7; }
         #timeline ul .message-no-highlite .test-intro-prototype h3 {
-          color: #7a7a7a;
+          color: #C5C6C7;
           font-size: 18.6px;
           line-height: 24px;
           font-family: "canada-type-gibson",sans-serif;
@@ -4247,18 +4247,15 @@ span.tooltip-icon {
           font-weight: 400;
           margin: 0 0 15px 0; }
         #timeline ul .message-no-highlite .test-intro-prototype img {
-          width: 33px;
-          position: absolute;
-          top: 40px;
-          left: 0; }
-        #timeline ul .message-no-highlite .test-intro-prototype .intro-details {
-          margin: 0 0 0 50px; }
+          width: 26px;
+          float: left;
+          margin: 0 10px 0 0; }
       #timeline ul .message-no-highlite .test-intro-interview {
         width: 85%;
         margin: 10px 0 0 0;
-        position: relative; }
+        color: #C5C6C7; }
         #timeline ul .message-no-highlite .test-intro-interview h3 {
-          color: #7a7a7a;
+          color: #C5C6C7;
           font-size: 18.6px;
           line-height: 24px;
           font-family: "canada-type-gibson",sans-serif;
@@ -4266,12 +4263,10 @@ span.tooltip-icon {
           font-weight: 400;
           margin: 0 0 15px 0; }
         #timeline ul .message-no-highlite .test-intro-interview img {
-          width: 33px;
-          position: absolute;
-          top: 40px;
-          left: 0; }
+          width: 26px;
+          float: left;
+          margin: 0 10px 0 0; }
         #timeline ul .message-no-highlite .test-intro-interview .intro-details {
-          margin: 0 0 0 50px;
           width: 100%; }
     #timeline ul .message-highlite {
       padding: 8px 30px 8px 35px;
