@@ -51102,7 +51102,44 @@ angular.module('siyfion.sfTypeahead', [])
 
     }]);
 })();
+// education.js
+// controller for the education pop-up window
 
+(function() {
+	'use strict';
+
+	angular.module('field_guide_controls')
+	.controller('education', 
+    		['$scope','$http','$stateParams','$state','$location','$rootScope','$element',
+    function( $scope , $http,  $stateParams , $state , $location , $rootScope , $element){
+
+
+    var locationPath = $location.path();
+
+    if(locationPath.indexOf('/overview') !== -1) {
+        $scope.educationPopup = 1;
+    } else if (locationPath.indexOf('/edit/test') !== -1) {
+        $scope.educationPopup = 2;
+    } else if (locationPath.indexOf('/summary') !== -1) {
+        $scope.educationPopup = 3;
+    } else {
+        $scope.educationPopup = 1;
+    }
+    var intercom = {
+                        education_page : $scope.educationPopup
+                    };
+                    
+            
+
+    $scope.showIntercom = function(){
+        Intercom('show');
+        Intercom('trackEvent', 'opened-education', intercom );
+    }
+
+
+	}]);
+
+})();
 // forgot.js
 (function() {
     'use strict';
@@ -53006,7 +53043,7 @@ angular.module('field_guide_controls')
         if(element){
             element.focus();
         }
-      }, 500);
+      }, 150);
     };
   })
 .directive('focusMe', function($timeout) {
@@ -53017,12 +53054,30 @@ angular.module('field_guide_controls')
         if(value === "true") { 
           $timeout(function() {
             element[0].focus(); 
-          }, 200);
+          }, 150);
         }
       });
     }
   };
 });
+})();
+// fg-load-spinner.js
+// provide a loading spinner as an HTTP interceptor
+
+'use strict';
+(function(){
+    angular.module('field_guide_app')
+        .factory('loadInterceptor', function ($q, $window) {
+          return function (promise) {
+            return promise.then(function (response) {
+              $("#spinner").hide();
+              return response;
+            }, function (response) {
+              $("#spinner").hide();
+              return $q.reject(response);
+            });
+          };
+        });
 })();
 // fg-modal.js
 // a directive to insert a modal on any given page
@@ -53319,9 +53374,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 var nextSpace      = modelCtrl.$viewValue.indexOf(' ', mostRecentHash);
 
                 var searchClose    = (nextSpace && nextSpace > -1) ? Math.min(nextSpace, scope.caret.get) : scope.caret.get;
-                
-                // console.log('caret position', scope.caret.get, 'searchClose', searchClose, 'nextSpace', nextSpace);
-
                 var searchTerm     = modelCtrl.$viewValue.substr(mostRecentHash+1, searchClose-mostRecentHash);
                     
                 var locals = {$viewValue: searchTerm};
@@ -53332,8 +53384,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     //but we are interested only in responses that correspond to the current view value
 
                     var onCurrentRequest = modelCtrl.$viewValue.indexOf(searchTerm) > -1;
-                    
-                    // console.log('getMatchesAsync searchTerm',mostRecentHash+1, searchClose, searchTerm, onCurrentRequest);
 
                     if (onCurrentRequest && hasFocus) {
                         if (matches.length > 0) {
@@ -53351,7 +53401,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                             }
 
                             scope.query = searchTerm;
-                            // console.log(inputValue);
                             //position pop-up with matches - we need to re-calculate its position each time we are opening a window
                             //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
                             //due to other elements being rendered
@@ -53403,7 +53452,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 if(accepted_tags && tester){
                     difference = _.difference(clean_test, clean_accepted);
-                    // console.log('should be the new tags',clean_test, clean_accepted, difference);
                 }
 
                 // WHAT WE HAVE
@@ -53559,7 +53607,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                             enterCount = 0;
                             evt.stopPropagation();
                             resetMatches();
-                            scope.$digest();   
+                            scope.$digest();
                         }
 
                     } else if (evt.which === 27) {
@@ -53590,7 +53638,6 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                 locals[parserResult.itemName] = item = scope.matches[activeIdx].model;
                 model = parserResult.modelMapper(originalScope, locals);
-
                 // Find the most recent hashtag from the current caret position
                 var mostRecentHash = modelCtrl.$viewValue.lastIndexOf('#', scope.caret.get)
                 var newValue  = spliceSlice(modelCtrl.$viewValue, mostRecentHash, scope.caret.get-mostRecentHash, '#'+model);
