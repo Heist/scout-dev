@@ -4,16 +4,18 @@
 #timeline {
 	padding: 0;
 	width: 100%;
-	height: 75%;
+	height: 100%;
 	overflow: auto;
 	margin: 0;
+	padding-bottom: 220px;
 
 	&.prototype {
 		padding: 0;
 		width: 100%;
-		height: 75%;
+		height: 100%;
 		overflow: auto;
 		margin: 0;
+		padding-bottom: 220px;
 	}
 		
 	ul {

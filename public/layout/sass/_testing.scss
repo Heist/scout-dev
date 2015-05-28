@@ -109,7 +109,7 @@
 
         #session-input {
             position: absolute;
-            bottom: 65px;
+            bottom: 62px;
             left: 0;
             width: 100%;
             padding: $pad / 4;
@@ -120,7 +120,7 @@
             @include input-placeholders;
 
             &.prototype {
-                bottom: 63px;
+                bottom: 62px;
             }
 
             .typeahead-box {

@@ -6,7 +6,12 @@
     angular.module('field_guide_controls').controller('run', 
     [ 'loadData', 'testBuildFunctions', 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', '$timeout',
     function(loadData, testBuildFunctions, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket, $timeout){
-    // get the starting data from resolve
+
+        // removes the body scroll overflow hidden
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.removeClass('overflow-hidden');
+
+       // get the starting data from resolve
         var data     = loadData.data;
         var startTest = '';
         
