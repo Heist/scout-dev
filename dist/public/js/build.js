@@ -53553,6 +53553,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     // SPACE keypress =========
                     // add a space to the model and cancel the dropdown
                     // post the tag to the scope-tags for comparision
+                    enterCount = 0;
                     evt.stopPropagation();
                     resetMatches();
                     scope.$digest();
