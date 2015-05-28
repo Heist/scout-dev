@@ -6282,7 +6282,7 @@ span.tooltip-icon {
     position: relative; }
     #view-findings #findings-share-report span a {
       position: absolute;
-      padding: 9.5px 10px;
+      padding: 5px 6px;
       background: none;
       border: 1px solid rgba(216, 218, 219, 0.5);
       border-left: 0;
