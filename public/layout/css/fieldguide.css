@@ -5480,6 +5480,25 @@ span.tooltip-icon {
       background: url('../assets/fg-edit-filled-hover.svg') 20px 3px no-repeat; }
   #view-editing textarea.task-descriptions {
     margin: 0 0 30px 0; }
+  #view-editing .empty-task-message {
+    width: 100%;
+    color: #C5C6C7; }
+    #view-editing .empty-task-message h3 {
+      color: #C5C6C7;
+      font-size: 18.6px;
+      line-height: 24px;
+      font-family: "canada-type-gibson",sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      margin: 0 0 15px 0;
+      text-transform: none;
+      float: left; }
+    #view-editing .empty-task-message img {
+      width: 26px;
+      float: left;
+      margin: 0 10px 0 0; }
+    #view-editing .empty-task-message .intro-details {
+      clear: both; }
   #view-editing .add-task {
     margin: 20px 0; }
     #view-editing .add-task form {

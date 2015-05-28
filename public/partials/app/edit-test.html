@@ -109,9 +109,20 @@
 					<div class="container-row clearfix">
 						<div class="container-left">&nbsp;</div>
 						<div class="container-right padding">
+							<!-- empty task -->
+							<div class="empty-task-message" ng-if="tasks.length === 0">
+								<img src="layout/assets/fieldy.svg" alt="Fieldy">
+								<h3>You have no Topics yet</h3>
+								<div class="intro-details">
+									<p>Start adding a few Topics below. Not sure where to start, take a look at our <a href="https://medium.com/@FieldGuideApp/how-you-can-take-better-notes-during-research-24c67c6de025" target="_blank">Intro to writing Topics</a></p>
+									<p>Don't worry, you can always edit or delete your topics.</p>
+								</div>
+							</div>
+							<!-- / empty task -->
+
 							<!-- add a new task -->
 							<div class="add-task">
-								<form ng-model='newtask' ng-submit="newTask(newtask)">
+								<form ng-model="newtask" ng-submit="newTask(newtask)">
 									<input class="topic-name" ng-trim="false" ng-model="newtask.name" placeholder="Write a topic title.." required>
 									
 									<textarea msd-elastic class="topic-questions" ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions.." required>
@@ -119,9 +130,6 @@
 									
 									<button type="submit" class="button full med" tabindex="0">Add topic</a></button>
 								</form>
-								
-
-
 							</div>
 							<!-- / add a new task -->
 						</div>
