@@ -1,19 +1,26 @@
 {
   "name": "showdown",
-  "description": "JavaScript port of Markdown",
+  "description": "A Markdown to HTML converter written in Javascript",
   "homepage": "https://github.com/showdownjs/showdown",
   "authors": [
-    "John Fraser",
-    "Corey Innis (https://github.com/coreyti)",
-    "Pascal Deschênes (https://github.com/pdeschen)",
-    "Estevão Santos (https://github.com/tivie)"
+    "Estevão Santos (https://github.com/tivie)",
+    "Pascal Deschênes (https://github.com/pdeschen)"
   ],
   "main": [
-    "src/showdown.js"
+    "dist/showdown.js"
   ],
   "ignore": [
+    ".editorconfig",
+    ".gitattributes",
+    ".gitignore",
+    ".jscs.json",
+    ".jshintignore",
     ".jshintrc",
-    "perlMarkdown/*"
+    ".travis.yml",
+    "Gruntfile.js",
+    "package.json",
+    "src/*",
+    "test/*"
   ],
   "repository": {
     "type": "git",
@@ -25,14 +32,15 @@
     "mdown"
   ],
   "license": "https://github.com/showdownjs/showdown/blob/master/license.txt",
-  "version": "0.3.4",
-  "_release": "0.3.4",
+  "version": "1.0.1",
+  "_release": "1.0.1",
   "_resolution": {
     "type": "version",
-    "tag": "0.3.4",
-    "commit": "24c34596c198fde7bea61aeccc60045258bfd103"
+    "tag": "1.0.1",
+    "commit": "d8491e3b25ce2e888ee715f005e4605f47cbd201"
   },
   "_source": "git://github.com/showdownjs/showdown.git",
-  "_target": "~0.3.1",
-  "_originalSource": "showdown"
+  "_target": "~1.0.1",
+  "_originalSource": "showdown",
+  "_direct": true
 }

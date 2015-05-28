@@ -26,6 +26,7 @@
     "angular-youtube-mb": "~0.1.6",
     "angular-payments": "*",
     "angular-typeahead": "~0.2.2"
+    "showdown": "~1.0.1"
   },
   "overrides": {
     "jquery": {
@@ -34,5 +35,8 @@
     "angular-ui": {
       "main": "build/angular-ui.js"
     }
+  },
+  "resolutions": {
+    "showdown": "~1.0.1"
   }
 }
