@@ -78,12 +78,12 @@
 												<div class="modal-interior-title">
 													<button class="x-modal" ng-click="deleteTopicModalToggle(task)">&times;</button>
 													<h2>Delete {{task.name}}?</h2>
-													<p>You must have a Title for your topic, removing it will remove the Topic and Question.</p>
+													<p>You must have a title for your topic. Removing it will delete the topic and all associated questions.</p>
 												</div>
 												
 												<div class="cta float-right">
 													<button class="button med secondary" ng-click="deleteTopicModalToggle(task)" tabindex="1">Cancel</button>
-													<button class="button med destructive" ng-click="removeTask(task)" tabindex="0">Delete Topic</button>
+													<button class="button med destructive" ng-click="removeTask(task)" tabindex="0">Delete topic</button>
 												</div>
 
 											</div>
