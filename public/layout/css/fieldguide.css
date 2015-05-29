@@ -5491,7 +5491,8 @@ span.tooltip-icon {
       font-style: normal;
       font-weight: 400;
       margin: 0 0 15px 0;
-      text-transform: none; }
+      text-transform: none;
+      text-align: left; }
     #view-editing .empty-task-message .intro-details {
       clear: both; }
   #view-editing .add-task {
