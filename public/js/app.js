@@ -157,8 +157,8 @@
             })
             .state('test', {
                 url: '/edit/test/:_id',
-                controller:'test',
-                templateUrl: 'partials/app/test.html',
+                controller:'editTest',
+                templateUrl: 'partials/app/edit-test.html',
                 resolve: { 
                     loadData : ['$http', '$stateParams', function($http, $stateParams){
                             return $http.get('/api/test/'+$stateParams._id, {timeout : 5000, cache:false})
@@ -187,7 +187,20 @@
                                 });
                     }]
                 }
-            });
+            })
+
+            // VIDEO STREAM ====================================
+            // .state('watch', {
+            //     url         : '/watch/:_session',
+            //     controller  : 'watch',
+            //     templateUrl : 'partials/app/watch.html',
+            //     resolve: { 
+            //         loggedin: ['checkLoggedin', function(checkLoggedin) {
+            //             return checkLoggedin();
+            //         }]
+            //     }
+            // })
+            ;
     });
 
     // FILTERS ============================================================================

@@ -31,29 +31,59 @@
 
 	// ONBOARDING =========================================
     // TODO: Abstract into service for dependency injection
-
+    	
+        var startOnboard;
         $scope.onboardToggle = function(){
-            if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-            	$rootScope.user.onboard = 100;
-                $scope.onboardSteps = false; 
-                $scope.animationToggle();
-                return;
-            }
+            console.log('onboardToggle');
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+                console.log('false clicked')
+            	startOnboard = new Date();
+                var hh = startOnboard.getHours();
+                var m = startOnboard.getMinutes();
+
+                var out = {
+                    created_at : hh+':'+m,
+                };
+                
+                Intercom('trackEvent', 'opened-onboarding', out );
+                Intercom('update');
             	$rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
                 return;
             }
-        };
 
-        $scope.animationToggle = function(){
-        	var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
-        	var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
+            if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+                console.log('truth clicked')
+                var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
+                var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
+                var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
 
-        	// below classes are from animate.css library
-        	lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
-        	otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
+                // below classes are from animate.css library
+                viewOnboarding.addClass('animated slideOutDown').delay(1000).hide(1);
+                lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
+                otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
+                
+                var duration = new Date();
 
+                if (duration < startOnboard) {
+                  duration.setDate(duration.getDate() + 1);
+                }
+
+                var diff = duration - startOnboard;
+                var msec = diff;
+                var mm = Math.floor(msec / 1000 / 60);
+                msec -= mm * 1000 * 60;
+
+                var intercom = {
+                    duration : mm+"min"
+                };
+
+                Intercom('trackEvent', 'closed-onboarding', intercom );
+                Intercom('update');
+                $rootScope.user.onboard = 100;
+                $scope.onboardSteps = false; 
+                return;
+            }
         };
 
 	// STRIPE CHECKOUT ====================================

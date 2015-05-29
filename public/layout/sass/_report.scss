@@ -14,104 +14,6 @@
 			right: 40px;
 		}
 	}
-	
-	&.show-comments {
-		
-		.sheet-holder {
-			left: 25%;
-			@include animated;
-		}
-		
-		#findings-nav {
-			left: 5%;
-			@include animated;
-		}
-
-		.message-comments {
-			display: block;
-		}
-	}
-
-	#findings-nav {
-		padding: 20px 0 0 0;
-		margin: 0;
-		width: 20%;
-		height: 100%;
-		position: fixed;
-		left: 10%;
-		top: 0;
-		@include animated;		
-		@include scrollbar;
-		
-		#sidebar {
-			width: 95%;
-			height: 80%;
-			overflow: auto;
-			position: relative;
-			
-			&.sidebar {
-				font-size: 16px;
-				@include type-light;
-
-				.tag-hash:before {
-					content: '#';
-				}
-
-				span.findings {
-					color: $fg-slate;
-					display: block;
-					@include type-regular;
-				}
-
-				h4.group-cat {
-					padding: 10px;
-					margin: 5px 0 0 0;
-					font-size: 10px;
-					color: $fg-grey-light;
-					text-transform: uppercase;
-
-					&:first-child {
-						margin: 20px 0 0 0;
-					}
-				}
-
-				li {
-					padding: 10px;
-					margin: 5px 0 0 0;
-				}
-			}
-
-			.test-id {
-
-				h3 {
-					@include type-bold;
-				}
-			}
-
-			#findings-viewmode-controls {
-				position: absolute;
-				left: 80%;
-				top: 63px;
-			}
-			
-			#findings-share-link {
-				width: 100%;
-				padding: 0;
-				margin: 0 0 $pad/2 0;
-				
-				small {
-					line-height: $type-size-base;
-					display: block;
-				}
-			
-				.input {
-					width: 80%;
-					margin: 0;
-				}
-			}
-
-		}
-	}
 
 	.sheet-holder {
 		width: 70%;
@@ -133,7 +35,9 @@
 		padding: 40px 0;
 
 		h1 {
-			@include type-h1($fg-slate);
+			@include type-h1($fg-grey-dark);
+			@include type-regular;
+			letter-spacing: 0.5px;
 			margin: 0;
 		}
 
@@ -158,42 +62,16 @@
 		}
 
 		h3 {
-			@include type-h3($fg-slate);
+			@include type-h3($fg-grey-dark);
+			@include type-regular;
 			margin: 0 0 15px 0;
 		}
 
 		pre {
 			@include type-light;
-			font-size: 12px;
-			line-height: 18px;
+			@include type-p($fg-grey-dark);
 			color: $fg-grey;
 			margin: 0 0 50px 0;
-		}
-		
-		.findings-information {
-
-			h2 {
-				font-size: 20;
-				@include type-regular;
-				margin: 0 0 20px 0;
-			}
-
-			pre {
-				@include type-p($fg-grey-text);
-			}
-			p {
-				@include type-p($fg-grey-text);
-			}
-		}
-		
-		.findings-summary {
-			width: 100%;
-			max-width: 100%;
-			height: 235px;
-			padding: 10px 15px;
-			@include radius(2px);
-			border: 1px solid $line;
-			margin: 0 0 70px 0;
 		}
 	}
 }

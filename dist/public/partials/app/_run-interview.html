@@ -1,13 +1,19 @@
 <div class="sheet-holder" ng-controller="socketFunctions">
 	<div class="sheet">
 	
-		<div id="cta-interview">
+		<div id="cta-interview" ng-model="tests">
+			<div class="participant-info clearfix">
+				<div class="participant-avatar"><span ng-model="initials">{{subject.initials}}</span></div>
+				<h3 class="participant-name">{{subject.name}}</h3>
+			</div>
+
 			<div class="cta">
 				<button class="button" ng-click="summarizeModalToggle()" tabindex="-1">
 				<div class="checkmark"></div>
 				<span>End session</span>
 				</button>
 			</div>
+
 		</div>
 	<!-- note input and display -->
 	<div id="testing-input" class="interview">
@@ -18,13 +24,15 @@
 				<!-- empty state -->
 				<li class="message-no-highlite interview-padding" id="firstrun">
 					<div class="message-body">
-						<div class="test-intro-interview">
-							<img src="layout/assets/fieldy.svg" alt="Fieldy">
+						<div class="test-intro-interview clearfix">
 
+							<img src="layout/assets/fieldy.svg" alt="Fieldy">
 							<h3>Your session is running!</h3>
-							<p>Take notes about what your participant says, the actions they take and the reactions they make. All of this information is valuable. <a href="https://medium.com/@FieldGuideApp/how-you-can-take-better-notes-during-research-24c67c6de025" target="_blank">Learn more about note taking</a></p>
-							<p>Don't worry, you can always edit a note just by clicking on it.</p>
-							<p>Remember to use the #tags below to flag important feedback your get from your participant!</p>
+							<div class="intro-details">
+								<p>Take notes about what your participant says, the actions they take and the reactions they make. All of this information is valuable. <a href="https://medium.com/@FieldGuideApp/how-you-can-take-better-notes-during-research-24c67c6de025" target="_blank">Learn more about note taking</a></p>
+								<p>Don't worry, you can always edit a note just by clicking on it.</p>
+								<p>Remember to use the #tags below to flag important feedback your get from your participant!</p>
+							</div>
 						</div>
 					</div>
 					<div class="clear"></div>

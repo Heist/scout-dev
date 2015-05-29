@@ -60,6 +60,6 @@ module.exports = function(token, pass, app, next){
             });
         })
     .catch(function(err){
-        if(err){console.log(err)}
+        if(err){console.error(err)}
     })
 };

@@ -40,7 +40,12 @@ var TestSchema = new Schema({
         summary: { type: String, trim: true, default: '' },
         next_steps : { type: String, trim: true, default: '' }
 
-    });
+    }, { autoIndex: false });
+
+// How to set up an index using mongoose
+// animalSchema.index({ name: 1, type: -1 });
+
+
 
 TestSchema.pre('save', function(next){
     var now = new Date();

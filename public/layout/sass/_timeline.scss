@@ -2,18 +2,20 @@
 
 
 #timeline {
-	padding: 0 0 150px 0;
+	padding: 0;
 	width: 100%;
-	height: 90%;
+	height: 100%;
 	overflow: auto;
 	margin: 0;
+	padding-bottom: 220px;
 
 	&.prototype {
-		padding: 0 0 150px 0;
+		padding: 0;
 		width: 100%;
 		height: 100%;
 		overflow: auto;
 		margin: 0;
+		padding-bottom: 220px;
 	}
 		
 	ul {
@@ -48,37 +50,39 @@
 
 			.test-intro-prototype {
 				width: 100%;
-				padding: 20px 40px;
-				position: relative;
-				@include dropshadowULTRA($shadow: 0 0 10px, $intensity: rgba(0,0,0,0.1));
-
-				img {
-					position: absolute;
-					top: -11px;
-					left: -24px;
-				}
+				color: $fg-grey-placeholder;
 
 				h3 {
-					@include type-h3($fg-grey-text);
+					@include type-h3($fg-grey-placeholder);
 					@include type-regular;
+					margin: 0 0 15px 0;
+				}
+				img {
+					width: 26px;
+					float: left;
+					margin: 0 10px 0 0;
 				}
 			}
 
 			.test-intro-interview {
-				@extend .test-intro-prototype;
-				width: 65%;
-				margin: 20px auto 0 auto;
-
-				img {
-					position: absolute;
-					top: -11px;
-					left: -24px;
-				}
+				width: 85%;
+				margin: 10px 0 0 0;
+				color: $fg-grey-placeholder;
 
 				h3 {
-					@include type-h3($fg-grey-text);
+					@include type-h3($fg-grey-placeholder);
 					@include type-regular;
+					margin: 0 0 15px 0;
 				}
+				img {
+					width: 26px;
+					float: left;
+					margin: 0 10px 0 0;
+				}
+				.intro-details {
+					width: 100%;
+				}
+				
 			}
 		}
 
@@ -90,7 +94,7 @@
 			cursor: text;
 
 			&:hover {
-				background: $fg-bg url("../assets/fg-edit-hover.svg") 15px no-repeat;
+				background: $fg-bg url("../assets/fg-edit-filled-hover.svg") 15px no-repeat;
 			}
 		}	
 		
@@ -170,8 +174,7 @@
 	
 	#firstrun {
 		.message-body, .message-details {
-			padding-top: $pad;
-			padding-bottom: $pad;
+			padding: 15px 0 0 0;
 		}
 		
 		.message-body {

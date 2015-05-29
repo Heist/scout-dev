@@ -21,7 +21,7 @@
         display: inline-block;
         text-align: center;
         float: right;
-        margin: 7px 0;
+        margin: 6px 0;
         position: relative;
 
         span {
@@ -85,7 +85,7 @@
         }
 
         .cta {
-            margin: 0;
+            margin: 10px 0 0 0;
         }
 
         .cta-margin {
@@ -136,7 +136,7 @@
         width: 550px;
         background: $white;
         padding: 40px;
-        margin: 10% auto;
+        margin: 5% auto;
         @include radius;
         @include dropshadowULTRA;
         @include input-placeholders;

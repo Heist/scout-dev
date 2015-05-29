@@ -6,7 +6,12 @@
     angular.module('field_guide_controls').controller('run', 
     [ 'loadData', 'testBuildFunctions', 'postMessage', '$scope','$http', '$location','$stateParams','$state', '$rootScope', 'socket', '$timeout',
     function(loadData, testBuildFunctions, postMessage, $scope,  $http ,  $location , $stateParams , $state , $rootScope, socket, $timeout){
-    // get the starting data from resolve
+
+        // removes the body scroll overflow hidden
+        var bodyScroll = angular.element(document.querySelector('body'));
+        bodyScroll.removeClass('overflow-hidden');
+
+       // get the starting data from resolve
         var data     = loadData.data;
         var startTest = '';
         
@@ -32,12 +37,9 @@
             })[0]._id;
         };
 
-        
-
         $scope.test = data;
         $scope.kind = data.kind;
         $scope.navlist = data._tasks;
-
         
         $scope.tags = tagSort(data._tags);
     
@@ -63,27 +65,9 @@
        }
     });
 
-
-    // ONBOARDING =========================================
-        // TODO: Abstract into service for dependency injection
-
-        $scope.changeOnboard = function(num){
-            if($rootScope.user.onboard !== 100){
-                $rootScope.user.onboard = num;
-    
-                var url = '/api/user/'+$rootScope.user._id;
-                var dataOut = {onboard : $rootScope.user.onboard};
-    
-                $http
-                    .put(url, dataOut)
-                    .success(function(data){
-                        if($rootScope.user.onboard === 8 ){
-                            $location.path('/summary/'+$scope.test._id);
-                        }
-                    });
-            } else {
-                return; 
-            }
+    // ANGULAR ROUTES ===================================================
+        $scope.cancelRun = function(){
+            $location.path('/overview');
         };
 
         $scope.summarizeTest = false;
@@ -99,7 +83,6 @@
             }
         };
 
-    // ANGULAR ROUTES ===================================================
         $scope.addTask = function(task){
             $scope.adding_task = $scope.adding_task ? false : $scope.adding_task;
             
@@ -131,10 +114,17 @@
                     'doctype' : 'task',
                 });
             }
+
+            if($scope.test.kind === "prototype"){
+                $timeout(function() {$('textarea#prototypeInput').focus() }, 150);
+            } else {
+                $timeout(function() {$('textarea#messageInput').focus() }, 150);
+            }
         };
 
 
         $scope.addSubject = function(subject){
+
             subject.name     = subject.name;
             subject.testroom = subject.testroom || '';
             subject.test     = $stateParams._id;
@@ -142,15 +132,12 @@
             startTest = new Date();
 
             var intercom = {
-                event_name : 'started-test',
-                created_at : startTest,
-                email      : $rootScope.user.email,
-                metadata   : {
-                    test_kind : $scope.test.kind
-                }
+                created_at : startTest.getHours()+':'+startTest.getMinutes(),
+                test_kind : $scope.test.kind
             } ;
             
-            Intercom('trackEvent', intercom );
+            Intercom('trackEvent', 'started-test', intercom );
+            Intercom('update');
 
             $http
                 .post('api/subject/', subject)
@@ -158,7 +145,13 @@
                     $scope.subject = data;
                     $scope.live = true;
                     $scope.select(0,0);
-                    $timeout(function() {$('textarea#messageInput').focus() }, 10);
+
+                    if($scope.test.kind === "prototype"){
+                        $timeout(function() {$('textarea#prototypeInput').focus() }, 150);
+                    } else {
+                        $timeout(function() {$('textarea#messageInput').focus() }, 150);
+                    }
+
                     // Avatar initials
                     // TODO: refactor into service or add to check in process
                     // This might be a good refactored into a directive,
@@ -202,13 +195,17 @@
         $scope.editMessage = function(message){
             // clear this on blur to block weird toggle bug
             $scope.messageEditToggle = message._id;
-            $timeout(function() {$('textarea#editMessage').focus() }, 10);
+            $timeout(function() {$('textarea#editMessage').focus() }, 150);
         };
 
         $scope.saveEdit = function(message){
             $scope.messageEditToggle = '';
-            $timeout(function() {$('textarea#messageInput').focus() }, 10);
-            // $scope.setCaretToPos(document.getElementById("messageInput"),4);
+            if($scope.test.kind === "prototype"){
+                $timeout(function() {$('textarea#prototypeInput').focus() }, 150);
+            } else {
+                $timeout(function() {$('textarea#messageInput').focus() }, 150);
+            }
+            
             $http.put('/api/message/', message)
                 .success(function(data){                 
                     
@@ -239,6 +236,7 @@
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
+                        console.log(data);
                         $scope.timeline.push(data.msg);
                         $scope.tags = tagSort(data.tags);
                     });
@@ -263,16 +261,12 @@
             msec -= ss * 1000;
 
              var intercom = {
-                event_name : 'ended-test',
-                created_at : new Date(),
-                email      : $rootScope.user.email,
-                metadata   : {
-                    test_kind : $scope.test.kind,
-                    duration  : mm
-                }
+                test_kind : $scope.test.kind,
+                created_at : startTest.getHours()+':'+startTest.getMinutes(),
+                duration  : mm+"min"
             } ;
             
-            Intercom('trackEvent', intercom );
+            Intercom('trackEvent', 'ended-test', intercom );
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags

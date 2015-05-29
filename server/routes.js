@@ -95,23 +95,25 @@ module.exports = function(app, passport) {
         }
 
         passport.authenticate('local-signup', function(err, reply) {
-            if (err) { console.log(err) }
+            if (err) { console.error(err) }
 
             if(reply.user){
                 req.logIn(reply.user, function(err) {
                     if (err) { return res.json(err); }
-                    res.json({ 
-                        'user' : reply.user._id,
+                    res.json({
+                        '_id'      : reply.user._id,
+                        'user'     : reply.user._id,
                         '_account' : reply.user._account,
-                        'email': reply.user.local.email, 
-                        'name' : reply.user.name,
-                        'msg'  : 'register user worked',
-                        'redirect'   : '/overview',
-                        'onboarding' : reply.user.onboarding 
+                        'email'    : reply.user.local.email, 
+                        'name'     : reply.user.name,
+                        'msg'      : 'register user worked',
+                        'redirect' : '/overview',
+                        'onboarding' : reply.user.onboarding
                     });
                 });
-                
+
             } else {
+                // there was probably an error somewhere in the chain, we need to find it.
                 console.log(reply);
                 res.json(reply);
             }
@@ -290,15 +292,27 @@ module.exports = function(app, passport) {
         });
     });
 
-// MIDDLEWARE TO BLOCK NON-AUTHORIZED USERS ===============
+// MIDDLEWARE TO BLOCK NON-AUTHORIZED USERS =============================================
 // this effectively prevents unlogged users from getting data
 
     app.use('/api',  isLoggedInAjax, function (req, res, next) {
-        // for calls that start with api....
-        // 
+        // for calls that start with api, make sure shit's logged in.
         next();
     });
 
+    // Make default tests for new users before logging them in ==========================
+    app.post('/api/newtests/:_id', function(req, res){
+        console.log('received newtests request', req.user._id, req.user._account);
+
+        if(req.user){
+            fn.defaultTests(req.user._account, req.user._id, function(err, tests){
+                if (err) { console.error(err); }
+                res.json({redirect: '/overview'});
+            });
+        } else {
+            res.json({error: 'No user found.'})
+        }
+    })
 
 // ACCOUNT ROUTES =========================================
     require('./routes/account')(app);

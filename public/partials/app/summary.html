@@ -14,21 +14,20 @@
 		
 		<div id="sidebar" class="sidebar">
 			
-			<!-- <h4 class="group-cat hollow"></h4> -->
 			<div>
 				<ul>
 					<li ng-model="navlist.test[0]" ng-class="{ 'active': navlist.test[0]._id === selected._id }" ng-click="activate(navlist.test[0])">
-						<span class="report">Summary<span class="info" data-tooltip-report="Your participant summaries and shareable report"><span>?</span></span>
+						Summaries
 					</li>
 				</ul>
 				<ul ng-if="navlist.tag">
-					<h4 class="group-cat">Tags<span class="info" data-tooltip-report="All of the notes you have #tagged as important can be found here."><span>?</span></span></h4>
+					<h4 class="group-cat">Tags</h4>
 					<li ng-repeat="object in  navlist.tag | orderBy:'name'" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
 						<span class="objects tag-hash">{{object.name}}</span>
 					</li>
 				</ul>
 				<ul ng-if="navlist.task">
-					<h4 class="group-cat">Topics<span class="info" data-tooltip-report="All of your notes organized to their specific Topic."><span>?</span></span></h4>
+					<h4 class="group-cat">Topics</h4>
 					<li ng-repeat="object in navlist.task | orderBy:'index'" ng-class="{ 'active': object._id === selected._id }"  ng-click="activate(object)">
 						<span class="objects">{{object.name}} {{created}}</span>
 					</li>
@@ -46,24 +45,24 @@
 
 			<div class="selected-heading" ng-if="selected.doctype === 'test'">
 				<h2>Summaries</h2>
-				<p>Use these to help create your final Findings.</p>
+				<p>These are the summaries you made after your sessions. Build your report based on the themes, insights and issues you identified here.</p>
 			</div>
 
 			<div class="selected-heading" ng-if="selected.doctype === 'tag'">
 				<h2>#{{selected.name}}</h2>
-				<p>Use these to help create your final Findings.</p>
+				<p>All of the notes you have tagged as important during your sessions can be found here.</p>
 			</div>
 
 			<div class="selected-heading" ng-if="selected.doctype === 'task'">
 				<h2>{{selected.name}}</h2>
-				<p>Use these to help create your final Findings.</p>
+				<p>All of your notes organized by topic.</p>
 			</div>
 			
 			<!-- messages -->
 			<div ng-if="selected.doctype !== 'test' " ng-show="messageFilter(selected, user)" class="summary-group" ng-repeat="user in messages" >
 				<!-- participant name -->
 				<div class="summary-user">
-					<h3>{{user[0]._subject.name}}</h3>
+					{{user[0]._subject.name}}
 					<div class="clear"></div>
 				</div>
 				<div ng-repeat="message in user" class="summary"
@@ -72,7 +71,7 @@
 					
 					<div class="summary-body" ng-click="editMessage(message, $index)">
 						<pre class="summaries" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-						<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)"></textarea>
+						<textarea msd-elastic class="input-no-border" id="messageInput" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)" ></textarea>
 					</div>
 				
 				<div class="clear"></div>
@@ -93,7 +92,7 @@
 					ng-class="{selected: commentMessage._id === message._id}">
 					<div class="summary-body" ng-click="editMessage(message, $index)">
 						<pre class="summaries" ng-bind-html="message.body | hashtag" ng-show="messageEditToggle != message._id"></pre>
-						<textarea msd-elastic class="input" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)"></textarea>
+						<textarea msd-elastic class="input-no-border" id="messageInput" ng-model="message.body" ng-show="messageEditToggle ==  message._id" ng-enter="saveEdit(message, user)"></textarea>
 					</div>
 				
 					<div class="clear"></div>
@@ -146,10 +145,10 @@
 						<p class="no-cursor" ng-if="displayReport.desc" ng-bind-html="displayReport.desc | linebreaker"></p>
 						
 						<h3>Learnings</h3>
-						<textarea msd-elastic class="input" id="field-textarea" placeholder="Summarize your high level learning here. This is the page you will be sharing with your organization."  ng-model="displayReport.summary" ng-blur="saveObject(displayReport)"></textarea>
+						<textarea msd-elastic class="input" id="field-textarea" placeholder="Summarize your high level learnings here. These are the learnings, issues and insights you will be sharing with your team."  ng-model="displayReport.summary" ng-blur="saveObject(displayReport)"></textarea>
 
 						<h3>Next steps</h3>
-						<textarea msd-elastic class="input" id="field-textarea" placeholder="Summarize your high level learning here. This is the page you will be sharing with your organization."  ng-model="displayReport.next_steps" ng-blur="saveObject(displayReport)"></textarea>
+						<textarea msd-elastic class="input" id="field-textarea" placeholder="List the immediate actions, conversations or additional work that needs to take place based on what you have learned above."  ng-model="displayReport.next_steps" ng-blur="saveObject(displayReport)"></textarea>
 					</div>
 				
 				</div>

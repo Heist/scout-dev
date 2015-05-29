@@ -22,8 +22,26 @@ module.exports = function(app, passport) {
     app.route('/api/message/')
     .post(function(req,res){
      // Create a new message
-        
-        fn.messageNew(req.body, req.user._id).then(function(data){
+        console.log('new message', req.body);
+
+        // we expect it to be an object, with _tags etc.
+        var newMsg = {};
+        if(req.body._test){
+            newMsg = req.body;
+        }
+        else if(req.body.hasSummary){
+            if(req.body.msg._tags.indexOf(req.body.hasSummary !== -1)){
+                newMsg = req.body.msg;
+                newMsg.body = newMsg.body + ' #summary';
+            }
+        } 
+
+        console.log('this is the new message', newMsg);
+
+        if(newMsg.length === 0){ return; }
+
+        fn.messageNew(newMsg, req.user._id).then(function(data){
+            console.log('data out of new message', data);
             if(typeof data === 'object'){
                 models.Tag.findAsync({'_test' : req.body._test, '_messages' :{$not: {$size : 0}} })
                     .then(function(tags){
@@ -38,7 +56,21 @@ module.exports = function(app, passport) {
         // Edit the body of a message and change its tag associations
         // this is used in all message editing in all parts of the app
         console.log('touched put', req.body);
-        fn.messageEdit(req.body).then(function(data){
+        // we expect it to be an object, with _tags etc.
+        var newMsg = {};
+        if(req.body._test){
+            newMsg = req.body;
+        }
+        else if(req.body.hasSummary){
+            if(req.body.msg._tags.indexOf(req.body.hasSummary !== -1)){
+                newMsg = req.body.msg;
+                newMsg.body = newMsg.body + ' #summary';
+            }
+        } 
+        
+        console.log('this is the message for editing', newMsg);
+
+        fn.messageEdit(newMsg).then(function(data){
             console.log('returned message', data);
             if(typeof data === 'object'){
                 models.Tag.findAsync({'_test' : data._test})
