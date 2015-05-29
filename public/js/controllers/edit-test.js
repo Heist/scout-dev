@@ -15,7 +15,7 @@
 
         var data = loadData.data;
         
-
+        Intercom('update');
         $scope.test = data;
         $scope.tags = tagSort(data._tags) || [];
         $scope.tasks = data._tasks || [];

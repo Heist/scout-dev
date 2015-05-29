@@ -39,7 +39,7 @@
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
-
+                Intercom('update');
                 $scope.animationToggle();
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
