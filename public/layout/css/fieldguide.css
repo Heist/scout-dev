@@ -6703,16 +6703,17 @@ span.tooltip-icon {
     font-size: 18.6px;
     line-height: 24px;
     letter-spacing: 0.5px;
-    color: rgba(255, 255, 255, 0.4);
-    width: 29%;
-    margin: 0 auto; }
+    color: rgba(255, 255, 255, 0.4); }
+    #view-onboarding .onboarding-content p.last-step {
+      width: 350px;
+      margin: 0 auto; }
   #view-onboarding .onboarding-content img {
     margin: 45px 0 20px 0;
     max-width: 900px;
     max-height: 70vh; }
   #view-onboarding .onboarding-content img.ranger {
     width: 180px;
-    margin: 10% 0 20px 0; }
+    margin: 7% 0 20px 0; }
     #view-onboarding .onboarding-content img.ranger.small {
       width: 60px;
       margin: 0 20px 0 0;

@@ -34,8 +34,11 @@
         p {
             @include type-h3($white);
             color: transparentize($white,0.6);
-            width: 29%;
-            margin: 0 auto;
+            
+            &.last-step {
+                width: 350px;
+                margin: 0 auto;
+            }
         }
 
         img {
@@ -45,7 +48,7 @@
         }
         img.ranger {
             width: 180px;
-            margin: 10% 0 20px 0;
+            margin: 7% 0 20px 0;
             &.small {
                 width: 60px;
                 margin: 0 20px 0 0;
