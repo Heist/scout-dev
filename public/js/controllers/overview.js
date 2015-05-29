@@ -39,6 +39,13 @@
             }
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 // TODO: setup as http post
+                var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
+                var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
+
+                // below classes are from animate.css library
+                lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
+                otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
+            
                 var duration = new Date();
 
                 if (duration < startOnboard) {
@@ -56,7 +63,6 @@
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
                 Intercom('update');
-                $scope.animationToggle();
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 $scope.changeOnboard(100);
