@@ -5491,12 +5491,7 @@ span.tooltip-icon {
       font-style: normal;
       font-weight: 400;
       margin: 0 0 15px 0;
-      text-transform: none;
-      float: left; }
-    #view-editing .empty-task-message img {
-      width: 26px;
-      float: left;
-      margin: 0 10px 0 0; }
+      text-transform: none; }
     #view-editing .empty-task-message .intro-details {
       clear: both; }
   #view-editing .add-task {
