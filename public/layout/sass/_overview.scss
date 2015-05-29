@@ -157,12 +157,19 @@
 	.test-edit {
 		padding: 45px 15px 0 15px;
 		height: 200px;
+		position: relative;
 
 		h2 {
 			@include type-h2($fg-black);
 			word-break: break-word;
 			letter-spacing: -0.5px;
 			font-weight: 400;
+		}
+
+		.test-edit-msg {
+			position: absolute;
+			top: 25px;
+			left: 15px;
 		}
 	}
 	
