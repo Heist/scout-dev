@@ -55792,6 +55792,7 @@ angular.module('siyfion.sfTypeahead', [])
 
         var data = loadData.data;
         console.log(data);
+        
         Intercom('update');
         $scope.test = data;
         $scope.tags = tagSort(data._tags) || [];
@@ -58485,7 +58486,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     scope.$digest();
                 }
 
-                if (evt.which === 32) {
+                if (evt.which === 32 || evt.which === 46) {
                     // SPACE keypress =========
                     // add a space to the model and cancel the dropdown
                     // post the tag to the scope-tags for comparision
