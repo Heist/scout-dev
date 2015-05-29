@@ -240,7 +240,6 @@ h2 {
 h3 {
   font-size: 18.6px;
   line-height: 24px;
-  letter-spacing: 0.5px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -249,7 +248,6 @@ h3 {
 h4 {
   font-size: 10px;
   line-height: 11px;
-  letter-spacing: 0.5px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -3522,8 +3520,7 @@ Copyright (c) 2015 Daniel Eden
   #help-bubble-content h3 {
     color: #C5C6C7;
     font-size: 18.6px;
-    line-height: 24px;
-    letter-spacing: 0.5px; }
+    line-height: 24px; }
   #help-bubble-content .cta a {
     margin: 0 20px 0 0; }
   #help-bubble-content ol {
@@ -4238,8 +4235,7 @@ span.tooltip-icon {
       #timeline ul .message-no-highlite h3 {
         color: #C5C6C7;
         font-size: 18.6px;
-        line-height: 24px;
-        letter-spacing: 0.5px; }
+        line-height: 24px; }
       #timeline ul .message-no-highlite p {
         margin: 0; }
       #timeline ul .message-no-highlite .test-intro-prototype {
@@ -4249,7 +4245,6 @@ span.tooltip-icon {
           color: #C5C6C7;
           font-size: 18.6px;
           line-height: 24px;
-          letter-spacing: 0.5px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
           font-weight: 400;
@@ -4266,7 +4261,6 @@ span.tooltip-icon {
           color: #C5C6C7;
           font-size: 18.6px;
           line-height: 24px;
-          letter-spacing: 0.5px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
           font-weight: 400;
@@ -4462,7 +4456,6 @@ span.tooltip-icon {
       #tasklist ul li h3 {
         font-size: 18.6px;
         line-height: 24px;
-        letter-spacing: 0.5px;
         padding: 0;
         margin: 0; }
         #tasklist ul li h3.tag-name {
@@ -5282,8 +5275,7 @@ span.tooltip-icon {
       display: inline-block;
       color: #C5C6C7;
       font-size: 18.6px;
-      line-height: 24px;
-      letter-spacing: 0.5px; }
+      line-height: 24px; }
       #view-new-project button.test-type h3.interview:before {
         background: url('../assets/interview-dark.svg') top left no-repeat;
         content: '';
@@ -5454,7 +5446,6 @@ span.tooltip-icon {
     color: #7a7a7a;
     font-size: 18.6px;
     line-height: 24px;
-    letter-spacing: 0.5px;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -5501,7 +5492,6 @@ span.tooltip-icon {
       color: #C5C6C7;
       font-size: 18.6px;
       line-height: 24px;
-      letter-spacing: 0.5px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
@@ -5528,7 +5518,6 @@ span.tooltip-icon {
       color: #7a7a7a;
       font-size: 18.6px;
       line-height: 24px;
-      letter-spacing: 0.5px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 300; }
@@ -5644,7 +5633,6 @@ span.tooltip-icon {
   #view-testing h3 {
     font-size: 18.6px;
     line-height: 24px;
-    letter-spacing: 0.5px;
     padding: 0;
     margin: 0; }
     #view-testing h3.participant-name {
@@ -6114,7 +6102,6 @@ span.tooltip-icon {
   color: #1B5273;
   font-size: 18.6px;
   line-height: 24px;
-  letter-spacing: 0.5px;
   margin: 0 0 10px 0;
   position: relative; }
   .message-user img {
@@ -6251,8 +6238,7 @@ span.tooltip-icon {
     .message .message-body h3 {
       color: #D8DADB;
       font-size: 18.6px;
-      line-height: 24px;
-      letter-spacing: 0.5px; }
+      line-height: 24px; }
     .message .message-body p {
       margin-bottom: 0 !important;
       color: #888A8A; }
@@ -6403,7 +6389,6 @@ span.tooltip-icon {
           margin: 5px 0 0 0;
           font-size: 10px;
           line-height: 11px;
-          letter-spacing: 0.5px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
           font-weight: 600;
@@ -6529,8 +6514,7 @@ span.tooltip-icon {
           #view-findings .summaries-holder .summaries-content .summary .summary-body h3 {
             color: #D8DADB;
             font-size: 18.6px;
-            line-height: 24px;
-            letter-spacing: 0.5px; }
+            line-height: 24px; }
           #view-findings .summaries-holder .summaries-content .summary .summary-body p {
             margin-bottom: 0 !important;
             color: #888A8A; }
@@ -6580,7 +6564,6 @@ span.tooltip-icon {
       color: #575757;
       font-size: 18.6px;
       line-height: 24px;
-      letter-spacing: 0.5px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
@@ -6702,7 +6685,6 @@ span.tooltip-icon {
     color: #fff;
     font-size: 18.6px;
     line-height: 24px;
-    letter-spacing: 0.5px;
     color: rgba(255, 255, 255, 0.4); }
     #view-onboarding .onboarding-content p.last-step {
       width: 350px;
@@ -6748,7 +6730,6 @@ span.tooltip-icon {
         color: #fff;
         font-size: 18.6px;
         line-height: 24px;
-        letter-spacing: 0.5px;
         margin: 0;
         text-align: left;
         width: 65%;
@@ -6858,7 +6839,6 @@ span.tooltip-icon {
       color: #575757;
       font-size: 18.6px;
       line-height: 24px;
-      letter-spacing: 0.5px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;

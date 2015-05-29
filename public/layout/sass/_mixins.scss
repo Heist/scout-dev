@@ -191,19 +191,16 @@
 	color: $fg-grey-text;
 	font-size: $type-h3-size;
 	line-height: $type-h3-line;
-	letter-spacing: 0.5px;
 }
 
 @mixin type-h3-no-colour {
 	font-size: $type-h3-size;
 	line-height: $type-h3-line;
-	letter-spacing: 0.5px;
 }
 
 @mixin type-h4($fg-grey-text) {
 	font-size: $type-h4-size;
 	line-height: $type-h4-line;
-	letter-spacing: 0.5px;
 }
 
 @mixin type-p($fg-grey-text) {
