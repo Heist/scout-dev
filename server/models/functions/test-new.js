@@ -37,10 +37,15 @@ module.exports = function(req, next){
             ]
 
             models.Tag.create(createTheseTags, function(err, next){})
-              .then(function(tag){
-                console.log('new test', tag, test);
-                    next(null, test);
-                });
+              .then(function(sum,usr,iss,com,eff,quo){
+                console.log(sum._id,usr._id,iss._id,com._id,eff._id,quo._id, test);
+                test._tags = [sum._id,usr._id,iss._id,com._id,eff._id,quo._id]
+                return test.save(function(err, n){
+                    console.log('this is the test with the id', n);
+                    // console.log('found newtest', n);
+                    next(null, n);
+                })
+            });
             
         });
 };
