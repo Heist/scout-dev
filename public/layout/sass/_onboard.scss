@@ -15,12 +15,16 @@
 
     .onboarding-content {
 
+        h1 {
+            width: 60%;
+            margin: 0 auto 20px auto;
+            @include type-h1($white);
+        }
+
         h2 {
             width: 60%;
             margin: 0 auto 20px auto;
-            font-size: 40px;
-            color: $white;
-            line-height: 54px;
+            @include type-h2($white);
 
             &.less-margin {
                 margin: 0 auto 20px auto;
@@ -28,8 +32,10 @@
         }
 
         p {
-            font-size: 20px;
+            @include type-h3($white);
             color: transparentize($white,0.6);
+            width: 29%;
+            margin: 0 auto;
         }
 
         img {
@@ -86,9 +92,7 @@
         .footer-content {
             text-align: center;
             p {
-                color: $white;
-                font-size: 22px;
-                line-height: 28px;
+                @include type-h3($white);
                 margin: 0;
                 text-align: left;
                 width: 65%;

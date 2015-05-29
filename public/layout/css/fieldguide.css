@@ -220,6 +220,7 @@ h1 {
   color: #7a7a7a;
   font-size: 33.1px;
   line-height: 37px;
+  letter-spacing: 0.5px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -230,6 +231,7 @@ h2 {
   color: #7a7a7a;
   font-size: 24.8px;
   line-height: 30px;
+  letter-spacing: 0.5px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -238,6 +240,7 @@ h2 {
 h3 {
   font-size: 18.6px;
   line-height: 24px;
+  letter-spacing: 0.5px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -246,6 +249,7 @@ h3 {
 h4 {
   font-size: 10px;
   line-height: 11px;
+  letter-spacing: 0.5px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -3513,11 +3517,13 @@ Copyright (c) 2015 Daniel Eden
     color: #C5C6C7;
     font-size: 24.8px;
     line-height: 30px;
+    letter-spacing: 0.5px;
     margin: 0; }
   #help-bubble-content h3 {
     color: #C5C6C7;
     font-size: 18.6px;
-    line-height: 24px; }
+    line-height: 24px;
+    letter-spacing: 0.5px; }
   #help-bubble-content .cta a {
     margin: 0 20px 0 0; }
   #help-bubble-content ol {
@@ -4232,7 +4238,8 @@ span.tooltip-icon {
       #timeline ul .message-no-highlite h3 {
         color: #C5C6C7;
         font-size: 18.6px;
-        line-height: 24px; }
+        line-height: 24px;
+        letter-spacing: 0.5px; }
       #timeline ul .message-no-highlite p {
         margin: 0; }
       #timeline ul .message-no-highlite .test-intro-prototype {
@@ -4242,6 +4249,7 @@ span.tooltip-icon {
           color: #C5C6C7;
           font-size: 18.6px;
           line-height: 24px;
+          letter-spacing: 0.5px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
           font-weight: 400;
@@ -4258,6 +4266,7 @@ span.tooltip-icon {
           color: #C5C6C7;
           font-size: 18.6px;
           line-height: 24px;
+          letter-spacing: 0.5px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
           font-weight: 400;
@@ -4453,6 +4462,7 @@ span.tooltip-icon {
       #tasklist ul li h3 {
         font-size: 18.6px;
         line-height: 24px;
+        letter-spacing: 0.5px;
         padding: 0;
         margin: 0; }
         #tasklist ul li h3.tag-name {
@@ -5187,6 +5197,7 @@ span.tooltip-icon {
       color: #575757;
       font-size: 24.8px;
       line-height: 30px;
+      letter-spacing: 0.5px;
       word-break: break-word;
       letter-spacing: -0.5px;
       font-weight: 400; }
@@ -5271,7 +5282,8 @@ span.tooltip-icon {
       display: inline-block;
       color: #C5C6C7;
       font-size: 18.6px;
-      line-height: 24px; }
+      line-height: 24px;
+      letter-spacing: 0.5px; }
       #view-new-project button.test-type h3.interview:before {
         background: url('../assets/interview-dark.svg') top left no-repeat;
         content: '';
@@ -5403,6 +5415,7 @@ span.tooltip-icon {
     color: #575757;
     font-size: 33.1px;
     line-height: 37px;
+    letter-spacing: 0.5px;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -5441,6 +5454,7 @@ span.tooltip-icon {
     color: #7a7a7a;
     font-size: 18.6px;
     line-height: 24px;
+    letter-spacing: 0.5px;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -5487,6 +5501,7 @@ span.tooltip-icon {
       color: #C5C6C7;
       font-size: 18.6px;
       line-height: 24px;
+      letter-spacing: 0.5px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
@@ -5513,6 +5528,7 @@ span.tooltip-icon {
       color: #7a7a7a;
       font-size: 18.6px;
       line-height: 24px;
+      letter-spacing: 0.5px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 300; }
@@ -5628,6 +5644,7 @@ span.tooltip-icon {
   #view-testing h3 {
     font-size: 18.6px;
     line-height: 24px;
+    letter-spacing: 0.5px;
     padding: 0;
     margin: 0; }
     #view-testing h3.participant-name {
@@ -6097,6 +6114,7 @@ span.tooltip-icon {
   color: #1B5273;
   font-size: 18.6px;
   line-height: 24px;
+  letter-spacing: 0.5px;
   margin: 0 0 10px 0;
   position: relative; }
   .message-user img {
@@ -6233,7 +6251,8 @@ span.tooltip-icon {
     .message .message-body h3 {
       color: #D8DADB;
       font-size: 18.6px;
-      line-height: 24px; }
+      line-height: 24px;
+      letter-spacing: 0.5px; }
     .message .message-body p {
       margin-bottom: 0 !important;
       color: #888A8A; }
@@ -6384,6 +6403,7 @@ span.tooltip-icon {
           margin: 5px 0 0 0;
           font-size: 10px;
           line-height: 11px;
+          letter-spacing: 0.5px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
           font-weight: 600;
@@ -6450,6 +6470,7 @@ span.tooltip-icon {
           color: #1B5273;
           font-size: 24.8px;
           line-height: 30px;
+          letter-spacing: 0.5px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
           font-weight: 400;
@@ -6508,7 +6529,8 @@ span.tooltip-icon {
           #view-findings .summaries-holder .summaries-content .summary .summary-body h3 {
             color: #D8DADB;
             font-size: 18.6px;
-            line-height: 24px; }
+            line-height: 24px;
+            letter-spacing: 0.5px; }
           #view-findings .summaries-holder .summaries-content .summary .summary-body p {
             margin-bottom: 0 !important;
             color: #888A8A; }
@@ -6558,6 +6580,7 @@ span.tooltip-icon {
       color: #575757;
       font-size: 18.6px;
       line-height: 24px;
+      letter-spacing: 0.5px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
@@ -6584,6 +6607,7 @@ span.tooltip-icon {
         color: #575757;
         font-size: 33.1px;
         line-height: 37px;
+        letter-spacing: 0.5px;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 400;
@@ -6658,17 +6682,30 @@ span.tooltip-icon {
     display: none; }
   #view-onboarding .show {
     display: block; }
+  #view-onboarding .onboarding-content h1 {
+    width: 60%;
+    margin: 0 auto 20px auto;
+    color: #fff;
+    font-size: 33.1px;
+    line-height: 37px;
+    letter-spacing: 0.5px; }
   #view-onboarding .onboarding-content h2 {
     width: 60%;
     margin: 0 auto 20px auto;
-    font-size: 40px;
     color: #fff;
-    line-height: 54px; }
+    font-size: 24.8px;
+    line-height: 30px;
+    letter-spacing: 0.5px; }
     #view-onboarding .onboarding-content h2.less-margin {
       margin: 0 auto 20px auto; }
   #view-onboarding .onboarding-content p {
-    font-size: 20px;
-    color: rgba(255, 255, 255, 0.4); }
+    color: #fff;
+    font-size: 18.6px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.4);
+    width: 29%;
+    margin: 0 auto; }
   #view-onboarding .onboarding-content img {
     margin: 45px 0 20px 0;
     max-width: 900px;
@@ -6708,8 +6745,9 @@ span.tooltip-icon {
       text-align: center; }
       #view-onboarding footer .footer-content p {
         color: #fff;
-        font-size: 22px;
-        line-height: 28px;
+        font-size: 18.6px;
+        line-height: 24px;
+        letter-spacing: 0.5px;
         margin: 0;
         text-align: left;
         width: 65%;
@@ -6794,6 +6832,7 @@ span.tooltip-icon {
       color: #575757;
       font-size: 33.1px;
       line-height: 37px;
+      letter-spacing: 0.5px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
@@ -6818,6 +6857,7 @@ span.tooltip-icon {
       color: #575757;
       font-size: 18.6px;
       line-height: 24px;
+      letter-spacing: 0.5px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
