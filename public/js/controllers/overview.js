@@ -21,6 +21,22 @@
 
         var startOnboard;
         $scope.onboardToggle = function(){
+            if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+                startOnboard = new Date();
+                var hh = startOnboard.getHours();
+                var m = startOnboard.getMinutes();
+
+                var out = {
+                    created_at : hh+':'+m,
+                };
+                
+                Intercom('trackEvent', 'opened-onboarding', out );
+
+                $rootScope.user.onboard = 1;  
+                $scope.onboardSteps = true; 
+                $scope.changeOnboard(1);
+                return;
+            }
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 // TODO: setup as http post
                 var duration = new Date();
@@ -44,23 +60,6 @@
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 $scope.changeOnboard(100);
-                return;
-            }
-
-            if(!$scope.onboardSteps || $scope.onboardSteps === false ){
-                startOnboard = new Date();
-                var hh = startOnboard.getHours();
-                var m = startOnboard.getMinutes();
-
-                var out = {
-                    created_at : hh+':'+m,
-                };
-                
-                Intercom('trackEvent', 'opened-onboarding', out );
-
-                $rootScope.user.onboard = 1;  
-                $scope.onboardSteps = true; 
-                $scope.changeOnboard(1);
                 return;
             }
         };
