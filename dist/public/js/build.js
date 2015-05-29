@@ -56134,7 +56134,7 @@ angular.module('siyfion.sfTypeahead', [])
                 .post(url, dataOut)
                 .success(function(data){
 
-                    if (data.error === "No user found. ") {
+                    if (data.error === "User not found.") {
                         $scope.errorPassword = '';
                         $scope.errorEmail = data.error;
                     } else {
@@ -56703,27 +56703,9 @@ angular.module('siyfion.sfTypeahead', [])
        }
     });
 
-
-    // ONBOARDING =========================================
-        // TODO: Abstract into service for dependency injection
-
-        $scope.changeOnboard = function(num){
-            if($rootScope.user.onboard !== 100){
-                $rootScope.user.onboard = num;
-    
-                var url = '/api/user/'+$rootScope.user._id;
-                var dataOut = {onboard : $rootScope.user.onboard};
-    
-                $http
-                    .put(url, dataOut)
-                    .success(function(data){
-                        if($rootScope.user.onboard === 8 ){
-                            $location.path('/summary/'+$scope.test._id);
-                        }
-                    });
-            } else {
-                return; 
-            }
+    // ANGULAR ROUTES ===================================================
+        $scope.cancelRun = function(){
+            $location.path('/overview');
         };
 
         $scope.summarizeTest = false;
@@ -56739,7 +56721,6 @@ angular.module('siyfion.sfTypeahead', [])
             }
         };
 
-    // ANGULAR ROUTES ===================================================
         $scope.addTask = function(task){
             $scope.adding_task = $scope.adding_task ? false : $scope.adding_task;
             
