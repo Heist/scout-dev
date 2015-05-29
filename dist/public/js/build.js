@@ -56726,6 +56726,10 @@ angular.module('siyfion.sfTypeahead', [])
             }
         };
 
+        $scope.cancelRun = function(){
+            $location.path('/overview');
+        };
+
         $scope.summarizeTest = false;
 
         $scope.summarizeModalToggle = function(){
