@@ -382,11 +382,7 @@
 
         form {
             border-top: 1px solid transparentize($fg-grey-light, 0.5);
-<<<<<<< HEAD
-            margin: 0;
-=======
             margin: 0 0 15px 0;
->>>>>>> dev09
         }
 
         input {
@@ -408,12 +404,8 @@
             @include type-p($fg-grey-text);
             line-height: auto;
             @include type-light;
-<<<<<<< HEAD
-            border-bottom: 1px solid rgba(216, 218, 219, 0.5);
-=======
             border-bottom: 1px solid transparentize($fg-grey-light, 0.5);
             padding: 15px 0;
->>>>>>> dev09
         }
     }
 

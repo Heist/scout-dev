@@ -109,13 +109,7 @@
 					<div class="container-row clearfix">
 						<div class="container-left">&nbsp;</div>
 						<div class="container-right padding">
-<<<<<<< HEAD:public/partials/app/test.html
 
-							<!-- add a new task -->
-							<div class="add-task">
-								<form name="addTaskForm" ng-model='newtask' ng-submit="newTask(newtask)">
-									<input class="topic-name" name="topic" ng-trim="false" ng-model="newtask.name" placeholder="Write a topic title.." required>
-=======
 							<!-- empty task -->
 							<div class="empty-task-message" ng-if="tasks.length === 0">
 								<img src="layout/assets/fieldy.svg" alt="Fieldy">
@@ -131,7 +125,6 @@
 							<div class="add-task">
 								<form ng-model="newtask" ng-submit="newTask(newtask)">
 									<input class="topic-name" ng-trim="false" ng-model="newtask.name" placeholder="Write a topic title.." required>
->>>>>>> dev09:dist/public/partials/app/edit-test.html
 									
 									<textarea msd-elastic name="questions" class="topic-questions" ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions.." required>
 									</textarea>
