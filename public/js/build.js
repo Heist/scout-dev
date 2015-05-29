@@ -55583,7 +55583,7 @@ angular.module('siyfion.sfTypeahead', [])
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
-            	
+            	Intercom('update');
             	$rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 $scope.animationToggle();
@@ -55599,7 +55599,7 @@ angular.module('siyfion.sfTypeahead', [])
                 };
                 
                 Intercom('trackEvent', 'opened-onboarding', out );
-
+                Intercom('update');
             	$rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
                 return;
@@ -56056,8 +56056,9 @@ angular.module('siyfion.sfTypeahead', [])
             
 
     $scope.showIntercom = function(){
-        Intercom('show');
         Intercom('trackEvent', 'opened-education', intercom );
+        Intercom('show');
+        Intercom('update');
     }
 
 
@@ -56208,8 +56209,9 @@ angular.module('siyfion.sfTypeahead', [])
             $http
                 .post('/api/test/', test)
                 .success(function(data){
+                    
                     Intercom('trackEvent', 'created-project', intercom );
-
+                    Intercom('update');
                     $scope.$parent.tests.push(data);
                     $scope.$parent.newTestModalToggle();
                     $location.path('/edit/test/'+ data._id);
@@ -56776,6 +56778,7 @@ angular.module('siyfion.sfTypeahead', [])
             } ;
             
             Intercom('trackEvent', 'started-test', intercom );
+            Intercom('update');
 
             $http
                 .post('api/subject/', subject)
@@ -57175,7 +57178,7 @@ angular.module('siyfion.sfTypeahead', [])
                 };
                 
                 Intercom('trackEvent', 'shared-report-button-clicked', intercom );
-            
+                Intercom('update');        
                 return;
             }
         };
@@ -57225,6 +57228,7 @@ angular.module('siyfion.sfTypeahead', [])
                 };
 
                 Intercom('trackEvent', 'saved-test-report', intercom );
+                Intercom('update');
             }
 
             $http.post('/api/summary/object/', [obj]);
