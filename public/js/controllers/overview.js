@@ -19,9 +19,11 @@
             $scope.onboardSteps = true;
         }
 
-        var startOnboard;
+                var startOnboard;
         $scope.onboardToggle = function(){
+            console.log('onboardToggle');
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+                console.log('false clicked')
                 startOnboard = new Date();
                 var hh = startOnboard.getHours();
                 var m = startOnboard.getMinutes();
@@ -31,21 +33,24 @@
                 };
                 
                 Intercom('trackEvent', 'opened-onboarding', out );
-
-                $rootScope.user.onboard = 1;  
+                Intercom('update');
+                $rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
-                $scope.changeOnboard(1);
                 return;
             }
+
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-                // TODO: setup as http post
+                console.log('truth clicked')
+
+                var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
                 var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
                 var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
 
                 // below classes are from animate.css library
+                viewOnboarding.addClass('animated slideOutDown').delay(1000).hide(1);
                 lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
                 otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
-            
+                
                 var duration = new Date();
 
                 if (duration < startOnboard) {
@@ -65,19 +70,9 @@
                 Intercom('update');
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
-                $scope.changeOnboard(100);
+                $scope.animationToggle();
                 return;
             }
-        };
-
-        $scope.animationToggle = function(){
-            var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
-            var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
-
-            // below classes are from animate.css library
-            lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
-            otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
-
         };
 
         $scope.changeOnboard = function(num){
