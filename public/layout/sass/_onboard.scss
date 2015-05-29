@@ -15,6 +15,15 @@
 
     .onboarding-content {
 
+        .corner-callout {
+            background: url('../assets/onboarding/corner-callout.png') no-repeat;
+            width: 97px;
+            height: 245px;
+            position: fixed;
+            right: 30px;
+            bottom: 28px;
+        }
+
         h1 {
             width: 60%;
             margin: 0 auto 20px auto;
@@ -36,7 +45,7 @@
             color: transparentize($white,0.6);
             
             &.last-step {
-                width: 350px;
+                width: 390px;
                 margin: 0 auto;
             }
         }

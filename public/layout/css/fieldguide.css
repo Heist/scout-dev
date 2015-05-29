@@ -6661,6 +6661,13 @@ span.tooltip-icon {
     display: none; }
   #view-onboarding .show {
     display: block; }
+  #view-onboarding .onboarding-content .corner-callout {
+    background: url('../assets/onboarding/corner-callout.png') no-repeat;
+    width: 97px;
+    height: 245px;
+    position: fixed;
+    right: 30px;
+    bottom: 28px; }
   #view-onboarding .onboarding-content h1 {
     width: 60%;
     margin: 0 auto 20px auto;
@@ -6683,7 +6690,7 @@ span.tooltip-icon {
     line-height: 24px;
     color: rgba(255, 255, 255, 0.4); }
     #view-onboarding .onboarding-content p.last-step {
-      width: 350px;
+      width: 390px;
       margin: 0 auto; }
   #view-onboarding .onboarding-content img {
     margin: 45px 0 20px 0;
