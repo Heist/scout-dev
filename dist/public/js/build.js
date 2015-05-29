@@ -58486,7 +58486,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     scope.$digest();
                 }
 
-                if (evt.which === 32 || evt.which === 46) {
+                if (evt.which === 32 || evt.which === 46 ||  evt.which === 44 ) {
                     // SPACE keypress =========
                     // add a space to the model and cancel the dropdown
                     // post the tag to the scope-tags for comparision
