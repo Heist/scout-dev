@@ -41,7 +41,7 @@
 					<div class="container-row  tags clearfix">
 						<div class="container-left">
 							<h3>Tags
-							<span class="tooltip-icon" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
+							<span class="tooltip-icon" data-tooltip-large="Use these to identify different types of important feedback when you are taking notes."><span>?</span></span>
 							</h3>
 						</div>
 						
@@ -62,7 +62,7 @@
 					<div class="container-row topics clearfix">
 						<div class="container-left">
 							<h3 class="topics">Topics
-							<span class="tooltip-icon" data-tooltip-large="Best for conversational or observational research like Ethnography or Customer Validation."><span>?</span></span>
+							<span class="tooltip-icon" data-tooltip-large="Outline the tasks and questions you want to discuss with your participants for this project."><span>?</span></span>
 							</h3>
 						</div>
 
@@ -78,12 +78,12 @@
 												<div class="modal-interior-title">
 													<button class="x-modal" ng-click="deleteTopicModalToggle(task)">&times;</button>
 													<h2>Delete {{task.name}}?</h2>
-													<p>You must have a Title for your topic, removing it will remove the Topic and Question.</p>
+													<p>You must have a title for your topic. Removing it will delete the topic and all associated questions.</p>
 												</div>
 												
 												<div class="cta float-right">
 													<button class="button med secondary" ng-click="deleteTopicModalToggle(task)" tabindex="1">Cancel</button>
-													<button class="button med destructive" ng-click="removeTask(task)" tabindex="0">Delete Topic</button>
+													<button class="button med destructive" ng-click="removeTask(task)" tabindex="0">Delete topic</button>
 												</div>
 
 											</div>
