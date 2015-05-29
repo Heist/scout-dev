@@ -56704,7 +56704,6 @@ angular.module('siyfion.sfTypeahead', [])
     });
 
     // ANGULAR ROUTES ===================================================
-    
         $scope.cancelRun = function(){
             $location.path('/overview');
         };
