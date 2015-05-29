@@ -220,6 +220,7 @@ h1 {
   color: #7a7a7a;
   font-size: 33.1px;
   line-height: 37px;
+  letter-spacing: 0.5px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -230,6 +231,7 @@ h2 {
   color: #7a7a7a;
   font-size: 24.8px;
   line-height: 30px;
+  letter-spacing: 0.5px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -3513,6 +3515,7 @@ Copyright (c) 2015 Daniel Eden
     color: #C5C6C7;
     font-size: 24.8px;
     line-height: 30px;
+    letter-spacing: 0.5px;
     margin: 0; }
   #help-bubble-content h3 {
     color: #C5C6C7;
@@ -5187,6 +5190,7 @@ span.tooltip-icon {
       color: #575757;
       font-size: 24.8px;
       line-height: 30px;
+      letter-spacing: 0.5px;
       word-break: break-word;
       letter-spacing: -0.5px;
       font-weight: 400; }
@@ -5403,6 +5407,7 @@ span.tooltip-icon {
     color: #575757;
     font-size: 33.1px;
     line-height: 37px;
+    letter-spacing: 0.5px;
     font-family: "canada-type-gibson",sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -5492,11 +5497,7 @@ span.tooltip-icon {
       font-weight: 400;
       margin: 0 0 15px 0;
       text-transform: none;
-      float: left; }
-    #view-editing .empty-task-message img {
-      width: 26px;
-      float: left;
-      margin: 0 10px 0 0; }
+      text-align: left; }
     #view-editing .empty-task-message .intro-details {
       clear: both; }
   #view-editing .add-task {
@@ -6450,6 +6451,7 @@ span.tooltip-icon {
           color: #1B5273;
           font-size: 24.8px;
           line-height: 30px;
+          letter-spacing: 0.5px;
           font-family: "canada-type-gibson",sans-serif;
           font-style: normal;
           font-weight: 400;
@@ -6584,6 +6586,7 @@ span.tooltip-icon {
         color: #575757;
         font-size: 33.1px;
         line-height: 37px;
+        letter-spacing: 0.5px;
         font-family: "canada-type-gibson",sans-serif;
         font-style: normal;
         font-weight: 400;
@@ -6658,24 +6661,44 @@ span.tooltip-icon {
     display: none; }
   #view-onboarding .show {
     display: block; }
+  #view-onboarding .onboarding-content .corner-callout {
+    background: url('../assets/onboarding/corner-callout.png') no-repeat;
+    width: 97px;
+    height: 245px;
+    position: fixed;
+    right: 30px;
+    bottom: 28px; }
+  #view-onboarding .onboarding-content h1 {
+    width: 60%;
+    margin: 0 auto 20px auto;
+    color: #fff;
+    font-size: 33.1px;
+    line-height: 37px;
+    letter-spacing: 0.5px; }
   #view-onboarding .onboarding-content h2 {
     width: 60%;
     margin: 0 auto 20px auto;
-    font-size: 40px;
     color: #fff;
-    line-height: 54px; }
+    font-size: 24.8px;
+    line-height: 30px;
+    letter-spacing: 0.5px; }
     #view-onboarding .onboarding-content h2.less-margin {
       margin: 0 auto 20px auto; }
   #view-onboarding .onboarding-content p {
-    font-size: 20px;
+    color: #fff;
+    font-size: 18.6px;
+    line-height: 24px;
     color: rgba(255, 255, 255, 0.4); }
+    #view-onboarding .onboarding-content p.last-step {
+      width: 390px;
+      margin: 0 auto; }
   #view-onboarding .onboarding-content img {
     margin: 45px 0 20px 0;
     max-width: 900px;
     max-height: 70vh; }
   #view-onboarding .onboarding-content img.ranger {
     width: 180px;
-    margin: 10% 0 20px 0; }
+    margin: 7% 0 20px 0; }
     #view-onboarding .onboarding-content img.ranger.small {
       width: 60px;
       margin: 0 20px 0 0;
@@ -6708,8 +6731,8 @@ span.tooltip-icon {
       text-align: center; }
       #view-onboarding footer .footer-content p {
         color: #fff;
-        font-size: 22px;
-        line-height: 28px;
+        font-size: 18.6px;
+        line-height: 24px;
         margin: 0;
         text-align: left;
         width: 65%;
@@ -6794,6 +6817,7 @@ span.tooltip-icon {
       color: #575757;
       font-size: 33.1px;
       line-height: 37px;
+      letter-spacing: 0.5px;
       font-family: "canada-type-gibson",sans-serif;
       font-style: normal;
       font-weight: 400;
