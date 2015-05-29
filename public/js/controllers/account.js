@@ -51,7 +51,7 @@
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
-            	
+            	Intercom('update');
             	$rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 $scope.animationToggle();
@@ -67,7 +67,7 @@
                 };
                 
                 Intercom('trackEvent', 'opened-onboarding', out );
-
+                Intercom('update');
             	$rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
                 return;

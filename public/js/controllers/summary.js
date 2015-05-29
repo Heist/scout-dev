@@ -192,7 +192,7 @@
                 };
                 
                 Intercom('trackEvent', 'shared-report-button-clicked', intercom );
-            
+                Intercom('update');        
                 return;
             }
         };
@@ -242,6 +242,7 @@
                 };
 
                 Intercom('trackEvent', 'saved-test-report', intercom );
+                Intercom('update');
             }
 
             $http.post('/api/summary/object/', [obj]);

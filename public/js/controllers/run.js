@@ -137,6 +137,7 @@
             } ;
             
             Intercom('trackEvent', 'started-test', intercom );
+            Intercom('update');
 
             $http
                 .post('api/subject/', subject)

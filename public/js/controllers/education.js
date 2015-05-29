@@ -28,8 +28,9 @@
             
 
     $scope.showIntercom = function(){
-        Intercom('show');
         Intercom('trackEvent', 'opened-education', intercom );
+        Intercom('show');
+        Intercom('update');
     }
 
 
