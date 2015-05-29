@@ -14,8 +14,8 @@
 				<form name="subjectForm" ng-submit="addSubject(subject)" >
 					<ul class="nobullets" ng-model="subject">
 						<li ng-class='{"half": kind === "prototype", "full" : kind !== "prototype"}'>
-							<label>Participant's name</label>
-							<input class="input" type="text" name="participantname" value="" placeholder="Name of the person you’re testing with" ng-model="subject.name" focus-me="{{!live}}" required />
+							<label>Participant's name or identifier</label>
+							<input class="input" type="text" name="participantname" value="" placeholder="Ex. Susan, Participant 1, Navy hoodie" ng-model="subject.name" focus-me="{{!live}}" required />
 							</input>
 						</li>
 
