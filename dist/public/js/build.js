@@ -56134,7 +56134,7 @@ angular.module('siyfion.sfTypeahead', [])
                 .post(url, dataOut)
                 .success(function(data){
 
-                    if (data.error === "No user found. ") {
+                    if (data.error === "User not found.") {
                         $scope.errorPassword = '';
                         $scope.errorEmail = data.error;
                     } else {

@@ -56,7 +56,7 @@ module.exports = function(app, passport) {
                 if (err) {return done(err);}
 
                 // if no user is found, return the message
-                if (!user) { return done(null, { error: 'No user found. ' }); }
+                if (!user) { return done(null, { error: 'User not found.' }); }
 
                 if (!user.validPassword(password))
                     {   return done(null, { error: 'Oops! Wrong password.' });}
