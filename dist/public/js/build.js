@@ -55245,7 +55245,7 @@ angular.module('siyfion.sfTypeahead', [])
 
         $httpProvider.defaults.timeout = 3000;
         
-        $urlRouterProvider.otherwise("/login");
+        $urlRouterProvider.otherwise("/");
 
 
     // APP ROUTING ====================================================================
