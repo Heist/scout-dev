@@ -55611,7 +55611,7 @@ angular.module('siyfion.sfTypeahead', [])
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
-                Intercom('update');
+                Intercom('update'); 
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 return;
@@ -56350,7 +56350,6 @@ angular.module('siyfion.sfTypeahead', [])
                 Intercom('update');
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
-                $scope.animationToggle();
                 return;
             }
         };
@@ -56910,6 +56909,7 @@ angular.module('siyfion.sfTypeahead', [])
             } ;
             
             Intercom('trackEvent', 'ended-test', intercom );
+            Intercom('update');
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags

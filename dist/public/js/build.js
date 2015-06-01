@@ -55245,7 +55245,7 @@ angular.module('siyfion.sfTypeahead', [])
 
         $httpProvider.defaults.timeout = 3000;
         
-        $urlRouterProvider.otherwise("/login");
+        $urlRouterProvider.otherwise("/");
 
 
     // APP ROUTING ====================================================================
@@ -55611,7 +55611,7 @@ angular.module('siyfion.sfTypeahead', [])
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
-                Intercom('update');
+                Intercom('update'); 
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 return;
@@ -56350,7 +56350,6 @@ angular.module('siyfion.sfTypeahead', [])
                 Intercom('update');
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
-                $scope.animationToggle();
                 return;
             }
         };
@@ -56487,10 +56486,10 @@ angular.module('siyfion.sfTypeahead', [])
                     void 0;
                     var msg = data;
 
-                    if(data === '1' ){
+                    if(data === 1 ){
                         msg = 'That email is already taken. <br />Do you want to <a href="/forgot" class="line">reset your password</a>?';
                         $scope.flashmessage = $sce.trustAsHtml(msg);
-                    } else if(data === '2'){
+                    } else if(data === 2){
                         $scope.flashmessage = 'Please log out before signing up again.';
                     } else if (data._id){
                         $rootScope.user = data._id;
@@ -56910,6 +56909,7 @@ angular.module('siyfion.sfTypeahead', [])
             } ;
             
             Intercom('trackEvent', 'ended-test', intercom );
+            Intercom('update');
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags
