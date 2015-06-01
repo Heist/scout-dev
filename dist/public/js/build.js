@@ -56487,10 +56487,10 @@ angular.module('siyfion.sfTypeahead', [])
                     void 0;
                     var msg = data;
 
-                    if(data === '1' ){
+                    if(data === 1 ){
                         msg = 'That email is already taken. <br />Do you want to <a href="/forgot" class="line">reset your password</a>?';
                         $scope.flashmessage = $sce.trustAsHtml(msg);
-                    } else if(data === '2'){
+                    } else if(data === 2){
                         $scope.flashmessage = 'Please log out before signing up again.';
                     } else if (data._id){
                         $rootScope.user = data._id;
