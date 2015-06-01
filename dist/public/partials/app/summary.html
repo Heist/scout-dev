@@ -45,17 +45,17 @@
 
 			<div class="selected-heading" ng-if="selected.doctype === 'test'">
 				<h2>Summaries</h2>
-				<p>Use these to help create your final Findings.</p>
+				<p>These are the summaries you made after your sessions. Build your report based on the themes, insights and issues you identified here.</p>
 			</div>
 
 			<div class="selected-heading" ng-if="selected.doctype === 'tag'">
 				<h2>#{{selected.name}}</h2>
-				<p>Use these to help create your final Findings.</p>
+				<p>All of the notes you have tagged as important during your sessions can be found here.</p>
 			</div>
 
 			<div class="selected-heading" ng-if="selected.doctype === 'task'">
 				<h2>{{selected.name}}</h2>
-				<p>Use these to help create your final Findings.</p>
+				<p>All of your notes organized by topic.</p>
 			</div>
 			
 			<!-- messages -->
@@ -145,10 +145,10 @@
 						<p class="no-cursor" ng-if="displayReport.desc" ng-bind-html="displayReport.desc | linebreaker"></p>
 						
 						<h3>Learnings</h3>
-						<textarea msd-elastic class="input" id="field-textarea" placeholder="Summarize your high level learning here. This is the page you will be sharing with your organization."  ng-model="displayReport.summary" ng-blur="saveObject(displayReport)"></textarea>
+						<textarea msd-elastic class="input" id="field-textarea" placeholder="Summarize your high level learnings here. These are the learnings, issues and insights you will be sharing with your team."  ng-model="displayReport.summary" ng-blur="saveObject(displayReport)"></textarea>
 
 						<h3>Next steps</h3>
-						<textarea msd-elastic class="input" id="field-textarea" placeholder="Summarize your high level learning here. This is the page you will be sharing with your organization."  ng-model="displayReport.next_steps" ng-blur="saveObject(displayReport)"></textarea>
+						<textarea msd-elastic class="input" id="field-textarea" placeholder="List the immediate actions, conversations or additional work that needs to take place based on what you have learned above."  ng-model="displayReport.next_steps" ng-blur="saveObject(displayReport)"></textarea>
 					</div>
 				
 				</div>
