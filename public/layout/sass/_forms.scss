@@ -82,21 +82,20 @@ label {
 	margin: 0 0 5px 0;
 	font-size: 14px;
 	opacity: 1;
-	color: $fg-slate;
+	color: $fg-black;
 	@include type-light;
 }
 
 .input-no-border {
 	width: 100%;
-	background: $white;
+	background: transparent;
 	border: 0;
 	display: inline-block;
 	margin: 0;
-	padding: 5px 0;
+	padding: 5px 8px;
 	@include radius;
+	@include type-p($fg-grey-dark);
 	@include type-light;
-	font-size: 12px;
-	color: $fg-grey-dark;
 	outline: none;
 	resize: none;
 }
@@ -107,12 +106,10 @@ label {
 	border: 1px solid transparentize($fg-grey-light, 0.5);
 	display: inline-block;
 	margin: 0;
-	padding: 11px $pad/1.5;
+	padding: 5px 8px;
 	@include radius;
+	@include type-p($fg-grey-dark);
 	@include type-light;
-	font-size: 14px;
-	line-height: 18px;
-	color: $fg-grey-dark;
 	outline: none;
 
 	&:hover {
@@ -200,5 +197,26 @@ input[type="reset"]::-moz-focus-inner,
 input[type="button"]::-moz-focus-inner,
 input[type="submit"]::-moz-focus-inner,
 input[type="file"] > input[type="button"]::-moz-focus-inner {border:0;padding:0;margin:0;}
+
+//removes default FF red box on invalid inputs
+input:invalid {
+  box-shadow: none;
+}
+input:-moz-submit-invalid {
+  box-shadow: none;
+}
+input:-moz-ui-invalid {
+  box-shadow:none;
+}
+
+textarea:invalid {
+  box-shadow: none;
+}
+textarea:-moz-submit-invalid {
+  box-shadow: none;
+}
+textarea:-moz-ui-invalid {
+  box-shadow:none;
+}
 
 

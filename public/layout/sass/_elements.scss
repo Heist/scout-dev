@@ -1,5 +1,7 @@
 /* styles for bits */
 
+
+
 /* help bubble */
 
 #help-bubble {
@@ -177,6 +179,43 @@
 	
 /* error messaging */
 
+.error-flashmessage {
+	color: $fg-grey;
+}
+
+.error-msg span {
+	position: absolute;
+	width: 150px;
+	color: $white;
+	background: $fg-red;
+	font-size: 10px;
+	line-height: 33px;
+	@include type-regular;
+	padding: 0 10px;
+	visibility: hidden;
+	@include radius;
+}
+
+.error-msg span:after {
+	content: '';
+	position: absolute;
+	top: 52%;
+	right: 100%;
+	margin-top: -8px;
+	border-right: 8px solid $fg-red;
+	border-top: 8px solid transparent;
+	border-bottom: 8px solid transparent;
+}
+
+.error-msg span {
+	visibility: visible;
+	opacity: 1;
+	left: 72%;
+	top: 42%;
+	margin-top: -16px;
+	z-index: 999;
+}
+
 .messaging {
 	width: 100%;
 	padding: $pad/2;
@@ -340,7 +379,7 @@ hr {
 	.account-settings {
 		background: $white;
 		position: absolute;
-		right: -85px;
+		right: -97px;
 		top: -7px;
 		@include dropshadow;
 		
@@ -349,11 +388,10 @@ hr {
 			margin: 0;
 
 			li {
-				padding: 4px 10px;
+				padding: 5px 10px;
 				list-style-type: none;
 
 				a {
-					color: $text;
 					text-decoration: none;
 
 					&:hover {
@@ -368,7 +406,7 @@ hr {
 				}
 
 				span {
-				font-size: 12px;
+				font-size: 14px;
 				padding: 0 5px 0 0;
 				margin: 0;
 				display: inline-block;

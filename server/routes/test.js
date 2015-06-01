@@ -28,6 +28,7 @@ module.exports = function(app, passport) {
     // add a new test
         fn.testNew(req, function(err, test){
             if(err){ console.error(err); }
+            console.log(test);
             res.json(test);
         });
     });

@@ -16,6 +16,37 @@
             outline: 2px solid $fg-blue !important;
         }
     }
+
+    .participant-avatar {
+        width: 40px;
+        height: 40px;
+        @include radius(20px);
+        background: $fg-teal;
+        float: left;
+        margin: 0 10px 0 0;
+
+        span {
+            color: $white;
+            text-transform: uppercase;
+            text-align: center;
+            display: block;
+            margin: 11px auto;
+            font-size: 14px;
+            @include type-bold;
+        }
+    }
+
+    h3 {
+        @include type-h3-no-colour;
+        padding: 0;
+        margin: 0;
+
+        &.participant-name {
+            padding: 10px 0;
+            @include type-p($fg-grey-text);
+        }
+    }
+
     #testing-guide {
         width: 30%;
         height: 100%;
@@ -47,12 +78,14 @@
         position: absolute;
         top: 0;
         right: 0;
+        @include dropshadowULTRA;
 
         .sheet {
             width: 100%;
             height: 100%;
             padding: 0;
             margin: 0;
+            box-shadow: none;
         }
     }
     /* the chat */
@@ -76,7 +109,7 @@
 
         #session-input {
             position: absolute;
-            bottom: 65px;
+            bottom: 62px;
             left: 0;
             width: 100%;
             padding: $pad / 4;
@@ -87,7 +120,7 @@
             @include input-placeholders;
 
             &.prototype {
-                bottom: 0;
+                bottom: 62px;
             }
 
             .typeahead-box {
@@ -96,9 +129,9 @@
                 margin: 0;
                 border: 0;
                 outline: 0;
-                padding: 10px 30px;
-                height: 45%;
-                resize: 0;
+                padding: 10px 10px 10px 30px;
+                height: 70%;
+                resize: none;
                 @include type-light;
                 color: $fg-grey;
 
@@ -118,6 +151,9 @@
 
                 li {
                     list-style: none;
+                    padding: 10px 20px;
+                    font-size: 14px;
+
 
                     &.active {
                         background: $fg-blue;
@@ -137,7 +173,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: $pad / 4;
+            padding: 5px;
             height: 43px;
             z-index: 99999;
             border-top: 1px solid $line;
@@ -157,15 +193,16 @@
     }
 
     #cta-interview {
-        width: 100%;
-        padding: $pad / 4;
-        height: 65px;
+        padding: 10px 20px;
         background: $white;
         border: 0;
+        position: relative;
+        border-bottom: 1px solid $fg-grey-light;
 
         .cta {
-            float: right;
-            margin: 7px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
 
             button#endtest {
                 width: 110px;
@@ -194,19 +231,17 @@
         }
     }
 
-    #cta {
-        position: absolute;
-        top: 0;
-        left: 0;
+    #cta-prototype {
         width: 100%;
-        padding: $pad / 4;
-        height: 65px;
+        padding: 10px 20px;
         background: $white;
         border-bottom: 1px solid $line;
+        position: relative;
 
         .cta {
-            float: right;
-            margin: 7px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
 
             button#endtest {
                 width: 110px;

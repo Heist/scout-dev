@@ -15,12 +15,25 @@
 
     .onboarding-content {
 
+        .corner-callout {
+            background: url('../assets/onboarding/corner-callout.png') no-repeat;
+            width: 97px;
+            height: 245px;
+            position: fixed;
+            right: -16px;
+            bottom: -3px;
+        }
+
+        h1 {
+            width: 60%;
+            margin: 0 auto 20px auto;
+            @include type-h1($white);
+        }
+
         h2 {
             width: 60%;
             margin: 0 auto 20px auto;
-            font-size: 40px;
-            color: $white;
-            line-height: 54px;
+            @include type-h2($white);
 
             &.less-margin {
                 margin: 0 auto 20px auto;
@@ -28,8 +41,13 @@
         }
 
         p {
-            font-size: 20px;
+            @include type-h3($white);
             color: transparentize($white,0.6);
+            
+            &.last-step {
+                width: 390px;
+                margin: 0 auto;
+            }
         }
 
         img {
@@ -39,7 +57,7 @@
         }
         img.ranger {
             width: 180px;
-            margin: 10% 0 20px 0;
+            margin: 7% 0 20px 0;
             &.small {
                 width: 60px;
                 margin: 0 20px 0 0;
@@ -86,9 +104,7 @@
         .footer-content {
             text-align: center;
             p {
-                color: $white;
-                font-size: 22px;
-                line-height: 28px;
+                @include type-h3($white);
                 margin: 0;
                 text-align: left;
                 width: 65%;

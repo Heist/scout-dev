@@ -24,8 +24,13 @@
 			<ng-include src="'partials/app/_new-project.html'"></ng-include>
 		</div>
 		<!-- / create new project modal -->
+			<!-- Loading Tests Spinner -->
+			<div>
+				<img src="layout/assets/loading.gif" id="spinner" style="display:none;"/>
+			</div>
 
 			<!-- test -->
+
 			<div class="overview-test module" ng-repeat="test in tests | orderBy:'created'">
 				<div class="overview-test-container overview-test-container-hover" ng-mouseleave="editTestTooltips=false">
 					
@@ -41,7 +46,7 @@
 						</small>
 						
 						<div class="editTest">
-							<span ng-mouseover="editTestTooltips=true">&#8942;</span>
+							<span class="ellipsis" ng-mouseover="editTestTooltips=true">&#8942;</span>
 						</div>
 
 						<div class="editTest-tooltips" ng-show="editTestTooltips" ng-mouseleave="editTestTooltips=false">
@@ -59,14 +64,16 @@
 								</li>
 							</ul>
 						</div>
-
 					</div>
-					
-					<div class="test-edit" ng-click="editTest(test)">
-						<h2>{{test.name}}</h2>
 
-						<span ng-show="test._subjects.length > 0">Run {{test._subjects.length}} times</span>
-						<span ng-show="test._subjects.length === 0">Never run</span>
+					<div class="test-edit" ng-click="editTest(test)" ng-mouseover="testEditMsg=true" ng-mouseleave="testEditMsg=false">
+
+						<div class="test-edit-msg" ng-show="testEditMsg">Edit</div>
+
+						<h2 class="line-clamp">{{test.name}}</h2>
+
+						<span ng-show="test._subjects.length > 0"> {{test._subjects.length}} sessions complete</span>
+						<span ng-show="test._subjects.length === 0">Run your first session</span>
 						</small>
 					</div>
 					
@@ -79,9 +86,9 @@
 						
 						<a class="left" ng-click="runTest(test)" ng-show="test._tasks.length > 0">Run session</a>
 
-						<a class="right" ng-click="summarizeTest(test._id)" ng-show="test._subjects.length > 0">Create report</a>
+						<a class="right" ng-click="summarizeTest(test._id)" ng-show="test._subjects.length > 0">Project report</a>
 
-						<a class="right in-active" ng-hide="test._subjects.length > 0" data-tooltip-overview="You need to run a session first" >Create report</a>
+						<a class="right in-active" ng-hide="test._subjects.length > 0 || test._tasks.length === 0" data-tooltip-overview="Run a Session first" >Project report</a>
 						
 						<div class="clear"></div>
 					</div>

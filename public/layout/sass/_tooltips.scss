@@ -18,6 +18,7 @@ span.tooltip-icon {
         color: $white;
         font-size: 8px;
         text-transform: none;
+        @include type-light;
     }
 }
 
@@ -200,7 +201,7 @@ span.tooltip-icon {
 .tooltip:before,
 .tooltip-top:before {
   margin-left: -1px;
-  margin-bottom: -12px;
+  margin-bottom: -11px;
   border-top-color: $fg-slate;
 }
 

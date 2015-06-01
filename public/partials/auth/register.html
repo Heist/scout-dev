@@ -14,22 +14,20 @@
 						<h1>Register for Field Guide</h1>
 						<!-- signup form form -->
 						<div id="form-signup">
-						
-							<form name="regForm" ng-model="user">
+<!-- 
+							<img src="layout/assets/loading.gif" ng-if="results"> -->
+							<form name="regForm" ng-model="user" ng-submit="register(user)">
+
 								<ul class="nobullets withlabels">
 									<li ng-bind-html="flashmessage" ng-if="flashmessage" class="error-flashmessage">
 									</li>
 
 									<li>
-										<input class="input" type="text" name="realname" value="" placeholder="Name" ng-model="user.name"/>
+										<input class="input" type="text" name="realname" value="" placeholder="Name" ng-model="user.name" required/>
 									</li>
 									
 									<li>
-										<input class="input" type="email" name="usermail" value="" placeholder="Email" ng-class="{'error-outline': regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine}" ng-model="user.email" required /> 
-
-										<div class="error-msg" ng-show="regForm.usermail.$error.email && !regForm.usermail.$pristine">
-											<span>Please enter a valid email.</span>
-										</div>
+										<input class="input" type="email" name="usermail" value="" placeholder="Email"ng-model="user.email" required /> 
 									</li>
 
 									<li>
@@ -46,7 +44,7 @@
 			                        </li>
 									
 									<li>
-										<input class="input" type="password" name="confirm" id="confirm-password" value="" placeholder="Confirm password" ng-model="user.passwordConfirm" ng-class="{'error': regForm.confirm.$error.match && !regForm.confirm.$pristine}" ng-match="user.password" required/>
+										<input class="input" type="password" name="confirm" id="confirm-password" value="" placeholder="Confirm password" ng-model="user.passwordConfirm" ng-class="{'error-outline': regForm.confirm.$error.match && !regForm.confirm.$pristine}" ng-match="user.password" required/>
 
 										<div class="error-msg" ng-show="regForm.confirm.$error.match && !regForm.confirm.$pristine">
 											<span>Passwords do not match.</span>
@@ -54,9 +52,13 @@
 									</li>
 									
 									<li>
-										<button class="submit button green" type="submit" ng-click="register(user)" ng-if="!((regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine))"
-										>Create account</button>
-										<button class="submit button green" ng-if="(regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine)">Create account</button> 
+										<button class="submit button green" type="submit" ng-if="!((regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine))"
+										ng-hide="results">Create account</button>
+
+										<div class="submit button green" ng-if="(regForm.confirm.$error.match && !regForm.confirm.$pristine) || (regForm.usermailConfirm.$error.match && !regForm.usermailConfirm.$pristine)" ng-hide="results">Create account</div>
+										
+										<div class="submit button loading" ng-if="results">Creating your account..</div>
+
 									</li>
 									
 								</ul>

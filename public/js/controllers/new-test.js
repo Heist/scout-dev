@@ -32,17 +32,18 @@
         };
 
         $scope.addTest = function(test){
+            var date = new Date();
             
             var intercom = {
-                created_at : new Date(),
-                email      : $rootScope.user.email
+                created_at : date.getHours()+':'+date.getMinutes(),
             };
 
             $http
                 .post('/api/test/', test)
                 .success(function(data){
+                    
                     Intercom('trackEvent', 'created-project', intercom );
-
+                    Intercom('update');
                     $scope.$parent.tests.push(data);
                     $scope.$parent.newTestModalToggle();
                     $location.path('/edit/test/'+ data._id);

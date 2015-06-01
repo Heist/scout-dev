@@ -1,5 +1,6 @@
 /* new project modal */
 #view-new-project {
+    min-height: 100%;
 
     .modal-interior-title {
         padding: 0 0 20px 0; 
@@ -38,6 +39,7 @@
             & span {
                 top: 0px;
                 right: 3.5px;
+                @include type-light;
             }
         }
 
@@ -51,7 +53,7 @@
                     background: url('../assets/interview-dark.svg') top left no-repeat;
                     content: '';
                     width: 14px;
-                    height: 12px;
+                    height: 14px;
                     display: inline-block;
                     margin: 0 5px 0 0;
                 }
@@ -164,6 +166,7 @@
                 & span {
                     top: 0px;
                     right: 3.5px;
+                    @include type-light;
                 }
             }
 
@@ -238,56 +241,98 @@
     }
     
     h3 {
-        @include type-regular;
+        @include type-bold;
         color: $fg-slate;
         font-size: 10px;
         text-transform: uppercase;
         text-align: right;
+        letter-spacing: 0.5px;
+
+        &.topics {
+            margin: 3px 0;
+        }
     }
 
     .project-name {
-        @include type-light;
-        color: $fg-grey-text;
-        font-size: 33px;
+        @include type-h1($fg-grey-dark);
+        @include type-regular;
+        letter-spacing: 0.5px;
         margin: 0;
         padding: 0 0 0 40px;
         height: 40px;
 
         &:hover {
             color: $black;
-            background: url('../assets/fg-edit.svg') 20px 21px no-repeat;
+            background: url('../assets/fg-edit-filled.svg') 20px 19px no-repeat;
         }
 
         &:focus {
             color: $black;
-            background: url('../assets/fg-edit-hover.svg') 20px 21px no-repeat;
+            background: url('../assets/fg-edit-filled-hover.svg') 20px 19px no-repeat;
         }
     }
 
     .test-info {
-          padding: 0 0 30px 40px;
+          padding: 0 0 40px 40px;
 
         img {
             margin: 0 3px 0 0;
         }
-    }
-    
-    form.task-info {
-        margin: 0 0 20px 0;
+
+        input.prototype-link {
+            width: 190px;
+            padding: 0 0 0 30px;
+            @include type-p($fg-blue);
+
+            &:hover{
+                color: $black;
+                background: url('../assets/fg-edit-filled.svg') 14px 4px no-repeat;
+            }
+
+            &:focus {
+                color: $black;
+                background: url('../assets/fg-edit-filled-hover.svg') 14px 4px no-repeat;
+            }
+        }
+
+        a.prototype-url {
+            font-size: 10px;
+            color: $fg-grey-text;
+        }
     }
 
+    form {
+        margin: 0 0 30px 0;
+    }
+    
+
     input.task-title {
+        float: left;
+        width: 98%;
         @include type-h3($fg-grey-text);
+        @include type-regular;
         padding: 0 0 20px 40px;
 
         &:hover{
             color: $black;
-            background: url('../assets/fg-edit.svg') 20px 7px no-repeat;
+            background: url('../assets/fg-edit-filled.svg') 20px 7px no-repeat;
         }
 
         &:focus {
             color: $black;
-            background: url('../assets/fg-edit-hover.svg') 20px 7px no-repeat;
+            background: url('../assets/fg-edit-filled-hover.svg') 20px 7px no-repeat;
+        }
+    }
+
+    .task-delete {
+        opacity: 0.9;
+        margin: 5px 0;
+        float: left;
+        color: $fg-grey-placeholder;
+
+        &:hover {
+            cursor: pointer;
+            color: $fg-red;
         }
     }
 
@@ -305,18 +350,35 @@
 
         &:hover {
             color: $black;
-            background: url('../assets/fg-edit.svg') 20px 3px no-repeat;
+            background: url('../assets/fg-edit-filled.svg') 20px 3px no-repeat;
         }
 
         &:focus {
             color: $black;
-            background: url('../assets/fg-edit-hover.svg') 20px 3px no-repeat;
+            background: url('../assets/fg-edit-filled-hover.svg') 20px 3px no-repeat;
         }
     }
 
     textarea.task-descriptions {
         @extend textarea.objectives;
-        margin: 0 0 30px 0;
+    }
+    
+    .empty-task-message {
+        width: 100%;
+        color: $fg-grey-placeholder;
+        background: url('../assets/arrow.png') 450px 0 no-repeat;
+
+        h3 {
+            @include type-h3($fg-grey-placeholder);
+            @include type-regular;
+            margin: 0 0 15px 0;
+            text-transform: none;
+            text-align: left;
+        }
+
+        p {
+            margin: 0 0 30px 0;
+        }
     }
 
     .add-task {
@@ -324,7 +386,6 @@
 
         form {
             border-top: 1px solid transparentize($fg-grey-light, 0.5);
-            border-bottom: 1px solid transparentize($fg-grey-light, 0.5);
             margin: 0 0 15px 0;
         }
 
@@ -334,10 +395,8 @@
             padding: 15px 0 0 0;
             border: 0;
             outline: 0;
+            @include type-h3($fg-grey-text);
             @include type-light;
-            font-size: 14px;
-            line-height: 18px;
-            color: $fg-grey;
         }
         
         textarea {
@@ -345,13 +404,16 @@
             height: 135px;
             overflow-y: auto;
             resize: none;
-            margin: 0;
-            color: $fg-grey-text;
+            margin: 0 0 10px 0;
+            @include type-p($fg-grey-text);
+            line-height: auto;
+            @include type-light;
+            border-bottom: 1px solid transparentize($fg-grey-light, 0.5);
+            padding: 15px 0;
         }
     }
 
     .tags {
-        // @include input-placeholders;
 
         .tag-pool {
             width: 100%;
@@ -412,14 +474,19 @@
         padding: $pad 0 0 0;
 
         .sheet-holder {
+            margin-left: -50px;
 
             .sheet {
-                width: 745px;
+                width: 75%;
                 margin: 0 auto;
 
                 .container-row {
                     clear: both;
                     padding: 0 0 40px 0;
+
+                    &.tags {
+                        padding: 0 0 60px 0;
+                    }
 
                     &.topics {
                         padding: 0;
@@ -427,7 +494,7 @@
 
                     .container-left {
                         float: left;
-                        width: 120px;
+                        width: 10%;
 
                         .create-project-tooltip {
                             float: left;
@@ -436,21 +503,8 @@
 
                     .container-right {
                         float: left;
-                        width: 585px;
+                        width: 90%;
                         position: relative;
-
-                        .topic-delete {
-                            width: 0;
-                            position: relative;
-                            left: 575px;
-                            top: 25px;
-                            color: $fg-grey-placeholder;
-
-                            &:hover {
-                                cursor: pointer;
-                                color: $fg-red;
-                            }
-                        }
                     }
                 }
             }

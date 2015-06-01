@@ -5,7 +5,35 @@
     <input type="text" ng-model='connect.text'></input>
     <button ng-click='subscription(connect.text)'>Join Channel</button>
 </form>
-    <canvas id='channel'></canvas>
     
-    <img id="ia" style="display:none;"/>
+	<div style="padding: 17px; padding-top: 0px;">
+	  <span ng-hide="error">
+	  Allow the browser to use your web cam and after that share the URL from the address bar with the people you want to talk with.
+	  </span>
+	  <br>
+	  <span ng-bind="error"></span>
+
+	</div>
+	
+	<video />
+
+
+<!-- 	<video id="localVideo" autoplay></video>
+	<video id="remoteVideo" autoplay></video>
+
+	<div>
+		<button id="startButton">Start</button>
+		<button id="callButton">Call</button>
+		<button id="hangupButton">Hang Up</button>
+	</div> -->
+<!-- 	<div class="video-wrapper">
+	  <video-player class="col-md-4" ng-repeat="peer in peers" vid-src="{{peer.stream}}"></video-player>
+	</div>
+
+	<div class="video-wrapper">
+	  <div class="col-md-2">
+	    <video ng-src="{{getLocalVideo()}}" autoplay muted></video>
+	  </div>
+	</div>
+ -->
 </div>

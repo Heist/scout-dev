@@ -14,7 +14,7 @@
         if(element){
             element.focus();
         }
-      }, 500);
+      }, 150);
     };
   })
 .directive('focusMe', function($timeout) {
@@ -25,7 +25,7 @@
         if(value === "true") { 
           $timeout(function() {
             element[0].focus(); 
-          }, 200);
+          }, 150);
         }
       });
     }

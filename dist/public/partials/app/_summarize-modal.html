@@ -12,16 +12,16 @@
 			</div>
 			
 			<ul class="nobullets">
-				<form name="summaryForm" class="summary-form">
+				<form name="summaryForm" class="summary-form" ng-submit="addMessageToSummaryTag(summary)">
 					<li>
-						<textarea class="input" id="field-objective" type="text" value="" placeholder="Outline any insights, usability issues, themes or next steps for your team that you have learned in your sessions." ng-model="summary" focus-me="{{summarizeTest}}"/>
+						<textarea class="input" id="field-objective" type="text" value="" placeholder="Outline any insights, usability issues, themes or next steps for your team that you have learned in your sessions." ng-model="summary" focus-me="{{summarizeTest}}" required/>
 						</textarea>
 					</li>
+					<div class="cta float-right">
+						<a href="#" class="secondary button-cancel" ng-click="summarizeModalToggle()" tabindex="1">Cancel</a>
+						<button class="button med float-right" tabindex="0">Done summarizing</button>
+					</div>
 				</form>
-				<div class="cta float-right">
-					<a href="#" class="secondary button-cancel" ng-click="summarizeModalToggle()" tabindex="1">Cancel</a>
-					<button class="button med float-right" ng-click="addMessageToSummaryTag(summary)" tabindex="0">Done summarizing</button>
-				</div>
 			</ul>
 
 		</div>

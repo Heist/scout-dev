@@ -35,10 +35,10 @@
                     <h3 ng-if="displayReport.desc" ng-show="displayReport.doctype === 'test'">Objectives</h3>
                     <pre ng-if="displayReport.desc" ng-bind-html="displayReport.desc | linebreaker"></pre>
 
-                    <h3>Findings</h3>
+                    <h3>Learnings</h3>
                     <pre ng-if="displayReport.summary" ng-bind-html='displayReport.summary'></pre>
 
-                    <h3>Next Steps</h3>
+                    <h3>Next steps</h3>
                     <pre ng-if="displayReport.next_steps" ng-bind-html='displayReport.next_steps'></pre>
                 </div>
 

@@ -1,66 +1,7 @@
 <div ng-controller="education">
 	
 	<div id="help-bubble" ng-init="help = false">
-		<img src="layout/assets/fieldy.svg" alt="Fieldy" ng-click="help = true">
+		<img src="layout/assets/fieldy.svg" alt="Fieldy" ng-click="showIntercom()">
 	</div>
-
-
-	<div id="help-bubble-content" ng-show="help === true && educationPopup === 1">
-		<img class="fieldy" src="layout/assets/fieldy.svg" alt="Fieldy">
-		<h3 class="float-right pointer" ng-click="help = false">&times;</h3><div class="clear"></div>
-		<h2 class="text-center">Start your first project</h2>
-		<ol>
-			<li><a href="">Start by recruiting participants.</a></li>
-			<li><a href="">How to write objectives for your test</a></li>
-			<li><a href="">What kind of project should I use?</a></li>
-			<li><a href="">Where can I get the iOS app?</a></li>
-		</ol>
-
-		<h3 class="text-center">Still need help?</h3>
-		<div class="cta text-center">
-			<img class="icons" src="layout/assets/slack-sticker.svg" alt="Slack"><a href="https://fieldguide.typeform.com/to/qrRHYS" target="_">Talk to us on Slack</a>
-			<img class="icons" src="layout/assets/email-icon.svg" alt="Email"><a href="mailto:help@fieldguideapp.com">E-mail us</a>
-		</div>
-	</div>
-
-
-	<div id="help-bubble-content" ng-show="help === true  && educationPopup === 2">
-		<img class="fieldy" src="layout/assets/fieldy.svg" alt="Fieldy">
-		<h3 class="float-right pointer" ng-click="help = false">&times;</h3><div class="clear"></div>
-		<h2 class="text-center">What can I help you with?</h2>
-		<ol>
-			<li><a href="">How to write great topics</a></li>
-			<li><a href="">What kind of questions to ask  participants</a></li>
-			<li><a href="">When to ask why</a></li>
-			<li><a href="">What tags should I use?</a></li>
-		</ol>
-
-		<h3 class="text-center">Still need help?</h3>
-		<div class="cta text-center">
-			<img class="icons" src="layout/assets/slack-sticker.svg" alt="Slack"><a href="https://fieldguide.typeform.com/to/qrRHYS" target="_">Talk to us on Slack</a>
-			<img class="icons" src="layout/assets/email-icon.svg" alt="Email"><a href="mailto:help@fieldguideapp.com">E-mail us</a>
-		</div>
-	</div>
-
-
-
-	<div id="help-bubble-content" ng-show="help === true  && educationPopup === 3">
-		<img class="fieldy" src="layout/assets/fieldy.svg" alt="Fieldy">
-		<h3 class="float-right pointer" ng-click="help = false">&times;</h3><div class="clear"></div>
-		<h2 class="text-center">Report Help</h2>
-		<ol>
-			<li><a href="">How to write great topics</a></li>
-			<li><a href="">What kind of questions to ask  participants</a></li>
-			<li><a href="">When to ask why</a></li>
-			<li><a href="">What tags should I use?</a></li>
-		</ol>
-
-		<h3 class="text-center">Still need help?</h3>
-		<div class="cta text-center">
-			<img class="icons" src="layout/assets/slack-sticker.svg" alt="Slack"><a href="https://fieldguide.typeform.com/to/qrRHYS" target="_">Talk to us on Slack</a>
-			<img class="icons" src="layout/assets/email-icon.svg" alt="Email"><a href="mailto:help@fieldguideapp.com">E-mail us</a>
-		</div>
-	</div>
-
 
 </div>
