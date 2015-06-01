@@ -75,16 +75,16 @@ module.exports = function(app, passport, io) {
 
 // FIRE IT UP =======================================================
     io.sockets.on('connection', function (socket) {
-        console.log('someone connected from somewhere')
+        console.log('connection from web app or iOS')
 
         var k = '';
 
         socket.on('message', function(msg, err){
             // if there's no channel, emit the message that there's no channel? IDK.
-            // On message received from app, send that message to the room
+            // On message received from iOS App, send that message to the room
             // room is identified by the device ID
 
-            // console.log('Received message');
+            console.log('Received message');
             k = Object.keys(io.sockets.manager.roomClients[socket.id]);
             if (k[1] !== undefined) {
                 var chan = k[1].substring(1, k[1].length);
@@ -109,6 +109,7 @@ module.exports = function(app, passport, io) {
             // when someone enters a channel on the web client
             // The web client passes back the name of the test to the channel as data
             // That data is then sent to the app
+
             console.log('someone chose a channel', data.test)
 
             var promise = Test.findOne({'_id': data.test})
@@ -117,12 +118,17 @@ module.exports = function(app, passport, io) {
                               
             promise.then(function(test){
                 // joins the test to the socket from remote device
-                console.log('join this test room', test, 'room', data.room);
+                console.log('join this test', test, 'room', data.room);
                 socket.join(data.room);
 
+                // joins the socket to the test, which lets us communicate to watch regardless of testroom
+                socket.join(data.test);
                 // passes the phone the route for getting the appropriate test from the socket
                 // MUST be an event named joinedChannel for iOS to work
                 io.sockets.in(data.room).emit('joinedChannel', {data: {body: test.link, title:test.name}});
+
+                // this is for the test room.
+                io.sockets.in(data.test).emit('joinedTest', {data: {body: test.link, title:test.name}});
             });
         });
 

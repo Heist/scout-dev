@@ -185,7 +185,7 @@
                         $scope.subject.initials = firstInitial;
                     }
 
-                    socket.emit('channel', {room : subject.testroom, test: subject.test});
+                    socket.emit('channel', {room : subject.testroom, test: subject.test, subject: data});
                 });
         };
 

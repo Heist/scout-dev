@@ -16,6 +16,7 @@
         var RTCIceCandidate       = window.mozRTCIceCandidate       || window.RTCIceCandidate;
         var RTCSessionDescription = window.mozRTCSessionDescription || window.RTCSessionDescription;
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        
         var v = document.createElement("video");
         var SRC_OBJECT = 'srcObject' in v ? "srcObject" :
                          'mozSrcObject' in v ? "mozSrcObject" :
@@ -23,19 +24,8 @@
      
      // ======================================================================================
 
-        function endCall() {
-            var videos = document.getElementsByTagName("video");
-            for (var i = 0; i < videos.length; i++) {
-                videos[i].pause();
-            }
-
-            pc.close();
-        }
-
-        function error(err) { endCall(); }
-
-
         var offer = getOfferFromFriend();
+        
         navigator.getUserMedia({video: true}, function(stream) {
           pc.onaddstream({stream: stream});
           pc.addStream(stream);
@@ -59,6 +49,18 @@
           document.appendChild(vid);
           vid.srcObject = obj.stream;
         }
+
+        // Helper functions
+        function endCall() {
+          var videos = document.getElementsByTagName("video");
+          for (var i = 0; i < videos.length; i++) {
+            videos[i].pause();
+          }
+
+          pc.close();
+        }
+
+        function error(err) { endCall(); }
 
 
 

@@ -37320,7 +37320,7 @@ var minlengthDirective = function() {
 
   if (window.angular.bootstrap) {
     //AngularJS is already loaded, so we can return here...
-    console.log('WARNING: Tried to load angular more than once.');
+    void 0;
     return;
   }
 
@@ -55565,9 +55565,9 @@ angular.module('siyfion.sfTypeahead', [])
     	
         var startOnboard;
         $scope.onboardToggle = function(){
-            console.log('onboardToggle');
+            void 0;
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
-                console.log('false clicked')
+                void 0
             	startOnboard = new Date();
                 var hh = startOnboard.getHours();
                 var m = startOnboard.getMinutes();
@@ -55584,7 +55584,7 @@ angular.module('siyfion.sfTypeahead', [])
             }
 
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-                console.log('truth clicked')
+                void 0
                 var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
                 var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
                 var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
@@ -55792,7 +55792,7 @@ angular.module('siyfion.sfTypeahead', [])
         };
 
         var data = loadData.data;
-        console.log(data);
+        void 0;
         
         Intercom('update');
         $scope.test = data;
@@ -55930,7 +55930,7 @@ angular.module('siyfion.sfTypeahead', [])
 
             $http.delete('/api/tag/'+tag._id)
                 .success(function(data){
-                    console.log(data);
+                    void 0;
                 });
         }
 
@@ -56078,7 +56078,7 @@ angular.module('siyfion.sfTypeahead', [])
         // Controller Functions ===========================
        $scope.sendToken = function(email){
             var dataOut = {email: email};
-            console.log('clicked send pass')
+            void 0
             
             $scope.hideMe = 'hide';
 
@@ -56300,9 +56300,9 @@ angular.module('siyfion.sfTypeahead', [])
 
                 var startOnboard;
         $scope.onboardToggle = function(){
-            console.log('onboardToggle');
+            void 0;
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
-                console.log('false clicked')
+                void 0
                 startOnboard = new Date();
                 var hh = startOnboard.getHours();
                 var m = startOnboard.getMinutes();
@@ -56319,7 +56319,7 @@ angular.module('siyfion.sfTypeahead', [])
             }
 
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-                console.log('truth clicked')
+                void 0
 
                 var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
                 var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
@@ -56483,7 +56483,7 @@ angular.module('siyfion.sfTypeahead', [])
             $http
                 .post(url, dataOut)
                 .success(function(data){
-                    console.log(data, data.length);
+                    void 0;
                     var msg = data;
 
                     if(data === 1 ){
@@ -56494,16 +56494,16 @@ angular.module('siyfion.sfTypeahead', [])
                     } else if (data._id){
                         $rootScope.user = data._id;
                         // make a call to register your tests here.
-                        console.log('successful registration, now callng tests....');
+                        void 0;
 
                         // ADD LOADING SPINNER HERE TO COVER FOR THE TESTS BEING MADE
                         $scope.results = true;
                         $http.post('/api/newtests/'+data._id).success(function(tests){
-                            console.log('data', tests);
+                            void 0;
                             $location.path(data.redirect);
                         })
                     } else {
-                        console.log(data);
+                        void 0;
                     }
                 });
         };
@@ -56629,12 +56629,12 @@ angular.module('siyfion.sfTypeahead', [])
             }
 
         $scope.goToLogin = function(){
-            console.log('goToLogin')
+            void 0
             $location.path('/login');
         }
 
         $scope.goToForgot = function(){
-            console.log('goToForgot')
+            void 0
             $location.path('/forgot');
         }
         
@@ -56878,7 +56878,7 @@ angular.module('siyfion.sfTypeahead', [])
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
-                        console.log(data);
+                        void 0;
                         $scope.timeline.push(data.msg);
                         $scope.tags = tagSort(data.tags);
                     });
@@ -56915,7 +56915,7 @@ angular.module('siyfion.sfTypeahead', [])
             if(message){
                 postMessage(message+' #Summary', summaryTagId, $stateParams._id, $scope.subject._id)
                         .then(function(msg){
-                            console.log('message posted to summary', msg)
+                            void 0
                             $location.path('/overview');
                         });
             } else {
@@ -57435,7 +57435,7 @@ angular.module('siyfion.sfTypeahead', [])
                 // };
 
             }, function (e) {
-                console.log("navigator.getUserMedia error: ", e);
+                void 0;
             });
 
     }]);
@@ -58399,7 +58399,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                 // Set the caret position so we can effectively hunt hashtags
                 scope.$apply(function() { scope.caret.get = getPos(element[0]); });
 
-                console.log('keypress', evt.which, scope.activeIdx);
+                void 0;
 
                 if(scope.activeIdx === -1 && evt.which === 13){
                     // EMIT COMPLETED MESSAGE =============================
@@ -58454,7 +58454,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
 
                     } else if (evt.which === 13 || evt.which === 9) {
                         
-                        console.log(enterCount, scope.activeIdx);
+                        void 0;
                         // ENTER or TAB keypress =========
                         if(enterCount === 0){
                             scope.$apply(function() {
@@ -58823,7 +58823,7 @@ angular.module('field_guide_controls')
 
           }, function (e) {
             d.reject(e);
-            console.log("navigator.getUserMedia error: ", e);
+            void 0;
           });
           return d.promise;
         }
