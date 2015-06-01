@@ -109,13 +109,11 @@
 					<div class="container-row clearfix">
 						<div class="container-left">&nbsp;</div>
 						<div class="container-right padding">
-
 							<!-- empty task -->
 							<div class="empty-task-message" ng-if="tasks.length === 0">
 								<h3>You have no topics yet.</h3>
-								<div class="intro-details">
-									<p>Start adding some below. Don't worry, you can always edit or delete your topics later.</p>
-								</div>
+								<p>Start adding some below. Don't worry, you can always edit or delete your topics later.</p>
+
 							</div>
 							<!-- / empty task -->
 
@@ -124,18 +122,11 @@
 								<form ng-model="newtask" ng-submit="newTask(newtask)">
 									<input class="topic-name" ng-trim="false" ng-model="newtask.name" placeholder="Write a topic title.." required>
 									
-									<textarea msd-elastic name="questions" class="topic-questions" ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions.." required>
+									<textarea msd-elastic class="topic-questions" ng-model="newtask.desc" id="bulletform" placeholder="Write a few questions.." required>
 									</textarea>
-<<<<<<< HEAD:public/partials/app/test.html
-										
-									<button type="submit" class="button full med" tabindex="0">Add topic</a></button>
-								</form>
-
-=======
 									
 									<button type="submit" class="button full med" tabindex="0">Add topic</a></button>
 								</form>
->>>>>>> dev09:dist/public/partials/app/edit-test.html
 							</div>
 							<!-- / add a new task -->
 						</div>
