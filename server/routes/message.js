@@ -26,11 +26,14 @@ module.exports = function(app, passport) {
 
         // we expect it to be an object, with _tags etc.
         var newMsg = {};
+
         if(req.body._test){
+            console.log(req.body);
             newMsg = req.body;
         }
         else if(req.body.hasSummary){
             if(req.body.msg._tags.indexOf(req.body.hasSummary !== -1)){
+                console.log(req.body);
                 newMsg = req.body.msg;
                 newMsg.body = newMsg.body + ' #summary';
             }

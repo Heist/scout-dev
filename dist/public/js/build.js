@@ -55245,7 +55245,7 @@ angular.module('siyfion.sfTypeahead', [])
 
         $httpProvider.defaults.timeout = 3000;
         
-        $urlRouterProvider.otherwise("/login");
+        $urlRouterProvider.otherwise("/");
 
 
     // APP ROUTING ====================================================================
@@ -56486,10 +56486,10 @@ angular.module('siyfion.sfTypeahead', [])
                     void 0;
                     var msg = data;
 
-                    if(data === '1' ){
+                    if(data === 1 ){
                         msg = 'That email is already taken. <br />Do you want to <a href="/forgot" class="line">reset your password</a>?';
                         $scope.flashmessage = $sce.trustAsHtml(msg);
-                    } else if(data === '2'){
+                    } else if(data === 2){
                         $scope.flashmessage = 'Please log out before signing up again.';
                     } else if (data._id){
                         $rootScope.user = data._id;
@@ -57274,7 +57274,13 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.saveEdit = function(original, list){
             
             $scope.messageEditToggle = '';
-            var dataOut = {msg: original, hasSummary: $scope.summaryItem._id}
+            var dataOut;
+            if(original._tags.indexOf($scope.summaryItem._id)!== -1){
+                dataOut = {msg: original, hasSummary: $scope.summaryItem._id}
+            }
+            else {
+                dataOut = original;
+            }
 
             $http.put('/api/message/', dataOut)
                 .success(function(data, err){
