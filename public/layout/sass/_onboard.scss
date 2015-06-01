@@ -42,7 +42,7 @@
 
         p {
             @include type-h3($white);
-            color: transparentize($white,0.6);
+            color: transparentize($white,0.2);
             
             &.last-step {
                 width: 390px;

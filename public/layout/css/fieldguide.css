@@ -468,13 +468,12 @@ label {
   border: 0;
   display: inline-block;
   margin: 0;
-  padding: 5px 8px;
+  padding: 10px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
   color: #575757;
   font-size: 14px;
-  line-height: 21px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -487,13 +486,12 @@ label {
   border: 1px solid rgba(216, 218, 219, 0.5);
   display: inline-block;
   margin: 0;
-  padding: 5px 8px;
+  padding: 10px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
   color: #575757;
   font-size: 14px;
-  line-height: 21px;
   font-family: "canada-type-gibson",sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -5031,6 +5029,46 @@ span.tooltip-icon {
         box-shadow: none; }
       #view-login .module-container .module-content input.error-outline, #view-login .module-container .module-content #view-editing .add-task textarea.error-outline, #view-editing .add-task #view-login .module-container .module-content textarea.error-outline, #view-login .module-container .module-content button.error-outline {
         border: 1px solid #D82D09; }
+      #view-login .module-container .module-content input.username::-webkit-input-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.username::-webkit-input-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.username::-webkit-input-placeholder::before, #view-login .module-container .module-content button.username::-webkit-input-placeholder::before {
+        font-family: "fg-font";
+        content: 'i ';
+        font-style: normal;
+        vertical-align: text-bottom; }
+      #view-login .module-container .module-content input.username::-moz-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.username::-moz-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.username::-moz-placeholder::before, #view-login .module-container .module-content button.username::-moz-placeholder::before {
+        font-family: "fg-font";
+        content: 'i ';
+        font-style: normal;
+        vertical-align: text-bottom; }
+      #view-login .module-container .module-content input.username:-ms-input-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.username:-ms-input-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.username:-ms-input-placeholder::before, #view-login .module-container .module-content button.username:-ms-input-placeholder::before {
+        font-family: "fg-font";
+        content: 'i ';
+        font-style: normal;
+        vertical-align: text-bottom; }
+      #view-login .module-container .module-content input.username:-moz-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.username:-moz-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.username:-moz-placeholder::before, #view-login .module-container .module-content button.username:-moz-placeholder::before {
+        font-family: "fg-font";
+        content: 'i ';
+        font-style: normal;
+        vertical-align: text-bottom; }
+      #view-login .module-container .module-content input.password::-webkit-input-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.password::-webkit-input-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.password::-webkit-input-placeholder::before, #view-login .module-container .module-content button.password::-webkit-input-placeholder::before {
+        font-family: "fg-font";
+        content: 'm ';
+        font-style: normal;
+        vertical-align: text-bottom; }
+      #view-login .module-container .module-content input.password::-moz-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.password::-moz-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.password::-moz-placeholder::before, #view-login .module-container .module-content button.password::-moz-placeholder::before {
+        font-family: "fg-font";
+        content: 'm ';
+        font-style: normal;
+        vertical-align: text-bottom; }
+      #view-login .module-container .module-content input.password:-ms-input-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.password:-ms-input-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.password:-ms-input-placeholder::before, #view-login .module-container .module-content button.password:-ms-input-placeholder::before {
+        font-family: "fg-font";
+        content: 'm ';
+        font-style: normal;
+        vertical-align: text-bottom; }
+      #view-login .module-container .module-content input.password:-moz-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.password:-moz-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.password:-moz-placeholder::before, #view-login .module-container .module-content button.password:-moz-placeholder::before {
+        font-family: "fg-font";
+        content: 'm ';
+        font-style: normal;
+        vertical-align: text-bottom; }
     #view-login .module-container .module-content #logo {
       padding: 50px 0 10px 0;
       margin: 0; }
@@ -6693,7 +6731,7 @@ span.tooltip-icon {
     color: #fff;
     font-size: 18.6px;
     line-height: 24px;
-    color: rgba(255, 255, 255, 0.4); }
+    color: rgba(255, 255, 255, 0.8); }
     #view-onboarding .onboarding-content p.last-step {
       width: 390px;
       margin: 0 auto; }
