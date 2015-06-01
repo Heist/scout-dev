@@ -267,6 +267,7 @@
             } ;
             
             Intercom('trackEvent', 'ended-test', intercom );
+            Intercom('update');
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags

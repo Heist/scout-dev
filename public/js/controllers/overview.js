@@ -70,7 +70,6 @@
                 Intercom('update');
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
-                $scope.animationToggle();
                 return;
             }
         };
