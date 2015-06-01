@@ -287,7 +287,9 @@
             
             $scope.messageEditToggle = '';
             var dataOut;
+
             if(original._tags.indexOf($scope.summaryItem._id)!== -1){
+                console.log('has tags', original)
                 dataOut = {msg: original, hasSummary: $scope.summaryItem._id}
             }
             else {
