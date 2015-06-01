@@ -9,7 +9,7 @@
         // removes the body scroll overflow hidden
         var bodyScroll = angular.element(document.querySelector('body'));
         bodyScroll.removeClass('overflow-hidden');
-        Intercom('update');
+        
         
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
@@ -41,8 +41,7 @@
 
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 console.log('truth clicked')
-                Intercom('trackEvent', 'closed-onboarding', intercom );
-                Intercom('update');
+                
                 var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
                 var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
                 var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
@@ -69,7 +68,8 @@
                 };
 
                 
-                
+                Intercom('trackEvent', 'closed-onboarding', intercom );
+                Intercom('update');
                 
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
