@@ -41,7 +41,8 @@
 
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 console.log('truth clicked')
-
+                Intercom('trackEvent', 'closed-onboarding', intercom );
+                Intercom('update');
                 var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
                 var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
                 var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
@@ -67,11 +68,12 @@
                     closed   : duration
                 };
 
-                Intercom('trackEvent', 'closed-onboarding', intercom );
-                Intercom('update');
-                Intercom('show');
+                
+                
+                
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
+                Intercom('show');
                 return;
             }
         };
