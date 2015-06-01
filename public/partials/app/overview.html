@@ -64,10 +64,12 @@
 								</li>
 							</ul>
 						</div>
-
 					</div>
-					
-					<div class="test-edit" ng-click="editTest(test)">
+
+					<div class="test-edit" ng-click="editTest(test)" ng-mouseover="testEditMsg=true" ng-mouseleave="testEditMsg=false">
+
+						<div class="test-edit-msg" ng-show="testEditMsg">Edit</div>
+
 						<h2 class="line-clamp">{{test.name}}</h2>
 
 						<span ng-show="test._subjects.length > 0"> {{test._subjects.length}} sessions complete</span>

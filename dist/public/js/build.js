@@ -55563,39 +55563,11 @@ angular.module('siyfion.sfTypeahead', [])
 
 	// ONBOARDING =========================================
     // TODO: Abstract into service for dependency injection
-    	
-        var startOnboard;
+    	var startOnboard;
+
         $scope.onboardToggle = function(){
-            void 0;
-            if(!$scope.onboardSteps || $scope.onboardSteps === false ){
-                void 0
-            	startOnboard = new Date();
-                var hh = startOnboard.getHours();
-                var m = startOnboard.getMinutes();
-
-                var out = {
-                    created_at : hh+':'+m,
-                };
-                
-                Intercom('trackEvent', 'opened-onboarding', out );
-                Intercom('update');
-            	$rootScope.user.onboard = 1; 
-                $scope.onboardSteps = true; 
-                return;
-            }
-
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-                void 0
-                var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
-                var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
-                var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
-
-                // below classes are from animate.css library
-                viewOnboarding.addClass('animated slideOutDown').delay(1000).hide(1);
-                lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
-                otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
-                
-                var duration = new Date();
+            	var duration = new Date();
 
                 if (duration < startOnboard) {
                   duration.setDate(duration.getDate() + 1);
@@ -55611,11 +55583,37 @@ angular.module('siyfion.sfTypeahead', [])
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
-                Intercom('update');
-                $rootScope.user.onboard = 100;
+            	
+            	$rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
+                $scope.animationToggle();
                 return;
             }
+            if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+            	startOnboard = new Date();
+                var hh = startOnboard.getHours();
+                var m = startOnboard.getMinutes();
+
+                var out = {
+                    created_at : hh+':'+m,
+                };
+                
+                Intercom('trackEvent', 'opened-onboarding', out );
+
+            	$rootScope.user.onboard = 1; 
+                $scope.onboardSteps = true; 
+                return;
+            }
+        };
+
+        $scope.animationToggle = function(){
+        	var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
+        	var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
+
+        	// below classes are from animate.css library
+        	lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
+        	otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
+
         };
 
 	// STRIPE CHECKOUT ====================================
@@ -55793,9 +55791,8 @@ angular.module('siyfion.sfTypeahead', [])
         };
 
         var data = loadData.data;
-        void 0;
         
-        Intercom('update');
+
         $scope.test = data;
         $scope.tags = tagSort(data._tags) || [];
         $scope.tasks = data._tasks || [];
@@ -56058,11 +56055,18 @@ angular.module('siyfion.sfTypeahead', [])
             
 
     $scope.showIntercom = function(){
-        Intercom('trackEvent', 'opened-education', intercom );
         Intercom('show');
-        Intercom('update');
+        Intercom('trackEvent', 'opened-education', intercom );
     }
 
+<<<<<<< HEAD
+    $scope.showIntercom = function(){
+        Intercom('show');
+
+    }
+
+=======
+>>>>>>> dev09
 
 	}]);
 
@@ -56211,9 +56215,8 @@ angular.module('siyfion.sfTypeahead', [])
             $http
                 .post('/api/test/', test)
                 .success(function(data){
-                    
                     Intercom('trackEvent', 'created-project', intercom );
-                    Intercom('update');
+
                     $scope.$parent.tests.push(data);
                     $scope.$parent.newTestModalToggle();
                     $location.path('/edit/test/'+ data._id);
@@ -56299,38 +56302,10 @@ angular.module('siyfion.sfTypeahead', [])
             $scope.onboardSteps = true;
         }
 
-                var startOnboard;
+        var startOnboard;
         $scope.onboardToggle = function(){
-            void 0;
-            if(!$scope.onboardSteps || $scope.onboardSteps === false ){
-                void 0
-                startOnboard = new Date();
-                var hh = startOnboard.getHours();
-                var m = startOnboard.getMinutes();
-
-                var out = {
-                    created_at : hh+':'+m,
-                };
-                
-                Intercom('trackEvent', 'opened-onboarding', out );
-                Intercom('update');
-                $rootScope.user.onboard = 1; 
-                $scope.onboardSteps = true; 
-                return;
-            }
-
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-                void 0
-
-                var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
-                var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
-                var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
-
-                // below classes are from animate.css library
-                viewOnboarding.addClass('animated slideOutDown').delay(1000).hide(1);
-                lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
-                otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
-                
+                // TODO: setup as http post
                 var duration = new Date();
 
                 if (duration < startOnboard) {
@@ -56347,12 +56322,40 @@ angular.module('siyfion.sfTypeahead', [])
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
-                Intercom('update');
+
+                $scope.animationToggle();
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
-                $scope.animationToggle();
+                $scope.changeOnboard(100);
                 return;
             }
+
+            if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+                startOnboard = new Date();
+                var hh = startOnboard.getHours();
+                var m = startOnboard.getMinutes();
+
+                var out = {
+                    created_at : hh+':'+m,
+                };
+                
+                Intercom('trackEvent', 'opened-onboarding', out );
+
+                $rootScope.user.onboard = 1;  
+                $scope.onboardSteps = true; 
+                $scope.changeOnboard(1);
+                return;
+            }
+        };
+
+        $scope.animationToggle = function(){
+            var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
+            var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
+
+            // below classes are from animate.css library
+            lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
+            otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
+
         };
 
         $scope.changeOnboard = function(num){
@@ -56780,7 +56783,6 @@ angular.module('siyfion.sfTypeahead', [])
             } ;
             
             Intercom('trackEvent', 'started-test', intercom );
-            Intercom('update');
 
             $http
                 .post('api/subject/', subject)
@@ -57180,7 +57182,7 @@ angular.module('siyfion.sfTypeahead', [])
                 };
                 
                 Intercom('trackEvent', 'shared-report-button-clicked', intercom );
-                Intercom('update');        
+            
                 return;
             }
         };
@@ -57230,7 +57232,6 @@ angular.module('siyfion.sfTypeahead', [])
                 };
 
                 Intercom('trackEvent', 'saved-test-report', intercom );
-                Intercom('update');
             }
 
             $http.post('/api/summary/object/', [obj]);
@@ -58492,7 +58493,7 @@ angular.module('typeaheadInputBox', ['DOMposition', 'bindHtml'])
                     scope.$digest();
                 }
 
-                if (evt.which === 32 || evt.which === 46 ||  evt.which === 44 ) {
+                if (evt.which === 32) {
                     // SPACE keypress =========
                     // add a space to the model and cancel the dropdown
                     // post the tag to the scope-tags for comparision

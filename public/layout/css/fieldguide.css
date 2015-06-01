@@ -5185,7 +5185,8 @@ span.tooltip-icon {
         color: #f37960; }
   .overview-test .test-edit {
     padding: 45px 15px 0 15px;
-    height: 200px; }
+    height: 200px;
+    position: relative; }
     .overview-test .test-edit h2 {
       color: #575757;
       font-size: 24.8px;
@@ -5194,6 +5195,10 @@ span.tooltip-icon {
       word-break: break-word;
       letter-spacing: -0.5px;
       font-weight: 400; }
+    .overview-test .test-edit .test-edit-msg {
+      position: absolute;
+      top: 25px;
+      left: 15px; }
   .overview-test .test-controls-empty {
     position: absolute;
     left: 0;
