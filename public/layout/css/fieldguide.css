@@ -5444,6 +5444,8 @@ span.tooltip-icon {
     #view-editing .test-info a.prototype-url {
       font-size: 10px;
       color: #7a7a7a; }
+  #view-editing form {
+    margin: 0 0 30px 0; }
   #view-editing input.task-title, #view-editing .add-task textarea.task-title {
     float: left;
     width: 98%;
@@ -5487,11 +5489,10 @@ span.tooltip-icon {
     #view-editing textarea.objectives:focus, #view-editing textarea.task-descriptions:focus {
       color: #000;
       background: url('../assets/fg-edit-filled-hover.svg') 20px 3px no-repeat; }
-  #view-editing textarea.task-descriptions {
-    margin: 0 0 30px 0; }
   #view-editing .empty-task-message {
     width: 100%;
-    color: #C5C6C7; }
+    color: #C5C6C7;
+    background: url('../assets/arrow.png') 450px 0 no-repeat; }
     #view-editing .empty-task-message h3 {
       color: #C5C6C7;
       font-size: 18.6px;
@@ -5502,10 +5503,10 @@ span.tooltip-icon {
       margin: 0 0 15px 0;
       text-transform: none;
       text-align: left; }
-    #view-editing .empty-task-message .intro-details {
-      clear: both; }
+    #view-editing .empty-task-message p {
+      margin: 0 0 30px 0; }
   #view-editing .add-task {
-    margin: 40px 0; }
+    margin: 20px 0; }
     #view-editing .add-task form {
       border-top: 1px solid rgba(216, 218, 219, 0.5);
       margin: 0 0 15px 0; }

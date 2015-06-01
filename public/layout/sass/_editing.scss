@@ -300,6 +300,10 @@
             color: $fg-grey-text;
         }
     }
+
+    form {
+        margin: 0 0 30px 0;
+    }
     
 
     input.task-title {
@@ -357,12 +361,12 @@
 
     textarea.task-descriptions {
         @extend textarea.objectives;
-        margin: 0 0 30px 0;
     }
     
     .empty-task-message {
         width: 100%;
         color: $fg-grey-placeholder;
+        background: url('../assets/arrow.png') 450px 0 no-repeat;
 
         h3 {
             @include type-h3($fg-grey-placeholder);
@@ -372,13 +376,13 @@
             text-align: left;
         }
 
-        .intro-details {
-            clear: both;
+        p {
+            margin: 0 0 30px 0;
         }
     }
 
     .add-task {
-        margin: 40px 0;
+        margin: 20px 0;
 
         form {
             border-top: 1px solid transparentize($fg-grey-light, 0.5);
