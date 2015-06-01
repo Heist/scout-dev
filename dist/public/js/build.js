@@ -56245,18 +56245,18 @@ angular.module('siyfion.sfTypeahead', [])
 
        // FUNCTIONS =======================================
 
-       $scope.onboardToggle = function(){
-          if(!$scope.onboardSteps || $scope.onboardSteps === false ){
-              $rootScope.user.onboard = 1;
-              $scope.onboardSteps = true; 
-              return;
-           }
-           if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-              $rootScope.user.onboard = 100;
-              $scope.onboardSteps = false; 
-              return;
-           }
-       };
+       // $scope.onboardToggle = function(){
+       //    if(!$scope.onboardSteps || $scope.onboardSteps === false ){
+       //        $rootScope.user.onboard = 1;
+       //        $scope.onboardSteps = true; 
+       //        return;
+       //     }
+       //     if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+       //        $rootScope.user.onboard = 100;
+       //        $scope.onboardSteps = false; 
+       //        return;
+       //     }
+       // };
 
         $scope.changeOnboard = function(num){
 
