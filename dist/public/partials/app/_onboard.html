@@ -1,4 +1,4 @@
-<div id="view-onboarding" ng-controller="onboard">
+<div id="view-onboarding">
 	<!-- Onboarding Step 1 -->
 	<div ng-if="user.onboard === 1">
 		<div class="onboarding-content animated slideInUp" id="step-1">
@@ -103,7 +103,7 @@
 			<img src="layout/assets/onboarding/ranger.svg" class="ranger" alt="Fieldy">
 			<h1 class="less-margin">That covers the basics.</h1> 
 			<p class="last-step">We will provide you with guidelines and best practices along the way to ensure your user research is quick and successful. Look for that in the corner.</p>
-			<button class="button large" id="button-done" ng-click="$parent.animationToggle()">Done</button>
+			<button class="button large" id="button-done" ng-click="$parent.onboardToggle()">Done</button>
 
 			<div class="clear"></div>
 			
