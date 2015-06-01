@@ -5825,7 +5825,8 @@ span.tooltip-icon {
       font-size: 10px;
       text-align: right;
       overflow-x: auto;
-      overflow-y: hidden; }
+      overflow-y: hidden;
+      white-space: nowrap; }
       #view-testing #testing-input #hash-tag-pool .hashtag {
         padding: 0 10px;
         font-size: 14px; }
