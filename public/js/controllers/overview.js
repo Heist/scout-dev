@@ -19,12 +19,12 @@
             $scope.onboardSteps = true;
         }
 
-                var startOnboard;
+                
         $scope.onboardToggle = function(){
             console.log('onboardToggle');
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 console.log('false clicked')
-                startOnboard = new Date();
+                var startOnboard = new Date();
                 var hh = startOnboard.getHours();
                 var m = startOnboard.getMinutes();
 
@@ -52,19 +52,11 @@
                 otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
                 
                 var duration = new Date();
-
-                if (duration < startOnboard) {
-                  duration.setDate(duration.getDate() + 1);
-                }
-
-                var diff = duration - startOnboard;
-                var msec = diff;
-                var mm = Math.floor(msec / 1000 / 60);
-                msec -= mm * 1000 * 60;
+                var hr = duration.getHours();
+                var mm = duration.getMinutes();
 
                 var intercom = {
-                    duration : mm+"min",
-                    closed   : duration
+                    created_at : hr+':'+mm,
                 };
 
                 
