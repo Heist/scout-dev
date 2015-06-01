@@ -3778,10 +3778,9 @@ hr {
       padding: 0;
       margin: 0; }
       #nav-account .account-settings ul li {
-        padding: 4px 10px;
+        padding: 5px 10px;
         list-style-type: none; }
         #nav-account .account-settings ul li a {
-          color: #7c7d80;
           text-decoration: none; }
           #nav-account .account-settings ul li a:hover {
             background: #00B5E3;
@@ -3790,7 +3789,7 @@ hr {
           background: #00B5E3;
           color: #fff; }
         #nav-account .account-settings ul li span {
-          font-size: 12px;
+          font-size: 14px;
           padding: 0 5px 0 0;
           margin: 0;
           display: inline-block; }
@@ -5150,7 +5149,7 @@ span.tooltip-icon {
         padding: 0;
         margin: 0; }
         .overview-test .test-info .editTest-tooltips ul li {
-          padding: 0 10px;
+          padding: 5px 10px;
           list-style-type: none; }
           .overview-test .test-info .editTest-tooltips ul li:hover {
             background: #00B5E3;
@@ -5159,8 +5158,8 @@ span.tooltip-icon {
             width: 9px;
             display: inline-block; }
           .overview-test .test-info .editTest-tooltips ul li span {
-            font-size: 12px;
-            padding: 5px 0;
+            font-size: 14px;
+            padding: 0 5px 0 0;
             margin: 0;
             display: inline-block; }
     .overview-test .test-info .editTest {
