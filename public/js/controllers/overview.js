@@ -68,6 +68,7 @@
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
                 Intercom('update');
+                Intercom('show');
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 return;
