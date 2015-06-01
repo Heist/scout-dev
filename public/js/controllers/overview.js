@@ -9,7 +9,7 @@
         // removes the body scroll overflow hidden
         var bodyScroll = angular.element(document.querySelector('body'));
         bodyScroll.removeClass('overflow-hidden');
-
+        Intercom('update');
         
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;

@@ -55611,7 +55611,8 @@ angular.module('siyfion.sfTypeahead', [])
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
-                Intercom('update'); 
+                Intercom('update');
+                Intercom('show');
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 return;
@@ -56289,7 +56290,7 @@ angular.module('siyfion.sfTypeahead', [])
         // removes the body scroll overflow hidden
         var bodyScroll = angular.element(document.querySelector('body'));
         bodyScroll.removeClass('overflow-hidden');
-
+        Intercom('update');
         
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
@@ -56348,6 +56349,7 @@ angular.module('siyfion.sfTypeahead', [])
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
                 Intercom('update');
+                Intercom('show');
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 return;
