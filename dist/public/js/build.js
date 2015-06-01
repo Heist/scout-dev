@@ -57275,7 +57275,9 @@ angular.module('siyfion.sfTypeahead', [])
             
             $scope.messageEditToggle = '';
             var dataOut;
+
             if(original._tags.indexOf($scope.summaryItem._id)!== -1){
+                void 0
                 dataOut = {msg: original, hasSummary: $scope.summaryItem._id}
             }
             else {
