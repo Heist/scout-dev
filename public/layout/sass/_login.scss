@@ -99,6 +99,62 @@
 				&.error-outline {
 					border: 1px solid $fg-red;
 				}
+
+				&.username::-webkit-input-placeholder::before {
+					font-family: "fg-font";
+					content: 'i ';
+					font-style: normal;
+					vertical-align: text-bottom;
+				}
+
+				&.username::-moz-placeholder::before {
+					font-family: "fg-font";
+					content: 'i ';
+					font-style: normal;
+					vertical-align: text-bottom;
+				}
+
+				&.username:-ms-input-placeholder::before {
+					font-family: "fg-font";
+					content: 'i ';
+					font-style: normal;
+					vertical-align: text-bottom;
+				}
+				
+				&.username:-moz-placeholder::before {
+					font-family: "fg-font";
+					content: 'i ';
+					font-style: normal;
+					vertical-align: text-bottom;
+				}
+
+				&.password::-webkit-input-placeholder::before {
+					font-family: "fg-font";
+					content: 'm ';
+					font-style: normal;
+					vertical-align: text-bottom;
+				}
+
+				&.password::-moz-placeholder::before {
+					font-family: "fg-font";
+					content: 'm ';
+					font-style: normal;
+					vertical-align: text-bottom;
+				}
+
+				&.password:-ms-input-placeholder::before {
+					font-family: "fg-font";
+					content: 'm ';
+					font-style: normal;
+					vertical-align: text-bottom;
+				}
+
+				&.password:-moz-placeholder::before {
+					font-family: "fg-font";
+					content: 'm ';
+					font-style: normal;
+					vertical-align: text-bottom;
+				}
 			}
 			
 			#logo {
