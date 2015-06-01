@@ -63,7 +63,8 @@
                 msec -= mm * 1000 * 60;
 
                 var intercom = {
-                    duration : mm+"min"
+                    duration : mm+"min",
+                    closed   : duration
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );

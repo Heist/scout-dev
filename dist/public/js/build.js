@@ -55567,6 +55567,7 @@ angular.module('siyfion.sfTypeahead', [])
         var startOnboard;
         $scope.onboardToggle = function(){
             void 0;
+            Intercom('update');
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 void 0
             	startOnboard = new Date();
@@ -55585,7 +55586,8 @@ angular.module('siyfion.sfTypeahead', [])
             }
 
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-                void 0
+                // console.log('truth clicked')
+                
                 var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
                 var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
                 var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
@@ -55607,12 +55609,12 @@ angular.module('siyfion.sfTypeahead', [])
                 msec -= mm * 1000 * 60;
 
                 var intercom = {
-                    duration : mm+"min"
+                    duration : mm+"min",
+                    closed   : duration
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
                 Intercom('update');
-                Intercom('show');
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 return;
@@ -56344,7 +56346,8 @@ angular.module('siyfion.sfTypeahead', [])
                 msec -= mm * 1000 * 60;
 
                 var intercom = {
-                    duration : mm+"min"
+                    duration : mm+"min",
+                    closed   : duration
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );

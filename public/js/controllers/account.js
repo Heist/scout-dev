@@ -35,6 +35,7 @@
         var startOnboard;
         $scope.onboardToggle = function(){
             console.log('onboardToggle');
+            Intercom('update');
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 console.log('false clicked')
             	startOnboard = new Date();
@@ -53,7 +54,8 @@
             }
 
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-                console.log('truth clicked')
+                // console.log('truth clicked')
+                
                 var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
                 var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
                 var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
@@ -75,12 +77,12 @@
                 msec -= mm * 1000 * 60;
 
                 var intercom = {
-                    duration : mm+"min"
+                    duration : mm+"min",
+                    closed   : duration
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
                 Intercom('update');
-                Intercom('show');
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 return;
