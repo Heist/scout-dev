@@ -5024,51 +5024,30 @@ span.tooltip-icon {
     #view-login .module-container .module-content input, #view-login .module-container .module-content #view-editing .add-task textarea, #view-editing .add-task #view-login .module-container .module-content textarea, #view-login .module-container .module-content button {
       width: 246px;
       margin-bottom: 4px;
-      float: none; }
+      float: none;
+      position: relative; }
+      #view-login .module-container .module-content input.username, #view-login .module-container .module-content #view-editing .add-task textarea.username, #view-editing .add-task #view-login .module-container .module-content textarea.username, #view-login .module-container .module-content input.pw, #view-login .module-container .module-content #view-editing .add-task textarea.pw, #view-editing .add-task #view-login .module-container .module-content textarea.pw, #view-login .module-container .module-content button.username, #view-login .module-container .module-content button.pw {
+        padding-left: 36px; }
       #view-login .module-container .module-content input:focus, #view-login .module-container .module-content #view-editing .add-task textarea:focus, #view-editing .add-task #view-login .module-container .module-content textarea:focus, #view-login .module-container .module-content button:focus {
         box-shadow: none; }
       #view-login .module-container .module-content input.error-outline, #view-login .module-container .module-content #view-editing .add-task textarea.error-outline, #view-editing .add-task #view-login .module-container .module-content textarea.error-outline, #view-login .module-container .module-content button.error-outline {
         border: 1px solid #D82D09; }
-      #view-login .module-container .module-content input.username::-webkit-input-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.username::-webkit-input-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.username::-webkit-input-placeholder::before, #view-login .module-container .module-content button.username::-webkit-input-placeholder::before {
-        font-family: "fg-font";
-        content: 'i ';
-        font-style: normal;
-        vertical-align: text-bottom; }
-      #view-login .module-container .module-content input.username::-moz-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.username::-moz-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.username::-moz-placeholder::before, #view-login .module-container .module-content button.username::-moz-placeholder::before {
-        font-family: "fg-font";
-        content: 'i ';
-        font-style: normal;
-        vertical-align: text-bottom; }
-      #view-login .module-container .module-content input.username:-ms-input-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.username:-ms-input-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.username:-ms-input-placeholder::before, #view-login .module-container .module-content button.username:-ms-input-placeholder::before {
-        font-family: "fg-font";
-        content: 'i ';
-        font-style: normal;
-        vertical-align: text-bottom; }
-      #view-login .module-container .module-content input.username:-moz-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.username:-moz-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.username:-moz-placeholder::before, #view-login .module-container .module-content button.username:-moz-placeholder::before {
-        font-family: "fg-font";
-        content: 'i ';
-        font-style: normal;
-        vertical-align: text-bottom; }
-      #view-login .module-container .module-content input.password::-webkit-input-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.password::-webkit-input-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.password::-webkit-input-placeholder::before, #view-login .module-container .module-content button.password::-webkit-input-placeholder::before {
-        font-family: "fg-font";
-        content: 'm ';
-        font-style: normal;
-        vertical-align: text-bottom; }
-      #view-login .module-container .module-content input.password::-moz-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.password::-moz-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.password::-moz-placeholder::before, #view-login .module-container .module-content button.password::-moz-placeholder::before {
-        font-family: "fg-font";
-        content: 'm ';
-        font-style: normal;
-        vertical-align: text-bottom; }
-      #view-login .module-container .module-content input.password:-ms-input-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.password:-ms-input-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.password:-ms-input-placeholder::before, #view-login .module-container .module-content button.password:-ms-input-placeholder::before {
-        font-family: "fg-font";
-        content: 'm ';
-        font-style: normal;
-        vertical-align: text-bottom; }
-      #view-login .module-container .module-content input.password:-moz-placeholder::before, #view-login .module-container .module-content #view-editing .add-task textarea.password:-moz-placeholder::before, #view-editing .add-task #view-login .module-container .module-content textarea.password:-moz-placeholder::before, #view-login .module-container .module-content button.password:-moz-placeholder::before {
-        font-family: "fg-font";
-        content: 'm ';
-        font-style: normal;
-        vertical-align: text-bottom; }
+    #view-login .module-container .module-content span.username-icon {
+      background: url('/layout/assets/fg-icon-email.svg') no-repeat;
+      width: 14px;
+      height: 10px;
+      position: absolute;
+      top: 15px;
+      left: 165px;
+      z-index: 1; }
+    #view-login .module-container .module-content span.pw-icon {
+      background: transparent url('/layout/assets/fg-icon-lock.svg') no-repeat;
+      width: 13px;
+      height: 16px;
+      position: absolute;
+      top: 10px;
+      left: 165px;
+      z-index: 1; }
     #view-login .module-container .module-content #logo {
       padding: 50px 0 10px 0;
       margin: 0; }
