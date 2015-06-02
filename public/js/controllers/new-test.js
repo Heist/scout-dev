@@ -43,7 +43,7 @@
                 .success(function(data){
                     
                     Intercom('trackEvent', 'created-project', intercom );
-                    $timeout(function() { Intercom('update'); }, 1000, false);
+                    Intercom('update');
                     $scope.$parent.tests.push(data);
                     $scope.$parent.newTestModalToggle();
                     $location.path('/edit/test/'+ data._id);

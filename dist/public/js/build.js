@@ -55798,7 +55798,7 @@ angular.module('siyfion.sfTypeahead', [])
         var data = loadData.data;
         void 0;
         
-        $timeout(function() { Intercom('update'); }, 1000, false);
+        Intercom('update');
         $scope.test = data;
         $scope.tags = tagSort(data._tags) || [];
         $scope.tasks = data._tasks || [];
@@ -56216,7 +56216,7 @@ angular.module('siyfion.sfTypeahead', [])
                 .success(function(data){
                     
                     Intercom('trackEvent', 'created-project', intercom );
-                    $timeout(function() { Intercom('update'); }, 1000, false);
+                    Intercom('update');
                     $scope.$parent.tests.push(data);
                     $scope.$parent.newTestModalToggle();
                     $location.path('/edit/test/'+ data._id);
