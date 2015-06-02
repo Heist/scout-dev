@@ -56593,7 +56593,7 @@ angular.module('siyfion.sfTypeahead', [])
 
         $scope.newPass = function(pass){
                 var dataOut = {password: pass};
-                
+                console.log(dataOut);
                 $http
                     .post('/auth/reset'+$stateParams.token, dataOut)
                     .success(function(data){
