@@ -17,7 +17,7 @@
                         
                         $scope.successMsg = {};
                         console.log(data);
-                        if(data === '0'){ 
+                        if(data === 0){ 
                             $scope.successMsg.val = 0;
                             $scope.successMsg.msg = 'That token has already been used.';
 
