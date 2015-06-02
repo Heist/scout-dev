@@ -286,7 +286,15 @@
         $scope.saveEdit = function(original, list){
             
             $scope.messageEditToggle = '';
-            var dataOut = {msg: original, hasSummary: $scope.summaryItem._id}
+            var dataOut;
+
+            if(original._tags.indexOf($scope.summaryItem._id)!== -1){
+                console.log('has tags', original)
+                dataOut = {msg: original, hasSummary: $scope.summaryItem._id}
+            }
+            else {
+                dataOut = original;
+            }
 
             $http.put('/api/message/', dataOut)
                 .success(function(data, err){

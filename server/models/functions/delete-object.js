@@ -21,18 +21,22 @@ module.exports = function(objectKey, type, next){
 
     Model.findById(objectKey, function(err, doc){
         if(err){ console.error(err) }
-
-        models.Test.findOne({'_id': doc._test})
-            .exec(function(err, test){
-                if(err){ console.error(err) }
-                
-                var plural = (type === 'tag') ? test._tags : test._tasks;
-                    plural.remove(doc._id);
-
-                test.save(function(err, doc){
-                    if(err){ console.error(err); }
-                });
-            });
+        if(objectKey.length > 0){
+                models.Test.findOne({'_id': doc._test})
+                    .exec(function(err, test){
+                        if(err){ console.error(err) }
+                        
+                        var plural = (type === 'tag') ? test._tags : test._tasks;
+                            plural.remove(doc._id);
+        
+                        test.save(function(err, doc){
+                            if(err){ console.error(err); }
+                        });
+                    });
+                }
+        else {
+            return;
+        }
     })
     .remove(function(err){
         if(err){ console.error(err); }
