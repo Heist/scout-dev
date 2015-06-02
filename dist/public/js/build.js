@@ -56862,7 +56862,7 @@ angular.module('siyfion.sfTypeahead', [])
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
-                        void 0;
+                        
                         $scope.timeline.push(data.msg);
                         $scope.tags = tagSort(data.tags);
                     });
@@ -56980,7 +56980,7 @@ angular.module('siyfion.sfTypeahead', [])
             [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q', '$timeout',
         function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q, $timeout){
         
-        // console.log('report data from server', loadData.data);
+        
 
         $scope.test = {};
         $scope.timeline = [];
@@ -57076,7 +57076,7 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
             $scope.navlist =  makeNavList($scope.rawList);
-            // console.log($scope.navlist);
+            
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
@@ -57115,10 +57115,10 @@ angular.module('siyfion.sfTypeahead', [])
         var addTagsToLeftNav = function(data){
             // when we're returned new data, check the tags for messages and filter ones that have none
             // set the new list of tags to the bottom of the navlist
-            // console.log(data);
+            
             var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
-            // console.log('left nav list to concatenate to', clear);
+            
 
             var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
             var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
@@ -57270,7 +57270,7 @@ angular.module('siyfion.sfTypeahead', [])
 
             $http.put('/api/message/', dataOut)
                 .success(function(data, err){
-                    // console.log('data received', data);
+                    
                     if($scope.selected.doctype === 'test'){
                         // if this is a test, the message needs to be marked as a Summary message
                         // this is in case of re-editing after an original edit
@@ -57282,13 +57282,13 @@ angular.module('siyfion.sfTypeahead', [])
                     $scope.messages[original._subject.name].splice(idx,1, data.msg);
 
                     // now find the original._id on raw list item replace with new _id
-                    // console.log($scope.rawList);
+                    
 
                     var objList    = _.filter($scope.rawList, function(n){ if(n.doctype === 'tag' || n.doctype === 'task' ) {return n;} else {return;}})
                     var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; });
                     
                     var nonTestObj = _.map(objList, function(n){
-                        // // console.log(n.doctype);
+                        // 
                         var x = n._messages.indexOf(original._id);
                         // map each test item and then return
                         if( x !== -1){
@@ -57305,18 +57305,18 @@ angular.module('siyfion.sfTypeahead', [])
                         }
                     })
 
-                    // // console.log('data, tags are returning undefined', data);
+                    // 
                     if(data.msg._tags.indexOf($scope.summaryItem._id) !== -1){
                         // if it's a summary message, add it back into the summary message filter list
                         $scope.summaryItem._messages.splice($scope.summaryItem._messages.indexOf(original._id), 1, data.msg._id);
                     }
 
-                    // // console.log(test);
+                    // 
 
                     $scope.rawList = test.concat(nonTestObj);
 
                     // Summary messages is a list of messages that match the summary._id
-                    // // console.log(nonTestObj);
+                    // 
                     addTagsToLeftNav(data);
                 });
         };
