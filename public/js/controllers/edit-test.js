@@ -16,7 +16,7 @@
         var data = loadData.data;
         console.log(data);
         
-        Intercom('update');
+        $timeout(function() { Intercom('update'); }, 1000, false);
         $scope.test = data;
         $scope.tags = tagSort(data._tags) || [];
         $scope.tasks = data._tasks || [];

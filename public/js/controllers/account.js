@@ -35,7 +35,7 @@
         var startOnboard;
         $scope.onboardToggle = function(){
             console.log('onboardToggle');
-            Intercom('update');
+            $timeout(function() { Intercom('update'); }, 1000, false);
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 console.log('false clicked')
             	startOnboard = new Date();
@@ -47,7 +47,7 @@
                 };
                 
                 Intercom('trackEvent', 'opened-onboarding', out );
-                Intercom('update');
+                $timeout(function() { Intercom('update'); }, 1000, false);
             	$rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
                 return;
@@ -82,7 +82,7 @@
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
-                Intercom('update');
+                $timeout(function() { Intercom('update'); }, 1000, false);
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 return;

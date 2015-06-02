@@ -55567,7 +55567,7 @@ angular.module('siyfion.sfTypeahead', [])
         var startOnboard;
         $scope.onboardToggle = function(){
             void 0;
-            Intercom('update');
+            $timeout(function() { Intercom('update'); }, 1000, false);
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 void 0
             	startOnboard = new Date();
@@ -55579,7 +55579,7 @@ angular.module('siyfion.sfTypeahead', [])
                 };
                 
                 Intercom('trackEvent', 'opened-onboarding', out );
-                Intercom('update');
+                $timeout(function() { Intercom('update'); }, 1000, false);
             	$rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
                 return;
@@ -55614,7 +55614,7 @@ angular.module('siyfion.sfTypeahead', [])
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
-                Intercom('update');
+                $timeout(function() { Intercom('update'); }, 1000, false);
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
                 return;
@@ -55798,7 +55798,7 @@ angular.module('siyfion.sfTypeahead', [])
         var data = loadData.data;
         void 0;
         
-        Intercom('update');
+        $timeout(function() { Intercom('update'); }, 1000, false);
         $scope.test = data;
         $scope.tags = tagSort(data._tags) || [];
         $scope.tasks = data._tasks || [];
@@ -56063,7 +56063,7 @@ angular.module('siyfion.sfTypeahead', [])
     $scope.showIntercom = function(){
         Intercom('trackEvent', 'opened-education', intercom );
         Intercom('show');
-        Intercom('update');
+        $timeout(function() { Intercom('update'); }, 1000, false);
     }
 
 
@@ -56216,7 +56216,7 @@ angular.module('siyfion.sfTypeahead', [])
                 .success(function(data){
                     
                     Intercom('trackEvent', 'created-project', intercom );
-                    Intercom('update');
+                    $timeout(function() { Intercom('update'); }, 1000, false);
                     $scope.$parent.tests.push(data);
                     $scope.$parent.newTestModalToggle();
                     $location.path('/edit/test/'+ data._id);
@@ -56287,7 +56287,7 @@ angular.module('siyfion.sfTypeahead', [])
 
     // OVERVIEW CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-        .controller('overview', ['loadData', '$scope','$http', '$location', '$stateParams','$rootScope', function(loadData, $scope, $http, $location, $stateParams, $rootScope){
+        .controller('overview', ['loadData', '$scope','$http', '$location', '$stateParams','$rootScope', '$timeout', function(loadData, $scope, $http, $location, $stateParams, $rootScope, $timeout){
 
         // removes the body scroll overflow hidden
         var bodyScroll = angular.element(document.querySelector('body'));
@@ -56316,7 +56316,7 @@ angular.module('siyfion.sfTypeahead', [])
                 };
                 
                 Intercom('trackEvent', 'opened-onboarding', out );
-                Intercom('update');
+                $timeout(function() { Intercom('update'); }, 1000, false);
                 $rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
                 return;
@@ -56347,7 +56347,7 @@ angular.module('siyfion.sfTypeahead', [])
                 
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
-                Intercom('show');
+                
                 return;
             }
         };
@@ -56777,7 +56777,7 @@ angular.module('siyfion.sfTypeahead', [])
             } ;
             
             Intercom('trackEvent', 'started-test', intercom );
-            Intercom('update');
+            $timeout(function() { Intercom('update'); }, 1000, false);
 
             $http
                 .post('api/subject/', subject)
@@ -56907,7 +56907,7 @@ angular.module('siyfion.sfTypeahead', [])
             } ;
             
             Intercom('trackEvent', 'ended-test', intercom );
-            Intercom('update');
+            $timeout(function() { Intercom('update'); }, 1000, false);
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags
@@ -57178,7 +57178,7 @@ angular.module('siyfion.sfTypeahead', [])
                 };
                 
                 Intercom('trackEvent', 'shared-report-button-clicked', intercom );
-                Intercom('update');        
+                $timeout(function() { Intercom('update'); }, 1000, false);        
                 return;
             }
         };
@@ -57228,7 +57228,7 @@ angular.module('siyfion.sfTypeahead', [])
                 };
 
                 Intercom('trackEvent', 'saved-test-report', intercom );
-                Intercom('update');
+                $timeout(function() { Intercom('update'); }, 1000, false);
             }
 
             $http.post('/api/summary/object/', [obj]);

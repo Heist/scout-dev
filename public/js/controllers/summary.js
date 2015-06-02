@@ -192,7 +192,7 @@
                 };
                 
                 Intercom('trackEvent', 'shared-report-button-clicked', intercom );
-                Intercom('update');        
+                $timeout(function() { Intercom('update'); }, 1000, false);        
                 return;
             }
         };
@@ -242,7 +242,7 @@
                 };
 
                 Intercom('trackEvent', 'saved-test-report', intercom );
-                Intercom('update');
+                $timeout(function() { Intercom('update'); }, 1000, false);
             }
 
             $http.post('/api/summary/object/', [obj]);

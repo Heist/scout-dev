@@ -4,7 +4,7 @@
 
     // OVERVIEW CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-        .controller('overview', ['loadData', '$scope','$http', '$location', '$stateParams','$rootScope', function(loadData, $scope, $http, $location, $stateParams, $rootScope){
+        .controller('overview', ['loadData', '$scope','$http', '$location', '$stateParams','$rootScope', '$timeout', function(loadData, $scope, $http, $location, $stateParams, $rootScope, $timeout){
 
         // removes the body scroll overflow hidden
         var bodyScroll = angular.element(document.querySelector('body'));
@@ -33,7 +33,7 @@
                 };
                 
                 Intercom('trackEvent', 'opened-onboarding', out );
-                Intercom('update');
+                $timeout(function() { Intercom('update'); }, 1000, false);
                 $rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
                 return;
@@ -64,7 +64,7 @@
                 
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
-                Intercom('show');
+                
                 return;
             }
         };

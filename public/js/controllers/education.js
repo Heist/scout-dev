@@ -30,7 +30,7 @@
     $scope.showIntercom = function(){
         Intercom('trackEvent', 'opened-education', intercom );
         Intercom('show');
-        Intercom('update');
+        $timeout(function() { Intercom('update'); }, 1000, false);
     }
 
 
