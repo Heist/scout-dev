@@ -4,12 +4,11 @@
 
     // OVERVIEW CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-        .controller('overview', ['loadData', '$scope','$http', '$location', '$stateParams','$rootScope', function(loadData, $scope, $http, $location, $stateParams, $rootScope){
+        .controller('overview', ['loadData', '$scope','$http', '$location', '$stateParams','$rootScope', '$timeout', function(loadData, $scope, $http, $location, $stateParams, $rootScope, $timeout){
 
         // removes the body scroll overflow hidden
         var bodyScroll = angular.element(document.querySelector('body'));
         bodyScroll.removeClass('overflow-hidden');
-
         
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
@@ -18,13 +17,12 @@
         if($rootScope.user.onboard === 1){
             $scope.onboardSteps = true;
         }
-
-                var startOnboard;
+                
         $scope.onboardToggle = function(){
             console.log('onboardToggle');
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 console.log('false clicked')
-                startOnboard = new Date();
+                var startOnboard = new Date();
                 var hh = startOnboard.getHours();
                 var m = startOnboard.getMinutes();
 
@@ -33,14 +31,27 @@
                 };
                 
                 Intercom('trackEvent', 'opened-onboarding', out );
-                Intercom('update');
-                $rootScope.user.onboard = 1; 
+                $timeout(function() { Intercom('update'); }, 1000, false);
+                
+                $scope.changeOnboard(1);
                 $scope.onboardSteps = true; 
+
                 return;
             }
 
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 console.log('truth clicked')
+                
+                var duration = new Date();
+                var hr = duration.getHours();
+                var mm = duration.getMinutes();
+
+                var intercom = {
+                    created_at : hr+':'+mm,
+                };
+                
+                Intercom('trackEvent', 'closed-onboarding', intercom );
+                $timeout(function() { Intercom('update'); }, 1000, false);
 
                 var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
                 var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
@@ -51,43 +62,17 @@
                 lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
                 otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
                 
-                var duration = new Date();
-
-                if (duration < startOnboard) {
-                  duration.setDate(duration.getDate() + 1);
-                }
-
-                var diff = duration - startOnboard;
-                var msec = diff;
-                var mm = Math.floor(msec / 1000 / 60);
-                msec -= mm * 1000 * 60;
-
-                var intercom = {
-                    duration : mm+"min"
-                };
-
-                Intercom('trackEvent', 'closed-onboarding', intercom );
-                Intercom('update');
-                $rootScope.user.onboard = 100;
+                $scope.changeOnboard(100);
                 $scope.onboardSteps = false; 
+                
                 return;
             }
         };
 
         $scope.changeOnboard = function(num){
-
             $scope.user.onboard = num;
             $rootScope.user.onboard = num;
-
-
-            var url = '/api/user/'+$rootScope.user._id;
-            var dataOut = {onboard : $scope.user.onboard};
-
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    
-                });
+            $http.put('/api/user/'+$rootScope.user._id, {onboard : $scope.user.onboard});
         };
 
 

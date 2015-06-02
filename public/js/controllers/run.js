@@ -137,7 +137,7 @@
             } ;
             
             Intercom('trackEvent', 'started-test', intercom );
-            Intercom('update');
+            $timeout(function() { Intercom('update'); }, 1000, false);
 
             $http
                 .post('api/subject/', subject)
@@ -236,7 +236,7 @@
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
-                        console.log(data);
+                        
                         $scope.timeline.push(data.msg);
                         $scope.tags = tagSort(data.tags);
                     });
@@ -267,7 +267,7 @@
             } ;
             
             Intercom('trackEvent', 'ended-test', intercom );
-            Intercom('update');
+            $timeout(function() { Intercom('update'); }, 1000, false);
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags

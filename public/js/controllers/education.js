@@ -6,8 +6,8 @@
 
 	angular.module('field_guide_controls')
 	.controller('education', 
-    		['$scope','$http','$stateParams','$state','$location','$rootScope','$element',
-    function( $scope , $http,  $stateParams , $state , $location , $rootScope , $element){
+    		['$scope','$http','$stateParams','$state','$location','$rootScope','$element','$timeout',
+    function( $scope , $http,  $stateParams , $state , $location , $rootScope , $element,  $timeout){
 
 
     var locationPath = $location.path();
@@ -30,7 +30,7 @@
     $scope.showIntercom = function(){
         Intercom('trackEvent', 'opened-education', intercom );
         Intercom('show');
-        Intercom('update');
+        $timeout(function() { Intercom('update'); }, 1000, false);
     }
 
 

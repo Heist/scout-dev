@@ -55536,8 +55536,8 @@ angular.module('siyfion.sfTypeahead', [])
 
 	// ACCOUNT CONTROLLER ===========================================================
 	angular.module('field_guide_controls')
-		.controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', '$rootScope', 
-					function($scope, $http, $stateParams,$state, $location, $window, $rootScope){
+		.controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', '$rootScope', '$timeout',
+					function($scope, $http, $stateParams,$state, $location, $window, $rootScope, $timeout){
 		var user_id = $rootScope.user._id;
 
 		$scope.live_user = $rootScope.user;
@@ -55578,14 +55578,18 @@ angular.module('siyfion.sfTypeahead', [])
                 };
                 
                 Intercom('trackEvent', 'opened-onboarding', out );
-                Intercom('update');
+                $timeout(function() { Intercom('update'); }, 1000, false);
             	$rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
+                $scope.user.onboard = 1;
+            
+                $http.put('/api/user/'+$rootScope.user._id, {onboard : $scope.user.onboard});
+
                 return;
             }
-
-            if($scope.onboardSteps  || $scope.onboardSteps === true  ){
-                void 0
+            else if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+                // console.log('truth clicked')
+                
                 var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
                 var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
                 var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
@@ -55597,23 +55601,18 @@ angular.module('siyfion.sfTypeahead', [])
                 
                 var duration = new Date();
 
-                if (duration < startOnboard) {
-                  duration.setDate(duration.getDate() + 1);
-                }
-
-                var diff = duration - startOnboard;
-                var msec = diff;
-                var mm = Math.floor(msec / 1000 / 60);
-                msec -= mm * 1000 * 60;
-
                 var intercom = {
-                    duration : mm+"min"
+                    closed   : duration.getHours()+':'+duration.getMinutes()
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
-                Intercom('update');
+                $timeout(function() { Intercom('update'); }, 1000, false);
                 $rootScope.user.onboard = 100;
+                $scope.user.onboard = 100;
                 $scope.onboardSteps = false; 
+
+                $http.put('/api/user/'+$rootScope.user._id, {onboard : $scope.user.onboard});
+
                 return;
             }
         };
@@ -56036,8 +56035,8 @@ angular.module('siyfion.sfTypeahead', [])
 
 	angular.module('field_guide_controls')
 	.controller('education', 
-    		['$scope','$http','$stateParams','$state','$location','$rootScope','$element',
-    function( $scope , $http,  $stateParams , $state , $location , $rootScope , $element){
+    		['$scope','$http','$stateParams','$state','$location','$rootScope','$element','$timeout',
+    function( $scope , $http,  $stateParams , $state , $location , $rootScope , $element,  $timeout){
 
 
     var locationPath = $location.path();
@@ -56060,7 +56059,7 @@ angular.module('siyfion.sfTypeahead', [])
     $scope.showIntercom = function(){
         Intercom('trackEvent', 'opened-education', intercom );
         Intercom('show');
-        Intercom('update');
+        $timeout(function() { Intercom('update'); }, 1000, false);
     }
 
 
@@ -56284,12 +56283,11 @@ angular.module('siyfion.sfTypeahead', [])
 
     // OVERVIEW CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-        .controller('overview', ['loadData', '$scope','$http', '$location', '$stateParams','$rootScope', function(loadData, $scope, $http, $location, $stateParams, $rootScope){
+        .controller('overview', ['loadData', '$scope','$http', '$location', '$stateParams','$rootScope', '$timeout', function(loadData, $scope, $http, $location, $stateParams, $rootScope, $timeout){
 
         // removes the body scroll overflow hidden
         var bodyScroll = angular.element(document.querySelector('body'));
         bodyScroll.removeClass('overflow-hidden');
-
         
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
@@ -56298,13 +56296,12 @@ angular.module('siyfion.sfTypeahead', [])
         if($rootScope.user.onboard === 1){
             $scope.onboardSteps = true;
         }
-
-                var startOnboard;
+                
         $scope.onboardToggle = function(){
             void 0;
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 void 0
-                startOnboard = new Date();
+                var startOnboard = new Date();
                 var hh = startOnboard.getHours();
                 var m = startOnboard.getMinutes();
 
@@ -56313,14 +56310,27 @@ angular.module('siyfion.sfTypeahead', [])
                 };
                 
                 Intercom('trackEvent', 'opened-onboarding', out );
-                Intercom('update');
-                $rootScope.user.onboard = 1; 
+                $timeout(function() { Intercom('update'); }, 1000, false);
+                
+                $scope.changeOnboard(1);
                 $scope.onboardSteps = true; 
+
                 return;
             }
 
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 void 0
+                
+                var duration = new Date();
+                var hr = duration.getHours();
+                var mm = duration.getMinutes();
+
+                var intercom = {
+                    created_at : hr+':'+mm,
+                };
+                
+                Intercom('trackEvent', 'closed-onboarding', intercom );
+                $timeout(function() { Intercom('update'); }, 1000, false);
 
                 var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
                 var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
@@ -56331,44 +56341,17 @@ angular.module('siyfion.sfTypeahead', [])
                 lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
                 otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
                 
-                var duration = new Date();
-
-                if (duration < startOnboard) {
-                  duration.setDate(duration.getDate() + 1);
-                }
-
-                var diff = duration - startOnboard;
-                var msec = diff;
-                var mm = Math.floor(msec / 1000 / 60);
-                msec -= mm * 1000 * 60;
-
-                var intercom = {
-                    duration : mm+"min"
-                };
-
-                Intercom('trackEvent', 'closed-onboarding', intercom );
-                Intercom('update');
-                $rootScope.user.onboard = 100;
+                $scope.changeOnboard(100);
                 $scope.onboardSteps = false; 
-                $scope.animationToggle();
+                
                 return;
             }
         };
 
         $scope.changeOnboard = function(num){
-
             $scope.user.onboard = num;
             $rootScope.user.onboard = num;
-
-
-            var url = '/api/user/'+$rootScope.user._id;
-            var dataOut = {onboard : $scope.user.onboard};
-
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    
-                });
+            $http.put('/api/user/'+$rootScope.user._id, {onboard : $scope.user.onboard});
         };
 
 
@@ -56605,26 +56588,29 @@ angular.module('siyfion.sfTypeahead', [])
 
     // PASSWORD RESET CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-       .controller('reset', ['$scope','$http', '$location', '$stateParams','$rootScope', 
-                    function($scope, $http, $location, $stateParams, $rootScope){
+       .controller('reset', ['$scope','$http', '$location', '$stateParams','$rootScope', '$sce', '$timeout',
+                    function($scope, $http, $location, $stateParams, $rootScope, $sce, $timeout){
 
         $scope.newPass = function(pass){
                 var dataOut = {password: pass};
-                
+                void 0;
                 $http
                     .post('/auth/reset'+$stateParams.token, dataOut)
                     .success(function(data){
                         // do a login here, perhaps
                         
                         $scope.successMsg = {};
-
+                        void 0;
                         if(data === '0'){ 
                             $scope.successMsg.val = 0;
-                            $scope.successMsg.msg = 'That token has already been used.';
-
+                            var note = $sce.trustAsHtml('That token has already been used. <a href="/forgot">Reset your password?</a>');
+                            $scope.successMsg.msg = note;
+                            void 0;
+                            return;
                         } else {
                             $scope.successMsg.val = 1;
                             $scope.successMsg.msg = data;
+                            $timeout(function() {  $location.path('/login'); }, 2000, false);
                         }
                     });
             }
@@ -56780,7 +56766,7 @@ angular.module('siyfion.sfTypeahead', [])
             } ;
             
             Intercom('trackEvent', 'started-test', intercom );
-            Intercom('update');
+            $timeout(function() { Intercom('update'); }, 1000, false);
 
             $http
                 .post('api/subject/', subject)
@@ -56879,7 +56865,7 @@ angular.module('siyfion.sfTypeahead', [])
             } else {
                 postMessage(data, $scope.selected._id, $scope.selected._test, $scope.subject._id )
                     .then(function(data){
-                        void 0;
+                        
                         $scope.timeline.push(data.msg);
                         $scope.tags = tagSort(data.tags);
                     });
@@ -56910,6 +56896,7 @@ angular.module('siyfion.sfTypeahead', [])
             } ;
             
             Intercom('trackEvent', 'ended-test', intercom );
+            $timeout(function() { Intercom('update'); }, 1000, false);
             // on creation of test, there is a tag created called Summary.
             // find that message and post to it.
             //  loadData.data._tags
@@ -56996,7 +56983,7 @@ angular.module('siyfion.sfTypeahead', [])
             [ 'loadData', 'reportFunctions', 'postMessage', '$scope','$rootScope','$http','$location','$stateParams','$state','$sanitize', '$q', '$timeout',
         function(loadData, reportFunctions, postMessage, $scope,  $rootScope,  $http,  $location,  $stateParams,  $state,  $sanitize, $q, $timeout){
         
-        // console.log('report data from server', loadData.data);
+        
 
         $scope.test = {};
         $scope.timeline = [];
@@ -57092,7 +57079,7 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.$watch('rawList', function() {
             // group navlist by doctype when rawList changes.
             $scope.navlist =  makeNavList($scope.rawList);
-            // console.log($scope.navlist);
+            
         });
         
         $scope.selected = $scope.rawList[_.indexOf(_.pluck($scope.rawList, 'doctype'), 'test')];
@@ -57131,10 +57118,10 @@ angular.module('siyfion.sfTypeahead', [])
         var addTagsToLeftNav = function(data){
             // when we're returned new data, check the tags for messages and filter ones that have none
             // set the new list of tags to the bottom of the navlist
-            // console.log(data);
+            
             var clear = $scope.rawList.filter(function(r){ return r.doctype !== 'tag'});
             
-            // console.log('left nav list to concatenate to', clear);
+            
 
             var hasMsg  = _.filter(data.tags, function(n){ return n._messages.length > 0 })
             var noSum   = _.filter(hasMsg, function(n){ if(n.name){ var nameCheck = n.name.toLowerCase(); return nameCheck !== 'summary'; } else { return; }});
@@ -57180,7 +57167,7 @@ angular.module('siyfion.sfTypeahead', [])
                 };
                 
                 Intercom('trackEvent', 'shared-report-button-clicked', intercom );
-                Intercom('update');        
+                $timeout(function() { Intercom('update'); }, 1000, false);        
                 return;
             }
         };
@@ -57230,7 +57217,7 @@ angular.module('siyfion.sfTypeahead', [])
                 };
 
                 Intercom('trackEvent', 'saved-test-report', intercom );
-                Intercom('update');
+                $timeout(function() { Intercom('update'); }, 1000, false);
             }
 
             $http.post('/api/summary/object/', [obj]);
@@ -57274,11 +57261,19 @@ angular.module('siyfion.sfTypeahead', [])
         $scope.saveEdit = function(original, list){
             
             $scope.messageEditToggle = '';
-            var dataOut = {msg: original, hasSummary: $scope.summaryItem._id}
+            var dataOut;
+
+            if(original._tags.indexOf($scope.summaryItem._id)!== -1){
+                void 0
+                dataOut = {msg: original, hasSummary: $scope.summaryItem._id}
+            }
+            else {
+                dataOut = original;
+            }
 
             $http.put('/api/message/', dataOut)
                 .success(function(data, err){
-                    // console.log('data received', data);
+                    
                     if($scope.selected.doctype === 'test'){
                         // if this is a test, the message needs to be marked as a Summary message
                         // this is in case of re-editing after an original edit
@@ -57290,13 +57285,13 @@ angular.module('siyfion.sfTypeahead', [])
                     $scope.messages[original._subject.name].splice(idx,1, data.msg);
 
                     // now find the original._id on raw list item replace with new _id
-                    // console.log($scope.rawList);
+                    
 
                     var objList    = _.filter($scope.rawList, function(n){ if(n.doctype === 'tag' || n.doctype === 'task' ) {return n;} else {return;}})
                     var test       = _.filter($scope.rawList, function(n){ return n.doctype === 'test'; });
                     
                     var nonTestObj = _.map(objList, function(n){
-                        // // console.log(n.doctype);
+                        // 
                         var x = n._messages.indexOf(original._id);
                         // map each test item and then return
                         if( x !== -1){
@@ -57313,18 +57308,18 @@ angular.module('siyfion.sfTypeahead', [])
                         }
                     })
 
-                    // // console.log('data, tags are returning undefined', data);
+                    // 
                     if(data.msg._tags.indexOf($scope.summaryItem._id) !== -1){
                         // if it's a summary message, add it back into the summary message filter list
                         $scope.summaryItem._messages.splice($scope.summaryItem._messages.indexOf(original._id), 1, data.msg._id);
                     }
 
-                    // // console.log(test);
+                    // 
 
                     $scope.rawList = test.concat(nonTestObj);
 
                     // Summary messages is a list of messages that match the summary._id
-                    // // console.log(nonTestObj);
+                    // 
                     addTagsToLeftNav(data);
                 });
         };
