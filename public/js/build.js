@@ -56600,7 +56600,7 @@ angular.module('siyfion.sfTypeahead', [])
                         // do a login here, perhaps
                         
                         $scope.successMsg = {};
-
+                        console.log(data);
                         if(data === '0'){ 
                             $scope.successMsg.val = 0;
                             $scope.successMsg.msg = 'That token has already been used.';
@@ -56608,6 +56608,8 @@ angular.module('siyfion.sfTypeahead', [])
                         } else {
                             $scope.successMsg.val = 1;
                             $scope.successMsg.msg = data;
+                            console.log(data)
+                            $location.path('/login');
                         }
                     });
             }
