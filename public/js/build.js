@@ -56588,8 +56588,8 @@ angular.module('siyfion.sfTypeahead', [])
 
     // PASSWORD RESET CONTROLLER ===========================================================
     angular.module('field_guide_controls')
-       .controller('reset', ['$scope','$http', '$location', '$stateParams','$rootScope', 
-                    function($scope, $http, $location, $stateParams, $rootScope){
+       .controller('reset', ['$scope','$http', '$location', '$stateParams','$rootScope', '$sce', '$timeout',
+                    function($scope, $http, $location, $stateParams, $rootScope, $sce, $timeout){
 
         $scope.newPass = function(pass){
                 var dataOut = {password: pass};
@@ -56601,15 +56601,16 @@ angular.module('siyfion.sfTypeahead', [])
                         
                         $scope.successMsg = {};
                         console.log(data);
-                        if(data === 0){ 
+                        if(data === '0'){ 
                             $scope.successMsg.val = 0;
-                            $scope.successMsg.msg = 'That token has already been used.';
-
+                            var note = $sce.trustAsHtml('That token has already been used. <a href="/forgot">Reset your password?</a>');
+                            $scope.successMsg.msg = note;
+                            console.log(data);
+                            return;
                         } else {
                             $scope.successMsg.val = 1;
                             $scope.successMsg.msg = data;
-                            console.log(data)
-                            $location.path('/login');
+                            $timeout(function() {  $location.path('/login'); }, 2000, false);
                         }
                     });
             }

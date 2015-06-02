@@ -12,26 +12,22 @@
                     
                     <!-- login form -->
                     <div id="form-login">
-                        
-                        <form ng-model="user" name="pwChecker">
-                            
+                        <form ng-model="user" name="pwChecker" ng-submit="newPass(user.password)">
                             <ul class="nobullets withlabels">
-                                <li ng-show="!successMsg">
+                                <li ng-show="successMsg" style="color:grey;" ng-bind-html="successMsg.msg">
+                                </li>
+                                <li>
                                     <input  class="input" type="password" name="password" value="" placeholder="New password" ng-model="user.password" required/>
                                     <!-- <ul class="pwStrong" ng-check-strength="user.password"></ul> -->
                                 </li >
-                                <li ng-show="!successMsg">
+                                <li>
                                     <input class="input" type="password" name="confirm" value="" placeholder="Confirm new password" ng-model="passwordConfirm" ng-match="user.password" required/>
                                     <div class="error-msg" ng-show="pwChecker.confirm.$error.match && !pwChecker.confirm.$pristine">
                                         <span>Your passwords do not match.</span>
                                     </div>
                                 </li>
-                                <li ng-show="!successMsg" class="text-center">
-                                    <button id="change-pw" class="submit button green" type="submit" ng-click="newPass(user.password)">Reset password</button>
-                                </li>
-                                
-                                <li ng-show="successMsg">
-                                    {{successMsg.msg}}
+                                <li class="text-center">
+                                    <button id="change-pw" class="submit button green" type="submit">Reset password</button>
                                 </li>
                             </ul>
                         </form>
