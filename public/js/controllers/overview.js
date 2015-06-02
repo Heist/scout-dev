@@ -34,8 +34,10 @@
                 
                 Intercom('trackEvent', 'opened-onboarding', out );
                 $timeout(function() { Intercom('update'); }, 1000, false);
-                $rootScope.user.onboard = 1; 
+                
+                $scope.changeOnboard(1);
                 $scope.onboardSteps = true; 
+
                 return;
             }
 
@@ -62,7 +64,7 @@
                 lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
                 otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
                 
-                $rootScope.user.onboard = 100;
+                $scope.changeOnboard(100);
                 $scope.onboardSteps = false; 
                 
                 return;
@@ -70,19 +72,9 @@
         };
 
         $scope.changeOnboard = function(num){
-
             $scope.user.onboard = num;
             $rootScope.user.onboard = num;
-
-
-            var url = '/api/user/'+$rootScope.user._id;
-            var dataOut = {onboard : $scope.user.onboard};
-
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    
-                });
+            $http.put('/api/user/'+$rootScope.user._id, {onboard : $scope.user.onboard});
         };
 
 

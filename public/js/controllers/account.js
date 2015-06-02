@@ -4,8 +4,8 @@
 
 	// ACCOUNT CONTROLLER ===========================================================
 	angular.module('field_guide_controls')
-		.controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', '$rootScope', 
-					function($scope, $http, $stateParams,$state, $location, $window, $rootScope){
+		.controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', '$rootScope', '$timeout',
+					function($scope, $http, $stateParams,$state, $location, $window, $rootScope, $timeout){
 		var user_id = $rootScope.user._id;
 
 		$scope.live_user = $rootScope.user;
@@ -35,7 +35,6 @@
         var startOnboard;
         $scope.onboardToggle = function(){
             console.log('onboardToggle');
-            $timeout(function() { Intercom('update'); }, 1000, false);
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 console.log('false clicked')
             	startOnboard = new Date();
@@ -50,10 +49,13 @@
                 $timeout(function() { Intercom('update'); }, 1000, false);
             	$rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
+                $scope.user.onboard = 1;
+            
+                $http.put('/api/user/'+$rootScope.user._id, {onboard : $scope.user.onboard});
+
                 return;
             }
-
-            if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+            else if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 // console.log('truth clicked')
                 
                 var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
@@ -67,24 +69,18 @@
                 
                 var duration = new Date();
 
-                if (duration < startOnboard) {
-                  duration.setDate(duration.getDate() + 1);
-                }
-
-                var diff = duration - startOnboard;
-                var msec = diff;
-                var mm = Math.floor(msec / 1000 / 60);
-                msec -= mm * 1000 * 60;
-
                 var intercom = {
-                    duration : mm+"min",
-                    closed   : duration
+                    closed   : duration.getHours()+':'+duration.getMinutes()
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
                 $timeout(function() { Intercom('update'); }, 1000, false);
                 $rootScope.user.onboard = 100;
+                $scope.user.onboard = 100;
                 $scope.onboardSteps = false; 
+
+                $http.put('/api/user/'+$rootScope.user._id, {onboard : $scope.user.onboard});
+
                 return;
             }
         };
