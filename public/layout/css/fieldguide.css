@@ -5008,6 +5008,9 @@ span.tooltip-icon {
       display: inline-block; }
       #view-login .module-container .module-content li.error-flashmessage {
         margin: 0 0 20px 0; }
+    #view-login .module-container .module-content .error-message {
+      color: #888A8A;
+      margin: 0 0 30px 0; }
     #view-login .module-container .module-content .line {
       text-decoration: underline; }
     #view-login .module-container .module-content .submit {

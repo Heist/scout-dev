@@ -14,11 +14,10 @@
                     <div id="form-login">
                         <form ng-model="user" name="pwChecker" ng-submit="newPass(user.password)">
                             <ul class="nobullets withlabels">
-                                <li ng-show="successMsg" style="color:grey;" ng-bind-html="successMsg.msg">
+                                <li class="error-message" ng-if="successMsg" ng-bind-html="successMsg.msg">
                                 </li>
                                 <li>
-                                    <input  class="input" type="password" name="password" value="" placeholder="New password" ng-model="user.password" required/>
-                                    <!-- <ul class="pwStrong" ng-check-strength="user.password"></ul> -->
+                                    <input class="input" type="password" name="password" value="" placeholder="New password" ng-model="user.password" required/>
                                 </li >
                                 <li>
                                     <input class="input" type="password" name="confirm" value="" placeholder="Confirm new password" ng-model="passwordConfirm" ng-match="user.password" required/>
