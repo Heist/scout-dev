@@ -4354,7 +4354,7 @@ span.tooltip-icon {
   z-index: 9999999; }
   #timeline-user #timeline-user-only-screen {
     position: absolute;
-    top: 10%;
+    top: 5%;
     left: 0;
     width: 100%;
     text-align: center;
