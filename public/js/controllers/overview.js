@@ -10,7 +10,6 @@
         var bodyScroll = angular.element(document.querySelector('body'));
         bodyScroll.removeClass('overflow-hidden');
         
-        
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
         
@@ -18,7 +17,6 @@
         if($rootScope.user.onboard === 1){
             $scope.onboardSteps = true;
         }
-
                 
         $scope.onboardToggle = function(){
             console.log('onboardToggle');

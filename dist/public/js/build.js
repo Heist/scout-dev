@@ -55536,8 +55536,8 @@ angular.module('siyfion.sfTypeahead', [])
 
 	// ACCOUNT CONTROLLER ===========================================================
 	angular.module('field_guide_controls')
-		.controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', '$rootScope', 
-					function($scope, $http, $stateParams,$state, $location, $window, $rootScope){
+		.controller('account', ['$scope','$http', '$stateParams','$state', '$location', '$window', '$rootScope', '$timeout',
+					function($scope, $http, $stateParams,$state, $location, $window, $rootScope, $timeout){
 		var user_id = $rootScope.user._id;
 
 		$scope.live_user = $rootScope.user;
@@ -55567,7 +55567,6 @@ angular.module('siyfion.sfTypeahead', [])
         var startOnboard;
         $scope.onboardToggle = function(){
             void 0;
-            $timeout(function() { Intercom('update'); }, 1000, false);
             if(!$scope.onboardSteps || $scope.onboardSteps === false ){
                 void 0
             	startOnboard = new Date();
@@ -55582,10 +55581,13 @@ angular.module('siyfion.sfTypeahead', [])
                 $timeout(function() { Intercom('update'); }, 1000, false);
             	$rootScope.user.onboard = 1; 
                 $scope.onboardSteps = true; 
+                $scope.user.onboard = 1;
+            
+                $http.put('/api/user/'+$rootScope.user._id, {onboard : $scope.user.onboard});
+
                 return;
             }
-
-            if($scope.onboardSteps  || $scope.onboardSteps === true  ){
+            else if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 // console.log('truth clicked')
                 
                 var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
@@ -55599,24 +55601,18 @@ angular.module('siyfion.sfTypeahead', [])
                 
                 var duration = new Date();
 
-                if (duration < startOnboard) {
-                  duration.setDate(duration.getDate() + 1);
-                }
-
-                var diff = duration - startOnboard;
-                var msec = diff;
-                var mm = Math.floor(msec / 1000 / 60);
-                msec -= mm * 1000 * 60;
-
                 var intercom = {
-                    duration : mm+"min",
-                    closed   : duration
+                    closed   : duration.getHours()+':'+duration.getMinutes()
                 };
 
                 Intercom('trackEvent', 'closed-onboarding', intercom );
                 $timeout(function() { Intercom('update'); }, 1000, false);
                 $rootScope.user.onboard = 100;
+                $scope.user.onboard = 100;
                 $scope.onboardSteps = false; 
+
+                $http.put('/api/user/'+$rootScope.user._id, {onboard : $scope.user.onboard});
+
                 return;
             }
         };
@@ -56293,7 +56289,6 @@ angular.module('siyfion.sfTypeahead', [])
         var bodyScroll = angular.element(document.querySelector('body'));
         bodyScroll.removeClass('overflow-hidden');
         
-        
         // get all sessions and their tests on first load
         $scope.tests = loadData.data;
         
@@ -56301,7 +56296,6 @@ angular.module('siyfion.sfTypeahead', [])
         if($rootScope.user.onboard === 1){
             $scope.onboardSteps = true;
         }
-
                 
         $scope.onboardToggle = function(){
             void 0;
@@ -56317,8 +56311,10 @@ angular.module('siyfion.sfTypeahead', [])
                 
                 Intercom('trackEvent', 'opened-onboarding', out );
                 $timeout(function() { Intercom('update'); }, 1000, false);
-                $rootScope.user.onboard = 1; 
+                
+                $scope.changeOnboard(1);
                 $scope.onboardSteps = true; 
+
                 return;
             }
 
@@ -56345,7 +56341,7 @@ angular.module('siyfion.sfTypeahead', [])
                 lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
                 otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
                 
-                $rootScope.user.onboard = 100;
+                $scope.changeOnboard(100);
                 $scope.onboardSteps = false; 
                 
                 return;
@@ -56353,19 +56349,9 @@ angular.module('siyfion.sfTypeahead', [])
         };
 
         $scope.changeOnboard = function(num){
-
             $scope.user.onboard = num;
             $rootScope.user.onboard = num;
-
-
-            var url = '/api/user/'+$rootScope.user._id;
-            var dataOut = {onboard : $scope.user.onboard};
-
-            $http
-                .put(url, dataOut)
-                .success(function(data){
-                    
-                });
+            $http.put('/api/user/'+$rootScope.user._id, {onboard : $scope.user.onboard});
         };
 
 
