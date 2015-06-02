@@ -42,6 +42,17 @@
             if($scope.onboardSteps  || $scope.onboardSteps === true  ){
                 console.log('truth clicked')
                 
+                var duration = new Date();
+                var hr = duration.getHours();
+                var mm = duration.getMinutes();
+
+                var intercom = {
+                    created_at : hr+':'+mm,
+                };
+                
+                Intercom('trackEvent', 'closed-onboarding', intercom );
+                $timeout(function() { Intercom('update'); }, 1000, false);
+
                 var viewOnboarding = angular.element(document.querySelector('#viewOnboarding'));
                 var lastStep = angular.element(document.querySelector('#lastStep, #modal'));
                 var otherSteps = angular.element(document.querySelector('#otherSteps, #modal'));
@@ -50,18 +61,6 @@
                 viewOnboarding.addClass('animated slideOutDown').delay(1000).hide(1);
                 lastStep.addClass('animated slideOutDown').delay(1000).hide(1);
                 otherSteps.addClass('animated slideOutDown').delay(1000).hide(1);
-                
-                var duration = new Date();
-                var hr = duration.getHours();
-                var mm = duration.getMinutes();
-
-                var intercom = {
-                    created_at : hr+':'+mm,
-                };
-
-                
-                Intercom('trackEvent', 'closed-onboarding', intercom );
-                Intercom('update');
                 
                 $rootScope.user.onboard = 100;
                 $scope.onboardSteps = false; 
