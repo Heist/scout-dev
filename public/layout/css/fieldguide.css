@@ -5467,7 +5467,7 @@ span.tooltip-icon {
   #view-editing form {
     margin: 0 0 30px 0; }
   #view-editing input.task-title, #view-editing .add-task textarea.task-title {
-    float: left;
+    position: relative;
     width: 98%;
     color: #7a7a7a;
     font-size: 18.6px;
@@ -5485,8 +5485,10 @@ span.tooltip-icon {
   #view-editing .task-delete {
     opacity: 0.9;
     margin: 5px 0;
-    float: left;
-    color: #C5C6C7; }
+    color: #C5C6C7;
+    position: absolute;
+    top: 0;
+    right: 0; }
     #view-editing .task-delete:hover {
       cursor: pointer;
       color: #D82D09; }

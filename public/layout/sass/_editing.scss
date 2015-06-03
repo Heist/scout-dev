@@ -307,7 +307,7 @@
     
 
     input.task-title {
-        float: left;
+        position: relative;
         width: 98%;
         @include type-h3($fg-grey-text);
         @include type-regular;
@@ -327,8 +327,10 @@
     .task-delete {
         opacity: 0.9;
         margin: 5px 0;
-        float: left;
         color: $fg-grey-placeholder;
+        position: absolute;
+        top: 0;
+        right: 0;
 
         &:hover {
             cursor: pointer;
